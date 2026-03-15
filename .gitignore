@@ -1,0 +1,21 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+.import/
+export.cfg
+export_presets.cfg
+
+# Mono/C#
+.mono/
+data_*/
+mono_crash.*.json
+bin/
+obj/
+
+# Build outputs
+*.dll
+*.pdb
+*.mdb
+.idea
+.vs
+.claude
