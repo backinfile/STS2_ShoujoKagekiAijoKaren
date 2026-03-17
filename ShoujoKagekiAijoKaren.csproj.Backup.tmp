@@ -1,0 +1,45 @@
+<Project Sdk="Godot.NET.Sdk/4.5.1">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="doc\**" />
+    <Compile Remove="外部文件\**" />
+    <Compile Remove="src\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ShoujoKagekiAijoKaren\images\card_portraits\big\card.png" />
+    <Content Include="ShoujoKagekiAijoKaren\images\card_portraits\card.png" />
+    <Content Include="ShoujoKagekiAijoKaren\images\charui\character_icon_char_name.png" />
+    <Content Include="ShoujoKagekiAijoKaren\images\charui\char_select_char_name.png" />
+    <Content Include="ShoujoKagekiAijoKaren\images\charui\char_select_char_name_locked.png" />
+    <Content Include="ShoujoKagekiAijoKaren\images\charui\map_marker_char_name.png" />
+    <Content Include="ShoujoKagekiAijoKaren\images\powers\big\power.png" />
+    <Content Include="ShoujoKagekiAijoKaren\images\powers\power.png" />
+    <Content Include="ShoujoKagekiAijoKaren\images\relics\big\relic.png" />
+    <Content Include="ShoujoKagekiAijoKaren\images\relics\relic.png" />
+    <Content Include="ShoujoKagekiAijoKaren\images\relics\relic_outline.png" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\eng\ancients.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\eng\cards.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\eng\card_keywords.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\eng\characters.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\eng\powers.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\eng\relics.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\eng\static_hover_tips.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\zhs\cards.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\zhs\characters.json" />
+    <Content Include="ShoujoKagekiAijoKaren\mod_image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Alchyr.Sts2.BaseLib" Version="0.1.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\App\Stream\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="sts2">
+      <HintPath>..\..\..\App\Stream\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\sts2.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
