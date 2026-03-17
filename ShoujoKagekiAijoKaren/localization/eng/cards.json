@@ -1,4 +1,269 @@
 {
-  "SUPER_STRIKE.description": "Deal an [sine]incredible[/sine] [gold]999[/gold] damage!!!",
-  "SUPER_STRIKE.title": "Super Strike"
+  "STRIKE_KAREN.title": "Strike",
+  "STRIKE_KAREN.description": "Deal {Damage:diff()} damage.",
+  "DEFEND_KAREN.title": "Defend",
+  "DEFEND_KAREN.description": "Gain {Block:diff()} [gold]Block[/gold].",
+
+  "DEFEND_WATCHER.title": "Defend",
+  "DEFEND_WATCHER.description": "Gain {Block:diff()} [gold]Block[/gold].",
+  "STRIKE_WATCHER.title": "Strike",
+  "STRIKE_WATCHER.description": "Deal {Damage:diff()} damage.",
+  "VIGILANCE.title": "Vigilance",
+  "VIGILANCE.description": "Gain {Block:diff()} [gold]Block[/gold].\nEnter [gold]Calm[/gold].",
+  "ERUPTION.title": "Eruption",
+  "ERUPTION.description": "Deal {Damage:diff()} damage.\nEnter [gold]Wrath[/gold].",
+
+  "BOWLING_BASH.title": "Bowling Bash",
+  "BOWLING_BASH.description": "Deal {Damage:diff()} damage for each enemy in combat.",
+
+  "CONSECRATE.title": "Consecrate",
+  "CONSECRATE.description": "Deal {Damage:diff()} damage to ALL enemies.",
+
+  "CRESCENDO.title": "Crescendo",
+  "CRESCENDO.description": "Enter [gold]Wrath[/gold].",
+
+  "CRUSH_JOINTS.title": "Crush Joints",
+  "CRUSH_JOINTS.description": "Deal {Damage:diff()} damage.\nIf the last card played this combat was a [gold]Skill[/gold], apply [blue]1[/blue] [gold]Vulnerable[/gold].",
+
+  "CUT_THROUGH_FATE.title": "Cut Through Fate",
+  "CUT_THROUGH_FATE.description": "Deal {Damage:diff()} damage.\n[gold]Scry[/gold] {Cards:diff()}\nDraw [blue]1[/blue] card.",
+
+  "EMPTY_FIST.title": "Empty Fist",
+  "EMPTY_FIST.description": "Deal {Damage:diff()} damage.\nExit your [gold]Stance[/gold].",
+
+
+  "INSIGHT.title": "Insight",
+  "INSIGHT.description": "Draw {Cards:diff()} cards.",
+
+  "FLURRY_OF_BLOWS.title": "Flurry of Blows",
+  "FLURRY_OF_BLOWS.description": "Deal {Damage:diff()} damage.\nWhenever you change Stances, return this from the discard pile to your hand.",
+
+  "FLYING_SLEEVES.title": "Flying Sleeves",
+  "FLYING_SLEEVES.description": "Deal {Damage:diff()} damage twice.",
+
+  "FOLLOW_UP.title": "Follow-Up",
+  "FOLLOW_UP.description": "Deal {Damage:diff()} damage.\nIf the last card played was an Attack, gain [blue]1[/blue] {energyPrefix:energyIcons(1)}.",
+
+  "JUST_LUCKY.title": "Just Lucky",
+  "JUST_LUCKY.description": "[gold]Scry[/gold] {Cards:diff()}\nGain {Block:diff()} [gold]Block[/gold]\nDeal {Damage:diff()} damage.",
+
+  "REACH_HEAVEN.title": "Reach Heaven",
+  "REACH_HEAVEN.description": "Deal {Damage:diff()} damage.\nShuffle a [gold]Through Violence[/gold] into your draw pile.",
+
+  "THROUGH_VIOLENCE.title": "Through Violence",
+  "THROUGH_VIOLENCE.description": "Deal {Damage:diff()} damage.",
+
+  "SASH_WHIP.title": "Sash Whip",
+  "SASH_WHIP.description": "Deal {Damage:diff()} damage.\nIf the last card played\nthis combat was an\nAttack, apply {WeakPower:diff()} [gold]Weak[/gold].",
+
+  "THIRD_EYE.title": "Third Eye",
+  "THIRD_EYE.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]Scry[/gold] {Cards:diff()}.",
+
+  "TRANQUILITY.title": "Tranquility",
+  "TRANQUILITY.description": "Enter [gold]Calm[/gold].",
+
+  "WINDMILL_STRIKE.title": "Windmill Strike",
+  "WINDMILL_STRIKE.description": "Deal {Damage:diff()} damage.\nWhen [gold]Retained[/gold], increase its damage by {RetainIncrease:diff()} this combat.",
+
+  "EMPTY_BODY.title": "Empty Body",
+  "EMPTY_BODY.description": "Gain {Block:diff()} [gold]Block[/gold].\nExit your [gold]Stance[/gold].",
+
+  "EMPTY_MIND.title": "Empty Mind",
+  "EMPTY_MIND.description": "Draw {Cards:diff()} cards.\nExit your [gold]Stance[/gold].",
+
+  "HALT.title": "Halt",
+  "HALT.description": "Gain {Block:diff()} [gold]Block[/gold].\nIf you are in [gold]Wrath[/gold],\ngain {WrathBlock:diff()} additional\n[gold]Block[/gold].",
+
+  "PRESSURE_POINTS.title": "Pressure Points",
+  "PRESSURE_POINTS.description": "Apply {MarkPower:diff()} [gold]Mark[/gold].\nALL enemies lose Hp\nequal to their [gold]Mark[/gold]",
+
+  "PROSTRATE.title": "Prostrate",
+  "PROSTRATE.description": "Gain {MantraPower:diff()} [gold]Mantra[/gold].\nGain {Block:diff()} [gold]Block[/gold].",
+
+  "PROTECT.title": "Protect",
+  "PROTECT.description": "Gain {Block:diff()} [gold]Block[/gold].",
+
+  "INNER_PEACE.title": "Inner Peace",
+  "INNER_PEACE.description": "If you are in [gold]Calm[/gold], draw {Cards:diff()} cards, otherwise enter [gold]Calm[/gold]",
+
+  "RUSHDOWN.title": "Rushdown",
+  "RUSHDOWN.description": "Whenever you enter [gold]Wrath[/gold], draw [blue]2[/blue] cards.",
+
+  "CARVE_REALITY.title": "Carve Reality",
+  "CARVE_REALITY.description": "Deal {Damage:diff()} damage.\nAdd a [gold]Smite[/gold] into your hand.",
+
+  "CONCLUDE.title": "Conclude",
+  "CONCLUDE.description": "Deal {Damage:diff()} damage to ALL enemies.\nEnd your turn.",
+
+  "DECEIVE_REALITY.title": "Deceive Reality",
+  "DECEIVE_REALITY.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd a [gold]Safety[/gold] into your hand.",
+
+  "FEAR_NO_EVIL.title": "Fear No Evil",
+  "FEAR_NO_EVIL.description": "Deal {Damage:diff()} damage.\nIf the enemy intends to attack, enter [gold]Calm[/gold].",
+
+  "FOREIGN_INFLUENCE.title": "Foreign Influence",
+  "FOREIGN_INFLUENCE.description": "Choose 1 of 3 Attacks of any color to add to your hand.{IfUpgraded:show:\nIt costs 0 this turn|}",
+
+  "JUDGMENT.title": "Judgment",
+  "JUDGMENT.description": "If the enemy has {DamageThreshold:diff()} or lesss HP, set their HP to 0.",
+
+  "RAGNAROK.title": "Ragnarok",
+  "RAGNAROK.description": "Deal {Damage:diff()} damage to a random enemy {Repeat:diff()} times.",
+
+  "SIGNATURE_MOVE.title": "Signature Move",
+  "SIGNATURE_MOVE.description": "Can only be played if this is the only Attack in your hand.\nDeal {Damage:diff()} damage.",
+
+  "SIMMERING_FURY.title": "Simmering Fury",
+  "SIMMERING_FURY.description": "At the start of your next turn, enter [gold]Wrath[/gold] and draw {DrawCardsNextTurnPower:diff()} cards.",
+
+  "TANTRUM.title": "Tantrum",
+  "TANTRUM.description": "Deal {Damage:diff()} damage {Repeat:diff()} times.\nEnter [gold]Wrath[/gold].\nShuffle this card into your draw pile.",
+
+  "WAVE_OF_THE_HAND.title": "Wave of the Hand",
+  "WAVE_OF_THE_HAND.description": "Whenever you gain [gold]Block[/gold] this turn, apply {WaveOfTheHandPower:diff()} [gold]Weak[/gold] to ALL enemies.",
+
+  "WEAVE.title": "Weave",
+  "WEAVE.description": "Deal {Damage:diff()} damage. Whenever you [gold]Scry[/gold], return this from the discard pile to your Hand.",
+
+  "WHEEL_KICK.title": "Wheel Kick",
+  "WHEEL_KICK.description": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} cards.",
+
+  "BATTLE_HYMN.title": "Battle Hymn",
+  "BATTLE_HYMN.description": "At the start of each turn, add a [gold]Smite[/gold] into your hand.",
+
+  "SMITE.title": "Smite",
+  "SMITE.description": "Deal {Damage:diff()} damage.",
+
+  "SAFETY.title": "Safety",
+  "SAFETY.description": "Gain {Block:diff()} [gold]Block[/gold].",
+
+  "COLLECT.title": "Collect",
+  "COLLECT.description": "Put a [gold]Miracle+[/gold] into\n your hand at the start\nof your next {IfUpgraded:show:X+1|X} turns.",
+
+  "MIRACLE.title": "Miracle",
+  "MIRACLE.description": "Gain {Energy:energyIcons()}.",
+
+  "EVALUATE.title": "Evaluate",
+  "EVALUATE.description": "Gain {Block:diff()} [gold]Block[/gold].\nShuffle an [gold]Insight[/gold] into your draw pile.",
+
+  "FASTING.title": "Fasting",
+  "FASTING.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold]\nGain {DexterityPower:diff()} [gold]Dexterity[/gold]\nGain 1 less {Energy:energyIcons()} at the start of each turn.",
+
+  "INDIGNATION.title": "Indignation",
+  "INDIGNATION.description": "If you are in [gold]Wrath[/gold], apply {VulnerablePower:diff()} [gold]Vulnerable[/gold] to ALL enemies, otherwise enter [gold]Wrath[/gold].",
+
+  "LIKE_WATER.title": "Like Water",
+  "LIKE_WATER.description": "At the end of your turn, if you are in [gold]Calm[/gold], gain {Block:diff()} [gold]Block[/gold].",
+
+  "MEDITATE.title": "Meditate",
+  "MEDITATE.description": "Put {Cards:diff()} {Cards:plural:card|cards} from your discard pile into your hand and [gold]Retain[/gold] {Cards:plural:it|them}.\nEnter [gold]Calm[/gold].\nEnd your turn.",
+  "MEDITATE.selectionScreenPrompt": "Choose {Amount:plural:a card|[blue]{}[/blue] cards} to [gold]Remain[/gold].",
+
+  "MENTAL_FORTRESS.title": "Mental Fortress",
+  "MENTAL_FORTRESS.description": "Whenever you change [gold]Stances[/gold], gain {Block:diff()} [gold]Block[/gold].",
+
+  "NIRVANA.title": "Nirvana",
+  "NIRVANA.description": "Whenever you [gold]Scry[/gold], gain {Block:diff()} [gold]Block[/gold].",
+
+  "PERSEVERANCE.title": "Perseverance",
+  "PERSEVERANCE.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhenever this card is [gold]Retained[/gold], increase its [gold]Block[/gold] by {Increase:diff()}",
+
+  "PRAY.title": "Pray",
+  "PRAY.description": "Gain {MantraPower:diff()} [gold]Mantra[/gold].\nShuffle an [gold]Insight[/gold] into your draw pile.",
+
+  "SANCTITY.title": "Sanctity",
+  "SANCTITY.description": "Gain {Block:diff()} [gold]Block[/gold].\nIf the last card played this combat was a Skill draw 2 cards",
+
+  "STUDY.title": "Study",
+  "STUDY.description": "At the end of your turn, shuffle an [gold]Insight[/gold] into your draw pile.",
+
+  "SWIVEL.title": "Swivel",
+  "SWIVEL.description": "Gain {Block:diff()} [gold]Block[/gold].\nThe next Attack you play costs 0",
+
+  "TALK_TO_THE_HAND.title": "Talk to the Hand",
+  "TALK_TO_THE_HAND.description": "Deal {Damage:diff()} damage.\nWhenever you attack this enemy, gain {BlockReturnPower:diff()} [gold]Block[/gold].",
+
+  "WALLOP.title": "Wallop",
+  "WALLOP.description": "Deal {Damage:diff()} damage.\nGain [gold]Block[/gold] equal to unblocked damage dealt.",
+
+  "WORSHIP.title": "Worship",
+  "WORSHIP.description": "Gain [blue]5[/blue] [gold]Mantra[/gold].",
+
+  "DEVOTION.title": "Devotion",
+  "DEVOTION.description": "At the start of your turn, gain {DevotionPower:diff()} [gold]Mantra[/gold].",
+
+  "FORESIGHT.title": "Foresight",
+  "FORESIGHT.description": "At the start of your turn, [gold]Scry[/gold] {ForesightPower:diff()}.",
+
+  "BRILLIANCE.title": "Brilliance",
+  "BRILLIANCE.description": "Deal {Damage:diff()} damage.\nDeals additional damage equal to [gold]Mantra[/gold] gained this combat.",
+
+  "LESSON_LEARNED.title": "Lesson Learned",
+  "LESSON_LEARNED.description": "Deal {Damage:diff()} damage.\nIf [gold]Fatal[/gold], [gold]Upgrade[/gold] a random card in your deck.",
+
+  "SANDS_OF_TIME.title": "Sands of Time",
+  "SANDS_OF_TIME.description": "Deal {Damage:diff()} damage.\nWhen [gold]Retained[/gold], lower its cost by 1 this combat.",
+
+  "SCRAWL_WATCHER.title": "Scrawl",
+  "SCRAWL_WATCHER.description": "Draw cards until you hand is full.",
+
+  "VAULT.title": "Vault",
+  "VAULT.description": "Take an extra turn after this one.\nEnd your turn.",
+
+  "BLASPHEMY.title": "Blasphemy",
+  "BLASPHEMY.description": "Enter [gold]Divinity[/gold].\nDie next turn.",
+
+  "CONJURE_BLADE.title": "Conjure Blade",
+  "CONJURE_BLADE.description": "Shuffle an [gold]Expunger[/gold] into your draw pile.",
+
+  "EXPUNGER.title": "Expunger",
+  "EXPUNGER.description": "Deal {Damage:diff()} damage {Repeat:cond:<0?X|{Repeat:diff()}} times",
+
+  "DEUS_EX_MACHINA.title": "Deus Ex Machina",
+  "DEUS_EX_MACHINA.description": "When you draw this card, add {Cards:diff()} [gold]Miracles[/gold] to your hand and [gold]Exhaust[/gold].",
+
+  "ESTABLISHMENT.title": "Establishment",
+  "ESTABLISHMENT.description": "Whenever a card is [gold]Retained[/gold], reduce its cost by 1 this combat.",
+
+  "OMNISCIENCE.title": "Omniscience",
+  "OMNISCIENCE.description": "Choose a card in your draw pile. Play the chosen card twice and [gold]Exhaust[/gold] it.",
+  "OMNISCIENCE.selectionScreenPrompt": "Select a card to play twice and [gold]Exhaust[/gold] i.",
+
+  "SPIRIT_SHIELD.title": "Spirit Shield",
+  "SPIRIT_SHIELD.description": "Gain {Block:diff()} [gold]Block[/gold] for each card in your hand.",
+
+  "MASTER_REALITY.title": "Master Reality",
+  "MASTER_REALITY.description": "Whenever a card is created during combat, [gold]Upgrade[/gold] it.",
+
+  "WREATH_OF_FLAME.title": "Wreath of Flames",
+  "WREATH_OF_FLAME.description": "Your next Attack deals {VigorPower:diff()} additional damage.",
+
+  "OMEGA.title": "Omega",
+  "OMEGA.description": "At the end of your turn, deal {Damage:diff()} damage to ALL enemies.",
+
+  "BETA.title": "Beta",
+  "BETA.description": "Shuffle an [gold]Omega[/gold] into your draw pile.",
+
+  "ALPHA.title": "Alpha",
+  "ALPHA.description": "Shuffle an [gold]Beta[/gold] into your draw pile.",
+
+  "DEVA_FORM.title": "Deva Form",
+  "DEVA_FORM.description": "At the start of your turn, gain {energyPrefix:energyIcons(1)} and increase this gain by 1.",
+
+  "BECOME_ALMIGHTY.title": "Become Almighty",
+  "BECOME_ALMIGHTY.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold].",
+
+  "FAME_AND_FORTUNE.title": "Fame and Fortune",
+  "FAME_AND_FORTUNE.description": "Gain {Gold:diff()} [gold]Gold[/gold].",
+
+  "LIVE_FOREVER.title": "Live Forever",
+  "LIVE_FOREVER.description": "Gain {PlatingPower:diff()} [gold]Plated Armor[/gold]",
+
+  "WISH_WATCHER.title": "Wish",
+  "WISH_WATCHER.description": "Choose one:\nGain {PlatingPower:diff()} Plated Armor,\n{StrengthPower:diff()} [gold]Strength[/gold], or {Gold:diff()} [gold]Gold[/gold].",
+  "WISH_WATCHER.selectionScreenPrompt": "Choose a Card to play.",
+
+  "ANCIENT_CARD.title": "Ancient Card",
+  "ANCIENT_CARD.description": "This card is a placeholder so that Darv doesn't crash. Don't pick it; an ancient card might be added later."
+
 }

@@ -1,0 +1,261 @@
+{
+  "DEFEND_WATCHER.title": "수비",
+  "DEFEND_WATCHER.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.",
+  "STRIKE_WATCHER.title": "타격",
+  "STRIKE_WATCHER.description": "피해를 {Damage:diff()} 줍니다.",
+  "VIGILANCE.title": "경각",
+  "VIGILANCE.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n[gold]명상[/gold]합니다.",
+  "ERUPTION.title": "분화",
+  "ERUPTION.description": "피해를 {Damage:diff()} 줍니다.\n[gold]진노[/gold]합니다.",
+
+  "BOWLING_BASH.title": "충돌 강타",
+  "BOWLING_BASH.description": "적 하나당 피해를 {Damage:diff()} 줍니다.",
+
+  "CONSECRATE.title": "축성",
+  "CONSECRATE.description": "모든 적에게 피해를 {Damage:diff()} 줍니다.",
+
+  "CRESCENDO.title": "백열",
+  "CRESCENDO.description": "[gold]진노[/gold]합니다.",
+
+  "CRUSH_JOINTS.title": "관절 부수기",
+  "CRUSH_JOINTS.description": "피해를 {Damage:diff()} 줍니다.\n가장 최근에 사용한 카드가 [gold]스킬[/gold] 카드라면, [gold]취약[/gold]을 [blue]1[/blue] 부여합니다.",
+
+  "CUT_THROUGH_FATE.title": "운명 가르기",
+  "CUT_THROUGH_FATE.description": "피해를 {Damage:diff()} 줍니다.\n[gold]예지[/gold] {Cards:diff()}\n카드를 [blue]1[/blue] 장 뽑습니다.",
+
+  "EMPTY_FIST.title": "정권 수양",
+  "EMPTY_FIST.description": "피해를 {Damage:diff()} 줍니다.\n현재 [gold]경지[/gold]에서 벗어납니다.",
+
+
+  "INSIGHT.title": "통찰",
+  "INSIGHT.description": "카드를 {Cards:diff()} 장 뽑습니다.",
+
+  "FLURRY_OF_BLOWS.title": "일진광풍",
+  "FLURRY_OF_BLOWS.description": "피해를 {Damage:diff()} 줍니다.\n경지를 바꿀 때마다 버린 카드 더미에서 손으로 가져옵니다.",
+
+  "FLYING_SLEEVES.title": "흩날리는 소매",
+  "FLYING_SLEEVES.description": "피해를 {Damage:diff()} 만큼 두 번 줍니다.",
+
+  "FOLLOW_UP.title": "뒤처리",
+  "FOLLOW_UP.description": "피해를 {Damage:diff()} 줍니다.\n가장 최근에 사용한 카드가 공격 카드라면, {energyPrefix:energyIcons(1)} [blue]1[/blue] 를 얻습니다.",
+
+  "JUST_LUCKY.title": "요행",
+  "JUST_LUCKY.description": "[gold]예지[/gold] {Cards:diff()}\n[gold]방어도[/gold]를 {Block:diff()} 얻습니다\n피해를 {Damage:diff()} 줍니다.",
+
+  "REACH_HEAVEN.title": "천국의 계단",
+  "REACH_HEAVEN.description": "피해를 {Damage:diff()} 줍니다.\n뽑을 카드 더미에 [gold]무력 돌파[/gold]를 섞어 넣습니다.",
+
+  "THROUGH_VIOLENCE.title": "무력 돌파",
+  "THROUGH_VIOLENCE.description": "피해를 {Damage:diff()} 줍니다.",
+
+  "SASH_WHIP.title": "벨트 휘두르기",
+  "SASH_WHIP.description": "피해를 {Damage:diff()} 줍니다.\n가장 최근에 사용한 카드가 공격 카드라면, [gold]약화[/gold]를 {WeakPower:diff()} 부여합니다.",
+
+  "THIRD_EYE.title": "제 3의 눈",
+  "THIRD_EYE.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n[gold]예지[/gold] {Cards:diff()}.",
+
+  "TRANQUILITY.title": "고요함",
+  "TRANQUILITY.description": "[gold]명상[/gold]합니다.",
+
+  "WINDMILL_STRIKE.title": "회오리 타격",
+  "WINDMILL_STRIKE.description": "피해를 {Damage:diff()} 줍니다.\n[gold]보존[/gold]될 때마다, 이번 전투 동안 이 카드의 피해량이 {RetainIncrease:diff()} 만큼 증가합니다.",
+
+  "EMPTY_BODY.title": "육체 수양",
+  "EMPTY_BODY.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n현재 [gold]경지[/gold]에서 벗어납니다.",
+
+  "EMPTY_MIND.title": "정신 수양",
+  "EMPTY_MIND.description": "카드를 {Cards:diff()} 장 뽑습니다.\n현재 [gold]경지[/gold]에서 벗어납니다.",
+
+  "HALT.title": "저지",
+  "HALT.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n[gold]진노[/gold] 중일 경우,\n[gold]방어도[/gold]를 추가로 {WrathBlock:diff()} 얻습니다.",
+
+  "PRESSURE_POINTS.title": "급소",
+  "PRESSURE_POINTS.description": "[gold]표식[/gold]을 {MarkPower:diff()} 부여합니다.\n모든 적의 체력을 대상에게 부여된 [gold]표식[/gold] 만큼 감소시킵니다.",
+
+  "PROSTRATE.title": "부복",
+  "PROSTRATE.description": "[gold]만트라[/gold]를 {MantraPower:diff()} 얻습니다.\n[gold]방어도[/gold]를 {Block:diff()} 얻습니다.",
+
+  "PROTECT.title": "보호",
+  "PROTECT.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.",
+
+  "INNER_PEACE.title": "내면의 평화",
+  "INNER_PEACE.description": "[gold]명상[/gold] 중이라면, 카드를 {Cards:diff()} 장 뽑습니다. 그렇지 않다면 [gold]명상[/gold]합니다.",
+
+  "RUSHDOWN.title": "추월",
+  "RUSHDOWN.description": "[gold]진노[/gold]할 때마다, 카드를 [blue]2[/blue] 장 뽑습니다.",
+
+  "CARVE_REALITY.title": "현실 개척",
+  "CARVE_REALITY.description": "피해를 {Damage:diff()} 줍니다.\n[gold]엄벌[/gold]을 손으로 가져옵니다.",
+
+  "CONCLUDE.title": "결론",
+  "CONCLUDE.description": "모든 적에게 피해를 {Damage:diff()} 줍니다.\n턴을 종료합니다.",
+
+  "DECEIVE_REALITY.title": "현실 속이기",
+  "DECEIVE_REALITY.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n[gold]안전[/gold]을 손으로 가져옵니다.",
+
+  "FEAR_NO_EVIL.title": "무외",
+  "FEAR_NO_EVIL.description": "피해를 {Damage:diff()} 줍니다.\n적이 공격할 의도가 있다면, [gold]명상[/gold]합니다.",
+
+  "FOREIGN_INFLUENCE.title": "외세",
+  "FOREIGN_INFLUENCE.description": "모든 직업의 공격 카드 3장 중 1장을 선택해 손으로 가져옵니다. {IfUpgraded:show:\n이번 턴에 비용이 0이 됩니다.|}",
+
+  "JUDGMENT.title": "심판",
+  "JUDGMENT.description": "적의 체력이 {DamageThreshold:diff()} 이하일 경우, 체력을 0으로 만듭니다.",
+
+  "RAGNAROK.title": "라그나로크",
+  "RAGNAROK.description": "무작위 적에게 피해를 {Damage:diff()} 줍니다 만큼 {Repeat:diff()} 번 줍니다.",
+
+  "SIGNATURE_MOVE.title": "개인기",
+  "SIGNATURE_MOVE.description": "이 카드가 손에 있는 유일한 공격 카드일 경우에만 사용 가능합니다.\n피해를 {Damage:diff()} 줍니다.",
+
+  "SIMMERING_FURY.title": "들끓는 울화",
+  "SIMMERING_FURY.description": "다음 턴 시작 시, [gold]진노[/gold]하고 카드를 {DrawCardsNextTurnPower:diff()} 장 뽑습니다.",
+
+  "TANTRUM.title": "격분",
+  "TANTRUM.description": "피해를 {Damage:diff()} 만큼 {Repeat:diff()} 번 줍니다.\n[gold]진노[/gold]합니다.\n이 카드를 뽑을 카드 더미에 섞어 넣습니다.",
+
+  "WAVE_OF_THE_HAND.title": "장법",
+  "WAVE_OF_THE_HAND.description": "이번 턴에 [gold]방어도[/gold]를 얻을 때마다, 모든 적에게 [gold]약화[/gold]를 {WaveOfTheHandPower:diff()} 부여합니다.",
+
+  "WEAVE.title": "횡행",
+  "WEAVE.description": "피해를 {Damage:diff()} 줍니다. [gold]예지[/gold]할 때마다 이 카드를 버린 카드 더미에서 손으로 들고 옵니다.",
+
+  "WHEEL_KICK.title": "돌려차기",
+  "WHEEL_KICK.description": "피해를 {Damage:diff()} 줍니다.\n카드를 {Cards:diff()} 장 뽑습니다.",
+
+  "BATTLE_HYMN.title": "전투 찬가",
+  "BATTLE_HYMN.description": "매 턴 시작 시, [gold]엄벌[/gold]을 손으로 가져옵니다.",
+
+  "SMITE.title": "엄벌",
+  "SMITE.description": "피해를 {Damage:diff()} 줍니다.",
+
+  "SAFETY.title": "안전",
+  "SAFETY.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.",
+
+  "COLLECT.title": "수집",
+  "COLLECT.description": "다음 {IfUpgraded:show:X+1|X} 턴 동안 턴 시작 시 손으로 [gold]기적+[/gold]을 가져옵니다.",
+
+  "MIRACLE.title": "기적",
+  "MIRACLE.description": "{Energy:energyIcons()} 를 얻습니다.",
+
+  "EVALUATE.title": "평가",
+  "EVALUATE.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n[gold]통찰[/gold]을 뽑을 카드 더미에 섞어 넣습니다.",
+
+  "FASTING.title": "단식",
+  "FASTING.description": "[gold]힘[/gold]을 {StrengthPower:diff()} 얻습니다.\n[gold]민첩[/gold]을 {DexterityPower:diff()} 얻습니다.\n매 턴 시작 시 {Energy:energyIcons()}를 1 적게 얻습니다.",
+
+  "INDIGNATION.title": "분개",
+  "INDIGNATION.description": "[gold]진노[/gold] 중이라면, 모든 적에게 [gold]취약[/gold]을 {VulnerablePower:diff()} 부여합니다. 그렇지 않으면 [gold]진노[/gold]합니다.",
+
+  "LIKE_WATER.title": "여류",
+  "LIKE_WATER.description": "턴 종료 시 [gold]명상[/gold] 중이라면, [gold]방어도[/gold]를 {Block:diff()} 얻습니다.",
+
+  "MEDITATE.title": "사색",
+  "MEDITATE.description": "버린 카드 더미에서 카드 {Cards:diff()} {Cards:plural:장|장} 을 손으로 들고 온 뒤 [gold]보존[/gold]합니다. {Cards:plural:|}.\n[gold]명상[/gold]합니다.\n턴을 종료합니다.",
+  "MEDITATE.selectionScreenPrompt": "[gold]보존[/gold]할 {Amount:plural:1 장의 카드를|[blue]{}[/blue] 장의 카드를} 선택하십시오.",
+
+  "MENTAL_FORTRESS.title": "마음의 요새",
+  "MENTAL_FORTRESS.description": "[gold]경지[/gold]를 바꿀 때마다, [gold]방어도[/gold]를 {Block:diff()} 얻습니다.",
+
+  "NIRVANA.title": "열반",
+  "NIRVANA.description": "[gold]예지[/gold]할 때마다, [gold]방어도[/gold]를 {Block:diff()} 얻습니다.",
+
+  "PERSEVERANCE.title": "인내",
+  "PERSEVERANCE.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n [gold]보존[/gold]될 떄마다, 이번 전투 동안 이 카드의 [gold]방어도[/gold]가 {Increase:diff()} 증가합니다.",
+
+  "PRAY.title": "기도",
+  "PRAY.description": "[gold]만트라[/gold]를 {MantraPower:diff()} 얻습니다.\n뽑을 카드 더미에 [gold]통찰[/gold]을 섞어 넣습니다.",
+
+  "SANCTITY.title": "존엄",
+  "SANCTITY.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n가장 최근에 사용한 카드가 스킬 카드라면 카드를 2 장 뽑습니다.",
+
+  "STUDY.title": "학습",
+  "STUDY.description": "턴 종료 시, [gold]통찰[/gold]을 뽑을 카드 더미에 섞어 넣습니다.",
+
+  "SWIVEL.title": "회전",
+  "SWIVEL.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n다음으로 사용하는 공격 카드의 비용이 0이 됩니다.",
+
+  "TALK_TO_THE_HAND.title": "손절",
+  "TALK_TO_THE_HAND.description": "피해를 {Damage:diff()} 줍니다.\n이 적을 공격할 때마다, [gold]방어도[/gold]를 {BlockReturnPower:diff()} 얻습니다.",
+
+  "WALLOP.title": "맹공",
+  "WALLOP.description": "피해를 {Damage:diff()} 줍니다.\n막히지 않은 피해만큼 [gold]방어도[/gold]를 얻습니다.",
+
+  "WORSHIP.title": "숭배",
+  "WORSHIP.description": "[gold]만트라[/gold]를 [blue]5[/blue] 얻습니다.",
+
+  "DEVOTION.title": "헌신",
+  "DEVOTION.description": "턴 시작 시, [gold]만트라[/gold]를 {DevotionPower:diff()} 얻습니다.",
+
+  "FORESIGHT.title": "선견지명",
+  "FORESIGHT.description": "턴 시작 시, [gold]예지[/gold] {ForesightPower:diff()}",
+
+  "BRILLIANCE.title": "광휘",
+  "BRILLIANCE.description": "피해를 {Damage:diff()} 줍니다.\n이번 전투에서 얻었던 [gold]만트라[/gold]만큼 추가 피해를 줍니다.",
+
+  "LESSON_LEARNED.title": "교훈",
+  "LESSON_LEARNED.description": "피해를 {Damage:diff()} 줍니다.\n[gold]치명타[/gold]라면, 덱에 있는 무작위 카드를 영구히 [gold]강화[/gold]합니다.",
+
+  "SANDS_OF_TIME.title": "시간의 모래",
+  "SANDS_OF_TIME.description": "피해를 {Damage:diff()} 줍니다.\n[gold]보존[/gold]될 때마다, 이번 전투 동안 이 카드의 비용이 1 줄어듭니다.",
+
+  "SCRAWL_WATCHER.title": "휘갈김",
+  "SCRAWL_WATCHER.description": "손이 가득 찰 때까지 카드를 뽑습니다.",
+
+  "VAULT.title": "회피 도약",
+  "VAULT.description": "이번 턴 후에 내 턴을 추가로 진행합니다.\n턴을 종료합니다.",
+
+  "BLASPHEMY.title": "신성 모독",
+  "BLASPHEMY.description": "[gold]강림[/gold]합니다.\n다음 턴에 죽습니다.",
+
+  "CONJURE_BLADE.title": "마술 칼날",
+  "CONJURE_BLADE.description": "뽑을 카드 더미에 [gold]말살검[/gold]을 섞어 넣습니다.",
+
+  "EXPUNGER.title": "말살검",
+  "EXPUNGER.description": "피해를 {Damage:diff()} 만큼 {Repeat:cond:<0?X|{Repeat:diff()}} 번 줍니다.",
+
+  "DEUS_EX_MACHINA.title": "데우스 엑스 마키나",
+  "DEUS_EX_MACHINA.description": "이 카드를 뽑으면 소멸하면서 [gold]기적[/gold]을 {Cards:diff()} 장 손으로 가져옵니다.",
+
+  "ESTABLISHMENT.title": "지배",
+  "ESTABLISHMENT.description": "카드가 [gold]보존[/gold]될 때마다, 그 카드의 비용을 이번 전투 동안 1 낮춥니다.",
+
+  "OMNISCIENCE.title": "전지",
+  "OMNISCIENCE.description": "뽑을 카드 더미에서 카드를 선택합니다. 선택한 카드를 두 번 사용하고 [gold]소멸[/gold]시킵니다.",
+  "OMNISCIENCE.selectionScreenPrompt": "두 번 사용하고 [gold]소멸[/gold]시킬 카드를 선택하십시오.",
+
+  "SPIRIT_SHIELD.title": "영혼 방패",
+  "SPIRIT_SHIELD.description": "손에 있는 카드 한 장 당 [gold]방어도[/gold]를 {Block:diff()} 얻습니다.",
+
+  "MASTER_REALITY.title": "현실 지배",
+  "MASTER_REALITY.description": "전투 중에 카드를 생성할 때마다 그 카드를 [gold]강화[/gold]합니다.",
+
+  "WREATH_OF_FLAME.title": "불의 고리",
+  "WREATH_OF_FLAME.description": "다음에 사용하는 공격 카드의 피해량이 {VigorPower:diff()} 증가합니다.",
+
+  "OMEGA.title": "오메가",
+  "OMEGA.description": "턴 종료 시, 모든 적에게 피해를 {Damage:diff()} 줍니다.",
+
+  "BETA.title": "베타",
+  "BETA.description": "뽑을 카드 더미에 [gold]오메가[/gold]를 섞어 넣습니다.",
+
+  "ALPHA.title": "알파",
+  "ALPHA.description": "뽑을 카드 더미에 [gold]베타[/gold]를 섞어 넣습니다.",
+
+  "DEVA_FORM.title": "천신의 형상",
+  "DEVA_FORM.description": "턴 시작 시, {energyPrefix:energyIcons(1)} 를 얻습니다. 얻는 에너지는 매 턴 1 만큼 증가합니다.",
+
+  "BECOME_ALMIGHTY.title": "전능",
+  "BECOME_ALMIGHTY.description": "[gold]힘[/gold]을 {StrengthPower:diff()} 얻습니다.",
+
+  "FAME_AND_FORTUNE.title": "부와 명예",
+  "FAME_AND_FORTUNE.description": "[gold]골드[/gold]를 {Gold:diff()} 얻습니다.",
+
+  "LIVE_FOREVER.title": "영생",
+  "LIVE_FOREVER.description": "[gold]판금 갑옷[/gold]을 {PlatingPower:diff()} 얻습니다.",
+
+  "WISH_WATCHER.title": "염원",
+  "WISH_WATCHER.description": "하나 선택:\n판금 갑옷을 {PlatingPower:diff()} 얻거나,\n[gold]힘[/gold]을 {StrengthPower:diff()} 얻거나, [gold]골드[/gold]를 {Gold:diff()} 얻습니다.",
+  "WISH_WATCHER.selectionScreenPrompt": "사용할 카드를 선택하십시오."
+
+}

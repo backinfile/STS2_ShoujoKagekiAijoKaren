@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx5rdp7ge8w72"]
+
+[ext_resource type="Texture2D" uid="uid://dsdildputad2q" path="res://scenes/screens/char_select/karenPortrait.jpg" id="1_xisa5"]
+
+[node name="KarenBg" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 375.0
+offset_right = 2295.0
+offset_bottom = 1200.0
+texture = ExtResource("1_xisa5")
+stretch_mode = 5

@@ -33,7 +33,8 @@ if errorlevel 1 (
 
 echo [4/5] Exporting Godot .pck...
 if exist "%GODOT_PATH%" (
-    "%GODOT_PATH%" --headless --export-pack "Windows Desktop" "%GAME_MODS_DIR%\%MOD_NAME%.pck"
+    if not exist "%GAME_MODS_DIR%\%MOD_NAME%" mkdir "%GAME_MODS_DIR%\%MOD_NAME%"
+    "%GODOT_PATH%" --headless --export-pack "Windows Desktop" "%GAME_MODS_DIR%\%MOD_NAME%\%MOD_NAME%.pck"
 ) else (
     echo [WARNING] Godot not found, skipping .pck export
 )
@@ -45,7 +46,9 @@ if not exist "%GAME_MODS_DIR%" (
     exit /b 1
 )
 
-copy /Y ".godot\mono\temp\bin\ExportRelease\%MOD_NAME%.dll" "%GAME_MODS_DIR%\"
+if not exist "%GAME_MODS_DIR%\%MOD_NAME%" mkdir "%GAME_MODS_DIR%\%MOD_NAME%"
+
+copy /Y ".godot\mono\temp\bin\ExportRelease\%MOD_NAME%.dll" "%GAME_MODS_DIR%\%MOD_NAME%\"
 if errorlevel 1 (
     echo [ERROR] Failed to copy DLL
     pause
@@ -56,7 +59,7 @@ echo.
 echo ====================================
 echo Build Complete!
 echo ====================================
-echo DLL: %GAME_MODS_DIR%\%MOD_NAME%.dll
-echo PCK: %GAME_MODS_DIR%\%MOD_NAME%.pck
+echo DLL: %GAME_MODS_DIR%\%MOD_NAME%\%MOD_NAME%.dll
+echo PCK: %GAME_MODS_DIR%\%MOD_NAME%\%MOD_NAME%.pck
 echo.
 pause
