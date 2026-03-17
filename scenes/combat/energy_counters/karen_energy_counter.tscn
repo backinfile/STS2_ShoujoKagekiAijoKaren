@@ -191,3 +191,6 @@ text = "3/3"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("12_ya08b")
+AutoSizeEnabled = null
+MinFontSize = null
+MaxFontSize = null
