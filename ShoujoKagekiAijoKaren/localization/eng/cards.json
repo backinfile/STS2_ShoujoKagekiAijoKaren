@@ -17,5 +17,8 @@
   "KAREN_PLACEHOLDER_UNCOMMON_SKILL.description": "[gray]A placeholder uncommon skill card. No effect yet.[/gray]",
 
   "KAREN_PLACEHOLDER_RARE_SKILL.title": "Placeholder Rare Skill",
-  "KAREN_PLACEHOLDER_RARE_SKILL.description": "[gray]A placeholder rare skill card. No effect yet.[/gray]"
+  "KAREN_PLACEHOLDER_RARE_SKILL.description": "[gray]A placeholder rare skill card. No effect yet.[/gray]",
+
+  "KAREN_SHINE_KEYWORD.title": "Shine",
+  "KAREN_SHINE_KEYWORD.description": "When played, reduce Shine by 1. When Shine reaches 0, this card is removed from your deck."
 }

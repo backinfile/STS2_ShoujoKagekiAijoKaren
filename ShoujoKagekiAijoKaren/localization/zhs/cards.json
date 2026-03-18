@@ -17,5 +17,8 @@
   "KAREN_PLACEHOLDER_UNCOMMON_SKILL.description": "[gray]占位罕见技能牌，暂无效果。[/gray]",
 
   "KAREN_PLACEHOLDER_RARE_SKILL.title": "占位稀有技能",
-  "KAREN_PLACEHOLDER_RARE_SKILL.description": "[gray]占位稀有技能牌，暂无效果。[/gray]"
+  "KAREN_PLACEHOLDER_RARE_SKILL.description": "[gray]占位稀有技能牌，暂无效果。[/gray]",
+
+  "KAREN_SHINE_KEYWORD.title": "闪耀",
+  "KAREN_SHINE_KEYWORD.description": "打出后减少1点闪耀。当闪耀值降至0时，这张牌从卡组中移除。"
 }
