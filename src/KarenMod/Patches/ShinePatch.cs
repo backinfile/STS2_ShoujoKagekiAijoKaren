@@ -1,5 +1,6 @@
 using Godot;
 using HarmonyLib;
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -13,66 +14,54 @@ using MegaCrit.Sts2.Core.Runs;
 using ShoujoKagekiAijoKaren;
 using System;
 using System.Threading.Tasks;
-using ShoujoKagekiAijoKaren.src.KarenMod.DynamicVars;
+using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
 namespace ShoujoKagekiAijoKaren.src.KarenMod.Patches;
 
 /// <summary>
 /// Harmony补丁：统一处理 Shine 关键字逻辑
+/// 使用 SpireField 支持任何卡牌动态添加闪耀
+///
+/// 拦截点：在卡牌进入弃牌堆或Power牌结算前处理
+/// 当闪耀值归零时，直接从游戏中移除卡牌，不进入弃牌堆
 /// </summary>
 [HarmonyPatch(typeof(CardModel), nameof(CardModel.OnPlayWrapper))]
 public static class ShinePatch
 {
     static void Postfix(CardModel __instance, PlayerChoiceContext choiceContext)
     {
-        // 查找 Shine 变量
-        var shineVar = GetShineVar(__instance);
-        if (shineVar == null) return;
+        // 只处理有闪耀值的卡牌
+        if (!__instance.HasShine()) return;
 
-        // 延迟执行，等待卡牌动画和状态更新完成
-        _ = Task.Run(async () =>
+        // 减少闪耀值
+        var newValue = __instance.DecreaseShine();
+        MainFile.Logger.Info($"Card '{__instance.Title}' shine decreased to {newValue}");
+
+        // 如果闪耀值归零，执行移除
+        if (newValue <= 0)
         {
-            try
+            // 异步执行移除（不阻塞当前流程，拦截补丁会根据闪耀值判断）
+            _ = Task.Run(async () =>
             {
-                // 等待卡牌进入弃牌堆
-                await Task.Delay(500);
-
-                // 获取当前 Shine 值
-                int currentValue = (int)shineVar.BaseValue;
-
-                // 减少 Shine 值
-                currentValue--;
-                shineVar.BaseValue = currentValue;
-
-                MainFile.Logger.Info($"Card '{__instance.Title}' shine decreased to {currentValue}");
-
-                // 如果 Shine 归零，从游戏中移除卡牌
-                if (currentValue <= 0)
+                try
                 {
                     await RemoveShinedCardWithAnimation(__instance);
                 }
-            }
-            catch (Exception ex)
-            {
-                MainFile.Logger.Error($"Error in shine processing: {ex}");
-            }
-        });
+                catch (Exception ex)
+                {
+                    MainFile.Logger.Error($"Error removing card with depleted shine: {ex}");
+                }
+            });
+        }
     }
 
     /// <summary>
-    /// 获取卡牌上的 KarenShine 变量
+    /// 检查卡牌是否应该被移除（闪耀值已归零）
     /// </summary>
-    private static KarenShineVar? GetShineVar(CardModel card)
+    public static bool ShouldRemoveCard(CardModel card)
     {
-        // 通过 Values 遍历查找 KarenShine 变量
-        foreach (var dynamicVar in card.DynamicVars.Values)
-        {
-            if (dynamicVar is KarenShineVar shineVar)
-            {
-                return shineVar;
-            }
-        }
-        return null;
+        // 有闪耀属性且当前值<=0（HasShine只检查>0，所以这里用GetShineValue检查）
+        return card.IsShineInitialized() && card.GetShineValue() <= 0;
     }
 
     /// <summary>
@@ -118,6 +107,9 @@ public static class ShinePatch
     /// </summary>
     private static async Task PlayCardRemovalAnimation(CardModel card)
     {
+        NCard nCard = null;
+        Tween tween = null;
+
         try
         {
             // 检查是否是本地玩家
@@ -125,7 +117,7 @@ public static class ShinePatch
                 return;
 
             // 创建卡牌预览节点
-            NCard nCard = NCard.Create(card);
+            nCard = NCard.Create(card);
             if (nCard == null)
                 return;
 
@@ -134,7 +126,7 @@ public static class ShinePatch
             if (nCard.GetParent() == null)
             {
                 // 如果无法添加到预览容器，直接销毁并返回
-                nCard.QueueFreeSafely();
+                nCard.QueueFree();
                 return;
             }
 
@@ -142,10 +134,10 @@ public static class ShinePatch
             nCard.UpdateVisuals(PileType.None, CardPreviewMode.Normal);
 
             // 创建动画 - 参考商店删牌动画
-            Tween tween = nCard.CreateTween();
+            tween = nCard.CreateTween();
             if (tween == null)
             {
-                nCard.QueueFreeSafely();
+                nCard.QueueFree();
                 return;
             }
 
@@ -164,7 +156,16 @@ public static class ShinePatch
                 .SetDelay(1.5f);
 
             // 动画结束：销毁卡牌节点
-            tween.TweenCallback(Callable.From(nCard.QueueFreeSafely));
+            tween.TweenCallback(Callable.From(() =>
+            {
+                if (nCard != null && GodotObject.IsInstanceValid(nCard))
+                {
+                    nCard.QueueFree();
+                }
+            }));
+
+            // 显式启动动画
+            tween.Play();
 
             // 等待动画完成
             if (tween.IsValid())
@@ -176,6 +177,84 @@ public static class ShinePatch
         {
             MainFile.Logger.Error($"Error playing card removal animation: {ex}");
         }
+        finally
+        {
+            // 确保节点被销毁
+            if (nCard != null && GodotObject.IsInstanceValid(nCard))
+            {
+                nCard.QueueFree();
+            }
+            tween?.Dispose();
+        }
     }
 }
 
+// NOTE: CardPileCmd.Add 返回 Task<CardPileAddResult>，Harmony Patch 需要特殊处理
+// 暂时禁用，待找到正确的异步方法 patch 方式后再启用
+/*
+/// <summary>
+/// 拦截卡牌进入弃牌堆 - 如果闪耀值已归零，则阻止进入弃牌堆
+/// </summary>
+[HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add), typeof(CardModel), typeof(PileType), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool))]
+public static class CardPileCmd_Add_PileType_Patch
+{
+    static bool Prefix(CardModel card, PileType newPileType, ref CardPileAddResult __result)
+    {
+        // 检查是否是闪耀卡牌且闪耀值已归零
+        if (ShinePatch.ShouldRemoveCard(card))
+        {
+            // 只有当目标是弃牌堆/抽牌堆/消耗堆时才拦截
+            // 如果是进入Play堆（卡牌正在打出），则允许
+            if (newPileType == PileType.Discard || newPileType == PileType.Draw || newPileType == PileType.Exhaust)
+            {
+                MainFile.Logger.Info($"Intercepted card '{card.Title}' from entering {newPileType} (shine depleted)");
+
+                // 返回成功但不实际添加（卡牌已被移除）
+                __result = new CardPileAddResult
+                {
+                    success = true,
+                    cardAdded = card,
+                    oldPile = card.Pile
+                };
+                return false; // 阻止原方法执行
+            }
+        }
+
+        return true; // 允许原方法执行
+    }
+}
+*/
+
+// NOTE: RemoveFromCombat 方法可能不存在或签名不匹配，暂时禁用
+/*
+/// <summary>
+/// 拦截 Power 牌的 RemoveFromCombat - 如果闪耀值已归零，使用商店删除动画替代消耗动画
+/// </summary>
+[HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.RemoveFromCombat), typeof(CardModel), typeof(bool), typeof(bool))]
+public static class CardPileCmd_RemoveFromCombat_Patch
+{
+    static bool Prefix(CardModel card, bool isBeingPlayed, bool skipVisuals)
+    {
+        // 检查是否是闪耀卡牌且闪耀值已归零
+        if (ShinePatch.ShouldRemoveCard(card))
+        {
+            // 对于 Power 牌且正在播放时，使用我们的自定义动画
+            if (card.Type == CardType.Power && isBeingPlayed && !skipVisuals)
+            {
+                MainFile.Logger.Info($"Intercepted Power card '{card.Title}' RemoveFromCombat (shine depleted)");
+
+                // 跳过原方法，避免消耗动画
+                // 卡牌从当前牌堆移除由 ShinePatch.RemoveShinedCardWithAnimation 处理
+                if (card.Pile != null)
+                {
+                    card.RemoveFromCurrentPile();
+                }
+
+                return false; // 阻止原方法执行
+            }
+        }
+
+        return true; // 允许原方法执行
+    }
+}
+*/

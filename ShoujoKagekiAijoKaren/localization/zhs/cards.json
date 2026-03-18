@@ -5,10 +5,10 @@
   "KAREN_DEFEND.description": "获得 {Block:diff()} [gold]格挡[/gold]。",
 
   "KAREN_SHINE_STRIKE.title": "闪耀打击",
-  "KAREN_SHINE_STRIKE.description": "造成 {Damage:diff()} 点伤害。\n[gold]闪耀 {KarenShine}[/gold]。耗尽后从牌组中移除。",
+  "KAREN_SHINE_STRIKE.description": "造成 {Damage:diff()} 点伤害。",
 
   "KAREN_SHINE_DEFEND.title": "闪耀防御",
-  "KAREN_SHINE_DEFEND.description": "获得 {Block:diff()} 点 [gold]格挡[/gold]。\n[gold]闪耀 {KarenShine}[/gold]。耗尽后从牌组中移除。",
+  "KAREN_SHINE_DEFEND.description": "获得 {Block:diff()} 点 [gold]格挡[/gold]。",
 
   "KAREN_PLACEHOLDER_POWER.title": "占位能力",
   "KAREN_PLACEHOLDER_POWER.description": "[gray]占位能力牌，暂无效果。[/gray]",
