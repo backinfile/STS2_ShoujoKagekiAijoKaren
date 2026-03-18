@@ -1,7 +1,7 @@
 using Godot;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 
-namespace WatcherMod.Core;
+namespace ShoujoKagekiAijoKaren.Core;
 
 [GlobalClass]
 public partial class SNCardTrail : NCardTrail

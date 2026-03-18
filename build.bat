@@ -55,11 +55,17 @@ if errorlevel 1 (
     exit /b 1
 )
 
+copy /Y "%MOD_NAME%.json" "%GAME_MODS_DIR%\%MOD_NAME%\"
+if errorlevel 1 (
+    echo [WARNING] Failed to copy %MOD_NAME%.json
+)
+
 echo.
 echo ====================================
 echo Build Complete!
 echo ====================================
 echo DLL: %GAME_MODS_DIR%\%MOD_NAME%\%MOD_NAME%.dll
 echo PCK: %GAME_MODS_DIR%\%MOD_NAME%\%MOD_NAME%.pck
+echo JSON: %GAME_MODS_DIR%\%MOD_NAME%\%MOD_NAME%.json
 echo.
 pause

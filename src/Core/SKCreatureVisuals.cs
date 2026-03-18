@@ -1,7 +1,7 @@
 using Godot;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 
-namespace WatcherMod.Core;
+namespace ShoujoKagekiAijoKaren.Core;
 
 [GlobalClass]
 public partial class SKCreatureVisuals : NCreatureVisuals

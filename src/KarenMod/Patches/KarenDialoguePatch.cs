@@ -5,9 +5,11 @@ using MegaCrit.Sts2.Core.Models.Events;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Collections.Generic;
 
-internal static class WatcherDialogueHelper
+namespace ShoujoKagekiAijoKaren.src.KarenMod.Patches;
+
+internal static class KarenDialogueHelper
 {
-    public static void AddWatcherDialogues(AncientDialogueSet dialogueSet, List<AncientDialogue> dialogues)
+    public static void AddKarenDialogues(AncientDialogueSet dialogueSet, List<AncientDialogue> dialogues)
     {
         var watcherKey = ModelDb.Character<Karen>().Id.Entry;
         dialogueSet.CharacterDialogues.TryAdd(watcherKey, dialogues);
@@ -19,7 +21,7 @@ public static class ArchitectDialoguePatch
 {
     private static void Postfix(ref AncientDialogueSet __result)
     {
-        WatcherDialogueHelper.AddWatcherDialogues(__result,
+        KarenDialogueHelper.AddKarenDialogues(__result,
         [
             new AncientDialogue("", "")
             {

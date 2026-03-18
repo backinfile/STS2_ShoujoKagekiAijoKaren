@@ -54,10 +54,6 @@
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\characters.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\powers.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\relics.json" />
-    <Content Include="ShoujoKagekiAijoKaren\localization\kor\cards.json" />
-    <Content Include="ShoujoKagekiAijoKaren\localization\kor\characters.json" />
-    <Content Include="ShoujoKagekiAijoKaren\localization\kor\powers.json" />
-    <Content Include="ShoujoKagekiAijoKaren\localization\kor\relics.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\ancients.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\cards.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\characters.json" />
@@ -114,11 +110,11 @@
     <None Include="scenes\ui\selection_reticle.tscn" />
     <None Include="scenes\vfx\card_trail_karen.tscn" />
     <None Include="src\KarenMod\Patches\ExamplePatch.cs.uid" />
-    <None Include="src\KarenMod\Patches\NCardLibrary_KarenPatch.cs.uid" />
+    <None Include="src\KarenMod\Patches\NCardLibrary_WatcherPatch.cs.uid" />
     <None Include="src\KarenMod\Patches\NMerchantCharacterPatch.cs.uid" />
     <None Include="src\KarenMod\Patches\ProgressSaveManager_Patches.cs.uid" />
     <None Include="src\KarenMod\Patches\TouchOfOrobasPatch.cs.uid" />
-    <None Include="src\KarenMod\Patches\KarenDialoguePatch.cs.uid" />
+    <None Include="src\KarenMod\Patches\WatcherDialoguePatch.cs.uid" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alchyr.Sts2.BaseLib" Version="0.1.3" />
