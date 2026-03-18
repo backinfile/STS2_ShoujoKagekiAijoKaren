@@ -26,12 +26,9 @@ public static class ShineGlobalPatch
     {
         public static MethodBase TargetMethod()
         {
-            GD.Print("[ShineGlobalPatch] TargetMethod: 开始查找 GetDescriptionForPile...");
-
             // 获取 protected 嵌套类型 DescriptionPreviewType
             var descriptionPreviewType = typeof(CardModel).GetNestedType("DescriptionPreviewType",
                 BindingFlags.NonPublic);
-            GD.Print($"[ShineGlobalPatch] TargetMethod: DescriptionPreviewType = {descriptionPreviewType}");
 
             // 获取 PileType 类型
             var pileType = typeof(PileType);
@@ -44,11 +41,6 @@ public static class ShineGlobalPatch
                     if (m.Name != "GetDescriptionForPile") return false;
 
                     var parameters = m.GetParameters();
-                    GD.Print($"[ShineGlobalPatch] TargetMethod: 检查方法，参数数量={parameters.Length}");
-                    if (parameters.Length == 3)
-                    {
-                        GD.Print($"[ShineGlobalPatch] TargetMethod:   [0]={parameters[0].ParameterType}, [1]={parameters[1].ParameterType}, [2]={parameters[2].ParameterType.Name}");
-                    }
 
                     // 检查前两个参数类型，第三个参数Creature通过名称匹配（可能是Creature或Creature?）
                     return parameters.Length == 3 &&
@@ -57,38 +49,18 @@ public static class ShineGlobalPatch
                            parameters[2].ParameterType.Name.Contains("Creature");
                 });
 
-            if (result != null)
-            {
-                GD.Print($"[ShineGlobalPatch] TargetMethod: 找到方法！{result}");
-            }
-            else
-            {
-                GD.Print("[ShineGlobalPatch] TargetMethod: 未找到匹配的方法！");
-            }
-
             return result;
         }
 
         [HarmonyPostfix]
         public static void Postfix(CardModel __instance, ref string __result)
         {
-            GD.Print($"[ShineGlobalPatch] Postfix: 被调用，卡牌={__instance?.GetType().Name}");
-
             if (__instance == null || __result == null)
-            {
-                GD.Print("[ShineGlobalPatch] Postfix: ✗ 空引用！");
                 return;
-            }
 
             // 检查是否已初始化闪耀
-            bool isInitialized = __instance.IsShineInitialized();
-            GD.Print($"[ShineGlobalPatch] Postfix: 卡牌 '{__instance.Title}' 是否初始化闪耀={isInitialized}");
-
-            if (!isInitialized)
-            {
-                GD.Print($"[ShineGlobalPatch] Postfix: 跳过（未初始化闪耀）{__instance.Title}");
+            if (!__instance.IsShineInitialized())
                 return;
-            }
 
             // 获取当前闪耀值
             var currentValue = __instance.GetShineValue();
@@ -102,8 +74,6 @@ public static class ShineGlobalPatch
 
             // 将闪耀文本追加到结果中
             __result = __result + "\n" + shineText;
-
-            GD.Print($"[ShineGlobalPatch] Postfix: ✓ 成功追加 KarenShine={currentValue} for {__instance.GetType().Name}");
         }
     }
 
@@ -122,14 +92,9 @@ public static class ShineGlobalPatch
             if (__instance is not CardModel source || __result is not CardModel clone)
                 return;
 
-            GD.Print($"[ShineGlobalPatch] MutableClone: 克隆卡牌 {source.GetType().Name} -> {clone.GetType().Name}");
-
             // 检查原卡牌是否已初始化闪耀
             if (!source.IsShineInitialized())
-            {
-                GD.Print($"[ShineGlobalPatch] MutableClone: 原卡牌未初始化闪耀，跳过");
                 return;
-            }
 
             // 复制闪耀值
             int currentValue = source.GetShineValue();
@@ -144,8 +109,6 @@ public static class ShineGlobalPatch
                 clone.SetShineMax(maxValue);
                 clone.SetShineCurrent(currentValue);
             }
-
-            GD.Print($"[ShineGlobalPatch] MutableClone: ✓ 复制闪耀值 current={currentValue}, max={maxValue}");
         }
     }
 
