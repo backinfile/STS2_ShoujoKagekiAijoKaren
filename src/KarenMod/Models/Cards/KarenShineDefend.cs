@@ -4,18 +4,27 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.KarenMod.DynamicVars;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 
-public sealed class DefendKaren() : CardModel(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
+/// <summary>
+/// 闪耀防御 - 1费获得8格挡，Shine 5
+/// 打出5次后从卡组移除
+/// </summary>
+public sealed class KarenShineDefend : CardModel
 {
-    public override bool GainsBlock => true;
+    public KarenShineDefend() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    {
+    }
 
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
-
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+    {
+        new BlockVar(8m, ValueProp.Move),
+        new KarenShineVar(5m)
+    };
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

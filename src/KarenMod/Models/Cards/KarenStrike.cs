@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 
-public sealed class StrikeKaren() : CardModel(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
+public sealed class KarenStrike() : CardModel(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
 {
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 

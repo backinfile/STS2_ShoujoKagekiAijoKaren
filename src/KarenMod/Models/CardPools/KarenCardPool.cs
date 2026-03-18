@@ -26,8 +26,13 @@ public sealed class KarenCardPool : CardPoolModel
     {
         return
         [
-            ModelDb.Card<StrikeKaren>(),
-            ModelDb.Card<DefendKaren>()
+            ModelDb.Card<KarenStrike>(),
+            ModelDb.Card<KarenDefend>(),
+            ModelDb.Card<KarenShineStrike>(),
+            ModelDb.Card<KarenShineDefend>(),
+            ModelDb.Card<KarenPlaceholderPower>(),
+            ModelDb.Card<KarenPlaceholderUncommonSkill>(),
+            ModelDb.Card<KarenPlaceholderRareSkill>()
         ];
     }
 

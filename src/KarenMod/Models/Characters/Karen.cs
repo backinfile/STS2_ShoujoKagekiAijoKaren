@@ -34,19 +34,19 @@ public sealed class Karen : CharacterModel
 
     public override IEnumerable<CardModel> StartingDeck =>
     [
-        ModelDb.Card<StrikeKaren>(),
-        ModelDb.Card<StrikeKaren>(),
-        ModelDb.Card<StrikeKaren>(),
-        ModelDb.Card<StrikeKaren>(),
-        ModelDb.Card<DefendKaren>(),
-        ModelDb.Card<DefendKaren>(),
-        ModelDb.Card<DefendKaren>(),
-        ModelDb.Card<DefendKaren>(),
+        ModelDb.Card<KarenStrike>(),
+        ModelDb.Card<KarenStrike>(),
+        ModelDb.Card<KarenStrike>(),
+        ModelDb.Card<KarenStrike>(),
+        ModelDb.Card<KarenDefend>(),
+        ModelDb.Card<KarenDefend>(),
+        ModelDb.Card<KarenDefend>(),
+        ModelDb.Card<KarenDefend>(),
     ];
 
     public override IReadOnlyList<RelicModel> StartingRelics =>
     [
-        ModelDb.Relic<StageHeart>()
+        ModelDb.Relic<KarenStageHeart>()
     ];
 
     public override float AttackAnimDelay => 0.15f;

@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 
-namespace CharMod;
+namespace ShoujoKagekiAijoKaren;
 
 [ModInitializer(nameof(Initialize))]
 public partial class MainFile : Node

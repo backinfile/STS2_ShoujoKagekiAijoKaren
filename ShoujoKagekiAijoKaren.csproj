@@ -12,6 +12,7 @@
     <EmbeddedResource Remove="themes\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="images\atlases\karen_ui_atlas_0.png" />
     <Content Include="images\packed\card_portraits\karen\defend_karen.png" />
     <Content Include="images\packed\card_portraits\karen\strike_karen.png" />
