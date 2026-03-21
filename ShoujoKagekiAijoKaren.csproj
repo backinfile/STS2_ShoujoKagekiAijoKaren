@@ -52,16 +52,16 @@
     <Content Include="scenes\screens\char_select\karenPortrait.jpg" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\ancients.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\cards.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\eng\card_keywords.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\characters.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\gameplay_ui.json" />
-    <Content Include="ShoujoKagekiAijoKaren\localization\eng\keywords.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\powers.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\relics.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\ancients.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\cards.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\zhs\card_keywords.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\characters.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\gameplay_ui.json" />
-    <Content Include="ShoujoKagekiAijoKaren\localization\zhs\keywords.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\powers.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\relics.json" />
   </ItemGroup>

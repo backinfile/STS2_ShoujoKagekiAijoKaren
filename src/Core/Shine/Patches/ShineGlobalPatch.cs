@@ -58,8 +58,8 @@ public static class ShineGlobalPatch
             if (__instance == null || __result == null)
                 return;
 
-            // 检查是否已初始化闪耀
-            if (!__instance.IsShineInitialized())
+            // 只处理闪耀牌
+            if (!__instance.IsShineCard())
                 return;
 
             var current = __instance.GetShineValue();
@@ -97,8 +97,8 @@ public static class ShineGlobalPatch
             if (__instance is not CardModel source || __result is not CardModel clone)
                 return;
 
-            // 检查原卡牌是否已初始化闪耀
-            if (!source.IsShineInitialized())
+            // 只处理闪耀牌
+            if (!source.IsShineCard())
                 return;
 
             // 复制闪耀值
@@ -127,7 +127,7 @@ public static class ShineGlobalPatch
         public static void Postfix(CardModel __instance, ref bool __result)
         {
             if (__result) return; // 已经是红色，不覆盖
-            if (__instance.IsShineInitialized() && __instance.GetShineValue() == 1)
+            if (__instance.IsShineCard() && __instance.GetShineValue() == 1)
                 __result = true;
         }
     }
@@ -142,7 +142,7 @@ public static class ShineGlobalPatch
     {
         private static readonly (string Key, Func<CardModel, bool> Condition)[] Keywords =
         [
-            ("KAREN_SHINE", card => card.IsShineInitialized()),
+            ("KAREN_SHINE", card => card.IsShineCard()),
             // ("KAREN_PROMISE_PILE", card => card.IsPromisePileCard()),
         ];
 

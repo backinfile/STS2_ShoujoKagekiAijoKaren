@@ -6,10 +6,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.SaveSystem;
 
 /// <summary>
 /// Karen Mod 局内存档数据结构，嵌入游戏存档 JSON 的 "karen_mod_data" 字段。
-///
-/// v2 起使用 PlayerShineData（按玩家下标分组），兼容单机和联机。
-/// v1 遗留字段 ShineData 在读取时自动升级为玩家 0 的数据。
-/// </summary>
+/// 按玩家下标分组，兼容单机和联机。
+///</summary>
 public class KarenRunSaveData
 {
     [JsonPropertyName("schema_version")]
@@ -21,7 +19,11 @@ public class KarenRunSaveData
     [JsonPropertyName("player_shine_data")]
     public Dictionary<int, List<ShineSaveData>> PlayerShineData { get; set; } = new();
 
-    /// <summary>v1 遗留字段，仅在读取旧存档时存在，写入时始终为 null。</summary>
-    [JsonPropertyName("shine_data")]
-    public List<ShineSaveData>? ShineData { get; set; }
+    /// <summary>
+    /// 闪耀牌堆数据（耗尽卡牌列表）。Key = 玩家在 RunState.Players 中的下标。
+    /// ShineSaveData.ShineCurrent 恒为 0（已耗尽），ShineMax 保留原始值。
+    /// ShineSaveData.Index 为该卡牌在 Deck.Cards 中的下标（-1 表示已从 Deck 移出）。
+    /// </summary>
+    [JsonPropertyName("player_shine_pile_data")]
+    public Dictionary<int, List<ShineSaveData>> PlayerShinePileData { get; set; } = new();
 }

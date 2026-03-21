@@ -3,6 +3,7 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -10,7 +11,9 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
+using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
@@ -33,7 +36,7 @@ public static class ShinePilePatch
     /// <summary>是否应进入闪耀耗尽流程（已初始化 Shine 且当前值==0）</summary>
     private static bool ShouldEnterShinePile(CardModel card)
     {
-        if (!card.IsShineInitialized()) return false;
+        if (!card.IsShineCard()) return false;
         return card.GetShineValue() == 0;
     }
 
@@ -173,5 +176,31 @@ public static class ShinePilePatch
 
             MainFile.Logger.Info($"[ShinePilePatch] '{target.Title}' (DeckVersion) moved to shine pile");
         }
+    }
+}
+
+/// <summary>
+/// 战斗结束后打印 Karen 玩家的闪耀牌堆内容（调试日志）。
+/// </summary>
+[HarmonyPatch(typeof(Player), nameof(Player.AfterCombatEnd))]
+public static class Player_AfterCombatEnd_ShinePilePatch
+{
+    [HarmonyPostfix]
+    static void Postfix(Player __instance)
+    {
+        if (__instance.Character is not Karen) return;
+
+        var pile = ShinePileManager.GetShinePile(__instance);
+        int total = pile.Count;
+        int unique = ShinePileManager.GetUniqueCardCount(__instance);
+
+        if (total == 0)
+        {
+            MainFile.Logger.Info($"[ShinePile] 战斗结束 — 闪耀牌堆为空");
+            return;
+        }
+
+        var cardList = string.Join(", ", pile.Select(c => $"{c.Title}({c.GetShineMaxValue()})"));
+        MainFile.Logger.Info($"[ShinePile] 战斗结束 — 共 {total} 张（{unique} 种）: {cardList}");
     }
 }

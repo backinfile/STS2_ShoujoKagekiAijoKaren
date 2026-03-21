@@ -27,9 +27,9 @@ public static class ShineExtension
     private static readonly SpireField<CardModel, int> _shineMax = new(() => -1);
 
     /// <summary>
-    /// 检查是否已初始化（区分为0和未设置）
+    /// 判断是否是闪耀卡牌 _shineMax不为0表示这张牌自身就是闪耀牌，
     /// </summary>
-    public static bool IsShineInitialized(this CardModel card)
+    public static bool IsShineCard(this CardModel card)
     {
         return _shineCurrent.Get(card) >= 0 || _shineMax.Get(card) >= 0;
     }

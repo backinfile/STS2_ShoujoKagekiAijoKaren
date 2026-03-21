@@ -39,7 +39,7 @@ public static class ShinePatch
 
         // 同步到 deckVersion 卡牌，确保下次从牌堆抽牌时 clone 获得正确的值
         var deckVersion = __instance.DeckVersion;
-        if (deckVersion != null && deckVersion != __instance && deckVersion.IsShineInitialized())
+        if (deckVersion != null && deckVersion != __instance && deckVersion.IsShineCard())
         {
             deckVersion.SetShineCurrent(Math.Min(newValue, deckVersion.GetShineValue()));
             MainFile.Logger.Info($"[ShinePatch] Synced deckVersion '{deckVersion.Title}' shine to {newValue}");

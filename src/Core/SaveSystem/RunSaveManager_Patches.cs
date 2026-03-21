@@ -88,9 +88,14 @@ internal static class RunSaveManager_Patches
             if (state == null) return originalBytes;
 
             var playerShineData = ShineSaveSystem.CollectAllPlayersShineData(state.Players);
-            if (playerShineData.Count == 0) return originalBytes; // 无 Karen 玩家，透传
+            var playerShinePileData = ShinePileManager.CollectAllPlayersShinePileData(state.Players);
+            if (playerShineData.Count == 0 && playerShinePileData.Count == 0) return originalBytes; // 无 Karen 玩家，透传
 
-            var modData = new KarenRunSaveData { PlayerShineData = playerShineData };
+            var modData = new KarenRunSaveData
+            {
+                PlayerShineData = playerShineData,
+                PlayerShinePileData = playerShinePileData
+            };
 
             using var doc = JsonDocument.Parse(originalBytes);
             if (doc.RootElement.ValueKind != JsonValueKind.Object) return originalBytes;
@@ -106,8 +111,9 @@ internal static class RunSaveManager_Patches
             writer.WriteEndObject();
             writer.Flush();
 
-            int total = playerShineData.Values.Sum(l => l.Count);
-            MainFile.Logger.Info($"[SaveSystem] 注入 {playerShineData.Count} 名玩家共 {total} 条 Shine 数据到存档");
+            int totalShine = playerShineData.Values.Sum(l => l.Count);
+            int totalPile = playerShinePileData.Values.Sum(l => l.Count);
+            MainFile.Logger.Info($"[SaveSystem] 注入 {playerShineData.Count} 名玩家 {totalShine} 条 Shine 数据 + {totalPile} 张耗尽牌到存档");
             return ms.ToArray();
         }
         catch (Exception ex)
@@ -131,8 +137,9 @@ internal static class RunSaveManager_Patches
             if (modData == null) return;
 
             KarenModSaveBuffer.Store(modData);
-            int total = modData.PlayerShineData.Values.Sum(l => l.Count) + (modData.ShineData?.Count ?? 0);
-            MainFile.Logger.Info($"[SaveSystem] 从存档提取 {total} 条 Shine 数据（{modData.PlayerShineData.Count} 名玩家），等待恢复");
+            int totalShine = modData.PlayerShineData.Values.Sum(l => l.Count);
+            int totalPile = modData.PlayerShinePileData.Values.Sum(l => l.Count);
+            MainFile.Logger.Info($"[SaveSystem] 从存档提取 {totalShine} 条 Shine 数据 + {totalPile} 张耗尽牌（{modData.PlayerShineData.Count} 名玩家），等待恢复");
         }
         catch (Exception ex)
         {
@@ -165,5 +172,6 @@ internal static class RunSaveManager_Patches
         if (data == null) return;
 
         ShineSaveSystem.RestoreAllPlayersShineData(state.Players, data);
+        ShinePileManager.RestoreAllPlayersShinePileData(state.Players, data);
     }
 }

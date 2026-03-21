@@ -76,23 +76,10 @@ public static class ShineSaveSystem
     }
 
     /// <summary>
-    /// 将存档数据恢复到对应玩家的牌组。兼容 v1（flat ShineData）和 v2（PlayerShineData）。
+    /// 将存档数据恢复到对应玩家的牌组。
     /// </summary>
     public static void RestoreAllPlayersShineData(IReadOnlyList<Player> players, KarenRunSaveData data)
     {
-        // v1 兼容：flat ShineData → 视为玩家下标 0
-        if (data.PlayerShineData.Count == 0 && data.ShineData?.Count > 0)
-        {
-            var p = players.Count > 0 ? players[0] : null;
-            if (p?.Character is Karen)
-            {
-                RestoreShineData(p.Deck.Cards, data.ShineData);
-                MainFile.Logger.Info($"[ShineSaveSystem] (v1 兼容) 恢复 {data.ShineData.Count} 条 Shine 数据到玩家 0");
-            }
-            return;
-        }
-
-        // v2：按玩家下标恢复
         int totalRestored = 0;
         foreach (var (playerIdx, shineList) in data.PlayerShineData)
         {

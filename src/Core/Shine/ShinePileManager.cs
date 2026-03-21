@@ -2,6 +2,8 @@ using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.SaveSystem;
+using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,15 +33,6 @@ public static class ShinePileManager
         return _shinePile.Get(player);
     }
 
-    /// <summary>
-    /// 获取卡牌当前所在的闪耀牌堆（如果存在）
-    /// </summary>
-    public static List<CardModel> GetShinePileForCard(CardModel card)
-    {
-        if (card?.Owner == null) return null;
-        var pile = GetShinePile(card.Owner);
-        return pile.Contains(card) ? pile : null;
-    }
 
     /// <summary>
     /// 检查卡牌是否在闪耀牌堆中
@@ -139,6 +132,14 @@ public static class ShinePileManager
     }
 
     /// <summary>
+    /// 获取闪耀牌堆中不同种类卡牌的数量（按 CardId 去重）
+    /// </summary>
+    public static int GetUniqueCardCount(Player player)
+    {
+        return GetShinePile(player).Select(c => c.Id.Entry).Distinct().Count();
+    }
+
+    /// <summary>
     /// 卡牌进入闪耀牌堆事件
     /// </summary>
     public static event System.Action<CardModel> OnCardEnteredShinePile;
@@ -147,4 +148,113 @@ public static class ShinePileManager
     /// 卡牌离开闪耀牌堆事件
     /// </summary>
     public static event System.Action<CardModel> OnCardLeftShinePile;
+
+    // ─────────────────────────────────────────────────────────────────────
+    // 存档支持
+    // ─────────────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// 收集单个玩家的闪耀牌堆存档数据。
+    /// ShinePile 中的卡牌可能仍在 Deck.Cards（未被物理移出），用 IndexOf 定位；
+    /// 不在 Deck.Cards 时 Index = -1，仅依赖 CardId 恢复。
+    /// </summary>
+    public static List<ShineSaveData> CollectShinePileData(Player player)
+    {
+        var shinePile = GetShinePile(player);
+        if (shinePile.Count == 0) return new List<ShineSaveData>();
+
+        var result = new List<ShineSaveData>();
+        var deckList = player.Deck.Cards.ToList();
+
+        foreach (var card in shinePile)
+        {
+            int index = deckList.IndexOf(card);
+            result.Add(new ShineSaveData
+            {
+                CardId = card.Id.Entry,
+                Index = index,
+                ShineCurrent = card.GetShineValue(),
+                ShineMax = card.GetShineMaxValue()
+            });
+            MainFile.Logger.Info($"[ShinePileManager] 收集耗尽卡牌 {card.Id.Entry} (deckIndex={index}, shine={card.GetShineValue()}/{card.GetShineMaxValue()})");
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 遍历所有玩家，收集 Karen 玩家的闪耀牌堆存档数据。
+    /// </summary>
+    public static Dictionary<int, List<ShineSaveData>> CollectAllPlayersShinePileData(IReadOnlyList<Player> players)
+    {
+        var result = new Dictionary<int, List<ShineSaveData>>();
+        for (int i = 0; i < players.Count; i++)
+        {
+            var p = players[i];
+            if (p.Character is not Karen) continue;
+            var pileData = CollectShinePileData(p);
+            if (pileData.Count > 0)
+                result[i] = pileData;
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 恢复所有玩家的闪耀牌堆数据。
+    /// </summary>
+    public static void RestoreAllPlayersShinePileData(IReadOnlyList<Player> players, KarenRunSaveData data)
+    {
+        if (data.PlayerShinePileData == null || data.PlayerShinePileData.Count == 0) return;
+
+        int totalRestored = 0;
+        foreach (var (playerIdx, pileList) in data.PlayerShinePileData)
+        {
+            if (playerIdx < 0 || playerIdx >= players.Count) continue;
+            var p = players[playerIdx];
+            if (p.Character is not Karen) continue;
+            RestoreShinePileData(p, pileList);
+            totalRestored += pileList.Count;
+        }
+        MainFile.Logger.Info($"[ShinePileManager] 恢复 {data.PlayerShinePileData.Count} 名玩家共 {totalRestored} 张耗尽卡牌");
+    }
+
+    /// <summary>
+    /// 将存档中的闪耀牌堆数据恢复到指定玩家：从 Deck.Cards 找到对应卡牌，
+    /// 恢复 Shine 值后调用 AddToShinePile 将其移入闪耀牌堆。
+    /// </summary>
+    private static void RestoreShinePileData(Player player, List<ShineSaveData> saveData)
+    {
+        if (saveData == null || saveData.Count == 0) return;
+
+        var deckList = player.Deck.Cards.ToList();
+
+        foreach (var entry in saveData)
+        {
+            CardModel card = null;
+
+            // 优先：下标+ID 双重校验
+            if (entry.Index >= 0 && entry.Index < deckList.Count
+                && deckList[entry.Index].Id.Entry == entry.CardId)
+            {
+                card = deckList[entry.Index];
+            }
+
+            // 回退：按 CardId 找第一张未在闪耀牌堆的匹配牌
+            if (card == null)
+            {
+                card = deckList.FirstOrDefault(c =>
+                    c.Id.Entry == entry.CardId && !IsInShinePile(c));
+            }
+
+            if (card == null)
+            {
+                MainFile.Logger.Warn($"[ShinePileManager] 未找到耗尽卡牌 {entry.CardId} (index={entry.Index})，跳过");
+                continue;
+            }
+
+            card.SetShineMax(entry.ShineMax);
+            card.SetShineCurrent(entry.ShineCurrent);
+            AddToShinePile(card);
+            MainFile.Logger.Info($"[ShinePileManager] 恢复耗尽卡牌 {card.Id.Entry} (shine={entry.ShineCurrent}/{entry.ShineMax})");
+        }
+    }
 }
