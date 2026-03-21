@@ -52,6 +52,9 @@ public static class PromisePileManager
             return;
         }
 
+        // 动画在 RemoveFromCurrentPile 之前执行（FindOnTable 依赖 Pile.Type）
+        PromisePileAnimator.PlayAddAnimation(card);
+
         card.RemoveFromCurrentPile();
         pile.Enqueue(card);
 
@@ -72,6 +75,9 @@ public static class PromisePileManager
         var card = pile.Dequeue();
         MainFile.Logger.Info($"[PromisePile] '{card.Title}' ← promise pile → hand (remaining={pile.Count})");
         OnCardLeft?.Invoke(card);
+
+        // 取出动画：从玩家角色中心放大出现，完成后再飞入手牌
+        await PromisePileAnimator.PlayDrawAnimationAsync(card, player);
 
         await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
         return card;
