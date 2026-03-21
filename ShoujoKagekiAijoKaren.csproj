@@ -6,11 +6,9 @@
   <ItemGroup>
     <Compile Remove="fonts\**" />
     <Compile Remove="shaders\**" />
-    <Compile Remove="ShoujoKagekiAijoKaren\localization\kor\**" />
     <Compile Remove="themes\**" />
     <EmbeddedResource Remove="fonts\**" />
     <EmbeddedResource Remove="shaders\**" />
-    <EmbeddedResource Remove="ShoujoKagekiAijoKaren\localization\kor\**" />
     <EmbeddedResource Remove="themes\**" />
   </ItemGroup>
   <ItemGroup>
@@ -56,12 +54,14 @@
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\cards.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\characters.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\gameplay_ui.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\eng\keywords.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\powers.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\relics.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\ancients.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\cards.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\characters.json" />
-    <Content Include="shoujokagekiaijokaren\localization\zhs\gameplay_ui.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\zhs\gameplay_ui.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\zhs\keywords.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\powers.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\relics.json" />
   </ItemGroup>
@@ -114,12 +114,12 @@
     <None Include="scenes\ui\character_icons\karen_icon.tscn" />
     <None Include="scenes\ui\selection_reticle.tscn" />
     <None Include="scenes\vfx\card_trail_karen.tscn" />
-    <None Include="src\KarenMod\Patches\ExamplePatch.cs.uid" />
-    <None Include="src\KarenMod\Patches\NCardLibrary_KarenPatch.cs.uid" />
-    <None Include="src\KarenMod\Patches\NMerchantCharacterPatch.cs.uid" />
-    <None Include="src\KarenMod\Patches\ProgressSaveManager_Patches.cs.uid" />
-    <None Include="src\KarenMod\Patches\TouchOfOrobasPatch.cs.uid" />
-    <None Include="src\KarenMod\Patches\KarenDialoguePatch.cs.uid" />
+    <None Include="src\Core\Patches\ExamplePatch.cs.uid" />
+    <None Include="src\Core\Patches\KarenDialoguePatch.cs.uid" />
+    <None Include="src\Core\Patches\NCardLibrary_KarenPatch.cs.uid" />
+    <None Include="src\Core\Patches\NMerchantCharacterPatch.cs.uid" />
+    <None Include="src\Core\Patches\ProgressSaveManager_Patches.cs.uid" />
+    <None Include="src\Core\Patches\TouchOfOrobasPatch.cs.uid" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alchyr.Sts2.BaseLib" Version="0.1.3" />

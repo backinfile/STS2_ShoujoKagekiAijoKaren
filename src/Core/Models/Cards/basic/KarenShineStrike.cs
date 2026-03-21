@@ -20,7 +20,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// </summary>
 public sealed class KarenShineStrike : CardModel
 {
-    public KarenShineStrike() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public KarenShineStrike() : base(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
     {
         // 初始化闪耀值 - 全局补丁会自动检测并显示
         this.AddShineMax(3);

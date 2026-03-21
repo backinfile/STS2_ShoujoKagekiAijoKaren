@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.PotionPools;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
 using ShoujoKagekiAijoKaren.src.Models.CardPools;
 using ShoujoKagekiAijoKaren.src.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Models.RelicPools;

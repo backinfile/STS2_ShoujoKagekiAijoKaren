@@ -1,7 +1,7 @@
 using Godot;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Unlocks;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
 using ShoujoKagekiAijoKaren.src.Models.Cards;
 using System.Collections.Generic;
 using System.Linq;
