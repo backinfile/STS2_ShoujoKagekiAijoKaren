@@ -56,14 +56,15 @@ public static class ShinePilePatch
     /// 仅对本地玩家的牌播放；fire-and-forget，不阻塞调用方。
     /// 动画结束后由 Tween 回调负责 QueueFree，调用方不必再手动销毁节点。
     /// </summary>
-    private static void PlayShineDepletionAnimation(CardModel card, NCard combatCard)
+    private static void PlayShineDepletionAnimation(CardModel card, NCard? combatCard)
     {
         if (!LocalContext.IsMine(card)) return;
         if (combatCard == null) return;
 
         // 将战斗 NCard 从 PlayContainer 移到顶层 CardPreviewContainer
         // Reparent 会保留全局位置，之后再 Tween 到屏幕中央
-        var previewContainer = NRun.Instance.GlobalUi.CardPreviewContainer;
+        var previewContainer = NRun.Instance?.GlobalUi?.CardPreviewContainer;
+        if (previewContainer == null) return;
         combatCard.Reparent(previewContainer);
 
         // 根据快速模式调整各阶段时长，对齐游戏原生动画的缩放逻辑
@@ -116,7 +117,7 @@ public static class ShinePilePatch
 
             // ── Step 1：动画结算 ──────────────────────────────────────────
             // 在 RemoveFromCurrentPile 之前找战斗 NCard（FindOnTable 依赖 Pile.Type 定位）
-            NCard combatCardNode = NCard.FindOnTable(card);
+            NCard? combatCardNode = NCard.FindOnTable(card);
 
             // 直接操作战斗 NCard 播放删除动画（移到顶层后 Tween 消失，Tween 回调负责 QueueFree）
             PlayShineDepletionAnimation(card, combatCardNode);

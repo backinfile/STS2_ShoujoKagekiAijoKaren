@@ -19,7 +19,7 @@ public sealed class Karen : CharacterModel
 
     public override CharacterGender Gender => CharacterGender.Feminine;
 
-    protected override CharacterModel UnlocksAfterRunAs => null;
+    protected override CharacterModel? UnlocksAfterRunAs => null;
 
     public override Color NameColor => StsColors.purple;
 
@@ -44,6 +44,7 @@ public sealed class Karen : CharacterModel
         ModelDb.Card<KarenDefend>(),
         ModelDb.Card<KarenDefend>(),
         ModelDb.Card<KarenShineStrike>(),
+        ModelDb.Card<KarenPromiseDefend>(),
     ];
 
     public override IReadOnlyList<RelicModel> StartingRelics =>

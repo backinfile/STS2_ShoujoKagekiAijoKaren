@@ -13,6 +13,12 @@
   "KAREN_SHINE_DEFEND.title": "Shine Defend",
   "KAREN_SHINE_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
 
+  "KAREN_PROMISE_DEFEND.title": "Promise Defense",
+  "KAREN_PROMISE_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold]. Put {Cards:diff()} card(s) from your hand into the [gold]Promise Pile[/gold].",
+
+  "KAREN_PROMISE_DRAW.title": "Fulfill Promise",
+  "KAREN_PROMISE_DRAW.description": "Deal {Damage:diff()} damage. Take {Cards:diff()} card(s) from the [gold]Promise Pile[/gold] into your hand.",
+
   "KAREN_PLACEHOLDER_POWER.title": "Placeholder Power",
   "KAREN_PLACEHOLDER_POWER.description": "[gray]A placeholder power card. No effect yet.[/gray]",
 

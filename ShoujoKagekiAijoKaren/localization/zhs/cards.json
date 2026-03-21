@@ -1,14 +1,20 @@
 {
   "KAREN_STRIKE.title": "打击",
-  "KAREN_STRIKE.description": "造成 {Damage:diff()} 点伤害。",
+  "KAREN_STRIKE.description": "造成{Damage:diff()}点伤害。",
   "KAREN_DEFEND.title": "防御",
-  "KAREN_DEFEND.description": "获得 {Block:diff()} [gold]格挡[/gold]。",
+  "KAREN_DEFEND.description": "获得{Block:diff()}[gold]格挡[/gold]。",
 
   "KAREN_SHINE_STRIKE.title": "闪耀打击",
-  "KAREN_SHINE_STRIKE.description": "造成 {Damage:diff()} 点伤害。",
+  "KAREN_SHINE_STRIKE.description": "造成{Damage:diff()}点伤害。",
 
   "KAREN_SHINE_DEFEND.title": "闪耀防御",
-  "KAREN_SHINE_DEFEND.description": "获得 {Block:diff()} 点 [gold]格挡[/gold]。",
+  "KAREN_SHINE_DEFEND.description": "获得{Block:diff()}点[gold]格挡[/gold]。",
+
+  "KAREN_PROMISE_DEFEND.title": "约定防御",
+  "KAREN_PROMISE_DEFEND.description": "获得{Block:diff()}点[gold]格挡[/gold]。将{Cards:diff()}张手牌放入[gold]约定牌堆[/gold]。",
+
+  "KAREN_PROMISE_DRAW.title": "约定兑现",
+  "KAREN_PROMISE_DRAW.description": "造成{Damage:diff()}点伤害。从[gold]约定牌堆[/gold]取出{Cards:diff()}张牌至手牌。",
 
   "KAREN_PLACEHOLDER_POWER.title": "占位能力",
   "KAREN_PLACEHOLDER_POWER.description": "[gray]占位能力牌，暂无效果。[/gray]",

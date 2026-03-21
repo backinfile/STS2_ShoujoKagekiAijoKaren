@@ -30,6 +30,8 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenDefend>(),
             ModelDb.Card<KarenShineStrike>(),
             ModelDb.Card<KarenShineDefend>(),
+            ModelDb.Card<KarenPromiseDefend>(),
+            ModelDb.Card<KarenPromiseDraw>(),
             ModelDb.Card<KarenPlaceholderPower>(),
             ModelDb.Card<KarenPlaceholderUncommonSkill>(),
             ModelDb.Card<KarenPlaceholderRareSkill>()

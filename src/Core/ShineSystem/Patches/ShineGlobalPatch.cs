@@ -24,7 +24,7 @@ public static class ShineGlobalPatch
     [HarmonyPatch]
     public static class GetDescriptionForPile_Postfix
     {
-        public static MethodBase TargetMethod()
+        public static MethodBase? TargetMethod()
         {
             // 获取 protected 嵌套类型 DescriptionPreviewType
             var descriptionPreviewType = typeof(CardModel).GetNestedType("DescriptionPreviewType",

@@ -30,7 +30,7 @@ public static class ShinePileManager
     /// </summary>
     public static List<CardModel> GetShinePile(Player player)
     {
-        return _shinePile.Get(player);
+        return _shinePile.Get(player)!;
     }
 
 
@@ -142,12 +142,12 @@ public static class ShinePileManager
     /// <summary>
     /// 卡牌进入闪耀牌堆事件
     /// </summary>
-    public static event System.Action<CardModel> OnCardEnteredShinePile;
+    public static event System.Action<CardModel>? OnCardEnteredShinePile;
 
     /// <summary>
     /// 卡牌离开闪耀牌堆事件
     /// </summary>
-    public static event System.Action<CardModel> OnCardLeftShinePile;
+    public static event System.Action<CardModel>? OnCardLeftShinePile;
 
     // ─────────────────────────────────────────────────────────────────────
     // 存档支持
@@ -229,7 +229,7 @@ public static class ShinePileManager
 
         foreach (var entry in saveData)
         {
-            CardModel card = null;
+            CardModel? card = null;
 
             // 优先：下标+ID 双重校验
             if (entry.Index >= 0 && entry.Index < deckList.Count
