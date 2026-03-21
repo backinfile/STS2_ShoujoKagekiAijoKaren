@@ -7,6 +7,8 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -61,14 +63,26 @@ public static class ShinePilePatch
         var previewContainer = NRun.Instance.GlobalUi.CardPreviewContainer;
         combatCard.Reparent(previewContainer);
 
-        // 先让 CardPreviewContainer 重新布局，使当前卡居中（触发 ReformatElements）
-        // 之后立即启动 Tween（位置会在第一帧由容器设好）
+        // 根据快速模式调整各阶段时长，对齐游戏原生动画的缩放逻辑
+        FastModeType fastMode = SaveManager.Instance.PrefsSave.FastMode;
+        float showDelay = fastMode switch
+        {
+            FastModeType.Instant => 0.01f,
+            FastModeType.Fast    => 0.4f,
+            _                    => 1.5f
+        };
+        float destroyDuration = fastMode switch
+        {
+            FastModeType.Instant => 0.01f,
+            FastModeType.Fast    => 0.15f,
+            _                    => 0.3f
+        };
 
         Tween tween = combatCard.CreateTween();
-        // 消失（并行）：横向拉宽 + 纵向压扁 + 变黑，延迟 1.5s 后执行
-        tween.TweenProperty(combatCard, "scale:y", 0, 0.30000001192092896).SetDelay(1.5);
-        tween.Parallel().TweenProperty(combatCard, "scale:x", 1.5f, 0.3).SetDelay(1.5);
-        tween.Parallel().TweenProperty(combatCard, "modulate", Colors.Black, 0.2).SetDelay(1.5);
+        // 消失（并行）：横向拉宽 + 纵向压扁 + 变黑
+        tween.TweenProperty(combatCard, "scale:y", 0, destroyDuration).SetDelay(showDelay);
+        tween.Parallel().TweenProperty(combatCard, "scale:x", 1.5f, destroyDuration).SetDelay(showDelay);
+        tween.Parallel().TweenProperty(combatCard, "modulate", Colors.Black, destroyDuration * 0.67f).SetDelay(showDelay);
         tween.TweenCallback(Callable.From(combatCard.QueueFreeSafely));
     }
 
