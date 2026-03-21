@@ -1,7 +1,12 @@
+using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Cards;
+using MegaCrit.Sts2.Core.Helpers;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,66 +14,112 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 
 /// <summary>
-/// 闪耀牌堆核心补丁 - 拦截卡牌流向，重定向到闪耀牌堆
+/// 闪耀牌堆核心补丁
 ///
-/// 方案：完全自定义，不依赖 PileType 枚举
-/// - 拦截 CardPileCmd.Add，当卡牌闪耀值==0时重定向
-/// - 在 CombatStart/CombatEnd 时管理闪耀牌堆生命周期
+/// 闪耀耗尽流程分两步：
+///   Step 1 - 动画结算：
+///     - 能力牌：放行 RemoveFromCombat，让游戏自带的能力牌消退动画正常播放
+///     - 其他牌：拦截目标牌堆，播放删牌动画，然后将打出的战斗实例从所有牌堆移除
+///   Step 2 - 数据处理：
+///     - 将该牌对应的牌组（DeckVersion）静默移除
+///     - 将 DeckVersion 加入闪耀牌堆（无动画）
 /// </summary>
 public static class ShinePilePatch
 {
-    /// <summary>
-    /// 检查卡牌是否应该进入闪耀牌堆
-    /// 条件：有闪耀属性且当前值==0
-    /// </summary>
+    // ── 工具方法 ─────────────────────────────────────────────────────────────
+
+    /// <summary>是否应进入闪耀耗尽流程（已初始化 Shine 且当前值==0）</summary>
     private static bool ShouldEnterShinePile(CardModel card)
     {
-        if (!card.IsShineInitialized())
-            return false;
+        if (!card.IsShineInitialized()) return false;
         return card.GetShineValue() == 0;
     }
 
     /// <summary>
-    /// 拦截 CardPileCmd.Add - 将闪耀值==0的卡牌重定向到闪耀牌堆
+    /// 决定进入闪耀牌堆的目标卡牌：优先使用 DeckVersion（牌组中的永久版本），
+    /// 若 DeckVersion 为空或就是自身则回退到当前卡牌。
+    /// </summary>
+    private static CardModel GetShinePileTarget(CardModel card)
+    {
+        var deck = card.DeckVersion;
+        return (deck != null && deck != card) ? deck : card;
+    }
+
+    /// <summary>
+    /// 播放闪耀耗尽删牌动画，直接操作正在打出的战斗 NCard。
+    /// 将其从 PlayContainer 移到顶层 CardPreviewContainer，再播放删除动画。
+    /// 仅对本地玩家的牌播放；fire-and-forget，不阻塞调用方。
+    /// 动画结束后由 Tween 回调负责 QueueFree，调用方不必再手动销毁节点。
+    /// </summary>
+    private static void PlayShineDepletionAnimation(CardModel card, NCard combatCard)
+    {
+        if (!LocalContext.IsMine(card)) return;
+        if (combatCard == null) return;
+
+        // 将战斗 NCard 从 PlayContainer 移到顶层 CardPreviewContainer
+        // Reparent 会保留全局位置，之后再 Tween 到屏幕中央
+        var previewContainer = NRun.Instance.GlobalUi.CardPreviewContainer;
+        combatCard.Reparent(previewContainer);
+
+        // 先让 CardPreviewContainer 重新布局，使当前卡居中（触发 ReformatElements）
+        // 之后立即启动 Tween（位置会在第一帧由容器设好）
+
+        Tween tween = combatCard.CreateTween();
+        // 消失（并行）：横向拉宽 + 纵向压扁 + 变黑，延迟 1.5s 后执行
+        tween.TweenProperty(combatCard, "scale:y", 0, 0.30000001192092896).SetDelay(1.5);
+        tween.Parallel().TweenProperty(combatCard, "scale:x", 1.5f, 0.3).SetDelay(1.5);
+        tween.Parallel().TweenProperty(combatCard, "modulate", Colors.Black, 0.2).SetDelay(1.5);
+        tween.TweenCallback(Callable.From(combatCard.QueueFreeSafely));
+    }
+
+    // ── Patch：非能力牌 ──────────────────────────────────────────────────────
+
+    /// <summary>
+    /// 拦截 CardPileCmd.Add（卡牌归堆，主要用于非能力牌打出后进入弃牌堆）。
     ///
-    /// 注意：CardPileCmd.Add 返回 Task<CardPileAddResult>
-    /// Harmony 对异步方法的 Patch 需要特殊处理
+    /// 闪耀耗尽时：
+    ///   Step 1 - 播放删牌动画；将战斗实例从所有牌堆移除。
+    ///   Step 2 - 将 DeckVersion 静默移出牌组，加入闪耀牌堆。
     /// </summary>
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add),
         typeof(CardModel), typeof(PileType), typeof(CardPilePosition),
         typeof(AbstractModel), typeof(bool))]
     public static class CardPileCmd_Add_Patch
     {
-        /// <summary>
-        /// 前置拦截：检查是否应该重定向到闪耀牌堆
-        /// 只要卡牌闪耀值==0，无论目标是什么都拦截
-        /// </summary>
         static bool Prefix(CardModel card, PileType newPileType, ref Task<CardPileAddResult> __result)
         {
-            // 检查闪耀值是否为0
-            if (!ShouldEnterShinePile(card))
-                return true;
-
-            // 检查是否已经在闪耀牌堆
-            if (ShinePileManager.IsInShinePile(card))
+            if (!ShouldEnterShinePile(card)) return true;
+            if (ShinePileManager.IsInShinePile(GetShinePileTarget(card)))
             {
-                MainFile.Logger.Warn($"[ShinePilePatch] Card '{card.Title}' already in shine pile");
-                return true; // 允许正常流程（不应该发生）
+                MainFile.Logger.Warn($"[ShinePilePatch] '{card.Title}' DeckVersion already in shine pile, skipping");
+                return true;
             }
 
-            // 重定向到闪耀牌堆
-            MainFile.Logger.Info($"[ShinePilePatch] Redirecting '{card.Title}' from {newPileType} to shine pile (shine=0)");
-            ShinePileManager.AddToShinePile(card);
+            MainFile.Logger.Info($"[ShinePilePatch] Non-power '{card.Title}' shine depleted, entering removal flow (was heading to {newPileType})");
 
-            // 构造成功结果（欺骗调用方）
+            // ── Step 1：动画结算 ──────────────────────────────────────────
+            // 在 RemoveFromCurrentPile 之前找战斗 NCard（FindOnTable 依赖 Pile.Type 定位）
+            NCard combatCardNode = NCard.FindOnTable(card);
+
+            // 直接操作战斗 NCard 播放删除动画（移到顶层后 Tween 消失，Tween 回调负责 QueueFree）
+            PlayShineDepletionAnimation(card, combatCardNode);
+
+            // 将战斗实例从当前牌堆完全移除（NCard 已被 Reparent，不再受 Pile 管理）
+            card.RemoveFromCurrentPile();
+            // RemoveFromState 在游戏程序集内可能是 internal，使用反射调用
+            AccessTools.Method(typeof(CardModel), "RemoveFromState")?.Invoke(card, null);
+
+            // ── Step 2：数据处理 ──────────────────────────────────────────
+            // 将 DeckVersion 静默移出牌组，加入闪耀牌堆
+            var target = GetShinePileTarget(card);
+            ShinePileManager.AddToShinePile(target);
+
+            MainFile.Logger.Info($"[ShinePilePatch] '{target.Title}' (DeckVersion) moved to shine pile");
+
             __result = CreateSuccessResult(card);
-            return false; // 阻止原方法执行
+            return false;
         }
 
-        /// <summary>
-        /// 构造成功的 Task<CardPileAddResult>
-        /// 注意：async 方法的返回值是 Task<T>
-        /// </summary>
         private static Task<CardPileAddResult> CreateSuccessResult(CardModel card)
         {
             var result = new CardPileAddResult
@@ -82,25 +133,31 @@ public static class ShinePilePatch
         }
     }
 
+    // ── Patch：能力牌 ────────────────────────────────────────────────────────
+
     /// <summary>
-    /// 拦截 RemoveFromCombat - Power 牌的特殊处理
+    /// 拦截 CardPileCmd.RemoveFromCombat（能力牌从战斗中移除）。
+    ///
+    /// 策略：改为 Postfix，让原方法正常执行（播放游戏自带的能力牌消退动画），
+    /// 完成后再进行 Step 2 数据处理：将 DeckVersion 加入闪耀牌堆。
     /// </summary>
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.RemoveFromCombat), typeof(CardModel), typeof(bool))]
     public static class CardPileCmd_RemoveFromCombat_Patch
     {
-        static bool Prefix(CardModel card, bool skipVisuals)
+        [HarmonyPostfix]
+        static void Postfix(CardModel card, bool skipVisuals)
         {
-            // 检查是否应该进入闪耀牌堆（闪耀值==0）
-            if (ShouldEnterShinePile(card))
-            {
-                // 重定向到闪耀牌堆
-                MainFile.Logger.Info($"[ShinePilePatch] Redirecting Power card '{card.Title}' to shine pile (shine=0)");
-                ShinePileManager.AddToShinePile(card);
+            if (!ShouldEnterShinePile(card)) return;
 
-                return false; // 阻止原方法执行
-            }
+            var target = GetShinePileTarget(card);
+            if (ShinePileManager.IsInShinePile(target)) return;
 
-            return true; // 允许正常流程
+            MainFile.Logger.Info($"[ShinePilePatch] Power card '{card.Title}' shine depleted after RemoveFromCombat");
+
+            // ── Step 2：数据处理（Step 1 动画已由 RemoveFromCombat 自身完成）──
+            ShinePileManager.AddToShinePile(target);
+
+            MainFile.Logger.Info($"[ShinePilePatch] '{target.Title}' (DeckVersion) moved to shine pile");
         }
     }
 }
