@@ -31,7 +31,7 @@ public static class ShineExtension
     /// </summary>
     public static bool IsShineInitialized(this CardModel card)
     {
-        return _shineCurrent.Get(card) >= 0;
+        return _shineCurrent.Get(card) >= 0 || _shineMax.Get(card) >= 0;
     }
 
     /// <summary>

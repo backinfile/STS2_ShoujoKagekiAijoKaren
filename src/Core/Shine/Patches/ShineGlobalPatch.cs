@@ -62,17 +62,22 @@ public static class ShineGlobalPatch
             if (!__instance.IsShineInitialized())
                 return;
 
-            // 获取当前闪耀值
-            var currentValue = __instance.GetShineValue();
+            var current = __instance.GetShineValue();
+            var max = __instance.GetShineMaxValue();
 
-            // 创建新的 LocString 用于格式化
-            var locString = new LocString("gameplay_ui", "KAREN_SHINE_KEY");
-            locString.Add(ShineExtension.ShineVarName, currentValue);
+            // 根据 current 与 max 的关系决定颜色，current==1 时加夸张抖动特效
+            string coloredNumber;
+            if (current < max)
+                coloredNumber = $"[red]{current}[/red]";
+            else if (current > max)
+                coloredNumber = $"[blue]{current}[/blue]";
+            else
+                coloredNumber = current.ToString(); // current == max：白色（默认色）
 
-            // 获取格式化后的闪耀文本
-            string shineText = locString.GetFormattedText();
+            var label = new LocString("gameplay_ui", "KAREN_SHINE_LABEL").GetFormattedText();
+            var suffix = new LocString("gameplay_ui", "KAREN_SHINE_SUFFIX").GetFormattedText();
+            string shineText = label + coloredNumber + suffix;
 
-            // 将闪耀文本追加到结果中
             __result = __result + "\n" + shineText;
         }
     }
@@ -109,6 +114,21 @@ public static class ShineGlobalPatch
                 clone.SetShineMax(maxValue);
                 clone.SetShineCurrent(currentValue);
             }
+        }
+    }
+
+    /// <summary>
+    /// ShouldGlowRed补丁 - 当闪耀值为1时，将卡牌边框显示为红色
+    /// </summary>
+    [HarmonyPatch(typeof(CardModel), nameof(CardModel.ShouldGlowRed), MethodType.Getter)]
+    public static class ShouldGlowRed_Patch
+    {
+        [HarmonyPostfix]
+        public static void Postfix(CardModel __instance, ref bool __result)
+        {
+            if (__result) return; // 已经是红色，不覆盖
+            if (__instance.IsShineInitialized() && __instance.GetShineValue() == 1)
+                __result = true;
         }
     }
 

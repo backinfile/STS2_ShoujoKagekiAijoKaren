@@ -5,10 +5,10 @@
   "KAREN_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
 
   "KAREN_SHINE_STRIKE.title": "Shine Strike",
-  "KAREN_SHINE_STRIKE.description": "Deal {Damage:diff()} damage.\n[gold]KarenShine {KarenShine}[/gold]. When depleted, this card is removed from your deck.",
+  "KAREN_SHINE_STRIKE.description": "Deal {Damage:diff()} damage.",
 
   "KAREN_SHINE_DEFEND.title": "Shine Defend",
-  "KAREN_SHINE_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]KarenShine {KarenShine}[/gold]. When depleted, this card is removed from your deck.",
+  "KAREN_SHINE_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
 
   "KAREN_PLACEHOLDER_POWER.title": "Placeholder Power",
   "KAREN_PLACEHOLDER_POWER.description": "[gray]A placeholder power card. No effect yet.[/gray]",
