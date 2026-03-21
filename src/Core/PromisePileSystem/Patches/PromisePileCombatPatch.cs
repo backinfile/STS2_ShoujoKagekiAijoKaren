@@ -22,7 +22,11 @@ internal static class PromisePile_BeforeCombatStart_Patch
     {
         if (combatState == null) return;
         foreach (var player in combatState.Players)
+        {
             PromisePileManager.ClearPromisePile(player);
+            // 战斗开始时为华恋角色初始化 Power
+            _ = PromisePileManager.InitPowerAsync(player);
+        }
     }
 }
 

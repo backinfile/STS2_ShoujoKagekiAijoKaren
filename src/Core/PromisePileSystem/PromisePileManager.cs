@@ -2,10 +2,13 @@ using BaseLib.Utils;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -60,6 +63,9 @@ public static class PromisePileManager
 
         MainFile.Logger.Info($"[PromisePile] '{card.Title}' → promise pile (count={pile.Count})");
         OnCardEntered?.Invoke(card);
+
+        // 更新 Power
+        _ = UpdatePowerAsync(card.Owner);
     }
 
     /// <summary>
@@ -80,6 +86,10 @@ public static class PromisePileManager
         await PromisePileAnimator.PlayDrawAnimationAsync(card, player);
 
         await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
+
+        // 更新 Power
+        await UpdatePowerAsync(player);
+
         return card;
     }
 
@@ -107,6 +117,49 @@ public static class PromisePileManager
     /// <summary>获取约定牌堆中的卡牌数量</summary>
     public static int GetCount(Player player)
         => GetPromisePile(player).Count;
+
+    /// <summary>
+    /// 初始化玩家的 PromisePilePower（战斗开始时调用）。
+    /// 仅对华恋角色添加 Power，初始数值为 0。
+    /// </summary>
+    public static async Task InitPowerAsync(Player player)
+    {
+        if (player?.Creature == null) return;
+        if (player.Character is not Karen) return;
+
+        // 战斗开始时添加 Power，Amount=1 确保不会消失，实际显示数值由内部数据控制
+        await PowerCmd.Apply<KarenPromisePilePower>(player.Creature, 1, player.Creature, null);
+
+        // 设置初始显示数值为 0
+        if (player.Creature.GetPower<KarenPromisePilePower>() is { } karenPower)
+        {
+            karenPower.SetRealCount(0);
+        }
+    }
+
+    /// <summary>
+    /// 更新玩家的 PromisePilePower 数值为约定牌堆卡牌数。
+    /// 如果 Power 不存在会自动创建。使用内部数据存储真实数值，Amount 始终为 1。
+    /// </summary>
+    public static async Task UpdatePowerAsync(Player player)
+    {
+        if (player?.Creature == null) return;
+
+        int count = GetCount(player);
+        var creature = player.Creature;
+
+        // 如果 Power 不存在，先创建
+        if (!creature.HasPower<KarenPromisePilePower>())
+        {
+            await PowerCmd.Apply<KarenPromisePilePower>(creature, 1, creature, null);
+        }
+
+        // 更新显示数值
+        if (creature.GetPower<KarenPromisePilePower>() is { } karenPower)
+        {
+            karenPower.SetRealCount(count);
+        }
+    }
 
     /// <summary>卡牌进入约定牌堆事件</summary>
     public static event Action<CardModel>? OnCardEntered;
