@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1o0sdn255167"]
 
-[ext_resource type="Script" uid="uid://68plnbeevikg" path="res://src/Core/SNMerchantCharacter.cs" id="1_b7tdn"]
+[ext_resource type="Script" uid="uid://68plnbeevikg" path="res://src/Core/Node/SNMerchantCharacter.cs" id="1_b7tdn"]
 [ext_resource type="Texture2D" uid="uid://bbod73jfse5qi" path="res://images/packed/Karen.png" id="1_p7yjc"]
 
 [node name="KarenMerchant" type="Node2D"]

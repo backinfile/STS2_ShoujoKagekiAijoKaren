@@ -23,7 +23,7 @@ public sealed class KarenShineDefend : CardModel
     public KarenShineDefend() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         // 初始化闪耀值 - 全局补丁会自动检测并显示
-        this.SetShineValue(5);
+        this.AddShineMax(5);
     }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

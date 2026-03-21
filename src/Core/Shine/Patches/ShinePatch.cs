@@ -11,12 +11,11 @@ using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Runs;
-using ShoujoKagekiAijoKaren;
 using System;
 using System.Threading.Tasks;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
-namespace ShoujoKagekiAijoKaren.src.KarenMod.Patches;
+namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 
 /// <summary>
 /// Harmony补丁：统一处理 Shine 关键字逻辑

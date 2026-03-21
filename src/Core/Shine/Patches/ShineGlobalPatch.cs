@@ -10,7 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace ShoujoKagekiAijoKaren.src.KarenMod.Patches;
+namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 
 /// <summary>
 /// 全局闪耀补丁 - 在DynamicVars.AddTo后注入KarenShine变量
@@ -101,7 +101,7 @@ public static class ShineGlobalPatch
             int maxValue = source.GetShineMaxValue();
 
             // 使用内部方法直接设置，避免触发其他逻辑
-            clone.SetShineValue(currentValue);
+            clone.AddShineMax(currentValue);
             // 同时设置最大值（SetShineValue已经同时设置了当前值和最大值）
             // 但我们可能需要分别设置，因为当前值可能已经减少
             if (currentValue != maxValue)

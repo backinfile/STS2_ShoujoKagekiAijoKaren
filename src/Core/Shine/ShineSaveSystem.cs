@@ -10,9 +10,10 @@ namespace ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 public class ShineSaveData
 {
     public string CardId { get; set; } = "";
+
+    public int Index { get; set; }
     public int ShineCurrent { get; set; }
     public int ShineMax { get; set; }
-    public int? UpgradeLevel { get; set; }
 }
 
 /// <summary>
@@ -34,9 +35,9 @@ public static class ShineSaveSystem
     public static List<ShineSaveData> CollectShineData(IEnumerable<CardModel> cards)
     {
         var result = new List<ShineSaveData>();
-
-        foreach (var card in cards)
+        for(int i = 0; i < cards.Count(); i++)
         {
+            var card = cards.ElementAt(i);
             var shineCurrent = card.GetShineValue();
             var shineMax = card.GetShineMaxValue();
             if (shineMax > 0)
@@ -44,14 +45,13 @@ public static class ShineSaveSystem
                 result.Add(new ShineSaveData
                 {
                     CardId = card.Id.Entry,
+                    Index = i,
                     ShineCurrent = shineCurrent,
-                    ShineMax = shineMax,
-                    UpgradeLevel = card.IsUpgraded ? card.CurrentUpgradeLevel : (int?)null
+                    ShineMax = shineMax
                 });
+                MainFile.Logger.Info($"[ShineSaveSystem] 收集卡牌 {card.Id.Entry} 的闪耀值: {shineCurrent}/{shineMax}");
             }
         }
-
-        MainFile.Logger.Info($"[ShineSaveSystem] 收集了 {result.Count} 张卡牌的闪耀值数据");
         return result;
     }
 
@@ -62,31 +62,26 @@ public static class ShineSaveSystem
     {
         if (saveData == null || saveData.Count == 0) return;
 
-        // 创建查找字典
-        var dataLookup = saveData
-            .GroupBy(d => d.CardId)
-            .ToDictionary(g => g.Key, g => g.ToList());
-
-        foreach (var card in cards)
+        // 根据牌组索引进行匹配
+        foreach (var saveEntry in saveData)
         {
-            if (dataLookup.TryGetValue(card.Id.Entry, out var matchingData))
+            int index = saveEntry.Index;
+            if (index >= 0 && index < cards.Count())
             {
-                // 找到匹配的保存数据（考虑升级状态）
-                int? cardUpgradeLevel = card.IsUpgraded ? card.CurrentUpgradeLevel : (int?)null;
-                var bestMatch = matchingData.FirstOrDefault(d => d.UpgradeLevel == cardUpgradeLevel)
-                             ?? matchingData.First();
-
-                // 恢复当前值和最大值
-                card.SetShineMax(bestMatch.ShineMax);
-                card.SetShineCurrent(bestMatch.ShineCurrent);
-                MainFile.Logger.Info($"[ShineSaveSystem] 恢复卡牌 {card.Id.Entry} 的闪耀值: {bestMatch.ShineCurrent}/{bestMatch.ShineMax}");
-
-                // 从待处理列表移除
-                matchingData.Remove(bestMatch);
-                if (matchingData.Count == 0)
+                var card = cards.ElementAt(index);
+                if (card.Id.Entry == saveEntry.CardId)
                 {
-                    dataLookup.Remove(card.Id.Entry);
+                    // 恢复当前值和最大值
+                    card.SetShineMax(saveEntry.ShineMax);
+                    card.SetShineCurrent(saveEntry.ShineCurrent);
+                    MainFile.Logger.Info($"[ShineSaveSystem] 恢复卡牌 {card.Id.Entry} 的闪耀值: {saveEntry.ShineCurrent}/{saveEntry.ShineMax}");
+                } else
+                {
+                    MainFile.Logger.Warn($"[ShineSaveSystem] 牌组索引 {index} 的卡牌 ID {card.Id.Entry} 与保存数据中的 ID {saveEntry.CardId} 不匹配，无法恢复闪耀值{saveEntry.ShineCurrent}/{saveEntry.ShineMax}");
                 }
+            } else
+            {
+                MainFile.Logger.Warn($"[ShineSaveSystem] 索引 {index} 超出牌组范围，无法恢复卡牌 {saveEntry.CardId} 的闪耀值 {saveEntry.ShineCurrent}/{saveEntry.ShineMax}");
             }
         }
     }

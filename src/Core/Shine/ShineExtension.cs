@@ -8,8 +8,8 @@ namespace ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 /// SpireField 数据通过 ShineSaveSystem 实现跨战斗保存
 ///
 /// 每张卡牌有两个值：
-/// - shineMax: 闪耀值初始值（最大值）
-/// - shine: 闪耀值当前值
+/// - shineMax: 闪耀值初始值（最大值） -1表示未初始化
+/// - shine: 闪耀值当前值 -1表示无闪耀关键字 0表示有闪耀关键字但次数归零 大于0表示有闪耀值
 /// </summary>
 public static class ShineExtension
 {
@@ -35,13 +35,23 @@ public static class ShineExtension
     }
 
     /// <summary>
-    /// 获取卡牌的当前闪耀值（如果未初始化返回0）
+    /// 获取卡牌的当前闪耀值
     /// </summary>
     public static int GetShineValue(this CardModel card)
     {
-        var value = _shineCurrent.Get(card);
-        return value < 0 ? 0 : value;
+        return _shineCurrent.Get(card);
     }
+
+    /// <summary>
+    /// 获取卡牌的当前闪耀值（如果未初始化则返回0，避免负值干扰逻辑）
+    /// </summary>
+    public static int GetShineValueRounded(this CardModel card)
+    {
+        var current = _shineCurrent.Get(card);
+        if (current >= 0) return current;
+        return 0;
+    }
+
 
     /// <summary>
     /// 获取卡牌的最大闪耀值（初始值）
@@ -53,12 +63,16 @@ public static class ShineExtension
     }
 
     /// <summary>
-    /// 设置卡牌的闪耀值（同时设置当前值和最大值）
+    /// 设置卡牌的闪耀值，一般用于初始化设置卡牌的闪耀值。
     /// </summary>
-    public static void SetShineValue(this CardModel card, int value)
+    public static void AddShineMax(this CardModel card, int value)
     {
-        _shineCurrent.Set(card, value);
-        _shineMax.Set(card, value);
+        var max = _shineMax.Get(card);
+        var current = _shineCurrent.Get(card);
+        var finalMaxValue = max < 0 ? value : max + value; // 如果未初始化则直接设置，否则在原有基础上增加
+        var finalCurrentValue = current < 0 ? value : current + value; // 同上，保持当前值和最大值一致增加
+        _shineMax[card] = finalMaxValue;
+        _shineCurrent[card] = finalCurrentValue;
     }
 
     /// <summary>
@@ -111,12 +125,13 @@ public static class ShineExtension
     }
 
     /// <summary>
-    /// 恢复当前闪耀值到最大值
+    /// 恢复当前闪耀值到最大值, 如果当前值已经是最大值或未初始化则不做任何操作
     /// </summary>
     public static void RestoreShineToMax(this CardModel card)
     {
         var max = _shineMax.Get(card);
-        if (max > 0)
+        var current = _shineCurrent.Get(card);
+        if (max > 0 && current < max)
         {
             _shineCurrent.Set(card, max);
         }

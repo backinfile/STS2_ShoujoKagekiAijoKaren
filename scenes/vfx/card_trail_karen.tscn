@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://0k165d7vf3h"]
 
-[ext_resource type="Script" uid="uid://dy5jhrtp2lrmx" path="res://src/Core/SNCardTrailVfx.cs" id="1_num8n"]
+[ext_resource type="Script" uid="uid://dy5jhrtp2lrmx" path="res://src/Core/Node/SNCardTrailVfx.cs" id="1_num8n"]
 [ext_resource type="Material" uid="uid://c4ycqv0gdxvmr" path="res://themes/canvas_item_material_additive_shared.tres" id="2_ps8f6"]
 [ext_resource type="Texture2D" uid="uid://dlhlmtgoapx1k" path="res://images/packed/vfx/trail.png" id="3_hk2in"]
-[ext_resource type="Script" uid="uid://clnyj44fc1olf" path="res://src/Core/SNCardTrail.cs" id="4_num8n"]
+[ext_resource type="Script" uid="uid://clnyj44fc1olf" path="res://src/Core/Node/SNCardTrail.cs" id="4_num8n"]
 [ext_resource type="Texture2D" uid="uid://b5uuuyyrytx6i" path="res://images/packed/vfx/trail2.png" id="5_2uixr"]
 [ext_resource type="Texture2D" uid="uid://dc71im3eojbud" path="res://images/vfx/brush_particle_2.png" id="6_i2v5g"]
 [ext_resource type="Texture2D" uid="uid://k5dx6cgb0cyc" path="res://images/vfx/vfx_ghostly_power_up/sparkle.png" id="7_d3bhx"]

@@ -6,7 +6,7 @@ using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.KarenMod.Patches;
+namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 
 /// <summary>
 /// 闪耀牌堆核心补丁 - 拦截卡牌流向，重定向到闪耀牌堆

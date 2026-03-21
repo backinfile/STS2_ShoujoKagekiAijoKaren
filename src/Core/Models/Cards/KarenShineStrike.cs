@@ -23,7 +23,7 @@ public sealed class KarenShineStrike : CardModel
     public KarenShineStrike() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         // 初始化闪耀值 - 全局补丁会自动检测并显示
-        this.SetShineValue(3);
+        this.AddShineMax(3);
     }
 
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];

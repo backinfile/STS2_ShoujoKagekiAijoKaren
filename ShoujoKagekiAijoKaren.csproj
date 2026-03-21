@@ -6,9 +6,11 @@
   <ItemGroup>
     <Compile Remove="fonts\**" />
     <Compile Remove="shaders\**" />
+    <Compile Remove="ShoujoKagekiAijoKaren\localization\kor\**" />
     <Compile Remove="themes\**" />
     <EmbeddedResource Remove="fonts\**" />
     <EmbeddedResource Remove="shaders\**" />
+    <EmbeddedResource Remove="ShoujoKagekiAijoKaren\localization\kor\**" />
     <EmbeddedResource Remove="themes\**" />
   </ItemGroup>
   <ItemGroup>
@@ -53,15 +55,13 @@
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\ancients.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\cards.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\characters.json" />
+    <Content Include="ShoujoKagekiAijoKaren\localization\eng\gameplay_ui.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\powers.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\eng\relics.json" />
-    <Content Include="ShoujoKagekiAijoKaren\localization\kor\cards.json" />
-    <Content Include="ShoujoKagekiAijoKaren\localization\kor\characters.json" />
-    <Content Include="ShoujoKagekiAijoKaren\localization\kor\powers.json" />
-    <Content Include="ShoujoKagekiAijoKaren\localization\kor\relics.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\ancients.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\cards.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\characters.json" />
+    <Content Include="shoujokagekiaijokaren\localization\zhs\gameplay_ui.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\powers.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\relics.json" />
   </ItemGroup>
