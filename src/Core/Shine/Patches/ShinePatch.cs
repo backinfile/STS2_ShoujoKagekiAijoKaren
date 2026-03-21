@@ -36,5 +36,13 @@ public static class ShinePatch
         // 减少闪耀值
         var newValue = __instance.DecreaseShine();
         MainFile.Logger.Info($"卡牌 '{__instance.Title}' 闪耀值减少至 {newValue}");
+
+        // 同步到 deckVersion 卡牌，确保下次从牌堆抽牌时 clone 获得正确的值
+        var deckVersion = __instance.DeckVersion;
+        if (deckVersion != null && deckVersion != __instance && deckVersion.IsShineInitialized())
+        {
+            deckVersion.SetShineCurrent(Math.Min(newValue, deckVersion.GetShineValue()));
+            MainFile.Logger.Info($"[ShinePatch] Synced deckVersion '{deckVersion.Title}' shine to {newValue}");
+        }
     }
 }
