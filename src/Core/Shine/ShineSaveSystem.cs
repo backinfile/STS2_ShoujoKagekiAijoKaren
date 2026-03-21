@@ -1,4 +1,7 @@
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.SaveSystem;
+using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,6 +56,53 @@ public static class ShineSaveSystem
             }
         }
         return result;
+    }
+
+    /// <summary>
+    /// 遍历所有玩家，按下标收集 Karen 玩家的 Shine 数据，返回用于写入存档的字典。
+    /// </summary>
+    public static Dictionary<int, List<ShineSaveData>> CollectAllPlayersShineData(IReadOnlyList<Player> players)
+    {
+        var result = new Dictionary<int, List<ShineSaveData>>();
+        for (int i = 0; i < players.Count; i++)
+        {
+            var p = players[i];
+            if (p.Character is not Karen) continue;
+            var shine = CollectShineData(p.Deck.Cards);
+            if (shine.Count > 0)
+                result[i] = shine;
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 将存档数据恢复到对应玩家的牌组。兼容 v1（flat ShineData）和 v2（PlayerShineData）。
+    /// </summary>
+    public static void RestoreAllPlayersShineData(IReadOnlyList<Player> players, KarenRunSaveData data)
+    {
+        // v1 兼容：flat ShineData → 视为玩家下标 0
+        if (data.PlayerShineData.Count == 0 && data.ShineData?.Count > 0)
+        {
+            var p = players.Count > 0 ? players[0] : null;
+            if (p?.Character is Karen)
+            {
+                RestoreShineData(p.Deck.Cards, data.ShineData);
+                MainFile.Logger.Info($"[ShineSaveSystem] (v1 兼容) 恢复 {data.ShineData.Count} 条 Shine 数据到玩家 0");
+            }
+            return;
+        }
+
+        // v2：按玩家下标恢复
+        int totalRestored = 0;
+        foreach (var (playerIdx, shineList) in data.PlayerShineData)
+        {
+            if (playerIdx < 0 || playerIdx >= players.Count) continue;
+            var p = players[playerIdx];
+            if (p.Character is not Karen) continue;
+            RestoreShineData(p.Deck.Cards, shineList);
+            totalRestored += shineList.Count;
+        }
+        MainFile.Logger.Info($"[ShineSaveSystem] 恢复 {data.PlayerShineData.Count} 名玩家共 {totalRestored} 条 Shine 数据");
     }
 
     /// <summary>

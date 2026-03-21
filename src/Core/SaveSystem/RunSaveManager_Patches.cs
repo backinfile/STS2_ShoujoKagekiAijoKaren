@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Saves.Managers;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
-using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System;
 using System.IO;
 using System.Linq;
@@ -33,11 +32,11 @@ internal static class RunSaveManager_Patches
     private const string ModDataKey = "karen_mod_data";
 
     /// <summary>
-    /// 判断路径是否为单人局存档（current_run.save 或其 .backup 后缀）
-    /// 注意：current_run_mp.save 不含 "current_run.save" 子串，不会误匹配
+    /// 判断路径是否为任意局内存档（单机或联机，含 .backup 后缀）
     /// </summary>
     private static bool IsRunSavePath(string path)
-        => path.Contains(RunSaveManager.runSaveFileName);
+        => path.Contains(RunSaveManager.runSaveFileName)
+        || path.Contains(RunSaveManager.multiplayerRunSaveFileName);
 
     // ─────────────────────────────────────────────────────────────────────
     // 写入：同步版本
@@ -86,11 +85,12 @@ internal static class RunSaveManager_Patches
         try
         {
             var state = RunManager.Instance.DebugOnlyGetState();
-            var player = state?.Players.FirstOrDefault(p => p.Character is Karen);
-            if (player == null) return originalBytes; // 非 Karen 局，透传不修改
+            if (state == null) return originalBytes;
 
-            var shineData = ShineSaveSystem.CollectShineData(player.Deck.Cards);
-            var modData = new KarenRunSaveData { ShineData = shineData };
+            var playerShineData = ShineSaveSystem.CollectAllPlayersShineData(state.Players);
+            if (playerShineData.Count == 0) return originalBytes; // 无 Karen 玩家，透传
+
+            var modData = new KarenRunSaveData { PlayerShineData = playerShineData };
 
             using var doc = JsonDocument.Parse(originalBytes);
             if (doc.RootElement.ValueKind != JsonValueKind.Object) return originalBytes;
@@ -106,9 +106,9 @@ internal static class RunSaveManager_Patches
             writer.WriteEndObject();
             writer.Flush();
 
-            var result = ms.ToArray();
-            MainFile.Logger.Info($"[SaveSystem] 注入 {shineData.Count} 条 Shine 数据到存档");
-            return result;
+            int total = playerShineData.Values.Sum(l => l.Count);
+            MainFile.Logger.Info($"[SaveSystem] 注入 {playerShineData.Count} 名玩家共 {total} 条 Shine 数据到存档");
+            return ms.ToArray();
         }
         catch (Exception ex)
         {
@@ -131,7 +131,8 @@ internal static class RunSaveManager_Patches
             if (modData == null) return;
 
             KarenModSaveBuffer.Store(modData);
-            MainFile.Logger.Info($"[SaveSystem] 从存档提取 {modData.ShineData.Count} 条 Shine 数据，等待战斗开始时恢复");
+            int total = modData.PlayerShineData.Values.Sum(l => l.Count) + (modData.ShineData?.Count ?? 0);
+            MainFile.Logger.Info($"[SaveSystem] 从存档提取 {total} 条 Shine 数据（{modData.PlayerShineData.Count} 名玩家），等待恢复");
         }
         catch (Exception ex)
         {
@@ -158,13 +159,11 @@ internal static class RunSaveManager_Patches
         if (!KarenModSaveBuffer.HasPending) return;
 
         var state = RunManager.Instance.DebugOnlyGetState();
-        var player = state?.Players.FirstOrDefault(p => p.Character is Karen);
-        if (player == null) return;
+        if (state == null) return;
 
         var data = KarenModSaveBuffer.Consume();
         if (data == null) return;
 
-        ShineSaveSystem.RestoreShineData(player.Deck.Cards, data.ShineData);
-        MainFile.Logger.Info($"[SaveSystem] 恢复 {data.ShineData.Count} 条 Shine 数据到牌组");
+        ShineSaveSystem.RestoreAllPlayersShineData(state.Players, data);
     }
 }
