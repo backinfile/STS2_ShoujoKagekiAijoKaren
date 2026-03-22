@@ -45,7 +45,7 @@ public static class PromisePileHoverPatch
 
     private static void TryStartPulsing(CardModel cardModel)
     {
-        if (!cardModel.Tags.Contains(KarenCardTags.PromisePileRelated))
+        if (!cardModel.Tags.Contains(KarenCustomEnum.PromisePileRelated))
             return;
 
         var power = cardModel.Owner?.Creature?.GetPower<KarenPromisePilePower>();
