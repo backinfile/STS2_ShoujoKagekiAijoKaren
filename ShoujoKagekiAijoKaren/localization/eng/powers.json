@@ -1,4 +1,5 @@
 {
-  "KarenPromisePilePower.title": "Promise",
-  "KarenPromisePilePower.description": "There are {Amount} card(s) in the Promise pile."
+  "KAREN_PROMISE_PILE_POWER.title": "Promise",
+  "KAREN_PROMISE_PILE_POWER.description": "There are {Amount} card(s) in the Promise pile.",
+  "KAREN_PROMISE_PILE_POWER.pileContents": "Pile Contents"
 }

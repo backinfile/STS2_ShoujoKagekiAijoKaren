@@ -11,6 +11,7 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
@@ -19,18 +20,18 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 /// 约定牌堆管理器
 ///
 /// 设计说明：
-/// - 每个玩家拥有独立的约定牌堆（FIFO 队列）
+/// - 每个玩家拥有独立的约定牌堆（FIFO 链表）
 /// - 使用 SpireField 将数据附加到 Player 对象
 /// - 约定牌堆是"虚拟牌堆"，仅战斗中有效，不通过 PileType 枚举管理
 /// - 战斗开始和结束时自动清空
 /// </summary>
 public static class PromisePileManager
 {
-    private static readonly SpireField<Player, Queue<CardModel>> _promisePile
-        = new(() => new Queue<CardModel>());
+    private static readonly SpireField<Player, LinkedList<CardModel>> _promisePile
+        = new(() => new LinkedList<CardModel>());
 
-    /// <summary>获取玩家的约定牌堆队列</summary>
-    public static Queue<CardModel> GetPromisePile(Player player)
+    /// <summary>获取玩家的约定牌堆链表</summary>
+    public static LinkedList<CardModel> GetPromisePile(Player player)
         => _promisePile.Get(player)!;
 
     /// <summary>检查卡牌是否在约定牌堆中</summary>
@@ -41,7 +42,7 @@ public static class PromisePileManager
     }
 
     /// <summary>
-    /// 将卡牌放入约定牌堆（加入队列尾部）。
+    /// 将卡牌放入约定牌堆（加入链表尾部）。
     /// 会从当前牌堆物理移出（RemoveFromCurrentPile），不触发 CardPileCmd 流程。
     /// </summary>
     public static void AddToPromisePile(CardModel card)
@@ -59,7 +60,7 @@ public static class PromisePileManager
         PromisePileAnimator.PlayAddAnimation(card);
 
         card.RemoveFromCurrentPile();
-        pile.Enqueue(card);
+        pile.AddLast(card);
 
         MainFile.Logger.Info($"[PromisePile] '{card.Title}' → promise pile (count={pile.Count})");
         OnCardEntered?.Invoke(card);
@@ -78,7 +79,8 @@ public static class PromisePileManager
         var pile = GetPromisePile(player);
         if (pile.Count == 0) return null;
 
-        var card = pile.Dequeue();
+        var card = pile.First!.Value;
+        pile.RemoveFirst();
         MainFile.Logger.Info($"[PromisePile] '{card.Title}' ← promise pile → hand (remaining={pile.Count})");
         OnCardLeft?.Invoke(card);
 
@@ -102,7 +104,8 @@ public static class PromisePileManager
         int count = pile.Count;
         while (pile.Count > 0)
         {
-            var card = pile.Dequeue();
+            var card = pile.First!.Value;
+            pile.RemoveFirst();
             card.RemoveFromCurrentPile();
             AccessTools.Method(typeof(CardModel), "RemoveFromState")?.Invoke(card, null);
             OnCardLeft?.Invoke(card);
@@ -141,7 +144,13 @@ public static class PromisePileManager
             await PowerCmd.Apply<KarenPromisePilePower>(creature, 1, creature, null);
 
         if (creature.GetPower<KarenPromisePilePower>() is { } karenPower)
+        {
             karenPower.SetCount(count);
+            var names = GetPromisePile(player)
+                .Select(c => c.IsUpgraded ? c.Title + "+" : c.Title)
+                .ToArray();
+            karenPower.SetCardNames(names);
+        }
     }
 
     /// <summary>卡牌进入约定牌堆事件</summary>

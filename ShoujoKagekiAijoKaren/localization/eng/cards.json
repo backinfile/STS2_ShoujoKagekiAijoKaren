@@ -26,5 +26,50 @@
   "KAREN_PLACEHOLDER_UNCOMMON_SKILL.description": "[gray]A placeholder uncommon skill card. No effect yet.[/gray]",
 
   "KAREN_PLACEHOLDER_RARE_SKILL.title": "Placeholder Rare Skill",
-  "KAREN_PLACEHOLDER_RARE_SKILL.description": "[gray]A placeholder rare skill card. No effect yet.[/gray]"
+  "KAREN_PLACEHOLDER_RARE_SKILL.description": "[gray]A placeholder rare skill card. No effect yet.[/gray]",
+
+  "KAREN_CHARGE_STRIKE.title": "Charge Strike",
+  "KAREN_CHARGE_STRIKE.description": "Deal {Damage:diff()} damage. Apply -{StrengthPower:diff()} [gold]Strength[/gold] to the target.",
+
+  "KAREN_DEBUT.title": "Debut",
+  "KAREN_DEBUT.description": "Deal {Damage:diff()} damage {Repeat:diff()} times to ALL enemies.",
+
+  "KAREN_SWORD_UP.title": "Sword Up",
+  "KAREN_SWORD_UP.description": "Deal {Damage:diff()} damage. Apply {WeakPower:diff()} [gold]Weak[/gold] and {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
+
+  "KAREN_SHINE_STRIKE_BARRAGE.title": "Shine Through Me",
+  "KAREN_SHINE_STRIKE_BARRAGE.description": "Deal {Damage:diff()} damage {Repeat:diff()} times.",
+
+  "KAREN_TO_THE_STAGE.title": "To The Stage",
+  "KAREN_TO_THE_STAGE.description": "Gain {Energy:energyIcons()}.{IfUpgraded:show:\nAlso draw 1 card.|}",
+
+  "KAREN_POTATO.title": "Potato",
+  "KAREN_POTATO.description": "Heal {Heal:diff()} HP.",
+
+  "KAREN_DROP_FUEL.title": "Drop Fuel",
+  "KAREN_DROP_FUEL.description": "Draw {Cards:diff()} card(s). Gain {Energy:energyIcons()}. [gold]Exhaust[/gold].",
+
+  "KAREN_READY.title": "Ready",
+  "KAREN_READY.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold]. Draw 1 card. [gold]Exhaust[/gold].",
+
+  "KAREN_NONON.title": "NONNON",
+  "KAREN_NONON.description": "Deal {Damage:diff()} damage to ALL enemies. Apply -{StrengthPower:diff()} [gold]Strength[/gold] to a random enemy.",
+
+  "KAREN_DRINK_WATER.title": "Hydration",
+  "KAREN_DRINK_WATER.description": "Gain 1 [gold]Buffer[/gold]. [gold]Exhaust[/gold].",
+
+  "KAREN_PRACTICE.title": "Practice",
+  "KAREN_PRACTICE.description": "Gain {Block:diff()} [gold]Block[/gold]. [gray]When Shine depletes: Heal {Heal:diff()} HP.[/gray]",
+
+  "KAREN_SUNLIGHT.title": "Sunlight",
+  "KAREN_SUNLIGHT.description": "Deal {Damage:diff()} damage. [gray]When Shine depletes: Gain {Block:diff()} [gold]Block[/gold].[/gray]",
+
+  "KAREN_CONTINUE02.title": "Endless Stage",
+  "KAREN_CONTINUE02.description": "Deal {Damage:diff()} damage. [blue]Can be upgraded repeatedly.[/blue]",
+
+  "KAREN_CARRYING_GUILT.title": "Carrying Our Guilt",
+  "KAREN_CARRYING_GUILT.description": "Deal {Damage:diff()} damage, plus {ExtraDamage:diff()} for each card in your [gold]Shine Pile[/gold].",
+
+  "KAREN_STAR_FRIEND.title": "Star Friend",
+  "KAREN_STAR_FRIEND.description": "Deal {Damage:diff()} damage. If this kills the target, draw 1 card."
 }

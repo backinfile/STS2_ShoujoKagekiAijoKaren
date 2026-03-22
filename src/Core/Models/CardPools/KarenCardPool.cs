@@ -29,12 +29,23 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenStrike>(),
             ModelDb.Card<KarenDefend>(),
             ModelDb.Card<KarenShineStrike>(),
-            ModelDb.Card<KarenShineDefend>(),
             ModelDb.Card<KarenPromiseDefend>(),
             ModelDb.Card<KarenPromiseDraw>(),
-            ModelDb.Card<KarenPlaceholderPower>(),
-            ModelDb.Card<KarenPlaceholderUncommonSkill>(),
-            ModelDb.Card<KarenPlaceholderRareSkill>()
+            ModelDb.Card<KarenChargeStrike>(),
+            ModelDb.Card<KarenDebut>(),
+            ModelDb.Card<KarenSwordUp>(),
+            ModelDb.Card<KarenShineStrikeBarrage>(),
+            ModelDb.Card<KarenToTheStage>(),
+            ModelDb.Card<KarenPotato>(),
+            ModelDb.Card<KarenDropFuel>(),
+            ModelDb.Card<KarenReady>(),
+            ModelDb.Card<KarenNonon>(),
+            ModelDb.Card<KarenDrinkWater>(),
+            ModelDb.Card<KarenPractice>(),
+            ModelDb.Card<KarenSunlight>(),
+            ModelDb.Card<KarenContinue02>(),
+            ModelDb.Card<KarenCarryingGuilt>(),
+            ModelDb.Card<KarenStarFriend>(),
         ];
     }
 

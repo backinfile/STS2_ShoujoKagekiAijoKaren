@@ -74,7 +74,9 @@ public static class ShineGlobalPatch
             var suffix = new LocString("gameplay_ui", "KAREN_SHINE_SUFFIX").GetFormattedText();
             string shineText = label + coloredNumber + suffix;
 
-            __result = __result + "\n" + shineText;
+            // 若卡牌有消耗关键字，游戏已将"消耗。"附加在描述末尾，闪耀文本与其同行
+            bool hasExhaust = __instance.CanonicalKeywords?.Contains(CardKeyword.Exhaust) == true;
+            __result = __result + (hasExhaust ? "" : "\n") + shineText;
         }
     }
 
