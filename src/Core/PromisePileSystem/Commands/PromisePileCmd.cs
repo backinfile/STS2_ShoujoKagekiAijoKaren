@@ -1,5 +1,8 @@
+using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using System.Threading.Tasks;
 
@@ -36,4 +39,26 @@ public static class PromisePileCmd
                 break;
         }
     }
+
+    /// <summary>
+    /// 从弃牌堆让玩家选择最多 count 张牌放入约定牌堆。
+    /// prompt 通常传调用方卡牌的 SelectionScreenPrompt。
+    /// </summary>
+    public static Task AddFromDiscard(
+        PlayerChoiceContext ctx, Player player, int count, LocString prompt)
+        => PromisePileManager.AddFromPileAsync(ctx, player, PileType.Discard, count, prompt);
+
+    /// <summary>
+    /// 从抽牌堆让玩家选择最多 count 张牌放入约定牌堆。
+    /// prompt 通常传调用方卡牌的 SelectionScreenPrompt。
+    /// </summary>
+    public static Task AddFromDraw(
+        PlayerChoiceContext ctx, Player player, int count, LocString prompt)
+        => PromisePileManager.AddFromPileAsync(ctx, player, PileType.Draw, count, prompt);
+
+    /// <summary>
+    /// 将约定牌堆中所有牌弃置到弃牌堆（FIFO 顺序）。
+    /// </summary>
+    public static Task DiscardAll(PlayerChoiceContext ctx, Player player)
+        => PromisePileManager.DiscardAllAsync(ctx, player);
 }

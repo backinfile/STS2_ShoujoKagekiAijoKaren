@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Localization;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 
@@ -117,6 +119,54 @@ public static class PromisePileManager
     /// <summary>获取约定牌堆中的卡牌数量</summary>
     public static int GetCount(Player player)
         => GetPromisePile(player).Count;
+
+    /// <summary>
+    /// 从指定牌堆（弃牌堆或抽牌堆）让玩家选择最多 count 张牌放入约定牌堆。
+    /// 若牌堆为空或实际可选数为 0 则直接返回。
+    /// minSelect == maxSelect，选满 N 张后自动确认（无手动按钮）；1 张时单击即确认。
+    /// </summary>
+    public static async Task AddFromPileAsync(
+        PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt)
+    {
+        if (player == null) return;
+
+        var cardPile = pileType.GetPile(player);
+        // 拍快照：避免选牌过程中列表变动
+        var cards = cardPile.Cards.ToList();
+        if (cards.Count == 0) return;
+
+        int selectCount = Math.Min(count, cards.Count);
+        var prefs = new CardSelectorPrefs(prompt, selectCount, selectCount);
+
+        var selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
+        if (selected == null) return;
+
+        foreach (var card in selected)
+            AddToPromisePile(card);
+    }
+
+    /// <summary>
+    /// 将约定牌堆中的所有牌依次弃置到弃牌堆（FIFO 顺序）。
+    /// 约定牌堆为空时直接返回。
+    /// </summary>
+    public static async Task DiscardAllAsync(PlayerChoiceContext ctx, Player player)
+    {
+        if (player == null) return;
+
+        var pile = GetPromisePile(player);
+        if (pile.Count == 0) return;
+
+        while (pile.Count > 0)
+        {
+            var card = pile.First!.Value;
+            pile.RemoveFirst();
+            MainFile.Logger.Info($"[PromisePile] '{card.Title}' ← promise pile → discard");
+            OnCardLeft?.Invoke(card);
+            await CardPileCmd.Add(card, PileType.Discard);
+        }
+
+        await UpdatePowerAsync(player);
+    }
 
     /// <summary>
     /// 初始化玩家的 PromisePilePower（战斗开始时调用）。
