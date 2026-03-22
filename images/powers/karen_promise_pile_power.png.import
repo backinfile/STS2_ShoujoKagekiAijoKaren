@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i6fsbofuxshc"
-path="res://.godot/imported/karen-promise-pile-power.png-5a3300f322cb13ea760c4534bc521347.ctex"
+uid="uid://n2j28oqn4vdn"
+path="res://.godot/imported/karen_promise_pile_power.png-b7084099836fa89d681c48d3ea1c613c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/powers/karen-promise-pile-power.png"
-dest_files=["res://.godot/imported/karen-promise-pile-power.png-5a3300f322cb13ea760c4534bc521347.ctex"]
+source_file="res://images/powers/karen_promise_pile_power.png"
+dest_files=["res://.godot/imported/karen_promise_pile_power.png-b7084099836fa89d681c48d3ea1c613c.ctex"]
 
 [params]
 

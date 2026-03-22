@@ -7,13 +7,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="fonts\**" />
+    <Compile Remove="images\powers\**" />
     <Compile Remove="shaders\**" />
     <Compile Remove="themes\**" />
     <EmbeddedResource Remove="fonts\**" />
+    <EmbeddedResource Remove="images\powers\**" />
     <EmbeddedResource Remove="shaders\**" />
     <EmbeddedResource Remove="themes\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\powers\karen_promise_pile_power.png" />
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="images\atlases\karen_ui_atlas_0.png" />
     <Content Include="images\packed\card_portraits\karen\defend_karen.png" />
@@ -116,12 +119,63 @@
     <None Include="scenes\ui\character_icons\karen_icon.tscn" />
     <None Include="scenes\ui\selection_reticle.tscn" />
     <None Include="scenes\vfx\card_trail_karen.tscn" />
+    <None Include="src\Core\GlobalMoveSystem\GlobalMoveSystem.cs.uid" />
+    <None Include="src\Core\GlobalMoveSystem\Patches\GlobalMovePatch.cs.uid" />
+    <None Include="src\Core\Models\CardPools\KarenCardPool.cs.uid" />
+    <None Include="src\Core\Models\Cards\basic\KarenDefend.cs.uid" />
+    <None Include="src\Core\Models\Cards\basic\KarenShineStrike.cs.uid" />
+    <None Include="src\Core\Models\Cards\basic\KarenStrike.cs.uid" />
+    <None Include="src\Core\Models\Cards\DefendKaren.cs.uid" />
+    <None Include="src\Core\Models\Cards\KarenPlaceholderPower.cs.uid" />
+    <None Include="src\Core\Models\Cards\KarenPlaceholderRareSkill.cs.uid" />
+    <None Include="src\Core\Models\Cards\KarenPlaceholderUncommonSkill.cs.uid" />
+    <None Include="src\Core\Models\Cards\KarenPromiseDefend.cs.uid" />
+    <None Include="src\Core\Models\Cards\KarenPromiseDraw.cs.uid" />
+    <None Include="src\Core\Models\Cards\KarenShineDefend.cs.uid" />
+    <None Include="src\Core\Models\Cards\PlaceholderPower.cs.uid" />
+    <None Include="src\Core\Models\Cards\PlaceholderRareSkill.cs.uid" />
+    <None Include="src\Core\Models\Cards\PlaceholderUncommonSkill.cs.uid" />
+    <None Include="src\Core\Models\Cards\ShineDefend.cs.uid" />
+    <None Include="src\Core\Models\Cards\ShineStrike.cs.uid" />
+    <None Include="src\Core\Models\Cards\StrikeKaren.cs.uid" />
+    <None Include="src\Core\Models\Characters\Karen.cs.uid" />
+    <None Include="src\Core\Models\RelicPools\KarenRelicPool.cs.uid" />
+    <None Include="src\Core\Models\Relics\KarenStageHeart.cs.uid" />
+    <None Include="src\Core\Models\Relics\StageHeart.cs.uid" />
+    <None Include="src\Core\Node\SKCardTrail.cs.uid" />
+    <None Include="src\Core\Node\SKCardTrailVfx.cs.uid" />
+    <None Include="src\Core\Node\SKCreatureVisuals.cs.uid" />
+    <None Include="src\Core\Node\SKEnergyCounter.cs.uid" />
+    <None Include="src\Core\Node\SKMerchantCharacter.cs.uid" />
+    <None Include="src\Core\Node\SKRestSiteCharacter.cs.uid" />
+    <None Include="src\Core\Node\SKSelectionReticle.cs.uid" />
+    <None Include="src\Core\Node\SMegaLabel.cs.uid" />
+    <None Include="src\Core\Node\SNCardTrail.cs.uid" />
+    <None Include="src\Core\Node\SNCardTrailVfx.cs.uid" />
+    <None Include="src\Core\Node\SNCreatureVisuals.cs.uid" />
+    <None Include="src\Core\Node\SNEnergyCounter.cs.uid" />
+    <None Include="src\Core\Node\SNMerchantCharacter.cs.uid" />
+    <None Include="src\Core\Node\SNRestSiteCharacter.cs.uid" />
+    <None Include="src\Core\Node\SNSelectionReticle.cs.uid" />
     <None Include="src\Core\Patches\ExamplePatch.cs.uid" />
     <None Include="src\Core\Patches\KarenDialoguePatch.cs.uid" />
     <None Include="src\Core\Patches\NCardLibrary_KarenPatch.cs.uid" />
     <None Include="src\Core\Patches\NMerchantCharacterPatch.cs.uid" />
     <None Include="src\Core\Patches\ProgressSaveManager_Patches.cs.uid" />
     <None Include="src\Core\Patches\TouchOfOrobasPatch.cs.uid" />
+    <None Include="src\Core\PromisePileSystem\Commands\PromisePileCmd.cs.uid" />
+    <None Include="src\Core\PromisePileSystem\Patches\PromisePileCombatPatch.cs.uid" />
+    <None Include="src\Core\PromisePileSystem\PromisePileAnimator.cs.uid" />
+    <None Include="src\Core\PromisePileSystem\PromisePileManager.cs.uid" />
+    <None Include="src\Core\SaveSystem\KarenModSaveBuffer.cs.uid" />
+    <None Include="src\Core\SaveSystem\KarenRunSaveData.cs.uid" />
+    <None Include="src\Core\SaveSystem\Patches\RunSaveManager_Patches.cs.uid" />
+    <None Include="src\Core\ShineSystem\Patches\ShineGlobalPatch.cs.uid" />
+    <None Include="src\Core\ShineSystem\Patches\ShinePatch.cs.uid" />
+    <None Include="src\Core\ShineSystem\Patches\ShinePilePatch.cs.uid" />
+    <None Include="src\Core\ShineSystem\ShineExtension.cs.uid" />
+    <None Include="src\Core\ShineSystem\ShinePileManager.cs.uid" />
+    <None Include="src\Core\ShineSystem\ShineSaveSystem.cs.uid" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alchyr.Sts2.BaseLib" Version="0.1.3" />
