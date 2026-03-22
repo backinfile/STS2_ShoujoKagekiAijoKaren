@@ -82,9 +82,6 @@ public static class PromisePileManager
         MainFile.Logger.Info($"[PromisePile] '{card.Title}' ← promise pile → hand (remaining={pile.Count})");
         OnCardLeft?.Invoke(card);
 
-        // 取出动画：从玩家角色中心放大出现，完成后再飞入手牌
-        await PromisePileAnimator.PlayDrawAnimationAsync(card, player);
-
         await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
 
         // 更新 Power
@@ -127,20 +124,13 @@ public static class PromisePileManager
         if (player?.Creature == null) return;
         if (player.Character is not Karen) return;
 
-        // 战斗开始时添加 Power，Amount=1 确保不会消失，实际显示数值由内部数据控制
         await PowerCmd.Apply<KarenPromisePilePower>(player.Creature, 1, player.Creature, null);
-
-        // 设置初始显示数值为 0
         if (player.Creature.GetPower<KarenPromisePilePower>() is { } karenPower)
-        {
-            karenPower.SetRealCount(0);
-        }
+            karenPower.SetCount(0);
     }
 
     /// <summary>
-    /// 更新玩家的 PromisePilePower 数值为约定牌堆卡牌数。
-    /// 如果 Power 不存在会自动创建。使用内部数据存储真实数值，Amount 始终为 1。
-    /// </summary>
+    /// <summary>更新玩家的 PromisePilePower 数值为约定牌堆卡牌数，如不存在则自动创建。</summary>
     public static async Task UpdatePowerAsync(Player player)
     {
         if (player?.Creature == null) return;
@@ -148,17 +138,11 @@ public static class PromisePileManager
         int count = GetCount(player);
         var creature = player.Creature;
 
-        // 如果 Power 不存在，先创建
         if (!creature.HasPower<KarenPromisePilePower>())
-        {
             await PowerCmd.Apply<KarenPromisePilePower>(creature, 1, creature, null);
-        }
 
-        // 更新显示数值
         if (creature.GetPower<KarenPromisePilePower>() is { } karenPower)
-        {
-            karenPower.SetRealCount(count);
-        }
+            karenPower.SetCount(count);
     }
 
     /// <summary>卡牌进入约定牌堆事件</summary>

@@ -10,14 +10,12 @@ using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
-using System.Threading.Tasks;
-
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 
 /// <summary>
 /// 约定牌堆动画
 /// - Add 动画：卡牌从手牌位置飞向玩家角色中心并缩小消失（在 RemoveFromCurrentPile 之前调用）
-/// - Draw 动画：临时卡牌从玩家角色中心放大出现，之后再由 CardPileCmd.Add 飞入手牌
+/// - Draw 动画：由 CardPileCmd.Add 的内置动画（scale 0→1 + 飞向手牌同时进行）完成
 /// </summary>
 public static class PromisePileAnimator
 {
@@ -76,38 +74,6 @@ public static class PromisePileAnimator
         tween.TweenCallback(Callable.From(animCard.QueueFreeSafely));
 
         // 原始 NCard 不再需要，安全销毁
-        nCard.QueueFreeSafely();
-    }
-
-    // ─── Draw 动画 ────────────────────────────────────────────────────────────
-
-    /// <summary>
-    /// 从约定牌堆取出动画：临时 NCard 从玩家角色中心放大出现，动画结束后销毁。
-    /// await 此方法后，再调用 CardPileCmd.Add 让卡飞入手牌。
-    /// </summary>
-    public static async Task PlayDrawAnimationAsync(CardModel card, Player player)
-    {
-        var playerNode = GetCreatureNode(player);
-        if (playerNode == null) return;
-
-        var startPos = playerNode.VfxSpawnPosition;
-        float duration = GetDuration();
-
-        var globalUi = NRun.Instance?.GlobalUi;
-        if (globalUi == null) return;
-
-        var nCard = NCard.Create(card);
-        if (nCard == null) return;
-
-        globalUi.AddChild(nCard);
-        nCard.GlobalPosition = startPos;
-        nCard.Scale = Vector2.Zero;
-
-        var tween = nCard.CreateTween();
-        tween.TweenProperty(nCard, "scale", Vector2.One, duration);
-
-        await nCard.ToSignal(tween, "finished");
-
         nCard.QueueFreeSafely();
     }
 
