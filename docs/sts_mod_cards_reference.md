@@ -3,6 +3,9 @@
 > 生成日期：2026-03-21
 > 仅包含未废弃（无 `@AutoAdd.Ignore` 注解且不在 `ignore/` 和 `reduceStrength/` 目录）的卡牌。
 
+**中文本地化文件：**
+`D:\Github\STS_ShoujoKageki\src\main\resources\ShoujoKagekiResources\localization\zhs\ShoujoKageki-Card-Strings.json`
+
 ---
 
 ## 废弃判断标准

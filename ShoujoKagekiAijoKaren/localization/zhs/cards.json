@@ -36,16 +36,16 @@
   "KAREN_POTATO.description": "回复{Heal:diff()}点生命。",
 
   "KAREN_DROP_FUEL.title": "投下燃料",
-  "KAREN_DROP_FUEL.description": "抽{Cards:diff()}张牌。获得{Energy:energyIcons()}。[gold]消耗[/gold]。",
+  "KAREN_DROP_FUEL.description": "抽{Cards:diff()}张牌。\n获得{Energy:energyIcons()}。",
 
   "KAREN_READY.title": "准备完成",
-  "KAREN_READY.description": "获得{StrengthPower:diff()}点[gold]力量[/gold]。抽1张牌。[gold]消耗[/gold]。",
+  "KAREN_READY.description": "获得{StrengthPower:diff()}点[gold]力量[/gold]。抽1张牌。",
 
   "KAREN_NONON.title": "NONNON哒哟",
   "KAREN_NONON.description": "对所有敌人造成{Damage:diff()}点伤害。\n降低随机一名敌人{StrengthPower:diff()}点[gold]力量[/gold]。",
 
   "KAREN_DRINK_WATER.title": "水分补充",
-  "KAREN_DRINK_WATER.description": "获得1层[gold]护盾[/gold]。[gold]消耗[/gold]。",
+  "KAREN_DRINK_WATER.description": "阻止下次你受到的生命值损伤。",
 
   "KAREN_PRACTICE.title": "武术练习",
   "KAREN_PRACTICE.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n[gold]闪耀[/gold]耗尽时，回复{Heal:diff()}点生命。",
@@ -54,7 +54,7 @@
   "KAREN_SUNLIGHT.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀[/gold]耗尽时，获得{Block:diff()}点[gold]格挡[/gold]。",
 
   "KAREN_CONTINUE02.title": "永无结束的命运舞台",
-  "KAREN_CONTINUE02.description": "造成{Damage:diff()}点伤害。能被多次[gold]升级[/gold]。",
+  "KAREN_CONTINUE02.description": "造成{Damage:diff()}点伤害。\n能被多次[gold]升级[/gold]。",
 
   "KAREN_CARRYING_GUILT.title": "背负着我们犯下的罪过",
   "KAREN_CARRYING_GUILT.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀牌堆[/gold]中每张牌额外造成{ExtraDamage:diff()}点伤害。",

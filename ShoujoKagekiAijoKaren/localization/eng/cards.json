@@ -47,25 +47,25 @@
   "KAREN_POTATO.description": "Heal {Heal:diff()} HP.",
 
   "KAREN_DROP_FUEL.title": "Drop Fuel",
-  "KAREN_DROP_FUEL.description": "Draw {Cards:diff()} card(s). Gain {Energy:energyIcons()}. [gold]Exhaust[/gold].",
+  "KAREN_DROP_FUEL.description": "Draw {Cards:diff()} card(s).\nGain {Energy:energyIcons()}.",
 
   "KAREN_READY.title": "Ready",
-  "KAREN_READY.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold]. Draw 1 card. [gold]Exhaust[/gold].",
+  "KAREN_READY.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold]. Draw 1 card.",
 
   "KAREN_NONON.title": "NONNON",
   "KAREN_NONON.description": "Deal {Damage:diff()} damage to ALL enemies. Apply -{StrengthPower:diff()} [gold]Strength[/gold] to a random enemy.",
 
   "KAREN_DRINK_WATER.title": "Hydration",
-  "KAREN_DRINK_WATER.description": "Gain 1 [gold]Buffer[/gold]. [gold]Exhaust[/gold].",
+  "KAREN_DRINK_WATER.description": "Prevent the next time you would lose HP.",
 
   "KAREN_PRACTICE.title": "Practice",
-  "KAREN_PRACTICE.description": "Gain {Block:diff()} [gold]Block[/gold]. [gray]When Shine depletes: Heal {Heal:diff()} HP.[/gray]",
+  "KAREN_PRACTICE.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhen [gold]Shine[/gold] depletes: Heal {Heal:diff()} HP.",
 
   "KAREN_SUNLIGHT.title": "Sunlight",
-  "KAREN_SUNLIGHT.description": "Deal {Damage:diff()} damage. [gray]When Shine depletes: Gain {Block:diff()} [gold]Block[/gold].[/gray]",
+  "KAREN_SUNLIGHT.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] depletes: Gain {Block:diff()} [gold]Block[/gold].",
 
   "KAREN_CONTINUE02.title": "Endless Stage",
-  "KAREN_CONTINUE02.description": "Deal {Damage:diff()} damage. [blue]Can be upgraded repeatedly.[/blue]",
+  "KAREN_CONTINUE02.description": "Deal {Damage:diff()} damage.\n[blue]Can be upgraded repeatedly.[/blue]",
 
   "KAREN_CARRYING_GUILT.title": "Carrying Our Guilt",
   "KAREN_CARRYING_GUILT.description": "Deal {Damage:diff()} damage, plus {ExtraDamage:diff()} for each card in your [gold]Shine Pile[/gold].",
