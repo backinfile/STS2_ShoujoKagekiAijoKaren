@@ -1,7 +1,12 @@
 using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.SaveSystem;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Collections.Generic;
@@ -71,6 +76,14 @@ public static class ShinePileManager
 
         // 触发进入闪耀牌堆事件（供其他系统监听）
         OnCardEnteredShinePile?.Invoke(card);
+        // 主动触发卡牌上的闪耀耗尽扳机（仅战斗中，防止存档恢复时误触发）
+        // 创建 HookPlayerChoiceContext 以支持 CardSelectCmd 等需要联机同步的选择命令
+        if (card is KarenBaseCardModel karenCard && CombatManager.Instance?.IsInProgress == true)
+        {
+            var ctx = new HookPlayerChoiceContext(card.Owner!, LocalContext.NetId.Value, GameActionType.Combat);
+            var task = karenCard.OnShineExhausted(ctx, true);
+            _ = ctx.AssignTaskAndWaitForPauseOrCompletion(task);
+        }
     }
 
     /// <summary>

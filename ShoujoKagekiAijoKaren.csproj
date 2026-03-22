@@ -123,7 +123,6 @@
     <None Include="src\Core\GlobalMoveSystem\Patches\GlobalMovePatch.cs.uid" />
     <None Include="src\Core\Models\CardPools\KarenCardPool.cs.uid" />
     <None Include="src\Core\Models\Cards\basic\KarenDefend.cs.uid" />
-    <None Include="src\Core\Models\Cards\basic\KarenShineStrike.cs.uid" />
     <None Include="src\Core\Models\Cards\basic\KarenStrike.cs.uid" />
     <None Include="src\Core\Models\Cards\DefendKaren.cs.uid" />
     <None Include="src\Core\Models\Characters\Karen.cs.uid" />

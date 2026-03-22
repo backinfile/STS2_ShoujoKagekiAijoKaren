@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System;
@@ -14,7 +15,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Nodes.Screens;
+using ShoujoKagekiAijoKaren.src.Core;
+using ShoujoKagekiAijoKaren.src.Core.GlobalMoveSystem.Patches;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 
@@ -47,7 +52,7 @@ public static class PromisePileManager
     /// 将卡牌放入约定牌堆（加入链表尾部）。
     /// 会从当前牌堆物理移出（RemoveFromCurrentPile），不触发 CardPileCmd 流程。
     /// </summary>
-    public static void AddToPromisePile(CardModel card)
+    public static async Task AddToPromisePile(CardModel card)
     {
         if (card?.Owner == null) return;
 
@@ -58,17 +63,26 @@ public static class PromisePileManager
             return;
         }
 
+        // oldPile 必须在 PlayAddAnimation 之前记录：
+        // PlayAddAnimation（同步方法）依赖 card.Pile 定位 NCard；RemoveFromCurrentPile 会将 card.Pile 置为 null
+        PileType oldPile = card.Pile?.Type ?? PileType.None;
+
         // 动画在 RemoveFromCurrentPile 之前执行（FindOnTable 依赖 Pile.Type）
         PromisePileAnimator.PlayAddAnimation(card);
 
         card.RemoveFromCurrentPile();
         pile.AddLast(card);
 
+        // pile.AddLast 后 IsInPromisePile 为 true，GlobalMovePatch 能正确推断 newPile = PromisePile
+        // TODO set source?
+        await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, oldPile, null);
+
         MainFile.Logger.Info($"[PromisePile] '{card.Title}' → promise pile (count={pile.Count})");
-        OnCardEntered?.Invoke(card);
+        if (card is KarenBaseCardModel karenCard)
+            await karenCard.OnAddedToPromisePile();
 
         // 更新 Power
-        _ = UpdatePowerAsync(card.Owner);
+        await UpdatePowerAsync(card.Owner);
     }
 
     /// <summary>
@@ -84,9 +98,11 @@ public static class PromisePileManager
         var card = pile.First!.Value;
         pile.RemoveFirst();
         MainFile.Logger.Info($"[PromisePile] '{card.Title}' ← promise pile → hand (remaining={pile.Count})");
-        OnCardLeft?.Invoke(card);
+        if (card is KarenBaseCardModel karenCard)
+            _ = karenCard.OnRemovedFromPromisePile();
 
         await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
+        await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
 
         // 更新 Power
         await UpdatePowerAsync(player);
@@ -96,7 +112,9 @@ public static class PromisePileManager
 
     /// <summary>
     /// 清空玩家的约定牌堆，将所有卡牌从 CombatState 注销。
-    /// 战斗结束时调用；战斗实例被注销后，DeckVersion 仍在 Player.Deck，下场战斗正常使用。
+    /// 不触发任何扳机，仅清理用。战斗结束时调用；
+    /// 此时游戏状态正在销毁，不应触发订阅者逻辑。
+    /// 战斗实例被注销后，DeckVersion 仍在 Player.Deck，下场战斗正常使用。
     /// </summary>
     public static void ClearPromisePile(Player player)
     {
@@ -110,7 +128,8 @@ public static class PromisePileManager
             pile.RemoveFirst();
             card.RemoveFromCurrentPile();
             AccessTools.Method(typeof(CardModel), "RemoveFromState")?.Invoke(card, null);
-            OnCardLeft?.Invoke(card);
+            if (card is KarenBaseCardModel karenCard)
+                _ = karenCard.OnRemovedFromPromisePile();
         }
 
         MainFile.Logger.Info($"[PromisePile] Cleared {count} card(s) for player {player?.NetId}");
@@ -142,7 +161,7 @@ public static class PromisePileManager
         if (selected == null) return;
 
         foreach (var card in selected)
-            AddToPromisePile(card);
+            await AddToPromisePile(card);
     }
 
     /// <summary>
@@ -161,8 +180,10 @@ public static class PromisePileManager
             var card = pile.First!.Value;
             pile.RemoveFirst();
             MainFile.Logger.Info($"[PromisePile] '{card.Title}' ← promise pile → discard");
-            OnCardLeft?.Invoke(card);
+            if (card is KarenBaseCardModel karenCard)
+                _ = karenCard.OnRemovedFromPromisePile();
             await CardPileCmd.Add(card, PileType.Discard);
+            await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
         }
 
         await UpdatePowerAsync(player);
@@ -203,9 +224,13 @@ public static class PromisePileManager
         }
     }
 
-    /// <summary>卡牌进入约定牌堆事件</summary>
-    public static event Action<CardModel>? OnCardEntered;
+    /// <summary>打开约定牌堆查看界面（快照模式，使用原生 NCardPileScreen）</summary>
+    public static void ShowScreen(Player player)
+    {
+        var snapshot = new CardPile(PileType.None);
+        foreach (var card in GetPromisePile(player))
+            snapshot.AddInternal(card);
+        NCardPileScreen.ShowScreen(snapshot, System.Array.Empty<string>());
+    }
 
-    /// <summary>卡牌离开约定牌堆事件</summary>
-    public static event Action<CardModel>? OnCardLeft;
 }

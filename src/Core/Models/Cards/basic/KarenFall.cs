@@ -41,7 +41,7 @@ public sealed class KarenFall : KarenBaseCardModel
             choiceContext, Owner, prefs, c => c != this, this);
 
         foreach (var card in selected)
-            PromisePileCmd.Add(card);
+            await PromisePileCmd.Add(card);
     }
 
     protected override void OnUpgrade()

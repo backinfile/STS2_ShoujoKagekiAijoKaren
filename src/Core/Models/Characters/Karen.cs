@@ -39,12 +39,12 @@ public sealed class Karen : CharacterModel
         ModelDb.Card<KarenStrike>(),
         ModelDb.Card<KarenStrike>(),
         ModelDb.Card<KarenStrike>(),
-        ModelDb.Card<KarenDefend>(),
-        ModelDb.Card<KarenDefend>(),
-        ModelDb.Card<KarenDefend>(),
-        ModelDb.Card<KarenDefend>(),
         ModelDb.Card<KarenShineStrike>(),
-        ModelDb.Card<KarenPromiseDefend>(),
+        ModelDb.Card<KarenDefend>(),
+        ModelDb.Card<KarenDefend>(),
+        ModelDb.Card<KarenDefend>(),
+        ModelDb.Card<KarenDefend>(),
+        ModelDb.Card<KarenFall>(),
     ];
 
     public override IReadOnlyList<RelicModel> StartingRelics =>

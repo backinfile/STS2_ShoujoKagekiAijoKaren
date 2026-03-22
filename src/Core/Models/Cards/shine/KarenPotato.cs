@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 土豆 - 0费回复4HP，Shine 3
 /// 升级：回复7HP
 /// </summary>
-public sealed class KarenPotato : CardModel
+public sealed class KarenPotato : KarenBaseCardModel
 {
     public KarenPotato() : base(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {

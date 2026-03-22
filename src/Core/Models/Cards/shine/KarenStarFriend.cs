@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
@@ -15,7 +16,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 星星串起了我们的友谊 - 1费8伤，击杀目标时抽1张牌，Shine 3
 /// 升级：12伤
 /// </summary>
-public sealed class KarenStarFriend : CardModel
+public sealed class KarenStarFriend : KarenBaseCardModel
 {
     public KarenStarFriend() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {

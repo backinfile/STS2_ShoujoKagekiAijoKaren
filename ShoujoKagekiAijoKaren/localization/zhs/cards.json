@@ -7,18 +7,8 @@
   "KAREN_SHINE_STRIKE.title": "闪耀打击",
   "KAREN_SHINE_STRIKE.description": "造成{Damage:diff()}点伤害。",
 
-  "KAREN_SHINE_DEFEND.title": "闪耀防御",
-  "KAREN_SHINE_DEFEND.description": "获得{Block:diff()}点[gold]格挡[/gold]。",
-
-  "KAREN_PROMISE_DEFEND.title": "约定防御",
-  "KAREN_PROMISE_DEFEND.description": "获得{Block:diff()}点[gold]格挡[/gold]。将{Cards:diff()}张[gold]手牌[/gold]放入[gold]约定牌堆[/gold]。",
-
-  "KAREN_PROMISE_DRAW.title": "约定兑现",
-  "KAREN_PROMISE_DRAW.description": "造成{Damage:diff()}点伤害。从[gold]约定牌堆[/gold]中抽{Cards:diff()}张牌。",
-
-
   "KAREN_CHARGE_STRIKE.title": "蓄力打击",
-  "KAREN_CHARGE_STRIKE.description": "造成{Damage:diff()}点伤害。降低目标{StrengthPower:diff()}点[gold]力量[/gold]。",
+  "KAREN_CHARGE_STRIKE.description": "造成{Damage:diff()}点伤害。\n目标本回合降低{StrengthPower:diff()}点[gold]力量[/gold]。",
 
   "KAREN_DEBUT.title": "出场",
   "KAREN_DEBUT.description": "对所有敌人造成{Damage:diff()}点伤害{Repeat:diff()}次。",
@@ -30,7 +20,7 @@
   "KAREN_SHINE_STRIKE_BARRAGE.description": "造成{Damage:diff()}点伤害{Repeat:diff()}次。",
 
   "KAREN_TO_THE_STAGE.title": "迈向那个舞台",
-  "KAREN_TO_THE_STAGE.description": "获得{Energy:energyIcons()}。{IfUpgraded:show:\n额外抽1张牌。|}",
+  "KAREN_TO_THE_STAGE.description": "获得{Energy:energyIcons()}。\n{IfUpgraded:show:\n抽1张牌。|}",
 
   "KAREN_POTATO.title": "土豆",
   "KAREN_POTATO.description": "回复{Heal:diff()}点生命。",
@@ -39,10 +29,10 @@
   "KAREN_DROP_FUEL.description": "抽{Cards:diff()}张牌。\n获得{Energy:energyIcons()}。",
 
   "KAREN_READY.title": "准备完成",
-  "KAREN_READY.description": "获得{StrengthPower:diff()}点[gold]力量[/gold]。抽1张牌。",
+  "KAREN_READY.description": "获得{StrengthPower:diff()}点[gold]力量[/gold]。\n抽1张牌。",
 
   "KAREN_NONON.title": "NONNON哒哟",
-  "KAREN_NONON.description": "对所有敌人造成{Damage:diff()}点伤害。\n降低随机一名敌人{StrengthPower:diff()}点[gold]力量[/gold]。",
+  "KAREN_NONON.description": "对所有敌人造成{Damage:diff()}点伤害。\n所有敌人本回合降低{StrengthPower:diff()}点[gold]力量[/gold]。",
 
   "KAREN_DRINK_WATER.title": "水分补充",
   "KAREN_DRINK_WATER.description": "阻止下次你受到的生命值损伤。",
@@ -51,7 +41,7 @@
   "KAREN_PRACTICE.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n[gold]闪耀[/gold]耗尽时，回复{Heal:diff()}点生命。",
 
   "KAREN_SUNLIGHT.title": "耀眼的阳光",
-  "KAREN_SUNLIGHT.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀[/gold]耗尽时，获得{Block:diff()}点[gold]格挡[/gold]。",
+  "KAREN_SUNLIGHT.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀[/gold]耗尽时，可将此牌重新加入牌组。",
 
   "KAREN_CONTINUE02.title": "永无结束的命运舞台",
   "KAREN_CONTINUE02.description": "造成{Damage:diff()}点伤害。\n能被多次[gold]升级[/gold]。",
@@ -60,5 +50,14 @@
   "KAREN_CARRYING_GUILT.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀牌堆[/gold]中每张牌额外造成{ExtraDamage:diff()}点伤害。",
 
   "KAREN_STAR_FRIEND.title": "星星串起了我们的友谊",
-  "KAREN_STAR_FRIEND.description": "造成{Damage:diff()}点伤害。若击杀目标，抽1张牌。"
+  "KAREN_STAR_FRIEND.description": "造成{Damage:diff()}点伤害。若击杀目标，抽1张牌。",
+
+  "KAREN_FALL.title": "坠落",
+  "KAREN_FALL.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将1张[gold]手牌[/gold]放入[gold]约定牌堆[/gold]。",
+
+  "KAREN_SLEEPY.title": "困意",
+  "KAREN_SLEEPY.description": "",
+
+  "KAREN_STAGE_REASON.title": "存在于舞台的理由",
+  "KAREN_STAGE_REASON.description": ""
 }

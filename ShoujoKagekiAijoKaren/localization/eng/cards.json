@@ -53,7 +53,7 @@
   "KAREN_READY.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold]. Draw 1 card.",
 
   "KAREN_NONON.title": "NONNON",
-  "KAREN_NONON.description": "Deal {Damage:diff()} damage to ALL enemies. Apply -{StrengthPower:diff()} [gold]Strength[/gold] to a random enemy.",
+  "KAREN_NONON.description": "Deal {Damage:diff()} damage to ALL enemies.\nApply -{StrengthPower:diff()} [gold]Strength[/gold] to ALL enemies this turn.",
 
   "KAREN_DRINK_WATER.title": "Hydration",
   "KAREN_DRINK_WATER.description": "Prevent the next time you would lose HP.",
@@ -62,7 +62,7 @@
   "KAREN_PRACTICE.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhen [gold]Shine[/gold] depletes: Heal {Heal:diff()} HP.",
 
   "KAREN_SUNLIGHT.title": "Sunlight",
-  "KAREN_SUNLIGHT.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] depletes: Gain {Block:diff()} [gold]Block[/gold].",
+  "KAREN_SUNLIGHT.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] depletes, you may add this card to your draw pile.",
 
   "KAREN_CONTINUE02.title": "Endless Stage",
   "KAREN_CONTINUE02.description": "Deal {Damage:diff()} damage.\n[blue]Can be upgraded repeatedly.[/blue]",
@@ -71,5 +71,14 @@
   "KAREN_CARRYING_GUILT.description": "Deal {Damage:diff()} damage, plus {ExtraDamage:diff()} for each card in your [gold]Shine Pile[/gold].",
 
   "KAREN_STAR_FRIEND.title": "Star Friend",
-  "KAREN_STAR_FRIEND.description": "Deal {Damage:diff()} damage. If this kills the target, draw 1 card."
+  "KAREN_STAR_FRIEND.description": "Deal {Damage:diff()} damage. If this kills the target, draw 1 card.",
+
+  "KAREN_FALL.title": "Fallen",
+  "KAREN_FALL.description": "Gain {Block:diff()} [gold]Block[/gold]. Put 1 card from your hand into the [gold]Promise Pile[/gold].",
+
+  "KAREN_SLEEPY.title": "Sleepy",
+  "KAREN_SLEEPY.description": "Unplayable. [gold]Ethereal[/gold]. Cannot be removed from your deck.",
+
+  "KAREN_STAGE_REASON.title": "Stage Reason",
+  "KAREN_STAGE_REASON.description": "[gold]Exhaust[/gold]."
 }

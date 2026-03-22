@@ -10,15 +10,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.GlobalMoveSystem;
 /// </summary>
 public static class GlobalMoveSystem
 {
-    /// <summary>
-    /// 卡牌移动事件。参数：(card, fromPile, toPile, source)
-    /// fromPile = PileType.None 表示卡牌进入战斗（首次加入）
-    /// toPile   = PileType.None 表示卡牌被从战斗移除
-    /// </summary>
-    public static event Action<CardModel, PileType, PileType, AbstractModel?>? OnCardMoved;
+ 
 
     internal static void Invoke(CardModel card, PileType from, PileType to, AbstractModel? source)
     {
-        OnCardMoved?.Invoke(card, from, to, source);
+        MainFile.Logger.Info($"[GlobalMoveSystem] Card '{card.Title}' moved from {from} to {to} (source={source?.GetType().Name ?? "null"})");
     }
 }

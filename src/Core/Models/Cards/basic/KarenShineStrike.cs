@@ -3,13 +3,14 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
 
 /// <summary>
 /// 闪耀打击 - 1费打9，Shine 3
@@ -18,12 +19,12 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 注意：闪耀显示由全局补丁自动处理（ShineGlobalPatch）
 /// 只需在构造函数中初始化闪耀值即可
 /// </summary>
-public sealed class KarenShineStrike : CardModel
+public sealed class KarenShineStrike : KarenBaseCardModel
 {
     public KarenShineStrike() : base(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
     {
         // 初始化闪耀值 - 全局补丁会自动检测并显示
-        this.AddShineMax(3);
+        this.AddShineMax(9);
     }
 
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];

@@ -18,15 +18,15 @@ public static class PromisePileCmd
     /// 将指定卡牌放入约定牌堆（物理从当前牌堆移出，加入队列尾部）。
     /// 调用方应确保卡牌当前在手牌中。
     /// </summary>
-    public static void Add(CardModel card)
-        => PromisePileManager.AddToPromisePile(card);
+    public static async Task Add(CardModel card)
+        => await PromisePileManager.AddToPromisePile(card);
 
     /// <summary>
     /// 从约定牌堆取出第一张牌（FIFO），移到手牌顶部。
     /// 返回 null 表示约定牌堆为空。
     /// </summary>
-    public static Task<CardModel?> Draw(PlayerChoiceContext choiceContext, Player player)
-        => PromisePileManager.DrawFromPromisePileAsync(choiceContext, player);
+    public static async Task<CardModel?> Draw(PlayerChoiceContext choiceContext, Player player)
+        => await PromisePileManager.DrawFromPromisePileAsync(choiceContext, player);
 
     /// <summary>
     /// 批量从约定牌堆取出 count 张牌，最多取到堆空为止。
@@ -44,21 +44,21 @@ public static class PromisePileCmd
     /// 从弃牌堆让玩家选择最多 count 张牌放入约定牌堆。
     /// prompt 通常传调用方卡牌的 SelectionScreenPrompt。
     /// </summary>
-    public static Task AddFromDiscard(
+    public static async Task AddFromDiscard(
         PlayerChoiceContext ctx, Player player, int count, LocString prompt)
-        => PromisePileManager.AddFromPileAsync(ctx, player, PileType.Discard, count, prompt);
+        => await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Discard, count, prompt);
 
     /// <summary>
     /// 从抽牌堆让玩家选择最多 count 张牌放入约定牌堆。
     /// prompt 通常传调用方卡牌的 SelectionScreenPrompt。
     /// </summary>
-    public static Task AddFromDraw(
+    public static async Task AddFromDraw(
         PlayerChoiceContext ctx, Player player, int count, LocString prompt)
-        => PromisePileManager.AddFromPileAsync(ctx, player, PileType.Draw, count, prompt);
+        => await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Draw, count, prompt);
 
     /// <summary>
     /// 将约定牌堆中所有牌弃置到弃牌堆（FIFO 顺序）。
     /// </summary>
-    public static Task DiscardAll(PlayerChoiceContext ctx, Player player)
-        => PromisePileManager.DiscardAllAsync(ctx, player);
+    public static async Task DiscardAll(PlayerChoiceContext ctx, Player player)
+        => await PromisePileManager.DiscardAllAsync(ctx, player);
 }

@@ -5,7 +5,9 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
@@ -14,9 +16,9 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 
 /// <summary>
-/// 蓄力打击 - 1费10伤 + 目标力量-2，Shine 9
+/// 蓄力打击 - 1费10伤 + 本回合目标力量-3，Shine 9
 /// </summary>
-public sealed class KarenChargeStrike : CardModel
+public sealed class KarenChargeStrike : KarenBaseCardModel
 {
     public KarenChargeStrike() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
@@ -33,7 +35,7 @@ public sealed class KarenChargeStrike : CardModel
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
         new DamageVar(10m, ValueProp.Move),
-        new PowerVar<StrengthPower>(2m)
+        new PowerVar<StrengthPower>(3m)
     };
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -46,7 +48,7 @@ public sealed class KarenChargeStrike : CardModel
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<StrengthPower>(cardPlay.Target, -DynamicVars.Strength.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<KarenChargeStrikeStrengthDownPower>(cardPlay.Target, DynamicVars.Strength.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

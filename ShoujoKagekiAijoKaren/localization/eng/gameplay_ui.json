@@ -1,5 +1,10 @@
 {
   "KAREN_SHINE_LABEL": "[gold]Shine[/gold] ",
   "KAREN_SHINE_SUFFIX": ".",
-  "KAREN_PROMISE_PILE_SELECT": "Put into Promise Pile"
+  "KAREN_PROMISE_PILE_SELECT": "Put into Promise Pile",
+  "KAREN_PROMISE_PILE_INFO": "These cards are in your Promise Pile. They will be drawn to your hand first.",
+  "KAREN_PROMISE_PILE_EMPTY": "Promise Pile is empty!",
+  "KAREN_PROMISE_PILE_TITLE": "Promise Pile",
+  "KAREN_PROMISE_PILE_DESCRIPTION": "Cards in Promise Pile will be drawn first.",
+  "KAREN_SUNLIGHT_OBTAIN_PROMPT": "Add this card to your draw pile?"
 }

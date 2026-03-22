@@ -5,20 +5,20 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 
 /// <summary>
-/// NONNON哒哟 - 3费对全体造成12伤，随机目标-12力量，Shine 9
+/// NONNON哒哟 - 3费对全体造成12伤，全体敌人-12力量，Shine 9
 /// 升级：16伤，-16力量
 /// </summary>
-public sealed class KarenNonon : CardModel
+public sealed class KarenNonon : KarenBaseCardModel
 {
     public KarenNonon() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
     {
@@ -44,11 +44,9 @@ public sealed class KarenNonon : CardModel
             .WithHitFx("vfx/vfx_giant_horizontal_slash")
             .Execute(choiceContext);
 
-        var enemies = base.CombatState.HittableEnemies.ToList();
-        if (enemies.Count > 0)
+        foreach (var enemy in base.CombatState.HittableEnemies)
         {
-            var target = enemies[Random.Shared.Next(enemies.Count)];
-            await PowerCmd.Apply<StrengthPower>(target, -DynamicVars.Strength.BaseValue, Owner.Creature, this);
+            await PowerCmd.Apply<KarenNononStrengthDownPower>(enemy, DynamicVars.Strength.BaseValue, Owner.Creature, this);
         }
     }
 

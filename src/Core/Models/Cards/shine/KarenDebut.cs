@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 出场 - 1费对全体敌人造成3×3=9伤（多轮全体），Shine 6
 /// 升级：轮数 +1（3×4=12伤）
 /// </summary>
-public sealed class KarenDebut : CardModel
+public sealed class KarenDebut : KarenBaseCardModel
 {
     public KarenDebut() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {

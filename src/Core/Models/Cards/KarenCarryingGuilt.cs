@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
@@ -15,7 +16,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 背负着我们犯下的罪过 - 2费，造成 12+4×N 伤（N=闪耀牌堆中的卡数）
 /// 升级：15+5×N
 /// </summary>
-public sealed class KarenCarryingGuilt : CardModel
+public sealed class KarenCarryingGuilt : KarenBaseCardModel
 {
     public KarenCarryingGuilt() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {

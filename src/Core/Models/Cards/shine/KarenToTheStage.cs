@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 迈向那个舞台 - 0费获得3能量，Shine 6
 /// 升级：额外抽1张牌
 /// </summary>
-public sealed class KarenToTheStage : CardModel
+public sealed class KarenToTheStage : KarenBaseCardModel
 {
     public KarenToTheStage() : base(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {

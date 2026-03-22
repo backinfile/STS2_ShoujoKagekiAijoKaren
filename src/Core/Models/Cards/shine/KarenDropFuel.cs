@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 投下燃料 - 0费抽2张+2能量；消耗，Shine 9
 /// 升级：抽3张+3能量
 /// </summary>
-public sealed class KarenDropFuel : CardModel
+public sealed class KarenDropFuel : KarenBaseCardModel
 {
     public KarenDropFuel() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {

@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
@@ -17,7 +18,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 上挑 - 1费5伤+虚弱1+脆弱1，Shine 9
 /// 升级：7伤+虚弱2+脆弱2
 /// </summary>
-public sealed class KarenSwordUp : CardModel
+public sealed class KarenSwordUp : KarenBaseCardModel
 {
     public KarenSwordUp() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {

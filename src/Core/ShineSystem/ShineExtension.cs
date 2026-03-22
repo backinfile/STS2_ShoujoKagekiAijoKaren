@@ -135,6 +135,8 @@ public static class ShineExtension
         {
             _shineCurrent.Set(card, max);
         }
+
+        MainFile.Logger.Info($"RestoreShineToMax called for '{card.Title}'. Max: {max}, Current: {current} → New Current: {_shineCurrent.Get(card)}");
     }
 
     /// <summary>
