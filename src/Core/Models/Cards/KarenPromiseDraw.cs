@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Commands;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// </summary>
 public sealed class KarenPromiseDraw : CardModel
 {
+    protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { KarenCardTags.PromisePileRelated };
     public KarenPromiseDraw() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

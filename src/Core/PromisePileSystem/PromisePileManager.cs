@@ -129,7 +129,6 @@ public static class PromisePileManager
             karenPower.SetCount(0);
     }
 
-    /// <summary>
     /// <summary>更新玩家的 PromisePilePower 数值为约定牌堆卡牌数，如不存在则自动创建。</summary>
     public static async Task UpdatePowerAsync(Player player)
     {

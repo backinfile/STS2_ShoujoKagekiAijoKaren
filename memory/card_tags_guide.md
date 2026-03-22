@@ -407,7 +407,24 @@ List<CardModel> strikes = (await CardSelectCmd.FromDeckForRemoval(
 
 ## 创建自定义 Tag 的建议
 
-当前游戏内置 5 个 Tag，**Mod 无法添加新的 CardTag 枚举值**（因为游戏代码固定），但可以通过以下方式实现类似效果：
+当前游戏内置 5 个 Tag，**Mod 可以通过 `[CustomEnum]`（`BaseLib.Patches.Content`）扩展 `CardTag` 枚举**，与 CardKeyword/CardPile 同理：
+
+```csharp
+using BaseLib.Patches.Content;
+using MegaCrit.Sts2.Core.Entities.Cards;
+
+public static class KarenCardTags
+{
+    [CustomEnum]
+    public static CardTag PromisePileRelated;
+}
+```
+
+卡牌中使用：`protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { KarenCardTags.PromisePileRelated };`
+
+运行时检查：`card.Tags.Contains(KarenCardTags.PromisePileRelated)`（需要 `using System.Linq;`）
+
+其他替代方案：
 
 ### 方案1：使用 CardKeyword
 

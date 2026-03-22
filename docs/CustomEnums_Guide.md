@@ -7,11 +7,15 @@
 用 `[CustomEnum]` 特性标记一个枚举类型的 **public static 字段**，BaseLib 会在运行时为其赋值。
 
 ```csharp
+using BaseLib.Patches.Content;  // [CustomEnum] 所在命名空间
+
 [CustomEnum]
 public static CardKeyword Keyword;
 ```
 
-**注意**：必须是 `public static` 字段，`readonly` 字段可能无法被正确赋值。
+**注意**：
+- 必须是 `public static` 字段，`readonly` 字段可能无法被正确赋值。
+- `[CustomEnum]` 支持扩展**任意**枚举类型，包括 `CardTag`、`CardKeyword`、`CardPile` 等。
 
 ---
 
@@ -90,4 +94,5 @@ public static CardKeyword Keyword;
 |---------|------|---------|
 | `CardKeyword` | 影响卡牌行为的无数字关键词 | `[KeywordProperties(AutoKeywordPosition.Before/After)]` |
 | `CardPile` | 自定义牌堆 | 继承 `CustomPile` 类 |
+| `CardTag` | 卡牌分类标记（同游戏内置 Strike/Defend/Shiv 等） | 卡牌 `CanonicalTags` 返回；检查用 `card.Tags.Contains()`（需 `using System.Linq;`） |
 | 其他枚举 | 直接使用 `[CustomEnum]` | 无 |
