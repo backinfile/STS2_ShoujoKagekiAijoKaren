@@ -5,7 +5,7 @@ using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System.Linq;
 
-namespace ShoujoKagekiAijoKaren.src.Core.Patches;
+namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 
 /// <summary>
 /// 悬停或拖拽带有 PromisePileRelated Tag 的手牌时，使 KarenPromisePilePower 产生脉冲效果

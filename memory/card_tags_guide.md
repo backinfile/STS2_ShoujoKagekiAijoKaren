@@ -424,6 +424,12 @@ public static class KarenCardTags
 
 运行时检查：`card.Tags.Contains(KarenCardTags.PromisePileRelated)`（需要 `using System.Linq;`）
 
+**PromisePileRelated Tag 的 UI 联动（PromisePileHoverPatch）**：
+- 文件：`src/Core/Patches/PromisePileHoverPatch.cs`
+- Patch 4 个方法：`OnLocalCardHovered`/`OnLocalCardUnhovered`（悬停）+ `OnLocalCardSelected`/`OnLocalCardDeselected`（拖拽打牌）
+- 悬停或拖拽 PromisePileRelated 卡牌时，`KarenPromisePilePower` 会产生脉冲效果（`StartPulsing()`）
+- 内部用 `TryStartPulsing(cardModel)` 统一处理，防止重复调用；用静态字段 `_pulsing` 跟踪当前脉冲中的 Power
+
 其他替代方案：
 
 ### 方案1：使用 CardKeyword
