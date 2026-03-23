@@ -88,7 +88,8 @@ public static class ShinePileManager
         if (original is KarenBaseCardModel karenCard)
         {
             MainFile.Logger.Info($"[ShinePileManager] Triggered OnShineExhausted for '{card.Title}'");
-            await karenCard.OnShineExhausted(ctx, combatState);
+            var inCombat = CombatManager.Instance?.IsInProgress == true && combatState.Enemies.Any(e => e.IsAlive);
+            await karenCard.OnShineExhausted(ctx, combatState, inCombat);
         }
     }
 
@@ -216,35 +217,36 @@ public static class ShinePileManager
 
         var deckList = player.Deck.Cards.ToList();
 
-        foreach (var entry in saveData)
-        {
-            CardModel? card = null;
+        // TODO
+        //foreach (var entry in saveData)
+        //{
+        //    CardModel? card = null;
 
-            // 优先：下标+ID 双重校验
-            if (entry.Index >= 0 && entry.Index < deckList.Count
-                && deckList[entry.Index].Id.Entry == entry.CardId)
-            {
-                card = deckList[entry.Index];
-            }
+        //    // 优先：下标+ID 双重校验
+        //    if (entry.Index >= 0 && entry.Index < deckList.Count
+        //        && deckList[entry.Index].Id.Entry == entry.CardId)
+        //    {
+        //        card = deckList[entry.Index];
+        //    }
 
-            // 回退：按 CardId 找第一张未在闪耀牌堆的匹配牌
-            if (card == null)
-            {
-                card = deckList.FirstOrDefault(c =>
-                    c.Id.Entry == entry.CardId && !IsInShinePile(c));
-            }
+        //    // 回退：按 CardId 找第一张未在闪耀牌堆的匹配牌
+        //    if (card == null)
+        //    {
+        //        card = deckList.FirstOrDefault(c =>
+        //            c.Id.Entry == entry.CardId && !IsInShinePile(c));
+        //    }
 
-            if (card == null)
-            {
-                MainFile.Logger.Warn($"[ShinePileManager] 未找到耗尽卡牌 {entry.CardId} (index={entry.Index})，跳过");
-                continue;
-            }
+        //    if (card == null)
+        //    {
+        //        MainFile.Logger.Warn($"[ShinePileManager] 未找到耗尽卡牌 {entry.CardId} (index={entry.Index})，跳过");
+        //        continue;
+        //    }
 
-            card.SetShineMax(entry.ShineMax);
-            card.SetShineCurrent(entry.ShineCurrent);
-            AddToShinePileInternal(card);
-            MainFile.Logger.Info($"[ShinePileManager] 恢复耗尽卡牌 {card.Id.Entry} (shine={entry.ShineCurrent}/{entry.ShineMax})");
-        }
+        //    card.SetShineMax(entry.ShineMax);
+        //    card.SetShineCurrent(entry.ShineCurrent);
+        //    AddToShinePileInternal(card);
+        //    MainFile.Logger.Info($"[ShinePileManager] 恢复耗尽卡牌 {card.Id.Entry} (shine={entry.ShineCurrent}/{entry.ShineMax})");
+        //}
     }
 
     /// <summary>播放闪耀耗尽删牌动画</summary>

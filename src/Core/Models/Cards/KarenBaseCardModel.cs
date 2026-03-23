@@ -41,5 +41,5 @@ public abstract class KarenBaseCardModel : CardModel
     /// </para>
     /// <para>传入的 <paramref name="ctx"/> 由 <see cref="ShinePileManager"/> 创建，支持 CardSelectCmd 等需要联机同步的选择命令。</para>
     /// </summary>
-    public virtual Task OnShineExhausted(PlayerChoiceContext ctx, MegaCrit.Sts2.Core.Combat.CombatState combatState) => Task.CompletedTask;
+    public virtual Task OnShineExhausted(PlayerChoiceContext ctx, MegaCrit.Sts2.Core.Combat.CombatState combatState, bool inCombat) => Task.CompletedTask;
 }

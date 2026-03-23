@@ -53,7 +53,7 @@ public sealed class KarenSunlight : KarenBaseCardModel
         DynamicVars.Damage.UpgradeValueBy(4m);
     }
 
-    public override async Task OnShineExhausted(PlayerChoiceContext ctx, MegaCrit.Sts2.Core.Combat.CombatState combatState)
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, MegaCrit.Sts2.Core.Combat.CombatState combatState, bool inCombat)
     {
         MainFile.Logger.Info("KarenSunlight.OnShineExhausted triggered. Prompting player to add KarenSunlight back to deck.");
         if (Owner == null)
@@ -62,6 +62,24 @@ public sealed class KarenSunlight : KarenBaseCardModel
             return;
         }
 
+        // 战斗已经结束了，直接把牌加入牌组，不需要玩家选择了
+        // TODO 改为加入卡牌奖励
+        if (!inCombat)
+        {
+            var deckClone = this.CloneSafeForDeck();
+            if (deckClone == null)
+            {
+                MainFile.Logger.Error($"Failed to clone KarenSunlight deckVersion for combat shine exhaustion. Owner or RunState was null.");
+                return;
+            }
+            deckClone.RestoreShineToMax();
+            CardPileAddResult result = await CardPileCmd.Add(deckClone, PileType.Deck);
+            CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.MessyLayout);
+            MainFile.Logger.Info($"Combat ended. Added KarenSunlight back to deck without player choice. Clone ID: {deckClone.Id}");
+            return;
+        }
+
+        // 创建一个自身的复制，需要有CombatState才能加入手牌
         CardModel clone = combatState?.CloneCard(this)!;
         if (clone == null)
         {
@@ -82,21 +100,23 @@ public sealed class KarenSunlight : KarenBaseCardModel
 
         MainFile.Logger.Info("Player chose to add KarenSunlight back to deck after shine exhaustion.");
 
-        // 然后创建一个牌组中的牌的复制重新加入牌组
-        var deckClone = clone.CloneSafeForDeck();
-        if (deckClone == null)
         {
-            MainFile.Logger.Error($"Failed to clone KarenSunlight deckVersion for combat shine exhaustion. Owner or RunState was null.");
-            return;
+            // 然后创建一个牌组中的牌的复制重新加入牌组
+            var deckClone = clone.CloneSafeForDeck();
+            if (deckClone == null)
+            {
+                MainFile.Logger.Error($"Failed to clone KarenSunlight deckVersion for combat shine exhaustion. Owner or RunState was null.");
+                return;
+            }
+            deckClone.RestoreShineToMax();
+            CardPileAddResult result = await CardPileCmd.Add(deckClone, PileType.Deck);
+            CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.MessyLayout);
+            MainFile.Logger.Info($"Cloned KarenSunlight for combat shine exhaustion and added to deck. Clone ID: {deckClone.Id}");
+
+
+            // 需要将这张牌重新放入手牌
+            clone.DeckVersion = deckClone; // 关联这两张牌
+            await CardPileCmd.Add(clone, PileType.Hand);
         }
-        deckClone.RestoreShineToMax();
-        CardPileAddResult result = await CardPileCmd.Add(deckClone, PileType.Deck);
-        CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.MessyLayout);
-        MainFile.Logger.Info($"Cloned KarenSunlight for combat shine exhaustion and added to deck. Clone ID: {deckClone.Id}");
-
-
-        // 需要将这张牌重新放入手牌
-        clone.DeckVersion = deckClone; // 关联这两张牌
-        await CardPileCmd.Add(clone, PileType.Hand);
     }
 }
