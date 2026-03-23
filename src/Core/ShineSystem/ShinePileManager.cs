@@ -49,10 +49,11 @@ public static class ShinePileManager
     }
 
     /// <summary>
-    /// 添加卡牌到闪耀牌堆
+    /// 移动卡牌到闪耀牌堆
     /// </summary>
-    public static void AddToShinePile(CardModel card)
+    public static void MoveToShinePile(CardModel original)
     {
+        var card = original.DeckVersion?? original; // 优先使用 DeckVersion 以保持数据一致性
         if (card?.Owner == null) return;
 
         var pile = GetShinePile(card.Owner);
@@ -74,66 +75,45 @@ public static class ShinePileManager
         pile.Add(card);
         MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (shine={card.GetShineValue()})");
 
-        // 触发进入闪耀牌堆事件（供其他系统监听）
-        OnCardEnteredShinePile?.Invoke(card);
-        // 主动触发卡牌上的闪耀耗尽扳机（仅战斗中，防止存档恢复时误触发）
-        // 创建 HookPlayerChoiceContext 以支持 CardSelectCmd 等需要联机同步的选择命令
-        if (card is KarenBaseCardModel karenCard && CombatManager.Instance?.IsInProgress == true)
+
+        // 主动触发卡牌上的闪耀耗尽扳机 闪耀耗尽扳机是立即执行的
+        if (original is KarenBaseCardModel karenCard) // 
         {
+            var inCombat = CombatManager.Instance?.IsInProgress == true;
+            MainFile.Logger.Info($"[ShinePileManager] Triggered OnShineExhausted for '{card.Title}' (inCombat={inCombat})");
             var ctx = new HookPlayerChoiceContext(card.Owner!, LocalContext.NetId.Value, GameActionType.Combat);
-            var task = karenCard.OnShineExhausted(ctx, true);
+            var task = karenCard.OnShineExhausted(ctx);
             _ = ctx.AssignTaskAndWaitForPauseOrCompletion(task);
         }
     }
 
     /// <summary>
-    /// 从闪耀牌堆移除卡牌
+    /// 添加卡牌到闪耀牌堆（内部方法，假设卡牌已正确处理移除和数据设置）
     /// </summary>
-    public static bool RemoveFromShinePile(CardModel card)
+    /// <param name="card"></param>
+    public static void AddToShinePileInternal(CardModel card)
     {
-        if (card?.Owner == null) return false;
-
-        var pile = GetShinePile(card.Owner);
-        if (pile.Remove(card))
+        var pile = GetShinePile(card.Owner!);
+        if (!pile.Contains(card))
         {
-            MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' removed from shine pile");
-            OnCardLeftShinePile?.Invoke(card);
-            return true;
+            pile.Add(card);
+            MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (internal)");
         }
-        return false;
     }
 
     /// <summary>
     /// 清空玩家的闪耀牌堆
     /// </summary>
-    public static void ClearShinePile(Player player)
+    public static void ClearShinePileInternal(Player player)
     {
         var pile = GetShinePile(player);
         var cards = pile.ToList(); // 复制列表避免修改时遍历
-
         foreach (var card in cards)
         {
-            RemoveFromShinePile(card);
+            pile.Remove(card);
+            card.RemoveFromState();
         }
-
         MainFile.Logger.Info($"[ShinePileManager] Cleared shine pile for player {player?.NetId}");
-    }
-
-    /// <summary>
-    /// 将闪耀牌堆中的所有卡牌移回卡组
-    /// </summary>
-    public static void ReturnAllToDeck(Player player)
-    {
-        var pile = GetShinePile(player);
-        var cards = pile.ToList();
-
-        foreach (var card in cards)
-        {
-            RemoveFromShinePile(card);
-            // 卡牌会自动回到卡组（通过游戏机制）
-        }
-
-        MainFile.Logger.Info($"[ShinePileManager] Returned {cards.Count} cards to deck for player {player?.NetId}");
     }
 
     /// <summary>
@@ -152,15 +132,6 @@ public static class ShinePileManager
         return GetShinePile(player).Select(c => c.Id.Entry).Distinct().Count();
     }
 
-    /// <summary>
-    /// 卡牌进入闪耀牌堆事件
-    /// </summary>
-    public static event System.Action<CardModel>? OnCardEnteredShinePile;
-
-    /// <summary>
-    /// 卡牌离开闪耀牌堆事件
-    /// </summary>
-    public static event System.Action<CardModel>? OnCardLeftShinePile;
 
     // ─────────────────────────────────────────────────────────────────────
     // 存档支持
@@ -266,7 +237,7 @@ public static class ShinePileManager
 
             card.SetShineMax(entry.ShineMax);
             card.SetShineCurrent(entry.ShineCurrent);
-            AddToShinePile(card);
+            MoveToShinePile(card);
             MainFile.Logger.Info($"[ShinePileManager] 恢复耗尽卡牌 {card.Id.Entry} (shine={entry.ShineCurrent}/{entry.ShineMax})");
         }
     }

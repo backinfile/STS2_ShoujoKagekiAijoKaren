@@ -18,6 +18,7 @@ public CardModel CreateClone()
 - 若卡在非战斗牌堆（如 `PileType.Deck`）会抛 `InvalidOperationException`
 - 自动设置 `clone._cloneOf = this`（追踪克隆来源）
 - 自动选择 Scope：战斗中→`CombatState`，否则→`RunState`
+- **自动复制升级状态和附魔**（见下方详细说明）
 
 ### `CardModel.CreateDupe()`
 
@@ -45,6 +46,57 @@ public CardModel CloneCard(CardModel mutableCard)
 
 ---
 
+## 底层机制：`ClonePreservingMutability`
+
+`CreateClone()`和`RunState.CloneCard()`底层都使用`AbstractModel.ClonePreservingMutability()`方法：
+
+```csharp
+public AbstractModel ClonePreservingMutability()
+{
+    if (!IsMutable)
+    {
+        return this;  // 不可变对象直接返回自身
+    }
+    return MutableClone();
+}
+```
+
+### 关键特性
+
+| 特性 | 行为 |
+|------|------|
+| **不可变对象** (`IsCanonical`) | 直接返回自身引用（无需克隆，线程安全） |
+| **可变对象** (`IsMutable`) | 调用`MutableClone()`进行完整深拷贝 |
+
+### `MutableClone()`流程
+
+```csharp
+public AbstractModel MutableClone()
+{
+    // 1. 浅拷贝
+    AbstractModel clone = (AbstractModel)MemberwiseClone();
+
+    // 2. 标记为可变
+    clone.IsMutable = true;
+
+    // 3. 深拷贝特定字段（子类实现）
+    clone.DeepCloneFields();
+
+    // 4. 清理事件监听
+    clone.AfterCloned();
+
+    return clone;
+}
+```
+
+### 为什么需要这个设计
+
+1. **性能优化**：不可变对象（如基础CardModel定义）无需复制，直接共享引用
+2. **状态安全**：可变对象（战斗中的卡牌实例）必须深拷贝，避免修改互相影响
+3. **一致性**：Enchantment/Affliction等复杂对象通过`DeepCloneFields()`正确复制
+
+---
+
 ## 两者对比
 
 | | `CreateClone()` | `owner.RunState.CloneCard()` |
@@ -57,19 +109,76 @@ public CardModel CloneCard(CardModel mutableCard)
 
 ---
 
-## 克隆后的深拷贝内容
+## `CreateClone()` 复制内容详解
 
-`ClonePreservingMutability()` 会深拷贝以下字段：
+`CreateClone()` 内部调用 `CardScope.CloneCard(this)`，会完整复制以下状态：
 
-| 字段 | 处理方式 |
-|---|---|
-| `_keywords` | HashSet 深拷贝 |
-| `_dynamicVars` | `DynamicVars.Clone(this)` |
-| `_energyCost` | `_energyCost?.Clone(this)` |
-| `_temporaryStarCosts` | `ToList()` 新列表 |
-| `Enchantment` / `Affliction` | 各自 `ClonePreservingMutability()` |
+| 属性 | 复制方式 | 说明 |
+|------|----------|------|
+| `CurrentUpgradeLevel` | `MemberwiseClone` 浅拷贝 | 升级等级完全保留（如 +2 卡牌克隆后仍是 +2） |
+| `Enchantment` | `ClonePreservingMutability()` + `EnchantInternal()` | 附魔状态和数值完整复制 |
+| `Affliction` | `ClonePreservingMutability()` + `AfflictInternal()` | 诅咒状态和数值完整复制 |
+| `Keywords` | HashSet 深拷贝 | 所有关键词保留 |
+| `DynamicVars` | `DynamicVars.Clone(this)` | 动态变量（伤害/格挡等）完整复制 |
+| `EnergyCost` | `_energyCost?.Clone(this)` | 费用状态保留 |
+| `_temporaryStarCosts` | `ToList()` 新列表 | 临时星耗保留 |
 
-**不会**自动复制：`SpireField` 数据（如 Shine 值）——这是外部 Dictionary，需手动同步。
+### 代码实现参考
+
+来自 `CardModel.DeepCloneFields()`（第910-933行）：
+
+```csharp
+protected override void DeepCloneFields()
+{
+    // Keywords / DynamicVars / EnergyCost / StarCosts 深拷贝
+    _keywords = new HashSet<CardKeyword>(Keywords);
+    _dynamicVars = DynamicVars.Clone(this);
+    _energyCost = _energyCost?.Clone(this);
+    _temporaryStarCosts = _temporaryStarCosts.ToList();
+
+    // Enchantment 深拷贝并重新绑定
+    if (Enchantment != null)
+    {
+        EnchantmentModel enchantmentModel = (EnchantmentModel)Enchantment.ClonePreservingMutability();
+        Enchantment = null;
+        EnchantInternal(enchantmentModel, enchantmentModel.Amount);
+    }
+
+    // Affliction 深拷贝并重新绑定
+    if (Affliction != null)
+    {
+        AfflictionModel afflictionModel = (AfflictionModel)Affliction.ClonePreservingMutability();
+        Affliction = null;
+        AfflictInternal(afflictionModel, afflictionModel.Amount);
+    }
+}
+```
+
+### 使用示例：复制带升级和附魔的卡牌
+
+```csharp
+protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+{
+    // 选择手牌中的一张卡（可能是升级的，可能有附魔）
+    CardModel selection = (await CardSelectCmd.FromHand(
+        prefs: new CardSelectorPrefs(SelectionScreenPrompt, 1),
+        context: choiceContext,
+        player: Owner
+    )).FirstOrDefault();
+
+    if (selection != null)
+    {
+        // CreateClone 会自动复制：
+        // - 升级状态（如打击+2）
+        // - 附魔（如强化+3）
+        // - 动态变量（伤害/格挡数值）
+        CardModel clone = selection.CreateClone();
+
+        // 加入手牌
+        await CardPileCmd.AddGeneratedCardToCombat(clone, PileType.Hand, addedByPlayer: true);
+    }
+}
+```
 
 ---
 

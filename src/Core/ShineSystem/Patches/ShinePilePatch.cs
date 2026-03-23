@@ -1,15 +1,19 @@
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
-using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Collections.Generic;
@@ -130,7 +134,7 @@ public static class ShinePilePatch
             // ── Step 2：数据处理 ──────────────────────────────────────────
             // 将 DeckVersion 静默移出牌组，加入闪耀牌堆
             var target = GetShinePileTarget(card);
-            ShinePileManager.AddToShinePile(target);
+            ShinePileManager.MoveToShinePile(target);
 
             MainFile.Logger.Info($"[ShinePilePatch] '{target.Title}' (DeckVersion) moved to shine pile");
 
@@ -173,12 +177,13 @@ public static class ShinePilePatch
             MainFile.Logger.Info($"[ShinePilePatch] Power card '{card.Title}' shine depleted after RemoveFromCombat");
 
             // ── Step 2：数据处理（Step 1 动画已由 RemoveFromCombat 自身完成）──
-            ShinePileManager.AddToShinePile(target);
+            ShinePileManager.MoveToShinePile(target);
 
             MainFile.Logger.Info($"[ShinePilePatch] '{target.Title}' (DeckVersion) moved to shine pile");
         }
     }
 }
+
 
 /// <summary>
 /// 战斗结束后打印 Karen 玩家的闪耀牌堆内容（调试日志）。

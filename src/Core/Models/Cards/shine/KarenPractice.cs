@@ -42,7 +42,7 @@ public sealed class KarenPractice : KarenBaseCardModel
         DynamicVars.Heal.UpgradeValueBy(4m);
     }
 
-    public override Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat)
+    public override Task OnShineExhausted(PlayerChoiceContext ctx)
     {
         if (Owner != null)
             _ = CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.BaseValue);

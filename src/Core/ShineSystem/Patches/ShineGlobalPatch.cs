@@ -44,6 +44,10 @@ public static class ShineGlobalPatch
                            parameters[1].ParameterType == descriptionPreviewType &&
                            parameters[2].ParameterType.Name.Contains("Creature");
                 });
+            if (result == null)
+            {
+                MainFile.Logger.Error("未找到 CardModel.GetDescriptionForPile 方法，无法应用闪耀描述补丁！");
+            }
 
             return result;
         }

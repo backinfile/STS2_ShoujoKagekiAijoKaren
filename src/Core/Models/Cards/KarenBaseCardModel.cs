@@ -42,5 +42,5 @@ public abstract class KarenBaseCardModel : CardModel
     /// <para>传入的 <paramref name="ctx"/> 由 <see cref="ShinePileManager"/> 创建，支持 CardSelectCmd 等需要联机同步的选择命令。</para>
     /// </summary>
     // TODO
-    public virtual Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat) => Task.CompletedTask;
+    public virtual Task OnShineExhausted(PlayerChoiceContext ctx) => Task.CompletedTask;
 }
