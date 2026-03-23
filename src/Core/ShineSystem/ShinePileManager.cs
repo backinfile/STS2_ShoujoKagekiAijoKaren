@@ -1,11 +1,17 @@
 using BaseLib.Utils;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Cards;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.SaveSystem;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
@@ -54,7 +60,7 @@ public static class ShinePileManager
     /// </summary>
     /// <param name="original">原始卡牌</param>
     /// <param name="ctx">PlayerChoiceContext，由调用方传入</param>
-    public static async Task MoveToShinePile(CardModel original, PlayerChoiceContext ctx)
+    public static async Task MoveToShinePile(CardModel original, PlayerChoiceContext ctx, CombatState combatState)
     {
         var card = original.DeckVersion ?? original;
         if (card?.Owner == null) return;
@@ -82,7 +88,7 @@ public static class ShinePileManager
         if (original is KarenBaseCardModel karenCard)
         {
             MainFile.Logger.Info($"[ShinePileManager] Triggered OnShineExhausted for '{card.Title}'");
-            await karenCard.OnShineExhausted(ctx);
+            await karenCard.OnShineExhausted(ctx, combatState);
         }
     }
 
@@ -239,5 +245,36 @@ public static class ShinePileManager
             AddToShinePileInternal(card);
             MainFile.Logger.Info($"[ShinePileManager] 恢复耗尽卡牌 {card.Id.Entry} (shine={entry.ShineCurrent}/{entry.ShineMax})");
         }
+    }
+
+    /// <summary>播放闪耀耗尽删牌动画</summary>
+    public static void PlayShineDepletionAnimation(CardModel card, NCard? combatCard)
+    {
+        if (!LocalContext.IsMine(card) || combatCard == null) return;
+
+        var previewContainer = NRun.Instance?.GlobalUi?.CardPreviewContainer;
+        if (previewContainer == null) return;
+
+        combatCard.Reparent(previewContainer);
+
+        FastModeType fastMode = SaveManager.Instance.PrefsSave.FastMode;
+        float showDelay = fastMode switch
+        {
+            FastModeType.Instant => 0.01f,
+            FastModeType.Fast => 0.4f,
+            _ => 1.5f
+        };
+        float destroyDuration = fastMode switch
+        {
+            FastModeType.Instant => 0.01f,
+            FastModeType.Fast => 0.15f,
+            _ => 0.3f
+        };
+
+        Tween tween = combatCard.CreateTween();
+        tween.TweenProperty(combatCard, "scale:y", 0, destroyDuration).SetDelay(showDelay);
+        tween.Parallel().TweenProperty(combatCard, "scale:x", 1.5f, destroyDuration).SetDelay(showDelay);
+        tween.Parallel().TweenProperty(combatCard, "modulate", Colors.Black, destroyDuration * 0.67f).SetDelay(showDelay);
+        tween.TweenCallback(Callable.From(combatCard.QueueFreeSafely));
     }
 }

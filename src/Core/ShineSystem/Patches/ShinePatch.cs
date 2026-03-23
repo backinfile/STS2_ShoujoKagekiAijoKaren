@@ -28,7 +28,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 [HarmonyPatch(typeof(CardModel), nameof(CardModel.OnPlayWrapper))]
 public static class ShinePatch
 {
-    static void Postfix(CardModel __instance, PlayerChoiceContext choiceContext)
+    static void Prefix(CardModel __instance, PlayerChoiceContext choiceContext)
     {
         // 只处理有闪耀值的卡牌
         if (!__instance.HasShine()) return;
@@ -44,5 +44,7 @@ public static class ShinePatch
             deckVersion.SetShineCurrent(Math.Min(newValue, deckVersion.GetShineValue()));
             MainFile.Logger.Info($"[ShinePatch] Synced deckVersion '{deckVersion.Title}' shine to {newValue}");
         }
+
+        ShinePilePatch.BeforePlayWrapper(__instance, choiceContext);
     }
 }

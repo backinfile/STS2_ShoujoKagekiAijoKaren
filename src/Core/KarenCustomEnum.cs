@@ -10,4 +10,7 @@ public static class KarenCustomEnum
 
     /// <summary>约定牌堆虚拟 PileType，用于 GlobalMoveSystem 事件的 from/to 标识</summary>
     [CustomEnum] public static PileType PromisePile;
+
+    /// <summary>闪耀耗尽牌堆虚拟 PileType，用于拦截卡牌打出后的流向</summary>
+    [CustomEnum] public static PileType ShineDepletePile;
 }

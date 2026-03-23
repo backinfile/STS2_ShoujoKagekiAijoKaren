@@ -229,12 +229,12 @@ public static class PromisePileManager
 
         var screen = NCardPileScreen.ShowScreen(snapshot, System.Array.Empty<string>());
 
-        // 设置标题
+        // 设置标题（注意：必须在设置 Text 后再设置 Visible，因为 NCardPileScreen._Ready 中 default 分支会设置 Visible = false）
         var bottomLabel = screen.GetNode<MegaRichTextLabel>("%BottomLabel");
         if (bottomLabel != null)
         {
-            bottomLabel.Visible = true;
             bottomLabel.Text = "[center]" + new LocString("gameplay_ui", "KAREN_PROMISE_PILE_INFO").GetFormattedText();
+            bottomLabel.Visible = true;
         }
     }
 

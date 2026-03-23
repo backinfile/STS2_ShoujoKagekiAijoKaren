@@ -21,7 +21,7 @@ public sealed class Karen : CharacterModel
 
     protected override CharacterModel? UnlocksAfterRunAs => null;
 
-    public override Color NameColor => StsColors.purple;
+    public override Color NameColor => new Color("FB5458");
 
     public override int StartingHp => 72;
 
@@ -56,15 +56,15 @@ public sealed class Karen : CharacterModel
 
     public override float CastAnimDelay => 0.25f;
 
-    public override Color EnergyLabelOutlineColor => new("801212FF");
+    public override Color EnergyLabelOutlineColor => new Color("A0383AFF");
 
-    public override Color DialogueColor => new("590700");
+    public override Color DialogueColor => new Color("8B2A2D");
 
-    public override Color MapDrawingColor => new("CB282B");
+    public override Color MapDrawingColor => new Color("FB5458");
 
-    public override Color RemoteTargetingLineColor => new("E15847FF");
+    public override Color RemoteTargetingLineColor => new Color("FF7A7DFF");
 
-    public override Color RemoteTargetingLineOutline => new("801212FF");
+    public override Color RemoteTargetingLineOutline => new Color("A0383AFF");
 
     public override List<string> GetArchitectAttackVfx()
     {

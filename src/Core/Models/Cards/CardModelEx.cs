@@ -1,5 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
@@ -20,8 +22,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
         /// <returns></returns>
         public static CardModel CloneSafeForDeck(this CardModel original)
         {
-            CardModel newCard = ModelDb.GetById<CardModel>(original.Id);
-            newCard.Owner = original.Owner;
+            var player = original.Owner;
+            CardModel newCard = player.RunState.CreateCard(ModelDb.GetById<CardModel>(original.Id), player);
 
             // 复制升级状态
             for (int i = 0; i < original.CurrentUpgradeLevel; i++)

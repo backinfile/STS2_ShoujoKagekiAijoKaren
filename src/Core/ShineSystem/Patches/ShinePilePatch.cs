@@ -1,123 +1,185 @@
+using BaseLib.Utils;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
+using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Threading.Tasks;
+using System;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 
 /// <summary>
-/// 闪耀牌堆核心补丁
+/// 闪耀牌堆核心补丁 - 简化方案：SpireField + AsyncLocal
 ///
-/// 统一拦截 CardModel.MoveToResultPileWithoutPlaying，这是所有卡牌打出后的唯一出口。
-/// Shine 耗尽时拦截处理，传入 PlayerChoiceContext 供 OnShineExhausted 使用。
+/// 原理：
+/// 1. OnPlayWrapper 状态机 Prefix：将 choiceContext 存入 AsyncLocal
+/// 2. ModifyCardPlayResultPileTypeAndPosition Prefix：判定闪耀耗尽，从 AsyncLocal 取 ctx 存入 SpireField
+/// 3. CardPileCmd.Add Prefix：拦截 ShineDepletePile，从 SpireField 取 ctx 调用 HandleShineDepletePileAsync
 /// </summary>
 public static class ShinePilePatch
 {
-    /// <summary>是否应进入闪耀耗尽流程（已初始化 Shine 且当前值==0）</summary>
+    /// <summary>存储每张卡牌对应的 PlayerChoiceContext</summary>
+    private static readonly SpireField<CardModel, PlayerChoiceContext?> CardContext = new(() => null);
+
+    /// <summary>是否应进入闪耀耗尽流程（已初始化Shine且当前值==0）</summary>
     private static bool ShouldEnterShinePile(CardModel card)
     {
         if (!card.IsShineCard()) return false;
         return card.GetShineValue() == 0;
     }
 
-    /// <summary>播放闪耀耗尽删牌动画</summary>
-    private static void PlayShineDepletionAnimation(CardModel card, NCard? combatCard)
+    /// <summary>
+    /// 卡牌即将被放入闪耀牌堆时，记录 PlayerChoiceContext 以供后续 Patch 使用
+    /// </summary>
+    /// <param name="card"></param>
+    /// <param name="choiceContext"></param>
+    public static void BeforePlayWrapper(CardModel card, PlayerChoiceContext choiceContext)
     {
-        if (!LocalContext.IsMine(card)) return;
-        if (combatCard == null) return;
-
-        var previewContainer = NRun.Instance?.GlobalUi?.CardPreviewContainer;
-        if (previewContainer == null) return;
-        combatCard.Reparent(previewContainer);
-
-        FastModeType fastMode = SaveManager.Instance.PrefsSave.FastMode;
-        float showDelay = fastMode switch
+        if (ShouldEnterShinePile(card))
         {
-            FastModeType.Instant => 0.01f,
-            FastModeType.Fast    => 0.4f,
-            _                    => 1.5f
-        };
-        float destroyDuration = fastMode switch
-        {
-            FastModeType.Instant => 0.01f,
-            FastModeType.Fast    => 0.15f,
-            _                    => 0.3f
-        };
+            CardContext[card] = choiceContext;
+            MainFile.Logger.Info($"[ShinePilePatch] '{card.Title}' marked for shine depletion (shine=0)");
+        }
+    }
 
-        Tween tween = combatCard.CreateTween();
-        tween.TweenProperty(combatCard, "scale:y", 0, destroyDuration).SetDelay(showDelay);
-        tween.Parallel().TweenProperty(combatCard, "scale:x", 1.5f, destroyDuration).SetDelay(showDelay);
-        tween.Parallel().TweenProperty(combatCard, "modulate", Colors.Black, destroyDuration * 0.67f).SetDelay(showDelay);
-        tween.TweenCallback(Callable.From(combatCard.QueueFreeSafely));
+
+    /// <summary>
+    /// 处理闪耀耗尽牌堆逻辑（替换 CardPileCmd.Add 的自定义方法）
+    /// </summary>
+    public static async Task HandleShineDepletePileAsync(
+        PlayerChoiceContext choiceContext,
+        CardModel card,
+        PileType pile,
+        CardPilePosition position,
+        AbstractModel? source,
+        bool skipVisuals)
+    {
+        // IsDupe 直接移除（不进入 Shine Pile）
+        if (card.IsDupe)
+        {
+            await CardPileCmd.RemoveFromCombat(card);
+            return;
+        }
+
+        MainFile.Logger.Info($"[ShinePilePatch] '{card.Title}' handling shine depletion");
+
+        // 在 RemoveFromCurrentPile 之前找战斗 NCard（用于播放动画）
+        NCard? combatCardNode = NCard.FindOnTable(card);
+
+        // 播放删除动画
+        ShinePileManager.PlayShineDepletionAnimation(card, combatCardNode);
+
+        // 这个时候combatState还在，过了下一行就没了
+        var combatState = card.CombatState;
+
+        // 将战斗实例从当前牌堆完全移除
+        card.RemoveFromCurrentPile();
+
+        // 移入 ShinePile，传入 choiceContext
+        await ShinePileManager.MoveToShinePile(card, choiceContext, combatState);
+
+        // 触发 GlobalMoveSystem 事件（从 Play 到 null，表示离开战斗）
+        //var combatState = card.CombatState ?? card.Owner?.Creature?.CombatState;
+        //if (combatState != null && card.Owner != null)
+        //{
+        //    await Hook.AfterCardChangedPiles(
+        //        card.Owner.RunState,
+        //        combatState,
+        //        target,
+        //        PileType.Play,
+        //        null
+        //    );
+        //}
     }
 
     /// <summary>
-    /// 拦截 CardModel.MoveToResultPileWithoutPlaying，处理 Shine 耗尽逻辑
+    /// 修改卡牌打出后的结果牌堆和位置
     /// </summary>
-    [HarmonyPatch(typeof(CardModel), nameof(CardModel.MoveToResultPileWithoutPlaying))]
-    public static class CardModel_MoveToResultPileWithoutPlaying_Patch
+    [HarmonyPatch(typeof(Hook), nameof(Hook.ModifyCardPlayResultPileTypeAndPosition))]
+    public static class Hook_ModifyCardPlayResultPileTypeAndPosition_Patch
     {
-        static bool Prefix(CardModel __instance, PlayerChoiceContext choiceContext, ref Task __result)
+        public static bool Prefix(ref (PileType pileType, CardPilePosition position) __result, CardModel card, ref IEnumerable<AbstractModel> modifiers)
         {
-            // 检查 Shine 耗尽条件
-            if (!ShouldEnterShinePile(__instance))
-                return true; // 不拦截，执行原方法
+            MainFile.Logger.Info($"[ShinePilePatch] Checking if '{card.Title}' should enter ShineDepletePile...");
+            // 需要耗尽的移动到耗尽牌堆
+            if (ShouldEnterShinePile(card))
+            {
+                __result = (KarenCustomEnum.ShineDepletePile, CardPilePosition.Bottom);
+                modifiers = [];
+                MainFile.Logger.Info($"[ShinePilePatch] '{card.Title}' -> {__result}");
+                return false;
+            }
+            // 不满足条件的放过
+            return true;
+        }
+    }
 
-            var pile = __instance.Pile;
-            if (pile == null || pile.Type != PileType.Play)
-                return true; // 不拦截，执行原方法
+    /// <summary>
+    /// Patch 3: Prefix CardPileCmd.Add
+    /// 拦截 ShineDepletePile，从 SpireField 取 ctx 调用 HandleShineDepletePileAsync
+    /// </summary>
+    [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add))]
+    [HarmonyPatch(new Type[] { typeof(CardModel), typeof(PileType), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool) })]
+    public static class CardPileCmd_Add_Patch
+    {
+        public static bool Prefix(ref Task<CardPileAddResult> __result, CardModel card, PileType newPileType, CardPilePosition position, AbstractModel? source, bool skipVisuals)
+        {
+            MainFile.Logger.Info($"[ShinePilePatch] Intercepting Add of '{card.Title}' to {newPileType}...");
+            if (newPileType != KarenCustomEnum.ShineDepletePile)
+                return true;
 
-            // 拦截并处理 Shine 耗尽
-            __result = HandleShineDepletionAsync(__instance, choiceContext);
+            // 从 SpireField 获取 ctx
+            var ctx = CardContext.Get(card);
+            CardContext.Set(card, null!); // 清空
+            if (ctx == null)
+            {
+                MainFile.Logger.Error($"[ShinePilePatch] No PlayerChoiceContext found for '{card.Title}' when adding to ShineDepletePile!");
+                __result = Task.FromResult(new CardPileAddResult
+                {
+                    cardAdded = card,
+                    success = false
+                });
+                return false;
+            }
+
+            // 异步执行闪耀耗尽处理，这个方法的返回值没用，直接返回null简化处理
+            __result = Handle(ctx, card, newPileType, position, source, skipVisuals);
             return false;
         }
 
-        static async Task HandleShineDepletionAsync(CardModel card, PlayerChoiceContext ctx)
+        private static async Task<CardPileAddResult> Handle(
+            PlayerChoiceContext choiceContext, CardModel card, PileType pile, CardPilePosition position, AbstractModel? addedBy, bool skipVisuals)
         {
-            // IsDupe 直接移除（不进入 Shine Pile）
-            if (card.IsDupe)
+            await HandleShineDepletePileAsync(choiceContext, card, pile, position, addedBy, skipVisuals);
+            return new CardPileAddResult
             {
-                await CardPileCmd.RemoveFromCombat(card);
-                return;
-            }
-
-            MainFile.Logger.Info($"[ShinePilePatch] '{card.Title}' shine depleted, entering removal flow");
-
-            // 在 RemoveFromCurrentPile 之前找战斗 NCard
-            NCard? combatCardNode = NCard.FindOnTable(card);
-
-            // 播放删除动画
-            PlayShineDepletionAnimation(card, combatCardNode);
-
-            // 将战斗实例从当前牌堆完全移除
-            card.RemoveFromCurrentPile();
-            // RemoveFromState 在游戏程序集内可能是 internal，使用反射调用
-            AccessTools.Method(typeof(CardModel), "RemoveFromState")?.Invoke(card, null);
-
-            // 将 DeckVersion 移入闪耀牌堆，传入 ctx
-            var target = card.DeckVersion ?? card;
-            await ShinePileManager.MoveToShinePile(target, ctx);
-
-            MainFile.Logger.Info($"[ShinePilePatch] '{target.Title}' (DeckVersion) moved to shine pile");
+                cardAdded = card,
+                success = false
+            };
         }
     }
 }
 
 /// <summary>
-/// 战斗结束后打印 Karen 玩家的闪耀牌堆内容（调试日志）。
+/// 战斗结束后打印 Karen 玩家的闪耀牌堆内容（调试日志）
 /// </summary>
 [HarmonyPatch(typeof(Player), nameof(Player.AfterCombatEnd))]
 public static class Player_AfterCombatEnd_ShinePilePatch
