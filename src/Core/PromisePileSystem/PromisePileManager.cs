@@ -18,6 +18,7 @@ using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Nodes.Screens;
+using MegaCrit.Sts2.addons.mega_text;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.GlobalMoveSystem.Patches;
 
@@ -77,7 +78,6 @@ public static class PromisePileManager
         // TODO set source?
         await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, oldPile, null);
 
-        MainFile.Logger.Info($"[PromisePile] '{card.Title}' → promise pile (count={pile.Count})");
         if (card is KarenBaseCardModel karenCard)
             await karenCard.OnAddedToPromisePile();
 
@@ -97,7 +97,6 @@ public static class PromisePileManager
 
         var card = pile.First!.Value;
         pile.RemoveFirst();
-        MainFile.Logger.Info($"[PromisePile] '{card.Title}' ← promise pile → hand (remaining={pile.Count})");
         if (card is KarenBaseCardModel karenCard)
             _ = karenCard.OnRemovedFromPromisePile();
 
@@ -131,8 +130,6 @@ public static class PromisePileManager
             if (card is KarenBaseCardModel karenCard)
                 _ = karenCard.OnRemovedFromPromisePile();
         }
-
-        MainFile.Logger.Info($"[PromisePile] Cleared {count} card(s) for player {player?.NetId}");
     }
 
     /// <summary>获取约定牌堆中的卡牌数量</summary>
@@ -179,7 +176,6 @@ public static class PromisePileManager
         {
             var card = pile.First!.Value;
             pile.RemoveFirst();
-            MainFile.Logger.Info($"[PromisePile] '{card.Title}' ← promise pile → discard");
             if (card is KarenBaseCardModel karenCard)
                 _ = karenCard.OnRemovedFromPromisePile();
             await CardPileCmd.Add(card, PileType.Discard);
@@ -230,7 +226,16 @@ public static class PromisePileManager
         var snapshot = new CardPile(PileType.None);
         foreach (var card in GetPromisePile(player))
             snapshot.AddInternal(card);
-        NCardPileScreen.ShowScreen(snapshot, System.Array.Empty<string>());
+
+        var screen = NCardPileScreen.ShowScreen(snapshot, System.Array.Empty<string>());
+
+        // 设置标题
+        var bottomLabel = screen.GetNode<MegaRichTextLabel>("%BottomLabel");
+        if (bottomLabel != null)
+        {
+            bottomLabel.Visible = true;
+            bottomLabel.Text = "[center]" + new LocString("gameplay_ui", "KAREN_PROMISE_PILE_INFO").GetFormattedText();
+        }
     }
 
 }

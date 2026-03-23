@@ -11,6 +11,7 @@ using ShoujoKagekiAijoKaren.src.Core.SaveSystem;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
@@ -49,11 +50,13 @@ public static class ShinePileManager
     }
 
     /// <summary>
-    /// 移动卡牌到闪耀牌堆
+    /// 移动卡牌到闪耀牌堆（异步版本，用于战斗中触发扳机）
     /// </summary>
-    public static void MoveToShinePile(CardModel original)
+    /// <param name="original">原始卡牌</param>
+    /// <param name="ctx">PlayerChoiceContext，由调用方传入</param>
+    public static async Task MoveToShinePile(CardModel original, PlayerChoiceContext ctx)
     {
-        var card = original.DeckVersion?? original; // 优先使用 DeckVersion 以保持数据一致性
+        var card = original.DeckVersion ?? original;
         if (card?.Owner == null) return;
 
         var pile = GetShinePile(card.Owner);
@@ -75,15 +78,11 @@ public static class ShinePileManager
         pile.Add(card);
         MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (shine={card.GetShineValue()})");
 
-
-        // 主动触发卡牌上的闪耀耗尽扳机 闪耀耗尽扳机是立即执行的
-        if (original is KarenBaseCardModel karenCard) // 
+        // 触发卡牌上的闪耀耗尽扳机
+        if (original is KarenBaseCardModel karenCard)
         {
-            var inCombat = CombatManager.Instance?.IsInProgress == true;
-            MainFile.Logger.Info($"[ShinePileManager] Triggered OnShineExhausted for '{card.Title}' (inCombat={inCombat})");
-            var ctx = new HookPlayerChoiceContext(card.Owner!, LocalContext.NetId.Value, GameActionType.Combat);
-            var task = karenCard.OnShineExhausted(ctx);
-            _ = ctx.AssignTaskAndWaitForPauseOrCompletion(task);
+            MainFile.Logger.Info($"[ShinePileManager] Triggered OnShineExhausted for '{card.Title}'");
+            await karenCard.OnShineExhausted(ctx);
         }
     }
 
@@ -237,7 +236,7 @@ public static class ShinePileManager
 
             card.SetShineMax(entry.ShineMax);
             card.SetShineCurrent(entry.ShineCurrent);
-            MoveToShinePile(card);
+            AddToShinePileInternal(card);
             MainFile.Logger.Info($"[ShinePileManager] 恢复耗尽卡牌 {card.Id.Entry} (shine={entry.ShineCurrent}/{entry.ShineMax})");
         }
     }

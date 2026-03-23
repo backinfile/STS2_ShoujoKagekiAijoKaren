@@ -2,7 +2,7 @@
   "KAREN_SHINE_LABEL": "[gold]闪耀[/gold]",
   "KAREN_SHINE_SUFFIX": "。",
   "KAREN_PROMISE_PILE_SELECT": "放入约定牌堆",
-  "KAREN_PROMISE_PILE_INFO": "这些是已放入约定牌堆的卡牌。它们在抽牌时会优先加入手牌。",
+  "KAREN_PROMISE_PILE_INFO": "约定牌堆",
   "KAREN_PROMISE_PILE_EMPTY": "约定牌堆是空的！",
   "KAREN_PROMISE_PILE_TITLE": "约定牌堆",
   "KAREN_PROMISE_PILE_DESCRIPTION": "约定牌堆中的卡牌会被优先抽取。",
