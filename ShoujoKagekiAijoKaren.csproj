@@ -156,7 +156,6 @@
     <None Include="src\Core\SaveSystem\KarenModSaveBuffer.cs.uid" />
     <None Include="src\Core\SaveSystem\KarenRunSaveData.cs.uid" />
     <None Include="src\Core\SaveSystem\Patches\RunSaveManager_Patches.cs.uid" />
-    <None Include="src\Core\ShineSystem\Patches\ShineGlobalPatch.cs.uid" />
     <None Include="src\Core\ShineSystem\Patches\ShinePatch.cs.uid" />
     <None Include="src\Core\ShineSystem\Patches\ShinePilePatch.cs.uid" />
     <None Include="src\Core\ShineSystem\ShineExtension.cs.uid" />

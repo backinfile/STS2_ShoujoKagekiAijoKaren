@@ -112,7 +112,7 @@ public static class ShinePilePatch
     {
         public static bool Prefix(ref (PileType pileType, CardPilePosition position) __result, CardModel card, ref IEnumerable<AbstractModel> modifiers)
         {
-            MainFile.Logger.Info($"[ShinePilePatch] Checking if '{card.Title}' should enter ShineDepletePile...");
+            //MainFile.Logger.Info($"[ShinePilePatch] Checking if '{card.Title}' should enter ShineDepletePile...");
             // 需要耗尽的移动到耗尽牌堆
             if (ShouldEnterShinePile(card))
             {

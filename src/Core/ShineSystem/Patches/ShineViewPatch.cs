@@ -2,7 +2,9 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Patches;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -12,8 +14,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 /// 全局闪耀补丁 - 在DynamicVars.AddTo后注入KarenShine变量
 /// 正确时机：DynamicVars.AddTo之后、GetFormattedText之前
 /// </summary>
-public static class ShineGlobalPatch
+public static class ShineViewPatch
 {
+
     /// <summary>
     /// Postfix: 在GetDescriptionForPile方法返回后修改结果，注入KarenShine变量
     /// </summary>
@@ -67,10 +70,12 @@ public static class ShineGlobalPatch
 
             // 根据 current 与 max 的关系决定颜色，current==1 时加夸张抖动特效
             string coloredNumber;
-            if (current < max)
-                coloredNumber = $"[red]{current}[/red]";
+            if (ShineUpgradePatch.InUpgradePreviewMode(__instance))
+                coloredNumber = $"[gold]{Math.Max(current, max)}[/gold]"; // 预览状态下，恢复满闪耀值
             else if (current > max)
-                coloredNumber = $"[blue]{current}[/blue]";
+                coloredNumber = $"[gold]{current}[/gold]";
+            else if (current < max)
+                coloredNumber = $"[red]{current}[/red]";
             else
                 coloredNumber = current.ToString(); // current == max：白色（默认色）
 
@@ -107,15 +112,11 @@ public static class ShineGlobalPatch
             int currentValue = source.GetShineValue();
             int maxValue = source.GetShineMaxValue();
 
-            // 使用内部方法直接设置，避免触发其他逻辑
-            clone.AddShineMax(currentValue);
-            // 同时设置最大值（SetShineValue已经同时设置了当前值和最大值）
-            // 但我们可能需要分别设置，因为当前值可能已经减少
-            if (currentValue != maxValue)
-            {
-                clone.SetShineMax(maxValue);
-                clone.SetShineCurrent(currentValue);
-            }
+
+            // 直接使用内部字段设置，确保精确复制（不是累加）
+            clone.SetShineMax(maxValue);
+            clone.SetShineCurrent(currentValue);
+            //MainFile.Logger.Info($"[MutableClone_Patch] Cloned '{clone.Title}' shine values: current={clone.GetShineValue()}, max={clone.GetShineMaxValue()}");
         }
     }
 
