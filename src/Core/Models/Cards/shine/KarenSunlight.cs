@@ -1,5 +1,6 @@
 using Godot;
 using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -8,6 +9,8 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using MegaCrit.Sts2.Core.Rewards;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
@@ -53,7 +56,7 @@ public sealed class KarenSunlight : KarenBaseCardModel
         DynamicVars.Damage.UpgradeValueBy(4m);
     }
 
-    public override async Task OnShineExhausted(PlayerChoiceContext ctx, MegaCrit.Sts2.Core.Combat.CombatState combatState, bool inCombat)
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
     {
         MainFile.Logger.Info("KarenSunlight.OnShineExhausted triggered. Prompting player to add KarenSunlight back to deck.");
         if (Owner == null)
@@ -62,20 +65,23 @@ public sealed class KarenSunlight : KarenBaseCardModel
             return;
         }
 
-        // 战斗已经结束了，直接把牌加入牌组，不需要玩家选择了
-        // TODO 改为加入卡牌奖励
+        // 战斗已经结束了，加入卡牌奖励
         if (!inCombat)
         {
-            var deckClone = this.CloneSafeForDeck();
-            if (deckClone == null)
+            var player = Owner;
+            var reward = new SpecialCardReward(this.CloneSafeForDeck(), player);
+            if (Owner.RunState.CurrentRoom is CombatRoom combatRoom)
             {
-                MainFile.Logger.Error($"Failed to clone KarenSunlight deckVersion for combat shine exhaustion. Owner or RunState was null.");
-                return;
+                // 战斗房间，加入最后的奖励里
+                combatRoom.AddExtraReward(Owner, reward);
+                MainFile.Logger.Info("Add KarenSunlight reward to combat room's extra rewards.");
             }
-            deckClone.RestoreShineToMax();
-            CardPileAddResult result = await CardPileCmd.Add(deckClone, PileType.Deck);
-            CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.MessyLayout);
-            MainFile.Logger.Info($"Combat ended. Added KarenSunlight back to deck without player choice. Clone ID: {deckClone.Id}");
+            else
+            {
+                // 非战斗房间，直接发
+                await RewardsCmd.OfferCustom(player, [reward]);
+                MainFile.Logger.Info("Offered KarenSunlight reward directly to player outside of combat room.");
+            }
             return;
         }
 

@@ -87,14 +87,8 @@ public static class ShinePilePatch
         // 播放删除动画
         ShinePileManager.PlayShineDepletionAnimation(card, combatCardNode);
 
-        // 这个时候combatState还在，过了下一行就没了
-        var combatState = card.CombatState;
-
-        // 将战斗实例从当前牌堆完全移除
-        card.RemoveFromCurrentPile();
-
         // 移入 ShinePile，传入 choiceContext
-        await ShinePileManager.MoveToShinePile(card, choiceContext, combatState);
+        await ShinePileManager.MoveToShinePile(card, choiceContext);
 
         // 触发 GlobalMoveSystem 事件（从 Play 到 null，表示离开战斗）
         //var combatState = card.CombatState ?? card.Owner?.Creature?.CombatState;

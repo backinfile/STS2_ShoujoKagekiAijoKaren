@@ -39,8 +39,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
             }
             // 复制闪耀值
             {
-                newCard.SetShineMax(original.GetShineMaxValue());
-                newCard.SetShineCurrent(original.GetShineValue());
+                int shineMax = original.GetShineMaxValue();
+                newCard.SetShineMax(shineMax);
+                newCard.SetShineCurrent(shineMax);
             }
             MainFile.Logger.Info($"[CardModelEx.CloneSafeForDeck] Cloned card to new card '{newCard.Title}' (Upgrade={newCard.CurrentUpgradeLevel}, Enchant={newCard.Enchantment?.Title}, Shine={newCard.GetShineValue()}/{newCard.GetShineMaxValue()})");
             return newCard;

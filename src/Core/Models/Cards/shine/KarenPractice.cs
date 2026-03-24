@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -42,7 +43,7 @@ public sealed class KarenPractice : KarenBaseCardModel
         DynamicVars.Heal.UpgradeValueBy(4m);
     }
 
-    public override async Task OnShineExhausted(PlayerChoiceContext ctx, MegaCrit.Sts2.Core.Combat.CombatState combatState, bool inCombat)
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
     {
         if (Owner != null)
             await CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.BaseValue);

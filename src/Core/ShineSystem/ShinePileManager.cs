@@ -60,8 +60,9 @@ public static class ShinePileManager
     /// </summary>
     /// <param name="original">原始卡牌</param>
     /// <param name="ctx">PlayerChoiceContext，由调用方传入</param>
-    public static async Task MoveToShinePile(CardModel original, PlayerChoiceContext ctx, CombatState combatState)
+    public static async Task MoveToShinePile(CardModel original, PlayerChoiceContext ctx)
     {
+        var combatState = original.CombatState;
         var card = original.DeckVersion ?? original;
         if (card?.Owner == null) return;
 
@@ -74,12 +75,6 @@ public static class ShinePileManager
             return;
         }
 
-        // 从当前牌堆移除（如果不在手牌/打出区，手动移除）
-        if (card.Pile != null && card.Pile.Type != PileType.Hand && card.Pile.Type != PileType.Play)
-        {
-            card.RemoveFromCurrentPile();
-        }
-
         // 添加到闪耀牌堆
         pile.Add(card);
         MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (shine={card.GetShineValue()})");
@@ -88,9 +83,13 @@ public static class ShinePileManager
         if (original is KarenBaseCardModel karenCard)
         {
             MainFile.Logger.Info($"[ShinePileManager] Triggered OnShineExhausted for '{card.Title}'");
-            var inCombat = CombatManager.Instance?.IsInProgress == true && combatState.Enemies.Any(e => e.IsAlive);
-            await karenCard.OnShineExhausted(ctx, combatState, inCombat);
+            var inCombat = CombatManager.Instance?.IsInProgress == true && (combatState?.Enemies?.Any(e => e.IsAlive) ?? true);
+            await karenCard.OnShineExhausted(ctx, inCombat, combatState);
         }
+
+        // 最终将这个卡牌移出游戏
+        original.RemoveFromState();
+        card.RemoveFromState();
     }
 
     /// <summary>
