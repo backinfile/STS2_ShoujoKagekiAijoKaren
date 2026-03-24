@@ -185,7 +185,7 @@ public static class Player_AfterCombatEnd_ShinePilePatch
 
         var pile = ShinePileManager.GetShinePile(__instance);
         int total = pile.Count;
-        int unique = ShinePileManager.GetUniqueCardCount(__instance);
+        int unique = ShinePileManager.GetDisposedShineCardUniqueCount(__instance);
 
         if (total == 0)
         {

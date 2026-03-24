@@ -47,10 +47,10 @@
   "KAREN_CONTINUE02.description": "造成{Damage:diff()}点伤害。\n能被多次[gold]升级[/gold]。",
 
   "KAREN_CARRYING_GUILT.title": "背负着我们犯下的罪过",
-  "KAREN_CARRYING_GUILT.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀牌堆[/gold]中每张牌额外造成{ExtraDamage:diff()}点伤害。",
+  "KAREN_CARRYING_GUILT.description": "造成{CalculatedDamage:diff()}点伤害。\n本局游戏中每耗尽一张非同名的[gold]闪耀[/gold]牌，伤害增加{ExtraDamage:diff()}点。{ShinePileUniqueCount:choose(0):|\n(已耗尽{ShinePileUniqueCount}张)}",
 
   "KAREN_STAR_FRIEND.title": "星星串起了我们的友谊",
-  "KAREN_STAR_FRIEND.description": "造成{Damage:diff()}点伤害。若击杀目标，抽1张牌。",
+  "KAREN_STAR_FRIEND.description": "造成{Damage:diff()}点伤害。[gold]斩杀[/gold]时，获得[gold]闪耀牌奖励[/gold]。",
 
   "KAREN_FALL.title": "坠落",
   "KAREN_FALL.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将1张[gold]手牌[/gold]放入[gold]约定牌堆[/gold]。",

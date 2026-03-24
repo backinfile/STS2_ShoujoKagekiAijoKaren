@@ -25,18 +25,17 @@ public sealed class KarenSwordUp : KarenBaseCardModel
         this.AddShineMax(9);
     }
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
-    {
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
         HoverTipFactory.FromPower<WeakPower>(),
         HoverTipFactory.FromPower<VulnerablePower>()
-    };
-
-    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
-    {
+    ];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
         new DamageVar(5m, ValueProp.Move),
         new PowerVar<WeakPower>(1m),
         new PowerVar<VulnerablePower>(1m)
-    };
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

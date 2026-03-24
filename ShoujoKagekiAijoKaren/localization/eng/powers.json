@@ -1,5 +1,7 @@
 {
   "KAREN_PROMISE_PILE_POWER.title": "Promise",
   "KAREN_PROMISE_PILE_POWER.description": "There are {Amount} card(s) in the Promise pile.",
-  "KAREN_PROMISE_PILE_POWER.pileContents": "Pile Contents"
+  "KAREN_PROMISE_PILE_POWER.pileContents": "Pile Contents",
+  "KAREN_STAR_FRIEND_POWER.title": "Star Friendship",
+  "KAREN_STAR_FRIEND_POWER.description": "The stars have woven our friendship. Gain extra rewards when killing enemies."
 }

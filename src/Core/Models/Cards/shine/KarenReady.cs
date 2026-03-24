@@ -26,10 +26,10 @@ public sealed class KarenReady : KarenBaseCardModel
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Innate, CardKeyword.Exhaust];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
-    {
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
         HoverTipFactory.FromPower<StrengthPower>()
-    };
+    ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {

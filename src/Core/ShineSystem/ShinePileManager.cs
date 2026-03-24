@@ -7,6 +7,8 @@ using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -15,6 +17,7 @@ using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.SaveSystem;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,16 +36,22 @@ namespace ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 public static class ShinePileManager
 {
     /// <summary>
-    /// SpireField 存储每个玩家的闪耀牌堆（卡牌列表）
+    /// SpireField 存储每个玩家的闪耀耗尽牌堆（卡牌列表）
     /// </summary>
-    private static readonly SpireField<Player, List<CardModel>> _shinePile = new(() => new List<CardModel>());
+    private static readonly SpireField<Player, List<CardModel>> _disposedShineCardPile = new(() => []);
+
+    /// <summary>
+    /// SpireField 存储本局游戏中已耗尽的不同闪耀牌ID（用于 CarryingGuilt 等效果）
+    /// 以 CardId.Entry 为唯一标识，自动去重
+    /// </summary>
+    private static readonly SpireField<Player, int> _disposedShineCardUniqueCounts = new(() => 0);
 
     /// <summary>
     /// 获取玩家的闪耀牌堆
     /// </summary>
     public static List<CardModel> GetShinePile(Player player)
     {
-        return _shinePile.Get(player)!;
+        return _disposedShineCardPile.Get(player)!;
     }
 
 
@@ -79,6 +88,9 @@ public static class ShinePileManager
         pile.Add(card);
         card.RestoreShineToMax();
         MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (shineMax={card.GetShineMaxValue()})");
+
+        // 记录本局游戏中已耗尽的闪耀牌（用于 CarryingGuilt 等效果）
+        UpdateShineCardDisposedCount(card.Owner);
 
         // 触发卡牌上的闪耀耗尽扳机
         if (original is KarenBaseCardModel karenCard)
@@ -131,11 +143,33 @@ public static class ShinePileManager
     }
 
     /// <summary>
-    /// 获取闪耀牌堆中不同种类卡牌的数量（按 CardId 去重）
+    /// 获取本局游戏中已耗尽的不同闪耀牌数量（按 CardId 去重）
+    /// 用于 CarryingGuilt 等卡牌效果
     /// </summary>
-    public static int GetUniqueCardCount(Player player)
+    public static int GetDisposedShineCardUniqueCount(Player player)
     {
-        return GetShinePile(player).Select(c => c.Id.Entry).Distinct().Count();
+        if (player == null) return 0;
+        return _disposedShineCardUniqueCounts.Get(player);
+    }
+
+    /// <summary>
+    /// 记录一张闪耀牌被耗尽
+    /// 自动去重，同一类型的卡牌只记录一次
+    /// </summary>
+    public static void UpdateShineCardDisposedCount(Player player)
+    {
+        if (player == null) return;
+        _disposedShineCardUniqueCounts.Set(player, _disposedShineCardPile.Get(player)!.Select(c => c.Id.Entry).Distinct().Count() + 1);
+        MainFile.Logger.Info($"[ShinePileManager] Updated disposed shine card count for player {player.NetId}: total={GetShinePileCount(player)}, unique={GetDisposedShineCardUniqueCount(player)}");
+    }
+
+    public static HoverTip GetShinePileUniqueCountHoverTip(Player player)
+    {
+        var title = new LocString("gameplay_ui", "KAREN_DISPOSED_PILE_UNIQUE_COUNT.title");
+        var description0 = new LocString("gameplay_ui", "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part0");
+        var description1 = new LocString("gameplay_ui", "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part1");
+        var description = String.Format("{0}{2}{1}", description0, description1, GetDisposedShineCardUniqueCount(player));
+        return new HoverTip(title, description);
     }
 
 

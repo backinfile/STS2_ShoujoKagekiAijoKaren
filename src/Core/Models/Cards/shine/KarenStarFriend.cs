@@ -1,19 +1,32 @@
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using MegaCrit.Sts2.Core.Rewards;
+using MegaCrit.Sts2.Core.Rooms;
+using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
-using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Models.CardPools;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 
 /// <summary>
-/// 星星串起了我们的友谊 - 1费8伤，击杀目标时抽1张牌，Shine 3
+/// 星星串起了我们的友谊 - 1费8伤，击杀目标时获得一张随机闪耀牌，Shine 3
 /// 升级：12伤
 /// </summary>
 public sealed class KarenStarFriend : KarenBaseCardModel
@@ -31,16 +44,21 @@ public sealed class KarenStarFriend : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .Targeting(cardPlay.Target)
-            .WithHitFx("vfx/vfx_attack_slash")
-            .Execute(choiceContext);
-
-        if (!cardPlay.Target.IsAlive)
+        if (CombatState?.RunState?.CurrentRoom is CombatRoom combatRoom)
         {
-            await CardPileCmd.Draw(choiceContext, 1, Owner);
+            bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
+            AttackCommand attackCommand = await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
+                .WithHitFx("vfx/vfx_attack_slash")
+                .Execute(choiceContext);
+            if (shouldTriggerFatal && attackCommand.Results.Any((DamageResult r) => r.WasTargetKilled))
+            {
+                // 随机取一张闪耀牌作为奖励，排除自己
+                var shineCard = ShineManager.GetAllShineCards().Where(c => c is not KarenStarFriend).TakeRandom(1, Owner.PlayerRng.Rewards);
+                combatRoom.AddExtraReward(base.Owner, new CardReward(shineCard, CardCreationSource.Encounter, Owner));
+
+                // 标记已经获得了奖励
+                await PowerCmd.Apply<KarenStarFriendPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+            }
         }
     }
 

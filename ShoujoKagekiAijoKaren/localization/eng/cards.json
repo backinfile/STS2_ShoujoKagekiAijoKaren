@@ -69,9 +69,10 @@
 
   "KAREN_CARRYING_GUILT.title": "Carrying Our Guilt",
   "KAREN_CARRYING_GUILT.description": "Deal {Damage:diff()} damage, plus {ExtraDamage:diff()} for each card in your [gold]Shine Pile[/gold].",
+  "KAREN_CARRYING_GUILT.tip.disposedCount": "Unique Shine cards depleted:",
 
   "KAREN_STAR_FRIEND.title": "Star Friend",
-  "KAREN_STAR_FRIEND.description": "Deal {Damage:diff()} damage. If this kills the target, draw 1 card.",
+  "KAREN_STAR_FRIEND.description": "Deal {Damage:diff()} damage. If this kills the target, gain a random [gold]Shine[/gold] card.",
 
   "KAREN_FALL.title": "Fallen",
   "KAREN_FALL.description": "Gain {Block:diff()} [gold]Block[/gold]. Put 1 card from your hand into the [gold]Promise Pile[/gold].",

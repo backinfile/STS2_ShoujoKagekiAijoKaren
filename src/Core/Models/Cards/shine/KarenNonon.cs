@@ -25,10 +25,10 @@ public sealed class KarenNonon : KarenBaseCardModel
         this.AddShineMax(9);
     }
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
-    {
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
         HoverTipFactory.FromPower<StrengthPower>()
-    };
+    ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
