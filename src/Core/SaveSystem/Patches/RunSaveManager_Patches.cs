@@ -2,6 +2,7 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Saves.Managers;
+using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.IO;
@@ -88,7 +89,7 @@ internal static class RunSaveManager_Patches
             if (state == null) return originalBytes;
 
             var playerShineData = ShineSaveSystem.CollectAllPlayersShineData(state.Players);
-            var playerShinePileData = ShinePileManager.CollectAllPlayersShinePileData(state.Players);
+            var playerShinePileData = ShinePileSaveManager.CollectAllPlayersShinePileData(state.Players);
             if (playerShineData.Count == 0 && playerShinePileData.Count == 0) return originalBytes; // 无 Karen 玩家，透传
 
             var modData = new KarenRunSaveData
@@ -172,6 +173,6 @@ internal static class RunSaveManager_Patches
         if (data == null) return;
 
         ShineSaveSystem.RestoreAllPlayersShineData(state.Players, data);
-        ShinePileManager.RestoreAllPlayersShinePileData(state.Players, data);
+        ShinePileSaveManager.RestoreAllPlayersShinePileData(state.Players, data);
     }
 }

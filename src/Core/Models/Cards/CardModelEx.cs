@@ -18,6 +18,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
     {
         /// <summary>
         /// 复制战斗中的一张卡，这张卡可以安全的加入牌组中。
+        /// 仅保留少量的属性，避免把战斗中的状态带出来
         /// </summary>
         /// <returns></returns>
         public static CardModel CloneSafeForDeck(this CardModel original)

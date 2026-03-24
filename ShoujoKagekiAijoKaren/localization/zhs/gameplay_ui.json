@@ -6,8 +6,5 @@
   "KAREN_PROMISE_PILE_EMPTY": "约定牌堆是空的！",
   "KAREN_PROMISE_PILE_TITLE": "约定牌堆",
   "KAREN_PROMISE_PILE_DESCRIPTION": "约定牌堆中的卡牌会被优先抽取。",
-  "KAREN_SUNLIGHT_OBTAIN_PROMPT": "是否将此牌加入抽牌堆？",
-  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.title": "计数？",
-  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part0": "已经耗尽的非同名闪耀牌的张数为",
-  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part1": "张。"
+  "KAREN_SUNLIGHT_OBTAIN_PROMPT": "是否将此牌加入抽牌堆？"
 }

@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.Saves.Runs;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -24,6 +25,6 @@ public class KarenRunSaveData
     /// ShineSaveData.ShineCurrent 恒为 0（已耗尽），ShineMax 保留原始值。
     /// ShineSaveData.Index 为该卡牌在 Deck.Cards 中的下标（-1 表示已从 Deck 移出）。
     /// </summary>
-    [JsonPropertyName("player_shine_pile_data")]
-    public Dictionary<int, List<ShineSaveData>> PlayerShinePileData { get; set; } = new();
+    [JsonPropertyName("player_disposed_pile_data")]
+    public Dictionary<int, List<SerializableCard>> PlayerShinePileData { get; set; } = new();
 }

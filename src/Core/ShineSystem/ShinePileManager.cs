@@ -25,7 +25,8 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
 /// <summary>
-/// 闪耀牌堆管理器 - 管理每张卡牌的独立"闪耀牌堆"
+/// 闪耀牌堆（耗尽牌堆） - 管理每张卡牌的独立"闪耀牌堆"
+/// 收集耗尽的闪耀牌，这里面的牌不会再次利用，只计数用。
 ///
 /// 设计说明：
 /// - 每个玩家拥有独立的闪耀牌堆
@@ -85,7 +86,7 @@ public static class ShinePileManager
         }
 
         // 添加到闪耀牌堆
-        pile.Add(card);
+        pile.Add(card.CloneSafeForDeck());
         card.RestoreShineToMax();
         MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (shineMax={card.GetShineMaxValue()})");
 
@@ -109,14 +110,11 @@ public static class ShinePileManager
     /// 添加卡牌到闪耀牌堆（内部方法，假设卡牌已正确处理移除和数据设置）
     /// </summary>
     /// <param name="card"></param>
-    public static void AddToShinePileInternal(CardModel card)
+    public static void AddToShinePileInternal(Player player, CardModel card)
     {
-        var pile = GetShinePile(card.Owner!);
-        if (!pile.Contains(card))
-        {
-            pile.Add(card);
-            MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (internal)");
-        }
+        var pile = GetShinePile(player);
+        pile.Add(card);
+        MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (internal)");
     }
 
     /// <summary>
@@ -159,7 +157,7 @@ public static class ShinePileManager
     public static void UpdateShineCardDisposedCount(Player player)
     {
         if (player == null) return;
-        _disposedShineCardUniqueCounts.Set(player, _disposedShineCardPile.Get(player)!.Select(c => c.Id.Entry).Distinct().Count() + 1);
+        _disposedShineCardUniqueCounts.Set(player, _disposedShineCardPile.Get(player)!.Select(c => c.Id.Entry).Distinct().Count());
         MainFile.Logger.Info($"[ShinePileManager] Updated disposed shine card count for player {player.NetId}: total={GetShinePileCount(player)}, unique={GetDisposedShineCardUniqueCount(player)}");
     }
 
@@ -172,115 +170,6 @@ public static class ShinePileManager
         return new HoverTip(title, description);
     }
 
-
-    // ─────────────────────────────────────────────────────────────────────
-    // 存档支持
-    // ─────────────────────────────────────────────────────────────────────
-
-    /// <summary>
-    /// 收集单个玩家的闪耀牌堆存档数据。
-    /// ShinePile 中的卡牌可能仍在 Deck.Cards（未被物理移出），用 IndexOf 定位；
-    /// 不在 Deck.Cards 时 Index = -1，仅依赖 CardId 恢复。
-    /// </summary>
-    public static List<ShineSaveData> CollectShinePileData(Player player)
-    {
-        var shinePile = GetShinePile(player);
-        if (shinePile.Count == 0) return new List<ShineSaveData>();
-
-        var result = new List<ShineSaveData>();
-        var deckList = player.Deck.Cards.ToList();
-
-        foreach (var card in shinePile)
-        {
-            int index = deckList.IndexOf(card);
-            result.Add(new ShineSaveData
-            {
-                CardId = card.Id.Entry,
-                Index = index,
-                ShineCurrent = card.GetShineValue(),
-                ShineMax = card.GetShineMaxValue()
-            });
-            MainFile.Logger.Info($"[ShinePileManager] 收集耗尽卡牌 {card.Id.Entry} (deckIndex={index}, shine={card.GetShineValue()}/{card.GetShineMaxValue()})");
-        }
-        return result;
-    }
-
-    /// <summary>
-    /// 遍历所有玩家，收集 Karen 玩家的闪耀牌堆存档数据。
-    /// </summary>
-    public static Dictionary<int, List<ShineSaveData>> CollectAllPlayersShinePileData(IReadOnlyList<Player> players)
-    {
-        var result = new Dictionary<int, List<ShineSaveData>>();
-        for (int i = 0; i < players.Count; i++)
-        {
-            var p = players[i];
-            if (p.Character is not Karen) continue;
-            var pileData = CollectShinePileData(p);
-            if (pileData.Count > 0)
-                result[i] = pileData;
-        }
-        return result;
-    }
-
-    /// <summary>
-    /// 恢复所有玩家的闪耀牌堆数据。
-    /// </summary>
-    public static void RestoreAllPlayersShinePileData(IReadOnlyList<Player> players, KarenRunSaveData data)
-    {
-        if (data.PlayerShinePileData == null || data.PlayerShinePileData.Count == 0) return;
-
-        int totalRestored = 0;
-        foreach (var (playerIdx, pileList) in data.PlayerShinePileData)
-        {
-            if (playerIdx < 0 || playerIdx >= players.Count) continue;
-            var p = players[playerIdx];
-            if (p.Character is not Karen) continue;
-            RestoreShinePileData(p, pileList);
-            totalRestored += pileList.Count;
-        }
-        MainFile.Logger.Info($"[ShinePileManager] 恢复 {data.PlayerShinePileData.Count} 名玩家共 {totalRestored} 张耗尽卡牌");
-    }
-
-    /// <summary>
-    /// 将存档中的闪耀牌堆数据恢复到指定玩家：从 Deck.Cards 找到对应卡牌，
-    /// 恢复 Shine 值后调用 AddToShinePile 将其移入闪耀牌堆。
-    /// </summary>
-    private static void RestoreShinePileData(Player player, List<ShineSaveData> saveData)
-    {
-        if (saveData == null || saveData.Count == 0) return;
-
-
-        // TODO
-        //foreach (var entry in saveData)
-        //{
-        //    CardModel? card = null;
-
-        //    // 优先：下标+ID 双重校验
-        //    if (entry.Index >= 0 && entry.Index < deckList.Count
-        //        && deckList[entry.Index].Id.Entry == entry.CardId)
-        //    {
-        //        card = deckList[entry.Index];
-        //    }
-
-        //    // 回退：按 CardId 找第一张未在闪耀牌堆的匹配牌
-        //    if (card == null)
-        //    {
-        //        card = deckList.FirstOrDefault(c =>
-        //            c.Id.Entry == entry.CardId && !IsInShinePile(c));
-        //    }
-
-        //    if (card == null)
-        //    {
-        //        MainFile.Logger.Warn($"[ShinePileManager] 未找到耗尽卡牌 {entry.CardId} (index={entry.Index})，跳过");
-        //        continue;
-        //    }
-
-        //    card.SetShineMax(entry.ShineMax);
-        //    card.SetShineCurrent(entry.ShineCurrent);
-        //    AddToShinePileInternal(card);
-        //    MainFile.Logger.Info($"[ShinePileManager] 恢复耗尽卡牌 {card.Id.Entry} (shine={entry.ShineCurrent}/{entry.ShineMax})");
-        //}
-    }
 
     /// <summary>播放闪耀耗尽删牌动画</summary>
     public static void PlayShineDepletionAnimation(CardModel card, NCard? combatCard)

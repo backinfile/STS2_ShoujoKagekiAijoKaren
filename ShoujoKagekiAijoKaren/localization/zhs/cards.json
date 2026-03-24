@@ -14,7 +14,7 @@
   "KAREN_DEBUT.description": "对所有敌人造成{Damage:diff()}点伤害{Repeat:diff()}次。",
 
   "KAREN_SWORD_UP.title": "上挑",
-  "KAREN_SWORD_UP.description": "造成{Damage:diff()}点伤害。给予{WeakPower:diff()}层[gold]虚弱[/gold]和{VulnerablePower:diff()}层[gold]易伤[/gold]。",
+  "KAREN_SWORD_UP.description": "造成{Damage:diff()}点伤害。\n给予{WeakPower:diff()}层[gold]虚弱[/gold]和{VulnerablePower:diff()}层[gold]易伤[/gold]。",
 
   "KAREN_SHINE_STRIKE_BARRAGE.title": "用你的闪耀贯穿我吧",
   "KAREN_SHINE_STRIKE_BARRAGE.description": "造成{Damage:diff()}点伤害{Repeat:diff()}次。",

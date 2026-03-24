@@ -27,10 +27,10 @@ public sealed class KarenContinue02 : KarenBaseCardModel
 
     public override int MaxUpgradeLevel => int.MaxValue;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
-    {
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
         new DamageVar(12m, ValueProp.Move)
-    };
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -48,4 +48,14 @@ public sealed class KarenContinue02 : KarenBaseCardModel
         DynamicVars.Damage.UpgradeValueBy(3m + _upgradeCount);
         _upgradeCount++;
     }
+
+    protected override void AfterDowngraded()
+    {
+        DynamicVars.Damage.ResetToBase();
+        for (int i = 0; i < _upgradeCount; i++)
+        {
+            DynamicVars.Damage.UpgradeValueBy(3m + i);
+        }
+    }
+
 }
