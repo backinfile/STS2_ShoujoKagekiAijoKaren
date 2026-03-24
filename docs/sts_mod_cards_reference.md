@@ -3,8 +3,22 @@
 > 生成日期：2026-03-21
 > 仅包含未废弃（无 `@AutoAdd.Ignore` 注解且不在 `ignore/` 和 `reduceStrength/` 目录）的卡牌。
 
-**中文本地化文件：**
-`D:\Github\STS_ShoujoKageki\src\main\resources\ShoujoKagekiResources\localization\zhs\ShoujoKageki-Card-Strings.json`
+---
+
+## ⚠️ 重要提示：卡面描述位置
+
+**所有卡牌的中文描述文本都存储在以下本地化文件中，不在 Java 源码里：**
+
+```
+D:\Github\STS_ShoujoKageki\src\main\resources\ShoujoKagekiResources\localization\zhs\ShoujoKageki-Card-Strings.json
+```
+
+### 实现必读
+
+1. **实现任何卡牌前，务必先读取上述 JSON 文件**，查看该卡牌的中文描述、变量数值和效果说明
+2. JSON 中的 key 格式为 `卡牌类名`（如 `Strike`、`ShineStrike` 等），value 包含 `NAME` 和 `DESCRIPTION`
+3. 描述中的变量（如 `!D!`、`!B!`、`!M!`）分别代表 Damage、Block、MagicNumber，需在代码中正确设置
+4. 不要根据 Java 源码推断卡牌效果——**以 JSON 描述为准**，源码可能不完整或过时
 
 ---
 

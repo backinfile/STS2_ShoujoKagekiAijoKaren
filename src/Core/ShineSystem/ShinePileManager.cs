@@ -77,7 +77,8 @@ public static class ShinePileManager
 
         // 添加到闪耀牌堆
         pile.Add(card);
-        MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (shine={card.GetShineValue()})");
+        card.RestoreShineToMax();
+        MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (shineMax={card.GetShineMaxValue()})");
 
         // 触发卡牌上的闪耀耗尽扳机
         if (original is KarenBaseCardModel karenCard)
@@ -214,7 +215,6 @@ public static class ShinePileManager
     {
         if (saveData == null || saveData.Count == 0) return;
 
-        var deckList = player.Deck.Cards.ToList();
 
         // TODO
         //foreach (var entry in saveData)

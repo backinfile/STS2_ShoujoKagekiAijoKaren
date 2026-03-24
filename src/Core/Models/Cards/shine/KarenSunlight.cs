@@ -1,4 +1,5 @@
 using Godot;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -85,6 +86,7 @@ public sealed class KarenSunlight : KarenBaseCardModel
             return;
         }
 
+        // 还在战斗中，创建一个选择卡牌界面来让玩家选择是否将这张牌加入牌组
         // 创建一个自身的复制，需要有CombatState才能加入手牌
         CardModel clone = combatState?.CloneCard(this)!;
         if (clone == null)
@@ -97,6 +99,8 @@ public sealed class KarenSunlight : KarenBaseCardModel
 
         //var selected = await CardSelectCmdEx.FromChooseACardScreen(ctx, [clone], base.Owner, canSkip: true, new LocString("gameplay_ui", "KAREN_SUNLIGHT_OBTAIN_PROMPT"));
         var selected = await CardSelectCmd.FromChooseACardScreen(ctx, [clone], base.Owner, canSkip: true);
+
+        // 选择不加入牌组
         if (selected == null)
         {
             clone.RemoveFromState();
@@ -104,10 +108,10 @@ public sealed class KarenSunlight : KarenBaseCardModel
             return;
         }
 
+        // 选择加入牌组
         MainFile.Logger.Info("Player chose to add KarenSunlight back to deck after shine exhaustion.");
-
         {
-            // 然后创建一个牌组中的牌的复制重新加入牌组
+            // 创建一个牌组中的牌的复制重新加入牌组
             var deckClone = clone.CloneSafeForDeck();
             if (deckClone == null)
             {
