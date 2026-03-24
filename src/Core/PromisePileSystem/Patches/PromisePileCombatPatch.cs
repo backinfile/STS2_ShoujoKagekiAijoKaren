@@ -23,7 +23,7 @@ internal static class PromisePile_BeforeCombatStart_Patch
         if (combatState == null) return;
         foreach (var player in combatState.Players)
         {
-            PromisePileManager.ClearPromisePile(player);
+            PromisePileManager.ClearPromisePileInternal(player);
             // 战斗开始时为华恋角色初始化 Power
             _ = PromisePileManager.InitPowerAsync(player);
         }
@@ -36,7 +36,7 @@ internal static class PromisePile_AfterCombatEnd_Patch
     [HarmonyPostfix]
     private static void Postfix(Player __instance)
     {
-        PromisePileManager.ClearPromisePile(__instance);
+        PromisePileManager.ClearPromisePileInternal(__instance);
     }
 }
 
@@ -52,10 +52,10 @@ internal static class PromisePile_AfterTurnEnd_Patch
         foreach (var player in combatState.Players)
         {
             var pile = PromisePileManager.GetPromisePile(player);
-            if (pile.Count > 0)
+            if (pile.Cards.Count > 0)
             {
-                var cards = string.Join(", ", pile.Select(c => $"'{c.Title}'"));
-                MainFile.Logger.Info($"[PromisePile] Turn end - {pile.Count} card(s): {cards}");
+                var cards = string.Join(", ", pile.Cards.Select(c => $"'{c.Title}'"));
+                MainFile.Logger.Info($"[PromisePile] Turn end - {pile.Cards.Count} card(s): {cards}");
             }
             else
             {

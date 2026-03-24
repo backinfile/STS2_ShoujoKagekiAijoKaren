@@ -21,6 +21,7 @@ using MegaCrit.Sts2.Core.Nodes.Screens;
 using MegaCrit.Sts2.addons.mega_text;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.GlobalMoveSystem.Patches;
+using Godot;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 
@@ -35,18 +36,21 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 /// </summary>
 public static class PromisePileManager
 {
-    private static readonly SpireField<Player, LinkedList<CardModel>> _promisePile
-        = new(() => new LinkedList<CardModel>());
+    private static readonly SpireField<PlayerCombatState, CardPile> _promisePile
+        = new(() => new CardPile(KarenCustomEnum.PromisePile));
 
     /// <summary>获取玩家的约定牌堆链表</summary>
-    public static LinkedList<CardModel> GetPromisePile(Player player)
-        => _promisePile.Get(player)!;
+    public static CardPile GetPromisePile(Player player)
+        => _promisePile.Get(player.PlayerCombatState!)!;
+
+    public static CardPile GetPromisePile(PlayerCombatState combatState)
+        => _promisePile.Get(combatState)!;
 
     /// <summary>检查卡牌是否在约定牌堆中</summary>
     public static bool IsInPromisePile(CardModel card)
     {
         if (card?.Owner == null) return false;
-        return GetPromisePile(card.Owner).Contains(card);
+        return GetPromisePile(card.Owner).Cards.Contains(card);
     }
 
     /// <summary>
@@ -58,7 +62,7 @@ public static class PromisePileManager
         if (card?.Owner == null) return;
 
         var pile = GetPromisePile(card.Owner);
-        if (pile.Contains(card))
+        if (pile.Cards.Contains(card))
         {
             MainFile.Logger.Warn($"[PromisePile] '{card.Title}' already in promise pile, skipping");
             return;
@@ -72,11 +76,11 @@ public static class PromisePileManager
         PromisePileAnimator.PlayAddAnimation(card);
 
         card.RemoveFromCurrentPile();
-        pile.AddLast(card);
+        pile.AddInternal(card);
 
         // pile.AddLast 后 IsInPromisePile 为 true，GlobalMovePatch 能正确推断 newPile = PromisePile
-        // TODO set source?
         await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, oldPile, null);
+        MainFile.Logger.Info($"[PromisePile] Added '{card.Title}' to promise pile (was in {oldPile})");
 
         if (card is KarenBaseCardModel karenCard)
             await karenCard.OnAddedToPromisePile();
@@ -93,12 +97,12 @@ public static class PromisePileManager
         PlayerChoiceContext choiceContext, Player player)
     {
         var pile = GetPromisePile(player);
-        if (pile.Count == 0) return null;
+        if (pile.Cards.Count == 0) return null;
 
-        var card = pile.First!.Value;
-        pile.RemoveFirst();
+        var card = pile.Cards.First();
+        pile.RemoveInternal(card);
         if (card is KarenBaseCardModel karenCard)
-            _ = karenCard.OnRemovedFromPromisePile();
+            await karenCard.OnRemovedFromPromisePile();
 
         await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
         await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
@@ -115,26 +119,27 @@ public static class PromisePileManager
     /// 此时游戏状态正在销毁，不应触发订阅者逻辑。
     /// 战斗实例被注销后，DeckVersion 仍在 Player.Deck，下场战斗正常使用。
     /// </summary>
-    public static void ClearPromisePile(Player player)
+    public static void ClearPromisePileInternal(Player player)
     {
         var pile = GetPromisePile(player);
-        if (pile.Count == 0) return;
+        if (pile.Cards.Count == 0) return;
 
-        int count = pile.Count;
-        while (pile.Count > 0)
+        int count = pile.Cards.Count;
+        while (pile.Cards.Count > 0)
         {
-            var card = pile.First!.Value;
-            pile.RemoveFirst();
+            var card = pile.Cards.First();
             card.RemoveFromCurrentPile();
-            AccessTools.Method(typeof(CardModel), "RemoveFromState")?.Invoke(card, null);
-            if (card is KarenBaseCardModel karenCard)
-                _ = karenCard.OnRemovedFromPromisePile();
+            card.RemoveFromState();
+
+            // 不触发扳机
+            //if (card is KarenBaseCardModel karenCard)
+            //    _ = karenCard.OnRemovedFromPromisePile();
         }
     }
 
     /// <summary>获取约定牌堆中的卡牌数量</summary>
     public static int GetCount(Player player)
-        => GetPromisePile(player).Count;
+        => GetPromisePile(player).Cards.Count;
 
     /// <summary>
     /// 从指定牌堆（弃牌堆或抽牌堆）让玩家选择最多 count 张牌放入约定牌堆。
@@ -170,14 +175,14 @@ public static class PromisePileManager
         if (player == null) return;
 
         var pile = GetPromisePile(player);
-        if (pile.Count == 0) return;
+        if (pile.Cards.Count == 0) return;
 
-        while (pile.Count > 0)
+        while (pile.Cards.Count > 0)
         {
-            var card = pile.First!.Value;
-            pile.RemoveFirst();
+            var card = pile.Cards.First();
+            pile.RemoveInternal(card);
             if (card is KarenBaseCardModel karenCard)
-                _ = karenCard.OnRemovedFromPromisePile();
+                await karenCard.OnRemovedFromPromisePile();
             await CardPileCmd.Add(card, PileType.Discard);
             await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
         }
@@ -213,7 +218,7 @@ public static class PromisePileManager
         if (creature.GetPower<KarenPromisePilePower>() is { } karenPower)
         {
             karenPower.SetCount(count);
-            var names = GetPromisePile(player)
+            var names = GetPromisePile(player).Cards
                 .Select(c => c.IsUpgraded ? c.Title + "+" : c.Title)
                 .ToArray();
             karenPower.SetCardNames(names);
@@ -224,7 +229,7 @@ public static class PromisePileManager
     public static void ShowScreen(Player player)
     {
         var snapshot = new CardPile(PileType.None);
-        foreach (var card in GetPromisePile(player))
+        foreach (var card in GetPromisePile(player).Cards)
             snapshot.AddInternal(card);
 
         var screen = NCardPileScreen.ShowScreen(snapshot, System.Array.Empty<string>());

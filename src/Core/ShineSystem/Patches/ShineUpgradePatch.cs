@@ -22,7 +22,6 @@ public static class ShineUpgradePatch
 {
     private static SpireField<CardModel, bool> InUpgradePreview = new SpireField<CardModel, bool>(() => false);
 
-
     public static bool InUpgradePreviewMode(CardModel card)
     {
         return InUpgradePreview.Get(card);
