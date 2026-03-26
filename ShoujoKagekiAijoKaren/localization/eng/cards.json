@@ -74,6 +74,15 @@
   "KAREN_STAR_FRIEND.title": "Star Friend",
   "KAREN_STAR_FRIEND.description": "Deal {Damage:diff()} damage. If this kills the target, gain a random [gold]Shine[/gold] card.",
 
+  "KAREN_LETTER_CARD.title": "Letter",
+  "KAREN_LETTER_CARD.description": "Whenever you put a card into the [gold]Promise Pile[/gold], gain {Block:diff()} [gold]Block[/gold].",
+
+  "KAREN_STARLIGHT_CARD.title": "Starlight",
+  "KAREN_STARLIGHT_CARD.description": "Whenever you play a [gold]Shine[/gold] card, play it {Repeat:diff()} more time(s), then [gold]deplete[/gold] its [gold]Shine[/gold].",
+
+  "KAREN_STARLIGHT03_CARD.title": "Starlight",
+  "KAREN_STARLIGHT03_CARD.description": "Gain a [gold]Shine Card Reward[/gold].",
+
   "KAREN_FALL.title": "Fallen",
   "KAREN_FALL.description": "Gain {Block:diff()} [gold]Block[/gold]. Put 1 card from your hand into the [gold]Promise Pile[/gold].",
 

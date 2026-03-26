@@ -20,8 +20,9 @@ public static class CardHoverTipsPatch
 {
     private static readonly (string Key, Func<CardModel, bool> Condition)[] Keywords =
     [
-        ("KAREN_SHINE", card => card.IsShineCard()),
+        ("KAREN_SHINE", card => card.IsShineCard() || card.Tags.Contains(KarenCustomEnum.ShineRelated)),
         ("KAREN_PROMISE_PILE", card => card.Tags.Contains(KarenCustomEnum.PromisePileRelated)),
+        ("KAREN_SHINE_CARD_REWARD", card => card.Tags.Contains(KarenCustomEnum.ShineCardReward)),
     ];
 
     [HarmonyPostfix]

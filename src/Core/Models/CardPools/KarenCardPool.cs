@@ -2,6 +2,7 @@ using Godot;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Unlocks;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 using ShoujoKagekiAijoKaren.src.Models.Cards;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,10 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenContinue02>(),
             ModelDb.Card<KarenCarryingGuilt>(),
             ModelDb.Card<KarenStarFriend>(),
+            ModelDb.Card<KarenLetterCard>(),
+            ModelDb.Card<KarenStarlightCard>(),
+            ModelDb.Card<KarenStarlight02Card>(),
+            ModelDb.Card<KarenStarlight03Card>(),
         ];
     }
 

@@ -1,5 +1,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Runs;
@@ -49,35 +51,46 @@ internal static class PromisePile_AfterCombatEnd_Patch
 internal static class PromisePile_AfterTurnEnd_Patch
 {
     [HarmonyPostfix]
-    private static async Task Postfix(CombatState combatState, CombatSide side)
+    public static void Postfix(CombatState combatState, CombatSide side, ref Task __result)
     {
         // 只处理玩家回合结束
         if (side != CombatSide.Player) return;
 
-        foreach (var player in combatState.Players)
-        {
-            var pile = PromisePileManager.GetPromisePile(player);
-            if (pile.Cards.Count > 0)
-            {
-                var cards = string.Join(", ", pile.Cards.Select(c => $"'{c.Title}'"));
-                MainFile.Logger.Info($"[PromisePile] Turn end - {pile.Cards.Count} card(s): {cards}");
+        __result = HandlePromisePileTurnEndTrigger(combatState);
+    }
 
-                // 触发约定牌堆中卡牌的回合结束扳机（非 Void 模式）
-                if (!PromisePileManager.IsVoidMode(player))
+    private static async Task HandlePromisePileTurnEndTrigger(CombatState combatState)
+    {
+        if (LocalContext.GetMe(combatState) is Player player)
+        {
+            MainFile.Logger.Info("[PromisePile] Handling turn end trigger for player's promise pile...");
+            // 触发约定牌堆中卡牌的回合结束扳机（非 Void 模式）
+            if (!PromisePileManager.IsVoidMode(player)) 
+            {
+                var pile = PromisePileManager.GetPromisePile(player);
+                foreach (var card in pile.Cards.ToList())
                 {
-                    foreach (var card in pile.Cards.ToList())
+                    if (card is KarenBaseCardModel karenCard)
                     {
-                        if (card is KarenBaseCardModel karenCard)
-                        {
-                            await karenCard.OnTurnEndInPromisePile();
-                        }
+                        await karenCard.OnTurnEndInPromisePile();
                     }
                 }
             }
-            else
+            else // 空虚模式，处理抽牌堆中的牌
             {
-                MainFile.Logger.Info($"[PromisePile] Turn end - empty");
+                var pile = PileType.Draw.GetPile(player);
+                foreach (var card in pile.Cards.ToList())
+                {
+                    if (card is KarenBaseCardModel karenCard)
+                    {
+                        await karenCard.OnTurnEndInPromisePile();
+                    }
+                }
             }
+        }
+        else
+        {
+            MainFile.Logger.Warn("[PromisePile] Failed to get player for turn end trigger.");
         }
     }
 }

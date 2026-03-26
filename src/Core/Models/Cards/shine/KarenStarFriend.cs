@@ -2,26 +2,19 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.Nodes.CommonUi;
-using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
-using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
-using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
-using ShoujoKagekiAijoKaren.src.Models.CardPools;
+using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 
@@ -36,10 +29,16 @@ public sealed class KarenStarFriend : KarenBaseCardModel
         this.AddShineMax(3);
     }
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
-    {
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
         new DamageVar(8m, ValueProp.Move)
-    };
+    ];
+
+    protected override HashSet<CardTag> CanonicalTags =>
+    [
+        KarenCustomEnum.ShineCardReward
+    ];
+
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -52,12 +51,10 @@ public sealed class KarenStarFriend : KarenBaseCardModel
                 .Execute(choiceContext);
             if (shouldTriggerFatal && attackCommand.Results.Any((DamageResult r) => r.WasTargetKilled))
             {
-                // 随机取一张闪耀牌作为奖励，排除自己
-                var shineCard = ShineManager.GetAllShineCards().Where(c => c is not KarenStarFriend).TakeRandom(1, Owner.PlayerRng.Rewards);
-                combatRoom.AddExtraReward(base.Owner, new CardReward(shineCard, CardCreationSource.Encounter, Owner));
-
-                // 标记已经获得了奖励
-                await PowerCmd.Apply<KarenStarFriendPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+                // 发奖
+                await KarenShineCardRewardPower.RewardShineCard(Owner, card => card.Id != this.Id);
+                // 标记
+                await PowerCmd.Apply<KarenShineCardRewardPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
             }
         }
     }

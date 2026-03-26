@@ -89,36 +89,7 @@ public static class ShineViewPatch
         }
     }
 
-    /// <summary>
-    /// MutableClone补丁 - 在卡牌克隆时复制闪耀值
-    /// 解决SpireField数据在MemberwiseClone后丢失的问题
-    /// </summary>
-    [HarmonyPatch(typeof(AbstractModel), nameof(AbstractModel.MutableClone))]
-    public static class MutableClone_Patch
-    {
-        [HarmonyPostfix]
-        public static void Postfix(AbstractModel __instance, AbstractModel __result)
-        {
-            // __instance 是原卡牌（canonical 或 mutable）
-            // __result 是新克隆的卡牌（mutable）
-            if (__instance is not CardModel source || __result is not CardModel clone)
-                return;
-
-            // 只处理闪耀牌
-            if (!source.IsShineCard())
-                return;
-
-            // 复制闪耀值
-            int currentValue = source.GetShineValue();
-            int maxValue = source.GetShineMaxValue();
-
-
-            // 直接使用内部字段设置，确保精确复制（不是累加）
-            clone.SetShineMax(maxValue);
-            clone.SetShineCurrent(currentValue);
-            //MainFile.Logger.Info($"[MutableClone_Patch] Cloned '{clone.Title}' shine values: current={clone.GetShineValue()}, max={clone.GetShineMaxValue()}");
-        }
-    }
+   
 
     /// <summary>
     /// ShouldGlowRed补丁 - 当闪耀值为1时，将卡牌边框显示为红色

@@ -5,5 +5,14 @@
   "KAREN_PROMISE_PILE_POWER.voidTitle": "Promise Enhanced",
   "KAREN_PROMISE_PILE_POWER.voidDescription": "I am now the emptiest person in the world.",
   "KAREN_STAR_FRIEND_POWER.title": "Star Friendship",
-  "KAREN_STAR_FRIEND_POWER.description": "The stars have woven our friendship. Gain extra rewards when killing enemies."
+  "KAREN_STAR_FRIEND_POWER.description": "The stars have woven our friendship. Gain extra rewards when killing enemies.",
+
+  "KAREN_LETTER_POWER.title": "Letter",
+  "KAREN_LETTER_POWER.description": "Whenever you put a card into the Promise Pile, gain {Block:diff()} Block.",
+
+  "KAREN_STARLIGHT_POWER.title": "Starlight",
+  "KAREN_STARLIGHT_POWER.description": "Whenever you play a Shine card, play it {Repeat:diff()} more time(s), then deplete its Shine.",
+
+  "KAREN_STARLIGHT03_POWER.title": "Starlight",
+  "KAREN_STARLIGHT03_POWER.description": "Shine card reward gained."
 }

@@ -31,24 +31,9 @@ public sealed class KarenPromisePilePower : FakeAmountPower
         SetCount(0);
     }
 
-    // ===== Icon Switching =====
-    private static readonly Lazy<Texture2D> NormalIcon = new(() =>
-        GD.Load<Texture2D>("res://ShoujoKagekiAijoKaren/images/powers/karen_promise_pile_power.png"));
-
-    private static readonly Lazy<Texture2D> VoidIcon = new(() =>
-        GD.Load<Texture2D>("res://ShoujoKagekiAijoKaren/images/powers/karen_promise_pile_power_void.png"));
-
     // TODO 切换ICON
     //public override Texture2D Icon => _isVoidMode ? VoidIcon.Value : NormalIcon.Value;
 
-    // ===== Title & Description Override =====
-    public override LocString Title => _isVoidMode
-        ? new LocString("powers", "KAREN_PROMISE_PILE_POWER.voidTitle")
-        : base.Title;
-
-    public override LocString Description => _isVoidMode
-        ? new LocString("powers", "KAREN_PROMISE_PILE_POWER.voidDescription")
-        : base.Description;
 
     // ===== Normal Mode Data =====
     private IReadOnlyList<string> _cardNames = Array.Empty<string>();
@@ -65,8 +50,7 @@ public sealed class KarenPromisePilePower : FakeAmountPower
     {
         get
         {
-            // Void 模式下不显示卡牌列表
-            if (_isVoidMode) yield break;
+            // TODO Void 模式下更换描述
 
             if (_cardNames.Count == 0) yield break;
 

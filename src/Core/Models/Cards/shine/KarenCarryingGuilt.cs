@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
     public KarenCarryingGuilt() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
     }
+
+    public override IEnumerable<CardTag> Tags => [KarenCustomEnum.ShineRelated];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

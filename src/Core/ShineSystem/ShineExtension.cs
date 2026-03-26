@@ -1,5 +1,7 @@
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core;
+using System.Linq;
 
 namespace ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 

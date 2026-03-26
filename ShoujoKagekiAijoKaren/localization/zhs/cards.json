@@ -50,7 +50,19 @@
   "KAREN_CARRYING_GUILT.description": "造成{CalculatedDamage:diff()}点伤害。\n本局游戏中每耗尽一张非同名的[gold]闪耀[/gold]牌，伤害增加{ExtraDamage:diff()}点。{ShinePileUniqueCount:choose(0):|\n(已耗尽{ShinePileUniqueCount}张)}",
 
   "KAREN_STAR_FRIEND.title": "星星串起了我们的友谊",
-  "KAREN_STAR_FRIEND.description": "造成{Damage:diff()}点伤害。[gold]斩杀[/gold]时，获得[gold]闪耀牌奖励[/gold]。",
+  "KAREN_STAR_FRIEND.description": "造成{Damage:diff()}点伤害。\n[gold]斩杀[/gold]时，获得[gold]闪耀牌奖励[/gold]。",
+
+  "KAREN_LETTER_CARD.title": "信封",
+  "KAREN_LETTER_CARD.description": "将卡牌放入到[gold]约定牌堆[/gold]时，获得{KarenLetterPower:diff()}点[gold]格挡[/gold]。",
+
+  "KAREN_STARLIGHT_CARD.title": "Starlight第一幕",
+  "KAREN_STARLIGHT_CARD.description": "打出[gold]闪耀[/gold]牌后，抽{KarenStarlightPower:diff()}张牌。",
+
+  "KAREN_STARLIGHT02_CARD.title": "Starlight第二幕",
+  "KAREN_STARLIGHT02_CARD.description": "打出的[gold]闪耀[/gold]牌会额外打出{KarenStarlight02Power:diff()}次，然后耗尽闪耀值。",
+
+  "KAREN_STARLIGHT03_CARD.title": "Starlight第三幕",
+  "KAREN_STARLIGHT03_CARD.description": "获得[gold]闪耀牌奖励[/gold]。",
 
   "KAREN_FALL.title": "坠落",
   "KAREN_FALL.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将1张[gold]手牌[/gold]放入[gold]约定牌堆[/gold]。",
