@@ -58,7 +58,10 @@ public static class NCreatureClickPatch
         // 唯一条件：玩家身上有约定牌堆能力
         if (!player.Creature.HasPower<KarenPromisePilePower>()) return;
 
-        // 有 Power 时直接打开/关闭界面
+        // Void 模式：不打开界面（无反馈）
+        if (PromisePileManager.IsVoidMode(player)) return;
+
+        // 有 Power 且非 Void 模式时打开/关闭界面
         if (NCapstoneContainer.Instance?.CurrentCapstoneScreen is NCardPileScreen)
         {
             NCapstoneContainer.Instance.Close();

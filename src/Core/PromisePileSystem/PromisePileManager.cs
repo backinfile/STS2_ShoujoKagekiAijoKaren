@@ -53,6 +53,14 @@ public static class PromisePileManager
         return GetPromisePile(card.Owner).Cards.Contains(card);
     }
 
+    /// <summary>检查玩家是否处于虚空模式（PromisePilePower 存在且 IsVoidMode 为 true）</summary>
+    public static bool IsVoidMode(Player player)
+    {
+        if (player?.Creature == null) return false;
+        var power = player.Creature.GetPower<KarenPromisePilePower>();
+        return power?.IsVoidMode == true;
+    }
+
     /// <summary>
     /// 将卡牌放入约定牌堆（加入链表尾部）。
     /// 会从当前牌堆物理移出（RemoveFromCurrentPile），不触发 CardPileCmd 流程。
