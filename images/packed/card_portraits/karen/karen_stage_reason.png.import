@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dccov3jhx7c7u"
-path="res://.godot/imported/defend_karen.png-561066ff34a1da17b07cdc817276fd8e.ctex"
+uid="uid://b1aid6m7rv68k"
+path="res://.godot/imported/karen_stage_reason.png-c2583b1e1e68880fff70907875402800.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/defend_karen.png"
-dest_files=["res://.godot/imported/defend_karen.png-561066ff34a1da17b07cdc817276fd8e.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_stage_reason.png"
+dest_files=["res://.godot/imported/karen_stage_reason.png-c2583b1e1e68880fff70907875402800.ctex"]
 
 [params]
 

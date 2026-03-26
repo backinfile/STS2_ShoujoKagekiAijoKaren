@@ -1,369 +1,264 @@
-# STS_ShoujoKageki 卡牌参考文档
+# Slay the Spire 1 - 少女歌剧 Mod 卡牌参考文档
 
-> 生成日期：2026-03-21
-> 仅包含未废弃（无 `@AutoAdd.Ignore` 注解且不在 `ignore/` 和 `reduceStrength/` 目录）的卡牌。
-
----
-
-## ⚠️ 重要提示：卡面描述位置
-
-**所有卡牌的中文描述文本都存储在以下本地化文件中，不在 Java 源码里：**
-
-```
-D:\Github\STS_ShoujoKageki\src\main\resources\ShoujoKagekiResources\localization\zhs\ShoujoKageki-Card-Strings.json
-```
-
-### 实现必读
-
-1. **实现任何卡牌前，务必先读取上述 JSON 文件**，查看该卡牌的中文描述、变量数值和效果说明
-2. JSON 中的 key 格式为 `卡牌类名`（如 `Strike`、`ShineStrike` 等），value 包含 `NAME` 和 `DESCRIPTION`
-3. 描述中的变量（如 `!D!`、`!B!`、`!M!`）分别代表 Damage、Block、MagicNumber，需在代码中正确设置
-4. 不要根据 Java 源码推断卡牌效果——**以 JSON 描述为准**，源码可能不完整或过时
+> 生成日期：2026-03-26
+> 来源：`D:\Github\STS_ShoujoKageki\src\main\resources\ShoujoKagekiResources\localization\zhs\ShoujoKageki-Card-Strings.json`
+> 已移除废弃卡牌（Tmp结尾及测试版本）
 
 ---
 
-## 废弃判断标准
+## 分类说明
 
-- 类上标注了 `@AutoAdd.Ignore` 注解
-- 文件位于 `ignore/` 目录
-- 文件位于 `reduceStrength/` 目录（全部废弃）
-
----
-
-## 一、初始牌 (starter)
-
-| 类名 | 中文名 | 类型 | 稀有度 | 费用 |
-|------|--------|------|--------|------|
-| `Strike` | 打击 | 攻击 | 基础 | 1 |
-| `Defend` | 防御 | 技能 | 基础 | 1 |
-| `ShineStrike` | 闪耀打击 | 攻击 | 基础 | 1 |
-| `Fall` | 坠落 | 技能 | 基础 | 1 |
-| `Sleepy` | 困意 | 诅咒 | 特殊 | — |
-| `StageReason` | 存在于舞台的理由 | 诅咒 | 特殊 | 1 |
-| `MeetAgain` | 重逢 | 技能 | 罕见 | 1 |
-
-### 绝对路径
-
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\starter\Strike.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\starter\Defend.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\starter\ShineStrike.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\starter\Fall.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\starter\Sleepy.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\starter\StageReason.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\starter\MeetAgain.java
-```
-
----
-
-## 二、约定牌堆相关牌 (bag)
-
-### 2.1 攻击牌
-
-| 类名 | 中文名 | 稀有度 | 费用 | 备注 |
-|------|--------|--------|------|------|
-| `Attack04` | 落地 | 罕见 | 1 | |
-| `Attack05` | 回击 | 特殊 | 0 | 衍生牌（由 Attack04 生成） |
-| `Attack06` | 昨天夜空的光辉 | 普通 | 1 | |
-| `Attack07` | 对峙 | 特殊 | 0 | 衍生牌（由 Defend03 生成） |
-| `Attack08` | 不再遥不可及 | 普通 | 0 | |
-| `BackToBack` | 背靠背 | 罕见 | 1 | |
-| `Consciousness` | 以觉悟的名义 | 罕见 | 1 | |
-| `CourageStrike` | 勇气打击 | 普通 | 1 | |
-| `HolyStar` | 神圣星辰 | 罕见 | 2 | |
-| `LastWord` | 最后的台词 | 稀有 | 0 | |
-| `RevueDuet` | RevueDuet | 普通 | 0 | 打出后进入约定牌堆 |
-| `ShineStrike2` | 用你的闪耀贯穿我吧 | 普通 | 1 | 闪耀牌 |
-| `StarFriend` | 星星串起了我们的友谊 | 普通 | 1 | 闪耀牌 |
-| `Sunlight` | 耀眼的阳光 | 罕见 | 1 | 闪耀牌 |
-| `WhosPromise` | 双人舞 | 普通 | 1 | |
-
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Attack04.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Attack05.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Attack06.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Attack07.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Attack08.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\BackToBack.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Consciousness.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\CourageStrike.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\HolyStar.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\LastWord.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\RevueDuet.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\ShineStrike2.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\StarFriend.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Sunlight.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\WhosPromise.java
-```
-
-### 2.2 技能牌
-
-| 类名 | 中文名 | 稀有度 | 费用 | 备注 |
-|------|--------|--------|------|------|
-| `Bridge` | 约定之塔桥 | 稀有 | X | |
-| `Continue` | 续演 | 特殊 | 0 | 衍生牌（由 StageReproduce 生成） |
-| `Defend03` | 闪避 | 罕见 | 0 | |
-| `EatFood2` | 三明治 | 特殊 | 0 | 衍生牌（由 NewSituation/BananaLunch 生成） |
-| `EatTogether` | 一起吃饭 | 罕见 | 1 | |
-| `ExchangeFate` | 命运交换之日 | 罕见 | 0 | 消耗 |
-| `Must` | 东京塔下 | 普通 | 1 | 消耗 |
-| `NewDay` | 新的一天 | 罕见 | 1 | |
-| `NewSituation` | 观察情况 | 普通 | 1 | |
-| `NoHesitate` | 不再犹豫 | 罕见 | 0 | 消耗 |
-| `OnStage` | 我将再次变为我自己 | 罕见 | 1 | 消耗 |
-| `OurPromise` | 我们的约定 | 普通 | 1 | |
-| `Parry` | 招架 | 罕见 | 1 | |
-| `Rapid` | 极速下降 | 罕见 | 0 | |
-| `Run03` | 行动 | 罕见 | 1 | 打出后进入约定牌堆 |
-| `Sideways` | 侧身 | 特殊 | 0 | 衍生牌（由 CourageStrike 生成） |
-| `Stretching` | 拉伸 | 罕见 | 2 | 打出后进入约定牌堆 |
-| `TowerOfPromise` | 约定之塔 | 特殊 | 1 | 衍生牌（由 Must 生成） |
-| `WakeUp` | 唤醒 | 稀有 | 1 | 消耗 |
-
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Bridge.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Continue.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Defend03.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\EatFood2.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\EatTogether.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\ExchangeFate.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Must.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\NewDay.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\NewSituation.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\NoHesitate.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\OnStage.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\OurPromise.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Parry.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Rapid.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Run03.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Sideways.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Stretching.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\TowerOfPromise.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\WakeUp.java
-```
-
-### 2.3 能力牌
-
-| 类名 | 中文名 | 稀有度 | 费用 |
-|------|--------|--------|------|
-| `Aquarium` | 水族馆 | 罕见 | 1 |
-| `BananaLunch` | Banana午餐 | 罕见 | 1 |
-| `BananaMuffin` | Banana松饼 | 普通 | 1 |
-| `Burn` | 燃烧吧燃烧吧 | 稀有 | 1 |
-| `Letter` | 信封 | 罕见 | 1 |
-| `StageIsWaiting` | 舞台正在等待着 | 罕见 | 2 |
-| `StageReproduce` | 命运舞台的再生产 | 稀有 | 3 |
-| `Void` | 世界上最空虚的人 | 稀有 | 2 |
-
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Aquarium.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\BananaLunch.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\BananaMuffin.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Burn.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Letter.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\StageIsWaiting.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\StageReproduce.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\Void.java
-```
-
-### 2.4 选择UI牌（游戏内部使用，不进入奖励池）
-
-| 类名 | 用途 |
+| 分类 | 说明 |
 |------|------|
-| `SelectBagPile` | 选择放入约定牌堆 |
-| `SelectBagPile3` | 选择放入约定牌堆（3张） |
-| `SelectDiscardPile` | 选择放入弃牌堆 |
-| `SelectDiscardPile2` | 选择放入弃牌堆（变体2） |
-| `SelectDiscardPile3` | 选择放入弃牌堆（变体3） |
-| `SelectDrawPile` | 选择放入抽牌堆 |
-| `SelectDrawPile2` | 选择放入抽牌堆（变体2） |
-| `SelectDrawPile3` | 选择放入抽牌堆（变体3） |
-| `SelectHand2` | 选择放入手牌 |
-
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\SelectBagPile.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\SelectBagPile3.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\SelectDiscardPile.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\SelectDiscardPile2.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\SelectDiscardPile3.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\SelectDrawPile.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\SelectDrawPile2.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\SelectDrawPile3.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\bag\SelectHand2.java
-```
+| **基础牌** | 初始卡组、通用攻击/技能牌 |
+| **闪耀相关** | 与闪耀（Shine）机制直接相关的卡牌 |
+| **约定牌堆相关** | 与约定牌堆（Promise Pile）机制相关的卡牌 |
+| **遗物相关** | 与遗物获取、禁用相关的卡牌 |
 
 ---
 
-## 三、闪耀系列牌 (shine)
+## 一、基础牌
 
-| 类名 | 中文名 | 类型 | 稀有度 | 费用 | 备注 |
-|------|--------|------|--------|------|------|
-| `CarryingGuilt` | 背负着我们犯下的罪过 | 攻击 | 稀有 | 2 | 闪耀牌 |
-| `ChargeStrike` | 蓄力打击 | 攻击 | 普通 | 1 | 闪耀牌 |
-| `Continue02` | 永无结束的命运舞台 | 攻击 | 罕见 | 1 | 闪耀牌，可多次升级 |
-| `Dance` | 舞动 | 攻击 | 普通 | 1 | |
-| `Debut` | 出场 | 攻击 | 普通 | 1 | 闪耀牌 |
-| `DrinkWater` | 水分补充 | 技能 | 罕见 | 1 | 闪耀牌，消耗 |
-| `Nonon` | NONNON哒哟 | 攻击 | 稀有 | 3 | 闪耀牌 |
-| `Potato` | 土豆 | 技能 | 普通 | 0 | 闪耀牌 |
-| `Practice` | 武术练习 | 技能 | 普通 | 1 | 闪耀牌 |
-| `Practice2` | 舞蹈练习 | 技能 | 罕见 | 1 | |
-| `Star` | 星光闪耀之时 | 技能 | 稀有 | 1 | |
-| `StarGuide` | 星光指引 | 技能 | 稀有 | 1 | 固有，消耗 |
-| `Starlight` | Starlight第一幕 | 能力 | 罕见 | 1 | |
-| `Starlight02` | Starlight第二幕 | 能力 | 稀有 | 2 | |
-| `Starlight03` | Starlight第三幕 | 能力 | 罕见 | 1 | |
-| `SwordUp` | 上挑 | 攻击 | 普通 | 1 | 闪耀牌 |
-| `ToTheStage` | 迈向那个舞台 | 技能 | 普通 | 0 | 闪耀牌 |
+### 1.1 初始卡组
 
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\CarryingGuilt.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\ChargeStrike.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\Continue02.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\Dance.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\Debut.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\DrinkWater.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\Nonon.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\Potato.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\Practice.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\Practice2.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\Star.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\StarGuide.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\Starlight.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\Starlight02.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\Starlight03.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\SwordUp.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\shine\ToTheStage.java
-```
+| 卡牌ID | 中文名 | 类型 | 费用 | 描述 |
+|--------|--------|------|------|------|
+| `Strike` | 打击 | 攻击 | 1 | 造成 !D! 点伤害。 |
+| `Defend` | 防御 | 技能 | 1 | 获得 !B! 点格挡。 |
+| `ShineStrike` | 闪耀打击 | 攻击 | 1 | 造成 !D! 点伤害。 |
+| `Fall` | 坠落 | 技能 | 1 | 获得 !B! 点格挡。将 !M! 张牌放入约定牌堆。 |
 
----
+### 1.2 通用攻击牌
 
-## 四、力量相关牌 (strength)
+| 卡牌ID | 中文名 | 稀有度 | 费用 | 描述 |
+|--------|--------|--------|------|------|
+| `ChargeStrike` | 蓄力打击 | 普通 | 1 | 造成 !D! 点伤害。本回合目标失去 !M! 点力量。 |
+| `SwordUp` | 上挑 | 普通 | 1 | 造成 !D! 点伤害。给予 !M! 层虚弱和易伤。 |
+| `WatchBack` | 背后袭击 | 稀有 | 2 | 手牌满时才能打出。给予所有敌人 !M! 层虚弱和易伤。 |
+| `NotLose` | 我不会输的 | 普通 | 2 | 造成 !D! 点伤害 !M! 次。沉淀：被打出之前耗能变为0。 |
+| `BringStarlight` | 为大家带来Starlight | 罕见 | 1 | 造成 !D! 点伤害 !M! 次。这张牌每被打出一次，在本场战斗中其攻击次数增加1。 |
+| `Debut` | 出场 | 普通 | 1 | 对所有敌人造成 !D! 点伤害 !M! 次。 |
+| `Nonon` | NONNON哒哟 | 稀有 | 3 | 对所有敌人造成 !D! 点伤害，目标本回合失去 !M! 点力量。 |
+| `CommonAttack` | 踹 | 普通 | 1 | 造成 !D! 伤害。抽1张牌，如果是技能牌就再抽1张。 |
 
-| 类名 | 中文名 | 类型 | 稀有度 | 费用 |
-|------|--------|------|--------|------|
-| `Pizza` | 披萨 | 技能 | 罕见 | 1 |
-| `Position0` | Position 0 | 能力 | 稀有 | 3 |
+### 1.3 通用技能牌
 
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\strength\Pizza.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\strength\Position0.java
-```
+| 卡牌ID | 中文名 | 稀有度 | 费用 | 描述 |
+|--------|--------|--------|------|------|
+| `Snack` | 小零食 | 罕见 | X | 获得 !M! 点临时力量 X次。获得 [E] 。消耗。 |
+| `ToTheStage` | 迈向那个舞台 | 普通 | 0 | 获得 [E] [E] [E] 。 |
+| `OldPlace2` | 明年也要在这里相见 | 罕见 | 1 | 获得 !B! 点格挡。选择：保留你的能量，手牌，格挡，或力量 !M! 回合。 |
+| `DropFuel` | 投下燃料 | 稀有 | 0 | 抽 !M! 张牌。获得 [E] [E] 。消耗。 |
+| `CommonDefend` | 蹬 | 普通 | 1 | 获得 !B! 点格挡。抽1张牌，如果是攻击牌就再抽1张。 |
+
+### 1.4 能力牌
+
+| 卡牌ID | 中文名 | 稀有度 | 费用 | 描述 |
+|--------|--------|--------|------|------|
+| `Form` | 觉醒形态 | 稀有 | 3 | 虚无。每个回合开始时，抽满手牌。 |
+| `Position0` | Position 0 | 稀有 | 3 | 每回合第 !M! 次造成未被格挡的攻击伤害时，获得等量格挡。 |
+| `Pizza` | 披萨 | 罕见 | 1 | 获得 !M! 点力量，所有敌人失去 !ShoujoKageki:SM! 点力量。消耗。 |
+
+### 1.5 诅咒牌
+
+| 卡牌ID | 中文名 | 类型 | 费用 | 描述 |
+|--------|--------|------|------|------|
+| `Sleepy` | 困意 | 诅咒 | — | 不能被打出。虚无。不能从牌组中移除。 |
+| `StageReason` | 存在于舞台的理由 | 诅咒 | 1 | 消耗。 |
 
 ---
 
-## 五、遗物相关牌 (relic)
+## 二、闪耀相关牌
 
-| 类名 | 中文名 | 类型 | 稀有度 | 费用 |
-|------|--------|------|--------|------|
-| `Arrogant` | 骄傲 | 能力 | 稀有 | 4 |
-| `Forgive` | "宽恕" | 攻击 | 稀有 | 2 |
-| `KillAll` | 皆杀 | 攻击 | 稀有 | 1 |
-| `Passion` | 激情 | 技能 | 罕见 | 2 |
-| `PickStar` | 摘星 | 技能 | 罕见 | 0 |
-| `StarCrime` | 星罪 | 技能 | 罕见 | 0 |
+### 2.1 闪耀攻击牌
 
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\relic\Arrogant.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\relic\Forgive.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\relic\KillAll.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\relic\Passion.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\relic\PickStar.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\relic\StarCrime.java
-```
+| 卡牌ID | 中文名 | 稀有度 | 费用 | 描述 |
+|--------|--------|--------|------|------|
+| `ShineStrike` | 闪耀打击 | 基础 | 1 | 造成 !D! 点伤害。 |
+| `ChargeStrike` | 蓄力打击 | 普通 | 1 | 造成 !D! 点伤害。本回合目标失去 !M! 点力量。 |
+| `Sunlight` | 耀眼的阳光 | 罕见 | 1 | 造成 !D! 点伤害。闪耀耗尽时，可将此牌重新加入牌组。 |
+| `StarFriend` | 星星串起了我们的友谊 | 普通 | 1 | 造成 !D! 点伤害。斩杀时，获得闪耀牌奖励。 |
+| `KillAll` | 皆杀 | 稀有 | 1 | 造成 !D! 点伤害。闪耀耗尽时，获得 !M! 个随机遗物。 |
+| `CarryingGuilt` | 背负着我们犯下的罪过 | 稀有 | 2 | 造成 !D! 点伤害。本局游戏中每耗尽一张非同名的闪耀牌，伤害增加 !M! 。 |
+| `Continue02` | 永无结束的命运舞台 | 罕见 | 1 | 造成 !D! 点伤害。能被多次升级。 |
+| `Debut` | 出场 | 普通 | 1 | 对所有敌人造成 !D! 点伤害 !M! 次。 |
+| `Consciousness` | 以觉悟的名义 | 罕见 | 1 | 造成 !D! 点伤害。获得与所造成的未被格挡的伤害相等的格挡。 |
 
----
+### 2.2 闪耀技能牌
 
-## 六、全局移动触发牌 (globalMove)
+| 卡牌ID | 中文名 | 稀有度 | 费用 | 描述 |
+|--------|--------|--------|------|------|
+| `Fall` | 坠落 | 基础 | 1 | 获得 !B! 点格挡。将 !M! 张牌放入约定牌堆。 |
+| `Practice` | 武术练习 | 普通 | 1 | 获得 !B! 点格挡。闪耀耗尽时回复 !M! 生命。 |
+| `Practice2` | 舞蹈练习 | 罕见 | 1 | 获得你所有牌闪耀值之和的格挡。 |
+| `DrinkWater` | 水分补充 | 罕见 | 1 | 获得 !M! 层缓冲。消耗。 |
+| `Star` | 星光闪耀之时 | 稀有 | 1 | 耗尽约定牌堆之外你唯一的闪耀牌，将其打出同等次数。 |
+| `StarGuide` | 星光指引 | 稀有 | 1 | 固有。将你所有的闪耀牌放入约定牌堆。消耗。 |
+| `Potato` | 土豆 | 普通 | 0 | 回复 !M! 生命。 |
+| `Spin` | 旋转 | 罕见 | 1 | 造成 !D! 点伤害。此牌在牌堆之间移动时，在本场战斗中伤害增加 !M! 。 |
+| `Ready` | 准备完成 | 罕见 | 0 | 固有。获得 !M! 点力量。抽 !ShoujoKageki:SM! 张牌。消耗。 |
+| `DropFuel` | 投下燃料 | 稀有 | 0 | 抽 !M! 张牌。获得 [E] [E] 。消耗。 |
 
-| 类名 | 中文名 | 类型 | 稀有度 | 费用 |
-|------|--------|------|--------|------|
-| `Financier` | Banana费南雪 | 能力 | 罕见 | 1 |
-| `NextStage` | 下一个舞台 | 技能 | 罕见 | — |
-| `Spin` | 旋转 | 攻击 | 罕见 | 1 |
+### 2.3 闪耀能力牌
 
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\globalMove\Financier.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\globalMove\NextStage.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\globalMove\Spin.java
-```
-
----
-
-## 七、其他牌 (other)
-
-| 类名 | 中文名 | 类型 | 稀有度 | 费用 | 备注 |
-|------|--------|------|--------|------|------|
-| `DropFuel` | 投下燃料 | 技能 | 稀有 | 0 | 闪耀牌，消耗 |
-| `Form` | 觉醒形态 | 能力 | 稀有 | 3 | 虚无 |
-| `OldPlace2` | 明年也要在这里相见 | 技能 | 罕见 | 1 | |
-| `RetainBlock` | 保留格挡 | 技能 | 特殊 | — | 选择子牌 |
-| `RetainEnergy` | 保留能量 | 技能 | 特殊 | — | 选择子牌 |
-| `RetainHand` | 保留手牌 | 技能 | 特殊 | — | 选择子牌 |
-| `RetainStrength` | 保留力量 | 技能 | 特殊 | — | 选择子牌 |
-
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\other\DropFuel.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\other\Form.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\other\OldPlace2.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\other\RetainBlock.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\other\RetainEnergy.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\other\RetainHand.java
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\other\RetainStrength.java
-```
+| 卡牌ID | 中文名 | 稀有度 | 费用 | 描述 |
+|--------|--------|--------|------|------|
+| `Starlight` | Starlight第一幕 | 罕见 | 1 | 打出闪耀牌后，抽 !M! 张牌。 |
+| `Starlight02` | Starlight第二幕 | 稀有 | 2 | 打出的闪耀牌会额外打出 !M! 次，然后耗尽闪耀值。 |
+| `Starlight03` | Starlight第三幕 | 罕见 | 1 | 获得闪耀牌奖励。 |
+| `Financier` | Banana费南雪 | 罕见 | 1 | 获得 !M! 点力量。每两回合保留力量1回合。 |
 
 ---
 
-## 八、额外牌 (extraCard)
+## 三、约定牌堆相关牌
 
-| 类名 | 中文名 | 类型 | 稀有度 | 费用 |
-|------|--------|------|--------|------|
-| `Gear` | 命运的齿轮 | 技能 | 稀有 | 3 |
+### 3.1 与约定牌堆互动的攻击牌
 
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\extraCard\Gear.java
-```
+| 卡牌ID | 中文名 | 稀有度 | 费用 | 描述 |
+|--------|--------|--------|------|------|
+| `WhosPromise` | 双人舞 | 普通 | 1 | 造成 !D! 点伤害。从约定牌堆中抽 !M! 张牌，然后放入 !M! 张牌。 |
+| `Attack04` | 落地 | 罕见 | 1 | 对所有敌人造成 !D! 点伤害。将 *回击 放入约定牌堆。 |
+| `Attack05` | 回击 | 特殊 | 0 | 对所有敌人造成 !D! 点伤害三次。消耗。 |
+| `Attack06` | 昨天夜空的光辉 | 普通 | 1 | 造成 !D! 点伤害。将弃牌堆中的 !M! 张牌放入约定牌堆。 |
+| `Attack07` | 对峙 | 特殊 | 0 | 造成 !D! 点伤害 !M! 次。消耗。 |
+| `Attack08` | 不再遥不可及 | 普通 | 0 | 造成 !D! 点伤害。从约定牌堆中抽 !M! 张牌。 |
+| `TwistingStrike` | 扭转打击 | 罕见 | 1 | 对所有敌人造成 !D! 点伤害。将 !M! 张 *三明治 放入约定牌堆。 |
+| `BackToBack` | 背靠背 | 罕见 | 1 | 造成约定牌堆中卡牌数量 !M! 倍的 伤害。（至多计算10张） |
+| `HolyStar` | 神圣星辰 | 罕见 | 2 | 造成 !D! 伤害。被放入约定牌堆时，在本场战斗中的耗能减少 !M! 。 |
+| `CourageStrike` | 勇气打击 | 普通 | 1 | 对所有敌人造成 !D! 伤害。将 !M! 张 *侧身 放入约定牌堆。 |
+| `SeriousStrike` | 认真打击 | 普通 | 1 | 造成 !D! 伤害。回合结束时如果在约定牌堆中，本场战斗伤害增加 !M! 。 |
+| `RevueDuet` | RevueDuet | 普通 | 0 | 造成 !D! 点伤害。打出后进入约定牌堆。 |
+| `NeverRetreat` | 绝不退让 | 普通 | 1 | 造成 !D! 伤害。如果约定牌堆中有牌，重复一次。 |
+| `Dance` | 舞动 | 普通 | 1 | 造成 !D! 点伤害。从约定牌堆中选择 !M! 张牌加入你的手牌。 |
+| `StarFriend` | 星星串起了我们的友谊 | 普通 | 1 | 造成 !D! 点伤害。斩杀时，获得闪耀牌奖励。 |
+
+### 3.2 与约定牌堆互动的技能牌
+
+| 卡牌ID | 中文名 | 稀有度 | 费用 | 描述 |
+|--------|--------|--------|------|------|
+| `Bridge` | 约定之塔桥 | 稀有 | X | 打出约定牌堆顶部 X 张牌。 |
+| `WeKnow` | 约定的舞台 | 罕见 | 0 | 手牌与约定牌堆卡牌数目相同时才能打出。获得 [E] [E] 。 |
+| `TowerOfPromise` | 约定之塔 | 特殊 | 1 | 保留。从约定牌堆中抽牌直到手牌上限。消耗。 |
+| `MeetAgain` | 重逢 | 罕见 | 1 | 获得 !B! 点格挡。抽 !M! 张牌。将 1 张牌放入约定牌堆。 |
+| `Defend03` | 闪避 | 罕见 | 0 | 获得 !B! 点格挡。将 *对峙 放入约定牌堆。 |
+| `Parry` | 招架 | 罕见 | 1 | 获得 !B! 点格挡。获得或失去手牌时，本回合格挡值增加 !M! 。 |
+| `Must` | 东京塔下 | 普通 | 1 | 获得 !B! 点格挡。将 !M! 张 *约定之塔 放入手牌。消耗。 |
+| `OurPromise` | 我们的约定 | 普通 | 1 | 抽 !M! 张牌。将2张牌放入约定牌堆。 |
+| `ExchangeFate` | 命运交换之日 | 稀有 | 0 | 将手牌与约定牌堆中的牌交换。消耗。 |
+| `Rapid` | 极速下降 | 罕见 | 0 | 从约定牌堆中选择 !M! 张牌放入你的手牌，弃置其余。 |
+| `OnStage` | 我将再次变为我自己 | 稀有 | 1 | 从约定牌堆抽 !M! 张牌。获得 [E] [E] 。消耗。 |
+| `NewDay` | 新的一天 | 罕见 | 1 | 获得 !B! 点格挡。此牌和你打出的下 !M! 张牌进入约定牌堆。 |
+| `Stretching` | 拉伸 | 罕见 | 2 | 获得 !B! 点格挡。打出后进入约定牌堆。 |
+| `EatTogether` | 一起吃饭吧 | 罕见 | 1 | 获得 !M! 点临时力量。保留力量 !ShoujoKageki:SM! 回合。 |
+| `BananaLunch` | Banana午餐 | 罕见 | 1 | 回合结束时，增加 !M! 张 *三明治 到约定牌堆。 |
+| `NoHesitate` | 不再犹豫 | 罕见 | 0 | 从抽牌堆，弃牌堆，或手牌中选择 !M! 张牌放入约定牌堆。消耗。 |
+| `WakeUp` | 唤醒 | 稀有 | 1 | 从抽牌堆中选择2张牌放入你的手牌。消耗。 |
+| `Gear` | 命运的齿轮 | 稀有 | 3 | 复制所有手牌到约定牌堆。消耗。 |
+| `Run03` | 行动 | 罕见 | 1 | 抽 !M! 张牌。打出后进入约定牌堆。 |
+| `Reproduce` | 我，再生产 | 稀有 | 1 | 消耗约定牌堆中的所有牌，每消耗一张，放入 !M! 张随机卡牌。 |
+| `Void` | 世界上最空虚的人 | 稀有 | 2 | 摧毁抽牌堆，然后以约定牌堆代替抽牌堆。 |
+| `Burn` | 燃烧吧燃烧吧 | 稀有 | 1 | 从约定牌堆抽出的牌将被升级，且被打出时消耗。 |
+
+### 3.3 与约定牌堆互动的能力牌
+
+| 卡牌ID | 中文名 | 稀有度 | 费用 | 描述 |
+|--------|--------|--------|------|------|
+| `Aquarium` | 水族馆 | 罕见 | 1 | 每个回合开始时，抽 !M! 张牌，然后将 !M! 张牌放入约定牌堆。 |
+| `StageIsWaiting` | 舞台正在等待着 | 罕见 | 2 | 约定牌堆被清空时，获得 [E] 。 |
+| `BananaLunch` | Banana午餐 | 罕见 | 1 | 回合结束时，增加 !M! 张 *三明治 到约定牌堆。 |
+| `StageReproduce` | 命运舞台的再生产 | 稀有 | 3 | 以无限的 *续演 充满约定牌堆。 |
+| `Letter` | 信封 | 罕见 | 1 | 将卡牌放入到约定牌堆时，获得 !M! 点格挡。 |
+| `NextStage` | 下一个舞台 | 罕见 | — | 不能被打出。此牌在被放入或离开约定牌堆时，抽 !M! 张牌。 |
+| `Burn` | 燃烧吧燃烧吧 | 稀有 | 1 | 从约定牌堆抽出的牌将被升级，且被打出时消耗。 |
+
+### 3.4 约定牌堆专用牌（不可打出）
+
+| 卡牌ID | 中文名 | 类型 | 描述 |
+|--------|--------|------|------|
+| `Promise` | 约定 | 技能 | 不能被打出。回合开始时如果在约定牌堆中，获得 [E] 。 |
+| `LastWord` | 最后的台词 | 攻击 | 约定牌堆之外只有这张牌时才能打出。对所有敌人造成 !D! 点伤害。 |
+
+### 3.5 衍生牌（由其他卡牌生成）
+
+| 卡牌ID | 中文名 | 来源 | 类型 | 费用 | 描述 |
+|--------|--------|------|------|------|------|
+| `Attack05` | 回击 | 落地 | 攻击 | 0 | 对所有敌人造成 !D! 点伤害三次。消耗。 |
+| `Attack07` | 对峙 | 闪避 | 攻击 | 0 | 造成 !D! 点伤害 !M! 次。消耗。 |
+| `EatFood2` | 三明治 | 扭转打击/观察情况/Banana午餐 | 技能 | 0 | 获得 !M! 点临时力量。消耗。 |
+| `TowerOfPromise` | 约定之塔 | 东京塔下 | 技能 | 1 | 保留。从约定牌堆中抽牌直到手牌上限。消耗。 |
+| `Continue` | 续演 | 命运舞台的再生产 | 攻击 | 0 | 造成 !D! 点伤害。消耗。 |
+| `Sideways` | 侧身 | 勇气打击 | 技能 | 0 | 获得 !B! 点格挡。消耗。 |
+
+### 3.6 选择UI牌（游戏内部使用）
+
+| 卡牌ID | 用途 | 描述 |
+|--------|------|------|
+| `SelectBagPile` | 选择放入约定牌堆 | 从约定牌堆中选择 2 张牌放入你的手牌。 |
+| `SelectBagPile3` | 选择放入约定牌堆（3张） | 从约定牌堆中选择任意数量的牌放入你的手牌。 |
+| `SelectDiscardPile` | 选择放入弃牌堆 | 从弃牌堆中选择 2 张牌放入你的手牌。 |
+| `SelectDiscardPile2` | 选择放入弃牌堆（变体2） | 从弃牌堆中选择 !M! 张牌放入约定牌堆。 |
+| `SelectDiscardPile3` | 选择放入弃牌堆（变体3） | 从弃牌堆中选择任意数量的牌放入你的手牌。 |
+| `SelectDrawPile` | 选择放入抽牌堆 | 从抽牌堆中选择 2 张牌放入你的手牌。 |
+| `SelectDrawPile2` | 选择放入抽牌堆（变体2） | 从抽牌堆中选择 !M! 张牌放入约定牌堆。 |
+| `SelectDrawPile3` | 选择放入抽牌堆（变体3） | 从抽牌堆中选择任意数量的牌放入你的手牌。 |
+| `SelectHand2` | 选择放入手牌 | 从手牌中选择 !M! 张牌放入约定牌堆。 |
 
 ---
 
-## 九、药水/食物牌 (potion)
+## 四、遗物相关牌
 
-| 类名 | 中文名 | 类型 | 稀有度 | 费用 |
-|------|--------|------|--------|------|
-| `EatFood3` | Banana蛋糕 | 技能 | 罕见 | 1 |
+### 4.1 遗物获取
 
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\potion\EatFood3.java
-```
+| 卡牌ID | 中文名 | 类型 | 稀有度 | 费用 | 描述 |
+|--------|--------|------|--------|------|------|
+| `Tragedy` | 悲剧 | 技能 | 稀有 | 1 | 增加一张 *腐朽 到你的牌组。战斗结束时，获得一个随机遗物。 |
+| `Passion` | 激情 | 技能 | 罕见 | 2 | 战斗结束时，获得一个随机遗物。 |
+| `Arrogant` | 骄傲 | 能力 | 稀有 | 4 | 固有，期待。战斗结束时，获得一个随机遗物。 |
+| `KillAll` | 皆杀 | 攻击 | 稀有 | 1 | 造成 !D! 点伤害。闪耀耗尽时，获得 !M! 个随机遗物。 |
 
----
+### 4.2 遗物禁用
 
-## 十、工具牌 (tool)
-
-| 类名 | 中文名 | 类型 | 稀有度 | 费用 | 备注 |
-|------|--------|------|--------|------|------|
-| `Ready` | 准备完成 | 技能 | 罕见 | 0 | 固有，闪耀牌，消耗 |
-
-```
-D:\Github\STS_ShoujoKageki\src\main\java\ShoujoKageki\cards\tool\Ready.java
-```
+| 卡牌ID | 中文名 | 类型 | 稀有度 | 费用 | 描述 |
+|--------|--------|------|--------|------|------|
+| `PickStar` | 摘星 | 技能 | 罕见 | 0 | 禁用 !ShoujoKageki:SM! 个遗物，然后获得 [E] [E] 。 |
+| `StarCrime` | 星罪 | 技能 | 罕见 | 0 | 禁用 !ShoujoKageki:SM! 个遗物，然后抽 !M! 张牌。 |
+| `Forgive` | "宽恕" | 攻击 | 稀有 | 2 | 禁用 !ShoujoKageki:SM! 个遗物，然后对所有敌人造成 !D! 点伤害。 |
 
 ---
 
-## 统计汇总
+## 五、保留选择子牌（OldPlace2衍生）
 
-| 目录 | 有效卡牌数 |
-|------|-----------|
-| starter（初始牌） | 7 |
-| bag（约定牌堆主力，含衍生/UI牌） | 43 |
-| shine（闪耀系列） | 17 |
-| strength（力量相关） | 2 |
-| relic（遗物相关） | 6 |
-| globalMove（全局移动触发） | 3 |
-| other（其他） | 7 |
-| extraCard（额外牌） | 1 |
-| potion（药水/食物） | 1 |
-| tool（工具） | 1 |
-| **合计** | **88** |
+| 卡牌ID | 中文名 | 类型 | 描述 |
+|--------|--------|------|------|
+| `RetainBlock` | 保留格挡 | 技能 | 保留格挡 !M! 回合。 |
+| `RetainEnergy` | 保留能量 | 技能 | 保留能量 !M! 回合。 |
+| `RetainHand` | 保留手牌 | 技能 | 保留手牌 !M! 回合。 |
+| `RetainStrength` | 保留力量 | 技能 | 保留力量 !M! 回合。 |
 
+---
 
+## 六、统计汇总
+
+| 分类 | 卡牌数量 |
+|------|----------|
+| 基础牌 | 23（含诅咒） |
+| 闪耀相关 | 22 |
+| 约定牌堆相关 | 48（含衍生/选择UI） |
+| 遗物相关 | 7 |
+| 保留选择子牌 | 4 |
+| **合计** | **104** |
+
+---
+
+## 附录：关键词说明
+
+| 关键词 | 说明 |
+|--------|------|
+| **闪耀（Shine）** | 卡牌每次打出 Shine-1，归零时触发效果并从卡组移除 |
+| **约定牌堆（Promise Pile）** | 特殊的牌堆，与手牌、抽牌堆、弃牌堆独立 |
+| **沉淀** | 被打出之前耗能变为0 |
+| **保留（Retain）** | 回合结束时保留在手牌中 |
+| **虚无（Ethereal）** | 回合结束时如果没有打出则消耗 |
+| **固有（Innate）** | 战斗开始时加入手牌 |
+| **消耗（Exhaust）** | 打出后进入消耗堆，不再进入弃牌堆 |
+| **不能被打出** | 无法从手牌中打出 |

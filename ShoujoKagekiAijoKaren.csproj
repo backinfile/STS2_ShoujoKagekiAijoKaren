@@ -16,11 +16,10 @@
     <EmbeddedResource Remove="themes\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\packed\card_portraits\karen\karen_defend.png" />
     <Content Include="images\powers\karen_promise_pile_power.png" />
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="images\atlases\karen_ui_atlas_0.png" />
-    <Content Include="images\packed\card_portraits\karen\defend_karen.png" />
-    <Content Include="images\packed\card_portraits\karen\strike_karen.png" />
     <Content Include="images\packed\character_select\char_select_karen.png" />
     <Content Include="images\packed\character_select\char_select_karen_locked.png" />
     <Content Include="images\packed\Karen.png" />
@@ -73,8 +72,6 @@
   <ItemGroup>
     <None Include="images\atlases\karen_ui_atlas_0.png.import" />
     <None Include="images\atlases\ui_atlas.sprites\card\energy_karen.tres" />
-    <None Include="images\packed\card_portraits\karen\defend_karen.png.import" />
-    <None Include="images\packed\card_portraits\karen\strike_karen.png.import" />
     <None Include="images\packed\character_select\char_select_karen.png.import" />
     <None Include="images\packed\character_select\char_select_karen_locked.png.import" />
     <None Include="images\packed\Karen.png.import" />
@@ -149,7 +146,6 @@
     <None Include="src\Core\Patches\NMerchantCharacterPatch.cs.uid" />
     <None Include="src\Core\Patches\ProgressSaveManager_Patches.cs.uid" />
     <None Include="src\Core\Patches\TouchOfOrobasPatch.cs.uid" />
-    <None Include="src\Core\PromisePileSystem\Commands\PromisePileCmd.cs.uid" />
     <None Include="src\Core\PromisePileSystem\Patches\PromisePileCombatPatch.cs.uid" />
     <None Include="src\Core\PromisePileSystem\PromisePileAnimator.cs.uid" />
     <None Include="src\Core\PromisePileSystem\PromisePileManager.cs.uid" />

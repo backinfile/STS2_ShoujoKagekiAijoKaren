@@ -1,13 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+using BaseLib.Abstracts;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Screens.CardLibrary;
 using MegaCrit.Sts2.Core.Saves;
+using ShoujoKagekiAijoKaren.src.Models.CardPools;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace ShoujoKagekiAijoKaren.src.KarenMod.Patches;
 
@@ -35,7 +37,7 @@ public static class NCardLibrary_KarenPatch
             .GetField("_poolFilters", BindingFlags.NonPublic | BindingFlags.Instance)
             ?.GetValue(__instance);
         if (poolDictObj is Dictionary<NCardPoolFilter, Func<CardModel, bool>> poolDict)
-            poolDict[karenPool] = c => c.Pool.GetType().Name == "KarenCardPool";
+            poolDict[karenPool] = c => c.Pool is KarenCardPool;
 
         // 5. Add to _cardPoolFilters dictionary
         var cardPoolDictObj = __instance.GetType()
