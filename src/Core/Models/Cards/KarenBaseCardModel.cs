@@ -9,10 +9,11 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 
 /// <summary>
 /// Karen 所有卡牌的抽象基类。
-/// 提供三个可 override 的扳机，由对应管理器在恰当时机直接调用：
+/// 提供四个可 override 的扳机，由对应管理器在恰当时机直接调用：
 /// <list type="bullet">
 ///   <item><description><see cref="OnAddedToPromisePile"/> — 此牌被放入约定牌堆</description></item>
 ///   <item><description><see cref="OnRemovedFromPromisePile"/> — 此牌从约定牌堆取出/弃置/清场</description></item>
+///   <item><description><see cref="OnTurnEndInPromisePile"/> — 回合结束时此牌在约定牌堆中</description></item>
 ///   <item><description><see cref="OnShineExhausted"/> — 此牌闪耀耗尽（仅战斗进行中触发）</description></item>
 /// </list>
 /// </summary>
@@ -31,6 +32,12 @@ public abstract class KarenBaseCardModel : CardModel
     /// 此牌从约定牌堆取出、弃置或战斗结束清场时触发（由 <see cref="PromisePileManager"/> 直接调用）。
     /// </summary>
     public virtual Task OnRemovedFromPromisePile() => Task.CompletedTask;
+
+    /// <summary>
+    /// 回合结束时，如果此牌在约定牌堆中触发（由 <see cref="PromisePileManager"/> 直接调用）。
+    /// <para>注意：Void 模式下约定牌堆操作重定向到抽牌堆，此扳机不会在 Void 模式下触发。</para>
+    /// </summary>
+    public virtual Task OnTurnEndInPromisePile() => Task.CompletedTask;
 
     /// <summary>
     /// 此牌闪耀耗尽（Shine 归零从卡组移除）时触发（由 <see cref="ShinePileManager"/> 直接调用）。

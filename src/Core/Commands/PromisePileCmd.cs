@@ -1,10 +1,12 @@
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,30 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands;
 /// </summary>
 public static class PromisePileCmd
 {
+    /// <summary>
+    /// 触发玩家身上所有 KarenBasePower 的 OnCardAddedToPromisePile 扳机
+    /// </summary>
+    private static async Task TriggerPowerOnCardAdded(Player player, CardModel card)
+    {
+        if (player?.Creature == null) return;
+        foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
+        {
+            await power.OnCardAddedToPromisePile(card);
+        }
+    }
+
+    /// <summary>
+    /// 触发玩家身上所有 KarenBasePower 的 OnCardRemovedFromPromisePile 扳机
+    /// </summary>
+    private static async Task TriggerPowerOnCardRemoved(Player player, CardModel card)
+    {
+        if (player?.Creature == null) return;
+        foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
+        {
+            await power.OnCardRemovedFromPromisePile(card);
+        }
+    }
+
     // ===== Void Mode Detection =====
     private static bool IsVoidMode(Player player) => PromisePileManager.IsVoidMode(player);
 
@@ -33,8 +59,9 @@ public static class PromisePileCmd
 
         if (IsVoidMode(card.Owner))
         {
-            // Void 模式：放入抽牌堆顶部
+            // Void 模式：放入抽牌堆顶部，并触发 Power 扳机
             await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
+            await TriggerPowerOnCardAdded(card.Owner, card);
             return;
         }
 
@@ -50,8 +77,13 @@ public static class PromisePileCmd
     {
         if (IsVoidMode(player))
         {
-            // Void 模式：从抽牌堆抽1张
-            return await CardPileCmd.Draw(choiceContext, player);
+            // Void 模式：从抽牌堆抽1张，并触发 Power 扳机
+            var card = await CardPileCmd.Draw(choiceContext, player);
+            if (card != null)
+            {
+                await TriggerPowerOnCardRemoved(player, card);
+            }
+            return card;
         }
 
         return await PromisePileManager.DrawFromPromisePileAsync(choiceContext, player);
@@ -65,11 +97,12 @@ public static class PromisePileCmd
     {
         if (IsVoidMode(player))
         {
-            // Void 模式：从抽牌堆批量抽取
+            // Void 模式：从抽牌堆批量抽取，每张都触发 Power 扳机
             for (int i = 0; i < count; i++)
             {
                 var card = await CardPileCmd.Draw(choiceContext, player);
                 if (card == null) break;
+                await TriggerPowerOnCardRemoved(player, card);
             }
             return;
         }
@@ -153,6 +186,7 @@ public static class PromisePileCmd
         foreach (var card in selected)
         {
             await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
+            await TriggerPowerOnCardAdded(player, card);
         }
     }
 
@@ -167,6 +201,7 @@ public static class PromisePileCmd
         foreach (var card in cards)
         {
             await CardCmd.Discard(ctx, card);
+            await TriggerPowerOnCardRemoved(player, card);
         }
     }
 }

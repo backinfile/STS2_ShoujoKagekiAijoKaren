@@ -38,7 +38,8 @@ public sealed class KarenPromisePilePower : FakeAmountPower
     private static readonly Lazy<Texture2D> VoidIcon = new(() =>
         GD.Load<Texture2D>("res://ShoujoKagekiAijoKaren/images/powers/karen_promise_pile_power_void.png"));
 
-    public override Texture2D Icon => _isVoidMode ? VoidIcon.Value : NormalIcon.Value;
+    // TODO 切换ICON
+    //public override Texture2D Icon => _isVoidMode ? VoidIcon.Value : NormalIcon.Value;
 
     // ===== Title & Description Override =====
     public override LocString Title => _isVoidMode

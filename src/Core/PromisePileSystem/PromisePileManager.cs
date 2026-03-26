@@ -61,6 +61,26 @@ public static class PromisePileManager
         return power?.IsVoidMode == true;
     }
 
+    /// <summary>触发玩家身上所有 KarenBasePower 的 OnCardAddedToPromisePile 扳机</summary>
+    private static async Task TriggerPowerOnCardAdded(Player player, CardModel card)
+    {
+        if (player?.Creature == null) return;
+        foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
+        {
+            await power.OnCardAddedToPromisePile(card);
+        }
+    }
+
+    /// <summary>触发玩家身上所有 KarenBasePower 的 OnCardRemovedFromPromisePile 扳机</summary>
+    private static async Task TriggerPowerOnCardRemoved(Player player, CardModel card)
+    {
+        if (player?.Creature == null) return;
+        foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
+        {
+            await power.OnCardRemovedFromPromisePile(card);
+        }
+    }
+
     /// <summary>
     /// 将卡牌放入约定牌堆（加入链表尾部）。
     /// 会从当前牌堆物理移出（RemoveFromCurrentPile），不触发 CardPileCmd 流程。
@@ -93,6 +113,9 @@ public static class PromisePileManager
         if (card is KarenBaseCardModel karenCard)
             await karenCard.OnAddedToPromisePile();
 
+        // 触发 KarenBasePower 扳机
+        await TriggerPowerOnCardAdded(card.Owner, card);
+
         // 更新 Power
         await UpdatePowerAsync(card.Owner);
     }
@@ -111,6 +134,9 @@ public static class PromisePileManager
         pile.RemoveInternal(card);
         if (card is KarenBaseCardModel karenCard)
             await karenCard.OnRemovedFromPromisePile();
+
+        // 触发 KarenBasePower 扳机
+        await TriggerPowerOnCardRemoved(player, card);
 
         await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
         await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
@@ -191,6 +217,10 @@ public static class PromisePileManager
             pile.RemoveInternal(card);
             if (card is KarenBaseCardModel karenCard)
                 await karenCard.OnRemovedFromPromisePile();
+
+            // 触发 KarenBasePower 扳机
+            await TriggerPowerOnCardRemoved(player, card);
+
             await CardPileCmd.Add(card, PileType.Discard);
             await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
         }
