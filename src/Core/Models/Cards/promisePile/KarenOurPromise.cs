@@ -33,7 +33,7 @@ public sealed class KarenOurPromise : KarenBaseCardModel
         await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
 
         // 选择2张手牌放入约定牌堆
-        await PromisePileCmd.AddFromHand(choiceContext, base.Owner, 2);
+        await PromisePileCmd.AddFromHand(choiceContext, base.Owner, 2, this);
     }
 
     protected override void OnUpgrade()

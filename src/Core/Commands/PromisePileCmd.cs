@@ -155,7 +155,7 @@ public static class PromisePileCmd
     /// 从手牌让玩家选择最多 count 张牌放入约定牌堆。
     /// Void 模式下改为放入抽牌堆顶部。
     /// </summary>
-    public static async Task AddFromHand(PlayerChoiceContext ctx, Player player, int count)
+    public static async Task AddFromHand(PlayerChoiceContext ctx, Player player, int count, AbstractModel source)
     {
         var prompt = new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_HAND");
         if (IsVoidMode(player))
@@ -165,7 +165,7 @@ public static class PromisePileCmd
             return;
         }
 
-        await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Hand, count, prompt);
+        await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Hand, count, prompt, source);
     }
 
     /// <summary>

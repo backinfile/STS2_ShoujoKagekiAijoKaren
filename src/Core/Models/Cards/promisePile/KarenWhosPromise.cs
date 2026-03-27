@@ -34,7 +34,7 @@ public sealed class KarenWhosPromise : KarenBaseCardModel
         // 从约定牌堆抽牌
         await PromisePileCmd.Draw(choiceContext, Owner, (int)DynamicVars.Cards.BaseValue);
         // 放回
-        await PromisePileCmd.AddFromHand(choiceContext, Owner, (int)DynamicVars.Cards.BaseValue);
+        await PromisePileCmd.AddFromHand(choiceContext, Owner, (int)DynamicVars.Cards.BaseValue, this);
     }
 
     protected override void OnUpgrade()

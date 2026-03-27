@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Runs;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
@@ -103,10 +104,33 @@ internal static class PromisePile_AfterTurnEnd_Patch
                     }
                 }
             }
+
+            PrintSomething(player);
         }
         else
         {
             MainFile.Logger.Warn("[PromisePile] Failed to get player for turn end trigger.");
+        }
+
+    }
+
+
+    private static void PrintSomething(Player player)
+    {
+        // 回合结束时打印约定牌堆内容
+        MainFile.Logger.Info("[PromisePile] Current promise pile contents at turn end:");
+        var pile = KarenCustomEnum.PromisePile.GetPile(player);
+        foreach (var card in pile.Cards)
+        {
+            MainFile.Logger.Info($"[PromisePile] Card in promise pile: {card.Title}");
+        }
+
+        // 回合结束打印手牌
+        MainFile.Logger.Info("[PromisePile] Current hand contents at turn end:");
+        var hand = PileType.Hand.GetPile(player);
+        foreach (var card in hand.Cards)
+        {
+            MainFile.Logger.Info($"[PromisePile] Card in hand: {card.Title}");
         }
     }
 }

@@ -183,10 +183,10 @@ public static class PromisePileManager
     /// 从指定牌堆（弃牌堆或抽牌堆）让玩家选择最多 count 张牌放入约定牌堆。
     /// 若牌堆为空或实际可选数为 0 则直接返回。
     /// minSelect == maxSelect，选满 N 张后自动确认（无手动按钮）；1 张时单击即确认。
-    /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择。
+    /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择, 此时要求传入source。
     /// </summary>
     public static async Task AddFromPileAsync(
-        PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt)
+        PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt, AbstractModel? source = null)
     {
         if (player == null) return;
 
@@ -202,7 +202,7 @@ public static class PromisePileManager
         if (pileType == PileType.Hand)
         {
             // 手牌使用 FromHand，显示在手牌区域
-            selected = await CardSelectCmd.FromHand(ctx, player, prefs, null, null);
+            selected = await CardSelectCmd.FromHand(ctx, player, prefs, null, source!);
         }
         else
         {

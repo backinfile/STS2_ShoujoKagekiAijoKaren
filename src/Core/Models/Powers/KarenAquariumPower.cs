@@ -34,7 +34,7 @@ public sealed class KarenAquariumPower : KarenBasePower
         await CardPileCmd.Draw(choiceContext, Amount, player);
 
         // 选择1张手牌放入约定牌堆
-        await PromisePileCmd.AddFromHand(choiceContext, player, Amount);
+        await PromisePileCmd.AddFromHand(choiceContext, player, Amount, this);
 
     }
 }

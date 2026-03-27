@@ -28,22 +28,15 @@ public sealed class KarenFall : KarenBaseCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
         new BlockVar(8m, ValueProp.Move),
+        new CardsVar(1),
     };
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-
-        var prefs = new CardSelectorPrefs(
-            new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT"), 1);
-
-        var selected = await CardSelectCmd.FromHand(
-            choiceContext, Owner, prefs, c => c != this, this);
-
-        foreach (var card in selected)
-            await PromisePileCmd.Add(card);
+        await PromisePileCmd.AddFromHand(choiceContext, Owner, ((int)DynamicVars.Cards.BaseValue), this);
     }
 
     protected override void OnUpgrade()
-        => DynamicVars.Block.UpgradeValueBy(3m);
+        => DynamicVars.Cards.UpgradeValueBy(1m);
 }
