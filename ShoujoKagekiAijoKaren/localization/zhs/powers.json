@@ -5,7 +5,6 @@
   "KAREN_PROMISE_PILE_POWER.voidTitle": "约定牌堆强化",
   "KAREN_PROMISE_PILE_POWER.voidDescription": "我现在是世界上最空虚的人了",
 
-
   "KAREN_SHINE_CARD_REWARD_POWER.title": "闪耀牌奖励",
   "KAREN_SHINE_CARD_REWARD_POWER.description": "战斗结束后，获得1次仅包含1张闪耀牌的卡牌奖励。",
   "KAREN_SHINE_CARD_REWARD_POWER.smartDescription": "战斗结束后，获得{Amount}次仅包含1张闪耀牌的卡牌奖励。",
@@ -20,7 +19,9 @@
 
   "KAREN_STARLIGHT02_POWER.title": "Starlight第二幕",
   "KAREN_STARLIGHT02_POWER.description": "打出的[gold]闪耀[/gold]牌会额外打出1次，然后耗尽闪耀值。",
-  "KAREN_STARLIGHT02_POWER.smartDescription": "打出的[gold]闪耀[/gold]牌会额外打出{Amount}次，然后耗尽闪耀值。"
+  "KAREN_STARLIGHT02_POWER.smartDescription": "打出的[gold]闪耀[/gold]牌会额外打出{Amount}次，然后耗尽闪耀值。",
 
-
+  "KAREN_AQUARIUM_POWER.title": "水族馆",
+  "KAREN_AQUARIUM_POWER.description": "回合开始时，抽1张牌，然后将1张[gold]手牌[/gold]放入[gold]约定牌堆[/gold]。",
+  "KAREN_AQUARIUM_POWER.smartDescription": "回合开始时，抽{Amount}张牌，然后将{Amount}张手牌放入[gold]约定牌堆[/gold]。"
 }

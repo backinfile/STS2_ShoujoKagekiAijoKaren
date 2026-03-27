@@ -4,6 +4,7 @@
   "KAREN_PROMISE_PILE_POWER.pileContents": "Pile Contents",
   "KAREN_PROMISE_PILE_POWER.voidTitle": "Promise Enhanced",
   "KAREN_PROMISE_PILE_POWER.voidDescription": "I am now the emptiest person in the world.",
+
   "KAREN_STAR_FRIEND_POWER.title": "Star Friendship",
   "KAREN_STAR_FRIEND_POWER.description": "The stars have woven our friendship. Gain extra rewards when killing enemies.",
 
@@ -14,5 +15,8 @@
   "KAREN_STARLIGHT_POWER.description": "Whenever you play a Shine card, play it {Repeat:diff()} more time(s), then deplete its Shine.",
 
   "KAREN_STARLIGHT03_POWER.title": "Starlight",
-  "KAREN_STARLIGHT03_POWER.description": "Shine card reward gained."
+  "KAREN_STARLIGHT03_POWER.description": "Shine card reward gained.",
+
+  "KAREN_AQUARIUM_POWER.title": "Aquarium",
+  "KAREN_AQUARIUM_POWER.description": "At the start of your turn, draw 1 card, then put 1 card from your hand into the [gold]Promise Pile[/gold]."
 }

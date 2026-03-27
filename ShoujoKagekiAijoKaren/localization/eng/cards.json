@@ -90,5 +90,35 @@
   "KAREN_SLEEPY.description": "Unplayable. [gold]Ethereal[/gold]. Cannot be removed from your deck.",
 
   "KAREN_STAGE_REASON.title": "Stage Reason",
-  "KAREN_STAGE_REASON.description": "[gold]Exhaust[/gold]."
+  "KAREN_STAGE_REASON.description": "[gold]Exhaust[/gold].",
+
+  "KAREN_CONTINUE.title": "Continue",
+  "KAREN_CONTINUE.description": "Deal {Damage:diff()} damage.",
+
+  "KAREN_TOWER_OF_PROMISE.title": "Tower of Promise",
+  "KAREN_TOWER_OF_PROMISE.description": "[gold]Retain[/gold].\nDraw from the [gold]Promise Pile[/gold] until your hand is full.\n[gold]Exhaust[/gold].",
+
+  "KAREN_MUST.title": "At Tokyo Tower",
+  "KAREN_MUST.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd 1 [gold]Tower of Promise[/gold] to your hand.\n[gold]Exhaust[/gold].",
+
+  "KAREN_OUR_PROMISE.title": "Our Promise",
+  "KAREN_OUR_PROMISE.description": "Draw {MagicNumber:diff()} cards.\nPut 2 cards from your hand into the [gold]Promise Pile[/gold].",
+
+  "KAREN_WHOS_PROMISE.title": "Pas de Deux",
+  "KAREN_WHOS_PROMISE.description": "Deal {Damage:diff()} damage.\nDraw {MagicNumber:diff()} card(s) from the [gold]Promise Pile[/gold].\nPut {MagicNumber:diff()} card(s) from your hand into the [gold]Promise Pile[/gold].",
+
+  "KAREN_BACK_TO_BACK.title": "Back to Back",
+  "KAREN_BACK_TO_BACK.description": "Deal damage equal to {MagicNumber:diff()} times the number of cards in your [gold]Promise Pile[/gold] (max 10).",
+
+  "KAREN_ON_STAGE.title": "On Stage",
+  "KAREN_ON_STAGE.description": "Draw 4 cards from the [gold]Promise Pile[/gold].\nGain {Energy:energyIcons()}{Energy:energyIcons()}.\n[gold]Exhaust[/gold].",
+
+  "KAREN_EXCHANGE_FATE.title": "Exchange Fate",
+  "KAREN_EXCHANGE_FATE.description": "Exchange your hand with the cards in your [gold]Promise Pile[/gold].\n[gold]Exhaust[/gold].",
+
+  "KAREN_AQUARIUM.title": "Aquarium",
+  "KAREN_AQUARIUM.description": "At the start of each turn, draw 1 card, then put 1 card from your hand into the [gold]Promise Pile[/gold].",
+
+  "KAREN_HOLY_STAR.title": "Holy Star",
+  "KAREN_HOLY_STAR.description": "Deal {Damage:diff()} damage.\nWhen put into the [gold]Promise Pile[/gold], reduce its cost by 1 for this combat."
 }

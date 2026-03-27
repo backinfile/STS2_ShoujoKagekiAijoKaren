@@ -1,6 +1,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Models.Cards;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Patches;
@@ -18,6 +19,23 @@ public static class CurseCardPoolPatch
             ..__result,
             ModelDb.Card<KarenSleepy>(),
             ModelDb.Card<KarenStageReason>(),
+        ];
+    }
+}
+
+/// <summary>
+/// 将 Karen 的Token牌注入到原版 TokenCardPool。
+/// </summary>
+[HarmonyPatch(typeof(TokenCardPool), "GenerateAllCards")]
+public static class TokenCardPoolPatch
+{
+    private static void Postfix(ref CardModel[] __result)
+    {
+        __result =
+        [
+            ..__result,
+            ModelDb.Card<KarenContinue>(),
+            ModelDb.Card<KarenTowerOfPromise>(),
         ];
     }
 }

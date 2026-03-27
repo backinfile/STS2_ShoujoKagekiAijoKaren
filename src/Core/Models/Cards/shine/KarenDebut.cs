@@ -36,7 +36,7 @@ public sealed class KarenDebut : KarenBaseCardModel
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this)
                 .TargetingAllOpponents(base.CombatState)
-                .WithHitFx("vfx/vfx_attack_slash")
+                .WithHitFx(VfxCmd.slashPath)
                 .Execute(choiceContext);
         }
     }

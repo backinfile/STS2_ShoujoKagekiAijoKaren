@@ -11,6 +11,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 /// <summary>
 /// 约定牌堆计数 Power，显示约定牌堆中的卡牌数量及卡牌列表
 /// 支持虚空模式：交互重定向到抽牌堆
+/// 支持无限强化模式：约定牌堆始终包含10张续演
 /// </summary>
 public sealed class KarenPromisePilePower : FakeAmountPower
 {
@@ -29,6 +30,21 @@ public sealed class KarenPromisePilePower : FakeAmountPower
         _isVoidMode = true;
         // 隐藏数值显示
         SetCount(0);
+    }
+
+    // ===== Infinite Reinforcement Mode =====
+    private bool _isInfiniteReinforcement;
+
+    /// <summary>是否处于无限强化模式（约定牌堆始终为10张续演）</summary>
+    public bool IsInfiniteReinforcement => _isInfiniteReinforcement;
+
+    /// <summary>
+    /// 启用或禁用无限强化模式
+    /// </summary>
+    /// <param name="enabled">是否启用</param>
+    public void SetInfiniteReinforcement(bool enabled)
+    {
+        _isInfiniteReinforcement = enabled;
     }
 
     // TODO 切换ICON

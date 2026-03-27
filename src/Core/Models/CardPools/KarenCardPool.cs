@@ -50,6 +50,16 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenStarlightCard>(),
             ModelDb.Card<KarenStarlight02Card>(),
             ModelDb.Card<KarenStarlight03Card>(),
+            // 约定牌堆相关卡牌
+            ModelDb.Card<KarenPromiseDraw>(),
+            ModelDb.Card<KarenUnderTower>(),
+            ModelDb.Card<KarenOurPromise>(),
+            ModelDb.Card<KarenWhosPromise>(),
+            ModelDb.Card<KarenBackToBackCard>(),
+            ModelDb.Card<KarenOnStage>(),
+            ModelDb.Card<KarenExchangeFate>(),
+            ModelDb.Card<KarenAquariumCard>(),
+            ModelDb.Card<KarenHolyStar>(),
         ];
     }
 

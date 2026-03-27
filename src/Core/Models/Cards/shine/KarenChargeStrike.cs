@@ -45,7 +45,7 @@ public sealed class KarenChargeStrike : KarenBaseCardModel
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .Targeting(cardPlay.Target)
-            .WithHitFx("vfx/vfx_attack_slash")
+            .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
 
         await PowerCmd.Apply<KarenChargeStrikeStrengthDownPower>(cardPlay.Target, DynamicVars.Strength.BaseValue, Owner.Creature, this);

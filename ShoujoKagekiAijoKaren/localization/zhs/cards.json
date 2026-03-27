@@ -65,11 +65,45 @@
   "KAREN_STARLIGHT03_CARD.description": "获得[gold]闪耀牌奖励[/gold]。",
 
   "KAREN_FALL.title": "坠落",
-  "KAREN_FALL.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将1张[gold]手牌[/gold]放入[gold]约定牌堆[/gold]。",
+  "KAREN_FALL.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将1张[gold]牌[/gold]放入[gold]约定牌堆[/gold]。",
 
   "KAREN_SLEEPY.title": "困意",
   "KAREN_SLEEPY.description": "",
 
   "KAREN_STAGE_REASON.title": "存在于舞台的理由",
-  "KAREN_STAGE_REASON.description": ""
+  "KAREN_STAGE_REASON.description": "",
+
+  "KAREN_CONTINUE.title": "续演",
+  "KAREN_CONTINUE.description": "造成{Damage:diff()}点伤害。",
+
+
+  "KAREN_PROMISE_DRAW.title": "不再遥不可及",
+  "KAREN_PROMISE_DRAW.description": "造成{Damage:diff()}点伤害。\n从[gold]约定牌堆[/gold]抽{Cards:diff()}张牌。",
+
+  "KAREN_TOWER_OF_PROMISE.title": "约定之塔",
+  "KAREN_TOWER_OF_PROMISE.description": "从[gold]约定牌堆[/gold]抽牌直到手牌上限。",
+
+  "KAREN_UNDER_TOWER.title": "东京塔下",
+  "KAREN_UNDER_TOWER.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将1张[gold]约定之塔[/gold]放入手牌。",
+
+  "KAREN_OUR_PROMISE.title": "我们的约定",
+  "KAREN_OUR_PROMISE.description": "抽{Cards:diff()}张牌。\n将2张牌放入[gold]约定牌堆[/gold]。",
+
+  "KAREN_WHOS_PROMISE.title": "双人舞",
+  "KAREN_WHOS_PROMISE.description": "造成{Damage:diff()}点伤害。\n从[gold]约定牌堆[/gold]抽{Cards:diff()}张牌，然后放入{Cards:diff()}张牌。",
+
+  "KAREN_BACK_TO_BACK_CARD.title": "背靠背",
+  "KAREN_BACK_TO_BACK_CARD.description": "造成[gold]约定牌堆[/gold]中卡牌数量{ExtraDamage:diff()}倍的伤害。\n（至多计算10张）",
+
+  "KAREN_ON_STAGE.title": "我将再次变为我自己",
+  "KAREN_ON_STAGE.description": "从[gold]约定牌堆[/gold]抽{Cards:diff()}张牌。\n获得{Energy:energyIcons()}。",
+
+  "KAREN_EXCHANGE_FATE.title": "命运交换之日",
+  "KAREN_EXCHANGE_FATE.description": "将手牌与[gold]约定牌堆[/gold]中的牌交换。",
+
+  "KAREN_AQUARIUM_CARD.title": "水族馆",
+  "KAREN_AQUARIUM_CARD.description": "每回合开始时，抽{KarenAquariumPower:diff()}张牌，然后将{KarenAquariumPower:diff()}张牌放入[gold]约定牌堆[/gold]。",
+
+  "KAREN_HOLY_STAR.title": "神圣星辰",
+  "KAREN_HOLY_STAR.description": "造成{Damage:diff()}点伤害。\n被放入[gold]约定牌堆[/gold]时，本场战斗中耗能减少1。"
 }

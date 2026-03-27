@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Runs;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,15 +23,30 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 internal static class PromisePile_BeforeCombatStart_Patch
 {
     [HarmonyPostfix]
-    private static void Postfix(IRunState runState, CombatState? combatState)
+    private static void Postfix(IRunState runState, CombatState? combatState, ref Task __result)
     {
-        if (combatState == null) return;
-        foreach (var player in combatState.Players)
+        // 清空所有人的约定牌堆，确保战斗开始时没有残留卡牌
+        if (combatState != null)
         {
-            PromisePileManager.ClearPromisePileInternal(player);
-            // 战斗开始时为华恋角色初始化 Power
-            _ = PromisePileManager.InitPowerAsync(player);
+            foreach (var p in combatState.Players)
+            {
+                PromisePileManager.ClearPromisePileInternal(p);
+            }
         }
+
+        // 战斗开始时为华恋角色初始化 Power
+        var player = LocalContext.GetMe(combatState);
+        if (player != null)
+        {
+            if (player.Character is Karen)
+            {
+                __result = PromisePileManager.InitPowerAsync(player);
+                return;
+            }
+        }
+
+        __result = Task.CompletedTask;
+        return;
     }
 }
 

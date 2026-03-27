@@ -95,18 +95,6 @@ public static class PromisePileCmd
     /// </summary>
     public static async Task Draw(PlayerChoiceContext choiceContext, Player player, int count)
     {
-        if (IsVoidMode(player))
-        {
-            // Void 模式：从抽牌堆批量抽取，每张都触发 Power 扳机
-            for (int i = 0; i < count; i++)
-            {
-                var card = await CardPileCmd.Draw(choiceContext, player);
-                if (card == null) break;
-                await TriggerPowerOnCardRemoved(player, card);
-            }
-            return;
-        }
-
         for (int i = 0; i < count; i++)
         {
             if (await PromisePileManager.DrawFromPromisePileAsync(choiceContext, player) == null)
@@ -115,13 +103,28 @@ public static class PromisePileCmd
     }
 
     /// <summary>
+    /// 从约定牌堆中抽牌直到手牌满
+    /// </summary>
+    /// <param name="choiceContext"></param>
+    /// <param name="player"></param>
+    /// <returns></returns>
+    public static async Task DrawToFullHand(PlayerChoiceContext choiceContext, Player player)
+    {
+        while(true)
+        {
+            if (Utils.IsHandFull(player)) break;
+            var drawn = await Draw(choiceContext, player);
+            if (drawn == null) break; // 抽不到更多的牌了
+        }
+    }
+
+    /// <summary>
     /// 从弃牌堆让玩家选择最多 count 张牌放入约定牌堆。
     /// Void 模式下改为放入抽牌堆顶部。
-    /// prompt 通常传调用方卡牌的 SelectionScreenPrompt。
     /// </summary>
-    public static async Task AddFromDiscard(
-        PlayerChoiceContext ctx, Player player, int count, LocString prompt)
+    public static async Task AddFromDiscard(PlayerChoiceContext ctx, Player player, int count)
     {
+        var prompt = new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_DISCARD");
         if (IsVoidMode(player))
         {
             // Void 模式：从弃牌堆选牌放入抽牌堆顶部
@@ -135,10 +138,8 @@ public static class PromisePileCmd
     /// <summary>
     /// 从抽牌堆让玩家选择最多 count 张牌放入约定牌堆。
     /// Void 模式下无效果（直接返回）。
-    /// prompt 通常传调用方卡牌的 SelectionScreenPrompt。
     /// </summary>
-    public static async Task AddFromDraw(
-        PlayerChoiceContext ctx, Player player, int count, LocString prompt)
+    public static async Task AddFromDraw(PlayerChoiceContext ctx, Player player, int count)
     {
         if (IsVoidMode(player))
         {
@@ -146,7 +147,25 @@ public static class PromisePileCmd
             return;
         }
 
+        var prompt = new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_DRAW");
         await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Draw, count, prompt);
+    }
+
+    /// <summary>
+    /// 从手牌让玩家选择最多 count 张牌放入约定牌堆。
+    /// Void 模式下改为放入抽牌堆顶部。
+    /// </summary>
+    public static async Task AddFromHand(PlayerChoiceContext ctx, Player player, int count)
+    {
+        var prompt = new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_HAND");
+        if (IsVoidMode(player))
+        {
+            // Void 模式：从手牌选牌放入抽牌堆顶部
+            await AddFromPileToDrawPile(ctx, player, PileType.Hand, count, prompt);
+            return;
+        }
+
+        await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Hand, count, prompt);
     }
 
     /// <summary>
@@ -169,6 +188,7 @@ public static class PromisePileCmd
 
     /// <summary>
     /// Void 模式专用：从指定牌堆选牌放入抽牌堆顶部
+    /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择
     /// </summary>
     private static async Task AddFromPileToDrawPile(
         PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt)
@@ -180,7 +200,16 @@ public static class PromisePileCmd
         int selectCount = System.Math.Min(count, cards.Count);
         var prefs = new CardSelectorPrefs(prompt, selectCount, selectCount);
 
-        var selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
+        IEnumerable<CardModel> selected;
+        if (pileType == PileType.Hand)
+        {
+            // 手牌使用 FromHand，显示在手牌区域
+            selected = await CardSelectCmd.FromHand(ctx, player, prefs, _ => true, null);
+        }
+        else
+        {
+            selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
+        }
         if (selected == null) return;
 
         foreach (var card in selected)
@@ -202,6 +231,84 @@ public static class PromisePileCmd
         {
             await CardCmd.Discard(ctx, card);
             await TriggerPowerOnCardRemoved(player, card);
+        }
+    }
+
+    /// <summary>
+    /// 交换手牌和约定牌堆的所有卡牌。
+    /// 流程：1.暂存所有手牌 2.从约定牌堆抽满手牌 3.弃置约定牌堆剩余 4.原手牌放入约定牌堆
+    /// Void模式下：使用抽牌堆替代约定牌堆，逻辑相同
+    /// </summary>
+    public static async Task SwitchHand(PlayerChoiceContext ctx, Player player)
+    {
+        var handPile = PileType.Hand.GetPile(player);
+        var handCards = handPile.Cards.ToList();
+
+
+        // 步骤1：暂存手牌（移到抽牌堆顶部但不触发Power扳机，最后统一触发）
+        var handSave = handCards.ToList(); // 复制列表，避免修改原列表导致枚举问题
+        handPile.Clear();
+
+
+        // 步骤2：从约定牌堆抽满手牌
+        await PromisePileCmd.DrawToFullHand(ctx, player);
+
+        // 步骤3：弃置约定牌堆剩余
+        await PromisePileManager.DiscardAllAsync(ctx, player);
+
+        if (IsVoidMode(player))
+        {
+            // Void模式：使用抽牌堆作为约定牌堆的替代
+            foreach (var card in handCards)
+            {
+                await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
+            }
+
+            // 步骤2：从抽牌堆抽满手牌
+            int maxHand = CardPile.maxCardsInHand;
+            int drawCount = 0;
+            for (int i = 0; i < maxHand; i++)
+            {
+                var card = await CardPileCmd.Draw(ctx, player);
+                if (card == null) break;
+                drawCount++;
+            }
+
+            // 步骤3：弃置抽牌堆剩余
+            await DiscardAllDrawPile(ctx, player);
+
+            // 步骤4：原手牌放入抽牌堆顶部，并触发Power扳机
+            foreach (var card in handCards)
+            {
+                await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
+                await TriggerPowerOnCardAdded(player, card);
+            }
+            return;
+        }
+
+        // 正常模式
+        // 步骤1：暂存手牌（从手牌移出，但不放入约定牌堆）
+        foreach (var card in handCards)
+        {
+            card.RemoveFromCurrentPile();
+            // 不触发任何Hook，只是暂存
+        }
+
+        // 步骤2：从约定牌堆抽满手牌
+        int maxHandSize = CardPile.maxCardsInHand;
+        for (int i = 0; i < maxHandSize; i++)
+        {
+            var card = await PromisePileManager.DrawFromPromisePileAsync(ctx, player);
+            if (card == null) break;
+        }
+
+        // 步骤3：弃置约定牌堆剩余
+        await PromisePileManager.DiscardAllAsync(ctx, player);
+
+        // 步骤4：原手牌放入约定牌堆
+        foreach (var card in handCards)
+        {
+            await PromisePileManager.AddToPromisePile(card);
         }
     }
 }

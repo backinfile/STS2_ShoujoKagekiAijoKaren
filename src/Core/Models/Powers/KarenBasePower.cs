@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
@@ -28,4 +29,11 @@ public abstract class KarenBasePower : PowerModel
     /// </summary>
     /// <param name="card">被取出的卡牌</param>
     public virtual Task OnCardRemovedFromPromisePile(CardModel card) => Task.CompletedTask;
+
+
+    /// <summary>
+    /// 约定牌堆被清空时触发
+    /// </summary>
+    /// <returns></returns>
+    public virtual  Task OnPromisePileEmpty() => Task.CompletedTask;
 }

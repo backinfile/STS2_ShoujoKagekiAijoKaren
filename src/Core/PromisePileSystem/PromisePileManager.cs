@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System;
@@ -173,12 +174,16 @@ public static class PromisePileManager
 
     /// <summary>获取约定牌堆中的卡牌数量</summary>
     public static int GetCount(Player player)
-        => GetPromisePile(player).Cards.Count;
+    {
+        if (player == null) return 0;
+        return GetPromisePile(player).Cards.Count;
+    }
 
     /// <summary>
     /// 从指定牌堆（弃牌堆或抽牌堆）让玩家选择最多 count 张牌放入约定牌堆。
     /// 若牌堆为空或实际可选数为 0 则直接返回。
     /// minSelect == maxSelect，选满 N 张后自动确认（无手动按钮）；1 张时单击即确认。
+    /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择。
     /// </summary>
     public static async Task AddFromPileAsync(
         PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt)
@@ -193,7 +198,16 @@ public static class PromisePileManager
         int selectCount = Math.Min(count, cards.Count);
         var prefs = new CardSelectorPrefs(prompt, selectCount, selectCount);
 
-        var selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
+        IEnumerable<CardModel> selected;
+        if (pileType == PileType.Hand)
+        {
+            // 手牌使用 FromHand，显示在手牌区域
+            selected = await CardSelectCmd.FromHand(ctx, player, prefs, null, null);
+        }
+        else
+        {
+            selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
+        }
         if (selected == null) return;
 
         foreach (var card in selected)
@@ -226,6 +240,8 @@ public static class PromisePileManager
         }
 
         await UpdatePowerAsync(player);
+
+        await TriggerPromisePileEmpty(player);
     }
 
     /// <summary>
@@ -234,15 +250,22 @@ public static class PromisePileManager
     /// </summary>
     public static async Task InitPowerAsync(Player player)
     {
-        if (player?.Creature == null) return;
-        if (player.Character is not Karen) return;
+        //if (player?.Creature == null) return;
+        //if (player.Character is not Karen) return;
 
-        await PowerCmd.Apply<KarenPromisePilePower>(player.Creature, 1, player.Creature, null);
-        if (player.Creature.GetPower<KarenPromisePilePower>() is { } karenPower)
-            karenPower.SetCount(0);
+        //await PowerCmd.Apply<KarenPromisePilePower>(player.Creature, 1, player.Creature, null);
+        //if (player.Creature.GetPower<KarenPromisePilePower>() is { } karenPower)
+        //    karenPower.SetCount(0);
+
+        MainFile.Logger.Info($"[PromisePile] Initialized PromisePilePower for player {player.Character.Title}");
+
+        // 立即更新一次
+        await UpdatePowerAsync(player);
     }
 
-    /// <summary>更新玩家的 PromisePilePower 数值为约定牌堆卡牌数，如不存在则自动创建。</summary>
+    /// <summary>
+    /// 更新玩家的 PromisePilePower 数值为约定牌堆卡牌数，如不存在则自动创建。
+    /// </summary>
     public static async Task UpdatePowerAsync(Player player)
     {
         if (player?.Creature == null) return;
@@ -260,6 +283,49 @@ public static class PromisePileManager
                 .Select(c => c.IsUpgraded ? c.Title + "+" : c.Title)
                 .ToArray();
             karenPower.SetCardNames(names);
+        }
+
+        // 检查无限强化状态
+        await ApplyInfiniteReinforcementIfNeededAsync(player);
+    }
+
+    /// <summary>
+    /// 检查并应用无限强化效果。如果开启了无限强化，将约定牌堆填充为10张续演。
+    /// </summary>
+    private static async Task ApplyInfiniteReinforcementIfNeededAsync(Player player)
+    {
+        if (player?.Creature == null) return;
+        if (player.Creature.GetPower<KarenPromisePilePower>() is not { IsInfiniteReinforcement: true }) return;
+
+        await RefillWithContinueAsync(player);
+    }
+
+
+    /// <summary>
+    /// 将约定牌堆清空并重新填充为10张续演。
+    /// </summary>
+    private static async Task RefillWithContinueAsync(Player player)
+    {
+        if (player?.PlayerCombatState == null) return;
+
+        var pile = GetPromisePile(player);
+
+        var maxCount = CardPile.maxCardsInHand;
+
+        // 先把牌库中的非续演牌移除掉
+        foreach(var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
+        {
+            card.RemoveFromCurrentPile();
+            card.RemoveFromState();
+            MainFile.Logger.Info($"[PromisePile] Removed '{card.Title}' from promise pile during refill");
+        }
+
+        // 然后用续演补齐到10张
+        for(int i = 0; i < maxCount - pile.Cards.Count; i++)
+        {
+            var card = player.RunState.CreateCard<KarenContinue>(player);
+            pile.AddInternal(card);
+            MainFile.Logger.Info($"[PromisePile] Added '{card.Title}' to promise pile during refill");
         }
     }
 
@@ -281,4 +347,18 @@ public static class PromisePileManager
         }
     }
 
+
+
+    private static async Task TriggerPromisePileEmpty(Player player)
+    {
+        // 弃置牌之后约定牌堆空了，触发扳机
+        foreach (var power in player.Creature.Powers)
+        {
+            if (power is KarenBasePower karenPower)
+            {
+                await karenPower.OnPromisePileEmpty();
+            }
+        }
+        MainFile.Logger.Info($"[PromisePile] Promise pile is now empty, triggered OnPromisePileEmpty");
+    }
 }

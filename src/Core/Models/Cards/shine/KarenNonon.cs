@@ -41,7 +41,7 @@ public sealed class KarenNonon : KarenBaseCardModel
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .TargetingAllOpponents(base.CombatState)
-            .WithHitFx("vfx/vfx_giant_horizontal_slash")
+            .WithHitFx(VfxCmd.giantHorizontalSlashPath)
             .Execute(choiceContext);
 
         foreach (var enemy in base.CombatState.HittableEnemies)

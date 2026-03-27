@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Godot;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
@@ -73,15 +74,15 @@ public sealed class Karen : CharacterModel
         CollectionsMarshal.SetCount(list, num);
         var span = CollectionsMarshal.AsSpan(list);
         var num2 = 0;
-        span[num2] = "vfx/vfx_attack_blunt";
+        span[num2] = VfxCmd.bluntPath;
         num2++;
-        span[num2] = "vfx/vfx_heavy_blunt";
+        span[num2] = VfxCmd.heavyBluntPath;
         num2++;
-        span[num2] = "vfx/vfx_attack_slash";
+        span[num2] = VfxCmd.slashPath;
         num2++;
-        span[num2] = "vfx/vfx_bloody_impact";
+        span[num2] = VfxCmd.bloodyImpactPath;
         num2++;
-        span[num2] = "vfx/vfx_rock_shatter";
+        span[num2] = VfxCmd.rockShatterPath;
         return list;
     }
 }
