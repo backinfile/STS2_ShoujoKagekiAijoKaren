@@ -7,8 +7,8 @@
 
 
   "KAREN_SHINE_CARD_REWARD_POWER.title": "闪耀牌奖励",
-  "KAREN_SHINE_CARD_REWARD_POWER.description": "战斗结束后，获得1张随机闪耀牌。",
-  "KAREN_SHINE_CARD_REWARD_POWER.smartDescription": "战斗结束后，获得{Amount}张随机闪耀牌。",
+  "KAREN_SHINE_CARD_REWARD_POWER.description": "战斗结束后，获得1次仅包含1张闪耀牌的卡牌奖励。",
+  "KAREN_SHINE_CARD_REWARD_POWER.smartDescription": "战斗结束后，获得{Amount}次仅包含1张闪耀牌的卡牌奖励。",
 
   "KAREN_LETTER_POWER.title": "信封",
   "KAREN_LETTER_POWER.description": "将卡牌放入到[gold]约定牌堆[/gold]时，获得2点[gold]格挡[/gold]。",
