@@ -40,16 +40,28 @@ public sealed class KarenStarlight02Power : PowerModel
         if (!card.IsShineCard())
         {
             return playCount;
-        };
+        }
+        
+        
+        // 触发效果
+        Flash();
+        // 耗尽闪耀值
+        card.SetShineCurrent(0);
         return playCount + Amount; // 额外打出Amount次
     }
 
-    public override async Task AfterModifyingCardPlayCount(CardModel card)
+
+    /// <summary>
+    /// 暂时没找到好扳机用，手动hack一下
+    /// </summary>
+    public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(CardModel card, bool isAutoPlay, ResourceInfo resources, PileType pileType, CardPilePosition position)
     {
-        Flash();
+        if (card.Owner.Creature == base.Owner && card.IsShineCard())
+        {
+            return (KarenCustomEnum.ShineDepletePile, CardPilePosition.Bottom);
+        }
+
+        return (pileType, position);
     }
 
-    public override async Task BeforeCardPlayed(CardPlay cardPlay)
-    {
-    }
 }

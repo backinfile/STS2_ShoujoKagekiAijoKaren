@@ -5,8 +5,10 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.ValueProps;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
@@ -21,7 +23,7 @@ public sealed class KarenLetterPower : KarenBasePower
     public override async Task OnCardAddedToPromisePile(CardModel card)
     {
         // 获得格挡
-        await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Move, null);
+        await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
         // 触发Power闪烁效果
         Flash();
     }

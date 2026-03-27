@@ -1,17 +1,11 @@
 using BaseLib.Utils;
-using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
-using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
-using MegaCrit.Sts2.Core.Runs;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
@@ -108,7 +102,6 @@ public static class ShinePatch
         if (card.IsShineCard())
         {
             CardContext[card] = choiceContext;
-            MainFile.Logger.Info($"[ShinePilePatch] '{card.Title}' marked for shine depletion (shine=0)");
         }
     }
 
