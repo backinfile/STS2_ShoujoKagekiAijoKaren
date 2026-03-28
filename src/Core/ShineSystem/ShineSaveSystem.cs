@@ -67,7 +67,6 @@ public static class ShineSaveSystem
         for (int i = 0; i < players.Count; i++)
         {
             var p = players[i];
-            if (p.Character is not Karen) continue;
             var shine = CollectShineData(p.Deck.Cards);
             if (shine.Count > 0)
                 result[i] = shine;
@@ -85,7 +84,6 @@ public static class ShineSaveSystem
         {
             if (playerIdx < 0 || playerIdx >= players.Count) continue;
             var p = players[playerIdx];
-            if (p.Character is not Karen) continue;
             RestoreShineData(p.Deck.Cards, shineList);
             totalRestored += shineList.Count;
         }

@@ -170,7 +170,11 @@ internal static class RunSaveManager_Patches
         if (state == null) return;
 
         var data = KarenModSaveBuffer.Consume();
-        if (data == null) return;
+        if (data == null)
+        {
+            MainFile.Logger.Info("[SaveSystem] 无 Mod 数据可供恢复");
+            return;
+        }
 
         ShineSaveSystem.RestoreAllPlayersShineData(state.Players, data);
         ShinePileSaveManager.RestoreAllPlayersShinePileData(state.Players, data);

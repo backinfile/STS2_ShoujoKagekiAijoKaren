@@ -25,11 +25,13 @@ public static class NCreatureClickPatch
     [HarmonyPostfix]
     private static void AddClickToKarenCreature(NCreature __instance)
     {
-        // 只处理本地玩家且是 Karen 角色
+        if (__instance.Hitbox == null) return;
+        // 只处理本地玩家
         if (!LocalContext.IsMe(__instance.Entity)) return;
         var player = __instance.Entity.Player;
-        if (player?.Character is not Karen) return;
-        if (__instance.Hitbox == null) return;
+        if (player?.PlayerCombatState == null) return;
+        // 都可以点，但没有约定牌堆能力时点了也没事（不打开界面），所以不需要这个条件了
+        // if (player.PlayerCombatState.Powers.All(p => p is not KarenPromisePilePower)) return;
 
         // 确保 Hitbox 能接收鼠标事件
         __instance.Hitbox.MouseFilter = MouseFilterEnum.Stop;
