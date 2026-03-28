@@ -14,6 +14,12 @@ public static class KarenCustomEnum
     /// <summary>闪耀牌奖励</summary>
     [CustomEnum] public static CardTag ShineCardReward;
 
+    /// <summary>临时力量</summary>
+    [CustomEnum] public static CardTag TmpStrength;
+
+    /// <summary>保留力量</summary>
+    [CustomEnum] public static CardTag RetainTmpStrength;
+
     /// <summary>约定牌堆虚拟 PileType，用于 GlobalMoveSystem 事件的 from/to 标识</summary>
     [CustomEnum] public static PileType PromisePile;
 

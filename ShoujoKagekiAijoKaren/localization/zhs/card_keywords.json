@@ -1,8 +1,16 @@
 {
-  "KAREN_SHINE.title": "闪耀",
-  "KAREN_SHINE.description": "打出X次后，从牌组中[red]永久[/red]移除。",
-  "KAREN_PROMISE_PILE.title": "约定牌堆",
-  "KAREN_PROMISE_PILE.description": "爱城华恋特有的牌堆。",
-  "KAREN_SHINE_CARD_REWARD.title": "闪耀牌奖励",
-  "KAREN_SHINE_CARD_REWARD.description": "战斗结束后，获得仅包含1张闪耀牌的卡牌奖励。"
+    "KAREN_SHINE.title": "闪耀",
+    "KAREN_SHINE.description": "打出X次后，从牌组中[red]永久[/red]移除。",
+
+    "KAREN_PROMISE_PILE.title": "约定牌堆",
+    "KAREN_PROMISE_PILE.description": "爱城华恋特有的牌堆。",
+
+    "KAREN_TMP_STRENGTH.title": "临时力量",
+    "KAREN_TMP_STRENGTH.description": "临时力量会在本回合让攻击获得额外的伤害。",
+
+    "KAREN_RETAIN_TMP_STRENGTH.title": "保留力量",
+    "KAREN_RETAIN_TMP_STRENGTH.description": "延长临时力量存在的回合。",
+
+    "KAREN_SHINE_CARD_REWARD.title": "闪耀牌奖励",
+    "KAREN_SHINE_CARD_REWARD.description": "战斗结束后，获得仅包含1张闪耀牌的卡牌奖励。"
 }

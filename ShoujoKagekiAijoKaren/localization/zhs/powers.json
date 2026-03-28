@@ -1,12 +1,12 @@
 {
   "KAREN_PROMISE_PILE_POWER.title": "约定牌堆",
-  "KAREN_PROMISE_PILE_POWER.description": "爱城华恋特有的牌堆。",
+  "KAREN_PROMISE_PILE_POWER.description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
   "KAREN_PROMISE_PILE_POWER.pileContents": "约定牌堆内容：",
   "KAREN_PROMISE_PILE_POWER.voidTitle": "约定牌堆强化",
   "KAREN_PROMISE_PILE_POWER.voidDescription": "我现在是世界上最空虚的人了",
 
   "KAREN_SHINE_CARD_REWARD_POWER.title": "闪耀牌奖励",
-  "KAREN_SHINE_CARD_REWARD_POWER.description": "战斗结束后，获得1次仅包含1张闪耀牌的卡牌奖励。",
+  "KAREN_SHINE_CARD_REWARD_POWER.description": "战斗结束后，获得仅包含1张闪耀牌的卡牌奖励。",
   "KAREN_SHINE_CARD_REWARD_POWER.smartDescription": "战斗结束后，获得{Amount}次仅包含1张闪耀牌的卡牌奖励。",
 
   "KAREN_LETTER_POWER.title": "信封",
