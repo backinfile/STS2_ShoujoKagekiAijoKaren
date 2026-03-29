@@ -8,7 +8,7 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 
 /// <summary>
 /// 回击 - 1费攻击，对所有敌人造成4点伤害三次，消耗

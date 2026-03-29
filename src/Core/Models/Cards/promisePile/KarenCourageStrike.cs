@@ -7,10 +7,11 @@ using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Models.Cards;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
 /// <summary>
 /// 勇气打击 - 1费攻击，对所有敌人造成6点伤害，将1张侧身放入约定牌堆
