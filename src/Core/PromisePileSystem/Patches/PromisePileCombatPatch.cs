@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Runs;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Linq;
 using System.Security.Cryptography;
@@ -23,31 +24,30 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 [HarmonyPatch(typeof(Hook), nameof(Hook.BeforeCombatStart))]
 internal static class PromisePile_BeforeCombatStart_Patch
 {
+
     [HarmonyPostfix]
-    private static void Postfix(IRunState runState, CombatState? combatState, ref Task __result)
+    private static void Postfix(ref Task __result, CombatState? combatState)
     {
-        // 清空所有人的约定牌堆，确保战斗开始时没有残留卡牌
-        if (combatState != null)
+        Async.Postfix(ref __result, async () =>
         {
-            foreach (var p in combatState.Players)
+            // 清空所有人的约定牌堆，确保战斗开始时没有残留卡牌
+            if (combatState != null)
             {
-                PromisePileManager.ClearPromisePileInternal(p);
+                foreach (var p in combatState.Players)
+                {
+                    PromisePileManager.ClearPromisePileInternal(p);
+                }
             }
-        }
-
-        // 战斗开始时为华恋角色初始化 Power
-        var player = LocalContext.GetMe(combatState);
-        if (player != null)
-        {
-            if (player.Character is Karen)
+            // 战斗开始时为华恋角色初始化 Power
+            var player = LocalContext.GetMe(combatState);
+            if (player != null)
             {
-                __result = PromisePileManager.InitPowerAsync(player);
-                return;
+                if (player.Character is Karen)
+                {
+                    await PromisePileManager.InitPowerAsync(player);
+                }
             }
-        }
-
-        __result = Task.CompletedTask;
-        return;
+        });
     }
 }
 
@@ -70,48 +70,22 @@ internal static class PromisePile_AfterTurnEnd_Patch
     [HarmonyPostfix]
     public static void Postfix(CombatState combatState, CombatSide side, ref Task __result)
     {
-        // 只处理玩家回合结束
-        if (side != CombatSide.Player) return;
-
-        __result = HandlePromisePileTurnEndTrigger(combatState);
-    }
-
-    private static async Task HandlePromisePileTurnEndTrigger(CombatState combatState)
-    {
-        if (LocalContext.GetMe(combatState) is Player player)
+        Async.Postfix(ref __result, async () =>
         {
-            MainFile.Logger.Info("[PromisePile] Handling turn end trigger for player's promise pile...");
-            // 触发约定牌堆中卡牌的回合结束扳机（非 Void 模式）
-            if (!PromisePileManager.IsVoidMode(player)) 
+            // 只处理玩家回合结束
+            if (side != CombatSide.Player) return;
+            // 只处理本机玩家
+            if (LocalContext.GetMe(combatState) is Player player)
             {
-                var pile = PromisePileManager.GetPromisePile(player);
-                foreach (var card in pile.Cards.ToList())
-                {
-                    if (card is KarenBaseCardModel karenCard)
-                    {
-                        await karenCard.OnTurnEndInPromisePile();
-                    }
-                }
+                // 触发约定牌堆中卡牌的回合结束扳机
+                await PromisePileTriggers.TriggerPromisePileTurnEnd(player);
+                PrintSomething(player);
             }
-            else // 空虚模式，处理抽牌堆中的牌
+            else
             {
-                var pile = PileType.Draw.GetPile(player);
-                foreach (var card in pile.Cards.ToList())
-                {
-                    if (card is KarenBaseCardModel karenCard)
-                    {
-                        await karenCard.OnTurnEndInPromisePile();
-                    }
-                }
+                MainFile.Logger.Warn("[PromisePile] Failed to get player for turn end trigger.");
             }
-
-            PrintSomething(player);
-        }
-        else
-        {
-            MainFile.Logger.Warn("[PromisePile] Failed to get player for turn end trigger.");
-        }
-
+        });
     }
 
 

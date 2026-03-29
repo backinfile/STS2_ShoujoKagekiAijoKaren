@@ -2,7 +2,9 @@ using Godot;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Unlocks;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.strength;
 using ShoujoKagekiAijoKaren.src.Models.Cards;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +62,23 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenExchangeFate>(),
             ModelDb.Card<KarenAquariumCard>(),
             ModelDb.Card<KarenHolyStar>(),
+            // 批次1新增卡牌
+            ModelDb.Card<KarenMeetAgain>(),
+            ModelDb.Card<KarenEatTogether>(),
+            ModelDb.Card<KarenBananaMuffin>(),
+            ModelDb.Card<KarenConsciousness>(),
+            ModelDb.Card<KarenCourageStrike>(),
+            ModelDb.Card<KarenRevueDuet>(),
+            ModelDb.Card<KarenRun>(),
+            ModelDb.Card<KarenStretching>(),
+            ModelDb.Card<KarenDance>(),
+            ModelDb.Card<KarenParry>(),
+            ModelDb.Card<KarenRapid>(),
+            ModelDb.Card<KarenNewSituation>(),
+            ModelDb.Card<KarenMeetAgainTmp>(),
+            ModelDb.Card<KarenLanding>(),
+            ModelDb.Card<KarenYesterglow>(),
+            ModelDb.Card<KarenDodge>(),
         ];
     }
 

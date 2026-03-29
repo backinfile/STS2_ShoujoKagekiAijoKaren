@@ -7,7 +7,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren;
-using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
@@ -145,6 +144,11 @@ public static class PromisePileManager
         // 更新 Power
         await UpdatePowerAsync(player);
 
+        if (pile.IsEmpty)
+        {
+            await PromisePileTriggers.TriggerPromisePileEmpty(player);
+        }
+
         return card;
     }
 
@@ -241,7 +245,7 @@ public static class PromisePileManager
 
         await UpdatePowerAsync(player);
 
-        await TriggerPromisePileEmpty(player);
+        await PromisePileTriggers.TriggerPromisePileEmpty(player);
     }
 
     /// <summary>
@@ -313,7 +317,7 @@ public static class PromisePileManager
         var maxCount = CardPile.maxCardsInHand;
 
         // 先把牌库中的非续演牌移除掉
-        foreach(var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
+        foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
         {
             card.RemoveFromCurrentPile();
             card.RemoveFromState();
@@ -321,7 +325,7 @@ public static class PromisePileManager
         }
 
         // 然后用续演补齐到10张
-        for(int i = 0; i < maxCount - pile.Cards.Count; i++)
+        for (int i = 0; i < maxCount - pile.Cards.Count; i++)
         {
             var card = player.RunState.CreateCard<KarenContinue>(player);
             pile.AddInternal(card);
@@ -348,17 +352,4 @@ public static class PromisePileManager
     }
 
 
-
-    private static async Task TriggerPromisePileEmpty(Player player)
-    {
-        // 弃置牌之后约定牌堆空了，触发扳机
-        foreach (var power in player.Creature.Powers)
-        {
-            if (power is KarenBasePower karenPower)
-            {
-                await karenPower.OnPromisePileEmpty();
-            }
-        }
-        MainFile.Logger.Info($"[PromisePile] Promise pile is now empty, triggered OnPromisePileEmpty");
-    }
 }

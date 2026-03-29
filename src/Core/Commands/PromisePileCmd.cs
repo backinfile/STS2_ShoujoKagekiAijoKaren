@@ -1,13 +1,16 @@
 using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
+using MegaCrit.Sts2.Core.Hooks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -110,12 +113,85 @@ public static class PromisePileCmd
     /// <returns></returns>
     public static async Task DrawToFullHand(PlayerChoiceContext choiceContext, Player player)
     {
-        while(true)
+        while (true)
         {
-            if (Utils.IsHandFull(player)) break;
+            if (PlayerUtils.IsHandFull(player)) break;
             var drawn = await Draw(choiceContext, player);
             if (drawn == null) break; // 抽不到更多的牌了
         }
+    }
+
+    /// <summary>
+    /// 从约定牌堆中选择最多 count 张牌加入手牌。
+    /// Void 模式下改为从抽牌堆中选择加入手牌。
+    /// </summary>
+    public static async Task DrawSelected(PlayerChoiceContext ctx, Player player, int count)
+    {
+        if (IsVoidMode(player))
+        {
+            await DrawSelectedFromDrawPile(ctx, player, count);
+            return;
+        }
+
+        var pile = PromisePileManager.GetPromisePile(player);
+        var cards = pile.Cards.ToList();
+        if (cards.Count == 0) return;
+
+        int selectCount = System.Math.Min(count, cards.Count);
+        var prompt = new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_DRAW");
+        var prefs = new CardSelectorPrefs(prompt, selectCount, selectCount);
+
+        var selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
+        if (selected == null) return;
+
+        foreach (var card in selected)
+        {
+            pile.RemoveInternal(card);
+            if (card is KarenBaseCardModel karenCard)
+                await karenCard.OnRemovedFromPromisePile();
+
+            await TriggerPowerOnCardRemoved(player, card);
+            await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top, null, false);
+            await Hook.AfterCardChangedPiles(player.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
+        }
+
+        await PromisePileManager.UpdatePowerAsync(player);
+
+        if (pile.IsEmpty)
+        {
+            await PromisePileTriggers.TriggerPromisePileEmpty(player);
+        }
+    }
+
+    /// <summary>
+    /// Void 模式专用：从抽牌堆选择最多 count 张牌加入手牌
+    /// </summary>
+    private static async Task DrawSelectedFromDrawPile(PlayerChoiceContext ctx, Player player, int count)
+    {
+        //var pile = PileType.Draw.GetPile(player);
+        //var cards = pile.Cards.ToList();
+        //if (cards.Count == 0) return;
+
+        //int selectCount = System.Math.Min(count, cards.Count);
+        //var prompt = new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_DRAW_VOID");
+        //var prefs = new CardSelectorPrefs(prompt, selectCount, selectCount);
+
+        //var selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
+        //if (selected == null) return;
+
+        //foreach (var card in selected)
+        //{
+        //    await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top, null, false);
+        //    await TriggerPowerOnCardRemoved(player, card);
+        //}
+
+        //await CardPileCmd.ShuffleIfNecessary(ctx, player);
+
+        var pile = PileType.Draw.GetPile(player);
+        var triggerEmpty = count >= pile.Cards.Count; // 如果选择数量大于等于抽牌堆剩余数量，视为抽牌堆将被抽空
+
+        List<CardModel> selectFrom = (from c in pile.Cards orderby c.Rarity, c.Id select c).ToList();
+        await CardPileCmd.Add(await CardSelectCmd.FromSimpleGrid(ctx, selectFrom, player, new CardSelectorPrefs(AbPower, count)), PileType.Hand);
     }
 
     /// <summary>
@@ -310,5 +386,45 @@ public static class PromisePileCmd
         {
             await PromisePileManager.AddToPromisePile(card);
         }
+    }
+
+    internal static async Task AutoPlayFromPromisePile(PlayerChoiceContext choiceContext, Player player, int count)
+    {
+        if (CombatManager.Instance.IsOverOrEnding)
+        {
+            return;
+        }
+
+        // 空虚状态下直接打出牌库顶牌
+        if (IsVoidMode(player))
+        {
+            await CardPileCmd.AutoPlayFromDrawPile(choiceContext, player, count, CardPilePosition.Top, forceExhaust: false);
+            return;
+        }
+
+        List<CardModel> cards = new(count);
+        CardPile promisePile = KarenCustomEnum.PromisePile.GetPile(player);
+        if (promisePile.IsEmpty) return;
+
+        for (int i = 0; i < count; i++)
+        {
+            if (promisePile.IsEmpty) break;
+            CardModel cardModel = promisePile.Cards[0];
+            cards.Add(cardModel);
+            await CardPileCmd.Add(cardModel, PileType.Play);
+        }
+
+        // 触发约定牌堆变空扳机
+        if (promisePile.IsEmpty)
+        {
+            await PromisePileTriggers.TriggerPromisePileEmpty(player);
+        }
+
+        foreach (CardModel item in cards)
+        {
+            await CardCmd.AutoPlay(choiceContext, item, null);
+        }
+
+        await PromisePileManager.UpdatePowerAsync(player);
     }
 }

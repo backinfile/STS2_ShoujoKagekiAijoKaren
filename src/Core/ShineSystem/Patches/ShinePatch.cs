@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
@@ -129,35 +130,6 @@ public static class ShinePatch
         }
     }
 
-    /// <summary>
-    /// 处理闪耀耗尽牌堆逻辑（替换 CardPileCmd.Add 的自定义方法）
-    /// </summary>
-    public static async Task HandleShineDepletePileAsync(
-        PlayerChoiceContext choiceContext,
-        CardModel card,
-        PileType pile,
-        CardPilePosition position,
-        AbstractModel? source,
-        bool skipVisuals)
-    {
-        // IsDupe 直接移除（不进入 Shine Pile）
-        if (card.IsDupe)
-        {
-            await CardPileCmd.RemoveFromCombat(card);
-            return;
-        }
-
-        MainFile.Logger.Info($"[ShinePilePatch] '{card.Title}' handling shine depletion");
-
-        // 在 RemoveFromCurrentPile 之前找战斗 NCard（用于播放动画）
-        NCard? combatCardNode = NCard.FindOnTable(card);
-
-        // 播放删除动画
-        ShinePileManager.PlayShineDepletionAnimation(card, combatCardNode);
-
-        // 移入 ShinePile，传入 choiceContext
-        await ShinePileManager.MoveToShinePile(card, choiceContext);
-    }
 
     /// <summary>
     /// Patch 3: Prefix CardPileCmd.Add
@@ -169,38 +141,54 @@ public static class ShinePatch
     {
         public static bool Prefix(ref Task<CardPileAddResult> __result, CardModel card, PileType newPileType, CardPilePosition position, AbstractModel? source, bool skipVisuals)
         {
-            MainFile.Logger.Info($"[ShinePilePatch] Intercepting Add of '{card.Title}' to {newPileType}...");
+            // 放行非闪耀牌堆的添加
             if (newPileType != KarenCustomEnum.ShineDepletePile)
                 return true;
 
+            MainFile.Logger.Info($"[ShinePilePatch] Intercepting Add of '{card.Title}' to {newPileType}...");
+
             // 从 SpireField 获取 ctx
             var ctx = CardContext.Get(card);
-            CardContext.Set(card, null!); // 清空
+            CardContext.Set(card, null); // 清空
+
+            // 如果没有ctx，就直接打印错误
             if (ctx == null)
             {
                 MainFile.Logger.Error($"[ShinePilePatch] No PlayerChoiceContext found for '{card.Title}' when adding to ShineDepletePile!");
-                __result = Task.FromResult(new CardPileAddResult
-                {
-                    cardAdded = card,
-                    success = false
-                });
+                __result = Task.FromResult(new CardPileAddResult { cardAdded = card, success = false });
                 return false;
             }
 
-            // 异步执行闪耀耗尽处理，这个方法的返回值没用，直接返回null简化处理
-            __result = Handle(ctx, card, newPileType, position, source, skipVisuals);
-            return false;
+            return Async.Prefix(ref __result, async () =>
+            {
+                var oldPile = card.Pile;
+                // 异步执行闪耀耗尽处理
+                await HandleShineDepletePileAsync(ctx, card);
+                return new CardPileAddResult { cardAdded = card, success = true, oldPile = oldPile, modifyingModels = [] };
+            });
         }
 
-        private static async Task<CardPileAddResult> Handle(
-            PlayerChoiceContext choiceContext, CardModel card, PileType pile, CardPilePosition position, AbstractModel? addedBy, bool skipVisuals)
+        /// <summary>
+        /// 处理闪耀耗尽牌堆逻辑（替换 CardPileCmd.Add 的自定义方法）
+        /// </summary>
+        private static async Task HandleShineDepletePileAsync(PlayerChoiceContext choiceContext, CardModel card)
         {
-            await HandleShineDepletePileAsync(choiceContext, card, pile, position, addedBy, skipVisuals);
-            return new CardPileAddResult
+            // IsDupe 直接移除（不进入 Shine Pile）
+            if (card.IsDupe)
             {
-                cardAdded = card,
-                success = false
-            };
+                await CardPileCmd.RemoveFromCombat(card);
+                MainFile.Logger.Info($"[ShinePilePatch] '{card.Title}' is a dupe, removed from combat without entering ShinePile");
+                return;
+            }
+
+            MainFile.Logger.Info($"[ShinePilePatch] '{card.Title}' handling shine depletion");
+
+            // 播放删除动画
+            NCard? combatCardNode = NCard.FindOnTable(card);
+            ShinePileManager.PlayShineDepletionAnimation(card, combatCardNode);
+
+            // 移入 ShinePile，传入 choiceContext
+            await ShinePileManager.MoveToShinePile(card, choiceContext);
         }
     }
 }
