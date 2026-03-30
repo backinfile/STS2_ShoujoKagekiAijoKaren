@@ -1,4 +1,5 @@
 using Godot;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
@@ -44,21 +45,25 @@ public static class PromisePileAnimator
 
         var globalUi = NRun.Instance?.GlobalUi;
         if (globalUi == null) return;
+        if (NCombatRoom.Instance == null) return;
 
-        // 记录手牌中的位置，然后将原始 NCard 从当前父节点移除。
-        // 这会将 NCard 从 _selectedHandCardContainer 中物理移除，
-        // 防止 OnSelectModeSourceFinished 后续将预览卡牌加回手牌。
-        // 参考：CardPileCmd.MoveCardNodeToNewPileBeforeTween 的做法
         var startPos = nCard.GlobalPosition;
-        var parent = nCard.GetParent();
-        parent?.RemoveChild(nCard);
-
-        // 关键：如果父节点是 NSelectedHandCardHolder，需要将它从容器中移除
-        // 这样 OnSelectModeSourceFinished 遍历 _selectedHandCardContainer.Holders 时就不会处理这个 holder
-        if (parent is NSelectedHandCardHolder holder)
+        NPlayerHand hand = NCombatRoom.Instance.Ui.Hand;
+        NCardPlayQueue playQueue = NCombatRoom.Instance.Ui.PlayQueue;
+        Control playContainer = NCombatRoom.Instance.Ui.PlayContainer;
+        if (playQueue.IsAncestorOf(nCard))
         {
-            holder.GetParent()?.RemoveChild(holder);
-            holder.QueueFreeSafely();
+            playQueue.RemoveCardFromQueueForExecution(card);
+        }
+
+        // 从父节点中移除
+        if (hand.IsAncestorOf(nCard))
+        {
+            hand.Remove(card);
+        }
+        else
+        {
+            nCard.GetParent()?.RemoveChildSafely(nCard);
         }
 
         // 创建临时副本做飞行动画

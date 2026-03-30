@@ -8,9 +8,6 @@ using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Screens;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.Screens.Capstones;
-using MegaCrit.Sts2.Core.Nodes.Vfx;
-using MegaCrit.Sts2.Core.Helpers;
-using ShoujoKagekiAijoKaren.src.Models.Characters;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using static Godot.Control;
 
@@ -29,7 +26,7 @@ public static class NCreatureClickPatch
         // 只处理本地玩家
         if (!LocalContext.IsMe(__instance.Entity)) return;
         var player = __instance.Entity.Player;
-        if (player?.PlayerCombatState == null) return;
+        if (player == null) return;
         // 都可以点，但没有约定牌堆能力时点了也没事（不打开界面），所以不需要这个条件了
         // if (player.PlayerCombatState.Powers.All(p => p is not KarenPromisePilePower)) return;
 
@@ -39,6 +36,7 @@ public static class NCreatureClickPatch
             Control.SignalName.GuiInput,
             Callable.From<InputEvent>(evt => OnHitboxInput(__instance, evt, player))
         );
+        MainFile.Logger.Info($"Added click event to player {player.Creature.Name} Hitbox");
     }
 
     private static void OnHitboxInput(NCreature creature, InputEvent evt, Player player)

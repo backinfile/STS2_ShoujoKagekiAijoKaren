@@ -4,13 +4,14 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
-using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
-using MegaCrit.Sts2.Core.Hooks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -73,11 +74,15 @@ public static class PromisePileCmd
 
     public static async Task AddToken<T>(Player player, int cnt = 1) where T : CardModel
     {
+        CombatState? combatState = player.Creature.CombatState;
+        if (combatState == null) return;
+
         MainFile.Logger.Info($"Adding {cnt} token(s) of type {typeof(T).Name} to promise pile for player {player.Creature.Name}");
         for (int i = 0; i < cnt; i++)
         {
-            var token = player.Creature.CombatState!.CreateCard<T>(player);
+            var token = combatState.CreateCard<T>(player);
             await Add(token);
+            await Hook.AfterCardEnteredCombat(combatState, token);
         }
     }
 
