@@ -63,6 +63,7 @@
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\ancients.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\cards.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\card_keywords.json" />
+    <Content Include="shoujokagekiaijokaren\localization\zhs\card_selection.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\characters.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\gameplay_ui.json" />
     <Content Include="ShoujoKagekiAijoKaren\localization\zhs\powers.json" />

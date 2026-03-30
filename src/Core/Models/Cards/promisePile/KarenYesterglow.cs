@@ -18,7 +18,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 /// <summary>
 /// 昨天夜空的光辉 - 1费攻击，造成9点伤害，从弃牌堆选择1张放入约定牌堆
 /// </summary>
-public sealed class KarenYesterglow : KarenBaseCardModel
+public class KarenYesterglow : KarenBaseCardModel
 {
     public KarenYesterglow() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 

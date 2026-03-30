@@ -23,5 +23,9 @@
 
   "KAREN_AQUARIUM_POWER.title": "水族馆",
   "KAREN_AQUARIUM_POWER.description": "回合开始时，抽1张牌，然后将1张[gold]手牌[/gold]放入[gold]约定牌堆[/gold]。",
-  "KAREN_AQUARIUM_POWER.smartDescription": "回合开始时，抽{Amount}张牌，然后将{Amount}张手牌放入[gold]约定牌堆[/gold]。"
+  "KAREN_AQUARIUM_POWER.smartDescription": "回合开始时，抽{Amount}张牌，然后将{Amount}张手牌放入[gold]约定牌堆[/gold]。",
+
+  "KAREN_TEMP_STRENGTH_POWER.title": "临时力量",
+  "KAREN_TEMP_STRENGTH_POWER.description": "临时力量会在本回合增加攻击牌造成的伤害。",
+  "KAREN_TEMP_STRENGTH_POWER.smartDescription": "在本回合{Amount:cond:<0?减少|增加}攻击牌造成的伤害值[blue]{Amount:abs()}[/blue]点。"
 }

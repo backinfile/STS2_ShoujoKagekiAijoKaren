@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,8 +32,8 @@ public sealed class KarenRapid : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PromisePileCmd.DrawSelected(choiceContext, Owner, DynamicVars.Cards.IntValue, this);
-        await PromisePileCmd.DiscardAll(ctx, Owner);
+        await PromisePileCmd.SelectedToHand(choiceContext, Owner, DynamicVars.Cards.IntValue);
+        await PromisePileCmd.DiscardAll(choiceContext, Owner);
     }
 
     protected override void OnUpgrade()

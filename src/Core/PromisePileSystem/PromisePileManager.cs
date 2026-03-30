@@ -22,6 +22,7 @@ using MegaCrit.Sts2.addons.mega_text;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.GlobalMoveSystem.Patches;
 using Godot;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 

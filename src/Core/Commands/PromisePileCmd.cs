@@ -73,9 +73,10 @@ public static class PromisePileCmd
 
     public static async Task AddToken<T>(Player player, int cnt = 1) where T : CardModel
     {
+        MainFile.Logger.Info($"Adding {cnt} token(s) of type {typeof(T).Name} to promise pile for player {player.Creature.Name}");
         for (int i = 0; i < cnt; i++)
         {
-            var token = player.Creature.CombatState.Instance.CreateCard<T>(player);
+            var token = player.Creature.CombatState!.CreateCard<T>(player);
             await Add(token);
         }
     }
@@ -131,14 +132,14 @@ public static class PromisePileCmd
     }
 
     /// <summary>
-    /// 从约定牌堆中选择最多 count 张牌加入手牌。
+    /// 从约定牌堆中选择count 张牌加入手牌。
     /// Void 模式下改为从抽牌堆中选择加入手牌。
     /// </summary>
-    public static async Task DrawSelected(PlayerChoiceContext ctx, Player player, int count)
+    public static async Task SelectedToHand(PlayerChoiceContext ctx, Player player, int count)
     {
         if (IsVoidMode(player))
         {
-            await DrawSelectedFromDrawPile(ctx, player, count);
+            await DrawSelectedFromDrawPileInVoidMode(ctx, player, count);
             return;
         }
 
@@ -175,32 +176,12 @@ public static class PromisePileCmd
     /// <summary>
     /// Void 模式专用：从抽牌堆选择最多 count 张牌加入手牌
     /// </summary>
-    private static async Task DrawSelectedFromDrawPile(PlayerChoiceContext ctx, Player player, int count)
+    private static async Task DrawSelectedFromDrawPileInVoidMode(PlayerChoiceContext ctx, Player player, int count)
     {
-        //var pile = PileType.Draw.GetPile(player);
-        //var cards = pile.Cards.ToList();
-        //if (cards.Count == 0) return;
-
-        //int selectCount = System.Math.Min(count, cards.Count);
-        //var prompt = new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_DRAW_VOID");
-        //var prefs = new CardSelectorPrefs(prompt, selectCount, selectCount);
-
-        //var selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
-        //if (selected == null) return;
-
-        //foreach (var card in selected)
-        //{
-        //    await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top, null, false);
-        //    await TriggerPowerOnCardRemoved(player, card);
-        //}
-
-        //await CardPileCmd.ShuffleIfNecessary(ctx, player);
-
         var pile = PileType.Draw.GetPile(player);
-        var triggerEmpty = count >= pile.Cards.Count; // 如果选择数量大于等于抽牌堆剩余数量，视为抽牌堆将被抽空
-
-        List<CardModel> selectFrom = (from c in pile.Cards orderby c.Rarity, c.Id select c).ToList();
-        await CardPileCmd.Add(await CardSelectCmd.FromSimpleGrid(ctx, selectFrom, player, new CardSelectorPrefs(AbPower, count)), PileType.Hand);
+        var selectFrom = (from c in pile.Cards orderby c.Rarity, c.Id select c).ToList();
+        IEnumerable<CardModel> selected = await CardSelectCmd.FromSimpleGrid(ctx, selectFrom, player, new CardSelectorPrefs(Tips.SelectFromDrawToHand, count));
+        await CardPileCmd.Add(selected, PileType.Hand);
     }
 
     /// <summary>
@@ -246,7 +227,7 @@ public static class PromisePileCmd
         if (IsVoidMode(player))
         {
             // Void 模式：从手牌选牌放入抽牌堆顶部
-            await AddFromPileToDrawPile(ctx, player, PileType.Hand, count, prompt);
+            await AddFromPileToDrawPile(ctx, player, PileType.Hand, count, prompt, source);
             return;
         }
 
@@ -276,7 +257,7 @@ public static class PromisePileCmd
     /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择
     /// </summary>
     private static async Task AddFromPileToDrawPile(
-        PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt)
+        PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt, AbstractModel? source = null)
     {
         var cardPile = pileType.GetPile(player);
         var cards = cardPile.Cards.ToList();
@@ -289,7 +270,7 @@ public static class PromisePileCmd
         if (pileType == PileType.Hand)
         {
             // 手牌使用 FromHand，显示在手牌区域
-            selected = await CardSelectCmd.FromHand(ctx, player, prefs, _ => true, null);
+            selected = await CardSelectCmd.FromHand(ctx, player, prefs, _ => true, source!);
         }
         else
         {

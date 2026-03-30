@@ -24,7 +24,8 @@ public sealed class KarenCourageStrike : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(6m, ValueProp.Move)
+        new DamageVar(6m, ValueProp.Move),
+        new CardsVar(1)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -35,9 +36,7 @@ public sealed class KarenCourageStrike : KarenBaseCardModel
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
 
-        // 创建侧身并放入约定牌堆
-        var tokenCard = CombatState!.CreateCard<KarenSideways>(Owner);
-        await PromisePileCmd.Add(tokenCard);
+        await PromisePileCmd.AddToken<KarenSideways>(Owner, DynamicVars.Cards.IntValue);
     }
 
     protected override void OnUpgrade()

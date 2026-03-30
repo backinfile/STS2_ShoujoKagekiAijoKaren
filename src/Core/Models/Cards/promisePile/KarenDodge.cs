@@ -25,7 +25,8 @@ public sealed class KarenDodge : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(3m, ValueProp.Move)
+        new BlockVar(3m, ValueProp.Move),
+        new CardsVar(1)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -33,7 +34,7 @@ public sealed class KarenDodge : KarenBaseCardModel
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
         // 创建对峙并放入约定牌堆
-        await PromisePileCmd.AddToken<KarenConfront>(Owner);
+        await PromisePileCmd.AddToken<KarenConfront>(Owner, DynamicVars.Cards.IntValue);
     }
 
     protected override void OnUpgrade()

@@ -39,7 +39,7 @@ public sealed class KarenDance : KarenBaseCardModel
             .Execute(choiceContext);
 
         // 从约定牌堆选择cards张加入手牌
-        await PromisePileCmd.DrawSelected(choiceContext, Owner, (int)DynamicVars.Cards.BaseValue);
+        await PromisePileCmd.SelectedToHand(choiceContext, Owner, (int)DynamicVars.Cards.BaseValue);
     }
 
     protected override void OnUpgrade()

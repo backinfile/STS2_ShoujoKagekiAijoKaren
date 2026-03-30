@@ -21,15 +21,20 @@ public sealed class KarenEatTogether : KarenBaseCardModel
 {
     public KarenEatTogether() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self) { }
 
+
+    protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.TmpStrength, KarenCustomEnum.RetainTmpStrength];
+
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<StrengthPower>(3m)
+        new PowerVar<StrengthPower>(3m),
+        new DynamicVar("Turns", 1m)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 获得临时力量（本回合+3，下回合-3）
-        await PowerCmd.Apply<KarenEatTogetherTempStrengthPower>(
+        await PowerCmd.Apply<KarenTempStrengthPower>(
             Owner.Creature,
             DynamicVars.Strength.BaseValue,
             Owner.Creature,
@@ -39,7 +44,7 @@ public sealed class KarenEatTogether : KarenBaseCardModel
         // 获得保留力量（回合结束时不会消失）
         await PowerCmd.Apply<KarenRetainTmpStrengthPower>(
             Owner.Creature,
-            1,
+            DynamicVars["Turns"].IntValue,
             Owner.Creature,
             this
         );

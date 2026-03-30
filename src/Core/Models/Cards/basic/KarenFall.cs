@@ -10,6 +10,7 @@ using ShoujoKagekiAijoKaren.src.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 

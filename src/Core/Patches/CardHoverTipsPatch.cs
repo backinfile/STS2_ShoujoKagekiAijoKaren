@@ -44,7 +44,7 @@ public static class CardHoverTipsPatch
     [HarmonyPostfix]
     public static void Postfix(CardModel __instance, ref IEnumerable<IHoverTip> __result)
     {
-        var addTips = new List<HoverTip>();
+        var addTips = new List<IHoverTip>();
         foreach (var (key, condition) in Keywords)
         {
             if (!condition(__instance)) continue;

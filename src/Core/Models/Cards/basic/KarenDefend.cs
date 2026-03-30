@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
