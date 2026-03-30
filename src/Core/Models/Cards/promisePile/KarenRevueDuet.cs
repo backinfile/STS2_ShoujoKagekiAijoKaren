@@ -6,35 +6,42 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
 /// <summary>
-/// 拉伸 - 2费技能，获得14格挡，打出后进入约定牌堆
+/// RevueDuet - 0费攻击，造成6点伤害，打出后进入约定牌堆
 /// </summary>
-public sealed class KarenStretching : KarenBaseCardModel
+public sealed class KarenRevueDuet : KarenBaseCardModel
 {
-    public KarenStretching() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
-
-    public override bool GainsBlock => true;
+    public KarenRevueDuet() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(14m, ValueProp.Move)
+        new DamageVar(6m, ValueProp.Move)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        ArgumentNullException.ThrowIfNull(cardPlay.Target);
+
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .FromCard(this)
+            .Targeting(cardPlay.Target)
+            .WithHitFx(VfxCmd.slashPath)
+            .Execute(choiceContext);
+
+        // 将此牌放入约定牌堆
         await PromisePileCmd.Add(this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

@@ -10,37 +10,34 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
 /// <summary>
-/// 落地 - 1费攻击，对所有敌人造成6点伤害，将1张回击放入约定牌堆
+/// 闪避 - 0费技能，获得3格挡，将1张对峙放入约定牌堆
 /// </summary>
-public sealed class KarenLanding : KarenBaseCardModel
+public sealed class KarenDodge : KarenBaseCardModel
 {
-    public KarenLanding() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies) { }
+    public KarenDodge() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+
+    public override bool GainsBlock => true;
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(6m, ValueProp.Move)
+        new BlockVar(3m, ValueProp.Move)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .TargetingAllOpponents(CombatState)
-            .WithHitFx(VfxCmd.slashPath)
-            .Execute(choiceContext);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-        // 创建回击并放入约定牌堆
-        var tokenCard = CombatState!.CreateCard<KarenCounter>(Owner);
-        await PromisePileCmd.Add(tokenCard);
+        // 创建对峙并放入约定牌堆
+        await PromisePileCmd.AddToken<KarenConfront>(Owner);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.Block.UpgradeValueBy(3m);
     }
 }

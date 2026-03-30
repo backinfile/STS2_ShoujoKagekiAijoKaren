@@ -6,40 +6,33 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
-using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
 /// <summary>
-/// 重逢临时版 - 0费技能，获得2临时力量，打出后进入约定牌堆
+/// 行动 - 1费技能，抽2张牌，打出后进入约定牌堆
 /// </summary>
-public sealed class KarenMeetAgainTmp : KarenBaseCardModel
+public sealed class KarenRun : KarenBaseCardModel
 {
-    public KarenMeetAgainTmp() : base(0, CardType.Skill, CardRarity.Common, TargetType.Self) { }
+    public KarenRun() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<KarenMeetAgainTmpTempStrengthPower>(2m)
+        new CardsVar(2)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KarenMeetAgainTmpTempStrengthPower>(
-            Owner.Creature,
-            DynamicVars[nameof(KarenMeetAgainTmpTempStrengthPower)].BaseValue,
-            Owner.Creature,
-            this
-        );
-
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
         await PromisePileCmd.Add(this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars[nameof(KarenMeetAgainTmpTempStrengthPower)].UpgradeValueBy(2m);
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

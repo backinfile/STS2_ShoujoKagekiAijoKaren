@@ -1,4 +1,3 @@
-using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -10,14 +9,14 @@ using ShoujoKagekiAijoKaren.src.Core.Commands;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
 /// <summary>
-/// 重逢 - 1费技能，获得6格挡，抽2张牌，将1张手牌放入约定牌堆
+/// 拉伸 - 2费技能，获得14格挡，打出后进入约定牌堆
 /// </summary>
-public sealed class KarenMeetAgain : KarenBaseCardModel
+public sealed class KarenStretching : KarenBaseCardModel
 {
-    public KarenMeetAgain() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+    public KarenStretching() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 
@@ -25,19 +24,17 @@ public sealed class KarenMeetAgain : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(6m, ValueProp.Move),
-        new CardsVar(2)
+        new BlockVar(14m, ValueProp.Move)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
-        await PromisePileCmd.AddFromHand(choiceContext, Owner, 1, this);
+        await PromisePileCmd.Add(this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.Block.UpgradeValueBy(4m);
     }
 }

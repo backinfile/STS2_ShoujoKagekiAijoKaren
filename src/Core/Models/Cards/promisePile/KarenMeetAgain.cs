@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -9,14 +10,14 @@ using ShoujoKagekiAijoKaren.src.Core.Commands;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
 /// <summary>
-/// 观察情况 - 1费技能，获得8格挡，将1张三明治放入约定牌堆
+/// 重逢 - 1费技能，获得6格挡，抽2张牌，将1张手牌放入约定牌堆
 /// </summary>
-public sealed class KarenNewSituation : KarenBaseCardModel
+public sealed class KarenMeetAgain : KarenBaseCardModel
 {
-    public KarenNewSituation() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self) { }
+    public KarenMeetAgain() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 
@@ -24,25 +25,19 @@ public sealed class KarenNewSituation : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(8m, ValueProp.Move),
-        new CardsVar(1)
+        new BlockVar(6m, ValueProp.Move),
+        new CardsVar(2)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-
-        // 创建三明治并放入约定牌堆
-        int count = DynamicVars.Cards.IntValue;
-        for (int i = 0; i < count; i++)
-        {
-            var tokenCard = CombatState!.CreateCard<KarenEatFood2>(Owner);
-            await PromisePileCmd.Add(tokenCard);
-        }
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+        await PromisePileCmd.AddFromHand(choiceContext, Owner, 1, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1m);
+        DynamicVars.Block.UpgradeValueBy(3m);
     }
 }

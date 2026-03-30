@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
-using ShoujoKagekiAijoKaren.src.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

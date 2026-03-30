@@ -2,7 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers.tmpStrength;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,7 +17,7 @@ public sealed class KarenBananaMuffin : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<KarenBananaMuffinTempStrengthPower>(3m),
+        new PowerVar<StrengthPower>(3m),
         new CardsVar(1)
     ];
 
@@ -25,7 +25,7 @@ public sealed class KarenBananaMuffin : KarenBaseCardModel
     {
         await PowerCmd.Apply<KarenBananaMuffinTempStrengthPower>(
             Owner.Creature,
-            DynamicVars[nameof(KarenBananaMuffinTempStrengthPower)].BaseValue,
+            DynamicVars[nameof(StrengthPower)].BaseValue,
             Owner.Creature,
             this
         );

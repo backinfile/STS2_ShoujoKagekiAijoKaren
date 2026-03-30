@@ -42,7 +42,7 @@ public sealed class KarenUnderTower : KarenBaseCardModel
         // 生成一张约定之塔
         CardModel towerCard = ModelDb.Card<KarenTowerOfPromise>();
 
-        // 加入手牌
+        // 加入手牌 TODO 看看对不？
         await CardPileCmd.AddGeneratedCardToCombat(towerCard, PileType.Hand, addedByPlayer: true);
     }
 

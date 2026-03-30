@@ -1,22 +1,26 @@
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 
 /// <summary>
-/// 行动 - 1费技能，抽2张牌，打出后进入约定牌堆
+/// 极速下降 - 0费技能，从约定牌堆中选择2张加入手牌，弃置其余
 /// </summary>
-public sealed class KarenRun : KarenBaseCardModel
+public sealed class KarenRapid : KarenBaseCardModel
 {
-    public KarenRun() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+    public KarenRapid() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
@@ -27,8 +31,8 @@ public sealed class KarenRun : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
-        await PromisePileCmd.Add(this);
+        await PromisePileCmd.DrawSelected(choiceContext, Owner, DynamicVars.Cards.IntValue, this);
+        await PromisePileCmd.DiscardAll(ctx, Owner);
     }
 
     protected override void OnUpgrade()

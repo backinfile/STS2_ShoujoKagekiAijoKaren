@@ -8,10 +8,11 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers.tmpStrength;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.strength;
 
 /// <summary>
 /// 一起吃饭吧 - 1费技能，获得3临时力量，下回合失去，然后获得1层保留力量
@@ -22,8 +23,7 @@ public sealed class KarenEatTogether : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<KarenEatTogetherTempStrengthPower>(3m),
-        new PowerVar<StrengthPower>(1m)
+        new PowerVar<StrengthPower>(3m)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -31,15 +31,15 @@ public sealed class KarenEatTogether : KarenBaseCardModel
         // 获得临时力量（本回合+3，下回合-3）
         await PowerCmd.Apply<KarenEatTogetherTempStrengthPower>(
             Owner.Creature,
-            DynamicVars[nameof(KarenEatTogetherTempStrengthPower)].BaseValue,
+            DynamicVars.Strength.BaseValue,
             Owner.Creature,
             this
         );
 
         // 获得保留力量（回合结束时不会消失）
-        await PowerCmd.Apply<StrengthPower>(
+        await PowerCmd.Apply<KarenRetainTmpStrengthPower>(
             Owner.Creature,
-            DynamicVars.Strength.BaseValue,
+            1,
             Owner.Creature,
             this
         );
@@ -47,6 +47,6 @@ public sealed class KarenEatTogether : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars[nameof(KarenEatTogetherTempStrengthPower)].UpgradeValueBy(1m);
+        DynamicVars.Strength.UpgradeValueBy(1m);
     }
 }

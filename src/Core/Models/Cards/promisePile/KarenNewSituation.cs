@@ -10,14 +10,14 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
 /// <summary>
-/// 闪避 - 0费技能，获得3格挡，将1张对峙放入约定牌堆
+/// 观察情况 - 1费技能，获得8格挡，将1张三明治放入约定牌堆
 /// </summary>
-public sealed class KarenDodge : KarenBaseCardModel
+public sealed class KarenNewSituation : KarenBaseCardModel
 {
-    public KarenDodge() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+    public KarenNewSituation() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 
@@ -25,20 +25,20 @@ public sealed class KarenDodge : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(3m, ValueProp.Move)
+        new BlockVar(8m, ValueProp.Move),
+        new CardsVar(1)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-        // 创建对峙并放入约定牌堆
-        var tokenCard = CombatState!.CreateCard<KarenConfront>(Owner);
-        await PromisePileCmd.Add(tokenCard);
+        // 创建三明治并放入约定牌堆
+        await PromisePileCmd.AddToken<KarenSandwitch>(Owner, DynamicVars.Cards.BaseValue);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

@@ -71,6 +71,15 @@ public static class PromisePileCmd
         await PromisePileManager.AddToPromisePile(card);
     }
 
+    public static async Task AddToken<T>(Player player, int cnt = 1) where T : CardModel
+    {
+        for (int i = 0; i < cnt; i++)
+        {
+            var token = player.Creature.CombatState.Instance.CreateCard<T>(player);
+            await Add(token);
+        }
+    }
+
     /// <summary>
     /// 从约定牌堆取出第一张牌（FIFO），移到手牌顶部。
     /// Void 模式下改为从抽牌堆顶部抽1张。

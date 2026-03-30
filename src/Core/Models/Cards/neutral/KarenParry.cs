@@ -4,37 +4,35 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
-using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 
 /// <summary>
-/// 侧身 - 0费技能，获得6格挡，消耗
-/// 由勇气打击生成的token卡
+/// 招架 - 1费技能，获得5格挡，当手牌数量发生变化时，增加1点格挡
 /// </summary>
-public sealed class KarenSideways : KarenBaseCardModel
+/// TODO add patch to CardPile.Add or Remove?
+/// TODO reset when turn end or after paly
+public sealed class KarenParry : KarenBaseCardModel
 {
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    public KarenSideways() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self)
-    {
-    }
+    public KarenParry() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(6m, ValueProp.Move)
+        new BlockVar(5m, ValueProp.Move)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        await CreatureCmd.GainBlock(Owner.Creature, totalBlock, ValueProp.Move, cardPlay);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(6m);
+        DynamicVars.Block.UpgradeValueBy(3m);
     }
 }

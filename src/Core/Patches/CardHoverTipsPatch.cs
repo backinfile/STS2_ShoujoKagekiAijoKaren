@@ -28,26 +28,32 @@ public static class CardHoverTipsPatch
         ("KAREN_RETAIN_TMP_STRENGTH", card => card.Tags.Contains(KarenCustomEnum.RetainTmpStrength)),
     ];
 
+    private static readonly Dictionary<string, HoverTip> HoverTopCache = new();
+
+    private static HoverTip GetHoverTip(string key)
+    {
+        if (HoverTopCache.TryGetValue(key, out var cachedTip))
+            return cachedTip;
+        var title = new LocString("card_keywords", key + ".title");
+        var desc = new LocString("card_keywords", key + ".description");
+        var hoverTip = new HoverTip(title, desc);
+        HoverTopCache[key] = hoverTip;
+        return hoverTip;
+    }
+
     [HarmonyPostfix]
     public static void Postfix(CardModel __instance, ref IEnumerable<IHoverTip> __result)
     {
-        var tips = __result.ToList();
-        bool modified = false;
-
+        var addTips = new List<HoverTip>();
         foreach (var (key, condition) in Keywords)
         {
             if (!condition(__instance)) continue;
 
-            var title = new LocString("card_keywords", key + ".title");
-            string titleText = title.GetFormattedText();
-            if (tips.Any(t => t is HoverTip ht && ht.Title == titleText)) continue;
-
-            var desc = new LocString("card_keywords", key + ".description");
-            tips.Add(new HoverTip(title, desc));
-            modified = true;
+            addTips.Add(GetHoverTip(key));
         }
-
-        if (modified)
-            __result = tips;
+        if (addTips.Count > 0)
+        {
+            __result = __result.Concat(addTips);
+        }
     }
 }

@@ -1,8 +1,8 @@
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using ShoujoKagekiAijoKaren.src.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
-namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers.tmpStrength;
 
 /// <summary>
 /// 重逢临时版的临时力量效果（本回合）
