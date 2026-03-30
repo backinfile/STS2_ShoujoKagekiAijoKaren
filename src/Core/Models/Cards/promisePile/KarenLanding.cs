@@ -35,7 +35,7 @@ public sealed class KarenLanding : KarenBaseCardModel
             .Execute(choiceContext);
 
         // 创建回击并放入约定牌堆
-        await PromisePileCmd.AddToken<KarenCounter>(Owner);
+        await PromisePileCmd.AddToken<KarenCounter>(Owner, CombatState);
     }
 
     protected override void OnUpgrade()

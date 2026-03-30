@@ -73,7 +73,6 @@ internal static class GlobalMovePatch
 
             GlobalMoveSystem.Invoke(card, oldPile, newPile, source);
         }
-
     }
 
 

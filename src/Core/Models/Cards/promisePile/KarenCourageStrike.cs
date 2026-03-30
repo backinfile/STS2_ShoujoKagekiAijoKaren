@@ -36,7 +36,7 @@ public sealed class KarenCourageStrike : KarenBaseCardModel
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
 
-        await PromisePileCmd.AddToken<KarenSideways>(Owner, DynamicVars.Cards.IntValue);
+        await PromisePileCmd.AddToken<KarenSideways>(Owner, CombatState, DynamicVars.Cards.IntValue);
     }
 
     protected override void OnUpgrade()

@@ -1,4 +1,6 @@
 using Godot;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
@@ -21,7 +23,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 public static class PromisePileAnimator
 {
     private const float NormalDuration = 0.40f;
-    private const float FastDuration   = 0.15f;
+    private const float FastDuration = 0.15f;
     private const float InstantDuration = 0.01f;
 
     // ─── Add 动画 ─────────────────────────────────────────────────────────────
@@ -34,8 +36,24 @@ public static class PromisePileAnimator
     /// </summary>
     public static void PlayAddAnimation(CardModel card)
     {
+        if (NGame.Instance == null) return;
+        if (NCombatRoom.Instance == null) return;
+
         var nCard = NCard.FindOnTable(card);
-        if (nCard == null) return;
+        if (nCard == null)
+        {
+            nCard = NCard.Create(card)!;
+            NCombatRoom.Instance.Ui.AddChildSafely(nCard);
+            nCard.UpdateVisuals(PileType.None, CardPreviewMode.Normal);
+
+            // 将新创建的卡牌放到屏幕中心
+            Vector2 screenSize = NGame.Instance.GetViewportRect().Size;
+            nCard.Position = new Vector2(
+                screenSize.X * 0.5f - nCard.Size.X * 0.5f,
+                screenSize.Y * 0.5f - nCard.Size.Y * 0.5f
+            );
+            //nCard = AccessTools.Method(typeof(CardPileCmd), "CreateCardNodeAndUpdateVisuals").Invoke(null, [card, PileType.None, true]) as NCard;
+        }
 
         var playerNode = GetCreatureNode(card.Owner);
         if (playerNode == null) return;
@@ -45,7 +63,6 @@ public static class PromisePileAnimator
 
         var globalUi = NRun.Instance?.GlobalUi;
         if (globalUi == null) return;
-        if (NCombatRoom.Instance == null) return;
 
         var startPos = nCard.GlobalPosition;
         NPlayerHand hand = NCombatRoom.Instance.Ui.Hand;
@@ -94,9 +111,9 @@ public static class PromisePileAnimator
     {
         return SaveManager.Instance?.PrefsSave?.FastMode switch
         {
-            FastModeType.Fast    => FastDuration,
+            FastModeType.Fast => FastDuration,
             FastModeType.Instant => InstantDuration,
-            _                    => NormalDuration,
+            _ => NormalDuration,
         };
     }
 }

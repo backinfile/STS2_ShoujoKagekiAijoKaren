@@ -129,7 +129,7 @@
   "KAREN_YESTERGLOW.description": "造成{Damage:diff()}点伤害。\n将弃牌堆中的{Cards}张牌放入[gold]约定牌堆[/gold]。",
 
   "KAREN_DODGE.title": "闪避",
-  "KAREN_DODGE.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将弃牌堆中的{Cards}张牌放入[gold]约定牌堆[/gold]。",
+  "KAREN_DODGE.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将[gold]对峙[/gold]放入[gold]约定牌堆[/gold]。",
 
   "KAREN_CONFRONT.title": "对峙",
   "KAREN_CONFRONT.description": "造成{Damage:diff()}点伤害{Repeat:diff()}次。",

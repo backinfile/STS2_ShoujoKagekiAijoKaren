@@ -36,6 +36,10 @@ public static class TokenCardPoolPatch
             ..__result,
             ModelDb.Card<KarenContinue>(),
             ModelDb.Card<KarenTowerOfPromise>(),
+            ModelDb.Card<KarenConfront>(),
+            ModelDb.Card<KarenCounter>(),
+            ModelDb.Card<KarenSandwitch>(),
+            ModelDb.Card<KarenSideways>(),
         ];
     }
 }

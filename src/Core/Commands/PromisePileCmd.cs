@@ -72,17 +72,17 @@ public static class PromisePileCmd
         await PromisePileManager.AddToPromisePile(card);
     }
 
-    public static async Task AddToken<T>(Player player, int cnt = 1) where T : CardModel
+    public static async Task AddToken<T>(Player player, CombatState combatState, int cnt = 1) where T : CardModel
     {
-        CombatState? combatState = player.Creature.CombatState;
-        if (combatState == null) return;
+        if (CombatManager.Instance.IsOverOrEnding) return;
 
         MainFile.Logger.Info($"Adding {cnt} token(s) of type {typeof(T).Name} to promise pile for player {player.Creature.Name}");
         for (int i = 0; i < cnt; i++)
         {
-            var token = combatState.CreateCard<T>(player);
-            await Add(token);
-            await Hook.AfterCardEnteredCombat(combatState, token);
+            var card = combatState.CreateCard<T>(player);
+            CombatManager.Instance.History.CardGenerated(combatState, card, true);
+            await Add(card);
+            await Hook.AfterCardGeneratedForCombat(combatState, card, true);
         }
     }
 

@@ -34,7 +34,7 @@ public sealed class KarenNewSituation : KarenBaseCardModel
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
         // 创建三明治并放入约定牌堆
-        await PromisePileCmd.AddToken<KarenSandwitch>(Owner, DynamicVars.Cards.IntValue);
+        await PromisePileCmd.AddToken<KarenSandwitch>(Owner, CombatState, DynamicVars.Cards.IntValue);
     }
 
     protected override void OnUpgrade()
