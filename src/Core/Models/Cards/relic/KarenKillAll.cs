@@ -1,0 +1,43 @@
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
+
+/// <summary>
+/// 皆杀 - 造成伤害，战斗结束时获得随机遗物
+/// </summary>
+public sealed class KarenKillAll : KarenBaseCardModel
+{
+    public KarenKillAll() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
+
+    protected override HashSet<CardTag> CanonicalTags => [CardTag.Exhaust];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15m)];
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        ArgumentNullException.ThrowIfNull(cardPlay.Target);
+
+        // 造成伤害
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .FromCard(this)
+            .Targeting(cardPlay.Target)
+            .WithHitFx(VfxCmd.slashPath)
+            .Execute(choiceContext);
+
+        // 应用Power来在战斗结束时获得遗物
+        await PowerCmd.Apply<KarenPassionPower>(Owner.Creature, 1m, Owner.Creature, this);
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(5m);
+    }
+}

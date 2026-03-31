@@ -1,11 +1,13 @@
 using Godot;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Unlocks;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.strength;
-using ShoujoKagekiAijoKaren.src.Models.Cards;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -52,6 +54,9 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenStarlightCard>(),
             ModelDb.Card<KarenStarlight02Card>(),
             ModelDb.Card<KarenStarlight03Card>(),
+            // 新增闪耀牌
+            ModelDb.Card<KarenStar>(),
+            ModelDb.Card<KarenStarGuide>(),
             // 约定牌堆相关卡牌
             ModelDb.Card<KarenPromiseDraw>(),
             ModelDb.Card<KarenUnderTower>(),
@@ -70,14 +75,43 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenCourageStrike>(),
             ModelDb.Card<KarenRevueDuet>(),
             ModelDb.Card<KarenRun>(),
-            ModelDb.Card<KarenStreching>(),
             ModelDb.Card<KarenDance>(),
             ModelDb.Card<KarenParry>(),
-            ModelDb.Card<KarenRapid>(),
             ModelDb.Card<KarenNewSituation>(),
             ModelDb.Card<KarenLanding>(),
             ModelDb.Card<KarenYesterglow>(),
             ModelDb.Card<KarenDodge>(),
+
+            // 新增卡牌
+            ModelDb.Card<KarenBridge>(),
+            ModelDb.Card<KarenStageIsWaiting>(),
+            ModelDb.Card<KarenLastWord>(),
+            ModelDb.Card<KarenNewDay>(),
+            ModelDb.Card<KarenPassion>(),
+            ModelDb.Card<KarenArrogant>(),
+            ModelDb.Card<KarenKillAll>(),
+            ModelDb.Card<KarenPickStar>(),
+            ModelDb.Card<KarenStarCrime>(),
+            ModelDb.Card<KarenForgive>(),
+            ModelDb.Card<KarenBananaLunch>(),
+            ModelDb.Card<KarenFinancier>(),
+            ModelDb.Card<KarenCry>(),
+            ModelDb.Card<KarenSpin>(),
+            ModelDb.Card<KarenOldPlace>(),
+            ModelDb.Card<KarenVoid>(),
+            ModelDb.Card<KarenForm>(),
+            ModelDb.Card<KarenGeer>(),
+            ModelDb.Card<KarenBurn>(),
+
+            // 选择卡牌系列
+            ModelDb.Card<KarenWakeUp>(),
+
+            // 剩余卡牌
+            ModelDb.Card<KarenNextStage>(),
+            ModelDb.Card<KarenStageReproduce>(),
+            ModelDb.Card<KarenPizza>(),
+            ModelDb.Card<KarenPosition0>(),
+            ModelDb.Card<KarenPractice2>(),
         ];
     }
 

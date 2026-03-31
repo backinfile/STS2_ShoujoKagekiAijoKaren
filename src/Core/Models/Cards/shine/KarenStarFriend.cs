@@ -8,15 +8,16 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core;
+using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
-using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
+using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Models.Cards;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 
 /// <summary>
 /// 星星串起了我们的友谊 - 1费8伤，击杀目标时获得一张随机闪耀牌，Shine 3
@@ -39,23 +40,21 @@ public sealed class KarenStarFriend : KarenBaseCardModel
         KarenCustomEnum.ShineCardReward
     ];
 
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        if (CombatState?.RunState?.CurrentRoom is CombatRoom combatRoom)
+        ArgumentNullException.ThrowIfNull(cardPlay.Target);
+
+        bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
+
+        var attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .FromCard(this)
+            .Targeting(cardPlay.Target)
+            .WithHitFx(VfxCmd.slashPath)
+            .Execute(choiceContext);
+
+        if (shouldTriggerFatal && attackCommand.Results.Any((DamageResult r) => r.WasTargetKilled))
         {
-            bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
-            AttackCommand attackCommand = await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
-                .WithHitFx(VfxCmd.slashPath)
-                .Execute(choiceContext);
-            if (shouldTriggerFatal && attackCommand.Results.Any((DamageResult r) => r.WasTargetKilled))
-            {
-                // 发奖
-                await KarenShineCardRewardPower.RewardShineCard(Owner, card => card.Id != this.Id);
-                // 标记
-                await PowerCmd.Apply<KarenShineCardRewardPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
-            }
+            await ExtraRewardCmd.AddShineCardReward(Owner, this);
         }
     }
 
