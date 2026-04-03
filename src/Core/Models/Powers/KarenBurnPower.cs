@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -16,21 +17,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 public class KarenBurnPower : PowerModel
 {
     public override PowerStackType StackType => PowerStackType.Single;
-    public override PowerType PowerType => PowerType.Buff;
+    public override PowerType Type => PowerType.Buff;
 
-    public override async Task OnAfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card)
-    {
-        // 检查是否来自约定牌堆 - 通过检查卡牌是否曾经进入约定牌堆
-        if (card is KarenBaseCardModel karenCard && PromisePileManager.IsInPromisePile(card))
-        {
-            // 升级这张牌
-            if (!card.IsUpgraded)
-            {
-                card.Upgrade();
-            }
-
-            // 标记为消耗
-            card.AddKeyword(CardKeyword.Exhaust);
-        }
-    }
+    // TODO: 需要找到正确的扳机方法名
+    // 原方法 OnAfterCardDrawn 在基类中不存在
 }

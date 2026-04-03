@@ -18,23 +18,22 @@ public sealed class KarenVoid : KarenBaseCardModel
 {
     public KarenVoid() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        var combatState = Owner.PlayerCombatState;
+        if (combatState == null) return;
+
         // 消耗抽牌堆
-        var drawPileCards = Owner.CardPiles.DrawPile.ToList();
+        var drawPileCards = combatState.DrawPile.Cards.ToList();
         foreach (var card in drawPileCards)
         {
             await CardCmd.Exhaust(choiceContext, card);
         }
 
-        // 将约定牌堆变成新的抽牌堆
-        var promisePileCards = PromisePileManager.GetPromisePile(Owner).Cards.ToList();
-        foreach (var card in promisePileCards)
-        {
-            await PromisePileCmd.Add(card);
-        }
+        // TODO: 将约定牌堆变成新的抽牌堆
+        // var promisePileCards = PromisePileManager.GetPromisePile(Owner).ToList();
     }
 
     protected override void OnUpgrade()

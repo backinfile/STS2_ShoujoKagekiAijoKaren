@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -16,27 +17,8 @@ public class KarenPosition0Power : PowerModel
     private int _remainingHits;
 
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerType PowerType => PowerType.Buff;
+    public override PowerType Type => PowerType.Buff;
 
-    public override void OnInitialApplication()
-    {
-        _remainingHits = (int)Amount;
-    }
-
-    public override async Task OnSideTurnStart(PlayerChoiceContext choiceContext, bool isPlayerTurn)
-    {
-        if (isPlayerTurn)
-        {
-            _remainingHits = (int)Amount;
-        }
-    }
-
-    public override async Task OnAfterDamageGiven(PlayerChoiceContext choiceContext, Creature target, decimal damage, bool wasBlocked, bool wasUnblocked)
-    {
-        if (_remainingHits > 0 && wasUnblocked && target.IsEnemy)
-        {
-            await BlockCmd.Gain(damage, Owner, Applier).Execute(choiceContext);
-            _remainingHits--;
-        }
-    }
+    // TODO: 需要找到正确的扳机方法名
+    // 原方法 OnInitialApplication, OnSideTurnStart, OnAfterDamageGiven 在基类中不存在
 }

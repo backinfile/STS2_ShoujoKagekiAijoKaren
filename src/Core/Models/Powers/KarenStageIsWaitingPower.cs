@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -13,12 +14,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 public class KarenStageIsWaitingPower : PowerModel
 {
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerType PowerType => PowerType.Buff;
+    public override PowerType Type => PowerType.Buff;
 
-    public override async Task OnPromisePileEmptied(PlayerChoiceContext choiceContext)
-    {
-        // 获得能量
-        await PlayerCmd.GainEnergy((int)Amount, Owner);
-        await VfxCmd.EnergyGain(choiceContext, Owner, (int)Amount);
-    }
+    // TODO: 需要找到正确的扳机方法名
+    // 原方法 OnPromisePileEmptied 在基类中不存在
 }

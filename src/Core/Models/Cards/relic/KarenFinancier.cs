@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,21 +18,21 @@ public sealed class KarenFinancier : KarenBaseCardModel
 {
     public KarenFinancier() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new StrengthPowerVar(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new ExtraDamageVar(2)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 获得力量
-        await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars.StrengthPower.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars.ExtraDamage.BaseValue, Owner.Creature, this);
 
         // 应用保留力量的Power
-        await PowerCmd.Apply<KarenFinancierPower>(Owner.Creature, 1m, Owner.Creature, this);
+        await PowerCmd.Apply<KarenFinancierPower>(Owner.Creature, 1, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.StrengthPower.UpgradeValueBy(1m);
+        DynamicVars.ExtraDamage.UpgradeValueBy(1);
     }
 }

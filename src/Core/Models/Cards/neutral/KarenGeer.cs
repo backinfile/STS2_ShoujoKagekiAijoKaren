@@ -19,12 +19,15 @@ public sealed class KarenGeer : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var handCards = Owner.CardPiles.HandPile.ToList();
+        var hand = Owner.PlayerCombatState?.Hand;
+        if (hand == null) return;
+
+        var handCards = hand.Cards.ToList();
 
         // 复制所有手牌到约定牌堆
         foreach (var card in handCards)
         {
-            var copyCard = card.Clone();
+            var copyCard = card.CreateClone();
             await PromisePileCmd.Add(copyCard);
         }
     }

@@ -20,20 +20,19 @@ public sealed class KarenStarCrime : KarenBaseCardModel
 
     protected override bool HasEnergyCostX => true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var xValue = ResolveEnergyXValue();
 
-        // 禁用指定数量的遗物
-        var relics = Owner.Relics.ToList();
-        var relicsToDisable = Math.Min(xValue, relics.Count);
-
-        for (int i = 0; i < relicsToDisable; i++)
-        {
-            relics[i].SetDisabled(true);
-        }
+        // TODO: 禁用指定数量的遗物
+        // var relics = Owner.Relics.ToList();
+        // var relicsToDisable = Math.Min(xValue, relics.Count);
+        // for (int i = 0; i < relicsToDisable; i++)
+        // {
+        //     relics[i].SetDisabled(true);
+        // }
 
         // 抽牌
         await CardPileCmd.Draw(choiceContext, (int)DynamicVars.Cards.BaseValue, Owner);
@@ -41,6 +40,6 @@ public sealed class KarenStarCrime : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1m);
+        DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

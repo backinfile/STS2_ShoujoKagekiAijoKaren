@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ public sealed class KarenBananaLunch : KarenBaseCardModel
 {
     public KarenBananaLunch() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

@@ -11,7 +11,7 @@ using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
-using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
+using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;

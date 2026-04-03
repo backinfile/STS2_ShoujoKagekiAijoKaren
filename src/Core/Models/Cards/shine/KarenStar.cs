@@ -3,7 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
-using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
+using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,45 +19,17 @@ public sealed class KarenStar : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        var combatState = Owner.PlayerCombatState;
+        if (combatState == null) return;
+
         // 查找约定牌堆之外的闪耀牌
-        var allCards = Owner.CardPiles.DrawPile.Concat(Owner.CardPiles.DiscardPile)
-            .Concat(Owner.CardPiles.HandPile).OfType<KarenBaseCardModel>().ToList();
+        var allCards = combatState.DrawPile.Cards.Concat(combatState.DiscardPile.Cards)
+            .Concat(combatState.Hand.Cards).OfType<KarenBaseCardModel>().ToList();
 
         var shineCards = allCards.Where(card => card.IsShineCard()).ToList();
 
-        // 检查是否只有一张闪耀牌（除了约定牌堆中的）
-        if (shineCards.Count == 1)
-        {
-            var targetCard = shineCards[0];
-            var shineValue = targetCard.ShineCurrent;
-
-            // 耗尽这张闪耀牌的闪耀值
-            targetCard.SetShineCurrent(0);
-
-            // 将这张牌打出同等次数
-            for (int i = 0; i < shineValue; i++)
-            {
-                if (targetCard.CardType == CardType.Attack)
-                {
-                    foreach (var enemy in CombatState.HittableEnemies)
-                    {
-                        await DamageCmd.Attack(targetCard.Damage)
-                            .FromCard(targetCard)
-                            .Targeting(enemy)
-                            .WithHitFx(VfxCmd.slashPath)
-                            .Execute(choiceContext);
-                    }
-                }
-                else
-                {
-                    // 其他类型的卡牌需要特殊处理
-                    await CardCmd.Play(choiceContext, targetCard, Owner, cardPlay.Target);
-                }
-            }
-
-            // 从卡组中移除耗尽的闪耀牌
-            await CardCmd.Exhaust(choiceContext, targetCard);
-        }
+        // TODO: 检查是否只有一张闪耀牌（除了约定牌堆中的）
+        // 实现打出逻辑
     }
 
     protected override void OnUpgrade()

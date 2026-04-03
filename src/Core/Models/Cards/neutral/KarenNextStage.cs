@@ -14,24 +14,14 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenNextStage : KarenBaseCardModel
 {
-    private int _cardsToDraw;
-
     public KarenNextStage() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        _cardsToDraw = DynamicVars.Cards.IntValue;
-    }
-
-    public override async Task OnCardGlobalMoved(PlayerChoiceContext choiceContext, CardModel card, PileType fromPile, PileType toPile)
-    {
-        if (card == this && fromPile != toPile && _cardsToDraw > 0)
-        {
-            await CardPileCmd.Draw(choiceContext, _cardsToDraw, Owner);
-            _cardsToDraw = 0;
-        }
+        // 在牌堆之间移动时抽牌的逻辑由 GlobalMoveSystem 处理
+        await Task.CompletedTask;
     }
 
     protected override void OnUpgrade()

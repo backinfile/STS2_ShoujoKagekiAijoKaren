@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,9 @@ public sealed class KarenKillAll : KarenBaseCardModel
 {
     public KarenKillAll() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15, ValueProp.Move)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

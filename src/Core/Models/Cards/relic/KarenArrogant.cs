@@ -17,21 +17,21 @@ public sealed class KarenArrogant : KarenBaseCardModel
 {
     public KarenArrogant() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new VulnerablePowerVar(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(2)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 给予自身易伤
-        await PowerCmd.Apply<VulnerablePower>(Owner.Creature, DynamicVars.VulnerablePower.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<VulnerablePower>(Owner.Creature, DynamicVars.Repeat.BaseValue, Owner.Creature, this);
 
         // 应用Power来在战斗结束时获得遗物
-        await PowerCmd.Apply<KarenPassionPower>(Owner.Creature, 1m, Owner.Creature, this);
+        await PowerCmd.Apply<KarenPassionPower>(Owner.Creature, 1, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.VulnerablePower.UpgradeValueBy(-1m); // 减少易伤层数
+        // 减少易伤层数
     }
 }

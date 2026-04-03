@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
-using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
+using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,9 +20,12 @@ public sealed class KarenStarGuide : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        var combatState = Owner.PlayerCombatState;
+        if (combatState == null) return;
+
         // 获取所有牌堆中的闪耀牌
-        var allCards = Owner.CardPiles.DrawPile.Concat(Owner.CardPiles.DiscardPile)
-            .Concat(Owner.CardPiles.HandPile).OfType<KarenBaseCardModel>().ToList();
+        var allCards = combatState.DrawPile.Cards.Concat(combatState.DiscardPile.Cards)
+            .Concat(combatState.Hand.Cards).OfType<KarenBaseCardModel>().ToList();
 
         var shineCards = allCards.Where(card => card.IsShineCard()).ToList();
 

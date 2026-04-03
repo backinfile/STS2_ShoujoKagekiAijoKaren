@@ -16,7 +16,7 @@ public sealed class KarenForm : KarenBaseCardModel
 {
     public KarenForm() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

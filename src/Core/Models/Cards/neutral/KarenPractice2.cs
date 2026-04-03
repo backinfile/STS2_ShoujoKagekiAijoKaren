@@ -3,8 +3,10 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
+using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,28 +20,33 @@ public sealed class KarenPractice2 : KarenBaseCardModel
 {
     public KarenPractice2() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new ExtraBlockVar(2m)];
+    public override bool GainsBlock => true;
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2, ValueProp.Move)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 计算所有牌的闪耀值之和
-        var allCards = Owner.CardPiles.DrawPile.Concat(Owner.CardPiles.DiscardPile)
-            .Concat(Owner.CardPiles.HandPile).Concat(Owner.CardPiles.ExhaustPile)
+        var combatState = Owner.PlayerCombatState;
+        if (combatState == null) return;
+
+        // 计算所有牌的闪耀值之和（使用 GetShineValueRounded 避免负值）
+        var allCards = combatState.DrawPile.Cards.Concat(combatState.DiscardPile.Cards)
+            .Concat(combatState.Hand.Cards).Concat(combatState.ExhaustPile.Cards)
             .OfType<KarenBaseCardModel>().ToList();
 
-        var totalShine = allCards.Sum(card => card.GetShineValue());
+        var totalShine = allCards.Sum(card => card.GetShineValueRounded());
 
-        var totalBlock = totalShine;
+        var totalBlock = (int)totalShine;
         if (IsUpgraded)
         {
-            totalBlock += DynamicVars.ExtraBlock.BaseValue;
+            totalBlock += (int)DynamicVars.Block.BaseValue;
         }
 
-        await BlockCmd.Gain(totalBlock, Owner.Creature, this).Execute(choiceContext);
+        await CreatureCmd.GainBlock(Owner.Creature, totalBlock, ValueProp.Move, cardPlay);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.ExtraBlock.UpgradeValueBy(1m);
+        DynamicVars.Block.UpgradeValueBy(1);
     }
 }

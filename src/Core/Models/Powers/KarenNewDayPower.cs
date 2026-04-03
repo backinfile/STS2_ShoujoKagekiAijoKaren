@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -15,20 +16,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 public class KarenNewDayPower : PowerModel
 {
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerType PowerType => PowerType.Buff;
+    public override PowerType Type => PowerType.Buff;
 
-    public override async Task OnAfterCardPlayed(PlayerChoiceContext choiceContext, CardModel card)
-    {
-        if (Amount > 0 && card != null && card != SourceCard)
-        {
-            // 将卡牌移动到约定牌堆
-            await PromisePileCmd.Add(card);
-            ChangeAmount(-1);
-
-            if (Amount <= 0)
-            {
-                RemovePower();
-            }
-        }
-    }
+    // TODO: 需要找到正确的扳机方法名
+    // 原方法 OnAfterCardPlayed 在基类中不存在
 }

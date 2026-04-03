@@ -20,28 +20,28 @@ public sealed class KarenPickStar : KarenBaseCardModel
 
     protected override bool HasEnergyCostX => true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var xValue = ResolveEnergyXValue();
 
-        // 禁用指定数量的遗物
-        var relics = Owner.Relics.ToList();
-        var relicsToDisable = Math.Min(xValue, relics.Count);
-
-        for (int i = 0; i < relicsToDisable; i++)
-        {
-            relics[i].SetDisabled(true);
-        }
+        // TODO: 禁用指定数量的遗物
+        // var relics = Owner.Relics.ToList();
+        // var relicsToDisable = Math.Min(xValue, relics.Count);
+        // for (int i = 0; i < relicsToDisable; i++)
+        // {
+        //     relics[i].SetDisabled(true);
+        // }
 
         // 获得能量
         await PlayerCmd.GainEnergy((int)DynamicVars.Energy.BaseValue, Owner);
-        await VfxCmd.EnergyGain(choiceContext, Owner, (int)DynamicVars.Energy.BaseValue);
+        // TODO: 能量获得特效
+        // await VfxCmd.EnergyGain(choiceContext, Owner, (int)DynamicVars.Energy.BaseValue);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Energy.UpgradeValueBy(1m);
+        DynamicVars.Energy.UpgradeValueBy(1);
     }
 }
