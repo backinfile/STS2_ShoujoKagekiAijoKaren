@@ -1,7 +1,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Patches;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
@@ -79,8 +79,8 @@ public static class ShineViewPatch
             else
                 coloredNumber = current.ToString(); // current == max：白色（默认色）
 
-            var label = new LocString("gameplay_ui", "KAREN_SHINE_LABEL").GetFormattedText();
-            var suffix = new LocString("gameplay_ui", "KAREN_SHINE_SUFFIX").GetFormattedText();
+            var label = Tips.ShineLabel.GetFormattedText();
+            var suffix = Tips.ShineSuffix.GetFormattedText();
             string shineText = label + coloredNumber + suffix;
 
             // 若卡牌有消耗关键字，游戏已将"消耗。"附加在描述末尾，闪耀文本与其同行

@@ -16,13 +16,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Hooks;
-using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Nodes.Screens;
 using MegaCrit.Sts2.addons.mega_text;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.GlobalMoveSystem.Patches;
 using Godot;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Localization;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 
@@ -60,6 +62,24 @@ public static class PromisePileManager
         if (player?.Creature == null) return false;
         var power = player.Creature.GetPower<KarenPromisePilePower>();
         return power?.IsVoidMode == true;
+    }
+
+    /// <summary>
+    /// 让玩家进入指定的约定牌堆模式。
+    /// 如果 Power 不存在会自动创建。
+    /// </summary>
+    public static async Task EnterMode(Player player, PromisePileMode mode)
+    {
+        if (player?.Creature == null) return;
+
+        var creature = player.Creature;
+        if (!creature.HasPower<KarenPromisePilePower>())
+            await PowerCmd.Apply<KarenPromisePilePower>(creature, 1, creature, null);
+
+        if (creature.GetPower<KarenPromisePilePower>() is { } power)
+        {
+            power.EnterMode(mode);
+        }
     }
 
     /// <summary>触发玩家身上所有 KarenBasePower 的 OnCardAddedToPromisePile 扳机</summary>
@@ -133,6 +153,20 @@ public static class PromisePileManager
 
         var card = pile.Cards.First();
         pile.RemoveInternal(card);
+
+        // UpgradeOnDraw Mode 处理：升级卡牌
+        var power = player.Creature?.GetPower<KarenPromisePilePower>();
+        if (power?.IsUpgradeOnDraw == true && !card.IsUpgraded)
+        {
+            CardCmd.Upgrade(card);
+        }
+
+        // ExhaustOnPlay Mode 处理：添加消耗关键词
+        if (power?.IsExhaustOnPlay == true)
+        {
+            card.AddKeyword(CardKeyword.Exhaust);
+        }
+
         if (card is KarenBaseCardModel karenCard)
             await karenCard.OnRemovedFromPromisePile();
 
@@ -284,10 +318,7 @@ public static class PromisePileManager
         if (creature.GetPower<KarenPromisePilePower>() is { } karenPower)
         {
             karenPower.SetCount(count);
-            var names = GetPromisePile(player).Cards
-                .Select(c => c.IsUpgraded ? c.Title + "+" : c.Title)
-                .ToArray();
-            karenPower.SetCardNames(names);
+            karenPower.UpdateCardNames();
         }
 
         // 检查无限强化状态
@@ -347,7 +378,7 @@ public static class PromisePileManager
         var bottomLabel = screen.GetNode<MegaRichTextLabel>("%BottomLabel");
         if (bottomLabel != null)
         {
-            bottomLabel.Text = "[center]" + new LocString("gameplay_ui", "KAREN_PROMISE_PILE_INFO").GetFormattedText();
+            bottomLabel.Text = "[center]" + Tips.PromisePileInfo.GetFormattedText();
             bottomLabel.Visible = true;
         }
     }

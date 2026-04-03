@@ -136,13 +136,33 @@ public static class ShinePatch
     /// 拦截 ShineDepletePile，从 SpireField 取 ctx 调用 HandleShineDepletePileAsync
     /// </summary>
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add))]
-    [HarmonyPatch(new Type[] { typeof(CardModel), typeof(PileType), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool) })]
+    [HarmonyPatch([typeof(CardModel), typeof(PileType), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool)])]
     public static class CardPileCmd_Add_Patch
     {
+
+        /// <summary>
+        /// patch原本游戏中的卡牌移动
+        /// </summary>
+        private static bool TakeOverCardPileAddCmd(CardModel card, PileType newPileType)
+        {
+            // 添加到闪耀耗尽牌堆的命令
+            if (newPileType == KarenCustomEnum.ShineDepletePile)
+            {
+                return true;
+            }
+            // 某些卡牌会将自己移动到特定牌堆，修改他们的转向
+            if (ShouldEnterShinePile(card) && newPileType.IsCombatPile())
+            {
+                return true;
+            }
+            return false;
+        }
+
+
         public static bool Prefix(ref Task<CardPileAddResult> __result, CardModel card, PileType newPileType, CardPilePosition position, AbstractModel? source, bool skipVisuals)
         {
             // 放行非闪耀牌堆的添加
-            if (newPileType != KarenCustomEnum.ShineDepletePile)
+            if (!TakeOverCardPileAddCmd(card, newPileType))
                 return true;
 
             MainFile.Logger.Info($"[ShinePilePatch] Intercepting Add of '{card.Title}' to {newPileType}...");
@@ -155,6 +175,7 @@ public static class ShinePatch
             if (ctx == null)
             {
                 MainFile.Logger.Error($"[ShinePilePatch] No PlayerChoiceContext found for '{card.Title}' when adding to ShineDepletePile!");
+                _ = CardPileCmd.RemoveFromCombat(card);
                 __result = Task.FromResult(new CardPileAddResult { cardAdded = card, success = false });
                 return false;
             }

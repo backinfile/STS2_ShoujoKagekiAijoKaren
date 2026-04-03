@@ -15,7 +15,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenGeer : KarenBaseCardModel
 {
-    public KarenGeer() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenGeer() : base(3, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

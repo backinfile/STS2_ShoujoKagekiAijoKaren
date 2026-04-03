@@ -153,7 +153,7 @@ public static class PromisePileCmd
         if (cards.Count == 0) return;
 
         int selectCount = System.Math.Min(count, cards.Count);
-        var prompt = new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_DRAW");
+        var prompt = Tips.PromisePileSelectDraw;
         var prefs = new CardSelectorPrefs(prompt, selectCount, selectCount);
 
         var selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
@@ -195,7 +195,7 @@ public static class PromisePileCmd
     /// </summary>
     public static async Task AddFromDiscard(PlayerChoiceContext ctx, Player player, int count)
     {
-        var prompt = new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_DISCARD");
+        var prompt = Tips.PromisePileSelectFromDiscard;
         if (IsVoidMode(player))
         {
             // Void 模式：从弃牌堆选牌放入抽牌堆顶部
@@ -218,8 +218,7 @@ public static class PromisePileCmd
             return;
         }
 
-        var prompt = new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_DRAW");
-        await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Draw, count, prompt);
+        await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Draw, count, Tips.PromisePileSelectFromDraw);
     }
 
     /// <summary>
@@ -228,7 +227,7 @@ public static class PromisePileCmd
     /// </summary>
     public static async Task AddFromHand(PlayerChoiceContext ctx, Player player, int count, AbstractModel source)
     {
-        var prompt = new LocString("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_HAND");
+        var prompt = Tips.PromisePileSelectFromHand;
         if (IsVoidMode(player))
         {
             // Void 模式：从手牌选牌放入抽牌堆顶部

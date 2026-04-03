@@ -4,6 +4,11 @@
   "KAREN_PROMISE_PILE_POWER.pileContents": "Pile Contents",
   "KAREN_PROMISE_PILE_POWER.voidTitle": "Promise Enhanced",
   "KAREN_PROMISE_PILE_POWER.voidDescription": "I am now the emptiest person in the world.",
+  "KAREN_PROMISE_PILE_POWER.currentModes": "Current Enhancements:",
+  "KAREN_PROMISE_PILE_POWER.mode.void": "Draw from draw pile instead",
+  "KAREN_PROMISE_PILE_POWER.mode.infinite": "Infinite: Always 10 Encore cards",
+  "KAREN_PROMISE_PILE_POWER.mode.upgrade": "Drawn cards are upgraded",
+  "KAREN_PROMISE_PILE_POWER.mode.exhaust": "Drawn cards Exhaust on play",
 
   "KAREN_STAR_FRIEND_POWER.title": "Star Friendship",
   "KAREN_STAR_FRIEND_POWER.description": "The stars have woven our friendship. Gain extra rewards when killing enemies.",

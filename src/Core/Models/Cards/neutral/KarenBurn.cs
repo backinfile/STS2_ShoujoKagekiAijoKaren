@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,7 +21,10 @@ public sealed class KarenBurn : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KarenBurnPower>(Owner.Creature, 1m, Owner.Creature, this);
+        if (Owner.Creature == null) return;
+
+        await PromisePileManager.UpdatePowerAsync(Owner);
+        await PromisePileManager.EnterMode(Owner, PromisePileMode.UpgradeOnDraw | PromisePileMode.ExhaustOnPlay);
     }
 
     protected override void OnUpgrade()

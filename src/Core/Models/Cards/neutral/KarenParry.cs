@@ -12,52 +12,56 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 
 /// <summary>
-/// 招架 - 1费技能，获得5格挡，当手牌数量发生变化时，增加1点格挡
+/// 招架 - 1费技能，获得5格挡，当手牌数量发生变化时，本回合格挡值增加1点
 /// </summary>
-/// TODO add patch to CardPile.Add or Remove?
-/// TODO reset when turn end or after paly
 public sealed class KarenParry : KarenBaseCardModel
 {
     public KarenParry() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 
-    private int addBlockAmount = 0;
+    /// <summary>本回合通过手牌变化获得的额外格挡值（用于降级时恢复）</summary>
+    private decimal _extraBlockFromHandChanges;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CalculationBaseVar(5m),
-        new CalculationExtraVar(1m),
-        new CalculatedBlockVar(ValueProp.Move).WithMultiplier((card, _) => card is KarenParry c? c.addBlockAmount:0)
+        new BlockVar(5m, ValueProp.Move),
+        new DynamicVar("Increase", 1m)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // TODO 最后检查这个对不对
-        var blockAmount = DynamicVars.CalculatedBlock.Calculate(Owner.Creature);
-        await CreatureCmd.GainBlock(Owner.Creature, blockAmount, ValueProp.Move, cardPlay);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block.BaseValue, ValueProp.Move, cardPlay);
 
-        // 最后清空数值
+        // 打出后重置（仅本回合有效）
         Reset();
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.CalculationBase.UpgradeValueBy(3m);
+        DynamicVars.Block.UpgradeValueBy(3m);
+    }
+
+    protected override void AfterDowngraded()
+    {
+        base.AfterDowngraded();
+        // 降级时将额外格挡加回基础值
+        DynamicVars.Block.BaseValue += _extraBlockFromHandChanges;
     }
 
     public override async Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? source)
     {
         if (card.Owner != Owner) return;
-        if (oldPileType == PileType.Hand)
+
+        // 手牌发生变化：加入或离开手牌
+        bool leftHand = oldPileType == PileType.Hand;
+        bool enteredHand = card.Pile?.Type == PileType.Hand;
+
+        if (leftHand || enteredHand)
         {
-            addBlockAmount += 1;
-            MainFile.Logger.Info($"卡牌 {card.Title} 从手牌移除，增加1点格挡，当前额外格挡: {addBlockAmount}");
-        }
-        else if (card.Pile != null && card.Pile.Type == PileType.Hand)
-        {
-            addBlockAmount += 1;
-            MainFile.Logger.Info($"卡牌 {card.Title} 加入手牌，增加1点格挡，当前额外格挡: {addBlockAmount}");
+            decimal increase = DynamicVars["Increase"].BaseValue;
+            BuffBlock(increase);
+            MainFile.Logger.Info($"[KarenParry] 手牌变化: {card.Title} {(leftHand ? "离开" : "加入")}手牌，本张Parry格挡+{increase}，当前总格挡: {DynamicVars.Block.BaseValue}");
         }
     }
 
@@ -69,9 +73,20 @@ public sealed class KarenParry : KarenBaseCardModel
         }
     }
 
+    /// <summary>增加本张卡牌的格挡值</summary>
+    private void BuffBlock(decimal extraBlock)
+    {
+        DynamicVars.Block.BaseValue += extraBlock;
+        _extraBlockFromHandChanges += extraBlock;
+    }
+
     private void Reset()
     {
-        addBlockAmount = 0;
-        MainFile.Logger.Info($"重置额外格挡，当前额外格挡: {addBlockAmount}");
+        if (_extraBlockFromHandChanges > 0)
+        {
+            DynamicVars.Block.BaseValue -= _extraBlockFromHandChanges;
+            _extraBlockFromHandChanges = 0;
+            MainFile.Logger.Info($"[KarenParry] 回合结束/打出，重置额外格挡");
+        }
     }
 }

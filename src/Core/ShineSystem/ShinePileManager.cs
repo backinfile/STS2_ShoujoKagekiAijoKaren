@@ -8,8 +8,8 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Saves;
@@ -163,9 +163,9 @@ public static class ShinePileManager
 
     public static HoverTip GetShinePileUniqueCountHoverTip(Player player)
     {
-        var title = new LocString("gameplay_ui", "KAREN_DISPOSED_PILE_UNIQUE_COUNT.title");
-        var description0 = new LocString("gameplay_ui", "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part0");
-        var description1 = new LocString("gameplay_ui", "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part1");
+        var title = Tips.DisposedPileUniqueCountTitle;
+        var description0 = Tips.DisposedPileUniqueCountDesc0;
+        var description1 = Tips.DisposedPileUniqueCountDesc1;
         var description = String.Format("{0}{2}{1}", description0, description1, GetDisposedShineCardUniqueCount(player));
         return new HoverTip(title, description);
     }

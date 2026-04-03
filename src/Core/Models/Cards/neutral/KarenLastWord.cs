@@ -13,28 +13,42 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 
 /// <summary>
-/// 最后的台词 - 约定牌堆之外只有这张牌时才能打出，对所有敌人造成伤害
+/// 最后的台词 - 如果约定牌堆之外只有这张牌，对所有敌人造成伤害
 /// </summary>
 public sealed class KarenLastWord : KarenBaseCardModel
 {
-    public KarenLastWord() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies) { }
+    public KarenLastWord() : base(0, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies) { }
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(999, ValueProp.Move)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (var enemy in CombatState.HittableEnemies)
-        {
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
-                .Targeting(enemy)
-                .WithHitFx(VfxCmd.slashPath)
-                .Execute(choiceContext);
-        }
+        if (!Condition(base.Owner, this)) { return; }
+
+        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).TargetingAllOpponents(base.CombatState)
+            .WithHitFx(VfxCmd.slashPath)
+            .Execute(choiceContext);
+    }
+
+    public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
+    {
+        return Condition(base.Owner, card);
+    }
+
+    // 抽牌堆，弃牌堆，手牌中，最多只有这张牌
+    private static bool Condition(Player player, CardModel card)
+    {
+        var hand = PileType.Hand.GetPile(player);
+        if (hand.Cards.Any(c => c != card)) return false;
+        var drawPile = PileType.Draw.GetPile(player);
+        if (drawPile.Cards.Any(c => c != card)) return false;
+        var discardPile = PileType.Discard.GetPile(player);
+        if (!discardPile.Cards.Any(c => c != card)) return false;
+        return true;
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(5m);
+        DynamicVars.Damage.UpgradeValueBy(9000m);
     }
 }

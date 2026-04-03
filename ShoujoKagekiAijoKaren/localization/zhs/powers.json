@@ -4,6 +4,11 @@
   "KAREN_PROMISE_PILE_POWER.pileContents": "约定牌堆内容：",
   "KAREN_PROMISE_PILE_POWER.voidTitle": "约定牌堆强化",
   "KAREN_PROMISE_PILE_POWER.voidDescription": "我现在是世界上最空虚的人了",
+  "KAREN_PROMISE_PILE_POWER.currentModes": "当前强化：",
+  "KAREN_PROMISE_PILE_POWER.mode.void": "抽出的卡牌从抽牌堆抽取",
+  "KAREN_PROMISE_PILE_POWER.mode.infinite": "无限强化：约定牌堆始终为10张续演",
+  "KAREN_PROMISE_PILE_POWER.mode.upgrade": "抽出的卡牌自动升级",
+  "KAREN_PROMISE_PILE_POWER.mode.exhaust": "抽出的卡牌打出时消耗",
 
   "KAREN_SHINE_CARD_REWARD_POWER.title": "闪耀牌奖励",
   "KAREN_SHINE_CARD_REWARD_POWER.description": "战斗结束后，获得仅包含1张闪耀牌的卡牌奖励。",
