@@ -15,18 +15,17 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenStageIsWaiting : KarenBaseCardModel
 {
-    public KarenStageIsWaiting() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self) { }
+    public KarenStageIsWaiting() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 创建一个Power来监听约定牌堆清空事件
         await PowerCmd.Apply<KarenStageIsWaitingPower>(Owner.Creature, DynamicVars.Energy.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Energy.UpgradeValueBy(1m);
+        EnergyCost.UpgradeBy(-1);
     }
 }

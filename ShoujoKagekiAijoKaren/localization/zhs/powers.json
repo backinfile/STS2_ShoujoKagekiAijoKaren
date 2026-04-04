@@ -40,5 +40,9 @@
 
   "KAREN_POSITION0_POWER.title": "Position 0",
   "KAREN_POSITION0_POWER.description": "每回合第1次造成攻击伤害时，获得等量[gold]格挡[/gold]。",
-  "KAREN_POSITION0_POWER.smartDescription": "每回合{Amount:choose(1):第1|前{Amount}}次造成攻击伤害时，获得等量[gold]格挡[/gold]。"
+  "KAREN_POSITION0_POWER.smartDescription": "每回合{Amount:choose(1):第1|前{Amount}}次造成攻击伤害时，获得等量[gold]格挡[/gold]。",
+
+  "KAREN_STAGE_IS_WAITING_POWER.title": "舞台正在等待着",
+  "KAREN_STAGE_IS_WAITING_POWER.description": "[gold]约定牌堆[/gold]被清空时，获得{energyPrefix:energyIcons(1)}。",
+  "KAREN_STAGE_IS_WAITING_POWER.smartDescription": "[gold]约定牌堆[/gold]被清空时，获得{Amount:energyIcons()}。"
 }

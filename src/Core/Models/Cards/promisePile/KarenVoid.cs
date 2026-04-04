@@ -4,12 +4,11 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
-using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
 /// <summary>
 /// 世界上最空虚的人 - 摧毁抽牌堆，然后以约定牌堆代替抽牌堆
