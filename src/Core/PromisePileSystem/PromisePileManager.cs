@@ -127,6 +127,7 @@ public static class PromisePileManager
 
         var card = pile.Cards.First();
         //pile.RemoveInternal(card); 这里不能删除，要给后续动作提供一个oldPile
+        MainFile.Logger.Info($"pile = {card.Pile?.Type}");
 
         // UpgradeOnDraw Mode 处理：升级卡牌
         var power = player.Creature?.GetPower<KarenPromisePilePower>();
@@ -151,7 +152,6 @@ public static class PromisePileManager
         {
             await PromisePileHooks.TriggerPromisePileEmpty(player);
         }
-
         return card;
     }
 
@@ -276,26 +276,20 @@ public static class PromisePileManager
         if (!creature.HasPower<KarenPromisePilePower>())
             await PowerCmd.Apply<KarenPromisePilePower>(creature, 1, creature, null);
 
+
+        if (IsInMode(player, PromisePileMode.InfiniteReinforcement))
+        {
+            await RefillWithContinueAsync(player);
+        }
+
+
         if (creature.GetPower<KarenPromisePilePower>() is { } karenPower)
         {
             karenPower.SetCount(count);
             karenPower.UpdateCardNames();
         }
-
-        // 检查无限强化状态
-        await ApplyInfiniteReinforcementIfNeededAsync(player);
     }
 
-    /// <summary>
-    /// 检查并应用无限强化效果。如果开启了无限强化，将约定牌堆填充为10张续演。
-    /// </summary>
-    private static async Task ApplyInfiniteReinforcementIfNeededAsync(Player player)
-    {
-        if (player?.Creature == null) return;
-        if (player.Creature.GetPower<KarenPromisePilePower>() is not { IsInfiniteReinforcement: true }) return;
-
-        await RefillWithContinueAsync(player);
-    }
 
 
     /// <summary>
@@ -313,7 +307,7 @@ public static class PromisePileManager
         foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
         {
             //card.RemoveFromCurrentPile();
-            //card.RemoveFromState();
+            card.RemoveFromState();
             _ = CardPileCmd.RemoveFromCombat(card); // 这个地方不需要等动画完成
             MainFile.Logger.Info($"[PromisePile] Removed '{card.Title}' from promise pile during refill");
         }

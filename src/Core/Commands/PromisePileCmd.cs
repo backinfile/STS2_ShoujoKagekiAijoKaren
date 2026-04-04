@@ -12,6 +12,7 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -340,6 +341,12 @@ public static class PromisePileCmd
             await CardCmd.AutoPlay(choiceContext, item, null);
         }
 
+        await PromisePileManager.UpdatePowerAsync(player);
+    }
+
+    internal static async Task EnterMode(Player player, PromisePileMode infiniteReinforcement)
+    {
+        await PromisePileManager.EnterMode(player, infiniteReinforcement);
         await PromisePileManager.UpdatePowerAsync(player);
     }
 }

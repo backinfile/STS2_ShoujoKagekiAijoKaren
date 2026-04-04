@@ -1,11 +1,13 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,17 +18,13 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenStageReproduce : KarenBaseCardModel
 {
-    public KarenStageReproduce() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenStageReproduce() : base(3, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [new CardHoverTip(ModelDb.Card<KarenContinue>())];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 添加10张续演到约定牌堆（实际游戏中不可能真正无限）
-        for (int i = 0; i < 10; i++)
-        {
-            await PromisePileCmd.AddToken<KarenContinue>(Owner, CombatState, 1);
-        }
+        await PromisePileCmd.EnterMode(Owner, PromisePileMode.InfiniteReinforcement);
     }
 
     protected override void OnUpgrade()
