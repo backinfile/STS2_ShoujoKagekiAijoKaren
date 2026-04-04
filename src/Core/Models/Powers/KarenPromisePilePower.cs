@@ -44,10 +44,6 @@ public sealed class KarenPromisePilePower : FakeAmountPower
     public void EnterMode(PromisePileMode mode)
     {
         _activeModes |= mode;
-
-        // Void 模式特殊处理：隐藏数值
-        if ((mode & PromisePileMode.Void) != 0)
-            SetCount(0);
     }
 
     /// <summary>退出指定 Mode</summary>
@@ -59,22 +55,21 @@ public sealed class KarenPromisePilePower : FakeAmountPower
     public bool IsUpgradeOnDraw => IsInMode(PromisePileMode.UpgradeOnDraw);
     public bool IsExhaustOnPlay => IsInMode(PromisePileMode.ExhaustOnPlay);
 
-    // TODO 切换ICON
-    //public override Texture2D Icon => IsVoidMode ? VoidIcon.Value : NormalIcon.Value;
-
-
     // ===== Normal Mode Data =====
     private IReadOnlyList<string> _cardNames = Array.Empty<string>();
 
-    public void SetCount(int count) => SetFakeAmount(count);
+    /// <summary>当约定牌堆数量为0时不显示数字</summary>
+    public override bool ShowFakeAmount => FakeAmount > 0 && !IsVoidMode && !IsInfiniteReinforcement;
 
     /// <summary>更新约定牌堆卡牌名列表（升级牌名带 +）</summary>
-    public void UpdateCardNames()
+    public void UpdateCount()
     {
         if (Owner.Player is Player player)
         {
-            _cardNames = PromisePileManager.GetPromisePile(player).Cards
-                .Select(c => c.Title).ToArray();
+            var pile = PromisePileManager.GetPromisePile(player);
+            var count = pile.Cards.Count;
+            SetFakeAmount(count);
+            _cardNames = pile.Cards.Select(c => c.Title).ToArray();
         }
     }
 

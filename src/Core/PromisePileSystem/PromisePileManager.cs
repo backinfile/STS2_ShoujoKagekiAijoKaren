@@ -270,7 +270,6 @@ public static class PromisePileManager
     {
         if (player?.Creature == null) return;
 
-        int count = GetCount(player);
         var creature = player.Creature;
 
         if (!creature.HasPower<KarenPromisePilePower>())
@@ -282,11 +281,9 @@ public static class PromisePileManager
             await RefillWithContinueAsync(player);
         }
 
-
         if (creature.GetPower<KarenPromisePilePower>() is { } karenPower)
         {
-            karenPower.SetCount(count);
-            karenPower.UpdateCardNames();
+            karenPower.UpdateCount();
         }
     }
 
@@ -313,9 +310,10 @@ public static class PromisePileManager
         }
 
         // 然后用续演补齐到10张
-        for (int i = 0; i < maxCount - pile.Cards.Count; i++)
+        int leftCount = maxCount - pile.Cards.Count;
+        for (int i = 0; i < leftCount; i++)
         {
-            var card = player.RunState.CreateCard<KarenContinue>(player);
+            var card = player.Creature.CombatState!.CreateCard<KarenContinue>(player);
             pile.AddInternal(card);
             MainFile.Logger.Info($"[PromisePile] Added '{card.Title}' to promise pile during refill");
         }

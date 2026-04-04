@@ -18,7 +18,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenStageReproduce : KarenBaseCardModel
 {
-    public KarenStageReproduce() : base(3, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenStageReproduce() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [new CardHoverTip(ModelDb.Card<KarenContinue>())];
 

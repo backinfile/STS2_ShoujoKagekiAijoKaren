@@ -15,6 +15,9 @@ public abstract class FakeAmountPower : KarenBasePower
     /// <summary>自定义显示数值，独立于 Amount 属性</summary>
     public virtual int FakeAmount => _fakeAmount;
 
+    /// <summary>是否显示自定义数值，子类可重写此属性来控制数字显示</summary>
+    public virtual bool ShowFakeAmount => true;
+
     /// <summary>设置自定义显示数值并触发 UI 刷新</summary>
     protected void SetFakeAmount(int value)
     {
