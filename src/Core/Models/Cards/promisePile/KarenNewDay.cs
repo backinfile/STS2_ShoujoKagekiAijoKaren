@@ -23,8 +23,8 @@ public sealed class KarenNewDay : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(8, ValueProp.Move),
-        new CardsVar(2)
+        new BlockVar(7, ValueProp.Move),
+        new CardsVar(1)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -41,7 +41,7 @@ public sealed class KarenNewDay : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3);
+        DynamicVars.Block.UpgradeValueBy(2);
         DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

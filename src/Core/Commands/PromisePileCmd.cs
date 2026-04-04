@@ -124,7 +124,7 @@ public static class PromisePileCmd
     {
         if (IsVoidMode(player))
         {
-            await DrawSelectedFromDrawPileInVoidMode(ctx, player, count);
+            await CardPileCmdEx.SelectFromDrawPileToHand(ctx, player, count);
             return;
         }
 
@@ -153,16 +153,6 @@ public static class PromisePileCmd
         }
     }
 
-    /// <summary>
-    /// Void 模式专用：从抽牌堆选择最多 count 张牌加入手牌
-    /// </summary>
-    private static async Task DrawSelectedFromDrawPileInVoidMode(PlayerChoiceContext ctx, Player player, int count)
-    {
-        var pile = PileType.Draw.GetPile(player);
-        var selectFrom = (from c in pile.Cards orderby c.Rarity, c.Id select c).ToList();
-        IEnumerable<CardModel> selected = await CardSelectCmd.FromSimpleGrid(ctx, selectFrom, player, new CardSelectorPrefs(Tips.SelectFromDrawToHand, count));
-        await CardPileCmd.Add(selected, PileType.Hand);
-    }
 
     /// <summary>
     /// 从弃牌堆让玩家选择最多 count 张牌放入约定牌堆。

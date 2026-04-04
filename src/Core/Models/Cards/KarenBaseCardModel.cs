@@ -58,4 +58,10 @@ public abstract class KarenBaseCardModel : CardModel
     /// 注意这里没有处理Void模式的特殊情况
     /// </summary>
     public virtual Task OnGlobalMove(PileType from, PileType to, AbstractModel? source) => Task.CompletedTask;
+
+
+    /// <summary>
+    /// 这张卡若是作为三选一的选项，需要实现这个
+    /// </summary>
+    public virtual Task DoOption(PlayerChoiceContext choiceContext, CardPlay cardPlay) => Task.CompletedTask;
 }

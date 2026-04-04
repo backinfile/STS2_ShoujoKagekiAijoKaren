@@ -11,6 +11,9 @@ public static class Tips
     // ==================== card_selection ====================
     public static readonly LocString SelectFromDrawToHand = new("card_selection", "KAREN_SELECT_FROM_DRAW_TO_HAND");
 
+    /// <summary>从弃牌堆选择放入手牌的提示</summary>
+    public static readonly LocString SelectFromDiscardToHand = new("card_selection", "KAREN_SELECT_FROM_DISCARD_TO_HAND");
+
     // ==================== gameplay_ui ====================
     /// <summary>约定牌堆查看界面底部标题</summary>
     public static readonly LocString PromisePileInfo = new("gameplay_ui", "KAREN_PROMISE_PILE_INFO");

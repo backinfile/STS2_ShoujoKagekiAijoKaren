@@ -2,6 +2,7 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options;
 using ShoujoKagekiAijoKaren.src.Models.Cards;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Patches;
@@ -40,6 +41,10 @@ public static class TokenCardPoolPatch
             ModelDb.Card<KarenCounter>(),
             ModelDb.Card<KarenSandwitch>(),
             ModelDb.Card<KarenSideways>(),
+
+            ModelDb.Card<KarenWakeUpDrawPile>(),
+            ModelDb.Card<KarenWakeUpDiscardPile>(),
+            ModelDb.Card<KarenWakeUpPromisePile>(),
         ];
     }
 }

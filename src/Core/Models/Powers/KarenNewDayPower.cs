@@ -18,6 +18,13 @@ public class KarenNewDayPower : PowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerType Type => PowerType.Buff;
 
-    // TODO: 需要找到正确的扳机方法名
-    // 原方法 OnAfterCardPlayed 在基类中不存在
+    public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(CardModel card, bool isAutoPlay, ResourceInfo resources, PileType pileType, CardPilePosition position)
+    {
+        return (KarenCustomEnum.PromisePile, CardPilePosition.Top);
+    }
+
+    public override async Task AfterModifyingCardPlayResultPileOrPosition(CardModel card, PileType pileType, CardPilePosition position)
+    {
+        await PowerCmd.Decrement(this);
+    }
 }

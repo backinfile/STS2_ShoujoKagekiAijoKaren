@@ -216,7 +216,7 @@
   "KAREN_OLD_PLACE_RETAIN_STRENGTH.description": "[gold]保留力量[/gold]{Turns:diff()}回合。",
 
   "KAREN_SPIN.title": "旋转",
-  "KAREN_SPIN.description": "造成{CalculatedDamage:diff()}点伤害。\n此牌在牌堆之间移动时，在本场战斗中伤害增加{ExtraDamage:diff()}。",
+  "KAREN_SPIN.description": "造成{CalculatedDamage:diff()}点伤害。\n此牌在牌堆之间移动时，在本场战斗中伤害增加{Increase:diff()}。",
 
   "KAREN_CONSCIOUSNESS.title": "以觉悟的名义",
   "KAREN_CONSCIOUSNESS.description": "造成{Damage:diff()}点伤害。\n获得与所造成的未被格挡的伤害相等的[gold]格挡[/gold]。",
@@ -249,13 +249,13 @@
   "KAREN_WAKE_UP.description": "从抽牌堆{IfUpgraded:show:，弃牌堆，或[gold]约定牌堆[/gold]|}中选择{Cards:diff()}张牌放入你的手牌。",
 
   "KAREN_WAKE_UP_DRAW_PILE.title": "抽牌堆",
-  "KAREN_WAKE_UP_DRAW_PILE.description": "从抽牌堆中选择{Cards:diff()}张牌放入你的手牌。",
+  "KAREN_WAKE_UP_DRAW_PILE.description": "从抽牌堆中选择2张牌放入你的手牌。",
 
   "KAREN_WAKE_UP_DISCARD_PILE.title": "弃牌堆",
-  "KAREN_WAKE_UP_DISCARD_PILE.description": "从弃牌堆中选择{Cards:diff()}张牌放入你的手牌。",
+  "KAREN_WAKE_UP_DISCARD_PILE.description": "从弃牌堆中选择2张牌放入你的手牌。",
 
   "KAREN_WAKE_UP_PROMISE_PILE.title": "约定牌堆",
-  "KAREN_WAKE_UP_PROMISE_PILE.description": "从[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌放入你的手牌。",
+  "KAREN_WAKE_UP_PROMISE_PILE.description": "从[gold]约定牌堆[/gold]中选择2张牌放入你的手牌。",
 
   "KAREN_NO_HESITATE.title": "不再犹豫",
   "KAREN_NO_HESITATE.description": "从抽牌堆，弃牌堆，或[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
