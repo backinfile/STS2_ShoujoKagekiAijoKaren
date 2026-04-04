@@ -121,6 +121,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Layer4" type="TextureRect" parent="Layers"]
+visible = false
 material = ExtResource("4_tcsga")
 layout_mode = 1
 anchors_preset = 15
@@ -134,6 +135,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Layer5" type="TextureRect" parent="Layers"]
+visible = false
 material = ExtResource("4_tcsga")
 layout_mode = 1
 anchors_preset = 15
