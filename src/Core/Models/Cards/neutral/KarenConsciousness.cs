@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenConsciousness : KarenBaseCardModel
 {
-    public KarenConsciousness() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
+    public KarenConsciousness() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    {
+        this.AddShineMax(9);
+    }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

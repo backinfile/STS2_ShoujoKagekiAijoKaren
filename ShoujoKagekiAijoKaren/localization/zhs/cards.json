@@ -53,7 +53,7 @@
   "KAREN_CONTINUE02.description": "造成{Damage:diff()}点伤害。\n能被多次[gold]升级[/gold]。",
 
   "KAREN_CARRYING_GUILT.title": "背负着我们犯下的罪过",
-  "KAREN_CARRYING_GUILT.description": "造成{CalculatedDamage:diff()}点伤害。\n本局游戏中每耗尽一张非同名的[gold]闪耀[/gold]牌，伤害增加{ExtraDamage:diff()}点。{ShinePileUniqueCount:choose(0):|\n(已耗尽{ShinePileUniqueCount}张)}",
+  "KAREN_CARRYING_GUILT.description": "造成{Damage:diff()}点伤害。\n本局游戏中每耗尽一张非同名的[gold]闪耀[/gold]牌，伤害增加{Increase:diff()}点。{ShinePileUniqueCount:choose(0):|\n(已耗尽{ShinePileUniqueCount}张)}",
 
   "KAREN_STAR_FRIEND.title": "星星串起了我们的友谊",
   "KAREN_STAR_FRIEND.description": "造成{Damage:diff()}点伤害。\n[gold]斩杀[/gold]时，获得[gold]闪耀牌奖励[/gold]。",
@@ -216,7 +216,7 @@
   "KAREN_OLD_PLACE_RETAIN_STRENGTH.description": "[gold]保留力量[/gold]{Turns:diff()}回合。",
 
   "KAREN_SPIN.title": "旋转",
-  "KAREN_SPIN.description": "造成{CalculatedDamage:diff()}点伤害。\n此牌在牌堆之间移动时，在本场战斗中伤害增加{Increase:diff()}。",
+  "KAREN_SPIN.description": "造成{Damage:diff()}点伤害。\n此牌在牌堆之间移动时，在本场战斗中伤害增加{Increase:diff()}。",
 
   "KAREN_CONSCIOUSNESS.title": "以觉悟的名义",
   "KAREN_CONSCIOUSNESS.description": "造成{Damage:diff()}点伤害。\n获得等量于所造成伤害的[gold]格挡[/gold]。",
