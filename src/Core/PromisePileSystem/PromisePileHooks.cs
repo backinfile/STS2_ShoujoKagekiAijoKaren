@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
 {
-    public class PromisePileTriggers
+    public class PromisePileHooks
     {
         /// <summary>
         /// 扳机-当约定牌堆变空时触发
@@ -62,6 +63,39 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
                         await karenCard.OnTurnEndInPromisePile();
                     }
                 }
+            }
+        }
+
+
+        /// <summary>
+        /// 触发玩家身上所有 KarenBasePower 的 OnCardAddedToPromisePile 扳机
+        /// </summary>
+        public static async Task TriggerOnCardAdded(Player player, CardModel card)
+        {
+            if (player?.Creature == null) return;
+            foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
+            {
+                await power.OnCardAddedToPromisePile(card);
+            }
+            if (card is KarenBaseCardModel karenCard)
+            {
+                await karenCard.OnAddedToPromisePile();
+            }
+        }
+
+        /// <summary>
+        /// 触发玩家身上所有 KarenBasePower 的 OnCardRemovedFromPromisePile 扳机
+        /// </summary>
+        public static async Task TriggerOnCardRemoved(Player player, CardModel card)
+        {
+            if (player?.Creature == null) return;
+            foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
+            {
+                await power.OnCardRemovedFromPromisePile(card);
+            }
+            if (card is KarenBaseCardModel karenCard)
+            {
+                await karenCard.OnRemovedFromPromisePile();
             }
         }
     }

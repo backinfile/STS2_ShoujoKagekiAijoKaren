@@ -10,13 +10,19 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
     /// </summary>
     public static class Async
     {
+
+        /// <summary>
+        /// Prefix修改原函数的返回值，拦截原函数的逻辑
+        /// </summary>
         public static bool Prefix<T>(ref Task<T> __result, Func<Task<T>> modifyAsyncFunc)
         {
             __result = modifyAsyncFunc();
             return false; // 拦截原方法，不执行
         }
 
-
+        /// <summary>
+        /// 将自己的func插入到原函数之后
+        /// </summary>
         public static void Postfix<T>(ref Task<T> __result, Func<T, Task<T>> modifyAsyncFunc)
         {
             var originalTask = __result;
@@ -28,6 +34,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             });
         }
 
+        /// <summary>
+        /// 将自己的func插入到原函数之后
+        /// </summary>
         public static void Postfix<T>(ref Task<T> __result, Func<Task<T>> modifyAsyncFunc)
         {
             var originalTask = __result;
@@ -40,6 +49,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
         }
 
 
+        /// <summary>
+        /// 将自己的func插入到原函数之后
+        /// </summary>
         public static void Postfix<T>(ref Task<T> __result, Task<T> modifyAsyncFunc)
         {
             var originalTask = __result;
@@ -52,6 +64,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
         }
 
 
+        /// <summary>
+        /// 将自己的func插入到原函数之后
+        /// </summary>
         public static void Postfix(ref Task __result, Func<Task> modifyAsyncFunc)
         {
             var originalTask = __result;
@@ -62,6 +77,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             });
         }
 
+        /// <summary>
+        /// 将自己的func插入到原函数之后
+        /// </summary>
         public static void Postfix(ref Task __result, Task modifyAsyncFunc)
         {
             var originalTask = __result;

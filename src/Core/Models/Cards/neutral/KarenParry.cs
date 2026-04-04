@@ -20,13 +20,15 @@ public sealed class KarenParry : KarenBaseCardModel
 
     public override bool GainsBlock => true;
 
+    private const string IncreaseVarName = "Increase";
+
     /// <summary>本回合通过手牌变化获得的额外格挡值（用于降级时恢复）</summary>
     private decimal _extraBlockFromHandChanges;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(5m, ValueProp.Move),
-        new DynamicVar("Increase", 1m)
+        new DynamicVar(IncreaseVarName, 1m)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -39,7 +41,7 @@ public sealed class KarenParry : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.Block.UpgradeValueBy(4m);
     }
 
     protected override void AfterDowngraded()
@@ -52,6 +54,7 @@ public sealed class KarenParry : KarenBaseCardModel
     public override async Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? source)
     {
         if (card.Owner != Owner) return;
+        if (this.Pile?.Type != PileType.Hand) return; // 仅当本卡在手牌时响应
 
         // 手牌发生变化：加入或离开手牌
         bool leftHand = oldPileType == PileType.Hand;
@@ -59,7 +62,7 @@ public sealed class KarenParry : KarenBaseCardModel
 
         if (leftHand || enteredHand)
         {
-            decimal increase = DynamicVars["Increase"].BaseValue;
+            decimal increase = DynamicVars[IncreaseVarName].BaseValue;
             BuffBlock(increase);
             MainFile.Logger.Info($"[KarenParry] 手牌变化: {card.Title} {(leftHand ? "离开" : "加入")}手牌，本张Parry格挡+{increase}，当前总格挡: {DynamicVars.Block.BaseValue}");
         }

@@ -8,9 +8,11 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Runs;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.GlobalMoveSystem.Patches;
 
@@ -31,10 +33,11 @@ internal static class GlobalMovePatch
         // 故 card.Pile?.Type 即为新牌堆，oldPile 参数为旧牌堆。
         // GlobalMove 不会处理打出区，因为需要特殊处理打出区
         // 会拼接两次移动为一次，例如 (Hand->Play,Play->Discard) 会合并为 (Hand->Discard)
-        [HarmonyPrefix]
-        private static void Prefix(
+        [HarmonyPostfix]
+        private static void Postfix(
             IRunState runState, CombatState? combatState,
-            CardModel card, PileType oldPile, AbstractModel? source)
+            CardModel card, PileType oldPile, AbstractModel? source,
+            ref Task __result)
         {
             // 模板不处理
             if (card.IsCanonical) return;
@@ -71,7 +74,7 @@ internal static class GlobalMovePatch
                 inPlayPile.Set(card, PileType.None);
             }
 
-            GlobalMoveSystem.Invoke(card, oldPile, newPile, source);
+            Async.Postfix(ref __result, GlobalMoveSystem.Trigger(card, oldPile, newPile, source));
         }
     }
 

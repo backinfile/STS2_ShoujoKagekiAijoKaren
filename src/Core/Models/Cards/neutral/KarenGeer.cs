@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,17 +20,8 @@ public sealed class KarenGeer : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var hand = Owner.PlayerCombatState?.Hand;
-        if (hand == null) return;
 
-        var handCards = hand.Cards.ToList();
-
-        // 复制所有手牌到约定牌堆
-        foreach (var card in handCards)
-        {
-            var copyCard = card.CreateClone();
-            await PromisePileCmd.Add(copyCard);
-        }
+        await PromisePileManager.CopyHandToPromisePile(Owner);
     }
 
     protected override void OnUpgrade()

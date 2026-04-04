@@ -31,7 +31,7 @@ public static class CardPileCmdAutoPlayPatch
         {
             if (count >= PileType.Draw.GetPile(player).Cards.Count)
             {
-                _ = PromisePileTriggers.TriggerPromisePileEmpty(player);
+                _ = PromisePileHooks.TriggerPromisePileEmpty(player);
             }
         }
     }

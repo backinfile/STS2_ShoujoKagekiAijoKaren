@@ -1,30 +1,23 @@
 using BaseLib.Utils;
-using HarmonyLib;
+using MegaCrit.Sts2.addons.mega_text;
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
-using ShoujoKagekiAijoKaren;
+using MegaCrit.Sts2.Core.Nodes.Screens;
+using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
-using ShoujoKagekiAijoKaren.src.Models.Characters;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MegaCrit.Sts2.Core.CardSelection;
-using MegaCrit.Sts2.Core.Hooks;
-using MegaCrit.Sts2.Core.Nodes.Screens;
-using MegaCrit.Sts2.addons.mega_text;
-using ShoujoKagekiAijoKaren.src.Core;
-using ShoujoKagekiAijoKaren.src.Core.GlobalMoveSystem.Patches;
-using Godot;
-using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
-using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
-using MegaCrit.Sts2.Core.Localization;
-using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 
@@ -64,6 +57,13 @@ public static class PromisePileManager
         return power?.IsVoidMode == true;
     }
 
+    public static bool IsInMode(Player player, PromisePileMode mode)
+    {
+        if (player?.Creature == null) return false;
+        var power = player.Creature.GetPower<KarenPromisePilePower>();
+        return power?.IsInMode(mode) == true;
+    }
+
     /// <summary>
     /// 让玩家进入指定的约定牌堆模式。
     /// 如果 Power 不存在会自动创建。
@@ -79,26 +79,6 @@ public static class PromisePileManager
         if (creature.GetPower<KarenPromisePilePower>() is { } power)
         {
             power.EnterMode(mode);
-        }
-    }
-
-    /// <summary>触发玩家身上所有 KarenBasePower 的 OnCardAddedToPromisePile 扳机</summary>
-    private static async Task TriggerPowerOnCardAdded(Player player, CardModel card)
-    {
-        if (player?.Creature == null) return;
-        foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
-        {
-            await power.OnCardAddedToPromisePile(card);
-        }
-    }
-
-    /// <summary>触发玩家身上所有 KarenBasePower 的 OnCardRemovedFromPromisePile 扳机</summary>
-    private static async Task TriggerPowerOnCardRemoved(Player player, CardModel card)
-    {
-        if (player?.Creature == null) return;
-        foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
-        {
-            await power.OnCardRemovedFromPromisePile(card);
         }
     }
 
@@ -131,12 +111,6 @@ public static class PromisePileManager
         await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, oldPile, null);
         MainFile.Logger.Info($"[PromisePile] Added '{card.Title}' to promise pile (was in {oldPile})");
 
-        if (card is KarenBaseCardModel karenCard)
-            await karenCard.OnAddedToPromisePile();
-
-        // 触发 KarenBasePower 扳机
-        await TriggerPowerOnCardAdded(card.Owner, card);
-
         // 更新 Power
         await UpdatePowerAsync(card.Owner);
     }
@@ -152,7 +126,7 @@ public static class PromisePileManager
         if (pile.Cards.Count == 0) return null;
 
         var card = pile.Cards.First();
-        pile.RemoveInternal(card);
+        //pile.RemoveInternal(card); 这里不能删除，要给后续动作提供一个oldPile
 
         // UpgradeOnDraw Mode 处理：升级卡牌
         var power = player.Creature?.GetPower<KarenPromisePilePower>();
@@ -167,21 +141,15 @@ public static class PromisePileManager
             card.AddKeyword(CardKeyword.Exhaust);
         }
 
-        if (card is KarenBaseCardModel karenCard)
-            await karenCard.OnRemovedFromPromisePile();
-
-        // 触发 KarenBasePower 扳机
-        await TriggerPowerOnCardRemoved(player, card);
-
         await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
-        await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
+        //await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
 
         // 更新 Power
         await UpdatePowerAsync(player);
 
         if (pile.IsEmpty)
         {
-            await PromisePileTriggers.TriggerPromisePileEmpty(player);
+            await PromisePileHooks.TriggerPromisePileEmpty(player);
         }
 
         return card;
@@ -250,7 +218,7 @@ public static class PromisePileManager
         if (selected == null) return;
 
         foreach (var card in selected)
-            await AddToPromisePile(card);
+            await PromisePileCmd.Add(card);
     }
 
     /// <summary>
@@ -267,20 +235,13 @@ public static class PromisePileManager
         while (pile.Cards.Count > 0)
         {
             var card = pile.Cards.First();
-            pile.RemoveInternal(card);
-            if (card is KarenBaseCardModel karenCard)
-                await karenCard.OnRemovedFromPromisePile();
-
-            // 触发 KarenBasePower 扳机
-            await TriggerPowerOnCardRemoved(player, card);
-
+            //pile.RemoveInternal(card); 这里不能删除，要给后续动作提供一个oldPile
             await CardPileCmd.Add(card, PileType.Discard);
-            await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
         }
 
         await UpdatePowerAsync(player);
 
-        await PromisePileTriggers.TriggerPromisePileEmpty(player);
+        await PromisePileHooks.TriggerPromisePileEmpty(player);
     }
 
     /// <summary>
@@ -383,5 +344,17 @@ public static class PromisePileManager
         }
     }
 
+    internal static async Task CopyHandToPromisePile(Player player)
+    {
+        var hand = PileType.Hand.GetPile(player);
+        var handCards = hand.Cards.ToList();
 
+        // 复制所有手牌到约定牌堆
+        // TODO 添加动画
+        foreach (var card in handCards)
+        {
+            var copyCard = card.CreateClone();
+            await PromisePileCmd.Add(copyCard);
+        }
+    }
 }

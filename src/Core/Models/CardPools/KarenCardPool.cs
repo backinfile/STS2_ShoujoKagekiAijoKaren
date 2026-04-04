@@ -11,6 +11,7 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.strength;
 using System.Collections.Generic;
 using System.Linq;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.globalMove;
 
 namespace ShoujoKagekiAijoKaren.src.Models.CardPools;
 

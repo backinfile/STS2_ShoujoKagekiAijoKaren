@@ -97,7 +97,99 @@ PlayCardAction.ExecuteAction()
 
 ---
 
-## 五、关联类型
+## 五、各子类详解
+
+### 1. HookPlayerChoiceContext（最常用）
+
+**用途**：卡牌、遗物、能力等模型的钩子执行上下文
+
+**构造函数**：
+```csharp
+// 从模型源创建（卡牌、遗物、能力、药水、诅咒、附魔）
+public HookPlayerChoiceContext(AbstractModel source, ulong localPlayerId, CombatState combatState, GameActionType gameActionType)
+
+// 从玩家创建
+public HookPlayerChoiceContext(Player owner, ulong localPlayerId, GameActionType gameActionType)
+```
+
+**GameActionType 枚举值**：
+```csharp
+public enum GameActionType
+{
+    CombatPlayPhaseOnly,    // 战斗出牌阶段
+    CombatEndOfTurn,        // 回合结束
+    CombatTurnStart,        // 回合开始
+    CombatEnemyTurn,        // 敌人回合
+    Map,                    // 地图界面
+    Event,                  // 事件
+    RestSite,               // 休息处
+    Shop,                   // 商店
+    Treasure,               // 宝箱
+    BossTreasure,           // Boss宝箱
+    CardReward,             // 卡牌奖励
+    PotionAcquisition,      // 药水获取
+    CardRemoval,            // 卡牌移除
+    CardTransform,          // 卡牌变形
+    UpgradeCard,            // 卡牌升级
+    DuplicateCard,          // 卡牌复制
+    ColorlessCardReward,    // 无色卡牌奖励
+    SpecialCardReward       // 特殊卡牌奖励
+}
+```
+
+**特有属性**：
+```csharp
+public AbstractModel? Source { get; }        // 触发此上下文的模型
+public Player? Owner { get; }                // 玩家所有者
+public GenericHookGameAction? GameAction { get; }  // 关联的游戏动作
+```
+
+### 2. BlockingPlayerChoiceContext
+
+**用途**：简单阻塞式执行，不处理网络同步
+
+**使用场景**：
+- AutoSlay（自动战斗）
+- 测试场景
+- 不需要玩家交互的后台逻辑
+
+**实现**：
+```csharp
+public class BlockingPlayerChoiceContext : PlayerChoiceContext
+{
+    public override Task SignalPlayerChoiceBegun(PlayerChoiceOptions options)
+        => Task.CompletedTask;
+
+    public override Task SignalPlayerChoiceEnded()
+        => Task.CompletedTask;
+}
+```
+
+### 3. GameActionPlayerChoiceContext
+
+**用途**：特定游戏动作的上下文
+
+**构造函数**：
+```csharp
+public GameActionPlayerChoiceContext(GameAction action)
+```
+
+**特点**：
+- 与特定的 `GameAction` 绑定
+- 用于动作队列管理
+- 自动处理动作暂停和恢复
+
+### 4. ThrowingPlayerChoiceContext
+
+**用途**：测试或占位，调用时抛出异常
+
+**特点**：
+- `SignalPlayerChoiceBegun` 和 `SignalPlayerChoiceEnded` 都抛出 `NotImplementedException`
+- 用于确保不会意外调用需要玩家选择的方法
+
+---
+
+## 六、关联类型
 
 ### `PlayerChoiceOptions`（Flag 枚举）
 
@@ -130,7 +222,66 @@ public enum PlayerChoiceOptions
 
 ---
 
-## 六、Mod 开发指南
+## 七、需要 PlayerChoiceContext 的常用命令
+
+### CardPileCmd
+```csharp
+// 抽牌
+public static async Task<CardModel?> Draw(PlayerChoiceContext choiceContext, Player player)
+public static async Task<IEnumerable<CardModel>> Draw(PlayerChoiceContext choiceContext, decimal count, Player player, bool fromHandDraw = false)
+
+// 洗牌
+public static async Task Shuffle(PlayerChoiceContext choiceContext, Player player)
+
+// 从抽牌堆自动打出
+public static async Task AutoPlayFromDrawPile(PlayerChoiceContext choiceContext, Player player, int count, CardPilePosition position, bool forceExhaust)
+```
+
+### CardCmd
+```csharp
+// 弃牌
+public static async Task Discard(PlayerChoiceContext choiceContext, CardModel card)
+public static async Task Discard(PlayerChoiceContext choiceContext, IEnumerable<CardModel> cards)
+public static async Task DiscardAndDraw(PlayerChoiceContext choiceContext, IEnumerable<CardModel> cardsToDiscard, int cardsToDraw)
+
+// 消耗
+public static async Task Exhaust(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal = false, bool skipVisuals = false)
+
+// 自动打出
+public static async Task AutoPlay(PlayerChoiceContext choiceContext, CardModel card, Creature? target, AutoPlayType type = AutoPlayType.Default, bool skipXCapture = false, bool skipCardPileVisuals = false)
+```
+
+### CardSelectCmd（需要玩家选择）
+```csharp
+// 从手牌选择
+public static async Task<IReadOnlyList<CardModel>> FromHand(
+    PlayerChoiceContext choiceContext,
+    Player player,
+    CardSelectorPrefs prefs,
+    Predicate<CardModel>? filter = null,
+    CardModel? sourceCard = null
+)
+
+// 从简单网格选择（用于约定牌堆等）
+public static async Task<IReadOnlyList<CardModel>> FromSimpleGrid(
+    PlayerChoiceContext choiceContext,
+    IReadOnlyList<CardModel> cards,
+    Player player,
+    CardSelectorPrefs prefs
+)
+
+// 从选牌界面选择（卡牌奖励等）
+public static async Task<IReadOnlyList<CardModel>> FromChooseACardScreen(
+    PlayerChoiceContext choiceContext,
+    IReadOnlyList<CardModel> cards,
+    Player player,
+    CardSelectorPrefs prefs
+)
+```
+
+---
+
+## 八、Mod 开发指南
 
 ### 基本原则
 
@@ -143,21 +294,30 @@ public enum PlayerChoiceOptions
 ```csharp
 protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 {
-    // 造成伤害——透传 choiceContext
-    await new DamageCmd(this, new DamageInfo(GetValue(Dmg), DamageType.Normal))
-        .Execute(choiceContext, cardPlay.Target);
+    // 1. 触发攻击动画
+    await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+    
+    // 2. 造成伤害——透传 choiceContext
+    await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+        .FromCard(this)
+        .Targeting(cardPlay.Target!)
+        .WithVfx(VfxLibrary.Clash)
+        .Execute();
 
-    // 抽牌——透传 choiceContext
-    await CardPileCmd.Draw(choiceContext, base.Owner, 1);
+    // 3. 抽牌——透传 choiceContext
+    await CardPileCmd.Draw(choiceContext, 2, Owner);
 
-    // 选牌（需要联机同步，choiceContext 在此暂停 Action 队列）
+    // 4. 选牌（需要联机同步，choiceContext 在此暂停 Action 队列）
     IReadOnlyList<CardModel> selected = await CardSelectCmd.FromHand(
         choiceContext,
-        base.Owner,
-        new CardSelectorPrefs("ui", LocString.Get("select_card")),
-        card => card != this,
-        this
+        Owner,
+        new CardSelectorPrefs { MaxCards = 1, MinCards = 0 }
     );
+    
+    if (selected.Count > 0)
+    {
+        await CardCmd.Exhaust(choiceContext, selected[0]);
+    }
 }
 ```
 
@@ -170,13 +330,44 @@ public override async Task AfterCardPlayed(
     PlayerChoiceContext choiceContext,   // 系统传入，直接用
     CardPlay cardPlay)
 {
-    await CardPileCmd.Draw(choiceContext, base.Owner, 1);
+    await CardPileCmd.Draw(choiceContext, Owner, 1);
+}
+
+public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+{
+    // 回合结束时给予格挡
+    await BlockCmd.Gain(Owner.Creature, 5, this);
+}
+```
+
+### 在能力牌(Power)中使用
+
+```csharp
+public class MyPower : PowerModel
+{
+    public override async Task AtStartOfTurn(PlayerChoiceContext choiceContext)
+    {
+        // 回合开始时抽牌
+        await CardPileCmd.Draw(choiceContext, 1, Owner.Player);
+    }
+    
+    public override async Task OnPlayCard(PlayerChoiceContext choiceContext, CardModel card)
+    {
+        // 打出卡牌时触发效果
+        if (card.Type == CardType.Attack)
+        {
+            await DamageCmd.Attack(5)
+                .FromPower(this)
+                .Targeting(Owner.CurrentTarget ?? Owner)
+                .Execute();
+        }
+    }
 }
 ```
 
 ---
 
-## 七、相关文件路径
+## 九、相关文件路径
 
 | 文件 | 路径 |
 |------|------|
@@ -184,6 +375,7 @@ public override async Task AfterCardPlayed(
 | GameActionPlayerChoiceContext | `src/Core/GameActions/Multiplayer/GameActionPlayerChoiceContext.cs` |
 | HookPlayerChoiceContext | `src/Core/GameActions/Multiplayer/HookPlayerChoiceContext.cs` |
 | BlockingPlayerChoiceContext | `src/Core/GameActions/Multiplayer/BlockingPlayerChoiceContext.cs` |
+| ThrowingPlayerChoiceContext | `src/Core/GameActions/Multiplayer/ThrowingPlayerChoiceContext.cs` |
 | PlayerChoiceOptions | `src/Core/Entities/Multiplayer/PlayerChoiceOptions.cs` |
 | PlayerChoiceResult | `src/Core/GameActions/PlayerChoiceResult.cs` |
 | PlayCardAction | `src/Core/GameActions/PlayCardAction.cs` |

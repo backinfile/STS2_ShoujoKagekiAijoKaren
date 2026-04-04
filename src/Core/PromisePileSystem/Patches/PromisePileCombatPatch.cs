@@ -78,7 +78,7 @@ internal static class PromisePile_AfterTurnEnd_Patch
             if (LocalContext.GetMe(combatState) is Player player)
             {
                 // 触发约定牌堆中卡牌的回合结束扳机
-                await PromisePileTriggers.TriggerPromisePileTurnEnd(player);
+                await PromisePileHooks.TriggerPromisePileTurnEnd(player);
                 PrintSomething(player);
             }
             else

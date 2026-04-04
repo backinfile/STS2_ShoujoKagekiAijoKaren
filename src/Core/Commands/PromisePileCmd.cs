@@ -22,32 +22,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands;
 /// 约定牌堆命令类 - 卡牌效果的统一入口。
 /// 对齐游戏原生 CardPileCmd / CreatureCmd 的静态命令类风格。
 /// 支持虚空模式：交互重定向到抽牌堆。
+/// 
+/// 设计笔记：
+///     对特殊模式（Void，Infinite)的处理都在Cmd层进行处理转发, PromisePileManager不会转发。
 /// </summary>
 public static class PromisePileCmd
 {
-    /// <summary>
-    /// 触发玩家身上所有 KarenBasePower 的 OnCardAddedToPromisePile 扳机
-    /// </summary>
-    private static async Task TriggerPowerOnCardAdded(Player player, CardModel card)
-    {
-        if (player?.Creature == null) return;
-        foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
-        {
-            await power.OnCardAddedToPromisePile(card);
-        }
-    }
-
-    /// <summary>
-    /// 触发玩家身上所有 KarenBasePower 的 OnCardRemovedFromPromisePile 扳机
-    /// </summary>
-    private static async Task TriggerPowerOnCardRemoved(Player player, CardModel card)
-    {
-        if (player?.Creature == null) return;
-        foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
-        {
-            await power.OnCardRemovedFromPromisePile(card);
-        }
-    }
 
     // ===== Void Mode Detection =====
     private static bool IsVoidMode(Player player) => PromisePileManager.IsVoidMode(player);
@@ -56,16 +36,20 @@ public static class PromisePileCmd
     /// 将指定卡牌放入约定牌堆（物理从当前牌堆移出，加入队列尾部）。
     /// Void 模式下改为放入抽牌堆顶部。
     /// 调用方应确保卡牌当前在手牌中。
+    /// 注意：这个方法不会检测是否需要耗尽进入耗尽牌堆
     /// </summary>
     public static async Task Add(CardModel card)
     {
-        if (card?.Owner == null) return;
+        if (card?.Owner == null)
+        {
+            MainFile.Logger.Error("Attempted to add a card with null owner to the promise pile. Operation aborted.");
+            return;
+        }
 
         if (IsVoidMode(card.Owner))
         {
             // Void 模式：放入抽牌堆顶部，并触发 Power 扳机
             await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
-            await TriggerPowerOnCardAdded(card.Owner, card);
             return;
         }
 
@@ -97,10 +81,6 @@ public static class PromisePileCmd
         {
             // Void 模式：从抽牌堆抽1张，并触发 Power 扳机
             var card = await CardPileCmd.Draw(choiceContext, player);
-            if (card != null)
-            {
-                await TriggerPowerOnCardRemoved(player, card);
-            }
             return card;
         }
 
@@ -161,20 +141,15 @@ public static class PromisePileCmd
 
         foreach (var card in selected)
         {
-            pile.RemoveInternal(card);
-            if (card is KarenBaseCardModel karenCard)
-                await karenCard.OnRemovedFromPromisePile();
-
-            await TriggerPowerOnCardRemoved(player, card);
+            //pile.RemoveInternal(card); 这里不要移除，要给后续牌堆移动提供oldPile
             await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top, null, false);
-            await Hook.AfterCardChangedPiles(player.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
         }
 
         await PromisePileManager.UpdatePowerAsync(player);
 
         if (pile.IsEmpty)
         {
-            await PromisePileTriggers.TriggerPromisePileEmpty(player);
+            await PromisePileHooks.TriggerPromisePileEmpty(player);
         }
     }
 
@@ -244,6 +219,14 @@ public static class PromisePileCmd
     /// </summary>
     public static async Task DiscardAll(PlayerChoiceContext ctx, Player player)
     {
+        // 无限模式下，可以不弃置
+        if (PromisePileManager.IsInMode(player, PromisePileMode.InfiniteReinforcement))
+        {
+            MainFile.Logger.Info("Player is in Infinite Reinforcement mode, skipping discard.");
+            return;
+        }
+
+
         if (IsVoidMode(player))
         {
             // Void 模式：弃置所有抽牌堆
@@ -285,7 +268,6 @@ public static class PromisePileCmd
         foreach (var card in selected)
         {
             await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
-            await TriggerPowerOnCardAdded(player, card);
         }
     }
 
@@ -300,7 +282,6 @@ public static class PromisePileCmd
         foreach (var card in cards)
         {
             await CardCmd.Discard(ctx, card);
-            await TriggerPowerOnCardRemoved(player, card);
         }
     }
 
@@ -319,66 +300,16 @@ public static class PromisePileCmd
         var handSave = handCards.ToList(); // 复制列表，避免修改原列表导致枚举问题
         handPile.Clear();
 
-
         // 步骤2：从约定牌堆抽满手牌
         await PromisePileCmd.DrawToFullHand(ctx, player);
 
         // 步骤3：弃置约定牌堆剩余
-        await PromisePileManager.DiscardAllAsync(ctx, player);
-
-        if (IsVoidMode(player))
-        {
-            // Void模式：使用抽牌堆作为约定牌堆的替代
-            foreach (var card in handCards)
-            {
-                await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
-            }
-
-            // 步骤2：从抽牌堆抽满手牌
-            int maxHand = CardPile.maxCardsInHand;
-            int drawCount = 0;
-            for (int i = 0; i < maxHand; i++)
-            {
-                var card = await CardPileCmd.Draw(ctx, player);
-                if (card == null) break;
-                drawCount++;
-            }
-
-            // 步骤3：弃置抽牌堆剩余
-            await DiscardAllDrawPile(ctx, player);
-
-            // 步骤4：原手牌放入抽牌堆顶部，并触发Power扳机
-            foreach (var card in handCards)
-            {
-                await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
-                await TriggerPowerOnCardAdded(player, card);
-            }
-            return;
-        }
-
-        // 正常模式
-        // 步骤1：暂存手牌（从手牌移出，但不放入约定牌堆）
-        foreach (var card in handCards)
-        {
-            card.RemoveFromCurrentPile();
-            // 不触发任何Hook，只是暂存
-        }
-
-        // 步骤2：从约定牌堆抽满手牌
-        int maxHandSize = CardPile.maxCardsInHand;
-        for (int i = 0; i < maxHandSize; i++)
-        {
-            var card = await PromisePileManager.DrawFromPromisePileAsync(ctx, player);
-            if (card == null) break;
-        }
-
-        // 步骤3：弃置约定牌堆剩余
-        await PromisePileManager.DiscardAllAsync(ctx, player);
+        await PromisePileCmd.DiscardAll(ctx, player);
 
         // 步骤4：原手牌放入约定牌堆
         foreach (var card in handCards)
         {
-            await PromisePileManager.AddToPromisePile(card);
+            await PromisePileCmd.Add(card);
         }
     }
 
@@ -411,7 +342,7 @@ public static class PromisePileCmd
         // 触发约定牌堆变空扳机
         if (promisePile.IsEmpty)
         {
-            await PromisePileTriggers.TriggerPromisePileEmpty(player);
+            await PromisePileHooks.TriggerPromisePileEmpty(player);
         }
 
         foreach (CardModel item in cards)

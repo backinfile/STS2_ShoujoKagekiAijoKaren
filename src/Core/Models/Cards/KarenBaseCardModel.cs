@@ -51,4 +51,11 @@ public abstract class KarenBaseCardModel : CardModel
     /// <para>传入的 <paramref name="ctx"/> 由 <see cref="ShinePileManager"/> 创建，支持 CardSelectCmd 等需要联机同步的选择命令。</para>
     /// </summary>
     public virtual Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState) => Task.CompletedTask;
+
+
+    /// <summary>
+    /// 当此牌在牌堆间移动时触发（由 <see cref="GlobalMoveSystem"/> 直接调用）。
+    /// 注意这里没有处理Void模式的特殊情况
+    /// </summary>
+    public virtual Task OnGlobalMove(PileType from, PileType to, AbstractModel? source) => Task.CompletedTask;
 }
