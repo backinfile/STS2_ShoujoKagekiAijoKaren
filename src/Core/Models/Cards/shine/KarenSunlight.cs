@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
@@ -103,7 +104,8 @@ public sealed class KarenSunlight : KarenBaseCardModel
         // 选择不加入牌组
         if (selected == null)
         {
-            clone.RemoveFromState();
+            //clone.RemoveFromState(); 
+            _ = CardPileCmd.RemoveFromCombat(clone); // 不需要等待
             MainFile.Logger.Info("Player chose to skip adding KarenSunlight back to deck after shine exhaustion.");
             return;
         }

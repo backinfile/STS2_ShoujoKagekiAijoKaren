@@ -36,5 +36,9 @@
 
   "KAREN_NEW_DAY_POWER.title": "新的一天",
   "KAREN_NEW_DAY_POWER.description": "打出的下1张牌进入[gold]约定牌堆[/gold]。",
-  "KAREN_NEW_DAY_POWER.smartDescription": "打出的下{Amount}张牌进入[gold]约定牌堆[/gold]。"
+  "KAREN_NEW_DAY_POWER.smartDescription": "打出的下{Amount}张牌进入[gold]约定牌堆[/gold]。",
+
+  "KAREN_POSITION0_POWER.title": "Position 0",
+  "KAREN_POSITION0_POWER.description": "每回合第1次造成攻击伤害时，获得等量[gold]格挡[/gold]。",
+  "KAREN_POSITION0_POWER.smartDescription": "每回合{Amount:choose(1):第1|前{Amount}}次造成攻击伤害时，获得等量[gold]格挡[/gold]。"
 }

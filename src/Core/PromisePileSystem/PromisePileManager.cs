@@ -312,8 +312,9 @@ public static class PromisePileManager
         // 先把牌库中的非续演牌移除掉
         foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
         {
-            card.RemoveFromCurrentPile();
-            card.RemoveFromState();
+            //card.RemoveFromCurrentPile();
+            //card.RemoveFromState();
+            _ = CardPileCmd.RemoveFromCombat(card); // 这个地方不需要等动画完成
             MainFile.Logger.Info($"[PromisePile] Removed '{card.Title}' from promise pile during refill");
         }
 

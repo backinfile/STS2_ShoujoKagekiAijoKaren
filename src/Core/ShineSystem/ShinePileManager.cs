@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
 
 namespace ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
@@ -101,7 +102,7 @@ public static class ShinePileManager
             await karenCard.OnShineExhausted(ctx, inCombat, combatState);
         }
 
-        // 最终将这个卡牌移出游戏
+        // 最终将这个卡牌移出游戏 TODO 等待后续实现耗尽牌堆
         original.RemoveFromState();
         card.RemoveFromState();
     }
@@ -123,11 +124,11 @@ public static class ShinePileManager
     public static void ClearShinePileInternal(Player player)
     {
         var pile = GetShinePile(player);
-        var cards = pile.ToList(); // 复制列表避免修改时遍历
-        foreach (var card in cards)
+        foreach (var card in pile.ToList())
         {
             pile.Remove(card);
-            card.RemoveFromState();
+            //card.RemoveFromState();
+            _ = CardPileCmd.RemoveFromCombat(card); // 确保从战斗中移除
         }
         MainFile.Logger.Info($"[ShinePileManager] Cleared shine pile for player {player?.NetId}");
     }

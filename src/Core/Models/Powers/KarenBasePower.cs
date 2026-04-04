@@ -1,6 +1,10 @@
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 using System;
 using System.Threading.Tasks;
 
@@ -35,5 +39,7 @@ public abstract class KarenBasePower : PowerModel
     /// 约定牌堆被清空时触发
     /// </summary>
     /// <returns></returns>
-    public virtual  Task OnPromisePileEmpty() => Task.CompletedTask;
+    public virtual Task OnPromisePileEmpty() => Task.CompletedTask;
+
+
 }
