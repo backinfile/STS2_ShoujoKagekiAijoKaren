@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dss6vewe2ii8b"
-path="res://.godot/imported/karen_last_word.png-5032d61bed7a9c13dc655109873fc85e.ctex"
+uid="uid://b331wpxj83vo3"
+path="res://.godot/imported/karen_last_word_p.png-8c51f9ccb9c87c7f7b93dc0c4ed1d89e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_last_word.png"
-dest_files=["res://.godot/imported/karen_last_word.png-5032d61bed7a9c13dc655109873fc85e.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_last_word_p.png"
+dest_files=["res://.godot/imported/karen_last_word_p.png-8c51f9ccb9c87c7f7b93dc0c4ed1d89e.ctex"]
 
 [params]
 

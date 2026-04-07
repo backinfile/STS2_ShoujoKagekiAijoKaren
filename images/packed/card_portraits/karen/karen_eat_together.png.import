@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddluvtvgxrob3"
-path="res://.godot/imported/karen_eat_together.png-0997c779cc6db7ba65aa821bfcfe79d3.ctex"
+uid="uid://cgvvndrcvxf5d"
+path="res://.godot/imported/karen_eat_together_p.png-a04b9a93da3c4eb6cd8f6fe36ef6b3f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_eat_together.png"
-dest_files=["res://.godot/imported/karen_eat_together.png-0997c779cc6db7ba65aa821bfcfe79d3.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_eat_together_p.png"
+dest_files=["res://.godot/imported/karen_eat_together_p.png-a04b9a93da3c4eb6cd8f6fe36ef6b3f8.ctex"]
 
 [params]
 

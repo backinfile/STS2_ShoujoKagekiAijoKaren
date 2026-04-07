@@ -50,7 +50,7 @@ public sealed class Karen : CharacterModel
 
     public override IReadOnlyList<RelicModel> StartingRelics =>
     [
-        ModelDb.Relic<KarenStageHeart>()
+        ModelDb.Relic<KarenHairpinRelic>()
     ];
 
     public override float AttackAnimDelay => 0.15f;

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4laq6o15hac8"
-path="res://.godot/imported/karen_sideways.png-42bbe2ebb402d05a4d482ba4fecdf6eb.ctex"
+uid="uid://b6p0qb65emm05"
+path="res://.godot/imported/karen_sideways_p.png-2d5dd2f69ddaacfcf8e6c893923a5b52.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_sideways.png"
-dest_files=["res://.godot/imported/karen_sideways.png-42bbe2ebb402d05a4d482ba4fecdf6eb.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_sideways_p.png"
+dest_files=["res://.godot/imported/karen_sideways_p.png-2d5dd2f69ddaacfcf8e6c893923a5b52.ctex"]
 
 [params]
 

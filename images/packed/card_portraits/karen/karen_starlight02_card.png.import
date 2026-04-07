@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnqurdihd6yw4"
-path="res://.godot/imported/karen_starlight02_card.png-0f6fcf70dc54890d35d7fd32c7244fab.ctex"
+uid="uid://c4emsu7bgc6si"
+path="res://.godot/imported/karen_starlight02_card_p.png-bb013d4b1e39d33dbee0b73e4ba23910.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_starlight02_card.png"
-dest_files=["res://.godot/imported/karen_starlight02_card.png-0f6fcf70dc54890d35d7fd32c7244fab.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_starlight02_card_p.png"
+dest_files=["res://.godot/imported/karen_starlight02_card_p.png-bb013d4b1e39d33dbee0b73e4ba23910.ctex"]
 
 [params]
 

@@ -28,10 +28,10 @@ public sealed class KarenShineStrike : KarenBaseCardModel
 
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
-    {
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
         new DamageVar(9m, ValueProp.Move)
-    };
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -46,6 +46,6 @@ public sealed class KarenShineStrike : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        EnergyCost.UpgradeBy(-1);
     }
 }

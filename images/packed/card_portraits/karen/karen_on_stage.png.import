@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blu5n2klpa2ws"
-path="res://.godot/imported/karen_on_stage.png-76620d0365c6e13d9cbaea65135bfe13.ctex"
+uid="uid://d5xetoojhiqe"
+path="res://.godot/imported/karen_on_stage_p.png-7fe7a39a4437a4ef7dc5c10c63da58fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_on_stage.png"
-dest_files=["res://.godot/imported/karen_on_stage.png-76620d0365c6e13d9cbaea65135bfe13.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_on_stage_p.png"
+dest_files=["res://.godot/imported/karen_on_stage_p.png-7fe7a39a4437a4ef7dc5c10c63da58fe.ctex"]
 
 [params]
 

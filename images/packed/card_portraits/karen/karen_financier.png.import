@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dov2qimepyvqi"
-path="res://.godot/imported/karen_financier.png-842cdfe5121f50de83b983bd2bbe1e99.ctex"
+uid="uid://dtooe6vt5tpva"
+path="res://.godot/imported/karen_financier_p.png-2a17c5541866e17c02ff2de82e88edf8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_financier.png"
-dest_files=["res://.godot/imported/karen_financier.png-842cdfe5121f50de83b983bd2bbe1e99.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_financier_p.png"
+dest_files=["res://.godot/imported/karen_financier_p.png-2a17c5541866e17c02ff2de82e88edf8.ctex"]
 
 [params]
 

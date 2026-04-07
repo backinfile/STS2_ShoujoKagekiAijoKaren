@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bh5r8skfrnxxs"
-path="res://.godot/imported/karen_promise_draw.png-c52ffbcd0aeb0d612a63c11923cf8964.ctex"
+uid="uid://c2ja5sysbpvdq"
+path="res://.godot/imported/karen_promise_draw_p.png-faee1638b97ff7105869457d1c510915.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_promise_draw.png"
-dest_files=["res://.godot/imported/karen_promise_draw.png-c52ffbcd0aeb0d612a63c11923cf8964.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_promise_draw_p.png"
+dest_files=["res://.godot/imported/karen_promise_draw_p.png-faee1638b97ff7105869457d1c510915.ctex"]
 
 [params]
 

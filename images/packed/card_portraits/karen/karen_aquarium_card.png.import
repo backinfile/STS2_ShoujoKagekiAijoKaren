@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvwnooev3wiel"
-path="res://.godot/imported/karen_aquarium_card.png-ac884ac1a36aec39979c4c1617ac6cbe.ctex"
+uid="uid://df7njjwvbxd6r"
+path="res://.godot/imported/karen_aquarium_card_p.png-68556be317e8ce5f7c5278668d65abde.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_aquarium_card.png"
-dest_files=["res://.godot/imported/karen_aquarium_card.png-ac884ac1a36aec39979c4c1617ac6cbe.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_aquarium_card_p.png"
+dest_files=["res://.godot/imported/karen_aquarium_card_p.png-68556be317e8ce5f7c5278668d65abde.ctex"]
 
 [params]
 

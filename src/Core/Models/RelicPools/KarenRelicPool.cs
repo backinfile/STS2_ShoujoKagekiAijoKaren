@@ -18,7 +18,8 @@ public sealed class KarenRelicPool : RelicPoolModel
     {
         return
         [
-            ModelDb.Relic<KarenStageHeart>()
+            ModelDb.Relic<KarenHairpinRelic>(),
+            ModelDb.Relic<KarenHairpin2Relic>(),
         ];
     }
 

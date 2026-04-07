@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2hgv86rhc03r"
-path="res://.godot/imported/karen_consciousness.png-29c34d035cab0f61e5304e0457bf44d5.ctex"
+uid="uid://s7q5numhcxcy"
+path="res://.godot/imported/karen_consciousness_p.png-3ac9f4e17229646f73d6602d6cc03de8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_consciousness.png"
-dest_files=["res://.godot/imported/karen_consciousness.png-29c34d035cab0f61e5304e0457bf44d5.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_consciousness_p.png"
+dest_files=["res://.godot/imported/karen_consciousness_p.png-3ac9f4e17229646f73d6602d6cc03de8.ctex"]
 
 [params]
 

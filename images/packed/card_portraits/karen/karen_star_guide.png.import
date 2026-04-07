@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnxg24pkvta2x"
-path="res://.godot/imported/karen_star_guide.png-dca8ea9ac53b4f9415aa1b713a770976.ctex"
+uid="uid://bn2k5k8xi665n"
+path="res://.godot/imported/karen_star_guide_p.png-a23677742c17bf308a840dcd4cf74500.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_star_guide.png"
-dest_files=["res://.godot/imported/karen_star_guide.png-dca8ea9ac53b4f9415aa1b713a770976.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_star_guide_p.png"
+dest_files=["res://.godot/imported/karen_star_guide_p.png-a23677742c17bf308a840dcd4cf74500.ctex"]
 
 [params]
 

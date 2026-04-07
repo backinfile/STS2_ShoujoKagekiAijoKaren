@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cejvnr6yhf4nr"
-path="res://.godot/imported/karen_stage_is_waiting.png-1dcf4befe414ade0284ab0e728da3897.ctex"
+uid="uid://cnmb3x5vqtdpi"
+path="res://.godot/imported/karen_stage_is_waiting_p.png-d82373ba1b53d9efa44a7251fec9e52f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_stage_is_waiting.png"
-dest_files=["res://.godot/imported/karen_stage_is_waiting.png-1dcf4befe414ade0284ab0e728da3897.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_stage_is_waiting_p.png"
+dest_files=["res://.godot/imported/karen_stage_is_waiting_p.png-d82373ba1b53d9efa44a7251fec9e52f.ctex"]
 
 [params]
 

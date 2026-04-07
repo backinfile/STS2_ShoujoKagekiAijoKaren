@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0dywb6gfk8ax"
-path="res://.godot/imported/karen_pick_star.png-adc7e72c6acd0f6bddb6f93b9c01183f.ctex"
+uid="uid://c2rvd1rixdob1"
+path="res://.godot/imported/karen_pick_star_p.png-e200c86ac56872369885fb6bb3d95ea6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_pick_star.png"
-dest_files=["res://.godot/imported/karen_pick_star.png-adc7e72c6acd0f6bddb6f93b9c01183f.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_pick_star_p.png"
+dest_files=["res://.godot/imported/karen_pick_star_p.png-e200c86ac56872369885fb6bb3d95ea6.ctex"]
 
 [params]
 

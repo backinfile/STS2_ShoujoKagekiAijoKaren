@@ -10,6 +10,6 @@ public static class TouchOfOrobasPatch
 {
 	private static void Postfix(RelicModel starterRelic, ref RelicModel __result)
 	{
-		if (starterRelic.Id == ModelDb.Relic<KarenStageHeart>().Id) __result = ModelDb.Relic<KarenStageHeart>().ToMutable();
+		if (starterRelic is KarenHairpinRelic) __result = ModelDb.Relic<KarenHairpin2Relic>().ToMutable();
 	}
 }

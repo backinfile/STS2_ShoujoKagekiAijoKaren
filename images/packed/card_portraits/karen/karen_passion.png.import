@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://27261vnn36wr"
-path="res://.godot/imported/karen_passion.png-c46ce8981c579d394b892016e65e6364.ctex"
+uid="uid://beqipx45d68pv"
+path="res://.godot/imported/karen_passion_p.png-d0cb65e5507119f781a1bf1ce099384f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_passion.png"
-dest_files=["res://.godot/imported/karen_passion.png-c46ce8981c579d394b892016e65e6364.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_passion_p.png"
+dest_files=["res://.godot/imported/karen_passion_p.png-d0cb65e5507119f781a1bf1ce099384f.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://de6onmt6hyxmb"
-path="res://.godot/imported/karen_dodge.png-8b0b591f21ca3527f385d8b3851faea3.ctex"
+uid="uid://db3wxodiivmio"
+path="res://.godot/imported/karen_dodge_p.png-4c1032b6a48fcee33d7a631e4ab08a80.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_dodge.png"
-dest_files=["res://.godot/imported/karen_dodge.png-8b0b591f21ca3527f385d8b3851faea3.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_dodge_p.png"
+dest_files=["res://.godot/imported/karen_dodge_p.png-4c1032b6a48fcee33d7a631e4ab08a80.ctex"]
 
 [params]
 

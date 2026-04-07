@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -40,10 +41,10 @@ public sealed class KarenUnderTower : KarenBaseCardModel
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
         // 生成一张约定之塔
-        CardModel towerCard = ModelDb.Card<KarenTowerOfPromise>();
+        var card = CombatState.CreateCard<KarenTowerOfPromise>(Owner);
 
         // 加入手牌 TODO 看看对不？
-        await CardPileCmd.AddGeneratedCardToCombat(towerCard, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, addedByPlayer: true);
     }
 
     protected override void OnUpgrade()

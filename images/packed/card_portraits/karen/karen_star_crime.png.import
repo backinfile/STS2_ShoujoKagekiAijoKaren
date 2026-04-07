@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s80gn5vuer4y"
-path="res://.godot/imported/karen_star_crime.png-5373fdaf8634900626e97e403b2817a7.ctex"
+uid="uid://d31ha8dhnwmt8"
+path="res://.godot/imported/karen_star_crime_p.png-9bb5b83bd79156c248513978eeb81152.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_star_crime.png"
-dest_files=["res://.godot/imported/karen_star_crime.png-5373fdaf8634900626e97e403b2817a7.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_star_crime_p.png"
+dest_files=["res://.godot/imported/karen_star_crime_p.png-9bb5b83bd79156c248513978eeb81152.ctex"]
 
 [params]
 

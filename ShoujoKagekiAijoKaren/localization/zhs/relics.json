@@ -1,5 +1,9 @@
 {
-  "KAREN_STAGE_HEART.description": "爱城华恋的起始遗物。",
-  "KAREN_STAGE_HEART.flavor": "对舞台充满热情的心。",
-  "KAREN_STAGE_HEART.title": "舞台之心"
+  "KAREN_HAIRPIN_RELIC.title": "发夹",
+  "KAREN_HAIRPIN_RELIC.description": "在你的[blue]第2[/blue]回合开始时，将一张[gold]约定之塔[/gold]加入手牌。",
+  "KAREN_HAIRPIN_RELIC.flavor": "小时候与小光两人在东京塔附近的商店中买到的一对发夹中皇冠样式的一枚。",
+
+  "KAREN_HAIRPIN2_RELIC.title": "发夹-立体版",
+  "KAREN_HAIRPIN2_RELIC.description": "在你的[blue]第1[/blue]回合开始时，将一张[gold]约定之塔+[/gold]加入手牌。",
+  "KAREN_HAIRPIN2_RELIC.flavor": "小时候与小光两人在东京塔附近的商店中买到的一对发夹中皇冠样式的一枚。"
 }

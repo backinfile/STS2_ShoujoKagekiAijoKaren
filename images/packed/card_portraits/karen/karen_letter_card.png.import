@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i7fx5n7ven26"
-path="res://.godot/imported/karen_letter_card.png-058c51e2f8f6716d110b8ef399d6eb46.ctex"
+uid="uid://ffqfrqfga6kp"
+path="res://.godot/imported/karen_letter_card_p.png-28100f3b72685a97ed3aa542613183e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_letter_card.png"
-dest_files=["res://.godot/imported/karen_letter_card.png-058c51e2f8f6716d110b8ef399d6eb46.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_letter_card_p.png"
+dest_files=["res://.godot/imported/karen_letter_card_p.png-28100f3b72685a97ed3aa542613183e7.ctex"]
 
 [params]
 

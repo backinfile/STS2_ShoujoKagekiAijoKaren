@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhkvnf0t60ejk"
-path="res://.godot/imported/karen_parry.png-f2d3b2d88cfb186dd8fd27d2f1c66c91.ctex"
+uid="uid://bww87k17jhhq6"
+path="res://.godot/imported/karen_parry_p.png-dab5b03af933141ba7ebea7536fb47d5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_parry.png"
-dest_files=["res://.godot/imported/karen_parry.png-f2d3b2d88cfb186dd8fd27d2f1c66c91.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_parry_p.png"
+dest_files=["res://.godot/imported/karen_parry_p.png-dab5b03af933141ba7ebea7536fb47d5.ctex"]
 
 [params]
 

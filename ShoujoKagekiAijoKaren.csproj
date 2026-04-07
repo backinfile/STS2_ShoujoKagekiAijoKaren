@@ -157,7 +157,6 @@
     <Content Include="images\packed\card_portraits\karen\karen_whos_promise_p.png" />
     <Content Include="images\packed\card_portraits\karen\karen_yesterglow.png" />
     <Content Include="images\packed\card_portraits\karen\karen_yesterglow_p.png" />
-    <Content Include="images\powers\karen_promise_pile_power.png" />
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="images\atlases\karen_ui_atlas_0.png" />
     <Content Include="images\packed\character_select\char_select_karen.png" />
@@ -453,5 +452,8 @@
   </ItemGroup>
   <ItemGroup>
     <EditorConfigFiles Remove="D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images\powers\" />
   </ItemGroup>
 </Project>

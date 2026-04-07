@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc63nn8tmbgc4"
-path="res://.godot/imported/karen_spin.png-01136d10e9f9f11a6849f7e74b490385.ctex"
+uid="uid://fyegnueanggf"
+path="res://.godot/imported/karen_spin_p.png-3e46d478561b8b7b76ee5e4360739e5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_spin.png"
-dest_files=["res://.godot/imported/karen_spin.png-01136d10e9f9f11a6849f7e74b490385.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_spin_p.png"
+dest_files=["res://.godot/imported/karen_spin_p.png-3e46d478561b8b7b76ee5e4360739e5a.ctex"]
 
 [params]
 

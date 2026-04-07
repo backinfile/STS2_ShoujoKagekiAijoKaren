@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chxfp5s58lx14"
-path="res://.godot/imported/karen_arrogant.png-bd0b05c860e2a3694c6402cb21bddf08.ctex"
+uid="uid://55ntp6u0noan"
+path="res://.godot/imported/karen_arrogant_p.png-ad5fa230e2b474b5816fdb72b84f587d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_arrogant.png"
-dest_files=["res://.godot/imported/karen_arrogant.png-bd0b05c860e2a3694c6402cb21bddf08.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_arrogant_p.png"
+dest_files=["res://.godot/imported/karen_arrogant_p.png-ad5fa230e2b474b5816fdb72b84f587d.ctex"]
 
 [params]
 

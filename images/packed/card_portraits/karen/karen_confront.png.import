@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6spx1mrfel8k"
-path="res://.godot/imported/karen_confront.png-f3f5a60021e2df91e61a586e4757527c.ctex"
+uid="uid://bqieug7yshhlc"
+path="res://.godot/imported/karen_confront_p.png-ecd326c89198e0785bbd698c6459937b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_confront.png"
-dest_files=["res://.godot/imported/karen_confront.png-f3f5a60021e2df91e61a586e4757527c.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_confront_p.png"
+dest_files=["res://.godot/imported/karen_confront_p.png-ecd326c89198e0785bbd698c6459937b.ctex"]
 
 [params]
 

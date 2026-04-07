@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca4qp5wjpmnou"
-path="res://.godot/imported/karen_pizza.png-9e7d54b4baa617eaa720ec6198101665.ctex"
+uid="uid://c3hgvwgda1n1o"
+path="res://.godot/imported/karen_pizza_p.png-9ea6f6576e43bda41c5a59d3fe441da3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_pizza.png"
-dest_files=["res://.godot/imported/karen_pizza.png-9e7d54b4baa617eaa720ec6198101665.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_pizza_p.png"
+dest_files=["res://.godot/imported/karen_pizza_p.png-9ea6f6576e43bda41c5a59d3fe441da3.ctex"]
 
 [params]
 

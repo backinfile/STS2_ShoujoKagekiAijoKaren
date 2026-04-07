@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqdw0c7avhcnt"
-path="res://.godot/imported/karen_continue.png-9aaf12feec0e5151b99ea632d3a02b30.ctex"
+uid="uid://dn6g3ytj23iea"
+path="res://.godot/imported/karen_continue_p.png-ce5ec025abbdc182e6642eb4ffbc3d2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_continue.png"
-dest_files=["res://.godot/imported/karen_continue.png-9aaf12feec0e5151b99ea632d3a02b30.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_continue_p.png"
+dest_files=["res://.godot/imported/karen_continue_p.png-ce5ec025abbdc182e6642eb4ffbc3d2b.ctex"]
 
 [params]
 
