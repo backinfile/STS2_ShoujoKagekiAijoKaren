@@ -41,7 +41,7 @@ public sealed class KarenParry : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4m);
+        DynamicVars.Block.UpgradeValueBy(3m);
     }
 
     protected override void AfterDowngraded()

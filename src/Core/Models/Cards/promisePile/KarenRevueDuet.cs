@@ -37,7 +37,7 @@ public sealed class KarenRevueDuet : KarenBaseCardModel
             .Execute(choiceContext);
 
         // 将此牌放入约定牌堆
-        await PromisePileCmd.Add(this);
+        await PromisePileCmd.Add(Owner, this);
     }
 
     protected override void OnUpgrade()

@@ -30,10 +30,7 @@ public sealed class KarenLastWord : KarenBaseCardModel
             .Execute(choiceContext);
     }
 
-    public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
-    {
-        return Condition(base.Owner, card);
-    }
+    protected override bool IsPlayable => Condition(base.Owner, this);
 
     // 抽牌堆，弃牌堆，手牌中，最多只有这张牌
     private static bool Condition(Player player, CardModel card)

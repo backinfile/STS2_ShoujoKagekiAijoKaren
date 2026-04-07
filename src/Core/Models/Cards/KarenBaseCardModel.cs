@@ -2,7 +2,9 @@ using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards;
@@ -22,6 +24,12 @@ public abstract class KarenBaseCardModel : CardModel
     protected KarenBaseCardModel(int energyCost, CardType type, CardRarity rarity,
         TargetType targetType = TargetType.None)
         : base(energyCost, type, rarity, targetType) { }
+
+
+
+
+    public DynamicVar DisableRelicVar => DynamicVars[ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.DisableRelicVar.VarName];
+
 
     /// <summary>
     /// 此牌被放入约定牌堆时触发（由 <see cref="PromisePileManager"/> 直接调用）。
@@ -64,4 +72,5 @@ public abstract class KarenBaseCardModel : CardModel
     /// 这张卡若是作为三选一的选项，需要实现这个
     /// </summary>
     public virtual Task DoOption(PlayerChoiceContext choiceContext, CardPlay cardPlay) => Task.CompletedTask;
+
 }

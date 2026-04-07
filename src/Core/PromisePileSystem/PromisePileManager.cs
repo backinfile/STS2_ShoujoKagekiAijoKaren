@@ -86,11 +86,9 @@ public static class PromisePileManager
     /// 将卡牌放入约定牌堆（加入链表尾部）。
     /// 会从当前牌堆物理移出（RemoveFromCurrentPile），不触发 CardPileCmd 流程。
     /// </summary>
-    public static async Task AddToPromisePile(CardModel card)
+    public static async Task AddToPromisePile(Player player, CardModel card)
     {
-        if (card?.Owner == null) return;
-
-        var pile = GetPromisePile(card.Owner);
+        var pile = GetPromisePile(player);
         if (pile.Cards.Contains(card))
         {
             MainFile.Logger.Warn($"[PromisePile] '{card.Title}' already in promise pile, skipping");
@@ -218,7 +216,7 @@ public static class PromisePileManager
         if (selected == null) return;
 
         foreach (var card in selected)
-            await PromisePileCmd.Add(card);
+            await PromisePileCmd.Add(player, card);
     }
 
     /// <summary>
@@ -347,7 +345,7 @@ public static class PromisePileManager
         foreach (var card in handCards)
         {
             var copyCard = card.CreateClone();
-            await PromisePileCmd.Add(copyCard);
+            await PromisePileCmd.Add(player, copyCard);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 /// </summary>
 public sealed class KarenStar : KarenBaseCardModel
 {
-    public KarenStar() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenStar() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -34,6 +34,6 @@ public sealed class KarenStar : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        // 升级可能添加额外效果
+        AddKeyword(CardKeyword.Retain);
     }
 }

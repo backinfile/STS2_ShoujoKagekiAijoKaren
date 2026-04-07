@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -15,9 +16,20 @@ public class KarenFinancierPower : PowerModel
 {
     private int _turnCounter = 0;
 
-    public override PowerStackType StackType => PowerStackType.Single;
+    public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerType Type => PowerType.Buff;
 
-    // TODO: 需要找到正确的扳机方法名
-    // 原方法 OnSideTurnStart 在基类中不存在
+    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    {
+        if (player == Owner.Player)
+        {
+            _turnCounter++;
+            if (_turnCounter % 2 == 0)
+            {
+                // 每两回合保留力量1回合
+                Flash();
+                await PowerCmd.Apply<KarenRetainTmpStrengthPower>(player.Creature, Amount, player.Creature, null);
+            }
+        }
+    }
 }

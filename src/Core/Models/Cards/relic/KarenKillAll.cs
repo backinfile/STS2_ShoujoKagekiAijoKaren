@@ -1,9 +1,11 @@
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 /// </summary>
 public sealed class KarenKillAll : KarenBaseCardModel
 {
-    public KarenKillAll() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
+    public KarenKillAll() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy) { }
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -32,13 +34,15 @@ public sealed class KarenKillAll : KarenBaseCardModel
             .Targeting(cardPlay.Target)
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
-
-        // 应用Power来在战斗结束时获得遗物
-        await PowerCmd.Apply<KarenPassionPower>(Owner.Creature, 1m, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(5m);
+    }
+
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
+    {
+        await ExtraRewardCmd.AddRelicReward(Owner);
     }
 }

@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,23 +16,26 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 /// </summary>
 public sealed class KarenArrogant : KarenBaseCardModel
 {
-    public KarenArrogant() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+    public KarenArrogant() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Innate, CardKeyword.Ethereal];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new PowerVar<VulnerablePower>(2m)
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 给予自身易伤
-        await PowerCmd.Apply<VulnerablePower>(Owner.Creature, DynamicVars.Repeat.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<VulnerablePower>(base.Owner.Creature, base.DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
 
         // 应用Power来在战斗结束时获得遗物
-        await PowerCmd.Apply<KarenPassionPower>(Owner.Creature, 1, Owner.Creature, this);
+        await ExtraRewardCmd.AddRelicReward(Owner);
     }
 
     protected override void OnUpgrade()
     {
         // 减少易伤层数
+        DynamicVars.Vulnerable.UpgradeValueBy(-1);
     }
 }

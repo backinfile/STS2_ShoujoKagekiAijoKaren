@@ -36,7 +36,7 @@ public sealed class KarenNewDay : KarenBaseCardModel
         await PowerCmd.Apply<KarenNewDayPower>(Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature, this);
 
         // 此牌本身进入约定牌堆
-        await PromisePileCmd.Add(this);
+        await PromisePileCmd.Add(Owner, this);
     }
 
     protected override void OnUpgrade()

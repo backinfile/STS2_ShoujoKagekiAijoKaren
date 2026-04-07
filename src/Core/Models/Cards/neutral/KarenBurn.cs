@@ -17,7 +17,9 @@ public sealed class KarenBurn : KarenBaseCardModel
 {
     public KarenBurn() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [];
+
+    protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

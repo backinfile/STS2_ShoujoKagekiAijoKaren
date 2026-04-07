@@ -3,6 +3,8 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System;
 using System.Collections.Generic;
@@ -16,30 +18,22 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 /// </summary>
 public sealed class KarenStarCrime : KarenBaseCardModel
 {
-    public KarenStarCrime() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenStarCrime() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
-    protected override bool HasEnergyCostX => true;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3), new DisableRelicVar(2)];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
+
+    protected override bool IsPlayable => DisableRelicCmd.HasDisableableRelic(Owner);
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var xValue = ResolveEnergyXValue();
-
-        // TODO: 禁用指定数量的遗物
-        // var relics = Owner.Relics.ToList();
-        // var relicsToDisable = Math.Min(xValue, relics.Count);
-        // for (int i = 0; i < relicsToDisable; i++)
-        // {
-        //     relics[i].SetDisabled(true);
-        // }
-
+        await DisableRelicCmd.DisableRelic(Owner, DisableRelicVar.IntValue);
         // 抽牌
         await CardPileCmd.Draw(choiceContext, (int)DynamicVars.Cards.BaseValue, Owner);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1);
+        DisableRelicVar.UpgradeValueBy(-1);
     }
 }

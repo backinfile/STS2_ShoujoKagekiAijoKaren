@@ -16,7 +16,9 @@ public sealed class KarenForm : KarenBaseCardModel
 {
     public KarenForm() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal, CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
+
+    protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

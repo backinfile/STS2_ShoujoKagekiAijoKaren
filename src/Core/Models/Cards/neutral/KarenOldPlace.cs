@@ -16,13 +16,13 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenOldPlace : KarenBaseCardModel
 {
-    public KarenOldPlace() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenOldPlace() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(10, ValueProp.Move)
+        new BlockVar(5, ValueProp.Move)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

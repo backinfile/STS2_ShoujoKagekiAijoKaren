@@ -16,11 +16,11 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 /// </summary>
 public sealed class KarenFinancier : KarenBaseCardModel
 {
-    public KarenFinancier() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenFinancier() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new ExtraDamageVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(1m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -33,6 +33,6 @@ public sealed class KarenFinancier : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.ExtraDamage.UpgradeValueBy(1);
+        EnergyCost.UpgradeBy(-1);
     }
 }

@@ -30,7 +30,7 @@ public sealed class KarenStreching : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        await PromisePileCmd.Add(this);
+        await PromisePileCmd.Add(Owner, this);
     }
 
     protected override void OnUpgrade()

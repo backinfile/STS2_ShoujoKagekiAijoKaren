@@ -16,6 +16,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// </summary>
 public sealed class KarenPotato : KarenBaseCardModel
 {
+    public override bool CanBeGeneratedInCombat => false;
     public KarenPotato() : base(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         this.AddShineMax(3);

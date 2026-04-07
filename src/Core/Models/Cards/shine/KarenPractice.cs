@@ -19,6 +19,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// </summary>
 public sealed class KarenPractice : KarenBaseCardModel
 {
+    public override bool CanBeGeneratedInCombat => false;
     public KarenPractice() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         this.AddShineMax(9);

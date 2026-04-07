@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using System.Threading.Tasks;
 
-namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
 /// <summary>
 /// Power类，战斗结束时获得随机遗物

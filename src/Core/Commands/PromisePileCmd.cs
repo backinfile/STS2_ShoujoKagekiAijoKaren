@@ -39,7 +39,7 @@ public static class PromisePileCmd
     /// 调用方应确保卡牌当前在手牌中。
     /// 注意：这个方法不会检测是否需要耗尽进入耗尽牌堆
     /// </summary>
-    public static async Task Add(CardModel card)
+    public static async Task Add(Player player, CardModel card)
     {
         if (card?.Owner == null)
         {
@@ -54,7 +54,7 @@ public static class PromisePileCmd
             return;
         }
 
-        await PromisePileManager.AddToPromisePile(card);
+        await PromisePileManager.AddToPromisePile(player, card);
     }
 
     public static async Task AddToken<T>(Player player, CombatState combatState, int cnt = 1) where T : CardModel
@@ -66,7 +66,7 @@ public static class PromisePileCmd
         {
             var card = combatState.CreateCard<T>(player);
             CombatManager.Instance.History.CardGenerated(combatState, card, true);
-            await Add(card);
+            await Add(player, card);
             await Hook.AfterCardGeneratedForCombat(combatState, card, true);
         }
     }
@@ -300,7 +300,7 @@ public static class PromisePileCmd
         // 步骤4：原手牌放入约定牌堆
         foreach (var card in handCards)
         {
-            await PromisePileCmd.Add(card);
+            await PromisePileCmd.Add(player, card);
         }
     }
 

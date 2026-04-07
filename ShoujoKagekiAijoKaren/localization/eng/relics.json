@@ -1,5 +1,9 @@
 {
   "KAREN_STAGE_HEART.description": "At the start of combat, gain the Promise Pile. NL At the start of turn 2, add a [gold]Tower of Promise[/gold] to your hand.",
   "KAREN_STAGE_HEART.flavor": "A passionate heart for the stage.",
-  "KAREN_STAGE_HEART.title": "Stage Heart"
+  "KAREN_STAGE_HEART.title": "Stage Heart",
+
+  "KAREN_LOCK_RELIC.title": "Locked Relic",
+  "KAREN_LOCK_RELIC.description": "This locks [yellow]{relicName}[/yellow]. Restored after combat.",
+  "KAREN_LOCK_RELIC.flavor": "The power of the relic is temporarily sealed."
 }

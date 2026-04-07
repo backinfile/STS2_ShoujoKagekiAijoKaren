@@ -4,6 +4,8 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System;
 using System.Collections.Generic;
@@ -17,37 +19,28 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 /// </summary>
 public sealed class KarenForgive : KarenBaseCardModel
 {
-    public KarenForgive() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies) { }
+    public KarenForgive() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies) { }
 
-    protected override bool HasEnergyCostX => true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(21, ValueProp.Move), new DisableRelicVar(2)];
+
+
+    protected override bool IsPlayable => DisableRelicCmd.HasDisableableRelic(Owner);
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var xValue = ResolveEnergyXValue();
-
-        // TODO: 禁用指定数量的遗物
-        // var relics = Owner.Relics.ToList();
-        // var relicsToDisable = Math.Min(xValue, relics.Count);
-        // for (int i = 0; i < relicsToDisable; i++)
-        // {
-        //     relics[i].SetDisabled(true);
-        // }
+        await DisableRelicCmd.DisableRelic(Owner, DisableRelicVar.IntValue);
 
         // 对所有敌人造成伤害
-        foreach (var enemy in CombatState.HittableEnemies)
-        {
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
-                .Targeting(enemy)
-                .WithHitFx(VfxCmd.slashPath)
-                .Execute(choiceContext);
-        }
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .FromCard(this)
+            .TargetingAllOpponents(CombatState)
+            .WithHitFx(VfxCmd.slashPath)
+            .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4);
+        DisableRelicVar.UpgradeValueBy(-1);
     }
 }

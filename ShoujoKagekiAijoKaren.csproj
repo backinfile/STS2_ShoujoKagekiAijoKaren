@@ -23,6 +23,7 @@
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="mod_manifest.json" />
     <Content Include="scenes\screens\char_select\karenPortrait.jpg" />
+    <Content Include="images\relics\karen_lock_relic.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="scenes\combat\energy_counters\karen_energy_counter.tscn" />
@@ -89,6 +90,6 @@
     <EditorConfigFiles Remove="D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\.editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="images\packed\card_portraits\新文件夹\" />
+    <Folder Include="images\packed\card_portraits\" />
   </ItemGroup>
 </Project>

@@ -4,6 +4,8 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,9 +17,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 /// </summary>
 public sealed class KarenVoid : KarenBaseCardModel
 {
-    public KarenVoid() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenVoid() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -30,9 +32,20 @@ public sealed class KarenVoid : KarenBaseCardModel
         {
             await CardCmd.Exhaust(choiceContext, card);
         }
+        // 切换模式
+        await PromisePileCmd.EnterMode(Owner, PromisePileMode.Void);
 
-        // TODO: 将约定牌堆变成新的抽牌堆
-        // var promisePileCards = PromisePileManager.GetPromisePile(Owner).ToList();
+
+        // 取出约定牌堆中的所有牌
+        var pile = PromisePileManager.GetPromisePile(Owner);
+        var pileCards = pile.Cards.ToList();
+        pile.Clear();
+        // 放入约定牌堆
+        foreach (var card in pileCards)
+        {
+            await PromisePileCmd.Add(Owner, card);
+        }
+
     }
 
     protected override void OnUpgrade()

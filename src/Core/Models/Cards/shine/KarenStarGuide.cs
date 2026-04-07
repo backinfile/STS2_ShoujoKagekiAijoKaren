@@ -18,6 +18,12 @@ public sealed class KarenStarGuide : KarenBaseCardModel
 {
     public KarenStarGuide() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
+    protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Innate, CardKeyword.Exhaust];
+
+
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var combatState = Owner.PlayerCombatState;
@@ -32,7 +38,7 @@ public sealed class KarenStarGuide : KarenBaseCardModel
         // 将所有闪耀牌移动到约定牌堆
         foreach (var shineCard in shineCards)
         {
-            await PromisePileCmd.Add(shineCard);
+            await PromisePileCmd.Add(Owner, shineCard);
         }
     }
 
