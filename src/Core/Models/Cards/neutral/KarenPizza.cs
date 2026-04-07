@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -19,22 +20,23 @@ public sealed class KarenPizza : KarenBaseCardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new ExtraDamageVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(1)];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+     HoverTipFactory.FromPower<StrengthPower>()  // 显示力量图标提示
+ ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 玩家获得力量
-        await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars.ExtraDamage.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars.Strength.BaseValue, Owner.Creature, this);
 
         // 所有敌人失去力量
-        foreach (var enemy in CombatState.HittableEnemies)
-        {
-            await PowerCmd.Apply<StrengthPower>(enemy, -DynamicVars.ExtraDamage.BaseValue, Owner.Creature, this);
-        }
+        await PowerCmd.Apply<StrengthPower>(CombatState.HittableEnemies, -DynamicVars.Strength.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.ExtraDamage.UpgradeValueBy(1);
+        DynamicVars.Strength.UpgradeValueBy(1);
     }
 }

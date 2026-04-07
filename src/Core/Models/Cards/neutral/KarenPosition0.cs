@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 
 /// <summary>
-/// Position 0 - 每回合前X次造成未被格挡的攻击伤害时，获得等量格挡
+/// Position 0
 /// </summary>
 public sealed class KarenPosition0 : KarenBaseCardModel
 {

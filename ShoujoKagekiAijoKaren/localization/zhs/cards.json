@@ -135,7 +135,7 @@
   "KAREN_CONFRONT.description": "造成{Damage:diff()}点伤害{Repeat:diff()}次。",
 
   "KAREN_PARRY.title": "招架",
-  "KAREN_PARRY.description": "获得{CalculatedBlock:diff()}点[gold]格挡[/gold]。\n获得或失去手牌时，本回合格挡值增加1。",
+  "KAREN_PARRY.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n获得或失去手牌时，本回合格挡值增加{Increase:diff()}。",
 
   "KAREN_RAPID.title": "极速下降",
   "KAREN_RAPID.description": "从[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌放入你的手牌，弃置其余。",
@@ -183,7 +183,7 @@
   "KAREN_NEW_SITUATION.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将{Cards:diff()}张[gold]三明治[/gold]放入[gold]约定牌堆[/gold]。",
 
   "KAREN_PRACTICE2.title": "舞蹈练习",
-  "KAREN_PRACTICE2.description": "获得你所有牌[gold]闪耀[/gold]值之和{IfUpgraded:show:+{ExtraBlock:diff()}|}的[gold]格挡[/gold]。{ShineTotal:choose(0):|\n(闪耀值之和为{ShineTotal})}",
+  "KAREN_PRACTICE2.description": "获得你所有牌[gold]闪耀[/gold]值之和{IfUpgraded:show:+{CalculationBase:diff()}|}的[gold]格挡[/gold]。{InCombat:获得{CalculatedBlock:diff()}点[gold]格挡[/gold]。|}",
 
   "KAREN_BANANA_MUFFIN.title": "Banana松饼",
   "KAREN_BANANA_MUFFIN.description": "获得{StrengthPower:diff()}点[gold]临时力量[/gold]。\n抽{Cards:diff()}张牌。",

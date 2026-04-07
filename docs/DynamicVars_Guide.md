@@ -255,6 +255,48 @@ new CalculatedDamageVar(ValueProp.Move).WithMultiplier(
 // CalculationBase=0, ExtraDamage=1 → 伤害 = 格挡值
 ```
 
+### CalculatedBlockVar — 动态计算格挡
+
+与 `CalculatedDamageVar` 类似，用于格挡值在运行时动态计算的场景。
+
+```csharp
+// 示例：KarenPractice2 — 格挡 = 所有牌的闪耀值之和
+protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+{
+    new CalculationBaseVar(0m),        // 基础格挡 0
+    new CalculationExtraVar(1m),       // 每点闪耀值 +1
+    new CalculatedBlockVar(ValueProp.Move).WithMultiplier(
+        (CardModel card, Creature? _) =>
+        {
+            var combatState = card.Owner.PlayerCombatState;
+            if (combatState == null) return 0m;
+
+            return combatState.DrawPile.Cards
+                .Concat(combatState.DiscardPile.Cards)
+                .Concat(combatState.Hand.Cards)
+                .Concat(combatState.ExhaustPile.Cards)
+                .OfType<KarenBaseCardModel>()
+                .Sum(c => c.GetShineValueRounded());
+        }
+    )
+};
+
+protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+{
+    var blockAmount = (int)DynamicVars.CalculatedBlock.Calculate(cardPlay.Target);
+    await CreatureCmd.GainBlock(Owner.Creature, blockAmount, ValueProp.Move, cardPlay);
+}
+
+protected override void OnUpgrade()
+{
+    DynamicVars.CalculationBase.UpgradeValueBy(1);  // 升级后每张 +1 格挡
+}
+```
+
+```json
+"KAREN_PRACTICE_2.description": "获得{CalculatedBlock:diff()}点[gold]格挡[/gold]。"
+```
+
 ### 自定义 CalculatedVar
 
 ```csharp

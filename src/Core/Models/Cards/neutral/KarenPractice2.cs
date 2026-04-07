@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -22,31 +23,20 @@ public sealed class KarenPractice2 : KarenBaseCardModel
 
     public override bool GainsBlock => true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new CalculationBaseVar(0m),
+        new CalculationExtraVar(1m),
+        new CalculatedBlockVar(ValueProp.Move).WithMultiplier((card, _) => card.Owner?.PlayerCombatState?.AllCards.Sum(c=>c.GetShineValueRounded())??0)
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var combatState = Owner.PlayerCombatState;
-        if (combatState == null) return;
-
-        // 计算所有牌的闪耀值之和（使用 GetShineValueRounded 避免负值）
-        var allCards = combatState.DrawPile.Cards.Concat(combatState.DiscardPile.Cards)
-            .Concat(combatState.Hand.Cards).Concat(combatState.ExhaustPile.Cards)
-            .OfType<KarenBaseCardModel>().ToList();
-
-        var totalShine = allCards.Sum(card => card.GetShineValueRounded());
-
-        var totalBlock = (int)totalShine;
-        if (IsUpgraded)
-        {
-            totalBlock += (int)DynamicVars.Block.BaseValue;
-        }
-
-        await CreatureCmd.GainBlock(Owner.Creature, totalBlock, ValueProp.Move, cardPlay);
+        var blockAmount = (int)DynamicVars.CalculatedBlock.Calculate(cardPlay.Target);
+        await CreatureCmd.GainBlock(Owner.Creature, blockAmount, ValueProp.Move, cardPlay);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(1);
+        DynamicVars.CalculationBase.UpgradeValueBy(4);
     }
 }

@@ -34,6 +34,10 @@
   "KAREN_TEMP_STRENGTH_POWER.description": "临时力量会在本回合增加攻击牌造成的伤害。",
   "KAREN_TEMP_STRENGTH_POWER.smartDescription": "在本回合{Amount:cond:<0?减少|增加}攻击牌造成的伤害值[blue]{Amount:abs()}[/blue]点。",
 
+  "KAREN_RETAIN_TMP_STRENGTH_POWER.title": "保留力量",
+  "KAREN_RETAIN_TMP_STRENGTH_POWER.description": "延长临时力量存在的回合。",
+  "KAREN_RETAIN_TMP_STRENGTH_POWER.smartDescription": "延长临时力量{Amount}回合。",
+
   "KAREN_NEW_DAY_POWER.title": "新的一天",
   "KAREN_NEW_DAY_POWER.description": "打出的下1张牌进入[gold]约定牌堆[/gold]。",
   "KAREN_NEW_DAY_POWER.smartDescription": "打出的下{Amount}张牌进入[gold]约定牌堆[/gold]。",
