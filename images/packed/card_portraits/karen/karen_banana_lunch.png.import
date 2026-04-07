@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8msrga5jd7xh"
-path="res://.godot/imported/karen_banana_lunch_p.png-5ce01645e50e9ef856cd73ebde5aa075.ctex"
+path="res://.godot/imported/karen_banana_lunch.png-4f05d5894e554c4f8d0c2906246daa07.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_banana_lunch_p.png"
-dest_files=["res://.godot/imported/karen_banana_lunch_p.png-5ce01645e50e9ef856cd73ebde5aa075.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_banana_lunch.png"
+dest_files=["res://.godot/imported/karen_banana_lunch.png-4f05d5894e554c4f8d0c2906246daa07.ctex"]
 
 [params]
 

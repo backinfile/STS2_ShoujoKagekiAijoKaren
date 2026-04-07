@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2gmfq1nygpae"
-path="res://.godot/imported/karen_stage_reproduce_p.png-577fdfa94133a4d62666c33c5ff8cf07.ctex"
+path="res://.godot/imported/karen_stage_reproduce.png-2230061e443691836d14d97949b6df23.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_stage_reproduce_p.png"
-dest_files=["res://.godot/imported/karen_stage_reproduce_p.png-577fdfa94133a4d62666c33c5ff8cf07.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_stage_reproduce.png"
+dest_files=["res://.godot/imported/karen_stage_reproduce.png-2230061e443691836d14d97949b6df23.ctex"]
 
 [params]
 

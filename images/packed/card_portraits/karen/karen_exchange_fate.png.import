@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://e2p6ln7md7n"
-path="res://.godot/imported/karen_exchange_fate_p.png-a933fbedc99f82c197bab13d15c776fb.ctex"
+path="res://.godot/imported/karen_exchange_fate.png-5e4568bfa34f903f1d5f7352ba61661b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_exchange_fate_p.png"
-dest_files=["res://.godot/imported/karen_exchange_fate_p.png-a933fbedc99f82c197bab13d15c776fb.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_exchange_fate.png"
+dest_files=["res://.godot/imported/karen_exchange_fate.png-5e4568bfa34f903f1d5f7352ba61661b.ctex"]
 
 [params]
 

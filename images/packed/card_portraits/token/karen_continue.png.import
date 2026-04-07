@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cn7p2k0umcw52"
-path="res://.godot/imported/karen_tower_of_promise_p.png-e3bfe9540b1c04f6121b64ae55c7ea70.ctex"
+uid="uid://dn6g3ytj23iea"
+path="res://.godot/imported/karen_continue.png-6815546c7aaa3daeff596a24ccc1f106.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_tower_of_promise_p.png"
-dest_files=["res://.godot/imported/karen_tower_of_promise_p.png-e3bfe9540b1c04f6121b64ae55c7ea70.ctex"]
+source_file="res://images/packed/card_portraits/token/karen_continue.png"
+dest_files=["res://.godot/imported/karen_continue.png-6815546c7aaa3daeff596a24ccc1f106.ctex"]
 
 [params]
 

@@ -13,6 +13,8 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 public sealed class KarenSleepy : KarenBaseCardModel
 {
 
+    public override int MaxUpgradeLevel => 0;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => new CardKeyword[]
     {
         CardKeyword.Unplayable, // 不可打出
@@ -27,4 +29,5 @@ public sealed class KarenSleepy : KarenBaseCardModel
         // 诅咒牌不可打出，什么都不做
         return Task.CompletedTask;
     }
+
 }

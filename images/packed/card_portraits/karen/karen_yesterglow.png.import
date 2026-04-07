@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2tlus5gpbtm2"
-path="res://.godot/imported/karen_yesterglow_p.png-782680899ef1471c1e15e89f68b4bfd5.ctex"
+path="res://.godot/imported/karen_yesterglow.png-864b0a6c06249aa62c535f586efc4b6d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_yesterglow_p.png"
-dest_files=["res://.godot/imported/karen_yesterglow_p.png-782680899ef1471c1e15e89f68b4bfd5.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_yesterglow.png"
+dest_files=["res://.godot/imported/karen_yesterglow.png-864b0a6c06249aa62c535f586efc4b6d.ctex"]
 
 [params]
 

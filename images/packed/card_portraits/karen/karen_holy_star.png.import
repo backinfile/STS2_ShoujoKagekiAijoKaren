@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c832xf5imib3q"
-path="res://.godot/imported/karen_holy_star_p.png-abca2e5ac8e464bd7c35b80b40477e4a.ctex"
+path="res://.godot/imported/karen_holy_star.png-eb429e29d85d1e0badab336e7861ae43.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_holy_star_p.png"
-dest_files=["res://.godot/imported/karen_holy_star_p.png-abca2e5ac8e464bd7c35b80b40477e4a.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_holy_star.png"
+dest_files=["res://.godot/imported/karen_holy_star.png-eb429e29d85d1e0badab336e7861ae43.ctex"]
 
 [params]
 

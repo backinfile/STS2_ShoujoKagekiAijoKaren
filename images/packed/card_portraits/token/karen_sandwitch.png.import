@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3wj50ax1hp57"
-path="res://.godot/imported/karen_stage_reason.png-c2583b1e1e68880fff70907875402800.ctex"
+uid="uid://86cjjda2qq3y"
+path="res://.godot/imported/karen_sandwitch.png-1c974eefd9ea234fa2a09d0d457c78ff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_stage_reason.png"
-dest_files=["res://.godot/imported/karen_stage_reason.png-c2583b1e1e68880fff70907875402800.ctex"]
+source_file="res://images/packed/card_portraits/token/karen_sandwitch.png"
+dest_files=["res://.godot/imported/karen_sandwitch.png-1c974eefd9ea234fa2a09d0d457c78ff.ctex"]
 
 [params]
 

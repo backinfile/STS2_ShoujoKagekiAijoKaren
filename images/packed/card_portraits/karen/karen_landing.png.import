@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdd0lvs2t3jr4"
-path="res://.godot/imported/karen_landing_p.png-7baf6a441b84bd4e5576ed9d0980d0a6.ctex"
+path="res://.godot/imported/karen_landing.png-9fe741c425ed02a54846fa271d78d6cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_landing_p.png"
-dest_files=["res://.godot/imported/karen_landing_p.png-7baf6a441b84bd4e5576ed9d0980d0a6.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_landing.png"
+dest_files=["res://.godot/imported/karen_landing.png-9fe741c425ed02a54846fa271d78d6cd.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6p0qb65emm05"
-path="res://.godot/imported/karen_sideways_p.png-2d5dd2f69ddaacfcf8e6c893923a5b52.ctex"
+path="res://.godot/imported/karen_sideways.png-d8e7a37d53fb5ce99324392e7a2e1694.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_sideways_p.png"
-dest_files=["res://.godot/imported/karen_sideways_p.png-2d5dd2f69ddaacfcf8e6c893923a5b52.ctex"]
+source_file="res://images/packed/card_portraits/token/karen_sideways.png"
+dest_files=["res://.godot/imported/karen_sideways.png-d8e7a37d53fb5ce99324392e7a2e1694.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://xdimh523ij76"
-path="res://.godot/imported/karen_forgive_p.png-41a6dcf4093422e0d7801fc2cea5150e.ctex"
+path="res://.godot/imported/karen_forgive.png-8c0a43ca236cbdd187792d9f44a8f740.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_forgive_p.png"
-dest_files=["res://.godot/imported/karen_forgive_p.png-41a6dcf4093422e0d7801fc2cea5150e.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_forgive.png"
+dest_files=["res://.godot/imported/karen_forgive.png-8c0a43ca236cbdd187792d9f44a8f740.ctex"]
 
 [params]
 

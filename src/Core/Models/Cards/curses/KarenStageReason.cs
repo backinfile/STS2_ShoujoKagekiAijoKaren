@@ -13,6 +13,8 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// </summary>
 public sealed class KarenStageReason : KarenBaseCardModel
 {
+    public override int MaxUpgradeLevel => 0;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => new CardKeyword[]
     {
         CardKeyword.Exhaust

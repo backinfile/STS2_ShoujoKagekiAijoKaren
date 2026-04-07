@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6gffhd31m4s2"
-path="res://.godot/imported/karen_whos_promise_p.png-a541e5c3c9abb8a09046d95baa70f35d.ctex"
+path="res://.godot/imported/karen_whos_promise.png-03b230a4dd09d7621af4961629062ff7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/karen/karen_whos_promise_p.png"
-dest_files=["res://.godot/imported/karen_whos_promise_p.png-a541e5c3c9abb8a09046d95baa70f35d.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_whos_promise.png"
+dest_files=["res://.godot/imported/karen_whos_promise.png-03b230a4dd09d7621af4961629062ff7.ctex"]
 
 [params]
 

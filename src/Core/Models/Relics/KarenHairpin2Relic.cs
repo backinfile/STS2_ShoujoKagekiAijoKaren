@@ -26,6 +26,8 @@ public sealed class KarenHairpin2Relic : RelicModel
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
 
+    protected override string IconBaseName => "karen_hairpin2_relic";
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<KarenTowerOfPromise>(true)];
 
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
