@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options
 {
-    internal class KarenWakeUpDrawPile : KarenBaseCardModel
+    internal class KarenWakeUpDrawPileOption : KarenBaseCardModel
     {
-        public KarenWakeUpDrawPile() : base(-1, CardType.Skill, CardRarity.Token, TargetType.None)
+        public KarenWakeUpDrawPileOption() : base(-1, CardType.Skill, CardRarity.Token, TargetType.None)
         {
         }
 
