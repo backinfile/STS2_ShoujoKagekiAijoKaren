@@ -8,6 +8,8 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options;
+using ShoujoKagekiAijoKaren.src.Core.Commands;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 
@@ -22,7 +24,8 @@ public sealed class KarenOldPlace : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(5, ValueProp.Move)
+        new BlockVar(5, ValueProp.Move),
+        new DynamicVar("Turns", 1)
     ];
 
     public override IEnumerable<CardTag> Tags => [KarenCustomEnum.RetainTmpStrength];
@@ -32,12 +35,17 @@ public sealed class KarenOldPlace : KarenBaseCardModel
         // 获得格挡
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-        // TODO: 应用保留手牌的Power (2回合)
-        // await PowerCmd.Apply<RetainHandPower>(Owner.Creature, 2, Owner.Creature, this);
+
+        await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
+            ModelDb.Card<KarenOldPlaceRetainBlockOption>(),
+            ModelDb.Card<KarenOldPlaceRetainEnergyOption>(),
+            ModelDb.Card<KarenOldPlaceRetainStrengthOption>(),
+            ModelDb.Card<KarenOldPlaceRetainHandOption>(),
+            ], IsUpgraded);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3);
+        DynamicVars["Turns"].UpgradeValueBy(1);
     }
 }

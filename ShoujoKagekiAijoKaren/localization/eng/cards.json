@@ -120,5 +120,7 @@
   "KAREN_AQUARIUM.description": "At the start of each turn, draw 1 card, then put 1 card from your hand into the [gold]Promise Pile[/gold].",
 
   "KAREN_HOLY_STAR.title": "Holy Star",
-  "KAREN_HOLY_STAR.description": "Deal {Damage:diff()} damage.\nWhen put into the [gold]Promise Pile[/gold], reduce its cost by 1 for this combat."
+  "KAREN_HOLY_STAR.description": "Deal {Damage:diff()} damage.\nWhen put into the [gold]Promise Pile[/gold], reduce its cost by 1 for this combat.",
+
+  "KAREN_SELECT_OPTION_PROMPT": "Choose an option"
 }

@@ -22,6 +22,9 @@
     <EmbeddedResource Remove="themes\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\packed\card_portraits\token\karen_wake_up_promise_pile_option.png" />
+    <Content Include="images\packed\card_portraits\token\karen_wake_up_discard_pile_option.png" />
+    <Content Include="images\packed\card_portraits\token\karen_wake_up_draw_pile_option.png" />
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="mod_manifest.json" />
   </ItemGroup>

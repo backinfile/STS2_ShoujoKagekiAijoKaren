@@ -201,19 +201,19 @@
   "KAREN_CRY.description": "此牌在牌堆之间移动时，获得{Block:diff()}点[gold]格挡[/gold]。",
 
   "KAREN_OLD_PLACE.title": "明年也要在这里相见",
-  "KAREN_OLD_PLACE.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n选择：保留你的能量，手牌，[gold]格挡[/gold]，或[gold]力量[/gold]1回合。",
+  "KAREN_OLD_PLACE.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n选择：保留你的能量，手牌，[gold]格挡[/gold]，或[gold]力量[/gold]{Turns:diff()}回合。",
 
   "KAREN_OLD_PLACE_RETAIN_ENERGY_OPTION.title": "保留能量",
-  "KAREN_OLD_PLACE_RETAIN_ENERGY.description": "保留能量{Turns:diff()}回合。",
+  "KAREN_OLD_PLACE_RETAIN_ENERGY_OPTION.description": "保留能量{Turns:diff()}回合。",
 
   "KAREN_OLD_PLACE_RETAIN_HAND_OPTION.title": "保留手牌",
-  "KAREN_OLD_PLACE_RETAIN_HAND.description": "保留手牌{Turns:diff()}回合。",
+  "KAREN_OLD_PLACE_RETAIN_HAND_OPTION.description": "保留手牌{Turns:diff()}回合。",
 
   "KAREN_OLD_PLACE_RETAIN_BLOCK_OPTION.title": "保留格挡",
-  "KAREN_OLD_PLACE_RETAIN_BLOCK.description": "保留[gold]格挡[/gold]{Turns:diff()}回合。",
+  "KAREN_OLD_PLACE_RETAIN_BLOCK_OPTION.description": "保留[gold]格挡[/gold]{Turns:diff()}回合。",
 
   "KAREN_OLD_PLACE_RETAIN_STRENGTH_OPTION.title": "保留力量",
-  "KAREN_OLD_PLACE_RETAIN_STRENGTH.description": "[gold]保留力量[/gold]{Turns:diff()}回合。",
+  "KAREN_OLD_PLACE_RETAIN_STRENGTH_OPTION.description": "[gold]保留力量[/gold]{Turns:diff()}回合。",
 
   "KAREN_SPIN.title": "旋转",
   "KAREN_SPIN.description": "造成{Damage:diff()}点伤害。\n此牌在牌堆之间移动时，在本场战斗中伤害增加{Increase:diff()}。",
@@ -279,5 +279,7 @@
   "KAREN_VOID.description": "摧毁抽牌堆，然后以[gold]约定牌堆[/gold]代替抽牌堆。",
 
   "KAREN_FORM.title": "觉醒形态",
-  "KAREN_FORM.description": "每个回合开始时，抽满手牌。"
+  "KAREN_FORM.description": "每个回合开始时，抽满手牌。",
+
+  "KAREN_SELECT_OPTION_PROMPT": "选择一个选项"
 }

@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
@@ -57,8 +58,23 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
         {
             var cards = CardUtils.CreateTokens(player, combatState, options, upgrade);
 
-            var cardModel = await CardSelectCmd.FromChooseACardScreen(ctx, cards, player, canSkip: false);
-            MainFile.Logger.Info($"KarenWakeUp selected card: {cardModel?.Title}");
+
+            CardModel cardModel;
+
+            if (options.Count <= 3)
+            {
+                // 最多支持3个选项
+                cardModel = (await CardSelectCmd.FromChooseACardScreen(ctx, cards, player, canSkip: false))!;
+                MainFile.Logger.Info($"KarenOldPlace selected card: {cardModel?.Title}");
+            }
+            else
+            {
+                // 使用 FromSimpleGrid 替代 FromChooseACardScreen，支持超过3个选项
+                var prefs = new CardSelectorPrefs(new LocString("cards", "KAREN_SELECT_OPTION_PROMPT"), 1);
+                cardModel = (await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs)).FirstOrDefault()!;
+                MainFile.Logger.Info($"KarenOldPlace selected card: {cardModel?.Title}");
+            }
+
 
             if (cardModel is KarenBaseCardModel karenCard)
             {

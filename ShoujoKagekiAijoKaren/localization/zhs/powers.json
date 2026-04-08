@@ -38,6 +38,10 @@
   "KAREN_RETAIN_TMP_STRENGTH_POWER.description": "延长临时力量存在的回合。",
   "KAREN_RETAIN_TMP_STRENGTH_POWER.smartDescription": "延长临时力量{Amount}回合。",
 
+  "KAREN_RETAIN_ENERGY_POWER.title": "保留能量",
+  "KAREN_RETAIN_ENERGY_POWER.description": "将多余的能量可以留到下一回合。",
+  "KAREN_RETAIN_ENERGY_POWER.smartDescription": "{Amount}回合内将多余的能量可以留到下一回合。",
+
   "KAREN_NEW_DAY_POWER.title": "新的一天",
   "KAREN_NEW_DAY_POWER.description": "打出的下1张牌进入[gold]约定牌堆[/gold]。",
   "KAREN_NEW_DAY_POWER.smartDescription": "打出的下{Amount}张牌进入[gold]约定牌堆[/gold]。",

@@ -53,6 +53,7 @@ public static class TokenCardPoolPatch
             ModelDb.Card<KarenOldPlaceRetainBlockOption>(),
             ModelDb.Card<KarenOldPlaceRetainEnergyOption>(),
             ModelDb.Card<KarenOldPlaceRetainStrengthOption>(),
+            ModelDb.Card<KarenOldPlaceRetainHandOption>(),
         ];
     }
 }
