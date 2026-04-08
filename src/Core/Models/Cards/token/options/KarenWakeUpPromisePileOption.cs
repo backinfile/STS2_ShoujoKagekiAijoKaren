@@ -17,7 +17,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options
 
         public override async Task DoOption(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PromisePileCmd.SelectedToHand(choiceContext, Owner, 1);
+            await PromisePileCmd.SelectedToHand(choiceContext, Owner, 2);
         }
     }
 }

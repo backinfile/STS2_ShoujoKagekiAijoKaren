@@ -158,7 +158,7 @@ public static class PromisePileCmd
         if (cards.Count == 0) return;
 
         int selectCount = System.Math.Min(count, cards.Count);
-        var prompt = Tips.PromisePileSelectDraw;
+        var prompt = Tips.SelectFromPromisePileToHand;
         var prefs = new CardSelectorPrefs(prompt, selectCount, selectCount);
 
         var selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);

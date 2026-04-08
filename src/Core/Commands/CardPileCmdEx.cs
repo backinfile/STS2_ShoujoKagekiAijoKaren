@@ -65,7 +65,13 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
                 await karenCard.DoOption(ctx, cardPlay);
             }
 
-            await CardPileCmd.RemoveFromCombat(cards);
+            // 只移除实际在战斗牌堆中的临时代币卡牌
+            // 注意：某些选项（如约定牌堆选项）可能已将代币卡牌移动到其他位置
+            var cardsInCombat = cards.Where(c => c.Pile != null).ToList();
+            if (cardsInCombat.Count > 0)
+            {
+                await CardPileCmd.RemoveFromCombat(cardsInCombat);
+            }
         }
     }
 }

@@ -9,17 +9,21 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils;
 public static class Tips
 {
     // ==================== card_selection ====================
+    /// <summary>
+    /// 从抽牌堆选择放入手牌
+    /// </summary>
     public static readonly LocString SelectFromDrawToHand = new("card_selection", "KAREN_SELECT_FROM_DRAW_TO_HAND");
 
     /// <summary>从弃牌堆选择放入手牌的提示</summary>
     public static readonly LocString SelectFromDiscardToHand = new("card_selection", "KAREN_SELECT_FROM_DISCARD_TO_HAND");
 
+    /// <summary>从约定牌堆选择放入手牌的提示</summary>
+    public static readonly LocString SelectFromPromisePileToHand = new("card_selection", "KAREN_SELECT_FROM_PROMISE_TO_HAND");
+
     // ==================== gameplay_ui ====================
     /// <summary>约定牌堆查看界面底部标题</summary>
-    public static readonly LocString PromisePileInfo = new("gameplay_ui", "KAREN_PROMISE_PILE_INFO");
+    public static readonly LocString PromisePileInfo = new("card_selection", "KAREN_PROMISE_PILE_INFO");
 
-    /// <summary>从约定牌堆选择抽取的提示</summary>
-    public static readonly LocString PromisePileSelectDraw = new("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_DRAW");
 
     /// <summary>从弃牌堆选择放入约定牌堆的提示</summary>
     public static readonly LocString PromisePileSelectFromDiscard = new("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_DISCARD");

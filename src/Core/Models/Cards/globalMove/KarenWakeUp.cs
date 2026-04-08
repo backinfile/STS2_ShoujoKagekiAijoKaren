@@ -33,8 +33,8 @@ public sealed class KarenWakeUp : KarenBaseCardModel
             {
                 await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
                     ModelDb.Card<KarenWakeUpDrawPileOption>(),
-                    ModelDb.Card<KarenWakeUpDiscardPileOption>(),
-                    ModelDb.Card<KarenWakeUpPromisePileOption>()
+                    ModelDb.Card<KarenWakeUpPromisePileOption>(),
+                    ModelDb.Card<KarenWakeUpDiscardPileOption>()
                     ]);
             }
         }
