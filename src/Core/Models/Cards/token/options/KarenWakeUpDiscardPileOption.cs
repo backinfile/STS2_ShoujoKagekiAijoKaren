@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options
 {
-    internal class KarenWakeUpDiscardPile : KarenBaseCardModel
+    internal class KarenWakeUpDiscardPileOption : KarenBaseCardModel
     {
-        public KarenWakeUpDiscardPile() : base(-1, CardType.Skill, CardRarity.Token, TargetType.None)
+        public KarenWakeUpDiscardPileOption() : base(-1, CardType.Skill, CardRarity.Token, TargetType.None)
         {
         }
 

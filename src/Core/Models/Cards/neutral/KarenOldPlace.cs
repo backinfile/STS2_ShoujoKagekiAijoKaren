@@ -25,6 +25,8 @@ public sealed class KarenOldPlace : KarenBaseCardModel
         new BlockVar(5, ValueProp.Move)
     ];
 
+    public override IEnumerable<CardTag> Tags => [KarenCustomEnum.RetainTmpStrength];
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 获得格挡

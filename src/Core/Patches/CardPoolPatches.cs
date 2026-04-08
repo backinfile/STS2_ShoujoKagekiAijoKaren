@@ -42,9 +42,9 @@ public static class TokenCardPoolPatch
             ModelDb.Card<KarenSandwitch>(),
             ModelDb.Card<KarenSideways>(),
 
-            ModelDb.Card<KarenWakeUpDrawPile>(),
-            ModelDb.Card<KarenWakeUpDiscardPile>(),
-            ModelDb.Card<KarenWakeUpPromisePile>(),
+            ModelDb.Card<KarenWakeUpDrawPileOption>(),
+            ModelDb.Card<KarenWakeUpDiscardPileOption>(),
+            ModelDb.Card<KarenWakeUpPromisePileOption>(),
         ];
     }
 }

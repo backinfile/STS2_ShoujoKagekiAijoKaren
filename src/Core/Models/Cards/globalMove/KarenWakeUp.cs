@@ -30,9 +30,9 @@ public sealed class KarenWakeUp : KarenBaseCardModel
         if (IsUpgraded)
         {
             await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
-                ModelDb.Card<KarenWakeUpDrawPile>(),
-                ModelDb.Card<KarenWakeUpDiscardPile>(),
-                ModelDb.Card<KarenWakeUpPromisePile>()
+                ModelDb.Card<KarenWakeUpDrawPileOption>(),
+                ModelDb.Card<KarenWakeUpDiscardPileOption>(),
+                ModelDb.Card<KarenWakeUpPromisePileOption>()
                 ]);
         }
         else
