@@ -45,6 +45,14 @@ public static class TokenCardPoolPatch
             ModelDb.Card<KarenWakeUpDrawPileOption>(),
             ModelDb.Card<KarenWakeUpDiscardPileOption>(),
             ModelDb.Card<KarenWakeUpPromisePileOption>(),
+
+            ModelDb.Card<KarenNoHesitateDiscardPileOption>(),
+            ModelDb.Card<KarenNoHesitateDrawPileOption>(),
+            ModelDb.Card<KarenNoHesitateHandOption>(),
+
+            ModelDb.Card<KarenOldPlaceRetainBlockOption>(),
+            ModelDb.Card<KarenOldPlaceRetainEnergyOption>(),
+            ModelDb.Card<KarenOldPlaceRetainStrengthOption>(),
         ];
     }
 }
