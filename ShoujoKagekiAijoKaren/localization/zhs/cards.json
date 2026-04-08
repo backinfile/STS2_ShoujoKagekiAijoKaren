@@ -260,14 +260,14 @@
   "KAREN_NO_HESITATE.title": "不再犹豫",
   "KAREN_NO_HESITATE.description": "从抽牌堆，弃牌堆，或[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
 
-  "KAREN_NO_HESITATE_DRAW_PILE.title": "抽牌堆",
-  "KAREN_NO_HESITATE_DRAW_PILE.description": "从抽牌堆中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
+  "KAREN_NO_HESITATE_DRAW_PILE_OPTION.title": "抽牌堆",
+  "KAREN_NO_HESITATE_DRAW_PILE_OPTION.description": "从抽牌堆中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
 
-  "KAREN_NO_HESITATE_DISCARD_PILE.title": "弃牌堆",
-  "KAREN_NO_HESITATE_DISCARD_PILE.description": "从弃牌堆中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
+  "KAREN_NO_HESITATE_DISCARD_PILE_OPTION.title": "弃牌堆",
+  "KAREN_NO_HESITATE_DISCARD_PILE_OPTION.description": "从弃牌堆中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
 
-  "KAREN_NO_HESITATE_PROMISE_PILE.title": "弃牌堆",
-  "KAREN_NO_HESITATE_PROMISE_PILE.description": "从弃牌堆中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
+  "KAREN_NO_HESITATE_HAND_OPTION.title": "手牌",
+  "KAREN_NO_HESITATE_HAND_OPTION.description": "从手牌中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
 
   "KAREN_NEXT_STAGE.title": "下一个舞台",
   "KAREN_NEXT_STAGE.description": "{IfUpgraded:show:此牌在牌堆之间移动时|此牌在被放入或离开[gold]约定牌堆[/gold]时}，抽{Cards:diff()}张牌。",

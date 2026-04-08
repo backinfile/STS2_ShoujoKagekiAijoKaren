@@ -106,6 +106,7 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenBurn>(),
 
             // 选择卡牌系列
+            ModelDb.Card<KarenNoHesitate>(),
             ModelDb.Card<KarenWakeUp>(),
 
             // 剩余卡牌
