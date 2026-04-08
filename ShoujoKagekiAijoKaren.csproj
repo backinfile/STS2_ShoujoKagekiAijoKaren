@@ -9,12 +9,14 @@
     <Compile Remove="fonts\**" />
     <Compile Remove="images\**" />
     <Compile Remove="materials\**" />
+    <Compile Remove="scenes\**" />
     <Compile Remove="shaders\**" />
     <Compile Remove="ShoujoKagekiAijoKaren\**" />
     <Compile Remove="themes\**" />
     <EmbeddedResource Remove="fonts\**" />
     <EmbeddedResource Remove="images\**" />
     <EmbeddedResource Remove="materials\**" />
+    <EmbeddedResource Remove="scenes\**" />
     <EmbeddedResource Remove="shaders\**" />
     <EmbeddedResource Remove="ShoujoKagekiAijoKaren\**" />
     <EmbeddedResource Remove="themes\**" />
@@ -22,19 +24,8 @@
   <ItemGroup>
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="mod_manifest.json" />
-    <Content Include="scenes\screens\char_select\karenPortrait.jpg" />
-    <Content Include="images\relics\karen_lock_relic.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="scenes\combat\energy_counters\karen_energy_counter.tscn" />
-    <None Include="scenes\creature_visuals\karen.tscn" />
-    <None Include="scenes\merchant\characters\karen_merchant.tscn" />
-    <None Include="scenes\rest_site\characters\karen_rest_site.tscn" />
-    <None Include="scenes\screens\char_select\char_select_bg_karen.tscn" />
-    <None Include="scenes\screens\char_select\karenPortrait.jpg.import" />
-    <None Include="scenes\ui\character_icons\karen_icon.tscn" />
-    <None Include="scenes\ui\selection_reticle.tscn" />
-    <None Include="scenes\vfx\card_trail_karen.tscn" />
     <None Include="src\Core\GlobalMoveSystem\GlobalMoveSystem.cs.uid" />
     <None Include="src\Core\GlobalMoveSystem\Patches\GlobalMovePatch.cs.uid" />
     <None Include="src\Core\Models\CardPools\KarenCardPool.cs.uid" />
@@ -88,8 +79,5 @@
   </ItemGroup>
   <ItemGroup>
     <EditorConfigFiles Remove="D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\.editorconfig" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="images\packed\card_portraits\" />
   </ItemGroup>
 </Project>
