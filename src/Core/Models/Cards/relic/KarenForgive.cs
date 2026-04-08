@@ -12,20 +12,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using ShoujoKagekiAijoKaren.src.Core;
+
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 
 /// <summary>
 /// "宽恕" - 禁用X个遗物，然后对所有敌人造成伤害
 /// </summary>
-public sealed class KarenForgive : KarenBaseCardModel
+public sealed class KarenForgive : KarenDisableRelicBaseCardModel
 {
     public KarenForgive() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies) { }
 
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(21, ValueProp.Move), new DisableRelicVar(1)];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(21, ValueProp.Move), new DisableRelicVar(2)];
-
-
-    protected override bool IsPlayable => DisableRelicCmd.HasDisableableRelic(Owner);
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -42,6 +41,7 @@ public sealed class KarenForgive : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DisableRelicVar.UpgradeValueBy(-1);
+        //DisableRelicVar.UpgradeValueBy(-1);
+        DynamicVars.Damage.UpgradeValueBy(7);
     }
 }

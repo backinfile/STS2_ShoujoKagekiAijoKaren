@@ -55,8 +55,9 @@ public static class DisableRelicManager
         // 移除原始遗物
         player.RemoveRelicInternal(relic, silent: true);
 
-        // 创建锁定遗物
-        var lockRelic = new KarenLockRelic { LockedRelic = relic };
+        // 创建锁定遗物（使用 MutableClone 从 canonical 实例克隆）
+        var lockRelic = (KarenLockRelic)ModelDb.Relic<KarenLockRelic>().MutableClone();
+        lockRelic.LockedRelic = relic;
 
         // 在相同位置添加锁定遗物
         player.AddRelicInternal(lockRelic, position, silent: true);

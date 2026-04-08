@@ -28,9 +28,6 @@ public abstract class KarenBaseCardModel : CardModel
 
 
 
-    public DynamicVar DisableRelicVar => DynamicVars[ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.DisableRelicVar.VarName];
-
-
     /// <summary>
     /// 此牌被放入约定牌堆时触发（由 <see cref="PromisePileManager"/> 直接调用）。
     /// </summary>

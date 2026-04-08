@@ -12,7 +12,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
 /// </summary>
 public sealed class KarenLockRelic : RelicModel
 {
-    public override RelicRarity Rarity => RelicRarity.Starter;
+    public override RelicRarity Rarity => RelicRarity.Event;
 
     /// <summary>
     /// 被锁定的原始遗物

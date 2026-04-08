@@ -11,19 +11,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using MegaCrit.Sts2.Core.Entities.Cards;
+using ShoujoKagekiAijoKaren.src.Core;
+
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 
 /// <summary>
 /// 星罪 - 禁用X个遗物，然后抽2张牌
 /// </summary>
-public sealed class KarenStarCrime : KarenBaseCardModel
+public sealed class KarenStarCrime : KarenDisableRelicBaseCardModel
 {
     public KarenStarCrime() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3), new DisableRelicVar(2)];
 
-
-    protected override bool IsPlayable => DisableRelicCmd.HasDisableableRelic(Owner);
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

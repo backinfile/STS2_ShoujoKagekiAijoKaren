@@ -20,6 +20,9 @@ public static class KarenCustomEnum
     /// <summary>保留力量</summary>
     [CustomEnum] public static CardTag RetainTmpStrength;
 
+    /// <summary>禁用遗物相关卡牌的标记 Tag</summary>
+    [CustomEnum] public static CardTag DisableRelicRelated;
+
     /// <summary>约定牌堆虚拟 PileType，用于 GlobalMoveSystem 事件的 from/to 标识</summary>
     [CustomEnum] public static PileType PromisePile;
 

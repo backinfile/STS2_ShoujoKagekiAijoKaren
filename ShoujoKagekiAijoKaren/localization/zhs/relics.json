@@ -8,6 +8,6 @@
   "KAREN_HAIRPIN2_RELIC.flavor": "小时候与小光两人在东京塔附近的商店中买到的一对发夹中皇冠样式的一枚。",
 
   "KAREN_LOCK_RELIC.title": "上锁的遗物",
-  "KAREN_LOCK_RELIC.description": "这里锁着一个遗物。战斗结束后恢复。",
+  "KAREN_LOCK_RELIC.description": "这里锁着一个遗物，会在战斗结束时解锁。",
   "KAREN_LOCK_RELIC.flavor": ""
 }

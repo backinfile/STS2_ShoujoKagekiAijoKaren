@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ public static class CardHoverTipsPatch
         ("KAREN_SHINE_CARD_REWARD", card => card.Tags.Contains(KarenCustomEnum.ShineCardReward)),
         ("KAREN_TMP_STRENGTH", card => card.Tags.Contains(KarenCustomEnum.TmpStrength)),
         ("KAREN_RETAIN_TMP_STRENGTH", card => card.Tags.Contains(KarenCustomEnum.RetainTmpStrength)),
+        ("KAREN_DISABLE_RELIC", card => card.Tags.Contains(KarenCustomEnum.DisableRelicRelated) || card is KarenDisableRelicBaseCardModel),
     ];
 
     private static readonly Dictionary<string, HoverTip> HoverTopCache = new();

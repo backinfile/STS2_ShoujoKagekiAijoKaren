@@ -11,18 +11,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using MegaCrit.Sts2.Core.Entities.Cards;
+using ShoujoKagekiAijoKaren.src.Core;
+
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 
 /// <summary>
 /// 摘星 - 禁用X个遗物，然后获得2能量
 /// </summary>
-public sealed class KarenPickStar : KarenBaseCardModel
+public sealed class KarenPickStar : KarenDisableRelicBaseCardModel
 {
     public KarenPickStar() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2), new DisableRelicVar(2)];
-
-    protected override bool IsPlayable => DisableRelicCmd.HasDisableableRelic(Owner);
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
