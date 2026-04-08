@@ -11,16 +11,14 @@ namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Patches;
 
 /// <summary>
 /// 战斗结束后自动恢复被禁用的遗物
+/// TODO 需要在存档前修复被禁用的遗物状态，以免存档后永久丢失遗物
 /// </summary>
 [HarmonyPatch(typeof(Hook), nameof(Hook.AfterCombatEnd))]
 public static class DisableRelicRestorePatch
 {
     [HarmonyPostfix]
-    private static async Task Postfix(Task __result, IRunState runState, CombatState combatState, AbstractRoom room)
+    private static void Postfix(IRunState runState, CombatState combatState, AbstractRoom room)
     {
-        // 等待原始方法完成
-        await __result;
-
         // 恢复所有玩家的被禁用遗物
         foreach (var player in combatState.Players)
         {
@@ -41,11 +39,8 @@ public static class DisableRelicRestorePatch
 public static class DisableRelicOnDeathPatch
 {
     [HarmonyPostfix]
-    private static async Task Postfix(Task __result, IRunState runState, CombatState? combatState, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+    private static void Postfix(IRunState runState, CombatState? combatState, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
-        // 等待原始方法完成
-        await __result;
-
         // 只有玩家角色死亡时才恢复遗物
         if (creature?.Player == null) return;
 

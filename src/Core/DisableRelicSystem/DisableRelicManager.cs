@@ -10,25 +10,11 @@ using System.Linq;
 namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
 
 /// <summary>
-/// 被锁定遗物的信息
-/// </summary>
-public class LockedRelicInfo
-{
-    public RelicModel Relic { get; set; } = null!;
-    public int Position { get; set; }
-}
-
-/// <summary>
 /// 禁用遗物系统管理器
 /// 将遗物替换为锁定遗物，在战斗期间使其失效，战斗结束后自动恢复
 /// </summary>
 public static class DisableRelicManager
 {
-    /// <summary>
-    /// SpireField 存储每个玩家被锁定的遗物信息
-    /// </summary>
-    private static readonly SpireField<Player, List<LockedRelicInfo>> _lockedRelicInfos = new(() => []);
-
     /// <summary>
     /// 白名单：不能被禁用的遗物ID前缀列表
     /// </summary>
@@ -101,15 +87,13 @@ public static class DisableRelicManager
 
         MainFile.Logger.Info($"[DisableRelicManager] Restoring {infos.Count} disabled relics for player {player.NetId}");
 
-        // 按位置排序，从后往前恢复（避免位置变化影响）
-        foreach (var info in infos.OrderByDescending(i => i.Position))
+        while(true)
         {
             // 找到锁定遗物
-            var lockRelic = player.Relics.FirstOrDefault(r => r is KarenLockRelic kl && kl.LockedRelic == info.Relic);
+            var lockRelic = player.Relics.FirstOrDefault(r => r is KarenLockRelic);
             if (lockRelic == null)
             {
-                MainFile.Logger.Warn($"[DisableRelicManager] Lock relic not found for '{info.Relic.Id.Entry}'");
-                continue;
+                break;
             }
 
             // 获取当前位置
@@ -124,7 +108,7 @@ public static class DisableRelicManager
             player.RemoveRelicInternal(lockRelic, silent: true);
 
             // 恢复原始遗物
-            player.AddRelicInternal(info.Relic, currentPosition, silent: true);
+            player.AddRelicInternal(lockRelic.LockedRelic, currentPosition, silent: true);
 
             MainFile.Logger.Info($"[DisableRelicManager] Restored relic '{info.Relic.Id.Entry}' ({info.Relic.Title}) at position {currentPosition}");
         }

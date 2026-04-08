@@ -85,8 +85,9 @@ public static class PromisePileManager
     /// <summary>
     /// 将卡牌放入约定牌堆（加入链表尾部）。
     /// 会从当前牌堆物理移出（RemoveFromCurrentPile），不触发 CardPileCmd 流程。
+    /// oldPile默认取当前所在Pile
     /// </summary>
-    public static async Task AddToPromisePile(Player player, CardModel card)
+    public static async Task AddToPromisePile(Player player, CardModel card, PileType? oldPile = null)
     {
         var pile = GetPromisePile(player);
         if (pile.Cards.Contains(card))
@@ -97,7 +98,8 @@ public static class PromisePileManager
 
         // oldPile 必须在 PlayAddAnimation 之前记录：
         // PlayAddAnimation（同步方法）依赖 card.Pile 定位 NCard；RemoveFromCurrentPile 会将 card.Pile 置为 null
-        PileType oldPile = card.Pile?.Type ?? PileType.None;
+        // TODO 测试没有oldPile的情况
+        if (oldPile == null) oldPile = card.Pile?.Type ?? PileType.None;
 
         // 动画在 RemoveFromCurrentPile 之前执行（FindOnTable 依赖 Pile.Type）
         PromisePileAnimator.PlayAddAnimation(card);

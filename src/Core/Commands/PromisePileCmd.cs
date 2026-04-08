@@ -41,21 +41,45 @@ public static class PromisePileCmd
     /// </summary>
     public static async Task Add(Player player, CardModel card)
     {
-        if (card?.Owner == null)
-        {
-            MainFile.Logger.Error("Attempted to add a card with null owner to the promise pile. Operation aborted.");
-            return;
-        }
+        //if (card?.Owner == null)
+        //{
+        //    MainFile.Logger.Error("Attempted to add a card with null owner to the promise pile. Operation aborted.");
+        //    return;
+        //}
 
-        if (IsVoidMode(card.Owner))
+        if (IsVoidMode(player))
         {
-            // Void 模式：放入抽牌堆顶部，并触发 Power 扳机
+            // Void 模式：放入抽牌堆顶部
             await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
             return;
         }
 
         await PromisePileManager.AddToPromisePile(player, card);
     }
+
+    /// <summary>
+    /// 将一些放入约定牌堆
+    /// 这个方法允许将卡牌先从oldPile中移出(即允许悬空的card)
+    /// TODO 测试
+    /// </summary>
+    public static async Task AddCardsFromPile(Player player, List<CardModel> cards, PileType oldPile)
+    {
+        if (IsVoidMode(player))
+        {
+            // Void 模式：放入抽牌堆顶部
+            // TODO 看看node对不对
+            await CardPileCmd.Add(cards, PileType.Draw, CardPilePosition.Top, null, false);
+            return;
+        }
+
+        foreach (var card in cards)
+        {
+            await PromisePileManager.AddToPromisePile(player, card, oldPile);
+        }
+    }
+
+
+
 
     public static async Task AddToken<T>(Player player, CombatState combatState, int cnt = 1) where T : CardModel
     {
@@ -143,6 +167,7 @@ public static class PromisePileCmd
         foreach (var card in selected)
         {
             //pile.RemoveInternal(card); 这里不要移除，要给后续牌堆移动提供oldPile
+            // TODO 有没有一次移动所有cards的接口
             await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top, null, false);
         }
 
@@ -258,6 +283,7 @@ public static class PromisePileCmd
 
         foreach (var card in selected)
         {
+            // TODO 有没有一次移动所有cards的接口
             await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
         }
     }
@@ -270,6 +296,7 @@ public static class PromisePileCmd
         var drawPile = PileType.Draw.GetPile(player);
         var cards = drawPile.Cards.ToList();
 
+        // TODO 找找有没有一下子全弃
         foreach (var card in cards)
         {
             await CardCmd.Discard(ctx, card);
@@ -287,8 +314,8 @@ public static class PromisePileCmd
         var handCards = handPile.Cards.ToList();
 
 
-        // 步骤1：暂存手牌（移到抽牌堆顶部但不触发Power扳机，最后统一触发）
-        var handSave = handCards.ToList(); // 复制列表，避免修改原列表导致枚举问题
+        // 步骤1：暂存手牌（不触发Power扳机，最后统一触发）
+        var handSave = handCards.ToList();
         handPile.Clear();
 
         // 步骤2：从约定牌堆抽满手牌
@@ -298,10 +325,7 @@ public static class PromisePileCmd
         await PromisePileCmd.DiscardAll(ctx, player);
 
         // 步骤4：原手牌放入约定牌堆
-        foreach (var card in handCards)
-        {
-            await PromisePileCmd.Add(player, card);
-        }
+        await PromisePileCmd.AddCardsFromPile(player, handCards, PileType.Hand);
     }
 
     internal static async Task AutoPlayFromPromisePile(PlayerChoiceContext choiceContext, Player player, int count)

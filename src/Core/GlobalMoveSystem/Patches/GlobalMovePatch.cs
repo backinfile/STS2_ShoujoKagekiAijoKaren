@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Runs;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ internal static class GlobalMovePatch
     /// <summary>
     /// 缓存当前处于打出区的卡牌
     /// </summary>
-    private static SpireField<CardModel, PileType> inPlayPile = new(() => PileType.None);
+    private static SpireField<CardModel, PileType?> inPlayPile = new(() => null);
 
 
     [HarmonyPatch(typeof(Hook), nameof(Hook.AfterCardChangedPiles))]
@@ -32,7 +33,7 @@ internal static class GlobalMovePatch
         // 此时卡牌已完成物理移动（CardPileCmd.Add 先移牌再调用 Hook），
         // 故 card.Pile?.Type 即为新牌堆，oldPile 参数为旧牌堆。
         // GlobalMove 不会处理打出区，因为需要特殊处理打出区
-        // 会拼接两次移动为一次，例如 (Hand->Play,Play->Discard) 会合并为 (Hand->Discard)
+        // 打出区的移动会拼接两次移动为一次，例如 (Hand->Play,Play->Discard) 会合并为 (Hand->Discard)
         [HarmonyPostfix]
         private static void Postfix(
             IRunState runState, CombatState? combatState,
@@ -43,10 +44,12 @@ internal static class GlobalMovePatch
             if (card.IsCanonical) return;
 
             PileType newPile = card.Pile?.Type ?? PileType.None;
-            if (oldPile == null || oldPile == PileType.None || oldPile == PileType.Deck)
-            {
-                return;
-            }
+            PileType oldPile = oldPile ?? PileType.None;
+            // 从未知位置移动到约定牌堆也算移动
+            //if (oldPile == null || oldPile == PileType.None || oldPile == PileType.Deck)
+            //{
+            //    return;
+            //}
             // 不处理这种目标
             if (newPile == PileType.None || newPile == PileType.Deck)
             {
@@ -65,7 +68,7 @@ internal static class GlobalMovePatch
             if (oldPile == PileType.Play)
             {
                 var cachedPile = inPlayPile.Get(card);
-                if (cachedPile == PileType.None) // 之前没有缓存过，放弃这个
+                if (cachedPile == null) // 之前没有缓存过，放弃这个
                 {
                     return;
                 }

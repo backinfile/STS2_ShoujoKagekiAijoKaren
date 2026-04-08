@@ -30,15 +30,33 @@ public sealed class KarenStarGuide : KarenBaseCardModel
         if (combatState == null) return;
 
         // 获取所有牌堆中的闪耀牌
-        var allCards = combatState.DrawPile.Cards.Concat(combatState.DiscardPile.Cards)
-            .Concat(combatState.Hand.Cards).OfType<KarenBaseCardModel>().ToList();
+        var hand = PileType.Hand.GetPile(Owner);
+        var drawPile = PileType.DrawPile.GetPile(Owner);
+        var discardPile = PileType.DiscardPile.GetPile(Owner);
 
-        var shineCards = allCards.Where(card => card.IsShineCard()).ToList();
-
-        // 将所有闪耀牌移动到约定牌堆
-        foreach (var shineCard in shineCards)
+        var handCards = hand.Cards.Where(c=>c.IsShineCard()).ToList();
+        var drawPileCards = drawPile.Cards.Where(c => c.IsShineCard()).ToList();
+        var discardPileCards = discardPile.Cards.Where(c => c.IsShineCard()).ToList();
+        // 先把这些牌移除原本的牌堆
         {
-            await PromisePileCmd.Add(Owner, shineCard);
+            foreach(var card in handCards)
+            {
+                card.RemoveFromPile();
+            }
+            foreach(var card in drawPileCards)
+            {
+                card.RemoveFromPile();
+            }
+            foreach (var card in discardPileCards)
+            {
+                card.RemoveFromPile();
+            }
+        }
+        // 最后统一加入约定牌堆
+        {
+            await PromisePileCmd.AddCardsFromPile(Owner, handCards, PileType.Hand);
+            await PromisePileCmd.AddCardsFromPile(Owner, drawPileCards, PileType.DrawPile);
+            await PromisePileCmd.AddCardsFromPile(Owner, discardPileCards, PileType.DiscardPile);
         }
     }
 

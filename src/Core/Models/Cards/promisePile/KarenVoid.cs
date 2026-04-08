@@ -27,6 +27,7 @@ public sealed class KarenVoid : KarenBaseCardModel
         if (combatState == null) return;
 
         // 消耗抽牌堆
+        // TODO 一瞬间消耗所有卡牌 去看看本体卡牌的实现
         var drawPileCards = combatState.DrawPile.Cards.ToList();
         foreach (var card in drawPileCards)
         {
@@ -35,17 +36,11 @@ public sealed class KarenVoid : KarenBaseCardModel
         // 切换模式
         await PromisePileCmd.EnterMode(Owner, PromisePileMode.Void);
 
-
-        // 取出约定牌堆中的所有牌
+        // 取出约定牌堆中的所有牌 然后重新放入约定牌堆
         var pile = PromisePileManager.GetPromisePile(Owner);
         var pileCards = pile.Cards.ToList();
         pile.Clear();
-        // 放入约定牌堆
-        foreach (var card in pileCards)
-        {
-            await PromisePileCmd.Add(Owner, card);
-        }
-
+        await PromisePileCmd.AddCardsFromPile(Owner, pileCards, KarenCustomEnum.PromisePile);
     }
 
     protected override void OnUpgrade()

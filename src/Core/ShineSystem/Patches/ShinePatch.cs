@@ -151,6 +151,7 @@ public static class ShinePatch
                 return true;
             }
             // 某些卡牌会将自己移动到特定牌堆，修改他们的转向
+            // TODO 测试当卡牌放入约定牌堆或抽牌堆时是否会有问题
             if (ShouldEnterShinePile(card) && newPileType.IsCombatPile())
             {
                 return true;
