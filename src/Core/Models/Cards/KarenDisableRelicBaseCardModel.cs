@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -19,6 +20,6 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
         public DynamicVar DisableRelicVar => DynamicVars[ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.DisableRelicVar.VarName];
 
 
-        protected override bool IsPlayable => DisableRelicCmd.HasDisableableRelic(Owner);
+        protected override bool IsPlayable => DisableRelicCmd.GetDisableableRelicCount(Owner) >= DisableRelicVar.IntValue;
     }
 }

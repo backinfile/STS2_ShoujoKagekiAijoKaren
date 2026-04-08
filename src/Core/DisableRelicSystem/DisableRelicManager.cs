@@ -36,36 +36,49 @@ public static class DisableRelicManager
 
         var relic = player.Relics[position];
 
-        // 检查是否已经是锁定遗物
-        if (relic is KarenLockRelic)
+        if (!IsRelicLockable(relic))
+        {
+            MainFile.Logger.Warn($"[DisableRelicManager] Relic '{relic.Id.Entry}' ({relic.Title}) at position {position} is not lockable and cannot be disabled.");
             return false;
+        }
 
-        // 跳过BOSS遗物
-        if (relic.Rarity == RelicRarity.Ancient)
-            return false;
-
-        // 跳过白名单中的遗物
-        if (IsInWhiteList(relic))
-            return false;
-
-        // 跳过特殊遗物（如融化的蜡质遗物）
-        if (relic.IsMelted)
-            return false;
-
-        // 移除原始遗物
+        // 移除原始遗物（silent: true 不触发事件，我们手动更新UI）
         player.RemoveRelicInternal(relic, silent: true);
 
         // 创建锁定遗物（使用 MutableClone 从 canonical 实例克隆）
         var lockRelic = (KarenLockRelic)ModelDb.Relic<KarenLockRelic>().MutableClone();
         lockRelic.LockedRelic = relic;
 
-        // 在相同位置添加锁定遗物
+        // 在相同位置添加锁定遗物（silent: true 不触发事件）
         player.AddRelicInternal(lockRelic, position, silent: true);
+
+        // 手动更新UI：保存原节点，创建锁定节点
+        var savedNode = DisableRelicNodeManager.SaveAndReplaceRelicNode(relic, lockRelic, player);
+        lockRelic.LockedRelicNode = savedNode;
 
         MainFile.Logger.Info($"[DisableRelicManager] Disabled relic '{relic.Id.Entry}' ({relic.Title}) at position {position} for player {player.NetId}");
 
         return true;
     }
+
+    /// <summary>
+    /// 判断一个遗物是否可以禁用
+    /// </summary>
+    public static bool IsRelicLockable(RelicModel relic)
+    {
+        if (relic == null) return false;
+        // 不能是锁定遗物
+        if (relic is KarenLockRelic)
+            return false;
+        // 不能是BOSS遗物
+        //if (relic.Rarity == RelicRarity.Ancient)
+        //    return false;
+        // 不能在白名单中
+        if (IsInWhiteList(relic))
+            return false;
+        return true;
+    }
+
 
     /// <summary>
     /// 恢复所有被禁用的遗物
@@ -98,11 +111,30 @@ public static class DisableRelicManager
                 continue;
             }
 
-            // 移除锁定遗物
+            // 获取保存的原节点
+            var savedNode = lockRelic.LockedRelicNode;
+
+            // 移除锁定遗物（silent: true 不触发事件）
             player.RemoveRelicInternal(lockRelic, silent: true);
 
-            // 恢复原始遗物
+            // 恢复原始遗物（silent: true 不触发事件）
             player.AddRelicInternal(originalRelic, currentPosition, silent: true);
+
+            // 手动更新UI：使用保存的节点替换回去
+            if (savedNode != null)
+            {
+                DisableRelicNodeManager.RestoreRelicNode(lockRelic, originalRelic, savedNode, player);
+            }
+            else
+            {
+                // 如果没有保存的节点（异常情况），创建新节点
+                MainFile.Logger.Warn($"[DisableRelicManager] Saved node is null, creating new node for '{originalRelic.Id.Entry}'");
+                var lockHolder = DisableRelicNodeManager.FindRelicHolder(lockRelic, player);
+                if (lockHolder != null)
+                {
+                    DisableRelicNodeManager.ReplaceHolderModel(lockHolder, originalRelic, player);
+                }
+            }
 
             MainFile.Logger.Info($"[DisableRelicManager] Restored relic '{originalRelic.Id.Entry}' ({originalRelic.Title}) at position {currentPosition}");
         }
@@ -124,23 +156,7 @@ public static class DisableRelicManager
         for (int i = endPosition - 1; i >= 0; i--)
         {
             var relic = player.Relics[i];
-
-            // 跳过已经是锁定遗物的
-            if (relic is KarenLockRelic)
-                continue;
-
-            // 跳过BOSS遗物
-            if (relic.Rarity == RelicRarity.Ancient)
-                continue;
-
-            // 跳过白名单中的遗物
-            if (IsInWhiteList(relic))
-                continue;
-
-            // 跳过融化的遗物
-            if (relic.IsMelted)
-                continue;
-
+            if (!IsRelicLockable(relic)) continue;
             return i;
         }
 
@@ -156,11 +172,7 @@ public static class DisableRelicManager
     {
         if (player == null) return 0;
 
-        return player.Relics.Count(r =>
-            r is not KarenLockRelic &&
-            r.Rarity != RelicRarity.Ancient &&
-            !IsInWhiteList(r) &&
-            !r.IsMelted);
+        return player.Relics.Count(IsRelicLockable);
     }
 
     /// <summary>

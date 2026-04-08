@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Relics;
 using System.Collections.Generic;
 
 namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
@@ -18,6 +19,11 @@ public sealed class KarenLockRelic : RelicModel
     /// 被锁定的原始遗物
     /// </summary>
     public RelicModel? LockedRelic { get; set; }
+
+    /// <summary>
+    /// 被锁定遗物的UI节点（保存以便恢复时复用）
+    /// </summary>
+    public NRelicInventoryHolder? LockedRelicNode { get; set; }
 
 
     //public override LocString Title => new LocString("relics", "KAREN_LOCK_RELIC.title");

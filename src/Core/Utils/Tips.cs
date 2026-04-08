@@ -66,4 +66,11 @@ public static class Tips
 
     /// <summary>约定牌堆 Power - 消耗模式描述</summary>
     public static readonly LocString PromisePilePowerModeExhaust = new("powers", "KAREN_PROMISE_PILE_POWER.mode.exhaust");
+
+    // ==================== disable_relic ====================
+    /// <summary>禁用遗物标签前缀</summary>
+    public static readonly LocString DisableRelicLabel = new("gameplay_ui", "KAREN_DISABLERELIC_LABEL");
+
+    /// <summary>禁用遗物标签后缀</summary>
+    public static readonly LocString DisableRelicSuffix = new("gameplay_ui", "KAREN_DISABLERELIC_SUFFIX");
 }
