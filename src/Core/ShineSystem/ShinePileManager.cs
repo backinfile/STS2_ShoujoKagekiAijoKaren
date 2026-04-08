@@ -99,7 +99,7 @@ public static class ShinePileManager
         {
             MainFile.Logger.Info($"[ShinePileManager] Triggered OnShineExhausted for '{card.Title}'");
             var inCombat = CombatManager.Instance?.IsInProgress == true && (combatState?.Enemies?.Any(e => e.IsAlive) ?? true);
-            await karenCard.OnShineExhausted(ctx, inCombat, combatState);
+            await karenCard.OnShineExhausted(ctx, inCombat, combatState!);
         }
 
         // 最终将这个卡牌移出游戏 TODO 等待后续实现耗尽牌堆

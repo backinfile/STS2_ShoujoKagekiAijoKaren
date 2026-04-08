@@ -32,6 +32,7 @@ public sealed class KarenForgive : KarenBaseCardModel
         await DisableRelicCmd.DisableRelic(Owner, DisableRelicVar.IntValue);
 
         // 对所有敌人造成伤害
+        if (CombatState == null) return;
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .TargetingAllOpponents(CombatState)

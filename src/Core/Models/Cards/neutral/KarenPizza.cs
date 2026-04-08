@@ -32,7 +32,11 @@ public sealed class KarenPizza : KarenBaseCardModel
         await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars.Strength.BaseValue, Owner.Creature, this);
 
         // 所有敌人失去力量
-        await PowerCmd.Apply<StrengthPower>(CombatState.HittableEnemies, -DynamicVars.Strength.BaseValue, Owner.Creature, this);
+        var enemies = CombatState?.HittableEnemies;
+        if (enemies != null)
+        {
+            await PowerCmd.Apply<StrengthPower>(enemies, -DynamicVars.Strength.BaseValue, Owner.Creature, this);
+        }
     }
 
     protected override void OnUpgrade()

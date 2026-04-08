@@ -44,16 +44,15 @@ internal static class GlobalMovePatch
             if (card.IsCanonical) return;
 
             PileType newPile = card.Pile?.Type ?? PileType.None;
-            PileType oldPile = oldPile ?? PileType.None;
             // 从未知位置移动到约定牌堆也算移动
-            //if (oldPile == null || oldPile == PileType.None || oldPile == PileType.Deck)
+            //if (oldPile == PileType.None || oldPile == PileType.Deck)
             //{
             //    return;
             //}
             // 不处理这种目标
             if (newPile == PileType.None || newPile == PileType.Deck)
             {
-                inPlayPile.Set(card, PileType.None);
+                inPlayPile.Set(card, null);
                 return;
             }
 
@@ -73,8 +72,8 @@ internal static class GlobalMovePatch
                     return;
                 }
                 // 拼接两次移动
-                oldPile = cachedPile;
-                inPlayPile.Set(card, PileType.None);
+                oldPile = cachedPile.Value;
+                inPlayPile.Set(card, null);
             }
 
             Async.Postfix(ref __result, GlobalMoveSystem.Trigger(card, oldPile, newPile, source));

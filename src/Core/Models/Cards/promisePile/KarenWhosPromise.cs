@@ -27,9 +27,12 @@ public sealed class KarenWhosPromise : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 造成伤害
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
-            .Execute(choiceContext);
+        if (cardPlay.Target != null)
+        {
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
+                .WithHitFx(VfxCmd.slashPath)
+                .Execute(choiceContext);
+        }
 
         // 从约定牌堆抽牌
         await PromisePileCmd.Draw(choiceContext, Owner, (int)DynamicVars.Cards.BaseValue);

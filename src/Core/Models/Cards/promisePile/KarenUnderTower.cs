@@ -41,10 +41,12 @@ public sealed class KarenUnderTower : KarenBaseCardModel
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
         // 生成一张约定之塔
-        var card = CombatState.CreateCard<KarenTowerOfPromise>(Owner);
-
-        // 加入手牌 TODO 看看对不？
-        await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, addedByPlayer: true);
+        if (CombatState != null)
+        {
+            var card = CombatState.CreateCard<KarenTowerOfPromise>(Owner);
+            // 加入手牌
+            await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, addedByPlayer: true);
+        }
     }
 
     protected override void OnUpgrade()

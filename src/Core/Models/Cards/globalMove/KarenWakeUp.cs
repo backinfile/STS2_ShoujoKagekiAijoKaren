@@ -29,11 +29,14 @@ public sealed class KarenWakeUp : KarenBaseCardModel
     {
         if (IsUpgraded)
         {
-            await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
-                ModelDb.Card<KarenWakeUpDrawPileOption>(),
-                ModelDb.Card<KarenWakeUpDiscardPileOption>(),
-                ModelDb.Card<KarenWakeUpPromisePileOption>()
-                ]);
+            if (CombatState != null)
+            {
+                await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
+                    ModelDb.Card<KarenWakeUpDrawPileOption>(),
+                    ModelDb.Card<KarenWakeUpDiscardPileOption>(),
+                    ModelDb.Card<KarenWakeUpPromisePileOption>()
+                    ]);
+            }
         }
         else
         {

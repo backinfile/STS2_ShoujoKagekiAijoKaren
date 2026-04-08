@@ -52,14 +52,6 @@ public static class DisableRelicManager
         if (relic.IsMelted)
             return false;
 
-        // 保存原始遗物信息
-        var info = new LockedRelicInfo
-        {
-            Relic = relic,
-            Position = position
-        };
-        _lockedRelicInfos.Get(player)!.Add(info);
-
         // 移除原始遗物
         player.RemoveRelicInternal(relic, silent: true);
 
@@ -82,25 +74,26 @@ public static class DisableRelicManager
     {
         if (player == null) return;
 
-        var infos = _lockedRelicInfos.Get(player)!;
-        if (infos.Count == 0) return;
+        var lockRelics = player.Relics.OfType<KarenLockRelic>().ToList();
+        if (lockRelics.Count == 0) return;
 
-        MainFile.Logger.Info($"[DisableRelicManager] Restoring {infos.Count} disabled relics for player {player.NetId}");
+        MainFile.Logger.Info($"[DisableRelicManager] Restoring {lockRelics.Count} disabled relics for player {player.NetId}");
 
-        while(true)
+        foreach (var lockRelic in lockRelics)
         {
-            // 找到锁定遗物
-            var lockRelic = player.Relics.FirstOrDefault(r => r is KarenLockRelic);
-            if (lockRelic == null)
-            {
-                break;
-            }
-
             // 获取当前位置
             int currentPosition = player.Relics.IndexOf(lockRelic);
             if (currentPosition < 0)
             {
-                MainFile.Logger.Warn($"[DisableRelicManager] Lock relic position not found for '{info.Relic.Id.Entry}'");
+                MainFile.Logger.Warn($"[DisableRelicManager] Lock relic position not found");
+                continue;
+            }
+
+            // 获取原始遗物
+            var originalRelic = lockRelic.LockedRelic;
+            if (originalRelic == null)
+            {
+                MainFile.Logger.Warn($"[DisableRelicManager] Original relic is null");
                 continue;
             }
 
@@ -108,12 +101,10 @@ public static class DisableRelicManager
             player.RemoveRelicInternal(lockRelic, silent: true);
 
             // 恢复原始遗物
-            player.AddRelicInternal(lockRelic.LockedRelic, currentPosition, silent: true);
+            player.AddRelicInternal(originalRelic, currentPosition, silent: true);
 
-            MainFile.Logger.Info($"[DisableRelicManager] Restored relic '{info.Relic.Id.Entry}' ({info.Relic.Title}) at position {currentPosition}");
+            MainFile.Logger.Info($"[DisableRelicManager] Restored relic '{originalRelic.Id.Entry}' ({originalRelic.Title}) at position {currentPosition}");
         }
-
-        infos.Clear();
     }
 
     /// <summary>
@@ -179,7 +170,7 @@ public static class DisableRelicManager
     public static int GetDisabledRelicCount(Player player)
     {
         if (player == null) return 0;
-        return _lockedRelicInfos.Get(player)!.Count;
+        return player.Relics.Count(r => r is KarenLockRelic);
     }
 
     /// <summary>

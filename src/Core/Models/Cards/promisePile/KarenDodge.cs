@@ -38,7 +38,10 @@ public sealed class KarenDodge : KarenBaseCardModel
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
         // 创建对峙并放入约定牌堆
-        await PromisePileCmd.AddToken<KarenConfront>(Owner, CombatState, DynamicVars.Cards.IntValue);
+        if (CombatState != null)
+        {
+            await PromisePileCmd.AddToken<KarenConfront>(Owner, CombatState, DynamicVars.Cards.IntValue);
+        }
     }
 
     protected override void OnUpgrade()

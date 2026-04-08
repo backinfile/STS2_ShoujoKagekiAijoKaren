@@ -108,7 +108,7 @@ public static class PromisePileManager
         pile.AddInternal(card);
 
         // pile.AddLast 后 IsInPromisePile 为 true，GlobalMovePatch 能正确推断 newPile = PromisePile
-        await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, oldPile, null);
+        await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, oldPile ?? PileType.None, null);
         MainFile.Logger.Info($"[PromisePile] Added '{card.Title}' to promise pile (was in {oldPile})");
 
         // 更新 Power

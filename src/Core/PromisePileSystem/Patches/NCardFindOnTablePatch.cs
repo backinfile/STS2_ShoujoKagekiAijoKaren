@@ -64,8 +64,8 @@ internal static class PileTypeExtensionsGetTargetPositionPatch
             }
 
             // 备选：屏幕中心
-            var size = NGame.Instance.GetViewportRect().Size;
-            __result = new Vector2(size.X * 0.5f, size.Y * 0.5f);
+            var viewport = NGame.Instance?.GetViewportRect() ?? new Rect2(0, 0, 1920, 1080);
+            __result = new Vector2(viewport.Size.X * 0.5f, viewport.Size.Y * 0.5f);
             return false; // 跳过原方法
         }
 
