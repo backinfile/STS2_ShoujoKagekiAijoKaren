@@ -113,7 +113,11 @@ public static class DisableRelicNodeManager
                 return;
             }
 
-            int index = relicNodes.IndexOf(lockHolder);
+            // 获取原始遗物在 player.Relics 中的位置（更准确，因为 player.Relics 已更新）
+            var playerRelicsField = typeof(Player).GetField("_relics", BindingFlags.NonPublic | BindingFlags.Instance);
+            var playerRelics = playerRelicsField?.GetValue(player) as List<RelicModel>;
+            int index = playerRelics?.IndexOf(originalRelic) ?? -1;
+            if (index < 0) index = relicNodes.IndexOf(lockHolder); // 备用方案
 
             // 移除锁定遗物节点
             RemoveRelicNode(lockRelic, player);

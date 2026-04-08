@@ -82,6 +82,7 @@ public static class DisableRelicManager
 
     /// <summary>
     /// 恢复所有被禁用的遗物
+    /// 从后往前恢复，避免位置偏移问题
     /// </summary>
     /// <param name="player">玩家</param>
     public static void RestoreAllRelics(Player player)
@@ -93,13 +94,21 @@ public static class DisableRelicManager
 
         MainFile.Logger.Info($"[DisableRelicManager] Restoring {lockRelics.Count} disabled relics for player {player.NetId}");
 
-        foreach (var lockRelic in lockRelics)
+        // 记录每个锁定遗物及其原始位置
+        var lockRelicInfos = lockRelics
+            .Select(lr => new { LockRelic = lr, OriginalPosition = player.Relics.IndexOf(lr) })
+            .Where(x => x.OriginalPosition >= 0)
+            .OrderByDescending(x => x.OriginalPosition)  // 按原始位置从大到小排序（从后往前恢复）
+            .ToList();
+
+        foreach (var info in lockRelicInfos)
         {
-            // 获取当前位置
+            var lockRelic = info.LockRelic;
+            // 每次重新获取当前位置（因为之前的可能已移除，位置发生了变化）
             int currentPosition = player.Relics.IndexOf(lockRelic);
             if (currentPosition < 0)
             {
-                MainFile.Logger.Warn($"[DisableRelicManager] Lock relic position not found");
+                MainFile.Logger.Warn($"[DisableRelicManager] Lock relic '{lockRelic.Id.Entry}' not found in player relics");
                 continue;
             }
 
@@ -116,6 +125,10 @@ public static class DisableRelicManager
 
             // 移除锁定遗物（silent: true 不触发事件）
             player.RemoveRelicInternal(lockRelic, silent: true);
+
+            // 重置原始遗物的移除标记，否则扳机不会触发
+            // HasBeenRemovedFromState 是 private set，需要用反射
+            typeof(RelicModel).GetProperty("HasBeenRemovedFromState")?.SetValue(originalRelic, false);
 
             // 恢复原始遗物（silent: true 不触发事件）
             player.AddRelicInternal(originalRelic, currentPosition, silent: true);
