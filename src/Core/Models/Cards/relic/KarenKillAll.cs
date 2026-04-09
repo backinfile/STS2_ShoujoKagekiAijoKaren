@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,7 +19,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 /// </summary>
 public sealed class KarenKillAll : KarenBaseCardModel
 {
-    public KarenKillAll() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy) { }
+    public KarenKillAll() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy) {
+
+        this.AddShineMax(9);
+    }
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

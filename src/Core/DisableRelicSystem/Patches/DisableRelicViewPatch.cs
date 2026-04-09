@@ -59,6 +59,10 @@ public static class DisableRelicViewPatch
             if (__instance == null || __result == null)
                 return;
 
+            // 跳过 canonical model（如图鉴界面），避免 AssertMutable 异常
+            if (!__instance.IsMutable)
+                return;
+
             // 只在爬塔进行中时显示
             if (RunManager.Instance?.IsInProgress != true)
                 return;

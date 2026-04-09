@@ -1,5 +1,7 @@
 {
   "KAREN_SELECT_FROM_DRAW_TO_HAND": "选择抽牌堆中[blue]{Amount}[/blue]张卡牌放入手牌。",
   "KAREN_SELECT_FROM_DISCARD_TO_HAND": "选择弃牌堆中[blue]{Amount}[/blue]张卡牌放入手牌。",
-  "KAREN_SELECT_FROM_PROMISE_TO_HAND": "选择约定牌堆中[blue]{Amount}[/blue]张卡牌放入手牌。"
+  "KAREN_SELECT_FROM_PROMISE_TO_HAND": "选择约定牌堆中[blue]{Amount}[/blue]张卡牌放入手牌。",
+
+  "KAREN_SELECT_OPTION_PROMPT": "选择[blue]{Amount}[/blue]个选项"
 }

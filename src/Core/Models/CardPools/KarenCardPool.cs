@@ -123,6 +123,7 @@ public sealed class KarenCardPool : CardPoolModel
 
             // Ancient 测试卡牌（兼容 ArchaicTooth / DustyTome）
             ModelDb.Card<KarenAncientStrike>(),
+            ModelDb.Card<KarenAncientStrike2>(),
         ];
     }
 

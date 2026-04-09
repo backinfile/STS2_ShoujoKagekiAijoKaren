@@ -20,6 +20,11 @@ public static class Tips
     /// <summary>从约定牌堆选择放入手牌的提示</summary>
     public static readonly LocString SelectFromPromisePileToHand = new("card_selection", "KAREN_SELECT_FROM_PROMISE_TO_HAND");
 
+    /// <summary>
+    /// 选择选项
+    /// </summary>
+    public static LocString KAREN_SELECT_OPTION = new LocString("card_selection", "KAREN_SELECT_OPTION_PROMPT");
+
     // ==================== gameplay_ui ====================
     /// <summary>约定牌堆查看界面底部标题</summary>
     public static readonly LocString PromisePileInfo = new("gameplay_ui", "KAREN_PROMISE_PILE_INFO");

@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Relics;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.ancient;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Patches;
@@ -57,4 +58,19 @@ public static class ArchaicToothPatch
             __result = ancient;
         }
     }
+
+
+    /// <summary>
+    /// 将 KarenAncientStrike 加入 ArchaicTooth 的 TranscendenceCards，
+    /// 使沉封魔典（DustyTome）等系统不会选中它。
+    /// </summary>
+    [HarmonyPatch(typeof(ArchaicTooth), "TranscendenceCards", MethodType.Getter)]
+    public class ArchaicToothTranscendenceCardsPatch
+    {
+        private static void Postfix(ref List<CardModel> __result)
+        {
+            __result.Add(ModelDb.Card<KarenAncientStrike>());
+        }
+    }
+
 }

@@ -70,7 +70,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
             else
             {
                 // 使用 FromSimpleGrid 替代 FromChooseACardScreen，支持超过3个选项
-                var prefs = new CardSelectorPrefs(new LocString("cards", "KAREN_SELECT_OPTION_PROMPT"), 1);
+                var prefs = new CardSelectorPrefs(Tips.KAREN_SELECT_OPTION, 1);
                 cardModel = (await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs)).FirstOrDefault()!;
                 MainFile.Logger.Info($"KarenOldPlace selected card: {cardModel?.Title}");
             }

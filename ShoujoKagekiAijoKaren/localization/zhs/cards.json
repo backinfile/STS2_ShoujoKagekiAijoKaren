@@ -7,6 +7,12 @@
   "KAREN_SHINE_STRIKE.title": "闪耀打击",
   "KAREN_SHINE_STRIKE.description": "造成{Damage:diff()}点伤害。",
 
+  "KAREN_ANCIENT_STRIKE.title": "测试初始先古",
+  "KAREN_ANCIENT_STRIKE.description": "测试",
+
+  "KAREN_ANCIENT_STRIKE2.title": "测试先古",
+  "KAREN_ANCIENT_STRIKE2.description": "测试",
+
   "KAREN_FALL.title": "坠落",
   "KAREN_FALL.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将{Cards:diff()}张[gold]牌[/gold]放入[gold]约定牌堆[/gold]。",
 
@@ -158,8 +164,8 @@
   "KAREN_ARROGANT.title": "骄傲",
   "KAREN_ARROGANT.description": "给予自身{VulnerablePower:diff()}层[gold]易伤[/gold]。\n战斗结束时，获得一个随机遗物。",
 
-  "KAREN_KILL_AL.title": "皆杀",
-  "KAREN_KILL_AL.description": "造成{Damage:diff()}点伤害。\n战斗结束时，获得一个随机遗物。",
+  "KAREN_KILL_ALL.title": "嫉妒",
+  "KAREN_KILL_ALL.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀[/gold]耗尽时，获得一个随机遗物。",
 
   "KAREN_PICK_STAR.title": "摘星",
   "KAREN_PICK_STAR.description": "[gold]禁用[/gold]{DisableRelic:diff()}个遗物，然后获得{Energy:energyIcons()}。",
@@ -246,7 +252,7 @@
   "KAREN_STRETCHING.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n打出后进入[gold]约定牌堆[/gold]。",
 
   "KAREN_WAKE_UP.title": "唤醒",
-  "KAREN_WAKE_UP.description": "从抽牌堆{IfUpgraded:show:，弃牌堆，或[gold]约定牌堆[/gold]|}中选择{Cards:diff()}张牌放入你的手牌。",
+  "KAREN_WAKE_UP.description": "从抽牌堆{IfUpgraded:show:，[gold]约定牌堆[/gold]，或弃牌堆|}中选择{Cards:diff()}张牌放入你的手牌。",
 
   "KAREN_WAKE_UP_DRAW_PILE_OPTION.title": "抽牌堆",
   "KAREN_WAKE_UP_DRAW_PILE_OPTION.description": "从抽牌堆中选择2张牌放入你的手牌。",
@@ -258,7 +264,7 @@
   "KAREN_WAKE_UP_PROMISE_PILE_OPTION.description": "从[gold]约定牌堆[/gold]中选择2张牌放入你的手牌。",
 
   "KAREN_NO_HESITATE.title": "不再犹豫",
-  "KAREN_NO_HESITATE.description": "从抽牌堆，弃牌堆，或[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
+  "KAREN_NO_HESITATE.description": "从抽牌堆，手牌，或弃牌堆中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
 
   "KAREN_NO_HESITATE_DRAW_PILE_OPTION.title": "抽牌堆",
   "KAREN_NO_HESITATE_DRAW_PILE_OPTION.description": "从抽牌堆中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
@@ -279,7 +285,5 @@
   "KAREN_VOID.description": "摧毁抽牌堆，然后以[gold]约定牌堆[/gold]代替抽牌堆。",
 
   "KAREN_FORM.title": "觉醒形态",
-  "KAREN_FORM.description": "每个回合开始时，抽满手牌。",
-
-  "KAREN_SELECT_OPTION_PROMPT": "选择一个选项"
+  "KAREN_FORM.description": "每个回合开始时，抽满手牌。"
 }
