@@ -18,6 +18,11 @@ public sealed class KarenGeer : KarenBaseCardModel
 {
     public KarenGeer() : base(3, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
+
+    protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
 

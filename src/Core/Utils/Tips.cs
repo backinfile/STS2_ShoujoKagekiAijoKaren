@@ -22,7 +22,7 @@ public static class Tips
 
     // ==================== gameplay_ui ====================
     /// <summary>约定牌堆查看界面底部标题</summary>
-    public static readonly LocString PromisePileInfo = new("card_selection", "KAREN_PROMISE_PILE_INFO");
+    public static readonly LocString PromisePileInfo = new("gameplay_ui", "KAREN_PROMISE_PILE_INFO");
 
 
     /// <summary>从弃牌堆选择放入约定牌堆的提示</summary>

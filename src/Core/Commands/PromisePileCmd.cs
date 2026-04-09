@@ -371,6 +371,5 @@ public static class PromisePileCmd
     internal static async Task EnterMode(Player player, PromisePileMode infiniteReinforcement)
     {
         await PromisePileManager.EnterMode(player, infiniteReinforcement);
-        await PromisePileManager.UpdatePowerAsync(player);
     }
 }

@@ -25,7 +25,7 @@ public sealed class KarenSideways : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(9m, ValueProp.Move)
+        new BlockVar(6m, ValueProp.Move)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -35,6 +35,6 @@ public sealed class KarenSideways : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(9m);
+        DynamicVars.Block.UpgradeValueBy(6m);
     }
 }

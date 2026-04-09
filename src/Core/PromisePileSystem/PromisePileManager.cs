@@ -1,4 +1,5 @@
 using BaseLib.Utils;
+using Godot;
 using MegaCrit.Sts2.addons.mega_text;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
@@ -80,6 +81,8 @@ public static class PromisePileManager
         {
             power.EnterMode(mode);
         }
+
+        await PromisePileManager.UpdatePowerAsync(player);
     }
 
     /// <summary>

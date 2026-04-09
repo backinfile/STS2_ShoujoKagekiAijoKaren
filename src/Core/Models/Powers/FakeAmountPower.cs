@@ -21,7 +21,13 @@ public abstract class FakeAmountPower : KarenBasePower
     /// <summary>设置自定义显示数值并触发 UI 刷新</summary>
     protected void SetFakeAmount(int value)
     {
-        _fakeAmount = value;
-        InvokeDisplayAmountChanged();
+        if (_fakeAmount != value)
+        {
+            int delta = value - _fakeAmount;
+            _fakeAmount = value;
+            InvokeDisplayAmountChanged();
+            Owner?.InvokePowerModified(this, delta, false);
+        }
+
     }
 }

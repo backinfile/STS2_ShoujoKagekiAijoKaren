@@ -23,7 +23,6 @@ public static class CardPileCmdAutoPlayPatch
         Async.Postfix(ref __result, AfterAutoPlay(player));
     }
 
-    // TODO 修改patch，改为当卡牌被移出抽牌堆时校验
     public static void Prefix(ref Task __result, Player player, int count)
     {
         // 虚空模式，自动打出抽牌堆卡牌，可能会导致约定牌堆变空

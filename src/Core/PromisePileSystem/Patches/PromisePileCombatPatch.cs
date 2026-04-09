@@ -25,29 +25,31 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 internal static class PromisePile_BeforeCombatStart_Patch
 {
 
-    [HarmonyPostfix]
-    private static void Postfix(ref Task __result, CombatState? combatState)
+    [HarmonyPrefix]
+    private static void Prefix(CombatState? combatState)
     {
-        Async.Postfix(ref __result, async () =>
+        _ = OnCombatStart(combatState);
+    }
+
+    private static async Task OnCombatStart(CombatState? combatState)
+    {
+        // 清空所有人的约定牌堆，确保战斗开始时没有残留卡牌
+        if (combatState != null)
         {
-            // 清空所有人的约定牌堆，确保战斗开始时没有残留卡牌
-            if (combatState != null)
+            foreach (var p in combatState.Players)
             {
-                foreach (var p in combatState.Players)
-                {
-                    PromisePileManager.ClearPromisePileInternal(p);
-                }
+                PromisePileManager.ClearPromisePileInternal(p);
             }
-            // 战斗开始时为华恋角色初始化 Power
-            var player = LocalContext.GetMe(combatState);
-            if (player != null)
+        }
+        // 战斗开始时为华恋角色初始化 Power
+        var player = LocalContext.GetMe(combatState);
+        if (player != null)
+        {
+            if (player.Character is Karen)
             {
-                if (player.Character is Karen)
-                {
-                    await PromisePileManager.InitPowerAsync(player);
-                }
+                await PromisePileManager.InitPowerAsync(player);
             }
-        });
+        }
     }
 }
 

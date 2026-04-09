@@ -45,7 +45,7 @@ public sealed class KarenNonon : KarenBaseCardModel
             .WithHitFx(VfxCmd.giantHorizontalSlashPath)
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<KarenChargeStrikeStrengthDownPower>(CombatState.HittableEnemies, -DynamicVars.Strength.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<KarenNononStrengthDownPower>(CombatState.HittableEnemies, DynamicVars.Strength.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

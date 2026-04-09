@@ -12,6 +12,7 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards.strength;
 using System.Collections.Generic;
 using System.Linq;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.globalMove;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.ancient;
 
 namespace ShoujoKagekiAijoKaren.src.Models.CardPools;
 
@@ -119,6 +120,9 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenPizza>(),
             ModelDb.Card<KarenPosition0>(),
             ModelDb.Card<KarenPractice2>(),
+
+            // Ancient 测试卡牌（兼容 ArchaicTooth / DustyTome）
+            ModelDb.Card<KarenAncientStrike>(),
         ];
     }
 

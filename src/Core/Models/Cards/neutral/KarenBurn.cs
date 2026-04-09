@@ -25,7 +25,6 @@ public sealed class KarenBurn : KarenBaseCardModel
     {
         if (Owner.Creature == null) return;
 
-        await PromisePileManager.UpdatePowerAsync(Owner);
         await PromisePileManager.EnterMode(Owner, PromisePileMode.UpgradeOnDraw | PromisePileMode.ExhaustOnPlay);
     }
 
