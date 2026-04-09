@@ -17,6 +17,8 @@ public sealed class KarenNextStage : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 
+    protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 无打出效果

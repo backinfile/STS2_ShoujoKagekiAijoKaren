@@ -18,6 +18,8 @@ public sealed class Karen : CharacterModel
 {
     public const string energyColorName = "karen";
 
+    public static string CHAR_ID = StringHelper.Slugify(nameof(Karen));
+
     public override CharacterGender Gender => CharacterGender.Feminine;
 
     protected override CharacterModel? UnlocksAfterRunAs => null;

@@ -33,6 +33,10 @@ public static class PromisePileCmd
     // ===== Void Mode Detection =====
     private static bool IsVoidMode(Player player) => PromisePileManager.IsVoidMode(player);
 
+    // ==== 无限mode ====
+
+    private static bool IsInfiniteMode(Player player) => PromisePileManager.IsInMode(player, PromisePileMode.InfiniteReinforcement);
+
     /// <summary>
     /// 将指定卡牌放入约定牌堆（物理从当前牌堆移出，加入队列尾部）。
     /// Void 模式下改为放入抽牌堆顶部。
@@ -150,6 +154,13 @@ public static class PromisePileCmd
         if (IsVoidMode(player))
         {
             await CardPileCmdEx.SelectFromDrawPileToHand(ctx, player, count);
+            return;
+        }
+
+        // 无限模式直接改为抽牌，不需要选择
+        if (IsInfiniteMode(player))
+        {
+            await Draw(ctx, player, count);
             return;
         }
 

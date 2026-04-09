@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Relics;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.ancient;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
+using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,7 +27,7 @@ public static class ArchaicToothPatch
         private static void Postfix(ArchaicTooth __instance, Player player, ref CardModel __result)
         {
             if (__result != null) return;
-            if (player?.Character?.Id?.Entry != "KAREN") return;
+            if (player?.Character?.Id?.Entry != Karen.CHAR_ID) return;
 
             var starter = player.Deck.Cards.FirstOrDefault(c => c.Id == ModelDb.Card<KarenStrike>().Id);
             if (starter != null)
