@@ -70,9 +70,9 @@ public static class DisableRelicManager
         // 不能是锁定遗物
         if (relic is KarenLockRelic)
             return false;
-        // 不能是BOSS遗物
-        //if (relic.Rarity == RelicRarity.Ancient)
-        //    return false;
+        // 不能是先古遗物
+        if (relic.Rarity == RelicRarity.Ancient)
+            return false;
         // 不能在白名单中
         if (IsInWhiteList(relic))
             return false;

@@ -3,124 +3,90 @@
   "KAREN_STRIKE.description": "Deal {Damage:diff()} damage.",
   "KAREN_DEFEND.title": "Defend",
   "KAREN_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
-
   "KAREN_SHINE_KEYWORD.title": "Shine",
   "KAREN_SHINE_KEYWORD.description": "Each time this card is played, its [gold]Shine[/gold] decreases by 1. When it reaches 0, the card is permanently removed from your deck.",
-
   "KAREN_SHINE_STRIKE.title": "Shine Strike",
   "KAREN_SHINE_STRIKE.description": "Deal {Damage:diff()} damage.",
-
   "KAREN_SHINE_DEFEND.title": "Shine Defend",
   "KAREN_SHINE_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
-
   "KAREN_PROMISE_DEFEND.title": "Promise Defense",
   "KAREN_PROMISE_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold]. Put {Cards:diff()} card(s) from your hand into the [gold]Promise Pile[/gold].",
-
   "KAREN_PROMISE_DRAW.title": "Fulfill Promise",
   "KAREN_PROMISE_DRAW.description": "Deal {Damage:diff()} damage. Take {Cards:diff()} card(s) from the [gold]Promise Pile[/gold] into your hand.",
-
   "KAREN_PLACEHOLDER_POWER.title": "Placeholder Power",
   "KAREN_PLACEHOLDER_POWER.description": "[gray]A placeholder power card. No effect yet.[/gray]",
-
   "KAREN_PLACEHOLDER_UNCOMMON_SKILL.title": "Placeholder Uncommon Skill",
   "KAREN_PLACEHOLDER_UNCOMMON_SKILL.description": "[gray]A placeholder uncommon skill card. No effect yet.[/gray]",
-
   "KAREN_PLACEHOLDER_RARE_SKILL.title": "Placeholder Rare Skill",
   "KAREN_PLACEHOLDER_RARE_SKILL.description": "[gray]A placeholder rare skill card. No effect yet.[/gray]",
-
   "KAREN_CHARGE_STRIKE.title": "Charge Strike",
   "KAREN_CHARGE_STRIKE.description": "Deal {Damage:diff()} damage. Apply -{StrengthPower:diff()} [gold]Strength[/gold] to the target.",
-
   "KAREN_DEBUT.title": "Debut",
   "KAREN_DEBUT.description": "Deal {Damage:diff()} damage {Repeat:diff()} times to ALL enemies.",
-
   "KAREN_SWORD_UP.title": "Sword Up",
   "KAREN_SWORD_UP.description": "Deal {Damage:diff()} damage. Apply {WeakPower:diff()} [gold]Weak[/gold] and {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
-
   "KAREN_SHINE_STRIKE_BARRAGE.title": "Shine Through Me",
   "KAREN_SHINE_STRIKE_BARRAGE.description": "Deal {Damage:diff()} damage {Repeat:diff()} times.",
-
   "KAREN_TO_THE_STAGE.title": "To The Stage",
   "KAREN_TO_THE_STAGE.description": "Gain {Energy:energyIcons()}.{IfUpgraded:show:\nAlso draw 1 card.|}",
-
   "KAREN_POTATO.title": "Potato",
   "KAREN_POTATO.description": "Heal {Heal:diff()} HP.",
-
   "KAREN_DROP_FUEL.title": "Drop Fuel",
   "KAREN_DROP_FUEL.description": "Draw {Cards:diff()} card(s).\nGain {Energy:energyIcons()}.",
-
   "KAREN_READY.title": "Ready",
   "KAREN_READY.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold]. Draw 1 card.",
-
   "KAREN_NONON.title": "NONNON",
   "KAREN_NONON.description": "Deal {Damage:diff()} damage to ALL enemies.\nApply -{StrengthPower:diff()} [gold]Strength[/gold] to ALL enemies this turn.",
-
   "KAREN_DRINK_WATER.title": "Hydration",
   "KAREN_DRINK_WATER.description": "Prevent the next time you would lose HP.",
-
   "KAREN_PRACTICE.title": "Practice",
   "KAREN_PRACTICE.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhen [gold]Shine[/gold] depletes: Heal {Heal:diff()} HP.",
-
   "KAREN_SUNLIGHT.title": "Sunlight",
   "KAREN_SUNLIGHT.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] depletes, you may add this card to your draw pile.",
-
   "KAREN_CONTINUE02.title": "Endless Stage",
   "KAREN_CONTINUE02.description": "Deal {Damage:diff()} damage.\n[blue]Can be upgraded repeatedly.[/blue]",
-
   "KAREN_CARRYING_GUILT.title": "Carrying Our Guilt",
   "KAREN_CARRYING_GUILT.description": "Deal {Damage:diff()} damage, plus {ExtraDamage:diff()} for each card in your [gold]Shine Pile[/gold].",
   "KAREN_CARRYING_GUILT.tip.disposedCount": "Unique Shine cards depleted:",
-
   "KAREN_STAR_FRIEND.title": "Star Friend",
   "KAREN_STAR_FRIEND.description": "Deal {Damage:diff()} damage. If this kills the target, gain a random [gold]Shine[/gold] card.",
-
   "KAREN_LETTER_CARD.title": "Letter",
   "KAREN_LETTER_CARD.description": "Whenever you put a card into the [gold]Promise Pile[/gold], gain {Block:diff()} [gold]Block[/gold].",
-
   "KAREN_STARLIGHT_CARD.title": "Starlight",
   "KAREN_STARLIGHT_CARD.description": "Whenever you play a [gold]Shine[/gold] card, play it {Repeat:diff()} more time(s), then [gold]deplete[/gold] its [gold]Shine[/gold].",
-
   "KAREN_STARLIGHT03_CARD.title": "Starlight",
   "KAREN_STARLIGHT03_CARD.description": "Gain a [gold]Shine Card Reward[/gold].",
-
   "KAREN_FALL.title": "Fallen",
   "KAREN_FALL.description": "Gain {Block:diff()} [gold]Block[/gold]. Put 1 card from your hand into the [gold]Promise Pile[/gold].",
-
   "KAREN_SLEEPY.title": "Sleepy",
   "KAREN_SLEEPY.description": "Unplayable. [gold]Ethereal[/gold]. Cannot be removed from your deck.",
-
   "KAREN_STAGE_REASON.title": "Stage Reason",
   "KAREN_STAGE_REASON.description": "[gold]Exhaust[/gold].",
-
   "KAREN_CONTINUE.title": "Continue",
   "KAREN_CONTINUE.description": "Deal {Damage:diff()} damage.",
-
   "KAREN_TOWER_OF_PROMISE.title": "Tower of Promise",
   "KAREN_TOWER_OF_PROMISE.description": "[gold]Retain[/gold].\nDraw from the [gold]Promise Pile[/gold] until your hand is full.\n[gold]Exhaust[/gold].",
-
   "KAREN_MUST.title": "At Tokyo Tower",
   "KAREN_MUST.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd 1 [gold]Tower of Promise[/gold] to your hand.\n[gold]Exhaust[/gold].",
-
   "KAREN_OUR_PROMISE.title": "Our Promise",
   "KAREN_OUR_PROMISE.description": "Draw {MagicNumber:diff()} cards.\nPut 2 cards from your hand into the [gold]Promise Pile[/gold].",
-
   "KAREN_WHOS_PROMISE.title": "Pas de Deux",
   "KAREN_WHOS_PROMISE.description": "Deal {Damage:diff()} damage.\nDraw {MagicNumber:diff()} card(s) from the [gold]Promise Pile[/gold].\nPut {MagicNumber:diff()} card(s) from your hand into the [gold]Promise Pile[/gold].",
-
   "KAREN_BACK_TO_BACK.title": "Back to Back",
   "KAREN_BACK_TO_BACK.description": "Deal damage equal to {MagicNumber:diff()} times the number of cards in your [gold]Promise Pile[/gold] (max 10).",
-
   "KAREN_ON_STAGE.title": "On Stage",
   "KAREN_ON_STAGE.description": "Draw 4 cards from the [gold]Promise Pile[/gold].\nGain {Energy:energyIcons()}{Energy:energyIcons()}.\n[gold]Exhaust[/gold].",
-
   "KAREN_EXCHANGE_FATE.title": "Exchange Fate",
   "KAREN_EXCHANGE_FATE.description": "Exchange your hand with the cards in your [gold]Promise Pile[/gold].\n[gold]Exhaust[/gold].",
-
   "KAREN_AQUARIUM.title": "Aquarium",
   "KAREN_AQUARIUM.description": "At the start of each turn, draw 1 card, then put 1 card from your hand into the [gold]Promise Pile[/gold].",
-
   "KAREN_HOLY_STAR.title": "Holy Star",
   "KAREN_HOLY_STAR.description": "Deal {Damage:diff()} damage.\nWhen put into the [gold]Promise Pile[/gold], reduce its cost by 1 for this combat.",
-
-  "KAREN_SELECT_OPTION_PROMPT": "Choose an option"
+  "KAREN_SELECT_OPTION_PROMPT": "Choose an option",
+  "KAREN_BANANA_CAKE.title": "Banana Cake",
+  "KAREN_BANANA_CAKE.description": "Gain a [gold]Flex Potion[/gold].",
+  "KAREN_STRETCHING.title": "Stretching",
+  "KAREN_STRETCHING.description": "Gain {Block:diff()} [gold]Block[/gold].\nPut this card into the [gold]Promise Pile[/gold].",
+  "KAREN_RAPID.title": "Rapid Descent",
+  "KAREN_RAPID.description": "Select {Cards:diff()} card(s) from the [gold]Promise Pile[/gold].\nDiscard the rest."
 }

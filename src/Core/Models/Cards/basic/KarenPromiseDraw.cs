@@ -19,7 +19,7 @@ public sealed class KarenPromiseDraw : KarenBaseCardModel
 {
     protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { KarenCustomEnum.PromisePileRelated };
 
-    public KarenPromiseDraw() : base(0, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy) { }
+    public KarenPromiseDraw() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

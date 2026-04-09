@@ -11,7 +11,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands;
 public static class DisableRelicCmd
 {
     /// <summary>
-    /// 禁用指定数量的遗物
+    /// 从右向左禁用最右侧的指定数量非先古遗物
     /// </summary>
     /// <param name="player">玩家</param>
     /// <param name="count">要禁用的遗物数量</param>

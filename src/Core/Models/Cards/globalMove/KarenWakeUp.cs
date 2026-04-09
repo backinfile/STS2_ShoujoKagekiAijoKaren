@@ -19,7 +19,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenWakeUp : KarenBaseCardModel
 {
-    public KarenWakeUp() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+    public KarenWakeUp() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 

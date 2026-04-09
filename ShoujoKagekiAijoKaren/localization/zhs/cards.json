@@ -242,8 +242,8 @@
   "KAREN_SIDEWAYS.title": "侧身",
   "KAREN_SIDEWAYS.description": "获得{Block:diff()}点[gold]格挡[/gold]。",
 
-  "KAREN_STRECHING.title": "拉伸",
-  "KAREN_STRECHING.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n打出后进入[gold]约定牌堆[/gold]。",
+  "KAREN_STRETCHING.title": "拉伸",
+  "KAREN_STRETCHING.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n打出后进入[gold]约定牌堆[/gold]。",
 
   "KAREN_WAKE_UP.title": "唤醒",
   "KAREN_WAKE_UP.description": "从抽牌堆{IfUpgraded:show:，弃牌堆，或[gold]约定牌堆[/gold]|}中选择{Cards:diff()}张牌放入你的手牌。",

@@ -14,9 +14,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 /// <summary>
 /// 拉伸 - 2费技能，获得14格挡，打出后进入约定牌堆
 /// </summary>
-public sealed class KarenStreching : KarenBaseCardModel
+public sealed class KarenStretching : KarenBaseCardModel
 {
-    public KarenStreching() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+    public KarenStretching() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 
