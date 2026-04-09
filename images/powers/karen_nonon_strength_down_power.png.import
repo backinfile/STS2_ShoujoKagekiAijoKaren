@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ciktti14b11ec"
-path="res://.godot/imported/karen_gain_relic_power.png-57f166cd54dad55798f52ed2fdea6297.ctex"
+uid="uid://dnrjy408my5c2"
+path="res://.godot/imported/karen_nonon_strength_down_power.png-f4cc814b0bb6eee7a70601a6ec07b1e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/powers/karen_gain_relic_power.png"
-dest_files=["res://.godot/imported/karen_gain_relic_power.png-57f166cd54dad55798f52ed2fdea6297.ctex"]
+source_file="res://images/powers/karen_nonon_strength_down_power.png"
+dest_files=["res://.godot/imported/karen_nonon_strength_down_power.png-f4cc814b0bb6eee7a70601a6ec07b1e5.ctex"]
 
 [params]
 

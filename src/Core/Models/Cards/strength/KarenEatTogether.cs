@@ -34,7 +34,7 @@ public sealed class KarenEatTogether : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 获得临时力量（本回合+3，下回合-3）
-        await PowerCmd.Apply<KarenTempStrengthPower>(
+        await PowerCmd.Apply<KarenEatTogetherTempStrengthPower>(
             Owner.Creature,
             DynamicVars.Strength.BaseValue,
             Owner.Creature,

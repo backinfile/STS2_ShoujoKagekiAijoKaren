@@ -26,7 +26,7 @@ public sealed class KarenBananaMuffin : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KarenTempStrengthPower>(
+        await PowerCmd.Apply<KarenBananaMuffinTempStrengthPower>(
             Owner.Creature,
             DynamicVars.Strength.BaseValue,
             Owner.Creature,

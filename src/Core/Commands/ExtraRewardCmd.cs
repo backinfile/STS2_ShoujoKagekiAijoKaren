@@ -42,9 +42,21 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
             }
         }
 
+        /// <summary>
+        /// 发放遗物奖励
+        /// </summary>
         public static async Task AddRelicReward(Player player)
         {
-            // TODO
+            if (player.RunState.CurrentRoom is CombatRoom combatRoom)
+            {
+                combatRoom.AddExtraReward(player, new RelicReward(player));
+                MainFile.Logger.Info($"Added relic reward for player: {player.NetId}");
+                await PowerCmd.Apply<KarenPassionPower>(player.Creature, 1m, player.Creature, null);
+            }
+            else
+            {
+                await RewardsCmd.OfferCustom(player, [new RelicReward(player)]);
+            }
         }
     }
 }

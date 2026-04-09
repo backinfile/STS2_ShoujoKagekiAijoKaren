@@ -12,17 +12,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers.tmpStrength;
 /// <summary>
 /// Banana松饼的临时力量效果（本回合）
 /// </summary>
-public class KarenTempStrengthPower : TemporaryStrengthPower
+public class KarenEatTogetherTempStrengthPower : TemporaryStrengthPower
 {
-    public override AbstractModel OriginModel => ModelDb.Card<KarenSandwitch>();
-
-    protected override bool IsPositive => true;
-
-
-
-    // ============  disable extra hover =============
-
-    public override LocString Title => Tips.TempStrengthPowerTitle;
-
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [];
+    public override AbstractModel OriginModel => ModelDb.Card<KarenEatTogether>();
 }

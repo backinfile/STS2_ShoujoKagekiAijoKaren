@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnjkdby8f22ke"
-path="res://.godot/imported/karen_void_power.png-13cdd2e7df24899e34e4ab972c99d29d.ctex"
+uid="uid://did3a7npd27ms"
+path="res://.godot/imported/karen_charge_strike_strength_down_power.png-6fdadccdd16fa3ccd8c8a81e3bcfb3dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/powers/karen_void_power.png"
-dest_files=["res://.godot/imported/karen_void_power.png-13cdd2e7df24899e34e4ab972c99d29d.ctex"]
+source_file="res://images/powers/karen_charge_strike_strength_down_power.png"
+dest_files=["res://.godot/imported/karen_charge_strike_strength_down_power.png-6fdadccdd16fa3ccd8c8a81e3bcfb3dc.ctex"]
 
 [params]
 

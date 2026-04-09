@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cc5im7a2w05gn"
-path="res://.godot/imported/karen_tragedy_power.png-a406350dfeb76e0c909ab2aa8d6c3a98.ctex"
+uid="uid://bmvlvl0fgutuw"
+path="res://.godot/imported/karen_eat_together_temp_strength_power.png-250516ac3921bc8c74263809130c8d30.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/powers/karen_tragedy_power.png"
-dest_files=["res://.godot/imported/karen_tragedy_power.png-a406350dfeb76e0c909ab2aa8d6c3a98.ctex"]
+source_file="res://images/powers/karen_eat_together_temp_strength_power.png"
+dest_files=["res://.godot/imported/karen_eat_together_temp_strength_power.png-250516ac3921bc8c74263809130c8d30.ctex"]
 
 [params]
 

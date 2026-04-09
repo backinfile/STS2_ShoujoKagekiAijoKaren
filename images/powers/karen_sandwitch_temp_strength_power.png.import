@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn826abes1oq0"
-path="res://.godot/imported/karen_bag_power.png-201f339be849764d17744535f283b10a.ctex"
+uid="uid://608bpfvn7382"
+path="res://.godot/imported/karen_sandwitch_temp_strength_power.png-a075af11c65237f9b4dd6b9e5919dc9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/powers/karen_bag_power.png"
-dest_files=["res://.godot/imported/karen_bag_power.png-201f339be849764d17744535f283b10a.ctex"]
+source_file="res://images/powers/karen_sandwitch_temp_strength_power.png"
+dest_files=["res://.godot/imported/karen_sandwitch_temp_strength_power.png-a075af11c65237f9b4dd6b9e5919dc9d.ctex"]
 
 [params]
 

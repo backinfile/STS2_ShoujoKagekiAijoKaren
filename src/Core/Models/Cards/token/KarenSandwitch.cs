@@ -30,7 +30,7 @@ public sealed class KarenSandwitch : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KarenTempStrengthPower>(
+        await PowerCmd.Apply<KarenSandwitchTempStrengthPower>(
             Owner.Creature,
             DynamicVars[nameof(StrengthPower)].BaseValue,
             Owner.Creature,

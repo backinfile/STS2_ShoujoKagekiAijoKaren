@@ -10,6 +10,10 @@
   "KAREN_PROMISE_PILE_POWER.mode.upgrade": "抽出的卡牌自动升级",
   "KAREN_PROMISE_PILE_POWER.mode.exhaust": "抽出的卡牌打出时消耗",
 
+  "KAREN_PASSION_POWER.title": "激情",
+  "KAREN_PASSION_POWER.description": "战斗结束后，额外获得1个随机遗物。",
+  "KAREN_PASSION_POWER.smartDescription": "战斗结束后，额外获得{Amount}个随机遗物。",
+
   "KAREN_SHINE_CARD_REWARD_POWER.title": "闪耀牌奖励",
   "KAREN_SHINE_CARD_REWARD_POWER.description": "战斗结束后，额外获得1张闪耀牌奖励。",
   "KAREN_SHINE_CARD_REWARD_POWER.smartDescription": "战斗结束后，额外获得{Amount}张闪耀牌奖励。",
@@ -30,10 +34,6 @@
   "KAREN_AQUARIUM_POWER.description": "回合开始时，抽1张牌，然后将1张[gold]手牌[/gold]放入[gold]约定牌堆[/gold]。",
   "KAREN_AQUARIUM_POWER.smartDescription": "回合开始时，抽{Amount}张牌，然后将{Amount}张手牌放入[gold]约定牌堆[/gold]。",
 
-  "KAREN_TEMP_STRENGTH_POWER.title": "临时力量",
-  "KAREN_TEMP_STRENGTH_POWER.description": "临时力量会在本回合增加攻击牌造成的伤害。",
-  "KAREN_TEMP_STRENGTH_POWER.smartDescription": "在本回合{Amount:cond:<0?减少|增加}攻击牌造成的伤害值[blue]{Amount:abs()}[/blue]点。",
-
   "KAREN_RETAIN_TMP_STRENGTH_POWER.title": "保留力量",
   "KAREN_RETAIN_TMP_STRENGTH_POWER.description": "延长临时力量存在的回合。",
   "KAREN_RETAIN_TMP_STRENGTH_POWER.smartDescription": "延长临时力量{Amount}回合。",
@@ -52,5 +52,9 @@
 
   "KAREN_STAGE_IS_WAITING_POWER.title": "舞台正在等待着",
   "KAREN_STAGE_IS_WAITING_POWER.description": "[gold]约定牌堆[/gold]被清空时，获得{energyPrefix:energyIcons(1)}。",
-  "KAREN_STAGE_IS_WAITING_POWER.smartDescription": "[gold]约定牌堆[/gold]被清空时，获得{Amount:energyIcons()}。"
+  "KAREN_STAGE_IS_WAITING_POWER.smartDescription": "[gold]约定牌堆[/gold]被清空时，获得{Amount:energyIcons()}。",
+
+  "KAREN_BANANA_LUNCH_POWER.title": "Banana午餐",
+  "KAREN_BANANA_LUNCH_POWER.description": "回合结束时，增加1张[gold]三明治[/gold]到[gold]约定牌堆[/gold]。",
+  "KAREN_BANANA_LUNCH_POWER.smartDescription": "回合结束时，增加{Amount}张[gold]三明治[/gold]到[gold]约定牌堆[/gold]。"
 }
