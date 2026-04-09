@@ -14,7 +14,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 /// </summary>
 public class KarenFinancierPower : PowerModel
 {
-    private int _turnCounter = 0;
+    private int _turnCounter = 1;
 
     public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerType Type => PowerType.Buff;

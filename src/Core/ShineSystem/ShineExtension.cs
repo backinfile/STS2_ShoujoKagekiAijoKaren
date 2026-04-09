@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System.Linq;
 
 namespace ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
@@ -136,7 +137,7 @@ public static class ShineExtension
         if (max > 0 && current < max)
         {
             _shineCurrent.Set(card, max);
-            MainFile.Logger.Info($"RestoreShineToMax called for '{card.Title}'. Max: {max}, Current: {current} → New Current: {_shineCurrent.Get(card)}");
+            MainFile.Logger.Info($"RestoreShineToMax called for '{card.Title}' by {DebugUtils.GetCallerInfo(2)}. Max: {max}, Current: {current} → New Current: {_shineCurrent.Get(card)}");
         }
 
     }

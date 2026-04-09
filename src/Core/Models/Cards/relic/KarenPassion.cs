@@ -15,7 +15,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 /// </summary>
 public sealed class KarenPassion : KarenBaseCardModel
 {
-    public KarenPassion() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public KarenPassion() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         this.AddShineMax(1);
     }

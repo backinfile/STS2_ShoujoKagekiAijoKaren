@@ -56,5 +56,9 @@
 
   "KAREN_BANANA_LUNCH_POWER.title": "Banana午餐",
   "KAREN_BANANA_LUNCH_POWER.description": "回合结束时，增加1张[gold]三明治[/gold]到[gold]约定牌堆[/gold]。",
-  "KAREN_BANANA_LUNCH_POWER.smartDescription": "回合结束时，增加{Amount}张[gold]三明治[/gold]到[gold]约定牌堆[/gold]。"
+  "KAREN_BANANA_LUNCH_POWER.smartDescription": "回合结束时，增加{Amount}张[gold]三明治[/gold]到[gold]约定牌堆[/gold]。",
+
+  "KAREN_FINANCIER_POWER.title": "Banana费南雪",
+  "KAREN_FINANCIER_POWER.description": "每两回合[gold]保留力量[/gold]1回合。",
+  "KAREN_FINANCIER_POWER.smartDescription": "每两回合[gold]保留力量[/gold]{Amount}回合。"
 }

@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Hooks;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
@@ -19,16 +20,21 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 /// - 战斗开始时清空（安全保障）
 /// - 战斗结束时清空（将滞留卡牌从 CombatState 注销）
 /// - 每回合结束时打印约定牌堆内容
+/// 
+/// 触发Init要尽早，至少要快于遗物的AfterRoomEntered
 /// </summary>
 
-[HarmonyPatch(typeof(Hook), nameof(Hook.BeforeCombatStart))]
+[HarmonyPatch(typeof(Hook), nameof(Hook.AfterRoomEntered))]
 internal static class PromisePile_BeforeCombatStart_Patch
 {
 
     [HarmonyPrefix]
-    private static void Prefix(CombatState? combatState)
+    private static void Prefix(AbstractRoom room)
     {
-        _ = OnCombatStart(combatState);
+        if (room is CombatRoom combatRoom)
+        {
+            _ = OnCombatStart(combatRoom.CombatState);
+        }
     }
 
     private static async Task OnCombatStart(CombatState? combatState)
