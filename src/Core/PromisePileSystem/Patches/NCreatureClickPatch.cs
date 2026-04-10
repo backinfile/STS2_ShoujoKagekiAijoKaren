@@ -1,12 +1,13 @@
-using HarmonyLib;
 using Godot;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Screens;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.Screens.Capstones;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using static Godot.Control;
@@ -58,8 +59,13 @@ public static class NCreatureClickPatch
         // 唯一条件：玩家身上有约定牌堆能力
         if (!player.Creature.HasPower<KarenPromisePilePower>()) return;
 
-        // Void 模式：不打开界面（无反馈）
-        if (PromisePileManager.IsVoidMode(player)) return;
+        // Void 模式：打开抽牌堆界面
+        if (PromisePileManager.IsVoidMode(player))
+        {
+            // 获取抽牌堆快照（不会影响真实抽牌顺序）
+            NCardPileScreen.ShowScreen(PileType.Draw.GetPile(player), []);
+            return;
+        }
 
         // 有 Power 且非 Void 模式时打开/关闭界面
         if (NCapstoneContainer.Instance?.CurrentCapstoneScreen is NCardPileScreen)

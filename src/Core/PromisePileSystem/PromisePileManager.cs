@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
@@ -35,6 +36,9 @@ public static class PromisePileManager
 {
     private static readonly SpireField<PlayerCombatState, CardPile> _promisePile
         = new(() => new CardPile(KarenCustomEnum.PromisePile));
+
+
+    private static readonly Texture2D DrawPileIconInVoidMode = GD.Load<Texture2D>(ImageHelper.GetImagePath("ui/combat/karen_draw_pile_void.png"));
 
     /// <summary>获取玩家的约定牌堆链表</summary>
     public static CardPile GetPromisePile(Player player)
@@ -85,6 +89,12 @@ public static class PromisePileManager
         }
 
         await PromisePileManager.UpdatePowerAsync(player);
+
+        // 进入Void模式，修改抽牌堆图标
+        if ((mode & PromisePileMode.Void) == PromisePileMode.Void)
+        {
+            DrawPileIconCmd.Override(DrawPileIconInVoidMode);
+        }
     }
 
     /// <summary>
