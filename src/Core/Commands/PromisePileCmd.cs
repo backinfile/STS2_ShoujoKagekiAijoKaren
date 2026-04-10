@@ -109,8 +109,8 @@ public static class PromisePileCmd
         if (IsVoidMode(player))
         {
             // Void 模式：从抽牌堆抽1张，并触发 Power 扳机
-            var card = await CardPileCmd.Draw(choiceContext, player);
-            return card;
+            MainFile.Logger.Info("Player is in Void mode, drawing from draw pile instead of promise pile.");
+            return await CardPileCmd.Draw(choiceContext, player);
         }
 
         return await PromisePileManager.DrawFromPromisePileAsync(choiceContext, player);
@@ -124,7 +124,7 @@ public static class PromisePileCmd
     {
         for (int i = 0; i < count; i++)
         {
-            if (await PromisePileManager.DrawFromPromisePileAsync(choiceContext, player) == null)
+            if (await Draw(choiceContext, player) == null)
                 break;
         }
     }
@@ -241,6 +241,23 @@ public static class PromisePileCmd
     }
 
     /// <summary>
+    /// 将约定牌堆中所有牌移动到抽牌堆。
+    /// Void 模式下无效果。
+    /// </summary>
+    public static async Task MoveAllToDrawPile(Player player, CardPilePosition position = CardPilePosition.Bottom)
+    {
+        if (IsVoidMode(player))
+        {
+            return;
+        }
+
+        var pile = KarenCustomEnum.PromisePile.GetPile(player);
+        var cards = pile.Cards.ToList();
+        await CardPileCmd.Add(cards, PileType.Draw, position, null, false);
+        await PromisePileManager.UpdatePowerAsync(player);
+    }
+
+    /// <summary>
     /// 将约定牌堆中所有牌弃置到弃牌堆（FIFO 顺序）。
     /// Void 模式下改为弃置所有抽牌堆。
     /// </summary>
@@ -256,12 +273,22 @@ public static class PromisePileCmd
 
         if (IsVoidMode(player))
         {
-            // Void 模式：弃置所有抽牌堆
-            await DiscardAllDrawPile(ctx, player);
+            // Void 模式：弃置抽牌堆所有牌
+            await CardCmd.Discard(ctx, PileType.Draw.GetPile(player).Cards.ToList());
             return;
         }
 
         await PromisePileManager.DiscardAllAsync(ctx, player);
+    }
+
+    /// <summary>
+    /// 将约定牌堆中指定的若干张牌弃置到弃牌堆。
+    /// Void 模式下改为弃置抽牌堆中对应的牌。
+    /// </summary>
+    public static async Task DiscardCards(PlayerChoiceContext ctx, Player player, List<CardModel> cards)
+    {
+        if (cards == null || cards.Count == 0) return;
+        await CardCmd.Discard(ctx, cards.ToList());
     }
 
     // ===== Void Mode Helper Methods =====
@@ -299,20 +326,6 @@ public static class PromisePileCmd
         }
     }
 
-    /// <summary>
-    /// Void 模式专用：弃置所有抽牌堆
-    /// </summary>
-    private static async Task DiscardAllDrawPile(PlayerChoiceContext ctx, Player player)
-    {
-        var drawPile = PileType.Draw.GetPile(player);
-        var cards = drawPile.Cards.ToList();
-
-        // TODO 找找有没有一下子全弃
-        foreach (var card in cards)
-        {
-            await CardCmd.Discard(ctx, card);
-        }
-    }
 
     /// <summary>
     /// 交换手牌和约定牌堆的所有卡牌。

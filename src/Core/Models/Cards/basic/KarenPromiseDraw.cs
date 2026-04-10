@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
 
 /// <summary>
-/// 约定兑现 - 0费攻击，造成3点伤害，从约定堆取2(升4)张牌，无Shine
+/// 不在遥不可及 - 0费攻击，造成3点伤害，从约定堆取2(升4)张牌，无Shine
 /// </summary>
 public sealed class KarenPromiseDraw : KarenBaseCardModel
 {

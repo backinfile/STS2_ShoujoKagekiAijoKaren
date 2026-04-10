@@ -26,21 +26,23 @@ public sealed class KarenVoid : KarenBaseCardModel
         var combatState = Owner.PlayerCombatState;
         if (combatState == null) return;
 
-        // 消耗抽牌堆
-        // TODO 一瞬间消耗所有卡牌 去看看本体卡牌的实现
-        var drawPileCards = combatState.DrawPile.Cards.ToList();
-        foreach (var card in drawPileCards)
+        if (PromisePileManager.IsInMode(Owner, PromisePileMode.Void))
         {
-            await CardCmd.Exhaust(choiceContext, card);
+            MainFile.Logger.Info($"KarenVoid: Already in Void mode. No action taken.");
+            return;
         }
+
+        // 消耗抽牌堆
+        // 一瞬间消耗所有卡牌 去看看本体卡牌的实现
+        MainFile.Logger.Info($"KarenVoid: Exhausting all cards in draw pile. Count: {combatState.DrawPile.Cards.Count}");
+        var drawPileCards = combatState.DrawPile.Cards.ToList();
+        await Task.WhenAll(drawPileCards.Select(card => CardCmd.Exhaust(choiceContext, card)));
+
+        // 取出约定牌堆中的所有牌 然后重新放入抽牌堆
+        await CardPileCmd.Add(PromisePileManager.GetPromisePile(Owner).Cards.ToList(), PileType.Draw);
+
         // 切换模式
         await PromisePileCmd.EnterMode(Owner, PromisePileMode.Void);
-
-        // 取出约定牌堆中的所有牌 然后重新放入约定牌堆
-        var pile = PromisePileManager.GetPromisePile(Owner);
-        var pileCards = pile.Cards.ToList();
-        pile.Clear();
-        await PromisePileCmd.AddCardsFromPile(Owner, pileCards, KarenCustomEnum.PromisePile);
     }
 
     protected override void OnUpgrade()

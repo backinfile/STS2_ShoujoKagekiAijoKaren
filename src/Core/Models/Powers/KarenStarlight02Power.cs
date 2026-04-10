@@ -23,8 +23,7 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
 /// <summary>
-/// 星光02（第三幕）- 获得闪耀牌奖励
-/// 参考星星串起了我们的友谊（KarenStarFriend）的实现方式
+/// 星光02
 /// </summary>
 public sealed class KarenStarlight02Power : PowerModel
 {
@@ -50,18 +49,17 @@ public sealed class KarenStarlight02Power : PowerModel
         return playCount + Amount; // 额外打出Amount次
     }
 
+    ///// <summary>
+    ///// 暂时没找到好扳机用，手动hack一下
+    ///// </summary>
+    //public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(CardModel card, bool isAutoPlay, ResourceInfo resources, PileType pileType, CardPilePosition position)
+    //{
+    //    if (card.Owner.Creature == base.Owner && card.IsShineCard())
+    //    {
+    //        return (KarenCustomEnum.ShineDepletePile, CardPilePosition.Bottom);
+    //    }
 
-    /// <summary>
-    /// 暂时没找到好扳机用，手动hack一下
-    /// </summary>
-    public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(CardModel card, bool isAutoPlay, ResourceInfo resources, PileType pileType, CardPilePosition position)
-    {
-        if (card.Owner.Creature == base.Owner && card.IsShineCard())
-        {
-            return (KarenCustomEnum.ShineDepletePile, CardPilePosition.Bottom);
-        }
-
-        return (pileType, position);
-    }
+    //    return (pileType, position);
+    //}
 
 }

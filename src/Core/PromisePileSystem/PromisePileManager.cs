@@ -73,6 +73,8 @@ public static class PromisePileManager
     {
         if (player?.Creature == null) return;
 
+        MainFile.Logger.Info($"[PromisePile] Player {player.Character.Title} entering mode {mode}");
+
         var creature = player.Creature;
         if (!creature.HasPower<KarenPromisePilePower>())
             await PowerCmd.Apply<KarenPromisePilePower>(creature, 1, creature, null);

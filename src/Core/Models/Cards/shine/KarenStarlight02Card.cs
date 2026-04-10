@@ -28,7 +28,6 @@ public sealed class KarenStarlight02Card() : KarenBaseCardModel(2, CardType.Powe
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // TODO 特效
         await PowerCmd.Apply<KarenStarlight02Power>(
             Owner.Creature,
             DynamicVars[nameof(KarenStarlight02Power)].BaseValue,
