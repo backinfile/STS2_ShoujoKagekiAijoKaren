@@ -77,6 +77,7 @@ public static class ShinePileManager
         var card = original.DeckVersion ?? original;
         if (card?.Owner == null) return;
 
+
         var pile = GetShinePile(card.Owner);
 
         // 避免重复添加
@@ -88,8 +89,12 @@ public static class ShinePileManager
 
         // 添加到闪耀牌堆
         pile.Add(card.CloneSafeForDeck());
+        // 重置数据
         card.RestoreShineToMax();
-        MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (shineMax={card.GetShineMaxValue()})");
+        card.SetEnterShinePileAfterPlay(false);
+        // 非闪耀牌，就去掉他的闪耀值
+        if (card.GetShineMaxValue() < 0) card.SetShineCurrent(-1);
+        MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (shineMax={card.GetShineMaxValue()} cur={card.GetShineValue()})");
 
         // 记录本局游戏中已耗尽的闪耀牌（用于 CarryingGuilt 等效果）
         UpdateShineCardDisposedCount(card.Owner);

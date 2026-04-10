@@ -53,8 +53,8 @@ public static class PromisePileCmd
 
         if (IsVoidMode(player))
         {
-            // Void 模式：放入抽牌堆顶部
-            await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
+            // Void 模式：放入抽牌堆底部
+            await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Bottom);
             return;
         }
 
@@ -62,23 +62,20 @@ public static class PromisePileCmd
     }
 
     /// <summary>
-    /// 将一些放入约定牌堆
-    /// 这个方法允许将卡牌先从oldPile中移出(即允许悬空的card)
-    /// TODO 测试
+    /// 将一些牌放入约定牌堆
     /// </summary>
-    public static async Task AddCardsFromPile(Player player, List<CardModel> cards, PileType oldPile)
+    public static async Task Add(Player player, List<CardModel> cards)
     {
         if (IsVoidMode(player))
         {
-            // Void 模式：放入抽牌堆顶部
-            // TODO 看看node对不对
-            await CardPileCmd.Add(cards, PileType.Draw, CardPilePosition.Top, null, false);
+            // Void 模式
+            await CardPileCmd.Add(cards, PileType.Draw, CardPilePosition.Bottom, null, false);
             return;
         }
 
         foreach (var card in cards)
         {
-            await PromisePileManager.AddToPromisePile(player, card, oldPile);
+            await PromisePileManager.AddToPromisePile(player, card);
         }
     }
 
@@ -294,7 +291,7 @@ public static class PromisePileCmd
     // ===== Void Mode Helper Methods =====
 
     /// <summary>
-    /// Void 模式专用：从指定牌堆选牌放入抽牌堆顶部
+    /// Void 模式专用：从指定牌堆选牌放入抽牌堆
     /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择
     /// </summary>
     private static async Task AddFromPileToDrawPile(
@@ -318,12 +315,7 @@ public static class PromisePileCmd
             selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
         }
         if (selected == null) return;
-
-        foreach (var card in selected)
-        {
-            // TODO 有没有一次移动所有cards的接口
-            await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top, null, false);
-        }
+        await CardPileCmd.Add(selected, PileType.Draw, CardPilePosition.Bottom, null, false);
     }
 
 
@@ -334,6 +326,14 @@ public static class PromisePileCmd
     /// </summary>
     public static async Task SwitchHand(PlayerChoiceContext ctx, Player player)
     {
+        // 先记录约定牌堆中所有卡牌
+        var promiseCards = IsVoidMode(player)
+            ? PileType.Draw.GetPile(player).Cards.ToList()
+            : KarenCustomEnum.PromisePile.GetPile(player).Cards.ToList();
+
+        // 将所有手牌放入约定牌堆
+        await Add(player, promiseCards);
+
         var handPile = PileType.Hand.GetPile(player);
         var handCards = handPile.Cards.ToList();
 
@@ -349,7 +349,7 @@ public static class PromisePileCmd
         await PromisePileCmd.DiscardAll(ctx, player);
 
         // 步骤4：原手牌放入约定牌堆
-        await PromisePileCmd.AddCardsFromPile(player, handCards, PileType.Hand);
+        await PromisePileCmd.Add(player, handCards);
     }
 
     internal static async Task AutoPlayFromPromisePile(PlayerChoiceContext choiceContext, Player player, int count)

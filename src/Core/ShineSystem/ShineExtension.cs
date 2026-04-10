@@ -30,6 +30,11 @@ public static class ShineExtension
     private static readonly SpireField<CardModel, int> _shineMax = new(() => -1);
 
     /// <summary>
+    /// 这张牌打出后耗尽
+    /// </summary>
+    private static readonly SpireField<CardModel, bool> _enterShinePileAfterPlay = new(() => false);
+
+    /// <summary>
     /// 判断是否是闪耀卡牌 _shineMax不为0表示这张牌自身就是闪耀牌，
     /// </summary>
     public static bool IsShineCard(this CardModel card)
@@ -84,6 +89,16 @@ public static class ShineExtension
     public static void SetShineCurrent(this CardModel card, int value)
     {
         _shineCurrent.Set(card, value);
+    }
+
+    public static void SetEnterShinePileAfterPlay(this CardModel card, bool value = true)
+    {
+        _enterShinePileAfterPlay.Set(card, value);
+    }
+
+    public static bool ShouldEnterShinePileAfterPlay(this CardModel card)
+    {
+        return _enterShinePileAfterPlay.Get(card);
     }
 
     /// <summary>

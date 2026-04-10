@@ -45,7 +45,7 @@ public sealed class KarenStarlight02Power : PowerModel
         // 触发效果
         Flash();
         // 耗尽闪耀值
-        card.SetShineCurrent(0);
+        card.SetEnterShinePileAfterPlay(true);
         return playCount + Amount; // 额外打出Amount次
     }
 

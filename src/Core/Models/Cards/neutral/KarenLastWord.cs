@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,10 +39,16 @@ public sealed class KarenLastWord : KarenBaseCardModel
     {
         var hand = PileType.Hand.GetPile(player);
         if (hand.Cards.Any(c => c != card)) return false;
-        var drawPile = PileType.Draw.GetPile(player);
-        if (drawPile.Cards.Any(c => c != card)) return false;
+
         var discardPile = PileType.Discard.GetPile(player);
-        if (!discardPile.Cards.Any(c => c != card)) return false;
+        if (discardPile.Cards.Any(c => c != card)) return false;
+
+        if(!PromisePileManager.IsVoidMode(player)) // 空虚模式下，抽牌堆算约定牌堆，不用判断抽牌堆
+        {
+            var drawPile = PileType.Draw.GetPile(player);
+            if (drawPile.Cards.Any(c => c != card)) return false;
+        }
+
         return true;
     }
 

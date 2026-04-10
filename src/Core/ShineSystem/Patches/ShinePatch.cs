@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
+using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
@@ -87,8 +88,10 @@ public static class ShinePatch
     /// <summary>是否应进入闪耀耗尽流程（已初始化Shine且当前值==0）</summary>
     public static bool ShouldEnterShinePile(CardModel card)
     {
-        if (!card.IsShineCard()) return false;
-        return card.GetShineValue() == 0;
+        if (!card.IsShineCard()) return false; // 不是闪耀牌不要进约定牌堆
+        if (card.GetShineValue() <= 0) return true; // 闪耀值耗尽了，需要进约定牌堆
+        if (card.ShouldEnterShinePileAfterPlay()) return true; // 主动耗尽的，需要进约定牌堆
+        return false; // 闪耀值还没耗尽
     }
 
 

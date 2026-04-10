@@ -102,7 +102,7 @@ public static class PromisePileManager
     /// 会从当前牌堆物理移出（RemoveFromCurrentPile），不触发 CardPileCmd 流程。
     /// oldPile默认取当前所在Pile
     /// </summary>
-    public static async Task AddToPromisePile(Player player, CardModel card, PileType? oldPile = null)
+    public static async Task AddToPromisePile(Player player, CardModel card)
     {
         var pile = GetPromisePile(player);
         if (pile.Cards.Contains(card))
@@ -113,8 +113,7 @@ public static class PromisePileManager
 
         // oldPile 必须在 PlayAddAnimation 之前记录：
         // PlayAddAnimation（同步方法）依赖 card.Pile 定位 NCard；RemoveFromCurrentPile 会将 card.Pile 置为 null
-        // TODO 测试没有oldPile的情况
-        if (oldPile == null) oldPile = card.Pile?.Type ?? PileType.None;
+        var oldPile = card.Pile?.Type ?? PileType.None;
 
         // 动画在 RemoveFromCurrentPile 之前执行（FindOnTable 依赖 Pile.Type）
         PromisePileAnimator.PlayAddAnimation(card);
@@ -123,7 +122,7 @@ public static class PromisePileManager
         pile.AddInternal(card);
 
         // pile.AddLast 后 IsInPromisePile 为 true，GlobalMovePatch 能正确推断 newPile = PromisePile
-        await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, oldPile ?? PileType.None, null);
+        await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, oldPile, null);
         MainFile.Logger.Info($"[PromisePile] Added '{card.Title}' to promise pile (was in {oldPile})");
 
         // 更新 Power

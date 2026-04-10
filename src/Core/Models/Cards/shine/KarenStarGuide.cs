@@ -22,42 +22,17 @@ public sealed class KarenStarGuide : KarenBaseCardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Innate, CardKeyword.Exhaust];
 
-
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var combatState = Owner.PlayerCombatState;
         if (combatState == null) return;
 
-        // 获取所有牌堆中的闪耀牌
-        var hand = PileType.Hand.GetPile(Owner);
-        var drawPile = PileType.Draw.GetPile(Owner);
-        var discardPile = PileType.Discard.GetPile(Owner);
-
-        var handCards = hand.Cards.Where(c=>c.IsShineCard()).ToList();
-        var drawPileCards = drawPile.Cards.Where(c => c.IsShineCard()).ToList();
-        var discardPileCards = discardPile.Cards.Where(c => c.IsShineCard()).ToList();
-        // 先把这些牌移除原本的牌堆
-        {
-            foreach(var card in handCards)
-            {
-                card.RemoveFromCurrentPile();
-            }
-            foreach(var card in drawPileCards)
-            {
-                card.RemoveFromCurrentPile();
-            }
-            foreach (var card in discardPileCards)
-            {
-                card.RemoveFromCurrentPile();
-            }
-        }
-        // 最后统一加入约定牌堆
-        {
-            await PromisePileCmd.AddCardsFromPile(Owner, handCards, PileType.Hand);
-            await PromisePileCmd.AddCardsFromPile(Owner, drawPileCards, PileType.Draw);
-            await PromisePileCmd.AddCardsFromPile(Owner, discardPileCards, PileType.Discard);
-        }
+        var cards = PileType.Hand.GetPile(Owner).Cards
+            .Concat(PileType.Draw.GetPile(Owner).Cards)
+            .Concat(PileType.Discard.GetPile(Owner).Cards)
+            .Where(c => c.IsShineCard())
+            .ToList();
+        await PromisePileCmd.Add(Owner, cards);
     }
 
     protected override void OnUpgrade()
