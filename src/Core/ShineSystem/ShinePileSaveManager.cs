@@ -28,7 +28,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.ShineSystem
                 var player = players[i];
                 var shinePile = ShinePileManager.GetShinePile(player);
                 var serializedPile = new List<SerializableCard>();
-                foreach (var card in shinePile)
+                foreach (var card in shinePile.Cards)
                 {
                     serializedPile.Add(card.ToSerializable());
                 }

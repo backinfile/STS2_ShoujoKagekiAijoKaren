@@ -141,26 +141,44 @@ public static class ShinePatch
     /// 拦截 ShineDepletePile，从 SpireField 取 ctx 调用 HandleShineDepletePileAsync
     /// </summary>
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add))]
-    [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(PileType), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool)])]
+    [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(CardPile), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool)])]
+    [HarmonyPriority(Priority.First)]
     public static class CardPileCmd_Add_Patch
     {
-        public static void Postfix(ref Task<IReadOnlyList<CardPileAddResult>> __result, ref IEnumerable<CardModel> cards, PileType newPileType, CardPilePosition position, AbstractModel? source, bool skipVisuals)
+
+        /// <summary>
+        /// 把要移动到约定牌堆的牌取出来
+        /// </summary>
+        public static bool Prefix(IEnumerable<CardModel> cards, CardPile newPile, CardPilePosition position, AbstractModel? source, bool skipVisuals, ref Task<IReadOnlyList<CardPileAddResult>> __result)
         {
             var takeOverCards = new List<CardModel>();
             foreach (var card in cards)
             {
                 // 放行非闪耀牌堆的添加
-                if (TakeOverCardPileAddCmd(card, newPileType))
+                if (TakeOverCardPileAddCmd(card, newPile.Type))
                 {
                     // 稍后统一处理这些卡牌，先从原牌堆移除
                     takeOverCards.Add(card);
+                    MainFile.Logger.Info($"TakeOverCardPileAddCmd card {card.Title}");
                 }
             }
             if (takeOverCards.Count > 0)
             {
-                cards = cards.Where(cards => !takeOverCards.Contains(cards)).ToList(); // 从原参数列表中移除这些卡牌，剩下的正常添加
-                Async.Postfix(ref __result, (result) => HandleShineDepletePileAsync(takeOverCards, result));
+                return Async.Prefix<IReadOnlyList<CardPileAddResult>>(ref __result, async () => {
+                    cards = cards.Where(c => !takeOverCards.Contains(c)).ToList(); // 从原参数列表中移除这些卡牌，剩下的正常添加
+                    var originResult = await OriginalMethodStub(cards, newPile, position, source, skipVisuals);
+                    var myResult = await HandleShineDepletePileAsync(takeOverCards);
+                    return originResult.Concat(myResult).ToList();
+                });
             }
+
+            return true; 
+        }
+
+        [HarmonyReversePatch]
+        public static Task<IReadOnlyList<CardPileAddResult>> OriginalMethodStub(IEnumerable<CardModel> cards, CardPile newPile, CardPilePosition position, AbstractModel? source, bool skipVisuals)
+        {
+            throw new NotImplementedException("会自动被替换，不会走到这里");
         }
 
 
@@ -185,15 +203,15 @@ public static class ShinePatch
         /// <summary>
         /// 处理闪耀耗尽牌堆逻辑（替换 CardPileCmd.Add 的自定义方法）
         /// </summary>
-        private static async Task<IReadOnlyList<CardPileAddResult>> HandleShineDepletePileAsync(List<CardModel> takeOverCards, IReadOnlyList<CardPileAddResult> realResult)
+        private static async Task<IReadOnlyList<CardPileAddResult>> HandleShineDepletePileAsync(List<CardModel> takeOverCards)
         {
-            var promiseResult = new List<CardPileAddResult>();
+            var result = new List<CardPileAddResult>();
             foreach (var card in takeOverCards)
             {
                 // 异步执行闪耀耗尽处理
-                promiseResult.Add(await HandleShineDepletePileAsync(card));
+                result.Add(await HandleShineDepletePileAsync(card));
             }
-            return realResult.Concat(promiseResult).ToList();
+            return result;
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Multiplayer;
@@ -9,19 +10,19 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
-using ShoujoKagekiAijoKaren.src.Core.Utils;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
+using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.SaveSystem;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MegaCrit.Sts2.Core.Commands;
 
 namespace ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
@@ -40,7 +41,7 @@ public static class ShinePileManager
     /// <summary>
     /// SpireField 存储每个玩家的闪耀耗尽牌堆（卡牌列表）
     /// </summary>
-    private static readonly SpireField<Player, List<CardModel>> _disposedShineCardPile = new(() => []);
+    private static readonly SpireField<Player, CardPile> _disposedShineCardPile = new(() => new CardPile(KarenCustomEnum.ShineDepletePile));
 
     /// <summary>
     /// SpireField 存储本局游戏中已耗尽的不同闪耀牌ID（用于 CarryingGuilt 等效果）
@@ -51,7 +52,7 @@ public static class ShinePileManager
     /// <summary>
     /// 获取玩家的闪耀牌堆
     /// </summary>
-    public static List<CardModel> GetShinePile(Player player)
+    public static CardPile GetShinePile(Player player)
     {
         return _disposedShineCardPile.Get(player)!;
     }
@@ -63,7 +64,7 @@ public static class ShinePileManager
     public static bool IsInShinePile(CardModel card)
     {
         if (card?.Owner == null) return false;
-        return GetShinePile(card.Owner).Contains(card);
+        return GetShinePile(card.Owner).Cards.Contains(card);
     }
 
     /// <summary>
@@ -81,14 +82,14 @@ public static class ShinePileManager
         var pile = GetShinePile(card.Owner);
 
         // 避免重复添加
-        if (pile.Contains(card))
+        if (pile.Cards.Contains(card))
         {
             MainFile.Logger.Warn($"[ShinePileManager] Card '{card.Title}' already in shine pile");
             return;
         }
 
         // 添加到闪耀牌堆
-        pile.Add(card.CloneSafeForDeck());
+        pile.AddInternal(card.CloneSafeForDeck());
         // 重置数据
         card.RestoreShineToMax();
         card.SetEnterShinePileAfterPlay(false);
@@ -119,7 +120,7 @@ public static class ShinePileManager
     public static void AddToShinePileInternal(Player player, CardModel card)
     {
         var pile = GetShinePile(player);
-        pile.Add(card);
+        pile.AddInternal(card);
         MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (internal)");
     }
 
@@ -129,9 +130,9 @@ public static class ShinePileManager
     public static void ClearShinePileInternal(Player player)
     {
         var pile = GetShinePile(player);
-        foreach (var card in pile.ToList())
+        foreach (var card in pile.Cards.ToList())
         {
-            pile.Remove(card);
+            pile.RemoveInternal(card);
             //card.RemoveFromState();
             _ = CardPileCmd.RemoveFromCombat(card); // 确保从战斗中移除
         }
@@ -143,7 +144,7 @@ public static class ShinePileManager
     /// </summary>
     public static int GetShinePileCount(Player player)
     {
-        return GetShinePile(player).Count;
+        return GetShinePile(player).Cards.Count;
     }
 
     /// <summary>
@@ -163,7 +164,7 @@ public static class ShinePileManager
     public static void UpdateShineCardDisposedCount(Player player)
     {
         if (player == null) return;
-        _disposedShineCardUniqueCounts.Set(player, _disposedShineCardPile.Get(player)!.Select(c => c.Id.Entry).Distinct().Count());
+        _disposedShineCardUniqueCounts.Set(player, _disposedShineCardPile.Get(player)!.Cards.Select(c => c.Id.Entry).Distinct().Count());
         MainFile.Logger.Info($"[ShinePileManager] Updated disposed shine card count for player {player.NetId}: total={GetShinePileCount(player)}, unique={GetDisposedShineCardUniqueCount(player)}");
     }
 

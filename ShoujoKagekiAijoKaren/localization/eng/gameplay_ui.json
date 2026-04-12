@@ -11,5 +11,6 @@
   "KAREN_PROMISE_PILE_SELECT_FROM_HAND": "Select cards to put into Promise Pile",
   "KAREN_SUNLIGHT_OBTAIN_PROMPT": "Add this card to your draw pile?",
   "KAREN_DISABLERELIC_LABEL": "(Can disable ",
-  "KAREN_DISABLERELIC_SUFFIX": " relics)"
+  "KAREN_DISABLERELIC_SUFFIX": " relics)",
+  "KAREN_DERIVED_CARD_LABEL": "Token"
 }
