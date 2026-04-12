@@ -1,8 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 
 namespace ShoujoKagekiAijoKaren.src.Core.GlobalMoveSystem;
 
@@ -12,7 +14,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.GlobalMoveSystem;
 /// </summary>
 public static class GlobalMoveSystem
 {
- 
+
 
     internal static async Task Trigger(CardModel card, PileType from, PileType to, AbstractModel? source)
     {
@@ -25,5 +27,6 @@ public static class GlobalMoveSystem
                 await karenCard.OnGlobalMove(from, to, source);
             }
         }
+
     }
 }

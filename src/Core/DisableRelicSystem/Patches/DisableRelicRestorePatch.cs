@@ -11,7 +11,6 @@ namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Patches;
 
 /// <summary>
 /// 战斗结束后自动恢复被禁用的遗物
-/// TODO 需要在存档前修复被禁用的遗物状态，以免存档后永久丢失遗物
 /// </summary>
 [HarmonyPatch(typeof(Hook), nameof(Hook.AfterCombatEnd))]
 public static class DisableRelicRestorePatch

@@ -175,16 +175,10 @@ public static class PromisePileCmd
         foreach (var card in selected)
         {
             //pile.RemoveInternal(card); 这里不要移除，要给后续牌堆移动提供oldPile
-            // TODO 有没有一次移动所有cards的接口
             await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top, null, false);
         }
 
         await PromisePileManager.UpdatePowerAsync(player);
-
-        if (pile.IsEmpty)
-        {
-            await PromisePileHooks.TriggerPromisePileEmpty(player);
-        }
     }
 
 
@@ -324,32 +318,30 @@ public static class PromisePileCmd
     /// 流程：1.暂存所有手牌 2.从约定牌堆抽满手牌 3.弃置约定牌堆剩余 4.原手牌放入约定牌堆
     /// Void模式下：使用抽牌堆替代约定牌堆，逻辑相同
     /// </summary>
-    public static async Task SwitchHand(PlayerChoiceContext ctx, Player player)
+    public static async Task SwitchHand(PlayerChoiceContext ctx, Player player, AbstractModel? source = null)
     {
         // 先记录约定牌堆中所有卡牌
-        var promiseCards = IsVoidMode(player)
+        bool inVoid = IsVoidMode(player);
+        var promiseCards = inVoid
             ? PileType.Draw.GetPile(player).Cards.ToList()
             : KarenCustomEnum.PromisePile.GetPile(player).Cards.ToList();
 
         // 将所有手牌放入约定牌堆
-        await Add(player, promiseCards);
+        List<CardModel> handCards = PileType.Hand.GetPile(player).Cards.ToList();
+        if (handCards.Any()) await Add(player, handCards);
 
-        var handPile = PileType.Hand.GetPile(player);
-        var handCards = handPile.Cards.ToList();
+        // 然后将约定牌堆中的牌放回手牌
+        if (promiseCards.Any()) await CardPileCmd.Add(promiseCards, PileType.Hand, CardPilePosition.Top, source, false);
 
+        // 最后更新计数
+        await PromisePileManager.UpdatePowerAsync(player);
 
-        // 步骤1：暂存手牌（不触发Power扳机，最后统一触发）
-        var handSave = handCards.ToList();
-        handPile.Clear();
-
-        // 步骤2：从约定牌堆抽满手牌
-        await PromisePileCmd.DrawToFullHand(ctx, player);
-
-        // 步骤3：弃置约定牌堆剩余
-        await PromisePileCmd.DiscardAll(ctx, player);
-
-        // 步骤4：原手牌放入约定牌堆
-        await PromisePileCmd.Add(player, handCards);
+        // 触发一次空牌堆扳机（如果约定牌堆之前有牌的话）
+        // 手牌若为空，会在HookPatch中触发, 这里不用触发了
+        if (promiseCards.Any() && handCards.Any())
+        {
+            await PromisePileHooks.TriggerPromisePileEmpty(player);
+        }
     }
 
     internal static async Task AutoPlayFromPromisePile(PlayerChoiceContext choiceContext, Player player, int count)
@@ -378,17 +370,10 @@ public static class PromisePileCmd
             await CardPileCmd.Add(cardModel, PileType.Play);
         }
 
-        // 触发约定牌堆变空扳机
-        if (promisePile.IsEmpty)
-        {
-            await PromisePileHooks.TriggerPromisePileEmpty(player);
-        }
-
         foreach (CardModel item in cards)
         {
             await CardCmd.AutoPlay(choiceContext, item, null);
         }
-
         await PromisePileManager.UpdatePowerAsync(player);
     }
 

@@ -16,7 +16,6 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
 /// <summary>
 /// 第一幕，打出闪耀牌后抽X
-/// TODO 移除所有 fire-and-forget
 /// </summary>
 public sealed class KarenStarlightPower : PowerModel
 {

@@ -51,7 +51,6 @@ public sealed class KarenNextStage : KarenBaseCardModel
 
     public async Task TriggerEffect()
     {
-        // TODO 写法对吗？
         await CardPileCmd.Draw(new BlockingPlayerChoiceContext(), DynamicVars.Cards.IntValue, Owner);
     }
 }

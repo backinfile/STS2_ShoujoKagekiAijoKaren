@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,11 +32,21 @@ public sealed class KarenWakeUp : KarenBaseCardModel
         {
             if (CombatState != null)
             {
-                await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
+                if (PromisePileManager.IsVoidMode(Owner))
+                {
+                    await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
+                    ModelDb.Card<KarenWakeUpDrawPileOption>(),
+                    ModelDb.Card<KarenWakeUpDiscardPileOption>()
+                    ]);
+                }
+                else
+                {
+                    await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
                     ModelDb.Card<KarenWakeUpDrawPileOption>(),
                     ModelDb.Card<KarenWakeUpPromisePileOption>(),
                     ModelDb.Card<KarenWakeUpDiscardPileOption>()
                     ]);
+                }
             }
         }
         else

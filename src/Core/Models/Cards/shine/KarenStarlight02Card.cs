@@ -13,7 +13,6 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// <summary>
 /// 第二幕
 /// 打出的 闪耀 牌会额外打出 !M! 次，然后耗尽 闪耀 值。
-/// TODO 耗尽
 /// </summary>
 public sealed class KarenStarlight02Card() : KarenBaseCardModel(2, CardType.Power, CardRarity.Rare, TargetType.Self)
 {

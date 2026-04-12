@@ -25,7 +25,7 @@ public sealed class KarenExchangeFate : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PromisePileCmd.SwitchHand(choiceContext, Owner);
+        await PromisePileCmd.SwitchHand(choiceContext, Owner, this);
     }
 
     protected override void OnUpgrade()

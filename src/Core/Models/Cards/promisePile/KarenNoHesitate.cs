@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
@@ -32,11 +33,22 @@ public sealed class KarenNoHesitate : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
-                    ModelDb.Card<KarenNoHesitateDrawPileOption>(),
+        if (PromisePileManager.IsVoidMode(Owner))
+        {
+            await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
                     ModelDb.Card<KarenNoHesitateHandOption>(),
                     ModelDb.Card<KarenNoHesitateDiscardPileOption>()
-                    ], IsUpgraded);
+                        ], IsUpgraded);
+        }
+        else
+        {
+            await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
+                        ModelDb.Card<KarenNoHesitateDrawPileOption>(),
+                    ModelDb.Card<KarenNoHesitateHandOption>(),
+                    ModelDb.Card<KarenNoHesitateDiscardPileOption>()
+                        ], IsUpgraded);
+        }
+
     }
 
     protected override void OnUpgrade()

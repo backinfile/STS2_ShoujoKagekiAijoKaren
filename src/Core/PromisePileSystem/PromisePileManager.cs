@@ -141,7 +141,7 @@ public static class PromisePileManager
 
         var card = pile.Cards.First();
         //pile.RemoveInternal(card); 这里不能删除，要给后续动作提供一个oldPile
-        MainFile.Logger.Info($"pile = {card.Pile?.Type}");
+        MainFile.Logger.Info($"DrawFromPromisePileAsync {card.Title} pile = {card.Pile?.Type}");
 
         // UpgradeOnDraw Mode 处理：升级卡牌
         var power = player.Creature?.GetPower<KarenPromisePilePower>();
@@ -161,11 +161,6 @@ public static class PromisePileManager
 
         // 更新 Power
         await UpdatePowerAsync(player);
-
-        if (pile.IsEmpty)
-        {
-            await PromisePileHooks.TriggerPromisePileEmpty(player);
-        }
         return card;
     }
 
@@ -254,8 +249,6 @@ public static class PromisePileManager
         }
 
         await UpdatePowerAsync(player);
-
-        await PromisePileHooks.TriggerPromisePileEmpty(player);
     }
 
     /// <summary>
@@ -357,7 +350,6 @@ public static class PromisePileManager
         var handCards = hand.Cards.ToList();
 
         // 复制所有手牌到约定牌堆
-        // TODO 添加动画
         foreach (var card in handCards)
         {
             var copyCard = card.CreateClone();

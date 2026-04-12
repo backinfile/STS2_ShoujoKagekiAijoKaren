@@ -39,7 +39,7 @@ public static class PromisePileAnimator
         if (NGame.Instance == null) return;
         if (NCombatRoom.Instance == null) return;
 
-        var nCard = NCard.FindOnTable(card); // TODO 对于无当前牌堆的卡牌，需要先根据oldType来寻找
+        var nCard = NCard.FindOnTable(card);
         if (nCard == null)
         {
             nCard = NCard.Create(card)!;

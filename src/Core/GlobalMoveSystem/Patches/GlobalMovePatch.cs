@@ -76,7 +76,7 @@ internal static class GlobalMovePatch
                 inPlayPile.Set(card, null);
             }
 
-            Async.Postfix(ref __result, GlobalMoveSystem.Trigger(card, oldPile, newPile, source));
+            Async.Postfix(ref __result, () =>GlobalMoveSystem.Trigger(card, oldPile, newPile, source));
         }
     }
 

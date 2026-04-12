@@ -15,7 +15,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenBananaCake : KarenBaseCardModel
 {
-    public KarenBananaCake() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+    public KarenBananaCake() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

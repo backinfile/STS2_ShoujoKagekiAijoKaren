@@ -48,18 +48,17 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             });
         }
 
-
         /// <summary>
         /// 将自己的func插入到原函数之后
         /// </summary>
-        public static void Postfix<T>(ref Task<T> __result, Task<T> modifyAsyncFunc)
+        public static void Postfix<T>(ref Task<T> __result, Func<Task> modifyAsyncFunc)
         {
             var originalTask = __result;
             __result = Task<T>.Run(async () =>
             {
-                var originalResult = await originalTask;// 忽略结果
-                var result = await modifyAsyncFunc;
-                return result;
+                var originalResult = await originalTask; // 忽略结果
+                await modifyAsyncFunc();
+                return originalResult;
             });
         }
 
@@ -74,19 +73,6 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             {
                 await originalTask;
                 await modifyAsyncFunc();
-            });
-        }
-
-        /// <summary>
-        /// 将自己的func插入到原函数之后
-        /// </summary>
-        public static void Postfix(ref Task __result, Task modifyAsyncFunc)
-        {
-            var originalTask = __result;
-            __result = Task.Run(async () =>
-            {
-                await originalTask;
-                await modifyAsyncFunc;
             });
         }
 

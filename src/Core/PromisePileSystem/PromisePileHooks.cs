@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,6 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
     {
         /// <summary>
         /// 扳机-当约定牌堆变空时触发
-        /// TODO 看看这个全不全
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
@@ -98,5 +98,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
                 await karenCard.OnRemovedFromPromisePile();
             }
         }
+
+       
     }
 }

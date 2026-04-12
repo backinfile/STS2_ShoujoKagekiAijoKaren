@@ -11,7 +11,9 @@ using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using static Godot.HttpRequest;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 
@@ -139,9 +141,28 @@ public static class ShinePatch
     /// 拦截 ShineDepletePile，从 SpireField 取 ctx 调用 HandleShineDepletePileAsync
     /// </summary>
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add))]
-    [HarmonyPatch([typeof(CardModel), typeof(PileType), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool)])]
+    [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(PileType), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool)])]
     public static class CardPileCmd_Add_Patch
     {
+        public static void Postfix(ref Task<IReadOnlyList<CardPileAddResult>> __result, ref IEnumerable<CardModel> cards, PileType newPileType, CardPilePosition position, AbstractModel? source, bool skipVisuals)
+        {
+            var takeOverCards = new List<CardModel>();
+            foreach (var card in cards)
+            {
+                // 放行非闪耀牌堆的添加
+                if (TakeOverCardPileAddCmd(card, newPileType))
+                {
+                    // 稍后统一处理这些卡牌，先从原牌堆移除
+                    takeOverCards.Add(card);
+                }
+            }
+            if (takeOverCards.Count > 0)
+            {
+                cards = cards.Where(cards => !takeOverCards.Contains(cards)).ToList(); // 从原参数列表中移除这些卡牌，剩下的正常添加
+                Async.Postfix(ref __result, (result) => HandleShineDepletePileAsync(takeOverCards, result));
+            }
+        }
+
 
         /// <summary>
         /// patch原本游戏中的卡牌移动
@@ -154,56 +175,52 @@ public static class ShinePatch
                 return true;
             }
             // 某些卡牌会将自己移动到特定牌堆，修改他们的转向
-            // TODO 测试当卡牌放入约定牌堆或抽牌堆时是否会有问题
-            if (ShouldEnterShinePile(card) && newPileType.IsCombatPile())
+            if (newPileType.IsCombatPile() && ShouldEnterShinePile(card))
             {
                 return true;
             }
             return false;
         }
 
-
-        public static bool Prefix(ref Task<CardPileAddResult> __result, CardModel card, PileType newPileType, CardPilePosition position, AbstractModel? source, bool skipVisuals)
+        /// <summary>
+        /// 处理闪耀耗尽牌堆逻辑（替换 CardPileCmd.Add 的自定义方法）
+        /// </summary>
+        private static async Task<IReadOnlyList<CardPileAddResult>> HandleShineDepletePileAsync(List<CardModel> takeOverCards, IReadOnlyList<CardPileAddResult> realResult)
         {
-            // 放行非闪耀牌堆的添加
-            if (!TakeOverCardPileAddCmd(card, newPileType))
-                return true;
-
-            MainFile.Logger.Info($"[ShinePilePatch] Intercepting Add of '{card.Title}' to {newPileType}...");
-
-            // 从 SpireField 获取 ctx
-            var ctx = CardContext.Get(card);
-            CardContext.Set(card, null); // 清空
-
-            // 如果没有ctx，就直接打印错误
-            if (ctx == null)
+            var promiseResult = new List<CardPileAddResult>();
+            foreach (var card in takeOverCards)
             {
-                MainFile.Logger.Error($"[ShinePilePatch] No PlayerChoiceContext found for '{card.Title}' when adding to ShineDepletePile!");
-                _ = CardPileCmd.RemoveFromCombat(card);
-                __result = Task.FromResult(new CardPileAddResult { cardAdded = card, success = false });
-                return false;
-            }
-
-            return Async.Prefix(ref __result, async () =>
-            {
-                var oldPile = card.Pile;
                 // 异步执行闪耀耗尽处理
-                await HandleShineDepletePileAsync(ctx, card);
-                return new CardPileAddResult { cardAdded = card, success = true, oldPile = oldPile, modifyingModels = [] };
-            });
+                promiseResult.Add(await HandleShineDepletePileAsync(card));
+            }
+            return realResult.Concat(promiseResult).ToList();
         }
 
         /// <summary>
         /// 处理闪耀耗尽牌堆逻辑（替换 CardPileCmd.Add 的自定义方法）
         /// </summary>
-        private static async Task HandleShineDepletePileAsync(PlayerChoiceContext choiceContext, CardModel card)
+        private static async Task<CardPileAddResult> HandleShineDepletePileAsync(CardModel card)
         {
+            var oldPile = card.Pile;
+
+            // 从 SpireField 获取 ctx
+            var choiceContext = CardContext.Get(card);
+            CardContext.Set(card, null); // 清空历史记录
+
+            // 如果没有ctx，就直接打印错误
+            if (choiceContext == null)
+            {
+                MainFile.Logger.Error($"[ShinePilePatch] No PlayerChoiceContext found for '{card.Title}' when adding to ShineDepletePile!");
+                await CardPileCmd.RemoveFromCombat(card);
+                return new CardPileAddResult { cardAdded = card, success = false };
+            }
+
             // IsDupe 直接移除（不进入 Shine Pile）
             if (card.IsDupe)
             {
                 await CardPileCmd.RemoveFromCombat(card);
                 MainFile.Logger.Info($"[ShinePilePatch] '{card.Title}' is a dupe, removed from combat without entering ShinePile");
-                return;
+                return new CardPileAddResult { cardAdded = card, success = false };
             }
 
             MainFile.Logger.Info($"[ShinePilePatch] '{card.Title}' handling shine depletion");
@@ -214,6 +231,9 @@ public static class ShinePatch
 
             // 移入 ShinePile，传入 choiceContext
             await ShinePileManager.MoveToShinePile(card, choiceContext);
+
+            // 返回移动结果
+            return new CardPileAddResult { cardAdded = card, success = true, oldPile = oldPile, modifyingModels = [] };
         }
     }
 }
