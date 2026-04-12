@@ -21,6 +21,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches
 {
     public class PromisePileHookPatch
     {
+
+        /// <summary>
+        /// 离开约定牌堆
+        /// 进入约定牌堆
+        /// 空虚模式下，约定牌堆计数刷新
+        /// </summary>
         [HarmonyPatch(typeof(Hook), nameof(Hook.AfterCardChangedPiles))]
         public static class PromisePileMovePatch
         {
@@ -42,19 +48,26 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches
                     MainFile.Logger.Error("PromisePileHookPatch: Card owner is null, cannot trigger hooks.");
                     return;
                 }
+                bool inVoidMode = PromisePileManager.IsInMode(player, PromisePileMode.Void);
+                bool inInfMode = PromisePileManager.IsInMode(player, PromisePileMode.InfiniteReinforcement);
 
                 // 离开约定牌堆
-                if (oldPile == KarenCustomEnum.PromisePile || (oldPile == PileType.Draw && PromisePileManager.IsInMode(player, PromisePileMode.Void)))
+                if (oldPile == KarenCustomEnum.PromisePile || (oldPile == PileType.Draw && inVoidMode))
                 {
                     await PromisePileHooks.TriggerOnCardRemoved(player, card);
                 }
 
-
                 // 进入约定牌堆
                 var curType = card.Pile?.Type ?? PileType.None;
-                if (curType == KarenCustomEnum.PromisePile || (curType == PileType.Draw && PromisePileManager.IsInMode(player, PromisePileMode.Void)))
+                if (curType == KarenCustomEnum.PromisePile || (curType == PileType.Draw && inVoidMode))
                 {
                     await PromisePileHooks.TriggerOnCardAdded(player, card);
+                }
+
+                // 空虚模式下，约定牌堆计数刷新
+                if (oldPile == PileType.Draw && inVoidMode && inInfMode)
+                {
+                    await PromisePileManager.UpdatePowerAsync(player);
                 }
             }
         }

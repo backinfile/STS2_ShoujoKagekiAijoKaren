@@ -21,6 +21,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
         /// <returns></returns>
         public static async Task TriggerPromisePileEmpty(Player player)
         {
+            // 无限能力下不触发这个扳机
+            if (PromisePileManager.IsInMode(player, PromisePileMode.InfiniteReinforcement))
+            {
+                return;
+            }
+
             // 弃置牌之后约定牌堆空了，触发扳机
             foreach (var power in player.Creature.Powers)
             {
@@ -84,11 +90,19 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
         }
 
         /// <summary>
-        /// 触发玩家身上所有 KarenBasePower 的 OnCardRemovedFromPromisePile 扳机
+        /// 触发玩家身上所有的 OnCardRemovedFromPromisePile 扳机
         /// </summary>
         public static async Task TriggerOnCardRemoved(Player player, CardModel card)
         {
             if (player?.Creature == null) return;
+
+            // 触发burn模式
+            if (PromisePileManager.IsInMode(player, PromisePileMode.Burn))
+            {
+                KarenPromisePilePower.AddBurnEffect(card);
+            }
+
+
             foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
             {
                 await power.OnCardRemovedFromPromisePile(card);

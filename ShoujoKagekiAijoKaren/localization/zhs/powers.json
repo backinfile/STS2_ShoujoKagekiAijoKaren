@@ -7,8 +7,7 @@
   "KAREN_PROMISE_PILE_POWER.currentModes": "当前强化",
   "KAREN_PROMISE_PILE_POWER.mode.void": "[gold]命运舞台的再生产[/gold]：现在约定牌堆视为抽牌堆。",
   "KAREN_PROMISE_PILE_POWER.mode.infinite": "[gold]命运舞台的再生产[/gold]：约定牌堆始终为10张[gold]续演[/gold]。",
-  "KAREN_PROMISE_PILE_POWER.mode.upgrade": "[gold]燃烧吧，燃烧吧[/gold]：升级抽出的卡牌",
-  "KAREN_PROMISE_PILE_POWER.mode.exhaust": "[gold]燃烧吧，燃烧吧[/gold]：抽出的卡牌打出时消耗",
+  "KAREN_PROMISE_PILE_POWER.mode.upgrade": "[gold]燃烧吧燃烧吧[/gold]：抽出的卡牌升级且具有打出时消耗。",
 
   "KAREN_PASSION_POWER.title": "激情",
   "KAREN_PASSION_POWER.description": "战斗结束后，额外获得1个随机遗物。",
@@ -60,5 +59,9 @@
 
   "KAREN_FINANCIER_POWER.title": "Banana费南雪",
   "KAREN_FINANCIER_POWER.description": "每两回合[gold]保留力量[/gold]1回合。",
-  "KAREN_FINANCIER_POWER.smartDescription": "每两回合[gold]保留力量[/gold]{Amount}回合。"
+  "KAREN_FINANCIER_POWER.smartDescription": "每两回合[gold]保留力量[/gold]{Amount}回合。",
+
+  "KAREN_FORM_POWER.title": "觉醒形态",
+  "KAREN_FORM_POWER.description": "每个回合开始时，抽满手牌。",
+  "KAREN_FORM_POWER.smartDescription": "每个回合开始时，抽满手牌。"
 }

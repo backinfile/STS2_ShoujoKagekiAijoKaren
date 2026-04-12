@@ -10,6 +10,8 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Screens;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
@@ -142,19 +144,6 @@ public static class PromisePileManager
         var card = pile.Cards.First();
         //pile.RemoveInternal(card); 这里不能删除，要给后续动作提供一个oldPile
         MainFile.Logger.Info($"DrawFromPromisePileAsync {card.Title} pile = {card.Pile?.Type}");
-
-        // UpgradeOnDraw Mode 处理：升级卡牌
-        var power = player.Creature?.GetPower<KarenPromisePilePower>();
-        if (power?.IsUpgradeOnDraw == true && !card.IsUpgraded)
-        {
-            CardCmd.Upgrade(card);
-        }
-
-        // ExhaustOnPlay Mode 处理：添加消耗关键词
-        if (power?.IsExhaustOnPlay == true)
-        {
-            card.AddKeyword(CardKeyword.Exhaust);
-        }
 
         await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
         //await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
@@ -303,27 +292,64 @@ public static class PromisePileManager
     {
         if (player?.PlayerCombatState == null) return;
 
-        var pile = GetPromisePile(player);
-
-        var maxCount = CardPile.maxCardsInHand;
-
-        // 先把牌库中的非续演牌移除掉
-        foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
+        var inVoidMode = IsInMode(player, PromisePileMode.Void);
+        if (!inVoidMode)
         {
-            //card.RemoveFromCurrentPile();
-            card.RemoveFromState();
-            _ = CardPileCmd.RemoveFromCombat(card); // 这个地方不需要等动画完成
-            MainFile.Logger.Info($"[PromisePile] Removed '{card.Title}' from promise pile during refill");
+            var pile = GetPromisePile(player);
+            var maxCount = CardPile.maxCardsInHand;
+            // 先把牌库中的非续演牌移除掉
+            foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
+            {
+                //card.RemoveFromCurrentPile();
+                card.RemoveFromState();
+                _ = CardPileCmd.RemoveFromCombat(card); // 这个地方不需要等动画完成
+                MainFile.Logger.Info($"[PromisePile] Removed '{card.Title}' from promise pile during refill");
+            }
+            // 然后用续演补齐到10张
+            int leftCount = maxCount - pile.Cards.Count;
+            for (int i = 0; i < leftCount; i++)
+            {
+                var card = player.Creature.CombatState!.CreateCard<KarenContinue>(player);
+                pile.AddInternal(card);
+                MainFile.Logger.Info($"[PromisePile] Added '{card.Title}' to promise pile during refill");
+            }
         }
-
-        // 然后用续演补齐到10张
-        int leftCount = maxCount - pile.Cards.Count;
-        for (int i = 0; i < leftCount; i++)
+        else
         {
-            var card = player.Creature.CombatState!.CreateCard<KarenContinue>(player);
-            pile.AddInternal(card);
-            MainFile.Logger.Info($"[PromisePile] Added '{card.Title}' to promise pile during refill");
+            var pile = PileType.Draw.GetPile(player);
+            var maxCount = CardPile.maxCardsInHand;
+            // 先把牌库中的非续演牌移除掉
+            foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
+            {
+                //card.RemoveFromCurrentPile();
+                card.RemoveFromState();
+                _ = CardPileCmd.RemoveFromCombat(card); // 这个地方不需要等动画完成
+                MainFile.Logger.Info($"[PromisePile] void mode Removed '{card.Title}' from promise pile during refill");
+            }
+            // 然后用续演补齐到10张
+            int leftCount = maxCount - pile.Cards.Count;
+            for (int i = 0; i < leftCount; i++)
+            {
+                var card = player.Creature.CombatState!.CreateCard<KarenContinue>(player);
+                pile.AddInternal(card);
+                MainFile.Logger.Info($"[PromisePile] void mode Added '{card.Title}' to promise pile during refill");
+            }
+            SetPileCountLabel(pile.Cards.Count);
         }
+    }
+
+    /// <summary>
+    /// 直接获取 NCombatCardPile 节点并设置其计数文本，无动画。
+    /// 用于绕过 CardPile 事件系统直接刷新 UI 数字。
+    /// </summary>
+    public static void SetPileCountLabel(int count)
+    {
+        var pileNode = NCombatRoom.Instance?.Ui?.DrawPile;
+        if (pileNode == null) return;
+
+        var label = pileNode.GetNode<MegaLabel>("CountContainer/Count");
+        if (label != null)
+            label.SetTextAutoSize(count.ToString());
     }
 
     /// <summary>打开约定牌堆查看界面（快照模式，使用原生 NCardPileScreen）</summary>
@@ -356,4 +382,6 @@ public static class PromisePileManager
             await PromisePileCmd.Add(player, copyCard);
         }
     }
+
+
 }

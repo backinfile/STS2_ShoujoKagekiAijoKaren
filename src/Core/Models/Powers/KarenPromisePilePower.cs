@@ -1,7 +1,10 @@
 using Godot;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System;
@@ -20,8 +23,7 @@ public enum PromisePileMode
     None = 0,
     Void = 1 << 0,                   // 虚空模式：交互重定向到抽牌堆
     InfiniteReinforcement = 1 << 1,  // 无限强化：约定牌堆始终为10张续演
-    UpgradeOnDraw = 1 << 2,          // 抽出时升级：从约定牌堆抽出的牌自动升级
-    ExhaustOnPlay = 1 << 3,          // 打出时消耗：从约定牌堆抽出的牌打出时消耗
+    Burn = 1 << 2,          // 从约定牌堆抽出的牌升级且打出时消耗
 }
 
 /// <summary>
@@ -52,8 +54,7 @@ public sealed class KarenPromisePilePower : FakeAmountPower
     // ===== 便捷属性 =====
     public bool IsVoidMode => IsInMode(PromisePileMode.Void);
     public bool IsInfiniteReinforcement => IsInMode(PromisePileMode.InfiniteReinforcement);
-    public bool IsUpgradeOnDraw => IsInMode(PromisePileMode.UpgradeOnDraw);
-    public bool IsExhaustOnPlay => IsInMode(PromisePileMode.ExhaustOnPlay);
+    public bool IsBurnMode => IsInMode(PromisePileMode.Burn);
 
     // ===== Normal Mode Data =====
     private IReadOnlyList<string> _cardNames = Array.Empty<string>();
@@ -118,11 +119,20 @@ public sealed class KarenPromisePilePower : FakeAmountPower
             modes.Add(Tips.PromisePilePowerModeVoid.GetFormattedText());
         if (IsInMode(PromisePileMode.InfiniteReinforcement))
             modes.Add(Tips.PromisePilePowerModeInfinite.GetFormattedText());
-        if (IsInMode(PromisePileMode.UpgradeOnDraw))
+        if (IsInMode(PromisePileMode.Burn))
             modes.Add(Tips.PromisePilePowerModeUpgrade.GetFormattedText());
-        if (IsInMode(PromisePileMode.ExhaustOnPlay))
-            modes.Add(Tips.PromisePilePowerModeExhaust.GetFormattedText());
 
         return string.Join("\n", modes);
+    }
+
+
+    public static void AddBurnEffect(CardModel card)
+    {
+        CardCmd.Upgrade(card);
+        if (!card.Keywords.Contains(CardKeyword.Exhaust))
+        {
+            card.AddKeyword(CardKeyword.Exhaust);
+        }
+        //card.ExhaustOnNextPlay = true;
     }
 }

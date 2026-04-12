@@ -25,7 +25,7 @@ public sealed class KarenBurn : KarenBaseCardModel
     {
         if (Owner.Creature == null) return;
 
-        await PromisePileManager.EnterMode(Owner, PromisePileMode.UpgradeOnDraw | PromisePileMode.ExhaustOnPlay);
+        await PromisePileManager.EnterMode(Owner, PromisePileMode.Burn);
     }
 
     protected override void OnUpgrade()
