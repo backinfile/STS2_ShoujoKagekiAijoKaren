@@ -1,8 +1,12 @@
+using System.Threading;
+using System.Threading.Tasks;
 using Godot;
 using MegaCrit.Sts2.addons.mega_text;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using MegaCrit.Sts2.Core.Nodes.Screens;
 using MegaCrit.Sts2.Core.Nodes.Screens.Capstones;
@@ -105,7 +109,7 @@ public partial class NTopBarShinePileButton : MegaCrit.Sts2.Core.Nodes.TopBar.NT
     {
         var screen = NCapstoneContainer.Instance?.CurrentCapstoneScreen;
         if (screen is not Node node) return false;
-        return node.Name.ToString().StartsWith("NCardPileScreen-ShineDepletePile");
+        return node.Name.ToString().StartsWith("NCardPileScreen-ShinePile");
     }
 
     public void ToggleAnimState()
@@ -124,5 +128,37 @@ public partial class NTopBarShinePileButton : MegaCrit.Sts2.Core.Nodes.TopBar.NT
     {
         base.OnUnfocus();
         NHoverTipSet.Remove(this);
+    }
+
+    protected override async Task AnimHover(CancellationTokenSource cancelToken)
+    {
+        float timer = 0f;
+        float startAngle = _icon.Rotation;
+        for (; timer < 0.5f; timer += (float)GetProcessDeltaTime())
+        {
+            if (cancelToken.IsCancellationRequested) return;
+            _icon.Rotation = Mathf.LerpAngle(startAngle, Mathf.Pi, Ease.BackOut(timer / 0.5f));
+            if (!this.IsValid() || !IsInsideTree()) return;
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+        _icon.Rotation = Mathf.Pi;
+    }
+
+    protected override async Task AnimUnhover(CancellationTokenSource cancelToken)
+    {
+        float timer = 0f;
+        float startAngle = _icon.Rotation;
+        for (; timer < 1f; timer += (float)GetProcessDeltaTime())
+        {
+            if (cancelToken.IsCancellationRequested) return;
+            _icon.Rotation = Mathf.LerpAngle(startAngle, 0f, Ease.ElasticOut(timer / 1f));
+            _hsv?.SetShaderParameter(_v, Mathf.Lerp(1.1f, 1f, Ease.ExpoOut(timer / 1f)));
+            _icon.Scale = _hoverScale.Lerp(Vector2.One, Ease.ExpoOut(timer / 1f));
+            if (!this.IsValid() || !IsInsideTree()) return;
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+        _hsv?.SetShaderParameter(_v, 1f);
+        _icon.Rotation = 0f;
+        _icon.Scale = Vector2.One;
     }
 }

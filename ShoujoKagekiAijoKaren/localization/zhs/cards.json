@@ -189,7 +189,7 @@
   "KAREN_NEW_SITUATION.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将{Cards:diff()}张[gold]三明治[/gold]放入[gold]约定牌堆[/gold]。",
 
   "KAREN_PRACTICE2.title": "舞蹈练习",
-  "KAREN_PRACTICE2.description": "获得你所有牌[gold]闪耀[/gold]值之和{IfUpgraded:show:+{CalculationBase:diff()}|}的[gold]格挡[/gold]。{InCombat:获得{CalculatedBlock:diff()}点[gold]格挡[/gold]。|}",
+  "KAREN_PRACTICE2.description": "获得你所有牌[gold]闪耀[/gold]值之和{IfUpgraded:show:+{CalculationBase:diff()}|}的[gold]格挡[/gold]。{InCombat:\n(获得{CalculatedBlock:diff()}点[gold]格挡[/gold]。)|}",
 
   "KAREN_BANANA_MUFFIN.title": "Banana松饼",
   "KAREN_BANANA_MUFFIN.description": "获得{StrengthPower:diff()}点[gold]临时力量[/gold]。\n抽{Cards:diff()}张牌。",
