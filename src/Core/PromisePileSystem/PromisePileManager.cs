@@ -17,6 +17,7 @@ using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System;
 using System.Collections.Generic;
@@ -175,6 +176,8 @@ public static class PromisePileManager
             //if (card is KarenBaseCardModel karenCard)
             //    _ = karenCard.OnRemovedFromPromisePile();
         }
+
+        GetOrCreateStarManager(player)?.ClearAll();
     }
 
     /// <summary>获取约定牌堆中的卡牌数量</summary>
@@ -182,6 +185,21 @@ public static class PromisePileManager
     {
         if (player == null) return 0;
         return GetPromisePile(player).Cards.Count;
+    }
+
+    private static NKarenPromiseStarManager? GetOrCreateStarManager(Player player)
+    {
+        var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
+        if (creatureNode == null) return null;
+
+        foreach (var child in creatureNode.GetChildren())
+            if (child is NKarenPromiseStarManager mgr)
+                return mgr;
+
+        var manager = new NKarenPromiseStarManager();
+        creatureNode.AddChild(manager);
+        manager.Init(creatureNode);
+        return manager;
     }
 
     /// <summary>
@@ -281,6 +299,8 @@ public static class PromisePileManager
         {
             karenPower.UpdateCount();
         }
+
+        GetOrCreateStarManager(player)?.UpdateCount(GetCount(player));
     }
 
 
