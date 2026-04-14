@@ -29,6 +29,9 @@ public static class Tips
     /// <summary>约定牌堆查看界面底部标题</summary>
     public static readonly LocString PromisePileInfo = new("gameplay_ui", "KAREN_PROMISE_PILE_INFO");
 
+    /// <summary>闪耀耗尽牌堆查看界面底部标题</summary>
+    public static readonly LocString ShinePileInfo = new("gameplay_ui", "KAREN_SHINE_PILE_INFO");
+
 
     /// <summary>从弃牌堆选择放入约定牌堆的提示</summary>
     public static readonly LocString PromisePileSelectFromDiscard = new("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_DISCARD");

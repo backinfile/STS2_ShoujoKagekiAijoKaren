@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
+using MegaCrit.Sts2.Core.Nodes.Screens;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core;
@@ -76,10 +77,14 @@ public static class ShinePileManager
     {
         var combatState = original.CombatState;
         var card = original.DeckVersion ?? original;
-        if (card?.Owner == null) return;
-
+        if (card?.Owner == null)
+        {
+            MainFile.Logger.Warn("[ShinePileManager] MoveToShinePile aborted: card or owner is null");
+            return;
+        }
 
         var pile = GetShinePile(card.Owner);
+        MainFile.Logger.Info($"[ShinePileManager] MoveToShinePile called for '{card.Title}', current pile count={pile.Cards.Count}");
 
         // 避免重复添加
         if (pile.Cards.Contains(card))
@@ -95,7 +100,7 @@ public static class ShinePileManager
         card.SetEnterShinePileAfterPlay(false);
         // 非闪耀牌，就去掉他的闪耀值
         if (card.GetShineMaxValue() < 0) card.SetShineCurrent(-1);
-        MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (shineMax={card.GetShineMaxValue()} cur={card.GetShineValue()})");
+        MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (shineMax={card.GetShineMaxValue()} cur={card.GetShineValue()}), new pile count={pile.Cards.Count}");
 
         // 记录本局游戏中已耗尽的闪耀牌（用于 CarryingGuilt 等效果）
         UpdateShineCardDisposedCount(card.Owner);
@@ -120,8 +125,9 @@ public static class ShinePileManager
     public static void AddToShinePileInternal(Player player, CardModel card)
     {
         var pile = GetShinePile(player);
+        int before = pile.Cards.Count;
         pile.AddInternal(card);
-        MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (internal)");
+        MainFile.Logger.Info($"[ShinePileManager] Card '{card.Title}' added to shine pile (internal), count {before} -> {pile.Cards.Count}");
     }
 
     /// <summary>
@@ -130,13 +136,14 @@ public static class ShinePileManager
     public static void ClearShinePileInternal(Player player)
     {
         var pile = GetShinePile(player);
+        int before = pile.Cards.Count;
         foreach (var card in pile.Cards.ToList())
         {
             pile.RemoveInternal(card);
             //card.RemoveFromState();
             _ = CardPileCmd.RemoveFromCombat(card); // 确保从战斗中移除
         }
-        MainFile.Logger.Info($"[ShinePileManager] Cleared shine pile for player {player?.NetId}");
+        MainFile.Logger.Info($"[ShinePileManager] Cleared shine pile for player {player?.NetId}, count {before} -> 0");
     }
 
     /// <summary>
@@ -207,5 +214,42 @@ public static class ShinePileManager
         tween.Parallel().TweenProperty(combatCard, "scale:x", 1.5f, destroyDuration).SetDelay(showDelay);
         tween.Parallel().TweenProperty(combatCard, "modulate", Colors.Black, destroyDuration * 0.67f).SetDelay(showDelay);
         tween.TweenCallback(Callable.From(combatCard.QueueFreeSafely));
+    }
+
+    /// <summary>打开闪耀耗尽牌堆查看界面（快照模式，使用原生 NCardPileScreen）</summary>
+    public static NCardPileScreen? ShowScreen(Player player)
+    {
+        var pile = GetShinePile(player);
+        var snapshot = new CardPile(PileType.None);
+        foreach (var card in pile.Cards)
+            snapshot.AddInternal(card);
+
+        MainFile.Logger.Info($"[ShinePileManager] ShowScreen called, pile count={pile.Cards.Count}, snapshot count={snapshot.Cards.Count}");
+
+        try
+        {
+            var screen = NCardPileScreen.ShowScreen(snapshot, System.Array.Empty<string>());
+            screen.Name = "NCardPileScreen-ShinePile";
+            MainFile.Logger.Info($"[ShinePileManager] NCardPileScreen opened, name={screen.Name}");
+
+            var bottomLabel = screen.GetNode<MegaCrit.Sts2.addons.mega_text.MegaRichTextLabel>("%BottomLabel");
+            if (bottomLabel != null)
+            {
+                bottomLabel.Text = "[center]" + Tips.ShinePileInfo.GetFormattedText();
+                bottomLabel.Visible = true;
+                MainFile.Logger.Info("[ShinePileManager] BottomLabel set successfully");
+            }
+            else
+            {
+                MainFile.Logger.Warn("[ShinePileManager] BottomLabel not found");
+            }
+
+            return screen;
+        }
+        catch (Exception ex)
+        {
+            MainFile.Logger.Error($"[ShinePileManager] Failed to open NCardPileScreen: {ex}");
+            return null;
+        }
     }
 }

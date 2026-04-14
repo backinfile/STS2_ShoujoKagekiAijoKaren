@@ -12,5 +12,8 @@
   "KAREN_SUNLIGHT_OBTAIN_PROMPT": "Add this card to your draw pile?",
   "KAREN_DISABLERELIC_LABEL": "(Can disable ",
   "KAREN_DISABLERELIC_SUFFIX": " relics)",
-  "KAREN_DERIVED_CARD_LABEL": "Token"
+  "KAREN_DERIVED_CARD_LABEL": "Token",
+  "KAREN_SHINE_PILE_INFO": "These cards have exhausted their Shine.",
+  "KAREN_SHINE_PILE_BUTTON_TITLE": "Shine Pile",
+  "KAREN_SHINE_PILE_BUTTON_DESC": "View cards that have exhausted their Shine."
 }
