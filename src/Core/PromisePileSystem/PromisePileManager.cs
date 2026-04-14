@@ -162,10 +162,17 @@ public static class PromisePileManager
     /// </summary>
     public static void ClearPromisePileInternal(Player player)
     {
+        MainFile.Logger.Info($"[PromisePile] ClearPromisePileInternal called for player {player?.Character?.Id?.Entry}");
         var pile = GetPromisePile(player);
-        if (pile.Cards.Count == 0) return;
-
         int count = pile.Cards.Count;
+        MainFile.Logger.Info($"[PromisePile] Promise pile count before clear: {count}");
+        if (count == 0)
+        {
+            MainFile.Logger.Info("[PromisePile] Pile is empty, skipping clear but still calling star ClearAll");
+            KarenPromiseVfxStarManager.ClearAll(player);
+            return;
+        }
+
         while (pile.Cards.Count > 0)
         {
             var card = pile.Cards.First();
@@ -177,30 +184,19 @@ public static class PromisePileManager
             //    _ = karenCard.OnRemovedFromPromisePile();
         }
 
-        GetOrCreateStarManager(player)?.ClearAll();
+        MainFile.Logger.Info("[PromisePile] Pile cleared, calling star ClearAll");
+        KarenPromiseVfxStarManager.ClearAll(player);
     }
 
     /// <summary>获取约定牌堆中的卡牌数量</summary>
     public static int GetCount(Player player)
     {
         if (player == null) return 0;
+        if (IsVoidMode(player)) return PileType.Draw.GetPile(player).Cards.Count;
         return GetPromisePile(player).Cards.Count;
     }
 
-    private static NKarenPromiseStarManager? GetOrCreateStarManager(Player player)
-    {
-        var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
-        if (creatureNode == null) return null;
-
-        foreach (var child in creatureNode.GetChildren())
-            if (child is NKarenPromiseStarManager mgr)
-                return mgr;
-
-        var manager = new NKarenPromiseStarManager();
-        creatureNode.AddChild(manager);
-        manager.Init(creatureNode);
-        return manager;
-    }
+    
 
     /// <summary>
     /// 从指定牌堆（弃牌堆或抽牌堆）让玩家选择最多 count 张牌放入约定牌堆。
@@ -300,7 +296,7 @@ public static class PromisePileManager
             karenPower.UpdateCount();
         }
 
-        GetOrCreateStarManager(player)?.UpdateCount(GetCount(player));
+        KarenPromiseVfxStarManager.UpdatePromisePileStarCount(player);
     }
 
 

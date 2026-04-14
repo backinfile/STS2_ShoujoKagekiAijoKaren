@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System;
 using System.Collections.Generic;
@@ -79,6 +80,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
         public static async Task TriggerOnCardAdded(Player player, CardModel card)
         {
             if (player?.Creature == null) return;
+            KarenPromiseVfxStarManager.UpdatePromisePileStarCount(player);
+
             foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
             {
                 await power.OnCardAddedToPromisePile(card);
@@ -95,6 +98,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
         public static async Task TriggerOnCardRemoved(Player player, CardModel card)
         {
             if (player?.Creature == null) return;
+            KarenPromiseVfxStarManager.UpdatePromisePileStarCount(player);
 
             // 触发burn模式
             if (PromisePileManager.IsInMode(player, PromisePileMode.Burn))

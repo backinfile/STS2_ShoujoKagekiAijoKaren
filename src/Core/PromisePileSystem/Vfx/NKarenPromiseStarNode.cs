@@ -5,9 +5,9 @@ using System.Collections.Generic;
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 /// <summary>
-/// 约定牌堆星星管理器：挂载在 NCreature 下，根据约定牌堆数量同步环绕星星
+/// 约定牌堆星星节点：挂载在 NCreature 下，负责星星的渲染与动画
 /// </summary>
-public partial class NKarenPromiseStarManager : Node2D
+public partial class NKarenPromiseStarNode : Node2D
 {
     private NCreature? _creatureNode;
     private readonly List<NKarenPromiseStarVfx> _stars = new();

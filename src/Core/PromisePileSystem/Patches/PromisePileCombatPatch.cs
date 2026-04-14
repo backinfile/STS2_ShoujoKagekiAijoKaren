@@ -65,6 +65,7 @@ internal static class PromisePile_AfterCombatEnd_Patch
     [HarmonyPostfix]
     private static void Postfix(Player __instance)
     {
+        MainFile.Logger.Info($"[PromisePile] AfterCombatEnd Patch triggered for player {__instance.Character?.Id?.Entry}");
         PromisePileManager.ClearPromisePileInternal(__instance);
     }
 }
