@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Nodes.Screens;
 using MegaCrit.Sts2.Core.Nodes.Screens.Capstones;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
-namespace ShoujoKagekiAijoKaren.src.Core.Nodes.TopBar;
+namespace ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
 
 public partial class NTopBarShinePileButton : MegaCrit.Sts2.Core.Nodes.TopBar.NTopBarButton
 {

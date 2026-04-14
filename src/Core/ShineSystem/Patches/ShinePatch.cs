@@ -32,22 +32,25 @@ public static class ShinePatch
     {
         static void Prefix(CardModel __instance, PlayerChoiceContext choiceContext)
         {
-            // 只处理有闪耀值的卡牌
-            if (!__instance.HasShine()) return;
-
-            // 减少闪耀值
-            var newValue = __instance.DecreaseShine();
-            MainFile.Logger.Info($"卡牌 '{__instance.Title}' 闪耀值减少至 {newValue}");
-
-            // 同步到 deckVersion 卡牌，确保下次从牌堆抽牌时 clone 获得正确的值
-            var deckVersion = __instance.DeckVersion;
-            if (deckVersion != null && deckVersion != __instance && deckVersion.IsShineCard())
+            // 闪耀值>0的卡牌闪耀值-1
+            var card = __instance;
+            if (card.HasShine() && !card.Keywords.Contains(CardKeyword.Eternal))
             {
-                deckVersion.SetShineCurrent(Math.Min(newValue, deckVersion.GetShineValue()));
-                MainFile.Logger.Info($"[ShinePatch] Synced deckVersion '{deckVersion.Title}' shine to {newValue}");
+
+                // 减少闪耀值
+                var newValue = card.DecreaseShine();
+                MainFile.Logger.Info($"卡牌 '{card.Title}' 闪耀值减少至 {newValue}");
+
+                // 同步到 deckVersion 卡牌，确保下次从牌堆抽牌时 clone 获得正确的值
+                var deckVersion = card.DeckVersion;
+                if (deckVersion != null && deckVersion != card && deckVersion.IsShineCard())
+                {
+                    deckVersion.SetShineCurrent(Math.Min(newValue, deckVersion.GetShineValue()));
+                    MainFile.Logger.Info($"[ShinePatch] Synced deckVersion '{deckVersion.Title}' shine to {newValue}");
+                }
             }
 
-            BeforePlayWrapper(__instance, choiceContext);
+            BeforePlayWrapper(card, choiceContext);
         }
     }
 
@@ -85,12 +88,13 @@ public static class ShinePatch
 
 
     /// <summary>存储每张卡牌对应的 PlayerChoiceContext</summary>
-    private static readonly SpireField<CardModel, PlayerChoiceContext?> CardContext = new(() => null);
+    private static readonly SpireField<CardModel, PlayerChoiceContext?> _cardContext = new(() => null);
 
     /// <summary>是否应进入闪耀耗尽流程（已初始化Shine且当前值==0）</summary>
     public static bool ShouldEnterShinePile(CardModel card)
     {
         if (!card.IsShineCard()) return false; // 不是闪耀牌不要进约定牌堆
+        if (card.Keywords.Contains(CardKeyword.Eternal)) return false; // 永恒牌删不掉
         if (card.GetShineValue() <= 0) return true; // 闪耀值耗尽了，需要进约定牌堆
         if (card.ShouldEnterShinePileAfterPlay()) return true; // 主动耗尽的，需要进约定牌堆
         return false; // 闪耀值还没耗尽
@@ -107,7 +111,7 @@ public static class ShinePatch
         // 闪耀牌都有可能因为某些原因进入耗尽牌堆，直接记录上就行
         if (card.IsShineCard())
         {
-            CardContext[card] = choiceContext;
+            _cardContext[card] = choiceContext;
         }
     }
 
@@ -222,8 +226,8 @@ public static class ShinePatch
             var oldPile = card.Pile;
 
             // 从 SpireField 获取 ctx
-            var choiceContext = CardContext.Get(card);
-            CardContext.Set(card, null); // 清空历史记录
+            var choiceContext = _cardContext.Get(card);
+            _cardContext.Set(card, null); // 清空历史记录
 
             // 如果没有ctx，就直接打印错误
             if (choiceContext == null)

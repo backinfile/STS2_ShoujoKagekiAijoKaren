@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Runs;
-using ShoujoKagekiAijoKaren.src.Core.Nodes.TopBar;
+using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
 
 namespace ShoujoKagekiAijoKaren.src.Core.ShineSystem.Patches;
 
