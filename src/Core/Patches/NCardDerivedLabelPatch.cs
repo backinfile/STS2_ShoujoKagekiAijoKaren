@@ -1,21 +1,34 @@
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.addons.mega_text;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Combat.History;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using System.Runtime.CompilerServices;
+using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Hooks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 
 /// <summary>
 /// 在 NCard 标题正上方显示"衍生牌"标签。
-/// 显示条件：DeckVersion == null && IsMutable
+/// 显示条件：IsMutable && DeckVersion == null && 战斗中生成
 /// </summary>
 public static class NCardDerivedLabelPatch
 {
-    private static readonly ConditionalWeakTable<NCard, MegaLabel> _derivedLabels = new();
+    private static readonly SpireField<NCard, MegaLabel> _derivedLabels = new SpireField<NCard, MegaLabel>(() => null);
+    private static readonly SpireField<CardModel, bool> _generatedInCombat = new SpireField<CardModel, bool>(() => false);
     private static readonly LocString DerivedCardLabel = new("gameplay_ui", "KAREN_DERIVED_CARD_LABEL");
+
+
+    public static bool GeneratedInCombat(CardModel card)
+    {
+        return _generatedInCombat.Get(card);
+    }
+
 
     [HarmonyPatch(typeof(NCard), "_Ready")]
     public static class NCard_Ready_Patch
@@ -43,7 +56,16 @@ public static class NCardDerivedLabelPatch
             label.AddThemeConstantOverride(ThemeConstants.Label.outlineSize, 8);
 
             __instance.Body.AddChild(label);
-            _derivedLabels.AddOrUpdate(__instance, label);
+            _derivedLabels.Set(__instance, label);
+        }
+    }
+
+    [HarmonyPatch(typeof(Hook), nameof(Hook.AfterCardGeneratedForCombat))]
+    public static class CombatHistory_CardGenerated_Patch
+    {
+        private static void Postfix(CardModel card)
+        {
+            _generatedInCombat.Set(card, true);
         }
     }
 
@@ -52,11 +74,11 @@ public static class NCardDerivedLabelPatch
     {
         private static void Postfix(NCard __instance)
         {
-            if (!_derivedLabels.TryGetValue(__instance, out var label))
-                return;
+            var label = _derivedLabels.Get(__instance);
+            if (label == null) return;
 
             var model = __instance.Model;
-            if (model != null && model.IsMutable && model.DeckVersion == null)
+            if (model != null && model.IsMutable && model.DeckVersion == null && _generatedInCombat.Get(model))
             {
                 label.SetTextAutoSize(DerivedCardLabel.GetFormattedText());
                 label.Visible = true;

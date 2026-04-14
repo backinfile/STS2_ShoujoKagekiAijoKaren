@@ -28,6 +28,7 @@ public static class CardHoverTipsPatch
         ("KAREN_TMP_STRENGTH", card => card.Tags.Contains(KarenCustomEnum.TmpStrength)),
         ("KAREN_RETAIN_TMP_STRENGTH", card => card.Tags.Contains(KarenCustomEnum.RetainTmpStrength)),
         ("KAREN_DISABLE_RELIC", card => card.Tags.Contains(KarenCustomEnum.DisableRelicRelated) || card is KarenDisableRelicBaseCardModel),
+        ("KAREN_TOKEN_CARD", card => NCardDerivedLabelPatch.GeneratedInCombat(card)),
     ];
 
     private static readonly Dictionary<string, HoverTip> HoverTopCache = new();
