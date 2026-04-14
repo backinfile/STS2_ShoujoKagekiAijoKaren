@@ -8,18 +8,38 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// </summary>
 public partial class NKarenPromiseStarVfx : Polygon2D
 {
-    public float OrbitRadius { get; set; } = 28f;
+    public float OrbitRadius { get; set; } = 100f;
     public float OrbitAngle { get; set; }
     public float OrbitSpeed { get; set; } = 1.8f;
     public float FlyInSpeedMultiplier { get; set; } = 1.5f;
     public bool IsOrbiting { get; private set; }
 
     private float _flyInProgress;
+    private CpuParticles2D? _trail;
 
     public NKarenPromiseStarVfx()
     {
         Color = new Color("#f9f2d5");
-        DrawStar(10f, 4f, 4);
+        DrawStar(5f, 2f, 4);
+
+        var trail = new CpuParticles2D
+        {
+            Amount = 32,
+            Lifetime = 0.5f,
+            Emitting = true,
+            Gravity = Vector2.Zero,
+            InitialVelocityMin = 0f,
+            InitialVelocityMax = 0f,
+            ScaleAmountMin = 0.4f,
+            ScaleAmountMax = 1.0f,
+            Color = new Color("#f9f2d5", 0.5f)
+        };
+        var curve = new Curve();
+        curve.AddPoint(new Vector2(0, 1));
+        curve.AddPoint(new Vector2(1, 0));
+        trail.ScaleAmountCurve = curve;
+        AddChild(trail);
+        _trail = trail;
     }
 
     private void DrawStar(float outerRadius, float innerRadius, int points)
@@ -65,6 +85,25 @@ public partial class NKarenPromiseStarVfx : Polygon2D
         tween.TweenProperty(this, "scale", Vector2.Zero, 0.25f)
             .SetEase(Tween.EaseType.In);
         await ToSignal(tween, Tween.SignalName.Finished);
+
+        if (_trail != null && IsInstanceValid(_trail))
+        {
+            _trail.Emitting = false;
+            RemoveChild(_trail);
+            _trail.TopLevel = true;
+            _trail.GlobalPosition = GlobalPosition;
+            var tree = GetTree();
+            if (tree != null)
+            {
+                tree.Root.AddChild(_trail);
+                tree.CreateTimer(_trail.Lifetime).Timeout += () => _trail?.QueueFree();
+            }
+            else
+            {
+                _trail.QueueFree();
+            }
+        }
+
         GodotTreeExtensions.QueueFreeSafely(this);
     }
 
