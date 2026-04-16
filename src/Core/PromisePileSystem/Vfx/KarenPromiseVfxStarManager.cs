@@ -39,6 +39,7 @@ public static class KarenPromiseVfxStarManager
     public static void UpdatePromisePileStarCount(Player player)
     {
         var count = PromisePileManager.GetCount(player);
+        if (PromisePileManager.IsInMode(player, Models.Powers.PromisePileMode.InfiniteReinforcement)) count = 20;
         Callable.From(() => UpdateCountInternal(player, count)).CallDeferred();
     }
 
