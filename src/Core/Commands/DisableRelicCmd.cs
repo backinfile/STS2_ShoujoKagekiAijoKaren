@@ -23,10 +23,18 @@ public static class DisableRelicCmd
         int disabledCount = 0;
         int searchEndPosition = player.Relics.Count;
 
+        // 调试日志：打印当前遗物列表状态
+        for (int i = 0; i < player.Relics.Count; i++)
+        {
+            var r = player.Relics[i];
+            MainFile.Logger.Info($"[DisableRelicCmd] Relic[{i}] = {r.Id.Entry}, Lockable={DisableRelicManager.IsRelicLockable(r)}, Rarity={r.Rarity}");
+        }
+
         while (disabledCount < count)
         {
             // 从右向左查找可禁用的遗物位置
             int position = DisableRelicManager.GetDisableableRelicPosition(player, searchEndPosition);
+            MainFile.Logger.Info($"[DisableRelicCmd] Search endPosition={searchEndPosition}, found position={position}");
 
             // 没有可禁用的遗物了
             if (position < 0)

@@ -76,11 +76,16 @@ public static class DisableRelicNodeManager
             // 从UI移除但保留引用
             inventory.RemoveChild(holder);
 
-            // 使用游戏本体方法添加新遗物
-            var addMethod = typeof(NRelicInventory).GetMethod("Add", PrivateInstance);
-            addMethod?.Invoke(inventory, new object[] { newRelic, true, -1 });
+            // 获取新遗物在 player.Relics 中的位置
+            var playerRelicsField = typeof(Player).GetField("_relics", BindingFlags.NonPublic | BindingFlags.Instance);
+            var playerRelics = playerRelicsField?.GetValue(player) as List<RelicModel>;
+            int index = playerRelics?.IndexOf(newRelic) ?? -1;
 
-            MainFile.Logger.Info($"[DisableRelicNodeManager] Saved node for '{oldRelic.Id.Entry}', replaced with '{newRelic.Id.Entry}'");
+            // 使用游戏本体方法添加新遗物到正确位置
+            var addMethod = typeof(NRelicInventory).GetMethod("Add", PrivateInstance);
+            addMethod?.Invoke(inventory, new object[] { newRelic, true, index });
+
+            MainFile.Logger.Info($"[DisableRelicNodeManager] Saved node for '{oldRelic.Id.Entry}', replaced with '{newRelic.Id.Entry}' at position {index}");
             return holder;
         }
         catch (Exception ex)
