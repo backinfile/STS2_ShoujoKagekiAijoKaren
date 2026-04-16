@@ -21,10 +21,10 @@ public class KarenPosition0Power : PowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerType Type => PowerType.Buff;
 
-
     public override async Task BeforeDamageReceived(PlayerChoiceContext choiceContext, Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (dealer?.Player is Player player)
+        //MainFile.Logger.Info($"dealer.Name = {dealer?.Name} target.Name = {target?.Name}");
+        if (dealer?.Player is Player player && player == Owner.Player && props == ValueProp.Move)
         {
             int count = AttackCounter.GetAttackCount(player);
             MainFile.Logger.Info($"KarenPosition0Power: Player has made {count} attacks this turn.");

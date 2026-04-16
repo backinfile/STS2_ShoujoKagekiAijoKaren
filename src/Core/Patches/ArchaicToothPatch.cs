@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Relics;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.ancient;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
+using ShoujoKagekiAijoKaren.src.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,23 +30,23 @@ public static class ArchaicToothPatch
             if (__result != null) return;
             if (player?.Character?.Id?.Entry != Karen.CHAR_ID) return;
 
-            var starter = player.Deck.Cards.FirstOrDefault(c => c.Id == ModelDb.Card<KarenStrike>().Id);
+            var starter = player.Deck.Cards.FirstOrDefault(c => c.Id == ModelDb.Card<KarenFall>().Id);
             if (starter != null)
                 __result = starter;
         }
     }
 
     /// <summary>
-    /// 如果起始卡是 KarenStrike，则转换为 KarenAncientStrike，并继承升级/附魔。
+    /// 转换初始牌为先古牌，并继承升级/附魔。
     /// </summary>
     [HarmonyPatch(typeof(ArchaicTooth), "GetTranscendenceTransformedCard")]
     public static class TransformedPatch
     {
         private static void Postfix(ArchaicTooth __instance, CardModel starterCard, ref CardModel __result)
         {
-            if (starterCard?.Id != ModelDb.Card<KarenStrike>().Id) return;
+            if (starterCard?.Id != ModelDb.Card<KarenFall>().Id) return;
 
-            var ancient = __instance.Owner.RunState.CreateCard(ModelDb.Card<KarenAncientStrike>(), starterCard.Owner);
+            var ancient = __instance.Owner.RunState.CreateCard(ModelDb.Card<KarenWhy>(), starterCard.Owner);
 
             if (starterCard.IsUpgraded)
                 CardCmd.Upgrade(ancient);
@@ -70,7 +71,7 @@ public static class ArchaicToothPatch
     {
         private static void Postfix(ref List<CardModel> __result)
         {
-            __result.Add(ModelDb.Card<KarenAncientStrike>());
+            __result.Add(ModelDb.Card<KarenWhy>());
         }
     }
 

@@ -15,7 +15,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenPosition0 : KarenBaseCardModel
 {
-    public KarenPosition0() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self) { }
+    public KarenPosition0() : base(3, CardType.Power, CardRarity.Ancient, TargetType.Self) { }
 
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<KarenPosition0Power>(1)];
