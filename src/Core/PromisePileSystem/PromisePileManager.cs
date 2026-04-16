@@ -196,7 +196,7 @@ public static class PromisePileManager
         return GetPromisePile(player).Cards.Count;
     }
 
-    
+
 
     /// <summary>
     /// 从指定牌堆（弃牌堆或抽牌堆）让玩家选择最多 count 张牌放入约定牌堆。
@@ -205,7 +205,7 @@ public static class PromisePileManager
     /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择, 此时要求传入source。
     /// </summary>
     public static async Task AddFromPileAsync(
-        PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt, AbstractModel? source = null)
+        PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt, AbstractModel? source = null, bool optional = false)
     {
         if (player == null) return;
 
@@ -215,7 +215,7 @@ public static class PromisePileManager
         if (cards.Count == 0) return;
 
         int selectCount = Math.Min(count, cards.Count);
-        var prefs = new CardSelectorPrefs(prompt, selectCount, selectCount);
+        var prefs = new CardSelectorPrefs(prompt, optional ? 0 : selectCount, selectCount);
 
         IEnumerable<CardModel> selected;
         if (pileType == PileType.Hand)

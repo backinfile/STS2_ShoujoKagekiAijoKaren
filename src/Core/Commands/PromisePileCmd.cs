@@ -217,18 +217,19 @@ public static class PromisePileCmd
     /// <summary>
     /// 从手牌让玩家选择最多 count 张牌放入约定牌堆。
     /// Void 模式下改为放入抽牌堆顶部。
+    /// optional:true表示可选0~count张牌
     /// </summary>
-    public static async Task AddFromHand(PlayerChoiceContext ctx, Player player, int count, AbstractModel source)
+    public static async Task AddFromHand(PlayerChoiceContext ctx, Player player, int count, AbstractModel source, bool optional = false)
     {
         var prompt = Tips.PromisePileSelectFromHand;
         if (IsVoidMode(player))
         {
             // Void 模式：从手牌选牌放入抽牌堆顶部
-            await AddFromPileToDrawPile(ctx, player, PileType.Hand, count, prompt, source);
+            await AddFromPileToDrawPile(ctx, player, PileType.Hand, count, prompt, source, optional);
             return;
         }
 
-        await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Hand, count, prompt, source);
+        await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Hand, count, prompt, source, optional);
     }
 
     /// <summary>
@@ -289,14 +290,14 @@ public static class PromisePileCmd
     /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择
     /// </summary>
     private static async Task AddFromPileToDrawPile(
-        PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt, AbstractModel? source = null)
+        PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt, AbstractModel? source = null, bool optional = false)
     {
         var cardPile = pileType.GetPile(player);
         var cards = cardPile.Cards.ToList();
         if (cards.Count == 0) return;
 
         int selectCount = System.Math.Min(count, cards.Count);
-        var prefs = new CardSelectorPrefs(prompt, selectCount, selectCount);
+        var prefs = new CardSelectorPrefs(prompt, optional ? 0 : selectCount, selectCount);
 
         IEnumerable<CardModel> selected;
         if (pileType == PileType.Hand)

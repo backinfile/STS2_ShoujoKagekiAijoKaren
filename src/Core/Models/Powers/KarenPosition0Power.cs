@@ -24,7 +24,7 @@ public class KarenPosition0Power : PowerModel
     public override async Task BeforeDamageReceived(PlayerChoiceContext choiceContext, Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
         //MainFile.Logger.Info($"dealer.Name = {dealer?.Name} target.Name = {target?.Name}");
-        if (dealer?.Player is Player player && player == Owner.Player && props == ValueProp.Move)
+        if (dealer?.Player is Player player && player == Owner.Player && props == ValueProp.Move && cardSource != null)
         {
             int count = AttackCounter.GetAttackCount(player);
             MainFile.Logger.Info($"KarenPosition0Power: Player has made {count} attacks this turn.");

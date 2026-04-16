@@ -1,14 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
 using BaseLib.Utils;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Commands.Builders;
-using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -52,27 +46,15 @@ public class AttackCounterResetPatch
 }
 
 /// <summary>
-/// 统计攻击次数（按实际造成的伤害段数计算，一段加一次）
+/// 统计攻击次数（在 Hook.BeforeDamageReceived 中计数，AOE 每命中一个敌人各计一次）
 /// </summary>
-[HarmonyPatch]
+[HarmonyPatch(typeof(Hook), nameof(Hook.BeforeDamageReceived))]
 public class AttackCounterPatch
 {
-    private static System.Reflection.MethodInfo TargetMethod()
+    private static void Prefix(Creature? dealer, CardModel? cardSource, ValueProp props)
     {
-        return AccessTools.Method(typeof(CreatureCmd), nameof(CreatureCmd.Damage), new[] {
-            typeof(PlayerChoiceContext),
-            typeof(IEnumerable<Creature>),
-            typeof(decimal),
-            typeof(ValueProp),
-            typeof(Creature),
-            typeof(CardModel)
-        });
-    }
-
-    private static void Prefix(Creature? dealer, CardModel? cardSource)
-    {
-        // 只统计玩家通过卡牌发起的攻击（AttackCommand 的每一段会调用一次 CreatureCmd.Damage）
-        if (dealer?.Player is Player player && cardSource != null)
+        // 只统计玩家通过卡牌发起的攻击
+        if (dealer?.Player is Player player && cardSource != null && props == ValueProp.Move)
         {
             AttackCounter.AttackCounts[player] = AttackCounter.AttackCounts[player] + 1;
         }

@@ -28,7 +28,7 @@ public sealed class KarenWhy : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        await PromisePileCmd.AddFromHand(choiceContext, Owner, ((int)DynamicVars.Cards.BaseValue), this);
+        await PromisePileCmd.AddFromHand(choiceContext, Owner, ((int)DynamicVars.Cards.BaseValue), this, true);
     }
 
     protected override void OnUpgrade()

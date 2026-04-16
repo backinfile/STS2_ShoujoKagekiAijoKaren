@@ -8,7 +8,7 @@
   "KAREN_SHINE_STRIKE.description": "造成{Damage:diff()}点伤害。",
 
   "KAREN_WHY.title": "为什么要离开？我的朋友",
-  "KAREN_WHY.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
+  "KAREN_WHY.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将至多{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
 
   "KAREN_FALL.title": "坠落",
   "KAREN_FALL.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n将{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
