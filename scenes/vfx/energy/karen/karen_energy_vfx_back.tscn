@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2k1xq7p3n4v5"]
+
+[ext_resource type="Script" path="res://src/Core/Nodes/Vfx/Utilities/KarenParticlesContainer.cs" id="1_karen"]
+
+[node name="karen_energy_vfx_back" type="Node2D" node_paths=PackedStringArray("_particles")]
+script = ExtResource("1_karen")
+_particles = [NodePath("GPUParticles2D")]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 1

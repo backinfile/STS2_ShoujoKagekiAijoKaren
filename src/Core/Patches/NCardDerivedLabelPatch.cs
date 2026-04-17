@@ -50,10 +50,10 @@ public static class NCardDerivedLabelPatch
 
             // 复用 TitleLabel 的字体和描边样式
             var titleLabel = __instance.GetNode<MegaLabel>("%TitleLabel");
-            label.AddThemeFontOverride(ThemeConstants.Label.font, titleLabel.GetThemeFont(ThemeConstants.Label.font));
-            label.AddThemeColorOverride(ThemeConstants.Label.fontColor, StsColors.cream);
-            label.AddThemeColorOverride(ThemeConstants.Label.fontOutlineColor, StsColors.cardTitleOutlineCommon);
-            label.AddThemeConstantOverride(ThemeConstants.Label.outlineSize, 8);
+            label.AddThemeFontOverride(ThemeConstants.Label.Font, titleLabel.GetThemeFont(ThemeConstants.Label.Font));
+            label.AddThemeColorOverride(ThemeConstants.Label.FontColor, StsColors.cream);
+            label.AddThemeColorOverride(ThemeConstants.Label.FontOutlineColor, StsColors.cardTitleOutlineCommon);
+            label.AddThemeConstantOverride(ThemeConstants.Label.OutlineSize, 8);
 
             __instance.Body.AddChild(label);
             _derivedLabels.Set(__instance, label);

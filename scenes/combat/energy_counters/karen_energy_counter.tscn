@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cjbhw1m3ra203"]
+[gd_scene load_steps=19 format=3 uid="uid://cjbhw1m3ra203"]
 
 [ext_resource type="Script" uid="uid://w4n77httudob" path="res://src/Core/Node/SNEnergyCounter.cs" id="1_1mbsk"]
 [ext_resource type="Material" uid="uid://c4ycqv0gdxvmr" path="res://themes/canvas_item_material_additive_shared.tres" id="2_ya08b"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://grebkhabi7os" path="res://images/ui/combat/energy_counters/energy_burst/energy_orb_burst.png" id="10_3tt4q"]
 [ext_resource type="FontVariation" uid="uid://bg85h22rkxs6g" path="res://themes/kreon_bold_shared.tres" id="11_tup8n"]
 [ext_resource type="Script" uid="uid://o51q4nrll5xq" path="res://src/Core/Node/SMegaLabel.cs" id="12_ya08b"]
+[ext_resource type="PackedScene" uid="uid://d2k1xq7p3n4v5" path="res://scenes/vfx/energy/karen/karen_energy_vfx_back.tscn" id="13_1mbsk"]
+[ext_resource type="PackedScene" uid="uid://767epcjlmb3g" path="res://scenes/vfx/energy/karen/karen_energy_vfx_front.tscn" id="14_1mbsk"]
 
 [sub_resource type="Curve" id="Curve_umldk"]
 _data = [Vector2(0.00596422, 0.0309963), 0.0, 4.46389, 0, 0, Vector2(0.298211, 0.736162), 0.832039, 0.832039, 0, 0, Vector2(0.99006, 0.932841), -0.247478, 0.0, 0, 0]
@@ -58,6 +60,11 @@ scale_amount_max = 0.45
 scale_amount_curve = SubResource("Curve_umldk")
 color = Color(0.894118, 0.654902, 0.215686, 0.6)
 color_ramp = SubResource("Gradient_4pfys")
+
+[node name="EnergyVfxBack" parent="." node_paths=PackedStringArray("_particles") instance=ExtResource("13_1mbsk")]
+unique_name_in_owner = true
+position = Vector2(64, 64)
+_particles = []
 
 [node name="Layers" type="Control" parent="."]
 unique_name_in_owner = true
@@ -168,6 +175,11 @@ scale_amount_max = 0.45
 scale_amount_curve = SubResource("Curve_1sepv")
 color = Color(0.894118, 0.654902, 0.215686, 0.6)
 color_ramp = SubResource("Gradient_4pfys")
+
+[node name="EnergyVfxFront" parent="." node_paths=PackedStringArray("_particles") instance=ExtResource("14_1mbsk")]
+unique_name_in_owner = true
+position = Vector2(64, 64)
+_particles = []
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1

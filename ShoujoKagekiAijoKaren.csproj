@@ -8,7 +8,6 @@
   <ItemGroup>
     <Compile Remove="fonts\**" />
     <Compile Remove="images\**" />
-    <Compile Remove="images\packed\card_portraits\karen\zhs\**" />
     <Compile Remove="materials\**" />
     <Compile Remove="scenes\**" />
     <Compile Remove="shaders\**" />
@@ -16,7 +15,6 @@
     <Compile Remove="themes\**" />
     <EmbeddedResource Remove="fonts\**" />
     <EmbeddedResource Remove="images\**" />
-    <EmbeddedResource Remove="images\packed\card_portraits\karen\zhs\**" />
     <EmbeddedResource Remove="materials\**" />
     <EmbeddedResource Remove="scenes\**" />
     <EmbeddedResource Remove="shaders\**" />
@@ -81,8 +79,5 @@
   </ItemGroup>
   <ItemGroup>
     <EditorConfigFiles Remove="D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\.editorconfig" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="images\" />
   </ItemGroup>
 </Project>
