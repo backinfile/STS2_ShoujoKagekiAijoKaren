@@ -7,6 +7,8 @@ using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Linq;
 using System.Reflection;
+using MegaCrit.Sts2.Core.Entities.Players;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 
@@ -84,12 +86,12 @@ public static class ShineViewPatch
             string shineText = label + coloredNumber + suffix;
 
             // 若卡牌有消耗关键字，游戏已将"消耗。"附加在描述末尾，闪耀文本与其同行
-            bool hasExhaust = __instance.CanonicalKeywords?.Contains(CardKeyword.Exhaust) == true;
+            bool hasExhaust = __instance.Keywords?.Contains(CardKeyword.Exhaust) == true;
             __result = __result + (hasExhaust ? "" : "\n") + shineText;
         }
     }
 
-   
+
 
     /// <summary>
     /// ShouldGlowRed补丁 - 当闪耀值为1时，将卡牌边框显示为红色
@@ -101,8 +103,16 @@ public static class ShineViewPatch
         public static void Postfix(CardModel __instance, ref bool __result)
         {
             if (__result) return; // 已经是红色，不覆盖
-            if (__instance.IsShineCard() && __instance.GetShineValue() == 1)
-                __result = true;
+
+            // 非永恒的闪耀牌
+            if (__instance.IsShineCard() && !__instance.Keywords.Contains(CardKeyword.Eternal))
+            {
+                // 即将耗尽
+                if (__instance.GetShineValue() <= 1 || (__instance.Owner?.Creature?.Powers?.Any(p => p is KarenStarlight02Power) == true))
+                {
+                    __result = true;
+                }
+            }
         }
     }
 

@@ -18,7 +18,7 @@ public static class GlobalMoveSystem
 
     internal static async Task Trigger(CardModel card, PileType from, PileType to, AbstractModel? source)
     {
-        MainFile.Logger.Info($"[GlobalMoveSystem] Card '{card.Title}' moved from {from} to {to} (source={source?.GetType().Name ?? "null"})");
+        //MainFile.Logger.Info($"[GlobalMoveSystem] Card '{card.Title}' moved from {from} to {to} (source={source?.GetType().Name ?? "null"})");
 
         // 触发该卡牌的GlobalMove
         {

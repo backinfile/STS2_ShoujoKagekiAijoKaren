@@ -81,7 +81,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches
             public static readonly SpireField<CardPile, bool> cardPileMarked = new(() => false);
             public static void Postfix(CardModel card, PileType oldPile, ref Task __result)
             {
-                MainFile.Logger.Info($"AfterCardChangedPiles card={card.Title} oldPile={oldPile} first");
+                //MainFile.Logger.Info($"AfterCardChangedPiles card={card.Title} oldPile={oldPile} first");
                 if (oldPile != KarenCustomEnum.PromisePile && oldPile != PileType.Draw) return;
 
                 Async.Postfix(ref __result, async () =>
