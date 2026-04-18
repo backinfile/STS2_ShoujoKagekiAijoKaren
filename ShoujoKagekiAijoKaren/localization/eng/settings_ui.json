@@ -1,0 +1,4 @@
+{
+    "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.title": "Upload Run Data",
+    "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "Whether to upload run history JSON to the statistics server after each run."
+}

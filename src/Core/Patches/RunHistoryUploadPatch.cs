@@ -14,6 +14,12 @@ public class RunHistoryUploadPatch
 
     private static void Postfix()
     {
+        if (!KarenModConfig.EnableDataUpload)
+        {
+            MainFile.Logger.Info("[RunHistoryUploadPatch] 数据上传已禁用，跳过上传");
+            return;
+        }
+
         var history = RunManager.Instance.History;
         if (history == null)
         {

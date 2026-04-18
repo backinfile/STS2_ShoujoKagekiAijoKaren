@@ -22,3 +22,5 @@ obj/
 需求/
 外部文件/
 ShoujoKagekiAijoKaren.pck
+data/runs.db
+server.pid

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BaseLib.Config;
 using Godot;
 using Godot.Bridge;
 using HarmonyLib;
@@ -21,6 +22,8 @@ public partial class MainFile : Node
     {
         var assembly = Assembly.GetExecutingAssembly();
         ScriptManagerBridge.LookupScriptsInAssembly(assembly);
+
+        ModConfigRegistry.Register(ModId, new KarenModConfig());
 
         Harmony harmony = new(ModId);
         harmony.PatchAll();

@@ -1,0 +1,4 @@
+{
+    "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.title": "上传对局数据",
+    "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "是否将每次对局结束后生成的JSON数据上传到统计服务器。"
+}
