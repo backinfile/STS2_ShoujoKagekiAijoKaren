@@ -9,7 +9,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 [HarmonyPatch(typeof(RunHistoryUtilities), nameof(RunHistoryUtilities.CreateRunHistoryEntry))]
 public class RunHistoryUploadPatch
 {
-    private const string UploadUrl = "http://localhost:8080";
+    private const string UploadUrl = "http://localhost:9210/api/upload";
     private static readonly HttpClient HttpClient = new();
 
     private static void Postfix()
