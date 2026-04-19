@@ -61,7 +61,7 @@ scale_amount_curve = SubResource("Curve_umldk")
 color = Color(0.894118, 0.654902, 0.215686, 0.6)
 color_ramp = SubResource("Gradient_4pfys")
 
-[node name="EnergyVfxBack" parent="." node_paths=PackedStringArray("_particles") instance=ExtResource("13_1mbsk")]
+[node name="MyEnergyVfxBack" parent="." node_paths=PackedStringArray("_particles") instance=ExtResource("13_1mbsk")]
 unique_name_in_owner = true
 position = Vector2(64, 64)
 _particles = []
@@ -176,7 +176,7 @@ scale_amount_curve = SubResource("Curve_1sepv")
 color = Color(0.894118, 0.654902, 0.215686, 0.6)
 color_ramp = SubResource("Gradient_4pfys")
 
-[node name="EnergyVfxFront" parent="." node_paths=PackedStringArray("_particles") instance=ExtResource("14_1mbsk")]
+[node name="MyEnergyVfxFront" parent="." node_paths=PackedStringArray("_particles") instance=ExtResource("14_1mbsk")]
 unique_name_in_owner = true
 position = Vector2(64, 64)
 _particles = []
