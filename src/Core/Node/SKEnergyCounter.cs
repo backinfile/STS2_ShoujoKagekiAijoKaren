@@ -17,7 +17,7 @@ public partial class SKEnergyCounter : NEnergyCounter
         AccessTools.Field(typeof(NEnergyCounter), "_backVfx")?.SetValue(this, null);
         AccessTools.Field(typeof(NEnergyCounter), "_frontVfx")?.SetValue(this, null);
 
-        _myBackVfx = GetNode<SNParticlesContainer>("%EnergyVfxBack");
-        _myFrontVfx = GetNode<SNParticlesContainer>("%EnergyVfxFront");
+        _myBackVfx = GetNode<SNParticlesContainer>("%MyEnergyVfxBack");
+        _myFrontVfx = GetNode<SNParticlesContainer>("%MyEnergyVfxFront");
     }
 }

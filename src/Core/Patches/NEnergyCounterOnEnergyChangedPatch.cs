@@ -16,6 +16,7 @@ public class NEnergyCounterOnEnergyChangedPatch
         if (oldEnergy >= newEnergy) return;
         if (__instance is SKEnergyCounter counter)
         {
+            MainFile.Logger.Info("========== OnEnergyChanged");
             counter._myBackVfx?.Restart();
             counter._myFrontVfx?.Restart();
         }
