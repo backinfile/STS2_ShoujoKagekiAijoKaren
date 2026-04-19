@@ -1,48 +1,70 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=13 format=3 uid="uid://c17yk6avwc2ti"]
 
-[ext_resource type="Script" path="res://src/Core/Node/SNParticlesContainer.cs" id="1_karenf"]
-[ext_resource type="Material" path="res://themes/canvas_item_material_additive_shared.tres" id="2_additive"]
-[ext_resource type="Texture2D" path="res://images/ui/combat/energy_counters/energy_burst/energy_orb_burst.png" id="3_burst"]
+[ext_resource type="Script" uid="uid://bamfxfr3ftih4" path="res://src/Core/Node/SNParticlesContainer.cs" id="1_karenf"]
+[ext_resource type="Material" uid="uid://c4ycqv0gdxvmr" path="res://themes/canvas_item_material_additive_shared.tres" id="2_additive"]
+[ext_resource type="Texture2D" uid="uid://bxfmluvgj5c4i" path="res://images/vfx/energy/karen/karen_star.png" id="3_star"]
 
-[sub_resource type="Curve" id="Curve_burst"]
-_data = [Vector2(0, 0), 0.0, 4.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_alpha"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_burst"]
-curve = SubResource("Curve_burst")
+[sub_resource type="CurveTexture" id="CurveTexture_alpha"]
+curve = SubResource("Curve_alpha")
 
-[sub_resource type="Gradient" id="Gradient_burst"]
-offsets = PackedFloat32Array(0, 0.5, 1)
-colors = PackedColorArray(1, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+[sub_resource type="Gradient" id="Gradient_color"]
+offsets = PackedFloat32Array(0, 0.3, 1)
+colors = PackedColorArray(0.976471, 0.94902, 0.835294, 1, 1, 1, 0.9, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_burst"]
-gradient = SubResource("Gradient_burst")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_color"]
+gradient = SubResource("Gradient_color")
+
+[sub_resource type="Curve" id="Curve_damping"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.15), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_damping"]
+curve = SubResource("Curve_damping")
+
+[sub_resource type="Curve" id="Curve_scale"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(0.8, 0.8), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_scale"]
+curve = SubResource("Curve_scale")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_front"]
 lifetime_randomness = 0.3
+particle_flag_rotate_y = true
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 5.0
+emission_sphere_radius = 1.76
 angle_min = -180.0
 angle_max = 180.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 60.0
+initial_velocity_max = 130.0
 gravity = Vector3(0, 0, 0)
-initial_velocity_min = 50.0
-initial_velocity_max = 150.0
-scale_min = 0.3
-scale_max = 0.6
-scale_curve = SubResource("CurveTexture_burst")
-color_initial_ramp = SubResource("GradientTexture1D_burst")
+damping_min = 5.0
+damping_max = 10.0
+damping_curve = SubResource("CurveTexture_damping")
+scale_min = 0.19999999
+scale_max = 0.19999999
+scale_curve = SubResource("CurveTexture_scale")
+color_initial_ramp = SubResource("GradientTexture1D_color")
+alpha_curve = SubResource("CurveTexture_alpha")
 
 [node name="KarenEnergyVfxFront" type="Node2D"]
 script = ExtResource("1_karenf")
 
-[node name="Burst" type="GPUParticles2D" parent="."]
+[node name="StarBurst" type="GPUParticles2D" parent="."]
+self_modulate = Color(0.976471, 0.94902, 0.835294, 1)
 material = ExtResource("2_additive")
+scale = Vector2(2, 2)
 emitting = false
-amount = 8
-texture = ExtResource("3_burst")
-lifetime = 0.5
+amount = 30
+texture = ExtResource("3_star")
+lifetime = 0.8
 one_shot = true
-explosiveness = 0.8
+explosiveness = 0.6
 process_material = SubResource("ParticleProcessMaterial_front")
-self_modulate = Color(0.984314, 0.329412, 0.345098, 1)
