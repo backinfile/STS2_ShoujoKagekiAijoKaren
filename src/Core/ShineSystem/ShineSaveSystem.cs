@@ -43,7 +43,7 @@ public static class ShineSaveSystem
             var card = cards.ElementAt(i);
             var shineCurrent = card.GetShineValue();
             var shineMax = card.GetShineMaxValue();
-            if (shineMax > 0)
+            if (shineMax >=0 || shineCurrent >= 0)
             {
                 result.Add(new ShineSaveData
                 {
