@@ -36,7 +36,6 @@
     <None Include="src\Core\Node\SKCardTrail.cs.uid" />
     <None Include="src\Core\Node\SKCardTrailVfx.cs.uid" />
     <None Include="src\Core\Node\SKCreatureVisuals.cs.uid" />
-    <None Include="src\Core\Node\SKEnergyCounter.cs.uid" />
     <None Include="src\Core\Node\SKMerchantCharacter.cs.uid" />
     <None Include="src\Core\Node\SKRestSiteCharacter.cs.uid" />
     <None Include="src\Core\Node\SKSelectionReticle.cs.uid" />
