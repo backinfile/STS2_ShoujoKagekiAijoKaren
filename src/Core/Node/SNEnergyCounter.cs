@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 
 namespace ShoujoKagekiAijoKaren.Core;
 
-[GlobalClass]
 public partial class SNEnergyCounter : NEnergyCounter
 {
 }
