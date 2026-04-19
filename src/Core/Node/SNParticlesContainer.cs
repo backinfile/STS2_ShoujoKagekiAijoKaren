@@ -4,7 +4,6 @@ using MegaCrit.Sts2.Core.Nodes.Vfx.Utilities;
 
 namespace ShoujoKagekiAijoKaren.Core;
 
-[GlobalClass]
 public partial class SNParticlesContainer : NParticlesContainer
 {
     public override void _Ready()

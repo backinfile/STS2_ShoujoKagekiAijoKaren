@@ -66,8 +66,7 @@ public static class ShineExtension
     /// </summary>
     public static int GetShineMaxValue(this CardModel card)
     {
-        var value = _shineMax.Get(card);
-        return value < 0 ? 0 : value;
+        return _shineMax.Get(card);
     }
 
     /// <summary>
@@ -128,18 +127,6 @@ public static class ShineExtension
         current--;
         _shineCurrent.Set(card, current);
         return current;
-    }
-
-    /// <summary>
-    /// 增加当前闪耀值（不超过最大值）
-    /// </summary>
-    public static void AddShine(this CardModel card, int amount)
-    {
-        var current = GetShineValue(card);
-        var max = GetShineMaxValue(card);
-        var newValue = current + amount;
-        if (newValue > max) newValue = max;
-        _shineCurrent.Set(card, newValue);
     }
 
     /// <summary>
