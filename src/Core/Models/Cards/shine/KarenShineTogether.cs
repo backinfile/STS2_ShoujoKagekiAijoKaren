@@ -33,6 +33,8 @@ public sealed class KarenShineTogether : KarenBaseCardModel
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.ShineCardReward];
 
+    public override bool CanBeGeneratedInCombat => false;
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");

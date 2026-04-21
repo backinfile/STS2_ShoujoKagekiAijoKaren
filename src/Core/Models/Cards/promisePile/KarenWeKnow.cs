@@ -30,6 +30,7 @@ public sealed class KarenWeKown : KarenBaseCardModel
         new DamageVar(15m, ValueProp.Move)
     ];
 
+    public override bool CanBeGeneratedInCombat => false;
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<KarenWeKownToken>()];
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];

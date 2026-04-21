@@ -20,6 +20,8 @@ public sealed class KarenPassion : KarenBaseCardModel
         this.AddShineMax(1);
     }
 
+    public override bool CanBeGeneratedInCombat => false;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => [];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

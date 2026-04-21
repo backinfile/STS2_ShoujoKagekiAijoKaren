@@ -42,6 +42,8 @@ public sealed class KarenSunlight : KarenBaseCardModel
         new DamageVar(10m, ValueProp.Move),
     };
 
+    public override bool CanBeGeneratedInCombat => false;
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");

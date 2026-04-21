@@ -23,6 +23,7 @@ public sealed class KarenArrogant : KarenBaseCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<VulnerablePower>(2m)
     ];
+    public override bool CanBeGeneratedInCombat => false;
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

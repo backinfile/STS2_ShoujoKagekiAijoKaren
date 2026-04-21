@@ -21,6 +21,8 @@ public sealed class KarenBananaCake : KarenBaseCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPotion<FlexPotion>()];
 
+    public override bool CanBeGeneratedInCombat => false;
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PotionCmd.TryToProcure<FlexPotion>(Owner);

@@ -8,6 +8,7 @@
   <ItemGroup>
     <Compile Remove="fonts\**" />
     <Compile Remove="images\**" />
+    <Compile Remove="images\powers\zhs\**" />
     <Compile Remove="materials\**" />
     <Compile Remove="scenes\**" />
     <Compile Remove="shaders\**" />
@@ -15,6 +16,7 @@
     <Compile Remove="themes\**" />
     <EmbeddedResource Remove="fonts\**" />
     <EmbeddedResource Remove="images\**" />
+    <EmbeddedResource Remove="images\powers\zhs\**" />
     <EmbeddedResource Remove="materials\**" />
     <EmbeddedResource Remove="scenes\**" />
     <EmbeddedResource Remove="shaders\**" />

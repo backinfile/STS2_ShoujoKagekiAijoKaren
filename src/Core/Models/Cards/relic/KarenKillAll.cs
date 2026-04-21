@@ -24,6 +24,8 @@ public sealed class KarenKillAll : KarenBaseCardModel
         this.AddShineMax(9);
     }
 
+    public override bool CanBeGeneratedInCombat => false;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => [];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15, ValueProp.Move)];

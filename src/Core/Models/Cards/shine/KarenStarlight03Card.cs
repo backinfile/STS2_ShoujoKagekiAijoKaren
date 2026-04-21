@@ -26,6 +26,7 @@ public sealed class KarenStarlight03Card() : KarenBaseCardModel(1, CardType.Powe
     [
         KarenCustomEnum.ShineCardReward
     ];
+    public override bool CanBeGeneratedInCombat => false;
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
