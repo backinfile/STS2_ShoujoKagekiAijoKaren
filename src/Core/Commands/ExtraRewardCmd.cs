@@ -26,7 +26,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
         /// </summary>
         public static async Task AddShineCardReward(Player player, CardModel? except = null)
         {
-            var shineCard = ShineManager.GetAllShineCards().Where(card => except == null || except.Id != card.Id).TakeRandom(1, player.PlayerRng.Rewards).First();
+            var shineCard = ShineManager.GetAllShineCards().Where(card => card.Rarity != CardRarity.Basic && card.Id != except?.Id).TakeRandom(1, player.PlayerRng.Rewards).First();
             var clone = player.RunState.CreateCard(shineCard, player);
             if (player.RunState.CurrentRoom is CombatRoom combatRoom)
             {

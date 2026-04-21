@@ -22,6 +22,7 @@
     <EmbeddedResource Remove="themes\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\packed\card_portraits\karen\karen_we_kown.png" />
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="mod_manifest.json" />
   </ItemGroup>

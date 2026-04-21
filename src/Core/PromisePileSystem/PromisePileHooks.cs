@@ -107,7 +107,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
             }
 
 
-            foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
+            foreach (var power in player.Creature.Powers.OfType<KarenBasePower>().ToList())
             {
                 await power.OnCardRemovedFromPromisePile(card);
             }

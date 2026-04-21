@@ -88,5 +88,23 @@
   "KAREN_STRETCHING.title": "Stretching",
   "KAREN_STRETCHING.description": "Gain {Block:diff()} [gold]Block[/gold].\nPut this card into the [gold]Promise Pile[/gold].",
   "KAREN_RAPID.title": "Rapid Descent",
-  "KAREN_RAPID.description": "Select {Cards:diff()} card(s) from the [gold]Promise Pile[/gold].\nDiscard the rest."
+  "KAREN_RAPID.description": "Select {Cards:diff()} card(s) from the [gold]Promise Pile[/gold].\nDiscard the rest.",
+
+  "KAREN_PAST_AND_FUTURE.title": "Past and Future",
+  "KAREN_PAST_AND_FUTURE.description": "When drawing from the [gold]Promise Pile[/gold], gain {StrengthPower:diff()} [gold]Temporary Strength[/gold].",
+
+  "KAREN_TICKET.title": "Ticket",
+  "KAREN_TICKET.description": "At the start of each turn, add 1 [gold]Tower of Promise[/gold] to your hand.",
+
+  "KAREN_WE_KNOW.title": "Stage of Promise",
+  "KAREN_WE_KNOW.description": "Deal {Damage:diff()} damage to ALL enemies.\nAt the start of combat, add [gold]Stage[/gold] to the [gold]Promise Pile[/gold].",
+
+  "KAREN_WE_KNOW_TOKEN.title": "Stage",
+  "KAREN_WE_KNOW_TOKEN.description": "Gain {Energy:energyIcons()}.",
+
+  "KAREN_SHINE_TOGETHER.title": "Shine Together",
+  "KAREN_SHINE_TOGETHER.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] depletes, gain 3 [gold]Shine Card Rewards[/gold].",
+
+  "KAREN_BASEBALL.title": "Baseball",
+  "KAREN_BASEBALL.description": "Deal {Damage:diff()} damage.\n[gold]Retain Hand[/gold], [gold]Retain Energy[/gold], [gold]Retain Block[/gold], and [gold]Retain Strength[/gold] for 2 turns."
 }

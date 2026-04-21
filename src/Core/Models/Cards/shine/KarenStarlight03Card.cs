@@ -29,7 +29,7 @@ public sealed class KarenStarlight03Card() : KarenBaseCardModel(1, CardType.Powe
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await ExtraRewardCmd.AddShineCardReward(Owner, this);
+        await ExtraRewardCmd.AddShineCardReward(Owner);
     }
 
     protected override void OnUpgrade()

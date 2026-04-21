@@ -54,7 +54,7 @@ public sealed class KarenStarFriend : KarenBaseCardModel
 
         if (shouldTriggerFatal && attackCommand.Results.Any((DamageResult r) => r.WasTargetKilled))
         {
-            await ExtraRewardCmd.AddShineCardReward(Owner, this);
+            await ExtraRewardCmd.AddShineCardReward(Owner);
         }
     }
 

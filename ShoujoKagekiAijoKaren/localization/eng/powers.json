@@ -26,5 +26,17 @@
   "KAREN_STARLIGHT03_POWER.description": "Shine card reward gained.",
 
   "KAREN_AQUARIUM_POWER.title": "Aquarium",
-  "KAREN_AQUARIUM_POWER.description": "At the start of your turn, draw 1 card, then put 1 card from your hand into the [gold]Promise Pile[/gold]."
+  "KAREN_AQUARIUM_POWER.description": "At the start of your turn, draw 1 card, then put 1 card from your hand into the [gold]Promise Pile[/gold].",
+
+  "KAREN_PAST_AND_FUTURE_POWER.title": "Past and Future",
+  "KAREN_PAST_AND_FUTURE_POWER.description": "When drawing from the Promise Pile, gain {Amount} Temporary Strength.",
+  "KAREN_PAST_AND_FUTURE_POWER.smartDescription": "When drawing from the Promise Pile, gain {Amount} Temporary Strength.",
+
+  "KAREN_TICKET_POWER.title": "Ticket",
+  "KAREN_TICKET_POWER.description": "At the start of each turn, add 1 Tower of Promise to your hand.",
+  "KAREN_TICKET_POWER.smartDescription": "At the start of each turn, add {Amount} Tower of Promise to your hand.",
+
+  "KAREN_WE_KNOW_POWER.title": "Stage of Promise",
+  "KAREN_WE_KNOW_POWER.description": "At the start of combat, add Stage to the Promise Pile.",
+  "KAREN_WE_KNOW_POWER.smartDescription": "At the start of combat, add {Amount} Stage to the Promise Pile."
 }

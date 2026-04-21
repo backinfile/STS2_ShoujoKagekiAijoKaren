@@ -63,5 +63,17 @@
 
   "KAREN_FORM_POWER.title": "觉醒形态",
   "KAREN_FORM_POWER.description": "每个回合开始时，抽满手牌。",
-  "KAREN_FORM_POWER.smartDescription": "每个回合开始时，抽满手牌。"
+  "KAREN_FORM_POWER.smartDescription": "每个回合开始时，抽满手牌。",
+
+  "KAREN_PAST_AND_FUTURE_POWER.title": "过去与未来",
+  "KAREN_PAST_AND_FUTURE_POWER.description": "从[gold]约定牌堆[/gold]抽牌时，获得{Amount}点[gold]临时力量[/gold]。",
+  "KAREN_PAST_AND_FUTURE_POWER.smartDescription": "从[gold]约定牌堆[/gold]抽牌时，获得{Amount}点[gold]临时力量[/gold]。",
+
+  "KAREN_TICKET_POWER.title": "门票",
+  "KAREN_TICKET_POWER.description": "每回合开始时，将1张[gold]约定之塔[/gold]加入手牌。",
+  "KAREN_TICKET_POWER.smartDescription": "每回合开始时，将{Amount}张[gold]约定之塔[/gold]加入手牌。",
+
+  "KAREN_WE_KNOW_POWER.title": "约定的舞台",
+  "KAREN_WE_KNOW_POWER.description": "战斗开始时，将[gold]舞台[/gold]加入[gold]约定牌堆[/gold]。",
+  "KAREN_WE_KNOW_POWER.smartDescription": "战斗开始时，将{Amount}张[gold]舞台[/gold]加入[gold]约定牌堆[/gold]。"
 }

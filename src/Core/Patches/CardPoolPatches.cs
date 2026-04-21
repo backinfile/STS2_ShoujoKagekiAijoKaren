@@ -41,6 +41,7 @@ public static class TokenCardPoolPatch
             ModelDb.Card<KarenCounter>(),
             ModelDb.Card<KarenSandwitch>(),
             ModelDb.Card<KarenSideways>(),
+            ModelDb.Card<KarenWeKownToken>(),
 
             ModelDb.Card<KarenWakeUpDrawPileOption>(),
             ModelDb.Card<KarenWakeUpDiscardPileOption>(),
