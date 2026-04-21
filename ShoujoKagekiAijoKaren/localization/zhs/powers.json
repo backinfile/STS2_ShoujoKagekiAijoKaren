@@ -71,9 +71,5 @@
 
   "KAREN_TICKET_POWER.title": "门票",
   "KAREN_TICKET_POWER.description": "每回合开始时，将1张[gold]约定之塔[/gold]加入手牌。",
-  "KAREN_TICKET_POWER.smartDescription": "每回合开始时，将{Amount}张[gold]约定之塔[/gold]加入手牌。",
-
-  "KAREN_WE_KNOW_POWER.title": "约定的舞台",
-  "KAREN_WE_KNOW_POWER.description": "战斗开始时，将[gold]舞台[/gold]加入[gold]约定牌堆[/gold]。",
-  "KAREN_WE_KNOW_POWER.smartDescription": "战斗开始时，将{Amount}张[gold]舞台[/gold]加入[gold]约定牌堆[/gold]。"
+  "KAREN_TICKET_POWER.smartDescription": "每回合开始时，将{Amount}张[gold]约定之塔[/gold]加入手牌。"
 }
