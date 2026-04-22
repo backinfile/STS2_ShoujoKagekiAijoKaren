@@ -101,8 +101,7 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenForgive>(),
             ModelDb.Card<KarenBananaLunch>(),
             ModelDb.Card<KarenFinancier>(),
-            // 临时移除
-            // ModelDb.Card<KarenCry>(),
+            ModelDb.Card<KarenCry>(),
             ModelDb.Card<KarenSpin>(),
             ModelDb.Card<KarenOldPlace>(),
             ModelDb.Card<KarenVoid>(),
@@ -120,6 +119,7 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenPizza>(),
             ModelDb.Card<KarenPosition0>(),
             ModelDb.Card<KarenPractice2>(),
+            ModelDb.Card<KarenPractice3>(),
 
             // 2026-04-21 新增卡牌
             ModelDb.Card<KarenPastAndFuture>(),

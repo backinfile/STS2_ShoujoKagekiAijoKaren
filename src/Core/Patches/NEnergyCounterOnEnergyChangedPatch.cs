@@ -21,7 +21,7 @@ public class NEnergyCounterOnEnergyChangedPatch
 
     public static void Postfix(NEnergyCounter __instance, int oldEnergy, int newEnergy)
     {
-        MainFile.Logger.Info($"[NEnergyCounterOnEnergyChangedPatch] Postfix called, old={oldEnergy}, new={newEnergy}, instanceType={__instance.GetType().Name}");
+        //MainFile.Logger.Info($"[NEnergyCounterOnEnergyChangedPatch] Postfix called, old={oldEnergy}, new={newEnergy}, instanceType={__instance.GetType().Name}");
         if (oldEnergy >= newEnergy) return;
         if (__instance is SNEnergyCounter counter)
         {

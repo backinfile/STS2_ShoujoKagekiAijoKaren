@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
 /// <summary>
-/// 过去与未来 - 1费能力牌，从约定牌堆中抽牌时获得1/2临时力量
+/// 过去与未来 - 2费能力牌，从约定牌堆中抽牌时获得1/2临时力量
 /// </summary>
 public sealed class KarenPastAndFuture : KarenBaseCardModel
 {
@@ -36,6 +36,6 @@ public sealed class KarenPastAndFuture : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Strength.UpgradeValueBy(1m);
+        AddKeyword(CardKeyword.Innate);
     }
 }

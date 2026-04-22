@@ -85,4 +85,14 @@ public static class Tips
 
     /// <summary>禁用遗物标签后缀</summary>
     public static readonly LocString DisableRelicSuffix = new("gameplay_ui", "KAREN_DISABLERELIC_SUFFIX");
+
+    // ==================== karen_fight ====================
+    /// <summary>歌唱吧舞蹈吧互相争斗吧 - 提示标题</summary>
+    public static readonly LocString KarenFightTipTitle = new("cards", "KAREN_FIGHT.tip.title");
+
+    /// <summary>歌唱吧舞蹈吧互相争斗吧 - 提示内容</summary>
+    public static readonly LocString KarenFightTip = new("cards", "KAREN_FIGHT.tip");
+
+    /// <summary>歌唱吧舞蹈吧互相争斗吧 - 选择界面标题</summary>
+    public static readonly LocString KarenFightSelectTitle = new("cards", "KAREN_FIGHT.select_title");
 }

@@ -106,5 +106,17 @@
   "KAREN_SHINE_TOGETHER.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] depletes, gain 3 [gold]Shine Card Rewards[/gold].",
 
   "KAREN_BASEBALL.title": "Baseball",
-  "KAREN_BASEBALL.description": "Deal {Damage:diff()} damage.\n[gold]Retain Hand[/gold], [gold]Retain Energy[/gold], [gold]Retain Block[/gold], and [gold]Retain Strength[/gold] for 2 turns."
+  "KAREN_BASEBALL.description": "Deal {Damage:diff()} damage.\n[gold]Retain Hand[/gold], [gold]Retain Energy[/gold], [gold]Retain Block[/gold], and [gold]Retain Strength[/gold] for 2 turns.",
+
+  "KAREN_PRACTICE3.title": "Gymnastics Practice",
+  "KAREN_PRACTICE3.description": "Gain {Block:diff()} [gold]Block[/gold].",
+
+  "KAREN_FIGHT.title": "Sing, Dance, and Fight",
+  "KAREN_FIGHT.description": "Choose {Cards:diff()} card(s) from your [gold]Shine Pile[/gold] and add it to your deck.",
+  "KAREN_FIGHT.tip.title": "Source",
+  "KAREN_FIGHT.tip": "This card appears in Shine Card Rewards.",
+  "KAREN_FIGHT.select_title": "Choose a depleted Shine card",
+
+  "KAREN_CRY.title": "Sorry for the Trouble",
+  "KAREN_CRY.description": "Gain {Block:diff()} [gold]Block[/gold] whenever this card moves between piles."
 }

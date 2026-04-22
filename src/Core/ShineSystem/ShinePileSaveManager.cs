@@ -60,6 +60,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.ShineSystem
                 foreach (var serializableCard in pileList)
                 {
                     var card = CardModel.FromSerializable(serializableCard);
+                    card.Owner = player;
                     ShinePileManager.AddToShinePileInternal(player, card);
                 }
                 ShinePileManager.UpdateShineCardDisposedCount(player);

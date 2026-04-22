@@ -8,7 +8,6 @@
   <ItemGroup>
     <Compile Remove="fonts\**" />
     <Compile Remove="images\**" />
-    <Compile Remove="images\powers\zhs\**" />
     <Compile Remove="materials\**" />
     <Compile Remove="scenes\**" />
     <Compile Remove="shaders\**" />
@@ -16,7 +15,6 @@
     <Compile Remove="themes\**" />
     <EmbeddedResource Remove="fonts\**" />
     <EmbeddedResource Remove="images\**" />
-    <EmbeddedResource Remove="images\powers\zhs\**" />
     <EmbeddedResource Remove="materials\**" />
     <EmbeddedResource Remove="scenes\**" />
     <EmbeddedResource Remove="shaders\**" />
@@ -24,7 +22,6 @@
     <EmbeddedResource Remove="themes\**" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="images\packed\card_portraits\karen\karen_we_kown.png" />
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="mod_manifest.json" />
   </ItemGroup>

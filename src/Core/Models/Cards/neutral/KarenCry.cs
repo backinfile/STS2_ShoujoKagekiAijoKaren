@@ -15,19 +15,27 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenCry : KarenBaseCardModel
 {
-    public KarenCry() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+    public KarenCry() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3, ValueProp.Move)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        // 打出时无直接效果
+    }
+
+    public override async Task OnGlobalMove(PileType from, PileType to, AbstractModel? source)
+    {
+        if (Owner?.Creature is null)
+            return;
+
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay: null!);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(2m);
+        DynamicVars.Block.UpgradeValueBy(1m);
     }
 }
