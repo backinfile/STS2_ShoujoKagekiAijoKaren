@@ -127,6 +127,7 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenWeKown>(),
             ModelDb.Card<KarenShineTogether>(),
             ModelDb.Card<KarenBaseball>(),
+            ModelDb.Card<KarenRewrite>(),
 
             // Ancient 测试卡牌（兼容 ArchaicTooth / DustyTome）
             ModelDb.Card<KarenWhy>(),

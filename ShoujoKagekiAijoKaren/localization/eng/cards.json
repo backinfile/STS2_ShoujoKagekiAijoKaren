@@ -108,6 +108,9 @@
   "KAREN_BASEBALL.title": "Baseball",
   "KAREN_BASEBALL.description": "Deal {Damage:diff()} damage.\n[gold]Retain Hand[/gold], [gold]Retain Energy[/gold], [gold]Retain Block[/gold], and [gold]Retain Strength[/gold] for 2 turns.",
 
+  "KAREN_REWRITE.title": "Rewrite",
+  "KAREN_REWRITE.description": "Deal {Damage:diff()} damage.\nPlay all depleted [gold]Rewrite[/gold] cards.",
+
   "KAREN_PRACTICE3.title": "Gymnastics Practice",
   "KAREN_PRACTICE3.description": "Gain {Block:diff()} [gold]Block[/gold].",
 

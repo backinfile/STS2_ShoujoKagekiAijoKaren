@@ -96,7 +96,7 @@
   "KAREN_WHOS_PROMISE.description": "造成{Damage:diff()}点伤害。\n从[gold]约定牌堆[/gold]抽{Cards:diff()}张牌，然后放入{Cards:diff()}张牌。",
 
   "KAREN_BACK_TO_BACK_CARD.title": "背靠背",
-  "KAREN_BACK_TO_BACK_CARD.description": "造成[gold]约定牌堆[/gold]中卡牌数量{ExtraDamage:diff()}倍的伤害。\n{InCombat:（造成{CalculatedDamage:diff()}点伤害。）|}",
+  "KAREN_BACK_TO_BACK_CARD.description": "造成[gold]约定牌堆[/gold]中卡牌数量{ExtraDamage:diff()}倍的伤害。{InCombat:\n（造成{CalculatedDamage:diff()}点伤害。）|}",
 
   "KAREN_ON_STAGE.title": "我将再次变为我自己",
   "KAREN_ON_STAGE.description": "从[gold]约定牌堆[/gold]抽{Cards:diff()}张牌。\n获得{Energy:energyIcons()}。",
@@ -304,6 +304,9 @@
 
   "KAREN_BASEBALL.title": "棒球",
   "KAREN_BASEBALL.description": "造成{Damage:diff()}点伤害。\n保留你的能量，手牌，[gold]格挡[/gold]和[gold]力量[/gold]2回合。",
+
+  "KAREN_REWRITE.title": "续写",
+  "KAREN_REWRITE.description": "造成{Damage:diff()}点伤害。\n打出所有耗尽的[gold]续写[/gold]。{InCombat:\n（已耗尽{Cnt}张。）|}",
 
   "KAREN_FIGHT.title": "歌唱吧舞蹈吧互相争斗吧",
   "KAREN_FIGHT.description": "从耗尽[gold]闪耀[/gold]的牌中选择{Cards:diff()}张重新加入牌组。",

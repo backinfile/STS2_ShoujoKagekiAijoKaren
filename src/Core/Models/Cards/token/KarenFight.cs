@@ -39,8 +39,8 @@ public sealed class KarenFight : KarenBaseCardModel
 
         var shinePile = ShinePileManager.GetShinePile(Owner);
         var cards = shinePile.Cards
-            .Select(CombatState.CloneCard)
             .Where(c => c is not KarenFight)
+            .Select(CombatState.CloneCard)
             .ToList();
         if (cards.Count == 0) return;
 
