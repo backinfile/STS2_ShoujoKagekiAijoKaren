@@ -57,17 +57,16 @@ public sealed class KarenRewrite : KarenBaseCardModel
             var clones = new List<CardModel>();
             foreach (var card in shineCards.Skip(skip))
             {
-                // 复制的牌最终会自己消失
                 var clone = CombatState.CloneCard(card);
-                AccessTools.PropertySetter(typeof(CardModel), "IsDupe").Invoke(card, [true]);
+                AccessTools.PropertySetter(typeof(CardModel), "IsDupe").Invoke(clone, [true]);
+
                 await CardPileCmd.Add(clone, PileType.Play); // 先放入打出牌堆
                 clones.Add(clone);
             }
-            foreach (var card in clones)
+            foreach (var clone in clones)
             {
-                // 设置下次打出后消失
-                card.SetEnterShinePileAfterPlay(true);
-                await CardCmd.AutoPlay(choiceContext, card, null);
+                await CardCmd.AutoPlay(choiceContext, clone, cardPlay.Target);
+                //await CardPileCmd.RemoveFromCombat(clone);
             }
         }
     }
