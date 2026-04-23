@@ -93,6 +93,7 @@ public static class ShinePatch
     /// <summary>是否应进入闪耀耗尽流程（已初始化Shine且当前值==0）</summary>
     public static bool ShouldEnterShinePile(CardModel card)
     {
+        if (card.IsDupe) return false; // 复制牌交给原始打牌流程结束后清理，避免打断 OnPlayWrapper 的模型栈
         if (!card.IsShineCard()) return false; // 不是闪耀牌不要进约定牌堆
         if (card.Keywords.Contains(CardKeyword.Eternal)) return false; // 永恒牌删不掉
         if (card.GetShineValue() <= 0) return true; // 闪耀值耗尽了，需要进约定牌堆

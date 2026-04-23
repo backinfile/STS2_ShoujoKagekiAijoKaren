@@ -45,18 +45,30 @@ public sealed class KarenRewrite : KarenBaseCardModel
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
 
+        // 不要继续结算了
+        if (shineCards.Count == 0) return;
+        if (IsDupe) return;
 
-        // 打出所有已经耗尽的此牌
-        foreach (var card in shineCards)
+        // 主动计算出要打多少次来，一次打完
+        var count = shineCards.Count;
+        for (int skip = 0; skip < count; skip++)
         {
-            // 复制的牌最终会自己消失
-            var clone = CombatState.CloneCard(card);
-            await CardPileCmd.Add(clone, PileType.Play); // 先放入打出牌堆
-
-            // 设置下次打出后消失
-            clone.SetEnterShinePileAfterPlay(true);
-            AccessTools.PropertySetter(typeof(CardModel), "IsDupe").Invoke(clone, [true]);
-            await CardCmd.AutoPlay(choiceContext, clone, null);
+            // 打出所有已经耗尽的此牌
+            var clones = new List<CardModel>();
+            foreach (var card in shineCards.Skip(skip))
+            {
+                // 复制的牌最终会自己消失
+                var clone = CombatState.CloneCard(card);
+                AccessTools.PropertySetter(typeof(CardModel), "IsDupe").Invoke(card, [true]);
+                await CardPileCmd.Add(clone, PileType.Play); // 先放入打出牌堆
+                clones.Add(clone);
+            }
+            foreach (var card in clones)
+            {
+                // 设置下次打出后消失
+                card.SetEnterShinePileAfterPlay(true);
+                await CardCmd.AutoPlay(choiceContext, card, null);
+            }
         }
     }
 
