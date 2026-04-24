@@ -1,4 +1,7 @@
 {
     "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.title": "Upload Run Data",
-    "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "Whether to upload run history JSON to the statistics server after each run."
+    "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "Whether to upload run history JSON to the statistics server after each run.",
+    "SHOUJOKAGEKIAIJOKAREN-SPLASH.title": "Splash Screen",
+    "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.title": "Show Giraffe Splash",
+    "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.hover.desc": "Show the giraffe splash screen before the MegaCrit logo on game startup."
 }
