@@ -6,6 +6,7 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="audio\**" />
     <Compile Remove="fonts\**" />
     <Compile Remove="images\**" />
     <Compile Remove="materials\**" />
@@ -13,6 +14,7 @@
     <Compile Remove="shaders\**" />
     <Compile Remove="ShoujoKagekiAijoKaren\**" />
     <Compile Remove="themes\**" />
+    <EmbeddedResource Remove="audio\**" />
     <EmbeddedResource Remove="fonts\**" />
     <EmbeddedResource Remove="images\**" />
     <EmbeddedResource Remove="materials\**" />
