@@ -25,8 +25,8 @@ public sealed class KarenGeer : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-
-        await PromisePileManager.CopyHandToPromisePile(Owner);
+        if (CombatState == null) return;
+        await PromisePileManager.CopyHandToPromisePile(Owner, CombatState);
     }
 
     protected override void OnUpgrade()

@@ -2,6 +2,7 @@ using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.addons.mega_text;
 using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -386,7 +387,7 @@ public static class PromisePileManager
         }
     }
 
-    internal static async Task CopyHandToPromisePile(Player player)
+    internal static async Task CopyHandToPromisePile(Player player, CombatState combatState)
     {
         var hand = PileType.Hand.GetPile(player);
         var handCards = hand.Cards.ToList();
@@ -395,7 +396,9 @@ public static class PromisePileManager
         foreach (var card in handCards)
         {
             var copyCard = card.CreateClone();
+            CombatManager.Instance.History.CardGenerated(combatState, copyCard, true);
             await PromisePileCmd.Add(player, copyCard);
+            await Hook.AfterCardGeneratedForCombat(combatState, copyCard, true);
         }
     }
 
