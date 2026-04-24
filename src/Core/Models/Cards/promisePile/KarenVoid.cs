@@ -21,6 +21,8 @@ public sealed class KarenVoid : KarenBaseCardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [];
 
+    protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var combatState = Owner.PlayerCombatState;

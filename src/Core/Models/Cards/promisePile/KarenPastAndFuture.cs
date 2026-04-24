@@ -25,7 +25,7 @@ public sealed class KarenPastAndFuture : KarenBaseCardModel
         new PowerVar<StrengthPower>(1m)
     ];
 
-    public override IEnumerable<CardTag> Tags => [KarenCustomEnum.TmpStrength];
+    public override IEnumerable<CardTag> Tags => [KarenCustomEnum.TmpStrength, KarenCustomEnum.PromisePileRelated];
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
