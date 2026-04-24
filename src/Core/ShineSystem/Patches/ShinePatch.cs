@@ -180,7 +180,7 @@ public static class ShinePatch
             return true; 
         }
 
-        [HarmonyReversePatch]
+        [HarmonyReversePatch(HarmonyReversePatchType.Snapshot)]
         public static Task<IReadOnlyList<CardPileAddResult>> OriginalMethodStub(IEnumerable<CardModel> cards, CardPile newPile, CardPilePosition position, AbstractModel? source, bool skipVisuals)
         {
             throw new NotImplementedException("会自动被替换，不会走到这里");
