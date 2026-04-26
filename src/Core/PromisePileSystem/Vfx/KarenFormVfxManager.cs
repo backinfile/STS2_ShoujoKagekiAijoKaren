@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
@@ -30,10 +31,10 @@ public static class KarenFormVfxManager
             return;
         }
 
-        var room = NCombatRoom.Instance;
-        if (room == null) return;
+        var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
+        if (creatureNode == null) return;
 
-        foreach (var child in room.GetChildren())
+        foreach (var child in creatureNode.GetChildren())
         {
             if (child is NKarenFormVfx existing)
             {
@@ -44,7 +45,8 @@ public static class KarenFormVfxManager
         }
 
         var newNode = new NKarenFormVfx();
-        room.AddChild(newNode);
+        creatureNode.AddChild(newNode);
+        newNode.Init(creatureNode);
         formNodes.Set(player, newNode);
     }
 

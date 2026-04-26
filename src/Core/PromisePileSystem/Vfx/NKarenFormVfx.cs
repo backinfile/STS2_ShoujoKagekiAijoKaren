@@ -1,5 +1,6 @@
 using Godot;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -7,8 +8,16 @@ public partial class NKarenFormVfx : Node2D
 {
     private static readonly Texture2D HorizontalLineTexture = LoadTexture("res://images/vfx/sts/horizontal_line.png");
 
+    private NCreature? _creatureNode;
     private float _timer;
     private bool _stopping;
+
+    public void Init(NCreature creatureNode)
+    {
+        _creatureNode = creatureNode;
+        ZAsRelative = true;
+        ZIndex = 2;
+    }
 
     public void Restart()
     {
@@ -28,13 +37,14 @@ public partial class NKarenFormVfx : Node2D
 
     public override void _Ready()
     {
-        ZAsRelative = true;
-        ZIndex = 1;
         Restart();
     }
 
     public override void _Process(double delta)
     {
+        if (_creatureNode != null)
+            GlobalPosition = _creatureNode.VfxSpawnPosition;
+
         if (_stopping) return;
 
         float d = (float)delta;
@@ -42,7 +52,7 @@ public partial class NKarenFormVfx : Node2D
         if (_timer <= 0f)
         {
             _timer += (float)GD.RandRange(0.2, 0.4);
-            AddChild(new NKarenWindyParticle(HorizontalLineTexture, reverse: true));
+            AddChild(new NKarenWindyParticle(HorizontalLineTexture, GlobalPosition, reverse: false));
         }
     }
 
@@ -60,7 +70,7 @@ internal partial class NKarenWindyParticle : Sprite2D
     private readonly float _rotationVelocity;
     private float _duration;
 
-    public NKarenWindyParticle(Texture2D texture, bool reverse)
+    public NKarenWindyParticle(Texture2D texture, Vector2 parentGlobalPosition, bool reverse)
     {
         Texture = texture;
         Centered = true;
@@ -74,23 +84,24 @@ internal partial class NKarenWindyParticle : Sprite2D
         float velocityX;
         if (reverse)
         {
-            x = (float)GD.RandRange(-400.0, -100.0) * scale;
+            x = (float)GD.RandRange(-260.0, -80.0) * scale;
             velocityX = (float)GD.RandRange(1500.0, 2500.0) * scale;
         }
         else
         {
-            x = width + (float)GD.RandRange(100.0, 400.0) * scale;
+            x = width + (float)GD.RandRange(80.0, 260.0) * scale;
             velocityX = (float)GD.RandRange(-2500.0, -1500.0) * scale;
         }
 
-        Position = new Vector2(x, (float)GD.RandRange(0.15, 0.85) * height);
+        var globalSpawnPosition = new Vector2(x, (float)GD.RandRange(0.15, 0.85) * height);
+        Position = globalSpawnPosition - parentGlobalPosition;
         _velocityX = velocityX;
         _velocityY = (float)GD.RandRange(-100.0, 100.0) * scale;
         _rotationVelocity = (float)GD.RandRange(0.5, 0.0);
-        _duration = 0.9f;
+        _duration = 1.25f;
 
         RotationDegrees = 0f;
-        Scale = new Vector2((float)GD.RandRange(0.7, 1.3), (float)GD.RandRange(1.5, 3.0) * scale);
+        Scale = new Vector2((float)GD.RandRange(0.5, 0.9), (float)GD.RandRange(1.0, 2.0) * scale);
         Modulate = new Color(0.28f, 0.1f, 0.08f, 0.9f);
 
         var material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
@@ -104,7 +115,7 @@ internal partial class NKarenWindyParticle : Sprite2D
         RotationDegrees += _rotationVelocity * d;
         _duration -= d;
 
-        if (_duration < 0f || Position.X > GetViewportSize().X + 400f || Position.X < -400f)
+        if (_duration < 0f || Position.X > GetViewportSize().X + 500f || Position.X < -500f)
             GodotTreeExtensions.QueueFreeSafely(this);
     }
 
