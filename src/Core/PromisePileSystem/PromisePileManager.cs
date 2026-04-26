@@ -190,6 +190,7 @@ public static class PromisePileManager
             MainFile.Logger.Info("[PromisePile] Pile is empty, skipping clear but still calling star ClearAll");
             KarenPromiseVfxStarManager.ClearAll(player);
             player.Creature?.GetPower<KarenPromisePilePower>()?.ExitMode(PromisePileMode.Burn);
+            KarenFormVfxManager.Stop(player);
             if (player.PlayerCombatState != null)
                 _pastAndFutureAmount[player.PlayerCombatState] = 0m;
             PastAndFuturePromisePileAudio.Clear(player);
@@ -210,6 +211,7 @@ public static class PromisePileManager
         MainFile.Logger.Info("[PromisePile] Pile cleared, calling star ClearAll");
         KarenPromiseVfxStarManager.ClearAll(player);
         player.Creature?.GetPower<KarenPromisePilePower>()?.ExitMode(PromisePileMode.Burn);
+        KarenFormVfxManager.Stop(player);
         if (player.PlayerCombatState != null)
             _pastAndFutureAmount[player.PlayerCombatState] = 0m;
         PastAndFuturePromisePileAudio.Clear(player);
