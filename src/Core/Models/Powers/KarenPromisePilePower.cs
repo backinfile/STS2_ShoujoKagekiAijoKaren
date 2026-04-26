@@ -4,7 +4,9 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers.tmpStrength;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
@@ -12,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
@@ -40,6 +43,7 @@ public sealed class KarenPromisePilePower : FakeAmountPower
 
     // ===== Mode 管理 =====
     private PromisePileMode _activeModes = PromisePileMode.None;
+    private decimal _pastAndFutureAmount = 0m;
 
     /// <summary>判断是否处于指定 Mode</summary>
     public bool IsInMode(PromisePileMode mode) => (_activeModes & mode) == mode;
@@ -49,6 +53,7 @@ public sealed class KarenPromisePilePower : FakeAmountPower
     {
         _activeModes |= mode;
         SyncBurnVfx();
+        PlayAni();
     }
 
     /// <summary>退出指定 Mode</summary>
@@ -63,6 +68,17 @@ public sealed class KarenPromisePilePower : FakeAmountPower
     public bool IsInfiniteReinforcement => IsInMode(PromisePileMode.InfiniteReinforcement);
     public bool IsBurnMode => IsInMode(PromisePileMode.Burn);
     public bool IsPastAndFutureMode => IsInMode(PromisePileMode.PastAndFuture);
+    public decimal PastAndFutureAmount => _pastAndFutureAmount;
+
+    public void AddPastAndFutureAmount(decimal amount)
+    {
+        _pastAndFutureAmount += amount;
+    }
+
+    public void ClearPastAndFutureAmount()
+    {
+        _pastAndFutureAmount = 0m;
+    }
 
     // ===== Normal Mode Data =====
     private IReadOnlyList<string> _cardNames = Array.Empty<string>();
@@ -128,9 +144,9 @@ public sealed class KarenPromisePilePower : FakeAmountPower
         if (IsInMode(PromisePileMode.InfiniteReinforcement))
             modes.Add(Tips.PromisePilePowerModeInfinite.GetFormattedText());
         if (IsInMode(PromisePileMode.Burn))
-            modes.Add(Tips.PromisePilePowerModeUpgrade.GetFormattedText());
-        if (IsInMode(PromisePileMode.PastAndFuture) && Owner.Player is Player player)
-            modes.Add($"[gold]过去与未来[/gold]：从[gold]约定牌堆[/gold]抽牌时，获得{PromisePileManager.GetPastAndFutureAmount(player)}点[gold]临时力量[/gold]。");
+            modes.Add(Tips.PromisePilePowerModeBurn.GetFormattedText());
+        if (IsInMode(PromisePileMode.PastAndFuture))
+            modes.Add(LocManager.Instance.SmartFormat(Tips.PromisePilePowerModePastAndFuture, new Dictionary<string, object> { ["Amount"] = PastAndFutureAmount }));
 
         return string.Join("\n", modes);
     }
@@ -154,5 +170,22 @@ public sealed class KarenPromisePilePower : FakeAmountPower
             card.AddKeyword(CardKeyword.Exhaust);
         }
         //card.ExhaustOnNextPlay = true;
+    }
+
+    public void PlayAni()
+    {
+        Owner?.InvokePowerModified(this, 1, false);
+    }
+
+    public override async Task OnCardRemovedFromPromisePile(CardModel card)
+    {
+        if (IsInMode(PromisePileMode.Burn))
+        {
+            AddBurnEffect(card);
+        }
+        if (IsInMode(PromisePileMode.PastAndFuture))
+        {
+            await PowerCmd.Apply<KarenPastAndFutureTempStrengthPower>(Owner, _pastAndFutureAmount, Owner, null);
+        }
     }
 }

@@ -73,11 +73,11 @@ public static class Tips
     /// <summary>约定牌堆 Power - 无限强化模式描述</summary>
     public static readonly LocString PromisePilePowerModeInfinite = new("powers", "KAREN_PROMISE_PILE_POWER.mode.infinite");
 
-    /// <summary>约定牌堆 Power - 升级模式描述</summary>
-    public static readonly LocString PromisePilePowerModeUpgrade = new("powers", "KAREN_PROMISE_PILE_POWER.mode.upgrade");
+    /// <summary>约定牌堆 Power - Burn 模式描述</summary>
+    public static readonly LocString PromisePilePowerModeBurn = new("powers", "KAREN_PROMISE_PILE_POWER.mode.burn");
 
-    /// <summary>约定牌堆 Power - 消耗模式描述</summary>
-    public static readonly LocString PromisePilePowerModeExhaust = new("powers", "KAREN_PROMISE_PILE_POWER.mode.exhaust");
+    /// <summary>约定牌堆 Power - 过去与未来模式描述</summary>
+    public static readonly LocString PromisePilePowerModePastAndFuture = new("powers", "KAREN_PROMISE_PILE_POWER.mode.pastAndFuture");
 
     // ==================== disable_relic ====================
     /// <summary>禁用遗物标签前缀</summary>

@@ -100,25 +100,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
         {
             if (player?.Creature == null) return;
             KarenPromiseVfxStarManager.UpdatePromisePileStarCount(player);
-
-            // 触发burn模式
             PastAndFuturePromisePileAudio.TryPlayNext(player);
-
-            if (PromisePileManager.IsInMode(player, PromisePileMode.Burn))
-            {
-                KarenPromisePilePower.AddBurnEffect(card);
-            }
-
-
-            if (PromisePileManager.IsInMode(player, PromisePileMode.PastAndFuture))
-            {
-                var amount = PromisePileManager.GetPastAndFutureAmount(player);
-                if (amount > 0)
-                {
-                    await PowerCmd.Apply<KarenPastAndFutureTempStrengthPower>(
-                        player.Creature, amount, player.Creature, null);
-                }
-            }
 
             foreach (var power in player.Creature.Powers.OfType<KarenBasePower>().ToList())
             {
