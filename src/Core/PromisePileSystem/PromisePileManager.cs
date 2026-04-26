@@ -41,6 +41,8 @@ public static class PromisePileManager
     private static readonly SpireField<PlayerCombatState, CardPile> _promisePile
         = new(() => new CardPile(KarenCustomEnum.PromisePile));
 
+    private static readonly SpireField<PlayerCombatState, decimal> _pastAndFutureAmount
+        = new(() => 0m);
 
     private static readonly Texture2D DrawPileIconInVoidMode = GD.Load<Texture2D>(ImageHelper.GetImagePath("ui/combat/karen_draw_pile_void.png"));
 
@@ -71,6 +73,22 @@ public static class PromisePileManager
         if (player?.Creature == null) return false;
         var power = player.Creature.GetPower<KarenPromisePilePower>();
         return power?.IsInMode(mode) == true;
+    }
+
+    public static decimal GetPastAndFutureAmount(Player player)
+    {
+        if (player?.PlayerCombatState == null) return 0m;
+        return _pastAndFutureAmount.Get(player.PlayerCombatState);
+    }
+
+    public static async Task EnterPastAndFutureMode(Player player, decimal amount)
+    {
+        if (player?.Creature == null || player.PlayerCombatState == null) return;
+
+        _pastAndFutureAmount[player.PlayerCombatState] =
+            _pastAndFutureAmount.Get(player.PlayerCombatState) + amount;
+
+        await EnterMode(player, PromisePileMode.PastAndFuture);
     }
 
     /// <summary>
@@ -171,7 +189,10 @@ public static class PromisePileManager
         {
             MainFile.Logger.Info("[PromisePile] Pile is empty, skipping clear but still calling star ClearAll");
             KarenPromiseVfxStarManager.ClearAll(player);
-            KarenBurnVfxManager.Stop(player);
+            player.Creature?.GetPower<KarenPromisePilePower>()?.ExitMode(PromisePileMode.Burn);
+            if (player.PlayerCombatState != null)
+                _pastAndFutureAmount[player.PlayerCombatState] = 0m;
+            PastAndFuturePromisePileAudio.Clear(player);
             return;
         }
 
@@ -188,7 +209,10 @@ public static class PromisePileManager
 
         MainFile.Logger.Info("[PromisePile] Pile cleared, calling star ClearAll");
         KarenPromiseVfxStarManager.ClearAll(player);
-        KarenBurnVfxManager.Stop(player);
+        player.Creature?.GetPower<KarenPromisePilePower>()?.ExitMode(PromisePileMode.Burn);
+        if (player.PlayerCombatState != null)
+            _pastAndFutureAmount[player.PlayerCombatState] = 0m;
+        PastAndFuturePromisePileAudio.Clear(player);
     }
 
     /// <summary>获取约定牌堆中的卡牌数量</summary>

@@ -5,7 +5,6 @@ using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
-using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -27,7 +26,6 @@ public sealed class KarenBurn : KarenBaseCardModel
         if (Owner.Creature == null) return;
 
         await PromisePileManager.EnterMode(Owner, PromisePileMode.Burn);
-        KarenBurnVfxManager.Start(Owner);
     }
 
     protected override void OnUpgrade()

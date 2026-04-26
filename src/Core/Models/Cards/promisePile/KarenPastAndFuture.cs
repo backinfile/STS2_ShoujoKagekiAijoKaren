@@ -1,4 +1,3 @@
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -8,6 +7,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -31,7 +31,7 @@ public sealed class KarenPastAndFuture : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KarenPastAndFuturePower>(Owner.Creature, DynamicVars.Strength.BaseValue, Owner.Creature, this);
+        await PromisePileManager.EnterPastAndFutureMode(Owner, DynamicVars.Strength.BaseValue);
     }
 
     protected override void OnUpgrade()

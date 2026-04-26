@@ -1,8 +1,10 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers.tmpStrength;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System;
@@ -81,7 +83,6 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
         {
             if (player?.Creature == null) return;
             KarenPromiseVfxStarManager.UpdatePromisePileStarCount(player);
-
             foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
             {
                 await power.OnCardAddedToPromisePile(card);
@@ -101,11 +102,23 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
             KarenPromiseVfxStarManager.UpdatePromisePileStarCount(player);
 
             // 触发burn模式
+            PastAndFuturePromisePileAudio.TryPlayNext(player);
+
             if (PromisePileManager.IsInMode(player, PromisePileMode.Burn))
             {
                 KarenPromisePilePower.AddBurnEffect(card);
             }
 
+
+            if (PromisePileManager.IsInMode(player, PromisePileMode.PastAndFuture))
+            {
+                var amount = PromisePileManager.GetPastAndFutureAmount(player);
+                if (amount > 0)
+                {
+                    await PowerCmd.Apply<KarenPastAndFutureTempStrengthPower>(
+                        player.Creature, amount, player.Creature, null);
+                }
+            }
 
             foreach (var power in player.Creature.Powers.OfType<KarenBasePower>().ToList())
             {

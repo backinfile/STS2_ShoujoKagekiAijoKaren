@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ public enum PromisePileMode
     Void = 1 << 0,                   // 虚空模式：交互重定向到抽牌堆
     InfiniteReinforcement = 1 << 1,  // 无限强化：约定牌堆始终为10张续演
     Burn = 1 << 2,          // 从约定牌堆抽出的牌升级且打出时消耗
+    PastAndFuture = 1 << 3, // 从约定牌堆抽牌时获得临时力量
 }
 
 /// <summary>
@@ -46,15 +48,21 @@ public sealed class KarenPromisePilePower : FakeAmountPower
     public void EnterMode(PromisePileMode mode)
     {
         _activeModes |= mode;
+        SyncBurnVfx();
     }
 
     /// <summary>退出指定 Mode</summary>
-    public void ExitMode(PromisePileMode mode) => _activeModes &= ~mode;
+    public void ExitMode(PromisePileMode mode)
+    {
+        _activeModes &= ~mode;
+        SyncBurnVfx();
+    }
 
     // ===== 便捷属性 =====
     public bool IsVoidMode => IsInMode(PromisePileMode.Void);
     public bool IsInfiniteReinforcement => IsInMode(PromisePileMode.InfiniteReinforcement);
     public bool IsBurnMode => IsInMode(PromisePileMode.Burn);
+    public bool IsPastAndFutureMode => IsInMode(PromisePileMode.PastAndFuture);
 
     // ===== Normal Mode Data =====
     private IReadOnlyList<string> _cardNames = Array.Empty<string>();
@@ -121,8 +129,20 @@ public sealed class KarenPromisePilePower : FakeAmountPower
             modes.Add(Tips.PromisePilePowerModeInfinite.GetFormattedText());
         if (IsInMode(PromisePileMode.Burn))
             modes.Add(Tips.PromisePilePowerModeUpgrade.GetFormattedText());
+        if (IsInMode(PromisePileMode.PastAndFuture) && Owner.Player is Player player)
+            modes.Add($"[gold]过去与未来[/gold]：从[gold]约定牌堆[/gold]抽牌时，获得{PromisePileManager.GetPastAndFutureAmount(player)}点[gold]临时力量[/gold]。");
 
         return string.Join("\n", modes);
+    }
+
+    private void SyncBurnVfx()
+    {
+        if (Owner.Player is not Player player) return;
+
+        if (IsBurnMode)
+            KarenBurnVfxManager.Start(player);
+        else
+            KarenBurnVfxManager.Stop(player);
     }
 
 

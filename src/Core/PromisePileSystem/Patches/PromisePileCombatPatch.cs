@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System.Linq;
@@ -67,6 +68,21 @@ internal static class PromisePile_AfterCombatEnd_Patch
     {
         MainFile.Logger.Info($"[PromisePile] AfterCombatEnd Patch triggered for player {__instance.Character?.Id?.Entry}");
         PromisePileManager.ClearPromisePileInternal(__instance);
+    }
+}
+
+[HarmonyPatch(typeof(Hook), nameof(Hook.BeforeSideTurnStart))]
+internal static class PromisePile_BeforeSideTurnStart_Patch
+{
+    [HarmonyPrefix]
+    private static void Prefix(CombatState combatState, CombatSide side)
+    {
+        if (side != CombatSide.Player) return;
+
+        foreach (var player in combatState.Players)
+        {
+            PastAndFuturePromisePileAudio.Reset(player);
+        }
     }
 }
 
