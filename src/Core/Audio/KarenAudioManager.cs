@@ -1,34 +1,42 @@
 using Godot;
+using MegaCrit.Sts2.Core.Saves;
+using System;
 using System.Collections.Generic;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Audio;
 
 /// <summary>
-/// Karen Mod 专属音效管理器。使用 Godot 原生 AudioStreamPlayer 播放 Mod 音频文件。
-/// 音频文件放在插件目录的 audio/ 子文件夹下，如 ShoujoKagekiAijoKaren/audio/xxx.ogg
-/// <para>
-/// 音量自动跟随游戏设置：Bus = "SFX"，游戏本体在调整音量时已同步设置 Godot SFX 总线。
-/// </para>
+/// Karen Mod 专属音频管理器。
+/// 音效与音乐分开走不同入口，并分别跟随游戏 SFX / BGM 音量设置。
 /// </summary>
 public static class KarenAudioManager
 {
+    private const string SfxBus = "SFX";
+    private const string MusicBus = "Master";
+
     private static readonly Dictionary<string, AudioStream> _cache = new();
 
-    /// <summary>
-    /// 播放短音效。返回 AudioStreamPlayer 实例，可用于检查 IsPlaying。
-    /// 播放完毕后自动释放（无需手动 QueueFree）。
-    /// </summary>
     public static AudioStreamPlayer Play(string fileName, float volume = 1f, float pitchScale = 1f)
     {
-        var stream = LoadStream(fileName);
+        return PlaySfx(fileName, volume, pitchScale);
+    }
+
+    public static AudioStreamPlayer PlayLoop(string fileName, float volume = 1f)
+    {
+        return PlaySfxLoop(fileName, volume);
+    }
+
+    public static AudioStreamPlayer PlaySfx(string fileName, float volume = 1f, float pitchScale = 1f)
+    {
+        var stream = PreparePlaybackStream(fileName, loop: false);
         if (stream == null) return null;
 
         var player = new AudioStreamPlayer
         {
             Stream = stream,
-            VolumeLinear = volume,
+            VolumeLinear = volume * GetEffectiveVolume(isMusic: false),
             PitchScale = pitchScale,
-            Bus = "SFX"   // 跟随游戏 SFX 音量设置
+            Bus = SfxBus
         };
 
         var tree = Engine.GetMainLoop() as SceneTree;
@@ -38,17 +46,16 @@ public static class KarenAudioManager
         return player;
     }
 
-    /// <summary>播放音效并返回 player（需要手动 Stop + QueueFree）</summary>
-    public static AudioStreamPlayer PlayLoop(string fileName, float volume = 1f)
+    public static AudioStreamPlayer PlaySfxLoop(string fileName, float volume = 1f)
     {
-        var stream = LoadStream(fileName);
+        var stream = PreparePlaybackStream(fileName, loop: true);
         if (stream == null) return null;
 
         var player = new AudioStreamPlayer
         {
             Stream = stream,
-            VolumeLinear = volume,
-            Bus = "SFX"   // 跟随游戏 SFX 音量设置
+            VolumeLinear = volume * GetEffectiveVolume(isMusic: false),
+            Bus = SfxBus
         };
 
         var tree = Engine.GetMainLoop() as SceneTree;
@@ -57,14 +64,40 @@ public static class KarenAudioManager
         return player;
     }
 
+    public static AudioStreamPlayer PlayMusicLoop(string fileName, float volume = 1f)
+    {
+        var stream = PreparePlaybackStream(fileName, loop: true);
+        if (stream == null) return null;
+
+        var player = new AudioStreamPlayer
+        {
+            Stream = stream,
+            VolumeLinear = volume * GetEffectiveVolume(isMusic: true),
+            Bus = MusicBus
+        };
+
+        var tree = Engine.GetMainLoop() as SceneTree;
+        tree?.Root.AddChild(player);
+        player.Play();
+        return player;
+    }
+
+    private static AudioStream PreparePlaybackStream(string fileName, bool loop)
+    {
+        var stream = LoadStream(fileName);
+        if (stream == null) return null;
+
+        var playbackStream = (AudioStream)stream.Duplicate();
+        SetLoop(playbackStream, loop);
+        return playbackStream;
+    }
+
     private static AudioStream LoadStream(string fileName)
     {
         if (_cache.TryGetValue(fileName, out var cached))
             return cached;
 
         var path = $"res://ShoujoKagekiAijoKaren/audio/{fileName}";
-
-        // 使用 FileAccess 直接读取字节，绕过 Godot 导入系统
         if (!FileAccess.FileExists(path))
         {
             GD.PrintErr($"[KarenAudioManager] 音频文件不存在: {path}");
@@ -79,15 +112,15 @@ public static class KarenAudioManager
         }
 
         AudioStream stream;
-        if (fileName.EndsWith(".ogg"))
+        if (fileName.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase))
         {
             stream = AudioStreamOggVorbis.LoadFromBuffer(bytes);
         }
-        else if (fileName.EndsWith(".mp3"))
+        else if (fileName.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase))
         {
             stream = new AudioStreamMP3 { Data = bytes };
         }
-        else if (fileName.EndsWith(".wav"))
+        else if (fileName.EndsWith(".wav", StringComparison.OrdinalIgnoreCase))
         {
             stream = new AudioStreamWav { Data = bytes };
         }
@@ -107,11 +140,37 @@ public static class KarenAudioManager
         return stream;
     }
 
-    /// <summary>获取音频时长（秒），加载失败返回 0</summary>
     public static double GetDuration(string fileName)
     {
         var stream = LoadStream(fileName);
         return stream?.GetLength() ?? 0;
+    }
+
+    private static float GetEffectiveVolume(bool isMusic)
+    {
+        var settings = SaveManager.Instance?.SettingsSave;
+        if (settings == null)
+            return 1f;
+
+        float master = settings.VolumeMaster;
+        float category = isMusic ? settings.VolumeBgm : settings.VolumeSfx;
+        return Math.Clamp(master * category, 0f, 1f);
+    }
+
+    private static void SetLoop(AudioStream stream, bool loop)
+    {
+        switch (stream)
+        {
+            case AudioStreamMP3 mp3:
+                mp3.Loop = loop;
+                break;
+            case AudioStreamOggVorbis ogg:
+                ogg.Loop = loop;
+                break;
+            case AudioStreamWav wav:
+                wav.LoopMode = loop ? AudioStreamWav.LoopModeEnum.Forward : AudioStreamWav.LoopModeEnum.Disabled;
+                break;
+        }
     }
 
     public static void ClearCache() => _cache.Clear();

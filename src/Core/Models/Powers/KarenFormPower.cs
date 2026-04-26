@@ -3,13 +3,16 @@ using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Cards;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core.Audio;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,6 +25,30 @@ public class KarenFormPower : PowerModel
 {
     public override PowerStackType StackType => PowerStackType.Single;
     public override PowerType Type => PowerType.Buff;
+
+    public override Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        KarenFormMusicManager.PlayLoop(0.5f);
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterRemoved(Creature oldOwner)
+    {
+        KarenFormMusicManager.Stop();
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCombatVictory(CombatRoom room)
+    {
+        KarenFormMusicManager.Stop();
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCombatEnd(CombatRoom room)
+    {
+        KarenFormMusicManager.Stop();
+        return Task.CompletedTask;
+    }
 
     public override decimal ModifyHandDrawLate(Player player, decimal count)
     {
