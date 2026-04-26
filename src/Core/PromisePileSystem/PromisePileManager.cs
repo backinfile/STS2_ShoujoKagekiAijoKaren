@@ -171,6 +171,7 @@ public static class PromisePileManager
         {
             MainFile.Logger.Info("[PromisePile] Pile is empty, skipping clear but still calling star ClearAll");
             KarenPromiseVfxStarManager.ClearAll(player);
+            KarenBurnVfxManager.Stop(player);
             return;
         }
 
@@ -187,6 +188,7 @@ public static class PromisePileManager
 
         MainFile.Logger.Info("[PromisePile] Pile cleared, calling star ClearAll");
         KarenPromiseVfxStarManager.ClearAll(player);
+        KarenBurnVfxManager.Stop(player);
     }
 
     /// <summary>获取约定牌堆中的卡牌数量</summary>
