@@ -116,6 +116,17 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             public List<CardExportInfo> Cards { get; set; } = new();
         }
 
+        public sealed class ExportResult
+        {
+            public bool Success { get; init; }
+            public string OutputDirectory { get; init; } = "";
+            public int CardCount { get; init; }
+            public int ReferenceCardCount { get; init; }
+            public int SavedImages { get; init; }
+            public int FailedImages { get; init; }
+            public string? Error { get; init; }
+        }
+
         // ==================== 公共 API ====================
 
         /// <summary>
@@ -124,7 +135,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
         /// <param name="outputDirectory">输出目录，默认 user://KarenCardExports/</param>
         /// <param name="scale">渲染缩放，默认 1</param>
         /// <param name="log">可选日志回调</param>
-        public static async Task ExportAllKarenCardsAsync(
+        public static async Task<ExportResult> ExportAllKarenCardsAsync(
             string? outputDirectory = null,
             float scale = 1f,
             Action<string>? log = null)
@@ -132,7 +143,11 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             if (!CanExport(out var err))
             {
                 log?.Invoke($"[ExportAll] 失败: {err}");
-                return;
+                return new ExportResult
+                {
+                    Success = false,
+                    Error = err,
+                };
             }
 
             var outDir = ProjectSettings.GlobalizePath((outputDirectory ?? "user://KarenCardExports/").Trim());
@@ -243,6 +258,16 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             await File.WriteAllTextAsync(jsonPath, json);
 
             log?.Invoke($"[ExportAll] 完成。Karen 卡牌: {manifest.Cards.Count}, 引用卡牌: {exportedRefCards.Count}, 图片成功: {savedImages}, 失败: {failedImages}, JSON: {jsonPath}");
+            return new ExportResult
+            {
+                Success = failedImages == 0,
+                OutputDirectory = outDir,
+                CardCount = manifest.Cards.Count,
+                ReferenceCardCount = exportedRefCards.Count,
+                SavedImages = savedImages,
+                FailedImages = failedImages,
+                Error = failedImages == 0 ? null : $"有 {failedImages} 张图片导出失败，请查看日志。",
+            };
         }
 
         /// <summary>

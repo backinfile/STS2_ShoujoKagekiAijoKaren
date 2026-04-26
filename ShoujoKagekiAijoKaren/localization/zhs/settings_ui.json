@@ -4,5 +4,9 @@
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.title": "上传对局数据",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "是否将每次对局结束后生成的JSON数据上传到统计服务器。",
   "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.title": "显示长颈鹿启动画面",
-  "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.hover.desc": "在游戏启动时的 MegaCrit Logo 之前显示长颈鹿启动画面。"
+  "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.hover.desc": "在游戏启动时的 MegaCrit Logo 之前显示长颈鹿启动画面。",
+  "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML.title": "生成mod信息html",
+  "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_BUTTON.title": "导出mod信息",
+  "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_CONFIRM.header": "确认导出",
+  "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_CONFIRM.body": "将开始导出 mod 信息 HTML 所需的卡牌截图与索引文件。这个过程可能需要一些时间，是否继续？"
 }

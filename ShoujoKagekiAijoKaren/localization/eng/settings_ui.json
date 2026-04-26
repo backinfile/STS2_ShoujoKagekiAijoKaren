@@ -3,5 +3,9 @@
     "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "Whether to upload run history JSON to the statistics server after each run.",
     "SHOUJOKAGEKIAIJOKAREN-SPLASH.title": "Splash Screen",
     "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.title": "Show Giraffe Splash",
-    "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.hover.desc": "Show the giraffe splash screen before the MegaCrit logo on game startup."
+    "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.hover.desc": "Show the giraffe splash screen before the MegaCrit logo on game startup.",
+    "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML.title": "Generate mod info HTML",
+    "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_BUTTON.title": "Generate mod info HTML",
+    "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_CONFIRM.header": "Confirm export",
+    "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_CONFIRM.body": "This will generate card screenshots and index files for the mod info HTML. It may take a while. Continue?"
 }
