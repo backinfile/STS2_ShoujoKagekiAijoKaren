@@ -1,6 +1,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Screens.MainMenu;
 using ShoujoKagekiAijoKaren.src.Core.SplashScreen;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,12 +9,17 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 
 /// <summary>
 /// 在官方 MegaCrit Slash 动画之前插入 Karen 自定义 Splash。
-/// 使用标志位避免递归：第一次拦截并包裹 Splash，第二次放行原方法。
+/// 通过 HarmonyReversePatch 调用原方法快照，避免递归触发 Prefix，同时保留原版 Splash。
 /// </summary>
 [HarmonyPatch(typeof(NLogoAnimation), nameof(NLogoAnimation.PlayAnimation))]
 public static class NLogoAnimationPatch
 {
-    private static bool _isInSplash;
+    [HarmonyReversePatch(HarmonyReversePatchType.Snapshot)]
+    [HarmonyPatch(typeof(NLogoAnimation), nameof(NLogoAnimation.PlayAnimation))]
+    public static Task OriginalPlayAnimation(NLogoAnimation instance, CancellationToken token)
+    {
+        throw new NotImplementedException();
+    }
 
     public static bool Prefix(NLogoAnimation __instance, CancellationToken token, ref Task __result)
     {
@@ -23,14 +29,8 @@ public static class NLogoAnimationPatch
             return false;
         }
 
-        if (_isInSplash)
-        {
-            _isInSplash = false;
-            return true; // 放行原方法
-        }
-
         __result = PlayWithSplashAsync(__instance, token);
-        return false; // 拦截原方法
+        return false;
     }
 
     private static async Task PlayWithSplashAsync(NLogoAnimation logoAnimation, CancellationToken token)
@@ -40,7 +40,6 @@ public static class NLogoAnimationPatch
             await KarenSplashScreen.Play(logoAnimation, token);
         }
 
-        _isInSplash = true;
-        await logoAnimation.PlayAnimation(token);
+        await OriginalPlayAnimation(logoAnimation, token);
     }
 }

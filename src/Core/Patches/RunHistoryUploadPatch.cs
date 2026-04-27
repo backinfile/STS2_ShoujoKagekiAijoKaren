@@ -9,7 +9,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 [HarmonyPatch(typeof(RunHistoryUtilities), nameof(RunHistoryUtilities.CreateRunHistoryEntry))]
 public class RunHistoryUploadPatch
 {
-    private const string UploadUrl = "http://47.95.213.214:9210/api/upload";
+    private const string UploadUrl = "https://sts2-karen-server.karen.fan/api/upload?key=KarenModDataUploadKey2025";
     private static readonly HttpClient HttpClient = new();
 
     private static void Postfix()
