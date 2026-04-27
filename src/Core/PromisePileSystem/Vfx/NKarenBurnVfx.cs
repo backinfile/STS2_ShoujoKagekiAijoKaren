@@ -1,13 +1,14 @@
 using Godot;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenBurnVfx : Node2D
 {
-    private static readonly Texture2D GlowSparkTexture = LoadTexture("res://images/vfx/sts/glow_spark.png");
-    private static readonly Texture2D ExhaustLargeTexture = LoadTexture("res://images/vfx/sts/exhaust_l.png");
+    private static readonly Texture2D? GlowSparkTexture = LoadTexture("res://images/vfx/sts/glow_spark.png");
+    private static readonly Texture2D? ExhaustLargeTexture = LoadTexture("res://images/vfx/sts/exhaust_l.png");
 
     private NCreature? _creatureNode;
     private float _particleTimer;
@@ -66,10 +67,9 @@ public partial class NKarenBurnVfx : Node2D
         }
     }
 
-    private static Texture2D LoadTexture(string path)
+    private static Texture2D? LoadTexture(string path)
     {
-        var image = Image.LoadFromFile(path);
-        return ImageTexture.CreateFromImage(image);
+        return KarenResourceLoader.LoadTexture(path, nameof(NKarenBurnVfx));
     }
 }
 
@@ -84,7 +84,7 @@ internal partial class NKarenWrathParticle : Sprite2D
     private float _duration;
     private float _elapsed;
 
-    public NKarenWrathParticle(Texture2D texture)
+    public NKarenWrathParticle(Texture2D? texture)
     {
         Texture = texture;
         Centered = true;
@@ -147,7 +147,7 @@ internal partial class NKarenStanceAura : Sprite2D
     private readonly float _rotationVelocity;
     private float _duration = 2f;
 
-    public NKarenStanceAura(Texture2D texture)
+    public NKarenStanceAura(Texture2D? texture)
     {
         Texture = texture;
         Centered = true;

@@ -1,5 +1,6 @@
 using Godot;
 using MegaCrit.Sts2.Core.Saves;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System;
 using System.Collections.Generic;
 
@@ -98,43 +99,8 @@ public static class KarenAudioManager
             return cached;
 
         var path = $"res://ShoujoKagekiAijoKaren/audio/{fileName}";
-        if (!FileAccess.FileExists(path))
-        {
-            GD.PrintErr($"[KarenAudioManager] 音频文件不存在: {path}");
-            return null;
-        }
-
-        var bytes = FileAccess.GetFileAsBytes(path);
-        if (bytes.Length == 0)
-        {
-            GD.PrintErr($"[KarenAudioManager] 音频文件读取失败: {path}");
-            return null;
-        }
-
-        AudioStream stream;
-        if (fileName.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase))
-        {
-            stream = AudioStreamOggVorbis.LoadFromBuffer(bytes);
-        }
-        else if (fileName.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase))
-        {
-            stream = new AudioStreamMP3 { Data = bytes };
-        }
-        else if (fileName.EndsWith(".wav", StringComparison.OrdinalIgnoreCase))
-        {
-            stream = new AudioStreamWav { Data = bytes };
-        }
-        else
-        {
-            GD.PrintErr($"[KarenAudioManager] 不支持的音频格式: {fileName}");
-            return null;
-        }
-
-        if (stream == null)
-        {
-            GD.PrintErr($"[KarenAudioManager] 音频解码失败: {path}");
-            return null;
-        }
+        var stream = KarenResourceLoader.LoadAudioStream(path, fileName, nameof(KarenAudioManager));
+        if (stream == null) return null;
 
         _cache[fileName] = stream;
         return stream;

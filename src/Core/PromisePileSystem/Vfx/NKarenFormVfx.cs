@@ -1,12 +1,13 @@
 using Godot;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenFormVfx : Node2D
 {
-    private static readonly Texture2D HorizontalLineTexture = LoadTexture("res://images/vfx/sts/horizontal_line.png");
+    private static readonly Texture2D? HorizontalLineTexture = LoadTexture("res://images/vfx/sts/horizontal_line.png");
 
     private NCreature? _creatureNode;
     private float _timer;
@@ -56,10 +57,9 @@ public partial class NKarenFormVfx : Node2D
         }
     }
 
-    private static Texture2D LoadTexture(string path)
+    private static Texture2D? LoadTexture(string path)
     {
-        var image = Image.LoadFromFile(path);
-        return ImageTexture.CreateFromImage(image);
+        return KarenResourceLoader.LoadTexture(path, nameof(NKarenFormVfx));
     }
 }
 
@@ -70,7 +70,7 @@ internal partial class NKarenWindyParticle : Sprite2D
     private readonly float _rotationVelocity;
     private float _duration;
 
-    public NKarenWindyParticle(Texture2D texture, Vector2 parentGlobalPosition, bool reverse)
+    public NKarenWindyParticle(Texture2D? texture, Vector2 parentGlobalPosition, bool reverse)
     {
         Texture = texture;
         Centered = true;
