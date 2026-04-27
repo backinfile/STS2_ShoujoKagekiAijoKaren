@@ -116,6 +116,33 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             public List<CardExportInfo> Cards { get; set; } = new();
         }
 
+        public sealed class GameInfoExport
+        {
+            [JsonPropertyName("cards")]
+            public List<IdNamePair> Cards { get; set; } = new();
+
+            [JsonPropertyName("relics")]
+            public List<IdNamePair> Relics { get; set; } = new();
+
+            [JsonPropertyName("potions")]
+            public List<IdNamePair> Potions { get; set; } = new();
+
+            [JsonPropertyName("monsters")]
+            public List<IdNamePair> Monsters { get; set; } = new();
+
+            [JsonPropertyName("characters")]
+            public List<IdNamePair> Characters { get; set; } = new();
+        }
+
+        public sealed class IdNamePair
+        {
+            [JsonPropertyName("id")]
+            public string Id { get; set; } = "";
+
+            [JsonPropertyName("name")]
+            public string Name { get; set; } = "";
+        }
+
         public sealed class ExportResult
         {
             public bool Success { get; init; }
@@ -252,10 +279,47 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
                 }
             }
 
-            // 写入 JSON
+            // 写入卡牌 JSON
             var jsonPath = Path.Combine(outDir, "cards.json");
             var json = JsonSerializer.Serialize(manifest, JsonOptions);
             await File.WriteAllTextAsync(jsonPath, json);
+
+            // 写入游戏信息 JSON（卡牌 / 遗物 / 怪物 / 药水）
+            try
+            {
+                var gameInfo = new GameInfoExport
+                {
+                    Cards = ModelDb.AllCards
+                        .OrderBy(c => c.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                        .Select(c => new IdNamePair { Id = c.Id.Entry, Name = c.Title ?? c.Id.Entry })
+                        .ToList(),
+                    Relics = ModelDb.AllRelics
+                        .OrderBy(r => r.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                        .Select(r => new IdNamePair { Id = r.Id.Entry, Name = r.Title?.GetFormattedText() ?? r.Id.Entry })
+                        .ToList(),
+                    Potions = ModelDb.AllPotions
+                        .OrderBy(p => p.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                        .Select(p => new IdNamePair { Id = p.Id.Entry, Name = p.Title?.GetFormattedText() ?? p.Id.Entry })
+                        .ToList(),
+                    Monsters = ModelDb.Monsters
+                        .OrderBy(m => m.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                        .Select(m => new IdNamePair { Id = m.Id.Entry, Name = m.Title?.GetFormattedText() ?? m.Id.Entry })
+                        .ToList(),
+                    Characters = ModelDb.AllCharacters
+                        .OrderBy(c => c.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                        .Select(c => new IdNamePair { Id = c.Id.Entry, Name = c.Title?.GetFormattedText() ?? c.Id.Entry })
+                        .ToList(),
+                };
+
+                var infoJsonPath = Path.Combine(outDir, "game_info.json");
+                var infoJson = JsonSerializer.Serialize(gameInfo, JsonOptions);
+                await File.WriteAllTextAsync(infoJsonPath, infoJson);
+                log?.Invoke($"[ExportAll] 游戏信息已导出: {infoJsonPath}");
+            }
+            catch (Exception ex)
+            {
+                log?.Invoke($"[ExportAll] 游戏信息导出失败: {ex.Message}");
+            }
 
             log?.Invoke($"[ExportAll] 完成。Karen 卡牌: {manifest.Cards.Count}, 引用卡牌: {exportedRefCards.Count}, 图片成功: {savedImages}, 失败: {failedImages}, JSON: {jsonPath}");
             return new ExportResult

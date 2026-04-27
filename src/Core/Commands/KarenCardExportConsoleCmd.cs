@@ -9,7 +9,7 @@ using System.Linq;
 namespace ShoujoKagekiAijoKaren.src.Core.Commands
 {
     /// <summary>
-    /// 调试控制台命令：导出 Karen 所有卡牌的卡图。
+    /// 调试控制台命令：导出 Karen 所有卡牌的卡图，同时导出游戏内所有卡牌、遗物、怪物和药水的 ID 与中文名映射。
     /// 用法：<c>karen exportcards [path] [scale]</c>
     /// </summary>
     public sealed class KarenCardExportConsoleCmd : AbstractConsoleCmd
@@ -18,7 +18,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
 
         public override string CmdName => "karen";
         public override string Args => "exportcards [path] [scale]";
-        public override string Description => "Export all Karen card images. Default path: user://KarenCardExports/, default scale: 1.";
+        public override string Description => "Export all Karen card images and game info (cards/relics/monsters/potions). Default path: user://KarenCardExports/, default scale: 1.";
         public override bool IsNetworked => false;
 
         public override CompletionResult GetArgumentCompletions(Player? player, string[] args)
@@ -49,7 +49,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
                 return new(false, $"Cannot export: {err}");
 
             _ = RunExportAsync(path, scale);
-            return new(true, $"Karen card export started. Path: {path}, Scale: {scale}. Check game log for progress.");
+            return new(true, $"Karen card export started (includes game info). Path: {path}, Scale: {scale}. Check game log for progress.");
         }
 
         private static async System.Threading.Tasks.Task RunExportAsync(string path, float scale)
