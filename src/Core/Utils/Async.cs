@@ -21,6 +21,11 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             __result = modifyAsyncFunc();
             return false; // 拦截原方法，不执行
         }
+        internal static bool Prefix(ref Task __result)
+        {
+            __result = Task.CompletedTask;
+            return false;
+        }
 
         /// <summary>
         /// 将自己的func插入到原函数之后
