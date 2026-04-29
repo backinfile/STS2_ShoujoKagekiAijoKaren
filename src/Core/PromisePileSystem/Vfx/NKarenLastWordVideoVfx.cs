@@ -62,6 +62,10 @@ public partial class NKarenLastWordVideoVfx : Control
         _black.SetAnchorsPreset(LayoutPreset.FullRect);
         AddChild(_black);
 
+        var letters = NKarenLastWordVfx.PlayOn(this);
+        letters.ZAsRelative = true;
+        letters.ZIndex = LetterZIndex;
+
         _player = new VideoStreamPlayer
         {
             Stream = _stream,
@@ -74,11 +78,9 @@ public partial class NKarenLastWordVideoVfx : Control
             ZIndex = VideoZIndex
         };
         AddChild(_player);
+        MoveChild(_player, GetChildCount() - 1);
         _player.Finished += BeginFadeOut;
 
-        var letters = NKarenLastWordVfx.PlayOn(this);
-        letters.ZAsRelative = true;
-        letters.ZIndex = LetterZIndex;
         LayoutChildren();
     }
 

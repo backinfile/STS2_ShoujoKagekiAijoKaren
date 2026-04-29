@@ -29,6 +29,7 @@ public sealed class KarenLastWord : KarenBaseCardModel
         if (!Condition(base.Owner, this)) { return; }
         if (CombatState == null) return;
 
+        KarenFormMusicManager.StopForCutscene();
         KarenAudioManager.PlaySfx(KarenSfx.LastWord, volume: 1f);
         bool playedVideo = NKarenLastWordVideoVfx.Play();
         if (!playedVideo)

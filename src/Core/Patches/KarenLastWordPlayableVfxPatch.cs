@@ -1,9 +1,12 @@
 using BaseLib.Utils;
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Cards.Holders;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -23,7 +26,7 @@ public static class KarenLastWordPlayableVfxPatch
             return;
         }
 
-        if (lastWord.CanPlay())
+        if (lastWord.Pile?.Type == PileType.Hand && lastWord.CanPlay())
             Ensure(cardNode);
         else
             Clear(cardNode);
@@ -36,8 +39,8 @@ public static class KarenLastWordPlayableVfxPatch
             return;
 
         var vfx = new NKarenLastWordPlayableVfx(cardNode);
-        cardNode.AddChildSafely(vfx);
-        cardNode.MoveChild(vfx, 0);
+        var parent = (Node?)NRun.Instance?.GlobalUi ?? NCombatRoom.Instance?.Ui ?? cardNode.GetParent();
+        parent?.AddChildSafely(vfx);
         Vfx.Set(cardNode, vfx);
     }
 

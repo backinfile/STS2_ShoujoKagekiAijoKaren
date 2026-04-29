@@ -8,8 +8,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 public partial class NKarenLastWordVfx : Node2D
 {
     private const float SpawnInterval = 0.1f;
-    private const float SpawnDuration = 4f;
-    private const float ParticleDuration = 4f;
+    private const float SpawnDuration = 5.5f;
+    private const float ParticleDuration = 5.5f;
     private const int ParticlesPerWave = 2;
 
     private static readonly Texture2D?[] Textures =
@@ -94,7 +94,7 @@ internal partial class NKarenLastWordTParticle : Sprite2D
     private readonly float _velocityY;
     private readonly float _rotationSpeed;
     private readonly float _scaleY;
-    private float _duration = 4f;
+    private float _duration = 5.5f;
 
     public NKarenLastWordTParticle(Texture2D? texture)
     {

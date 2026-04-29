@@ -47,6 +47,12 @@ public static class KarenFormMusicManager
         };
     }
 
+    public static void StopForCutscene()
+    {
+        StopImmediate(restoreGameBgm: false);
+        StopGameBgm();
+    }
+
     private static void StopImmediate(bool restoreGameBgm)
     {
         if (!GodotObject.IsInstanceValid(_currentPlayer))
