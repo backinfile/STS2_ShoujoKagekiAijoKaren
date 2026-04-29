@@ -54,7 +54,7 @@ public static class KarenResourceLoader
             return new AudioStreamMP3 { Data = bytes };
 
         if (fileName.EndsWith(".wav", StringComparison.OrdinalIgnoreCase))
-            return new AudioStreamWav { Data = bytes };
+            return AudioStreamWav.LoadFromFile(path) ?? AudioStreamWav.LoadFromBuffer(bytes);
 
         GD.PrintErr($"[{owner}] 不支持的音频格式: {fileName}");
         return null;

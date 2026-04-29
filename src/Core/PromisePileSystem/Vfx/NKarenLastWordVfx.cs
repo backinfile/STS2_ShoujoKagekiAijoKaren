@@ -26,16 +26,20 @@ public partial class NKarenLastWordVfx : Node2D
     public static void Play()
     {
         if (NCombatRoom.Instance == null) return;
+        PlayOn(NCombatRoom.Instance.CombatVfxContainer);
+    }
 
+    public static NKarenLastWordVfx PlayOn(Node parent)
+    {
         var vfx = new NKarenLastWordVfx();
-        NCombatRoom.Instance.CombatVfxContainer.AddChildSafely(vfx);
+        parent.AddChildSafely(vfx);
         vfx.GlobalPosition = Vector2.Zero;
+        return vfx;
     }
 
     public override void _Ready()
     {
-        ZAsRelative = false;
-        ZIndex = 1000;
+        ZAsRelative = true;
     }
 
     public override void _Process(double delta)
@@ -97,6 +101,7 @@ internal partial class NKarenLastWordTParticle : Sprite2D
         Texture = texture;
         Centered = true;
         Material = AdditiveMaterial;
+        ZAsRelative = true;
 
         var viewportSize = GetViewportSize();
         float scale = GetViewportScale(viewportSize.X);

@@ -29,9 +29,11 @@ public sealed class KarenLastWord : KarenBaseCardModel
         if (!Condition(base.Owner, this)) { return; }
         if (CombatState == null) return;
 
-        KarenAudioManager.PlaySfx(KarenSfx.LastWord, volume: 2f);
-        NKarenLastWordVfx.Play();
-        await Cmd.Wait(0.7f);
+        KarenAudioManager.PlaySfx(KarenSfx.LastWord, volume: 1f);
+        bool playedVideo = NKarenLastWordVideoVfx.Play();
+        if (!playedVideo)
+            NKarenLastWordVfx.Play();
+        await Cmd.Wait(playedVideo ? 6.7f : 0.7f);
 
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).TargetingAllOpponents(CombatState)
             .WithHitFx(VfxCmd.slashPath)
