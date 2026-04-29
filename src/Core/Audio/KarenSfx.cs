@@ -6,6 +6,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Audio;
 /// </summary>
 public static class KarenSfx
 {
+    // --- 最后的台词 ---
+    public const string LastWord = "karen_last_word.wav";
+
     // --- 过去与未来 ---
     public const string PastAndFutureDraw1 = "karen_draw1.ogg";
     public const string PastAndFutureDraw2 = "karen_draw2.ogg";

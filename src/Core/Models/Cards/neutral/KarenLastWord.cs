@@ -5,8 +5,10 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core.Audio;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +28,10 @@ public sealed class KarenLastWord : KarenBaseCardModel
     {
         if (!Condition(base.Owner, this)) { return; }
         if (CombatState == null) return;
+
+        KarenAudioManager.PlaySfx(KarenSfx.LastWord, volume: 2f);
+        NKarenLastWordVfx.Play();
+        await Cmd.Wait(0.7f);
 
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).TargetingAllOpponents(CombatState)
             .WithHitFx(VfxCmd.slashPath)
