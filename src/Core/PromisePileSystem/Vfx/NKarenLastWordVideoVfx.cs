@@ -14,11 +14,13 @@ public partial class NKarenLastWordVideoVfx : Control
     private const int BlackZIndex = 0;
     private const int LetterZIndex = 10;
     private const int VideoZIndex = 20;
+    private const int PersistentLetterZIndex = OverlayZIndex + 1;
     private const float VideoAspect = 1280f / 544f;
 
     private readonly VideoStream _stream;
     private ColorRect _black = null!;
     private VideoStreamPlayer _player = null!;
+    private NKarenLastWordVfx? _letters;
     private bool _started;
     private bool _fading;
     private float _timer;
@@ -62,9 +64,9 @@ public partial class NKarenLastWordVideoVfx : Control
         _black.SetAnchorsPreset(LayoutPreset.FullRect);
         AddChild(_black);
 
-        var letters = NKarenLastWordVfx.PlayOn(this);
-        letters.ZAsRelative = true;
-        letters.ZIndex = LetterZIndex;
+        _letters = NKarenLastWordVfx.PlayOn(this);
+        _letters.ZAsRelative = true;
+        _letters.ZIndex = LetterZIndex;
 
         _player = new VideoStreamPlayer
         {
@@ -136,7 +138,21 @@ public partial class NKarenLastWordVideoVfx : Control
     private void BeginFadeOut()
     {
         if (_fading) return;
+        DetachLetters();
         _fading = true;
         _fadeTimer = 0f;
+    }
+
+    private void DetachLetters()
+    {
+        var parent = GetParent();
+        if (parent == null || _letters?.GetParent() != this)
+            return;
+
+        RemoveChild(_letters);
+        parent.AddChildSafely(_letters);
+        _letters.GlobalPosition = Vector2.Zero;
+        _letters.ZAsRelative = false;
+        _letters.ZIndex = PersistentLetterZIndex;
     }
 }
