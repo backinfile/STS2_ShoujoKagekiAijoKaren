@@ -37,7 +37,7 @@ public sealed class KarenLastWord : KarenBaseCardModel
         await Cmd.Wait(playedVideo ? 6.7f : 0.7f);
 
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).TargetingAllOpponents(CombatState)
-            .WithHitFx(VfxCmd.slashPath)
+            //.WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
     }
 

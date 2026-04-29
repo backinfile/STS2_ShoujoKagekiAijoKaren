@@ -9,6 +9,7 @@ public partial class NKarenLastWordVideoVfx : Control
 {
     private const string VideoPath = "res://ShoujoKagekiAijoKaren/video/last_word.ogv";
     private const float StartDelay = 1f;
+    private const float VideoFadeInSeconds = 0.18f;
     private const float FadeOutSeconds = 0.35f;
     private const int OverlayZIndex = 4095;
     private const int BlackZIndex = 0;
@@ -24,6 +25,7 @@ public partial class NKarenLastWordVideoVfx : Control
     private bool _started;
     private bool _fading;
     private float _timer;
+    private float _videoFadeInTimer;
     private float _fadeTimer;
 
     private NKarenLastWordVideoVfx(VideoStream stream)
@@ -77,7 +79,8 @@ public partial class NKarenLastWordVideoVfx : Control
             Visible = false,
             MouseFilter = MouseFilterEnum.Ignore,
             ZAsRelative = true,
-            ZIndex = VideoZIndex
+            ZIndex = VideoZIndex,
+            Modulate = new Color(1f, 1f, 1f, 0f)
         };
         AddChild(_player);
         MoveChild(_player, GetChildCount() - 1);
@@ -97,7 +100,15 @@ public partial class NKarenLastWordVideoVfx : Control
             _started = true;
             _black.Color = Colors.Black;
             _player.Visible = true;
+            _player.Modulate = new Color(1f, 1f, 1f, 0f);
             _player.Play();
+        }
+
+        if (_started && !_fading && _videoFadeInTimer < VideoFadeInSeconds)
+        {
+            _videoFadeInTimer += d;
+            float alpha = Mathf.Clamp(_videoFadeInTimer / VideoFadeInSeconds, 0f, 1f);
+            _player.Modulate = new Color(1f, 1f, 1f, alpha);
         }
 
         if (_started && !_fading && !_player.IsPlaying() && _timer > StartDelay + 0.2f)
