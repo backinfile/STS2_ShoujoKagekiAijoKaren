@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://shaders/karen_cape_sway.gdshader" id="1_shader"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/sway_strength = 0.018
+shader_parameter/sway_speed = 2.3
+shader_parameter/sway_frequency = 12.0
+shader_parameter/cape_top_fade = 0.08
+shader_parameter/cape_bottom_fade = 0.47

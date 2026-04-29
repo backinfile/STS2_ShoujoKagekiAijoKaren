@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://kq7dmrg0ygyf"]
+[gd_scene load_steps=4 format=3 uid="uid://kq7dmrg0ygyf"]
 
 [ext_resource type="Script" uid="uid://bej0n0iwmfnqp" path="res://src/Core/Node/SNCreatureVisuals.cs" id="1_se58w"]
 [ext_resource type="Texture2D" uid="uid://bbod73jfse5qi" path="res://images/packed/Karen.png" id="2_5occ7"]
+[ext_resource type="Material" path="res://materials/karen_cape_sway_mat.tres" id="3_h78ns"]
 
 [node name="Karen" type="Node2D"]
 script = ExtResource("1_se58w")
@@ -12,6 +13,7 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 position = Vector2(10.69, -170)
 scale = Vector2(1.225, 1.225)
+material = ExtResource("3_h78ns")
 texture = ExtResource("2_5occ7")
 
 [node name="Bounds" type="Control" parent="."]
