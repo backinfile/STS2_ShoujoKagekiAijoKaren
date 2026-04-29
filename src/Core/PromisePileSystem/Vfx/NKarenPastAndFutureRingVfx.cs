@@ -12,6 +12,7 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
 
     private NCreature? _creatureNode;
     private bool _stopping;
+    private float _drawPulse;
     private float _time;
     private float _radius = 200f;
 
@@ -32,6 +33,11 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
         QueueRedraw();
     }
 
+    public void Pulse()
+    {
+        _drawPulse = Mathf.Max(_drawPulse, 0.16f);
+    }
+
     public void Stop()
     {
         if (_stopping) return;
@@ -49,14 +55,16 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
 
     public override void _Process(double delta)
     {
-        _time += (float)delta;
+        float d = (float)delta;
+        _time += d;
+        _drawPulse = Mathf.MoveToward(_drawPulse, 0f, d * 0.7f);
         UpdatePlacement();
         QueueRedraw();
     }
 
     public override void _Draw()
     {
-        float pulse = 1f + Mathf.Sin(_time * 1.6f) * 0.018f;
+        float pulse = 1f + Mathf.Sin(_time * 1.6f) * 0.012f + _drawPulse;
         float radius = _radius * pulse;
 
         for (int i = 9; i >= 1; i--)
@@ -67,8 +75,6 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
 
         DrawArc(Vector2.Zero, radius * 0.98f, 0f, Mathf.Tau, 224, new Color(CoreColor.R, CoreColor.G, CoreColor.B, 0.13f), 5f);
         DrawArc(Vector2.Zero, radius, 0f, Mathf.Tau, 256, RingColor, 4f);
-        //DrawArc(Vector2.Zero, radius + 7f, 0f, Mathf.Tau, 256, new Color(CoreColor.R, CoreColor.G, CoreColor.B, 0.45f), 3f);
-        //DrawArc(Vector2.Zero, radius - 10f, 0f, Mathf.Tau, 256, new Color(0.08f, 0.72f, 0.9f, 0.32f), 4f);
     }
 
     private void UpdatePlacement()
@@ -81,7 +87,7 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
 
         var hitbox = _creatureNode.Hitbox;
         var hitboxCenter = hitbox.GlobalPosition + hitbox.Size * 0.5f;
-        GlobalPosition = hitboxCenter + new Vector2(0f, -hitbox.Size.Y * 0.12f);
+        GlobalPosition = _creatureNode.VfxSpawnPosition;
 
         float desiredRadius = Mathf.Max(hitbox.Size.X, hitbox.Size.Y) * 0.68f;
         _radius = Mathf.Max(190f, desiredRadius);

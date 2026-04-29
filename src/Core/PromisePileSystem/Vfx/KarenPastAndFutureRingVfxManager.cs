@@ -21,6 +21,11 @@ public static class KarenPastAndFutureRingVfxManager
         Callable.From(() => StopInternal(player)).CallDeferred();
     }
 
+    public static void Pulse(Player player)
+    {
+        Callable.From(() => PulseInternal(player)).CallDeferred();
+    }
+
     private static void StartInternal(Player player)
     {
         if (player?.Creature == null) return;
@@ -63,5 +68,12 @@ public static class KarenPastAndFutureRingVfxManager
             node!.Stop();
 
         RingNodes.Set(player, null);
+    }
+
+    private static void PulseInternal(Player player)
+    {
+        var node = RingNodes.Get(player);
+        if (GodotObject.IsInstanceValid(node))
+            node!.Pulse();
     }
 }

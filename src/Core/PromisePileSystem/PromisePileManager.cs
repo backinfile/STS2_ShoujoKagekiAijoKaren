@@ -168,6 +168,7 @@ public static class PromisePileManager
         MainFile.Logger.Info($"DrawFromPromisePileAsync {card.Title} pile = {card.Pile?.Type}");
 
         await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
+        KarenPastAndFutureRingVfxManager.Pulse(player);
         //await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
 
         // 更新 Power
