@@ -52,7 +52,7 @@ public sealed class KarenPromisePilePower : FakeAmountPower
     public void EnterMode(PromisePileMode mode)
     {
         _activeModes |= mode;
-        SyncBurnVfx();
+        SyncModeVfx();
         PlayAni();
     }
 
@@ -60,7 +60,7 @@ public sealed class KarenPromisePilePower : FakeAmountPower
     public void ExitMode(PromisePileMode mode)
     {
         _activeModes &= ~mode;
-        SyncBurnVfx();
+        SyncModeVfx();
     }
 
     // ===== 便捷属性 =====
@@ -151,7 +151,7 @@ public sealed class KarenPromisePilePower : FakeAmountPower
         return string.Join("\n", modes);
     }
 
-    private void SyncBurnVfx()
+    private void SyncModeVfx()
     {
         if (Owner.Player is not Player player) return;
 
@@ -159,6 +159,11 @@ public sealed class KarenPromisePilePower : FakeAmountPower
             KarenBurnVfxManager.Start(player);
         else
             KarenBurnVfxManager.Stop(player);
+
+        if (IsPastAndFutureMode)
+            KarenPastAndFutureRingVfxManager.Start(player);
+        else
+            KarenPastAndFutureRingVfxManager.Stop(player);
     }
 
 

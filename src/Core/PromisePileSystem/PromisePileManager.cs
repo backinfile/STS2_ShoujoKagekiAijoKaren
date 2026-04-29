@@ -89,6 +89,8 @@ public static class PromisePileManager
             power.AddPastAndFutureAmount(amount);
             power.PlayAni();
         }
+
+        KarenPastAndFutureRingVfxManager.Start(player);
     }
 
     /// <summary>
@@ -192,9 +194,11 @@ public static class PromisePileManager
             if (player.Creature?.GetPower<KarenPromisePilePower>() is { } emptyPower)
             {
                 emptyPower.ExitMode(PromisePileMode.Burn);
+                emptyPower.ExitMode(PromisePileMode.PastAndFuture);
                 emptyPower.ClearPastAndFutureAmount();
             }
             KarenFormVfxManager.Stop(player);
+            KarenPastAndFutureRingVfxManager.Stop(player);
             PastAndFuturePromisePileAudio.Clear(player);
             return;
         }
@@ -215,9 +219,11 @@ public static class PromisePileManager
         if (player.Creature?.GetPower<KarenPromisePilePower>() is { } clearedPower)
         {
             clearedPower.ExitMode(PromisePileMode.Burn);
+            clearedPower.ExitMode(PromisePileMode.PastAndFuture);
             clearedPower.ClearPastAndFutureAmount();
         }
         KarenFormVfxManager.Stop(player);
+        KarenPastAndFutureRingVfxManager.Stop(player);
         PastAndFuturePromisePileAudio.Clear(player);
     }
 
