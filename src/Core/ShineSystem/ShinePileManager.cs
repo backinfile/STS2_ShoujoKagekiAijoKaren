@@ -113,9 +113,15 @@ public static class ShinePileManager
             await karenCard.OnShineExhausted(ctx, inCombat, combatState!);
         }
 
+        // 联机下需要等待战斗区节点移除完成，否则远端客户端可能残留在打出区中央。
+        await CardPileCmd.RemoveFromCombat(original);
+
         // 最终将这个卡牌移出游戏 TODO 等待后续实现耗尽牌堆
         original.RemoveFromState();
-        card.RemoveFromState();
+        if (!ReferenceEquals(card, original))
+        {
+            card.RemoveFromState();
+        }
     }
 
     /// <summary>

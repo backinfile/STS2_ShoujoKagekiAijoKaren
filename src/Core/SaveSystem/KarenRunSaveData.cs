@@ -15,15 +15,7 @@ public class KarenRunSaveData
     public int SchemaVersion { get; set; } = 2;
 
     /// <summary>
-    /// Key = 玩家在 RunState.Players 中的下标（0-based），支持联机多 Karen 玩家。
-    /// </summary>
-    [JsonPropertyName("player_shine_data")]
-    public Dictionary<int, List<ShineSaveData>> PlayerShineData { get; set; } = new();
-
-    /// <summary>
     /// 闪耀牌堆数据（耗尽卡牌列表）。Key = 玩家在 RunState.Players 中的下标。
-    /// ShineSaveData.ShineCurrent 恒为 0（已耗尽），ShineMax 保留原始值。
-    /// ShineSaveData.Index 为该卡牌在 Deck.Cards 中的下标（-1 表示已从 Deck 移出）。
     /// </summary>
     [JsonPropertyName("player_disposed_pile_data")]
     public Dictionary<int, List<SerializableCard>> PlayerShinePileData { get; set; } = new();

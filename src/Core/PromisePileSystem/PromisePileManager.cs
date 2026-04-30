@@ -359,8 +359,7 @@ public static class PromisePileManager
             foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
             {
                 //card.RemoveFromCurrentPile();
-                card.RemoveFromState();
-                _ = CardPileCmd.RemoveFromCombat(card); // 这个地方不需要等动画完成
+                await CardPileCmd.RemoveFromCombat(card); // 联机下需要等待命令完成，避免双方状态时序错开
                 MainFile.Logger.Info($"[PromisePile] Removed '{card.Title}' from promise pile during refill");
                 changed = true;
             }
@@ -382,8 +381,7 @@ public static class PromisePileManager
             foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
             {
                 //card.RemoveFromCurrentPile();
-                card.RemoveFromState();
-                _ = CardPileCmd.RemoveFromCombat(card); // 这个地方不需要等动画完成
+                await CardPileCmd.RemoveFromCombat(card); // 联机下需要等待命令完成，避免双方状态时序错开
                 MainFile.Logger.Info($"[PromisePile] void mode Removed '{card.Title}' from promise pile during refill");
                 changed = true;
             }

@@ -1,5 +1,6 @@
 using HarmonyLib;
 using MegaCrit.Sts2.addons.mega_text;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
@@ -11,9 +12,16 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 [HarmonyPatch(typeof(NPower), "RefreshAmount")]
 public static class NPowerDisplayPatch
 {
+    private static readonly System.Reflection.FieldInfo? ModelField = AccessTools.Field(typeof(NPower), "_model");
+
     private static void Postfix(NPower __instance)
     {
-        var model = __instance.Model;
+        var model = ModelField?.GetValue(__instance) as PowerModel;
+        if (model == null)
+        {
+            return;
+        }
+
         if (model is FakeAmountPower fakeAmountPower)
         {
             var amountLabel = AccessTools.Field(typeof(NPower), "_amountLabel").GetValue(__instance) as MegaLabel;

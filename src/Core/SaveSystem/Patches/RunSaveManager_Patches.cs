@@ -88,13 +88,11 @@ internal static class RunSaveManager_Patches
             var state = RunManager.Instance.DebugOnlyGetState();
             if (state == null) return originalBytes;
 
-            var playerShineData = ShineSaveSystem.CollectAllPlayersShineData(state.Players);
             var playerShinePileData = ShinePileSaveManager.CollectAllPlayersShinePileData(state.Players);
-            if (playerShineData.Count == 0 && playerShinePileData.Count == 0) return originalBytes; // 无 Karen 玩家，透传
+            if (playerShinePileData.Count == 0) return originalBytes; // 无额外闪耀牌堆数据，透传
 
             var modData = new KarenRunSaveData
             {
-                PlayerShineData = playerShineData,
                 PlayerShinePileData = playerShinePileData
             };
 
@@ -112,9 +110,8 @@ internal static class RunSaveManager_Patches
             writer.WriteEndObject();
             writer.Flush();
 
-            int totalShine = playerShineData.Values.Sum(l => l.Count);
             int totalPile = playerShinePileData.Values.Sum(l => l.Count);
-            MainFile.Logger.Info($"[SaveSystem] 注入 {playerShineData.Count} 名玩家 {totalShine} 条 Shine 数据 + {totalPile} 张耗尽牌到存档");
+            MainFile.Logger.Info($"[SaveSystem] 注入 {totalPile} 张耗尽牌到存档");
             return ms.ToArray();
         }
         catch (Exception ex)
@@ -138,9 +135,8 @@ internal static class RunSaveManager_Patches
             if (modData == null) return;
 
             KarenModSaveBuffer.Store(modData);
-            int totalShine = modData.PlayerShineData.Values.Sum(l => l.Count);
             int totalPile = modData.PlayerShinePileData.Values.Sum(l => l.Count);
-            MainFile.Logger.Info($"[SaveSystem] 从存档提取 {totalShine} 条 Shine 数据 + {totalPile} 张耗尽牌（{modData.PlayerShineData.Count} 名玩家），等待恢复");
+            MainFile.Logger.Info($"[SaveSystem] 从存档提取 {totalPile} 张耗尽牌，等待恢复");
         }
         catch (Exception ex)
         {
@@ -176,7 +172,6 @@ internal static class RunSaveManager_Patches
             return;
         }
 
-        ShineSaveSystem.RestoreAllPlayersShineData(state.Players, data);
         ShinePileSaveManager.RestoreAllPlayersShinePileData(state.Players, data);
     }
 }

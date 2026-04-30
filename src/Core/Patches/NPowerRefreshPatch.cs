@@ -12,9 +12,11 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 [HarmonyPatch("RefreshAmount")]
 public class NPowerRefreshPatch
 {
+    private static readonly System.Reflection.FieldInfo? ModelField = AccessTools.Field(typeof(NPower), "_model");
+
     static void Postfix(NPower __instance)
     {
-        if (__instance.Model is FakeAmountPower fakeAmountPower && !fakeAmountPower.ShowFakeAmount)
+        if (ModelField?.GetValue(__instance) is FakeAmountPower fakeAmountPower && !fakeAmountPower.ShowFakeAmount)
         {
             // 获取 _amountLabel 字段并清空文本
             var amountLabel = AccessTools.Field(typeof(NPower), "_amountLabel").GetValue(__instance);

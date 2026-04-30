@@ -109,10 +109,14 @@ public static class ShinePatch
     /// <param name="choiceContext"></param>
     public static void BeforePlayWrapper(CardModel card, PlayerChoiceContext choiceContext)
     {
-        // 闪耀牌都有可能因为某些原因进入耗尽牌堆，直接记录上就行
-        if (card.IsShineCard())
+        // 只有真的会进入闪耀耗尽牌堆时才记录上下文，避免把本地选择上下文残留在普通出牌路径上。
+        if (ShouldEnterShinePile(card))
         {
             _cardContext[card] = choiceContext;
+        }
+        else
+        {
+            _cardContext.Set(card, null);
         }
     }
 

@@ -65,6 +65,7 @@
     <None Include="src\Core\ShineSystem\Patches\ShinePilePatch.cs.uid" />
     <None Include="src\Core\ShineSystem\ShineExtension.cs.uid" />
     <None Include="src\Core\ShineSystem\ShinePileManager.cs.uid" />
+    <None Include="src\Core\ShineSystem\ShineSaveSystem.cs.uid" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.1.0" />

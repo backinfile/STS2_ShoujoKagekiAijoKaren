@@ -4,7 +4,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.SaveSystem;
 /// 存档加载期间的临时缓冲区
 ///
 /// 加载流程：
-///   LoadRunSave Postfix → Store() → 等待战斗开始 → Consume() → ShineSaveSystem.RestoreShineData()
+///   LoadRunSave Postfix → Store() → Consume() → 恢复 Karen Mod 自定义局内数据
 ///
 /// 消费时机：RunManager.SetUpSavedSinglePlayer/SetUpSavedMultiPlayer Postfix 中调用 Consume()，
 /// 此时 RunState 和卡组均已就绪，将数据恢复至当前牌组的 CardModel 实例上。

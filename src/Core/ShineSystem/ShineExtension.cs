@@ -8,7 +8,7 @@ namespace ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
 /// <summary>
 /// 闪耀扩展 - 使用 SpireField 给任何卡牌动态添加闪耀值
-/// SpireField 数据通过 ShineSaveSystem 实现跨战斗保存
+/// 闪耀值通过 SerializableCard.Props 参与存档与联机同步
 ///
 /// 每张卡牌有两个值：
 /// - shineMax: 闪耀值初始值（最大值） -1表示未初始化
@@ -20,14 +20,16 @@ public static class ShineExtension
     public const string ShineMaxVarName = "KarenShineMax";
 
     /// <summary>
-    /// SpireField 存储当前闪耀值（-1表示未初始化，0表示已耗尽，>0表示有值）
+    /// 当前闪耀值（-1表示未初始化，0表示已耗尽，>0表示有值）。
+    /// 自动绑定到 SerializableCard.Props。
     /// </summary>
-    private static readonly SpireField<CardModel, int> _shineCurrent = new(() => -1);
+    private static readonly SavedSpireField<CardModel, int> _shineCurrent = new(() => -1, "karen_shine_current");
 
     /// <summary>
-    /// SpireField 存储最大闪耀值（-1表示未初始化）
+    /// 最大闪耀值（-1表示未初始化）。
+    /// 自动绑定到 SerializableCard.Props。
     /// </summary>
-    private static readonly SpireField<CardModel, int> _shineMax = new(() => -1);
+    private static readonly SavedSpireField<CardModel, int> _shineMax = new(() => -1, "karen_shine_max");
 
     /// <summary>
     /// 这张牌打出后耗尽
