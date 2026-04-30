@@ -1,7 +1,7 @@
 using Godot;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Nodes;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Audio;
+using MegaCrit.Sts2.Core.Runs;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Audio;
 
@@ -14,11 +14,14 @@ public static class KarenFormMusicManager
     private const float FadeOutDuration = 0.35f;
 
     private static AudioStreamPlayer? _currentPlayer;
+    private static int _restoreRequestId;
+    private static bool _needsGameMusicRestore;
 
     public static void PlayLoop(float volume = 1f)
     {
-        StopImmediate(restoreGameBgm: false);
-        StopGameBgm();
+        _restoreRequestId++;
+        StopImmediate();
+        StopGameMusicEventOnly();
         _currentPlayer = KarenAudioManager.PlayMusicLoop(FileName, volume);
     }
 
@@ -43,17 +46,19 @@ public static class KarenFormMusicManager
                 player.QueueFree();
             }
 
-            RestoreGameBgm();
+            RequestRestoreGameMusic();
         };
     }
 
     public static void StopForCutscene()
     {
-        StopImmediate(restoreGameBgm: false);
-        StopGameBgm();
+        _restoreRequestId++;
+        StopImmediate();
+        StopGameMusicEventOnly();
+        _needsGameMusicRestore = true;
     }
 
-    private static void StopImmediate(bool restoreGameBgm)
+    private static void StopImmediate()
     {
         if (!GodotObject.IsInstanceValid(_currentPlayer))
         {
@@ -64,31 +69,57 @@ public static class KarenFormMusicManager
         _currentPlayer.Stop();
         _currentPlayer.QueueFree();
         _currentPlayer = null;
-
-        if (restoreGameBgm)
-            RestoreGameBgm();
     }
 
-    private static void StopGameBgm()
-    {
-        NRunMusicController.Instance?.StopMusic();
-    }
-
-    private static void RestoreGameBgm()
+    private static void StopGameMusicEventOnly()
     {
         var controller = NRunMusicController.Instance;
-        if (controller == null)
+        if (!GodotObject.IsInstanceValid(controller))
+            return;
+
+        var proxy = Traverse.Create(controller).Field<Node>("_proxy").Value;
+        if (!GodotObject.IsInstanceValid(proxy))
+            return;
+
+        proxy.Call("stop_music");
+        _needsGameMusicRestore = true;
+    }
+
+    public static void RestoreGameMusicIfNeeded()
+    {
+        if (!_needsGameMusicRestore || GodotObject.IsInstanceValid(_currentPlayer))
+            return;
+
+        RequestRestoreGameMusic();
+    }
+
+    private static void RequestRestoreGameMusic()
+    {
+        var requestId = ++_restoreRequestId;
+        RestoreGameMusicDeferred(requestId);
+    }
+
+    private static async void RestoreGameMusicDeferred(int requestId)
+    {
+        var tree = Engine.GetMainLoop() as SceneTree;
+        if (tree != null)
+            await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+
+        if (requestId != _restoreRequestId || GodotObject.IsInstanceValid(_currentPlayer))
+            return;
+
+        RestoreGameMusic();
+    }
+
+    private static void RestoreGameMusic()
+    {
+        var controller = NRunMusicController.Instance;
+        if (!GodotObject.IsInstanceValid(controller) || !RunManager.Instance.IsInProgress)
             return;
 
         controller.UpdateMusic();
-
-        var encounter = CombatManager.Instance.DebugOnlyGetState()?.Encounter;
-        if (encounter != null && encounter.HasBgm)
-        {
-            controller.PlayCustomMusic(encounter.CustomBgm);
-            return;
-        }
-
         controller.UpdateTrack();
+        controller.UpdateAmbience();
+        _needsGameMusicRestore = false;
     }
 }

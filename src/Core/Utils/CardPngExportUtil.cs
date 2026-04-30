@@ -99,6 +99,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
 
             [JsonPropertyName("image")]
             public string? Image { get; set; }
+
+            [JsonPropertyName("upgradedImage")]
+            public string? UpgradedImage { get; set; }
         }
 
         public sealed class ImageInfo
@@ -130,6 +133,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             [JsonPropertyName("monsters")]
             public List<IdNamePair> Monsters { get; set; } = new();
 
+            [JsonPropertyName("encounters")]
+            public List<IdNamePair> Encounters { get; set; } = new();
+
+            [JsonPropertyName("events")]
+            public List<IdNamePair> Events { get; set; } = new();
+
             [JsonPropertyName("characters")]
             public List<IdNamePair> Characters { get; set; } = new();
         }
@@ -151,6 +160,14 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             public int ReferenceCardCount { get; init; }
             public int SavedImages { get; init; }
             public int FailedImages { get; init; }
+            public string? Error { get; init; }
+        }
+
+        public sealed class JsonExportResult
+        {
+            public bool Success { get; init; }
+            public string OutputDirectory { get; init; } = "";
+            public int CardCount { get; init; }
             public string? Error { get; init; }
         }
 
@@ -276,6 +293,26 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
                     }
 
                     await WaitFrames(1);
+
+                    if (!cardTip.Card.IsUpgradable) continue;
+
+                    var refUpgradedFileName = $"{SanitizeFileName(refId)}_upgraded.png";
+                    var refUpgradedPath = Path.Combine(outDir, refUpgradedFileName);
+                    var upgraded = ModelDb.GetById<CardModel>(cardTip.Card.Id).ToMutable();
+                    upgraded.UpgradeInternal();
+
+                    if (await ExportSingleAsync(upgraded, refUpgradedPath, scale, includeHoverTips: false))
+                    {
+                        log?.Invoke($"  保存引用 {refUpgradedFileName}");
+                        savedImages++;
+                    }
+                    else
+                    {
+                        log?.Invoke($"  失败引用 {refUpgradedFileName}");
+                        failedImages++;
+                    }
+
+                    await WaitFrames(1);
                 }
             }
 
@@ -304,6 +341,17 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
                     Monsters = ModelDb.Monsters
                         .OrderBy(m => m.Id.Entry, StringComparer.OrdinalIgnoreCase)
                         .Select(m => new IdNamePair { Id = m.Id.Entry, Name = m.Title?.GetFormattedText() ?? m.Id.Entry })
+                        .ToList(),
+                    Encounters = ModelDb.AllEncounters
+                        .OrderBy(e => e.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                        .Select(e => new IdNamePair { Id = e.Id.Entry, Name = e.Title?.GetFormattedText() ?? e.Id.Entry })
+                        .ToList(),
+                    Events = ModelDb.AllEvents
+                        .Concat(ModelDb.AllAncients)
+                        .GroupBy(e => e.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                        .Select(g => g.First())
+                        .OrderBy(e => e.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                        .Select(e => new IdNamePair { Id = e.Id.Entry, Name = e.Title?.GetFormattedText() ?? e.Id.Entry })
                         .ToList(),
                     Characters = ModelDb.AllCharacters
                         .OrderBy(c => c.Id.Entry, StringComparer.OrdinalIgnoreCase)
@@ -337,6 +385,51 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
         /// <summary>
         /// 收集卡牌元数据。
         /// </summary>
+        public static async Task<JsonExportResult> ExportJsonOnlyAsync(
+            string? outputDirectory = null,
+            Action<string>? log = null)
+        {
+            if (!CanExport(out var err))
+            {
+                log?.Invoke($"[ExportJsonOnly] 失败: {err}");
+                return new JsonExportResult
+                {
+                    Success = false,
+                    Error = err,
+                };
+            }
+
+            var outDir = ProjectSettings.GlobalizePath((outputDirectory ?? "user://KarenCardExports/").Trim());
+            Directory.CreateDirectory(outDir);
+
+            var manifest = new ExportManifest
+            {
+                Cards = ModelDb.AllCards
+                    .Where(c => c.Pool is KarenCardPool)
+                    .OrderBy(c => c.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                    .Select(CollectCardInfo)
+                    .ToList(),
+            };
+
+            var jsonPath = Path.Combine(outDir, "cards.json");
+            var json = JsonSerializer.Serialize(manifest, JsonOptions);
+            await File.WriteAllTextAsync(jsonPath, json);
+            log?.Invoke($"[ExportJsonOnly] 卡牌索引已导出: {jsonPath}");
+
+            var gameInfo = BuildGameInfo();
+            var infoJsonPath = Path.Combine(outDir, "game_info.json");
+            var infoJson = JsonSerializer.Serialize(gameInfo, JsonOptions);
+            await File.WriteAllTextAsync(infoJsonPath, infoJson);
+            log?.Invoke($"[ExportJsonOnly] 游戏信息已导出: {infoJsonPath}");
+
+            return new JsonExportResult
+            {
+                Success = true,
+                OutputDirectory = outDir,
+                CardCount = manifest.Cards.Count,
+            };
+        }
+
         private static CardExportInfo CollectCardInfo(CardModel card)
         {
             var baseName = SanitizeFileName(card.Id.Entry);
@@ -373,12 +466,51 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
                             Type = "card",
                             CardId = refId,
                             Image = refId != null ? $"{SanitizeFileName(refId)}_base.png" : null,
+                            UpgradedImage = refId != null && cardTip.Card != null && cardTip.Card.IsUpgradable ? $"{SanitizeFileName(refId)}_upgraded.png" : null,
                         });
                         break;
                 }
             }
 
             return info;
+        }
+
+        private static GameInfoExport BuildGameInfo()
+        {
+            return new GameInfoExport
+            {
+                Cards = ModelDb.AllCards
+                    .OrderBy(c => c.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                    .Select(c => new IdNamePair { Id = c.Id.Entry, Name = c.Title ?? c.Id.Entry })
+                    .ToList(),
+                Relics = ModelDb.AllRelics
+                    .OrderBy(r => r.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                    .Select(r => new IdNamePair { Id = r.Id.Entry, Name = r.Title?.GetFormattedText() ?? r.Id.Entry })
+                    .ToList(),
+                Potions = ModelDb.AllPotions
+                    .OrderBy(p => p.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                    .Select(p => new IdNamePair { Id = p.Id.Entry, Name = p.Title?.GetFormattedText() ?? p.Id.Entry })
+                    .ToList(),
+                Monsters = ModelDb.Monsters
+                    .OrderBy(m => m.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                    .Select(m => new IdNamePair { Id = m.Id.Entry, Name = m.Title?.GetFormattedText() ?? m.Id.Entry })
+                    .ToList(),
+                Encounters = ModelDb.AllEncounters
+                    .OrderBy(e => e.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                    .Select(e => new IdNamePair { Id = e.Id.Entry, Name = e.Title?.GetFormattedText() ?? e.Id.Entry })
+                    .ToList(),
+                Events = ModelDb.AllEvents
+                    .Concat(ModelDb.AllAncients)
+                    .GroupBy(e => e.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                    .Select(g => g.First())
+                    .OrderBy(e => e.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                    .Select(e => new IdNamePair { Id = e.Id.Entry, Name = e.Title?.GetFormattedText() ?? e.Id.Entry })
+                    .ToList(),
+                Characters = ModelDb.AllCharacters
+                    .OrderBy(c => c.Id.Entry, StringComparer.OrdinalIgnoreCase)
+                    .Select(c => new IdNamePair { Id = c.Id.Entry, Name = c.Title?.GetFormattedText() ?? c.Id.Entry })
+                    .ToList(),
+            };
         }
 
         /// <summary>

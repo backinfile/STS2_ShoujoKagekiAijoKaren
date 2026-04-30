@@ -9,6 +9,16 @@ namespace ShoujoKagekiAijoKaren.src.KarenMod.Patches;
 [HarmonyPatch]
 internal class ProgressSaveManager_Patches
 {
+    private static bool IsKaren(Player localPlayer)
+    {
+        return localPlayer.Character?.Id.Entry == Karen.CHAR_ID;
+    }
+
+    private static string GetCharacterName(Player localPlayer)
+    {
+        return localPlayer.Character?.GetType().Name ?? "<null>";
+    }
+
     // -------------------------------
     // Patch CheckFifteenElitesDefeatedEpoch
     // -------------------------------
@@ -19,14 +29,14 @@ internal class ProgressSaveManager_Patches
         private static bool Prefix(ProgressSaveManager __instance, Player localPlayer)
         {
             Console.WriteLine("[Prefix] CheckFifteenElitesDefeatedEpoch started for " +
-                              localPlayer.Character.GetType().Name);
-            return localPlayer.Character is not Karen; // skip original for Karen
+                              GetCharacterName(localPlayer));
+            return !IsKaren(localPlayer); // skip original for Karen
         }
 
         private static void Postfix(ProgressSaveManager __instance, Player localPlayer)
         {
             Console.WriteLine("[Postfix] CheckFifteenElitesDefeatedEpoch finished for " +
-                              localPlayer.Character.GetType().Name);
+                              GetCharacterName(localPlayer));
         }
     }
 
@@ -40,14 +50,14 @@ internal class ProgressSaveManager_Patches
         private static bool Prefix(ProgressSaveManager __instance, Player localPlayer)
         {
             Console.WriteLine("[Prefix] CheckFifteenBossesDefeatedEpoch started for " +
-                              localPlayer.Character.GetType().Name);
-            return localPlayer.Character is not Karen; // skip original for Karen
+                              GetCharacterName(localPlayer));
+            return !IsKaren(localPlayer); // skip original for Karen
         }
 
         private static void Postfix(ProgressSaveManager __instance, Player localPlayer)
         {
             Console.WriteLine("[Postfix] CheckFifteenBossesDefeatedEpoch finished for " +
-                              localPlayer.Character.GetType().Name);
+                              GetCharacterName(localPlayer));
         }
     }
 
@@ -59,16 +69,16 @@ internal class ProgressSaveManager_Patches
         private static bool Prefix(ProgressSaveManager __instance, Player localPlayer, int act)
         {
             Console.WriteLine(
-                $"[Prefix] ObtainCharUnlockEpoch started for {localPlayer.Character.GetType().Name}, Act {act + 1}");
+                $"[Prefix] ObtainCharUnlockEpoch started for {GetCharacterName(localPlayer)}, Act {act + 1}");
 
             // Skip method for Karen or handle custom logic
-            return localPlayer.Character is not Karen;
+            return !IsKaren(localPlayer);
         }
 
         private static void Postfix(ProgressSaveManager __instance, Player localPlayer, int act)
         {
             Console.WriteLine(
-                $"[Postfix] ObtainCharUnlockEpoch finished for {localPlayer.Character.GetType().Name}, Act {act + 1}");
+                $"[Postfix] ObtainCharUnlockEpoch finished for {GetCharacterName(localPlayer)}, Act {act + 1}");
         }
     }
 }

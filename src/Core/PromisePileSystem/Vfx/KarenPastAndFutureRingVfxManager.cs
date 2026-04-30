@@ -48,6 +48,7 @@ public static class KarenPastAndFutureRingVfxManager
             if (child is NKarenPastAndFutureRingVfx existing)
             {
                 existing.Init(creatureNode);
+                MoveAboveCreature(parent, existing, creatureNode);
                 existing.Restart();
                 RingNodes.Set(player, existing);
                 return;
@@ -56,9 +57,15 @@ public static class KarenPastAndFutureRingVfxManager
 
         var newNode = new NKarenPastAndFutureRingVfx();
         parent.AddChildSafely(newNode);
-        parent.MoveChild(newNode, creatureNode.GetIndex());
+        MoveAboveCreature(parent, newNode, creatureNode);
         newNode.Init(creatureNode);
         RingNodes.Set(player, newNode);
+    }
+
+    private static void MoveAboveCreature(Node parent, Node ringNode, Node creatureNode)
+    {
+        var targetIndex = Mathf.Min(creatureNode.GetIndex() + 1, parent.GetChildCount() - 1);
+        parent.MoveChild(ringNode, targetIndex);
     }
 
     private static void StopInternal(Player player)

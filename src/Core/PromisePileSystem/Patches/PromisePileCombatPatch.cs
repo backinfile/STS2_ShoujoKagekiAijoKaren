@@ -52,7 +52,7 @@ internal static class PromisePile_BeforeCombatStart_Patch
         var player = LocalContext.GetMe(combatState);
         if (player != null)
         {
-            if (player.Character is Karen)
+            if (player.Character?.Id.Entry == Karen.CHAR_ID)
             {
                 await PromisePileManager.InitPowerAsync(player);
             }

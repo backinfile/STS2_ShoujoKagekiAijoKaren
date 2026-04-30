@@ -36,12 +36,23 @@ public class KarenModConfig : SimpleModConfig
         var button = new KarenConfigImageButton(
             GetSettingsText("SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_BUTTON.title", "生成mod信息html"),
             GenerateModInfoHtml);
+        var jsonButton = new KarenConfigImageButton(
+            GetSettingsText("SHOUJOKAGEKIAIJOKAREN-EXPORT_JSON_ONLY_BUTTON.title", "仅导出JSON"),
+            ExportJsonOnly);
 
         var centerContainer = new CenterContainer
         {
             CustomMinimumSize = new Vector2(0, 88),
         };
-        centerContainer.AddChild(button);
+
+        var buttonRow = new HBoxContainer
+        {
+            Alignment = BoxContainer.AlignmentMode.Center,
+        };
+        buttonRow.AddThemeConstantOverride("separation", 18);
+        buttonRow.AddChild(button);
+        buttonRow.AddChild(jsonButton);
+        centerContainer.AddChild(buttonRow);
         optionContainer.AddChild(centerContainer);
         optionContainer.MoveChild(centerContainer, 0);
     }
@@ -86,6 +97,51 @@ public class KarenModConfig : SimpleModConfig
         {
             MainFile.Logger.Error($"Generate mod info html failed: {ex}");
             ShowMessage("生成mod信息html", $"生成失败：{ex.Message}");
+        }
+        finally
+        {
+            _isGeneratingModInfoHtml = false;
+            if (GodotObject.IsInstanceValid(button))
+                button.Enable();
+        }
+    }
+
+    private static async void ExportJsonOnly(KarenConfigImageButton button)
+    {
+        if (_isGeneratingModInfoHtml)
+        {
+            ShowMessage("仅导出JSON", "正在生成中，请稍等。");
+            return;
+        }
+
+        _isGeneratingModInfoHtml = true;
+        button.Disable();
+
+        const string outputPath = "user://KarenCardExports/";
+        try
+        {
+            var result = await CardPngExportUtil.ExportJsonOnlyAsync(outputPath, msg =>
+            {
+                MainFile.Logger.Info(msg);
+            });
+
+            if (result.Success)
+            {
+                ShowMessage(
+                    "仅导出JSON",
+                    $"导出完成。\n输出目录：{result.OutputDirectory}\nKaren 卡牌：{result.CardCount}");
+            }
+            else
+            {
+                ShowMessage(
+                    "仅导出JSON",
+                    $"导出时遇到问题：{result.Error ?? "未知错误"}\n请查看日志获取详细信息。");
+            }
+        }
+        catch (Exception ex)
+        {
+            MainFile.Logger.Error($"Export json only failed: {ex}");
+            ShowMessage("仅导出JSON", $"导出失败：{ex.Message}");
         }
         finally
         {
