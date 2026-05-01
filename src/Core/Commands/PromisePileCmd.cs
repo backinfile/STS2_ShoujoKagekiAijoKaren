@@ -65,10 +65,10 @@ public static class PromisePileCmd
     /// <summary>
     /// 将一些牌放入约定牌堆
     /// </summary>
-    public static async Task Add(Player player, IEnumerable<CardModel> cards)
+    public static async Task Add(Player player, IEnumerable<CardModel> cards, bool skipVisuals = false)
     {
         var pile = KarenCustomEnum.PromisePile.GetPile(player);
-        await CardPileCmd.Add(cards, pile);
+        await CardPileCmd.Add(cards, pile, skipVisuals: skipVisuals);
     }
 
 

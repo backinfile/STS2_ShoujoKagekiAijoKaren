@@ -35,7 +35,8 @@ public sealed class KarenStarGuide : KarenBaseCardModel
             .ToList();
 
         _ = NKarenStarGuideVfx.Play(cards);
-        await PromisePileCmd.Add(Owner, cards);
+        NKarenStarGuideVfx.RemoveHandCards(cards);
+        await PromisePileCmd.Add(Owner, cards, true);
     }
 
     protected override void OnUpgrade()
