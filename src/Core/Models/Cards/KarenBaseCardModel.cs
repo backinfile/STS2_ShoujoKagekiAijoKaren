@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
 using System.Threading.Tasks;
 
@@ -69,5 +70,15 @@ public abstract class KarenBaseCardModel : CardModel
     /// 这张卡若是作为三选一的选项，需要实现这个
     /// </summary>
     public virtual Task DoOption(PlayerChoiceContext choiceContext, CardPlay cardPlay) => Task.CompletedTask;
+
+
+    /// <summary>
+    /// 使用此卡牌指向目标时
+    /// </summary>
+    public virtual void OnCreatureHover(NCreature creature) { }
+
+    public virtual void OnCreatureUnhover(NCreature creature) {  }
+
+    public virtual void OnCreatureHoverCleanup(NCreature creature) { }
 
 }

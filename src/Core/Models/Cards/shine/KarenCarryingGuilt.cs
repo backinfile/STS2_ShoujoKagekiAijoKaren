@@ -1,3 +1,5 @@
+using BaseLib.Utils;
+using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -5,9 +7,11 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Nodes.Cards;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -36,10 +40,12 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (cardPlay.Target == null) return;
+        NKarenStageLightVfx.Play(cardPlay.Target);
+        await Task.Delay(250);
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromCard(this)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithHitFx(VfxCmd.heavyBluntPath)
             .Execute(choiceContext);
     }
 
@@ -54,4 +60,40 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
         var count = IsCanonical ? 0 : ShinePileManager.GetDisposedShineCardUniqueCount(Owner);
         description.Add("ShinePileUniqueCount", count);
     }
+
+
+    // ============== 以下为特效
+
+
+    private static readonly SpireField<NCreature, NKarenStageLightVfx?> FocusVfx = new(() => null);
+    private static void Clear(NCreature creature)
+    {
+        var existing = FocusVfx.Get(creature);
+        if (existing != null && GodotObject.IsInstanceValid(existing))
+            existing.Stop();
+
+        FocusVfx.Set(creature, null);
+    }
+
+
+    public override void OnCreatureHover(NCreature creature)
+    {
+        var existing = FocusVfx.Get(creature);
+        if (existing != null && GodotObject.IsInstanceValid(existing))
+            return;
+
+        FocusVfx.Set(creature, NKarenStageLightVfx.StartFocus(creature.Entity));
+    }
+
+    public override void OnCreatureUnhover(NCreature creature)
+    {
+        Clear(creature);
+    }
+
+    public override void OnCreatureHoverCleanup(NCreature creature)
+    {
+        Clear(creature);
+    }
 }
+
+

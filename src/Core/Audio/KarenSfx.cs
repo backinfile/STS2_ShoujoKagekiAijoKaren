@@ -6,6 +6,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Audio;
 /// </summary>
 public static class KarenSfx
 {
+    // --- 舞台灯 ---
+    public const string StageLight = "karen_stage_light.mp3";
+
     // --- 最后的台词 ---
     public const string LastWord = "karen_last_word.wav";
 
