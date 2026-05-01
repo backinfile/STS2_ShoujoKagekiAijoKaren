@@ -9,7 +9,7 @@ anchors_preset = 0
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 offset_left = 375.0
-offset_right = 2295.0
+offset_right = 2295.0017
 offset_bottom = 1200.0
 texture = ExtResource("1_xisa5")
 stretch_mode = 5
