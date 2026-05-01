@@ -18,7 +18,7 @@ internal static class KarenCharSelectVideoController
     private const string SelectSfxPath = "karen_on_select.ogg";
     private static readonly TimeSpan Cooldown = TimeSpan.FromMinutes(1);
     private const string AnimatedBgNodePath = "AnimatedBg";
-    private const string BackgroundTextureNodePath = "TextureRect";
+    private const string BackgroundHostNodePath = "TextureRect";
 
     private static long _lastShowVideoTicks;
     private static NKarenCharSelectVideoOverlay? _overlay;
@@ -60,7 +60,7 @@ internal static class KarenCharSelectVideoController
         }
 
         var currentBg = bgContainer.GetChildCount() > 0 ? bgContainer.GetChild(bgContainer.GetChildCount() - 1) : null;
-        var host = currentBg?.GetNodeOrNull<Control>(BackgroundTextureNodePath) ?? currentBg as Control;
+        var host = currentBg?.GetNodeOrNull<Control>(BackgroundHostNodePath) ?? currentBg as Control;
         if (host == null)
         {
             MainFile.Logger.Error("Failed to find Karen character select background host node.");
