@@ -31,10 +31,9 @@ public partial class MainFile : Node
 }
 
 [HarmonyPatch(typeof(ModelDb), "AllCharacters", MethodType.Getter)]
-[HarmonyPriority(Priority.First)]
 public class ModelDbAllCharactersPatch
 {
-    private static void Postfix(ref IEnumerable<CharacterModel> __result)
+    public static void Postfix(ref IEnumerable<CharacterModel> __result)
     {
         var charactersList = __result.ToList();
         charactersList.Add(ModelDb.Character<Karen>());

@@ -28,7 +28,7 @@ public sealed class KarenNextStage : KarenBaseCardModel
     {
         if (!IsUpgraded)
         {
-            await TriggerEffect();
+            await TriggerEffect(new BlockingPlayerChoiceContext());
         }
     }
 
@@ -36,7 +36,7 @@ public sealed class KarenNextStage : KarenBaseCardModel
     {
         if (!IsUpgraded)
         {
-            await TriggerEffect();
+            await TriggerEffect(new BlockingPlayerChoiceContext());
         }
     }
 
@@ -45,12 +45,13 @@ public sealed class KarenNextStage : KarenBaseCardModel
     {
         if (IsUpgraded)
         {
-            await TriggerEffect();
+            await TriggerEffect(new BlockingPlayerChoiceContext());
         }
     }
 
-    public async Task TriggerEffect()
+    public async Task TriggerEffect(PlayerChoiceContext ctx)
     {
-        await CardPileCmd.Draw(new BlockingPlayerChoiceContext(), DynamicVars.Cards.IntValue, Owner);
+        // TODO
+        await CardPileCmd.Draw(ctx, DynamicVars.Cards.IntValue, Owner);
     }
 }

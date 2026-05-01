@@ -137,13 +137,14 @@ public static class ShinePatch
     /// </summary>
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add))]
     [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(CardPile), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool)])]
-    [HarmonyPriority(Priority.First)]
     public static class CardPileCmd_Add_Patch
     {
 
         /// <summary>
-        /// 把要移动到约定牌堆的牌取出来
+        /// 把要移动到闪耀牌堆的牌取出来，执行自己的移动逻辑
+        /// 为了不干扰其他Prefix，最后执行这个逻辑
         /// </summary>
+        [HarmonyPriority(Priority.Last)]
         public static bool Prefix(IEnumerable<CardModel> cards, CardPile newPile, CardPilePosition position, AbstractModel? source, bool skipVisuals, ref Task<IReadOnlyList<CardPileAddResult>> __result)
         {
             var takeOverCards = new List<CardModel>();
@@ -159,15 +160,16 @@ public static class ShinePatch
             }
             if (takeOverCards.Count > 0)
             {
-                return Async.Prefix<IReadOnlyList<CardPileAddResult>>(ref __result, async () => {
-                    cards = cards.Where(c => !takeOverCards.Contains(c)).ToList(); // 从原参数列表中移除这些卡牌，剩下的正常添加
-                    var originResult = await OriginalMethodStub(cards, newPile, position, source, skipVisuals);
-                    var myResult = await HandleShineDepletePileAsync(takeOverCards);
-                    return originResult.Concat(myResult).ToList();
+                return Async.Prefix<IReadOnlyList<CardPileAddResult>>(ref __result, async () =>
+                {
+                    cards = cards.Where(c => !takeOverCards.Contains(c)).ToList(); 
+                    var originResult = await OriginalMethodStub(cards, newPile, position, source, skipVisuals); // 部分卡牌执行原逻辑
+                    var myResult = await HandleShineDepletePileAsync(takeOverCards); // 部分卡牌移动到闪耀牌堆
+                    return originResult.Concat(myResult).ToList(); // 最后将结果合并
                 });
             }
 
-            return true; 
+            return true;
         }
 
         [HarmonyReversePatch(HarmonyReversePatchType.Snapshot)]

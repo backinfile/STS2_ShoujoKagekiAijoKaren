@@ -190,6 +190,9 @@ public sealed class KarenPromisePilePower : FakeAmountPower
         }
         if (IsInMode(PromisePileMode.PastAndFuture))
         {
+            // 特效更新
+            if (Owner.Player is Player player) KarenPastAndFutureRingVfxManager.Pulse(player);
+            // 获得力量
             await PowerCmd.Apply<KarenPastAndFutureTempStrengthPower>(Owner, _pastAndFutureAmount, Owner, null);
         }
     }

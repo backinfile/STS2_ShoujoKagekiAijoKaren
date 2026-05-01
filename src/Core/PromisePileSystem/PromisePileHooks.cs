@@ -100,7 +100,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
         {
             if (player?.Creature == null) return;
             KarenPromiseVfxStarManager.UpdatePromisePileStarCount(player);
-            PastAndFuturePromisePileAudio.TryPlayNext(player);
+            //PastAndFuturePromisePileAudio.TryPlayNext(player);
 
             foreach (var power in player.Creature.Powers.OfType<KarenBasePower>().ToList())
             {

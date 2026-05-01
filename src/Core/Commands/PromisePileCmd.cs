@@ -38,10 +38,8 @@ public static class PromisePileCmd
     private static bool IsInfiniteMode(Player player) => PromisePileManager.IsInMode(player, PromisePileMode.InfiniteReinforcement);
 
     /// <summary>
-    /// 将指定卡牌放入约定牌堆（物理从当前牌堆移出，加入队列尾部）。
-    /// Void 模式下改为放入抽牌堆顶部。
-    /// 调用方应确保卡牌当前在手牌中。
-    /// 注意：这个方法不会检测是否需要耗尽进入耗尽牌堆
+    /// 这里直接调用对应的CardPileCmd.Add
+    /// 会patch处理Void模式下，目标转移到抽牌堆底部的逻辑。
     /// </summary>
     public static async Task Add(Player player, CardModel card)
     {
@@ -51,32 +49,26 @@ public static class PromisePileCmd
         //    return;
         //}
 
-        if (IsVoidMode(player))
-        {
-            // Void 模式：放入抽牌堆底部
-            await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Bottom);
-            return;
-        }
+        // TODO
+        //if (IsVoidMode(player))
+        //{
+        //    // Void 模式：放入抽牌堆底部
+        //    await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Bottom);
+        //    return;
+        //}
+        //await PromisePileManager.AddToPromisePile(player, card);
 
-        await PromisePileManager.AddToPromisePile(player, card);
+        var pile = KarenCustomEnum.PromisePile.GetPile(player);
+        await CardPileCmd.Add(card, pile);
     }
 
     /// <summary>
     /// 将一些牌放入约定牌堆
     /// </summary>
-    public static async Task Add(Player player, List<CardModel> cards)
+    public static async Task Add(Player player, IEnumerable<CardModel> cards)
     {
-        if (IsVoidMode(player))
-        {
-            // Void 模式
-            await CardPileCmd.Add(cards, PileType.Draw, CardPilePosition.Bottom, null, false);
-            return;
-        }
-
-        foreach (var card in cards)
-        {
-            await PromisePileManager.AddToPromisePile(player, card);
-        }
+        var pile = KarenCustomEnum.PromisePile.GetPile(player);
+        await CardPileCmd.Add(cards, pile);
     }
 
 
@@ -84,16 +76,15 @@ public static class PromisePileCmd
 
     public static async Task AddToken<T>(Player player, CombatState combatState, int cnt = 1) where T : CardModel
     {
-        if (CombatManager.Instance.IsOverOrEnding) return;
-
-        MainFile.Logger.Info($"Adding {cnt} token(s) of type {typeof(T).Name} to promise pile for player {player.Creature.Name}");
+        //MainFile.Logger.Info($"Adding {cnt} token(s) of type {typeof(T).Name} to promise pile for player {player.Creature.Name}");
+        //if (CombatManager.Instance.IsOverOrEnding) return;
+        var cards = new List<CardModel>();
         for (int i = 0; i < cnt; i++)
         {
             var card = combatState.CreateCard<T>(player);
-            CombatManager.Instance.History.CardGenerated(combatState, card, true);
-            await Add(player, card);
-            await Hook.AfterCardGeneratedForCombat(combatState, card, true);
+            cards.Add(card);
         }
+        await CardPileCmd.AddGeneratedCardsToCombat(cards, KarenCustomEnum.PromisePile, true);
     }
 
     /// <summary>
