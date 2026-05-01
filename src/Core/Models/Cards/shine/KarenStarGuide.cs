@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -34,8 +35,12 @@ public sealed class KarenStarGuide : KarenBaseCardModel
             .Where(c => c.IsShineCard())
             .ToList();
 
-        _ = NKarenStarGuideVfx.Play(cards);
-        NKarenStarGuideVfx.RemoveHandCards(cards);
+        if (LocalContext.IsMe(Owner))
+        {
+            _ = NKarenStarGuideVfx.Play(cards);
+            NKarenStarGuideVfx.RemoveHandCards(cards);
+        }
+
         await PromisePileCmd.Add(Owner, cards, true);
     }
 

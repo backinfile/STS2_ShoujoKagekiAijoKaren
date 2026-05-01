@@ -8,6 +8,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 public partial class NKarenLastWordVideoVfx : Control
 {
     private const string VideoPath = "res://ShoujoKagekiAijoKaren/video/last_word.ogv";
+    public const float VideoSequenceSeconds = 6.7f;
+    public const float LettersOnlySequenceSeconds = 0.7f;
     private const float StartDelay = 1f;
     private const float VideoFadeInSeconds = 0.18f;
     private const float FadeOutSeconds = 0.35f;
@@ -45,6 +47,11 @@ public partial class NKarenLastWordVideoVfx : Control
 
         parent.AddChildSafely(new NKarenLastWordVideoVfx(stream));
         return true;
+    }
+
+    public static bool HasVideo()
+    {
+        return ResourceLoader.Exists(VideoPath);
     }
 
     public override void _Ready()

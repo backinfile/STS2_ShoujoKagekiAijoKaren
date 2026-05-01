@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -29,12 +30,25 @@ public sealed class KarenLastWord : KarenBaseCardModel
         if (!Condition(base.Owner, this)) { return; }
         if (CombatState == null) return;
 
+        bool isLocalOwner = LocalContext.IsMe(Owner);
+        bool playedVideo = false;
         KarenFormMusicManager.StopForCutscene();
         KarenAudioManager.PlaySfx(KarenSfx.LastWord, volume: 1f);
-        bool playedVideo = NKarenLastWordVideoVfx.Play();
-        if (!playedVideo)
+        if (isLocalOwner)
+        {
+            playedVideo = NKarenLastWordVideoVfx.Play();
+            if (!playedVideo)
+                NKarenLastWordVfx.Play();
+        }
+        else
+        {
             NKarenLastWordVfx.Play();
-        await Cmd.Wait(playedVideo ? 6.7f : 0.7f);
+        }
+
+        bool shouldWaitForVideoSequence = playedVideo || (!isLocalOwner && NKarenLastWordVideoVfx.HasVideo());
+        await Cmd.Wait(shouldWaitForVideoSequence
+            ? NKarenLastWordVideoVfx.VideoSequenceSeconds
+            : NKarenLastWordVideoVfx.LettersOnlySequenceSeconds);
 
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).TargetingAllOpponents(CombatState)
             //.WithHitFx(VfxCmd.slashPath)

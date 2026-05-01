@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -80,6 +81,9 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
 
     public override void OnCreatureHover(NCreature creature)
     {
+        if (!LocalContext.IsMe(Owner))
+            return;
+
         var existing = FocusVfx.Get(creature);
         if (existing != null && GodotObject.IsInstanceValid(existing))
             return;
@@ -89,11 +93,17 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
 
     public override void OnCreatureUnhover(NCreature creature)
     {
+        if (!LocalContext.IsMe(Owner))
+            return;
+
         Clear(creature);
     }
 
     public override void OnCreatureHoverCleanup(NCreature creature)
     {
+        if (!LocalContext.IsMe(Owner))
+            return;
+
         Clear(creature);
     }
 

@@ -1,5 +1,7 @@
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Runs;
 
@@ -17,41 +19,50 @@ public static class KarenFormMusicManager
     private static int _restoreRequestId;
     private static bool _needsGameMusicRestore;
 
-    public static void PlayLoop(float volume = 1f)
+    public static void PlayLoop(Player? player, float volume = 1f)
     {
+        if (!LocalContext.IsMe(player))
+            return;
+
         _restoreRequestId++;
         StopImmediate();
         StopGameMusicEventOnly();
         _currentPlayer = KarenAudioManager.PlayMusicLoop(FileName, volume);
     }
 
-    public static void Stop()
+    public static void Stop(Player? ownerPlayer = null)
     {
+        if (ownerPlayer != null && !LocalContext.IsMe(ownerPlayer))
+            return;
+
         if (!GodotObject.IsInstanceValid(_currentPlayer))
         {
             _currentPlayer = null;
             return;
         }
 
-        var player = _currentPlayer;
+        var audioPlayer = _currentPlayer;
         _currentPlayer = null;
 
-        var tween = player!.CreateTween();
-        tween.TweenProperty(player, "volume_linear", 0f, FadeOutDuration);
+        var tween = audioPlayer!.CreateTween();
+        tween.TweenProperty(audioPlayer, "volume_linear", 0f, FadeOutDuration);
         tween.Finished += () =>
         {
-            if (GodotObject.IsInstanceValid(player))
+            if (GodotObject.IsInstanceValid(audioPlayer))
             {
-                player.Stop();
-                player.QueueFree();
+                audioPlayer.Stop();
+                audioPlayer.QueueFree();
             }
 
             RequestRestoreGameMusic();
         };
     }
 
-    public static void StopForCutscene()
+    public static void StopForCutscene(Player? ownerPlayer = null)
     {
+        if (ownerPlayer != null && !LocalContext.IsMe(ownerPlayer))
+            return;
+
         _restoreRequestId++;
         StopImmediate();
         StopGameMusicEventOnly();

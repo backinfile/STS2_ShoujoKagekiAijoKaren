@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using Godot;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
@@ -12,11 +13,17 @@ public static class KarenFormVfxManager
 
     public static void Start(Player player)
     {
+        if (!LocalContext.IsMe(player))
+            return;
+
         Callable.From(() => StartInternal(player)).CallDeferred();
     }
 
     public static void Stop(Player player)
     {
+        if (!LocalContext.IsMe(player))
+            return;
+
         Callable.From(() => StopInternal(player)).CallDeferred();
     }
 
