@@ -27,6 +27,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 /// </summary>
 public static class ShinePatch
 {
+    /// <summary>
+    /// 存储每张卡牌打出过程中使用的的 PlayerChoiceContext
+    /// </summary>
+    private static readonly SpireField<CardModel, PlayerChoiceContext?> _cardContext = new(() => null);
+
+
     [HarmonyPatch(typeof(CardModel), nameof(CardModel.OnPlayWrapper))]
     public static class ShineValuePatch
     {
@@ -50,7 +56,8 @@ public static class ShinePatch
                 }
             }
 
-            BeforePlayWrapper(card, choiceContext);
+            /// 记录所有打出卡牌的 PlayerChoiceContext，以供后续 Patch 使用
+            _cardContext.Set(card, choiceContext);
         }
     }
 
@@ -87,8 +94,6 @@ public static class ShinePatch
     }
 
 
-    /// <summary>存储每张卡牌对应的 PlayerChoiceContext</summary>
-    private static readonly SpireField<CardModel, PlayerChoiceContext?> _cardContext = new(() => null);
 
     /// <summary>是否应进入闪耀耗尽流程（已初始化Shine且当前值==0）</summary>
     public static bool ShouldEnterShinePile(CardModel card)
@@ -99,25 +104,6 @@ public static class ShinePatch
         if (card.GetShineValue() <= 0) return true; // 闪耀值耗尽了，需要进约定牌堆
         if (card.ShouldEnterShinePileAfterPlay()) return true; // 主动耗尽的，需要进约定牌堆
         return false; // 闪耀值还没耗尽
-    }
-
-
-    /// <summary>
-    /// 卡牌即将被放入闪耀牌堆时，记录 PlayerChoiceContext 以供后续 Patch 使用
-    /// </summary>
-    /// <param name="card"></param>
-    /// <param name="choiceContext"></param>
-    public static void BeforePlayWrapper(CardModel card, PlayerChoiceContext choiceContext)
-    {
-        // 只有真的会进入闪耀耗尽牌堆时才记录上下文，避免把本地选择上下文残留在普通出牌路径上。
-        if (ShouldEnterShinePile(card))
-        {
-            _cardContext[card] = choiceContext;
-        }
-        else
-        {
-            _cardContext.Set(card, null);
-        }
     }
 
 

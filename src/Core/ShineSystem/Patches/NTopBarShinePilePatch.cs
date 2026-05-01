@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Runs;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
+using ShoujoKagekiAijoKaren.src.Models.Characters;
 
 namespace ShoujoKagekiAijoKaren.src.Core.ShineSystem.Patches;
 
@@ -15,31 +16,39 @@ public static class NTopBarShinePileButtonPatch
     private static void Postfix(NTopBar __instance)
     {
         MainFile.Logger.Info("[ShinePilePatch] NTopBar._Ready Postfix executing");
-        if (__instance.HasNode("RightAlignedStuff/ShinePile"))
+    }
+}
+
+internal static class NTopBarShinePileButtonHelper
+{
+    public static NTopBarShinePileButton? GetOrCreate(NTopBar topBar)
+    {
+        var existingButton = topBar.GetNodeOrNull<NTopBarShinePileButton>("RightAlignedStuff/ShinePile");
+        if (existingButton != null)
         {
-            MainFile.Logger.Info("[ShinePilePatch] ShinePile button already exists, skipping");
-            return;
+            MainFile.Logger.Info("[ShinePilePatch] ShinePile button already exists, reusing");
+            return existingButton;
         }
 
         var scene = ResourceLoader.Load<PackedScene>("res://scenes/ui/top_bar/top_bar_shine_pile_button.tscn");
         if (scene == null)
         {
             MainFile.Logger.Error("[ShinePilePatch] Failed to load top_bar_shine_pile_button.tscn");
-            return;
+            return null;
         }
 
         var shinePileButton = scene.Instantiate<NTopBarShinePileButton>();
         shinePileButton.Name = "ShinePile";
         MainFile.Logger.Info($"[ShinePilePatch] Button instantiated, name={shinePileButton.Name}");
 
-        var rightAlignedStuff = __instance.GetNode<Control>("RightAlignedStuff");
-        var mapButton = __instance.Map;
+        var rightAlignedStuff = topBar.GetNode<Control>("RightAlignedStuff");
+        var mapButton = topBar.Map;
         int mapIndex = mapButton.GetIndex();
         rightAlignedStuff.AddChild(shinePileButton);
         rightAlignedStuff.MoveChild(shinePileButton, mapIndex);
         MainFile.Logger.Info($"[ShinePilePatch] Button added to RightAlignedStuff at index {mapIndex}, actual index={shinePileButton.GetIndex()}");
 
-        var capstoneContainer = __instance.GetParent().GetNodeOrNull<Node>("%CapstoneScreenContainer");
+        var capstoneContainer = topBar.GetParent().GetNodeOrNull<Node>("%CapstoneScreenContainer");
         if (capstoneContainer != null)
         {
             capstoneContainer.Connect(Node.SignalName.ChildEnteredTree,
@@ -52,6 +61,17 @@ public static class NTopBarShinePileButtonPatch
         {
             MainFile.Logger.Warn("[ShinePilePatch] CapstoneContainer not found, anim state won't sync");
         }
+
+        return shinePileButton;
+    }
+
+    public static void RemoveIfPresent(NTopBar topBar)
+    {
+        var shinePileButton = topBar.GetNodeOrNull<NTopBarShinePileButton>("RightAlignedStuff/ShinePile");
+        if (shinePileButton == null) return;
+
+        MainFile.Logger.Info("[ShinePilePatch] Removing ShinePile button for non-Karen player");
+        shinePileButton.QueueFree();
     }
 }
 
@@ -62,17 +82,24 @@ public static class NTopBarShinePileInitializePatch
     private static void Postfix(NTopBar __instance, IRunState runState)
     {
         MainFile.Logger.Info("[ShinePilePatch] NTopBar.Initialize Postfix executing");
-        var shinePileButton = __instance.GetNodeOrNull<NTopBarShinePileButton>("RightAlignedStuff/ShinePile");
-        if (shinePileButton == null)
-        {
-            MainFile.Logger.Warn("[ShinePilePatch] ShinePile button not found during Initialize");
-            return;
-        }
-
         var player = LocalContext.GetMe(runState);
         if (player == null)
         {
             MainFile.Logger.Warn("[ShinePilePatch] LocalContext.GetMe returned null");
+            return;
+        }
+
+        if (player.Character?.Id?.Entry != Karen.CHAR_ID)
+        {
+            MainFile.Logger.Info($"[ShinePilePatch] Current player is {player.Character?.Id?.Entry}, not Karen; ShinePile button hidden");
+            NTopBarShinePileButtonHelper.RemoveIfPresent(__instance);
+            return;
+        }
+
+        var shinePileButton = NTopBarShinePileButtonHelper.GetOrCreate(__instance);
+        if (shinePileButton == null)
+        {
+            MainFile.Logger.Warn("[ShinePilePatch] Failed to create ShinePile button during Initialize");
             return;
         }
 

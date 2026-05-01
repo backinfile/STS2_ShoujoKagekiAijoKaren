@@ -146,7 +146,7 @@ internal abstract class PlayerExtraFieldsHandlerBase<TData> : PlayerExtraFieldsH
     /// </summary>
     public override void SerializeExtraFields(SerializableExtraPlayerFields extraFields, PacketWriter writer)
     {
-        WriteNetData(writer, _serializedData.Get(extraFields));
+        WriteNetData(writer, _serializedData.Get(extraFields)!);
     }
 
     /// <summary>
@@ -163,7 +163,7 @@ internal abstract class PlayerExtraFieldsHandlerBase<TData> : PlayerExtraFieldsH
     /// </summary>
     public override void RestoreFromSerializableField(Player player, SerializableExtraPlayerFields extraFields)
     {
-        Restore(player, _serializedData.Get(extraFields));
+        Restore(player, _serializedData.Get(extraFields)!);
     }
 
     /// <summary>
