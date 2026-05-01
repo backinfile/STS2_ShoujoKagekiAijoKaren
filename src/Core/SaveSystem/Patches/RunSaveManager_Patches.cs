@@ -1,26 +1,25 @@
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Saves.Managers;
-using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
-using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 
 namespace ShoujoKagekiAijoKaren.src.Core.SaveSystem;
 
 /// <summary>
-/// 在 GodotFileIo 最底层拦截文件读写，将 Mod 数据嵌入游戏存档 JSON。
+/// 在 GodotFileIo 最底层拦截文件读写，将 Mod 数据嵌入游戏存档 JSON 的 players[*].extra_fields。
 ///
 /// 写入流程：
 ///   RunSaveManager.SaveRun → GodotFileIo.WriteFile(path, bytes)
-///   ↳ [Prefix] 将 "karen_mod_data" 字段注入 bytes → 写入文件
+///   ↳ [Prefix] 将闪耀牌堆注入 players[*].extra_fields → 写入文件
 ///
 /// 读取流程：
 ///   MigrationManager.LoadSaveFromPath → GodotFileIo.ReadFile(path) → string
-///   ↳ [Postfix] 从 JSON 字符串提取 "karen_mod_data" → KarenModSaveBuffer
+///   ↳ [Postfix] 从 players[*].extra_fields 提取闪耀牌堆 → KarenExtraFieldsSaveBuffer
 ///
 /// 恢复时机：在 RunManager.SetUpSavedSinglePlayer/SetUpSavedMultiPlayer Postfix 中消费，
 /// 此时 RunState 和卡组 CardModel 实例均已就绪，无需等待战斗开始。
@@ -30,7 +29,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.SaveSystem;
 [HarmonyPatch]
 internal static class RunSaveManager_Patches
 {
-    private const string ModDataKey = "karen_mod_data";
+    private const string PlayersKey = "players";
+    private const string ExtraFieldsKey = "extra_fields";
 
     /// <summary>
     /// 判断路径是否为任意局内存档（单机或联机，含 .backup 后缀）
@@ -88,30 +88,29 @@ internal static class RunSaveManager_Patches
             var state = RunManager.Instance.DebugOnlyGetState();
             if (state == null) return originalBytes;
 
-            var playerShinePileData = ShinePileSaveManager.CollectAllPlayersShinePileData(state.Players);
-            if (playerShinePileData.Count == 0) return originalBytes; // 无额外闪耀牌堆数据，透传
-
-            var modData = new KarenRunSaveData
-            {
-                PlayerShinePileData = playerShinePileData
-            };
-
             using var doc = JsonDocument.Parse(originalBytes);
             if (doc.RootElement.ValueKind != JsonValueKind.Object) return originalBytes;
+            if (!doc.RootElement.TryGetProperty(PlayersKey, out var playersElement) || playersElement.ValueKind != JsonValueKind.Array)
+                return originalBytes;
 
             using var ms = new MemoryStream(originalBytes.Length + 256);
             using var writer = new Utf8JsonWriter(ms);
 
             writer.WriteStartObject();
             foreach (var prop in doc.RootElement.EnumerateObject())
+            {
+                if (prop.NameEquals(PlayersKey))
+                {
+                    WritePlayersWithInjectedFields(writer, playersElement, state.Players);
+                    continue;
+                }
+
                 prop.WriteTo(writer);
-            writer.WritePropertyName(ModDataKey);
-            JsonSerializer.Serialize(writer, modData);
+            }
             writer.WriteEndObject();
             writer.Flush();
 
-            int totalPile = playerShinePileData.Values.Sum(l => l.Count);
-            MainFile.Logger.Info($"[SaveSystem] 注入 {totalPile} 张耗尽牌到存档");
+            MainFile.Logger.Info("[SaveSystem] 已将 extra_fields 扩展字段注入存档");
             return ms.ToArray();
         }
         catch (Exception ex)
@@ -129,14 +128,22 @@ internal static class RunSaveManager_Patches
         try
         {
             using var doc = JsonDocument.Parse(json);
-            if (!doc.RootElement.TryGetProperty(ModDataKey, out var modElement)) return;
+            if (!doc.RootElement.TryGetProperty(PlayersKey, out var playersElement) || playersElement.ValueKind != JsonValueKind.Array)
+                return;
 
-            var modData = JsonSerializer.Deserialize<KarenRunSaveData>(modElement.GetRawText());
-            if (modData == null) return;
+            int playerIndex = 0;
+            foreach (var playerElement in playersElement.EnumerateArray())
+            {
+                if (playerElement.TryGetProperty(ExtraFieldsKey, out var extraFieldsElement) && extraFieldsElement.ValueKind == JsonValueKind.Object)
+                {
+                    foreach (var handler in PlayerExtraFieldsHandlers.All)
+                        handler.ReadPlayerField(extraFieldsElement, playerIndex);
+                }
+                playerIndex++;
+            }
 
-            KarenModSaveBuffer.Store(modData);
-            int totalPile = modData.PlayerShinePileData.Values.Sum(l => l.Count);
-            MainFile.Logger.Info($"[SaveSystem] 从存档提取 {totalPile} 张耗尽牌，等待恢复");
+            KarenExtraFieldsSaveBuffer.MarkPending();
+            MainFile.Logger.Info("[SaveSystem] 已从 extra_fields 提取扩展字段，等待恢复");
         }
         catch (Exception ex)
         {
@@ -160,18 +167,88 @@ internal static class RunSaveManager_Patches
 
     private static void ConsumeAndRestore()
     {
-        if (!KarenModSaveBuffer.HasPending) return;
+        if (!KarenExtraFieldsSaveBuffer.HasPending) return;
 
         var state = RunManager.Instance.DebugOnlyGetState();
         if (state == null) return;
 
-        var data = KarenModSaveBuffer.Consume();
-        if (data == null)
+        if (!KarenExtraFieldsSaveBuffer.Consume())
         {
             MainFile.Logger.Info("[SaveSystem] 无 Mod 数据可供恢复");
             return;
         }
 
-        ShinePileSaveManager.RestoreAllPlayersShinePileData(state.Players, data);
+        foreach (var handler in PlayerExtraFieldsHandlers.All)
+            handler.RestoreToRunState(state.Players);
+    }
+
+    private static void WritePlayersWithInjectedFields(
+        Utf8JsonWriter writer,
+        JsonElement playersElement,
+        IReadOnlyList<Player> players)
+    {
+        writer.WritePropertyName(PlayersKey);
+        writer.WriteStartArray();
+
+        int playerIndex = 0;
+        foreach (var playerElement in playersElement.EnumerateArray())
+        {
+            writer.WriteStartObject();
+            foreach (var prop in playerElement.EnumerateObject())
+            {
+                if (prop.NameEquals(ExtraFieldsKey))
+                {
+                    WriteExtraFields(writer, prop.Value, players[playerIndex], playerIndex);
+                    continue;
+                }
+
+                prop.WriteTo(writer);
+            }
+
+            if (!playerElement.TryGetProperty(ExtraFieldsKey, out _))
+                WriteExtraFields(writer, default, players[playerIndex], playerIndex);
+
+            writer.WriteEndObject();
+            playerIndex++;
+        }
+
+        writer.WriteEndArray();
+    }
+
+    private static void WriteExtraFields(
+        Utf8JsonWriter writer,
+        JsonElement extraFieldsElement,
+        Player player,
+        int playerIndex)
+    {
+        writer.WritePropertyName(ExtraFieldsKey);
+        writer.WriteStartObject();
+
+        if (extraFieldsElement.ValueKind == JsonValueKind.Object)
+        {
+            foreach (var prop in extraFieldsElement.EnumerateObject())
+            {
+                if (IsManagedExtraField(prop))
+                    continue;
+
+                prop.WriteTo(writer);
+            }
+        }
+
+        foreach (var handler in PlayerExtraFieldsHandlers.All)
+            handler.WritePlayerField(writer, player);
+
+        writer.WriteEndObject();
+    }
+
+    private static bool IsManagedExtraField(JsonProperty prop)
+    {
+        foreach (var handler in PlayerExtraFieldsHandlers.All)
+        {
+            if (prop.NameEquals(handler.FieldName))
+                return true;
+        }
+
+        return false;
     }
 }
