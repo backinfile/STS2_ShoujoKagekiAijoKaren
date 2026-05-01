@@ -17,6 +17,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 public static class KarenHoverPatch
 {
     private static readonly PropertyInfo? HolderProperty = AccessTools.Property(typeof(NCardPlay), "Holder");
+    private static readonly SpireField<NCardPlay, KarenBaseCardModel?> HoverCard = new(() => null);
 
     [HarmonyPatch(typeof(NCardPlay), "OnCreatureHover")]
     [HarmonyPostfix]
@@ -24,6 +25,7 @@ public static class KarenHoverPatch
     {
         if (GetCard(__instance) is KarenBaseCardModel card)
         {
+            HoverCard.Set(__instance, card);
             card.OnCreatureHover(creature);
         }
     }
@@ -42,11 +44,14 @@ public static class KarenHoverPatch
     [HarmonyPrefix]
     private static void Cleanup_Prefix(NCardPlay __instance)
     {
-        if (GetCard(__instance) is KarenBaseCardModel card)
+        var card = HoverCard.Get(__instance) ?? GetCard(__instance) as KarenBaseCardModel;
+        if (card != null)
         {
             foreach (var creature in NCombatRoom.Instance?.CreatureNodes ?? [])
                 card.OnCreatureHoverCleanup(creature);
         }
+
+        HoverCard.Set(__instance, null);
     }
 
     private static CardModel? GetCard(NCardPlay cardPlay)

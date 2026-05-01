@@ -1,6 +1,7 @@
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using ShoujoKagekiAijoKaren.src.Core.Audio;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
@@ -12,8 +13,12 @@ public partial class NKarenStageLightVfx : Node2D
 {
     private const float Duration = 0.6f;
     private const float SpawnInterval = 0.06f;
+    private const float FocusOverlayAlpha = 0.2f;
+    private const float FocusOverlayFadeInDuration = 0.35f;
+    private const float FocusOverlayFadeOutDuration = 0.35f;
 
     private static readonly Texture2D? StageLightTexture = LoadTexture("res://images/packed/vfx/stage_light/stage_light.png");
+    private static readonly Texture2D? StageLightFocusTexture = LoadTexture("res://images/packed/vfx/stage_light/stage_light2.png");
     private static readonly float[] BeamDegrees = [70f, 35f, 350f, 310f];
 
     private readonly Creature _target;
@@ -22,6 +27,7 @@ public partial class NKarenStageLightVfx : Node2D
     private float _spawnTimer;
     private int _nextBeam;
     private bool _stopping;
+    private ColorRect? _darkOverlay;
 
     private NKarenStageLightVfx(Creature target, bool persistent)
     {
@@ -48,6 +54,7 @@ public partial class NKarenStageLightVfx : Node2D
         var vfx = new NKarenStageLightVfx(target, persistent: true);
         NCombatRoom.Instance.CombatVfxContainer.AddChildSafely(vfx);
         vfx.GlobalPosition = Vector2.Zero;
+        vfx.AddFocusOverlay();
         return vfx;
     }
 
@@ -58,6 +65,16 @@ public partial class NKarenStageLightVfx : Node2D
         {
             if (child is NKarenStageLightBeam beam)
                 beam.Stop();
+            else if (child is NKarenStageLightFocusBeam focusBeam)
+                focusBeam.Stop();
+        }
+
+        if (_darkOverlay != null && GodotObject.IsInstanceValid(_darkOverlay))
+        {
+            var tween = _darkOverlay.CreateTween();
+            tween.TweenProperty(_darkOverlay, "modulate", new Color(1f, 1f, 1f, 0f), FocusOverlayFadeOutDuration);
+            tween.TweenCallback(Callable.From(() => GodotTreeExtensions.QueueFreeSafely(_darkOverlay)));
+            _darkOverlay = null;
         }
     }
 
@@ -73,7 +90,14 @@ public partial class NKarenStageLightVfx : Node2D
             while (_spawnTimer <= 0f && _nextBeam < BeamDegrees.Length)
             {
                 _spawnTimer += SpawnInterval;
-                AddChild(new NKarenStageLightBeam(StageLightTexture, GetTargetPosition(), BeamDegrees[_nextBeam], _persistent));
+                if (_persistent)
+                {
+                    AddChild(new NKarenStageLightFocusBeam(StageLightFocusTexture, GetTargetPosition()));
+                    _nextBeam = BeamDegrees.Length;
+                    break;
+                }
+
+                AddChild(new NKarenStageLightBeam(StageLightTexture, GetTargetPosition(), BeamDegrees[_nextBeam], persistent: false));
                 _nextBeam++;
             }
         }
@@ -86,7 +110,7 @@ public partial class NKarenStageLightVfx : Node2D
     {
         var creatureNode = NCombatRoom.Instance?.CreatureNodes.FirstOrDefault(creature => creature.Entity == _target);
         if (creatureNode != null)
-            return ToLocal(creatureNode.VfxSpawnPosition);
+            return ToLocal(creatureNode.Hitbox.GlobalPosition + creatureNode.Hitbox.Size * 0.5f);
 
         return GetViewportRect().Size * 0.5f;
     }
@@ -94,6 +118,32 @@ public partial class NKarenStageLightVfx : Node2D
     private static Texture2D? LoadTexture(string path)
     {
         return KarenResourceLoader.LoadTexture(path, nameof(NKarenStageLightVfx));
+    }
+
+    private void AddFocusOverlay()
+    {
+        var parent = (Node?)NRun.Instance?.GlobalUi ?? NCombatRoom.Instance?.CombatVfxContainer;
+        if (parent == null) return;
+
+        _darkOverlay = new ColorRect
+        {
+            Color = new Color(0f, 0f, 0f, FocusOverlayAlpha),
+            Modulate = new Color(1f, 1f, 1f, 0f),
+            MouseFilter = Control.MouseFilterEnum.Ignore,
+            ZAsRelative = true,
+            ZIndex = 19
+        };
+        _darkOverlay.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+        parent.AddChildSafely(_darkOverlay);
+
+        var tween = _darkOverlay.CreateTween();
+        tween.TweenProperty(_darkOverlay, "modulate", Colors.White, FocusOverlayFadeInDuration);
+    }
+
+    public override void _ExitTree()
+    {
+        if (_darkOverlay != null && GodotObject.IsInstanceValid(_darkOverlay))
+            GodotTreeExtensions.QueueFreeSafely(_darkOverlay);
     }
 }
 
@@ -143,5 +193,56 @@ internal partial class NKarenStageLightBeam : Sprite2D
 
         if (_duration <= 0f)
             GodotTreeExtensions.QueueFreeSafely(this);
+    }
+}
+
+internal partial class NKarenStageLightFocusBeam : Sprite2D
+{
+    private const float TargetWidth = 170f;
+    private const float TargetHeight = 610f;
+
+    private Vector2 _targetPosition;
+    private bool _stopping;
+    private float _alpha = 1f;
+
+    public NKarenStageLightFocusBeam(Texture2D? texture, Vector2 targetPosition)
+    {
+        _targetPosition = targetPosition;
+        Texture = texture;
+        Centered = false;
+        ZAsRelative = true;
+        ZIndex = 20;
+        Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
+        if (texture != null)
+            Offset = new Vector2(-texture.GetWidth() * 0.5f, -texture.GetHeight());
+
+        if (texture != null)
+            Scale = new Vector2(TargetWidth / texture.GetWidth(), TargetHeight / texture.GetHeight());
+
+        UpdatePosition();
+    }
+
+    public void Stop()
+    {
+        _stopping = true;
+    }
+
+    public override void _Process(double delta)
+    {
+        if (_stopping)
+        {
+            _alpha -= (float)delta / 0.15f;
+            Modulate = new Color(1f, 1f, 1f, Mathf.Max(0f, _alpha));
+            if (_alpha <= 0f)
+                GodotTreeExtensions.QueueFreeSafely(this);
+        }
+
+        UpdatePosition();
+    }
+
+    private void UpdatePosition()
+    {
+        Position = _targetPosition;
+        RotationDegrees = 0f;
     }
 }

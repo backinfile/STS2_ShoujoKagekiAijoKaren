@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
@@ -40,12 +41,13 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (cardPlay.Target == null) return;
+        ClearAllFocus();
         NKarenStageLightVfx.Play(cardPlay.Target);
         await Task.Delay(250);
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromCard(this)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.heavyBluntPath)
+            //.WithHitFx(VfxCmd.heavyBluntPath)
             .Execute(choiceContext);
     }
 
@@ -94,6 +96,11 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
     {
         Clear(creature);
     }
-}
 
+    private static void ClearAllFocus()
+    {
+        foreach (var creature in NCombatRoom.Instance?.CreatureNodes ?? [])
+            Clear(creature);
+    }
+}
 

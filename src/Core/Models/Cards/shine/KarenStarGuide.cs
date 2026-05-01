@@ -34,7 +34,7 @@ public sealed class KarenStarGuide : KarenBaseCardModel
             .Where(c => c.IsShineCard())
             .ToList();
 
-        await NKarenStarGuideVfx.Play(cards);
+        _ = NKarenStarGuideVfx.Play(cards);
         await PromisePileCmd.Add(Owner, cards);
     }
 

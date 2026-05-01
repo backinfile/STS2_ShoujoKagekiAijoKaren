@@ -19,20 +19,38 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 /// </summary>
 public static class ArchaicToothPatch
 {
+    private static string DescribeCard(CardModel? card)
+    {
+        if (card == null)
+            return "card=<null>";
+
+        var owner = card.Owner;
+        var ownerId = owner?.NetId.ToString() ?? "<null>";
+        var runState = owner?.RunState != null ? "set" : "null";
+        var enchantment = card.Enchantment?.Id.Entry ?? "<null>";
+
+        return $"card={card.Id.Entry}, upgraded={card.IsUpgraded}, owner={ownerId}, runState={runState}, enchantment={enchantment}";
+    }
+
     /// <summary>
-    /// 如果原版没找到可转换的起始卡，且玩家是 Karen，则返回 KarenStrike。
+    /// 如果原版没找到可转换的起始卡，且玩家是 Karen，则返回 KarenFall。
     /// </summary>
     [HarmonyPatch(typeof(ArchaicTooth), "GetTranscendenceStarterCard")]
     public static class StarterPatch
     {
         private static void Postfix(ArchaicTooth __instance, Player player, ref CardModel __result)
         {
+            MainFile.Logger.Info($"[ArchaicToothPatch.Starter] Entered. player={(player?.NetId.ToString() ?? "<null>")}, character={(player?.Character?.Id.Entry ?? "<null>")}, originalResult={DescribeCard(__result)}");
             if (__result != null) return;
             if (player?.Character?.Id?.Entry != Karen.CHAR_ID) return;
 
             var starter = player.Deck.Cards.FirstOrDefault(c => c.Id == ModelDb.Card<KarenFall>().Id);
+            MainFile.Logger.Info($"[ArchaicToothPatch.Starter] Karen fallback lookup result: {DescribeCard(starter)}");
             if (starter != null)
+            {
                 __result = starter;
+                MainFile.Logger.Info($"[ArchaicToothPatch.Starter] Overriding starter card with: {DescribeCard(__result)}");
+            }
         }
     }
 
@@ -42,22 +60,38 @@ public static class ArchaicToothPatch
     [HarmonyPatch(typeof(ArchaicTooth), "GetTranscendenceTransformedCard")]
     public static class TransformedPatch
     {
-        private static void Postfix(ArchaicTooth __instance, CardModel starterCard, ref CardModel __result)
+        private static bool Prefix(ArchaicTooth __instance, CardModel starterCard, ref CardModel __result)
         {
-            if (starterCard?.Id != ModelDb.Card<KarenFall>().Id) return;
+            if (starterCard?.Id != ModelDb.Card<KarenFall>().Id) return true;
 
-            var ancient = __instance.Owner.RunState.CreateCard(ModelDb.Card<KarenWhy>(), starterCard.Owner);
-
-            if (starterCard.IsUpgraded)
-                CardCmd.Upgrade(ancient);
-
-            if (starterCard.Enchantment != null)
+            try
             {
-                var enchant = (EnchantmentModel)starterCard.Enchantment.MutableClone();
-                CardCmd.Enchant(enchant, ancient, enchant.Amount);
-            }
+                var owner = starterCard.Owner;
+                var runState = owner?.RunState;
 
-            __result = ancient;
+                var ancient = starterCard.Owner.RunState.CreateCard(ModelDb.Card<KarenWhy>(), starterCard.Owner);
+                MainFile.Logger.Info($"[ArchaicToothPatch.Transform] Created transformed card: {DescribeCard(ancient)}");
+
+                if (starterCard.IsUpgraded)
+                {
+                    CardCmd.Upgrade(ancient);
+                }
+
+                if (starterCard.Enchantment != null)
+                {
+                    var enchant = (EnchantmentModel)starterCard.Enchantment.MutableClone();
+                    MainFile.Logger.Info($"[ArchaicToothPatch.Transform] Cloned enchantment {enchant.Id.Entry} amount={enchant.Amount}.");
+                    CardCmd.Enchant(enchant, ancient, enchant.Amount);
+                }
+
+                __result = ancient;
+                return false;
+            }
+            catch (System.Exception ex)
+            {
+                MainFile.Logger.Error($"[ArchaicToothPatch.Transform] Failed. starter={DescribeCard(starterCard)}, relicOwner={(__instance.Owner?.NetId.ToString() ?? "<null>")}, message={ex}");
+                throw;
+            }
         }
     }
 
@@ -71,7 +105,9 @@ public static class ArchaicToothPatch
     {
         private static void Postfix(ref List<CardModel> __result)
         {
+            MainFile.Logger.Info($"[ArchaicToothPatch.TranscendenceCards] Before add count={__result.Count}");
             __result.Add(ModelDb.Card<KarenWhy>());
+            MainFile.Logger.Info($"[ArchaicToothPatch.TranscendenceCards] Added KarenWhy. after count={__result.Count}");
         }
     }
 
