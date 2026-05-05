@@ -1,6 +1,35 @@
-[gd_scene load_steps=2 format=3 uid="uid://cx5rdp7ge8w72"]
+[gd_scene load_steps=13 format=3 uid="uid://cx5rdp7ge8w72"]
 
 [ext_resource type="Texture2D" uid="uid://dsdildputad2q" path="res://scenes/screens/char_select/karenPortrait.jpg" id="1_xisa5"]
+[ext_resource type="Material" uid="uid://c4ycqv0gdxvmr" path="res://themes/canvas_item_material_additive_shared.tres" id="2_additive"]
+[ext_resource type="Texture2D" uid="uid://bxfmluvgj5c4i" path="res://images/vfx/energy/karen/karen_star.png" id="3_star"]
+[ext_resource type="Texture2D" uid="uid://d1vyx1jkwy0rp" path="res://images/vfx/sts/glow_spark.png" id="4_glow"]
+[ext_resource type="Texture2D" uid="uid://bu8pitnagt75m" path="res://images/vfx/sts/horizontal_line.png" id="5_line"]
+[ext_resource type="Texture2D" uid="uid://b7av7mpd8nsp1" path="res://images/packed/vfx/stage_light/stage_light2.png" id="6_stage"]
+
+[sub_resource type="Curve" id="Curve_dust_scale"]
+_data = [Vector2(0, 0), 0.0, 2.8, 0, 0, Vector2(0.18, 0.55), 0.0, 0.0, 0, 0, Vector2(0.82, 0.45), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.1, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_blue_dust"]
+offsets = PackedFloat32Array(0, 0.3, 0.75, 1)
+colors = PackedColorArray(0.286275, 0.607843, 1, 0, 0.682353, 0.839216, 1, 0.42, 1, 1, 1, 0.32, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_star_scale"]
+_data = [Vector2(0, 0.115), 0.0, 0.0, 0, 0, Vector2(0.221, 0.82), 0.0, 0.0, 0, 0, Vector2(0.735, 0.62), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.4, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_star_color"]
+offsets = PackedFloat32Array(0, 0.42, 0.78, 1)
+colors = PackedColorArray(1, 0.956863, 0.823529, 0, 1, 0.956863, 0.823529, 0.9, 1, 1, 1, 0.55, 1, 0.321569, 0.345098, 0)
+
+[sub_resource type="Curve" id="Curve_beam_scale"]
+_data = [Vector2(0, 0.34), 0.0, 0.0, 0, 0, Vector2(0.5, 0.52), 0.0, 0.0, 0, 0, Vector2(1, 0.34), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_sword_glint"]
+offsets = PackedFloat32Array(0, 0.2, 0.52, 1)
+colors = PackedColorArray(1, 0.321569, 0.345098, 0, 1, 0.956863, 0.823529, 0.72, 0.764706, 0.882353, 1, 0.58, 1, 1, 1, 0)
 
 [node name="KarenBg" type="Control"]
 layout_mode = 3
@@ -13,3 +42,144 @@ offset_right = 2295.0017
 offset_bottom = 1200.0
 texture = ExtResource("1_xisa5")
 stretch_mode = 5
+
+[node name="StageLightLeft" type="TextureRect" parent="TextureRect"]
+self_modulate = Color(0.337255, 0.529412, 1, 0.18)
+material = ExtResource("2_additive")
+layout_mode = 0
+offset_left = -170.0
+offset_top = 28.0
+offset_right = 1240.0
+offset_bottom = 1236.0
+rotation = -0.345
+pivot_offset = Vector2(705, 604)
+texture = ExtResource("6_stage")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StageLightRight" type="TextureRect" parent="TextureRect"]
+self_modulate = Color(0.337255, 0.529412, 1, 0.14)
+material = ExtResource("2_additive")
+layout_mode = 0
+offset_left = 776.0
+offset_top = 24.0
+offset_right = 2186.0
+offset_bottom = 1232.0
+rotation = 0.345
+pivot_offset = Vector2(705, 604)
+texture = ExtResource("6_stage")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BlueStageDust" type="CPUParticles2D" parent="TextureRect"]
+material = ExtResource("2_additive")
+position = Vector2(912, 1108)
+amount = 46
+texture = ExtResource("4_glow")
+lifetime = 8.0
+preprocess = 8.0
+randomness = 0.42
+lifetime_randomness = 0.35
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1160, 72)
+direction = Vector2(0, -1)
+spread = 64.0
+gravity = Vector2(-5, -18)
+initial_velocity_min = 6.0
+initial_velocity_max = 28.0
+orbit_velocity_min = -0.025
+orbit_velocity_max = 0.025
+damping_min = 0.8
+damping_max = 2.4
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.045
+scale_amount_max = 0.15
+scale_amount_curve = SubResource("Curve_dust_scale")
+color_ramp = SubResource("Gradient_blue_dust")
+
+[node name="StarlightDrift" type="CPUParticles2D" parent="TextureRect"]
+material = ExtResource("2_additive")
+position = Vector2(960, 710)
+amount = 24
+texture = ExtResource("3_star")
+lifetime = 6.5
+preprocess = 6.5
+randomness = 0.55
+lifetime_randomness = 0.45
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1370, 520)
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(6, -8)
+initial_velocity_min = 3.0
+initial_velocity_max = 18.0
+angular_velocity_min = -34.0
+angular_velocity_max = 34.0
+orbit_velocity_min = -0.04
+orbit_velocity_max = 0.04
+damping_min = 1.0
+damping_max = 3.5
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.06
+scale_amount_max = 0.23
+scale_amount_curve = SubResource("Curve_star_scale")
+color_ramp = SubResource("Gradient_star_color")
+
+[node name="SwordGlint" type="CPUParticles2D" parent="TextureRect"]
+material = ExtResource("2_additive")
+position = Vector2(973.0001, 692.00006)
+rotation = 0.5082234
+amount = 14
+texture = ExtResource("5_line")
+lifetime = 2.4
+preprocess = 2.4
+randomness = 0.4
+lifetime_randomness = 0.35
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(300, 5)
+spread = 5.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 4.0
+initial_velocity_max = 32.0
+damping_min = 2.0
+damping_max = 5.0
+angle_min = -4.0
+angle_max = 4.0
+scale_amount_min = 0.14
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_beam_scale")
+color_ramp = SubResource("Gradient_sword_glint")
+
+[node name="CapeStarAccent" type="CPUParticles2D" parent="TextureRect"]
+material = ExtResource("2_additive")
+position = Vector2(1250, 620)
+amount = 12
+texture = ExtResource("3_star")
+lifetime = 4.4
+preprocess = 4.4
+randomness = 0.6
+lifetime_randomness = 0.4
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(200, 190)
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(-3, -10)
+initial_velocity_min = 2.0
+initial_velocity_max = 12.0
+angular_velocity_min = -24.0
+angular_velocity_max = 24.0
+damping_min = 1.5
+damping_max = 4.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.08
+scale_amount_max = 0.18
+scale_amount_curve = SubResource("Curve_star_scale")
+color = Color(1, 0.321569, 0.345098, 0.72)
+color_ramp = SubResource("Gradient_star_color")
