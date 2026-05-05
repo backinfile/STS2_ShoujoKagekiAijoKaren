@@ -22,6 +22,7 @@ public static class CardHoverTipsPatch
     private static readonly (string Key, Func<CardModel, bool> Condition)[] Keywords =
     [
         ("KAREN_SHINE", card => card.IsShineCard() || card.Tags.Contains(KarenCustomEnum.ShineRelated)),
+        ("KAREN_ETERNAL_SHINE", card => card.IsShineCard() && card.Keywords.Contains(CardKeyword.Eternal)),
         ("KAREN_PROMISE_PILE", card => card.Tags.Contains(KarenCustomEnum.PromisePileRelated)),
         ("KAREN_SHINE_CARD_REWARD", card => card.Tags.Contains(KarenCustomEnum.ShineCardReward)),
         ("KAREN_SHINE_CARD_REWARD", card => card.Tags.Contains(KarenCustomEnum.ShineCardReward)),

@@ -16,7 +16,6 @@ public partial class NKarenStageLightVfx : Node2D
     private const float FocusOverlayAlpha = 0.2f;
     private const float FocusOverlayFadeInDuration = 0.35f;
     private const float FocusOverlayFadeOutDuration = 0.35f;
-
     private static readonly Texture2D? StageLightTexture = LoadTexture("res://images/packed/vfx/stage_light/stage_light.png");
     private static readonly Texture2D? StageLightFocusTexture = LoadTexture("res://images/packed/vfx/stage_light/stage_light2.png");
     private static readonly float[] BeamDegrees = [70f, 35f, 350f, 310f];
@@ -92,12 +91,12 @@ public partial class NKarenStageLightVfx : Node2D
                 _spawnTimer += SpawnInterval;
                 if (_persistent)
                 {
-                    AddChild(new NKarenStageLightFocusBeam(StageLightFocusTexture, GetTargetPosition()));
+                    AddChild(new NKarenStageLightFocusBeam(StageLightFocusTexture, GetTargetArea()));
                     _nextBeam = BeamDegrees.Length;
                     break;
                 }
 
-                AddChild(new NKarenStageLightBeam(StageLightTexture, GetTargetPosition(), BeamDegrees[_nextBeam], persistent: false));
+                AddChild(new NKarenStageLightBeam(StageLightTexture, GetTargetArea(), BeamDegrees[_nextBeam], persistent: false));
                 _nextBeam++;
             }
         }
@@ -106,13 +105,18 @@ public partial class NKarenStageLightVfx : Node2D
             GodotTreeExtensions.QueueFreeSafely(this);
     }
 
-    private Vector2 GetTargetPosition()
+    private StageLightTargetArea GetTargetArea()
     {
         var creatureNode = NCombatRoom.Instance?.CreatureNodes.FirstOrDefault(creature => creature.Entity == _target);
         if (creatureNode != null)
-            return ToLocal(creatureNode.Hitbox.GlobalPosition + creatureNode.Hitbox.Size * 0.5f);
+        {
+            var hitboxGlobalPosition = creatureNode.Hitbox.GlobalPosition;
+            var hitboxSize = creatureNode.Hitbox.Size;
+            var targetPosition = ToLocal(hitboxGlobalPosition + hitboxSize * 0.5f);
+            return new StageLightTargetArea(targetPosition, hitboxSize);
+        }
 
-        return GetViewportRect().Size * 0.5f;
+        return new StageLightTargetArea(GetViewportRect().Size * 0.5f, Vector2.Zero);
     }
 
     private static Texture2D? LoadTexture(string path)
@@ -147,17 +151,20 @@ public partial class NKarenStageLightVfx : Node2D
     }
 }
 
+internal readonly record struct StageLightTargetArea(Vector2 Center, Vector2 Size);
+
 internal partial class NKarenStageLightBeam : Sprite2D
 {
     private const float Duration = 0.6f;
     private const float TargetWidth = 130f;
     private const float TargetHeight = 760f;
+    private const float OffscreenTopMargin = 80f;
 
     private readonly bool _persistent;
     private float _duration = Duration;
     private bool _stopping;
 
-    public NKarenStageLightBeam(Texture2D? texture, Vector2 targetPosition, float degrees, bool persistent)
+    public NKarenStageLightBeam(Texture2D? texture, StageLightTargetArea targetArea, float degrees, bool persistent)
     {
         _persistent = persistent;
         Texture = texture;
@@ -170,11 +177,22 @@ internal partial class NKarenStageLightBeam : Sprite2D
         Modulate = Colors.White;
 
         var beamDirection = Vector2.Down.Rotated(Mathf.DegToRad(degrees));
-        Position = targetPosition - beamDirection * TargetHeight;
+        var endPosition = targetArea.Center + new Vector2(0f, targetArea.Size.Y * 0.35f);
+        var height = GetClampedHeight(endPosition, beamDirection);
+        Position = endPosition - beamDirection * height;
         Offset = new Vector2(-TargetWidth * 0.5f, 0f);
 
         if (texture != null)
-            Scale = new Vector2(TargetWidth / texture.GetWidth(), TargetHeight / texture.GetHeight());
+            Scale = new Vector2(TargetWidth / texture.GetWidth(), height / texture.GetHeight());
+    }
+
+    private static float GetClampedHeight(Vector2 endPosition, Vector2 beamDirection)
+    {
+        if (beamDirection.Y <= 0f)
+            return TargetHeight;
+
+        var heightToOffscreenTop = (endPosition.Y + OffscreenTopMargin) / beamDirection.Y;
+        return Mathf.Max(TargetHeight, heightToOffscreenTop);
     }
 
     public void Stop()
@@ -200,14 +218,15 @@ internal partial class NKarenStageLightFocusBeam : Sprite2D
 {
     private const float TargetWidth = 170f;
     private const float TargetHeight = 610f;
+    private const float OffscreenTopMargin = 80f;
 
-    private Vector2 _targetPosition;
+    private readonly StageLightTargetArea _targetArea;
     private bool _stopping;
     private float _alpha = 1f;
 
-    public NKarenStageLightFocusBeam(Texture2D? texture, Vector2 targetPosition)
+    public NKarenStageLightFocusBeam(Texture2D? texture, StageLightTargetArea targetArea)
     {
-        _targetPosition = targetPosition;
+        _targetArea = targetArea;
         Texture = texture;
         Centered = false;
         ZAsRelative = true;
@@ -217,7 +236,7 @@ internal partial class NKarenStageLightFocusBeam : Sprite2D
             Offset = new Vector2(-texture.GetWidth() * 0.5f, -texture.GetHeight());
 
         if (texture != null)
-            Scale = new Vector2(TargetWidth / texture.GetWidth(), TargetHeight / texture.GetHeight());
+            Scale = new Vector2(TargetWidth / texture.GetWidth(), GetHeight() / texture.GetHeight());
 
         UpdatePosition();
     }
@@ -242,7 +261,13 @@ internal partial class NKarenStageLightFocusBeam : Sprite2D
 
     private void UpdatePosition()
     {
-        Position = _targetPosition;
+        Position = _targetArea.Center + new Vector2(0f, _targetArea.Size.Y * 0.5f);
         RotationDegrees = 0f;
+    }
+
+    private float GetHeight()
+    {
+        var bottom = _targetArea.Center.Y + _targetArea.Size.Y * 0.5f;
+        return Mathf.Max(TargetHeight, bottom + OffscreenTopMargin);
     }
 }

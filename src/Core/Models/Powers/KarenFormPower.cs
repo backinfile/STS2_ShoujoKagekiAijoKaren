@@ -52,7 +52,11 @@ public class KarenFormPower : PowerModel
 
     public override decimal ModifyHandDrawLate(Player player, decimal count)
     {
-        return CardPile.maxCardsInHand;
+        if (player == Owner?.Player)
+        {
+            return CardPile.maxCardsInHand;
+        }
+        return base.ModifyHandDrawLate(player, count);
     }
 
     //public override async Task AfterPlayerTurnStartLate(PlayerChoiceContext choiceContext, Player player)

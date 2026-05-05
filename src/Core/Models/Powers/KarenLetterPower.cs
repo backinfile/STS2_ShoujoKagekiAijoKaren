@@ -22,6 +22,8 @@ public sealed class KarenLetterPower : KarenBasePower
 
     public override async Task OnCardAddedToPromisePile(CardModel card)
     {
+        if (card.Owner != Owner?.Player) return;
+
         // 获得格挡
         await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
         // 触发Power闪烁效果

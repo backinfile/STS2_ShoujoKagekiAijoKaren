@@ -184,6 +184,8 @@ public sealed class KarenPromisePilePower : FakeAmountPower
 
     public override async Task OnCardRemovedFromPromisePile(CardModel card)
     {
+        if (card.Owner != Owner?.Player) return;
+
         if (IsInMode(PromisePileMode.Burn))
         {
             AddBurnEffect(card);

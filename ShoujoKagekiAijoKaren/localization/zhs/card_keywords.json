@@ -2,6 +2,9 @@
   "KAREN_SHINE.title": "闪耀",
   "KAREN_SHINE.description": "打出X次后，从牌组中[red]永久移除[/red]。",
 
+  "KAREN_ETERNAL_SHINE.title": "永恒闪耀",
+  "KAREN_ETERNAL_SHINE.description": "闪耀值不再减少。",
+
   "KAREN_PROMISE_PILE.title": "约定牌堆",
   "KAREN_PROMISE_PILE.description": "爱城华恋特有的牌堆。",
 
@@ -15,7 +18,7 @@
   "KAREN_SHINE_CARD_REWARD.description": "战斗结束后，获得仅包含1张闪耀牌的卡牌奖励。",
 
   "KAREN_DISABLE_RELIC.title": "禁用遗物",
-  "KAREN_DISABLE_RELIC.description": "在一场战斗内，使最右侧的非先古遗物失效。\n无可禁用遗物时，这张牌[red]无法被打出[/red]。",
+  "KAREN_DISABLE_RELIC.description": "在一场战斗内，使最右侧的非远古遗物失效。\n无可禁用遗物时，这张牌[red]无法被打出[/red]。",
 
   "KAREN_TOKEN_CARD.title": "衍生牌",
   "KAREN_TOKEN_CARD.description": "战斗中生成的牌。"
