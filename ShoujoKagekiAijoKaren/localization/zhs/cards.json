@@ -111,7 +111,7 @@
   "KAREN_HOLY_STAR.description": "造成{Damage:diff()}点伤害。\n被放入[gold]约定牌堆[/gold]时，本场战斗中耗能减少1。",
 
   "KAREN_BRIDGE.title": "约定之塔桥",
-  "KAREN_BRIDGE.description": "打出约定牌堆顶部X{IfUpgraded:show:+1|}张牌。",
+  "KAREN_BRIDGE.description": "打出约定牌堆顶部X+{Cards:diff()}张牌。",
 
   "KAREN_MEET_AGAIN.title": "重逢",
   "KAREN_MEET_AGAIN.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n抽{Cards:diff()}张牌。\n将1张牌放入[gold]约定牌堆[/gold]。",

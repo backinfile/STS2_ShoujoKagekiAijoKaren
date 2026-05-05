@@ -25,16 +25,18 @@ public sealed class KarenBridge : KarenBaseCardModel
 
     public KarenBridge() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
-
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var xValue = ResolveEnergyXValue();
-        if (IsUpgraded) xValue += 1;
-        if (xValue <= 0) return;
+        var xValue = ResolveEnergyXValue() + DynamicVars.Cards.IntValue;
 
         //await CardPileCmd.AutoPlayFromDrawPile(choiceContext, base.Owner, num, CardPilePosition.Top, forceExhaust: false);
         await PromisePileCmd.AutoPlayFromPromisePile(choiceContext, base.Owner, xValue);
     }
 
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Cards.UpgradeValueBy(1m);
+    }
 }
