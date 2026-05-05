@@ -14,7 +14,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 
 /// <summary>
 /// 永无结束的命运舞台 - 1费12伤，Shine 9，可无限升级
-/// 每次升级伤害递增（+3, +4, +5, ...）
+/// 每次升级伤害递增（+4, +5, ...）
 /// </summary>
 public sealed class KarenContinue02 : KarenBaseCardModel
 {
@@ -45,16 +45,17 @@ public sealed class KarenContinue02 : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m + _upgradeCount);
+        DynamicVars.Damage.UpgradeValueBy(4m + _upgradeCount);
         _upgradeCount++;
     }
 
     protected override void AfterDowngraded()
     {
         DynamicVars.Damage.ResetToBase();
+        _upgradeCount--;
         for (int i = 0; i < _upgradeCount; i++)
         {
-            DynamicVars.Damage.UpgradeValueBy(3m + i);
+            DynamicVars.Damage.UpgradeValueBy(4m + i);
         }
     }
 

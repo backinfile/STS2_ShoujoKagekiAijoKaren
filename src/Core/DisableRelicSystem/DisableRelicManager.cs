@@ -176,6 +176,24 @@ public static class DisableRelicManager
         return -1;
     }
 
+    public static IReadOnlyList<RelicModel> GetRelicsToDisable(Player player, int count)
+    {
+        var relics = new List<RelicModel>();
+        if (player == null || count <= 0) return relics;
+
+        int searchEndPosition = player.Relics.Count;
+        while (relics.Count < count)
+        {
+            int position = GetDisableableRelicPosition(player, searchEndPosition);
+            if (position < 0) break;
+
+            relics.Add(player.Relics[position]);
+            searchEndPosition = position;
+        }
+
+        return relics;
+    }
+
     /// <summary>
     /// 获取可以禁用的遗物数量
     /// </summary>

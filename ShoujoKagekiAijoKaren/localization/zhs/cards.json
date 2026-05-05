@@ -128,7 +128,7 @@
   "KAREN_COUNTER.title": "回击",
   "KAREN_COUNTER.description": "对所有敌人造成{Damage:diff()}点伤害三次。",
 
-  "KAREN_YESTERGLOW.title": "昨天夜空的光辉",
+  "KAREN_YESTERGLOW.title": "昨日夜空",
   "KAREN_YESTERGLOW.description": "造成{Damage:diff()}点伤害。\n将弃牌堆中的{Cards}张牌放入[gold]约定牌堆[/gold]。",
 
   "KAREN_DODGE.title": "闪避",
