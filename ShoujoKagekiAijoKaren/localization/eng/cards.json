@@ -103,7 +103,7 @@
   "KAREN_WE_KNOW_TOKEN.description": "Gain {Energy:energyIcons()}.",
 
   "KAREN_SHINE_TOGETHER.title": "Shine Together",
-  "KAREN_SHINE_TOGETHER.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] depletes, gain 3 [gold]Shine Card Rewards[/gold].",
+  "KAREN_SHINE_TOGETHER.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] depletes, gain {Cards:diff()} [gold]Shine Card Rewards[/gold].",
 
   "KAREN_BASEBALL.title": "Baseball",
   "KAREN_BASEBALL.description": "Deal {Damage:diff()} damage.\n[gold]Retain Hand[/gold], [gold]Retain Energy[/gold], [gold]Retain Block[/gold], and [gold]Retain Strength[/gold] for 2 turns.",

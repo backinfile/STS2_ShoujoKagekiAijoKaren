@@ -28,7 +28,8 @@ public sealed class KarenShineTogether : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(20m, ValueProp.Move)
+        new DamageVar(30m, ValueProp.Move),
+        new CardsVar(3)
     ];
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.ShineCardReward];
@@ -51,13 +52,14 @@ public sealed class KarenShineTogether : KarenBaseCardModel
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(10m);
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 
     public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
     {
         if (Owner != null)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
                 await ExtraRewardCmd.AddShineCardReward(Owner);
         }
     }

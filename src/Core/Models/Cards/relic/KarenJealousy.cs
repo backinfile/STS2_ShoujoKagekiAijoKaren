@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 
 /// <summary>
-/// 皆杀 - 造成伤害，战斗结束时获得随机遗物
+/// 嫉妒 - 造成伤害，闪耀耗尽时获得随机遗物
 /// </summary>
-public sealed class KarenKillAll : KarenBaseCardModel
+public sealed class KarenJealousy : KarenBaseCardModel
 {
-    public KarenKillAll() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy) {
+    public KarenJealousy() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy) {
 
         this.AddShineMax(9);
     }
@@ -28,7 +28,11 @@ public sealed class KarenKillAll : KarenBaseCardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DamageVar(15, ValueProp.Move),
+        new DynamicVar("Relics", 1)
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -45,10 +49,12 @@ public sealed class KarenKillAll : KarenBaseCardModel
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(5m);
+        DynamicVars["Relics"].UpgradeValueBy(1m);
     }
 
     public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
     {
-        await ExtraRewardCmd.AddRelicReward(Owner);
+        for (var i = 0; i < DynamicVars["Relics"].IntValue; i++)
+            await ExtraRewardCmd.AddRelicReward(Owner);
     }
 }

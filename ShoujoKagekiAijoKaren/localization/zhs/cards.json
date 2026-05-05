@@ -111,7 +111,7 @@
   "KAREN_HOLY_STAR.description": "造成{Damage:diff()}点伤害。\n被放入[gold]约定牌堆[/gold]时，本场战斗中耗能减少1。",
 
   "KAREN_BRIDGE.title": "约定之塔桥",
-  "KAREN_BRIDGE.description": "打出约定牌堆顶部X+{Cards:diff()}张牌。",
+  "KAREN_BRIDGE.description": "打出[gold]约定牌堆[/gold]顶部X+{Cards:diff()}张牌。",
 
   "KAREN_MEET_AGAIN.title": "重逢",
   "KAREN_MEET_AGAIN.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n抽{Cards:diff()}张牌。\n将1张牌放入[gold]约定牌堆[/gold]。",
@@ -161,8 +161,8 @@
   "KAREN_ARROGANT.title": "骄傲",
   "KAREN_ARROGANT.description": "给予自身{VulnerablePower:diff()}层[gold]易伤[/gold]。\n战斗结束时，获得一个随机遗物。",
 
-  "KAREN_KILL_ALL.title": "嫉妒",
-  "KAREN_KILL_ALL.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀[/gold]耗尽时，获得一个随机遗物。",
+  "KAREN_JEALOUSY.title": "嫉妒",
+  "KAREN_JEALOUSY.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀[/gold]耗尽时，获得{Relics:diff()}个随机遗物。",
 
   "KAREN_PICK_STAR.title": "摘星",
   "KAREN_PICK_STAR.description": "[gold]禁用[/gold]{DisableRelic:diff()}个遗物，然后获得{Energy:energyIcons()}。",
@@ -300,7 +300,7 @@
   "KAREN_WE_KOWN_TOKEN.description": "获得{Energy:energyIcons()}。",
 
   "KAREN_SHINE_TOGETHER.title": "一起闪耀吧",
-  "KAREN_SHINE_TOGETHER.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀[/gold]耗尽时，获得3次[gold]闪耀牌奖励[/gold]。",
+  "KAREN_SHINE_TOGETHER.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀[/gold]耗尽时，获得{Cards:diff()}次[gold]闪耀牌奖励[/gold]。",
 
   "KAREN_BASEBALL.title": "棒球",
   "KAREN_BASEBALL.description": "造成{Damage:diff()}点伤害。\n保留你的能量，手牌，[gold]格挡[/gold]和[gold]力量[/gold]2回合。",
