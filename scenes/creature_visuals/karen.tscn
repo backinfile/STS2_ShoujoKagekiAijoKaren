@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://kq7dmrg0ygyf"]
+[gd_scene load_steps=6 format=3 uid="uid://kq7dmrg0ygyf"]
 
 [ext_resource type="Script" uid="uid://bej0n0iwmfnqp" path="res://src/Core/Node/SNCreatureVisuals.cs" id="1_se58w"]
 [ext_resource type="Texture2D" uid="uid://bbod73jfse5qi" path="res://images/packed/Karen.png" id="2_5occ7"]
+[ext_resource type="Texture2D" path="res://images/packed/karen_corpse.png" id="3_7y60n"]
 
 [sub_resource type="Shader" id="Shader_karen_cape_sway"]
 code = "shader_type canvas_item;
@@ -60,6 +61,7 @@ shader_parameter/cape_region_3 = Vector4(0.46, 0.18, 0.6, 0.36)
 
 [node name="Karen" type="Node2D"]
 script = ExtResource("1_se58w")
+CorpseTexture = ExtResource("3_7y60n")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
