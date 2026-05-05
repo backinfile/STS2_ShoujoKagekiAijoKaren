@@ -55,7 +55,7 @@
   "KAREN_CONTINUE02.title": "永无结束的命运舞台",
   "KAREN_CONTINUE02.description": "造成{Damage:diff()}点伤害。\n能被多次[gold]升级[/gold]。",
 
-  "KAREN_CARRYING_GUILT.title": "背负着我们犯下的罪过",
+  "KAREN_CARRYING_GUILT.title": "我们犯下的罪过",
   "KAREN_CARRYING_GUILT.description": "造成{CalculatedDamage:diff()}点伤害。\n本局游戏中每耗尽一张非同名的[gold]闪耀[/gold]牌，伤害增加{ExtraDamage:diff()}点。{ShinePileUniqueCount:choose(0):|\n(已耗尽{ShinePileUniqueCount}张)}",
 
   "KAREN_STAR_FRIEND.title": "星星串起了我们的友谊",
@@ -98,7 +98,7 @@
   "KAREN_BACK_TO_BACK_CARD.title": "背靠背",
   "KAREN_BACK_TO_BACK_CARD.description": "造成[gold]约定牌堆[/gold]中卡牌数量{ExtraDamage:diff()}倍的伤害。{InCombat:\n（造成{CalculatedDamage:diff()}点伤害。）|}",
 
-  "KAREN_ON_STAGE.title": "我将再次变为我自己",
+  "KAREN_ON_STAGE.title": "命运与本能",
   "KAREN_ON_STAGE.description": "从[gold]约定牌堆[/gold]抽{Cards:diff()}张牌。\n获得{Energy:energyIcons()}。",
 
   "KAREN_EXCHANGE_FATE.title": "命运交换之日",
@@ -206,7 +206,7 @@
   "KAREN_CRY.title": "添麻烦了",
   "KAREN_CRY.description": "此牌在牌堆之间移动时，获得{Block:diff()}点[gold]格挡[/gold]。",
 
-  "KAREN_OLD_PLACE.title": "明年也要在这里相见",
+  "KAREN_OLD_PLACE.title": "约定的那天",
   "KAREN_OLD_PLACE.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n选择：保留你的能量，手牌，[gold]格挡[/gold]，或[gold]力量[/gold]{Turns:diff()}回合。",
 
   "KAREN_OLD_PLACE_RETAIN_ENERGY_OPTION.title": "保留能量",
