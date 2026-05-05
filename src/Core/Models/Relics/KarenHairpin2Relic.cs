@@ -36,6 +36,7 @@ public sealed class KarenHairpin2Relic : RelicModel
         {
             Flash();
             var card = combatState.CreateCard<KarenTowerOfPromise>(Owner);
+            card.UpgradeInternal();
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, true);
         }
     }

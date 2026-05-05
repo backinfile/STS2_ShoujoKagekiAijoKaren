@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,11 @@ public static class DisableRelicManager
             return false;
         }
 
+        var relicHolder = DisableRelicNodeManager.FindRelicHolder(relic, player);
+        Godot.Vector2? relicPosition = null;
+        if (relicHolder != null)
+            relicPosition = relicHolder.GlobalPosition + relicHolder.Size * 0.5f;
+
         // 移除原始遗物（silent: true 不触发事件，我们手动更新UI）
         player.RemoveRelicInternal(relic, silent: true);
 
@@ -55,6 +61,8 @@ public static class DisableRelicManager
         // 手动更新UI：保存原节点，创建锁定节点
         var savedNode = DisableRelicNodeManager.SaveAndReplaceRelicNode(relic, lockRelic, player);
         lockRelic.LockedRelicNode = savedNode;
+        if (relicPosition.HasValue)
+            NDisableRelicAbsorbVfx.Play(player, relicPosition.Value);
 
         MainFile.Logger.Info($"[DisableRelicManager] Disabled relic '{relic.Id.Entry}' ({relic.Title}) at position {position} for player {player.NetId}");
 
