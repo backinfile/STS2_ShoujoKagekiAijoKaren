@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -32,6 +33,8 @@ public sealed class KarenDropFuel : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        NKarenDropFuelVfx.Play();
+        await Cmd.Wait(0.15f);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
         await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
     }
