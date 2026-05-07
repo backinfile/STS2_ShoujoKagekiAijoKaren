@@ -48,5 +48,27 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
             return newCard;
         }
 
+        public static CardModel CreateTransferCopy(this CardModel original, Player target)
+        {
+            var newCard = target.RunState.CreateCard(ModelDb.GetById<CardModel>(original.Id), target);
+
+            for (var i = 0; i < original.CurrentUpgradeLevel; i++)
+            {
+                newCard.UpgradeInternal();
+            }
+
+            if (original.Enchantment != null)
+            {
+                var enchantment = (EnchantmentModel)original.Enchantment.ClonePreservingMutability();
+                newCard.EnchantInternal(enchantment, enchantment.Amount);
+            }
+
+            newCard.SetShineMax(original.GetShineMaxValue());
+            newCard.SetShineCurrent(original.GetShineValue());
+            var enchantmentTitle = newCard.Enchantment == null ? "<none>" : newCard.Enchantment.Title.ToString();
+            MainFile.Logger.Info($"[CardModelEx.CreateTransferCopy] Created transfer copy '{newCard.Title}' from player {original.Owner?.NetId.ToString() ?? "<null>"} to player {target.NetId}. Upgrade={newCard.CurrentUpgradeLevel}, Enchant={enchantmentTitle}, Shine={newCard.GetShineValue()}/{newCard.GetShineMaxValue()}");
+            return newCard;
+        }
+
     }
 }

@@ -88,11 +88,11 @@ public static class Tips
 
     // ==================== karen_fight ====================
     /// <summary>歌唱吧舞蹈吧互相争斗吧 - 提示标题</summary>
-    public static readonly LocString KarenFightTipTitle = new("cards", "KAREN_FIGHT.tip.title");
+    public static readonly LocString KarenFightTipTitle = new("cards", "KAREN_SHINE_REPRODUCE.tip.title");
 
     /// <summary>歌唱吧舞蹈吧互相争斗吧 - 提示内容</summary>
-    public static readonly LocString KarenFightTip = new("cards", "KAREN_FIGHT.tip");
+    public static readonly LocString KarenFightTip = new("cards", "KAREN_SHINE_REPRODUCE.tip");
 
     /// <summary>歌唱吧舞蹈吧互相争斗吧 - 选择界面标题</summary>
-    public static readonly LocString KarenFightSelectTitle = new("cards", "KAREN_FIGHT.select_title");
+    public static readonly LocString KarenFightSelectTitle = new("cards", "KAREN_SHINE_REPRODUCE.select_title");
 }

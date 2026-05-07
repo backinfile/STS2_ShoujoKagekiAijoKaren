@@ -27,7 +27,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
         /// </summary>
         public static async Task AddShineCardReward(Player player, CardModel? except = null)
         {
-            var shineCard = ShineManager.GetAllShineCards().Append(ModelDb.Card<KarenFight>())
+            var shineCard = ShineManager.GetAllShineCards(player).Append(ModelDb.Card<KarenShineReproduce>())
                 .Where(card => card.Rarity != CardRarity.Basic && card.Id != except?.Id)
                 .TakeRandom(1, player.PlayerRng.Rewards)
                 .First();

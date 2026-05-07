@@ -120,6 +120,9 @@
   "KAREN_FIGHT.tip": "This card appears in Shine Card Rewards.",
   "KAREN_FIGHT.select_title": "Choose a depleted Shine card",
 
+  "KAREN_FIGHT_RELAY.title": "Sing, Dance, and Fight",
+  "KAREN_FIGHT_RELAY.description": "When [gold]Shine[/gold] depletes, gain {Relics:diff()} random relic(s).\nWhen [gold]Shine[/gold] is not depleted, transfer this card to a random teammate's deck.",
+
   "KAREN_CRY.title": "Sorry for the Trouble",
   "KAREN_CRY.description": "Gain {Block:diff()} [gold]Block[/gold] whenever this card moves between piles."
 }

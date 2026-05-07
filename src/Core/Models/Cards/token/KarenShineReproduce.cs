@@ -18,9 +18,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 /// 歌唱吧舞蹈吧互相争斗吧 - 1/0费Token技能牌，Shine 1
 /// 从闪耀耗尽牌堆中选择1张牌加入牌组
 /// </summary>
-public sealed class KarenFight : KarenBaseCardModel
+public sealed class KarenShineReproduce : KarenBaseCardModel
 {
-    public KarenFight() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self)
+    public KarenShineReproduce() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self)
     {
         this.AddShineMax(1);
     }
@@ -39,7 +39,7 @@ public sealed class KarenFight : KarenBaseCardModel
 
         var shinePile = ShinePileManager.GetShinePile(Owner);
         var cards = shinePile.Cards
-            .Where(c => c is not KarenFight)
+            .Where(c => c is not KarenShineReproduce)
             .Select(CombatState.CloneCard)
             .ToList();
         if (cards.Count == 0) return;

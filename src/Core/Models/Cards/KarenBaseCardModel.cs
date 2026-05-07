@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
+using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards;
@@ -18,6 +19,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 ///   <item><description><see cref="OnRemovedFromPromisePile"/> — 此牌从约定牌堆取出/弃置/清场</description></item>
 ///   <item><description><see cref="OnTurnEndInPromisePile"/> — 回合结束时此牌在约定牌堆中</description></item>
 ///   <item><description><see cref="OnShineExhausted"/> — 此牌闪耀耗尽（仅战斗进行中触发）</description></item>
+///   <item><description><see cref="OnShineNotExhausted"/> — 此牌打出后闪耀未耗尽</description></item>
 /// </list>
 /// </summary>
 public abstract class KarenBaseCardModel : CardModel
@@ -58,6 +60,30 @@ public abstract class KarenBaseCardModel : CardModel
     /// </summary>
     public virtual Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState) => Task.CompletedTask;
 
+    /// <summary>
+    /// 此牌打出后，如果闪耀没有耗尽时触发。
+    /// <para>
+    /// 调用时机在 <see cref="AfterCardPlayed"/> 中，位于卡牌效果结算后、进入结果牌堆前。
+    /// </para>
+    /// </summary>
+    public virtual Task OnShineNotExhausted(PlayerChoiceContext ctx, CardPlay cardPlay) => Task.CompletedTask;
+
+    public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
+    {
+        await base.AfterCardPlayed(context, cardPlay);
+
+        if (cardPlay.Card != this)
+        {
+            return;
+        }
+
+        if (!this.IsShineCard() || IsDupe || this.ShouldEnterShinePileAfterPlay() || this.GetShineValue() <= 0)
+        {
+            return;
+        }
+
+        await OnShineNotExhausted(context, cardPlay);
+    }
 
     /// <summary>
     /// 当此牌在牌堆间移动时触发（由 <see cref="GlobalMoveSystem"/> 直接调用）。

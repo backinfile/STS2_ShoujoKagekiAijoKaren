@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0g63cxhakgtv"
-path="res://.godot/imported/karen_fight.png-740c99193e0dd1f23fd2c6d298ae1b6f.ctex"
+uid="uid://dgy7h8rw83eas"
+path="res://.godot/imported/karen_fight_relay.png-d1c25d4d8cc8671bbfc73b2a44ada914.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/token/karen_fight.png"
-dest_files=["res://.godot/imported/karen_fight.png-740c99193e0dd1f23fd2c6d298ae1b6f.ctex"]
+source_file="res://images/packed/card_portraits/karen/karen_fight_relay.png"
+dest_files=["res://.godot/imported/karen_fight_relay.png-d1c25d4d8cc8671bbfc73b2a44ada914.ctex"]
 
 [params]
 

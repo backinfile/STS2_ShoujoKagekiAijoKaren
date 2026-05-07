@@ -47,6 +47,7 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenDropFuel>(),
             ModelDb.Card<KarenReady>(),
             ModelDb.Card<KarenNonon>(),
+            ModelDb.Card<KarenFightRelay>(),
             ModelDb.Card<KarenDrinkWater>(),
             ModelDb.Card<KarenPractice>(),
             ModelDb.Card<KarenSunlight>(),

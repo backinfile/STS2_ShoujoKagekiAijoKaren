@@ -308,9 +308,12 @@
   "KAREN_REWRITE.title": "续写",
   "KAREN_REWRITE.description": "造成{Damage:diff()}点伤害。\n打出所有耗尽的[gold]续写[/gold]。{InCombat:\n（已耗尽{Cnt}张。）|}",
 
-  "KAREN_FIGHT.title": "歌唱吧舞蹈吧互相争斗吧",
-  "KAREN_FIGHT.description": "从耗尽[gold]闪耀[/gold]的牌中选择{Cards:diff()}张重新加入牌组。",
-  "KAREN_FIGHT.tip.title": "提示",
-  "KAREN_FIGHT.tip": "这张牌会在闪耀牌奖励中出现。",
-  "KAREN_FIGHT.select_title": "选择一张闪耀耗尽的牌"
+  "KAREN_SHINE_REPRODUCE.title": "闪耀的再生产",
+  "KAREN_SHINE_REPRODUCE.description": "从耗尽的[gold]闪耀[/gold]牌中选择{Cards:diff()}张重新加入牌组。",
+  "KAREN_SHINE_REPRODUCE.tip.title": "提示",
+  "KAREN_SHINE_REPRODUCE.tip": "这张牌会在闪耀牌奖励中出现。",
+  "KAREN_SHINE_REPRODUCE.select_title": "选择一张闪耀耗尽的牌",
+
+  "KAREN_FIGHT_RELAY.title": "歌唱吧舞蹈吧互相争斗吧",
+  "KAREN_FIGHT_RELAY.description": "[gold]闪耀[/gold]耗尽时，获得{Relics:diff()}个随机遗物。否则，将此牌转移到随机队友的牌组中。"
 }
