@@ -21,6 +21,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenNoHesitate : KarenBaseCardModel
 {
+    public override bool ShineCardForOtherPlayer => false;
+
     public KarenNoHesitate() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         this.AddShineMax(9);

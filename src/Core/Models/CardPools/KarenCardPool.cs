@@ -65,6 +65,7 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenPromiseDraw>(),
             ModelDb.Card<KarenUnderTower>(),
             ModelDb.Card<KarenOurPromise>(),
+            ModelDb.Card<KarenOpenUpStars>(),
             ModelDb.Card<KarenWhosPromise>(),
             ModelDb.Card<KarenBackToBackCard>(),
             ModelDb.Card<KarenOnStage>(),
@@ -129,6 +130,7 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenTicket>(),
             ModelDb.Card<KarenWeKown>(),
             ModelDb.Card<KarenShineTogether>(),
+            ModelDb.Card<KarenShineTogetherAll>(),
             ModelDb.Card<KarenBaseball>(),
             ModelDb.Card<KarenRewrite>(),
 

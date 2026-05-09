@@ -18,6 +18,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 /// </summary>
 public sealed class KarenFightRelay : KarenBaseCardModel
 {
+    public override bool ShineCardForOtherPlayer => false;
+
     public KarenFightRelay() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         this.AddShineMax(3);

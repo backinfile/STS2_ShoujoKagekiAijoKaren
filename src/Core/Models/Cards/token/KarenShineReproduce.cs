@@ -20,6 +20,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 /// </summary>
 public sealed class KarenShineReproduce : KarenBaseCardModel
 {
+    public override bool ShineCardForOtherPlayer => false;
+
     public KarenShineReproduce() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self)
     {
         this.AddShineMax(1);

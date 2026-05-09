@@ -23,6 +23,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 /// </summary>
 public sealed class KarenRewrite : KarenBaseCardModel
 {
+    public override bool ShineCardForOtherPlayer => false;
+
     public KarenRewrite() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         this.AddShineMax(6);

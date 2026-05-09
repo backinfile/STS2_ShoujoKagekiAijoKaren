@@ -29,6 +29,12 @@ public abstract class KarenBaseCardModel : CardModel
         : base(energyCost, type, rarity, targetType) { }
 
 
+    /// <summary>
+    /// 给其他玩家添加闪耀牌时，是否排除这张闪耀牌
+    /// true-不排除（默认），false-排除
+    /// </summary>
+    public virtual bool ShineCardForOtherPlayer { get; } = true;
+
 
 
     /// <summary>
@@ -103,7 +109,7 @@ public abstract class KarenBaseCardModel : CardModel
     /// </summary>
     public virtual void OnCreatureHover(NCreature creature) { }
 
-    public virtual void OnCreatureUnhover(NCreature creature) {  }
+    public virtual void OnCreatureUnhover(NCreature creature) { }
 
     public virtual void OnCreatureHoverCleanup(NCreature creature) { }
 

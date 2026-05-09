@@ -11,8 +11,6 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
-using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
-using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
@@ -27,8 +25,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
         /// </summary>
         public static async Task AddShineCardReward(Player player, CardModel? except = null)
         {
-            var shineCard = ShineManager.GetAllShineCards(player).Append(ModelDb.Card<KarenShineReproduce>())
-                .Where(card => card.Rarity != CardRarity.Basic && card.Id != except?.Id)
+            var shineCard = ShineManager.GetRewardableShineCards(player, except)
                 .TakeRandom(1, player.PlayerRng.Rewards)
                 .First();
             var clone = player.RunState.CreateCard(shineCard, player);

@@ -299,7 +299,7 @@
   "KAREN_WE_KOWN_TOKEN.title": "光辉",
   "KAREN_WE_KOWN_TOKEN.description": "获得{Energy:energyIcons()}。",
 
-  "KAREN_SHINE_TOGETHER.title": "一起闪耀吧",
+  "KAREN_SHINE_TOGETHER.title": "绝不认输",
   "KAREN_SHINE_TOGETHER.description": "造成{Damage:diff()}点伤害。\n[gold]闪耀[/gold]耗尽时，获得{Cards:diff()}次[gold]闪耀牌奖励[/gold]。",
 
   "KAREN_BASEBALL.title": "棒球",
@@ -315,5 +315,11 @@
   "KAREN_SHINE_REPRODUCE.select_title": "选择一张闪耀耗尽的牌",
 
   "KAREN_FIGHT_RELAY.title": "歌唱吧舞蹈吧互相争斗吧",
-  "KAREN_FIGHT_RELAY.description": "[gold]闪耀[/gold]耗尽时，获得{Relics:diff()}个随机遗物。否则，将此牌转移到随机队友的牌组中。"
+  "KAREN_FIGHT_RELAY.description": "[gold]闪耀[/gold]耗尽时，获得{Relics:diff()}个随机遗物。否则，将此牌转移到随机队友的牌组中。",
+
+  "KAREN_SHINE_TOGETHER_ALL.title": "一起闪耀吧",
+  "KAREN_SHINE_TOGETHER_ALL.description": "所有玩家获得{Cards:diff()}个[gold]闪耀牌奖励[/gold]。",
+
+  "KAREN_OPEN_UP_STARS.title": "开拓星辰",
+  "KAREN_OPEN_UP_STARS.description": "当此牌被放入[gold]约定牌堆[/gold]时，给予所有敌人{WeakPower:diff()}层[gold]虚弱[/gold]。\n被取出时，给予所有敌人{VulnerablePower:diff()}层[gold]易伤[/gold]。"
 }

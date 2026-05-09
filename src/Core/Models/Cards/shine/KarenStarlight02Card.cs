@@ -16,10 +16,9 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// </summary>
 public sealed class KarenStarlight02Card() : KarenBaseCardModel(2, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
-
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<KarenStarlight02Power>(1m)
+        new PowerVar<KarenStarlight02Power>(2m)
     ];
 
     public override IEnumerable<CardTag> Tags => [KarenCustomEnum.ShineRelated];
@@ -37,6 +36,7 @@ public sealed class KarenStarlight02Card() : KarenBaseCardModel(2, CardType.Powe
 
     protected override void OnUpgrade()
     {
-        DynamicVars[nameof(KarenStarlight02Power)].UpgradeValueBy(1m);
+        //DynamicVars[nameof(KarenStarlight02Power)].UpgradeValueBy(1m);
+        EnergyCost.UpgradeBy(-1);
     }
 }
