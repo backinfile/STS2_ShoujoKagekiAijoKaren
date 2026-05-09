@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.Screens.RunHistoryScreen;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Saves.Runs;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Patches;
@@ -16,7 +17,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 internal static class RunHistoryShineCache
 {
     private const string ShineExhaustCountKey = "karen_shine_exhaust_count";
-    private const string LegacyShineExhaustCardsKey = "karen_shine_exhaust_cards";
+    private const string ShineExhaustCardsKey = "karen_shine_exhaust_cards";
 
     private static readonly Dictionary<long, Dictionary<ulong, int>> Cache = new();
 
@@ -88,7 +89,7 @@ internal static class RunHistoryShineCache
                 {
                     shineExhaustCount = countElement.GetInt32();
                 }
-                else if (playerElement.TryGetProperty(LegacyShineExhaustCardsKey, out var legacyCardsElement) && legacyCardsElement.ValueKind == JsonValueKind.Array)
+                else if (playerElement.TryGetProperty(ShineExhaustCardsKey, out var legacyCardsElement) && legacyCardsElement.ValueKind == JsonValueKind.Array)
                 {
                     shineExhaustCount = legacyCardsElement.GetArrayLength();
                 }
@@ -138,9 +139,14 @@ internal static class RunHistoryShineCache
             }
 
             var player = playerId.HasValue ? players.FirstOrDefault(p => p.NetId == playerId.Value) : null;
-            int shineExhaustCount = player == null ? 0 : ShinePileManager.GetShinePileCount(player);
+            List<SerializableCard> shineExhaustCards = player == null
+                ? new List<SerializableCard>()
+                : ShinePileManager.GetShinePile(player).Cards.Select(card => card.ToSerializable()).ToList();
+            int shineExhaustCount = shineExhaustCards.Count;
 
             writer.WriteNumber(ShineExhaustCountKey, shineExhaustCount);
+            writer.WritePropertyName(ShineExhaustCardsKey);
+            JsonSerializer.Serialize(writer, shineExhaustCards);
             writer.WriteEndObject();
         }
 

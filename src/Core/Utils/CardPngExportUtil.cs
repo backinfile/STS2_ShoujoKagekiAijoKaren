@@ -102,6 +102,21 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
 
             [JsonPropertyName("upgradedImage")]
             public string? UpgradedImage { get; set; }
+
+            [JsonPropertyName("references")]
+            public List<CardReferenceInfo>? References { get; set; }
+        }
+
+        public sealed class CardReferenceInfo
+        {
+            [JsonPropertyName("cardId")]
+            public string CardId { get; set; } = "";
+
+            [JsonPropertyName("image")]
+            public string Image { get; set; } = "";
+
+            [JsonPropertyName("isUpgraded")]
+            public bool IsUpgraded { get; set; }
         }
 
         public sealed class ImageInfo
@@ -461,18 +476,50 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
                         break;
                     case CardHoverTip cardTip:
                         var refId = cardTip.Card?.Id.Entry;
+                        var references = BuildTipReferences(cardTip.Card);
                         info.Tips.Add(new TipInfo
                         {
                             Type = "card",
                             CardId = refId,
                             Image = refId != null ? $"{SanitizeFileName(refId)}_base.png" : null,
                             UpgradedImage = refId != null && cardTip.Card != null && cardTip.Card.IsUpgradable ? $"{SanitizeFileName(refId)}_upgraded.png" : null,
+                            References = references.Count > 0 ? references : null,
                         });
                         break;
                 }
             }
 
             return info;
+        }
+
+        private static List<CardReferenceInfo> BuildTipReferences(CardModel? card)
+        {
+            if (card == null)
+                return [];
+
+            var refId = card.Id.Entry;
+            var baseName = SanitizeFileName(refId);
+            var references = new List<CardReferenceInfo>
+            {
+                new()
+                {
+                    CardId = refId,
+                    Image = $"{baseName}_base.png",
+                    IsUpgraded = false,
+                },
+            };
+
+            if (card.Rarity == CardRarity.Token && card.IsUpgradable)
+            {
+                references.Add(new CardReferenceInfo
+                {
+                    CardId = refId,
+                    Image = $"{baseName}_upgraded.png",
+                    IsUpgraded = true,
+                });
+            }
+
+            return references;
         }
 
         private static GameInfoExport BuildGameInfo()

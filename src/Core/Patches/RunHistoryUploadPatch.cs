@@ -86,6 +86,7 @@ public class RunHistoryUploadPatch
         try
         {
             var json = JsonSerializer.Serialize(history);
+            json = RunHistoryShineCache.InjectIntoHistoryJson(json);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await HttpClient.PostAsync(UploadUrl, content);
 
