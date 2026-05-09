@@ -3,6 +3,8 @@ using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -10,6 +12,7 @@ using ShoujoKagekiAijoKaren.src.Core.Audio;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +27,12 @@ public sealed class KarenLastWord : KarenBaseCardModel
     public KarenLastWord() : base(0, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(999, ValueProp.Move)];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [new HoverTip(
+            new LocString("cards", "KAREN_LAST_WORD.tip.title"),
+            new LocString("cards", "KAREN_LAST_WORD.tip").GetFormattedText()
+        )];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -57,7 +66,6 @@ public sealed class KarenLastWord : KarenBaseCardModel
 
     protected override bool IsPlayable => Condition(base.Owner, this);
 
-    // 抽牌堆，弃牌堆，手牌中，最多只有这张牌
     private static bool Condition(Player player, CardModel card)
     {
         var hand = PileType.Hand.GetPile(player);
@@ -66,7 +74,7 @@ public sealed class KarenLastWord : KarenBaseCardModel
         var discardPile = PileType.Discard.GetPile(player);
         if (discardPile.Cards.Any(c => c != card)) return false;
 
-        if(!PromisePileManager.IsVoidMode(player)) // 空虚模式下，抽牌堆算约定牌堆，不用判断抽牌堆
+        if (!PromisePileManager.IsVoidMode(player))
         {
             var drawPile = PileType.Draw.GetPile(player);
             if (drawPile.Cards.Any(c => c != card)) return false;

@@ -148,6 +148,8 @@
 
   "KAREN_LAST_WORD.title": "最后的台词",
   "KAREN_LAST_WORD.description": "[gold]约定牌堆[/gold]之外只有这张牌时才能打出。\n对所有敌人造成{Damage:diff()}点伤害。",
+  "KAREN_LAST_WORD.tip.title": "提示",
+  "KAREN_LAST_WORD.tip": "即当手牌、抽牌堆和弃牌堆中只有这张牌时，才能打出。",
 
   "KAREN_DANCE.title": "舞动",
   "KAREN_DANCE.description": "造成{Damage:diff()}点伤害。\n从[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌加入你的手牌。",

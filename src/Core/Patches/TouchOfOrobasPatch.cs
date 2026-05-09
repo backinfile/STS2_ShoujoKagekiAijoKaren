@@ -16,7 +16,7 @@ public static class TouchOfOrobasPatch
 		if (starterRelic.Id == karenHairpinId)
 		{
 			MainFile.Logger.Info("[TouchOfOrobasPatch] Match found! Setting result to KarenHairpin2Relic");
-			__result = ModelDb.Relic<KarenHairpin2Relic>().ToMutable();
+			__result = ModelDb.Relic<KarenHairpin2Relic>();
 		}
 	}
 }
