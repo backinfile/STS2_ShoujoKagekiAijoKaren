@@ -66,6 +66,7 @@ public sealed class KarenLastWord : KarenBaseCardModel
 
     protected override bool IsPlayable => Condition(base.Owner, this);
 
+    // 抽牌堆，弃牌堆，手牌中，最多只有这张牌
     private static bool Condition(Player player, CardModel card)
     {
         var hand = PileType.Hand.GetPile(player);
@@ -74,7 +75,7 @@ public sealed class KarenLastWord : KarenBaseCardModel
         var discardPile = PileType.Discard.GetPile(player);
         if (discardPile.Cards.Any(c => c != card)) return false;
 
-        if (!PromisePileManager.IsVoidMode(player))
+        if(!PromisePileManager.IsVoidMode(player)) // 空虚模式下，抽牌堆算约定牌堆，不用判断抽牌堆
         {
             var drawPile = PileType.Draw.GetPile(player);
             if (drawPile.Cards.Any(c => c != card)) return false;
