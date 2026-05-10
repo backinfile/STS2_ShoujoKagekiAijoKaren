@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
-public sealed class KarenOpenUpStars() : KarenBaseCardModel(3, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+public sealed class KarenOpenUpStars() : KarenBaseCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [

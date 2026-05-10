@@ -95,4 +95,11 @@ public static class Tips
 
     /// <summary>歌唱吧舞蹈吧互相争斗吧 - 选择界面标题</summary>
     public static readonly LocString KarenFightSelectTitle = new("cards", "KAREN_SHINE_REPRODUCE.select_title");
+
+    // ==================== stage_reproduce ====================
+    /// <summary>命运舞台的再生产 - 提示标题</summary>
+    public static readonly LocString StageReproduceTipTitle = new("cards", "KAREN_STAGE_REPRODUCE.tip.title");
+
+    /// <summary>命运舞台的再生产 - 提示内容</summary>
+    public static readonly LocString StageReproduceTip = new("cards", "KAREN_STAGE_REPRODUCE.tip");
 }

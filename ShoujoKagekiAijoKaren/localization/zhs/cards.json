@@ -201,6 +201,8 @@
 
   "KAREN_STAGE_REPRODUCE.title": "命运舞台的再生产",
   "KAREN_STAGE_REPRODUCE.description": "以无限的[gold]续演[/gold]充满[gold]约定牌堆[/gold]。",
+  "KAREN_STAGE_REPRODUCE.tip.title": "提示",
+  "KAREN_STAGE_REPRODUCE.tip": "打出后，约定牌堆始终为10张[gold]续演[/gold]。",
 
   "KAREN_FINANCIER.title": "Banana费南雪",
   "KAREN_FINANCIER.description": "获得{StrengthPower:diff()}点[gold]力量[/gold]。\n每两回合[gold]保留力量[/gold]1回合。",

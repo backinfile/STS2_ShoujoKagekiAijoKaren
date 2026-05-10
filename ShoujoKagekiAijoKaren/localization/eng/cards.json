@@ -90,6 +90,9 @@
   "KAREN_RAPID.title": "Rapid Descent",
   "KAREN_RAPID.description": "Select {Cards:diff()} card(s) from the [gold]Promise Pile[/gold].\nDiscard the rest.",
 
+  "KAREN_STAGE_REPRODUCE.tip.title": "Tip",
+  "KAREN_STAGE_REPRODUCE.tip": "After played, the [gold]Promise Pile[/gold] always contains 10 [gold]Continue[/gold] cards.",
+
   "KAREN_PAST_AND_FUTURE.title": "Past and Future",
   "KAREN_PAST_AND_FUTURE.description": "When drawing from the [gold]Promise Pile[/gold], gain {StrengthPower:diff()} [gold]Temporary Strength[/gold].",
 

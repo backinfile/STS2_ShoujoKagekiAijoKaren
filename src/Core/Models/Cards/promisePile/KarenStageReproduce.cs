@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,7 +20,11 @@ public sealed class KarenStageReproduce : KarenBaseCardModel
 {
     public KarenStageReproduce() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [new CardHoverTip(ModelDb.Card<KarenContinue>())];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        new CardHoverTip(ModelDb.Card<KarenContinue>()),
+        new HoverTip(Tips.StageReproduceTipTitle, Tips.StageReproduceTip.GetFormattedText())
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
