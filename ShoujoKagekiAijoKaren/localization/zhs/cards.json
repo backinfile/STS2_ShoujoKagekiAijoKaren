@@ -325,5 +325,5 @@
   "KAREN_SHINE_TOGETHER_ALL.description": "所有玩家获得[gold]闪耀牌奖励[/gold]。",
 
   "KAREN_OPEN_UP_STARS.title": "开拓星辰",
-  "KAREN_OPEN_UP_STARS.description": "当此牌被放入[gold]约定牌堆[/gold]时，给予所有敌人{WeakPower:diff()}层[gold]虚弱[/gold]。\n被取出时，给予所有敌人{VulnerablePower:diff()}层[gold]易伤[/gold]。"
+  "KAREN_OPEN_UP_STARS.description": "此牌被放入[gold]约定牌堆[/gold]时，给予所有敌人{WeakPower:diff()}层[gold]虚弱[/gold]。\n离开时，给予所有敌人{VulnerablePower:diff()}层[gold]易伤[/gold]。"
 }
