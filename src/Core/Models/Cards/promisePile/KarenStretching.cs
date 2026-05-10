@@ -20,26 +20,21 @@ public sealed class KarenStretching : KarenBaseCardModel
 
     public override bool GainsBlock => true;
 
-    protected override bool HasEnergyCostX => true;
-
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(7m, ValueProp.Move)
+        new BlockVar(14m, ValueProp.Move)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        for (int i = 0; i < ResolveEnergyXValue(); i++)
-        {
-            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        }
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         await PromisePileCmd.Add(Owner, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(2m);
+        DynamicVars.Block.UpgradeValueBy(4m);
     }
 }

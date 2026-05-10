@@ -38,6 +38,6 @@ public sealed class KarenRapid : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(2m);
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }
