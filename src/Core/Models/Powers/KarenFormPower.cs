@@ -28,25 +28,13 @@ public class KarenFormPower : PowerModel
 
     public override Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
-        KarenFormMusicManager.PlayLoop(Owner.Player, 0.5f);
+        CombatBgmReplacementManager.PlayLoop(KarenFormMusicManager.FileName, Owner.Player, 0.5f);
         return Task.CompletedTask;
     }
 
     public override Task AfterRemoved(Creature oldOwner)
     {
-        KarenFormMusicManager.Stop(Owner.Player);
-        return Task.CompletedTask;
-    }
-
-    public override Task AfterCombatVictory(CombatRoom room)
-    {
-        KarenFormMusicManager.Stop(Owner.Player);
-        return Task.CompletedTask;
-    }
-
-    public override Task AfterCombatEnd(CombatRoom room)
-    {
-        KarenFormMusicManager.Stop(Owner.Player);
+        CombatBgmReplacementManager.Stop(Owner.Player);
         return Task.CompletedTask;
     }
 

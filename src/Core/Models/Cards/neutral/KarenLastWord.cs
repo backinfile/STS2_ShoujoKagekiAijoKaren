@@ -41,7 +41,7 @@ public sealed class KarenLastWord : KarenBaseCardModel
 
         bool isLocalOwner = LocalContext.IsMe(Owner);
         bool playedVideo = false;
-        KarenFormMusicManager.StopForCutscene();
+        CombatBgmReplacementManager.StopForCutscene();
         KarenAudioManager.PlaySfx(KarenSfx.LastWord, volume: 1f);
         if (isLocalOwner)
         {
