@@ -34,9 +34,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
             // 复制附魔（Enchantment）
             if (original.Enchantment != null)
             {
-                // 获取附魔类型和数值
-                EnchantmentModel enchant = original.Enchantment;
-                newCard.EnchantInternal(enchant, enchant.Amount);
+                var enchantment = (EnchantmentModel)original.Enchantment.ClonePreservingMutability();
+                newCard.EnchantInternal(enchantment, enchantment.Amount);
+                enchantment.ModifyCard();
+                newCard.FinalizeUpgradeInternal();
             }
             // 复制闪耀值
             {
