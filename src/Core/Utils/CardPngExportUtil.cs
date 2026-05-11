@@ -67,6 +67,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             [JsonPropertyName("name")]
             public string Name { get; set; } = "";
 
+            [JsonPropertyName("playerId")]
+            public string? PlayerId { get; set; }
+
             [JsonPropertyName("cost")]
             public string Cost { get; set; } = "";
 
@@ -125,7 +128,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
         public sealed class GameInfoExport
         {
             [JsonPropertyName("cards")]
-            public List<IdNamePair> Cards { get; set; } = new();
+            public List<CardGameInfo> Cards { get; set; } = new();
 
             [JsonPropertyName("relics")]
             public List<IdNamePair> Relics { get; set; } = new();
@@ -153,6 +156,27 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
 
             [JsonPropertyName("name")]
             public string Name { get; set; } = "";
+        }
+
+        public sealed class CardGameInfo
+        {
+            [JsonPropertyName("id")]
+            public string Id { get; set; } = "";
+
+            [JsonPropertyName("name")]
+            public string Name { get; set; } = "";
+
+            [JsonPropertyName("playerId")]
+            public string? PlayerId { get; set; }
+
+            [JsonPropertyName("cost")]
+            public string Cost { get; set; } = "";
+
+            [JsonPropertyName("rarity")]
+            public string Rarity { get; set; } = "";
+
+            [JsonPropertyName("type")]
+            public string Type { get; set; } = "";
         }
 
         public sealed class ExportResult
@@ -327,41 +351,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             // 写入游戏信息 JSON（卡牌 / 遗物 / 怪物 / 药水）
             try
             {
-                var gameInfo = new GameInfoExport
-                {
-                    Cards = ModelDb.AllCards
-                        .OrderBy(c => c.Id.Entry, StringComparer.OrdinalIgnoreCase)
-                        .Select(c => new IdNamePair { Id = c.Id.Entry, Name = c.Title ?? c.Id.Entry })
-                        .ToList(),
-                    Relics = ModelDb.AllRelics
-                        .OrderBy(r => r.Id.Entry, StringComparer.OrdinalIgnoreCase)
-                        .Select(r => new IdNamePair { Id = r.Id.Entry, Name = r.Title?.GetFormattedText() ?? r.Id.Entry })
-                        .ToList(),
-                    Potions = ModelDb.AllPotions
-                        .OrderBy(p => p.Id.Entry, StringComparer.OrdinalIgnoreCase)
-                        .Select(p => new IdNamePair { Id = p.Id.Entry, Name = p.Title?.GetFormattedText() ?? p.Id.Entry })
-                        .ToList(),
-                    Monsters = ModelDb.Monsters
-                        .OrderBy(m => m.Id.Entry, StringComparer.OrdinalIgnoreCase)
-                        .Select(m => new IdNamePair { Id = m.Id.Entry, Name = m.Title?.GetFormattedText() ?? m.Id.Entry })
-                        .ToList(),
-                    Encounters = ModelDb.AllEncounters
-                        .OrderBy(e => e.Id.Entry, StringComparer.OrdinalIgnoreCase)
-                        .Select(e => new IdNamePair { Id = e.Id.Entry, Name = e.Title?.GetFormattedText() ?? e.Id.Entry })
-                        .ToList(),
-                    Events = ModelDb.AllEvents
-                        .Concat(ModelDb.AllAncients)
-                        .GroupBy(e => e.Id.Entry, StringComparer.OrdinalIgnoreCase)
-                        .Select(g => g.First())
-                        .OrderBy(e => e.Id.Entry, StringComparer.OrdinalIgnoreCase)
-                        .Select(e => new IdNamePair { Id = e.Id.Entry, Name = e.Title?.GetFormattedText() ?? e.Id.Entry })
-                        .ToList(),
-                    Characters = ModelDb.AllCharacters
-                        .OrderBy(c => c.Id.Entry, StringComparer.OrdinalIgnoreCase)
-                        .Select(c => new IdNamePair { Id = c.Id.Entry, Name = c.Title?.GetFormattedText() ?? c.Id.Entry })
-                        .ToList(),
-                };
-
+                var gameInfo = BuildGameInfo();
                 var infoJsonPath = Path.Combine(outDir, "game_info.json");
                 var infoJson = JsonSerializer.Serialize(gameInfo, JsonOptions);
                 await File.WriteAllTextAsync(infoJsonPath, infoJson);
@@ -440,6 +430,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             {
                 Id = card.Id.Entry,
                 Name = card.Title?.ToString() ?? card.Id.Entry,
+                PlayerId = GetPlayerIdByCardPool(card),
                 Cost = GetCostString(card),
                 Rarity = GetRarityString(card.Rarity),
                 Type = GetTypeString(card.Type),
@@ -481,6 +472,14 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             return info;
         }
 
+        private static string? GetPlayerIdByCardPool(CardModel card)
+        {
+            var cardPool = card.Pool;
+            return ModelDb.AllCharacters
+                .FirstOrDefault(character => character.CardPool == cardPool)
+                ?.Id.Entry;
+        }
+
         private static void AddUpgradedTokenTip(List<TipInfo> tips, CardModel? card)
         {
             if (card == null)
@@ -505,7 +504,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             {
                 Cards = ModelDb.AllCards
                     .OrderBy(c => c.Id.Entry, StringComparer.OrdinalIgnoreCase)
-                    .Select(c => new IdNamePair { Id = c.Id.Entry, Name = c.Title ?? c.Id.Entry })
+                    .Select(CollectCardGameInfo)
                     .ToList(),
                 Relics = ModelDb.AllRelics
                     .OrderBy(r => r.Id.Entry, StringComparer.OrdinalIgnoreCase)
@@ -534,6 +533,19 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
                     .OrderBy(c => c.Id.Entry, StringComparer.OrdinalIgnoreCase)
                     .Select(c => new IdNamePair { Id = c.Id.Entry, Name = c.Title?.GetFormattedText() ?? c.Id.Entry })
                     .ToList(),
+            };
+        }
+
+        private static CardGameInfo CollectCardGameInfo(CardModel card)
+        {
+            return new CardGameInfo
+            {
+                Id = card.Id.Entry,
+                Name = card.Title ?? card.Id.Entry,
+                PlayerId = GetPlayerIdByCardPool(card),
+                Cost = GetCostString(card),
+                Rarity = GetRarityString(card.Rarity),
+                Type = GetTypeString(card.Type),
             };
         }
 

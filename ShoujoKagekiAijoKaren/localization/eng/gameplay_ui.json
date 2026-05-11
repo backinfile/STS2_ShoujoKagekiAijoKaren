@@ -14,6 +14,7 @@
   "KAREN_DISABLERELIC_SUFFIX": " relics)",
   "KAREN_DERIVED_CARD_LABEL": "Token",
   "KAREN_SHINE_PILE_INFO": "These cards have exhausted their Shine.",
+  "KAREN_RUN_HISTORY_SHINE_EXHAUST_HEADER": "[gold][b]Exhausted ({Count}):[/b][/gold]",
   "KAREN_SHINE_PILE_BUTTON_TITLE": "Shine Pile",
   "KAREN_SHINE_PILE_BUTTON_DESC": "View cards that have exhausted their Shine."
 }

@@ -32,6 +32,9 @@ public static class Tips
     /// <summary>闪耀耗尽牌堆查看界面底部标题</summary>
     public static readonly LocString ShinePileInfo = new("gameplay_ui", "KAREN_SHINE_PILE_INFO");
 
+    /// <summary>历史记录中的闪耀耗尽卡牌标题</summary>
+    public static LocString RunHistoryShineExhaustHeader => new("gameplay_ui", "KAREN_RUN_HISTORY_SHINE_EXHAUST_HEADER");
+
 
     /// <summary>从弃牌堆选择放入约定牌堆的提示</summary>
     public static readonly LocString PromisePileSelectFromDiscard = new("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_DISCARD");

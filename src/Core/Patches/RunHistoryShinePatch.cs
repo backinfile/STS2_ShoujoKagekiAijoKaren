@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.addons.mega_text;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Screens.RunHistoryScreen;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Saves.Runs;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Patches;
@@ -18,8 +25,9 @@ internal static class RunHistoryShineCache
 {
     private const string ShineExhaustCountKey = "karen_shine_exhaust_count";
     private const string ShineExhaustCardsKey = "karen_shine_exhaust_cards";
+    private const string ShineExhaustSectionName = "KarenShineExhaustHistorySection";
 
-    private static readonly Dictionary<long, Dictionary<ulong, int>> Cache = new();
+    private static readonly Dictionary<long, Dictionary<ulong, List<SerializableCard>>> Cache = new();
 
     public static long? CurrentDisplayedRunStartTime { get; set; }
 
@@ -58,7 +66,7 @@ internal static class RunHistoryShineCache
         }
         catch (Exception ex)
         {
-            MainFile.Logger.Warn($"[RunHistoryShinePatch] 注入历史耗尽数量失败，保留原始 json: {ex.Message}");
+            MainFile.Logger.Warn($"[RunHistoryShinePatch] 注入历史耗尽卡牌失败，保留原始 json: {ex.Message}");
             return content;
         }
     }
@@ -76,45 +84,189 @@ internal static class RunHistoryShineCache
             if (!doc.RootElement.TryGetProperty("players", out var playersElement) || playersElement.ValueKind != JsonValueKind.Array)
                 return;
 
-            var perPlayer = new Dictionary<ulong, int>();
+            var perPlayer = new Dictionary<ulong, List<SerializableCard>>();
             foreach (var playerElement in playersElement.EnumerateArray())
             {
                 if (!playerElement.TryGetProperty("id", out var idElement) || idElement.ValueKind != JsonValueKind.Number)
                     continue;
 
                 ulong playerId = idElement.GetUInt64();
-                int shineExhaustCount = 0;
+                List<SerializableCard> shineExhaustCards = new();
 
-                if (playerElement.TryGetProperty(ShineExhaustCountKey, out var countElement) && countElement.ValueKind == JsonValueKind.Number)
+                if (playerElement.TryGetProperty(ShineExhaustCardsKey, out var cardsElement) && cardsElement.ValueKind == JsonValueKind.Array)
                 {
-                    shineExhaustCount = countElement.GetInt32();
-                }
-                else if (playerElement.TryGetProperty(ShineExhaustCardsKey, out var legacyCardsElement) && legacyCardsElement.ValueKind == JsonValueKind.Array)
-                {
-                    shineExhaustCount = legacyCardsElement.GetArrayLength();
+                    shineExhaustCards = JsonSerializer.Deserialize<List<SerializableCard>>(cardsElement.GetRawText()) ?? new List<SerializableCard>();
                 }
 
-                perPlayer[playerId] = shineExhaustCount;
+                perPlayer[playerId] = shineExhaustCards;
             }
 
             Cache[startTimeElement.GetInt64()] = perPlayer;
         }
         catch (Exception ex)
         {
-            MainFile.Logger.Warn($"[RunHistoryShinePatch] 读取历史耗尽数量失败: {ex.Message}");
+            MainFile.Logger.Warn($"[RunHistoryShinePatch] 读取历史耗尽卡牌失败: {ex.Message}");
         }
     }
 
-    public static int? GetDisplayedPlayerShineExhaustCount(ulong playerId)
+    public static IReadOnlyList<SerializableCard> GetDisplayedPlayerShineExhaustCards(ulong playerId)
     {
         if (!CurrentDisplayedRunStartTime.HasValue)
-            return null;
+            return Array.Empty<SerializableCard>();
         if (!Cache.TryGetValue(CurrentDisplayedRunStartTime.Value, out var perPlayer))
-            return null;
-        if (!perPlayer.TryGetValue(playerId, out var count))
-            return null;
+            return Array.Empty<SerializableCard>();
+        if (!perPlayer.TryGetValue(playerId, out var cards))
+            return Array.Empty<SerializableCard>();
 
-        return count;
+        return cards;
+    }
+
+    public static void PopulateExhaustSection(NDeckHistory deckHistory, Player player)
+    {
+        RemoveExistingExhaustSection(deckHistory);
+
+        var cards = GetDisplayedPlayerShineExhaustCards(player.NetId);
+        if (cards.Count == 0)
+            return;
+
+        List<CardModel> allCards = new();
+        List<NDeckHistoryEntry> entries = new();
+        foreach (var group in cards.GroupBy(card => card))
+        {
+            CardModel cardModel = CardModel.FromSerializable(group.Key);
+            cardModel.Owner = player;
+            allCards.Add(cardModel);
+
+            NDeckHistoryEntry entry = NDeckHistoryEntry.Create(cardModel, group.Count(), group
+                .Where(card => card.FloorAddedToDeck.HasValue)
+                .Select(card => card.FloorAddedToDeck!.Value));
+            entry.Connect(NDeckHistoryEntry.SignalName.Clicked, Callable.From<NDeckHistoryEntry>(clickedEntry =>
+            {
+                NGame.Instance?.GetInspectCardScreen().Open(allCards, allCards.IndexOf(clickedEntry.Card));
+            }));
+            entries.Add(entry);
+        }
+
+        if (entries.Count == 0)
+            return;
+
+        var sectionMargin = new MarginContainer
+        {
+            Name = ShineExhaustSectionName,
+            SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
+            MouseFilter = Control.MouseFilterEnum.Ignore
+        };
+        sectionMargin.AddThemeConstantOverride("margin_top", 18);
+
+        var section = new VBoxContainer
+        {
+            CustomMinimumSize = new Vector2(0f, 80f),
+            SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
+            MouseFilter = Control.MouseFilterEnum.Ignore
+        };
+        sectionMargin.AddChildSafely(section);
+
+        var headerText = BuildExhaustHeader(cards.Count, allCards);
+
+        var header = new MegaRichTextLabel
+        {
+            BbcodeEnabled = true,
+            Text = headerText,
+            CustomMinimumSize = new Vector2(0f, 36f),
+            SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
+            ScrollActive = false,
+            MouseFilter = Control.MouseFilterEnum.Ignore
+        };
+        CopyHeaderStyle(deckHistory, header);
+        section.AddChildSafely(header);
+
+        var marginContainer = new MarginContainer
+        {
+            SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
+            MouseFilter = Control.MouseFilterEnum.Ignore
+        };
+        marginContainer.AddThemeConstantOverride("margin_left", 64);
+        marginContainer.AddThemeConstantOverride("margin_top", 4);
+        marginContainer.AddThemeConstantOverride("margin_right", 24);
+        section.AddChildSafely(marginContainer);
+
+        var cardContainer = new HFlowContainer
+        {
+            SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
+            SizeFlagsVertical = Control.SizeFlags.ExpandFill,
+            MouseFilter = Control.MouseFilterEnum.Ignore
+        };
+        marginContainer.AddChildSafely(cardContainer);
+
+        foreach (var entry in entries)
+        {
+            cardContainer.AddChildSafely(entry);
+        }
+
+        deckHistory.AddChildSafely(sectionMargin);
+    }
+
+    private static string BuildExhaustHeader(int totalCount, IReadOnlyList<CardModel> cards)
+    {
+        var header = Tips.RunHistoryShineExhaustHeader;
+        header.Add("Count", totalCount);
+
+        string categories = BuildRarityCategories(cards);
+        return header.GetFormattedText() + categories;
+    }
+
+    private static string BuildRarityCategories(IReadOnlyList<CardModel> cards)
+    {
+        Dictionary<CardRarity, int> counts = new();
+        foreach (CardRarity rarity in Enum.GetValues<CardRarity>())
+        {
+            counts[rarity] = 0;
+        }
+
+        foreach (var card in cards)
+        {
+            counts[card.Rarity]++;
+        }
+
+        var categories = new LocString("run_history", "DECK_HISTORY.categories");
+        categories.Add("QuestCards", counts[CardRarity.Quest]);
+        categories.Add("EventCards", counts[CardRarity.Event]);
+        categories.Add("RareCards", counts[CardRarity.Rare]);
+        categories.Add("UncommonCards", counts[CardRarity.Uncommon]);
+        categories.Add("CommonCards", counts[CardRarity.Common]);
+        categories.Add("CurseCards", counts[CardRarity.Curse]);
+        categories.Add("BasicCards", counts[CardRarity.Basic]);
+
+        return categories.GetFormattedText().Trim(',');
+    }
+
+    private static void CopyHeaderStyle(NDeckHistory deckHistory, RichTextLabel label)
+    {
+        var source = deckHistory.GetNodeOrNull<RichTextLabel>("Header");
+        if (source == null)
+            return;
+
+        label.AddThemeColorOverride("default_color", source.GetThemeColor("default_color"));
+        label.AddThemeColorOverride("font_shadow_color", source.GetThemeColor("font_shadow_color"));
+        label.AddThemeConstantOverride("shadow_offset_x", source.GetThemeConstant("shadow_offset_x"));
+        label.AddThemeConstantOverride("shadow_offset_y", source.GetThemeConstant("shadow_offset_y"));
+        label.AddThemeFontOverride("normal_font", source.GetThemeFont("normal_font"));
+        label.AddThemeFontOverride("bold_font", source.GetThemeFont("bold_font"));
+        label.AddThemeFontSizeOverride("normal_font_size", source.GetThemeFontSize("normal_font_size"));
+        label.AddThemeFontSizeOverride("bold_font_size", source.GetThemeFontSize("bold_font_size"));
+        label.AddThemeFontSizeOverride("italics_font_size", source.GetThemeFontSize("italics_font_size"));
+        label.AddThemeFontSizeOverride("bold_italics_font_size", source.GetThemeFontSize("bold_italics_font_size"));
+        label.AddThemeFontSizeOverride("mono_font_size", source.GetThemeFontSize("mono_font_size"));
+    }
+
+    private static void RemoveExistingExhaustSection(Node deckHistory)
+    {
+        var existing = deckHistory.FindChild(ShineExhaustSectionName, recursive: true, owned: false);
+        if (existing == null)
+            return;
+
+        existing.GetParent()?.RemoveChild(existing);
+        existing.QueueFreeSafely();
     }
 
     private static void WritePlayersWithShineData(Utf8JsonWriter writer, JsonElement playersElement, IReadOnlyList<Player> players)
@@ -132,7 +284,7 @@ internal static class RunHistoryShineCache
                 if (property.NameEquals("id") && property.Value.ValueKind == JsonValueKind.Number)
                     playerId = property.Value.GetUInt64();
 
-                if (property.NameEquals(ShineExhaustCountKey))
+                if (property.NameEquals(ShineExhaustCountKey) || property.NameEquals(ShineExhaustCardsKey))
                     continue;
 
                 property.WriteTo(writer);
@@ -142,9 +294,8 @@ internal static class RunHistoryShineCache
             List<SerializableCard> shineExhaustCards = player == null
                 ? new List<SerializableCard>()
                 : ShinePileManager.GetShinePile(player).Cards.Select(card => card.ToSerializable()).ToList();
-            int shineExhaustCount = shineExhaustCards.Count;
 
-            writer.WriteNumber(ShineExhaustCountKey, shineExhaustCount);
+            writer.WriteNumber(ShineExhaustCountKey, shineExhaustCards.Count);
             writer.WritePropertyName(ShineExhaustCardsKey);
             JsonSerializer.Serialize(writer, shineExhaustCards);
             writer.WriteEndObject();
@@ -208,19 +359,6 @@ internal static class NDeckHistoryLoadDeckPatch
     [HarmonyPostfix]
     private static void Postfix(NDeckHistory __instance, Player player)
     {
-        int? shineExhaustCount = RunHistoryShineCache.GetDisplayedPlayerShineExhaustCount(player.NetId);
-        if (!shineExhaustCount.HasValue)
-            return;
-
-        var headerLabel = __instance.GetNodeOrNull<MegaRichTextLabel>("Header");
-        if (headerLabel == null || string.IsNullOrWhiteSpace(headerLabel.Text))
-            return;
-
-        const string suffixMark = "耗尽";
-        int existingIndex = headerLabel.Text.LastIndexOf(suffixMark, StringComparison.Ordinal);
-        if (existingIndex >= 0)
-            return;
-
-        headerLabel.Text += $"，{shineExhaustCount.Value}耗尽";
+        RunHistoryShineCache.PopulateExhaustSection(__instance, player);
     }
 }
