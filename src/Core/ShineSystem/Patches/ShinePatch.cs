@@ -189,6 +189,13 @@ public static class ShinePatch
             {
                 return true;
             }
+            // AutoPlay/OnPlayWrapper must be allowed to put the card in the play pile
+            // before result-pile redirection runs. Taking over here leaves the nested
+            // card on the PlayerChoiceContext stack and makes the outer card pop fail.
+            if (newPileType == PileType.Play)
+            {
+                return false;
+            }
             // 某些卡牌会将自己移动到特定牌堆，修改他们的转向
             if (newPileType.IsCombatPile() && ShouldEnterShinePile(card))
             {
