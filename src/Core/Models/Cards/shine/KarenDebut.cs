@@ -30,16 +30,14 @@ public sealed class KarenDebut : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        int hits = DynamicVars.Repeat.IntValue;
         if (CombatState == null) return;
-        for (int i = 0; i < hits; i++)
-        {
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
-                .TargetingAllOpponents(CombatState)
-                .WithHitFx(VfxCmd.slashPath)
-                .Execute(choiceContext);
-        }
+
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
+            .FromCard(this)
+            .TargetingAllOpponents(CombatState)
+            .WithHitFx(VfxCmd.slashPath)
+            .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

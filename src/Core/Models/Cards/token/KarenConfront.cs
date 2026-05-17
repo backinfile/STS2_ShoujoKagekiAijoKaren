@@ -33,15 +33,12 @@ public sealed class KarenConfront : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
-        int hits = DynamicVars.Repeat.IntValue;
-        for (int i = 0; i < hits; i++)
-        {
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
-                .Targeting(cardPlay.Target)
-                .WithHitFx(VfxCmd.slashPath)
-                .Execute(choiceContext);
-        }
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
+            .FromCard(this)
+            .Targeting(cardPlay.Target)
+            .WithHitFx(VfxCmd.slashPath)
+            .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()
