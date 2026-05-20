@@ -31,6 +31,7 @@ internal static class RunSaveManager_Patches
 {
     private const string PlayersKey = "players";
     private const string ExtraFieldsKey = "extra_fields";
+    private const string NetIdKey = "net_id";
 
     /// <summary>
     /// 判断路径是否为任意局内存档（单机或联机，含 .backup 后缀）
@@ -131,15 +132,16 @@ internal static class RunSaveManager_Patches
             if (!doc.RootElement.TryGetProperty(PlayersKey, out var playersElement) || playersElement.ValueKind != JsonValueKind.Array)
                 return;
 
-            int playerIndex = 0;
             foreach (var playerElement in playersElement.EnumerateArray())
             {
+                if (!TryReadPlayerId(playerElement, out var playerId))
+                    continue;
+
                 if (playerElement.TryGetProperty(ExtraFieldsKey, out var extraFieldsElement) && extraFieldsElement.ValueKind == JsonValueKind.Object)
                 {
                     foreach (var handler in PlayerExtraFieldsHandlers.All)
-                        handler.ReadPlayerField(extraFieldsElement, playerIndex);
+                        handler.ReadPlayerField(extraFieldsElement, playerId);
                 }
-                playerIndex++;
             }
 
             KarenExtraFieldsSaveBuffer.MarkPending();
@@ -190,26 +192,28 @@ internal static class RunSaveManager_Patches
         writer.WritePropertyName(PlayersKey);
         writer.WriteStartArray();
 
-        int playerIndex = 0;
         foreach (var playerElement in playersElement.EnumerateArray())
         {
+            Player? player = null;
+            if (TryReadPlayerId(playerElement, out var playerId))
+                player = FindPlayer(players, playerId);
+
             writer.WriteStartObject();
             foreach (var prop in playerElement.EnumerateObject())
             {
-                if (prop.NameEquals(ExtraFieldsKey))
+                if (prop.NameEquals(ExtraFieldsKey) && player != null)
                 {
-                    WriteExtraFields(writer, prop.Value, players[playerIndex], playerIndex);
+                    WriteExtraFields(writer, prop.Value, player);
                     continue;
                 }
 
                 prop.WriteTo(writer);
             }
 
-            if (!playerElement.TryGetProperty(ExtraFieldsKey, out _))
-                WriteExtraFields(writer, default, players[playerIndex], playerIndex);
+            if (!playerElement.TryGetProperty(ExtraFieldsKey, out _) && player != null)
+                WriteExtraFields(writer, default, player);
 
             writer.WriteEndObject();
-            playerIndex++;
         }
 
         writer.WriteEndArray();
@@ -218,8 +222,7 @@ internal static class RunSaveManager_Patches
     private static void WriteExtraFields(
         Utf8JsonWriter writer,
         JsonElement extraFieldsElement,
-        Player player,
-        int playerIndex)
+        Player player)
     {
         writer.WritePropertyName(ExtraFieldsKey);
         writer.WriteStartObject();
@@ -239,6 +242,25 @@ internal static class RunSaveManager_Patches
             handler.WritePlayerField(writer, player);
 
         writer.WriteEndObject();
+    }
+
+    private static bool TryReadPlayerId(JsonElement playerElement, out ulong playerId)
+    {
+        playerId = default;
+        return playerElement.TryGetProperty(NetIdKey, out var idElement)
+            && idElement.ValueKind == JsonValueKind.Number
+            && idElement.TryGetUInt64(out playerId);
+    }
+
+    private static Player? FindPlayer(IReadOnlyList<Player> players, ulong playerId)
+    {
+        foreach (var player in players)
+        {
+            if (player.NetId == playerId)
+                return player;
+        }
+
+        return null;
     }
 
     private static bool IsManagedExtraField(JsonProperty prop)

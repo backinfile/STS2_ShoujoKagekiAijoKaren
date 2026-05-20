@@ -30,7 +30,7 @@ internal abstract class PlayerExtraFieldsHandlerBase
     /// <summary>
     /// 本地 JSON 存档接口组：读取到缓冲区。
     /// </summary>
-    public abstract void ReadPlayerField(JsonElement extraFieldsElement, int playerIndex);
+    public abstract void ReadPlayerField(JsonElement extraFieldsElement, ulong playerId);
 
     /// <summary>
     /// 本地 JSON 存档接口组：在 RunState 就绪后恢复到 Player。
@@ -77,9 +77,9 @@ internal abstract class PlayerExtraFieldsHandlerBase<TData> : PlayerExtraFieldsH
 {
     /// <summary>
     /// 本地存档读取阶段的临时缓冲区。
-    /// key 是 players 数组下标，value 是该玩家对应的字段数据。
+    /// key 是玩家 NetId，value 是该玩家对应的字段数据。
     /// </summary>
-    private readonly Dictionary<int, TData> _buffer = [];
+    private readonly Dictionary<ulong, TData> _buffer = [];
 
     /// <summary>
     /// SerializableExtraPlayerFields 本身不能直接扩展字段，
@@ -104,12 +104,12 @@ internal abstract class PlayerExtraFieldsHandlerBase<TData> : PlayerExtraFieldsH
     /// <summary>
     /// 本地存档读取时，只负责把字段值读入 _buffer，等待 RunState 就绪后再恢复。
     /// </summary>
-    public override void ReadPlayerField(JsonElement extraFieldsElement, int playerIndex)
+    public override void ReadPlayerField(JsonElement extraFieldsElement, ulong playerId)
     {
         if (!extraFieldsElement.TryGetProperty(FieldName, out var fieldElement))
             return;
 
-        _buffer[playerIndex] = JsonSerializer.Deserialize<TData>(fieldElement.GetRawText())!;
+        _buffer[playerId] = JsonSerializer.Deserialize<TData>(fieldElement.GetRawText())!;
     }
 
     /// <summary>
@@ -120,15 +120,27 @@ internal abstract class PlayerExtraFieldsHandlerBase<TData> : PlayerExtraFieldsH
     {
         if (_buffer.Count == 0) return;
 
-        foreach (var (playerIndex, data) in _buffer)
+        foreach (var (playerId, data) in _buffer)
         {
-            if (playerIndex < 0 || playerIndex >= players.Count)
+            var player = FindPlayer(players, playerId);
+            if (player == null)
                 continue;
 
-            Restore(players[playerIndex], data);
+            Restore(player, data);
         }
 
         _buffer.Clear();
+    }
+
+    private static Player? FindPlayer(IReadOnlyList<Player> players, ulong playerId)
+    {
+        foreach (var player in players)
+        {
+            if (player.NetId == playerId)
+                return player;
+        }
+
+        return null;
     }
 
     /// <summary>
