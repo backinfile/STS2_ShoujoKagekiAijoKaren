@@ -375,12 +375,7 @@ public static class PromisePileManager
     /// </summary>
     public static void SetPileCountLabel(int count)
     {
-        var pileNode = NCombatRoom.Instance?.Ui?.DrawPile;
-        if (pileNode == null) return;
-
-        var label = pileNode.GetNode<MegaLabel>("CountContainer/Count");
-        if (label != null)
-            label.SetTextAutoSize(count.ToString());
+        CombatPileCountCmd.SetCount(PileType.Draw, count);
     }
 
     /// <summary>打开约定牌堆查看界面（快照模式，使用原生 NCardPileScreen）</summary>

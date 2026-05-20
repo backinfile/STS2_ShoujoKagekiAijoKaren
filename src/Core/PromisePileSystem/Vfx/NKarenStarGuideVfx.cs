@@ -30,7 +30,7 @@ public partial class NKarenStarGuideVfx : Node2D
     private const float StarFadeDuration = 0.6f;
 
     /// <summary>金色边框闪光的持续时间。</summary>
-    private const float BorderDuration = 0.9f;
+    private const float BorderDuration = 2.0f;
 
     /// <summary>最终显示的小星星缩放倍率。</summary>
     private const float StarScale = 0.15f;
@@ -87,7 +87,7 @@ public partial class NKarenStarGuideVfx : Node2D
             return;
         }
 
-        AddChild(new NKarenGoldBorderFlash());
+        AddChild(new NKarenGoldBorderFlash(BorderDuration));
 
         // 先把所有粒子加入树，确保 _Ready 中创建的拖尾节点能找到父节点。
         foreach (var particle in particles)
@@ -321,14 +321,25 @@ internal partial class NKarenStarGuideTrail : Line2D
 /// </summary>
 internal partial class NKarenGoldBorderFlash : Control
 {
+    private const float FadeInDuration = 0.2f;
+
+    private static readonly Texture2D? BorderGlowTexture =
+        KarenResourceLoader.LoadTexture("res://images/packed/vfx/star_guide/border_glow_2.png", nameof(NKarenGoldBorderFlash));
+
     /// <summary>边框闪光生命周期。</summary>
-    private const float Duration = 0.45f;
+    private readonly float _durationMax;
 
     /// <summary>当前剩余闪光时间。</summary>
-    private float _duration = Duration;
+    private float _duration;
 
-    public NKarenGoldBorderFlash()
+    /// <summary>初始透明度，便于保留贴图和颜色自身的 alpha。</summary>
+    private readonly float _startAlpha;
+
+    public NKarenGoldBorderFlash(float duration)
     {
+        _durationMax = duration;
+        _duration = duration;
+        _startAlpha = 1f;
         MouseFilter = MouseFilterEnum.Ignore;
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         ZIndex = 100;
@@ -338,18 +349,25 @@ internal partial class NKarenGoldBorderFlash : Control
     {
         _duration -= (float)delta;
         if (_duration <= 0f)
+        {
             GodotTreeExtensions.QueueFreeSafely(this);
+            return;
+        }
+
+        float elapsed = _durationMax - _duration;
+        float alpha = elapsed < FadeInDuration
+            ? Mathf.Ease(Mathf.Clamp(elapsed / FadeInDuration, 0f, 1f), -2.0f) * _startAlpha
+            : Mathf.Ease(Mathf.Clamp(_duration / _durationMax, 0f, 1f), 0.4f) * _startAlpha;
+
+        Modulate = new Color(1f, 0.84f, 0.35f, alpha);
 
         QueueRedraw();
     }
 
     public override void _Draw()
     {
-        var rect = new Rect2(Vector2.Zero, GetViewportRect().Size);
-        float t = Mathf.Clamp(_duration / Duration, 0f, 1f);
-        float alpha = Mathf.Sin(t * Mathf.Pi) * 0.85f;
-        var color = new Color(1f, 0.78f, 0.18f, alpha);
-        DrawRect(rect.Grow(-8f), color, filled: false, width: 16f);
-        DrawRect(rect.Grow(-28f), new Color(1f, 0.95f, 0.55f, alpha * 0.45f), filled: false, width: 4f);
+        if (BorderGlowTexture == null) return;
+
+        DrawTextureRect(BorderGlowTexture, new Rect2(Vector2.Zero, GetViewportRect().Size), tile: false);
     }
 }

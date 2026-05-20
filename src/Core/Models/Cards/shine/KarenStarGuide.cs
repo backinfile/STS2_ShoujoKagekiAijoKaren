@@ -42,6 +42,7 @@ public sealed class KarenStarGuide : KarenBaseCardModel
         }
 
         await PromisePileCmd.Add(Owner, cards, true);
+        CombatPileCountCmd.RefreshDrawAndDiscard(Owner);
     }
 
     protected override void OnUpgrade()

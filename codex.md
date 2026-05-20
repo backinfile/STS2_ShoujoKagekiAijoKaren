@@ -2,12 +2,12 @@
 
 ## 重要参考路径
 
-- STS1 游戏本体代码路径：`D:\App\Stream\steamapps\common\SlayTheSpire\desktop-1.0`
 - 反编译游戏本体路径：`D:\Github\spire-codex\extraction\raw\`
 - STS1 爱城华恋 Mod（老 Mod）路径：`D:\Github\STS_ShoujoKageki\`
 - BaseLib 代码路径：`D:\Github\BaseLib-StS2-master`
 - RitsuLib 代码路径：D:\Github\STS2-RitsuLib
 - STS2 Godot 日志路径：`C:\Users\17575\AppData\Roaming\SlayTheSpire2\logs\godot.log`
+- STS1 游戏本体代码路径：`D:\App\Stream\steamapps\common\SlayTheSpire\desktop-1.0`
 
 ## 项目基本信息
 
