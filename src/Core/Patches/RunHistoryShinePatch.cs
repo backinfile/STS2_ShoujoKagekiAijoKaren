@@ -130,19 +130,24 @@ internal static class RunHistoryShineCache
             return;
 
         List<CardModel> allCards = new();
+        List<CardModel> groupedCards = new();
         List<NDeckHistoryEntry> entries = new();
         foreach (var group in cards.GroupBy(card => card))
         {
             CardModel cardModel = CardModel.FromSerializable(group.Key);
             cardModel.Owner = player;
-            allCards.Add(cardModel);
+            groupedCards.Add(cardModel);
+            for (int i = 0; i < group.Count(); i++)
+            {
+                allCards.Add(cardModel);
+            }
 
             NDeckHistoryEntry entry = NDeckHistoryEntry.Create(cardModel, group.Count(), group
                 .Where(card => card.FloorAddedToDeck.HasValue)
                 .Select(card => card.FloorAddedToDeck!.Value));
             entry.Connect(NDeckHistoryEntry.SignalName.Clicked, Callable.From<NDeckHistoryEntry>(clickedEntry =>
             {
-                NGame.Instance?.GetInspectCardScreen().Open(allCards, allCards.IndexOf(clickedEntry.Card));
+                NGame.Instance?.GetInspectCardScreen().Open(groupedCards, groupedCards.IndexOf(clickedEntry.Card));
             }));
             entries.Add(entry);
         }

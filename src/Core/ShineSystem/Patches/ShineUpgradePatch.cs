@@ -35,6 +35,10 @@ public static class ShineUpgradePatch
         {
             foreach (var card in cards)
             {
+                if (!card.IsUpgradable)
+                {
+                    continue;
+                }
                 card.RestoreShineToMax();
             }
         }
