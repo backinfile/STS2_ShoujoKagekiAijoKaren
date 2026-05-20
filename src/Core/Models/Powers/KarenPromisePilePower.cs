@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -38,6 +39,8 @@ public enum PromisePileMode
 /// </summary>
 public sealed class KarenPromisePilePower : FakeAmountPower
 {
+    private static readonly SpireField<CardModel, bool> BurnDrawBorderMarked = new(() => false);
+
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
 
@@ -174,7 +177,20 @@ public sealed class KarenPromisePilePower : FakeAmountPower
         {
             card.AddKeyword(CardKeyword.Exhaust);
         }
+        MarkBurnDrawBorder(card);
         //card.ExhaustOnNextPlay = true;
+    }
+
+    public static void MarkBurnDrawBorder(CardModel? card)
+    {
+        if (card == null) return;
+        BurnDrawBorderMarked.Set(card, true);
+    }
+
+    public static bool ShouldGlowRedForBurnDraw(CardModel? card)
+    {
+        if (card == null) return false;
+        return BurnDrawBorderMarked.Get(card);
     }
 
     public void PlayAni()
