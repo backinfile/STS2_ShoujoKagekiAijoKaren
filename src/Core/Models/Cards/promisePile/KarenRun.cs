@@ -28,7 +28,10 @@ public sealed class KarenRun : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
-        await PromisePileCmd.Add(Owner, this);
+        if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
+        {
+            await PromisePileCmd.Add(Owner, this);
+        }
     }
 
     protected override void OnUpgrade()

@@ -29,14 +29,13 @@ public sealed class KarenNewDay : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 获得格挡
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-
-        // 应用Power来标记接下来的卡牌进入约定牌堆
         await PowerCmd.Apply<KarenNewDayPower>(Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature, this);
 
-        // 此牌本身进入约定牌堆
-        await PromisePileCmd.Add(Owner, this);
+        if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
+        {
+            await PromisePileCmd.Add(Owner, this);
+        }
     }
 
     protected override void OnUpgrade()

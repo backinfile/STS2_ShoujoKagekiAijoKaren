@@ -30,7 +30,10 @@ public sealed class KarenStretching : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        await PromisePileCmd.Add(Owner, this);
+        if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
+        {
+            await PromisePileCmd.Add(Owner, this);
+        }
     }
 
     protected override void OnUpgrade()

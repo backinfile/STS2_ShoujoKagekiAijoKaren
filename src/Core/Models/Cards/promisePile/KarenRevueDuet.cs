@@ -36,8 +36,10 @@ public sealed class KarenRevueDuet : KarenBaseCardModel
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
 
-        // 将此牌放入约定牌堆
-        await PromisePileCmd.Add(Owner, this);
+        if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
+        {
+            await PromisePileCmd.Add(Owner, this);
+        }
     }
 
     protected override void OnUpgrade()
