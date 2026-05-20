@@ -1,0 +1,124 @@
+[gd_scene load_steps=10 format=3 uid="uid://cx5rdp7ge8w72"]
+
+[ext_resource type="Texture2D" uid="uid://dsdildputad2q" path="res://scenes/screens/char_select/karenPortrait.jpg" id="1_xisa5"]
+[ext_resource type="Material" uid="uid://c4ycqv0gdxvmr" path="res://themes/canvas_item_material_additive_shared.tres" id="2_additive"]
+[ext_resource type="Texture2D" uid="uid://bxfmluvgj5c4i" path="res://images/vfx/energy/karen/karen_star.png" id="3_star"]
+[ext_resource type="Texture2D" uid="uid://d1vyx1jkwy0rp" path="res://images/vfx/sts/glow_spark.png" id="4_glow"]
+
+[sub_resource type="Curve" id="Curve_soft_scale"]
+_data = [Vector2(0, 0), 0.0, 2.5, 0, 0, Vector2(0.16, 0.62), 0.0, 0.0, 0, 0, Vector2(0.78, 0.48), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_back_stars"]
+offsets = PackedFloat32Array(0, 0.25, 0.72, 1)
+colors = PackedColorArray(0.678431, 0.819608, 1, 0, 0.678431, 0.819608, 1, 0.72, 1, 1, 1, 0.58, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_star_scale"]
+_data = [Vector2(0, 0.08), 0.0, 0.0, 0, 0, Vector2(0.18, 0.82), 0.0, 0.0, 0, 0, Vector2(0.74, 0.6), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.2, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_front_stars"]
+offsets = PackedFloat32Array(0, 0.32, 0.72, 1)
+colors = PackedColorArray(1, 0.321569, 0.345098, 0, 1, 0.956863, 0.823529, 1, 0.764706, 0.882353, 1, 0.82, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_warm_stars"]
+offsets = PackedFloat32Array(0, 0.36, 0.76, 1)
+colors = PackedColorArray(1, 0.321569, 0.345098, 0, 1, 0.686275, 0.321569, 0.95, 1, 0.956863, 0.823529, 0.72, 1, 1, 1, 0)
+
+[node name="KarenBg" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 375.0
+offset_right = 2295.0017
+offset_bottom = 1200.0
+texture = ExtResource("1_xisa5")
+stretch_mode = 5
+
+[node name="BackStarlight" type="CPUParticles2D" parent="TextureRect"]
+material = ExtResource("2_additive")
+position = Vector2(960, 560)
+amount = 80
+texture = ExtResource("4_glow")
+lifetime = 10.0
+preprocess = 10.0
+randomness = 0.55
+lifetime_randomness = 0.5
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(950, 520)
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(4, -8)
+initial_velocity_min = 2.0
+initial_velocity_max = 12.0
+orbit_velocity_min = -0.03
+orbit_velocity_max = 0.03
+damping_min = 1.0
+damping_max = 3.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.04
+scale_amount_max = 0.13
+scale_amount_curve = SubResource("Curve_soft_scale")
+color_ramp = SubResource("Gradient_back_stars")
+
+[node name="FrontStarlight" type="CPUParticles2D" parent="TextureRect"]
+material = ExtResource("2_additive")
+position = Vector2(960, 1125)
+amount = 42
+texture = ExtResource("3_star")
+lifetime = 7.0
+preprocess = 7.0
+randomness = 0.65
+lifetime_randomness = 0.45
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 120)
+direction = Vector2(0, -1)
+spread = 74.0
+gravity = Vector2(-4, -26)
+initial_velocity_min = 14.0
+initial_velocity_max = 58.0
+angular_velocity_min = -35.0
+angular_velocity_max = 35.0
+orbit_velocity_min = -0.04
+orbit_velocity_max = 0.04
+damping_min = 1.2
+damping_max = 3.4
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.08
+scale_amount_max = 0.25
+scale_amount_curve = SubResource("Curve_star_scale")
+color_ramp = SubResource("Gradient_front_stars")
+
+[node name="CapeStarAccent" type="CPUParticles2D" parent="TextureRect"]
+material = ExtResource("2_additive")
+position = Vector2(1250, 610)
+amount = 26
+texture = ExtResource("3_star")
+lifetime = 4.6
+preprocess = 4.6
+randomness = 0.6
+lifetime_randomness = 0.4
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(480, 320)
+direction = Vector2(0, -1)
+spread = 120.0
+gravity = Vector2(-3, -12)
+initial_velocity_min = 3.0
+initial_velocity_max = 16.0
+angular_velocity_min = -28.0
+angular_velocity_max = 28.0
+damping_min = 1.5
+damping_max = 4.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.07
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_star_scale")
+color_ramp = SubResource("Gradient_warm_stars")

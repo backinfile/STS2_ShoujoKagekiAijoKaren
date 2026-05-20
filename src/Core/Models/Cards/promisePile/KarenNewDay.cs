@@ -1,0 +1,46 @@
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
+
+/// <summary>
+/// 新的一天 - 获得格挡，此牌和你打出的下X张牌进入约定牌堆
+/// </summary>
+public sealed class KarenNewDay : KarenBaseCardModel
+{
+    public KarenNewDay() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+
+    public override bool GainsBlock => true;
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new BlockVar(7, ValueProp.Move),
+        new CardsVar(1)
+    ];
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        await PowerCmd.Apply<KarenNewDayPower>(Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature, this);
+
+        if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
+        {
+            await PromisePileCmd.Add(Owner, this);
+        }
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Block.UpgradeValueBy(2);
+        DynamicVars.Cards.UpgradeValueBy(1);
+    }
+}

@@ -1,0 +1,74 @@
+{
+  "KAREN_PROMISE_PILE_POWER.title": "约定牌堆",
+  "KAREN_PROMISE_PILE_POWER.description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+  "KAREN_PROMISE_PILE_POWER.pileContents": "约定牌堆内容：",
+  "KAREN_PROMISE_PILE_POWER.currentModes": "约定牌堆强化：",
+  "KAREN_PROMISE_PILE_POWER.mode.void": "[gold]世界上最空虚的人[/gold]：现在视约定牌堆为抽牌堆。",
+  "KAREN_PROMISE_PILE_POWER.mode.infinite": "[gold]命运舞台的再生产[/gold]：约定牌堆始终为10张续演。",
+  "KAREN_PROMISE_PILE_POWER.mode.burn": "[gold]燃烧吧燃烧吧[/gold]：抽出的卡牌升级且具有打出时消耗。",
+  "KAREN_PROMISE_PILE_POWER.mode.pastAndFuture": "[gold]过去与未来[/gold]：抽出卡牌时获得{Amount}点临时力量。",
+
+  "KAREN_PASSION_POWER.title": "激情",
+  "KAREN_PASSION_POWER.description": "战斗结束后，额外获得1个随机遗物。",
+  "KAREN_PASSION_POWER.smartDescription": "战斗结束后，额外获得{Amount}个随机遗物。",
+
+  "KAREN_SHINE_CARD_REWARD_POWER.title": "闪耀牌奖励",
+  "KAREN_SHINE_CARD_REWARD_POWER.description": "战斗结束后，额外获得1张闪耀牌奖励。",
+  "KAREN_SHINE_CARD_REWARD_POWER.smartDescription": "战斗结束后，额外获得{Amount}张闪耀牌奖励。",
+
+  "KAREN_LETTER_POWER.title": "信封",
+  "KAREN_LETTER_POWER.description": "将卡牌放入到[gold]约定牌堆[/gold]时，获得2点[gold]格挡[/gold]。",
+  "KAREN_LETTER_POWER.smartDescription": "将卡牌放入到[gold]约定牌堆[/gold]时，获得{Amount}点[gold]格挡[/gold]。",
+
+  "KAREN_STARLIGHT_POWER.title": "Starlight第一幕",
+  "KAREN_STARLIGHT_POWER.description": "打出[gold]闪耀[/gold]牌后，抽1张牌。",
+  "KAREN_STARLIGHT_POWER.smartDescription": "打出[gold]闪耀[/gold]牌后，抽{Amount}张牌。",
+
+  "KAREN_STARLIGHT02_POWER.title": "Starlight第二幕",
+  "KAREN_STARLIGHT02_POWER.description": "打出的[gold]闪耀[/gold]牌会额外打出1次，然后耗尽闪耀值。",
+  "KAREN_STARLIGHT02_POWER.smartDescription": "打出的[gold]闪耀[/gold]牌会额外打出{Amount}次，然后耗尽闪耀值。",
+
+  "KAREN_AQUARIUM_POWER.title": "水族馆",
+  "KAREN_AQUARIUM_POWER.description": "回合开始时，抽1张牌，然后将1张[gold]手牌[/gold]放入[gold]约定牌堆[/gold]。",
+  "KAREN_AQUARIUM_POWER.smartDescription": "回合开始时，抽{Amount}张牌，然后将{Amount}张手牌放入[gold]约定牌堆[/gold]。",
+
+  "KAREN_RETAIN_TMP_STRENGTH_POWER.title": "保留力量",
+  "KAREN_RETAIN_TMP_STRENGTH_POWER.description": "延长临时力量存在的回合。",
+  "KAREN_RETAIN_TMP_STRENGTH_POWER.smartDescription": "延长临时力量{Amount}回合。",
+
+  "KAREN_RETAIN_ENERGY_POWER.title": "保留能量",
+  "KAREN_RETAIN_ENERGY_POWER.description": "将多余的能量可以留到下一回合。",
+  "KAREN_RETAIN_ENERGY_POWER.smartDescription": "{Amount}回合内将多余的能量可以留到下一回合。",
+
+  "KAREN_NEW_DAY_POWER.title": "新的一天",
+  "KAREN_NEW_DAY_POWER.description": "打出的下1张牌进入[gold]约定牌堆[/gold]。",
+  "KAREN_NEW_DAY_POWER.smartDescription": "打出的下{Amount}张牌进入[gold]约定牌堆[/gold]。",
+
+  "KAREN_POSITION0_POWER.title": "Position 0",
+  "KAREN_POSITION0_POWER.description": "每回合第1次造成攻击伤害时，获得等量[gold]格挡[/gold]。",
+  "KAREN_POSITION0_POWER.smartDescription": "每回合{Amount:choose(1):第1|前{Amount}}次造成攻击伤害时，获得等量[gold]格挡[/gold]。",
+
+  "KAREN_STAGE_IS_WAITING_POWER.title": "舞台正在等待着",
+  "KAREN_STAGE_IS_WAITING_POWER.description": "[gold]约定牌堆[/gold]被清空时，获得{energyPrefix:energyIcons(1)}。",
+  "KAREN_STAGE_IS_WAITING_POWER.smartDescription": "[gold]约定牌堆[/gold]被清空时，获得{Amount:energyIcons()}。",
+
+  "KAREN_BANANA_LUNCH_POWER.title": "Banana午餐",
+  "KAREN_BANANA_LUNCH_POWER.description": "回合结束时，增加1张[gold]三明治[/gold]到[gold]约定牌堆[/gold]。",
+  "KAREN_BANANA_LUNCH_POWER.smartDescription": "回合结束时，增加{Amount}张[gold]三明治[/gold]到[gold]约定牌堆[/gold]。",
+
+  "KAREN_FINANCIER_POWER.title": "Banana费南雪",
+  "KAREN_FINANCIER_POWER.description": "每两回合[gold]保留力量[/gold]1回合。",
+  "KAREN_FINANCIER_POWER.smartDescription": "每两回合[gold]保留力量[/gold]{Amount}回合。",
+
+  "KAREN_FORM_POWER.title": "觉醒形态",
+  "KAREN_FORM_POWER.description": "每个回合开始时，抽满手牌。",
+  "KAREN_FORM_POWER.smartDescription": "每个回合开始时，抽满手牌。",
+
+  "KAREN_PAST_AND_FUTURE_POWER.title": "过去与未来",
+  "KAREN_PAST_AND_FUTURE_POWER.description": "从[gold]约定牌堆[/gold]抽牌时，获得{Amount}点[gold]临时力量[/gold]。",
+  "KAREN_PAST_AND_FUTURE_POWER.smartDescription": "从[gold]约定牌堆[/gold]抽牌时，获得{Amount}点[gold]临时力量[/gold]。",
+
+  "KAREN_TICKET_POWER.title": "门票",
+  "KAREN_TICKET_POWER.description": "每回合开始时，将1张[gold]约定之塔[/gold]加入手牌。",
+  "KAREN_TICKET_POWER.smartDescription": "每回合开始时，将{Amount}张[gold]约定之塔[/gold]加入手牌。"
+}

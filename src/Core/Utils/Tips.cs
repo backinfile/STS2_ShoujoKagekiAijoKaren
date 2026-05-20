@@ -1,0 +1,108 @@
+using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Localization;
+
+namespace ShoujoKagekiAijoKaren.src.Core.Utils;
+
+/// <summary>
+/// 统一存放所有本地化字符串，便于管理和复用
+/// </summary>
+public static class Tips
+{
+    // ==================== card_selection ====================
+    /// <summary>
+    /// 从抽牌堆选择放入手牌
+    /// </summary>
+    public static readonly LocString SelectFromDrawToHand = new("card_selection", "KAREN_SELECT_FROM_DRAW_TO_HAND");
+
+    /// <summary>从弃牌堆选择放入手牌的提示</summary>
+    public static readonly LocString SelectFromDiscardToHand = new("card_selection", "KAREN_SELECT_FROM_DISCARD_TO_HAND");
+
+    /// <summary>从约定牌堆选择放入手牌的提示</summary>
+    public static readonly LocString SelectFromPromisePileToHand = new("card_selection", "KAREN_SELECT_FROM_PROMISE_TO_HAND");
+
+    /// <summary>
+    /// 选择选项
+    /// </summary>
+    public static LocString KAREN_SELECT_OPTION = new LocString("card_selection", "KAREN_SELECT_OPTION_PROMPT");
+
+    // ==================== gameplay_ui ====================
+    /// <summary>约定牌堆查看界面底部标题</summary>
+    public static readonly LocString PromisePileInfo = new("gameplay_ui", "KAREN_PROMISE_PILE_INFO");
+
+    /// <summary>闪耀耗尽牌堆查看界面底部标题</summary>
+    public static readonly LocString ShinePileInfo = new("gameplay_ui", "KAREN_SHINE_PILE_INFO");
+
+    /// <summary>历史记录中的闪耀耗尽卡牌标题</summary>
+    public static LocString RunHistoryShineExhaustHeader => new("gameplay_ui", "KAREN_RUN_HISTORY_SHINE_EXHAUST_HEADER");
+
+
+    /// <summary>从弃牌堆选择放入约定牌堆的提示</summary>
+    public static readonly LocString PromisePileSelectFromDiscard = new("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_DISCARD");
+
+    /// <summary>从抽牌堆选择放入约定牌堆的提示</summary>
+    public static readonly LocString PromisePileSelectFromDraw = new("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_DRAW");
+
+    /// <summary>从手牌选择放入约定牌堆的提示</summary>
+    public static readonly LocString PromisePileSelectFromHand = new("gameplay_ui", "KAREN_PROMISE_PILE_SELECT_FROM_HAND");
+
+    /// <summary>闪耀标签前缀</summary>
+    public static readonly LocString ShineLabel = new("gameplay_ui", "KAREN_SHINE_LABEL");
+
+    /// <summary>闪耀标签后缀</summary>
+    public static readonly LocString ShineSuffix = new("gameplay_ui", "KAREN_SHINE_SUFFIX");
+
+    /// <summary>耗尽牌堆唯一计数标题</summary>
+    public static readonly LocString DisposedPileUniqueCountTitle = new("gameplay_ui", "KAREN_DISPOSED_PILE_UNIQUE_COUNT.title");
+
+    /// <summary>耗尽牌堆唯一计数描述第一部分</summary>
+    public static readonly LocString DisposedPileUniqueCountDesc0 = new("gameplay_ui", "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part0");
+
+    /// <summary>耗尽牌堆唯一计数描述第二部分</summary>
+    public static readonly LocString DisposedPileUniqueCountDesc1 = new("gameplay_ui", "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part1");
+
+    // ==================== powers ====================
+    /// <summary>临时力量 Power 标题</summary>
+    public static readonly LocString TempStrengthPowerTitle = new("powers", "KAREN_TEMP_STRENGTH_POWER.title");
+
+    /// <summary>约定牌堆 Power - 当前强化标题</summary>
+    public static readonly LocString PromisePilePowerCurrentModes = new("powers", "KAREN_PROMISE_PILE_POWER.currentModes");
+
+    /// <summary>约定牌堆 Power - 牌堆内容标题</summary>
+    public static readonly LocString PromisePilePowerPileContents = new("powers", "KAREN_PROMISE_PILE_POWER.pileContents");
+
+    /// <summary>约定牌堆 Power - Void 模式描述</summary>
+    public static readonly LocString PromisePilePowerModeVoid = new("powers", "KAREN_PROMISE_PILE_POWER.mode.void");
+
+    /// <summary>约定牌堆 Power - 无限强化模式描述</summary>
+    public static readonly LocString PromisePilePowerModeInfinite = new("powers", "KAREN_PROMISE_PILE_POWER.mode.infinite");
+
+    /// <summary>约定牌堆 Power - Burn 模式描述</summary>
+    public static readonly LocString PromisePilePowerModeBurn = new("powers", "KAREN_PROMISE_PILE_POWER.mode.burn");
+
+    /// <summary>约定牌堆 Power - 过去与未来模式描述</summary>
+    public static readonly LocString PromisePilePowerModePastAndFuture = new("powers", "KAREN_PROMISE_PILE_POWER.mode.pastAndFuture");
+
+    // ==================== disable_relic ====================
+    /// <summary>禁用遗物标签前缀</summary>
+    public static readonly LocString DisableRelicLabel = new("gameplay_ui", "KAREN_DISABLERELIC_LABEL");
+
+    /// <summary>禁用遗物标签后缀</summary>
+    public static readonly LocString DisableRelicSuffix = new("gameplay_ui", "KAREN_DISABLERELIC_SUFFIX");
+
+    // ==================== karen_fight ====================
+    /// <summary>歌唱吧舞蹈吧互相争斗吧 - 提示标题</summary>
+    public static readonly LocString KarenFightTipTitle = new("cards", "KAREN_SHINE_REPRODUCE.tip.title");
+
+    /// <summary>歌唱吧舞蹈吧互相争斗吧 - 提示内容</summary>
+    public static readonly LocString KarenFightTip = new("cards", "KAREN_SHINE_REPRODUCE.tip");
+
+    /// <summary>歌唱吧舞蹈吧互相争斗吧 - 选择界面标题</summary>
+    public static readonly LocString KarenFightSelectTitle = new("cards", "KAREN_SHINE_REPRODUCE.select_title");
+
+    // ==================== stage_reproduce ====================
+    /// <summary>命运舞台的再生产 - 提示标题</summary>
+    public static readonly LocString StageReproduceTipTitle = new("cards", "KAREN_STAGE_REPRODUCE.tip.title");
+
+    /// <summary>命运舞台的再生产 - 提示内容</summary>
+    public static readonly LocString StageReproduceTip = new("cards", "KAREN_STAGE_REPRODUCE.tip");
+}

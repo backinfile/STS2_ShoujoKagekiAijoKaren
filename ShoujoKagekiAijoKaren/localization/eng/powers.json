@@ -1,0 +1,42 @@
+{
+  "KAREN_PROMISE_PILE_POWER.title": "Promise",
+  "KAREN_PROMISE_PILE_POWER.description": "There are {Amount} card(s) in the Promise pile.",
+  "KAREN_PROMISE_PILE_POWER.pileContents": "Pile Contents",
+  "KAREN_PROMISE_PILE_POWER.voidTitle": "Promise Enhanced",
+  "KAREN_PROMISE_PILE_POWER.voidDescription": "I am now the emptiest person in the world.",
+  "KAREN_PROMISE_PILE_POWER.currentModes": "Current Enhancements:",
+  "KAREN_PROMISE_PILE_POWER.mode.void": "[gold]The Emptiest Person in the World[/gold]: The draw pile is now treated as the Promise pile.",
+  "KAREN_PROMISE_PILE_POWER.mode.infinite": "[gold]Restaging of the Fated Stage[/gold]: The Promise pile is now filled with endless [gold]Encore[/gold].",
+  "KAREN_PROMISE_PILE_POWER.mode.burn": "[gold]Burn, Burn, Burn Bright[/gold]: Cards drawn from the Promise pile are now upgraded and Exhaust when played.",
+  "KAREN_PROMISE_PILE_POWER.mode.pastAndFuture": "[gold]Past and Future[/gold]: When drawing from the Promise pile, gain {Amount} Temporary Strength.",
+
+  "KAREN_PASSION_POWER.title": "Passion",
+  "KAREN_PASSION_POWER.description": "Passion.",
+
+  "KAREN_STAR_FRIEND_POWER.title": "Star Friendship",
+  "KAREN_STAR_FRIEND_POWER.description": "The stars have woven our friendship. Gain extra rewards when killing enemies.",
+
+  "KAREN_LETTER_POWER.title": "Letter",
+  "KAREN_LETTER_POWER.description": "Whenever you put a card into the Promise Pile, gain {Block:diff()} Block.",
+
+  "KAREN_STARLIGHT_POWER.title": "Starlight",
+  "KAREN_STARLIGHT_POWER.description": "Whenever you play a Shine card, play it {Repeat:diff()} more time(s), then deplete its Shine.",
+
+  "KAREN_STARLIGHT03_POWER.title": "Starlight",
+  "KAREN_STARLIGHT03_POWER.description": "Shine card reward gained.",
+
+  "KAREN_AQUARIUM_POWER.title": "Aquarium",
+  "KAREN_AQUARIUM_POWER.description": "At the start of your turn, draw 1 card, then put 1 card from your hand into the [gold]Promise Pile[/gold].",
+
+  "KAREN_PAST_AND_FUTURE_POWER.title": "Past and Future",
+  "KAREN_PAST_AND_FUTURE_POWER.description": "When drawing from the Promise Pile, gain {Amount} Temporary Strength.",
+  "KAREN_PAST_AND_FUTURE_POWER.smartDescription": "When drawing from the Promise Pile, gain {Amount} Temporary Strength.",
+
+  "KAREN_TICKET_POWER.title": "Ticket",
+  "KAREN_TICKET_POWER.description": "At the start of each turn, add 1 Tower of Promise to your hand.",
+  "KAREN_TICKET_POWER.smartDescription": "At the start of each turn, add {Amount} Tower of Promise to your hand.",
+
+  "KAREN_WE_KNOW_POWER.title": "Stage of Promise",
+  "KAREN_WE_KNOW_POWER.description": "At the start of combat, add Stage to the Promise Pile.",
+  "KAREN_WE_KNOW_POWER.smartDescription": "At the start of combat, add {Amount} Stage to the Promise Pile."
+}

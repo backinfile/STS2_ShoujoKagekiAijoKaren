@@ -1,0 +1,11 @@
+{
+  "id": "ShoujoKagekiAijoKaren",
+  "name": "少女歌剧爱称华恋ShoujoKagekiAijoKaren",
+  "author": "不方不方",
+  "description": "新增角色：爱城华恋。 Add character Aijo Karen",
+  "version": "v0.0.1",
+  "has_pck": true,
+  "has_dll": true,
+  "dependencies": [ "BaseLib" ],
+  "affects_gameplay": true
+}

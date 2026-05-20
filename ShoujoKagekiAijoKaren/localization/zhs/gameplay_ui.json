@@ -1,0 +1,20 @@
+{
+  "KAREN_SHINE_LABEL": "[gold]闪耀[/gold]",
+  "KAREN_SHINE_SUFFIX": "。",
+  "KAREN_PROMISE_PILE_SELECT": "放入约定牌堆",
+  "KAREN_PROMISE_PILE_INFO": "约定牌堆",
+  "KAREN_PROMISE_PILE_EMPTY": "约定牌堆是空的！",
+  "KAREN_PROMISE_PILE_TITLE": "约定牌堆",
+  "KAREN_PROMISE_PILE_DESCRIPTION": "约定牌堆中的卡牌会被优先抽取。",
+  "KAREN_PROMISE_PILE_SELECT_FROM_DISCARD": "选择卡牌放入约定牌堆",
+  "KAREN_PROMISE_PILE_SELECT_FROM_DRAW": "选择卡牌放入约定牌堆",
+  "KAREN_PROMISE_PILE_SELECT_FROM_HAND": "选择卡牌放入约定牌堆",
+  "KAREN_SUNLIGHT_OBTAIN_PROMPT": "是否将此牌加入抽牌堆？",
+  "KAREN_DISABLERELIC_LABEL": "（当前可禁用",
+  "KAREN_DISABLERELIC_SUFFIX": "个遗物）",
+  "KAREN_DERIVED_CARD_LABEL": "衍生牌",
+  "KAREN_SHINE_PILE_INFO": "闪耀耗尽牌堆",
+  "KAREN_RUN_HISTORY_SHINE_EXHAUST_HEADER": "[gold][b]耗尽（{Count}）：[/b][/gold]",
+  "KAREN_SHINE_PILE_BUTTON_TITLE": "闪耀牌堆",
+  "KAREN_SHINE_PILE_BUTTON_DESC": "查看已耗尽闪耀的卡牌。"
+}

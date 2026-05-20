@@ -1,0 +1,16 @@
+{
+  "KAREN.aromaPrinciple": "[sine][purple]A stage girl with passion...[/purple][/sine]",
+  "KAREN.banter.alive.endTurnPing": "[sine]Shine on![/sine]",
+  "KAREN.banter.dead.endTurnPing": "...",
+  "KAREN.cardsModifierDescription": "Karen cards will now appear in rewards and shops.",
+  "KAREN.cardsModifierTitle": "Karen Cards",
+  "KAREN.description": "A passionate stage girl.\nMaster of brilliant stage performances.",
+  "KAREN.eventDeathPrevention": "I can't fall here. The stage continues.",
+  "KAREN.goldMonologue": "[sine]For a better performance...[/sine]",
+  "KAREN.possessiveAdjective": "her",
+  "KAREN.pronounObject": "her",
+  "KAREN.pronounPossessive": "hers",
+  "KAREN.pronounSubject": "she",
+  "KAREN.title": "Karen",
+  "KAREN.titleObject": "Karen"
+}
