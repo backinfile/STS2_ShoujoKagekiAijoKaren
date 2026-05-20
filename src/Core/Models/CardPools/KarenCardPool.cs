@@ -128,7 +128,7 @@ public sealed class KarenCardPool : CardPoolModel
             // 2026-04-21 新增卡牌
             ModelDb.Card<KarenPastAndFuture>(),
             ModelDb.Card<KarenTicket>(),
-            ModelDb.Card<KarenWeKown>(),
+            //ModelDb.Card<KarenWeKown>(),
             ModelDb.Card<KarenShineTogether>(),
             ModelDb.Card<KarenShineTogetherAll>(),
             ModelDb.Card<KarenBaseball>(),
