@@ -96,6 +96,12 @@
   "KAREN_PAST_AND_FUTURE.title": "Past and Future",
   "KAREN_PAST_AND_FUTURE.description": "When drawing from the [gold]Promise Pile[/gold], gain {StrengthPower:diff()} [gold]Temporary Strength[/gold].",
 
+  "KAREN_SMALL_SNACK.title": "Small Snack",
+  "KAREN_SMALL_SNACK.description": "Gain {StrengthPower:diff()} [gold]Temporary Strength[/gold].\nAt the end of your turn, if this card is in the [gold]Promise Pile[/gold], transform it into [gold]Banana[/gold].",
+
+  "KAREN_BANANA.title": "Banana",
+  "KAREN_BANANA.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold].",
+
   "KAREN_TICKET.title": "Ticket",
   "KAREN_TICKET.description": "At the start of each turn, add 1 [gold]Tower of Promise[/gold] to your hand.",
 

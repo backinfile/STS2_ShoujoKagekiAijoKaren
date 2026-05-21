@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7375ygafx6ik"
-path="res://.godot/imported/karen_shine_reproduce.png-ac0ec2b3bbc341335efb4691208b4905.ctex"
+uid="uid://cn3cyes3dtxyr"
+path="res://.godot/imported/karen_small_snack_temp_strength_power.png-dbb0c832c70caf2365546621cf534652.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/token/karen_shine_reproduce.png"
-dest_files=["res://.godot/imported/karen_shine_reproduce.png-ac0ec2b3bbc341335efb4691208b4905.ctex"]
+source_file="res://images/powers/karen_small_snack_temp_strength_power.png"
+dest_files=["res://.godot/imported/karen_small_snack_temp_strength_power.png-dbb0c832c70caf2365546621cf534652.ctex"]
 
 [params]
 

@@ -28,7 +28,6 @@ public abstract class KarenBaseCardModel : CardModel
         TargetType targetType = TargetType.None)
         : base(energyCost, type, rarity, targetType) { }
 
-
     /// <summary>
     /// 给其他玩家添加闪耀牌时，是否排除这张闪耀牌
     /// true-不排除（默认），false-排除

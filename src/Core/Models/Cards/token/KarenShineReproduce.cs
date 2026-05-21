@@ -5,9 +5,12 @@ using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
+using ShoujoKagekiAijoKaren.src.Models.CardPools;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +25,9 @@ public sealed class KarenShineReproduce : KarenBaseCardModel
 {
     public override bool ShineCardForOtherPlayer => false;
 
-    public KarenShineReproduce() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self)
+    public override CardPoolModel VisualCardPool => ModelDb.CardPool<KarenCardPool>();
+
+    public KarenShineReproduce() : base(1, CardType.Skill, CardRarity.Event, TargetType.Self)
     {
         this.AddShineMax(1);
     }

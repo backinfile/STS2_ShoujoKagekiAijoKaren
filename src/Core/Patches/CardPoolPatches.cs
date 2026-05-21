@@ -42,7 +42,6 @@ public static class TokenCardPoolPatch
             ModelDb.Card<KarenSandwitch>(),
             ModelDb.Card<KarenSideways>(),
             ModelDb.Card<KarenWeKownToken>(),
-            ModelDb.Card<KarenShineReproduce>(),
 
             ModelDb.Card<KarenWakeUpDrawPileOption>(),
             ModelDb.Card<KarenWakeUpDiscardPileOption>(),
@@ -59,6 +58,20 @@ public static class TokenCardPoolPatch
             ModelDb.Card<KarenOldPlaceRetainEnergyOption>(),
             ModelDb.Card<KarenOldPlaceRetainStrengthOption>(),
             ModelDb.Card<KarenOldPlaceRetainHandOption>(),
+        ];
+    }
+}
+
+[HarmonyPatch(typeof(EventCardPool), "GenerateAllCards")]
+public static class EventCardPoolPatch
+{
+    private static void Postfix(ref CardModel[] __result)
+    {
+        __result =
+        [
+            ..__result,
+            ModelDb.Card<KarenBanana>(),
+            ModelDb.Card<KarenShineReproduce>(),
         ];
     }
 }

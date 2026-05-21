@@ -141,7 +141,7 @@
   "KAREN_PARRY.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n获得或失去手牌时，本回合格挡值增加{Increase:diff()}。",
 
   "KAREN_RAPID.title": "极速下降",
-  "KAREN_RAPID.description": "选择：从[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌加入手牌；或将{Cards:diff()}张手牌放入[gold]约定牌堆[/gold]。",
+  "KAREN_RAPID.description": "选择：从[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌加入手牌；或相反。",
 
   "KAREN_RAPID_TAKE_OPTION.title": "取回",
   "KAREN_RAPID_TAKE_OPTION.description": "从[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌放入你的手牌。",
@@ -299,6 +299,12 @@
 
   "KAREN_PAST_AND_FUTURE.title": "过去与未来",
   "KAREN_PAST_AND_FUTURE.description": "从[gold]约定牌堆[/gold]抽牌时，获得{StrengthPower:diff()}点[gold]临时力量[/gold]。",
+
+  "KAREN_SMALL_SNACK.title": "小零食",
+  "KAREN_SMALL_SNACK.description": "获得{StrengthPower:diff()}点[gold]临时力量[/gold]。\n回合结束时如果这张牌在[gold]约定牌堆[/gold]中，变化为[gold]Banana{IfUpgraded:show:+|}[/gold]。",
+
+  "KAREN_BANANA.title": "Banana",
+  "KAREN_BANANA.description": "获得{StrengthPower:diff()}点[gold]力量[/gold]。",
 
   "KAREN_TICKET.title": "门票",
   "KAREN_TICKET.description": "每回合开始时，将1张[gold]约定之塔[/gold]加入手牌。",
