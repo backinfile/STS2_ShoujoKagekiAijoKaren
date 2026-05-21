@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,8 @@ public sealed class KarenRapid : KarenBaseCardModel
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Exhaust];
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CardsVar(2)
@@ -32,8 +35,10 @@ public sealed class KarenRapid : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PromisePileCmd.SelectedToHand(choiceContext, Owner, DynamicVars.Cards.IntValue);
-        await PromisePileCmd.DiscardAll(choiceContext, Owner);
+        await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
+            ModelDb.Card<KarenRapidTakeOption>(),
+            ModelDb.Card<KarenRapidPutOption>()
+        ], IsUpgraded);
     }
 
     protected override void OnUpgrade()

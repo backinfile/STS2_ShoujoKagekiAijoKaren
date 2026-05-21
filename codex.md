@@ -114,3 +114,4 @@ Karen 当前的核心机制包括：
 ## 其他
 
 + 文件编码优先使用UTF-8。 读取或修改本地化文件和代码文件时必须使用UTF8编码。
++ 卡牌稀有度术语：普通=`CardRarity.Common`，罕见/蓝卡=`CardRarity.Uncommon`，稀有=`CardRarity.Rare`。

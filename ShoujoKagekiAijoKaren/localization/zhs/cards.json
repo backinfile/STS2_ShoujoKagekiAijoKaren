@@ -141,7 +141,13 @@
   "KAREN_PARRY.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n获得或失去手牌时，本回合格挡值增加{Increase:diff()}。",
 
   "KAREN_RAPID.title": "极速下降",
-  "KAREN_RAPID.description": "从[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌放入你的手牌，弃置其余。",
+  "KAREN_RAPID.description": "选择：从[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌加入手牌；或将{Cards:diff()}张手牌放入[gold]约定牌堆[/gold]。",
+
+  "KAREN_RAPID_TAKE_OPTION.title": "取回",
+  "KAREN_RAPID_TAKE_OPTION.description": "从[gold]约定牌堆[/gold]中选择{Cards:diff()}张牌放入你的手牌。",
+
+  "KAREN_RAPID_PUT_OPTION.title": "放入",
+  "KAREN_RAPID_PUT_OPTION.description": "将{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
 
   "KAREN_STAGE_IS_WAITING.title": "舞台正在等待着",
   "KAREN_STAGE_IS_WAITING.description": "[gold]约定牌堆[/gold]被清空时，获得{Energy:energyIcons()}。",

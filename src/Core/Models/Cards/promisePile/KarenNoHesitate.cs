@@ -25,7 +25,7 @@ public sealed class KarenNoHesitate : KarenBaseCardModel
 
     public KarenNoHesitate() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        this.AddShineMax(9);
+        this.AddShineMax(6);
     }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];

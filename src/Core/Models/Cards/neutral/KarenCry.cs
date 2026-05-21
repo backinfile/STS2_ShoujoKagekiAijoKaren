@@ -15,7 +15,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenCry : KarenBaseCardModel
 {
-    public KarenCry() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenCry() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 
