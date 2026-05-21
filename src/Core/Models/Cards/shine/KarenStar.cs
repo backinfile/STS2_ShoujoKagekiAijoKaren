@@ -19,14 +19,18 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 
 /// <summary>
-/// 星光闪耀之时 - 耗尽约定牌堆之外唯一的闪耀牌，将其打出同等次数
+/// 星光闪耀之时 - 如果你只有唯一的闪耀牌，将其打出等同于剩余闪耀的次数，然后获得闪耀牌奖励
 /// </summary>
 public sealed class KarenStar : KarenBaseCardModel
 {
 
     private CardModel? toPlay = null;
 
-    public KarenStar() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenStar() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+
+    protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.ShineCardReward];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override bool IsPlayable => (toPlay = GetToPlayCard(Owner)) != null;
 
@@ -43,6 +47,8 @@ public sealed class KarenStar : KarenBaseCardModel
             toPlay.SetEnterShinePileAfterPlay(true);
             // 打出这张卡
             await CardCmd.AutoPlay(choiceContext, toPlay, null);
+            // 获得闪耀牌奖励
+            await ExtraRewardCmd.AddShineCardReward(Owner, toPlay);
         }
         else
         {
@@ -52,7 +58,8 @@ public sealed class KarenStar : KarenBaseCardModel
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Retain);
+        //AddKeyword(CardKeyword.Retain);
+        EnergyCost.UpgradeBy(-1);
     }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => toPlay != null ? [HoverTipFactory.FromCard(toPlay)] : [];
@@ -61,7 +68,8 @@ public sealed class KarenStar : KarenBaseCardModel
     {
         var allCard = PileType.Discard.GetPile(player).Cards
             .Concat(PileType.Hand.GetPile(player).Cards)
-            .ConcatIf(() => !PromisePileManager.IsVoidMode(player), PileType.Draw.GetPile(player).Cards) // 空虚模式下，抽牌堆算约定牌堆
+            .Concat(PileType.Draw.GetPile(player).Cards)
+            .ConcatIf(() => !PromisePileManager.IsVoidMode(player), KarenCustomEnum.PromisePile.GetPile(player).Cards) // 空虚模式下，抽牌堆算约定牌堆
             .Where(c => c.IsShineCard()).ToList();
 
         if (allCard.Count == 1)

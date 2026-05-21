@@ -185,7 +185,7 @@
   "KAREN_STAR_GUIDE.description": "将你所有的[gold]闪耀[/gold]牌放入[gold]约定牌堆[/gold]。",
 
   "KAREN_STAR.title": "星光闪耀之时",
-  "KAREN_STAR.description": "耗尽[gold]约定牌堆[/gold]之外你唯一的[gold]闪耀[/gold]牌，将其打出同等次数。",
+  "KAREN_STAR.description": "耗尽你唯一的[gold]闪耀[/gold]牌，将其打出等同于剩余[gold]闪耀[/gold]的次数，然后获得[gold]闪耀牌奖励[/gold]。",
 
   "KAREN_BANANA_CAKE.title": "Banana蛋糕",
   "KAREN_BANANA_CAKE.description": "获得一瓶[gold]肌肉药水[/gold]。",
