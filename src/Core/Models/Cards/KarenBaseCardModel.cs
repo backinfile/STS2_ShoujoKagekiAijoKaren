@@ -34,6 +34,8 @@ public abstract class KarenBaseCardModel : CardModel
     /// </summary>
     public virtual bool ShineCardForOtherPlayer { get; } = true;
 
+    public virtual bool SkipNewDayPower { get; } = false;
+
 
 
     /// <summary>

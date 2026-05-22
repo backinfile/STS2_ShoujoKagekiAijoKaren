@@ -20,6 +20,7 @@ public sealed class KarenNewDay : KarenBaseCardModel
     public KarenNewDay() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override bool GainsBlock => true;
+    public override bool SkipNewDayPower => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

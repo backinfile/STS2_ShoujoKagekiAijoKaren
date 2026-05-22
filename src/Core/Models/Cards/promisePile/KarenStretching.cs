@@ -19,6 +19,7 @@ public sealed class KarenStretching : KarenBaseCardModel
     public KarenStretching() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override bool GainsBlock => true;
+    public override bool SkipNewDayPower => true;
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 

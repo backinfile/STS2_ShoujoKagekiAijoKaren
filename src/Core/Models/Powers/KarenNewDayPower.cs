@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
@@ -26,6 +27,11 @@ public class KarenNewDayPower : PowerModel
         CardPilePosition position)
     {
         if (card.Owner.Creature != base.Owner)
+        {
+            return (pileType, position);
+        }
+
+        if (card is KarenBaseCardModel { SkipNewDayPower: true })
         {
             return (pileType, position);
         }

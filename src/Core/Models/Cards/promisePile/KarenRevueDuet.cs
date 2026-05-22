@@ -19,6 +19,8 @@ public sealed class KarenRevueDuet : KarenBaseCardModel
 {
     public KarenRevueDuet() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 
+    public override bool SkipNewDayPower => true;
+
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
