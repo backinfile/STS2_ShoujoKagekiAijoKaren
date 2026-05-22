@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
 /// <summary>
-/// 神圣星辰 - 2费攻击，造成14(升18)点伤害。被放入约定牌堆时，本场战斗中耗能减少1。
+/// 神圣星辰 - 2费攻击，造成9(升12)点伤害2次。被放入约定牌堆时，本场战斗中耗能减少1。
 /// </summary>
 public sealed class KarenHolyStar : KarenBaseCardModel
 {
@@ -22,13 +22,17 @@ public sealed class KarenHolyStar : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(18m, ValueProp.Move),
+        new DamageVar(9m, ValueProp.Move),
+        new RepeatVar(2),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (cardPlay.Target == null) return;
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
+            .FromCard(this)
+            .Targeting(cardPlay.Target)
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
     }
@@ -43,5 +47,5 @@ public sealed class KarenHolyStar : KarenBaseCardModel
     }
 
     protected override void OnUpgrade()
-        => DynamicVars.Damage.UpgradeValueBy(6m);
+        => DynamicVars.Damage.UpgradeValueBy(3m);
 }

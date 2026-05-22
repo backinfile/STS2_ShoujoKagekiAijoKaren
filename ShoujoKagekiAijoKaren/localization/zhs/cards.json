@@ -108,7 +108,7 @@
   "KAREN_AQUARIUM_CARD.description": "每回合开始时，抽{KarenAquariumPower:diff()}张牌，然后将{KarenAquariumPower:diff()}张牌放入[gold]约定牌堆[/gold]。",
 
   "KAREN_HOLY_STAR.title": "神圣星辰",
-  "KAREN_HOLY_STAR.description": "造成{Damage:diff()}点伤害。\n被放入[gold]约定牌堆[/gold]时，本场战斗中耗能减少1。",
+  "KAREN_HOLY_STAR.description": "造成{Damage:diff()}点伤害{Repeat:diff()}次。\n被放入[gold]约定牌堆[/gold]时，本场战斗中耗能减少1。",
 
   "KAREN_BRIDGE.title": "约定之塔桥",
   "KAREN_BRIDGE.description": "打出[gold]约定牌堆[/gold]顶部X+{Cards:diff()}张牌。",
