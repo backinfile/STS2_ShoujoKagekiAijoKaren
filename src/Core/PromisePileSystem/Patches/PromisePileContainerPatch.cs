@@ -114,6 +114,10 @@ public static class PromisePileContainerPatch
                 Async.Postfix(ref __result, async () =>
                 {
                     await PromisePileManager.UpdatePowerAsync(player);
+                    if (PromisePileManager.IsVoidMode(player))
+                    {
+                        PromisePileManager.SetPileCountLabel(PileType.Draw.GetPile(player).Cards.Count);
+                    }
                 });
             }
         }

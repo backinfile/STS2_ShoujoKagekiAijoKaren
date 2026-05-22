@@ -20,6 +20,9 @@ public static class Tips
     /// <summary>从约定牌堆选择放入手牌的提示</summary>
     public static readonly LocString SelectFromPromisePileToHand = new("card_selection", "KAREN_SELECT_FROM_PROMISE_TO_HAND");
 
+    /// <summary>From Promise Pile select and play prompt</summary>
+    public static readonly LocString SelectFromPromisePileToPlay = new("card_selection", "KAREN_SELECT_FROM_PROMISE_TO_PLAY");
+
     /// <summary>
     /// 选择选项
     /// </summary>

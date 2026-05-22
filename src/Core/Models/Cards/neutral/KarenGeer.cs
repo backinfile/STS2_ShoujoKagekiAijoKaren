@@ -2,11 +2,9 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
-using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
@@ -16,17 +14,14 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// </summary>
 public sealed class KarenGeer : KarenBaseCardModel
 {
-    public KarenGeer() : base(3, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenGeer() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (CombatState == null) return;
-        await PromisePileManager.CopyHandToPromisePile(Owner, CombatState);
+        await PowerCmd.Apply<KarenGeerPower>(Owner.Creature, 1m, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

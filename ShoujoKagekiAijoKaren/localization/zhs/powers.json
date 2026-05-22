@@ -72,6 +72,10 @@
   "KAREN_TICKET_POWER.description": "每回合开始时，将1张[gold]约定之塔[/gold]加入手牌。",
   "KAREN_TICKET_POWER.smartDescription": "每回合开始时，将{Amount}张[gold]约定之塔[/gold]加入手牌。",
 
+  "KAREN_GEER_POWER.title": "命运的齿轮",
+  "KAREN_GEER_POWER.description": "回合开始时，选择[gold]约定牌堆[/gold]中的1张牌并打出。",
+  "KAREN_GEER_POWER.smartDescription": "回合开始时，选择[gold]约定牌堆[/gold]中的{Amount}张牌并打出。",
+
   "KAREN_WE_KOWN_POWER.title": "两人的梦想",
   "KAREN_WE_KOWN_POWER.description": "回合结束时，将1张[gold]光辉[/gold]加入[gold]约定牌堆[/gold]。",
   "KAREN_WE_KOWN_POWER.smartDescription": "回合结束时，将{Amount}张[gold]光辉[/gold]加入[gold]约定牌堆[/gold]。"

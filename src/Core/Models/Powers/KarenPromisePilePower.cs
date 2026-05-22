@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers.tmpStrength;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
@@ -178,6 +179,7 @@ public sealed class KarenPromisePilePower : FakeAmountPower
             card.AddKeyword(CardKeyword.Exhaust);
         }
         MarkBurnDrawBorder(card);
+        NCard.FindOnTable(card)?.UpdateVisuals(card.Pile?.Type ?? PileType.None, CardPreviewMode.Normal);
         //card.ExhaustOnNextPlay = true;
     }
 

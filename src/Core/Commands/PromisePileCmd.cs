@@ -369,6 +369,29 @@ public static class PromisePileCmd
         await PromisePileManager.UpdatePowerAsync(player);
     }
 
+    public static async Task SelectAndAutoPlayFromPromisePile(PlayerChoiceContext choiceContext, Player player)
+    {
+        if (CombatManager.Instance.IsOverOrEnding)
+        {
+            return;
+        }
+
+        CardPile pile = IsVoidMode(player)
+            ? PileType.Draw.GetPile(player)
+            : KarenCustomEnum.PromisePile.GetPile(player);
+
+        if (pile.IsEmpty) return;
+
+        var cards = pile.Cards.ToList();
+        var prefs = new CardSelectorPrefs(Tips.SelectFromPromisePileToPlay, 1, 1);
+        var selected = (await CardSelectCmd.FromSimpleGrid(choiceContext, cards, player, prefs))?.FirstOrDefault();
+        if (selected == null) return;
+
+        await CardPileCmd.Add(selected, PileType.Play);
+        await CardCmd.AutoPlay(choiceContext, selected, null);
+        await PromisePileManager.UpdatePowerAsync(player);
+    }
+
     internal static async Task EnterMode(Player player, PromisePileMode infiniteReinforcement)
     {
         await PromisePileManager.EnterMode(player, infiniteReinforcement);
