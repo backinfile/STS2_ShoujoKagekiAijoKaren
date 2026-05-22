@@ -18,7 +18,7 @@ public sealed class KarenBanana : KarenBaseCardModel
 {
     public override CardPoolModel VisualCardPool => ModelDb.CardPool<KarenCardPool>();
 
-    public KarenBanana() : base(2, CardType.Power, CardRarity.Event, TargetType.Self) { }
+    public KarenBanana() : base(2, CardType.Power, CardRarity.Token, TargetType.Self) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

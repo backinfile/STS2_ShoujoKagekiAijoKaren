@@ -485,7 +485,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
             if (card == null)
                 return;
 
-            if (card.Rarity is not (CardRarity.Token or CardRarity.Event) || !card.IsUpgradable)
+            if (card.Rarity != CardRarity.Token || !card.IsUpgradable)
                 return;
 
             var refId = card.Id.Entry;

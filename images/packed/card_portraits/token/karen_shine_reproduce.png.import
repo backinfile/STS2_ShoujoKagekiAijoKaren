@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y50fn5x36pqs"
-path="res://.godot/imported/karen_shine_reproduce.png-2859c299724b5419e47472dd9a240697.ctex"
+uid="uid://c7375ygafx6ik"
+path="res://.godot/imported/karen_shine_reproduce.png-ac0ec2b3bbc341335efb4691208b4905.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/event/karen_shine_reproduce.png"
-dest_files=["res://.godot/imported/karen_shine_reproduce.png-2859c299724b5419e47472dd9a240697.ctex"]
+source_file="res://images/packed/card_portraits/token/karen_shine_reproduce.png"
+dest_files=["res://.godot/imported/karen_shine_reproduce.png-ac0ec2b3bbc341335efb4691208b4905.ctex"]
 
 [params]
 

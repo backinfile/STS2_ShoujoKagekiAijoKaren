@@ -27,7 +27,7 @@ public sealed class KarenShineReproduce : KarenBaseCardModel
 
     public override CardPoolModel VisualCardPool => ModelDb.CardPool<KarenCardPool>();
 
-    public KarenShineReproduce() : base(1, CardType.Skill, CardRarity.Event, TargetType.Self)
+    public KarenShineReproduce() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self)
     {
         this.AddShineMax(1);
     }

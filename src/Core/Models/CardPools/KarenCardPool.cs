@@ -129,7 +129,7 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenPastAndFuture>(),
             ModelDb.Card<KarenSmallSnack>(),
             ModelDb.Card<KarenTicket>(),
-            //ModelDb.Card<KarenWeKown>(),
+            ModelDb.Card<KarenWeKown>(),
             ModelDb.Card<KarenShineTogether>(),
             ModelDb.Card<KarenShineTogetherAll>(),
             ModelDb.Card<KarenBaseball>(),

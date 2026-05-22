@@ -36,7 +36,7 @@
   "KAREN_TICKET_POWER.description": "At the start of each turn, add 1 Tower of Promise to your hand.",
   "KAREN_TICKET_POWER.smartDescription": "At the start of each turn, add {Amount} Tower of Promise to your hand.",
 
-  "KAREN_WE_KNOW_POWER.title": "Stage of Promise",
-  "KAREN_WE_KNOW_POWER.description": "At the start of combat, add Stage to the Promise Pile.",
-  "KAREN_WE_KNOW_POWER.smartDescription": "At the start of combat, add {Amount} Stage to the Promise Pile."
+  "KAREN_WE_KOWN_POWER.title": "Our Dream",
+  "KAREN_WE_KOWN_POWER.description": "At the end of your turn, add 1 [gold]Shine[/gold] to the [gold]Promise Pile[/gold].",
+  "KAREN_WE_KOWN_POWER.smartDescription": "At the end of your turn, add {Amount} [gold]Shine[/gold] to the [gold]Promise Pile[/gold]."
 }

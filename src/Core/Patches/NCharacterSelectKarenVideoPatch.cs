@@ -1,6 +1,8 @@
+using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect;
+using ShoujoKagekiAijoKaren.src.Models.Characters;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 
@@ -11,6 +13,7 @@ public static class NCharacterSelectKarenVideoPatch
     [HarmonyPostfix]
     private static void SelectCharacterPostfix(NCharacterSelectScreen __instance, CharacterModel characterModel)
     {
+        SetInfoPanelBackgroundVisible(__instance, characterModel is not Karen);
         KarenCharSelectVideoController.HandleCharacterSelected(__instance, characterModel);
     }
 
@@ -41,5 +44,11 @@ public static class NCharacterSelectKarenVideoPatch
     private static void BeginRunPrefix()
     {
         KarenCharSelectVideoController.Stop(immediatelyRestoreMusic: true);
+    }
+
+    private static void SetInfoPanelBackgroundVisible(NCharacterSelectScreen screen, bool visible)
+    {
+        if (screen.GetNodeOrNull<CanvasItem>("InfoPanel/NinePatchRect") is { } background)
+            background.Visible = visible;
     }
 }

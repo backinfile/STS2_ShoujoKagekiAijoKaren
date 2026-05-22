@@ -300,17 +300,17 @@
   "KAREN_PAST_AND_FUTURE.title": "过去与未来",
   "KAREN_PAST_AND_FUTURE.description": "从[gold]约定牌堆[/gold]抽牌时，获得{StrengthPower:diff()}点[gold]临时力量[/gold]。",
 
-  "KAREN_SMALL_SNACK.title": "小零食",
-  "KAREN_SMALL_SNACK.description": "获得{StrengthPower:diff()}点[gold]临时力量[/gold]。\n回合结束时如果这张牌在[gold]约定牌堆[/gold]中，变化为[gold]Banana{IfUpgraded:show:+|}[/gold]。",
+  "KAREN_SMALL_SNACK.title": "Banana什锦",
+  "KAREN_SMALL_SNACK.description": "获得{StrengthPower:diff()}点[gold]临时力量[/gold]。\n回合结束时如果这张牌在[gold]约定牌堆[/gold]中，变化为[gold]banana晚餐{IfUpgraded:show:+|}[/gold]。",
 
-  "KAREN_BANANA.title": "Banana",
+  "KAREN_BANANA.title": "banana晚餐",
   "KAREN_BANANA.description": "获得{StrengthPower:diff()}点[gold]力量[/gold]。",
 
   "KAREN_TICKET.title": "门票",
   "KAREN_TICKET.description": "每回合开始时，将1张[gold]约定之塔[/gold]加入手牌。",
 
   "KAREN_WE_KOWN.title": "两人的梦想",
-  "KAREN_WE_KOWN.description": "战斗开始时，将[gold]光辉[/gold]加入[gold]约定牌堆[/gold]。",
+  "KAREN_WE_KOWN.description": "回合结束时，将[gold]光辉[/gold]加入[gold]约定牌堆[/gold]。",
 
   "KAREN_WE_KOWN_TOKEN.title": "光辉",
   "KAREN_WE_KOWN_TOKEN.description": "获得{Energy:energyIcons()}。",

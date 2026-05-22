@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c624h3jppsw2i"
-path="res://.godot/imported/karen_banana.png-8a6b73ff0dab89a97b8ad4459701bed8.ctex"
+uid="uid://1riol2f8yuld"
+path="res://.godot/imported/karen_banana.png-a80d8e89a98fc16183e1ff5e6206a2ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/event/karen_banana.png"
-dest_files=["res://.godot/imported/karen_banana.png-8a6b73ff0dab89a97b8ad4459701bed8.ctex"]
+source_file="res://images/packed/card_portraits/token/karen_banana.png"
+dest_files=["res://.godot/imported/karen_banana.png-a80d8e89a98fc16183e1ff5e6206a2ef.ctex"]
 
 [params]
 
