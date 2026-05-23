@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://kq7dmrg0ygyf"]
+[gd_scene load_steps=13 format=3 uid="uid://kq7dmrg0ygyf"]
 
 [ext_resource type="Script" uid="uid://bej0n0iwmfnqp" path="res://src/Core/Node/SNCreatureVisuals.cs" id="1_se58w"]
 [ext_resource type="Texture2D" uid="uid://bbod73jfse5qi" path="res://images/packed/Karen.png" id="2_5occ7"]
@@ -59,6 +59,114 @@ shader_parameter/cape_region_1 = Vector4(0.16, 0.2, 0.49, 0.44)
 shader_parameter/cape_region_2 = Vector4(0.6, 0.02, 0.74, 0.38)
 shader_parameter/cape_region_3 = Vector4(0.46, 0.18, 0.6, 0.36)
 
+[sub_resource type="Animation" id="Animation_karen_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10.69, -170)]
+}
+
+[sub_resource type="Animation" id="Animation_karen_idle"]
+resource_name = "idle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10.69, -170)]
+}
+
+[sub_resource type="Animation" id="Animation_karen_attack"]
+resource_name = "attack"
+length = 0.25
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.16, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(10.69, -170), Vector2(48.69, -174), Vector2(0.69, -168), Vector2(10.69, -170)]
+}
+
+[sub_resource type="Animation" id="Animation_karen_cast"]
+resource_name = "cast"
+length = 0.18
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.18),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(10.69, -170), Vector2(10.69, -182), Vector2(10.69, -170)]
+}
+
+[sub_resource type="Animation" id="Animation_karen_hurt"]
+resource_name = "hurt"
+length = 0.16
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(10.69, -170), Vector2(-13.31, -166), Vector2(10.69, -170)]
+}
+
+[sub_resource type="Animation" id="Animation_karen_die"]
+resource_name = "die"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10.69, -170)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_karen"]
+_data = {
+&"RESET": SubResource("Animation_karen_reset"),
+&"attack": SubResource("Animation_karen_attack"),
+&"cast": SubResource("Animation_karen_cast"),
+&"die": SubResource("Animation_karen_die"),
+&"hurt": SubResource("Animation_karen_hurt"),
+&"idle": SubResource("Animation_karen_idle")
+}
+
 [node name="Karen" type="Node2D"]
 script = ExtResource("1_se58w")
 CorpseTexture = ExtResource("3_7y60n")
@@ -92,6 +200,11 @@ offset_top = -172.24487
 offset_right = 70.457146
 offset_bottom = -123.26529
 color = Color(0.35, 1, 0.45, 0.24)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_karen")
+}
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
