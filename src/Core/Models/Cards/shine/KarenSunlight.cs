@@ -70,9 +70,22 @@ public sealed class KarenSunlight : KarenBaseCardModel
             return;
         }
 
-        // 战斗已经结束了，加入卡牌奖励
+        // 战斗已经结束了。没有奖励界面的战斗不能依赖额外奖励，否则耀光会丢到下一场。
         if (!inCombat)
         {
+            // 这些战斗没有可靠的额外奖励领取入口：
+            // 1. Encounter.ShouldGiveRewards == false 时，NCombatUi 会直接跳过奖励界面；
+            // 2. 与本体 RewardsSet.WithRewardsFromRoom 保持一致：最后一层 Boss 不生成奖励。
+            if (!HasRewardScreenAfterCombat())
+            {
+                var deckClone = this.CloneSafeForDeck();
+                deckClone.RestoreShineToMax();
+                var result = await CardPileCmd.Add(deckClone, PileType.Deck);
+                CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.MessyLayout);
+                MainFile.Logger.Info($"Added KarenSunlight directly back to deck because this combat has no reward screen. Clone ID: {deckClone.Id}");
+                return;
+            }
+
             var player = Owner;
             var reward = new SpecialCardReward(this.CloneSafeForDeck(), player);
             if (Owner.RunState.CurrentRoom is CombatRoom combatRoom)
@@ -100,6 +113,7 @@ public sealed class KarenSunlight : KarenBaseCardModel
         }
 
         clone.RestoreShineToMax();
+        clone.ResetEnchantmentStatus();
 
         //var selected = await CardSelectCmdEx.FromChooseACardScreen(ctx, [clone], base.Owner, canSkip: true, new LocString("gameplay_ui", "KAREN_SUNLIGHT_OBTAIN_PROMPT"));
         var selected = await CardSelectCmd.FromChooseACardScreen(ctx, [clone], base.Owner, canSkip: true);
@@ -133,5 +147,35 @@ public sealed class KarenSunlight : KarenBaseCardModel
             clone.DeckVersion = deckClone; // 关联这两张牌
             await CardPileCmd.Add(clone, PileType.Hand);
         }
+    }
+
+    private bool HasRewardScreenAfterCombat()
+    {
+        if (Owner?.RunState?.CurrentRoom is CombatRoom combatRoom)
+        {
+            MainFile.Logger.Info(
+                $"KarenSunlight reward-screen check: encounter={combatRoom.Encounter.Id.Entry}, " +
+                $"shouldGiveRewards={combatRoom.Encounter.ShouldGiveRewards}, roomType={combatRoom.RoomType}, " +
+                $"actIndex={Owner.RunState.CurrentActIndex}, actCount={Owner.RunState.Acts.Count}");
+
+            if (!combatRoom.Encounter.ShouldGiveRewards)
+            {
+                return false;
+            }
+
+            // 模仿本体 RewardsSet.WithRewardsFromRoom：
+            // if (room.RoomType == RoomType.Boss && Player.RunState.CurrentActIndex >= Player.RunState.Acts.Count - 1)
+            //     return this;
+            // 即最后一层 Boss 不生成奖励，额外奖励也没有可靠领取入口。
+            // TODO: 如果本体新增第四 Act 或调整 Boss 奖励流程，需要重新确认这里是否仍然成立。
+            if (combatRoom.RoomType == RoomType.Boss && Owner.RunState.CurrentActIndex >= Owner.RunState.Acts.Count - 1)
+            {
+                return false;
+            }
+
+            return combatRoom.Encounter.ShouldGiveRewards;
+        }
+
+        return true;
     }
 }
