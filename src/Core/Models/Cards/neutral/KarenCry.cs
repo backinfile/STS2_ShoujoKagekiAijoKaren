@@ -17,9 +17,7 @@ public sealed class KarenCry : KarenBaseCardModel
 {
     public KarenCry() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
-    public override bool GainsBlock => true;
-
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3, ValueProp.Unpowered)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -31,7 +29,7 @@ public sealed class KarenCry : KarenBaseCardModel
         if (Owner?.Creature is null)
             return;
 
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay: null!);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block.BaseValue, ValueProp.Unpowered, cardPlay: null);
     }
 
     protected override void OnUpgrade()
