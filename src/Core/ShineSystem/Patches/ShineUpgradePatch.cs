@@ -42,6 +42,26 @@ public static class ShineUpgradePatch
                 card.RestoreShineToMax();
             }
         }
+
+        static void Postfix(IEnumerable<CardModel> cards)
+        {
+            foreach (var card in cards)
+            {
+                if (!card.IsShineCard())
+                {
+                    continue;
+                }
+
+                var cardNode = NCard.FindOnTable(card);
+                if (cardNode == null)
+                {
+                    continue;
+                }
+
+                var pileType = card.Pile?.Type ?? cardNode.DisplayingPile;
+                cardNode.UpdateVisuals(pileType, CardPreviewMode.Normal);
+            }
+        }
     }
 
     // 卡牌预览时，先提前设置预览变量
