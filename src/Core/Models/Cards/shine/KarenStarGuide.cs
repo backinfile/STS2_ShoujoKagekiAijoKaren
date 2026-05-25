@@ -18,7 +18,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 /// </summary>
 public sealed class KarenStarGuide : KarenBaseCardModel
 {
-    public KarenStarGuide() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenStarGuide() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 

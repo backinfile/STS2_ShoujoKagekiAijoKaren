@@ -298,7 +298,7 @@
   "KAREN_FORM.description": "每个回合开始时，抽满手牌。",
 
   "KAREN_PAST_AND_FUTURE.title": "过去与未来",
-  "KAREN_PAST_AND_FUTURE.description": "从[gold]约定牌堆[/gold]抽牌时，获得{StrengthPower:diff()}点[gold]临时力量[/gold]。",
+  "KAREN_PAST_AND_FUTURE.description": "每从[gold]约定牌堆[/gold]中抽出1张牌，获得{StrengthPower:diff()}点[gold]临时力量[/gold]。",
 
   "KAREN_SMALL_SNACK.title": "Banana什锦",
   "KAREN_SMALL_SNACK.description": "获得{StrengthPower:diff()}点[gold]临时力量[/gold]。\n回合结束时如果这张牌在[gold]约定牌堆[/gold]中，变化为[gold]banana晚餐{IfUpgraded:show:+|}[/gold]。",

@@ -6,7 +6,7 @@
   "KAREN_PROMISE_PILE_POWER.mode.void": "[gold]世界上最空虚的人[/gold]：现在视约定牌堆为抽牌堆。",
   "KAREN_PROMISE_PILE_POWER.mode.infinite": "[gold]命运舞台的再生产[/gold]：约定牌堆始终为10张续演。",
   "KAREN_PROMISE_PILE_POWER.mode.burn": "[gold]燃烧吧燃烧吧[/gold]：抽出的卡牌升级且具有打出时消耗。",
-  "KAREN_PROMISE_PILE_POWER.mode.pastAndFuture": "[gold]过去与未来[/gold]：抽出卡牌时获得{Amount}点临时力量。",
+  "KAREN_PROMISE_PILE_POWER.mode.pastAndFuture": "[gold]过去与未来[/gold]：每从[gold]约定牌堆[/gold]中抽出1张牌，获得{Amount}点临时力量。",
 
   "KAREN_PASSION_POWER.title": "激情",
   "KAREN_PASSION_POWER.description": "战斗结束后，额外获得1个随机遗物。",
@@ -65,8 +65,8 @@
   "KAREN_FORM_POWER.smartDescription": "每个回合开始时，抽满手牌。",
 
   "KAREN_PAST_AND_FUTURE_POWER.title": "过去与未来",
-  "KAREN_PAST_AND_FUTURE_POWER.description": "从[gold]约定牌堆[/gold]抽牌时，获得{Amount}点[gold]临时力量[/gold]。",
-  "KAREN_PAST_AND_FUTURE_POWER.smartDescription": "从[gold]约定牌堆[/gold]抽牌时，获得{Amount}点[gold]临时力量[/gold]。",
+  "KAREN_PAST_AND_FUTURE_POWER.description": "每从[gold]约定牌堆[/gold]中抽出1张牌，获得{Amount}点[gold]临时力量[/gold]。",
+  "KAREN_PAST_AND_FUTURE_POWER.smartDescription": "每从[gold]约定牌堆[/gold]中抽出1张牌，获得{Amount}点[gold]临时力量[/gold]。",
 
   "KAREN_TICKET_POWER.title": "门票",
   "KAREN_TICKET_POWER.description": "每回合开始时，将1张[gold]约定之塔[/gold]加入手牌。",
