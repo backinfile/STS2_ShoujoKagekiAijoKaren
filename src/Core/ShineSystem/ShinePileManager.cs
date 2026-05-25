@@ -109,7 +109,8 @@ public static class ShinePileManager
         if (original is KarenBaseCardModel karenCard)
         {
             MainFile.Logger.Info($"[ShinePileManager] Triggered OnShineExhausted for '{card.Title}'");
-            var inCombat = CombatManager.Instance?.IsInProgress == true && (combatState?.Enemies?.Any(e => e.IsAlive) ?? true);
+            var combatManager = CombatManager.Instance;
+            var inCombat = combatManager?.IsInProgress == true && !combatManager.IsEnding;
             await karenCard.OnShineExhausted(ctx, inCombat, combatState!);
         }
 
