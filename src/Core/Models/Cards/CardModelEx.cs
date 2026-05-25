@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using ShoujoKagekiAijoKaren.src.Models.Cards;
 using System;
@@ -55,6 +56,13 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
 
         public static CardModel CreateTransferCopy(this CardModel original, Player target)
         {
+            if (original.IsShineCard() && original.GetShineValue() <= 0)
+            {
+                var emptyShell = target.RunState.CreateCard(ModelDb.Card<KarenEmptyShell>(), target);
+                MainFile.Logger.Info($"[CardModelEx.CreateTransferCopy] Replaced depleted shine card '{original.Title}' with '{emptyShell.Title}' for player {target.NetId}.");
+                return emptyShell;
+            }
+
             var newCard = target.RunState.CreateCard(ModelDb.GetById<CardModel>(original.Id), target);
 
             for (var i = 0; i < original.CurrentUpgradeLevel; i++)
@@ -70,8 +78,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
                 newCard.EnchantInternal(enchantment, enchantment.Amount);
             }
 
-            newCard.SetShineMax(original.GetShineMaxValue());
-            newCard.SetShineCurrent(original.GetShineValue());
+            var shineMax = original.GetShineMaxValue();
+            var shineCurrent = original.GetShineValue();
+            newCard.SetShineMax(shineMax);
+            newCard.SetShineCurrent(shineCurrent);
             var enchantmentTitle = newCard.Enchantment == null ? "<none>" : newCard.Enchantment.Title.ToString();
             MainFile.Logger.Info($"[CardModelEx.CreateTransferCopy] Created transfer copy '{newCard.Title}' from player {original.Owner?.NetId.ToString() ?? "<null>"} to player {target.NetId}. Upgrade={newCard.CurrentUpgradeLevel}, Enchant={enchantmentTitle}, Shine={newCard.GetShineValue()}/{newCard.GetShineMaxValue()}");
             return newCard;

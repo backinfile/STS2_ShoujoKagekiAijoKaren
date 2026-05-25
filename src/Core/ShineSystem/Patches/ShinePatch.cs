@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
@@ -70,7 +71,7 @@ public static class ShinePatch
     public static class MutableClone_Patch
     {
         [HarmonyPostfix]
-        public static void Postfix(AbstractModel __instance, AbstractModel __result)
+        public static void Postfix(AbstractModel __instance, ref AbstractModel __result)
         {
             // __instance 是原卡牌（canonical 或 mutable）
             // __result 是新克隆的卡牌（mutable）
@@ -84,6 +85,13 @@ public static class ShinePatch
             // 复制闪耀值
             int currentValue = source.GetShineValue();
             int maxValue = source.GetShineMaxValue();
+            if (currentValue <= 0)
+            {
+                __result = source.Owner?.RunState?.CreateCard(ModelDb.Card<KarenEmptyShell>(), source.Owner)
+                           ?? ModelDb.Card<KarenEmptyShell>().MutableClone();
+                MainFile.Logger.Info($"[MutableClone_Patch] Replaced depleted shine card '{source.Title}' with empty shell.");
+                return;
+            }
 
 
             // 直接使用内部字段设置，确保精确复制（不是累加）
@@ -184,6 +192,14 @@ public static class ShinePatch
         /// </summary>
         private static bool TakeOverCardPileAddCmd(CardModel card, PileType newPileType)
         {
+            // Generated cards enter combat with no old pile. They have not been played
+            // through OnPlayWrapper, so there is no PlayerChoiceContext to drive shine
+            // depletion. Let the normal CardPileCmd.Add path place them first.
+            if (card.Pile == null)
+            {
+                return false;
+            }
+
             // 添加到闪耀耗尽牌堆的命令
             if (newPileType == KarenCustomEnum.ShineDepletePile)
             {
@@ -233,7 +249,10 @@ public static class ShinePatch
             if (choiceContext == null)
             {
                 MainFile.Logger.Error($"[ShinePilePatch] No PlayerChoiceContext found for '{card.Title}' when adding to ShineDepletePile!");
-                await CardPileCmd.RemoveFromCombat(card);
+                if (card.Pile?.IsCombatPile == true)
+                {
+                    await CardPileCmd.RemoveFromCombat(card);
+                }
                 return new CardPileAddResult { cardAdded = card, success = false };
             }
 

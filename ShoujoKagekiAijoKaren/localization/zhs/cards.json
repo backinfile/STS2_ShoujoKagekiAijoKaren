@@ -330,6 +330,11 @@
   "KAREN_SHINE_REPRODUCE.tip": "这张牌会在闪耀牌奖励中出现。",
   "KAREN_SHINE_REPRODUCE.select_title": "选择一张闪耀耗尽的牌",
 
+  "KAREN_EMPTY_SHELL.title": "空壳",
+  "KAREN_EMPTY_SHELL.description": "",
+  "KAREN_EMPTY_SHELL.tip.title": "提示",
+  "KAREN_EMPTY_SHELL.tip": "当你尝试获得一张已耗尽的[gold]闪耀[/gold]牌的复制时，会获得这张牌。",
+
   "KAREN_FIGHT_RELAY.title": "歌唱吧舞蹈吧互相争斗吧",
   "KAREN_FIGHT_RELAY.description": "[gold]闪耀[/gold]耗尽时，获得{Relics:diff()}个随机遗物。否则，将此牌转移到随机队友的牌组中。",
 
