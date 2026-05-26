@@ -1,6 +1,25 @@
 {
-  "KAREN_SHINE.title": "Shine",
-  "KAREN_SHINE.description": "When played, reduce Shine by 1. When Shine reaches 0, this card is removed from your deck.",
+  "KAREN_SHINE.title": "Shine X",
+  "KAREN_SHINE.description": "After being played X times, this card is [red]permanently removed[/red] from your deck.",
+
   "KAREN_ETERNAL_SHINE.title": "Eternal Shine",
-  "KAREN_ETERNAL_SHINE.description": "Shine no longer decreases."
+  "KAREN_ETERNAL_SHINE.description": "Shine no longer decreases.",
+
+  "KAREN_PROMISE_PILE.title": "Promise Pile",
+  "KAREN_PROMISE_PILE.description": "A special pile unique to Karen Aijo.",
+
+  "KAREN_TMP_STRENGTH.title": "Temporary Strength",
+  "KAREN_TMP_STRENGTH.description": "Temporary Strength gives attacks additional damage this turn.",
+
+  "KAREN_RETAIN_TMP_STRENGTH.title": "Retained Strength",
+  "KAREN_RETAIN_TMP_STRENGTH.description": "Extends how long Temporary Strength lasts.",
+
+  "KAREN_SHINE_CARD_REWARD.title": "Shine Card Reward",
+  "KAREN_SHINE_CARD_REWARD.description": "After combat, gain a card reward containing only 1 Shine card.",
+
+  "KAREN_DISABLE_RELIC.title": "Disable Relic",
+  "KAREN_DISABLE_RELIC.description": "For one combat, disables the rightmost non-Ancient relic.\nIf there are no relics that can be disabled, this card [red]cannot be played[/red].",
+
+  "KAREN_TOKEN_CARD.title": "Token Card",
+  "KAREN_TOKEN_CARD.description": "A card generated during combat."
 }

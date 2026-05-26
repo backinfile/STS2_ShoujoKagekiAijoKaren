@@ -1,46 +1,82 @@
 {
-  "KAREN_PROMISE_PILE_POWER.title": "Promise",
-  "KAREN_PROMISE_PILE_POWER.description": "There are {Amount} card(s) in the Promise pile.",
-  "KAREN_PROMISE_PILE_POWER.pileContents": "Pile Contents",
-  "KAREN_PROMISE_PILE_POWER.voidTitle": "Promise Enhanced",
-  "KAREN_PROMISE_PILE_POWER.voidDescription": "I am now the emptiest person in the world.",
-  "KAREN_PROMISE_PILE_POWER.currentModes": "Current Enhancements:",
-  "KAREN_PROMISE_PILE_POWER.mode.void": "[gold]The Emptiest Person in the World[/gold]: The draw pile is now treated as the Promise pile.",
-  "KAREN_PROMISE_PILE_POWER.mode.infinite": "[gold]Restaging of the Fated Stage[/gold]: The Promise pile is now filled with endless [gold]Encore[/gold].",
-  "KAREN_PROMISE_PILE_POWER.mode.burn": "[gold]Burn, Burn, Burn Bright[/gold]: Cards drawn from the Promise pile are now upgraded and Exhaust when played.",
-  "KAREN_PROMISE_PILE_POWER.mode.pastAndFuture": "[gold]Past and Future[/gold]: When drawing from the Promise pile, gain {Amount} Temporary Strength.",
+  "KAREN_PROMISE_PILE_POWER.title": "Promise Pile",
+  "KAREN_PROMISE_PILE_POWER.description": "A special pile unique to Karen Aijo. Click the character to view the cards in the Promise Pile.",
+  "KAREN_PROMISE_PILE_POWER.pileContents": "Promise Pile contents:",
+  "KAREN_PROMISE_PILE_POWER.currentModes": "Promise Pile enhancements:",
+  "KAREN_PROMISE_PILE_POWER.mode.void": "[gold]The Emptiest Person in the World[/gold]: The Promise Pile is now treated as the draw pile.",
+  "KAREN_PROMISE_PILE_POWER.mode.infinite": "[gold]Reproduction of the Stage of Fate[/gold]: The Promise Pile always contains 10 Encores.",
+  "KAREN_PROMISE_PILE_POWER.mode.burn": "[gold]Burn, Burn[/gold]: Drawn cards are upgraded and Exhaust when played.",
+  "KAREN_PROMISE_PILE_POWER.mode.pastAndFuture": "[gold]Past and Future[/gold]: Whenever you draw 1 card from the [gold]Promise Pile[/gold], gain {Amount} Temporary Strength.",
 
   "KAREN_PASSION_POWER.title": "Passion",
-  "KAREN_PASSION_POWER.description": "Passion.",
+  "KAREN_PASSION_POWER.description": "After combat, gain 1 additional random relic.",
+  "KAREN_PASSION_POWER.smartDescription": "After combat, gain {Amount} additional random relic(s).",
 
-  "KAREN_STAR_FRIEND_POWER.title": "Star Friendship",
-  "KAREN_STAR_FRIEND_POWER.description": "The stars have woven our friendship. Gain extra rewards when killing enemies.",
+  "KAREN_SHINE_CARD_REWARD_POWER.title": "Shine Card Reward",
+  "KAREN_SHINE_CARD_REWARD_POWER.description": "After combat, gain 1 additional Shine Card Reward.",
+  "KAREN_SHINE_CARD_REWARD_POWER.smartDescription": "After combat, gain {Amount} additional Shine Card Reward(s).",
 
   "KAREN_LETTER_POWER.title": "Letter",
-  "KAREN_LETTER_POWER.description": "Whenever you put a card into the Promise Pile, gain {Block:diff()} Block.",
+  "KAREN_LETTER_POWER.description": "Whenever a card is put into the [gold]Promise Pile[/gold], gain 2 [gold]Block[/gold].",
+  "KAREN_LETTER_POWER.smartDescription": "Whenever a card is put into the [gold]Promise Pile[/gold], gain {Amount} [gold]Block[/gold].",
 
-  "KAREN_STARLIGHT_POWER.title": "Starlight",
-  "KAREN_STARLIGHT_POWER.description": "Whenever you play a Shine card, play it {Repeat:diff()} more time(s), then deplete its Shine.",
+  "KAREN_STARLIGHT_POWER.title": "Starlight Act I",
+  "KAREN_STARLIGHT_POWER.description": "After you play a [gold]Shine[/gold] card, draw 1 card.",
+  "KAREN_STARLIGHT_POWER.smartDescription": "After you play a [gold]Shine[/gold] card, draw {Amount} card(s).",
 
-  "KAREN_STARLIGHT03_POWER.title": "Starlight",
-  "KAREN_STARLIGHT03_POWER.description": "Shine card reward gained.",
+  "KAREN_STARLIGHT02_POWER.title": "Starlight Act II",
+  "KAREN_STARLIGHT02_POWER.description": "Played [gold]Shine[/gold] cards are played 1 additional time, then their Shine is exhausted.",
+  "KAREN_STARLIGHT02_POWER.smartDescription": "Played [gold]Shine[/gold] cards are played {Amount} additional time(s), then their Shine is exhausted.",
 
   "KAREN_AQUARIUM_POWER.title": "Aquarium",
-  "KAREN_AQUARIUM_POWER.description": "At the start of your turn, draw 1 card, then put 1 card from your hand into the [gold]Promise Pile[/gold].",
+  "KAREN_AQUARIUM_POWER.description": "At the start of your turn, draw 1 card, then put 1 card from your [gold]hand[/gold] into the [gold]Promise Pile[/gold].",
+  "KAREN_AQUARIUM_POWER.smartDescription": "At the start of your turn, draw {Amount} card(s), then put {Amount} card(s) from your hand into the [gold]Promise Pile[/gold].",
+
+  "KAREN_RETAIN_TMP_STRENGTH_POWER.title": "Retained Strength",
+  "KAREN_RETAIN_TMP_STRENGTH_POWER.description": "Extends how long Temporary Strength lasts.",
+  "KAREN_RETAIN_TMP_STRENGTH_POWER.smartDescription": "Extend Temporary Strength for {Amount} turn(s).",
+
+  "KAREN_RETAIN_ENERGY_POWER.title": "Retain Energy",
+  "KAREN_RETAIN_ENERGY_POWER.description": "Excess Energy can be kept for the next turn.",
+  "KAREN_RETAIN_ENERGY_POWER.smartDescription": "For {Amount} turn(s), excess Energy can be kept for the next turn.",
+
+  "KAREN_NEW_DAY_POWER.title": "New Day",
+  "KAREN_NEW_DAY_POWER.description": "The next 1 card you play enters the [gold]Promise Pile[/gold].",
+  "KAREN_NEW_DAY_POWER.smartDescription": "The next {Amount} card(s) you play enter the [gold]Promise Pile[/gold].",
+
+  "KAREN_POSITION0_POWER.title": "Position 0",
+  "KAREN_POSITION0_POWER.description": "The first time each turn you deal attack damage, gain that much [gold]Block[/gold].",
+  "KAREN_POSITION0_POWER.smartDescription": "The {Amount:choose(1):first|first {Amount}} time(s) each turn you deal attack damage, gain that much [gold]Block[/gold].",
+
+  "KAREN_STAGE_IS_WAITING_POWER.title": "The Stage Is Waiting",
+  "KAREN_STAGE_IS_WAITING_POWER.description": "When the [gold]Promise Pile[/gold] is emptied, gain {energyPrefix:energyIcons(1)}.",
+  "KAREN_STAGE_IS_WAITING_POWER.smartDescription": "When the [gold]Promise Pile[/gold] is emptied, gain {Amount:energyIcons()}.",
+
+  "KAREN_BANANA_LUNCH_POWER.title": "Banana Lunch",
+  "KAREN_BANANA_LUNCH_POWER.description": "At the end of your turn, add 1 [gold]Sandwich[/gold] to the [gold]Promise Pile[/gold].",
+  "KAREN_BANANA_LUNCH_POWER.smartDescription": "At the end of your turn, add {Amount} [gold]Sandwich[/gold] card(s) to the [gold]Promise Pile[/gold].",
+
+  "KAREN_FINANCIER_POWER.title": "Banana Financier",
+  "KAREN_FINANCIER_POWER.description": "Every two turns, [gold]Retain Strength[/gold] for 1 turn.",
+  "KAREN_FINANCIER_POWER.smartDescription": "Every two turns, [gold]Retain Strength[/gold] for {Amount} turn(s).",
+
+  "KAREN_FORM_POWER.title": "Awakened Form",
+  "KAREN_FORM_POWER.description": "At the start of each turn, draw until your hand is full.",
+  "KAREN_FORM_POWER.smartDescription": "At the start of each turn, draw until your hand is full.",
 
   "KAREN_PAST_AND_FUTURE_POWER.title": "Past and Future",
-  "KAREN_PAST_AND_FUTURE_POWER.description": "When drawing from the Promise Pile, gain {Amount} Temporary Strength.",
-  "KAREN_PAST_AND_FUTURE_POWER.smartDescription": "When drawing from the Promise Pile, gain {Amount} Temporary Strength.",
+  "KAREN_PAST_AND_FUTURE_POWER.description": "Whenever you draw 1 card from the [gold]Promise Pile[/gold], gain {Amount} [gold]Temporary Strength[/gold].",
+  "KAREN_PAST_AND_FUTURE_POWER.smartDescription": "Whenever you draw 1 card from the [gold]Promise Pile[/gold], gain {Amount} [gold]Temporary Strength[/gold].",
 
   "KAREN_TICKET_POWER.title": "Ticket",
-  "KAREN_TICKET_POWER.description": "At the start of each turn, add 1 Tower of Promise to your hand.",
-  "KAREN_TICKET_POWER.smartDescription": "At the start of each turn, add {Amount} Tower of Promise to your hand.",
+  "KAREN_TICKET_POWER.description": "At the start of each turn, add 1 [gold]Tower of Promise[/gold] to your hand.",
+  "KAREN_TICKET_POWER.smartDescription": "At the start of each turn, add {Amount} [gold]Tower of Promise[/gold] card(s) to your hand.",
 
   "KAREN_GEER_POWER.title": "Gear of Fate",
-  "KAREN_GEER_POWER.description": "At the start of each turn, choose 1 card from the [gold]Promise Pile[/gold] and play it.",
-  "KAREN_GEER_POWER.smartDescription": "At the start of each turn, choose {Amount} card from the [gold]Promise Pile[/gold] and play it.",
+  "KAREN_GEER_POWER.description": "At the start of your turn, choose 1 card from the [gold]Promise Pile[/gold] and play it.",
+  "KAREN_GEER_POWER.smartDescription": "At the start of your turn, choose {Amount} card(s) from the [gold]Promise Pile[/gold] and play them.",
 
-  "KAREN_WE_KOWN_POWER.title": "Our Dream",
-  "KAREN_WE_KOWN_POWER.description": "At the end of your turn, add 1 [gold]Shine[/gold] to the [gold]Promise Pile[/gold].",
-  "KAREN_WE_KOWN_POWER.smartDescription": "At the end of your turn, add {Amount} [gold]Shine[/gold] to the [gold]Promise Pile[/gold]."
+  "KAREN_WE_KOWN_POWER.title": "The Dream We Share",
+  "KAREN_WE_KOWN_POWER.description": "At the end of your turn, add 1 [gold]Radiance[/gold] to the [gold]Promise Pile[/gold].",
+  "KAREN_WE_KOWN_POWER.smartDescription": "At the end of your turn, add {Amount} [gold]Radiance[/gold] card(s) to the [gold]Promise Pile[/gold]."
 }

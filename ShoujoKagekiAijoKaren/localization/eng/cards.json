@@ -3,143 +3,344 @@
   "KAREN_STRIKE.description": "Deal {Damage:diff()} damage.",
   "KAREN_DEFEND.title": "Defend",
   "KAREN_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
-  "KAREN_SHINE_KEYWORD.title": "Shine",
-  "KAREN_SHINE_KEYWORD.description": "Each time this card is played, its [gold]Shine[/gold] decreases by 1. When it reaches 0, the card is permanently removed from your deck.",
+
   "KAREN_SHINE_STRIKE.title": "Shine Strike",
   "KAREN_SHINE_STRIKE.description": "Deal {Damage:diff()} damage.",
-  "KAREN_SHINE_DEFEND.title": "Shine Defend",
-  "KAREN_SHINE_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
-  "KAREN_PROMISE_DEFEND.title": "Promise Defense",
-  "KAREN_PROMISE_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold]. Put {Cards:diff()} card(s) from your hand into the [gold]Promise Pile[/gold].",
-  "KAREN_PROMISE_DRAW.title": "Fulfill Promise",
-  "KAREN_PROMISE_DRAW.description": "Deal {Damage:diff()} damage. Take {Cards:diff()} card(s) from the [gold]Promise Pile[/gold] into your hand.",
-  "KAREN_PLACEHOLDER_POWER.title": "Placeholder Power",
-  "KAREN_PLACEHOLDER_POWER.description": "[gray]A placeholder power card. No effect yet.[/gray]",
-  "KAREN_PLACEHOLDER_UNCOMMON_SKILL.title": "Placeholder Uncommon Skill",
-  "KAREN_PLACEHOLDER_UNCOMMON_SKILL.description": "[gray]A placeholder uncommon skill card. No effect yet.[/gray]",
-  "KAREN_PLACEHOLDER_RARE_SKILL.title": "Placeholder Rare Skill",
-  "KAREN_PLACEHOLDER_RARE_SKILL.description": "[gray]A placeholder rare skill card. No effect yet.[/gray]",
+
+  "KAREN_WHY.title": "Why Did You Leave, My Friend?",
+  "KAREN_WHY.description": "Gain {Block:diff()} [gold]Block[/gold].\nPut up to {Cards:diff()} card(s) into the [gold]Promise Pile[/gold].",
+
+  "KAREN_FALL.title": "Fall",
+  "KAREN_FALL.description": "Gain {Block:diff()} [gold]Block[/gold].\nPut {Cards:diff()} card(s) into the [gold]Promise Pile[/gold].",
+
+  "KAREN_SLEEPY.title": "Sleepiness",
+  "KAREN_SLEEPY.description": "",
+
   "KAREN_CHARGE_STRIKE.title": "Charge Strike",
-  "KAREN_CHARGE_STRIKE.description": "Deal {Damage:diff()} damage. Apply -{StrengthPower:diff()} [gold]Strength[/gold] to the target.",
+  "KAREN_CHARGE_STRIKE.description": "Deal {Damage:diff()} damage.\nThe target loses {StrengthPower:diff()} [gold]Strength[/gold] this turn.",
+
   "KAREN_DEBUT.title": "Debut",
-  "KAREN_DEBUT.description": "Deal {Damage:diff()} damage {Repeat:diff()} times to ALL enemies.",
-  "KAREN_SWORD_UP.title": "Sword Up",
-  "KAREN_SWORD_UP.description": "Deal {Damage:diff()} damage. Apply {WeakPower:diff()} [gold]Weak[/gold] and {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
-  "KAREN_SHINE_STRIKE_BARRAGE.title": "Shine Through Me",
-  "KAREN_SHINE_STRIKE_BARRAGE.description": "Deal {Damage:diff()} damage {Repeat:diff()} times.",
-  "KAREN_TO_THE_STAGE.title": "To The Stage",
-  "KAREN_TO_THE_STAGE.description": "Gain {Energy:energyIcons()}.{IfUpgraded:show:\nAlso draw 1 card.|}",
+  "KAREN_DEBUT.description": "Deal {Damage:diff()} damage to all enemies {Repeat:diff()} time(s).",
+
+  "KAREN_SWORD_UP.title": "Upward Slash",
+  "KAREN_SWORD_UP.description": "Deal {Damage:diff()} damage.\nApply {WeakPower:diff()} [gold]Weak[/gold] and {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
+
+  "KAREN_SHINE_STRIKE_BARRAGE.title": "Pierce Me with Your Shine",
+  "KAREN_SHINE_STRIKE_BARRAGE.description": "Deal {Damage:diff()} damage {Repeat:diff()} time(s).",
+
+  "KAREN_TO_THE_STAGE.title": "To That Stage",
+  "KAREN_TO_THE_STAGE.description": "Gain {Energy:energyIcons()}.{IfUpgraded:show:\nDraw 1 card.|}",
+
   "KAREN_POTATO.title": "Potato",
   "KAREN_POTATO.description": "Heal {Heal:diff()} HP.",
+
   "KAREN_DROP_FUEL.title": "Drop Fuel",
   "KAREN_DROP_FUEL.description": "Draw {Cards:diff()} card(s).\nGain {Energy:energyIcons()}.",
+
   "KAREN_READY.title": "Ready",
-  "KAREN_READY.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold]. Draw 1 card.",
-  "KAREN_NONON.title": "NONNON",
-  "KAREN_NONON.description": "Deal {Damage:diff()} damage to ALL enemies.\nApply -{StrengthPower:diff()} [gold]Strength[/gold] to ALL enemies this turn.",
+  "KAREN_READY.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold].\nDraw 1 card.",
+
+  "KAREN_NONON.title": "NONNON Dayo",
+  "KAREN_NONON.description": "Deal {Damage:diff()} damage to all enemies.\nAll enemies lose {StrengthPower:diff()} [gold]Strength[/gold] this turn.",
+
   "KAREN_DRINK_WATER.title": "Hydration",
-  "KAREN_DRINK_WATER.description": "Prevent the next time you would lose HP.",
-  "KAREN_PRACTICE.title": "Practice",
-  "KAREN_PRACTICE.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhen [gold]Shine[/gold] depletes: Heal {Heal:diff()} HP.",
-  "KAREN_SUNLIGHT.title": "Sunlight",
-  "KAREN_SUNLIGHT.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] depletes, you may add this card to your draw pile.",
-  "KAREN_CONTINUE02.title": "Endless Stage",
-  "KAREN_CONTINUE02.description": "Deal {Damage:diff()} damage.\n[blue]Can be upgraded repeatedly.[/blue]",
-  "KAREN_CARRYING_GUILT.title": "Carrying Our Guilt",
-  "KAREN_CARRYING_GUILT.description": "Deal {Damage:diff()} damage, plus {ExtraDamage:diff()} for each card in your [gold]Shine Pile[/gold].",
-  "KAREN_CARRYING_GUILT.tip.disposedCount": "Unique Shine cards depleted:",
-  "KAREN_STAR_FRIEND.title": "Star Friend",
-  "KAREN_STAR_FRIEND.description": "Deal {Damage:diff()} damage. If this kills the target, gain a random [gold]Shine[/gold] card.",
+  "KAREN_DRINK_WATER.description": "Prevent the next HP damage you would take.",
+
+  "KAREN_PRACTICE.title": "Martial Arts Practice",
+  "KAREN_PRACTICE.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhen [gold]Shine[/gold] is exhausted, heal {Heal:diff()} HP.",
+
+  "KAREN_SUNLIGHT.title": "Dazzling Sunlight",
+  "KAREN_SUNLIGHT.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] is exhausted, you may add this card back to your deck.",
+
+  "KAREN_CONTINUE02.title": "Endless Stage of Fate",
+  "KAREN_CONTINUE02.description": "Deal {Damage:diff()} damage.\nCan be [gold]upgraded[/gold] multiple times.",
+
+  "KAREN_CARRYING_GUILT.title": "The Sin We Committed",
+  "KAREN_CARRYING_GUILT.description": "Deal {CalculatedDamage:diff()} damage.\nFor each non-duplicate [gold]Shine[/gold] card exhausted this run, increase this card's damage by {ExtraDamage:diff()}.{ShinePileUniqueCount:choose(0):|\n({ShinePileUniqueCount} exhausted)}",
+
+  "KAREN_STAR_FRIEND.title": "Stars Bind Our Friendship",
+  "KAREN_STAR_FRIEND.description": "Deal {Damage:diff()} damage.\nOn [gold]Fatal[/gold], gain a [gold]Shine Card Reward[/gold].",
+
   "KAREN_LETTER_CARD.title": "Letter",
-  "KAREN_LETTER_CARD.description": "Whenever you put a card into the [gold]Promise Pile[/gold], gain {Block:diff()} [gold]Block[/gold].",
-  "KAREN_STARLIGHT_CARD.title": "Starlight",
-  "KAREN_STARLIGHT_CARD.description": "Whenever you play a [gold]Shine[/gold] card, play it {Repeat:diff()} more time(s), then [gold]deplete[/gold] its [gold]Shine[/gold].",
-  "KAREN_STARLIGHT03_CARD.title": "Starlight",
+  "KAREN_LETTER_CARD.description": "Whenever a card is put into the [gold]Promise Pile[/gold], gain {KarenLetterPower:diff()} [gold]Block[/gold].",
+
+  "KAREN_STARLIGHT_CARD.title": "Starlight Act I",
+  "KAREN_STARLIGHT_CARD.description": "After you play a [gold]Shine[/gold] card, draw {KarenStarlightPower:diff()} card(s).",
+
+  "KAREN_STARLIGHT02_CARD.title": "Starlight Act II",
+  "KAREN_STARLIGHT02_CARD.description": "Played [gold]Shine[/gold] cards are played {KarenStarlight02Power:diff()} additional time(s), then their Shine is exhausted.",
+
+  "KAREN_STARLIGHT03_CARD.title": "Starlight Act III",
   "KAREN_STARLIGHT03_CARD.description": "Gain a [gold]Shine Card Reward[/gold].",
-  "KAREN_FALL.title": "Fallen",
-  "KAREN_FALL.description": "Gain {Block:diff()} [gold]Block[/gold]. Put 1 card from your hand into the [gold]Promise Pile[/gold].",
-  "KAREN_SLEEPY.title": "Sleepy",
-  "KAREN_SLEEPY.description": "Unplayable. [gold]Ethereal[/gold]. Cannot be removed from your deck.",
-  "KAREN_STAGE_REASON.title": "Stage Reason",
-  "KAREN_STAGE_REASON.description": "[gold]Exhaust[/gold].",
-  "KAREN_CONTINUE.title": "Continue",
+
+  "KAREN_STAGE_REASON.title": "Reason to Exist on Stage",
+  "KAREN_STAGE_REASON.description": "",
+
+  "KAREN_CONTINUE.title": "Encore",
   "KAREN_CONTINUE.description": "Deal {Damage:diff()} damage.",
+
+
+  "KAREN_PROMISE_DRAW.title": "No Longer Out of Reach",
+  "KAREN_PROMISE_DRAW.description": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} card(s) from the [gold]Promise Pile[/gold].",
+
   "KAREN_TOWER_OF_PROMISE.title": "Tower of Promise",
-  "KAREN_TOWER_OF_PROMISE.description": "[gold]Retain[/gold].\nDraw from the [gold]Promise Pile[/gold] until your hand is full.\n[gold]Exhaust[/gold].",
-  "KAREN_MUST.title": "At Tokyo Tower",
-  "KAREN_MUST.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd 1 [gold]Tower of Promise[/gold] to your hand.\n[gold]Exhaust[/gold].",
+  "KAREN_TOWER_OF_PROMISE.description": "Draw from the [gold]Promise Pile[/gold] until your hand is full.",
+
+  "KAREN_UNDER_TOWER.title": "Under Tokyo Tower",
+  "KAREN_UNDER_TOWER.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd 1 [gold]Tower of Promise[/gold] to your hand.",
+
   "KAREN_OUR_PROMISE.title": "Our Promise",
-  "KAREN_OUR_PROMISE.description": "Draw {MagicNumber:diff()} cards.\nPut 2 cards from your hand into the [gold]Promise Pile[/gold].",
+  "KAREN_OUR_PROMISE.description": "Draw {Cards:diff()} card(s).\nPut 2 cards into the [gold]Promise Pile[/gold].",
+
   "KAREN_WHOS_PROMISE.title": "Pas de Deux",
-  "KAREN_WHOS_PROMISE.description": "Deal {Damage:diff()} damage.\nDraw {MagicNumber:diff()} card(s) from the [gold]Promise Pile[/gold].\nPut {MagicNumber:diff()} card(s) from your hand into the [gold]Promise Pile[/gold].",
-  "KAREN_BACK_TO_BACK.title": "Back to Back",
-  "KAREN_BACK_TO_BACK.description": "Deal damage equal to {MagicNumber:diff()} times the number of cards in your [gold]Promise Pile[/gold] (max 10).",
-  "KAREN_ON_STAGE.title": "On Stage",
-  "KAREN_ON_STAGE.description": "Draw 4 cards from the [gold]Promise Pile[/gold].\nGain {Energy:energyIcons()}{Energy:energyIcons()}.\n[gold]Exhaust[/gold].",
-  "KAREN_EXCHANGE_FATE.title": "Exchange Fate",
-  "KAREN_EXCHANGE_FATE.description": "Exchange your hand with the cards in your [gold]Promise Pile[/gold].\n[gold]Exhaust[/gold].",
-  "KAREN_AQUARIUM.title": "Aquarium",
-  "KAREN_AQUARIUM.description": "At the start of each turn, draw 1 card, then put 1 card from your hand into the [gold]Promise Pile[/gold].",
+  "KAREN_WHOS_PROMISE.description": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} card(s) from the [gold]Promise Pile[/gold], then put {Cards:diff()} card(s) into it.",
+
+  "KAREN_BACK_TO_BACK_CARD.title": "Back to Back",
+  "KAREN_BACK_TO_BACK_CARD.description": "Deal damage equal to {ExtraDamage:diff()} times the number of cards in the [gold]Promise Pile[/gold].{InCombat:\n(Deals {CalculatedDamage:diff()} damage.)|}",
+
+  "KAREN_ON_STAGE.title": "Fate and Instinct",
+  "KAREN_ON_STAGE.description": "Draw {Cards:diff()} card(s) from the [gold]Promise Pile[/gold].\nGain {Energy:energyIcons()}.",
+
+  "KAREN_EXCHANGE_FATE.title": "The Day Fate Was Exchanged",
+  "KAREN_EXCHANGE_FATE.description": "Exchange your hand with the cards in the [gold]Promise Pile[/gold].",
+
+  "KAREN_AQUARIUM_CARD.title": "Aquarium",
+  "KAREN_AQUARIUM_CARD.description": "At the start of each turn, draw {KarenAquariumPower:diff()} card(s), then put {KarenAquariumPower:diff()} card(s) into the [gold]Promise Pile[/gold].",
+
   "KAREN_HOLY_STAR.title": "Holy Star",
-  "KAREN_HOLY_STAR.description": "Deal {Damage:diff()} damage {Repeat:diff()} times.\nWhen put into the [gold]Promise Pile[/gold], reduce its cost by 1 for this combat.",
-  "KAREN_SELECT_OPTION_PROMPT": "Choose an option",
+  "KAREN_HOLY_STAR.description": "Deal {Damage:diff()} damage {Repeat:diff()} time(s).\nWhen put into the [gold]Promise Pile[/gold], reduce this card's cost by 1 this combat.",
+
+  "KAREN_BRIDGE.title": "Tower of Promise Bridge",
+  "KAREN_BRIDGE.description": "Play the top X+{Cards:diff()} card(s) of the [gold]Promise Pile[/gold].",
+
+  "KAREN_MEET_AGAIN.title": "Meet Again",
+  "KAREN_MEET_AGAIN.description": "Gain {Block:diff()} [gold]Block[/gold].\nDraw {Cards:diff()} card(s).\nPut 1 card into the [gold]Promise Pile[/gold].",
+
+  "KAREN_EAT_TOGETHER.title": "Let's Eat Together",
+  "KAREN_EAT_TOGETHER.description": "Gain {StrengthPower:diff()} [gold]Temporary Strength[/gold].\n[gold]Retain Strength[/gold] for {Turns} turn(s).",
+
+  "KAREN_SANDWITCH.title": "Sandwich",
+  "KAREN_SANDWITCH.description": "Gain {StrengthPower:diff()} [gold]Temporary Strength[/gold].",
+
+  "KAREN_LANDING.title": "Landing",
+  "KAREN_LANDING.description": "Deal {Damage:diff()} damage to all enemies.\nPut [gold]Counter[/gold] into the [gold]Promise Pile[/gold].",
+
+  "KAREN_COUNTER.title": "Counter",
+  "KAREN_COUNTER.description": "Deal {Damage:diff()} damage to all enemies three times.",
+
+  "KAREN_YESTERGLOW.title": "Yesterglow",
+  "KAREN_YESTERGLOW.description": "Deal {Damage:diff()} damage.\nPut {Cards} card(s) from your discard pile into the [gold]Promise Pile[/gold].",
+
+  "KAREN_DODGE.title": "Dodge",
+  "KAREN_DODGE.description": "Gain {Block:diff()} [gold]Block[/gold].\nPut [gold]Confront[/gold] into the [gold]Promise Pile[/gold].",
+
+  "KAREN_CONFRONT.title": "Confront",
+  "KAREN_CONFRONT.description": "Deal {Damage:diff()} damage {Repeat:diff()} time(s).",
+
+  "KAREN_PARRY.title": "Parry",
+  "KAREN_PARRY.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhenever you gain or lose cards in your hand this turn, increase this card's Block by {Increase:diff()}.",
+
+  "KAREN_RAPID.title": "Rapid Descent",
+  "KAREN_RAPID.description": "Choose: Choose {Cards:diff()} card(s) from the [gold]Promise Pile[/gold] and put them into your hand; or the reverse.",
+
+  "KAREN_RAPID_TAKE_OPTION.title": "Take Back",
+  "KAREN_RAPID_TAKE_OPTION.description": "Choose {Cards:diff()} card(s) from the [gold]Promise Pile[/gold] and put them into your hand.",
+
+  "KAREN_RAPID_PUT_OPTION.title": "Put In",
+  "KAREN_RAPID_PUT_OPTION.description": "Put {Cards:diff()} card(s) into the [gold]Promise Pile[/gold].",
+
+  "KAREN_STAGE_IS_WAITING.title": "The Stage Is Waiting",
+  "KAREN_STAGE_IS_WAITING.description": "When the [gold]Promise Pile[/gold] is emptied, gain {Energy:energyIcons()}.",
+
+  "KAREN_LAST_WORD.title": "The Last Line",
+  "KAREN_LAST_WORD.description": "Can only be played if this is the only card outside the [gold]Promise Pile[/gold].\nDeal {Damage:diff()} damage to all enemies.",
+  "KAREN_LAST_WORD.tip.title": "Tip",
+  "KAREN_LAST_WORD.tip": "This means it can only be played when this is the only card in your hand, draw pile, and discard pile.",
+
+  "KAREN_DANCE.title": "Dance",
+  "KAREN_DANCE.description": "Deal {Damage:diff()} damage.\nChoose {Cards:diff()} card(s) from the [gold]Promise Pile[/gold] and put them into your hand.",
+
+  "KAREN_NEW_DAY.title": "New Day",
+  "KAREN_NEW_DAY.description": "Gain {Block:diff()} [gold]Block[/gold].\nThis card and the next {Cards:diff()} card(s) you play enter the [gold]Promise Pile[/gold].",
+
+  "KAREN_PASSION.title": "Passion",
+  "KAREN_PASSION.description": "At the end of combat, gain a random relic.",
+
+  "KAREN_ARROGANT.title": "Pride",
+  "KAREN_ARROGANT.description": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold] to yourself.\nAt the end of combat, gain a random relic.",
+
+  "KAREN_JEALOUSY.title": "Jealousy",
+  "KAREN_JEALOUSY.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] is exhausted, gain {Relics:diff()} random relic(s).",
+
+  "KAREN_PICK_STAR.title": "Pick a Star",
+  "KAREN_PICK_STAR.description": "[gold]Disable[/gold] {DisableRelic:diff()} relic(s), then gain {Energy:energyIcons()}.",
+
+  "KAREN_STAR_CRIME.title": "Star Crime",
+  "KAREN_STAR_CRIME.description": "[gold]Disable[/gold] {DisableRelic:diff()} relic(s), then draw {Cards:diff()} card(s).",
+
+  "KAREN_FORGIVE.title": "\"Forgiveness\"",
+  "KAREN_FORGIVE.description": "[gold]Disable[/gold] {DisableRelic:diff()} relic(s), then deal {Damage:diff()} damage to all enemies.",
+
+  "KAREN_STAR_GUIDE.title": "Starlight Guide",
+  "KAREN_STAR_GUIDE.description": "Put all your [gold]Shine[/gold] cards into the [gold]Promise Pile[/gold].",
+
+  "KAREN_STAR.title": "When Starlight Shines",
+  "KAREN_STAR.description": "Exhaust your only [gold]Shine[/gold] card, play it a number of times equal to its remaining [gold]Shine[/gold], then gain a [gold]Shine Card Reward[/gold].",
+
   "KAREN_BANANA_CAKE.title": "Banana Cake",
   "KAREN_BANANA_CAKE.description": "Gain a [gold]Flex Potion[/gold].",
-  "KAREN_STRETCHING.title": "Stretching",
-  "KAREN_STRETCHING.description": "Gain {Block:diff()} [gold]Block[/gold].\nPut this card into the [gold]Promise Pile[/gold].",
-  "KAREN_RAPID.title": "Rapid Descent",
-  "KAREN_RAPID.description": "Select {Cards:diff()} card(s) from the [gold]Promise Pile[/gold].\nDiscard the rest.",
 
+  "KAREN_NEW_SITUATION.title": "Observe the Situation",
+  "KAREN_NEW_SITUATION.description": "Gain {Block:diff()} [gold]Block[/gold].\nPut {Cards:diff()} [gold]Sandwich[/gold] card(s) into the [gold]Promise Pile[/gold].",
+
+  "KAREN_PRACTICE2.title": "Dance Practice",
+  "KAREN_PRACTICE2.description": "Gain [gold]Block[/gold] equal to the total [gold]Shine[/gold] of all your cards{IfUpgraded:show:+{CalculationBase:diff()}|}.{InCombat:\n(Gain {CalculatedBlock:diff()} [gold]Block[/gold].)|}",
+
+  "KAREN_PRACTICE3.title": "Gymnastics Practice",
+  "KAREN_PRACTICE3.description": "Gain {Block:diff()} [gold]Block[/gold].",
+
+  "KAREN_BANANA_MUFFIN.title": "Banana Muffin",
+  "KAREN_BANANA_MUFFIN.description": "Gain {StrengthPower:diff()} [gold]Temporary Strength[/gold].\nDraw {Cards:diff()} card(s).",
+
+  "KAREN_BANANA_LUNCH.title": "Banana Lunch",
+  "KAREN_BANANA_LUNCH.description": "At the end of your turn, add {Cards:diff()} [gold]Sandwich[/gold] card(s) to the [gold]Promise Pile[/gold].",
+
+  "KAREN_STAGE_REPRODUCE.title": "Reproduction of the Stage of Fate",
+  "KAREN_STAGE_REPRODUCE.description": "Fill the [gold]Promise Pile[/gold] with infinite [gold]Encore[/gold] cards.",
   "KAREN_STAGE_REPRODUCE.tip.title": "Tip",
-  "KAREN_STAGE_REPRODUCE.tip": "After played, the [gold]Promise Pile[/gold] always contains 10 [gold]Continue[/gold] cards.",
+  "KAREN_STAGE_REPRODUCE.tip": "After this is played, the Promise Pile always contains 10 [gold]Encore[/gold] cards.",
+
+  "KAREN_FINANCIER.title": "Banana Financier",
+  "KAREN_FINANCIER.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold].\nEvery two turns, [gold]Retain Strength[/gold] for 1 turn.",
+
+  "KAREN_CRY.title": "Sorry for the Trouble",
+  "KAREN_CRY.description": "Whenever this card moves between piles, gain {Block:diff()} [gold]Block[/gold].",
+
+  "KAREN_OLD_PLACE.title": "That Promised Day",
+  "KAREN_OLD_PLACE.description": "Gain {Block:diff()} [gold]Block[/gold].\nChoose: retain your Energy, hand, [gold]Block[/gold], or [gold]Strength[/gold] for {Turns:diff()} turn(s).",
+
+  "KAREN_OLD_PLACE_RETAIN_ENERGY_OPTION.title": "Retain Energy",
+  "KAREN_OLD_PLACE_RETAIN_ENERGY_OPTION.description": "Retain Energy for {Turns:diff()} turn(s).",
+
+  "KAREN_OLD_PLACE_RETAIN_HAND_OPTION.title": "Retain Hand",
+  "KAREN_OLD_PLACE_RETAIN_HAND_OPTION.description": "Retain your hand for {Turns:diff()} turn(s).",
+
+  "KAREN_OLD_PLACE_RETAIN_BLOCK_OPTION.title": "Retain Block",
+  "KAREN_OLD_PLACE_RETAIN_BLOCK_OPTION.description": "Retain [gold]Block[/gold] for {Turns:diff()} turn(s).",
+
+  "KAREN_OLD_PLACE_RETAIN_STRENGTH_OPTION.title": "Retain Strength",
+  "KAREN_OLD_PLACE_RETAIN_STRENGTH_OPTION.description": "[gold]Retain Strength[/gold] for {Turns:diff()} turn(s).",
+
+  "KAREN_SPIN.title": "Spin",
+  "KAREN_SPIN.description": "Deal {Damage:diff()} damage.\nWhenever this card moves between piles, increase its damage by {Increase:diff()} this combat.",
+
+  "KAREN_CONSCIOUSNESS.title": "In the Name of Resolve",
+  "KAREN_CONSCIOUSNESS.description": "Deal {Damage:diff()} damage.\nGain [gold]Block[/gold] equal to the unblocked damage dealt.",
+
+  "KAREN_REVUE_DUET.title": "Revue Duet",
+  "KAREN_REVUE_DUET.description": "Deal {Damage:diff()} damage.\nAfter being played, enter the [gold]Promise Pile[/gold].",
+
+  "KAREN_GEER.title": "Gear of Fate",
+  "KAREN_GEER.description": "At the start of your turn, choose 1 card from the [gold]Promise Pile[/gold] and play it.",
+
+  "KAREN_BURN.title": "Burn, Burn",
+  "KAREN_BURN.description": "Cards drawn from the [gold]Promise Pile[/gold] are [gold]upgraded[/gold] and [gold]Exhaust[/gold] when played.",
+
+  "KAREN_POSITION0.title": "Position 0",
+  "KAREN_POSITION0.description": "The {KarenPosition0Power:choose(1):first|first {KarenPosition0Power:diff()}} time(s) each turn you deal attack damage, gain that much [gold]Block[/gold].",
+
+  "KAREN_PIZZA.title": "Pizza",
+  "KAREN_PIZZA.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold], and all enemies lose {StrengthPower:diff()} [gold]Strength[/gold].",
+
+  "KAREN_COURAGE_STRIKE.title": "Courage Strike",
+  "KAREN_COURAGE_STRIKE.description": "Deal {Damage:diff()} damage to all enemies.\nPut {Cards:diff()} [gold]Sideways[/gold] card(s) into the [gold]Promise Pile[/gold].",
+
+  "KAREN_SIDEWAYS.title": "Sideways",
+  "KAREN_SIDEWAYS.description": "Gain {Block:diff()} [gold]Block[/gold].",
+
+  "KAREN_STRETCHING.title": "Stretching",
+  "KAREN_STRETCHING.description": "Gain {Block:diff()} [gold]Block[/gold].\nAfter being played, enter the [gold]Promise Pile[/gold].",
+
+  "KAREN_WAKE_UP.title": "Wake Up",
+  "KAREN_WAKE_UP.description": "Choose {Cards:diff()} card(s) from your draw pile{IfUpgraded:show:, [gold]Promise Pile[/gold], or discard pile|} and put them into your hand.",
+
+  "KAREN_WAKE_UP_DRAW_PILE_OPTION.title": "Draw Pile",
+  "KAREN_WAKE_UP_DRAW_PILE_OPTION.description": "Choose 2 cards from your draw pile and put them into your hand.",
+
+  "KAREN_WAKE_UP_DISCARD_PILE_OPTION.title": "Discard Pile",
+  "KAREN_WAKE_UP_DISCARD_PILE_OPTION.description": "Choose 2 cards from your discard pile and put them into your hand.",
+
+  "KAREN_WAKE_UP_PROMISE_PILE_OPTION.title": "Promise Pile",
+  "KAREN_WAKE_UP_PROMISE_PILE_OPTION.description": "Choose 2 cards from the [gold]Promise Pile[/gold] and put them into your hand.",
+
+  "KAREN_NO_HESITATE.title": "No More Hesitation",
+  "KAREN_NO_HESITATE.description": "Choose {Cards:diff()} card(s) from your draw pile, hand, or discard pile and put them into the [gold]Promise Pile[/gold].",
+
+  "KAREN_NO_HESITATE_DRAW_PILE_OPTION.title": "Draw Pile",
+  "KAREN_NO_HESITATE_DRAW_PILE_OPTION.description": "Choose {Cards:diff()} card(s) from your draw pile and put them into the [gold]Promise Pile[/gold].",
+
+  "KAREN_NO_HESITATE_DISCARD_PILE_OPTION.title": "Discard Pile",
+  "KAREN_NO_HESITATE_DISCARD_PILE_OPTION.description": "Choose {Cards:diff()} card(s) from your discard pile and put them into the [gold]Promise Pile[/gold].",
+
+  "KAREN_NO_HESITATE_HAND_OPTION.title": "Hand",
+  "KAREN_NO_HESITATE_HAND_OPTION.description": "Choose {Cards:diff()} card(s) from your hand and put them into the [gold]Promise Pile[/gold].",
+
+  "KAREN_NEXT_STAGE.title": "Next Stage",
+  "KAREN_NEXT_STAGE.description": "{IfUpgraded:show:Whenever this card moves between piles|Whenever this card is put into or leaves the [gold]Promise Pile[/gold]}, draw {Cards:diff()} card(s).",
+
+  "KAREN_RUN.title": "Run",
+  "KAREN_RUN.description": "Draw {Cards:diff()} card(s).\nAfter being played, enter the [gold]Promise Pile[/gold].",
+
+  "KAREN_VOID.title": "The Emptiest Person in the World",
+  "KAREN_VOID.description": "Destroy your draw pile, then use the [gold]Promise Pile[/gold] as your draw pile instead.",
+
+  "KAREN_FORM.title": "Awakened Form",
+  "KAREN_FORM.description": "At the start of each turn, draw until your hand is full.",
 
   "KAREN_PAST_AND_FUTURE.title": "Past and Future",
-  "KAREN_PAST_AND_FUTURE.description": "When drawing from the [gold]Promise Pile[/gold], gain {StrengthPower:diff()} [gold]Temporary Strength[/gold].",
+  "KAREN_PAST_AND_FUTURE.description": "Whenever you draw 1 card from the [gold]Promise Pile[/gold], gain {StrengthPower:diff()} [gold]Temporary Strength[/gold].",
 
-  "KAREN_SMALL_SNACK.title": "Small Snack",
-  "KAREN_SMALL_SNACK.description": "Gain {StrengthPower:diff()} [gold]Temporary Strength[/gold].\nAt the end of your turn, if this card is in the [gold]Promise Pile[/gold], transform it into [gold]Banana[/gold].",
+  "KAREN_SMALL_SNACK.title": "Banana Assortment",
+  "KAREN_SMALL_SNACK.description": "Gain {StrengthPower:diff()} [gold]Temporary Strength[/gold].\nAt the end of your turn, if this card is in the [gold]Promise Pile[/gold], transform it into [gold]Banana Dinner{IfUpgraded:show:+|}[/gold].",
 
-  "KAREN_BANANA.title": "Banana",
+  "KAREN_BANANA.title": "Banana Dinner",
   "KAREN_BANANA.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold].",
 
   "KAREN_TICKET.title": "Ticket",
   "KAREN_TICKET.description": "At the start of each turn, add 1 [gold]Tower of Promise[/gold] to your hand.",
 
-  "KAREN_WE_KNOW.title": "Stage of Promise",
-  "KAREN_WE_KNOW.description": "Deal {Damage:diff()} damage to ALL enemies.\nAt the start of combat, add [gold]Stage[/gold] to the [gold]Promise Pile[/gold].",
+  "KAREN_WE_KOWN.title": "The Dream We Share",
+  "KAREN_WE_KOWN.description": "At the end of your turn, add [gold]Radiance[/gold] to the [gold]Promise Pile[/gold].",
 
-  "KAREN_WE_KNOW_TOKEN.title": "Stage",
-  "KAREN_WE_KNOW_TOKEN.description": "Gain {Energy:energyIcons()}.",
+  "KAREN_WE_KOWN_TOKEN.title": "Radiance",
+  "KAREN_WE_KOWN_TOKEN.description": "Gain {Energy:energyIcons()}.",
 
-  "KAREN_SHINE_TOGETHER.title": "Shine Together",
-  "KAREN_SHINE_TOGETHER.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] depletes, gain {Cards:diff()} [gold]Shine Card Rewards[/gold].",
+  "KAREN_SHINE_TOGETHER.title": "A Shine Never Forgotten",
+  "KAREN_SHINE_TOGETHER.description": "Deal {Damage:diff()} damage.\nWhen [gold]Shine[/gold] is exhausted, gain {Cards:diff()} [gold]Shine Card Reward[/gold](s).",
 
   "KAREN_BASEBALL.title": "Baseball",
-  "KAREN_BASEBALL.description": "Deal {Damage:diff()} damage.\n[gold]Retain Hand[/gold], [gold]Retain Energy[/gold], [gold]Retain Block[/gold], and [gold]Retain Strength[/gold] for 2 turns.",
+  "KAREN_BASEBALL.description": "Deal {Damage:diff()} damage.\nRetain your Energy, hand, [gold]Block[/gold], and [gold]Strength[/gold] for 2 turns.",
 
   "KAREN_REWRITE.title": "Rewrite",
-  "KAREN_REWRITE.description": "Deal {Damage:diff()} damage.\nPlay all depleted [gold]Rewrite[/gold] cards.",
+  "KAREN_REWRITE.description": "Deal {Damage:diff()} damage.\nPlay all exhausted [gold]Rewrite[/gold] cards.{InCombat:\n({Cnt} exhausted.)|}",
 
-  "KAREN_GEER.title": "Gear of Fate",
-  "KAREN_GEER.description": "At the start of each turn, choose 1 card from the [gold]Promise Pile[/gold] and play it.",
-
-  "KAREN_PRACTICE3.title": "Gymnastics Practice",
-  "KAREN_PRACTICE3.description": "Gain {Block:diff()} [gold]Block[/gold].",
-
-  "KAREN_FIGHT.title": "Sing, Dance, and Fight",
-  "KAREN_FIGHT.description": "Choose {Cards:diff()} card(s) from your [gold]Shine Pile[/gold] and add it to your deck.",
-  "KAREN_FIGHT.tip.title": "Source",
-  "KAREN_FIGHT.tip": "This card appears in Shine Card Rewards.",
-  "KAREN_FIGHT.select_title": "Choose a depleted Shine card",
+  "KAREN_SHINE_REPRODUCE.title": "Shine Reproduction",
+  "KAREN_SHINE_REPRODUCE.description": "Choose {Cards:diff()} exhausted [gold]Shine[/gold] card(s) and add them back to your deck.",
+  "KAREN_SHINE_REPRODUCE.tip.title": "Tip",
+  "KAREN_SHINE_REPRODUCE.tip": "This card can appear in Shine Card Rewards.",
+  "KAREN_SHINE_REPRODUCE.select_title": "Choose an exhausted Shine card",
 
   "KAREN_EMPTY_SHELL.title": "Empty Shell",
   "KAREN_EMPTY_SHELL.description": "",
   "KAREN_EMPTY_SHELL.tip.title": "Tip",
-  "KAREN_EMPTY_SHELL.tip": "When you try to gain a copy of a depleted [gold]Shine[/gold] card, gain this card instead.",
+  "KAREN_EMPTY_SHELL.tip": "When you try to gain a copy of an exhausted [gold]Shine[/gold] card, gain this card instead.",
 
-  "KAREN_FIGHT_RELAY.title": "Sing, Dance, and Fight",
-  "KAREN_FIGHT_RELAY.description": "When [gold]Shine[/gold] depletes, gain {Relics:diff()} random relic(s).\nWhen [gold]Shine[/gold] is not depleted, transfer this card to a random teammate's deck.",
+  "KAREN_FIGHT_RELAY.title": "Sing, Dance, and Fight Each Other",
+  "KAREN_FIGHT_RELAY.description": "When [gold]Shine[/gold] is exhausted, gain {Relics:diff()} random relic(s). Otherwise, transfer this card to a random teammate's deck.",
 
-  "KAREN_CRY.title": "Sorry for the Trouble",
-  "KAREN_CRY.description": "Gain {Block:diff()} [gold]Block[/gold] whenever this card moves between piles."
+  "KAREN_SHINE_TOGETHER_ALL.title": "Let's Shine Together",
+  "KAREN_SHINE_TOGETHER_ALL.description": "All players gain a [gold]Shine Card Reward[/gold].",
+
+  "KAREN_OPEN_UP_STARS.title": "Open Up the Stars",
+  "KAREN_OPEN_UP_STARS.description": "When this card is put into the [gold]Promise Pile[/gold], apply {WeakPower:diff()} [gold]Weak[/gold] to all enemies.\nWhen it leaves, apply {VulnerablePower:diff()} [gold]Vulnerable[/gold] to all enemies."
 }
