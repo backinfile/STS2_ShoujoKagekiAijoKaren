@@ -40,7 +40,7 @@ public class KarenNewDayPower : PowerModel
         {
             return (pileType, position);
         }
-        return (KarenCustomEnum.PromisePile, CardPilePosition.Top);
+        return (KarenCustomEnum.PromisePile, CardPilePosition.Bottom);
     }
 
     public override async Task AfterModifyingCardPlayResultPileOrPosition(
