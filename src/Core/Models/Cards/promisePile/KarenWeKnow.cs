@@ -14,7 +14,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 /// </summary>
 public sealed class KarenWeKown : KarenBaseCardModel
 {
-    public KarenWeKown() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self) { }
+    public KarenWeKown() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
     public override bool CanBeGeneratedInCombat => false;
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<KarenWeKownToken>()];
