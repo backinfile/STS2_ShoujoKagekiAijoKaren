@@ -26,7 +26,7 @@ public sealed class KarenStar : KarenBaseCardModel
 
     private CardModel? toPlay = null;
 
-    public KarenStar() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenStar() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.ShineCardReward];
 
