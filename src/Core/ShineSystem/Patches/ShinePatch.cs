@@ -28,6 +28,30 @@ namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 /// </summary>
 public static class ShinePatch
 {
+    private static int _allowDepletedShineCloneDepth;
+
+    public static IDisposable AllowDepletedShineClone()
+    {
+        _allowDepletedShineCloneDepth++;
+        return new AllowDepletedShineCloneScope();
+    }
+
+    private sealed class AllowDepletedShineCloneScope : IDisposable
+    {
+        private bool _disposed;
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+            _allowDepletedShineCloneDepth = Math.Max(0, _allowDepletedShineCloneDepth - 1);
+        }
+    }
+
     /// <summary>
     /// 存储每张卡牌打出过程中使用的的 PlayerChoiceContext
     /// </summary>
@@ -85,7 +109,7 @@ public static class ShinePatch
             // 复制闪耀值
             int currentValue = source.GetShineValue();
             int maxValue = source.GetShineMaxValue();
-            if (currentValue <= 0)
+            if (currentValue <= 0 && _allowDepletedShineCloneDepth <= 0)
             {
                 __result = source.Owner?.RunState?.CreateCard(ModelDb.Card<KarenEmptyShell>(), source.Owner)
                            ?? ModelDb.Card<KarenEmptyShell>().MutableClone();
