@@ -5,8 +5,8 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.PotionPools;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
+using ShoujoKagekiAijoKaren.src.Core.Models.PotionPools;
 using ShoujoKagekiAijoKaren.src.Models.CardPools;
 using ShoujoKagekiAijoKaren.src.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Models.RelicPools;
@@ -32,7 +32,7 @@ public sealed class Karen : CharacterModel
 
     public override CardPoolModel CardPool => ModelDb.CardPool<KarenCardPool>();
 
-    public override PotionPoolModel PotionPool => ModelDb.PotionPool<IroncladPotionPool>();
+    public override PotionPoolModel PotionPool => ModelDb.PotionPool<KarenPotionPool>();
 
     public override RelicPoolModel RelicPool => ModelDb.RelicPool<KarenRelicPool>();
 
