@@ -115,3 +115,8 @@ Karen 当前的核心机制包括：
 
 + 文件编码优先使用UTF-8。 读取或修改本地化文件和代码文件时必须使用UTF8编码。
 + 卡牌稀有度术语：普通=`CardRarity.Common`，罕见/蓝卡=`CardRarity.Uncommon`，稀有=`CardRarity.Rare`。
+
+## STS2 MCP 连接与使用
+
+- 连接 STS2 时优先检查游戏日志中的 `STS2 MCP` 加载信息，并通过 `http://127.0.0.1:15526/api/v1/singleplayer?format=json` 验证本地 HTTP API 是否可访问。
+- 需要执行 MCP/HTTP 操作时，先读 `docs/external/STS2MCP/raw-simplified.md`，需要完整字段和动作说明时再读 `docs/external/STS2MCP/raw-full.md`。
