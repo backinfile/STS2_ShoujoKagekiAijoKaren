@@ -3,7 +3,8 @@ setlocal EnableExtensions
 chcp 65001 >nul
 
 set MOD_NAME=ShoujoKagekiAijoKaren
-set MOD_CONTENT_DIR=%~dp0%MOD_NAME%
+set PACKAGE_ROOT=%~dp0..\%MOD_NAME%_dist
+set MOD_CONTENT_DIR=%PACKAGE_ROOT%\%MOD_NAME%
 set WORKSHOP_VDF=%~dp0workshop_item.vdf
 set PREVIEW_FILE=%~dp0workshop_preview.jpg
 

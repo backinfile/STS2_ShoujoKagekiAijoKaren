@@ -4,7 +4,8 @@ chcp 65001 >nul
 
 set "MOD_NAME=ShoujoKagekiAijoKaren"
 set "PROJECT_DIR=%~dp0"
-set "MOD_CONTENT_DIR=%PROJECT_DIR%%MOD_NAME%"
+set "PACKAGE_ROOT=%PROJECT_DIR%..\%MOD_NAME%_dist"
+set "MOD_CONTENT_DIR=%PACKAGE_ROOT%\%MOD_NAME%"
 set "DEFAULT_MODS_DIR=D:\App\Stream\steamapps\common\Slay the Spire 2\mods"
 
 if not "%~1"=="" (
@@ -65,7 +66,7 @@ if not exist "%INSTALL_DIR%" (
 )
 
 echo [4/4] Copying package to local mods...
-robocopy "%MOD_CONTENT_DIR%" "%INSTALL_DIR%" /E /R:2 /W:1 /NFL /NDL /NP
+robocopy "%MOD_CONTENT_DIR%" "%INSTALL_DIR%" /MIR /R:2 /W:1 /NFL /NDL /NP
 set "ROBOCOPY_EXIT=%ERRORLEVEL%"
 if %ROBOCOPY_EXIT% GEQ 8 (
     echo [ERROR] Robocopy failed with exit code %ROBOCOPY_EXIT%.

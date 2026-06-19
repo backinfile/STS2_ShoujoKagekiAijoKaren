@@ -6,7 +6,8 @@ echo ====================================
 echo.
 
 set MOD_NAME=ShoujoKagekiAijoKaren
-set MOD_CONTENT_DIR=%~dp0%MOD_NAME%
+set PACKAGE_ROOT=%~dp0..\%MOD_NAME%_dist
+set MOD_CONTENT_DIR=%PACKAGE_ROOT%\%MOD_NAME%
 set GODOT_PATH=D:\Godot\megadot-4.5.1-m.12-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64.exe
 
 echo [1/5] Checking mod_manifest.json...
@@ -21,6 +22,20 @@ if not exist "%MOD_NAME%" (
     exit /b 1
 )
 
+echo [2.5/5] Preparing clean package folder...
+if exist "%MOD_CONTENT_DIR%" (
+    rmdir /S /Q "%MOD_CONTENT_DIR%"
+    if errorlevel 1 (
+        echo [ERROR] Failed to clean package folder: %MOD_CONTENT_DIR%
+        exit /b 1
+    )
+)
+mkdir "%MOD_CONTENT_DIR%"
+if errorlevel 1 (
+    echo [ERROR] Failed to create package folder: %MOD_CONTENT_DIR%
+    exit /b 1
+)
+
 echo [3/5] Building C# code...
 dotnet build --configuration ExportRelease
 if errorlevel 1 (
@@ -30,15 +45,12 @@ if errorlevel 1 (
 
 echo [4/5] Exporting Godot .pck...
 if exist "%GODOT_PATH%" (
-    if not exist "%MOD_CONTENT_DIR%" mkdir "%MOD_CONTENT_DIR%"
     "%GODOT_PATH%" --headless --export-pack "Windows Desktop" "%MOD_CONTENT_DIR%\%MOD_NAME%.pck"
 ) else (
     echo [WARNING] Godot not found, skipping .pck export
 )
 
 echo [5/5] Copying release files...
-if not exist "%MOD_CONTENT_DIR%" mkdir "%MOD_CONTENT_DIR%"
-
 copy /Y ".godot\mono\temp\bin\ExportRelease\%MOD_NAME%.dll" "%MOD_CONTENT_DIR%\"
 if errorlevel 1 (
     echo [ERROR] Failed to copy DLL
