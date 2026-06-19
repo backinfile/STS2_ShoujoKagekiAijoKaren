@@ -17,6 +17,11 @@ namespace ShoujoKagekiAijoKaren.src.Models.Characters;
 public sealed class Karen : CharacterModel
 {
     public const string energyColorName = "karen";
+    public const string OriginalCharacterSelectSfx = "event:/sfx/characters/ironclad/ironclad_select";
+    public const string OriginalCharacterAttackSfx = "event:/sfx/characters/ironclad/ironclad_attack";
+    public const string OriginalCharacterCastSfx = "event:/sfx/characters/ironclad/ironclad_cast";
+    public const string OriginalCharacterDeathSfx = "event:/sfx/characters/ironclad/ironclad_die";
+    public const string OriginalCharacterTransitionSfx = "event:/sfx/ui/wipe_ironclad";
 
     public static string CHAR_ID = StringHelper.Slugify(nameof(Karen));
 
@@ -68,6 +73,10 @@ public sealed class Karen : CharacterModel
     public override Color RemoteTargetingLineColor => new Color("FF7A7DFF");
 
     public override Color RemoteTargetingLineOutline => new Color("A0383AFF");
+
+    public override string CharacterSelectSfx => OriginalCharacterSelectSfx;
+
+    public override string CharacterTransitionSfx => OriginalCharacterTransitionSfx;
 
     public override List<string> GetArchitectAttackVfx()
     {

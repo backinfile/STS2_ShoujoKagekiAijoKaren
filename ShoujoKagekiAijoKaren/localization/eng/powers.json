@@ -4,9 +4,11 @@
   "KAREN_PROMISE_PILE_POWER.pileContents": "Promise Pile contents:",
   "KAREN_PROMISE_PILE_POWER.currentModes": "Promise Pile enhancements:",
   "KAREN_PROMISE_PILE_POWER.mode.void": "[gold]The Emptiest Person in the World[/gold]: The Promise Pile is now treated as the draw pile.",
-  "KAREN_PROMISE_PILE_POWER.mode.infinite": "[gold]Reproduction of the Stage of Fate[/gold]: The Promise Pile always contains 10 Encores.",
-  "KAREN_PROMISE_PILE_POWER.mode.burn": "[gold]Burn, Burn[/gold]: Drawn cards are upgraded and Exhaust when played.",
-  "KAREN_PROMISE_PILE_POWER.mode.pastAndFuture": "[gold]Past and Future[/gold]: Whenever you draw 1 card from the [gold]Promise Pile[/gold], gain {Amount} Temporary Strength.",
+  "KAREN_PROMISE_PILE_POWER.mode.infinite": "[gold]Reproduction of the Stage of Fate[/gold]: The Promise Pile always contains 10 [gold]Encore[/gold] cards.",
+  "KAREN_PROMISE_PILE_POWER.mode.burn": "[gold]Burn, Burn[/gold]: Drawn cards are upgraded and gain [gold]Exhaust[/gold].",
+  "KAREN_PROMISE_PILE_POWER.mode.pastAndFuture": "[gold]Past and Future[/gold]: Whenever you draw 1 card from the [gold]Promise Pile[/gold], gain {Amount} [gold]Temporary Strength[/gold].",
+
+  "KAREN_TEMP_STRENGTH_POWER.title": "Temporary Strength",
 
   "KAREN_PASSION_POWER.title": "Passion",
   "KAREN_PASSION_POWER.description": "After combat, gain 1 additional random relic.",
@@ -25,14 +27,14 @@
   "KAREN_STARLIGHT_POWER.smartDescription": "After you play a [gold]Shine[/gold] card, draw {Amount} card(s).",
 
   "KAREN_STARLIGHT02_POWER.title": "Starlight Act II",
-  "KAREN_STARLIGHT02_POWER.description": "Played [gold]Shine[/gold] cards are played 1 additional time, then their Shine is exhausted.",
-  "KAREN_STARLIGHT02_POWER.smartDescription": "Played [gold]Shine[/gold] cards are played {Amount} additional time(s), then their Shine is exhausted.",
+  "KAREN_STARLIGHT02_POWER.description": "When you play a [gold]Shine[/gold] card, play it 1 additional time, then exhaust its Shine.",
+  "KAREN_STARLIGHT02_POWER.smartDescription": "When you play a [gold]Shine[/gold] card, play it {Amount} additional time(s), then exhaust its Shine.",
 
   "KAREN_AQUARIUM_POWER.title": "Aquarium",
   "KAREN_AQUARIUM_POWER.description": "At the start of your turn, draw 1 card, then put 1 card from your [gold]hand[/gold] into the [gold]Promise Pile[/gold].",
   "KAREN_AQUARIUM_POWER.smartDescription": "At the start of your turn, draw {Amount} card(s), then put {Amount} card(s) from your hand into the [gold]Promise Pile[/gold].",
 
-  "KAREN_RETAIN_TMP_STRENGTH_POWER.title": "Retained Strength",
+  "KAREN_RETAIN_TMP_STRENGTH_POWER.title": "Retain Strength",
   "KAREN_RETAIN_TMP_STRENGTH_POWER.description": "Extends how long Temporary Strength lasts.",
   "KAREN_RETAIN_TMP_STRENGTH_POWER.smartDescription": "Extend Temporary Strength for {Amount} turn(s).",
 

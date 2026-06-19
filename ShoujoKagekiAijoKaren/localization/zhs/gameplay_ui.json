@@ -14,6 +14,9 @@
   "KAREN_DISABLERELIC_SUFFIX": "个遗物）",
   "KAREN_DERIVED_CARD_LABEL": "衍生牌",
   "KAREN_SHINE_PILE_INFO": "闪耀耗尽牌堆",
+  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.title": "已耗尽闪耀牌",
+  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part0": "本局游戏中已耗尽的不同闪耀牌：",
+  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part1": "张。",
   "KAREN_RUN_HISTORY_SHINE_EXHAUST_HEADER": "[gold][b]耗尽（{Count}）：[/b][/gold]",
   "KAREN_SHINE_PILE_BUTTON_TITLE": "闪耀牌堆",
   "KAREN_SHINE_PILE_BUTTON_DESC": "查看已耗尽闪耀的卡牌。"

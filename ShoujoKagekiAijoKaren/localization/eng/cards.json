@@ -56,7 +56,7 @@
   "KAREN_CONTINUE02.description": "Deal {Damage:diff()} damage.\nCan be [gold]upgraded[/gold] multiple times.",
 
   "KAREN_CARRYING_GUILT.title": "The Sin We Committed",
-  "KAREN_CARRYING_GUILT.description": "Deal {CalculatedDamage:diff()} damage.\nFor each non-duplicate [gold]Shine[/gold] card exhausted this run, increase this card's damage by {ExtraDamage:diff()}.{ShinePileUniqueCount:choose(0):|\n({ShinePileUniqueCount} exhausted)}",
+  "KAREN_CARRYING_GUILT.description": "Deal {CalculatedDamage:diff()} damage.\nFor each unique [gold]Shine[/gold] card exhausted this run, increase this card's damage by {ExtraDamage:diff()}.{ShinePileUniqueCount:choose(0):|\n({ShinePileUniqueCount} exhausted)}",
 
   "KAREN_STAR_FRIEND.title": "Stars Bind Our Friendship",
   "KAREN_STAR_FRIEND.description": "Deal {Damage:diff()} damage.\nOn [gold]Fatal[/gold], gain a [gold]Shine Card Reward[/gold].",
@@ -68,7 +68,7 @@
   "KAREN_STARLIGHT_CARD.description": "After you play a [gold]Shine[/gold] card, draw {KarenStarlightPower:diff()} card(s).",
 
   "KAREN_STARLIGHT02_CARD.title": "Starlight Act II",
-  "KAREN_STARLIGHT02_CARD.description": "Played [gold]Shine[/gold] cards are played {KarenStarlight02Power:diff()} additional time(s), then their Shine is exhausted.",
+  "KAREN_STARLIGHT02_CARD.description": "When you play a [gold]Shine[/gold] card, play it {KarenStarlight02Power:diff()} additional time(s), then exhaust its Shine.",
 
   "KAREN_STARLIGHT03_CARD.title": "Starlight Act III",
   "KAREN_STARLIGHT03_CARD.description": "Gain a [gold]Shine Card Reward[/gold].",
@@ -141,7 +141,7 @@
   "KAREN_PARRY.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhenever you gain or lose cards in your hand this turn, increase this card's Block by {Increase:diff()}.",
 
   "KAREN_RAPID.title": "Rapid Descent",
-  "KAREN_RAPID.description": "Choose: Choose {Cards:diff()} card(s) from the [gold]Promise Pile[/gold] and put them into your hand; or the reverse.",
+  "KAREN_RAPID.description": "Choose: put {Cards:diff()} card(s) from the [gold]Promise Pile[/gold] into your hand; or put {Cards:diff()} card(s) from your hand into the [gold]Promise Pile[/gold].",
 
   "KAREN_RAPID_TAKE_OPTION.title": "Take Back",
   "KAREN_RAPID_TAKE_OPTION.description": "Choose {Cards:diff()} card(s) from the [gold]Promise Pile[/gold] and put them into your hand.",
@@ -208,7 +208,7 @@
   "KAREN_STAGE_REPRODUCE.title": "Reproduction of the Stage of Fate",
   "KAREN_STAGE_REPRODUCE.description": "Fill the [gold]Promise Pile[/gold] with infinite [gold]Encore[/gold] cards.",
   "KAREN_STAGE_REPRODUCE.tip.title": "Tip",
-  "KAREN_STAGE_REPRODUCE.tip": "After this is played, the Promise Pile always contains 10 [gold]Encore[/gold] cards.",
+  "KAREN_STAGE_REPRODUCE.tip": "After this is played, the [gold]Promise Pile[/gold] always contains 10 [gold]Encore[/gold] cards.",
 
   "KAREN_FINANCIER.title": "Banana Financier",
   "KAREN_FINANCIER.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold].\nEvery two turns, [gold]Retain Strength[/gold] for 1 turn.",
@@ -238,13 +238,13 @@
   "KAREN_CONSCIOUSNESS.description": "Deal {Damage:diff()} damage.\nGain [gold]Block[/gold] equal to the unblocked damage dealt.",
 
   "KAREN_REVUE_DUET.title": "Revue Duet",
-  "KAREN_REVUE_DUET.description": "Deal {Damage:diff()} damage.\nAfter being played, enter the [gold]Promise Pile[/gold].",
+  "KAREN_REVUE_DUET.description": "Deal {Damage:diff()} damage.\nAfter it is played, this card enters the [gold]Promise Pile[/gold].",
 
   "KAREN_GEER.title": "Gear of Fate",
   "KAREN_GEER.description": "At the start of your turn, choose 1 card from the [gold]Promise Pile[/gold] and play it.",
 
   "KAREN_BURN.title": "Burn, Burn",
-  "KAREN_BURN.description": "Cards drawn from the [gold]Promise Pile[/gold] are [gold]upgraded[/gold] and [gold]Exhaust[/gold] when played.",
+  "KAREN_BURN.description": "Cards drawn from the [gold]Promise Pile[/gold] are [gold]upgraded[/gold] and gain [gold]Exhaust[/gold].",
 
   "KAREN_POSITION0.title": "Position 0",
   "KAREN_POSITION0.description": "The {KarenPosition0Power:choose(1):first|first {KarenPosition0Power:diff()}} time(s) each turn you deal attack damage, gain that much [gold]Block[/gold].",
@@ -259,7 +259,7 @@
   "KAREN_SIDEWAYS.description": "Gain {Block:diff()} [gold]Block[/gold].",
 
   "KAREN_STRETCHING.title": "Stretching",
-  "KAREN_STRETCHING.description": "Gain {Block:diff()} [gold]Block[/gold].\nAfter being played, enter the [gold]Promise Pile[/gold].",
+  "KAREN_STRETCHING.description": "Gain {Block:diff()} [gold]Block[/gold].\nAfter it is played, this card enters the [gold]Promise Pile[/gold].",
 
   "KAREN_WAKE_UP.title": "Wake Up",
   "KAREN_WAKE_UP.description": "Choose {Cards:diff()} card(s) from your draw pile{IfUpgraded:show:, [gold]Promise Pile[/gold], or discard pile|} and put them into your hand.",
@@ -289,7 +289,7 @@
   "KAREN_NEXT_STAGE.description": "{IfUpgraded:show:Whenever this card moves between piles|Whenever this card is put into or leaves the [gold]Promise Pile[/gold]}, draw {Cards:diff()} card(s).",
 
   "KAREN_RUN.title": "Run",
-  "KAREN_RUN.description": "Draw {Cards:diff()} card(s).\nAfter being played, enter the [gold]Promise Pile[/gold].",
+  "KAREN_RUN.description": "Draw {Cards:diff()} card(s).\nAfter it is played, this card enters the [gold]Promise Pile[/gold].",
 
   "KAREN_VOID.title": "The Emptiest Person in the World",
   "KAREN_VOID.description": "Destroy your draw pile, then use the [gold]Promise Pile[/gold] as your draw pile instead.",
@@ -327,7 +327,7 @@
   "KAREN_SHINE_REPRODUCE.title": "Shine Reproduction",
   "KAREN_SHINE_REPRODUCE.description": "Choose {Cards:diff()} exhausted [gold]Shine[/gold] card(s) and add them back to your deck.",
   "KAREN_SHINE_REPRODUCE.tip.title": "Tip",
-  "KAREN_SHINE_REPRODUCE.tip": "This card can appear in Shine Card Rewards.",
+  "KAREN_SHINE_REPRODUCE.tip": "This card can appear in a [gold]Shine Card Reward[/gold].",
   "KAREN_SHINE_REPRODUCE.select_title": "Choose an exhausted Shine card",
 
   "KAREN_EMPTY_SHELL.title": "Empty Shell",

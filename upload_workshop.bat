@@ -3,25 +3,17 @@ setlocal EnableExtensions
 chcp 65001 >nul
 
 set MOD_NAME=ShoujoKagekiAijoKaren
-set GAME_MODS_DIR=D:\App\Stream\steamapps\common\Slay the Spire 2\mods
-set MOD_CONTENT_DIR=%GAME_MODS_DIR%\%MOD_NAME%
+set MOD_CONTENT_DIR=%~dp0%MOD_NAME%
 set WORKSHOP_VDF=%~dp0workshop_item.vdf
-set PREVIEW_FILE=%~dp0scenes\screens\char_select\karenPortrait.jpg
+set PREVIEW_FILE=%~dp0workshop_preview.jpg
 
 echo ====================================
 echo Slay the Spire 2 Workshop Upload
 echo ====================================
 echo.
 
-if "%~1"=="" (
-    echo [ERROR] Missing Steam username.
-    echo Usage: upload_workshop.bat YOUR_STEAM_USERNAME
-    echo.
-    echo Optional: set STEAMCMD_PATH=D:\Tools\steamcmd\steamcmd.exe
-    exit /b 1
-)
-
-set STEAM_USERNAME=%~1
+set STEAM_USERNAME=backinfile
+if not "%~1"=="" set STEAM_USERNAME=%~1
 
 echo [1/5] Building release package...
 call "%~dp0build.bat"
@@ -58,6 +50,8 @@ if not exist "%PREVIEW_FILE%" (
 echo [4/5] Locating SteamCMD...
 if not "%STEAMCMD_PATH%"=="" (
     set STEAMCMD_EXE=%STEAMCMD_PATH%
+) else if exist "D:\Tools\steamcmd\steamcmd.exe" (
+    set STEAMCMD_EXE=D:\Tools\steamcmd\steamcmd.exe
 ) else (
     set STEAMCMD_EXE=steamcmd
 )

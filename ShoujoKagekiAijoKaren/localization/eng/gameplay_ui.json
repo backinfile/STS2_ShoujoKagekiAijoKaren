@@ -5,7 +5,7 @@
   "KAREN_PROMISE_PILE_INFO": "Promise Pile",
   "KAREN_PROMISE_PILE_EMPTY": "The Promise Pile is empty!",
   "KAREN_PROMISE_PILE_TITLE": "Promise Pile",
-  "KAREN_PROMISE_PILE_DESCRIPTION": "Cards in the Promise Pile are drawn first.",
+  "KAREN_PROMISE_PILE_DESCRIPTION": "Cards in the Promise Pile are drawn before other cards. Cards put in first are drawn first.",
   "KAREN_PROMISE_PILE_SELECT_FROM_DISCARD": "Choose cards to put into the Promise Pile",
   "KAREN_PROMISE_PILE_SELECT_FROM_DRAW": "Choose cards to put into the Promise Pile",
   "KAREN_PROMISE_PILE_SELECT_FROM_HAND": "Choose cards to put into the Promise Pile",
@@ -14,6 +14,9 @@
   "KAREN_DISABLERELIC_SUFFIX": " relic(s))",
   "KAREN_DERIVED_CARD_LABEL": "Token Card",
   "KAREN_SHINE_PILE_INFO": "Shine Exhaust Pile",
+  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.title": "Exhausted Shine Cards",
+  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part0": "Unique exhausted Shine cards this run: ",
+  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part1": ".",
   "KAREN_RUN_HISTORY_SHINE_EXHAUST_HEADER": "[gold][b]Exhausted ({Count}):[/b][/gold]",
   "KAREN_SHINE_PILE_BUTTON_TITLE": "Shine Pile",
   "KAREN_SHINE_PILE_BUTTON_DESC": "View cards whose Shine has been exhausted."

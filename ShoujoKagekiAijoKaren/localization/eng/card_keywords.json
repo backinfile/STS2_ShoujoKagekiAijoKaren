@@ -1,17 +1,17 @@
 {
   "KAREN_SHINE.title": "Shine X",
-  "KAREN_SHINE.description": "After being played X times, this card is [red]permanently removed[/red] from your deck.",
+  "KAREN_SHINE.description": "After you play this card X times, it is [red]permanently removed[/red] from your deck.",
 
   "KAREN_ETERNAL_SHINE.title": "Eternal Shine",
   "KAREN_ETERNAL_SHINE.description": "Shine no longer decreases.",
 
   "KAREN_PROMISE_PILE.title": "Promise Pile",
-  "KAREN_PROMISE_PILE.description": "A special pile unique to Karen Aijo.",
+  "KAREN_PROMISE_PILE.description": "A special pile unique to Karen Aijo.\nThe Promise Pile is ordered: cards put in first are drawn first.",
 
   "KAREN_TMP_STRENGTH.title": "Temporary Strength",
   "KAREN_TMP_STRENGTH.description": "Temporary Strength gives attacks additional damage this turn.",
 
-  "KAREN_RETAIN_TMP_STRENGTH.title": "Retained Strength",
+  "KAREN_RETAIN_TMP_STRENGTH.title": "Retain Strength",
   "KAREN_RETAIN_TMP_STRENGTH.description": "Extends how long Temporary Strength lasts.",
 
   "KAREN_SHINE_CARD_REWARD.title": "Shine Card Reward",
