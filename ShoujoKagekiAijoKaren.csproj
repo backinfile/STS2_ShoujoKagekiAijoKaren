@@ -67,7 +67,7 @@
     <None Include="src\Core\ShineSystem\ShinePileManager.cs.uid" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.1.0" />
+    <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.2.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
