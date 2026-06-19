@@ -6,5 +6,11 @@
 	"previewfile"		"D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\workshop_preview.jpg"
 	"visibility"		"2"
 	"title"		"Shoujo Kageki: Aijo Karen"
+	"tags"
+	{
+		"0"		"Characters"
+		"1"		"Cards"
+		"2"		"Relics"
+	}
 	"changenote"		"Initial Workshop release."
 }
