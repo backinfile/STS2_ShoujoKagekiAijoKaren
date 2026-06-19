@@ -54,7 +54,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
         /// <summary>
         /// 从多个选项卡牌中选择一项执行对应DoOption方法
         /// </summary>
-        public static async Task SelectOption(PlayerChoiceContext ctx, CardPlay cardPlay, Player player, CombatState combatState, List<CardModel> options, bool upgrade = false)
+        public static async Task SelectOption(PlayerChoiceContext ctx, CardPlay cardPlay, Player player, ICombatState combatState, List<CardModel> options, bool upgrade = false)
         {
             var cards = CardUtils.CreateTokens(player, combatState, options, upgrade);
 

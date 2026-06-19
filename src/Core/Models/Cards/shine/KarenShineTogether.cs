@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -55,7 +55,7 @@ public sealed class KarenShineTogether : KarenBaseCardModel
         DynamicVars.Cards.UpgradeValueBy(1m);
     }
 
-    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, ICombatState combatState)
     {
         if (Owner != null)
         {

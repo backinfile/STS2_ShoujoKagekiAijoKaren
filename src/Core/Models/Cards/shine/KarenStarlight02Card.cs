@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -26,7 +26,7 @@ public sealed class KarenStarlight02Card() : KarenBaseCardModel(2, CardType.Powe
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KarenStarlight02Power>(
+        await PowerCmd.Apply<KarenStarlight02Power>(choiceContext, 
             Owner.Creature,
             DynamicVars[nameof(KarenStarlight02Power)].BaseValue,
             Owner.Creature,

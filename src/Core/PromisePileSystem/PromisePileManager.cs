@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.addons.mega_text;
 using MegaCrit.Sts2.Core.CardSelection;
@@ -105,7 +105,7 @@ public static class PromisePileManager
 
         var creature = player.Creature;
         if (!creature.HasPower<KarenPromisePilePower>())
-            await PowerCmd.Apply<KarenPromisePilePower>(creature, 1, creature, null);
+            await PowerCmd.Apply<KarenPromisePilePower>(new ThrowingPlayerChoiceContext(), creature, 1, creature, null);
 
         if (creature.GetPower<KarenPromisePilePower>() is { } power)
         {
@@ -270,7 +270,7 @@ public static class PromisePileManager
         //if (player?.Creature == null) return;
         //if (player.Character is not Karen) return;
 
-        //await PowerCmd.Apply<KarenPromisePilePower>(player.Creature, 1, player.Creature, null);
+        //await PowerCmd.Apply<KarenPromisePilePower>(new ThrowingPlayerChoiceContext(), player.Creature, 1, player.Creature, null);
         //if (player.Creature.GetPower<KarenPromisePilePower>() is { } karenPower)
         //    karenPower.SetCount(0);
 
@@ -290,7 +290,7 @@ public static class PromisePileManager
         var creature = player.Creature;
 
         if (!creature.HasPower<KarenPromisePilePower>())
-            await PowerCmd.Apply<KarenPromisePilePower>(creature, 1, creature, null);
+            await PowerCmd.Apply<KarenPromisePilePower>(new ThrowingPlayerChoiceContext(), creature, 1, creature, null);
 
 
         if (IsInMode(player, PromisePileMode.InfiniteReinforcement))
@@ -321,7 +321,7 @@ public static class PromisePileManager
         if (!inVoidMode)
         {
             var pile = GetPromisePile(player);
-            var maxCount = CardPile.maxCardsInHand;
+            var maxCount = CardPile.MaxCardsInHand;
             // 先把牌库中的非续演牌移除掉
             foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
             {
@@ -343,7 +343,7 @@ public static class PromisePileManager
         else
         {
             var pile = PileType.Draw.GetPile(player);
-            var maxCount = CardPile.maxCardsInHand;
+            var maxCount = CardPile.MaxCardsInHand;
             // 先把牌库中的非续演牌移除掉
             foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
             {
@@ -405,9 +405,9 @@ public static class PromisePileManager
         foreach (var card in handCards)
         {
             var copyCard = card.CreateClone();
-            CombatManager.Instance.History.CardGenerated(combatState, copyCard, true);
+            CombatManager.Instance.History.CardGenerated(combatState, copyCard, player);
             await PromisePileCmd.Add(player, copyCard);
-            await Hook.AfterCardGeneratedForCombat(combatState, copyCard, true);
+            await Hook.AfterCardGeneratedForCombat(combatState, copyCard, player);
         }
     }
 

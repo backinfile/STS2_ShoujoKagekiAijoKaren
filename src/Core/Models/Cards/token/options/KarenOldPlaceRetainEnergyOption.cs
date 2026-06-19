@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -27,7 +27,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options
         }
         public override async Task DoOption(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<KarenRetainEnergyPower>(Owner.Creature, DynamicVars["Turns"].IntValue, Owner.Creature, this);
+            await PowerCmd.Apply<KarenRetainEnergyPower>(choiceContext, Owner.Creature, DynamicVars["Turns"].IntValue, Owner.Creature, this);
         }
     }
 }

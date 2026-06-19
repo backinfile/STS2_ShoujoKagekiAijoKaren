@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Combat;
+﻿using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -39,7 +39,7 @@ public sealed class KarenFightRelay : KarenBaseCardModel
         DynamicVars["Relics"].UpgradeValueBy(1m);
     }
 
-    protected override PileType GetResultPileType()
+    protected override PileType GetResultPileTypeForCardPlay()
     {
         if (this.GetShineValue() > 0 && GetTransferTargets().Count > 0)
         {
@@ -47,10 +47,10 @@ public sealed class KarenFightRelay : KarenBaseCardModel
             return PileType.None;
         }
 
-        return base.GetResultPileType();
+        return base.GetResultPileTypeForCardPlay();
     }
 
-    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, ICombatState combatState)
     {
         for (var i = 0; i < DynamicVars["Relics"].IntValue; i++)
         {

@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -10,6 +11,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
@@ -25,9 +27,9 @@ public class KarenBananaLunchPower : PowerModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<KarenSandwitch>()];
 
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (side == CombatSide.Player && Owner.Player is Player player)
+        if (side == CombatSide.Player && participants.Contains(Owner) && Owner.Player is Player player)
         {
             await PromisePileCmd.AddToken<KarenSandwitch>(player, CombatState, Amount);
         }

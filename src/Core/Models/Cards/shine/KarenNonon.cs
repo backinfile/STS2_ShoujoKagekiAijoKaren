@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -45,7 +45,7 @@ public sealed class KarenNonon : KarenBaseCardModel
             .WithHitFx(VfxCmd.giantHorizontalSlashPath)
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<KarenNononStrengthDownPower>(CombatState.HittableEnemies, DynamicVars.Strength.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<KarenNononStrengthDownPower>(choiceContext, CombatState.HittableEnemies, DynamicVars.Strength.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

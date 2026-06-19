@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -29,7 +29,7 @@ public sealed class KarenLetterCard() : KarenBaseCardModel(1, CardType.Power, Ca
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 给自己添加信Power
-        await PowerCmd.Apply<KarenLetterPower>(
+        await PowerCmd.Apply<KarenLetterPower>(choiceContext, 
             Owner.Creature,
             DynamicVars[nameof(KarenLetterPower)].BaseValue,
             Owner.Creature,

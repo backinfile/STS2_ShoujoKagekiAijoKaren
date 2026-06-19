@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Combat;
+﻿using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -52,7 +52,7 @@ public sealed class KarenJealousy : KarenBaseCardModel
         DynamicVars["Relics"].UpgradeValueBy(1m);
     }
 
-    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, ICombatState combatState)
     {
         for (var i = 0; i < DynamicVars["Relics"].IntValue; i++)
             await ExtraRewardCmd.AddRelicReward(Owner);

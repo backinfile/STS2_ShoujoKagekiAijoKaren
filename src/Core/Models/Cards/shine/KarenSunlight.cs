@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Combat;
@@ -61,7 +61,7 @@ public sealed class KarenSunlight : KarenBaseCardModel
         DynamicVars.Damage.UpgradeValueBy(4m);
     }
 
-    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, ICombatState combatState)
     {
         MainFile.Logger.Info("KarenSunlight.OnShineExhausted triggered. Prompting player to add KarenSunlight back to deck.");
         if (Owner == null)

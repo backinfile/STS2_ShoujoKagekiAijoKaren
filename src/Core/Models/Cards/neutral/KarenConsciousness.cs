@@ -41,7 +41,7 @@ public sealed class KarenConsciousness : KarenBaseCardModel
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
 
-        var blockAmount = result.Results.Sum((DamageResult r) => r.TotalDamage + r.OverkillDamage);
+        var blockAmount = result.Results.SelectMany(r => r).Sum((DamageResult r) => r.TotalDamage + r.OverkillDamage);
         await CreatureCmd.GainBlock(Owner.Creature, blockAmount, ValueProp.Move, cardPlay);
     }
 

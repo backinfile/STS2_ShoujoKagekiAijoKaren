@@ -8,7 +8,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 /// <summary>
 /// Keep History Course from turning depleted Shine cards into Empty Shell.
 /// </summary>
-[HarmonyPatch(typeof(HistoryCourse), nameof(HistoryCourse.BeforePlayPhaseStart))]
+[HarmonyPatch(typeof(HistoryCourse), nameof(HistoryCourse.AfterAutoPrePlayPhaseEntered))]
 public static class HistoryCourseShinePatch
 {
     private static void Postfix(ref Task __result)

@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -23,7 +23,7 @@ public sealed class KarenForm : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KarenFormPower>(Owner.Creature, 1m, Owner.Creature, this);
+        await PowerCmd.Apply<KarenFormPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
         KarenFormVfxManager.Start(Owner);
     }
 

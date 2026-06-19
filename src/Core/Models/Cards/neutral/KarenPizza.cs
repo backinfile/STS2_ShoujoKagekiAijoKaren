@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -29,13 +29,13 @@ public sealed class KarenPizza : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 玩家获得力量
-        await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars.Strength.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.Creature, DynamicVars.Strength.BaseValue, Owner.Creature, this);
 
         // 所有敌人失去力量
         var enemies = CombatState?.HittableEnemies;
         if (enemies != null)
         {
-            await PowerCmd.Apply<StrengthPower>(enemies, -DynamicVars.Strength.BaseValue, Owner.Creature, this);
+            await PowerCmd.Apply<StrengthPower>(choiceContext, enemies, -DynamicVars.Strength.BaseValue, Owner.Creature, this);
         }
     }
 

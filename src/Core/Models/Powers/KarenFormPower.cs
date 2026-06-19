@@ -42,7 +42,7 @@ public class KarenFormPower : PowerModel
     {
         if (player == Owner?.Player)
         {
-            return CardPile.maxCardsInHand;
+            return CardPile.MaxCardsInHand;
         }
         return base.ModifyHandDrawLate(player, count);
     }
@@ -51,7 +51,7 @@ public class KarenFormPower : PowerModel
     //{
     //    if (player == base.Owner.Player)
     //    {
-    //        int max = CardPile.maxCardsInHand;
+    //        int max = CardPile.MaxCardsInHand;
     //        var hand = PileType.Hand.GetPile(player);
     //        int drawnCnt = 0;
     //        while (hand.Cards.Count < max)

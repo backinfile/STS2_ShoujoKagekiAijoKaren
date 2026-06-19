@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -39,10 +39,10 @@ public sealed class KarenBaseball : KarenBaseCardModel
             .Execute(choiceContext);
 
         // 同时应用4种保留效果，各2回合
-        await PowerCmd.Apply<RetainHandPower>(Owner.Creature, 2, Owner.Creature, this);
-        await PowerCmd.Apply<KarenRetainEnergyPower>(Owner.Creature, 2, Owner.Creature, this);
-        await PowerCmd.Apply<BlurPower>(Owner.Creature, 2, Owner.Creature, this);
-        await PowerCmd.Apply<KarenRetainTmpStrengthPower>(Owner.Creature, 2, Owner.Creature, this);
+        await PowerCmd.Apply<RetainHandPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
+        await PowerCmd.Apply<KarenRetainEnergyPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
+        await PowerCmd.Apply<BlurPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
+        await PowerCmd.Apply<KarenRetainTmpStrengthPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

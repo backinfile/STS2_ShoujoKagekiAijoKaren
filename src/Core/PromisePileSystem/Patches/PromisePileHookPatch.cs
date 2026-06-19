@@ -34,7 +34,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches
             [HarmonyPostfix]
             public static void Postfix(
                 IRunState runState, CombatState? combatState,
-                CardModel card, PileType oldPile, AbstractModel? source,
+                CardModel card, PileType oldPile, [HarmonyArgument(4)] AbstractModel? source,
                 ref Task __result)
             {
                 Async.Postfix(ref __result, () => HandleHooks(card, oldPile));

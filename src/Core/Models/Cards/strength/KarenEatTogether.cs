@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -34,7 +34,7 @@ public sealed class KarenEatTogether : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 获得临时力量（本回合+3，下回合-3）
-        await PowerCmd.Apply<KarenEatTogetherTempStrengthPower>(
+        await PowerCmd.Apply<KarenEatTogetherTempStrengthPower>(choiceContext, 
             Owner.Creature,
             DynamicVars.Strength.BaseValue,
             Owner.Creature,
@@ -42,7 +42,7 @@ public sealed class KarenEatTogether : KarenBaseCardModel
         );
 
         // 获得保留力量（回合结束时不会消失）
-        await PowerCmd.Apply<KarenRetainTmpStrengthPower>(
+        await PowerCmd.Apply<KarenRetainTmpStrengthPower>(choiceContext, 
             Owner.Creature,
             DynamicVars["Turns"].IntValue,
             Owner.Creature,

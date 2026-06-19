@@ -7,7 +7,7 @@ echo.
 
 set MOD_NAME=ShoujoKagekiAijoKaren
 set GAME_MODS_DIR=D:\App\Stream\steamapps\common\Slay the Spire 2\mods
-set GODOT_PATH=D:\Godot\megadot-4.5.1-m.8-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64.exe
+set GODOT_PATH=D:\Godot\megadot-4.5.1-m.12-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64.exe
 
 echo [1/5] Checking mod_manifest.json...
 if not exist "mod_manifest.json" (

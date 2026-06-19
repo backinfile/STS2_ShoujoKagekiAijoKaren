@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Extensions;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Rewards;
@@ -33,7 +34,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
                 combatRoom.AddExtraReward(player, new SpecialCardReward(clone, player));
                 MainFile.Logger.Info($"Added shine card reward: {shineCard?.Title} for player: {player.NetId}");
                 // 标记Power
-                await PowerCmd.Apply<KarenShineCardRewardPower>(player.Creature, 1m, player.Creature, null);
+                await PowerCmd.Apply<KarenShineCardRewardPower>(new ThrowingPlayerChoiceContext(), player.Creature, 1m, player.Creature, null);
             }
             else
             {
@@ -50,7 +51,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
             {
                 combatRoom.AddExtraReward(player, new RelicReward(player));
                 MainFile.Logger.Info($"Added relic reward for player: {player.NetId}");
-                await PowerCmd.Apply<KarenPassionPower>(player.Creature, 1m, player.Creature, null);
+                await PowerCmd.Apply<KarenPassionPower>(new ThrowingPlayerChoiceContext(), player.Creature, 1m, player.Creature, null);
             }
             else
             {

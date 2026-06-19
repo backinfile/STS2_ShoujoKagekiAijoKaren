@@ -17,7 +17,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
 
         public static bool IsHandFull(Player player)
         {
-            return player.PlayerCombatState?.Hand.Cards.Count >= CardPile.maxCardsInHand;
+            return player.PlayerCombatState?.Hand.Cards.Count >= CardPile.MaxCardsInHand;
         }
 
     }
@@ -25,7 +25,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
     public static class CardUtils
     {
 
-        public static List<CardModel> CreateTokens(Player player, CombatState combatState, IEnumerable<CardModel> canonicalCards, bool upgrade = false)
+        public static List<CardModel> CreateTokens(Player player, ICombatState combatState, IEnumerable<CardModel> canonicalCards, bool upgrade = false)
         {
             var result = new List<CardModel>();
 

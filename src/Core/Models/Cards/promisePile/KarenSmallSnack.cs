@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -34,7 +34,7 @@ public sealed class KarenSmallSnack : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KarenSmallSnackTempStrengthPower>(
+        await PowerCmd.Apply<KarenSmallSnackTempStrengthPower>(choiceContext, 
             Owner.Creature,
             DynamicVars.Strength.BaseValue,
             Owner.Creature,

@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -48,7 +48,7 @@ public sealed class KarenChargeStrike : KarenBaseCardModel
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<KarenChargeStrikeStrengthDownPower>(cardPlay.Target, DynamicVars.Strength.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<KarenChargeStrikeStrengthDownPower>(choiceContext, cardPlay.Target, DynamicVars.Strength.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

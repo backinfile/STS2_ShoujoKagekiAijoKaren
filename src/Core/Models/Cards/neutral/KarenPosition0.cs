@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -22,7 +22,7 @@ public sealed class KarenPosition0 : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KarenPosition0Power>(Owner.Creature, DynamicVars[nameof(KarenPosition0Power)].IntValue, Owner.Creature, this);
+        await PowerCmd.Apply<KarenPosition0Power>(choiceContext, Owner.Creature, DynamicVars[nameof(KarenPosition0Power)].IntValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

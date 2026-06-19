@@ -56,7 +56,7 @@ public sealed class KarenStarFriend : KarenBaseCardModel
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
 
-        if (shouldTriggerFatal && attackCommand.Results.Any((DamageResult r) => r.WasTargetKilled))
+        if (shouldTriggerFatal && attackCommand.Results.SelectMany(r => r).Any((DamageResult r) => r.WasTargetKilled))
         {
             await ExtraRewardCmd.AddShineCardReward(Owner);
         }

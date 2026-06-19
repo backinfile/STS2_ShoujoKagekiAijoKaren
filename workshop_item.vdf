@@ -1,0 +1,11 @@
+"workshopitem"
+{
+  "appid"           "2868840"
+  "publishedfileid" "0"
+  "contentfolder"   "D:\\App\\Stream\\steamapps\\common\\Slay the Spire 2\\mods\\ShoujoKagekiAijoKaren"
+  "previewfile"     "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\scenes\\screens\\char_select\\karenPortrait.jpg"
+  "visibility"      "2"
+  "title"           "Shoujo Kageki: Aijo Karen"
+  "description"     "Adds Aijo Karen as a playable character. Requires BaseLib."
+  "changenote"      "Initial Workshop release."
+}

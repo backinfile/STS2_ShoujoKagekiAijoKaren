@@ -51,7 +51,7 @@ public sealed class KarenShinePotion : KarenBasePotion
         }
 
         selected.SetToFreeThisTurn();
-        await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, Owner);
 
         var deckCopy = selected.CloneSafeForDeck();
         selected.DeckVersion = deckCopy;

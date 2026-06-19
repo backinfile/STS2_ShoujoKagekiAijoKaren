@@ -74,7 +74,7 @@ public static class PromisePileCmd
 
 
 
-    public static async Task AddToken<T>(Player player, CombatState combatState, int cnt = 1) where T : CardModel
+    public static async Task AddToken<T>(Player player, ICombatState combatState, int cnt = 1) where T : CardModel
     {
         //MainFile.Logger.Info($"Adding {cnt} token(s) of type {typeof(T).Name} to promise pile for player {player.Creature.Name}");
         //if (CombatManager.Instance.IsOverOrEnding) return;
@@ -84,7 +84,7 @@ public static class PromisePileCmd
             var card = combatState.CreateCard<T>(player);
             cards.Add(card);
         }
-        await CardPileCmd.AddGeneratedCardsToCombat(cards, KarenCustomEnum.PromisePile, true);
+        await CardPileCmd.AddGeneratedCardsToCombat(cards, KarenCustomEnum.PromisePile, player);
     }
 
     /// <summary>

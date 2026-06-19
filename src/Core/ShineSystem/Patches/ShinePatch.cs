@@ -177,7 +177,7 @@ public static class ShinePatch
         /// 为了不干扰其他Prefix，最后执行这个逻辑
         /// </summary>
         [HarmonyPriority(Priority.Last)]
-        public static bool Prefix(IEnumerable<CardModel> cards, CardPile newPile, CardPilePosition position, AbstractModel? source, bool skipVisuals, ref Task<IReadOnlyList<CardPileAddResult>> __result)
+        public static bool Prefix(IEnumerable<CardModel> cards, CardPile newPile, CardPilePosition position, [HarmonyArgument(3)] AbstractModel? source, bool skipVisuals, ref Task<IReadOnlyList<CardPileAddResult>> __result)
         {
             var takeOverCards = new List<CardModel>();
             foreach (var card in cards)

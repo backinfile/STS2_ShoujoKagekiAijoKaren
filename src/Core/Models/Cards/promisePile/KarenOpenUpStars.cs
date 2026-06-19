@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -34,13 +34,13 @@ public sealed class KarenOpenUpStars() : KarenBaseCardModel(0, CardType.Skill, C
     public override async Task OnAddedToPromisePile()
     {
         if (CombatState == null) return;
-        await PowerCmd.Apply<WeakPower>(CombatState.HittableEnemies, DynamicVars.Weak.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<WeakPower>(new ThrowingPlayerChoiceContext(), CombatState.HittableEnemies, DynamicVars.Weak.BaseValue, Owner.Creature, this);
     }
 
     public override async Task OnRemovedFromPromisePile()
     {
         if (CombatState == null) return;
-        await PowerCmd.Apply<VulnerablePower>(CombatState.HittableEnemies, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<VulnerablePower>(new ThrowingPlayerChoiceContext(), CombatState.HittableEnemies, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

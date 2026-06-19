@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -30,7 +30,7 @@ public sealed class KarenStarlightCard() : KarenBaseCardModel(1, CardType.Power,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 给自己添加星光Power
-        await PowerCmd.Apply<KarenStarlightPower>(
+        await PowerCmd.Apply<KarenStarlightPower>(choiceContext, 
             Owner.Creature,
             DynamicVars[nameof(KarenStarlightPower)].BaseValue,
             Owner.Creature,

@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -28,7 +28,7 @@ public class KarenFinancierPower : PowerModel
             {
                 // 每两回合保留力量1回合
                 Flash();
-                await PowerCmd.Apply<KarenRetainTmpStrengthPower>(player.Creature, Amount, player.Creature, null);
+                await PowerCmd.Apply<KarenRetainTmpStrengthPower>(choiceContext, player.Creature, Amount, player.Creature, null);
             }
         }
     }

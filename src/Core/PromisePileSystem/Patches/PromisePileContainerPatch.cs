@@ -85,7 +85,7 @@ public static class PromisePileContainerPatch
         /// 这个方法理论上要先于所有方法执行
         /// </summary>
         [HarmonyPriority(Priority.First * 10)]
-        public static bool Prefix(IEnumerable<CardModel> cards, ref CardPile newPile, CardPilePosition position, AbstractModel? source, bool skipVisuals, ref Task<IReadOnlyList<CardPileAddResult>> __result)
+        public static bool Prefix(IEnumerable<CardModel> cards, ref CardPile newPile, CardPilePosition position, [HarmonyArgument(3)] AbstractModel? source, bool skipVisuals, ref Task<IReadOnlyList<CardPileAddResult>> __result)
         {
             if (cards == null || !cards.Any()) return true;
 

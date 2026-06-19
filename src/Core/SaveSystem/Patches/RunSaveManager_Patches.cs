@@ -21,7 +21,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.SaveSystem;
 ///   MigrationManager.LoadSaveFromPath → GodotFileIo.ReadFile(path) → string
 ///   ↳ [Postfix] 从 players[*].extra_fields 提取闪耀牌堆 → KarenExtraFieldsSaveBuffer
 ///
-/// 恢复时机：在 RunManager.SetUpSavedSinglePlayer/SetUpSavedMultiPlayer Postfix 中消费，
+/// 恢复时机：在 RunManager.SetUpSavedSingleplayer/SetUpSavedMultiplayer Postfix 中消费，
 /// 此时 RunState 和卡组 CardModel 实例均已就绪，无需等待战斗开始。
 /// 时机与游戏完全一致，数据嵌入同一个 .save 文件，无需伴随文件。
 /// System.Text.Json 默认忽略未知字段，游戏的反序列化不受影响。
@@ -155,14 +155,14 @@ internal static class RunSaveManager_Patches
 
     // ─────────────────────────────────────────────────────────────────────
     // 恢复：SerializableRun 加载进 RunManager 完成时消费缓冲区
-    // SetUpSavedSinglePlayer / SetUpSavedMultiPlayer 调用后 State 和卡组均已就绪
+    // SetUpSavedSingleplayer / SetUpSavedMultiplayer 调用后 State 和卡组均已就绪
     // ─────────────────────────────────────────────────────────────────────
-    [HarmonyPatch(typeof(RunManager), nameof(RunManager.SetUpSavedSinglePlayer))]
+    [HarmonyPatch(typeof(RunManager), nameof(RunManager.SetUpSavedSingleplayer))]
     [HarmonyPostfix]
     private static void SetUpSavedSinglePlayer_Postfix()
         => ConsumeAndRestore();
 
-    [HarmonyPatch(typeof(RunManager), nameof(RunManager.SetUpSavedMultiPlayer))]
+    [HarmonyPatch(typeof(RunManager), nameof(RunManager.SetUpSavedMultiplayer))]
     [HarmonyPostfix]
     private static void SetUpSavedMultiPlayer_Postfix()
         => ConsumeAndRestore();

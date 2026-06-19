@@ -1,9 +1,10 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
@@ -213,7 +214,7 @@ public sealed class KarenPromisePilePower : FakeAmountPower
             // 特效更新
             if (Owner.Player is Player player) KarenPastAndFutureRingVfxManager.Pulse(player);
             // 获得力量
-            await PowerCmd.Apply<KarenPastAndFutureTempStrengthPower>(Owner, _pastAndFutureAmount, Owner, null);
+            await PowerCmd.Apply<KarenPastAndFutureTempStrengthPower>(new ThrowingPlayerChoiceContext(), Owner, _pastAndFutureAmount, Owner, null);
         }
     }
 }
