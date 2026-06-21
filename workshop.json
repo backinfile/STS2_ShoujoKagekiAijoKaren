@@ -1,0 +1,16 @@
+{
+  "title": null,
+  "description": null,
+  "visibility": "public",
+  "changeNote": "Update Workshop metadata.",
+  "tags": [
+    "Characters",
+    "Cards",
+    "Relics"
+  ],
+  "dependencies": [
+    3737335127
+  ],
+  "minBranch": null,
+  "maxBranch": null
+}
