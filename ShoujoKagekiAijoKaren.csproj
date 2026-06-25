@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/4.5.1">
+﻿<Project Sdk="Godot.NET.Sdk/4.5.1">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
@@ -35,20 +35,20 @@
     <None Include="src\Core\Models\Cards\basic\KarenStrike.cs.uid" />
     <None Include="src\Core\Models\Characters\Karen.cs.uid" />
     <None Include="src\Core\Models\RelicPools\KarenRelicPool.cs.uid" />
-    <None Include="src\Core\Node\SKCardTrail.cs.uid" />
-    <None Include="src\Core\Node\SKCardTrailVfx.cs.uid" />
-    <None Include="src\Core\Node\SKCreatureVisuals.cs.uid" />
-    <None Include="src\Core\Node\SKMerchantCharacter.cs.uid" />
-    <None Include="src\Core\Node\SKRestSiteCharacter.cs.uid" />
-    <None Include="src\Core\Node\SKSelectionReticle.cs.uid" />
-    <None Include="src\Core\Node\SMegaLabel.cs.uid" />
-    <None Include="src\Core\Node\SNCardTrail.cs.uid" />
-    <None Include="src\Core\Node\SNCardTrailVfx.cs.uid" />
-    <None Include="src\Core\Node\SNCreatureVisuals.cs.uid" />
-    <None Include="src\Core\Node\SNEnergyCounter.cs.uid" />
-    <None Include="src\Core\Node\SNMerchantCharacter.cs.uid" />
-    <None Include="src\Core\Node\SNRestSiteCharacter.cs.uid" />
-    <None Include="src\Core\Node\SNSelectionReticle.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SKCardTrail.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SKCardTrailVfx.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SKCreatureVisuals.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SKMerchantCharacter.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SKRestSiteCharacter.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SKSelectionReticle.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SMegaLabel.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SNCardTrail.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SNCardTrailVfx.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SNCreatureVisuals.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SNEnergyCounter.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SNMerchantCharacter.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SNRestSiteCharacter.cs.uid" />
+    <None Include="src\ShoujoKagekiAijoKaren\GodotScripts\Node\SNSelectionReticle.cs.uid" />
     <None Include="src\Core\Patches\ExamplePatch.cs.uid" />
     <None Include="src\Core\Patches\KarenDialoguePatch.cs.uid" />
     <None Include="src\Core\Patches\NCardLibrary_KarenPatch.cs.uid" />

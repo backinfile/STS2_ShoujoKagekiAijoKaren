@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BaseLib.Config;
-using Godot;
 using Godot.Bridge;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
@@ -12,7 +11,7 @@ using ShoujoKagekiAijoKaren.src.Models.Characters;
 namespace ShoujoKagekiAijoKaren;
 
 [ModInitializer(nameof(Initialize))]
-public partial class MainFile : Node
+public static class MainFile
 {
     public const string ModId = "ShoujoKagekiAijoKaren";
     private const string BuildMarker = "2026-05-11-character-select-diagnostics";

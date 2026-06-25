@@ -36,7 +36,7 @@
 
 ## Mod 主入口
 
-主入口在 `MainFile.cs`。
+主入口在 `src/ShoujoKagekiAijoKaren/MainFile.cs`。
 
 初始化流程主要包括：
 
@@ -44,7 +44,7 @@
 2. 通过 `ModConfigRegistry.Register(ModId, new KarenModConfig())` 注册配置。
 3. 创建 `Harmony` 实例并执行 `PatchAll()`，让项目内所有补丁生效。
 
-`MainFile.cs` 中的 `ModelDbAllCharactersPatch` 会给 `ModelDb.AllCharacters` 做 `Postfix`，把 `ModelDb.Character<Karen>()` 插入角色列表，并清空 `ModelDb` 内部的 `_allCharacterCardPools` 和 `_allCards` 缓存，确保角色和卡池缓存重新生成。
+`src/ShoujoKagekiAijoKaren/MainFile.cs` 中的 `ModelDbAllCharactersPatch` 会给 `ModelDb.AllCharacters` 做 `Postfix`，把 `ModelDb.Character<Karen>()` 插入角色列表，并清空 `ModelDb` 内部的 `_allCharacterCardPools` 和 `_allCards` 缓存，确保角色和卡池缓存重新生成。
 
 这意味着 Karen 角色是通过 `ModelDb` 补丁接入游戏，而不是依赖外部注册表文件。
 

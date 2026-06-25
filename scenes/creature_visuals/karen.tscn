@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://kq7dmrg0ygyf"]
 
-[ext_resource type="Script" uid="uid://bej0n0iwmfnqp" path="res://src/Core/Node/SNCreatureVisuals.cs" id="1_se58w"]
+[ext_resource type="Script" uid="uid://bej0n0iwmfnqp" path="res://src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCreatureVisuals.cs" id="1_se58w"]
 [ext_resource type="Texture2D" uid="uid://bbod73jfse5qi" path="res://images/packed/Karen.png" id="2_5occ7"]
 [ext_resource type="Texture2D" path="res://images/packed/karen_corpse.png" id="3_7y60n"]
 

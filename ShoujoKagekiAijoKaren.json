@@ -4,6 +4,7 @@
   "author": "不方不方",
   "description": "新增角色：爱城华恋。 Add character Aijo Karen",
   "version": "v0.1.0",
+  "min_game_version": "v0.107.1",
   "has_pck": true,
   "has_dll": true,
   "dependencies": [

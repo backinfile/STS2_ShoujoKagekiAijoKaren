@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://c17yk6avwc2ti"]
 
-[ext_resource type="Script" uid="uid://bamfxfr3ftih4" path="res://src/Core/Node/SNParticlesContainer.cs" id="1_karenf"]
+[ext_resource type="Script" uid="uid://bamfxfr3ftih4" path="res://src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNParticlesContainer.cs" id="1_karenf"]
 [ext_resource type="Material" uid="uid://c4ycqv0gdxvmr" path="res://themes/canvas_item_material_additive_shared.tres" id="2_additive"]
 [ext_resource type="Texture2D" uid="uid://bxfmluvgj5c4i" path="res://images/vfx/energy/karen/karen_star.png" id="3_star"]
 
