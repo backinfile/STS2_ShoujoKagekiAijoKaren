@@ -273,6 +273,15 @@
   "KAREN_WAKE_UP_PROMISE_PILE_OPTION.title": "约定牌堆",
   "KAREN_WAKE_UP_PROMISE_PILE_OPTION.description": "从[gold]约定牌堆[/gold]中选择2张牌放入你的手牌。",
 
+  "KAREN_AWAKE_POTION_DRAW_PILE_OPTION.title": "抽牌堆",
+  "KAREN_AWAKE_POTION_DRAW_PILE_OPTION.description": "从抽牌堆中选择任意数量的牌放入你的手牌。",
+
+  "KAREN_AWAKE_POTION_DISCARD_PILE_OPTION.title": "弃牌堆",
+  "KAREN_AWAKE_POTION_DISCARD_PILE_OPTION.description": "从弃牌堆中选择任意数量的牌放入你的手牌。",
+
+  "KAREN_AWAKE_POTION_PROMISE_PILE_OPTION.title": "约定牌堆",
+  "KAREN_AWAKE_POTION_PROMISE_PILE_OPTION.description": "从[gold]约定牌堆[/gold]中选择任意数量的牌放入你的手牌。",
+
   "KAREN_NO_HESITATE.title": "不再犹豫",
   "KAREN_NO_HESITATE.description": "从抽牌堆，手牌，或弃牌堆中选择{Cards:diff()}张牌放入[gold]约定牌堆[/gold]。",
 

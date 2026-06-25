@@ -1,5 +1,10 @@
 {
   "KAREN_SHINE_POTION.title": "Shine Potion",
   "KAREN_SHINE_POTION.description": "Choose 1 of 3 random [gold]Shine[/gold] cards. Add it to your [gold]hand[/gold] and [gold]deck[/gold]. It costs 0 this turn.",
-  "KAREN_SHINE_POTION.selectionScreenPrompt": "Choose a Shine card"
+  "KAREN_SHINE_POTION.selectionScreenPrompt": "Choose a Shine card",
+  "KAREN_TEA_POTION.title": "Red Tea",
+  "KAREN_TEA_POTION.description": "Gain [blue]{StrengthPower}[/blue] [gold]Temporary Strength[/gold]. [gold]Retain Strength[/gold] for [blue]{Turns}[/blue] turn(s).",
+  "KAREN_AWAKE_POTION.title": "Tears of Awakening",
+  "KAREN_AWAKE_POTION.description": "Choose cards from any pile and put them into your hand until your hand is full.",
+  "KAREN_AWAKE_POTION.pileSelectionPrompt": "Choose a pile"
 }

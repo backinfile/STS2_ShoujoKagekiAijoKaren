@@ -273,6 +273,15 @@
   "KAREN_WAKE_UP_PROMISE_PILE_OPTION.title": "Promise Pile",
   "KAREN_WAKE_UP_PROMISE_PILE_OPTION.description": "Choose 2 cards from the [gold]Promise Pile[/gold] and put them into your hand.",
 
+  "KAREN_AWAKE_POTION_DRAW_PILE_OPTION.title": "Draw Pile",
+  "KAREN_AWAKE_POTION_DRAW_PILE_OPTION.description": "Choose any number of cards from your draw pile and put them into your hand.",
+
+  "KAREN_AWAKE_POTION_DISCARD_PILE_OPTION.title": "Discard Pile",
+  "KAREN_AWAKE_POTION_DISCARD_PILE_OPTION.description": "Choose any number of cards from your discard pile and put them into your hand.",
+
+  "KAREN_AWAKE_POTION_PROMISE_PILE_OPTION.title": "Promise Pile",
+  "KAREN_AWAKE_POTION_PROMISE_PILE_OPTION.description": "Choose any number of cards from the [gold]Promise Pile[/gold] and put them into your hand.",
+
   "KAREN_NO_HESITATE.title": "No More Hesitation",
   "KAREN_NO_HESITATE.description": "Choose {Cards:diff()} card(s) from your draw pile, hand, or discard pile and put them into the [gold]Promise Pile[/gold].",
 

@@ -1,5 +1,10 @@
 {
   "KAREN_SHINE_POTION.title": "闪耀药水",
   "KAREN_SHINE_POTION.description": "从3张随机的[gold]闪耀[/gold]牌中选择1张加入你的[gold]手牌[/gold]和[gold]牌组[/gold]。这张牌在本回合耗能变为0。",
-  "KAREN_SHINE_POTION.selectionScreenPrompt": "选择一张闪耀牌"
+  "KAREN_SHINE_POTION.selectionScreenPrompt": "选择一张闪耀牌",
+  "KAREN_TEA_POTION.title": "红茶",
+  "KAREN_TEA_POTION.description": "获得[blue]{StrengthPower}[/blue]点[gold]临时力量[/gold]，[gold]保留力量[/gold][blue]{Turns}[/blue]回合。",
+  "KAREN_AWAKE_POTION.title": "唤醒之泪",
+  "KAREN_AWAKE_POTION.description": "从任意牌堆中选择卡牌放入手牌，直到手牌达到上限。",
+  "KAREN_AWAKE_POTION.pileSelectionPrompt": "选择一个牌堆"
 }

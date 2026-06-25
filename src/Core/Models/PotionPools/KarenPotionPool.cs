@@ -18,6 +18,8 @@ public sealed class KarenPotionPool : PotionPoolModel
         return
         [
             ModelDb.Potion<KarenShinePotion>(),
+            ModelDb.Potion<KarenTeaPotion>(),
+            ModelDb.Potion<KarenAwakePotion>(),
         ];
     }
 
