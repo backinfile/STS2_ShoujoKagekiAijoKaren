@@ -6,5 +6,5 @@
 	"previewfile"		"D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\workshop_preview.jpg"
 	"visibility"		"0"
 	"title"		"Shoujo Kageki: Aijo Karen"
-	"changenote"		"Initial Workshop release."
+	"changenote"		"v0.1.1: Add complete English and Japanese localization. Fix keyword tooltips retaining the previous language after switching languages. Verified in English and Japanese battles."
 }

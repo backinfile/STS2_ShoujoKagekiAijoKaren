@@ -2,7 +2,7 @@
   "title": null,
   "description": null,
   "visibility": "public",
-  "changeNote": "Update Workshop metadata.",
+  "changeNote": "v0.1.1: Add complete English and Japanese localization. Fix keyword tooltips retaining the previous language after switching languages. Verified in English and Japanese battles.",
   "tags": [
     "Characters",
     "Cards",
