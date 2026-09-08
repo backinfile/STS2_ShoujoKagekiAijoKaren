@@ -1,0 +1,18 @@
+{
+  "KAREN_SHINE.title": "キラめきX",
+  "KAREN_SHINE.description": "X回プレイすると、デッキから[red]永久に削除[/red]される。",
+  "KAREN_ETERNAL_SHINE.title": "永遠のキラめき",
+  "KAREN_ETERNAL_SHINE.description": "キラめきが減らなくなる。",
+  "KAREN_PROMISE_PILE.title": "約束の山札",
+  "KAREN_PROMISE_PILE.description": "愛城華恋専用の山札。\n約束の山札には順序があり、先に置いたカードから順に引く。",
+  "KAREN_TMP_STRENGTH.title": "一時的な筋力",
+  "KAREN_TMP_STRENGTH.description": "このターン、アタックのダメージが増加する。",
+  "KAREN_RETAIN_TMP_STRENGTH.title": "筋力保留",
+  "KAREN_RETAIN_TMP_STRENGTH.description": "一時的な筋力の持続ターン数を延長する。",
+  "KAREN_SHINE_CARD_REWARD.title": "キラめきカード報酬",
+  "KAREN_SHINE_CARD_REWARD.description": "戦闘終了後、キラめきカード1枚だけを含むカード報酬を得る。",
+  "KAREN_DISABLE_RELIC.title": "レリック無効化",
+  "KAREN_DISABLE_RELIC.description": "この戦闘中、古代の存在から得たものを除き、最も右にあるレリックを無効化する。\n無効化できるレリックがない場合、このカードは[red]プレイ不可[/red]。",
+  "KAREN_TOKEN_CARD.title": "生成カード",
+  "KAREN_TOKEN_CARD.description": "戦闘中に生成されたカード。"
+}

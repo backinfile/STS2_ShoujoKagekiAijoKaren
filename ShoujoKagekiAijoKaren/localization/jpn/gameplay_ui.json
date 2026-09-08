@@ -1,0 +1,23 @@
+{
+  "KAREN_SHINE_LABEL": "[gold]キラめき[/gold]",
+  "KAREN_SHINE_SUFFIX": "。",
+  "KAREN_PROMISE_PILE_SELECT": "約束の山札に置く",
+  "KAREN_PROMISE_PILE_INFO": "約束の山札",
+  "KAREN_PROMISE_PILE_EMPTY": "約束の山札は空！",
+  "KAREN_PROMISE_PILE_TITLE": "約束の山札",
+  "KAREN_PROMISE_PILE_DESCRIPTION": "約束の山札のカードを優先して引く。",
+  "KAREN_PROMISE_PILE_SELECT_FROM_DISCARD": "約束の山札に置くカードを選ぶ",
+  "KAREN_PROMISE_PILE_SELECT_FROM_DRAW": "約束の山札に置くカードを選ぶ",
+  "KAREN_PROMISE_PILE_SELECT_FROM_HAND": "約束の山札に置くカードを選ぶ",
+  "KAREN_SUNLIGHT_OBTAIN_PROMPT": "このカードを山札に加える？",
+  "KAREN_DISABLERELIC_LABEL": "（無効化できるレリック：",
+  "KAREN_DISABLERELIC_SUFFIX": "個）",
+  "KAREN_DERIVED_CARD_LABEL": "生成カード",
+  "KAREN_SHINE_PILE_INFO": "キラめき枯渇カード置き場",
+  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.title": "キラめきが尽きたカード",
+  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part0": "このランでキラめきが尽きたカード：",
+  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part1": "種類。",
+  "KAREN_RUN_HISTORY_SHINE_EXHAUST_HEADER": "[gold][b]キラめき枯渇（{Count}）：[/b][/gold]",
+  "KAREN_SHINE_PILE_BUTTON_TITLE": "キラめきカード置き場",
+  "KAREN_SHINE_PILE_BUTTON_DESC": "キラめきが尽きたカードを確認する。"
+}

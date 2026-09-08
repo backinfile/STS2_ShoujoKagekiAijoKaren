@@ -9,5 +9,11 @@
   "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_BUTTON.title": "Export mod info",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT_JSON_ONLY_BUTTON.title": "Export JSON only",
   "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_CONFIRM.header": "Confirm Export",
-  "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_CONFIRM.body": "This will start exporting the card screenshots and index files required for the mod info HTML. This may take some time. Continue?"
+  "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_CONFIRM.body": "This will start exporting the card screenshots and index files required for the mod info HTML. This may take some time. Continue?",
+
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.busy": "An export is already in progress. Please wait.",
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.htmlComplete": "Export complete.\nOutput directory: {OutputDirectory}\nKaren cards: {CardCount}\nReferenced cards: {ReferenceCardCount}\nImages: {SavedImages}",
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.jsonComplete": "Export complete.\nOutput directory: {OutputDirectory}\nKaren cards: {CardCount}",
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.failed": "Export failed: {Error}\nSee the log for details.",
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.unknownError": "Unknown error"
 }

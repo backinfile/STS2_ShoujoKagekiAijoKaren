@@ -34,10 +34,10 @@ public class KarenModConfig : SimpleModConfig
         base.SetupConfigUI(optionContainer);
 
         var button = new KarenConfigImageButton(
-            GetSettingsText("SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_BUTTON.title", "生成mod信息html"),
+            GetSettingsText("SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_BUTTON.title", "Export Mod Info"),
             GenerateModInfoHtml);
         var jsonButton = new KarenConfigImageButton(
-            GetSettingsText("SHOUJOKAGEKIAIJOKAREN-EXPORT_JSON_ONLY_BUTTON.title", "仅导出JSON"),
+            GetSettingsText("SHOUJOKAGEKIAIJOKAREN-EXPORT_JSON_ONLY_BUTTON.title", "Export JSON Only"),
             ExportJsonOnly);
 
         var centerContainer = new CenterContainer
@@ -61,7 +61,7 @@ public class KarenModConfig : SimpleModConfig
     {
         if (_isGeneratingModInfoHtml)
         {
-            ShowMessage("生成mod信息html", "正在生成中，请稍等。");
+            ShowExportMessage(false, "busy");
             return;
         }
 
@@ -82,21 +82,19 @@ public class KarenModConfig : SimpleModConfig
 
             if (result.Success)
             {
-                ShowMessage(
-                    "生成mod信息html",
-                    $"生成完成。\n输出目录：{result.OutputDirectory}\nKaren 卡牌：{result.CardCount}\n引用卡牌：{result.ReferenceCardCount}\n图片：{result.SavedImages}");
+                ShowExportMessage(false, "htmlComplete",
+                    ("OutputDirectory", result.OutputDirectory), ("CardCount", result.CardCount),
+                    ("ReferenceCardCount", result.ReferenceCardCount), ("SavedImages", result.SavedImages));
             }
             else
             {
-                ShowMessage(
-                    "生成mod信息html",
-                    $"生成时遇到问题：{result.Error ?? "未知错误"}\n请查看日志获取详细信息。");
+                ShowExportMessage(false, "failed", ("Error", result.Error ?? GetExportText("unknownError")));
             }
         }
         catch (Exception ex)
         {
             MainFile.Logger.Error($"Generate mod info html failed: {ex}");
-            ShowMessage("生成mod信息html", $"生成失败：{ex.Message}");
+            ShowExportMessage(false, "failed", ("Error", ex.Message));
         }
         finally
         {
@@ -110,7 +108,7 @@ public class KarenModConfig : SimpleModConfig
     {
         if (_isGeneratingModInfoHtml)
         {
-            ShowMessage("仅导出JSON", "正在生成中，请稍等。");
+            ShowExportMessage(true, "busy");
             return;
         }
 
@@ -127,21 +125,18 @@ public class KarenModConfig : SimpleModConfig
 
             if (result.Success)
             {
-                ShowMessage(
-                    "仅导出JSON",
-                    $"导出完成。\n输出目录：{result.OutputDirectory}\nKaren 卡牌：{result.CardCount}");
+                ShowExportMessage(true, "jsonComplete",
+                    ("OutputDirectory", result.OutputDirectory), ("CardCount", result.CardCount));
             }
             else
             {
-                ShowMessage(
-                    "仅导出JSON",
-                    $"导出时遇到问题：{result.Error ?? "未知错误"}\n请查看日志获取详细信息。");
+                ShowExportMessage(true, "failed", ("Error", result.Error ?? GetExportText("unknownError")));
             }
         }
         catch (Exception ex)
         {
             MainFile.Logger.Error($"Export json only failed: {ex}");
-            ShowMessage("仅导出JSON", $"导出失败：{ex.Message}");
+            ShowExportMessage(true, "failed", ("Error", ex.Message));
         }
         finally
         {
@@ -174,8 +169,8 @@ public class KarenModConfig : SimpleModConfig
         var tcs = new System.Threading.Tasks.TaskCompletionSource<bool>();
         var dialog = new ConfirmationDialog
         {
-            Title = "确认导出",
-            DialogText = "将开始导出 mod 信息 HTML 所需的卡牌截图与索引文件。这个过程可能需要一些时间，是否继续？",
+            Title = GetSettingsText("SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_CONFIRM.header", "Confirm Export"),
+            DialogText = GetSettingsText("SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_CONFIRM.body", "Export card screenshots and index files? This may take some time."),
             MinSize = new Vector2I(640, 240),
         };
 
@@ -198,6 +193,22 @@ public class KarenModConfig : SimpleModConfig
         NGame.Instance.AddChild(dialog);
         dialog.PopupCentered();
         return await tcs.Task;
+    }
+
+    private static string GetExportText(string entry, params (string Name, object Value)[] variables)
+    {
+        var text = new LocString("settings_ui", $"SHOUJOKAGEKIAIJOKAREN-EXPORT.{entry}");
+        foreach (var (name, value) in variables)
+            text.AddObj(name, value);
+        return text.GetFormattedText();
+    }
+
+    private static void ShowExportMessage(bool jsonOnly, string entry, params (string Name, object Value)[] variables)
+    {
+        var title = jsonOnly
+            ? GetSettingsText("SHOUJOKAGEKIAIJOKAREN-EXPORT_JSON_ONLY_BUTTON.title", "Export JSON Only")
+            : GetSettingsText("SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_BUTTON.title", "Export Mod Info");
+        ShowMessage(title, GetExportText(entry, variables));
     }
 
     private static void ShowMessage(string title, string message)

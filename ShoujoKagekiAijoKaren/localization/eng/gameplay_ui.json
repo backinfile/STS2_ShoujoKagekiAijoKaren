@@ -10,14 +10,14 @@
   "KAREN_PROMISE_PILE_SELECT_FROM_DRAW": "Choose cards to put into the Promise Pile",
   "KAREN_PROMISE_PILE_SELECT_FROM_HAND": "Choose cards to put into the Promise Pile",
   "KAREN_SUNLIGHT_OBTAIN_PROMPT": "Add this card to your draw pile?",
-  "KAREN_DISABLERELIC_LABEL": " (currently can disable ",
-  "KAREN_DISABLERELIC_SUFFIX": " relic(s))",
+  "KAREN_DISABLERELIC_LABEL": " (Relics available to disable: ",
+  "KAREN_DISABLERELIC_SUFFIX": ")",
   "KAREN_DERIVED_CARD_LABEL": "Token Card",
-  "KAREN_SHINE_PILE_INFO": "Shine Exhaust Pile",
-  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.title": "Exhausted Shine Cards",
-  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part0": "Unique exhausted Shine cards this run: ",
+  "KAREN_SHINE_PILE_INFO": "Depleted Shine Pile",
+  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.title": "Depleted Shine Cards",
+  "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part0": "Distinct Shine cards depleted this run: ",
   "KAREN_DISPOSED_PILE_UNIQUE_COUNT.description.part1": ".",
-  "KAREN_RUN_HISTORY_SHINE_EXHAUST_HEADER": "[gold][b]Exhausted ({Count}):[/b][/gold]",
+  "KAREN_RUN_HISTORY_SHINE_EXHAUST_HEADER": "[gold][b]Shine Depleted ({Count}):[/b][/gold]",
   "KAREN_SHINE_PILE_BUTTON_TITLE": "Shine Pile",
-  "KAREN_SHINE_PILE_BUTTON_DESC": "View cards whose Shine has been exhausted."
+  "KAREN_SHINE_PILE_BUTTON_DESC": "View cards whose Shine has run out."
 }

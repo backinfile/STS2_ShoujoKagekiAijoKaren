@@ -18,7 +18,7 @@
   "KAREN_SHINE_CARD_REWARD.description": "After combat, gain a card reward containing only 1 Shine card.",
 
   "KAREN_DISABLE_RELIC.title": "Disable Relic",
-  "KAREN_DISABLE_RELIC.description": "For one combat, disables the rightmost non-Ancient relic.\nIf there are no relics that can be disabled, this card [red]cannot be played[/red].",
+  "KAREN_DISABLE_RELIC.description": "Disable the rightmost non-Ancient relic for the rest of combat.\nIf no relics can be disabled, this card [red]cannot be played[/red].",
 
   "KAREN_TOKEN_CARD.title": "Token Card",
   "KAREN_TOKEN_CARD.description": "A card generated during combat."

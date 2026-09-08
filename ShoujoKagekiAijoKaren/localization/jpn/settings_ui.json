@@ -1,0 +1,18 @@
+{
+  "SHOUJOKAGEKIAIJOKAREN.mod_title": "少女☆歌劇 レヴュースタァライト - 愛城華恋",
+  "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.title": "ランデータを送信",
+  "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "各ランの終了後に生成されるJSONデータを統計サーバーへ送信する。",
+  "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.title": "起動時にキリンを表示",
+  "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.hover.desc": "ゲーム起動時、MegaCritのロゴより前にキリンのスプラッシュ画面を表示する。",
+  "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML.title": "Mod情報のHTMLを生成",
+  "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_BUTTON.title": "Mod情報をエクスポート",
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT_JSON_ONLY_BUTTON.title": "JSONのみエクスポート",
+  "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_CONFIRM.header": "エクスポートの確認",
+  "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_CONFIRM.body": "Mod情報のHTMLに必要なカード画像とインデックスファイルをエクスポートします。時間がかかる場合があります。続行しますか？",
+
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.busy": "エクスポート中です。しばらくお待ちください。",
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.htmlComplete": "エクスポートが完了しました。\n出力先：{OutputDirectory}\n華恋のカード：{CardCount}\n参照カード：{ReferenceCardCount}\n画像：{SavedImages}",
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.jsonComplete": "エクスポートが完了しました。\n出力先：{OutputDirectory}\n華恋のカード：{CardCount}",
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.failed": "エクスポートに失敗しました：{Error}\n詳細はログを確認してください。",
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.unknownError": "不明なエラー"
+}
