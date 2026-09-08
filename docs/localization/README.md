@@ -87,9 +87,9 @@ $hashes["$file/$key"] = [Convert]::ToHexString([Security.Cryptography.SHA256]::H
 $hashes | ConvertTo-Json | Set-Content -Encoding utf8NoBOM 'docs/localization/source-hashes.json'
 ```
 
-## 游戏内验收（本轮未执行）
+## 游戏内验收
 
-当前未检测到运行中的游戏，也未重新打包或安装 Mod。需要在包含新 JSON 的构建中分别切换英文、日语：
+2026-09-08 已打包安装并完成英文、日语各一场真实战斗，发现并修复切换语言后关键字提示沿用旧语言的问题。实测范围与结果见 [实战记录](playtest-2026-09-08.md)。以下项目尚需完整覆盖：
 
 - 角色选择、设置页按钮及导出成功/失败弹窗；长日语标题是否溢出、缺字。
 - 卡牌库的原版/升级版：迈向那个舞台、舞蹈练习、唤醒、下一个舞台。

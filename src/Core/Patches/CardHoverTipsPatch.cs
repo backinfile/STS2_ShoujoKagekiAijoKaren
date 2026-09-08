@@ -32,17 +32,12 @@ public static class CardHoverTipsPatch
         ("KAREN_TOKEN_CARD", card => NCardDerivedLabelPatch.GeneratedInCombat(card)),
     ];
 
-    private static readonly Dictionary<string, HoverTip> HoverTopCache = new();
-
     private static HoverTip GetHoverTip(string key)
     {
-        if (HoverTopCache.TryGetValue(key, out var cachedTip))
-            return cachedTip;
         var title = new LocString("card_keywords", key + ".title");
         var desc = new LocString("card_keywords", key + ".description");
-        var hoverTip = new HoverTip(title, desc);
-        HoverTopCache[key] = hoverTip;
-        return hoverTip;
+        // HoverTip resolves LocString immediately; do not retain it across language changes.
+        return new HoverTip(title, desc);
     }
 
     [HarmonyPostfix]
