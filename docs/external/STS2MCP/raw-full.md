@@ -1,5 +1,7 @@
 # Full API Reference
 
+> 上游协议参考。此项目实际使用 [KarenSTS2MCP](../KarenSTS2MCP.md)，默认端口为 `15527`；下文的 `15526` 仅是上游默认值。
+
 HTTP API served by the STS2_MCP mod on `localhost:15526`. No authentication. Local use only.
 
 **Endpoints:**

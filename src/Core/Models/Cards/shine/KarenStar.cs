@@ -10,6 +10,7 @@ using ShoujoKagekiAijoKaren.src.Core.ExtraReplaySystem;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
+using ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,9 @@ public sealed class KarenStar : KarenBaseCardModel
             toPlay.AddExtraReplayCountForNextPlay(Math.Max(0, toPlay.GetShineValueRounded() - 1));
             // 耗尽
             toPlay.SetEnterShinePileAfterPlay(true);
+            // The nested auto-play may bypass the OnPlayWrapper Prefix that normally
+            // records this context for shine-depletion callbacks.
+            ShinePatch.RememberCardPlayContext(toPlay, choiceContext);
             // 打出这张卡
             await CardCmd.AutoPlay(choiceContext, toPlay, null);
             // 获得闪耀牌奖励

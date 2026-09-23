@@ -118,5 +118,6 @@ Karen 当前的核心机制包括：
 
 ## STS2 MCP 连接与使用
 
-- 连接 STS2 时优先检查游戏日志中的 `STS2 MCP` 加载信息，并通过 `http://127.0.0.1:15526/api/v1/singleplayer?format=json` 验证本地 HTTP API 是否可访问。
-- 需要执行 MCP/HTTP 操作时，先读 `docs/external/STS2MCP/raw-simplified.md`，需要完整字段和动作说明时再读 `docs/external/STS2MCP/raw-full.md`。
+- 使用 MCP 操作 STS2 时，使用 `D:\Github\STS2_Mcp` 中的 `KarenSTS2MCP`，不要连接旧 `STS2_MCP` 服务。先在游戏日志中确认 `[Karen STS2 MCP]` 已加载，再访问 `http://127.0.0.1:15527/api/v1/singleplayer?format=json` 验证接口。
+- 游戏内开发者命令通过 `POST /api/v1/singleplayer` 的 `{"action":"run_command","command":"..."}` 执行；关闭设置界面使用 `{"action":"close_settings"}`，也可用 `menu_select` 的 `back` 选项。测试时不要使用 Computer Use。
+- 先读 `docs/external/KarenSTS2MCP.md`；普通状态和动作字段可参考 `docs/external/STS2MCP/raw-simplified.md`，完整字段和动作说明见 `docs/external/STS2MCP/raw-full.md`。后两份是上游参考，端口及新增动作以本项目文档为准。

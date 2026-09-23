@@ -57,6 +57,11 @@ public static class ShinePatch
     /// </summary>
     private static readonly SpireField<CardModel, PlayerChoiceContext?> _cardContext = new(() => null);
 
+    public static void RememberCardPlayContext(CardModel card, PlayerChoiceContext choiceContext)
+    {
+        _cardContext.Set(card, choiceContext);
+    }
+
 
     [HarmonyPatch(typeof(CardModel), nameof(CardModel.OnPlayWrapper))]
     public static class ShineValuePatch
@@ -82,7 +87,7 @@ public static class ShinePatch
             }
 
             /// 记录所有打出卡牌的 PlayerChoiceContext，以供后续 Patch 使用
-            _cardContext.Set(card, choiceContext);
+            RememberCardPlayContext(card, choiceContext);
         }
     }
 
@@ -269,15 +274,12 @@ public static class ShinePatch
             var choiceContext = _cardContext.Get(card);
             _cardContext.Set(card, null); // 清空历史记录
 
-            // 如果没有ctx，就直接打印错误
+            // Some auto-play paths do not execute our OnPlayWrapper Prefix. Complete
+            // depletion even if the caller did not explicitly register its context.
             if (choiceContext == null)
             {
-                MainFile.Logger.Error($"[ShinePilePatch] No PlayerChoiceContext found for '{card.Title}' when adding to ShineDepletePile!");
-                if (card.Pile?.IsCombatPile == true)
-                {
-                    await CardPileCmd.RemoveFromCombat(card);
-                }
-                return new CardPileAddResult { cardAdded = card, success = false };
+                MainFile.Logger.Warn($"[ShinePilePatch] No PlayerChoiceContext found for '{card.Title}'; using a blocking context to finish shine depletion.");
+                choiceContext = new BlockingPlayerChoiceContext();
             }
 
             // IsDupe 直接移除（不进入 Shine Pile）

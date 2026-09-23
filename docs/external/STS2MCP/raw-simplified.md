@@ -1,5 +1,7 @@
 # API Quick Reference
 
+> 上游协议参考。此项目实际使用 [KarenSTS2MCP](../KarenSTS2MCP.md)，默认端口为 `15527`；下文的 `15526` 仅是上游默认值。
+
 HTTP API on `localhost:15526`. No authentication.
 
 - `GET /api/v1/singleplayer` — read game state
