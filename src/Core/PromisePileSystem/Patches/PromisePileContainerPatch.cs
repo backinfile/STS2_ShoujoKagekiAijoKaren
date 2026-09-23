@@ -75,6 +75,26 @@ public static class PromisePileContainerPatch
         }
     }
 
+#if STS2_BETA
+    // v0.111 calls FindOnTable while animating a move out of a combat pile.
+    // The game's switch only knows built-in piles and throws for PromisePile.
+    // A card in our virtual pile has no table node to find.
+    [HarmonyPatch(typeof(NCard), nameof(NCard.FindOnTable))]
+    [HarmonyPatch([typeof(CardModel), typeof(PileType?)])]
+    public static class PromisePileFindOnTablePatch
+    {
+        [HarmonyPrefix]
+        private static bool Prefix(CardModel card, PileType? overridePile, ref NCard? __result)
+        {
+            if ((card.Pile?.Type ?? overridePile) != KarenCustomEnum.PromisePile)
+                return true;
+
+            __result = null;
+            return false;
+        }
+    }
+#endif
+
 
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add))]
 #if STS2_BETA
@@ -89,11 +109,18 @@ public static class PromisePileContainerPatch
         /// 这个方法理论上要先于所有方法执行
         /// </summary>
         [HarmonyPriority(Priority.First * 10)]
-        public static bool Prefix(IEnumerable<CardModel> cards, ref CardPile newPile, CardPilePosition position, [HarmonyArgument(3)] AbstractModel? source, bool skipVisuals, ref Task<IReadOnlyList<CardPileAddResult>> __result)
+        public static bool Prefix(IEnumerable<CardModel> cards, ref CardPile newPile, CardPilePosition position, [HarmonyArgument(3)] AbstractModel? source, ref bool skipVisuals, ref Task<IReadOnlyList<CardPileAddResult>> __result)
         {
             if (cards == null || !cards.Any()) return true;
 
             if (cards.First().Owner is not Player player) return true;
+
+#if STS2_BETA
+            // v0.111's move animation calls NCard.FindOnTable for the old pile.
+            // It throws for custom PileType values, including PromisePile.
+            if (cards.Any(card => card.Pile?.Type == KarenCustomEnum.PromisePile))
+                skipVisuals = true;
+#endif
 
             if (newPile.Type == KarenCustomEnum.PromisePile && PromisePileManager.IsVoidMode(player))
             {
