@@ -79,7 +79,11 @@ public sealed class KarenVoid : KarenBaseCardModel
         cardNode.GlobalPosition = PileType.Draw.GetTargetPosition(cardNode) - cardNode.Size * 0.5f;
         cardNode.Visible = false;
 
+#if STS2_BETA
+        var exhaustVfx = NCardExhaustVfx.Create(cardNode);
+#else
         var exhaustVfx = NExhaustVfx.Create(cardNode);
+#endif
         if (exhaustVfx != null)
             ui.AddChildSafely(exhaustVfx);
 

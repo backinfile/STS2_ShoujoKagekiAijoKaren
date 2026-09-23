@@ -4,6 +4,10 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <Nullable>enable</Nullable>
     <PlatformTarget>x64</PlatformTarget>
+    <Sts2Api Condition="'$(Sts2Api)' == ''">stable</Sts2Api>
+    <DefineConstants Condition="'$(Sts2Api)' == 'beta'">$(DefineConstants);STS2_BETA</DefineConstants>
+    <Sts2GameDir Condition="'$(Sts2GameDir)' == ''">D:\App\Stream\steamapps\common\Slay the Spire 2</Sts2GameDir>
+    <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(Sts2GameDir)\data_sts2_windows_x86_64</Sts2DataDir>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="audio\**" />
@@ -14,6 +18,8 @@
     <Compile Remove="shaders\**" />
     <Compile Remove="ShoujoKagekiAijoKaren\**" />
     <Compile Remove="themes\**" />
+    <Compile Remove="loader\**" />
+    <Compile Remove="tools\**" />
     <EmbeddedResource Remove="audio\**" />
     <EmbeddedResource Remove="fonts\**" />
     <EmbeddedResource Remove="images\**" />
@@ -68,13 +74,15 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.2.1" />
+    <PackageReference Include="BSchneppe.Sts2.ReferenceAssemblies" Version="0.107.1" PrivateAssets="All" Condition="'$(Sts2Api)' == 'stable' and '$(Sts2ReferenceMode)' == 'package'" />
+    <PackageReference Include="BSchneppe.Sts2.ReferenceAssemblies" Version="0.111.0-beta-41cef1ea" PrivateAssets="All" Condition="'$(Sts2Api)' == 'beta'" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(Sts2Api)' != 'beta' and '$(Sts2ReferenceMode)' != 'package'">
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\App\Stream\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\0Harmony.dll</HintPath>
+      <HintPath>$(Sts2DataDir)\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="sts2">
-      <HintPath>..\..\..\App\Stream\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\sts2.dll</HintPath>
+      <HintPath>$(Sts2DataDir)\sts2.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

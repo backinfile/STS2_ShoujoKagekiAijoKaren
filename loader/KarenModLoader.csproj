@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>ShoujoKagekiAijoKaren</AssemblyName>
+    <Sts2GameDir Condition="'$(Sts2GameDir)' == ''">D:\App\Stream\steamapps\common\Slay the Spire 2</Sts2GameDir>
+    <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(Sts2GameDir)\data_sts2_windows_x86_64</Sts2DataDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="BSchneppe.Sts2.ReferenceAssemblies" Version="0.107.1" PrivateAssets="All" Condition="'$(Sts2ReferenceMode)' == 'package'" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Sts2ReferenceMode)' != 'package'">
+    <Reference Include="sts2"><HintPath>$(Sts2DataDir)\sts2.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(Sts2DataDir)\0Harmony.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+</Project>

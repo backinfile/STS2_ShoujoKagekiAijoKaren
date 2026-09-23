@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Collections.Generic;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using ShoujoKagekiAijoKaren.Core;
@@ -12,11 +13,18 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 [HarmonyPatch]
 public class NEnergyCounterOnEnergyChangedPatch
 {
-    static MethodBase TargetMethod()
+    static IEnumerable<MethodBase> TargetMethods()
     {
         var method = AccessTools.Method(typeof(NEnergyCounter), "OnEnergyChanged", new[] { typeof(int), typeof(int) });
         MainFile.Logger.Info($"[NEnergyCounterOnEnergyChangedPatch] TargetMethod resolved: {method?.FullDescription() ?? "NULL"}");
-        return method;
+        if (method is not null)
+        {
+            yield return method;
+        }
+        else
+        {
+            MainFile.Logger.Warn("[NEnergyCounterOnEnergyChangedPatch] Energy VFX hook unavailable on this game branch.");
+        }
     }
 
     public static void Postfix(NEnergyCounter __instance, int oldEnergy, int newEnergy)

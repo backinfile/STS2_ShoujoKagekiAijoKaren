@@ -51,7 +51,11 @@ public static class CardSelectCmdEx
         }
 
         uint choiceId = RunManager.Instance.PlayerChoiceSynchronizer.ReserveChoiceId(player);
+#if STS2_BETA
+        await context.SignalPlayerChoiceBegun(player, PlayerChoiceOptions.None);
+#else
         await context.SignalPlayerChoiceBegun(PlayerChoiceOptions.None);
+#endif
 
         CardModel? result;
 

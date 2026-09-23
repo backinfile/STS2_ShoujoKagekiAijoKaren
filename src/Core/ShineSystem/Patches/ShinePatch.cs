@@ -161,16 +161,28 @@ public static class ShinePatch
     /// <summary>
     /// 修改卡牌打出后的结果牌堆和位置
     /// </summary>
+#if STS2_BETA
+    [HarmonyPatch(typeof(Hook), nameof(Hook.ModifyCardPlayResultLocation))]
+#else
     [HarmonyPatch(typeof(Hook), nameof(Hook.ModifyCardPlayResultPileTypeAndPosition))]
+#endif
     public static class Hook_ModifyCardPlayResultPileTypeAndPosition_Patch
     {
+#if STS2_BETA
+        public static bool Prefix(ref CardLocation __result, CardModel card, ref IEnumerable<AbstractModel> modifiers)
+#else
         public static bool Prefix(ref (PileType pileType, CardPilePosition position) __result, CardModel card, ref IEnumerable<AbstractModel> modifiers)
+#endif
         {
             //MainFile.Logger.Info($"[ShinePilePatch] Checking if '{card.Title}' should enter ShineDepletePile...");
             // 需要耗尽的移动到耗尽牌堆
             if (ShouldEnterShinePile(card))
             {
+#if STS2_BETA
+                __result = new CardLocation(card.Owner, KarenCustomEnum.ShineDepletePile, CardPilePosition.Bottom);
+#else
                 __result = (KarenCustomEnum.ShineDepletePile, CardPilePosition.Bottom);
+#endif
                 modifiers = [];
                 MainFile.Logger.Info($"[ShinePilePatch] '{card.Title}' -> {__result}");
                 return false;
@@ -186,7 +198,11 @@ public static class ShinePatch
     /// 拦截 ShineDepletePile，从 SpireField 取 ctx 调用 HandleShineDepletePileAsync
     /// </summary>
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add))]
+#if STS2_BETA
+    [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(CardPile), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool), typeof(bool)])]
+#else
     [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(CardPile), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool)])]
+#endif
     public static class CardPileCmd_Add_Patch
     {
 
@@ -195,7 +211,11 @@ public static class ShinePatch
         /// 为了不干扰其他Prefix，最后执行这个逻辑
         /// </summary>
         [HarmonyPriority(Priority.Last)]
-        public static bool Prefix(IEnumerable<CardModel> cards, CardPile newPile, CardPilePosition position, [HarmonyArgument(3)] AbstractModel? source, bool skipVisuals, ref Task<IReadOnlyList<CardPileAddResult>> __result)
+        public static bool Prefix(IEnumerable<CardModel> cards, CardPile newPile, CardPilePosition position, [HarmonyArgument(3)] AbstractModel? source, bool skipVisuals,
+#if STS2_BETA
+            bool isChangingOwners,
+#endif
+            ref Task<IReadOnlyList<CardPileAddResult>> __result)
         {
             var takeOverCards = new List<CardModel>();
             foreach (var card in cards)
@@ -213,7 +233,11 @@ public static class ShinePatch
                 return Async.Prefix<IReadOnlyList<CardPileAddResult>>(ref __result, async () =>
                 {
                     cards = cards.Where(c => !takeOverCards.Contains(c)).ToList(); 
-                    var originResult = await OriginalMethodStub(cards, newPile, position, source, skipVisuals); // 部分卡牌执行原逻辑
+                    var originResult = await OriginalMethodStub(cards, newPile, position, source, skipVisuals
+#if STS2_BETA
+                        , isChangingOwners
+#endif
+                    ); // 部分卡牌执行原逻辑
                     var myResult = await HandleShineDepletePileAsync(takeOverCards); // 部分卡牌移动到闪耀牌堆
                     return originResult.Concat(myResult).ToList(); // 最后将结果合并
                 });
@@ -223,7 +247,11 @@ public static class ShinePatch
         }
 
         [HarmonyReversePatch(HarmonyReversePatchType.Snapshot)]
-        public static Task<IReadOnlyList<CardPileAddResult>> OriginalMethodStub(IEnumerable<CardModel> cards, CardPile newPile, CardPilePosition position, AbstractModel? source, bool skipVisuals)
+        public static Task<IReadOnlyList<CardPileAddResult>> OriginalMethodStub(IEnumerable<CardModel> cards, CardPile newPile, CardPilePosition position, AbstractModel? source, bool skipVisuals
+#if STS2_BETA
+            , bool isChangingOwners
+#endif
+        )
         {
             throw new NotImplementedException("会自动被替换，不会走到这里");
         }

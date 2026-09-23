@@ -39,6 +39,19 @@ public sealed class KarenFightRelay : KarenBaseCardModel
         DynamicVars["Relics"].UpgradeValueBy(1m);
     }
 
+#if STS2_BETA
+    protected override CardLocation GetResultLocationForCardPlay()
+    {
+        var location = base.GetResultLocationForCardPlay();
+        if (this.GetShineValue() > 0 && GetTransferTargets().Count > 0)
+        {
+            MainFile.Logger.Info($"[KarenFightRelay] Keeping played card out of discard so it can transfer. Player={Owner?.NetId.ToString() ?? "<null>"}, Shine={this.GetShineValue()}/{this.GetShineMaxValue()}");
+            location.pileType = PileType.None;
+        }
+
+        return location;
+    }
+#else
     protected override PileType GetResultPileTypeForCardPlay()
     {
         if (this.GetShineValue() > 0 && GetTransferTargets().Count > 0)
@@ -49,6 +62,7 @@ public sealed class KarenFightRelay : KarenBaseCardModel
 
         return base.GetResultPileTypeForCardPlay();
     }
+#endif
 
     public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, ICombatState combatState)
     {

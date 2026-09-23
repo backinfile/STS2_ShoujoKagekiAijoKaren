@@ -77,7 +77,11 @@ public static class PromisePileContainerPatch
 
 
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add))]
+#if STS2_BETA
+    [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(CardPile), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool), typeof(bool)])]
+#else
     [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(CardPile), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool)])]
+#endif
     public static class CardPileCmd_Add_To_PromisePile_Patch
     {
         /// <summary>

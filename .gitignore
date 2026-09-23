@@ -3,7 +3,6 @@
 /android/
 .import/
 export.cfg
-export_presets.cfg
 
 # Mono/C#
 .mono/
@@ -26,3 +25,5 @@ data/runs.db
 server.pid
 /docs/superpowers
 /.dotnet_home
+/artifacts/
+/.compat-tmp/

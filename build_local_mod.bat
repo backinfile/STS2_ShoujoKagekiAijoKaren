@@ -4,7 +4,7 @@ chcp 65001 >nul
 
 set "MOD_NAME=ShoujoKagekiAijoKaren"
 set "PROJECT_DIR=%~dp0"
-set "PACKAGE_ROOT=%PROJECT_DIR%..\%MOD_NAME%_dist"
+set "PACKAGE_ROOT=%PROJECT_DIR%artifacts"
 set "MOD_CONTENT_DIR=%PACKAGE_ROOT%\%MOD_NAME%"
 set "DEFAULT_MODS_DIR=D:\App\Stream\steamapps\common\Slay the Spire 2\mods"
 

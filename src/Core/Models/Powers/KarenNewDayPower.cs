@@ -19,6 +19,27 @@ public class KarenNewDayPower : PowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerType Type => PowerType.Buff;
 
+#if STS2_BETA
+    public override CardLocation ModifyCardPlayResultLocation(
+        CardModel card,
+        bool isAutoPlay,
+        ResourceInfo resources,
+        CardLocation location)
+    {
+        if (card.Owner.Creature != base.Owner ||
+            card is KarenBaseCardModel { SkipNewDayPower: true } ||
+            location.pileType != PileType.Discard)
+        {
+            return location;
+        }
+
+        location.pileType = KarenCustomEnum.PromisePile;
+        location.position = CardPilePosition.Bottom;
+        return location;
+    }
+
+    public override async Task AfterModifyingCardPlayResultLocation(CardModel card, CardLocation location)
+#else
     public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(
         CardModel card,
         bool isAutoPlay,
@@ -47,6 +68,7 @@ public class KarenNewDayPower : PowerModel
         CardModel card,
         PileType pileType,
         CardPilePosition position)
+#endif
     {
         if (card.Owner.Creature != base.Owner)
         {
