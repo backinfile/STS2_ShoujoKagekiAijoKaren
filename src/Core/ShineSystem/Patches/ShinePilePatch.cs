@@ -28,12 +28,12 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 
 /// <summary>
-/// 闪耀牌堆核心补丁 - 简化方案：SpireField + AsyncLocal
+/// 闪耀牌堆核心流程（实现位于 ShinePatch）
 ///
 /// 原理：
-/// 1. OnPlayWrapper 状态机 Prefix：将 choiceContext 存入 AsyncLocal
-/// 2. ModifyCardPlayResultPileTypeAndPosition Prefix：判定闪耀耗尽，从 AsyncLocal 取 ctx 存入 SpireField
-/// 3. CardPileCmd.Add Prefix：拦截 ShineDepletePile，从 SpireField 取 ctx 调用 HandleShineDepletePileAsync
+/// 1. OnPlayWrapper 状态机首次执行时递减闪耀，并将 choiceContext 按卡牌存入 SpireField。
+/// 2. ModifyCardPlayResultPileTypeAndPosition Prefix 判定是否进入闪耀耗尽牌堆。
+/// 3. CardPileCmd.Add Prefix 拦截该牌堆，从 SpireField 取出 ctx 完成耗尽。
 /// </summary>
 public static class ShinePilePatch
 {

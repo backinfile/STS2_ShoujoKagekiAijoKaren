@@ -13,6 +13,8 @@ using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using static Godot.HttpRequest;
 
@@ -23,7 +25,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 /// 使用 SpireField 支持任何卡牌动态添加闪耀
 ///
 /// 工作流程：
-/// 1. OnPlayWrapper Postfix 中减少闪耀值
+/// 1. OnPlayWrapper 状态机首次执行时减少闪耀值并记录选择上下文
 /// 2. ShinePilePatch 拦截 CardPileCmd.Add，检查闪耀值==0并重定向到闪耀牌堆
 /// </summary>
 public static class ShinePatch
@@ -57,19 +59,30 @@ public static class ShinePatch
     /// </summary>
     private static readonly SpireField<CardModel, PlayerChoiceContext?> _cardContext = new(() => null);
 
-    public static void RememberCardPlayContext(CardModel card, PlayerChoiceContext choiceContext)
-    {
-        _cardContext.Set(card, choiceContext);
-    }
-
-
-    [HarmonyPatch(typeof(CardModel), nameof(CardModel.OnPlayWrapper))]
+    [HarmonyPatch]
     public static class ShineValuePatch
     {
-        static void Prefix(CardModel __instance, PlayerChoiceContext choiceContext)
+        private static readonly Type StateMachineType = AccessTools.Method(typeof(CardModel), nameof(CardModel.OnPlayWrapper))
+            .GetCustomAttribute<AsyncStateMachineAttribute>()!.StateMachineType;
+        private static readonly FieldInfo StateField = AccessTools.Field(StateMachineType, "<>1__state");
+        private static readonly FieldInfo CardField = AccessTools.Field(StateMachineType, "<>4__this");
+        private static readonly FieldInfo ContextField = AccessTools.Field(StateMachineType, "choiceContext");
+
+        static MethodBase TargetMethod() => AccessTools.AsyncMoveNext(
+            AccessTools.Method(typeof(CardModel), nameof(CardModel.OnPlayWrapper)));
+
+        [HarmonyPrefix]
+        static void Prefix(object __instance)
         {
+            // The async wrapper patch misses nested auto-plays in this runtime.
+            // MoveNext runs for every play; state -1 identifies its first
+            // invocation rather than a resumed await.
+            if ((int)StateField.GetValue(__instance)! != -1)
+                return;
+
+            var card = (CardModel)CardField.GetValue(__instance)!;
+            var choiceContext = (PlayerChoiceContext)ContextField.GetValue(__instance)!;
             // 闪耀值>0的卡牌闪耀值-1
-            var card = __instance;
             if (card.HasShine() && !card.Keywords.Contains(CardKeyword.Eternal))
             {
 
@@ -87,7 +100,7 @@ public static class ShinePatch
             }
 
             /// 记录所有打出卡牌的 PlayerChoiceContext，以供后续 Patch 使用
-            RememberCardPlayContext(card, choiceContext);
+            _cardContext.Set(card, choiceContext);
         }
     }
 
@@ -274,8 +287,8 @@ public static class ShinePatch
             var choiceContext = _cardContext.Get(card);
             _cardContext.Set(card, null); // 清空历史记录
 
-            // Some auto-play paths do not execute our OnPlayWrapper Prefix. Complete
-            // depletion even if the caller did not explicitly register its context.
+            // A card can be sent to its result pile without OnPlayWrapper (for
+            // example, when an attempted auto-play is blocked). Deplete it anyway.
             if (choiceContext == null)
             {
                 MainFile.Logger.Warn($"[ShinePilePatch] No PlayerChoiceContext found for '{card.Title}'; using a blocking context to finish shine depletion.");
