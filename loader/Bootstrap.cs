@@ -14,6 +14,7 @@ public static class Bootstrap
     private const string ModId = "ShoujoKagekiAijoKaren";
     private static readonly Logger Log = new(ModId, LogType.Generic);
     private static Assembly? _selectedAssembly;
+    private static bool _usesStableApi;
 
     public static void Initialize()
     {
@@ -23,6 +24,7 @@ public static class Bootstrap
         var isStable = version.CompareTo(new SemanticVersion(0, 107, 1)) == 0;
         var isBeta = version.CompareTo(new SemanticVersion(0, 111, 0)) == 0;
         var variant = isBeta ? "Beta" : "Stable";
+        _usesStableApi = !isBeta;
         if (!isStable && !isBeta)
             Log.Warn($"[KarenLoader] Unknown game version {version}; falling back to Stable implementation built for v0.107.1.");
 
@@ -56,6 +58,7 @@ public static class Bootstrap
     }
 
     internal static Type[] SelectedTypes => _selectedAssembly?.GetTypes() ?? [];
+    internal static bool UsesStableApi => _usesStableApi;
 }
 
 [HarmonyPatch(typeof(ReflectionHelper), nameof(ReflectionHelper.ModTypes), MethodType.Getter)]
@@ -68,5 +71,20 @@ internal static class KarenModTypesBridge
 
         var seen = new HashSet<Type>(__result);
         __result = [.. __result, .. selectedTypes.Where(seen.Add)];
+    }
+}
+
+// v0.107 builds the multiplayer model-ID table from each mod's single root
+// assembly. Include the selected implementation when it scans this loader.
+[HarmonyPatch(typeof(ReflectionHelper), nameof(ReflectionHelper.GetSubtypesFromAssembly))]
+internal static class KarenAssemblySubtypesBridge
+{
+    private static void Postfix(Assembly assembly, Type parentType, ref IEnumerable<Type> __result)
+    {
+        if (!Bootstrap.UsesStableApi || assembly != typeof(Bootstrap).Assembly) return;
+
+        var selectedTypes = Bootstrap.SelectedTypes
+            .Where(type => !type.IsAbstract && !type.IsInterface && parentType.IsAssignableFrom(type));
+        __result = __result.Concat(selectedTypes);
     }
 }

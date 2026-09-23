@@ -8,6 +8,8 @@
 - RitsuLib 代码路径：D:\Github\STS2-RitsuLib
 - STS2 Godot 日志路径：`C:\Users\17575\AppData\Roaming\SlayTheSpire2\logs\godot.log`
 - STS1 游戏本体代码路径：`D:\App\Stream\steamapps\common\SlayTheSpire\desktop-1.0`
+- Karen 正式版开发游戏：`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\stable\game`（v0.107.1）
+- Karen 测试版开发游戏：`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\beta\game`（v0.111.0）
 
 ## 项目基本信息
 
@@ -36,7 +38,7 @@
 
 ## Mod 主入口
 
-主入口在 `src/ShoujoKagekiAijoKaren/MainFile.cs`。
+安装包主入口在 `loader/Bootstrap.cs`，按游戏版本载入正式版或测试版实现；具体 Mod 初始化在 `src/ShoujoKagekiAijoKaren/MainFile.cs`。
 
 初始化流程主要包括：
 
@@ -121,3 +123,12 @@ Karen 当前的核心机制包括：
 - 使用 MCP 操作 STS2 时，使用 `D:\Github\STS2_Mcp` 中的 `KarenSTS2MCP`，不要连接旧 `STS2_MCP` 服务。先在游戏日志中确认 `[Karen STS2 MCP]` 已加载，再访问 `http://127.0.0.1:15527/api/v1/singleplayer?format=json` 验证接口。
 - 游戏内开发者命令通过 `POST /api/v1/singleplayer` 的 `{"action":"run_command","command":"..."}` 执行；关闭设置界面使用 `{"action":"close_settings"}`，也可用 `menu_select` 的 `back` 选项。测试时不要使用 Computer Use。
 - 先读 `docs/external/KarenSTS2MCP.md`；普通状态和动作字段可参考 `docs/external/STS2MCP/raw-simplified.md`，完整字段和动作说明见 `docs/external/STS2MCP/raw-full.md`。后两份是上游参考，端口及新增动作以本项目文档为准。
+
+## Karen 独立双版本开发环境
+
+- 正式版游戏及 Mod 目录：`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\stable\game`、`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\stable\game\mods`；启动 `run_stable_dev.bat`（`run.bat` 也默认启动这里）。
+- 测试版游戏及 Mod 目录：`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\beta\game`、`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\beta\game\mods`；启动 `run_beta_dev.bat`。
+- 两套环境各自的用户数据目录分别是 `D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\stable\user\AppData\Roaming\SlayTheSpire2` 和 `D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\beta\user\AppData\Roaming\SlayTheSpire2`；日志分别写入各自环境根目录的 `godot.log`。
+- 启动器使用 `--force-steam=off`，不读取 Steam 创意工坊 Mod 或云存档。两个 `game\mods` 目前只部署 BaseLib 与 Karen，和 Steam 安装目录 `D:\App\Stream\steamapps\common\Slay the Spire 2\mods` 相互独立，可同时启动。
+- `update_dev_mods.bat` 会构建并更新两套环境中的 Mod；`tools/dev_env.ps1` 支持 `Capture`、`Install`、`Launch`、`Smoke`、`Status`。开发环境完整说明见 `docs/dev-environments.md`。不要用 `build_local_mod.bat` 更新这些环境，因为它默认写入 Steam 安装目录。
+- 上述独立环境没有安装 KarenSTS2MCP；本节前面的 MCP 端口说明仅适用于另行安装了该桥接 Mod 的游戏实例。
