@@ -20,11 +20,11 @@ public static class Bootstrap
         if (_selectedAssembly is not null) return;
 
         var version = ReleaseInfoManager.Instance.SemVer;
-        var variant = version.CompareTo(new SemanticVersion(0, 107, 1)) == 0
-            ? "Stable"
-            : version.CompareTo(new SemanticVersion(0, 111, 0)) == 0
-                ? "Beta"
-                : throw new NotSupportedException($"Karen has no build for game version {version}. Supported: v0.107.1 and v0.111.0.");
+        var isStable = version.CompareTo(new SemanticVersion(0, 107, 1)) == 0;
+        var isBeta = version.CompareTo(new SemanticVersion(0, 111, 0)) == 0;
+        var variant = isBeta ? "Beta" : "Stable";
+        if (!isStable && !isBeta)
+            Log.Warn($"[KarenLoader] Unknown game version {version}; falling back to Stable implementation built for v0.107.1.");
 
         var loaderAssembly = typeof(Bootstrap).Assembly;
         var loaderDir = Path.GetDirectoryName(loaderAssembly.Location)
