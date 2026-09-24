@@ -46,7 +46,7 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
         NKarenStageLightVfx.Play(cardPlay.Target);
         await Task.Delay(250);
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             //.WithHitFx(VfxCmd.heavyBluntPath)
             .Execute(choiceContext);

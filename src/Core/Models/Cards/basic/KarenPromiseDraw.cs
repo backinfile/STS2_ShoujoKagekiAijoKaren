@@ -32,7 +32,7 @@ public sealed class KarenPromiseDraw : KarenBaseCardModel
         // 造成伤害
         if (cardPlay.Target != null)
         {
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromPlayedCard(this, cardPlay).Targeting(cardPlay.Target)
                 .WithHitFx(VfxCmd.slashPath)
                 .Execute(choiceContext);
         }

@@ -44,7 +44,7 @@ public sealed class KarenRewrite : KarenBaseCardModel
         var shineCards = ShinePileManager.GetShinePile(Owner).Cards.Where(card => card is KarenRewrite).ToList();
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);

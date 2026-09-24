@@ -36,7 +36,7 @@ public sealed class KarenConsciousness : KarenBaseCardModel
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
         var result = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);

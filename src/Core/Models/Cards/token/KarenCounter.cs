@@ -30,7 +30,7 @@ public sealed class KarenCounter : KarenBaseCardModel
     {
         if (CombatState == null) return;
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromPlayedCard(this, cardPlay)
                 .WithHitCount(3)
                 .TargetingAllOpponents(CombatState)
                 .WithHitFx(VfxCmd.slashPath)

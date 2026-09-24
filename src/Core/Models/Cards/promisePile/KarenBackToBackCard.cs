@@ -32,7 +32,7 @@ public sealed class KarenBackToBackCard : KarenBaseCardModel
     {
         if (cardPlay.Target == null) return;
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);

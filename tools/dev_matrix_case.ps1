@@ -7,6 +7,7 @@ param(
     [switch]$ShineRegression,
     [switch]$GlobalMoveRegression,
     [switch]$PromiseRegression,
+    [switch]$PromiseTurnEndRegression,
     [ValidateSet('host','client')][string]$ShineActor = 'host'
 )
 
@@ -49,6 +50,22 @@ function Post-Action([int]$port, [string]$endpoint, [hashtable]$action) {
     $result = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/$endpoint" -Method Post -ContentType 'application/json' -Body ($action | ConvertTo-Json -Compress) -TimeoutSec 8
     if ($result.status -ne 'ok') { throw "Action failed on $port : $($result | ConvertTo-Json -Compress)" }
     return $result
+}
+
+function Wait-PromisePile([int]$port, [string]$expected, [string]$absent) {
+    $last = $null
+    for ($attempt = 0; $attempt -lt 40; $attempt++) {
+        try {
+            $last = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/multiplayer" -Method Post `
+                -ContentType 'application/json' -Body (@{
+                    action='run_command'; command="karen_check_promise_pile $expected $absent"
+                } | ConvertTo-Json -Compress) -TimeoutSec 5
+            if ($last.status -eq 'ok') { return }
+        }
+        catch { $last = $_.Exception.Message }
+        Start-Sleep -Milliseconds 250
+    }
+    throw "Promise pile on $port did not contain $expected without $absent`: $($last | ConvertTo-Json -Compress)"
 }
 
 function Prepare-Profile([string]$branch, [string]$role, [int]$profileId) {
@@ -97,6 +114,7 @@ $caseName = "$Branch-$HostCharacter-$ClientCharacter"
 if ($ShineRegression) { $caseName += "-shine-regression-$ShineActor" }
 if ($GlobalMoveRegression) { $caseName += '-global-move-regression' }
 if ($PromiseRegression) { $caseName += '-promise-regression' }
+if ($PromiseTurnEndRegression) { $caseName += '-promise-turn-end-regression' }
 
 try {
     $hostProcess = Start-Game $hostGame $hostRoot 'host_standard' $hostId
@@ -212,6 +230,52 @@ try {
         $errors = @(Select-String -Path (Join-Path $logDir "mp-$caseName-host.log"),(Join-Path $logDir "mp-$caseName-client.log") -Pattern '^\[ERROR\]')
         if ($errors.Count -gt 0) { throw "Game logged $($errors.Count) errors" }
         [PSCustomObject]@{case=$caseName;result='pass';originalHp=$originalHp;enemyHp=$actorAfter.battle.enemies[0].hp;bothAtRound2=$true;errorCount=$errors.Count} | ConvertTo-Json -Compress
+        return
+    }
+
+    if ($PromiseTurnEndRegression) {
+        if ($HostCharacter -ne 'KAREN' -or $ClientCharacter -ne 'KAREN') {
+            throw 'Promise turn-end regression requires two Karen players'
+        }
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_SMALL_SNACK Hand' }
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_FALL Hand' }
+            $withFall = Wait-State $port 'multiplayer' {
+                param($s) @($s.player.hand | Where-Object id -eq 'KAREN_FALL').Count -gt 0 -and
+                    @($s.player.hand | Where-Object id -eq 'KAREN_SMALL_SNACK').Count -gt 0
+            } 'SmallSnack and KarenFall in hand'
+            $fall = $withFall.player.hand | Where-Object id -eq 'KAREN_FALL' | Select-Object -Last 1
+            $null = Post-Action $port 'multiplayer' @{ action='play_card'; card_index=$fall.index }
+            $selection = Wait-State $port 'multiplayer' { param($s) $s.state_type -eq 'hand_select' } 'SmallSnack selection'
+            $snack = $selection.hand_select.cards | Where-Object id -eq 'KAREN_SMALL_SNACK' | Select-Object -Last 1
+            if ($null -eq $snack) { throw 'SmallSnack missing from KarenFall selection' }
+            $null = Post-Action $port 'multiplayer' @{ action='combat_select_card'; card_index=$snack.index }
+            if ((Get-State $port 'multiplayer').state_type -eq 'hand_select') {
+                $null = Post-Action $port 'multiplayer' @{ action='combat_confirm_selection' }
+            }
+            $null = Wait-State $port 'multiplayer' {
+                param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase
+            } 'SmallSnack moved to promise pile'
+            Wait-PromisePile $port KAREN_SMALL_SNACK KAREN_BANANA
+        }
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Post-Action $port 'multiplayer' @{ action='end_turn' }
+        }
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Wait-State $port 'multiplayer' {
+                param($s) $s.battle.round -ge 2 -and $s.battle.is_play_phase
+            } 'round 2 after SmallSnack transformation'
+        }
+        foreach ($port in @($hostPort, $clientPort)) {
+            Wait-PromisePile $port KAREN_BANANA KAREN_SMALL_SNACK
+        }
+        $logDir = Join-Path $RunRoot 'logs'
+        New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+        Copy-Item -LiteralPath (Join-Path $hostRoot 'godot.log') -Destination (Join-Path $logDir "mp-$caseName-host.log") -Force
+        Copy-Item -LiteralPath (Join-Path $clientRoot 'godot.log') -Destination (Join-Path $logDir "mp-$caseName-client.log") -Force
+        $errors = @(Select-String -Path (Join-Path $logDir "mp-$caseName-host.log"),(Join-Path $logDir "mp-$caseName-client.log") -Pattern '^\[ERROR\]')
+        if ($errors.Count -gt 0) { throw "Game logged $($errors.Count) errors" }
+        [PSCustomObject]@{case=$caseName;result='pass';bothAtRound2=$true;bothPromisePilesTransformed=$true;errorCount=0} | ConvertTo-Json -Compress
         return
     }
 

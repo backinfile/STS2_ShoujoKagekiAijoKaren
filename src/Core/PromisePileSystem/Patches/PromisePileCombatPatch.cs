@@ -1,6 +1,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Rooms;
@@ -9,6 +10,7 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -85,21 +87,18 @@ internal static class PromisePile_BeforeSideTurnStart_Patch
 internal static class PromisePile_AfterTurnEnd_Patch
 {
     [HarmonyPostfix]
-    public static void Postfix(CombatState combatState, CombatSide side, ref Task __result)
+    public static void Postfix(CombatState combatState, CombatSide side, IEnumerable<Creature> participants, ref Task __result)
     {
+        var endingCreatures = participants.ToHashSet();
         Async.Postfix(ref __result, async () =>
         {
             if (side != CombatSide.Player) return;
 
-            var player = combatState.Players.FirstOrDefault(p => p.Character?.Id.Entry == Karen.CHAR_ID);
-            if (player == null)
+            foreach (var player in combatState.Players.Where(p => p.Character?.Id.Entry == Karen.CHAR_ID && endingCreatures.Contains(p.Creature)))
             {
-                MainFile.Logger.Warn("[PromisePile] Failed to find Karen player for turn end trigger.");
-                return;
+                await PromisePileHooks.TriggerPromisePileTurnEnd(player);
+                PrintSomething(player);
             }
-
-            await PromisePileHooks.TriggerPromisePileTurnEnd(player);
-            PrintSomething(player);
         });
     }
 

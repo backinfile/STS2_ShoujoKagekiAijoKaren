@@ -11,3 +11,5 @@
 构建时，正式版实现和入口使用 `BSchneppe.Sts2.ReferenceAssemblies` 0.107.1；测试版实现使用 0.111.0-beta-41cef1ea。引用程序集只有接口签名，构建结果仍须在真实游戏中验证。NuGet 包不会复制到 Mod 安装目录。默认导出工具路径在 `tools/build_dual_branch.ps1` 中，也可将 MegaDot 路径作为脚本参数传入。`build_local_mod.bat` 会先构建，再把完整安装目录复制到本地游戏的 `mods/`。
 
 2026-09-23 验证记录：两个实现 DLL 与入口构建通过；完整 PCK 打包通过。在隔离的正式版 v0.107.1 游戏副本中，入口选中 Stable DLL，Harmony `PatchAll` 完成，`ModelDb.AllCharacters` 包含 Karen。在隔离的测试版 v0.111.0 游戏副本中，入口选中 Beta DLL，Harmony `PatchAll` 完成，`ModelDb.AllCharacters` 包含 Karen，启动日志无 Mod 初始化异常。测试版仍需实战检查角色选择、闪耀耗尽、约定牌堆与联机移牌。
+
+2026-09-24 后续验证：双版本单人、闪耀、约定牌堆抽回和同版本联机已在隔离环境完成；详见 [接口核查及 v0.1.3 修复记录](testing/beta-api-audit-2026-09-24.md)。v0.1.3 还将出牌攻击的 `CardPlay` 上下文传入测试版攻击命令，并按回合参与者逐人处理约定牌堆回合末效果。双 Karen 回合末专项在正式版和测试版均通过。

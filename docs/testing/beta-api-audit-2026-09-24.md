@@ -65,3 +65,14 @@ pwsh -NoProfile -File tools/test_dev_matrix.ps1 -Suite promise
 - 完整矩阵 **30 通过、0 失败**：`artifacts/test-matrix/20260924-055659-1869d3/report.json`。包括双版本启动、单人闪耀、八组基础联机、十二组闪耀/全局移牌及六组约定牌堆专项。六组约定牌堆均通过模型数量恢复、双端手牌节点匹配和第 2 回合检查。
 - 已查看正式版联机客户端，以及测试版双 Karen 主客机和两种混合角色组合的抽回截图。新截图在矩阵运行目录的 `logs/*-after-tower.png`。
 - Steam 创意工坊发布包本次未更新；上述验证对应本项目独立开发环境中的修复包。攻击 `CardPlay` 上下文与多 Karen 回合末参与者逻辑仍保留为上文的专项核查项。
+
+## v0.1.3 后续兼容修复
+
+上文“仍需专项验证”的两项已在后续变更中处理：
+
+- 所有 31 个从 `OnPlay` 发起攻击的卡牌文件改用 `FromPlayedCard(this, cardPlay)`。正式版兼容层调用旧版 `AttackCommand.FromCard(card)`；测试版调用 `AttackCommand.FromCard(card, cardPlay)`。对构建后的测试版 DLL 反编译核查，`KarenStrike.OnPlay` 传递了 `cardPlay`，兼容层也继续将其传入游戏本体的攻击命令。
+- 约定牌堆回合末补丁按 Hook 的 `participants` 集合遍历本回合结束的每位 Karen，不再只处理第一位。新增只读命令 `karen_check_promise_pile`，联机测试让两位 Karen 各把《小零食》放入约定牌堆，下一回合分别确认牌已变成《香蕉》且《小零食》不再留在牌堆中。
+
+双版本专项运行 `pwsh -NoProfile -File tools/test_dev_matrix.ps1 -Suite turn-end`，结果为 **2 通过、0 失败**，记录在 `artifacts/test-matrix/20260924-063326-56fd8b/report.json`。前一轮约定牌堆回归共 7 通过、1 失败；失败是测试脚本在测试版客户端《坠落》动作完成前检查牌堆，未到回合末断言。脚本现等待移牌实际完成后再检查，专项复测两版均通过。
+
+最终 v0.1.3 包运行 `pwsh -NoProfile -File tools/test_dev_matrix.ps1 -Suite full -UpdateMcp`，结果 **32 通过、0 失败**，记录在 `artifacts/test-matrix/20260924-063609-a7d5d2/report.json`。正式版与测试版双 Karen 的《坠落》前后及《约定之塔》抽回截图已逐张查看：移入后手牌减少一张，抽回后可见手牌恢复；脚本同时调用 `karen_check_hand` 核对模型与节点。两版双 Karen 回合末的《小零食》→《香蕉》专项再次通过。正式版与测试版独立环境安装的 DLL、PCK 和最终包 SHA-256 一致。

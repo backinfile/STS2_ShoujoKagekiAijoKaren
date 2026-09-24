@@ -17,8 +17,9 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite f
 | `multiplayer` | 两版各四种主客角色组合：双方出牌、敌人生命同步、共同进入第 2 回合 |
 | `regression` | 两版 Karen 主机／客户端的清场耗尽、混合角色清场耗尽、《旋转》全局移牌同步及 `promise` 用例 |
 | `promise` | 两版各跑 Karen/Karen、Karen/原版、原版/Karen 的约定牌堆移入及抽回；保存前后截图并检查双端手牌节点与模型一致 |
+| `turn-end` | 两版双 Karen 各将《小零食》放入约定牌堆，结束回合后逐人检查它变为《香蕉》 |
 | `cross` | 可选的跨版本连接调查；不属于日常验收 |
-| `full` | `smoke`、`solo`、`multiplayer`、`regression` 的全部用例；默认套件，不含 `cross` |
+| `full` | `smoke`、`solo`、`multiplayer`、`regression`、`turn-end` 的全部用例；默认套件，不含 `cross` |
 
 测试通过 `--force-steam=off` 启动隔离游戏，每个用例使用独立 `--clientId`、用户数据目录和日志。正式版与测试版主机 MCP 端口分别是 `15627`、`15628`；对应客户端是 `15629`、`15630`；联机使用 `33771`。脚本在使用端口前检查占用情况，不会停止其他项目的游戏进程。客户端游戏从本项目快照复制到本次运行目录；结束后默认尝试清理游戏副本，`-KeepClientGames` 可保留。清理遇到 Windows 文件占用时会延后并写进报告，不改变测试结论。
 

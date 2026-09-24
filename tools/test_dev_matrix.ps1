@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('smoke', 'solo', 'multiplayer', 'regression', 'promise', 'cross', 'full')]
+    [ValidateSet('smoke', 'solo', 'multiplayer', 'regression', 'promise', 'turn-end', 'cross', 'full')]
     [string]$Suite = 'full',
     [switch]$UpdateMcp,
     [switch]$KeepClientGames
@@ -279,7 +279,7 @@ try {
             Record-Case "solo-$branch" { Test-Solo $branch $testId }
         }
     }
-    if ($Suite -in @('multiplayer', 'regression', 'promise', 'cross', 'full')) {
+    if ($Suite -in @('multiplayer', 'regression', 'promise', 'turn-end', 'cross', 'full')) {
         Prepare-ClientGames
     }
     if ($Suite -in @('multiplayer', 'full')) {
@@ -338,20 +338,35 @@ try {
             }
         }
     }
-    if ($Suite -in @('regression', 'promise', 'full')) {
-        foreach ($branch in @('stable', 'beta')) {
-            foreach ($characters in @(@('KAREN', 'KAREN'), @('KAREN', 'IRONCLAD'), @('IRONCLAD', 'KAREN'))) {
-                $testId++
-                Record-Case "mp-$branch-$($characters[0])-$($characters[1])-promise" {
-                    Wait-NetworkFree
-                    $json = & (Join-Path $PSScriptRoot 'dev_matrix_case.ps1') -Branch $branch `
-                        -HostCharacter $characters[0] -ClientCharacter $characters[1] -CaseId $testId `
-                        -RunRoot $runRoot -PromiseRegression
-                    if (-not $?) { throw "Promise case failed for $branch" }
-                    $detail = $json | Select-Object -Last 1 | ConvertFrom-Json
-                    if ($detail.result -ne 'pass') { throw "Promise case returned $($detail.result)" }
-                    $detail
+    if ($Suite -in @('regression', 'promise', 'turn-end', 'full')) {
+        if ($Suite -ne 'turn-end') {
+            foreach ($branch in @('stable', 'beta')) {
+                foreach ($characters in @(@('KAREN', 'KAREN'), @('KAREN', 'IRONCLAD'), @('IRONCLAD', 'KAREN'))) {
+                    $testId++
+                    Record-Case "mp-$branch-$($characters[0])-$($characters[1])-promise" {
+                        Wait-NetworkFree
+                        $json = & (Join-Path $PSScriptRoot 'dev_matrix_case.ps1') -Branch $branch `
+                            -HostCharacter $characters[0] -ClientCharacter $characters[1] -CaseId $testId `
+                            -RunRoot $runRoot -PromiseRegression
+                        if (-not $?) { throw "Promise case failed for $branch" }
+                        $detail = $json | Select-Object -Last 1 | ConvertFrom-Json
+                        if ($detail.result -ne 'pass') { throw "Promise case returned $($detail.result)" }
+                        $detail
+                    }
                 }
+            }
+        }
+        foreach ($branch in @('stable', 'beta')) {
+            $testId++
+            Record-Case "mp-$branch-KAREN-KAREN-promise-turn-end" {
+                Wait-NetworkFree
+                $json = & (Join-Path $PSScriptRoot 'dev_matrix_case.ps1') -Branch $branch `
+                    -HostCharacter KAREN -ClientCharacter KAREN -CaseId $testId `
+                    -RunRoot $runRoot -PromiseTurnEndRegression
+                if (-not $?) { throw "Promise turn-end case failed for $branch" }
+                $detail = $json | Select-Object -Last 1 | ConvertFrom-Json
+                if ($detail.result -ne 'pass') { throw "Promise turn-end case returned $($detail.result)" }
+                $detail
             }
         }
     }
