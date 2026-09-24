@@ -340,16 +340,18 @@ try {
     }
     if ($Suite -in @('regression', 'promise', 'full')) {
         foreach ($branch in @('stable', 'beta')) {
-            $testId++
-            Record-Case "mp-$branch-KAREN-KAREN-promise" {
-                Wait-NetworkFree
-                $json = & (Join-Path $PSScriptRoot 'dev_matrix_case.ps1') -Branch $branch `
-                    -HostCharacter KAREN -ClientCharacter KAREN -CaseId $testId `
-                    -RunRoot $runRoot -PromiseRegression
-                if (-not $?) { throw "Promise case failed for $branch" }
-                $detail = $json | Select-Object -Last 1 | ConvertFrom-Json
-                if ($detail.result -ne 'pass') { throw "Promise case returned $($detail.result)" }
-                $detail
+            foreach ($characters in @(@('KAREN', 'KAREN'), @('KAREN', 'IRONCLAD'), @('IRONCLAD', 'KAREN'))) {
+                $testId++
+                Record-Case "mp-$branch-$($characters[0])-$($characters[1])-promise" {
+                    Wait-NetworkFree
+                    $json = & (Join-Path $PSScriptRoot 'dev_matrix_case.ps1') -Branch $branch `
+                        -HostCharacter $characters[0] -ClientCharacter $characters[1] -CaseId $testId `
+                        -RunRoot $runRoot -PromiseRegression
+                    if (-not $?) { throw "Promise case failed for $branch" }
+                    $detail = $json | Select-Object -Last 1 | ConvertFrom-Json
+                    if ($detail.result -ne 'pass') { throw "Promise case returned $($detail.result)" }
+                    $detail
+                }
             }
         }
     }

@@ -8,8 +8,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Compat;
 
 internal static class AttackCommandCompat
 {
-    // v0.111 requires a CardPlay argument. Existing Karen cards only have the
-    // model at these call sites, so retain their previous no-play behavior.
+    // Signature fallback for legacy calls. OnPlay callers do have a CardPlay;
+    // migrating them needs damage-hook regression coverage because null omits
+    // the v0.111 per-play context. See docs/testing/beta-api-audit-2026-09-24.md.
     public static AttackCommand FromCard(this AttackCommand command, CardModel card)
         => command.FromCard(card, null);
 }

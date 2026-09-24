@@ -94,13 +94,6 @@ public static class PromisePileContainerPatch
 
             if (cards.First().Owner is not Player player) return true;
 
-#if STS2_BETA
-            // v0.111's move animation calls NCard.FindOnTable for the old pile.
-            // It throws for custom PileType values, including PromisePile.
-            if (cards.Any(card => card.Pile?.Type == KarenCustomEnum.PromisePile))
-                skipVisuals = true;
-#endif
-
             if (newPile.Type == KarenCustomEnum.PromisePile && PromisePileManager.IsVoidMode(player))
             {
                 newPile = PileType.Draw.GetPile(player);

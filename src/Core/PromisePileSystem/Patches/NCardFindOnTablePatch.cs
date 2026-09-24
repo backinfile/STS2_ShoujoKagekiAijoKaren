@@ -24,21 +24,16 @@ internal static class NCardFindOnTablePatch
     [HarmonyPrefix]
     private static bool Prefix(CardModel card, PileType? overridePile, ref NCard? __result)
     {
-        if (card?.Pile?.Type == KarenCustomEnum.PromisePile)
-        {
 #if STS2_BETA
-            var ui = NCombatRoom.Instance?.Ui;
-            __result = overridePile switch
-            {
-                PileType.Hand => ui?.Hand.GetCard(card)
-                    ?? ui?.PlayQueue.GetCardNode(card)
-                    ?? ui?.GetCardFromPlayContainer(card),
-                PileType.Play => ui?.GetCardFromPlayContainer(card),
-                _ => null,
-            };
+        // v0.111 looks up the source visual after moving the model. Respect the
+        // explicit source pile both when entering and when leaving PromisePile.
+        var visualPile = overridePile ?? card?.Pile?.Type;
 #else
-            __result = null;
+        var visualPile = card?.Pile?.Type;
 #endif
+        if (visualPile == KarenCustomEnum.PromisePile)
+        {
+            __result = null;
             return false;
         }
 

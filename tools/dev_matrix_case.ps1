@@ -216,16 +216,20 @@ try {
     }
 
     if ($PromiseRegression) {
-        if ($HostCharacter -ne 'KAREN' -or $ClientCharacter -ne 'KAREN') {
-            throw 'Promise regression requires Karen on both players'
+        $karenPorts = @()
+        if ($HostCharacter -eq 'KAREN') { $karenPorts += $hostPort }
+        if ($ClientCharacter -eq 'KAREN') { $karenPorts += $clientPort }
+        if ($karenPorts.Count -eq 0) {
+            throw 'Promise regression requires at least one Karen player'
         }
-        foreach ($port in @($hostPort, $clientPort)) {
+        foreach ($port in $karenPorts) {
             $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_DEFEND Hand' }
             $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_FALL Hand' }
             $withFall = Wait-State $port 'multiplayer' {
                 param($s) @($s.player.hand | Where-Object id -eq 'KAREN_FALL').Count -gt 0
             } 'KarenFall in hand'
             $fall = $withFall.player.hand | Where-Object id -eq 'KAREN_FALL' | Select-Object -Last 1
+            $defendBefore = @($withFall.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count
             $null = Post-Action $port 'multiplayer' @{ action='play_card'; card_index=$fall.index }
             $selection = Wait-State $port 'multiplayer' { param($s) $s.state_type -eq 'hand_select' } 'promise card selection'
             $defend = $selection.hand_select.cards | Where-Object id -eq 'KAREN_DEFEND' | Select-Object -Last 1
@@ -244,6 +248,11 @@ try {
             Start-Sleep -Milliseconds 500
             Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" `
                 -OutFile (Join-Path $screenshotDir "mp-$caseName-$side-after-fall.png") -TimeoutSec 15 | Out-Null
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
+            $afterFall = Get-State $port 'multiplayer'
+            if (@($afterFall.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count -ne $defendBefore - 1) {
+                throw 'KarenFall did not remove exactly one Defend from hand'
+            }
             $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_TOWER_OF_PROMISE Hand' }
             $withTower = Wait-State $port 'multiplayer' {
                 param($s) @($s.player.hand | Where-Object id -eq 'KAREN_TOWER_OF_PROMISE').Count -gt 0
@@ -253,6 +262,16 @@ try {
             $null = Wait-State $port 'multiplayer' {
                 param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase
             } 'promise draw completion'
+            Start-Sleep -Seconds 2
+            Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" `
+                -OutFile (Join-Path $screenshotDir "mp-$caseName-$side-after-tower.png") -TimeoutSec 15 | Out-Null
+            $afterTower = Get-State $port 'multiplayer'
+            if (@($afterTower.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count -ne $defendBefore) {
+                throw 'Tower did not return the promised Defend to hand'
+            }
+            foreach ($checkPort in @($hostPort, $clientPort)) {
+                $null = Post-Action $checkPort 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
+            }
         }
         foreach ($port in @($hostPort, $clientPort)) {
             $null = Post-Action $port 'multiplayer' @{ action='end_turn' }
@@ -271,7 +290,10 @@ try {
             Copy-Item -LiteralPath (Join-Path $pair[0] 'godot.log') `
                 -Destination (Join-Path $logDir "mp-$caseName-$($pair[1]).log") -Force
         }
-        [PSCustomObject]@{case=$caseName;result='pass';bothAtRound2=$true;promiseDrawLogged=$true;errorCount=0} | ConvertTo-Json -Compress
+        [PSCustomObject]@{
+            case=$caseName; result='pass'; bothAtRound2=$true; promiseDrawLogged=$true;
+            karenActors=$karenPorts.Count; handVisualsMatched=$true; cardCountsRestored=$true; errorCount=0
+        } | ConvertTo-Json -Compress
         return
     }
 
