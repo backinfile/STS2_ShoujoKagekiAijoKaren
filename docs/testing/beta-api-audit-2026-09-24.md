@@ -76,3 +76,5 @@ pwsh -NoProfile -File tools/test_dev_matrix.ps1 -Suite promise
 双版本专项运行 `pwsh -NoProfile -File tools/test_dev_matrix.ps1 -Suite turn-end`，结果为 **2 通过、0 失败**，记录在 `artifacts/test-matrix/20260924-063326-56fd8b/report.json`。前一轮约定牌堆回归共 7 通过、1 失败；失败是测试脚本在测试版客户端《坠落》动作完成前检查牌堆，未到回合末断言。脚本现等待移牌实际完成后再检查，专项复测两版均通过。
 
 最终 v0.1.3 包运行 `pwsh -NoProfile -File tools/test_dev_matrix.ps1 -Suite full -UpdateMcp`，结果 **32 通过、0 失败**，记录在 `artifacts/test-matrix/20260924-063609-a7d5d2/report.json`。正式版与测试版双 Karen 的《坠落》前后及《约定之塔》抽回截图已逐张查看：移入后手牌减少一张，抽回后可见手牌恢复；脚本同时调用 `karen_check_hand` 核对模型与节点。两版双 Karen 回合末的《小零食》→《香蕉》专项再次通过。正式版与测试版独立环境安装的 DLL、PCK 和最终包 SHA-256 一致。
+
+代码提交 `36ab776` 已推送到 `origin/main`。v0.1.3 包已通过官方 STS2 Mod Uploader 更新到创意工坊项目 `3747532000`；Steam 公开接口返回 `result=1`、`visibility=0`，更新时间为 2026-09-24 06:56:52 UTC，创意工坊变更记录显示 v0.1.3 文案。
