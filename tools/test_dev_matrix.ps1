@@ -111,6 +111,7 @@ function Test-Solo([string]$branch, [int]$caseId) {
         $null = Wait-State $port 'singleplayer' {
             param($s) $s.menu_screen -eq 'main' -and @($s.options) -contains 'singleplayer'
         } 'ready main menu'
+        $null = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/window/minimize" -Method Post -TimeoutSec 5
         $settings = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/settings" -TimeoutSec 5
         if ($settings.status -ne 'ok' -or $null -eq $settings.fullscreen) {
             throw 'The latest MCP settings endpoint is unavailable'

@@ -101,16 +101,22 @@ if ($PromiseRegression) { $caseName += '-promise-regression' }
 try {
     $hostProcess = Start-Game $hostGame $hostRoot 'host_standard' $hostId
     $null = Wait-State $hostPort 'singleplayer' { param($s) $s.menu_screen -eq 'character_select' } 'host lobby'
+    $null = Invoke-RestMethod -Uri "http://127.0.0.1:$hostPort/api/v1/window/minimize" -Method Post -TimeoutSec 5
     $clientProcess = Start-Game $clientGame $clientRoot 'join' $clientId
     $null = Wait-State $clientPort 'singleplayer' { param($s) $s.lobby.player_count -eq 2 } 'joined lobby'
+    $null = Invoke-RestMethod -Uri "http://127.0.0.1:$clientPort/api/v1/window/minimize" -Method Post -TimeoutSec 5
 
     $null = Post-Action $hostPort 'singleplayer' @{ action='menu_select'; option=$HostCharacter }
     $null = Post-Action $clientPort 'singleplayer' @{ action='menu_select'; option=$ClientCharacter }
     $null = Wait-State $hostPort 'singleplayer' {
-        param($s) @($s.lobby.players | Where-Object { $_.is_local -and $_.character_id -eq $HostCharacter }).Count -eq 1
+        param($s)
+        @($s.lobby.players | Where-Object { $_.is_local -and $_.character_id -eq $HostCharacter }).Count -eq 1 -and
+            @($s.options | Where-Object { $_.name -eq 'embark' -and $_.enabled }).Count -eq 1
     } 'host character selection'
     $null = Wait-State $clientPort 'singleplayer' {
-        param($s) @($s.lobby.players | Where-Object { $_.is_local -and $_.character_id -eq $ClientCharacter }).Count -eq 1
+        param($s)
+        @($s.lobby.players | Where-Object { $_.is_local -and $_.character_id -eq $ClientCharacter }).Count -eq 1 -and
+            @($s.options | Where-Object { $_.name -eq 'embark' -and $_.enabled }).Count -eq 1
     } 'client character selection'
     $null = Post-Action $hostPort 'singleplayer' @{ action='menu_select'; option='embark' }
     $null = Post-Action $clientPort 'singleplayer' @{ action='menu_select'; option='embark' }
