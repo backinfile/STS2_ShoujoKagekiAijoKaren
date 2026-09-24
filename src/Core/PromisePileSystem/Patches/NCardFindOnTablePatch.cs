@@ -15,22 +15,33 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 /// 背景：
 /// - NCard.FindOnTable 使用 switch 表达式处理 PileType
 /// - 对于未知的 PileType（如 PromisePile = 7），会抛出 ArgumentOutOfRangeException
-/// - 约定牌堆是"虚拟牌堆"，没有对应的 UI 节点，应返回 null
+/// - 约定牌堆是"虚拟牌堆"，没有对应的 UI 节点
+/// - 测试版在移动模型后才查找旧视觉节点，必须用 overridePile 找回原手牌
 /// </summary>
 [HarmonyPatch(typeof(NCard), nameof(NCard.FindOnTable))]
 internal static class NCardFindOnTablePatch
 {
     [HarmonyPrefix]
-    private static bool Prefix(CardModel card, ref NCard? __result)
+    private static bool Prefix(CardModel card, PileType? overridePile, ref NCard? __result)
     {
-        // 拦截约定牌堆类型：直接返回 null，避免进入原方法的 switch 表达式
         if (card?.Pile?.Type == KarenCustomEnum.PromisePile)
         {
+#if STS2_BETA
+            var ui = NCombatRoom.Instance?.Ui;
+            __result = overridePile switch
+            {
+                PileType.Hand => ui?.Hand.GetCard(card)
+                    ?? ui?.PlayQueue.GetCardNode(card)
+                    ?? ui?.GetCardFromPlayContainer(card),
+                PileType.Play => ui?.GetCardFromPlayContainer(card),
+                _ => null,
+            };
+#else
             __result = null;
-            return false; // 跳过原方法
+#endif
+            return false;
         }
 
-        // 其他情况：继续执行原方法
         return true;
     }
 }

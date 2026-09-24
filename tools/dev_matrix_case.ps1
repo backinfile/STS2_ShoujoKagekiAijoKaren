@@ -106,6 +106,12 @@ try {
 
     $null = Post-Action $hostPort 'singleplayer' @{ action='menu_select'; option=$HostCharacter }
     $null = Post-Action $clientPort 'singleplayer' @{ action='menu_select'; option=$ClientCharacter }
+    $null = Wait-State $hostPort 'singleplayer' {
+        param($s) @($s.lobby.players | Where-Object { $_.is_local -and $_.character_id -eq $HostCharacter }).Count -eq 1
+    } 'host character selection'
+    $null = Wait-State $clientPort 'singleplayer' {
+        param($s) @($s.lobby.players | Where-Object { $_.is_local -and $_.character_id -eq $ClientCharacter }).Count -eq 1
+    } 'client character selection'
     $null = Post-Action $hostPort 'singleplayer' @{ action='menu_select'; option='embark' }
     $null = Post-Action $clientPort 'singleplayer' @{ action='menu_select'; option='embark' }
     foreach ($port in @($hostPort, $clientPort)) {
@@ -226,6 +232,12 @@ try {
             $null = Wait-State $port 'multiplayer' {
                 param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase
             } 'promise selection completion'
+            $screenshotDir = Join-Path $RunRoot 'logs'
+            New-Item -ItemType Directory -Path $screenshotDir -Force | Out-Null
+            $side = if ($port -eq $hostPort) { 'host' } else { 'client' }
+            Start-Sleep -Milliseconds 500
+            Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" `
+                -OutFile (Join-Path $screenshotDir "mp-$caseName-$side-after-fall.png") -TimeoutSec 15 | Out-Null
             $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_TOWER_OF_PROMISE Hand' }
             $withTower = Wait-State $port 'multiplayer' {
                 param($s) @($s.player.hand | Where-Object id -eq 'KAREN_TOWER_OF_PROMISE').Count -gt 0

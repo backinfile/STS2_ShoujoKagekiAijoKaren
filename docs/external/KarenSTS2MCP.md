@@ -30,8 +30,6 @@ Python MCP 桥接器在 `D:\Github\STS2_Mcp\mcp\server.py`，默认连接端口�
 
 游戏设置可通过 `GET/POST http://127.0.0.1:15527/api/v1/settings` 或 MCP 工具 `get_game_settings()`、`set_game_settings(...)` 操作。可选字段为 `fullscreen`、`muted`、`skip_tutorial`、`skip_first_prompt`、`window_width`、`window_height`。宽高必须一起给出，单位为像素，并会切到窗口模式。`skip_first_prompt` 指首次启动的 Early Access 提示页。相同字段也可写进 Mod 目录的 `KarenSTS2MCP.conf`，在下次启动时应用；未填写的字段保留游戏设置。
 
-游戏画面可通过 `GET http://127.0.0.1:15527/api/v1/screenshot` 获取 PNG，或使用 MCP 工具 `get_screenshot()`。独立正式版和测试版分别把端口换成 `15627`、`15628`；截图由游戏视口生成，窗口在后台时也可用于视觉验收。`POST /api/v1/window/background` 或 MCP 工具 `background_game()` 可将游戏窗口最小化。
-
 游戏画面截图通过 `GET http://127.0.0.1:15527/api/v1/screenshot` 获取，响应为 `image/png`；Python MCP 工具 `get_screenshot()` 直接返回可查看的图片。截图包含当前视口中的主菜单或战局画面，单人和联机共用此接口。独立环境使用对应的 `15627` / `15628` 端口。
 
 自动化测试时建议以隐藏窗口启动游戏，先通过 `set_game_settings(muted=True)` 静音，再调用 `minimize_game()` 保持游戏窗口最小化，避免游戏抢到前台干扰用户其他工作。最小化后仍可调用游戏状态、动作与截图接口。对应 HTTP 指令为 `POST http://127.0.0.1:15527/api/v1/window/minimize`，无请求正文；独立环境改用相应端口。`background_game()` 和 `/api/v1/window/background` 是兼容别名。

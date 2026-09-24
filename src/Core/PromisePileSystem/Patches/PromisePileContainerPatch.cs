@@ -4,7 +4,6 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Nodes.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System.Collections.Generic;
@@ -74,26 +73,6 @@ public static class PromisePileContainerPatch
             PlayerCombatStatePatched.Set(__instance, true);
         }
     }
-
-#if STS2_BETA
-    // v0.111 calls FindOnTable while animating a move out of a combat pile.
-    // The game's switch only knows built-in piles and throws for PromisePile.
-    // A card in our virtual pile has no table node to find.
-    [HarmonyPatch(typeof(NCard), nameof(NCard.FindOnTable))]
-    [HarmonyPatch([typeof(CardModel), typeof(PileType?)])]
-    public static class PromisePileFindOnTablePatch
-    {
-        [HarmonyPrefix]
-        private static bool Prefix(CardModel card, PileType? overridePile, ref NCard? __result)
-        {
-            if ((card.Pile?.Type ?? overridePile) != KarenCustomEnum.PromisePile)
-                return true;
-
-            __result = null;
-            return false;
-        }
-    }
-#endif
 
 
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add))]

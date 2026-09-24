@@ -139,9 +139,13 @@ function Install-Mods {
         Copy-Item -LiteralPath $source -Destination (Join-Path $mods $file) -Force
     }
     $mcpConfig = Join-Path $mods 'KarenSTS2MCP.conf'
-    $config = if (Test-Path -LiteralPath $mcpConfig) {
-        Get-Content -LiteralPath $mcpConfig -Raw -Encoding UTF8 | ConvertFrom-Json -AsHashtable
-    } else { @{} }
+    $config = @{}
+    if (Test-Path -LiteralPath $mcpConfig) {
+        $existing = Get-Content -LiteralPath $mcpConfig -Raw -Encoding UTF8 | ConvertFrom-Json
+        foreach ($property in $existing.PSObject.Properties) {
+            $config[$property.Name] = $property.Value
+        }
+    }
     $config.port = $mcpPort
     [IO.File]::WriteAllText($mcpConfig, ($config | ConvertTo-Json -Compress -Depth 16),
         [Text.UTF8Encoding]::new($false))
