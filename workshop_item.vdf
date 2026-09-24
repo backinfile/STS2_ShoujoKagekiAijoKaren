@@ -6,5 +6,5 @@
 	"previewfile"		"D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\workshop_preview.jpg"
 	"visibility"		"0"
 	"title"		"Shoujo Kageki: Aijo Karen"
-	"changenote"		"v0.1.1: Add complete English and Japanese localization. Fix keyword tooltips retaining the previous language after switching languages. Verified in English and Japanese battles."
+	"changenote"		"v0.1.2: Support both the stable (v0.107.1) and public beta (v0.111.0) game branches. Fix Shine card depletion when When Starlight Shines auto-plays a card, and improve same-version multiplayer compatibility."
 }

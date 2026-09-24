@@ -2,7 +2,7 @@
   "title": null,
   "description": null,
   "visibility": "public",
-  "changeNote": "v0.1.1: Add complete English and Japanese localization. Fix keyword tooltips retaining the previous language after switching languages. Verified in English and Japanese battles.",
+  "changeNote": "v0.1.2: Support both the stable (v0.107.1) and public beta (v0.111.0) game branches. Fix Shine card depletion when When Starlight Shines auto-plays a card, and improve same-version multiplayer compatibility.",
   "tags": [
     "Characters",
     "Cards",
