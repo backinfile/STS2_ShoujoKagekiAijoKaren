@@ -138,8 +138,13 @@ function Install-Mods {
         $source = Join-Path $McpSource $file
         Copy-Item -LiteralPath $source -Destination (Join-Path $mods $file) -Force
     }
-    [IO.File]::WriteAllText((Join-Path $mods 'KarenSTS2MCP.conf'),
-        "{`"port`":$mcpPort}", [Text.UTF8Encoding]::new($false))
+    $mcpConfig = Join-Path $mods 'KarenSTS2MCP.conf'
+    $config = if (Test-Path -LiteralPath $mcpConfig) {
+        Get-Content -LiteralPath $mcpConfig -Raw -Encoding UTF8 | ConvertFrom-Json -AsHashtable
+    } else { @{} }
+    $config.port = $mcpPort
+    [IO.File]::WriteAllText($mcpConfig, ($config | ConvertTo-Json -Compress -Depth 16),
+        [Text.UTF8Encoding]::new($false))
     Write-Output "Installed BaseLib, Karen and KarenSTS2MCP into $mods (MCP port $mcpPort)"
 }
 

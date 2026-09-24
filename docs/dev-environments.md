@@ -11,6 +11,8 @@
 
 日常开发先运行 `update_dev_mods.bat` 构建安装包并更新两套环境，然后分别运行 `run_stable_dev.bat` 和 `run_beta_dev.bat`。`buildAndRun.bat` 只更新并启动正式版。`build_local_mod.bat` 仍会写入 Steam 安装目录，请勿用它更新独立环境。`run_as_host.bat` 与 `run_as_client01.bat` 仍是旧的 Steam 安装目录联机脚本，不属于这两套独立环境。
 
+更新独立环境的 MCP 并批量验证两版游戏时，运行 `tools/test_dev_matrix.ps1 -Suite full -UpdateMcp`；套件、隔离端口、日志与报告路径见[批量测试说明](testing/mcp-batch-matrix.md)。单独更新 MCP 可运行 `tools/update_dev_mcp.ps1`。安装时会保留 `KarenSTS2MCP.conf` 中除端口外的设置字段。
+
 更新游戏本体快照时，先让 Steam 切到目标分支并完成更新，再在项目根目录执行：
 
 ```powershell
