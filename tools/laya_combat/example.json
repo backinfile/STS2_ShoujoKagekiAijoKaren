@@ -1,0 +1,19 @@
+{
+  "state_type": "monster",
+  "run": {"act": 1, "floor": 1, "ascension": 0},
+  "battle": {
+    "round": 1, "turn": "player", "is_play_phase": true,
+    "enemies": [{"entity_id": "TEST_0", "name": "练习敌人", "hp": 6, "max_hp": 20,
+      "block": 0, "status": [], "intents": [{"type": "Attack", "description": "造成8点伤害。"}]}]
+  },
+  "player": {
+    "character": "Karen", "hp": 20, "max_hp": 72, "block": 0, "energy": 1,
+    "status": [], "relics": [], "potions": [],
+    "hand": [
+      {"index": 0, "id": "TEST_STRIKE", "name": "测试攻击", "description": "造成6点伤害。",
+       "cost": "1", "type": "Attack", "target_type": "AnyEnemy", "can_play": true},
+      {"index": 1, "id": "TEST_DEFEND", "name": "测试防御", "description": "获得5点格挡。",
+       "cost": "1", "type": "Skill", "target_type": "Self", "can_play": true}
+    ]
+  }
+}

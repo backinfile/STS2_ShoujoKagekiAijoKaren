@@ -29,3 +29,5 @@ GET http://127.0.0.1:15527/api/v1/singleplayer?format=json
 Python MCP 桥接器在 `D:\Github\STS2_Mcp\mcp\server.py`，默认连接端口为 `15527`，提供 `run_command(command)` 与 `close_settings()` 工具。普通状态字段、玩法动作和其他端点沿用上游协议，参见 [精简参考](STS2MCP/raw-simplified.md) 与 [完整参考](STS2MCP/raw-full.md)。两份上游文档中的 `15526` 仅指上游 Mod；实际连接此处的 `15527`。测试游戏时使用 MCP/HTTP 和游戏内 CMD，不使用 Computer Use。
 
 游戏设置可通过 `GET/POST http://127.0.0.1:15527/api/v1/settings` 或 MCP 工具 `get_game_settings()`、`set_game_settings(...)` 操作。可选字段为 `fullscreen`、`muted`、`skip_tutorial`、`skip_first_prompt`、`window_width`、`window_height`。宽高必须一起给出，单位为像素，并会切到窗口模式。`skip_first_prompt` 指首次启动的 Early Access 提示页。相同字段也可写进 Mod 目录的 `KarenSTS2MCP.conf`，在下次启动时应用；未填写的字段保留游戏设置。
+
+需要重复执行一组 MCP 操作并检查结果时，使用 [批量测试流程](../testing/mcp-flow.md)。

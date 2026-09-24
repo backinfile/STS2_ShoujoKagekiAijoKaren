@@ -27,3 +27,5 @@ server.pid
 /.dotnet_home
 /artifacts/
 /.compat-tmp/
+__pycache__/
+*.pyc

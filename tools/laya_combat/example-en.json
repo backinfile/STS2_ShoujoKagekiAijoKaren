@@ -1,0 +1,61 @@
+{
+  "state_type": "monster",
+  "run": {
+    "act": 1,
+    "floor": 1,
+    "ascension": 0
+  },
+  "battle": {
+    "round": 1,
+    "turn": "player",
+    "is_play_phase": true,
+    "enemies": [
+      {
+        "entity_id": "TEST_0",
+        "name": "Training Enemy",
+        "hp": 6,
+        "max_hp": 20,
+        "block": 0,
+        "status": [],
+        "intents": [
+          {
+            "type": "Attack",
+            "description": "Deals 8 damage."
+          }
+        ]
+      }
+    ]
+  },
+  "player": {
+    "character": "Karen",
+    "hp": 20,
+    "max_hp": 72,
+    "block": 0,
+    "energy": 1,
+    "status": [],
+    "relics": [],
+    "potions": [],
+    "hand": [
+      {
+        "index": 0,
+        "id": "TEST_STRIKE",
+        "name": "Test Strike",
+        "description": "Deal 6 damage.",
+        "cost": "1",
+        "type": "Attack",
+        "target_type": "AnyEnemy",
+        "can_play": true
+      },
+      {
+        "index": 1,
+        "id": "TEST_DEFEND",
+        "name": "Test Defend",
+        "description": "Gain 5 Block.",
+        "cost": "1",
+        "type": "Skill",
+        "target_type": "Self",
+        "can_play": true
+      }
+    ]
+  }
+}

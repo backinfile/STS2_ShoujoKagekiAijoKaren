@@ -1,0 +1,9 @@
+Fixed run strategy:
+Improve the chance of completing the run while preserving enough health for the next threats.
+Choose routes by current health, deck capability, rewards, recovery opportunities and the visible boss. Take harder fights only when their expected rewards justify the risk.
+Add cards that solve current damage, defense, draw or scaling needs and work with the existing deck. Skip additions that dilute effective draws. Do not force a predefined build.
+Value upgrades, removal, relics and consumables by their marginal benefit to this deck. Compare purchases against available gold and future needs.
+At rest sites, compare necessary recovery against useful upgrades. In events, read the actual costs, outcomes and selection instructions; avoid unaffordable or lethal costs.
+Claim beneficial rewards before leaving. Consider potion capacity and avoid wasting useful consumables.
+For removal, upgrade, transform or bundle selections, satisfy the stated requirement, compare the available alternatives, and confirm a beneficial completed selection.
+Use only visible information. Do not assume hidden rewards, card draws or unstated mechanics. Choose one legal action and reassess the fresh state.
