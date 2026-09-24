@@ -17,7 +17,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite f
 | `multiplayer` | 两版各四种主客角色组合：双方出牌、敌人生命同步、共同进入第 2 回合 |
 | `regression` | 两版 Karen 主机／客户端的清场耗尽、混合角色清场耗尽、《旋转》全局移牌同步及 `promise` 用例 |
 | `promise` | 两版各跑 Karen/Karen、Karen/原版、原版/Karen 的约定牌堆移入及抽回；保存前后截图并检查双端手牌节点与模型一致 |
-| `turn-end` | 两版双 Karen 各将《小零食》放入约定牌堆，结束回合后逐人检查它变为《香蕉》 |
+| `turn-end` | 两版各覆盖 Karen/Karen、Karen/原版、原版/Karen，双方各将《小零食》放入约定牌堆，结束回合后逐人检查它变为《香蕉》 |
 | `cross` | 可选的跨版本连接调查；不属于日常验收 |
 | `full` | `smoke`、`solo`、`multiplayer`、`regression`、`turn-end` 的全部用例；默认套件，不含 `cross` |
 
@@ -28,3 +28,9 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite f
 单人移牌视觉专项另行运行 `pwsh -NoProfile -File tools/test_promise_visuals.ps1 -Environment beta`（正式版改为 `stable`）。它检查《坠落》移入、《约定之塔》抽回以及取回后继续出牌，保存各阶段截图和 MCP 状态，并调用只读命令 `karen_check_hand` 比较可见节点与模型。游戏就绪后自动最小化；结果保存在 `artifacts/test-promise-visuals/`。该检查能发现模型已抽回但画面仍缺牌的问题。
 
 游戏快照固定为正式版 v0.107.1、测试版 v0.111.0；游戏升级后先重新准备快照并核对兼容性。更新脚本不会执行 `git pull`，避免覆盖 MCP 源码目录中的未提交改动；如果需要远端新提交，应先在 MCP 仓库处理更新，再运行此脚本。
+
+单机双进程测试可加 `-UpdateMcp -LoopbackOnly`。该选项只修改 MCP 构建副本，把 ENet 主机与客户端的 UDP 接口限制在 `127.0.0.1`，避免测试监听所有网卡；不修改系统防火墙，也不需要管理员启动。Windows 是否显示权限提示仍以实际系统行为为准。重新不带该选项构建 MCP 可恢复局域网测试。
+
+审查修复的升级／附魔副本、重播转移／拒绝接收、保留能量、远端 UI 和战后遗物清理专项：`pwsh -NoProfile -File tools/test_review_regressions.ps1`。它临时部署独立测试插件、默认启用仅本机传输，并保存结果、截图及双端日志；详细范围见 [修复记录](review-fixes-2026-09-24.md)。
+
+修复专项的客户端游戏使用工作树内的可复用缓存，避免每次复制数 GB 文件。日志与用户数据仍按运行隔离；`-ClientGamesRoot` 可指定 `artifacts/test-matrix/` 下已有客户端副本目录。

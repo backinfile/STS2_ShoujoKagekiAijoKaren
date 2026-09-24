@@ -94,7 +94,7 @@ internal static class PromisePile_AfterTurnEnd_Patch
         {
             if (side != CombatSide.Player) return;
 
-            foreach (var player in combatState.Players.Where(p => p.Character?.Id.Entry == Karen.CHAR_ID && endingCreatures.Contains(p.Creature)))
+            foreach (var player in combatState.Players.Where(p => p.PlayerCombatState != null && endingCreatures.Contains(p.Creature)))
             {
                 await PromisePileHooks.TriggerPromisePileTurnEnd(player);
                 PrintSomething(player);

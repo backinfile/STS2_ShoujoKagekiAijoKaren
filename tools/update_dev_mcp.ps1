@@ -2,6 +2,7 @@ param(
     [string]$McpRepository = 'D:\Github\STS2_Mcp',
     [string]$GameRoot = '',
     [string]$OutputRoot = '',
+    [switch]$LoopbackOnly,
     [switch]$SkipInstall
 )
 
@@ -59,7 +60,12 @@ foreach ($branch in @('stable', 'beta')) {
             "            `"run_command`" => ExecuteRunCommand(data),`n$marker")
         [IO.File]::WriteAllText($multiplayerPath, $multiplayer, [Text.UTF8Encoding]::new($false))
     }
-    $hashLines = @($sourceFiles | Sort-Object Name | ForEach-Object {
+    if ($LoopbackOnly) {
+        Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'review-regression/LoopbackTransport.cs') `
+            -Destination (Join-Path $sourceCopy 'KarenTestLoopbackTransport.cs')
+    }
+    $buildFiles = @(Get-ChildItem -LiteralPath $sourceCopy -File -Filter '*.cs')
+    $hashLines = @($buildFiles | Sort-Object Name | ForEach-Object {
         $path = Join-Path $sourceCopy $_.Name
         "$($_.Name)=$((Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash)"
     })
@@ -86,6 +92,7 @@ foreach ($branch in @('stable', 'beta')) {
         game_version = $version
         built_utc = [DateTime]::UtcNow.ToString('o')
         multiplayer_run_command_added_to_build_copy = $true
+        loopback_only = [bool]$LoopbackOnly
     } | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $package 'source-info.json') -Encoding UTF8
     Write-Output "Built $package"
 }

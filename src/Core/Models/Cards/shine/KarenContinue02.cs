@@ -51,12 +51,8 @@ public sealed class KarenContinue02 : KarenBaseCardModel
 
     protected override void AfterDowngraded()
     {
-        DynamicVars.Damage.ResetToBase();
-        _upgradeCount--;
-        for (int i = 0; i < _upgradeCount; i++)
-        {
-            DynamicVars.Damage.UpgradeValueBy(4m + i);
-        }
+        // 原生降级会清除全部升级，并已恢复 DynamicVars。
+        _upgradeCount = 0;
     }
 
 }

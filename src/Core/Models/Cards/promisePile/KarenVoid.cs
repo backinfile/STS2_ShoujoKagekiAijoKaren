@@ -55,7 +55,7 @@ public sealed class KarenVoid : KarenBaseCardModel
             }
 
             drawPile.InvokeContentsChanged();
-            PromisePileManager.SetPileCountLabel(drawPile.Cards.Count);
+            PromisePileManager.SetPileCountLabel(Owner, drawPile.Cards.Count);
         }
 
         // 取出约定牌堆中的所有牌，然后重新放入抽牌堆
@@ -63,7 +63,7 @@ public sealed class KarenVoid : KarenBaseCardModel
 
         // 切换模式
         await PromisePileCmd.EnterMode(Owner, PromisePileMode.Void);
-        PromisePileManager.SetPileCountLabel(combatState.DrawPile.Cards.Count);
+        PromisePileManager.SetPileCountLabel(Owner, combatState.DrawPile.Cards.Count);
     }
 
     private static void PlayDrawPileExhaustVfx(CardModel visualCard)

@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.addons.mega_text;
 using MegaCrit.Sts2.Core.CardSelection;
@@ -117,7 +117,7 @@ public static class PromisePileManager
         // 进入Void模式，修改抽牌堆图标
         if ((mode & PromisePileMode.Void) == PromisePileMode.Void)
         {
-            DrawPileIconCmd.Override(DrawPileIconInVoidMode);
+            DrawPileIconCmd.Override(player, DrawPileIconInVoidMode);
         }
     }
 
@@ -361,7 +361,7 @@ public static class PromisePileManager
                 MainFile.Logger.Info($"[PromisePile] void mode Added '{card.Title}' to promise pile during refill");
                 changed = true;
             }
-            SetPileCountLabel(pile.Cards.Count);
+            SetPileCountLabel(player, pile.Cards.Count);
         }
         if (changed)
         {
@@ -373,9 +373,9 @@ public static class PromisePileManager
     /// 直接获取 NCombatCardPile 节点并设置其计数文本，无动画。
     /// 用于绕过 CardPile 事件系统直接刷新 UI 数字。
     /// </summary>
-    public static void SetPileCountLabel(int count)
+    public static void SetPileCountLabel(Player player, int count)
     {
-        CombatPileCountCmd.SetCount(PileType.Draw, count);
+        CombatPileCountCmd.SetCount(player, PileType.Draw, count);
     }
 
     /// <summary>打开约定牌堆查看界面（快照模式，使用原生 NCardPileScreen）</summary>

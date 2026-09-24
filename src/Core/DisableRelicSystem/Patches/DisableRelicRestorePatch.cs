@@ -15,10 +15,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Patches;
 [HarmonyPatch(typeof(Hook), nameof(Hook.AfterCombatEnd))]
 public static class DisableRelicRestorePatch
 {
-    [HarmonyPostfix]
-    private static void Postfix(IRunState runState, CombatState combatState, AbstractRoom room)
+    [HarmonyPrefix]
+    private static void Prefix(IRunState runState, CombatState combatState, AbstractRoom room)
     {
-        // 恢复所有玩家的被禁用遗物
+        // 在原生 Hook 创建监听器快照前恢复，让遗物恰好收到一次战后清理回调。
         foreach (var player in combatState.Players)
         {
             if (DisableRelicManager.GetDisabledRelicCount(player) > 0)

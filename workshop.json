@@ -2,7 +2,7 @@
   "title": null,
   "description": null,
   "visibility": "public",
-  "changeNote": "v0.1.3: Fix Promise Tower hand visuals, preserve card-play context for beta attacks, and trigger promise-pile turn-end effects for each Karen in multiplayer. Verified on stable v0.107.1 and beta v0.111.0.",
+  "changeNote": "修复问题，优化兼容性。",
   "tags": [
     "Characters",
     "Cards",

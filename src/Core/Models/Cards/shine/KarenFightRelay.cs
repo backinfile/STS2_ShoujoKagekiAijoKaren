@@ -1,4 +1,4 @@
-﻿using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -74,23 +74,30 @@ public sealed class KarenFightRelay : KarenBaseCardModel
 
     public override async Task OnShineNotExhausted(PlayerChoiceContext ctx, CardPlay cardPlay)
     {
-        await TransferToRandomTeammate();
+        // AfterCardPlayed 每次重播都会调用；永久转移只在整次出牌的最后执行。
+        if (cardPlay.PlayIndex != cardPlay.PlayCount - 1) return;
+
+        if (!await TransferToRandomTeammate() && cardPlay.ResultPile == PileType.None && Pile?.Type == PileType.Play)
+        {
+            // 结果牌堆可能已预先计算为 None。失败时先保留到弃牌堆，避免原生移除原牌。
+            await CardPileCmd.Add(this, PileType.Discard);
+        }
     }
 
-    private async Task TransferToRandomTeammate()
+    private async Task<bool> TransferToRandomTeammate()
     {
         var targets = GetTransferTargets();
         if (targets.Count == 0)
         {
             MainFile.Logger.Warn($"[KarenFightRelay] No valid teammate target for transfer. Player={Owner?.NetId.ToString() ?? "<null>"}, Shine={this.GetShineValue()}/{this.GetShineMaxValue()}");
-            return;
+            return false;
         }
 
         var target = Owner.RunState.Rng.CombatTargets.NextItem(targets);
         if (target == null)
         {
             MainFile.Logger.Warn($"[KarenFightRelay] Random target selection returned null. Player={Owner?.NetId.ToString() ?? "<null>"}, TargetCount={targets.Count}");
-            return;
+            return false;
         }
 
         MainFile.Logger.Info($"[KarenFightRelay] Transferring '{Title}' from player {Owner.NetId} to player {target.NetId}. TargetCount={targets.Count}, Shine={this.GetShineValue()}/{this.GetShineMaxValue()}");
@@ -100,7 +107,7 @@ public sealed class KarenFightRelay : KarenBaseCardModel
         {
             MainFile.Logger.Warn($"[KarenFightRelay] Failed to add transferred '{transferred.Title}' to player {target.NetId}'s deck. Removing created copy.");
             transferred.RemoveFromState();
-            return;
+            return false;
         }
 
         MainFile.Logger.Info($"[KarenFightRelay] Added transferred '{transferred.Title}' to player {target.NetId}'s deck.");
@@ -115,6 +122,7 @@ public sealed class KarenFightRelay : KarenBaseCardModel
         {
             MainFile.Logger.Info($"[KarenFightRelay] No original deck version removed after transfer. Player={Owner.NetId}, DeckVersionPile={DeckVersion?.Pile?.Type.ToString() ?? "<null>"}");
         }
+        return true;
     }
 
     private List<Player> GetTransferTargets()

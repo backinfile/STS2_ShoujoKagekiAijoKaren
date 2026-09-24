@@ -119,7 +119,7 @@ public static class PromisePileContainerPatch
                     await PromisePileManager.UpdatePowerAsync(player);
                     if (PromisePileManager.IsVoidMode(player))
                     {
-                        PromisePileManager.SetPileCountLabel(PileType.Draw.GetPile(player).Cards.Count);
+                        PromisePileManager.SetPileCountLabel(player, PileType.Draw.GetPile(player).Cards.Count);
                     }
                 });
             }

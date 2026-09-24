@@ -2,10 +2,12 @@ param(
     [ValidateSet('smoke', 'solo', 'multiplayer', 'regression', 'promise', 'turn-end', 'cross', 'full')]
     [string]$Suite = 'full',
     [switch]$UpdateMcp,
+    [switch]$LoopbackOnly,
     [switch]$KeepClientGames
 )
 
 $ErrorActionPreference = 'Stop'
+if ($LoopbackOnly -and -not $UpdateMcp) { throw '-LoopbackOnly requires -UpdateMcp so the transport restriction is installed.' }
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $runsRoot = [IO.Path]::GetFullPath((Join-Path $project 'artifacts\test-matrix'))
 $runName = [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0, 6)
@@ -257,7 +259,7 @@ function Remove-ClientGames {
 
 try {
     if ($UpdateMcp) {
-        & (Join-Path $PSScriptRoot 'update_dev_mcp.ps1')
+        & (Join-Path $PSScriptRoot 'update_dev_mcp.ps1') -LoopbackOnly:$LoopbackOnly
         if (-not $?) { throw 'MCP update failed' }
     }
     foreach ($branch in @('stable', 'beta')) {
@@ -357,16 +359,18 @@ try {
             }
         }
         foreach ($branch in @('stable', 'beta')) {
-            $testId++
-            Record-Case "mp-$branch-KAREN-KAREN-promise-turn-end" {
-                Wait-NetworkFree
-                $json = & (Join-Path $PSScriptRoot 'dev_matrix_case.ps1') -Branch $branch `
-                    -HostCharacter KAREN -ClientCharacter KAREN -CaseId $testId `
-                    -RunRoot $runRoot -PromiseTurnEndRegression
-                if (-not $?) { throw "Promise turn-end case failed for $branch" }
-                $detail = $json | Select-Object -Last 1 | ConvertFrom-Json
-                if ($detail.result -ne 'pass') { throw "Promise turn-end case returned $($detail.result)" }
-                $detail
+            foreach ($characters in @(@('KAREN', 'KAREN'), @('KAREN', 'IRONCLAD'), @('IRONCLAD', 'KAREN'))) {
+                $testId++
+                Record-Case "mp-$branch-$($characters[0])-$($characters[1])-promise-turn-end" {
+                    Wait-NetworkFree
+                    $json = & (Join-Path $PSScriptRoot 'dev_matrix_case.ps1') -Branch $branch `
+                        -HostCharacter $characters[0] -ClientCharacter $characters[1] -CaseId $testId `
+                        -RunRoot $runRoot -PromiseTurnEndRegression
+                    if (-not $?) { throw "Promise turn-end case failed for $branch" }
+                    $detail = $json | Select-Object -Last 1 | ConvertFrom-Json
+                    if ($detail.result -ne 'pass') { throw "Promise turn-end case returned $($detail.result)" }
+                    $detail
+                }
             }
         }
     }

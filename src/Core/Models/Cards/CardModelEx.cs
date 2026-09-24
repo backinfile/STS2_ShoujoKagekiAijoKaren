@@ -26,24 +26,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
         public static CardModel CloneSafeForDeck(this CardModel original)
         {
             var player = original.Owner;
-            CardModel newCard = player.RunState.CreateCard(ModelDb.GetById<CardModel>(original.Id), player);
-
-            // 复制升级状态
-            for (int i = 0; i < original.CurrentUpgradeLevel; i++)
-            {
-                newCard.UpgradeInternal();
-            }
-            // 复制附魔（Enchantment）
-            if (original.Enchantment != null)
-            {
-                var enchantment = (EnchantmentModel)original.Enchantment.ClonePreservingMutability();
-                // 有些附魔会在战斗中临时失效（例如活力打出后 Disabled）。
-                // 复制回牌组的是新的永久牌，不能继承这类战斗临时状态。
-                enchantment.Status = EnchantmentStatus.Normal;
-                newCard.EnchantInternal(enchantment, enchantment.Amount);
-                enchantment.ModifyCard();
-                newCard.FinalizeUpgradeInternal();
-            }
+            var newCard = RebuildPermanentCopy(original, player);
             // 复制闪耀值
             {
                 int shineMax = original.GetShineMaxValue();
@@ -63,20 +46,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
                 return emptyShell;
             }
 
-            var newCard = target.RunState.CreateCard(ModelDb.GetById<CardModel>(original.Id), target);
-
-            for (var i = 0; i < original.CurrentUpgradeLevel; i++)
-            {
-                newCard.UpgradeInternal();
-            }
-
-            if (original.Enchantment != null)
-            {
-                var enchantment = (EnchantmentModel)original.Enchantment.ClonePreservingMutability();
-                // 转移到其他玩家牌组时同样视为新的永久牌，重置战斗临时附魔状态。
-                enchantment.Status = EnchantmentStatus.Normal;
-                newCard.EnchantInternal(enchantment, enchantment.Amount);
-            }
+            var newCard = RebuildPermanentCopy(original, target);
 
             var shineMax = original.GetShineMaxValue();
             var shineCurrent = original.GetShineValue();
@@ -85,6 +55,26 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
             var enchantmentTitle = newCard.Enchantment == null ? "<none>" : newCard.Enchantment.Title.ToString();
             MainFile.Logger.Info($"[CardModelEx.CreateTransferCopy] Created transfer copy '{newCard.Title}' from player {original.Owner?.NetId.ToString() ?? "<null>"} to player {target.NetId}. Upgrade={newCard.CurrentUpgradeLevel}, Enchant={enchantmentTitle}, Shine={newCard.GetShineValue()}/{newCard.GetShineMaxValue()}");
             return newCard;
+        }
+
+        private static CardModel RebuildPermanentCopy(CardModel original, Player target)
+        {
+            var card = target.RunState.CreateCard(ModelDb.GetById<CardModel>(original.Id), target);
+            // 与原生反序列化顺序一致：先应用附魔，再逐级升级并收尾。
+            if (original.Enchantment != null)
+            {
+                var enchantment = (EnchantmentModel)original.Enchantment.ClonePreservingMutability();
+                enchantment.Status = EnchantmentStatus.Normal;
+                card.EnchantInternal(enchantment, enchantment.Amount);
+                enchantment.ModifyCard();
+                card.FinalizeUpgradeInternal();
+            }
+            for (var i = 0; i < original.CurrentUpgradeLevel; i++)
+            {
+                card.UpgradeInternal();
+                card.FinalizeUpgradeInternal();
+            }
+            return card;
         }
 
         public static void ResetEnchantmentStatus(this CardModel card)

@@ -1,4 +1,6 @@
 using Godot;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 
@@ -15,8 +17,9 @@ public static class DrawPileIconCmd
     /// <summary>
     /// 将抽牌堆图标替换为指定纹理。
     /// </summary>
-    public static void Override(Texture2D? icon)
+    public static void Override(Player player, Texture2D? icon)
     {
+        if (!LocalContext.IsMe(player)) return;
         var iconNode = GetIconNode();
         if (iconNode == null) return;
 
@@ -27,8 +30,9 @@ public static class DrawPileIconCmd
     /// <summary>
     /// 恢复抽牌堆的默认图标。
     /// </summary>
-    public static void Reset()
+    public static void Reset(Player player)
     {
+        if (!LocalContext.IsMe(player)) return;
         var iconNode = GetIconNode();
         if (iconNode == null || _defaultIcon == null) return;
 
