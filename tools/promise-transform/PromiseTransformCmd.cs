@@ -57,3 +57,31 @@ public sealed class PromiseTransformCmd : AbstractConsoleCmd
             JsonSerializer.Serialize(new { originError, scaleError, upright, anchorError, expectedX=expected.X, actualX=actual.X.Length() }));
     }
 }
+
+public sealed class GuiltHoverCmd : AbstractConsoleCmd
+{
+    public override string CmdName => "guilt_hover";
+    public override string Args => "on|off";
+    public override string Description => "Exercise the card's actual hover callbacks on the first enemy.";
+    public override bool IsNetworked => false;
+    private static ShoujoKagekiAijoKaren.src.Models.Cards.KarenCarryingGuilt? _card;
+    public override CmdResult Process(Player? player, string[] args)
+    {
+        var target = NCombatRoom.Instance?.CreatureNodes.FirstOrDefault(n => n.Entity.Monster != null);
+        if (player == null || target == null || args.Length != 1) return new(false, "Combat and on/off required");
+        if (args[0] == "on")
+        {
+            _card = player.PlayerCombatState?.Hand.Cards.OfType<ShoujoKagekiAijoKaren.src.Models.Cards.KarenCarryingGuilt>().FirstOrDefault();
+            if (_card == null) return new(false, "Guilt card required in hand");
+            _card.OnCreatureHover(target);
+        }
+        else if (args[0] == "off")
+        {
+            _card?.OnCreatureUnhover(target);
+            _card?.OnCreatureHoverCleanup(target);
+            _card = null;
+        }
+        else return new(false, "Use on or off");
+        return new(true, args[0]);
+    }
+}

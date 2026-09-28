@@ -35,3 +35,9 @@ Python MCP 桥接器在 `D:\Github\STS2_Mcp\mcp\server.py`，默认连接端口�
 自动化测试时建议以隐藏窗口启动游戏，先通过 `set_game_settings(muted=True)` 静音，再调用 `minimize_game()` 保持游戏窗口最小化，避免游戏抢到前台干扰用户其他工作。最小化后仍可调用游戏状态、动作与截图接口。对应 HTTP 指令为 `POST http://127.0.0.1:15527/api/v1/window/minimize`，无请求正文；独立环境改用相应端口。`background_game()` 和 `/api/v1/window/background` 是兼容别名。
 
 需要重复执行一组 MCP 操作并检查结果时，使用 [批量测试流程](../testing/mcp-flow.md)。
+
+## 有声录像（2026-09-28 更新）
+
+MCP 源码 `2d2a4c5` 支持在 `POST /api/v1/recording/start` 中设置 `audio: true`，采集游戏进程及其子进程音频，不采集麦克风或其他应用。需要 Windows build 20348+。录制前设置 `muted: false`（当前接口将主音量设为 50%），否则会录到静音；结束后恢复原设置。停止后等待 `completed`，检查 `audio: true`、`audio_source: game_process`，并验证成片音轨及实际非静音采样。
+
+示例正文：`{"fps":30,"max_duration_seconds":20,"width":1280,"height":720,"audio":true}`。新版本也支持单人动作 `hover_card`（card_index，可选 target）及 `unhover_card`；这是手牌和目标数值预览，不应假定它等同于拖拽卡牌的目标悬停回调。

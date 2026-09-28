@@ -3,5 +3,5 @@
 <ItemGroup>
 <Reference Include="sts2"><HintPath>$(Game)/data_sts2_windows_x86_64/sts2.dll</HintPath><Private>false</Private></Reference>
 <Reference Include="GodotSharp"><HintPath>$(Game)/data_sts2_windows_x86_64/GodotSharp.dll</HintPath><Private>false</Private></Reference>
-<Reference Include="Karen"><HintPath>../../artifacts/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.$(Variant).dll</HintPath><Private>false</Private></Reference>
+<Reference Include="Karen"><HintPath>$(Game)/mods/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.$(Variant).dll</HintPath><Private>false</Private></Reference>
 </ItemGroup></Project>

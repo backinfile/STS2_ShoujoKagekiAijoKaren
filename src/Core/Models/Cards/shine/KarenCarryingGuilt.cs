@@ -44,7 +44,7 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
         if (cardPlay.Target == null) return;
         ClearAllFocus();
         NKarenStageLightVfx.Play(cardPlay.Target);
-        await Task.Delay(250);
+        await Cmd.Wait(0.25f);
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
