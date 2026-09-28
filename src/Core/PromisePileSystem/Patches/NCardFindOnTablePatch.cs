@@ -1,11 +1,15 @@
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
+using System.Linq;
 using ShoujoKagekiAijoKaren.src.Core;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 
@@ -47,7 +51,7 @@ internal static class NCardFindOnTablePatch
 /// 背景：
 /// - GetTargetPosition 使用 switch 表达式处理 PileType
 /// - 对于未知的 PileType（如 PromisePile = 7），会抛出 ArgumentOutOfRangeException
-/// - 约定牌堆没有对应的 UI 节点，返回角色位置作为默认位置
+/// - 约定牌堆没有对应的 UI 节点，返回塔内固定汇聚点，衔接原生飞入与取出动画
 /// </summary>
 [HarmonyPatch(typeof(PileTypeExtensions), nameof(PileTypeExtensions.GetTargetPosition))]
 internal static class PileTypeExtensionsGetTargetPositionPatch
@@ -55,8 +59,9 @@ internal static class PileTypeExtensionsGetTargetPositionPatch
     [HarmonyPrefix]
     private static bool Prefix(PileType pileType, NCard? node, ref Vector2 __result)
     {
-        // 拦截约定牌堆类型：返回角色位置
-        if (pileType == KarenCustomEnum.PromisePile)
+        // 原生移牌动画共用塔内固定汇聚点，与运动星点解耦。
+        if (pileType == KarenCustomEnum.PromisePile ||
+            (node?.Model?.Owner is { } owner && KarenPromiseVfxStarManager.IsTowerPile(owner, pileType)))
         {
             // 优先从 node 获取玩家角色位置
             if (node?.Model?.Owner?.Creature is { } creature)
@@ -64,7 +69,9 @@ internal static class PileTypeExtensionsGetTargetPositionPatch
                 var creatureNode = NCombatRoom.Instance?.GetCreatureNode(creature);
                 if (creatureNode != null)
                 {
-                    __result = creatureNode.VfxSpawnPosition;
+                    __result = node != null
+                        ? KarenPromiseVfxStarManager.GetTransferPosition(node) ?? creatureNode.VfxSpawnPosition
+                        : creatureNode.VfxSpawnPosition;
                     return false;
                 }
             }
@@ -77,5 +84,50 @@ internal static class PileTypeExtensionsGetTargetPositionPatch
 
         // 其他情况：继续执行原方法
         return true;
+    }
+}
+
+// Remote players use their intent position in the native factory. Explicitly anchor
+// outgoing promise cards to their own tower too; beta supplies the old pile separately.
+[HarmonyPatch(typeof(CardPileCmd), "CreateCardNodeAndUpdateVisuals")]
+internal static class PromisePileCardCreationPositionPatch
+{
+    [HarmonyPostfix]
+    private static void Postfix(CardModel card,
+#if STS2_BETA
+        PileType? oldPileType,
+#endif
+        NCard __result)
+    {
+#if !STS2_BETA
+        PileType? oldPileType = card.Pile?.Type;
+#endif
+        if (card.Owner is not { } owner || oldPileType is not { } source ||
+            !KarenPromiseVfxStarManager.IsTowerPile(owner, source)) return;
+        if (KarenPromiseVfxStarManager.GetTransferPosition(__result) is { } position)
+            __result.GlobalPosition = position;
+    }
+}
+
+// Pile-to-pile trails have no NCard, so their owner is recovered from the piles.
+[HarmonyPatch(typeof(NCardFlyShuffleVfx), nameof(NCardFlyShuffleVfx.Create))]
+internal static class PromisePileShufflePositionPatch
+{
+    private static readonly AccessTools.FieldRef<NCardFlyShuffleVfx, Vector2> StartPosition =
+        AccessTools.FieldRefAccess<NCardFlyShuffleVfx, Vector2>("_startPos");
+    private static readonly AccessTools.FieldRef<NCardFlyShuffleVfx, Vector2> EndPosition =
+        AccessTools.FieldRefAccess<NCardFlyShuffleVfx, Vector2>("_endPos");
+
+    [HarmonyPostfix]
+    private static void Postfix(CardPile startPile, CardPile targetPile, NCardFlyShuffleVfx? __result)
+    {
+        if (__result == null) return;
+        var owner = targetPile.Cards.FirstOrDefault()?.Owner ?? startPile.Cards.FirstOrDefault()?.Owner;
+        if (owner == null) return;
+        bool source = KarenPromiseVfxStarManager.IsTowerPile(owner, startPile.Type);
+        bool target = KarenPromiseVfxStarManager.IsTowerPile(owner, targetPile.Type);
+        if (!(source || target) || KarenPromiseVfxStarManager.GetTowerPosition(owner) is not { } position) return;
+        if (source) StartPosition(__result) = position;
+        if (target) EndPosition(__result) = position;
     }
 }

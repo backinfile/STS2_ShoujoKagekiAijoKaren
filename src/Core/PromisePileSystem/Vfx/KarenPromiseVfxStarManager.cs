@@ -1,72 +1,62 @@
 using BaseLib.Utils;
 using Godot;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using System.Linq;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
-/// <summary>
-/// 约定牌堆星星管理器：负责获取/创建 NKarenPromiseStarManager 实例，并同步约定牌堆数量
-/// </summary>
 public static class KarenPromiseVfxStarManager
 {
-    private static readonly SpireField<Player, NKarenPromiseStarNode?> starNodes = new(() => null);
-
-
+    private static readonly SpireField<Player, NKarenPromiseStarNode?> Nodes = new(() => null);
     private static NKarenPromiseStarNode? GetOrCreateNode(Player player)
     {
-        var node = starNodes.Get(player);
-        if (node != null) return node;
-
-        var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
-        if (creatureNode == null) return null;
-
-        foreach (var child in creatureNode.GetChildren())
-            if (child is NKarenPromiseStarNode mgr)
-            {
-                starNodes.Set(player, mgr);
-                return mgr;
-            }
-
-        var newNode = new NKarenPromiseStarNode();
-        creatureNode.CallDeferred("add_child", newNode);
-        newNode.Init(creatureNode);
-        starNodes.Set(player, newNode);
-        return newNode;
+        var creature = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
+        if (creature == null) return null;
+        var node = Nodes.Get(player);
+        if (GodotObject.IsInstanceValid(node) && !node!.IsQueuedForDeletion() && node.GetParent() == creature) return node;
+        node = new NKarenPromiseStarNode();
+        creature.AddChild(node);
+        node.Init(creature);
+        // Keep the tower above the room background but before all creature visuals.
+        creature.MoveChild(node, 0);
+        Nodes.Set(player, node);
+        return node;
     }
+    public static Vector2? GetTransferPosition(NCard card)
+        => card.Model.Owner is { } player ? GetOrCreateNode(player)?.TransferPosition(card) : null;
+
+    public static Vector2? GetTowerPosition(Player player)
+        => GetOrCreateNode(player)?.TransferGlobalPosition;
+
+    public static bool IsTowerPile(Player player, PileType pileType)
+        => pileType == KarenCustomEnum.PromisePile ||
+           (pileType == PileType.Draw && PromisePileManager.IsVoidMode(player));
 
     public static void UpdatePromisePileStarCount(Player player)
     {
-        var count = PromisePileManager.GetCount(player);
-        if (PromisePileManager.IsInMode(player, Models.Powers.PromisePileMode.InfiniteReinforcement)) count = 20;
-        Callable.From(() => UpdateCountInternal(player, count)).CallDeferred();
+        var combat = player.PlayerCombatState;
+        var room = NCombatRoom.Instance;
+        // Read authoritative state when executed, never a stale captured count.
+        Callable.From(() =>
+        {
+            if (combat == null || room == null || player.PlayerCombatState != combat || NCombatRoom.Instance != room) return;
+            var power = player.Creature.GetPower<KarenPromisePilePower>();
+            PromisePileMode mode = PromisePileMode.None;
+            foreach (var flag in new[] { PromisePileMode.Void, PromisePileMode.InfiniteReinforcement, PromisePileMode.Burn, PromisePileMode.PastAndFuture })
+                if (power?.IsInMode(flag) == true) mode |= flag;
+            var cards = (power?.IsVoidMode == true ? PileType.Draw.GetPile(player) : PromisePileManager.GetPromisePile(player)).Cards.ToArray();
+            GetOrCreateNode(player)?.Sync(cards, mode);
+        }).CallDeferred();
     }
-
-    private static void UpdateCountInternal(Player player, int count)
-    {
-        GetOrCreateNode(player)?.UpdateCount(count);
-    }
-
     public static void ClearAll(Player player)
     {
-        MainFile.Logger.Info($"[PromisePileStar] ClearAll called for player {player?.Character?.Id?.Entry}, scheduling deferred");
-        Callable.From(() => ClearAllInternal(player)).CallDeferred();
-    }
-
-    private static void ClearAllInternal(Player player)
-    {
-        var node = starNodes.Get(player);
-        MainFile.Logger.Info($"[PromisePileStar] ClearAllInternal executing, cached node is null? {node == null}, valid? {GodotObject.IsInstanceValid(node)}");
-        if (GodotObject.IsInstanceValid(node))
-        {
-            node.ClearAll();
-            MainFile.Logger.Info("[PromisePileStar] node.ClearAll() called");
-        }
-        else if (node != null)
-        {
-            MainFile.Logger.Warn("[PromisePileStar] Cached node is invalid (freed), skipping ClearAll");
-        }
-        starNodes.Set(player, null);
+        // Old deferred cleanup must not erase the next combat's constellation.
+        var node = Nodes.Get(player);
+        if (GodotObject.IsInstanceValid(node)) { node!.ClearAll(); node.QueueFree(); }
+        Nodes.Set(player, null);
     }
 }
