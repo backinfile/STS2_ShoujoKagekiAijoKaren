@@ -15,11 +15,15 @@ public partial class NKarenBurnCardVfx : Node2D
         "res://images/vfx/sts/exhaust_l.png", nameof(NKarenBurnCardVfx));
     private readonly NCard _card;
     private readonly CardModel _model;
-    private readonly Node2D _sparks = new() { Scale = Vector2.One * 0.55f };
+    private readonly Node2D _sparks = new()
+    {
+        Scale = Vector2.One * 0.85f,
+        Modulate = new Color(1.7f, 1.3f, 1.2f, 1f)
+    };
     private readonly Node2D _smoke = new()
     {
-        Scale = Vector2.One * 0.62f,
-        Modulate = new Color(1f, 1f, 1f, 0.45f)
+        Scale = Vector2.One * 0.68f,
+        Modulate = new Color(1f, 1f, 1f, 0.60f)
     };
     private float _sparkTimer;
     private float _auraTimer;
@@ -39,16 +43,16 @@ public partial class NKarenBurnCardVfx : Node2D
         AddChild(_smoke);
         AddChild(_sparks);
         // Start with a few live wisps so the effect is readable as the card arrives.
-        for (int i = 0; i < 8; i++) EmitSpark((float)GD.RandRange(0.2, 0.8));
+        for (int i = 0; i < 16; i++) EmitSpark((float)GD.RandRange(0.2, 0.8));
         EmitAura(0.6f);
     }
 
     private void EmitSpark(float warmup = 0f)
     {
         _left = !_left;
-        Vector2 anchor = GD.Randf() < 0.75f
+        Vector2 anchor = GD.Randf() < 0.55f
             ? new Vector2(_left ? -142f : 142f, (float)GD.RandRange(-178, 192))
-            : new Vector2((float)GD.RandRange(-125, 125), GD.Randf() < 0.5f ? -195f : 196f);
+            : new Vector2((float)GD.RandRange(-125, 125), GD.Randf() < 0.8f ? -195f : 196f);
         var spark = new NKarenWrathParticle(SparkTexture)
         {
             Position = anchor / _sparks.Scale,
@@ -84,7 +88,7 @@ public partial class NKarenBurnCardVfx : Node2D
         _auraTimer -= (float)delta;
         if (_sparkTimer <= 0f)
         {
-            _sparkTimer = 0.065f;
+            _sparkTimer = 0.035f;
             EmitSpark();
         }
         if (_auraTimer <= 0f)
