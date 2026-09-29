@@ -14,16 +14,21 @@ public partial class NKarenBurnVfx : Node2D
     private float _particleTimer;
     private float _auraTimer;
     private bool _stopping;
+    private Tween? _stopTween;
+
+    public bool BelongsTo(NCreature creature) => _creatureNode == creature;
 
     public void Init(NCreature creatureNode)
     {
         _creatureNode = creatureNode;
         ZAsRelative = true;
         ZIndex = 1;
+        UpdatePlacement();
     }
 
     public void Restart()
     {
+        CancelFade();
         _stopping = false;
         Modulate = Colors.White;
         Visible = true;
@@ -33,10 +38,39 @@ public partial class NKarenBurnVfx : Node2D
 
     public void Stop()
     {
+        if (_stopping) return;
         _stopping = true;
-        var tween = CreateTween();
-        tween.TweenProperty(this, "modulate", new Color(1f, 1f, 1f, 0f), 0.25f);
-        tween.Finished += () => GodotTreeExtensions.QueueFreeSafely(this);
+        _stopTween = CreateTween();
+        _stopTween.TweenProperty(this, "modulate", new Color(1f, 1f, 1f, 0f), 0.25f);
+        _stopTween.TweenCallback(Callable.From(() =>
+        {
+            if (_stopping) GodotTreeExtensions.QueueFreeSafely(this);
+        }));
+    }
+
+    private void CancelFade()
+    {
+        if (GodotObject.IsInstanceValid(_stopTween)) _stopTween!.Kill();
+        _stopTween = null;
+    }
+
+    public override void _ExitTree() => CancelFade();
+
+    private bool UpdatePlacement()
+    {
+        if (!GodotObject.IsInstanceValid(_creatureNode) || !_creatureNode!.IsInsideTree())
+        {
+            GodotTreeExtensions.QueueFreeSafely(this);
+            return false;
+        }
+        // Follow the actor's visual size without flipping the upward flow of the fire.
+        // Assign the complete global basis so parent scale is not applied twice.
+        var visual = _creatureNode.Visuals.GlobalTransform;
+        GlobalTransform = new Transform2D(
+            new Vector2(Mathf.Max(visual.X.Length(), 0.001f), 0f),
+            new Vector2(0f, Mathf.Max(visual.Y.Length(), 0.001f)),
+            _creatureNode.VfxSpawnPosition);
+        return true;
     }
 
     public override void _Ready()
@@ -46,8 +80,7 @@ public partial class NKarenBurnVfx : Node2D
 
     public override void _Process(double delta)
     {
-        if (_creatureNode != null)
-            GlobalPosition = _creatureNode.VfxSpawnPosition;
+        if (!UpdatePlacement()) return;
 
         if (_stopping) return;
 
@@ -75,6 +108,10 @@ public partial class NKarenBurnVfx : Node2D
 
 internal partial class NKarenWrathParticle : Sprite2D
 {
+    private static readonly CanvasItemMaterial AdditiveMaterial = new()
+    {
+        BlendMode = CanvasItemMaterial.BlendModeEnum.Add
+    };
     private const float PlayerWidth = 240f;
     private const float PlayerHeight = 320f;
 
@@ -103,8 +140,7 @@ internal partial class NKarenWrathParticle : Sprite2D
         Modulate = new Color((float)GD.RandRange(0.5, 1.0), 0f, (float)GD.RandRange(0.0, 0.2), 0f);
         Scale = new Vector2(_baseScale * 0.8f, 0.1f);
 
-        var material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
-        Material = material;
+        Material = AdditiveMaterial;
     }
 
     public override void _Process(double delta)
@@ -140,6 +176,10 @@ internal partial class NKarenWrathParticle : Sprite2D
 
 internal partial class NKarenStanceAura : Sprite2D
 {
+    private static readonly CanvasItemMaterial AdditiveMaterial = new()
+    {
+        BlendMode = CanvasItemMaterial.BlendModeEnum.Add
+    };
     private const float PlayerWidth = 240f;
     private const float PlayerHeight = 320f;
     private static bool switcher = true;
@@ -171,8 +211,7 @@ internal partial class NKarenStanceAura : Sprite2D
             _rotationVelocity = (float)GD.RandRange(-40.0, 0.0);
         }
 
-        var material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
-        Material = material;
+        Material = AdditiveMaterial;
     }
 
     public override void _Process(double delta)
