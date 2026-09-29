@@ -219,6 +219,9 @@ public partial class NKarenPromiseStarNode : Node2D
         _pulse = 0;
         _arrival = _departure = 0;
         _replenishStarted = _replenishUntil = -10;
+        _voidStarted = -100;
+        _voidRoom = null;
+        _voidPending = false;
         QueueRedraw();
     }
     public override void _Process(double delta)
@@ -275,8 +278,10 @@ public partial class NKarenPromiseStarNode : Node2D
         bool past = (_mode & PromisePileMode.PastAndFuture) != 0;
         Color accent = past ? new Color("#b4f5ff") : burn ? new Color("#ffbc81") : White;
         float alpha = _visibility;
+        DrawVoidEcho(alpha);
         DrawTower(alpha);
         DrawReplenishSource(alpha);
+        DrawVoidProjection(alpha);
         foreach (var star in _stars.Values)
         {
             if (star.Light > 0)
@@ -287,7 +292,9 @@ public partial class NKarenPromiseStarNode : Node2D
                 for (int i = 1; i <= 5; i++)
                     DrawLine(StarPosition(star, _time - i * 0.035f), StarPosition(star, _time - (i - 1) * 0.035f),
                         new Color(accent, star.Light * alpha * fade * (6 - i) * 0.06f), 1.5f, true);
-                DrawStar(p, 8 + star.Pulse * 4, accent, star.Light * alpha * fade);
+                float mappingFlash = (isVoid || _voidPending)
+                    ? Ease((VoidAge - 0.94f) / 0.18f) * (1 - Ease((VoidAge - 1.17f) / 0.26f)) : 0;
+                DrawStar(p, 8 + star.Pulse * 4 + mappingFlash * 3, accent, star.Light * alpha * fade);
                 if (star.Pulse > 0) DrawArc(p, 10 + (1 - star.Pulse) * 20, 0, Mathf.Tau, 32, new Color(accent, star.Pulse * 0.5f * alpha), 1, true);
             }
             if (star.Trail.Count > 1)
@@ -388,7 +395,10 @@ public partial class NKarenPromiseStarNode : Node2D
     }
 
     private void DesignLine(Vector2 from, Vector2 to, float alpha, float width = 1.45f)
-        => TowerLine(DesignPoint(from.X, from.Y), DesignPoint(to.X, to.Y), TowerRed, alpha, width);
+    {
+        TowerLine(DesignPoint(from.X, from.Y), DesignPoint(to.X, to.Y), TowerRed, alpha, width);
+        DrawVoidScanLine(from, to, _visibility);
+    }
 
     private void DesignCurve(Vector2 from, Vector2 control, Vector2 to, float alpha)
     {

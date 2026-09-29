@@ -35,6 +35,9 @@ public static class KarenPromiseVfxStarManager
     public static Vector2? GetTowerPosition(Player player)
         => GetOrCreateNode(player)?.TransferGlobalPosition;
 
+    public static void StartVoidActivation(Player player)
+        => GetOrCreateNode(player)?.StartVoidActivation();
+
     public static void GuideIntoOrbit(CardModel card, Vector2 source, bool fromCard = false)
         => GetOrCreateNode(card.Owner)?.GuideIntoOrbit(card, source, fromCard);
 
@@ -48,6 +51,10 @@ public static class KarenPromiseVfxStarManager
     {
         TransitionDepth.Set(player, System.Math.Max(0, TransitionDepth.Get(player) - 1));
         UpdatePromisePileStarCount(player);
+        // Run after the queued authoritative Sync so a slow power-hook batch
+        // cannot cause the new silhouette to disappear before Void is applied.
+        var node = Nodes.Get(player);
+        Callable.From(() => { if (GodotObject.IsInstanceValid(node)) node!.FinishVoidActivation(); }).CallDeferred();
     }
 
     public static void Replenish(Player player, IReadOnlyList<CardModel> cards)

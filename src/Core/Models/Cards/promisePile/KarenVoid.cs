@@ -1,4 +1,6 @@
 using MegaCrit.Sts2.Core.Commands;
+using Godot;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
@@ -45,8 +47,7 @@ public sealed class KarenVoid : KarenBaseCardModel
         var drawPileCards = combatState.DrawPile.Cards.ToList();
         if (drawPileCards.Count > 0)
         {
-            PlayDrawPileExhaustVfx(drawPileCards[0]);
-            await Cmd.Wait(0.15f);
+            await NKarenDrawPileDestroyVfx.Play(Owner);
 
             var drawPile = combatState.DrawPile;
             foreach (var card in drawPileCards)
@@ -58,6 +59,8 @@ public sealed class KarenVoid : KarenBaseCardModel
             drawPile.InvokeContentsChanged();
             PromisePileManager.SetPileCountLabel(Owner, drawPile.Cards.Count);
         }
+
+        KarenPromiseVfxStarManager.StartVoidActivation(Owner);
 
         // 取出约定牌堆中的所有牌，然后重新放入抽牌堆
         // The same cards acquire a second visual representation in Draw. Keep
@@ -74,37 +77,6 @@ public sealed class KarenVoid : KarenBaseCardModel
         {
             KarenPromiseVfxStarManager.EndPileTransition(Owner);
         }
-    }
-
-    private static void PlayDrawPileExhaustVfx(CardModel visualCard)
-    {
-        var ui = NCombatRoom.Instance?.Ui;
-        if (ui == null) return;
-
-        var cardNode = NCard.Create(visualCard);
-        if (cardNode == null) return;
-
-        ui.AddChildSafely(cardNode);
-        cardNode.UpdateVisuals(PileType.Draw, CardPreviewMode.Normal);
-        cardNode.GlobalPosition = PileType.Draw.GetTargetPosition(cardNode) - cardNode.Size * 0.5f;
-        cardNode.Visible = false;
-
-#if STS2_BETA
-        var exhaustVfx = NCardExhaustVfx.Create(cardNode);
-#else
-        var exhaustVfx = NExhaustVfx.Create(cardNode);
-#endif
-        if (exhaustVfx != null)
-            ui.AddChildSafely(exhaustVfx);
-
-        TaskHelper.RunSafely(FreeVisualCardNodeLater(cardNode));
-    }
-
-    private static async Task FreeVisualCardNodeLater(NCard cardNode)
-    {
-        await Task.Delay(2000);
-        if (Godot.GodotObject.IsInstanceValid(cardNode))
-            cardNode.QueueFreeSafely();
     }
 
     protected override void OnUpgrade()
