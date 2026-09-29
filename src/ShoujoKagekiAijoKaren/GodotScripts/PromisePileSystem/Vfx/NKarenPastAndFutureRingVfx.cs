@@ -5,12 +5,12 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
-// Eight equal upright rings, matching the approved two-second SVG sequence.
+// Eight equal upright rings with overlapping two-second sequences.
 public partial class NKarenPastAndFutureRingVfx : Node2D
 {
     private static readonly (float Start, float Duration, float Y, float Alpha)[] Rings =
     [
-        (0.12f, 1.65f, 0f, 0.92f), (0.32f, 1.04f, -8f, 0.72f),
+        (0f, 1.15f, 0f, 0.92f), (0.16f, 0.88f, -8f, 0.72f),
         (0.53f, 1.83f, 5f, 0.65f), (0.69f, 0.91f, -3f, 0.8f),
         (0.88f, 1.36f, 2f, 1f), (1.09f, 0.83f, -6f, 0.85f),
         (1.24f, 1.22f, 7f, 0.65f), (1.46f, 1.24f, -2f, 0.88f)
@@ -124,16 +124,17 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
         {
             float progress = (clock - ring.Start) / ring.Duration;
             if (progress <= 0f || progress >= 1f) continue;
-            float x = 210f - 420f * progress;
-            float fade = Mathf.Min(1f, Mathf.Min(progress / 0.13f, (1f - progress) / 0.2f));
+            // Keep travel independent of ring size: larger hoops stay close to the actor.
+            float x = 130f - 260f * progress;
+            float fade = Mathf.Min(1f, Mathf.Min(progress / 0.07f, (1f - progress) / 0.2f));
             float crossing = Mathf.Exp(-Mathf.Pow(x / 55f, 2f));
             float alpha = fade * ring.Alpha * (0.78f + 0.22f * crossing) * (front ? 1f : 0.75f);
-            var center = new Vector2(x, ring.Y + 12f) * unit;
+            var center = new Vector2(x, ring.Y) * unit;
             float start = front ? Mathf.Pi / 2f : -Mathf.Pi / 2f;
             for (int i = 0; i < _arc.Length; i++)
             {
                 float angle = start + Mathf.Pi * i / (_arc.Length - 1);
-                _arc[i] = center + new Vector2(Mathf.Cos(angle) * 48f, Mathf.Sin(angle) * 92f) * (1.0125f * unit);
+                _arc[i] = center + new Vector2(Mathf.Cos(angle) * 48f, Mathf.Sin(angle) * 92f) * (1.52f * unit);
             }
             Color color = front ? new Color("#def8ff") : new Color("#91d7ed");
             canvas.DrawPolyline(_arc, new Color(color, alpha * 0.04f), 11f * unit, true);

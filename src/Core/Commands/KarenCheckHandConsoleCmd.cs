@@ -1,3 +1,4 @@
+using Godot;
 using MegaCrit.Sts2.Core.DevConsole;
 using MegaCrit.Sts2.Core.DevConsole.ConsoleCommands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -29,10 +30,17 @@ public sealed class KarenCheckHandConsoleCmd : AbstractConsoleCmd
             .Select(h => h.CardNode.Model).ToArray();
         var missing = models.Where(c => !visible.Contains(c)).Select(c => c.Id.Entry).ToArray();
         var unexpected = visible.Where(c => !models.Contains(c)).Select(c => c.Id.Entry).ToArray();
-        var success = missing.Length == 0 && unexpected.Length == 0 && visible.Length == models.Count;
+        // A pooled exhaust carrier must never bring its temporary pile icon into a hand.
+        var unexpectedPileIcons = hand.ActiveHolders.Where(h => h.CardNode != null)
+            .SelectMany(h => h.CardNode.GetChildren().OfType<TextureRect>()
+                .Where(t => t.Texture?.ResourcePath.Contains("draw_pile") == true)
+                .Select(t => new { card = h.CardNode.Model.Id.Entry, texture = t.Texture!.ResourcePath }))
+            .ToArray();
+        var success = missing.Length == 0 && unexpected.Length == 0 && visible.Length == models.Count
+            && unexpectedPileIcons.Length == 0;
         return new(success, JsonSerializer.Serialize(new
         {
-            modelCount = models.Count, visualCount = visible.Length, missing, unexpected,
+            modelCount = models.Count, visualCount = visible.Length, missing, unexpected, unexpectedPileIcons,
         }));
     }
 }

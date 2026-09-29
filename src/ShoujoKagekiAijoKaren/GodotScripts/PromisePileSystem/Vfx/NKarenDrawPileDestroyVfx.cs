@@ -1,4 +1,6 @@
+using BaseLib.Utils;
 using Godot;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Audio.Debug;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -14,6 +16,35 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>Uses vanilla exhaust on the pile icon, without showing card faces.</summary>
 public partial class NKarenDrawPileDestroyVfx : Node2D
 {
+    private sealed class CarrierVisualState(NCard card)
+    {
+        public readonly (CanvasItem Node, bool Visible)[] Children = card.GetChildren()
+            .OfType<CanvasItem>().Select(child => (child, child.Visible)).ToArray();
+        public readonly bool UseParentMaterial = card.UseParentMaterial;
+        public readonly bool Visible = card.Visible;
+        public readonly Control.MouseFilterEnum MouseFilter = card.MouseFilter;
+        public TextureRect? Icon = null;
+    }
+
+    private static readonly SpireField<NCard, CarrierVisualState?> CarrierStates = new(() => null);
+
+    internal static void RestoreCarrier(NCard card)
+    {
+        var state = CarrierStates.Get(card);
+        if (state == null) return;
+        CarrierStates.Set(card, null);
+        if (GodotObject.IsInstanceValid(state.Icon))
+        {
+            state.Icon!.GetParent()?.RemoveChild(state.Icon);
+            state.Icon.QueueFree();
+        }
+        foreach (var (child, visible) in state.Children)
+            if (GodotObject.IsInstanceValid(child)) child.Visible = visible;
+        card.UseParentMaterial = state.UseParentMaterial;
+        card.Visible = state.Visible;
+        card.MouseFilter = state.MouseFilter;
+    }
+
     private TextureRect _icon = null!;
     private Texture2D _texture = null!;
     private NCard _carrier = null!;
@@ -49,6 +80,7 @@ public partial class NKarenDrawPileDestroyVfx : Node2D
         // The native API takes an NCard. It carries only the icon texture:
         // every actual card visual is hidden before a frame can render.
         AddChild(_carrier);
+        CarrierStates.Set(_carrier, new CarrierVisualState(_carrier));
         foreach (var child in _carrier.GetChildren().OfType<CanvasItem>()) child.Visible = false;
         _carrier.MouseFilter = Control.MouseFilterEnum.Ignore;
         _carrier.Visible = false;
@@ -60,13 +92,16 @@ public partial class NKarenDrawPileDestroyVfx : Node2D
         _carrier.GlobalPosition = center;
 #if STS2_BETA
         _carrier.UseParentMaterial = true;
-        _carrier.AddChild(new TextureRect
+        var icon = new TextureRect
         {
+            Name = "KarenDrawPileExhaustIcon",
             Texture = _texture, Position = new Vector2(-128, -128),
             Size = new Vector2(256, 256), ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
             StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
             MouseFilter = Control.MouseFilterEnum.Ignore, UseParentMaterial = true,
-        });
+        };
+        CarrierStates.Get(_carrier)!.Icon = icon;
+        _carrier.AddChild(icon);
         var exhaust = NCardExhaustVfx.Create(_carrier);
         if (exhaust != null)
         {
@@ -131,4 +166,12 @@ public partial class NKarenDrawPileDestroyVfx : Node2D
         DrawTextureRect(_texture, new Rect2(Vector2.Zero, _icon.Size), false, tint);
         DrawSetTransform(Vector2.Zero);
     }
+}
+
+// Native exhaust returns its NCard to the shared pool, including when interrupted.
+// Clean up before pool reuse; waiting for the outer tower effect to end is too late.
+[HarmonyPatch(typeof(NCard), nameof(NCard.OnFreedToPool))]
+internal static class KarenDrawPileExhaustCarrierCleanupPatch
+{
+    private static void Prefix(NCard __instance) => NKarenDrawPileDestroyVfx.RestoreCarrier(__instance);
 }
