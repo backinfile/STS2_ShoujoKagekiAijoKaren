@@ -2,15 +2,18 @@ using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public static class KarenPromiseVfxStarManager
 {
+    private static readonly SpireField<Player, int> TransitionDepth = new(() => 0);
     private static readonly SpireField<Player, NKarenPromiseStarNode?> Nodes = new(() => null);
     private static NKarenPromiseStarNode? GetOrCreateNode(Player player)
     {
@@ -32,6 +35,26 @@ public static class KarenPromiseVfxStarManager
     public static Vector2? GetTowerPosition(Player player)
         => GetOrCreateNode(player)?.TransferGlobalPosition;
 
+    public static void GuideIntoOrbit(CardModel card, Vector2 source, bool fromCard = false)
+        => GetOrCreateNode(card.Owner)?.GuideIntoOrbit(card, source, fromCard);
+
+    public static Vector2? GetStarPosition(CardModel card)
+        => GetOrCreateNode(card.Owner)?.GetStarPosition(card);
+
+    public static void BeginPileTransition(Player player)
+        => TransitionDepth.Set(player, TransitionDepth.Get(player) + 1);
+
+    public static void EndPileTransition(Player player)
+    {
+        TransitionDepth.Set(player, System.Math.Max(0, TransitionDepth.Get(player) - 1));
+        UpdatePromisePileStarCount(player);
+    }
+
+    public static void Replenish(Player player, IReadOnlyList<CardModel> cards)
+    {
+        if (cards.Count > 0) GetOrCreateNode(player)?.Replenish(cards);
+    }
+
     public static bool IsTowerPile(Player player, PileType pileType)
         => pileType == KarenCustomEnum.PromisePile ||
            (pileType == PileType.Draw && PromisePileManager.IsVoidMode(player));
@@ -43,7 +66,7 @@ public static class KarenPromiseVfxStarManager
         // Read authoritative state when executed, never a stale captured count.
         Callable.From(() =>
         {
-            if (combat == null || room == null || player.PlayerCombatState != combat || NCombatRoom.Instance != room) return;
+            if (TransitionDepth.Get(player) > 0 || combat == null || room == null || player.PlayerCombatState != combat || NCombatRoom.Instance != room) return;
             var power = player.Creature.GetPower<KarenPromisePilePower>();
             PromisePileMode mode = PromisePileMode.None;
             foreach (var flag in new[] { PromisePileMode.Void, PromisePileMode.InfiniteReinforcement, PromisePileMode.Burn, PromisePileMode.PastAndFuture })

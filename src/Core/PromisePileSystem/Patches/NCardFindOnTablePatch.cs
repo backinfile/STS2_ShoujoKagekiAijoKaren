@@ -60,8 +60,7 @@ internal static class PileTypeExtensionsGetTargetPositionPatch
     private static bool Prefix(PileType pileType, NCard? node, ref Vector2 __result)
     {
         // 原生移牌动画共用塔内固定汇聚点，与运动星点解耦。
-        if (pileType == KarenCustomEnum.PromisePile ||
-            (node?.Model?.Owner is { } owner && KarenPromiseVfxStarManager.IsTowerPile(owner, pileType)))
+        if (pileType == KarenCustomEnum.PromisePile)
         {
             // 优先从 node 获取玩家角色位置
             if (node?.Model?.Owner?.Creature is { } creature)
@@ -103,7 +102,7 @@ internal static class PromisePileCardCreationPositionPatch
         PileType? oldPileType = card.Pile?.Type;
 #endif
         if (card.Owner is not { } owner || oldPileType is not { } source ||
-            !KarenPromiseVfxStarManager.IsTowerPile(owner, source)) return;
+            source != KarenCustomEnum.PromisePile) return;
         if (KarenPromiseVfxStarManager.GetTransferPosition(__result) is { } position)
             __result.GlobalPosition = position;
     }
@@ -124,10 +123,33 @@ internal static class PromisePileShufflePositionPatch
         if (__result == null) return;
         var owner = targetPile.Cards.FirstOrDefault()?.Owner ?? startPile.Cards.FirstOrDefault()?.Owner;
         if (owner == null) return;
-        bool source = KarenPromiseVfxStarManager.IsTowerPile(owner, startPile.Type);
-        bool target = KarenPromiseVfxStarManager.IsTowerPile(owner, targetPile.Type);
+        bool source = startPile.Type == KarenCustomEnum.PromisePile;
+        bool target = targetPile.Type == KarenCustomEnum.PromisePile;
         if (!(source || target) || KarenPromiseVfxStarManager.GetTowerPosition(owner) is not { } position) return;
         if (source) StartPosition(__result) = position;
         if (target) EndPosition(__result) = position;
+    }
+}
+
+// Keep the native move, completion signal and hand ownership; replace only the incoming flight.
+[HarmonyPatch(typeof(NCardFlyVfx), nameof(NCardFlyVfx._Ready))]
+internal static class PromiseCardEntryVfxPatch
+{
+    private static readonly AccessTools.FieldRef<NCardFlyVfx, NCard> Card =
+        AccessTools.FieldRefAccess<NCardFlyVfx, NCard>("_card");
+    private static readonly AccessTools.FieldRef<NCardFlyVfx, bool> Adding =
+        AccessTools.FieldRefAccess<NCardFlyVfx, bool>("_isAddingToPile");
+
+    [HarmonyPrefix]
+    private static bool Prefix(NCardFlyVfx __instance)
+    {
+        var card = Card(__instance);
+        if (!Adding(__instance) || card.Model?.Pile is not { } pile ||
+            pile.Type != KarenCustomEnum.PromisePile) return true;
+        var completion = new System.Threading.Tasks.TaskCompletionSource();
+        AccessTools.Property(typeof(NCardFlyVfx), nameof(NCardFlyVfx.SwooshAwayCompletion))
+            .SetValue(__instance, completion);
+        __instance.AddChild(new NKarenPromiseCardEntryVfx(card, completion));
+        return false;
     }
 }

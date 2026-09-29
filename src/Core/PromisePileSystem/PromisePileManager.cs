@@ -40,6 +40,7 @@ public static class PromisePileManager
 {
     private static readonly SpireField<PlayerCombatState, CardPile> _promisePile
         = new(() => new CardPile(KarenCustomEnum.PromisePile));
+    private static readonly SpireField<PlayerCombatState, bool> _refilling = new(() => false);
 
     private static readonly Texture2D DrawPileIconInVoidMode = GD.Load<Texture2D>(ImageHelper.GetImagePath("ui/combat/karen_draw_pile_void.png"));
 
@@ -295,7 +296,19 @@ public static class PromisePileManager
 
         if (IsInMode(player, PromisePileMode.InfiniteReinforcement))
         {
-            await RefillWithContinueAsync(player);
+            var combat = player.PlayerCombatState;
+            // Removing old Draw cards in Void mode invokes this hook recursively.
+            // The outer refill owns the batch and publishes its final count/VFX.
+            if (combat == null || _refilling.Get(combat)) return;
+            _refilling.Set(combat, true);
+            try
+            {
+                await RefillWithContinueAsync(player);
+            }
+            finally
+            {
+                _refilling.Set(combat, false);
+            }
         }
 
         if (creature.GetPower<KarenPromisePilePower>() is { } karenPower)
@@ -315,7 +328,7 @@ public static class PromisePileManager
     {
         if (player?.PlayerCombatState == null) return;
 
-        bool changed = false;
+        var generated = new List<CardModel>();
 
         var inVoidMode = IsInMode(player, PromisePileMode.Void);
         if (!inVoidMode)
@@ -328,7 +341,6 @@ public static class PromisePileManager
                 //card.RemoveFromCurrentPile();
                 await CardPileCmd.RemoveFromCombat(card); // 联机下需要等待命令完成，避免双方状态时序错开
                 MainFile.Logger.Info($"[PromisePile] Removed '{card.Title}' from promise pile during refill");
-                changed = true;
             }
             // 然后用续演补齐到10张
             int leftCount = maxCount - pile.Cards.Count;
@@ -336,8 +348,8 @@ public static class PromisePileManager
             {
                 var card = player.Creature.CombatState!.CreateCard<KarenContinue>(player);
                 pile.AddInternal(card);
+                generated.Add(card);
                 MainFile.Logger.Info($"[PromisePile] Added '{card.Title}' to promise pile during refill");
-                changed = true;
             }
         }
         else
@@ -350,7 +362,6 @@ public static class PromisePileManager
                 //card.RemoveFromCurrentPile();
                 await CardPileCmd.RemoveFromCombat(card); // 联机下需要等待命令完成，避免双方状态时序错开
                 MainFile.Logger.Info($"[PromisePile] void mode Removed '{card.Title}' from promise pile during refill");
-                changed = true;
             }
             // 然后用续演补齐到10张
             int leftCount = maxCount - pile.Cards.Count;
@@ -358,15 +369,13 @@ public static class PromisePileManager
             {
                 var card = player.Creature.CombatState!.CreateCard<KarenContinue>(player);
                 pile.AddInternal(card);
+                generated.Add(card);
                 MainFile.Logger.Info($"[PromisePile] void mode Added '{card.Title}' to promise pile during refill");
-                changed = true;
             }
             SetPileCountLabel(player, pile.Cards.Count);
         }
-        if (changed)
-        {
-            player?.Creature?.GetPower<KarenPromisePilePower>()?.PlayAni();
-        }
+        // One visual source per refill batch, instead of repeating the power popup.
+        KarenPromiseVfxStarManager.Replenish(player, generated);
     }
 
     /// <summary>

@@ -37,7 +37,7 @@ public sealed class KarenStarGuide : KarenBaseCardModel
 
         if (LocalContext.IsMe(Owner))
         {
-            _ = NKarenStarGuideVfx.Play(cards);
+            NKarenStarGuideVfx.Play(cards);
             NKarenStarGuideVfx.RemoveHandCards(cards);
         }
 

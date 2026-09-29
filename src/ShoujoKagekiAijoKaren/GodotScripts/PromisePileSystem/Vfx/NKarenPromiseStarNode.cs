@@ -22,8 +22,11 @@ public partial class NKarenPromiseStarNode : Node2D
         public NCard? Flight;
         public bool Incoming;
         public float FlightTime;
+        public float OrbitOffset;
+        public GuidedEntry? Entry;
         public readonly List<Vector2> Trail = new();
     }
+    private sealed record GuidedEntry(Vector2 Source, float StartedAt, float Duration, bool LocalSource = false);
     private readonly Dictionary<CardModel, Star> _stars = new();
     private readonly List<CardModel> _expired = new();
     private readonly Vector2[] _starPolygon = new Vector2[8];
@@ -36,6 +39,8 @@ public partial class NKarenPromiseStarNode : Node2D
     private float _visibility;
     private float _arrival;
     private float _departure;
+    private float _replenishStarted = -10;
+    private float _replenishUntil = -10;
     private static readonly Vector2 TowerOffset = new(-45, -15);
     private static readonly Vector2 TransferAnchor = new(0, -145);
     // Coordinates from the selected SVG 01, uniformly scaled to the existing height.
@@ -72,10 +77,10 @@ public partial class NKarenPromiseStarNode : Node2D
         get { UpdatePlacement(); return ToGlobal(TowerOffset + TransferAnchor); }
     }
 
-    private Vector2 OrbitPoint(int slot, float time)
+    private Vector2 OrbitPoint(Star star, float time)
     {
         // A rising helix, independent of the stationary structural junctions.
-        float t = Mathf.PosMod(time * 0.065f + slot * 0.618034f, 1);
+        float t = Mathf.PosMod(time * 0.065f + star.Slot * 0.618034f + star.OrbitOffset, 1);
         float y = Mathf.Lerp(115, -265, t);
         float angle = t * Mathf.Tau * 2 + time * 1.15f;
         return TowerOffset + new Vector2(Mathf.Cos(angle) * (TowerWidth(y) * 0.85f + 12), y + Mathf.Sin(angle) * 9);
@@ -83,19 +88,99 @@ public partial class NKarenPromiseStarNode : Node2D
     private Star GetStar(CardModel card)
     {
         if (_stars.TryGetValue(card, out var star)) return star;
-        var occupied = _stars.Values.Where(s => s.Present || s.Flight != null).Select(s => s.Slot).ToHashSet();
+        var occupied = _stars.Values.Where(s => s.Present || s.Flight != null || s.Entry != null).Select(s => s.Slot).ToHashSet();
         int slot = 0;
         while (occupied.Contains(slot)) slot++;
         star = new Star { Card = card, Slot = slot };
         _stars.Add(card, star);
         return star;
     }
+    // The same card light is drawn throughout entry and orbit: there is no replacement particle.
+    private void PlaceInOrbitGap(Star star, float arrivalTime)
+    {
+        // Reserve the largest free arc, including stars still entering. All stars
+        // share the same angular speed, so this spacing survives after arrival.
+        var phases = _stars.Values
+            .Where(other => other != star && (other.Present || other.Entry != null))
+            .Select(other => Mathf.PosMod(arrivalTime * 0.065f + other.Slot * 0.618034f + other.OrbitOffset, 1))
+            .OrderBy(phase => phase).ToArray();
+        float landing = 0.5f;
+        float largest = 0;
+        for (int i = 0; i < phases.Length; i++)
+        {
+            float next = i + 1 < phases.Length ? phases[i + 1] : phases[0] + 1;
+            float gap = next - phases[i];
+            if (gap <= largest) continue;
+            largest = gap;
+            landing = Mathf.PosMod(phases[i] + gap * 0.5f, 1);
+        }
+        star.OrbitOffset = landing - arrivalTime * 0.065f - star.Slot * 0.618034f;
+    }
+
+    public void GuideIntoOrbit(CardModel card, Vector2 source, bool fromCard = false)
+    {
+        UpdatePlacement();
+        var star = GetStar(card);
+        if (star.Present && !fromCard) return;
+        float duration = fromCard ? 0.48f : 1.25f + (star.Slot % 5) * 0.09f;
+        PlaceInOrbitGap(star, _time + duration);
+        star.Entry = new GuidedEntry(source, _time, duration);
+        star.Flight = null;
+        star.Trail.Clear();
+        star.Pulse = 0;
+        star.Light = 0;
+    }
+
+    public void Replenish(IReadOnlyList<CardModel> cards)
+    {
+        if (cards.Count == 0) return;
+        UpdatePlacement();
+        if (_time > _replenishUntil + 0.12f) _replenishStarted = _time;
+        float firstBirth = Mathf.Max(_time + 0.05f, _replenishStarted + 0.36f);
+        for (int i = 0; i < cards.Count; i++)
+        {
+            var star = GetStar(cards[i]);
+            float start = firstBirth + i * 0.055f;
+            const float duration = 0.48f;
+            PlaceInOrbitGap(star, start + duration);
+            star.Entry = new GuidedEntry(TowerOffset + DesignPoint(0, 179), start, duration, true);
+            star.Present = true;
+            star.Flight = null;
+            star.Trail.Clear();
+            star.Light = star.Pulse = 0;
+            _replenishUntil = Mathf.Max(_replenishUntil, start + 0.2f);
+        }
+    }
+
+    private Vector2 StarPosition(Star star, float time)
+    {
+        var orbit = OrbitPoint(star, time);
+        if (star.Entry is not { } entry) return orbit;
+        float t = Mathf.Clamp((time - entry.StartedAt) / entry.Duration, 0f, 1f);
+        // Quintic blend has zero first/second derivatives at both ends. At t=1,
+        // position and velocity are exactly those of the moving orbit, without a stop.
+        float blend = t * t * t * (t * (t * 6f - 15f) + 10f);
+        var source = entry.LocalSource ? entry.Source : ToLocal(entry.Source);
+        float arch = 16f * t * t * (1f - t) * (1f - t);
+        var bend = entry.LocalSource
+            ? new Vector2(star.Slot % 2 == 0 ? -65 : 65, -35)
+            : Vector2.Up * 90;
+        return source.Lerp(orbit, blend) + bend * arch;
+    }
+
+    public Vector2 GetStarPosition(CardModel card)
+    {
+        UpdatePlacement();
+        return ToGlobal(StarPosition(GetStar(card), _time));
+    }
+
     public Vector2 TransferPosition(NCard card)
     {
         UpdatePlacement();
         var star = GetStar(card.Model);
         if (star.Flight != card)
         {
+            star.Entry = null;
             star.Incoming = !star.Present;
             if (star.Incoming) _arrival = 1;
             else _departure = 1;
@@ -114,7 +199,11 @@ public partial class NKarenPromiseStarNode : Node2D
         if (cards.Count < _count) _departure = 1;
         _count = cards.Count;
         var present = cards.ToHashSet();
-        foreach (var star in _stars.Values) star.Present = present.Contains(star.Card);
+        foreach (var star in _stars.Values)
+        {
+            if (star.Present && !present.Contains(star.Card)) star.Entry = null;
+            star.Present = present.Contains(star.Card);
+        }
         foreach (var card in cards)
         {
             var star = GetStar(card);
@@ -129,6 +218,7 @@ public partial class NKarenPromiseStarNode : Node2D
         _mode = PromisePileMode.None;
         _pulse = 0;
         _arrival = _departure = 0;
+        _replenishStarted = _replenishUntil = -10;
         QueueRedraw();
     }
     public override void _Process(double delta)
@@ -165,9 +255,13 @@ public partial class NKarenPromiseStarNode : Node2D
                 }
                 else { star.Flight = null; star.Trail.Clear(); star.Pulse = 1; }
             }
-            bool visible = star.Present && star.Flight == null;
+            // Keep the last entry trajectory until all trail samples have crossed into orbit.
+            if (star.Entry is { } entry && _time - entry.StartedAt > entry.Duration + 0.2f)
+                star.Entry = null;
+            bool visible = (star.Present || star.Entry != null) && star.Flight == null
+                && (star.Entry == null || _time >= star.Entry.StartedAt);
             star.Light = Mathf.MoveToward(star.Light, visible ? 1 : 0, dt * 6);
-            if (!star.Present && star.Flight == null && star.Light <= 0) _expired.Add(star.Card);
+            if (!star.Present && star.Entry == null && star.Flight == null && star.Light <= 0) _expired.Add(star.Card);
         }
         foreach (var card in _expired) _stars.Remove(card);
         QueueRedraw();
@@ -182,15 +276,16 @@ public partial class NKarenPromiseStarNode : Node2D
         Color accent = past ? new Color("#b4f5ff") : burn ? new Color("#ffbc81") : White;
         float alpha = _visibility;
         DrawTower(alpha);
+        DrawReplenishSource(alpha);
         foreach (var star in _stars.Values)
         {
             if (star.Light > 0)
             {
-                var p = OrbitPoint(star.Slot, _time);
-                float cycle = Mathf.PosMod(_time * 0.065f + star.Slot * 0.618034f, 1);
+                var p = StarPosition(star, _time);
+                float cycle = Mathf.PosMod(_time * 0.065f + star.Slot * 0.618034f + star.OrbitOffset, 1);
                 float fade = Mathf.Clamp(Mathf.Min(cycle, 1 - cycle) * 14, 0, 1);
                 for (int i = 1; i <= 5; i++)
-                    DrawLine(OrbitPoint(star.Slot, _time - i * 0.035f), OrbitPoint(star.Slot, _time - (i - 1) * 0.035f),
+                    DrawLine(StarPosition(star, _time - i * 0.035f), StarPosition(star, _time - (i - 1) * 0.035f),
                         new Color(accent, star.Light * alpha * fade * (6 - i) * 0.06f), 1.5f, true);
                 DrawStar(p, 8 + star.Pulse * 4, accent, star.Light * alpha * fade);
                 if (star.Pulse > 0) DrawArc(p, 10 + (1 - star.Pulse) * 20, 0, Mathf.Tau, 32, new Color(accent, star.Pulse * 0.5f * alpha), 1, true);
@@ -203,25 +298,73 @@ public partial class NKarenPromiseStarNode : Node2D
                 DrawStar(ToLocal(star.Trail[^1]), 15, accent, opacity);
             }
         }
-        string text = _count.ToString() + (infinite ? " ∞" : isVoid ? " ◇" : "");
+        string text = (infinite ? "∞" : _count.ToString()) + (isVoid ? " ◇" : "");
         if (_alwaysVisible || _count > 0 || infinite || isVoid)
         {
             var font = ThemeDB.FallbackFont;
             var size = font.GetStringSize(text, HorizontalAlignment.Left, -1, 26);
-            // A left-side callout stays outside the silhouette, hair, and health bar.
-            TowerLine(DesignPoint(-47, 245), new(-112, -7), TowerRed, alpha * 0.6f, 1);
-            TowerLine(new(-112, -7), new(-129, -22), TowerRed, alpha * 0.6f, 1);
-            // Follow the scaled callout anchor, but keep text readable at any size.
-            var stageScale = new Vector2(GlobalTransform.X.Length(), GlobalTransform.Y.Length());
-            DrawSetTransform(Vector2.Zero, 0, Vector2.One / stageScale);
-            var p = (TowerOffset + new Vector2(-140, -25)) * stageScale - new Vector2(size.X, 0);
-            DrawLine(p + new Vector2(-3, 7), p + new Vector2(size.X + 3, 7), new Color(TowerRed, alpha * 0.65f), 1, true);
-            DrawStar(p + new Vector2(-14, -9), 4, White, alpha * 0.85f);
+            // Keep the complete count/mode label centered above the tip in
+            // viewport space: creature shrink/flip cannot change its font size.
+            var canvas = GetGlobalTransformWithCanvas();
+            var tip = canvas * (TowerOffset + DesignPoint(0, 18));
+            var viewport = GetViewportRect().Size;
+            var center = new Vector2(
+                Mathf.Clamp(tip.X, size.X * 0.5f + 12, viewport.X - size.X * 0.5f - 12),
+                Mathf.Clamp(tip.Y - 22, 90, Mathf.Max(90, viewport.Y - 30)));
+            DrawSetTransformMatrix(canvas.AffineInverse());
+            var p = center - new Vector2(size.X * 0.5f, 0);
             DrawStringOutline(font, p, text, HorizontalAlignment.Left, -1, 26, 5, new Color(0.10f, 0.07f, 0.12f, alpha));
             DrawString(font, p, text, HorizontalAlignment.Left, -1, 26, new Color(White, alpha));
             DrawSetTransform(Vector2.Zero);
         }
     }
+    private void DrawReplenishSource(float alpha)
+    {
+        float age = _time - _replenishStarted;
+        if (age < 0 || _time > _replenishUntil + 0.22f) return;
+        float fade = Mathf.Clamp((_replenishUntil + 0.22f - _time) / 0.22f, 0, 1) * alpha;
+        float progress = Mathf.Clamp(age / 0.36f, 0, 1);
+        if (age < 0.55f)
+        {
+            float trailFade = fade * Mathf.Clamp((0.55f - age) / 0.19f, 0, 1);
+            for (int side = -1; side <= 1; side += 2)
+            {
+                for (int i = 13; i >= 0; i--)
+                {
+                    float t = progress - i * 0.027f;
+                    if (t < 0) continue;
+                    var point = ReplenishPath(side, t);
+                    float brightness = trailFade * (1 - i / 15f);
+                    var previous = ReplenishPath(side, Mathf.Max(0, t - 0.027f));
+                    DrawLine(previous, point, new Color(White, brightness * 0.18f), 16, true);
+                    DrawLine(previous, point, new Color(White, brightness * 0.4f), 9, true);
+                    DrawLine(previous, point, new Color(White, brightness), 4.5f, true);
+                    DrawCircle(point, i == 0 ? 6 : 3, new Color(White, brightness));
+                    if (i == 0) DrawStar(point, 14, White, brightness);
+                }
+            }
+        }
+        float sourceLight = Mathf.SmoothStep(0.27f, 0.36f, age) * fade;
+        var source = TowerOffset + DesignPoint(0, 179);
+        DrawLine(source + new Vector2(-42, 0), source + new Vector2(42, 0),
+            new Color(White, sourceLight * 0.2f), 12, true);
+        DrawLine(source + new Vector2(-42, 0), source + new Vector2(42, 0),
+            new Color(White, sourceLight), 3, true);
+        DrawStar(source, 17 + Mathf.Sin(age * 14) * 2, White, sourceLight);
+    }
+
+    private static Vector2 ReplenishPath(int side, float progress)
+    {
+        // Reverse the existing curved tower leg, then travel across its deck.
+        if (progress > 0.82f)
+            return TowerOffset + DesignPoint(side * Mathf.Lerp(21, 0, (progress - 0.82f) / 0.18f), 179);
+        float t = progress / 0.82f;
+        var point = (1 - t) * (1 - t) * new Vector2(side * 88, 363)
+            + 2 * (1 - t) * t * new Vector2(side * 36, 268)
+            + t * t * new Vector2(side * 21, 179);
+        return TowerOffset + DesignPoint(point.X, point.Y);
+    }
+
     private void TowerLine(Vector2 from, Vector2 to, Color color, float alpha, float width = 2)
     {
         from += TowerOffset;

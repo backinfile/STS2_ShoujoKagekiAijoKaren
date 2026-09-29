@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Nodes.Vfx.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,11 +60,20 @@ public sealed class KarenVoid : KarenBaseCardModel
         }
 
         // 取出约定牌堆中的所有牌，然后重新放入抽牌堆
-        await CardPileCmd.Add(PromisePileManager.GetPromisePile(Owner).Cards.ToList(), PileType.Draw);
-
-        // 切换模式
-        await PromisePileCmd.EnterMode(Owner, PromisePileMode.Void);
-        PromisePileManager.SetPileCountLabel(Owner, combatState.DrawPile.Cards.Count);
+        // The same cards acquire a second visual representation in Draw. Keep
+        // their tower lights alive through intermediate pile notifications.
+        KarenPromiseVfxStarManager.BeginPileTransition(Owner);
+        try
+        {
+            await CardPileCmd.Add(PromisePileManager.GetPromisePile(Owner).Cards.ToList(),
+                PileType.Draw, skipVisuals: true);
+            await PromisePileCmd.EnterMode(Owner, PromisePileMode.Void);
+            PromisePileManager.SetPileCountLabel(Owner, combatState.DrawPile.Cards.Count);
+        }
+        finally
+        {
+            KarenPromiseVfxStarManager.EndPileTransition(Owner);
+        }
     }
 
     private static void PlayDrawPileExhaustVfx(CardModel visualCard)
