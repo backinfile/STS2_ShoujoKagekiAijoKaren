@@ -1,5 +1,8 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -39,25 +42,29 @@ public sealed class KarenLastWord : KarenBaseCardModel
         if (!Condition(base.Owner, this)) { return; }
         if (CombatState == null) return;
 
-        bool isLocalOwner = LocalContext.IsMe(Owner);
-        bool playedVideo = false;
-        CombatBgmReplacementManager.StopForCutscene();
-        KarenAudioManager.PlaySfx(KarenSfx.LastWord, volume: 1f);
-        if (isLocalOwner)
+        // Cmd.Wait skips Instant/non-interactive play; skip the cutscene with it.
+        if (!NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant)
         {
-            playedVideo = NKarenLastWordVideoVfx.Play();
-            if (!playedVideo)
-                NKarenLastWordVfx.Play();
-        }
-        else
-        {
-            NKarenLastWordVfx.Play();
-        }
+            bool isLocalOwner = LocalContext.IsMe(Owner);
+            bool playedVideo = false;
+            CombatBgmReplacementManager.StopForCutscene();
+            KarenAudioManager.PlaySfx(KarenSfx.LastWord, volume: 1f);
+            if (isLocalOwner)
+            {
+                playedVideo = NKarenLastWordVideoVfx.Play(Owner);
+                if (!playedVideo)
+                    NKarenLastWordVfx.Play(Owner);
+            }
+            else
+            {
+                NKarenLastWordVfx.Play(Owner);
+            }
 
-        bool shouldWaitForVideoSequence = playedVideo || (!isLocalOwner && NKarenLastWordVideoVfx.HasVideo());
-        await Cmd.Wait(shouldWaitForVideoSequence
-            ? NKarenLastWordVideoVfx.VideoSequenceSeconds
-            : NKarenLastWordVideoVfx.LettersOnlySequenceSeconds);
+            bool shouldWaitForVideoSequence = playedVideo || (!isLocalOwner && NKarenLastWordVideoVfx.HasVideo());
+            await Cmd.Wait(shouldWaitForVideoSequence
+                ? NKarenLastWordVideoVfx.VideoSequenceSeconds
+                : NKarenLastWordVideoVfx.LettersOnlySequenceSeconds);
+        }
 
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromPlayedCard(this, cardPlay).TargetingAllOpponents(CombatState)
             //.WithHitFx(VfxCmd.slashPath)

@@ -2,7 +2,8 @@ using Godot;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
-using System.Linq;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Combat;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -21,18 +22,21 @@ public partial class NKarenLastWordVfx : Node2D
         LoadTexture("res://images/packed/vfx/last_word/t04.png")
     ];
 
+    private Player _owner = null!;
+    private NCombatRoom _room = null!;
+
     private float _duration = SpawnDuration;
     private float _spawnTimer = SpawnInterval;
 
-    public static void Play()
+    public static void Play(Player owner)
     {
         if (NCombatRoom.Instance == null) return;
-        PlayOn(NCombatRoom.Instance.CombatVfxContainer);
+        PlayOn(NCombatRoom.Instance.CombatVfxContainer, owner);
     }
 
-    public static NKarenLastWordVfx PlayOn(Node parent)
+    public static NKarenLastWordVfx PlayOn(Node parent, Player owner)
     {
-        var vfx = new NKarenLastWordVfx();
+        var vfx = new NKarenLastWordVfx { _owner = owner, _room = NCombatRoom.Instance! };
         parent.AddChildSafely(vfx);
         vfx.GlobalPosition = Vector2.Zero;
         return vfx;
@@ -45,6 +49,14 @@ public partial class NKarenLastWordVfx : Node2D
 
     public override void _Process(double delta)
     {
+        if (!GodotObject.IsInstanceValid(_room) || !_room.IsInsideTree()
+            || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress)
+        {
+            Hide();
+            GodotTreeExtensions.QueueFreeSafely(this);
+            return;
+        }
+
         float d = (float)delta;
         _duration -= d;
 
@@ -86,9 +98,10 @@ public partial class NKarenLastWordVfx : Node2D
 
     private Vector2 GetSourcePosition()
     {
-        var player = NCombatRoom.Instance?.CreatureNodes.FirstOrDefault(creature => creature.Entity.IsPlayer);
+        var player = _room.GetCreatureNode(_owner.Creature);
         if (player != null)
-            return ToLocal(player.GlobalPosition + new Vector2(0f, -120f));
+            return GetGlobalTransformWithCanvas().AffineInverse()
+                * (player.GetGlobalTransformWithCanvas() * new Vector2(0f, -120f));
 
         var viewportSize = GetViewportSize();
         return new Vector2(viewportSize.X * 0.18f, viewportSize.Y * 0.62f);

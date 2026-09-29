@@ -1,4 +1,6 @@
 using Godot;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
@@ -21,6 +23,8 @@ public partial class NKarenLastWordVideoVfx : Control
     private const float VideoAspect = 1280f / 544f;
 
     private readonly VideoStream _stream;
+    private readonly Player _owner;
+    private readonly NCombatRoom _room;
     private ColorRect _black = null!;
     private VideoStreamPlayer _player = null!;
     private NKarenLastWordVfx? _letters;
@@ -30,13 +34,17 @@ public partial class NKarenLastWordVideoVfx : Control
     private float _videoFadeInTimer;
     private float _fadeTimer;
 
-    private NKarenLastWordVideoVfx(VideoStream stream)
+    private NKarenLastWordVideoVfx(VideoStream stream, Player owner, NCombatRoom room)
     {
         _stream = stream;
+        _owner = owner;
+        _room = room;
     }
 
-    public static bool Play()
+    public static bool Play(Player owner)
     {
+        var room = NCombatRoom.Instance;
+        if (room == null || !HasVideo()) return false;
         var stream = ResourceLoader.Load<VideoStream>(VideoPath);
         if (stream == null)
             return false;
@@ -45,7 +53,7 @@ public partial class NKarenLastWordVideoVfx : Control
         if (parent == null)
             return false;
 
-        parent.AddChildSafely(new NKarenLastWordVideoVfx(stream));
+        parent.AddChildSafely(new NKarenLastWordVideoVfx(stream, owner, room));
         return true;
     }
 
@@ -73,7 +81,7 @@ public partial class NKarenLastWordVideoVfx : Control
         _black.SetAnchorsPreset(LayoutPreset.FullRect);
         AddChild(_black);
 
-        _letters = NKarenLastWordVfx.PlayOn(this);
+        _letters = NKarenLastWordVfx.PlayOn(this, _owner);
         _letters.ZAsRelative = true;
         _letters.ZIndex = LetterZIndex;
 
@@ -98,6 +106,15 @@ public partial class NKarenLastWordVideoVfx : Control
 
     public override void _Process(double delta)
     {
+        if (!GodotObject.IsInstanceValid(_room) || !_room.IsInsideTree()
+            || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress)
+        {
+            Hide();
+            _player.Stop();
+            GodotTreeExtensions.QueueFreeSafely(this);
+            return;
+        }
+
         float d = (float)delta;
         _timer += d;
         LayoutChildren();
@@ -128,6 +145,15 @@ public partial class NKarenLastWordVideoVfx : Control
             Modulate = new Color(1f, 1f, 1f, alpha);
             if (alpha <= 0.01f)
                 GodotTreeExtensions.QueueFreeSafely(this);
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        if (GodotObject.IsInstanceValid(_player))
+        {
+            _player.Finished -= BeginFadeOut;
+            _player.Stop();
         }
     }
 
