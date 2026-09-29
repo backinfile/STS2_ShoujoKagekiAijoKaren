@@ -41,3 +41,11 @@ Python MCP 桥接器在 `D:\Github\STS2_Mcp\mcp\server.py`，默认连接端口�
 MCP 源码 `2d2a4c5` 支持在 `POST /api/v1/recording/start` 中设置 `audio: true`，采集游戏进程及其子进程音频，不采集麦克风或其他应用。需要 Windows build 20348+。录制前设置 `muted: false`（当前接口将主音量设为 50%），否则会录到静音；结束后恢复原设置。停止后等待 `completed`，检查 `audio: true`、`audio_source: game_process`，并验证成片音轨及实际非静音采样。
 
 示例正文：`{"fps":30,"max_duration_seconds":20,"width":1280,"height":720,"audio":true}`。新版本也支持单人动作 `hover_card`（card_index，可选 target）及 `unhover_card`；这是手牌和目标数值预览，不应假定它等同于拖拽卡牌的目标悬停回调。
+
+### 录制时不要最小化（2026-09-29 实测）
+
+上文的最小化建议适用于状态和动作自动化，不适用于需要可靠连续画面的录像。最后的台词实录发现：最小化后游戏逻辑仍以约 60 fps 运行，战斗正常结束，但渲染帧计数停住，录像会重复采到旧的伤害数字和怪物画面。`frames_captured` 持续增长也不能证明画面更新。
+
+开始录制前，通过 `/api/v1/settings` 设置 `fullscreen:false` 和成对的 `window_width/window_height`，切回普通窗口；录制期间不调用 `/window/minimize`。结束并完成封装后恢复原设置，再最小化。单独添加 `RenderingServer.ForceDraw(false)` 的试验未完整解决本场景，因此未保留该 MCP 修改。
+
+收尾以游戏状态为准：记录奖励界面已出现，并留短暂停留，不要只按固定秒数停止。复核连续帧和成片；可用 FFmpeg `freezedetect=n=-50dB:d=1` 辅助发现超过一秒的近似静帧，但静态菜单本身不应判作故障，应结合画面阶段判断。详见 [最后的台词修复记录](../testing/last-word-vfx-2026-09-29.md)。
