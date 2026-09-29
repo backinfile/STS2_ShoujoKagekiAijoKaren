@@ -1,5 +1,7 @@
 using BaseLib.Utils;
 using Godot;
+using System.Linq;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.Combat;
@@ -31,19 +33,24 @@ public static class KarenFormVfxManager
     {
         if (player?.Creature == null) return;
 
-        var cachedNode = formNodes.Get(player);
-        if (GodotObject.IsInstanceValid(cachedNode))
-        {
-            cachedNode!.Restart();
-            return;
-        }
-
+        if (!player.Creature.Powers.Any(p => p is KarenFormPower)) return;
         var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
         if (creatureNode == null) return;
 
+        var cachedNode = formNodes.Get(player);
+        if (GodotObject.IsInstanceValid(cachedNode) && !cachedNode!.IsQueuedForDeletion()
+            && cachedNode.BelongsTo(creatureNode))
+        {
+            cachedNode.Restart();
+            return;
+        }
+        if (GodotObject.IsInstanceValid(cachedNode) && !cachedNode!.IsQueuedForDeletion())
+            cachedNode.Stop();
+
         foreach (var child in creatureNode.GetChildren())
         {
-            if (child is NKarenFormVfx existing)
+            if (child is NKarenFormVfx existing && !existing.IsQueuedForDeletion()
+                && existing.BelongsTo(creatureNode))
             {
                 existing.Restart();
                 formNodes.Set(player, existing);
@@ -52,8 +59,8 @@ public static class KarenFormVfxManager
         }
 
         var newNode = new NKarenFormVfx();
-        creatureNode.AddChild(newNode);
         newNode.Init(creatureNode);
+        creatureNode.AddChild(newNode);
         formNodes.Set(player, newNode);
     }
 

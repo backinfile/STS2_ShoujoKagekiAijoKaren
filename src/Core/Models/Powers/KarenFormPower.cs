@@ -13,6 +13,7 @@ using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Audio;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,13 +29,15 @@ public class KarenFormPower : PowerModel
 
     public override Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
+        if (Owner.Player is { } player) KarenFormVfxManager.Start(player);
         CombatBgmReplacementManager.PlayLoop(KarenFormMusicManager.FileName, Owner.Player, 0.5f);
         return Task.CompletedTask;
     }
 
     public override Task AfterRemoved(Creature oldOwner)
     {
-        CombatBgmReplacementManager.Stop(Owner.Player);
+        if (oldOwner.Player is { } player) KarenFormVfxManager.Stop(player);
+        CombatBgmReplacementManager.Stop(oldOwner.Player);
         return Task.CompletedTask;
     }
 

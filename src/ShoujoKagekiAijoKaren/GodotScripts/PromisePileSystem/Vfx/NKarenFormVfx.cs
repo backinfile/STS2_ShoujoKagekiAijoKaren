@@ -12,16 +12,21 @@ public partial class NKarenFormVfx : Node2D
     private NCreature? _creatureNode;
     private float _timer;
     private bool _stopping;
+    private Tween? _stopTween;
+
+    public bool BelongsTo(NCreature creature) => _creatureNode == creature;
 
     public void Init(NCreature creatureNode)
     {
         _creatureNode = creatureNode;
         ZAsRelative = true;
         ZIndex = 2;
+        TopLevel = true;
     }
 
     public void Restart()
     {
+        CancelFade();
         _stopping = false;
         Modulate = Colors.White;
         Visible = true;
@@ -30,11 +35,23 @@ public partial class NKarenFormVfx : Node2D
 
     public void Stop()
     {
+        if (_stopping) return;
         _stopping = true;
-        var tween = CreateTween();
-        tween.TweenProperty(this, "modulate", new Color(1f, 1f, 1f, 0f), 0.25f);
-        tween.Finished += () => GodotTreeExtensions.QueueFreeSafely(this);
+        _stopTween = CreateTween();
+        _stopTween.TweenProperty(this, "modulate", new Color(1f, 1f, 1f, 0f), 0.25f);
+        _stopTween.TweenCallback(Callable.From(() =>
+        {
+            if (_stopping) GodotTreeExtensions.QueueFreeSafely(this);
+        }));
     }
+
+    private void CancelFade()
+    {
+        if (GodotObject.IsInstanceValid(_stopTween)) _stopTween!.Kill();
+        _stopTween = null;
+    }
+
+    public override void _ExitTree() => CancelFade();
 
     public override void _Ready()
     {
@@ -43,8 +60,14 @@ public partial class NKarenFormVfx : Node2D
 
     public override void _Process(double delta)
     {
-        if (_creatureNode != null)
-            GlobalPosition = _creatureNode.VfxSpawnPosition;
+        if (!GodotObject.IsInstanceValid(_creatureNode) || !_creatureNode!.IsInsideTree())
+        {
+            GodotTreeExtensions.QueueFreeSafely(this);
+            return;
+        }
+        // This is a battlefield-wide wind, not an actor-local emitter. Cancel the canvas
+        // transform so character scaling/flipping and camera motion cannot bend its path.
+        GlobalTransform = GetCanvasTransform().AffineInverse();
 
         if (_stopping) return;
 
@@ -53,7 +76,7 @@ public partial class NKarenFormVfx : Node2D
         if (_timer <= 0f)
         {
             _timer += (float)GD.RandRange(0.2, 0.4);
-            AddChild(new NKarenWindyParticle(HorizontalLineTexture, GlobalPosition, reverse: false));
+            AddChild(new NKarenWindyParticle(HorizontalLineTexture, GetViewportRect().Size));
         }
     }
 
@@ -65,68 +88,49 @@ public partial class NKarenFormVfx : Node2D
 
 internal partial class NKarenWindyParticle : Sprite2D
 {
-    private readonly float _velocityX;
-    private readonly float _velocityY;
+    private static readonly CanvasItemMaterial AdditiveMaterial = new()
+    {
+        BlendMode = CanvasItemMaterial.BlendModeEnum.Add
+    };
+    private readonly Vector2 _velocity;
     private readonly float _rotationVelocity;
-    private float _duration;
+    private readonly float _lifetime;
+    private readonly float _leftBound;
+    private readonly float _topBound;
+    private readonly float _bottomBound;
+    private float _elapsed;
 
-    public NKarenWindyParticle(Texture2D? texture, Vector2 parentGlobalPosition, bool reverse)
+    public NKarenWindyParticle(Texture2D? texture, Vector2 viewportSize)
     {
         Texture = texture;
         Centered = true;
-
-        var viewportSize = GetViewportSize();
-        float width = viewportSize.X;
-        float height = viewportSize.Y;
-        float scale = GetViewportScale(width);
-
-        float x;
-        float velocityX;
-        if (reverse)
-        {
-            x = (float)GD.RandRange(-260.0, -80.0) * scale;
-            velocityX = (float)GD.RandRange(1500.0, 2500.0) * scale;
-        }
-        else
-        {
-            x = width + (float)GD.RandRange(80.0, 260.0) * scale;
-            velocityX = (float)GD.RandRange(-2500.0, -1500.0) * scale;
-        }
-
-        var globalSpawnPosition = new Vector2(x, (float)GD.RandRange(0.15, 0.85) * height);
-        Position = globalSpawnPosition - parentGlobalPosition;
-        _velocityX = velocityX;
-        _velocityY = (float)GD.RandRange(-100.0, 100.0) * scale;
-        _rotationVelocity = (float)GD.RandRange(0.5, 0.0);
-        _duration = 1.25f;
-
-        RotationDegrees = 0f;
-        Scale = new Vector2((float)GD.RandRange(0.5, 0.9), (float)GD.RandRange(1.0, 2.0) * scale);
-        Modulate = new Color(0.28f, 0.1f, 0.08f, 0.9f);
-
-        var material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
-        Material = material;
+        float scale = Mathf.Max(0.5f, viewportSize.X / 1920f);
+        Position = new Vector2(viewportSize.X + (float)GD.RandRange(80, 260) * scale,
+            (float)GD.RandRange(0.22, 0.65) * viewportSize.Y);
+        _velocity = new Vector2((float)GD.RandRange(-2500, -1500) * scale,
+            (float)GD.RandRange(-100, 100) * scale);
+        _rotationVelocity = (float)GD.RandRange(0, 0.5);
+        _leftBound = -300f * scale;
+        _topBound = viewportSize.Y * 0.16f;
+        _bottomBound = viewportSize.Y * 0.73f;
+        _lifetime = (Position.X - _leftBound) / -_velocity.X;
+        Scale = new Vector2((float)GD.RandRange(0.5, 0.9), (float)GD.RandRange(1, 2)) * scale;
+        Modulate = new Color(0.28f, 0.1f, 0.08f, 0f);
+        Material = AdditiveMaterial;
     }
 
     public override void _Process(double delta)
     {
         float d = (float)delta;
-        Position += new Vector2(_velocityX * d, _velocityY * d);
+        _elapsed += d;
+        Position += _velocity * d;
         RotationDegrees += _rotationVelocity * d;
-        _duration -= d;
-
-        if (_duration < 0f || Position.X > GetViewportSize().X + 500f || Position.X < -500f)
+        // Fade at the boundaries instead of cutting a bright streak off mid-frame.
+        float edgeFade = Mathf.Clamp(Mathf.Min(Position.Y - _topBound, _bottomBound - Position.Y) / 40f, 0f, 1f);
+        float alpha = Mathf.Min(Mathf.Clamp(_elapsed / 0.12f, 0f, 1f),
+            Mathf.Clamp((_lifetime - _elapsed) / 0.12f, 0f, 1f));
+        Modulate = new Color(0.28f, 0.1f, 0.08f, 0.9f * alpha * edgeFade);
+        if (_elapsed >= _lifetime || Position.X < _leftBound || edgeFade <= 0f)
             GodotTreeExtensions.QueueFreeSafely(this);
-    }
-
-    private static Vector2 GetViewportSize()
-    {
-        var tree = Engine.GetMainLoop() as SceneTree;
-        return tree?.Root.GetViewport().GetVisibleRect().Size ?? new Vector2(1920f, 1080f);
-    }
-
-    private static float GetViewportScale(float width)
-    {
-        return Mathf.Max(0.5f, width / 1920f);
     }
 }
