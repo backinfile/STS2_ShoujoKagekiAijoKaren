@@ -83,8 +83,7 @@ public static class ShineViewPatch
 
     /// <summary>
     /// 红色边框补丁：
-    /// 1. 即将耗尽的 Shine 牌。
-    /// 2. Burn 模式下从 Promise Pile 抽出的牌。
+    /// 即将耗尽的 Shine 牌。
     /// </summary>
     [HarmonyPatch(typeof(CardModel), nameof(CardModel.ShouldGlowRed), MethodType.Getter)]
     public static class ShouldGlowRed_Patch
@@ -93,12 +92,6 @@ public static class ShineViewPatch
         public static void Postfix(CardModel __instance, ref bool __result)
         {
             if (__result) return;
-
-            if (KarenPromisePilePower.ShouldGlowRedForBurnDraw(__instance))
-            {
-                __result = true;
-                return;
-            }
 
             if (__instance.IsShineCard() && !__instance.Keywords.Contains(CardKeyword.Eternal))
             {

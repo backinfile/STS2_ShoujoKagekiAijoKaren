@@ -6,6 +6,8 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using System.Linq;
 using System.Text.Json;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Commands;
 
@@ -36,11 +38,20 @@ public sealed class KarenCheckHandConsoleCmd : AbstractConsoleCmd
                 .Where(t => t.Texture?.ResourcePath.Contains("draw_pile") == true)
                 .Select(t => new { card = h.CardNode.Model.Id.Entry, texture = t.Texture!.ResourcePath }))
             .ToArray();
+        var burnOverlays = hand.ActiveHolders.Where(h => h.CardNode?.Model != null).Select(h =>
+        {
+            var card = h.CardNode!;
+            var effects = card.OverlayContainer.GetChildren().OfType<NKarenBurnCardVfx>().ToArray();
+            var expected = KarenPromisePilePower.HasBurnDrawEffect(card.Model) ? 1 : 0;
+            return new { card = card.Model!.Id.Entry, expected, actual = effects.Length,
+                valid = effects.Length == expected && effects.All(e => e.BelongsTo(card.Model)
+                    && e.Visible && !e.IsQueuedForDeletion() && e.GetChildCount() > 0) };
+        }).ToArray();
         var success = missing.Length == 0 && unexpected.Length == 0 && visible.Length == models.Count
-            && unexpectedPileIcons.Length == 0;
+            && unexpectedPileIcons.Length == 0 && burnOverlays.All(b => b.valid);
         return new(success, JsonSerializer.Serialize(new
         {
-            modelCount = models.Count, visualCount = visible.Length, missing, unexpected, unexpectedPileIcons,
+            modelCount = models.Count, visualCount = visible.Length, missing, unexpected, unexpectedPileIcons, burnOverlays,
         }));
     }
 }
