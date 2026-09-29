@@ -35,4 +35,4 @@
 
 最新测试版精选视频重新录制 7 段：4 个单独能力、空虚＋再生产、燃烧＋过去与未来、四能力全开。21 次手牌与图标残留检查均通过，逐段抽牌连续帧已复核。成片约 88 秒，含 7 个章节、右上角标签和游戏进程声音，音频峰值 -15.7 dB。最终文件在主仓库 `artifacts/vfx-review/promise-highlights-2026-09-29/promise-highlights.mp4`。
 
-合并清理时，任务脚本、JSON 检查结果、日志与最终画面归档到主仓库 `artifacts/vfx-archive/void-activation-design-evidence`；原始分段录制、构建目录和工作树缓存删除。已交付的成片保留在 `artifacts/vfx-review`，其他历史成片保存在上述归档中。
+合并清理时，任务脚本、JSON 检查结果、日志与最终画面归档到主仓库 `artifacts/vfx-archive/void-activation-design-evidence`，已交付的成片保留在 `artifacts/vfx-review`，其他历史成片保存在上述归档中。已删除 104 个 MCP 原始录制副本和任务分支；Git 工作树登记已移除，但删除目录遇到 Windows 长路径错误，后续递归清理被自动审批策略拦截，原工作树仍有目录残留，不能视为全部缓存已清理。
