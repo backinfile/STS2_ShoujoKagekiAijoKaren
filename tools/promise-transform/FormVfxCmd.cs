@@ -41,6 +41,7 @@ public sealed class FormVfxCmd : AbstractConsoleCmd
         float height = wind.GetViewportRect().Size.Y;
         bool withinBand = particles.All(p => p.Position.Y >= height * 0.16f && p.Position.Y <= height * 0.73f);
         return new(fixedScreen && alive && withinBand && playing && particles.Length > 0,
-            JsonSerializer.Serialize(new { fixedScreen, alive, withinBand, playing, particles = particles.Length }));
+            JsonSerializer.Serialize(new { fixedScreen, alive, withinBand, playing, volume = music!.VolumeLinear, position = music.GetPlaybackPosition(), particles = particles.Length }));
     }
 }
+

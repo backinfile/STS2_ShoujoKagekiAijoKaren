@@ -14,6 +14,7 @@ using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 public sealed class NativeSpeedCmd : AbstractConsoleCmd
 {
     private static FastModeType? _original;
+    private static bool? _originalBackgroundMute;
     public override string CmdName => "native_speed";
     public override string Args => "normal|fast|restore|show";
     public override string Description => "Select native Normal/Fast, never Instant or Engine.TimeScale.";
@@ -25,12 +26,16 @@ public sealed class NativeSpeedCmd : AbstractConsoleCmd
         if (args[0] == "normal" || args[0] == "fast")
         {
             _original ??= prefs.FastMode;
+            _originalBackgroundMute ??= prefs.MuteInBackground;
+            prefs.MuteInBackground = false;
             prefs.FastMode = args[0] == "fast" ? FastModeType.Fast : FastModeType.Normal;
         }
         else if (args[0] == "restore")
         {
             if (_original.HasValue) prefs.FastMode = _original.Value;
             _original = null;
+            if (_originalBackgroundMute.HasValue) prefs.MuteInBackground = _originalBackgroundMute.Value;
+            _originalBackgroundMute = null;
         }
         else if (args[0] != "show") return new(false, Args);
         return new(true, JsonSerializer.Serialize(new { nativeMode = prefs.FastMode.ToString(), timeScale = Engine.TimeScale }));
@@ -104,3 +109,4 @@ public sealed class FormSurgeProbe : IDisposable
         }
     }
 }
+
