@@ -33,10 +33,13 @@ public sealed class KarenDropFuel : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        NKarenDropFuelVfx.Play();
+        NKarenDropFuelVfx.Play(Owner);
         await Cmd.Wait(0.15f);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+        var energyBefore = Owner.PlayerCombatState?.Energy;
         await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+        if (Owner.PlayerCombatState?.Energy > energyBefore)
+            NKarenDropFuelVfx.FlashEnergy(Owner);
     }
 
     protected override void OnUpgrade()
