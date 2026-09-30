@@ -37,3 +37,11 @@
 主工作区 `artifacts/vfx-review/form-draw-2026-09-30/form-draw-compare.mp4` 为测试版两种模式顺序对比：前 12.4 秒普通模式，随后 9.2 秒原版快速模式。原速、30 fps、1280×720、游戏进程声音、右上角中文标注，无录制外的变形或调试场景。成片音频峰值 -19.4 dB，未额外加速视频。正式版两种模式也各自实录验证。
 
 本轮待用户查看，未合并 main 或推送，未继续下一张牌。
+
+## 风场音效试装（2026-09-30）
+
+用户选择第一个候选后，在 NKarenFormVfx.PulseDraw 接入原版 event:/sfx/characters/ironclad/ironclad_whirlwind，volume=0.5。每个风场节点记录已播放的 CombatState.RoundNumber，同回合的十张牌只调用一次；Restart 不清除回合记录，避免同回合恢复节点时重响。音频走原版 SfxCmd，跟随 SFX 设置，无新资源、无额外等待。
+
+两版构建各 0 错误、23 个已有警告。正式版与测试版各完成 Normal/Fast 单人实录：风速峰值 2.8，结束回到 1，回合抽牌后及普通补牌后手牌模型/节点均为 10/10，普通补牌峰值为 1。四组均保存操作前后截图与状态，抽样查看画面正常。日志中有临时测试插件使用旧 dependencies 格式的启动提示，无战斗异常或 FMOD 事件缺失。
+
+本轮证据：工作树 artifacts/form-sfx-vfx/。主目录 artifacts/vfx-review/form-sfx-2026-09-30/form-wind-sfx.mp4 为 beta Normal（前 12.4 秒）＋ stable Fast（后 9.23 秒）有声实录。成片统一增益 +8 dB，不改变声音比例；峰值 -19.1 dB，无超过一秒停帧。尚未做多人、完整机制矩阵、满手禁抽等测试；这次为音效试装，等待实际听感反馈，不作为完整兼容验收。

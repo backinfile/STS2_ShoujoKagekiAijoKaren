@@ -1,4 +1,5 @@
 using Godot;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
@@ -14,11 +15,19 @@ public partial class NKarenFormVfx : Node2D
     private bool _stopping;
     private Tween? _stopTween;
     private float _drawSurgeHold;
+    private int _drawSfxRound = -1;
     public float SpeedMultiplier { get; private set; } = 1f;
 
     public void PulseDraw()
     {
         if (_stopping) return;
+        // Key audio to the combat round, not the spacing between card animations:
+        // even a slow draw sequence must produce only one wind sound.
+        if (_creatureNode?.Entity.CombatState is { } combat && _drawSfxRound != combat.RoundNumber)
+        {
+            _drawSfxRound = combat.RoundNumber;
+            SfxCmd.Play("event:/sfx/characters/ironclad/ironclad_whirlwind", 0.5f);
+        }
         // Refresh, never add: ten cards still produce one gust. Real-time duration
         // keeps native Fast mode readable without slowing down gameplay.
         _drawSurgeHold = 0.55f;
