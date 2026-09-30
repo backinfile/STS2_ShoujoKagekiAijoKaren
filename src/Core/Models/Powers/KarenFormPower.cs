@@ -50,19 +50,12 @@ public class KarenFormPower : PowerModel
         return base.ModifyHandDrawLate(player, count);
     }
 
-    //public override async Task AfterPlayerTurnStartLate(PlayerChoiceContext choiceContext, Player player)
-    //{
-    //    if (player == base.Owner.Player)
-    //    {
-    //        int max = CardPile.MaxCardsInHand;
-    //        var hand = PileType.Hand.GetPile(player);
-    //        int drawnCnt = 0;
-    //        while (hand.Cards.Count < max)
-    //        {
-    //            var drawn = await CardPileCmd.Draw(choiceContext, 1, base.Owner.Player);
-    //            if (!drawn.Any()) break; // 没牌可抽了
-    //            if (drawnCnt++ > 100) break; // 保险措施，防止死循环
-    //        }
-    //    }
-    //}
+    public override Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+    {
+        // Only real start-of-turn draws pulse the wind; previews, full-hand attempts
+        // and draws caused by played cards must not trigger it.
+        if (fromHandDraw && card.Owner == Owner.Player)
+            KarenFormVfxManager.PulseDraw(card.Owner);
+        return Task.CompletedTask;
+    }
 }

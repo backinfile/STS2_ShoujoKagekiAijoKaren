@@ -13,6 +13,17 @@ public partial class NKarenFormVfx : Node2D
     private float _timer;
     private bool _stopping;
     private Tween? _stopTween;
+    private float _drawSurgeHold;
+    public float SpeedMultiplier { get; private set; } = 1f;
+
+    public void PulseDraw()
+    {
+        if (_stopping) return;
+        // Refresh, never add: ten cards still produce one gust. Real-time duration
+        // keeps native Fast mode readable without slowing down gameplay.
+        _drawSurgeHold = 0.55f;
+        _timer = Mathf.Min(_timer, 0.04f);
+    }
 
     public bool BelongsTo(NCreature creature) => _creatureNode == creature;
 
@@ -31,12 +42,15 @@ public partial class NKarenFormVfx : Node2D
         Modulate = Colors.White;
         Visible = true;
         _timer = 0f;
+        _drawSurgeHold = 0f;
+        SpeedMultiplier = 1f;
     }
 
     public void Stop()
     {
         if (_stopping) return;
         _stopping = true;
+        _drawSurgeHold = 0f;
         _stopTween = CreateTween();
         _stopTween.TweenProperty(this, "modulate", new Color(1f, 1f, 1f, 0f), 0.25f);
         _stopTween.TweenCallback(Callable.From(() =>
@@ -72,11 +86,15 @@ public partial class NKarenFormVfx : Node2D
         if (_stopping) return;
 
         float d = (float)delta;
-        _timer -= d;
+        bool surging = _drawSurgeHold > 0f;
+        _drawSurgeHold = Mathf.Max(0f, _drawSurgeHold - d);
+        SpeedMultiplier = Mathf.MoveToward(SpeedMultiplier, surging ? 2.8f : 1f,
+            d * (surging ? 12f : 3.6f));
+        _timer -= d * SpeedMultiplier;
         if (_timer <= 0f)
         {
             _timer += (float)GD.RandRange(0.2, 0.4);
-            AddChild(new NKarenWindyParticle(HorizontalLineTexture, GetViewportRect().Size));
+            AddChild(new NKarenWindyParticle(HorizontalLineTexture, GetViewportRect().Size, this));
         }
     }
 
@@ -92,6 +110,7 @@ internal partial class NKarenWindyParticle : Sprite2D
     {
         BlendMode = CanvasItemMaterial.BlendModeEnum.Add
     };
+    private readonly NKarenFormVfx _wind;
     private readonly Vector2 _velocity;
     private readonly float _rotationVelocity;
     private readonly float _lifetime;
@@ -100,8 +119,9 @@ internal partial class NKarenWindyParticle : Sprite2D
     private readonly float _bottomBound;
     private float _elapsed;
 
-    public NKarenWindyParticle(Texture2D? texture, Vector2 viewportSize)
+    public NKarenWindyParticle(Texture2D? texture, Vector2 viewportSize, NKarenFormVfx wind)
     {
+        _wind = wind;
         Texture = texture;
         Centered = true;
         float scale = Mathf.Max(0.5f, viewportSize.X / 1920f);
@@ -121,7 +141,7 @@ internal partial class NKarenWindyParticle : Sprite2D
 
     public override void _Process(double delta)
     {
-        float d = (float)delta;
+        float d = (float)delta * _wind.SpeedMultiplier;
         _elapsed += d;
         Position += _velocity * d;
         RotationDegrees += _rotationVelocity * d;

@@ -21,6 +21,20 @@ public static class KarenFormVfxManager
         Callable.From(() => StartInternal(player)).CallDeferred();
     }
 
+    public static void PulseDraw(Player player)
+    {
+        if (!LocalContext.IsMe(player)) return;
+        Callable.From(() =>
+        {
+            if (!player.Creature.Powers.Any(p => p is KarenFormPower)) return;
+            var creature = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
+            var node = formNodes.Get(player);
+            if (creature != null && GodotObject.IsInstanceValid(node)
+                && !node!.IsQueuedForDeletion() && node.BelongsTo(creature))
+                node.PulseDraw();
+        }).CallDeferred();
+    }
+
     public static void Stop(Player player)
     {
         if (!LocalContext.IsMe(player))
