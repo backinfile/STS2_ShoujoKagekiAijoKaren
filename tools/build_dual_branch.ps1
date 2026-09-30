@@ -5,6 +5,9 @@ $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $modId = 'ShoujoKagekiAijoKaren'
 $packageRoot = [IO.Path]::GetFullPath((Join-Path $project 'artifacts'))
 $modDir = [IO.Path]::GetFullPath((Join-Path $packageRoot $modId))
+# Reference extracts may contain native resource UIDs; exclude them before Godot scans.
+New-Item -ItemType Directory -Force -Path $packageRoot | Out-Null
+New-Item -ItemType File -Force -Path (Join-Path $packageRoot '.gdignore') | Out-Null
 if (-not (Test-Path -LiteralPath $MegaDot)) {
     throw "MegaDot missing: $MegaDot"
 }

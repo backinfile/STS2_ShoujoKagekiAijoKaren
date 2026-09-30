@@ -97,6 +97,9 @@ def scan(root,game):
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--sources',type=Path,required=True);ap.add_argument('--games',type=Path,required=True);ap.add_argument('--out',type=Path,required=True);args=ap.parse_args()
+    # Native UIDs must never enter the mod editor's resource UID cache.
+    args.sources.mkdir(parents=True,exist_ok=True)
+    (args.sources/'.gdignore').touch()
     output={v:scan(args.sources/v,args.games/v/'game') for v in ['stable','beta']}
     args.out.parent.mkdir(parents=True,exist_ok=True);args.out.write_text(json.dumps(output,ensure_ascii=False,indent=2),encoding='utf-8')
     for v,x in output.items():

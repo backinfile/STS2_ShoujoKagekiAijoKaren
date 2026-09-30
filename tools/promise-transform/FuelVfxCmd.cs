@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.DevConsole;
 using MegaCrit.Sts2.Core.DevConsole.ConsoleCommands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public sealed class FuelVfxCmd : AbstractConsoleCmd
 {
@@ -58,11 +59,11 @@ public sealed class FuelProbe : IDisposable
         _time += NRun.Instance!.GetProcessDeltaTime();
         var nodes = NRun.Instance.GlobalUi.GetChildren();
         int fire = nodes.Count(n => n.GetType().Name == "NKarenDropFuelVfx");
-        int flash = nodes.Count(n => n.GetType().Name == "NKarenDropFuelBorderFlash");
+        int flash = nodes.OfType<NKarenDropFuelVfx>().Count(n => n.HasEnergyPulse);
         bool gained = _player.PlayerCombatState?.Energy > InitialEnergy;
         if (gained) FirstEnergy ??= _time;
         if (fire > 0) { FireFrames++; FirstFire ??= _time; }
         if (flash > 0) { FlashFrames++; FirstFlash ??= _time; if (!gained) EarlyFlashFrames++; }
-        Remaining = fire + flash;
+        Remaining = fire;
     }
 }

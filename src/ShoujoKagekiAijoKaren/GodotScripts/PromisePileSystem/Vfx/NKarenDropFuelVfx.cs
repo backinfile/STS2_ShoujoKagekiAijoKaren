@@ -6,143 +6,180 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
+/// <summary>Local skill presentation: throw, submerge, splash, then acknowledge actual energy gain.</summary>
 public partial class NKarenDropFuelVfx : Node2D
 {
-    private const float Duration = 1.5f;
-    private const float TrailDuration = 0.5f;
-    private const int TrailSamples = 30;
-    private static readonly Texture2D? GlowSparkTexture = KarenResourceLoader.LoadTexture(
+    public const float NormalImpactTime = 0.65f;
+    public const float FastImpactTime = 0.4f;
+    private static readonly Texture2D? CrownTexture = KarenResourceLoader.LoadTexture(
+        "res://images/relics/karen_hairpin2_relic.png", nameof(NKarenDropFuelVfx));
+    private static readonly Texture2D? ChannelTexture = KarenResourceLoader.LoadTexture(
+        "res://images/vfx/fuel/molten_channel.png", nameof(NKarenDropFuelVfx));
+    private static readonly Texture2D? GlowTexture = KarenResourceLoader.LoadTexture(
         "res://images/vfx/sts/glow_spark.png", nameof(NKarenDropFuelVfx));
-    private static readonly CanvasItemMaterial AdditiveMaterial = new()
-    {
-        BlendMode = CanvasItemMaterial.BlendModeEnum.Add
-    };
     private NCombatRoom _room = null!;
+    private readonly Node2D _stage = new();
+    private Sprite2D _crown = null!;
+    private Sprite2D _glow = null!;
+    private ShaderMaterial _crownMaterial = null!;
+    private ShaderMaterial _channelMaterial = null!;
+    private readonly Line2D[] _ripples = new Line2D[3];
     private float _elapsed;
+    private float _fallDuration;
+    private float _impactAt = -1f;
+    private float _energyAt = -1f;
+    private float _speed = 1f;
+    public bool HasImpacted => _impactAt >= 0f;
+    public bool HasEnergyPulse => _energyAt >= 0f && (_elapsed - _energyAt) * _speed < 0.6f;
 
-    public static void Play(Player owner)
+    public static NKarenDropFuelVfx? Play(Player owner)
     {
-        if (!LocalContext.IsMe(owner) || NRun.Instance?.GlobalUi == null
-            || NCombatRoom.Instance == null || !CombatManager.Instance.IsInProgress) return;
-        NRun.Instance.GlobalUi.AddChildSafely(new NKarenDropFuelVfx { _room = NCombatRoom.Instance });
+        if (NonInteractiveMode.IsActive || !LocalContext.IsMe(owner) || NRun.Instance?.GlobalUi == null
+            || NCombatRoom.Instance == null || !CombatManager.Instance.IsInProgress) return null;
+        var effect = new NKarenDropFuelVfx
+        {
+            _room = NCombatRoom.Instance,
+            _fallDuration = SaveManager.Instance.PrefsSave.FastMode switch
+            {
+                FastModeType.Normal => NormalImpactTime,
+                FastModeType.Fast => FastImpactTime,
+                _ => 0f
+            }
+        };
+        effect._speed = effect._fallDuration > 0f ? NormalImpactTime / effect._fallDuration : 2f;
+        NRun.Instance.GlobalUi.AddChildSafely(effect);
+        return effect;
     }
 
-    public static void FlashEnergy(Player owner)
+    // Called by the card after its native scaled wait, never by a visual callback.
+    public static void Impact(NKarenDropFuelVfx? effect)
     {
-        if (!LocalContext.IsMe(owner) || NRun.Instance?.GlobalUi == null
-            || NCombatRoom.Instance == null || !CombatManager.Instance.IsInProgress) return;
-        NRun.Instance.GlobalUi.AddChildSafely(new NKarenDropFuelBorderFlash(NCombatRoom.Instance));
+        if (!IsAlive(effect) || effect!.HasImpacted) return;
+        effect._impactAt = effect._elapsed;
+        var splash = NSplashVfx.Create(Vector2.Zero, new Color(1f, 0.55f, 0.13f));
+        if (splash != null)
+        {
+            splash.Scale = new Vector2(0.72f, 0.62f);
+            effect._stage.AddChildSafely(splash);
+        }
+        // Native fire flipbooks provide the brief reaction and hot specks above the liquid.
+        var flare = NFireBurstVfx.Create(Vector2.Zero, 0.48f);
+        if (flare != null) effect._stage.AddChildSafely(flare);
+        SfxCmd.Play("event:/sfx/characters/attack_fire", 0.7f);
     }
+
+    public static void ConfirmEnergy(NKarenDropFuelVfx? effect)
+    {
+        if (IsAlive(effect)) effect!._energyAt = effect._elapsed;
+        // PlayerCmd.GainEnergy owns the sound; never duplicate it here.
+    }
+
+    private static bool IsAlive(NKarenDropFuelVfx? effect)
+        => GodotObject.IsInstanceValid(effect) && !effect!.IsQueuedForDeletion()
+            && effect.IsInsideTree() && NCombatRoom.Instance == effect._room
+            && CombatManager.Instance.IsInProgress;
 
     public override void _Ready()
     {
         ZIndex = 100;
         TopLevel = true;
-        Material = AdditiveMaterial;
-        GlobalTransform = GetCanvasTransform().AffineInverse();
-        SfxCmd.Play("event:/sfx/characters/attack_fire", 0.7f);
-        // PlayerCmd.GainEnergy already plays the resource sound at the actual gain.
+        AddChild(_stage);
+        _channelMaterial = new ShaderMaterial
+        {
+            Shader = GD.Load<Shader>("res://shaders/fuel_molten.gdshader")
+        };
+        var channel = MakeSprite(ChannelTexture, new Vector2(700, 250));
+        channel.Position = new Vector2(0, -25);
+        channel.Material = _channelMaterial;
+        _stage.AddChild(channel);
+
+        _crownMaterial = new ShaderMaterial
+        {
+            Shader = GD.Load<Shader>("res://shaders/fuel_submerge.gdshader")
+        };
+        _crown = MakeSprite(CrownTexture, new Vector2(112, 112));
+        _crown.Material = _crownMaterial;
+        _stage.AddChild(_crown);
+        _glow = MakeSprite(GlowTexture, new Vector2(310, 90));
+        _glow.Modulate = Colors.Transparent;
+        _stage.AddChild(_glow);
+        for (int i = 0; i < _ripples.Length; i++)
+        {
+            var ring = new Line2D { Width = 2f, Antialiased = true, Visible = false };
+            _ripples[i] = ring;
+            _stage.AddChild(ring);
+        }
+        UpdatePresentation();
     }
+
+    private static Sprite2D MakeSprite(Texture2D? texture, Vector2 size)
+        => new() { Texture = texture, Scale = texture == null ? Vector2.One : size / texture.GetSize() };
 
     public override void _Process(double delta)
     {
-        if (!GodotObject.IsInstanceValid(_room) || !_room.IsInsideTree()
-            || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress)
+        if (!IsAlive(this) || !GodotObject.IsInstanceValid(_room) || !_room.IsInsideTree())
         {
             Hide();
             GodotTreeExtensions.QueueFreeSafely(this);
             return;
         }
-        GlobalTransform = GetCanvasTransform().AffineInverse();
         _elapsed += (float)delta;
-        if (_elapsed >= Duration)
+        // Retain the native particle tails; on interruption freeing the parent cancels their waits.
+        float end = Mathf.Max((_impactAt >= 0f ? _impactAt : _fallDuration) + 2.1f,
+            _energyAt + 0.8f);
+        if (_elapsed >= end)
         {
             GodotTreeExtensions.QueueFreeSafely(this);
             return;
         }
-        QueueRedraw();
+        Modulate = new Color(1f, 1f, 1f, Mathf.Min(Mathf.Clamp(_elapsed / 0.12f, 0f, 1f),
+            Mathf.Clamp((end - _elapsed) / 0.55f, 0f, 1f)));
+        UpdatePresentation();
     }
 
-    public override void _Draw()
+    private void UpdatePresentation()
     {
-        if (GlowSparkTexture == null) return;
+        GlobalTransform = GetCanvasTransform().AffineInverse();
         var viewport = GetViewportRect().Size;
-        float scale = Mathf.Max(0.5f, viewport.X / 1920f);
-        // Sample a fixed interval of travel, independent of render FPS. Keeping the
-        // shapes deterministic also avoids random flicker on every redraw.
-        for (int i = 0; i < TrailSamples; i++)
+        _stage.Position = viewport * new Vector2(0.64f, 0.58f);
+        _stage.Scale = Vector2.One * Mathf.Min(viewport.X / 1920f, viewport.Y / 1080f);
+        float impact = HasImpacted ? (_elapsed - _impactAt) * _speed : -1f;
+        float t = HasImpacted ? 1f : Mathf.Clamp(_elapsed / Mathf.Max(0.01f, _fallDuration), 0f, 1f);
+        float sink = HasImpacted ? Mathf.Clamp(impact / 0.3f, 0f, 1f) : 0f;
+        // The path retains the native item's separated horizontal/vertical progress idea.
+        // At contact rotation reaches zero, so the shader clips exactly along the liquid plane.
+        _crown.Position = new Vector2(Mathf.Lerp(100f, 0f, t), Mathf.Lerp(-330f, -56f, t * t) + 115f * sink);
+        _crown.Rotation = Mathf.Lerp(-0.7f, 0f, t);
+        _crown.Visible = sink < 1f;
+        _crownMaterial.SetShaderParameter("surface_cut", HasImpacted ? 1f - sink * 115f / 112f : 1f);
+        _crownMaterial.SetShaderParameter("heat", sink);
+        float pulse = HasEnergyPulse ? Mathf.Sin((_elapsed - _energyAt) * _speed / 0.6f * Mathf.Pi) : 0f;
+        _channelMaterial.SetShaderParameter("elapsed", _elapsed * _speed);
+        _channelMaterial.SetShaderParameter("pulse", pulse);
+        float impactGlow = impact >= 0f ? Mathf.Max(0f, 1f - impact / 0.5f) : 0f;
+        _glow.Modulate = new Color(1f, 0.63f, 0.16f, impactGlow * 0.65f + pulse * 0.35f);
+        for (int i = 0; i < _ripples.Length; i++)
         {
-            float age = TrailDuration * (1f - (float)i / TrailSamples);
-            float sampleTime = _elapsed - age;
-            if (sampleTime < 0f) continue;
-            float freshness = 1f - age / TrailDuration;
-            float growth = 1f + i * 0.05f;
-            var size = new Vector2(0.375f * growth * (2.25f + 0.6f * Mathf.Sin(i * 2.4f)),
-                0.375f * growth * (1.2f + 0.5f * Mathf.Cos(i * 1.7f))) * scale;
-            DrawSpark(PositionAt(sampleTime, viewport, scale), size,
-                new Color(1f, 0.9f, 0.3f, freshness));
+            float age = impact - i * 0.1f;
+            var ring = _ripples[i];
+            ring.Visible = HasImpacted && age >= 0f && age < 0.7f;
+            if (!ring.Visible) continue;
+            var points = new Vector2[49];
+            float radius = 20f + age * 260f;
+            for (int j = 0; j < points.Length; j++)
+            {
+                float angle = Mathf.Tau * j / (points.Length - 1);
+                points[j] = new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius * 0.12f);
+            }
+            ring.Points = points;
+            ring.DefaultColor = new Color(1f, 0.94f, 0.55f, (1f - age / 0.7f) * 0.65f);
         }
-        var position = PositionAt(_elapsed, viewport, scale);
-        DrawSpark(position, Vector2.One * 7.5f * scale, Colors.Red);
-        DrawSpark(position, Vector2.One * 3f * scale, new Color(1f, 0.88f, 0.17f, 1f));
-    }
-
-    private static Vector2 PositionAt(float time, Vector2 viewport, float scale)
-        => new((-100f + 3000f * time) * scale, viewport.Y * 0.5f);
-
-    private void DrawSpark(Vector2 position, Vector2 scale, Color color)
-    {
-        DrawSetTransform(position, 0f, scale);
-        DrawTexture(GlowSparkTexture!, -GlowSparkTexture!.GetSize() * 0.5f, color);
-        DrawSetTransform(Vector2.Zero, 0f, Vector2.One);
-    }
-}
-
-internal partial class NKarenDropFuelBorderFlash : Node2D
-{
-    private const float Duration = 0.9f;
-    private static readonly Texture2D? BorderGlowTexture = KarenResourceLoader.LoadTexture(
-        "res://images/vfx/sts/border_glow_2.png", nameof(NKarenDropFuelBorderFlash));
-    private static readonly CanvasItemMaterial AdditiveMaterial = new()
-    {
-        BlendMode = CanvasItemMaterial.BlendModeEnum.Add
-    };
-    private readonly NCombatRoom _room;
-    private float _elapsed;
-
-    public NKarenDropFuelBorderFlash(NCombatRoom room) => _room = room;
-
-    public override void _Ready()
-    {
-        TopLevel = true;
-        ZIndex = 101;
-        Material = AdditiveMaterial;
-        GlobalTransform = GetCanvasTransform().AffineInverse();
-    }
-
-    public override void _Process(double delta)
-    {
-        _elapsed += (float)delta;
-        if (_elapsed >= Duration || !GodotObject.IsInstanceValid(_room)
-            || !_room.IsInsideTree() || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress)
-        {
-            Hide();
-            GodotTreeExtensions.QueueFreeSafely(this);
-            return;
-        }
-        GlobalTransform = GetCanvasTransform().AffineInverse();
-        QueueRedraw();
-    }
-
-    public override void _Draw()
-    {
-        if (BorderGlowTexture == null) return;
-        float alpha = 1f - Mathf.Pow(Mathf.Clamp(_elapsed / Duration, 0f, 1f), 2f);
-        DrawTextureRect(BorderGlowTexture, new Rect2(Vector2.Zero, GetViewportRect().Size),
-            tile: false, modulate: new Color(1f, 0.84f, 0f, alpha));
     }
 }

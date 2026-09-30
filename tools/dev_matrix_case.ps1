@@ -373,11 +373,17 @@ try {
             throw 'Promise regression requires at least one Karen player'
         }
         foreach ($port in $karenPorts) {
+            $fixtureBefore = Get-State $port 'multiplayer'
+            $initialDefends = @($fixtureBefore.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count
+            $initialFalls = @($fixtureBefore.player.hand | Where-Object id -eq 'KAREN_FALL').Count
             $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_DEFEND Hand' }
             $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_FALL Hand' }
+            # Console actions are queued. An opening-hand Fall does not prove either addition completed.
             $withFall = Wait-State $port 'multiplayer' {
-                param($s) @($s.player.hand | Where-Object id -eq 'KAREN_FALL').Count -gt 0
-            } 'KarenFall in hand'
+                param($s)
+                @($s.player.hand | Where-Object id -eq 'KAREN_FALL').Count -eq $initialFalls + 1 -and
+                    @($s.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count -eq $initialDefends + 1
+            } 'both promise fixture cards in hand'
             $fall = $withFall.player.hand | Where-Object id -eq 'KAREN_FALL' | Select-Object -Last 1
             $defendBefore = @($withFall.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count
             $null = Post-Action $port 'multiplayer' @{ action='play_card'; card_index=$fall.index }
