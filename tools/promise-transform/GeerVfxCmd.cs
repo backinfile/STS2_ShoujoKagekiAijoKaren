@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
@@ -32,16 +33,14 @@ public sealed class GeerVfxCmd : AbstractConsoleCmd
         if (args[0] == "clear") return new(CardPileCmd.Add(PromisePileManager.GetPromisePile(player).Cards.ToArray(), PileType.Discard), true, "Clearing test pile");
         if (args[0] != "status") return new(false, Args);
         var creature = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
-        var nodes = creature?.GetChildren().OfType<NKarenGeerVfx>().Where(n => !n.IsQueuedForDeletion()).ToArray() ?? [];
-        object? Field(NKarenGeerVfx n, string name) => typeof(NKarenGeerVfx).GetField(name, BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(n);
+        var nodes = (creature?.GetChildren().OfType<NKarenGeerVfx>() ?? [])
+            .Concat(NRun.Instance?.GlobalUi.GetChildren().OfType<NKarenGeerVfx>() ?? [])
+            .Where(n => !n.IsQueuedForDeletion()).ToArray();
         return new(true, JsonSerializer.Serialize(new {
             nodeCount = nodes.Length,
             power = player.Creature.GetPower<KarenGeerPower>()?.Amount ?? 0,
             promise = PromisePileManager.GetPromisePile(player).Cards.Select(c => c.Id.Entry).ToArray(),
-            nodes = nodes.Select(n => new { angle=Field(n,"_angle"), waiting=Field(n,"_waiting"),
-                selected=(Field(n,"_selected") as Texture2D)?.ResourcePath,
-                portraits=(Field(n,"_portraits") as Texture2D[])?.Length,
-                stopping=Field(n,"_stopping"), commitAge=Field(n,"_commitAge"),
+            nodes = nodes.Select(n => new { fullScreen=n.FullScreen, age=n.Age,
                 x=n.GlobalPosition.X, y=n.GlobalPosition.Y })
         }));
     }
