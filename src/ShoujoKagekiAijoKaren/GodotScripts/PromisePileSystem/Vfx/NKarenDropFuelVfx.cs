@@ -41,7 +41,7 @@ public partial class NKarenDropFuelVfx : Node2D
     private float _seed;
     public bool HasEnergyPulse => _burstAt >= 0f && _energyAt >= 0f
         && _elapsed >= PulseStart && _elapsed < PulseStart + 0.7f;
-    private float PulseStart => Mathf.Max(_burstAt + 1.55f, _energyAt);
+    private float PulseStart => Mathf.Max(_burstAt + 1.35f, _energyAt);
 
     public static NKarenDropFuelVfx? Play(CardModel card)
     {
@@ -61,7 +61,7 @@ public partial class NKarenDropFuelVfx : Node2D
             _speed = SaveManager.Instance.PrefsSave.FastMode switch
             {
                 // Fast mode keeps the same visual rhythm as Normal.
-                FastModeType.Normal or FastModeType.Fast => 1f,
+                FastModeType.Normal or FastModeType.Fast => 1.15f,
                 _ => 2f
             },
             // Visual-only randomness must never consume the run's deterministic RNG.
