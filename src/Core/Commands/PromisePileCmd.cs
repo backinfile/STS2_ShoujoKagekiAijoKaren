@@ -369,7 +369,8 @@ public static class PromisePileCmd
         await PromisePileManager.UpdatePowerAsync(player);
     }
 
-    public static async Task SelectAndAutoPlayFromPromisePile(PlayerChoiceContext choiceContext, Player player)
+    public static async Task SelectAndAutoPlayFromPromisePile(PlayerChoiceContext choiceContext, Player player,
+        Action<CardModel>? onSelected = null)
     {
         if (CombatManager.Instance.IsOverOrEnding)
         {
@@ -388,6 +389,7 @@ public static class PromisePileCmd
         if (selected == null) return;
 
         await CardPileCmd.Add(selected, PileType.Play);
+        onSelected?.Invoke(selected);
         await CardCmd.AutoPlay(choiceContext, selected, null);
         await PromisePileManager.UpdatePowerAsync(player);
     }

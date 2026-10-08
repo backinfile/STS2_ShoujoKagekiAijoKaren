@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 
 /// <summary>
-/// 命运的齿轮 - 复制所有手牌到约定牌堆
+/// 命运的齿轮 - 每回合从约定牌堆选择一张牌自动打出
 /// </summary>
 public sealed class KarenGeer : KarenBaseCardModel
 {
