@@ -60,8 +60,8 @@ public partial class NKarenDropFuelVfx : Node2D
             _card = cardNode,
             _speed = SaveManager.Instance.PrefsSave.FastMode switch
             {
-                FastModeType.Normal => 1f,
-                FastModeType.Fast => NormalResourceTime / FastResourceTime,
+                // Fast mode keeps the same visual rhythm as Normal.
+                FastModeType.Normal or FastModeType.Fast => 1f,
                 _ => 2f
             },
             // Visual-only randomness must never consume the run's deterministic RNG.
