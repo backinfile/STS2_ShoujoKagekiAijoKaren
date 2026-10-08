@@ -11,7 +11,7 @@ uniform float flow_seed = 3.0;
 float rand(float seed) { return fract(sin(seed*127.1+311.7)*43758.5453); }
 void start() {
  float seed=float(NUMBER)+flow_seed;
- CUSTOM=vec4(0.0,2.25+rand(seed+8.0)*0.72,rand(seed+31.0),0.07+rand(seed+7.0)*0.10);
+ CUSTOM=vec4(0.0,2.05+rand(seed+8.0)*0.92,rand(seed+31.0),0.07+rand(seed+7.0)*0.10);
  COLOR=vec4(1.0);
 }
 void process() {
@@ -21,13 +21,15 @@ void process() {
  vec2 origin=source_position+source_axis_x*(rand(seed+1.0)*2.0-1.0)+source_axis_y*(rand(seed+2.0)*2.0-1.0);
  vec2 spread=vec2(28.0+rand(seed+6.0)*1224.0,92.0+rand(seed+9.0)*552.0);
  // Join the burst to the curl at a shared position AND velocity. There is no hold phase.
- float gather_start=0.48+rand(seed+12.0)*0.26;
+ float gather_start=0.40+rand(seed+12.0)*0.45;
  float gather_duration=CUSTOM.y-gather_start;
  float s=clamp((age-gather_start)/gather_duration,0.0,1.0);
  vec2 landing=target_position+vec2(rand(seed+17.0)-0.5,rand(seed+18.0)-0.5)*vec2(18.0,26.0);
  vec2 offset=spread-landing;
- float contraction=1.05+rand(seed+23.0)*0.30;
- float curl_angle=0.28+rand(seed+22.0)*0.22;
+ float contraction=0.90+rand(seed+23.0)*0.65;
+ float curl_angle=(rand(seed+22.0)*2.0-1.0)*0.65;
+ // Each particle gets one broad bend, not a repeating wobble or a shared spiral.
+ vec2 bend=vec2(rand(seed+24.0)-0.5,rand(seed+25.0)-0.5)*vec2(110.0,150.0);
  vec2 p;
  if(age<gather_start) {
   float u=clamp(age/gather_start,0.0,1.0);
@@ -35,7 +37,7 @@ void process() {
   vec2 kick=vec2(cos(kick_angle),sin(kick_angle))*(70.0+rand(seed+43.0)*220.0);
   vec2 start_tangent=(spread-origin)*(1.8+rand(seed+41.0)*1.2)+kick;
   // Exact derivative of the curl at s=0, converted to the burst's normalized time.
-  vec2 curl_velocity=(-offset*contraction+vec2(-offset.y,offset.x)*curl_angle)/gather_duration;
+  vec2 curl_velocity=(-offset*contraction+vec2(-offset.y,offset.x)*curl_angle+bend*3.141593)/gather_duration;
   vec2 end_tangent=curl_velocity*gather_start;
   float u2=u*u;
   float u3=u2*u;
@@ -44,7 +46,7 @@ void process() {
  } else {
   float angle=atan(offset.y,offset.x)+s*curl_angle;
   float radius=length(offset)*pow(1.0-s,contraction);
-  p=landing+vec2(cos(angle),sin(angle))*radius;
+  p=landing+vec2(cos(angle),sin(angle))*radius+bend*sin(s*3.141593)*(1.0-s);
  }
  float scale=CUSTOM.w*(bright_star?1.65:1.0)*(1.0-0.3*s);
  TRANSFORM=mat4(vec4(scale,0.0,0.0,0.0),vec4(0.0,scale,0.0,0.0),vec4(0.0,0.0,1.0,0.0),vec4(p,0.0,1.0));
