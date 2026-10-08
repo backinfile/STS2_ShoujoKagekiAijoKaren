@@ -137,8 +137,8 @@ public partial class NKarenDropFuelVfx : Node2D
         _burstAt = _elapsed;
         _cardGlow.Position = _source;
         AddParticles(0, 1f, 480, false);
-        AddParticles(0.022f, 0.42f, 480, false);
-        AddParticles(0.045f, 0.20f, 480, false);
+        AddParticles(0.014f, 0.28f, 480, false);
+        AddParticles(0.028f, 0.10f, 480, false);
         AddParticles(0, 0.85f, 28, true);
     }
 
