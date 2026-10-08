@@ -3,14 +3,14 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 /// <summary>One-shot full-screen engagement or a brief gear pulse on its owner.</summary>
 public partial class NKarenGeerVfx : Node2D
 {
-    private static readonly Color Steel = new("#9da4ad");
-    private static readonly Color Rim = new("#dee2df");
+    private static Texture2D? _gearTexture;
     private static readonly Color Inset = new("#171d29");
     private NCreature _creature = null!;
     private NCombatRoom _room = null!;
@@ -29,7 +29,12 @@ public partial class NKarenGeerVfx : Node2D
         ShowBehindParent = !fullScreen;
         ZIndex = fullScreen ? 100 : 0;
     }
-    public override void _Ready() => UpdatePlacement();
+    public override void _Ready()
+    {
+        _gearTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/geer/steel-gear.png", nameof(NKarenGeerVfx));
+        TextureFilter = TextureFilterEnum.LinearWithMipmaps;
+        UpdatePlacement();
+    }
     private void UpdatePlacement()
     {
         if (_fullScreen)
@@ -64,39 +69,15 @@ public partial class NKarenGeerVfx : Node2D
         UpdatePlacement();
         QueueRedraw();
     }
-    private static Vector2 Direction(float angle) => new(Mathf.Cos(angle), Mathf.Sin(angle));
-    private void Gear(Vector2 center, float pitchRadius, int teeth, float angle, float alpha, bool solid)
+    private void Gear(Vector2 center, float pitchRadius, float angle, float alpha)
     {
-        float tooth = solid ? 11 : 5;
-        float outer = pitchRadius + tooth;
-        float inner = pitchRadius - tooth * 2.8f;
-        // Individual annular quads keep the hub transparent: the character remains legible.
-        for (int i = 0; i < teeth * 4; i++)
-        {
-            float a = angle + Mathf.Tau * i / (teeth * 4);
-            float b = angle + Mathf.Tau * (i + 1) / (teeth * 4);
-            float ra = i % 4 is 1 or 2 ? outer : pitchRadius - tooth;
-            float rb = (i + 1) % 4 is 1 or 2 ? outer : pitchRadius - tooth;
-            DrawColoredPolygon([center + Direction(a) * inner, center + Direction(a) * ra,
-                center + Direction(b) * rb, center + Direction(b) * inner], new Color(Steel, alpha));
-        }
-        if (solid) DrawCircle(center, inner - 1, new Color(Inset, alpha * 0.5f));
-        DrawArc(center, inner + 2, 0, Mathf.Tau, 100, new Color(Rim, alpha * 0.75f), solid ? 3 : 2, true);
-        DrawArc(center, pitchRadius - tooth, angle + 3.4f, angle + 5.7f, 48,
-            new Color(Rim, alpha), solid ? 4 : 2, true);
-        float hub = pitchRadius * 0.13f;
-        for (int i = 0; i < 6; i++)
-        {
-            var d = Direction(angle + i * Mathf.Tau / 6);
-            DrawLine(center + d * hub, center + d * (inner - 2),
-                new Color(Steel, alpha * 0.7f), solid ? pitchRadius * 0.055f : 4, true);
-        }
-        DrawArc(center, hub, 0, Mathf.Tau, 40, new Color(Rim, alpha), solid ? 5 : 3, true);
-        if (solid)
-        {
-            for (int i = 0; i < 8; i++)
-                DrawCircle(center + Direction(angle + i * Mathf.Tau / 8) * (inner + tooth), 3, new Color(Inset, alpha));
-        }
+        if (_gearTexture == null) return;
+        // Imagegen sprite includes a narrow transparent margin around its teeth.
+        float extent = (pitchRadius + 11) * 2 / 0.975f;
+        DrawSetTransform(center, angle);
+        DrawTextureRect(_gearTexture, new Rect2(-extent / 2, -extent / 2, extent, extent),
+            false, new Color(1, 1, 1, alpha));
+        DrawSetTransform(Vector2.Zero);
     }
     public override void _Draw()
     {
@@ -105,17 +86,17 @@ public partial class NKarenGeerVfx : Node2D
         if (_fullScreen)
         {
             DrawRect(new Rect2(0, 0, 1280, 720), new Color(Inset, 0.42f));
-            Gear(new Vector2(-125, 720), 250, 28, -angle * 360 / 250, 0.7f, true);
-            Gear(new Vector2(1230, -50), 250, 28, angle * 360 / 250, 0.72f, true);
-            Gear(new Vector2(750, 745), 245, 28, angle * 360 / 245, 0.85f, true);
-            Gear(new Vector2(920, 310), 225, 26, -angle * 360 / 225 + 0.07f, 0.9f, true);
-            Gear(new Vector2(335, 310), 360, 40, angle, 0.94f, true);
+            Gear(new Vector2(-125, 720), 250, -angle * 360 / 250, 0.7f);
+            Gear(new Vector2(1230, -50), 250, angle * 360 / 250, 0.72f);
+            Gear(new Vector2(750, 745), 245, angle * 360 / 245, 0.85f);
+            Gear(new Vector2(920, 310), 225, -angle * 360 / 225 + 0.07f, 0.9f);
+            Gear(new Vector2(335, 310), 360, angle, 0.94f);
         }
         else
         {
-            Gear(new Vector2(-136, 25), 38, 12, -angle * 100 / 38, 0.82f, false);
-            Gear(new Vector2(128, -40), 34, 10, -angle * 100 / 34 + 0.15f, 0.82f, false);
-            Gear(Vector2.Zero, 100, 28, angle, 0.92f, false);
+            Gear(new Vector2(-136, 25), 38, -angle * 100 / 38, 0.82f);
+            Gear(new Vector2(128, -40), 34, -angle * 100 / 34 + 0.15f, 0.82f);
+            Gear(Vector2.Zero, 100, angle, 0.92f);
         }
     }
 }
