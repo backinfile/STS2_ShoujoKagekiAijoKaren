@@ -17,9 +17,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>Card-origin burst, screen-wide scatter, then a subtle irregular planar curl into its owner.</summary>
 public partial class NKarenDropFuelVfx : Node2D
 {
-    // Resource commands use native waits independently of particle completion.
-    public const float NormalResourceTime = 0.65f;
-    public const float FastResourceTime = 0.4f;
+    // Allow card travel, charge, and burst before drawing. Use native waits, not GPU completion.
+    public const float NormalResourceTime = 0.8f;
+    public const float FastResourceTime = 0.8f;
+    private const float ChargeTime = 0.20f;
     private static readonly Vector2 DesignSize = new(1280, 720);
     private static Texture2D? _softTexture;
     private static Texture2D? _starTexture;
@@ -35,6 +36,7 @@ public partial class NKarenDropFuelVfx : Node2D
     private Vector2 _axisX;
     private Vector2 _axisY;
     private float _elapsed;
+    private float _chargeAt = -1f;
     private float _burstAt = -1f;
     private float _energyAt = -1f;
     private float _speed;
@@ -136,6 +138,7 @@ public partial class NKarenDropFuelVfx : Node2D
         CaptureSource();
         _burstAt = _elapsed;
         _cardGlow.Position = _source;
+        _cardGlow.Scale = new Vector2(140, 195) / 48f;
         AddParticles(0, 1f, 480, false);
         AddParticles(0.014f, 0.28f, 480, false);
         AddParticles(0.028f, 0.10f, 480, false);
@@ -199,11 +202,21 @@ public partial class NKarenDropFuelVfx : Node2D
         UpdateCoordinates();
         // Manual skills start while their card is still moving from the hand to the play pile.
         // Wait only in the visual node; never block card commands on a tween or GPU completion.
-        if (_burstAt < 0f && (_elapsed >= 0.4f || !GodotObject.IsInstanceValid(_card)
-            || _card.PlayPileTween == null || !_card.PlayPileTween.IsRunning())) Emit();
-        if (_burstAt < 0f) return;
+        if (_chargeAt < 0f && (_elapsed >= 0.4f || !GodotObject.IsInstanceValid(_card)
+            || _card.PlayPileTween == null || !_card.PlayPileTween.IsRunning())) _chargeAt = _elapsed;
+        if (_burstAt < 0f)
+        {
+            if (_chargeAt < 0f) return;
+            CaptureSource();
+            _cardGlow.Position = _source;
+            float charge = Mathf.Clamp((_elapsed - _chargeAt) / ChargeTime, 0, 1);
+            _cardGlow.Scale = new Vector2(170, 235).Lerp(new Vector2(95, 130), charge) / 48f;
+            _cardGlow.Modulate = new Color(1, 0.60f + charge * 0.22f, 0.10f, charge * charge * 1.25f);
+            if (charge < 1f) return;
+            Emit();
+        }
         float age = _elapsed - _burstAt;
-        float flash = Mathf.Clamp(age / 0.06f, 0, 1) * Mathf.Clamp((0.50f - age) / 0.35f, 0, 1);
+        float flash = Mathf.Clamp((0.50f - age) / 0.35f, 0, 1);
         _cardGlow.Modulate = new Color(1, 0.69f, 0.29f, flash * 1.5f);
         float pulseAge = _elapsed - PulseStart;
         float pulse = HasEnergyPulse ? Mathf.Sin(Mathf.Clamp(pulseAge / 0.7f, 0, 1) * Mathf.Pi) : 0;
