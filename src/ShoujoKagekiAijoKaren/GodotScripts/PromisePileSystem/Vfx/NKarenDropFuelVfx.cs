@@ -41,7 +41,7 @@ public partial class NKarenDropFuelVfx : Node2D
     private float _seed;
     public bool HasEnergyPulse => _burstAt >= 0f && _energyAt >= 0f
         && _elapsed >= PulseStart && _elapsed < PulseStart + 0.7f;
-    private float PulseStart => Mathf.Max(_burstAt + 2.65f, _energyAt);
+    private float PulseStart => Mathf.Max(_burstAt + 1.55f, _energyAt);
 
     public static NKarenDropFuelVfx? Play(CardModel card)
     {
@@ -159,7 +159,7 @@ public partial class NKarenDropFuelVfx : Node2D
             Emitting = false,
             Amount = amount,
             Texture = star ? _starTexture : _softTexture,
-            Lifetime = 3.4,
+            Lifetime = 2.3,
             OneShot = true,
             Explosiveness = 0.98f,
             Randomness = 0,
@@ -208,7 +208,7 @@ public partial class NKarenDropFuelVfx : Node2D
         float pulseAge = _elapsed - PulseStart;
         float pulse = HasEnergyPulse ? Mathf.Sin(Mathf.Clamp(pulseAge / 0.7f, 0, 1) * Mathf.Pi) : 0;
         _bodyGlow.Modulate = new Color(1, 0.73f, 0.39f, pulse * 0.68f);
-        if (age >= 3.8f && (_energyAt < 0f || _elapsed >= PulseStart + 0.7f))
+        if (age >= 2.6f && (_energyAt < 0f || _elapsed >= PulseStart + 0.7f))
             GodotTreeExtensions.QueueFreeSafely(this);
     }
 }
