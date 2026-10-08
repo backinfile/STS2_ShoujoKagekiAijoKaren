@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Text.Json;
 using Godot;
 using MegaCrit.Sts2.Core.DevConsole;
@@ -27,9 +28,9 @@ public sealed class FuelVfxCmd : AbstractConsoleCmd
         if (args[0] != "report" || _probe == null) return new(false, Args);
         _probe.Dispose();
         var p = _probe;
-        return new(p.FireFrames > 0 && p.FlashFrames > 0 && p.EarlyFlashFrames == 0 && p.Remaining == 0,
+        return new(p.FireFrames > 0 && p.FlashFrames > 0 && p.EarlyFlashFrames == 0 && p.Remaining == 0 && p.MaxParticleLayers >= 4,
             JsonSerializer.Serialize(new { p.FireFrames, p.FlashFrames, p.EarlyFlashFrames, p.Remaining,
-                p.FirstFire, p.FirstFlash, p.FirstEnergy, p.InitialEnergy, finalEnergy = player.PlayerCombatState?.Energy }));
+                p.FirstFire, p.FirstFlash, p.FirstEnergy, p.InitialEnergy, p.MaxParticleLayers, p.EmittedEffects, p.Seeds, p.Sources, finalEnergy = player.PlayerCombatState?.Energy }));
     }
 }
 public sealed class FuelProbe : IDisposable
@@ -41,6 +42,10 @@ public sealed class FuelProbe : IDisposable
     public int FireFrames, FlashFrames, EarlyFlashFrames, Remaining;
     public double? FirstFire, FirstFlash, FirstEnergy;
     public int InitialEnergy;
+    public int MaxParticleLayers, EmittedEffects;
+    public readonly List<float> Seeds = new();
+    public readonly List<float[]> Sources = new();
+    private readonly HashSet<ulong> _seen = new();
     public FuelProbe(Player player)
     {
         _player = player;
@@ -64,6 +69,21 @@ public sealed class FuelProbe : IDisposable
         if (gained) FirstEnergy ??= _time;
         if (fire > 0) { FireFrames++; FirstFire ??= _time; }
         if (flash > 0) { FlashFrames++; FirstFlash ??= _time; if (!gained) EarlyFlashFrames++; }
+        int layers = 0;
+        foreach (var effect in nodes.OfType<NKarenDropFuelVfx>())
+        {
+            var particles = effect.GetChildren().SelectMany(n => n.GetChildren()).OfType<GpuParticles2D>().ToArray();
+            layers += particles.Length;
+            if (particles.Length > 0 && _seen.Add(effect.GetInstanceId()))
+            {
+                EmittedEffects++;
+                var material = (ShaderMaterial)particles[0].ProcessMaterial;
+                Seeds.Add(material.GetShaderParameter("flow_seed").AsSingle());
+                var source = material.GetShaderParameter("source_position").AsVector2();
+                Sources.Add(new[] { source.X, source.Y });
+            }
+        }
+        MaxParticleLayers = Math.Max(MaxParticleLayers, layers);
         Remaining = fire;
     }
 }
