@@ -1,12 +1,9 @@
-# Gear sprite provenance and filtering
+# Original-animation gear assets
 
-`steel-gear.png` replaces the procedural wheel drawing in both Geer effects.
+Full-screen cast: `original-cast-atlas.png` is taken directly from the existing STS1 Mod asset `D:/Github/STS_ShoujoKageki/otherResources/video/Gear.webm`, the same scene as the Karen Geer card portrait. Source interval starts at 0.25 seconds; 36 frames at 30 fps, resized to 640×360 each, packed 6×6 in a 3840×2160 lossless atlas. No recoloring or generative redraw of the cast scene. The effect plays 1.2 seconds, with its normal short fades. Linear filtering without mipmaps prevents inter-frame sampling in the atlas. About 32 MiB decoded RGBA, cached once.
 
-- Generated with the built-in imagegen tool on 2026-10-08: one orthographic cool-steel gear, six open spokes, transparent background, broad cel shading, no grain or dense line textures. The generator did not identify its exact underlying model.
-- Original: 1254×1254 RGBA. Source and comparison copies are retained under the task worktree's `artifacts/geer-image-vfx/`.
-- Compared GPT Image 2 Artifact Cleaner strengths 0.25 and 0.50 using the existing local installation and FLUX.2-VAE. Selected 0.25 to soften fine generated surface noise conservatively. Original alpha was copied verbatim and checked equal before resizing; RGB reconstruction can change detail.
-- Final delivery: 1024×1024 lossless RGBA PNG, Lanczos downsampling, no sharpening. The resizing step naturally resamples alpha as well.
-- Godot import: lossless, `mipmaps/generate=true`, `process/fix_alpha_border=true`. Drawing uses `CanvasItem.TextureFilterEnum.LinearWithMipmaps` for rotation and reduction to the small character wheels.
-- This reduces source microtexture and sampling aliasing; it does not claim to eliminate every possible moire pattern on every display. The texture is a stylized visual wheel, not a mechanical engineering model of tooth meshing.
+Character trigger: `steel-gear.png` is a reference-guided imagegen redraw of the light gear in the center of `images/packed/card_portraits/karen/karen_geer.png`. It retains the chunky teeth, two pale rings, dark channel, dense radial spokes and solid circular hub, rather than the earlier generic six-spoke steel wheel. It is a close redraw, not an exact extracted original.
 
-The cleaning utility and neural model are local processing dependencies, not bundled in the Mod.
+The new source is 1302×1208 RGBA. Local Artifact Cleaner strength 0.25 completed and retained alpha byte-for-byte; the 0.50 comparison did not complete after GPU allocation failures. The final sprite uses alpha bounds for centering, square transparent padding, aspect-preserving Lanczos reduction to 1024×1024, and no sharpening. Godot import uses lossless compression, mipmaps, alpha-border correction; drawing uses LinearWithMipmaps. Cleanup reduces unwanted fine texture, without promising elimination of every aliasing pattern. Original animation frames are not run through the AI cleanup model.
+
+Source, cleaned master, normalization data and test evidence are retained in the worktree's `artifacts/geer-original-vfx/`. A Theora transcode attempt failed visual decoding and was replaced with the original-frame atlas; no new video decoder or .ogv asset is shipped. Prior generated six-spoke designs are superseded.

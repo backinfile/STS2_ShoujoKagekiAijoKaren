@@ -11,11 +11,11 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 public partial class NKarenGeerVfx : Node2D
 {
     private static Texture2D? _gearTexture;
-    private static readonly Color Inset = new("#171d29");
     private NCreature _creature = null!;
     private NCombatRoom _room = null!;
     private bool _fullScreen;
     private float _age;
+    private static Texture2D? _castFrames;
     public bool FullScreen => _fullScreen;
     public float Age => _age;
     public bool BelongsTo(NCreature creature) => _creature == creature;
@@ -31,8 +31,17 @@ public partial class NKarenGeerVfx : Node2D
     }
     public override void _Ready()
     {
-        _gearTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/geer/steel-gear.png", nameof(NKarenGeerVfx));
-        TextureFilter = TextureFilterEnum.LinearWithMipmaps;
+        if (_fullScreen)
+        {
+            _castFrames ??= KarenResourceLoader.LoadTexture(
+                "res://images/vfx/geer/original-cast-atlas.png", nameof(NKarenGeerVfx));
+            TextureFilter = TextureFilterEnum.Linear;
+        }
+        else
+        {
+            _gearTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/geer/steel-gear.png", nameof(NKarenGeerVfx));
+            TextureFilter = TextureFilterEnum.LinearWithMipmaps;
+        }
         UpdatePlacement();
     }
     private void UpdatePlacement()
@@ -73,7 +82,7 @@ public partial class NKarenGeerVfx : Node2D
     {
         if (_gearTexture == null) return;
         // Imagegen sprite includes a narrow transparent margin around its teeth.
-        float extent = (pitchRadius + 11) * 2 / 0.975f;
+        float extent = (pitchRadius + 11) * 2 / 0.90f;
         DrawSetTransform(center, angle);
         DrawTextureRect(_gearTexture, new Rect2(-extent / 2, -extent / 2, extent, extent),
             false, new Color(1, 1, 1, alpha));
@@ -85,12 +94,12 @@ public partial class NKarenGeerVfx : Node2D
         float angle = 1.7f * (_age - 0.10f * (1 - Mathf.Exp(-_age / 0.10f)));
         if (_fullScreen)
         {
-            DrawRect(new Rect2(0, 0, 1280, 720), new Color(Inset, 0.42f));
-            Gear(new Vector2(-125, 720), 250, -angle * 360 / 250, 0.7f);
-            Gear(new Vector2(1230, -50), 250, angle * 360 / 250, 0.72f);
-            Gear(new Vector2(750, 745), 245, angle * 360 / 245, 0.85f);
-            Gear(new Vector2(920, 310), 225, -angle * 360 / 225 + 0.07f, 0.9f);
-            Gear(new Vector2(335, 310), 360, angle, 0.94f);
+            if (_castFrames == null) return;
+            // Original animation, sampled at 30 fps. Do not depend on video decoder timing.
+            int frame = Mathf.Clamp((int)(_age * 30), 0, 35);
+            var region = new Rect2((frame % 6) * 640, (frame / 6) * 360, 640, 360);
+            DrawTextureRectRegion(_castFrames, new Rect2(0, 0, 1280, 720), region,
+                new Color(1, 1, 1, 0.94f));
         }
         else
         {
