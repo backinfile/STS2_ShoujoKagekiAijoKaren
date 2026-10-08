@@ -14,7 +14,7 @@ void start() {
  float gather_start=0.40+rand(seed+12.0)*0.45;
  // Most particles arrive quickly; a smaller, independently timed tail follows.
  float gather_duration=0.45+pow(rand(seed+8.0),2.0)*0.80;
- CUSTOM=vec4(0.0,gather_start+gather_duration,rand(seed+31.0),0.07+rand(seed+7.0)*0.10);
+ CUSTOM=vec4(0.0,gather_start+gather_duration,rand(seed+31.0),0.12+rand(seed+7.0)*0.15);
  COLOR=vec4(1.0);
 }
 void process() {
