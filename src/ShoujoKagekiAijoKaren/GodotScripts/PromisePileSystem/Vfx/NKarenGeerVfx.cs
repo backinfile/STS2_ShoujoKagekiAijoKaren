@@ -14,34 +14,28 @@ public partial class NKarenGeerVfx : Node2D
     private NCreature _creature = null!;
     private NCombatRoom _room = null!;
     private bool _fullScreen;
+    private bool _castOnOwner;
     private float _age;
-    private static Texture2D? _castFrames;
     public bool FullScreen => _fullScreen;
+    private bool IsCast => _fullScreen || _castOnOwner;
     public float Age => _age;
     public bool BelongsTo(NCreature creature) => _creature == creature;
 
-    public void Init(NCreature creature, bool fullScreen)
+    public void Init(NCreature creature, bool fullScreen, bool castOnOwner = false)
     {
         _creature = creature;
         _room = NCombatRoom.Instance!;
         _fullScreen = fullScreen;
-        TopLevel = fullScreen;
+        _castOnOwner = castOnOwner;
+        // GlobalTransform below cancels parent transforms without escaping its draw order.
+        TopLevel = false;
         ShowBehindParent = !fullScreen;
-        ZIndex = fullScreen ? 100 : 0;
+        ZIndex = 0;
     }
     public override void _Ready()
     {
-        if (_fullScreen)
-        {
-            _castFrames ??= KarenResourceLoader.LoadTexture(
-                "res://images/vfx/geer/original-cast-atlas.png", nameof(NKarenGeerVfx));
-            TextureFilter = TextureFilterEnum.Linear;
-        }
-        else
-        {
-            _gearTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/geer/steel-gear.png", nameof(NKarenGeerVfx));
-            TextureFilter = TextureFilterEnum.LinearWithMipmaps;
-        }
+        _gearTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/geer/steel-gear.png", nameof(NKarenGeerVfx));
+        TextureFilter = TextureFilterEnum.LinearWithMipmaps;
         UpdatePlacement();
     }
     private void UpdatePlacement()
@@ -64,7 +58,7 @@ public partial class NKarenGeerVfx : Node2D
     public override void _Process(double delta)
     {
         _age += (float)delta;
-        float duration = _fullScreen ? 1.2f : 0.62f;
+        float duration = IsCast ? KarenGeerVfxManager.CastDuration : 0.62f;
         if (!GodotObject.IsInstanceValid(_creature) || !GodotObject.IsInstanceValid(_room)
             || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress || _age >= duration)
         {
@@ -72,11 +66,23 @@ public partial class NKarenGeerVfx : Node2D
             GodotTreeExtensions.QueueFreeSafely(this);
             return;
         }
-        float fadeIn = _fullScreen ? 0.15f : 0.08f;
-        float fadeOut = _fullScreen ? 0.3f : 0.2f;
-        Modulate = new Color(1, 1, 1, Mathf.Clamp(Mathf.Min(_age / fadeIn, (duration - _age) / fadeOut), 0, 1));
+        // Each casting layer has its own envelope, so the owner's gear remains last.
+        Modulate = new Color(1, 1, 1, IsCast ? 1 : Envelope(0, 0.08f, 0.42f, duration));
         UpdatePlacement();
         QueueRedraw();
+    }
+    private float Envelope(float start, float attack, float release, float end)
+    {
+        return Mathf.SmoothStep(0, 1, Mathf.Clamp((_age - start) / attack, 0, 1))
+            * (1 - Mathf.SmoothStep(0, 1, Mathf.Clamp((_age - release) / (end - release), 0, 1)));
+    }
+    private void EdgeGear(Vector2 outside, Vector2 settled, float radius, float delay, float direction, float opacity)
+    {
+        float elapsed = Mathf.Max(0, _age - delay);
+        float entrance = Mathf.SmoothStep(0, 1, Mathf.Clamp(elapsed / 0.22f, 0, 1));
+        float angle = direction * 0.75f * (elapsed - 0.10f * (1 - Mathf.Exp(-elapsed / 0.10f)));
+        Gear(outside.Lerp(settled, entrance), radius, angle,
+            opacity * Envelope(delay, 0.22f, 0.56f + delay * 0.2f, 0.84f + delay * 0.2f));
     }
     private void Gear(Vector2 center, float pitchRadius, float angle, float alpha)
     {
@@ -94,12 +100,19 @@ public partial class NKarenGeerVfx : Node2D
         float angle = 1.7f * (_age - 0.10f * (1 - Mathf.Exp(-_age / 0.10f)));
         if (_fullScreen)
         {
-            if (_castFrames == null) return;
-            // Original animation, sampled at 30 fps. Do not depend on video decoder timing.
-            int frame = Mathf.Clamp((int)(_age * 30), 0, 35);
-            var region = new Rect2((frame % 6) * 640, (frame / 6) * 360, 640, 360);
-            DrawTextureRectRegion(_castFrames, new Rect2(0, 0, 1280, 720), region,
-                new Color(1, 1, 1, 0.94f));
+            // BackCombatVfxContainer keeps both the cast and its subtle dim behind actors/UI.
+            DrawRect(new Rect2(0, 0, 1280, 720),
+                new Color(0.025f, 0.035f, 0.055f, 0.10f * Envelope(0, 0.2f, 0.6f, 0.95f)));
+            EdgeGear(new Vector2(-125, 145), new Vector2(-80, 170), 255, 0.10f, -1, 0.38f);
+            EdgeGear(new Vector2(1420, 265), new Vector2(1360, 285), 335, 0.20f, 1, 0.42f);
+            EdgeGear(new Vector2(850, -200), new Vector2(850, -155), 225, 0.28f, -1, 0.28f);
+
+        }
+        else if (_castOnOwner)
+        {
+            float appear = Mathf.SmoothStep(0, 1, Mathf.Clamp(_age / 0.2f, 0, 1));
+            Gear(Vector2.Zero, 116 * Mathf.Lerp(0.94f, 1, appear), angle * 0.55f,
+                0.78f * Envelope(0, 0.2f, 0.65f, KarenGeerVfxManager.CastDuration));
         }
         else
         {

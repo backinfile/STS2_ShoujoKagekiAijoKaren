@@ -35,6 +35,7 @@ public sealed class GeerVfxCmd : AbstractConsoleCmd
         var creature = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
         var nodes = (creature?.GetChildren().OfType<NKarenGeerVfx>() ?? [])
             .Concat(NRun.Instance?.GlobalUi.GetChildren().OfType<NKarenGeerVfx>() ?? [])
+            .Concat(NCombatRoom.Instance?.BackCombatVfxContainer.GetChildren().OfType<NKarenGeerVfx>() ?? [])
             .Where(n => !n.IsQueuedForDeletion()).ToArray();
         return new(true, JsonSerializer.Serialize(new {
             nodeCount = nodes.Length,

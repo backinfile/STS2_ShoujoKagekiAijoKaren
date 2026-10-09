@@ -23,7 +23,7 @@ public sealed class KarenGeer : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         KarenGeerVfxManager.PlayCast(Owner);
-        await Cmd.CustomScaledWait(1.2f, 1.2f);
+        await Cmd.CustomScaledWait(KarenGeerVfxManager.CastDuration, KarenGeerVfxManager.CastDuration);
         await PowerCmd.Apply<KarenGeerPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 

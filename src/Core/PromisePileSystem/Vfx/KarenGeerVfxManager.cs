@@ -9,6 +9,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public static class KarenGeerVfxManager
 {
+    public const float CastDuration = 1f;
     public static void PlayCast(Player player) => Play(player, true);
     public static void PlayTrigger(Player player) => Play(player, false);
 
@@ -24,11 +25,18 @@ public static class KarenGeerVfxManager
                 || !CombatManager.Instance.IsInProgress) return;
             var creature = room.GetCreatureNode(player.Creature);
             if (creature == null) return;
-            var parent = fullScreen ? (Node?)NRun.Instance?.GlobalUi : creature;
+            var parent = fullScreen ? (Node?)room.BackCombatVfxContainer : creature;
             if (parent == null) return;
             var node = new NKarenGeerVfx();
             node.Init(creature, fullScreen);
             parent.AddChild(node);
+            if (fullScreen)
+            {
+                // Keep the central wheel in the owner's draw order, behind its visuals.
+                var ownerGear = new NKarenGeerVfx();
+                ownerGear.Init(creature, false, castOnOwner: true);
+                creature.AddChild(ownerGear);
+            }
         }).CallDeferred();
     }
 }
