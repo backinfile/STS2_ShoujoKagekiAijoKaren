@@ -1,0 +1,78 @@
+{
+  "scope": "Visual concept only; no runtime changes",
+  "generator": "Built-in image_gen",
+  "cleanup": "Targeted generative texture-cleanup pass",
+  "files": [
+    {
+      "name": "tower-source.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "bytes": 1397409,
+      "sha256": "fdd92889954afd77c2dd8faf87c34ca2b90473c10d815ca403d52f4375946d0d",
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "fully_transparent_fraction": 0.8023230234781901,
+      "alpha_bbox": [
+        25,
+        13,
+        998,
+        1520
+      ]
+    },
+    {
+      "name": "tower-clean.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "bytes": 1385266,
+      "sha256": "4663369dcd8c3bbc14c9f3383644663d89707176d3daab67a052d8cd251e69f4",
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "fully_transparent_fraction": 0.8128592173258463,
+      "alpha_bbox": [
+        33,
+        12,
+        998,
+        1512
+      ]
+    },
+    {
+      "name": "game-before.png",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGB",
+      "bytes": 913485,
+      "sha256": "b8a9b240f62652890048beab8451588208358ba0317e01ac5e1e9146e6d23900"
+    },
+    {
+      "name": "game-concept.png",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1711579,
+      "sha256": "bb148ef3b96c475887cf6cc083c8f08e352884680b86af868da1c98b240d0285"
+    }
+  ],
+  "cleanup_alpha_identical": false,
+  "visual_checks": {
+    "transparent_gaps_dark_and_light_backgrounds": "passed",
+    "native_resolution_source_cleanup_comparison": "reviewed; no obvious periodic grid observed",
+    "browser_before_after_toggle": "passed",
+    "gameplay_composite": "illustrative only; model redrew screenshot and shifted tower footing; not pixel-exact or runtime-tested"
+  },
+  "game_tests": {
+    "stable_singleplayer": "not run; asset proposal only",
+    "beta_singleplayer": "not run; asset proposal only",
+    "stable_multiplayer": "not run; asset proposal only",
+    "beta_multiplayer": "not run; asset proposal only"
+  }
+}

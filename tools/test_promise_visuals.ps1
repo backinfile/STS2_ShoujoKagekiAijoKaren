@@ -80,8 +80,26 @@ try {
         $env:LOCALAPPDATA = $oldLocal
     }
 
+    $startupLog = Join-Path $run 'godot.log'
+    $mcpStarted = $false
+    for ($attempt = 0; $attempt -lt 100; $attempt++) {
+        if ((Test-Path -LiteralPath $startupLog) -and
+            (Select-String -LiteralPath $startupLog -Pattern '\[Karen STS2 MCP\].*server started' -Quiet -Encoding UTF8)) {
+            $mcpStarted = $true
+            break
+        }
+        Start-Sleep -Milliseconds 250
+    }
+    if (-not $mcpStarted) { throw 'Karen STS2 MCP did not start; inspect the isolated game log' }
     $null = Wait-State { param($s) $s.menu_screen -eq 'main' -and @($s.options) -contains 'singleplayer' } 'main menu'
-    $null = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/window/minimize" -Method Post -TimeoutSec 5
+    if ($Record) {
+        # Minimized Vulkan windows can repeat stale frames throughout a recording.
+        $null = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/settings" -Method Post `
+            -ContentType 'application/json' -Body '{"fullscreen":false,"window_width":1280,"window_height":720,"muted":true}' -TimeoutSec 5
+    }
+    else {
+        $null = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/window/minimize" -Method Post -TimeoutSec 5
+    }
     $null = Post @{ action='menu_select'; option='singleplayer' }
     $null = Post @{ action='menu_select'; option='KAREN' }
     $null = Post @{ action='menu_select'; option='embark' }
@@ -211,6 +229,14 @@ try {
                     Start-Sleep -Milliseconds 500
                 }
                 if (-not $ready) { throw 'Infinite replenishment did not finish' }
+            }
+            if ($modeCard -eq 'KAREN_VOID') {
+                # Exhaust and per-card transition hooks can outlast Capture's
+                # fixed delay. Require the actual mode before taking the shot.
+                $null = Wait-State { param($s)
+                    $power = $s.player.status | Where-Object id -eq 'KAREN_PROMISE_PILE_POWER'
+                    ($power | ConvertTo-Json -Depth 8 -Compress) -match '世界上最空虚的人'
+                } 'Void mode activation'
             }
             Capture "showcase-$modeCard"
             $null = Post @{ action='run_command'; command='karen_check_hand' }

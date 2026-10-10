@@ -1,0 +1,63 @@
+{
+  "scope": "Artwork revision; no runtime changes",
+  "feedback": {
+    "v1": "too realistic",
+    "v2": "too abstract"
+  },
+  "v3_direction": "Recognizable Tokyo Tower construction with anime contours and limited cel shadows",
+  "files": [
+    {
+      "name": "tower-v2-abstract.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "sha256": "c04618e86aabb3fe15c91f7246b9845ebd20c38464199415920b4ebda5f35f3b",
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "fully_transparent_fraction": 0.9006970723470052
+    },
+    {
+      "name": "tower-v3-source.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "sha256": "b3d5a1d2ba227eb63cf73e1644723188aa1666f399b6c6e459b5085452ad38fa",
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "fully_transparent_fraction": 0.8026237487792969
+    },
+    {
+      "name": "tower-v3-clean.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "sha256": "605945e7c9be0a363764119943ed9746b212946b7ad301b5e07a932037295180",
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "fully_transparent_fraction": 0.8047186533610026
+    },
+    {
+      "name": "game-v3-concept.png",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "5d51d5e5143c5a678b4d5f064110e4ee5a42bdc203f780bed70d3cf516e2299b"
+    }
+  ],
+  "cleanup_alpha_identical": false,
+  "checks": {
+    "transparent_truss_openings": "visually checked in browser",
+    "native_resolution_cleanup_comparison": "reviewed; no obvious periodic moire observed",
+    "equal_height_three_candidate_comparison": "reviewed in browser",
+    "composite": "Concept only: generated placement and screenshot details are not pixel-exact; not evidence of runtime behavior",
+    "stable_beta_single_multiplayer": "not run; no runtime changes"
+  }
+}

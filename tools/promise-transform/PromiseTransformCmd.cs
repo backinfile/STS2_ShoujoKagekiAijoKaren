@@ -51,7 +51,7 @@ public sealed class PromiseTransformCmd : AbstractConsoleCmd
         var originError = tower.GlobalPosition.DistanceTo(creature.VfxSpawnPosition);
         var scaleError = new Vector2(actual.X.Length(), actual.Y.Length()).DistanceTo(expected);
         var upright = actual.X.X > 0 && actual.Y.Y > 0 && Math.Abs(actual.X.Y) < 0.001f && Math.Abs(actual.Y.X) < 0.001f;
-        var expectedAnchor = creature.VfxSpawnPosition + new Vector2(-45, -160) * expected;
+        var expectedAnchor = creature.VfxSpawnPosition + new Vector2(-95, -160) * expected;
         var anchorError = tower.TransferGlobalPosition.DistanceTo(expectedAnchor);
         return new(originError < 0.1f && scaleError < 0.001f && upright && anchorError < 0.1f,
             JsonSerializer.Serialize(new { originError, scaleError, upright, anchorError, expectedX=expected.X, actualX=actual.X.Length() }));

@@ -23,6 +23,8 @@ public partial class NKarenPromiseStarNode : Node2D
         public bool Incoming;
         public float FlightTime;
         public float OrbitOffset;
+        public float? PilePhase;
+        public Vector2? VoidSourceCanvas;
         public GuidedEntry? Entry;
         public readonly List<Vector2> Trail = new();
     }
@@ -41,15 +43,11 @@ public partial class NKarenPromiseStarNode : Node2D
     private float _departure;
     private float _replenishStarted = -10;
     private float _replenishUntil = -10;
-    private static readonly Vector2 TowerOffset = new(-45, -15);
+    // Leave most of the painted structure visible to the left of Karen's body.
+    private static readonly Vector2 TowerOffset = new(-95, -15);
     private static readonly Vector2 TransferAnchor = new(0, -145);
-    // Coordinates from the selected SVG 01, uniformly scaled to the existing height.
+    // Keep the original height, count position and inventory-orbit envelope.
     private static Vector2 DesignPoint(float x, float y) => new(x * 1.5f, 170 + (y - 363) * 1.5f);
-    private static readonly Vector2[] Junctions =
-    {
-        DesignPoint(-88, 363), DesignPoint(88, 363), DesignPoint(-21, 179), DesignPoint(21, 179),
-        DesignPoint(-37, 245), DesignPoint(37, 245), DesignPoint(0, 42)
-    };
     private static readonly Color TowerRed = new("#ff526a");
     private static readonly Color White = new("#fff5db");
 
@@ -74,16 +72,81 @@ public partial class NKarenPromiseStarNode : Node2D
     }
     public Vector2 TransferGlobalPosition
     {
-        get { UpdatePlacement(); return ToGlobal(TowerOffset + TransferAnchor); }
+        get
+        {
+            UpdatePlacement();
+            return UsingVoidIconOrbit ? ToGlobal(FromVoidIcon(_voidOrbitIcon!.Size * 0.5f))
+                : ToGlobal(TowerOffset + TransferAnchor);
+        }
     }
+
+    private static float OrbitCycle(Star star, float time)
+        => Mathf.PosMod(time * 0.065f + star.Slot * 0.618034f + star.OrbitOffset, 1);
+
+    private static float OrbitAngle(Star star, float time)
+        => OrbitCycle(star, time) * Mathf.Tau * 2 + time * 1.15f;
 
     private Vector2 OrbitPoint(Star star, float time)
     {
+        if (UsingVoidIconOrbit) return FromVoidIcon(VoidOrbitPoint(star, time));
         // A rising helix, independent of the stationary structural junctions.
-        float t = Mathf.PosMod(time * 0.065f + star.Slot * 0.618034f + star.OrbitOffset, 1);
+        float t = OrbitCycle(star, time);
         float y = Mathf.Lerp(115, -265, t);
-        float angle = t * Mathf.Tau * 2 + time * 1.15f;
+        float angle = OrbitAngle(star, time);
         return TowerOffset + new Vector2(Mathf.Cos(angle) * (TowerWidth(y) * 0.85f + 12), y + Mathf.Sin(angle) * 9);
+    }
+
+    private float StarDepth(Star star, float time)
+    {
+        if (UsingVoidIconOrbit)
+        {
+            if (star.VoidSourceCanvas != null && time - _voidStarted < 1.22f) return 1;
+            return Mathf.Sin(VoidOrbitAngle(star, time));
+        }
+        // The lower half of the projected ellipse faces the viewer.
+        float depth = Mathf.Sin(OrbitAngle(star, time));
+        if (star.Entry is not { } entry) return depth;
+        float t = Mathf.Clamp((time - entry.StartedAt) / entry.Duration, 0, 1);
+        float blend = t * t * t * (t * (t * 6 - 15) + 10);
+        return Mathf.Lerp(1, depth, blend);
+    }
+
+    private static float DepthOpacity(float depth) => Mathf.Lerp(0.58f, 1, (depth + 1) * 0.5f);
+
+    private void DrawOrbitStars(float alpha, Color accent, bool behindTower, CanvasItem? surface = null)
+    {
+        surface ??= this;
+        bool atIcon = UsingVoidIconOrbit;
+        var transform = surface.GetGlobalTransformWithCanvas().AffineInverse() * GetGlobalTransformWithCanvas();
+        Vector2 PositionAt(Star star, float time) => transform * StarPosition(star, time);
+        float mappingFlash = ((_mode & PromisePileMode.Void) != 0 || _voidPending)
+            ? Ease((VoidAge - 0.94f) / 0.18f) * (1 - Ease((VoidAge - 1.17f) / 0.26f)) : 0;
+        foreach (var star in _stars.Values)
+        {
+            if (star.Light <= 0) continue;
+            float cycle = OrbitCycle(star, _time);
+            float fade = atIcon ? VoidOrbitLight(star) : Mathf.Clamp(Mathf.Min(cycle, 1 - cycle) * 14, 0, 1);
+            // Classify each trail segment too, so a front-facing head cannot
+            // pull its still-rear trail over the tower's steelwork.
+            for (int i = 1; i <= 5; i++)
+            {
+                float from = _time - i * 0.035f;
+                float to = _time - (i - 1) * 0.035f;
+                float trailDepth = StarDepth(star, (from + to) * 0.5f);
+                if ((trailDepth < 0) != behindTower) continue;
+                surface.DrawLine(PositionAt(star, from), PositionAt(star, to),
+                    new Color(accent, star.Light * alpha * fade * (6 - i) * 0.06f * DepthOpacity(trailDepth)), 1.5f, true);
+            }
+            float depth = StarDepth(star, _time);
+            if ((depth < 0) != behindTower) continue;
+            float scale = Mathf.Lerp(0.78f, 1, (depth + 1) * 0.5f);
+            float light = star.Light * alpha * fade * DepthOpacity(depth);
+            var position = PositionAt(star, _time);
+            DrawStar(surface, position, (8 + star.Pulse * 4 + mappingFlash * 3) * scale, accent, light);
+            if (star.Pulse > 0)
+                surface.DrawArc(position, (10 + (1 - star.Pulse) * 20) * scale, 0, Mathf.Tau, 32,
+                    new Color(accent, star.Pulse * 0.5f * alpha * DepthOpacity(depth)), 1, true);
+        }
     }
     private Star GetStar(CardModel card)
     {
@@ -93,11 +156,13 @@ public partial class NKarenPromiseStarNode : Node2D
         while (occupied.Contains(slot)) slot++;
         star = new Star { Card = card, Slot = slot };
         _stars.Add(card, star);
+        if (UsingVoidIconOrbit) PlaceInVoidOrbitGap(star, _time);
         return star;
     }
     // The same card light is drawn throughout entry and orbit: there is no replacement particle.
     private void PlaceInOrbitGap(Star star, float arrivalTime)
     {
+        if (UsingVoidIconOrbit) { PlaceInVoidOrbitGap(star, arrivalTime); return; }
         // Reserve the largest free arc, including stars still entering. All stars
         // share the same angular speed, so this spacing survives after arrival.
         var phases = _stars.Values
@@ -143,7 +208,8 @@ public partial class NKarenPromiseStarNode : Node2D
             float start = firstBirth + i * 0.055f;
             const float duration = 0.48f;
             PlaceInOrbitGap(star, start + duration);
-            star.Entry = new GuidedEntry(TowerOffset + DesignPoint(0, 179), start, duration, true);
+            var source = UsingVoidIconOrbit ? FromVoidIcon(_voidOrbitIcon!.Size * 0.5f) : PaintedSource;
+            star.Entry = new GuidedEntry(source, start, duration, true);
             star.Present = true;
             star.Flight = null;
             star.Trail.Clear();
@@ -155,6 +221,8 @@ public partial class NKarenPromiseStarNode : Node2D
     private Vector2 StarPosition(Star star, float time)
     {
         var orbit = OrbitPoint(star, time);
+        if (UsingVoidIconOrbit && star.VoidSourceCanvas is { } sourceCanvas && time - _voidStarted < 1.95f)
+            return VoidActivationPosition(star, time, sourceCanvas, orbit);
         if (star.Entry is not { } entry) return orbit;
         float t = Mathf.Clamp((time - entry.StartedAt) / entry.Duration, 0f, 1f);
         // Quintic blend has zero first/second derivatives at both ends. At t=1,
@@ -210,9 +278,11 @@ public partial class NKarenPromiseStarNode : Node2D
             if (!star.Present) star.Pulse = 1;
             star.Present = true;
         }
+        UpdateVoidOrbitLayers();
     }
     public void ClearAll()
     {
+        ClearVoidOrbitLayers();
         _stars.Clear();
         _count = 0;
         _mode = PromisePileMode.None;
@@ -220,7 +290,6 @@ public partial class NKarenPromiseStarNode : Node2D
         _arrival = _departure = 0;
         _replenishStarted = _replenishUntil = -10;
         _voidStarted = -100;
-        _voidRoom = null;
         _voidPending = false;
         QueueRedraw();
     }
@@ -230,6 +299,7 @@ public partial class NKarenPromiseStarNode : Node2D
         UpdatePlacement();
         float dt = (float)delta;
         _time += dt;
+        UpdateVoidOrbitLayers();
         _arrival = Mathf.MoveToward(_arrival, 0, dt * 1.2f);
         _departure = Mathf.MoveToward(_departure, 0, dt * 1.8f);
         _pulse = Mathf.MoveToward(_pulse, 0, dt * 2.5f);
@@ -267,8 +337,14 @@ public partial class NKarenPromiseStarNode : Node2D
             if (!star.Present && star.Entry == null && star.Flight == null && star.Light <= 0) _expired.Add(star.Card);
         }
         foreach (var card in _expired) _stars.Remove(card);
+        if (UsingVoidIconOrbit)
+        {
+            _voidOrbitBack!.QueueRedraw();
+            _voidOrbitFront!.QueueRedraw();
+        }
         QueueRedraw();
     }
+    public override void _ExitTree() => ClearVoidOrbitLayers();
     public override void _Draw()
     {
         if (_visibility <= 0) return;
@@ -278,25 +354,12 @@ public partial class NKarenPromiseStarNode : Node2D
         bool past = (_mode & PromisePileMode.PastAndFuture) != 0;
         Color accent = past ? new Color("#b4f5ff") : burn ? new Color("#ffbc81") : White;
         float alpha = _visibility;
-        DrawVoidEcho(alpha);
+        if (!UsingVoidIconOrbit) DrawOrbitStars(alpha, accent, behindTower: true);
         DrawTower(alpha);
-        DrawReplenishSource(alpha);
-        DrawVoidProjection(alpha);
+        if (!UsingVoidIconOrbit) DrawReplenishSource(alpha);
+        if (!UsingVoidIconOrbit) DrawOrbitStars(alpha, accent, behindTower: false);
         foreach (var star in _stars.Values)
         {
-            if (star.Light > 0)
-            {
-                var p = StarPosition(star, _time);
-                float cycle = Mathf.PosMod(_time * 0.065f + star.Slot * 0.618034f + star.OrbitOffset, 1);
-                float fade = Mathf.Clamp(Mathf.Min(cycle, 1 - cycle) * 14, 0, 1);
-                for (int i = 1; i <= 5; i++)
-                    DrawLine(StarPosition(star, _time - i * 0.035f), StarPosition(star, _time - (i - 1) * 0.035f),
-                        new Color(accent, star.Light * alpha * fade * (6 - i) * 0.06f), 1.5f, true);
-                float mappingFlash = (isVoid || _voidPending)
-                    ? Ease((VoidAge - 0.94f) / 0.18f) * (1 - Ease((VoidAge - 1.17f) / 0.26f)) : 0;
-                DrawStar(p, 8 + star.Pulse * 4 + mappingFlash * 3, accent, star.Light * alpha * fade);
-                if (star.Pulse > 0) DrawArc(p, 10 + (1 - star.Pulse) * 20, 0, Mathf.Tau, 32, new Color(accent, star.Pulse * 0.5f * alpha), 1, true);
-            }
             if (star.Trail.Count > 1)
             {
                 for (int i = 1; i < star.Trail.Count; i++)
@@ -306,7 +369,7 @@ public partial class NKarenPromiseStarNode : Node2D
             }
         }
         string text = (infinite ? "∞" : _count.ToString()) + (isVoid ? " ◇" : "");
-        if (_alwaysVisible || _count > 0 || infinite || isVoid)
+        if (!isVoid && (_alwaysVisible || _count > 0 || infinite))
         {
             var font = ThemeDB.FallbackFont;
             var size = font.GetStringSize(text, HorizontalAlignment.Left, -1, 26);
@@ -352,33 +415,12 @@ public partial class NKarenPromiseStarNode : Node2D
             }
         }
         float sourceLight = Mathf.SmoothStep(0.27f, 0.36f, age) * fade;
-        var source = TowerOffset + DesignPoint(0, 179);
+        var source = PaintedSource;
         DrawLine(source + new Vector2(-42, 0), source + new Vector2(42, 0),
             new Color(White, sourceLight * 0.2f), 12, true);
         DrawLine(source + new Vector2(-42, 0), source + new Vector2(42, 0),
             new Color(White, sourceLight), 3, true);
         DrawStar(source, 17 + Mathf.Sin(age * 14) * 2, White, sourceLight);
-    }
-
-    private static Vector2 ReplenishPath(int side, float progress)
-    {
-        // Reverse the existing curved tower leg, then travel across its deck.
-        if (progress > 0.82f)
-            return TowerOffset + DesignPoint(side * Mathf.Lerp(21, 0, (progress - 0.82f) / 0.18f), 179);
-        float t = progress / 0.82f;
-        var point = (1 - t) * (1 - t) * new Vector2(side * 88, 363)
-            + 2 * (1 - t) * t * new Vector2(side * 36, 268)
-            + t * t * new Vector2(side * 21, 179);
-        return TowerOffset + DesignPoint(point.X, point.Y);
-    }
-
-    private void TowerLine(Vector2 from, Vector2 to, Color color, float alpha, float width = 2)
-    {
-        from += TowerOffset;
-        to += TowerOffset;
-        DrawLine(from, to, new Color(color, alpha * 0.025f), width + 10, true);
-        DrawLine(from, to, new Color(color, alpha * 0.09f), width + 4, true);
-        DrawLine(from, to, new Color(color, alpha), width, true);
     }
 
     private static float TowerWidth(float y)
@@ -394,86 +436,20 @@ public partial class NKarenPromiseStarNode : Node2D
         return Mathf.Lerp(0, 11, Mathf.Clamp((designY - 42) / 78, 0, 1)) * 1.5f;
     }
 
-    private void DesignLine(Vector2 from, Vector2 to, float alpha, float width = 1.45f)
-    {
-        TowerLine(DesignPoint(from.X, from.Y), DesignPoint(to.X, to.Y), TowerRed, alpha, width);
-        DrawVoidScanLine(from, to, _visibility);
-    }
-
-    private void DesignCurve(Vector2 from, Vector2 control, Vector2 to, float alpha)
-    {
-        var previous = from;
-        for (int i = 1; i <= 24; i++)
-        {
-            float t = i / 24f;
-            var point = (1 - t) * (1 - t) * from + 2 * (1 - t) * t * control + t * t * to;
-            DesignLine(previous, point, alpha);
-            previous = point;
-        }
-    }
-
-    private void DrawTower(float alpha)
-    {
-        // SVG 01: curved, flared feet and a rounded inner arch, with two hollow decks.
-        for (int side = -1; side <= 1; side += 2)
-        {
-            DesignLine(new(0, 42), new(side * 11, 120), alpha * 0.75f);
-            DesignLine(new(side * 11, 120), new(side * 21, 179), alpha * 0.75f);
-            DesignCurve(new(side * 21, 179), new(side * 36, 268), new(side * 88, 363), alpha * 0.75f);
-            DesignLine(new(side * 88, 363), new(side * 58, 354), alpha * 0.65f);
-            DesignCurve(new(side * 58, 354), new(side * 30, 296), new(0, 295), alpha * 0.65f);
-            DesignLine(new(side * 64, 318), new(-side * 46, 282), alpha * 0.4f, 0.9f);
-            DesignLine(new(side * 44, 272), new(-side * 31, 222), alpha * 0.4f, 0.9f);
-            DesignLine(new(side * 29, 211), new(-side * 21, 179), alpha * 0.4f, 0.9f);
-            DesignLine(new(side * 19, 165), new(-side * 14, 141), alpha * 0.4f, 0.9f);
-            DesignLine(new(side * 10, 117), new(-side * 6, 83), alpha * 0.4f, 0.9f);
-            float t = Mathf.PosMod(_time * 0.22f, 1);
-            float y = Mathf.Lerp(170, -302, t);
-            float nextY = Mathf.Max(y - 22, -310);
-            TowerLine(new(side * TowerWidth(y), y), new(side * TowerWidth(nextY), nextY),
-                White, alpha * (0.15f + _arrival * 0.5f), 1.2f);
-        }
-        DrawStageDeck(179, 30, 5, alpha);
-        DrawStageDeck(245, 47, 7, alpha);
-        DesignLine(new(0, 18), new(0, 42), alpha * 0.8f, 1.2f);
-        DrawStar(TowerOffset + DesignPoint(0, 18), 6 + _pulse * 3, White,
-            alpha * (0.8f + Mathf.Sin(_time * 2.4f) * 0.15f));
-        foreach (var point in Junctions)
-        {
-            var p = TowerOffset + point;
-            float light = alpha * (0.85f + Mathf.Sin(_time * 2 + point.Y * 0.02f) * 0.12f);
-            DrawCircle(p, 13, new Color(TowerRed, light * 0.12f));
-            DrawCircle(p, 7, new Color(TowerRed, light * 0.35f));
-            DrawCircle(p, 3, new Color(White, light));
-        }
-        if (_arrival > 0 || _departure > 0)
-            DrawStar(TowerOffset + TransferAnchor, 8 + 8 * Mathf.Max(_arrival, _departure), White,
-                alpha * Mathf.Max(_arrival, _departure));
-    }
-
-    private void DrawStageDeck(float y, float width, float height, float alpha)
-    {
-        DesignLine(new(-width, y), new(-width + 5, y - height), alpha * 0.7f, 1.2f);
-        DesignLine(new(-width + 5, y - height), new(width - 5, y - height), alpha * 0.7f, 1.2f);
-        DesignLine(new(width - 5, y - height), new(width, y), alpha * 0.7f, 1.2f);
-        DesignLine(new(width, y), new(width - 5, y + height), alpha * 0.7f, 1.2f);
-        DesignLine(new(width - 5, y + height), new(-width + 5, y + height), alpha * 0.7f, 1.2f);
-        DesignLine(new(-width + 5, y + height), new(-width, y), alpha * 0.7f, 1.2f);
-        TowerLine(DesignPoint(-width + 4, y - height), DesignPoint(width - 4, y - height), White,
-            alpha * (0.35f + Mathf.Max(_arrival, _departure) * 0.65f), 1);
-    }
-
     private void DrawStar(Vector2 p, float radius, Color color, float alpha)
+        => DrawStar(this, p, radius, color, alpha);
+
+    private void DrawStar(CanvasItem surface, Vector2 p, float radius, Color color, float alpha)
     {
-        DrawCircle(p, radius * 2.4f, new Color(color, alpha * 0.075f));
-        DrawCircle(p, radius * 1.5f, new Color(color, alpha * 0.16f));
+        surface.DrawCircle(p, radius * 2.4f, new Color(color, alpha * 0.075f));
+        surface.DrawCircle(p, radius * 1.5f, new Color(color, alpha * 0.16f));
         var points = _starPolygon;
         for (int i = 0; i < 8; i++)
         {
             float a = i * Mathf.Pi / 4 - Mathf.Pi / 2;
             points[i] = p + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * (i % 2 == 0 ? radius : radius * 0.26f);
         }
-        DrawColoredPolygon(points, new Color(color, alpha));
-        DrawCircle(p, 1.8f, new Color(White, alpha));
+        surface.DrawColoredPolygon(points, new Color(color, alpha));
+        surface.DrawCircle(p, 1.8f, new Color(White, alpha));
     }
 }

@@ -52,7 +52,7 @@ public static class KarenPromiseVfxStarManager
         TransitionDepth.Set(player, System.Math.Max(0, TransitionDepth.Get(player) - 1));
         UpdatePromisePileStarCount(player);
         // Run after the queued authoritative Sync so a slow power-hook batch
-        // cannot cause the new silhouette to disappear before Void is applied.
+        // cannot drop the star transfer before Void is applied.
         var node = Nodes.Get(player);
         Callable.From(() => { if (GodotObject.IsInstanceValid(node)) node!.FinishVoidActivation(); }).CallDeferred();
     }
