@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Patches;
+using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
@@ -93,13 +94,7 @@ public static class ShineViewPatch
         {
             if (__result) return;
 
-            if (__instance.IsShineCard() && !__instance.Keywords.Contains(CardKeyword.Eternal))
-            {
-                if (__instance.GetShineValue() <= 1 || (__instance.Owner?.Creature?.Powers?.Any(p => p is KarenStarlight02Power) == true))
-                {
-                    __result = true;
-                }
-            }
+            __result = ShineVfx.WillDeplete(__instance);
         }
     }
 }

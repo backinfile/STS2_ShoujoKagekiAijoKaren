@@ -18,6 +18,7 @@ using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.SaveSystem;
+using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System;
@@ -201,32 +202,7 @@ public static class ShinePileManager
     /// <summary>播放闪耀耗尽删牌动画</summary>
     public static void PlayShineDepletionAnimation(CardModel card, NCard? combatCard)
     {
-        if (!LocalContext.IsMine(card) || combatCard == null) return;
-
-        var previewContainer = NRun.Instance?.GlobalUi?.CardPreviewContainer;
-        if (previewContainer == null) return;
-
-        combatCard.Reparent(previewContainer);
-
-        FastModeType fastMode = SaveManager.Instance.PrefsSave.FastMode;
-        float showDelay = fastMode switch
-        {
-            FastModeType.Instant => 0.01f,
-            FastModeType.Fast => 0.4f,
-            _ => 1.5f
-        };
-        float destroyDuration = fastMode switch
-        {
-            FastModeType.Instant => 0.01f,
-            FastModeType.Fast => 0.15f,
-            _ => 0.3f
-        };
-
-        Tween tween = combatCard.CreateTween();
-        tween.TweenProperty(combatCard, "scale:y", 0, destroyDuration).SetDelay(showDelay);
-        tween.Parallel().TweenProperty(combatCard, "scale:x", 1.5f, destroyDuration).SetDelay(showDelay);
-        tween.Parallel().TweenProperty(combatCard, "modulate", Colors.Black, destroyDuration * 0.67f).SetDelay(showDelay);
-        tween.TweenCallback(Callable.From(combatCard.QueueFreeSafely));
+        NKarenShineDepleteVfx.Play(card, combatCard);
     }
 
     /// <summary>打开闪耀耗尽牌堆查看界面（快照模式，使用原生 NCardPileScreen）</summary>

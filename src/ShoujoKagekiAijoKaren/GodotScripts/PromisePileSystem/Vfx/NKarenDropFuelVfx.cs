@@ -30,6 +30,7 @@ public partial class NKarenDropFuelVfx : Node2D
     private NCombatRoom _room = null!;
     private Player _owner = null!;
     private NCard _card = null!;
+    private CardModel _model = null!;
     private Sprite2D _cardGlow = null!;
     private Sprite2D _bodyGlow = null!;
     private Vector2 _source;
@@ -53,6 +54,7 @@ public partial class NKarenDropFuelVfx : Node2D
             return null;
         var cardNode = NCard.FindOnTable(card);
         if (cardNode == null || room.GetCreatureNode(card.Owner.Creature) == null) return null;
+        KarenFuelCardVisuals.Restore(cardNode);
         _flowShader ??= KarenResourceLoader.Load<Shader>("res://shaders/fuel_particles.gdshader", nameof(NKarenDropFuelVfx));
         if (_flowShader == null) return null;
         var effect = new NKarenDropFuelVfx
@@ -60,6 +62,7 @@ public partial class NKarenDropFuelVfx : Node2D
             _room = room,
             _owner = card.Owner,
             _card = cardNode,
+            _model = card,
             _speed = SaveManager.Instance.PrefsSave.FastMode switch
             {
                 // Fast mode keeps the same visual rhythm as Normal.
@@ -91,6 +94,13 @@ public partial class NKarenDropFuelVfx : Node2D
         _bodyGlow = AddGlow(new Vector2(160, 230));
         UpdateCoordinates();
         CaptureSource();
+        // Instant mode may resolve and pool the card before the next process frame.
+        // Transfer its face into particles synchronously while its identity is still valid.
+        if (SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant)
+        {
+            _chargeAt = 0;
+            Emit();
+        }
     }
 
     private static Texture2D MakeTexture(bool star)
@@ -124,19 +134,21 @@ public partial class NKarenDropFuelVfx : Node2D
 
     private void CaptureSource()
     {
-        if (!GodotObject.IsInstanceValid(_card) || !_card.IsInsideTree()) return;
+        if (!GodotObject.IsInstanceValid(_card) || !_card.IsInsideTree() || _card.Model != _model) return;
         var transform = _card.GetGlobalTransformWithCanvas();
         var scale = DesignSize / GetViewportRect().Size;
         _source = transform.Origin * scale;
         // The native card's origin is its center; keep emission inside its actual transformed face.
-        _axisX = transform.X * (NCard.defaultSize.X * 0.32f) * scale;
-        _axisY = transform.Y * (NCard.defaultSize.Y * 0.32f) * scale;
+        _axisX = transform.X * (NCard.defaultSize.X * 0.48f) * scale;
+        _axisY = transform.Y * (NCard.defaultSize.Y * 0.48f) * scale;
     }
 
     private void Emit()
     {
         CaptureSource();
         _burstAt = _elapsed;
+        if (GodotObject.IsInstanceValid(_card) && _card.Model == _model)
+            KarenFuelCardVisuals.Burst(_card);
         _cardGlow.Position = _source;
         _cardGlow.Scale = new Vector2(140, 195) / 48f;
         AddParticles(0, 1f, 480, false);
