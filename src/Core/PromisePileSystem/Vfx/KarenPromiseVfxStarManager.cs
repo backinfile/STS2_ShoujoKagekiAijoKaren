@@ -38,6 +38,9 @@ public static class KarenPromiseVfxStarManager
     public static void StartVoidActivation(Player player)
         => GetOrCreateNode(player)?.StartVoidActivation();
 
+    public static void PlayReproductionActivation(Player player)
+        => GetOrCreateNode(player)?.PlayReproductionActivation();
+
     public static void GuideIntoOrbit(CardModel card, Vector2 source, bool fromCard = false)
         => GetOrCreateNode(card.Owner)?.GuideIntoOrbit(card, source, fromCard);
 

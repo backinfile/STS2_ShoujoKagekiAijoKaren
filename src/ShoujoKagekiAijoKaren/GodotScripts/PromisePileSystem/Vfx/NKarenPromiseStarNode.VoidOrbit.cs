@@ -152,6 +152,9 @@ public partial class NKarenPromiseStarNode
     private void DrawVoidOrbitFront()
     {
         if (UsingVoidIconOrbit)
+        {
+            DrawReproduction(_visibility, _voidOrbitFront);
             DrawOrbitStars(_visibility, VoidOrbitAccent, behindTower: false, _voidOrbitFront);
+        }
     }
 }

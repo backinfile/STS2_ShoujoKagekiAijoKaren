@@ -205,7 +205,8 @@ public partial class NKarenPromiseStarNode : Node2D
         for (int i = 0; i < cards.Count; i++)
         {
             var star = GetStar(cards[i]);
-            float start = firstBirth + i * 0.055f;
+            var delivery = QueueReproduction(cards[i]);
+            float start = delivery?.ArrivesAt ?? firstBirth + i * 0.055f;
             const float duration = 0.48f;
             PlaceInOrbitGap(star, start + duration);
             var source = UsingVoidIconOrbit ? FromVoidIcon(_voidOrbitIcon!.Size * 0.5f) : PaintedSource;
@@ -291,6 +292,7 @@ public partial class NKarenPromiseStarNode : Node2D
         _replenishStarted = _replenishUntil = -10;
         _voidStarted = -100;
         _voidPending = false;
+        ClearReproduction();
         QueueRedraw();
     }
     public override void _Process(double delta)
@@ -299,6 +301,7 @@ public partial class NKarenPromiseStarNode : Node2D
         UpdatePlacement();
         float dt = (float)delta;
         _time += dt;
+        UpdateReproduction(dt);
         UpdateVoidOrbitLayers();
         _arrival = Mathf.MoveToward(_arrival, 0, dt * 1.2f);
         _departure = Mathf.MoveToward(_departure, 0, dt * 1.8f);
@@ -344,7 +347,11 @@ public partial class NKarenPromiseStarNode : Node2D
         }
         QueueRedraw();
     }
-    public override void _ExitTree() => ClearVoidOrbitLayers();
+    public override void _ExitTree()
+    {
+        ClearVoidOrbitLayers();
+        ClearReproduction();
+    }
     public override void _Draw()
     {
         if (_visibility <= 0) return;
@@ -356,6 +363,7 @@ public partial class NKarenPromiseStarNode : Node2D
         float alpha = _visibility;
         if (!UsingVoidIconOrbit) DrawOrbitStars(alpha, accent, behindTower: true);
         DrawTower(alpha);
+        if (!UsingVoidIconOrbit) DrawReproduction(alpha);
         if (!UsingVoidIconOrbit) DrawReplenishSource(alpha);
         if (!UsingVoidIconOrbit) DrawOrbitStars(alpha, accent, behindTower: false);
         foreach (var star in _stars.Values)
