@@ -51,7 +51,8 @@ public sealed class ShineFuelCmd : AbstractConsoleCmd
         return new(true, JsonSerializer.Serialize(new {
             hand = player.PlayerCombatState.Hand.Cards.Select(c => new { id=c.Id.Entry, shine=c.GetShineValue(),
                 willWarn=ShineVfx.WillDeplete(c), burn=KarenPromisePilePower.HasBurnDrawEffect(c), keywords=c.Keywords.Select(k=>k.ToString()),
-                nodeVisible=NCard.FindOnTable(c)?.Visible, bodyVisible=NCard.FindOnTable(c)?.Body.Visible,
+                nodeVisible=NCard.FindOnTable(c)?.Visible, nodeAlpha=NCard.FindOnTable(c)?.Modulate.A,
+                bodyVisible=NCard.FindOnTable(c)?.Body.Visible,
                 bodyAlpha=NCard.FindOnTable(c)?.Body.Modulate.A, selfAlpha=NCard.FindOnTable(c)?.Body.SelfModulate.A }),
             shineCount=ShinePileManager.GetShinePileCount(player),
             exhaust=player.PlayerCombatState.ExhaustPile.Cards.Select(c=>new { id=c.Id.Entry, shine=c.GetShineValue() }),

@@ -24,9 +24,11 @@ public partial class NKarenShineDepleteVfx : Node2D
     private readonly List<Vector2> _trail = new();
     private float _age;
     private float _duration;
+    private float _gatherDuration;
     private bool _released;
     private bool _fuel;
     private bool _cardVisible;
+    private Color _cardColor;
     private Control.MouseFilterEnum _mouseFilter;
     private sealed class Spark(Vector2 position, Vector2 velocity, float life, int variant)
     {
@@ -55,9 +57,13 @@ public partial class NKarenShineDepleteVfx : Node2D
             _card = card, _model = model, _target = target, _source = source, _room = room,
             _mouseFilter = card.MouseFilter,
             _cardVisible = card.Visible,
+            _cardColor = card.Modulate,
             _fuel = KarenFuelCardVisuals.IsBurst(card),
             _duration = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant ? .25f : .85f
         };
+        bool instant = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant;
+        effect._gatherDuration = effect._fuel ? (instant ? .06f : .10f) : (instant ? .10f : .28f);
+        effect._trail.Add(source.Origin);
         ui!.AddChild(effect);
         // Removing the visual from the play container prevents native RemoveFromCombat
         // from taking ownership a second time. This node returns it to the pool exactly once.
@@ -65,7 +71,9 @@ public partial class NKarenShineDepleteVfx : Node2D
         card.PlayPileTween = null;
         card.Reparent(effect);
         card.MouseFilter = Control.MouseFilterEnum.Ignore;
-        card.Visible = false;
+        // Keep a normal card at its original position during the crossfade. Fuel
+        // has already burst, so its face must never reappear for this transition.
+        card.Visible = effect._cardVisible && !effect._fuel;
         effect.PlaceCard(source);
         return true;
     }
@@ -102,7 +110,13 @@ public partial class NKarenShineDepleteVfx : Node2D
             if (spark.Age >= spark.Life) _sparks.RemoveAt(i);
         }
         GlobalTransform = GetCanvasTransform().AffineInverse();
-        float t = Mathf.Clamp((_age - .10f) / _duration, 0, 1);
+        float gather = Ease(_age / _gatherDuration);
+        if (!_released && GodotObject.IsInstanceValid(_card) && ReferenceEquals(_card.Model, _model))
+        {
+            _card.Modulate = new Color(_cardColor, _cardColor.A * (1 - gather));
+            _card.Visible = _cardVisible && !_fuel && _age < _gatherDuration;
+        }
+        float t = Mathf.Clamp((_age - _gatherDuration) / _duration, 0, 1);
         float u = t * t * (3 - 2 * t);
         var end = _target.GetGlobalTransformWithCanvas() * (_target.Size * .5f);
         var start = _source.Origin;
@@ -111,10 +125,10 @@ public partial class NKarenShineDepleteVfx : Node2D
         if (t < 1 || !_released)
         {
             var direction = _trail.Count > 0 ? (p - _trail[^1]).Normalized() : Vector2.Up;
-            _trail.Add(p);
+            if (p.DistanceSquaredTo(_trail[^1]) > .04f || t >= 1) _trail.Add(p);
             if (_trail.Count > 24) _trail.RemoveAt(0);
             _sparkClock += dt;
-            if (_sparkClock >= .014f && _sparks.Count < 90)
+            if (t > 0 && _sparkClock >= .014f && _sparks.Count < 90)
             {
                 _sparkClock = 0;
                 for (int j = 0; j < 2; j++)
@@ -128,13 +142,29 @@ public partial class NKarenShineDepleteVfx : Node2D
             }
         }
         if (t >= 1) Release();
-        if (_age >= _duration + .75f) QueueFree();
+        if (_age >= _gatherDuration + _duration + .65f) QueueFree();
         QueueRedraw();
     }
 
     public override void _Draw()
     {
-        float fade = 1 - Mathf.Clamp((_age - _duration - .1f) / .3f, 0, 1);
+        float gather = Ease(_age / _gatherDuration);
+        float fade = 1 - Ease((_age - _gatherDuration - _duration) / .3f);
+        if (!_fuel && _age < _gatherDuration)
+        {
+            // Warm fragments converge while the stationary card fades beneath them.
+            // The same light becomes the travelling head once the face is gone.
+            float light = Mathf.Sin(gather * Mathf.Pi) * .7f;
+            for (int i = 0; i < 16; i++)
+            {
+                float angle = i * Mathf.Tau / 16;
+                var edge = _source * new Vector2(Mathf.Cos(angle) * 115, Mathf.Sin(angle) * 170);
+                var point = edge.Lerp(_source.Origin, gather);
+                var tail = edge.Lerp(_source.Origin, Mathf.Max(0, gather - .10f));
+                DrawLine(tail, point, new Color(Gold, light), 2, true);
+                DrawCircle(point, 2.3f, new Color(Hot, light));
+            }
+        }
         for (int i = 1; i < _trail.Count; i++)
         {
             float k = (float)i / _trail.Count;
@@ -155,17 +185,31 @@ public partial class NKarenShineDepleteVfx : Node2D
         }
         if (_trail.Count == 0) return;
         var p = _trail[^1];
-        float r = (_fuel ? 17 : 21) * fade;
+        float headLight = gather * fade;
+        float r = 17 * (.65f + .35f * gather) * fade;
         for (int layer = 8; layer > 0; layer--)
-            DrawCircle(p, r * 2 * layer / 8f, new Color(Gold, fade * .22f * Mathf.Pow(1 - layer / 9f, 2)));
+            DrawCircle(p, r * 2 * layer / 8f, new Color(Gold, headLight * .22f * Mathf.Pow(1 - layer / 9f, 2)));
         for (int i = 0; i < _star.Length; i++)
         {
             float angle = i * Mathf.Pi / 4 - Mathf.Pi / 2;
-            _star[i] = p + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * r * (i % 2 == 0 ? 1 : .20f);
+            _star[i] = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * (i % 2 == 0 ? 1 : .20f);
         }
-        if (fade > 0) DrawColoredPolygon(_star, new Color(Hot, fade));
+        if (headLight > .001f && r > .2f)
+        {
+            // Triangulate at unit scale: shrinking absolute screen coordinates
+            // eventually merges vertices at the last, almost-transparent frame.
+            DrawSetTransform(p, 0, Vector2.One * r);
+            DrawColoredPolygon(_star, new Color(Hot, headLight));
+            DrawSetTransform(Vector2.Zero);
+        }
         if (_released && fade > 0)
             DrawArc(p, 8 + (1 - fade) * 24, 0, Mathf.Tau, 36, new Color(Gold, fade * .65f), 2, true);
+    }
+
+    private static float Ease(float progress)
+    {
+        float t = Mathf.Clamp(progress, 0, 1);
+        return t * t * (3 - 2 * t);
     }
 
     private void Release()
@@ -176,6 +220,7 @@ public partial class NKarenShineDepleteVfx : Node2D
         {
             _card.MouseFilter = _mouseFilter;
             _card.Visible = _cardVisible;
+            _card.Modulate = _cardColor;
             GodotTreeExtensions.QueueFreeSafely(_card);
         }
     }

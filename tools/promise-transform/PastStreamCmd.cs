@@ -93,6 +93,8 @@ public sealed class PastStreamProbe : IDisposable
     private bool _disposed;
     private double _time;
     private int _maxActive, _maxScheduled, _maxNodes, _visibleDepleteFrames;
+    private int _visibleDepleteFlightFrames, _gatherIntermediateFrames;
+    private float _maxGatherPositionError, _gatherMinAlpha = 1, _gatherMaxAlpha;
     private float _maxOriginError, _maxFrontError, _maxScaleError;
     private double _lastActive;
     private readonly List<object> _timeline = new();
@@ -149,8 +151,25 @@ public sealed class PastStreamProbe : IDisposable
             _maxScaleError = Math.Max(_maxScaleError, new Vector2(visual.X.Length(), visual.Y.Length()).DistanceTo(new Vector2(actual.X.Length(), actual.Y.Length())));
         }
         foreach (var node in ShineFuelProbe.Descend(NRun.Instance).OfType<NKarenShineDepleteVfx>())
-            if (Field(node, "_card") is MegaCrit.Sts2.Core.Nodes.Cards.NCard card && GodotObject.IsInstanceValid(card)
-                && !(bool)Field(node, "_released")! && card.Visible) _visibleDepleteFrames++;
+        {
+            if (Field(node, "_card") is not MegaCrit.Sts2.Core.Nodes.Cards.NCard card || !GodotObject.IsInstanceValid(card)
+                || (bool)Field(node, "_released")!) continue;
+            bool gathering = Number(node, "_age") < Number(node, "_gatherDuration");
+            if (card.Visible)
+            {
+                _visibleDepleteFrames++;
+                if (!gathering) _visibleDepleteFlightFrames++;
+                else
+                {
+                    _gatherMinAlpha = Math.Min(_gatherMinAlpha, card.Modulate.A);
+                    _gatherMaxAlpha = Math.Max(_gatherMaxAlpha, card.Modulate.A);
+                    if (card.Modulate.A is > .02f and < .98f) _gatherIntermediateFrames++;
+                    var source = (Transform2D)Field(node, "_source")!;
+                    _maxGatherPositionError = Math.Max(_maxGatherPositionError,
+                        card.GetGlobalTransformWithCanvas().Origin.DistanceTo(source.Origin));
+                }
+            }
+        }
         _maxActive = Math.Max(_maxActive, active); _maxScheduled = Math.Max(_maxScheduled, scheduled);
         _maxNodes = Math.Max(_maxNodes, nodes.Length); if (active > 0) _lastActive = _time;
         _timeline.Add(new { t = Math.Round(_time, 3), active, scheduled,
@@ -158,5 +177,7 @@ public sealed class PastStreamProbe : IDisposable
     }
     public object Result() => new { maxActive = _maxActive, maxScheduled = _maxScheduled, maxNodes = _maxNodes,
         visibleDepleteFrames = _visibleDepleteFrames, maxOriginError = _maxOriginError, maxFrontError = _maxFrontError,
+        visibleDepleteFlightFrames = _visibleDepleteFlightFrames, gatherIntermediateFrames = _gatherIntermediateFrames,
+        maxGatherPositionError = _maxGatherPositionError, gatherMinAlpha = _gatherMinAlpha, gatherMaxAlpha = _gatherMaxAlpha,
         maxScaleError = _maxScaleError, lastActive = _lastActive, timeline = _timeline };
 }

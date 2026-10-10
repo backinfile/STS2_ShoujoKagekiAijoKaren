@@ -33,6 +33,7 @@ public partial class NKarenPromiseStarNode
         new(431, 708), new(466, 708), new(501, 708), new(536, 708), new(571, 708), new(606, 708),
         new(338, 1140), new(696, 1140), new(263, 1310), new(763, 1310)
     };
+    private static readonly Color LampAmber = new("#ffbe70");
     private static readonly Vector2[] PaintedFireSites =
     {
         new(225, 1360), new(338, 1140), new(390, 990), new(430, 830),
@@ -91,16 +92,19 @@ public partial class NKarenPromiseStarNode
         // Recess the painted prop behind Karen without baking lights or count into it.
         DrawPaintedTowerStrip(0, 1536, Vector2.Zero, new Color(0.90f, 0.90f, 0.90f, alpha * 0.92f));
         DrawVoidScan(alpha);
+        DrawDeckLights(new Vector2(474, 391), new Vector2(562, 391), alpha, .7f);
+        DrawDeckLights(new Vector2(423, 708), new Vector2(612, 708), alpha, 0);
         for (int side = -1; side <= 1; side += 2)
+        for (int runner = 0; runner < 2; runner++)
         {
-            float t = Mathf.PosMod(_time * 0.13f + (side > 0 ? .42f : 0), 1);
+            float t = Mathf.PosMod(_time * .19f + (side > 0 ? .28f : 0) + runner * .5f, 1);
             var from = ReplenishPath(side, t * 0.82f);
-            var to = ReplenishPath(side, Mathf.Min(t + 0.045f, 1) * 0.82f);
+            var to = ReplenishPath(side, Mathf.Min(t + .10f, 1) * 0.82f);
             float glow = Mathf.Sin(t * Mathf.Pi) * alpha;
-            var amber = new Color("#ffc680");
-            DrawLine(from, to, new Color(amber, glow * .16f), 9, true);
-            DrawLine(from, to, new Color(White, glow * (.55f + _arrival * .35f)), 2, true);
-            DrawCircle(to, 3, new Color(White, glow * .8f));
+            DrawLine(from, to, new Color(LampAmber, glow * .14f), 22, true);
+            DrawLine(from, to, new Color(LampAmber, glow * .55f), 8, true);
+            DrawLine(from, to, new Color(White, glow * (.85f + _arrival * .15f)), 3.5f, true);
+            DrawTowerLamp(to, 5, glow);
         }
         DrawStar(PaintedPoint(PaintedTipPixel), 5 + _pulse * 3, White,
             alpha * (0.65f + Mathf.Sin(_time * 2.4f) * 0.12f));
@@ -114,15 +118,37 @@ public partial class NKarenPromiseStarNode
         for (int i = 0; i < PaintedLamps.Length; i++)
         {
             var point = PaintedPoint(PaintedLamps[i]);
-            float breath = .5f + .5f * Mathf.Sin(_time * 1.7f - i * .65f);
-            float light = alpha * (.40f + breath * .48f);
-            var amber = new Color("#ffbc6e");
-            DrawCircle(point, 12 + breath * 3, new Color(amber, light * .075f));
-            DrawCircle(point, 6, new Color(amber, light * .22f));
-            DrawCircle(point, 2.8f, new Color(White, light));
+            float breath = .5f + .5f * Mathf.Sin(_time * 2.1f - i * .65f);
+            float light = alpha * (.22f + breath * .78f);
+            DrawTowerLamp(point, 3.5f + breath * 1.3f, light);
         }
         if (!UsingVoidIconOrbit && (_arrival > 0 || _departure > 0))
             DrawStar(PaintedSource, 8 + 8 * Mathf.Max(_arrival, _departure), White,
                 alpha * Mathf.Max(_arrival, _departure));
+    }
+
+    private void DrawDeckLights(Vector2 left, Vector2 right, float alpha, float phase)
+    {
+        // Continuous platform strips remain readable at the normal combat zoom.
+        // Their travelling brightness is deliberately separate from inventory stars.
+        for (int i = 0; i < 12; i++)
+        {
+            float t = i / 12f;
+            float wave = .5f + .5f * Mathf.Sin(_time * 2.1f - t * Mathf.Tau + phase);
+            float light = alpha * (.35f + wave * .65f);
+            var from = PaintedPoint(left.Lerp(right, t));
+            var to = PaintedPoint(left.Lerp(right, (i + 1) / 12f));
+            DrawLine(from, to, new Color(LampAmber, light * .13f), 20, true);
+            DrawLine(from, to, new Color(LampAmber, light * .7f), 7, true);
+            DrawLine(from, to, new Color(White, light), 3, true);
+        }
+    }
+
+    private void DrawTowerLamp(Vector2 point, float radius, float light)
+    {
+        for (int layer = 5; layer > 0; layer--)
+            DrawCircle(point, radius * layer, new Color(LampAmber, light * .055f * (6 - layer)));
+        DrawCircle(point, radius, new Color(LampAmber, light * .8f));
+        DrawCircle(point, radius * .5f, new Color(White, light));
     }
 }
