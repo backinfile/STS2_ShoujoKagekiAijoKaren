@@ -8,6 +8,8 @@ using ShoujoKagekiAijoKaren.src.Core.Commands;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 
@@ -24,6 +26,11 @@ public sealed class KarenTowerOfPromise : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        bool canDraw = !PlayerUtils.IsHandFull(Owner) && (PromisePileManager.IsVoidMode(Owner)
+            ? PileType.Draw.GetPile(Owner).Cards.Count + PileType.Discard.GetPile(Owner).Cards.Count > 0
+            : PromisePileManager.GetPromisePile(Owner).Cards.Count > 0);
+        using var recall = KarenPromiseVfxStarManager.BeginTowerRecall(Owner, canDraw);
+        if (canDraw) await Cmd.CustomScaledWait(0.14f, 0.32f);
         await PromisePileCmd.DrawToFullHand(choiceContext, Owner);
     }
 

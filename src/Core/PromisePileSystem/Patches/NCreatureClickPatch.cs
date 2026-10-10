@@ -44,27 +44,30 @@ public static class NCreatureClickPatch
     {
         if (evt is not InputEventMouseButton mb) return;
         if (mb.ButtonIndex != MouseButton.Left || mb.Pressed) return;
+        if (TryOpenPile(creature, player)) creature.GetViewport().SetInputAsHandled();
+    }
 
+    internal static bool TryOpenPile(NCreature creature, Player player)
+    {
+        if (!LocalContext.IsMe(player) || !CombatManager.Instance.IsInProgress) return false;
+        if (NCombatRoom.Instance?.Ui.Hand.InCardPlay == true) return false;
         // 保护1：正在选目标时不触发（避免干扰瞄准卡牌）
-        if (NTargetManager.Instance.IsInSelection) return;
+        if (NTargetManager.Instance.IsInSelection) return false;
 
         // 保护2：选目标刚结束的同一帧不触发（避免残留点击）
-        if (NTargetManager.Instance.LastTargetingFinishedFrame == (long)creature.GetTree().GetFrame()) return;
-
-        // 消费输入，阻止穿透
-        creature.GetViewport().SetInputAsHandled();
-
-        if (!CombatManager.Instance.IsInProgress) return;
+        if (NTargetManager.Instance.LastTargetingFinishedFrame == (long)creature.GetTree().GetFrame()) return false;
 
         // 唯一条件：玩家身上有约定牌堆能力
-        if (!player.Creature.HasPower<KarenPromisePilePower>()) return;
+        if (!player.Creature.HasPower<KarenPromisePilePower>()) return false;
+        // Modal screens handle their own clicks. Do not replace an unrelated screen.
+        if (NCapstoneContainer.Instance?.CurrentCapstoneScreen is { } current && current is not NCardPileScreen) return false;
 
         // Void 模式：打开抽牌堆界面
         if (PromisePileManager.IsVoidMode(player))
         {
             // 获取抽牌堆快照（不会影响真实抽牌顺序）
             NCardPileScreen.ShowScreen(PileType.Draw.GetPile(player), []);
-            return;
+            return true;
         }
 
         // 有 Power 且非 Void 模式时打开/关闭界面
@@ -76,5 +79,6 @@ public static class NCreatureClickPatch
         {
             PromisePileManager.ShowScreen(player);
         }
+        return true;
     }
 }

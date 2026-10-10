@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -8,6 +9,7 @@ using MegaCrit.Sts2.Core.Nodes.Rooms;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -49,6 +51,19 @@ public static class KarenPromiseVfxStarManager
 
     public static void PlayReproductionActivation(Player player)
         => GetOrCreateNode(player)?.PlayReproductionActivation();
+
+    public static IDisposable? BeginTowerRecall(Player player, bool canDraw)
+        => GetOrCreateNode(player)?.BeginTowerRecall(canDraw);
+
+    public static IDisposable? BeginTransferResolution(CardModel card)
+        => LocalContext.IsMe(card.Owner) && PromiseTransferPreviews.ForCard(card) != PromiseTransferPreview.None
+            ? GetOrCreateNode(card.Owner)?.BeginTransferResolution(card) : null;
+
+    public static void SetTransferPreview(CardModel card, bool selected)
+    {
+        var node = selected ? GetOrCreateNode(card.Owner) : Nodes.Get(card.Owner);
+        if (GodotObject.IsInstanceValid(node)) node!.SetTransferPreview(card, selected);
+    }
 
     public static void GuideIntoOrbit(CardModel card, Vector2 sourceCanvas, bool fromCard = false)
         => GetOrCreateNode(card.Owner)?.GuideIntoOrbit(card, sourceCanvas, fromCard);

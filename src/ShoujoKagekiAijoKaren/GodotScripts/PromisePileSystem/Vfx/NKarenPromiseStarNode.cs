@@ -22,6 +22,7 @@ public partial class NKarenPromiseStarNode : Node2D
         public NCard? Flight;
         public bool Incoming;
         public float FlightTime;
+        public bool RecallFlight;
         public float OrbitOffset;
         public float? PilePhase;
         public Vector2? VoidSourceCanvas;
@@ -59,6 +60,7 @@ public partial class NKarenPromiseStarNode : Node2D
         _alwaysVisible = creatureNode.Entity.Player?.Character is Karen;
         if (_alwaysVisible) _visibility = 1;
         UpdatePlacement();
+        InitTowerInteraction();
     }
     private void UpdatePlacement()
     {
@@ -259,6 +261,7 @@ public partial class NKarenPromiseStarNode : Node2D
             _departure = 1;
             star.Flight = card;
             star.FlightTime = 0;
+            star.RecallFlight = TrackRecallCard(card);
             star.Trail.Clear();
             star.Pulse = 1;
             _pulse = 1;
@@ -297,6 +300,7 @@ public partial class NKarenPromiseStarNode : Node2D
         _voidStarted = -100;
         _voidPending = false;
         ClearReproduction();
+        ClearTowerRecall();
         QueueRedraw();
     }
     public override void _Process(double delta)
@@ -305,6 +309,7 @@ public partial class NKarenPromiseStarNode : Node2D
         UpdatePlacement();
         float dt = (float)delta;
         _time += dt;
+        UpdateTowerRecall(dt);
         UpdateReproduction(dt);
         UpdateVoidOrbitLayers();
         _arrival = Mathf.MoveToward(_arrival, 0, dt * 1.2f);
@@ -355,6 +360,7 @@ public partial class NKarenPromiseStarNode : Node2D
     {
         ClearVoidOrbitLayers();
         ClearReproduction();
+        ClearTowerRecall();
     }
     public override void _Draw()
     {
@@ -367,6 +373,7 @@ public partial class NKarenPromiseStarNode : Node2D
         float alpha = _visibility;
         if (!UsingVoidIconOrbit) DrawOrbitStars(alpha, accent, behindTower: true);
         DrawTower(alpha);
+        DrawTowerRecall(alpha);
         if (!UsingVoidIconOrbit) DrawReproduction(alpha);
         if (!UsingVoidIconOrbit) DrawReplenishSource(alpha);
         if (!UsingVoidIconOrbit) DrawOrbitStars(alpha, accent, behindTower: false);
@@ -431,6 +438,7 @@ public partial class NKarenPromiseStarNode : Node2D
         var inverse = surface.GetGlobalTransformWithCanvas().AffineInverse();
         foreach (var star in _stars.Values)
         {
+            if (star.RecallFlight) continue;
             if (star.Trail.Count < 2) continue;
             for (int i = 1; i < star.Trail.Count; i++)
                 surface.DrawLine(inverse * star.Trail[i - 1], inverse * star.Trail[i],
