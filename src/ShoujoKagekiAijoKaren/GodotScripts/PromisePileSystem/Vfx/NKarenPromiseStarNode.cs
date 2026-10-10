@@ -45,7 +45,6 @@ public partial class NKarenPromiseStarNode : Node2D
     private float _replenishUntil = -10;
     // Leave most of the painted structure visible to the left of Karen's body.
     private static readonly Vector2 TowerOffset = new(-95, -15);
-    private static readonly Vector2 TransferAnchor = new(0, -145);
     // Keep the original height, count position and inventory-orbit envelope.
     private static Vector2 DesignPoint(float x, float y) => new(x * 1.5f, 170 + (y - 363) * 1.5f);
     private static readonly Color TowerRed = new("#ff526a");
@@ -76,9 +75,10 @@ public partial class NKarenPromiseStarNode : Node2D
         {
             UpdatePlacement();
             return UsingVoidIconOrbit ? ToGlobal(FromVoidIcon(_voidOrbitIcon!.Size * 0.5f))
-                : ToGlobal(TowerOffset + TransferAnchor);
+                : ToGlobal(PaintedSource);
         }
     }
+    public Vector2 TransferCanvasPosition => GetCanvasTransform() * TransferGlobalPosition;
 
     private static float OrbitCycle(Star star, float time)
         => Mathf.PosMod(time * 0.065f + star.Slot * 0.618034f + star.OrbitOffset, 1);
@@ -182,14 +182,14 @@ public partial class NKarenPromiseStarNode : Node2D
         star.OrbitOffset = landing - arrivalTime * 0.065f - star.Slot * 0.618034f;
     }
 
-    public void GuideIntoOrbit(CardModel card, Vector2 source, bool fromCard = false)
+    public void GuideIntoOrbit(CardModel card, Vector2 sourceCanvas, bool fromCard = false)
     {
         UpdatePlacement();
         var star = GetStar(card);
         if (star.Present && !fromCard) return;
         float duration = fromCard ? 0.48f : 1.25f + (star.Slot % 5) * 0.09f;
         PlaceInOrbitGap(star, _time + duration);
-        star.Entry = new GuidedEntry(source, _time, duration);
+        star.Entry = new GuidedEntry(sourceCanvas, _time, duration);
         star.Flight = null;
         star.Trail.Clear();
         star.Pulse = 0;
@@ -229,7 +229,7 @@ public partial class NKarenPromiseStarNode : Node2D
         // Quintic blend has zero first/second derivatives at both ends. At t=1,
         // position and velocity are exactly those of the moving orbit, without a stop.
         float blend = t * t * t * (t * (t * 6f - 15f) + 10f);
-        var source = entry.LocalSource ? entry.Source : ToLocal(entry.Source);
+        var source = entry.LocalSource ? entry.Source : GetGlobalTransformWithCanvas().AffineInverse() * entry.Source;
         float arch = 16f * t * t * (1f - t) * (1f - t);
         var bend = entry.LocalSource
             ? new Vector2(star.Slot % 2 == 0 ? -65 : 65, -35)
@@ -243,23 +243,27 @@ public partial class NKarenPromiseStarNode : Node2D
         return ToGlobal(StarPosition(GetStar(card), _time));
     }
 
-    public Vector2 TransferPosition(NCard card)
+    public Vector2 GetStarCanvasPosition(CardModel card)
+        => GetCanvasTransform() * GetStarPosition(card);
+
+    public Vector2 TrackOutgoingCard(NCard card)
     {
         UpdatePlacement();
         var star = GetStar(card.Model);
         if (star.Flight != card)
         {
             star.Entry = null;
-            star.Incoming = !star.Present;
-            if (star.Incoming) _arrival = 1;
-            else _departure = 1;
+            // The native factory supplies the old pile. Do not infer direction
+            // from a deferred Sync, which may already have removed this card.
+            star.Incoming = false;
+            _departure = 1;
             star.Flight = card;
             star.FlightTime = 0;
             star.Trail.Clear();
             star.Pulse = 1;
             _pulse = 1;
         }
-        return TransferGlobalPosition;
+        return card.GetCanvasTransform().AffineInverse() * TransferCanvasPosition;
     }
     public void Sync(IReadOnlyList<CardModel> cards, PromisePileMode mode)
     {
@@ -316,12 +320,12 @@ public partial class NKarenPromiseStarNode : Node2D
                 star.FlightTime += dt;
                 if (GodotObject.IsInstanceValid(star.Flight) && star.Flight.IsInsideTree())
                 {
-                    // Keep history in world space so resizing the stage mid-flight
-                    // cannot stretch already travelled parts of the card trail.
-                    var point = star.Flight.GlobalPosition;
+                    // Canvas coordinates survive both creature scaling and the
+                    // change from the combat layer to Void's HUD orbit.
+                    var point = star.Flight.GetGlobalTransformWithCanvas().Origin;
                     star.Trail.Add(point);
                     if (star.Trail.Count > 12) star.Trail.RemoveAt(0);
-                    bool arrived = star.Incoming && star.FlightTime > 0.08f && point.DistanceTo(TransferGlobalPosition) < 12;
+                    bool arrived = star.Incoming && star.FlightTime > 0.08f && point.DistanceTo(TransferCanvasPosition) < 12;
                     if (arrived || star.FlightTime > (star.Incoming ? 2f : 0.45f))
                     {
                         star.Flight = null;
@@ -366,16 +370,7 @@ public partial class NKarenPromiseStarNode : Node2D
         if (!UsingVoidIconOrbit) DrawReproduction(alpha);
         if (!UsingVoidIconOrbit) DrawReplenishSource(alpha);
         if (!UsingVoidIconOrbit) DrawOrbitStars(alpha, accent, behindTower: false);
-        foreach (var star in _stars.Values)
-        {
-            if (star.Trail.Count > 1)
-            {
-                for (int i = 1; i < star.Trail.Count; i++)
-                    DrawLine(ToLocal(star.Trail[i - 1]), ToLocal(star.Trail[i]), new Color(accent, (float)i / star.Trail.Count * 0.75f), 4, true);
-                float opacity = star.Incoming ? Mathf.Clamp(star.FlightTime * 3, 0, 1) : Mathf.Clamp(1 - star.FlightTime * 2, 0, 1);
-                DrawStar(ToLocal(star.Trail[^1]), 15, accent, opacity);
-            }
-        }
+        if (!UsingVoidIconOrbit) DrawTransferTrails(this, alpha, accent);
         string text = (infinite ? "∞" : _count.ToString()) + (isVoid ? " ◇" : "");
         if (!isVoid && (_alwaysVisible || _count > 0 || infinite))
         {
@@ -429,6 +424,20 @@ public partial class NKarenPromiseStarNode : Node2D
         DrawLine(source + new Vector2(-42, 0), source + new Vector2(42, 0),
             new Color(White, sourceLight), 3, true);
         DrawStar(source, 17 + Mathf.Sin(age * 14) * 2, White, sourceLight);
+    }
+
+    private void DrawTransferTrails(CanvasItem surface, float alpha, Color accent)
+    {
+        var inverse = surface.GetGlobalTransformWithCanvas().AffineInverse();
+        foreach (var star in _stars.Values)
+        {
+            if (star.Trail.Count < 2) continue;
+            for (int i = 1; i < star.Trail.Count; i++)
+                surface.DrawLine(inverse * star.Trail[i - 1], inverse * star.Trail[i],
+                    new Color(accent, alpha * i / star.Trail.Count * 0.75f), 4, true);
+            float opacity = Mathf.Clamp(1 - star.FlightTime * 2, 0, 1);
+            DrawStar(surface, inverse * star.Trail[^1], 15, accent, opacity * alpha);
+        }
     }
 
     private static float TowerWidth(float y)

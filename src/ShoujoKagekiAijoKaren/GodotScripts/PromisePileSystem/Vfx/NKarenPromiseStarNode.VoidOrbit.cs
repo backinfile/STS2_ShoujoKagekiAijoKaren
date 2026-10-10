@@ -155,6 +155,11 @@ public partial class NKarenPromiseStarNode
         {
             DrawReproduction(_visibility, _voidOrbitFront);
             DrawOrbitStars(_visibility, VoidOrbitAccent, behindTower: false, _voidOrbitFront);
+            DrawTransferTrails(_voidOrbitFront!, _visibility, VoidOrbitAccent);
+            float transfer = Mathf.Max(_arrival, _departure);
+            if (transfer > 0)
+                DrawStar(_voidOrbitFront!, _voidOrbitIcon!.Size * 0.5f, 8 + transfer * 8,
+                    VoidOrbitAccent, transfer * _visibility);
         }
     }
 }

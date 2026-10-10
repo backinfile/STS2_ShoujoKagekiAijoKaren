@@ -29,11 +29,20 @@ public static class KarenPromiseVfxStarManager
         Nodes.Set(player, node);
         return node;
     }
-    public static Vector2? GetTransferPosition(NCard card)
-        => card.Model.Owner is { } player ? GetOrCreateNode(player)?.TransferPosition(card) : null;
+    public static Vector2? TrackOutgoingCard(NCard card)
+        => card.Model.Owner is { } player ? GetOrCreateNode(player)?.TrackOutgoingCard(card) : null;
 
     public static Vector2? GetTowerPosition(Player player)
         => GetOrCreateNode(player)?.TransferGlobalPosition;
+
+    // All effects share the active entrance: the painted deck, or the local
+    // Draw icon in Void. Convert between canvases only at the drawing boundary.
+    public static Vector2? GetPileCanvasPosition(Player player)
+        => GetOrCreateNode(player)?.TransferCanvasPosition;
+
+    public static Vector2? GetPilePosition(Player player, CanvasItem surface)
+        => GetPileCanvasPosition(player) is { } point
+            ? surface.GetCanvasTransform().AffineInverse() * point : null;
 
     public static void StartVoidActivation(Player player)
         => GetOrCreateNode(player)?.StartVoidActivation();
@@ -41,11 +50,12 @@ public static class KarenPromiseVfxStarManager
     public static void PlayReproductionActivation(Player player)
         => GetOrCreateNode(player)?.PlayReproductionActivation();
 
-    public static void GuideIntoOrbit(CardModel card, Vector2 source, bool fromCard = false)
-        => GetOrCreateNode(card.Owner)?.GuideIntoOrbit(card, source, fromCard);
+    public static void GuideIntoOrbit(CardModel card, Vector2 sourceCanvas, bool fromCard = false)
+        => GetOrCreateNode(card.Owner)?.GuideIntoOrbit(card, sourceCanvas, fromCard);
 
-    public static Vector2? GetStarPosition(CardModel card)
-        => GetOrCreateNode(card.Owner)?.GetStarPosition(card);
+    public static Vector2? GetStarPosition(CardModel card, CanvasItem surface)
+        => GetOrCreateNode(card.Owner) is { } node
+            ? surface.GetCanvasTransform().AffineInverse() * node.GetStarCanvasPosition(card) : null;
 
     public static void BeginPileTransition(Player player)
         => TransitionDepth.Set(player, TransitionDepth.Get(player) + 1);

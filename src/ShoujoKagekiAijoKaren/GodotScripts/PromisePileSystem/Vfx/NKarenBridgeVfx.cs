@@ -102,11 +102,7 @@ public partial class NKarenBridgeVfx : Node2D
         ZIndex = 0;
         TextureFilter = TextureFilterEnum.LinearWithMipmaps;
         Place();
-        var tower = _owner.GetChildren().OfType<NKarenPromiseStarNode>().FirstOrDefault();
-        var source = _fromDraw
-            ? _room.Ui.DrawPile.GlobalPosition + _room.Ui.DrawPile.Size / 2
-            : tower?.TransferGlobalPosition ?? _owner.VfxSpawnPosition;
-        _source = ToLocal(source);
+        UpdateSource();
         if (IsSpotlight)
         {
             AddGlints(DrawCardGlints);
@@ -184,6 +180,12 @@ public partial class NKarenBridgeVfx : Node2D
         GlobalTransform = GetCanvasTransform().AffineInverse()
             * new Transform2D(new Vector2(scale.X, 0), new Vector2(0, scale.Y), Vector2.Zero);
     }
+
+    private void UpdateSource()
+    {
+        if (_owner.Entity.Player is { } player && KarenPromiseVfxStarManager.GetPileCanvasPosition(player) is { } source)
+            _source = GetGlobalTransformWithCanvas().AffineInverse() * source;
+    }
     public override void _Process(double delta)
     {
         float step = (float)delta * _speed;
@@ -198,6 +200,8 @@ public partial class NKarenBridgeVfx : Node2D
             GodotTreeExtensions.QueueFreeSafely(this);
             return;
         }
+        Place();
+        UpdateSource();
         if (!IsSpotlight && _hasCards && !_locked && Age >= 0.48f)
         {
             _locked = true;
@@ -223,7 +227,6 @@ public partial class NKarenBridgeVfx : Node2D
         if (_bridge != null)
             _bridge.Position = SceneryOffset + new Vector2(0, 6 * (1 - Mathf.SmoothStep(0.1f, 0.6f, Age)));
         _glints?.QueueRedraw();
-        Place();
         QueueRedraw();
     }
 

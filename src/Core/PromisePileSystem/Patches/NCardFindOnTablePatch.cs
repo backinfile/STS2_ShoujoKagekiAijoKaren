@@ -60,7 +60,8 @@ internal static class PileTypeExtensionsGetTargetPositionPatch
     private static bool Prefix(PileType pileType, NCard? node, ref Vector2 __result)
     {
         // 原生移牌动画共用塔内固定汇聚点，与运动星点解耦。
-        if (pileType == KarenCustomEnum.PromisePile)
+        if (pileType == KarenCustomEnum.PromisePile ||
+            (node?.Model?.Owner is { } player && KarenPromiseVfxStarManager.IsTowerPile(player, pileType)))
         {
             // 优先从 node 获取玩家角色位置
             if (node?.Model?.Owner?.Creature is { } creature)
@@ -69,7 +70,7 @@ internal static class PileTypeExtensionsGetTargetPositionPatch
                 if (creatureNode != null)
                 {
                     __result = node != null
-                        ? KarenPromiseVfxStarManager.GetTransferPosition(node) ?? creatureNode.VfxSpawnPosition
+                        ? KarenPromiseVfxStarManager.GetPilePosition(node.Model.Owner, node) ?? creatureNode.VfxSpawnPosition
                         : creatureNode.VfxSpawnPosition;
                     return false;
                 }
@@ -102,8 +103,8 @@ internal static class PromisePileCardCreationPositionPatch
         PileType? oldPileType = card.Pile?.Type;
 #endif
         if (card.Owner is not { } owner || oldPileType is not { } source ||
-            source != KarenCustomEnum.PromisePile) return;
-        if (KarenPromiseVfxStarManager.GetTransferPosition(__result) is { } position)
+            !KarenPromiseVfxStarManager.IsTowerPile(owner, source)) return;
+        if (KarenPromiseVfxStarManager.TrackOutgoingCard(__result) is { } position)
             __result.GlobalPosition = position;
     }
 }
@@ -123,8 +124,8 @@ internal static class PromisePileShufflePositionPatch
         if (__result == null) return;
         var owner = targetPile.Cards.FirstOrDefault()?.Owner ?? startPile.Cards.FirstOrDefault()?.Owner;
         if (owner == null) return;
-        bool source = startPile.Type == KarenCustomEnum.PromisePile;
-        bool target = targetPile.Type == KarenCustomEnum.PromisePile;
+        bool source = KarenPromiseVfxStarManager.IsTowerPile(owner, startPile.Type);
+        bool target = KarenPromiseVfxStarManager.IsTowerPile(owner, targetPile.Type);
         if (!(source || target) || KarenPromiseVfxStarManager.GetTowerPosition(owner) is not { } position) return;
         if (source) StartPosition(__result) = position;
         if (target) EndPosition(__result) = position;
@@ -145,7 +146,7 @@ internal static class PromiseCardEntryVfxPatch
     {
         var card = Card(__instance);
         if (!Adding(__instance) || card.Model?.Pile is not { } pile ||
-            pile.Type != KarenCustomEnum.PromisePile) return true;
+            !KarenPromiseVfxStarManager.IsTowerPile(card.Model.Owner, pile.Type)) return true;
         var completion = new System.Threading.Tasks.TaskCompletionSource();
         AccessTools.Property(typeof(NCardFlyVfx), nameof(NCardFlyVfx.SwooshAwayCompletion))
             .SetValue(__instance, completion);

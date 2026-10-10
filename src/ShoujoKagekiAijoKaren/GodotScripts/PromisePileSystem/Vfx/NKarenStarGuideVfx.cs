@@ -79,19 +79,25 @@ public partial class NKarenStarGuideVfx : Node2D
     private static Vector2 GetCardPosition(CardModel card)
     {
         if (card.Pile?.Type == PileType.Hand && NCard.FindOnTable(card) is { } node)
-            return node.GetGlobalTransform() * (node.Size * 0.5f);
+            return node.GetGlobalTransformWithCanvas() * (node.Size * 0.5f);
         var ui = NCombatRoom.Instance!.Ui;
         if (card.Pile?.Type == PileType.Draw)
-            return ui.DrawPile.GetGlobalTransform() * (ui.DrawPile.Size * 0.5f);
+            return PileIconPosition(ui.DrawPile);
         if (card.Pile?.Type == PileType.Discard)
-            return ui.DiscardPile.GetGlobalTransform() * (ui.DiscardPile.Size * 0.5f);
+            return PileIconPosition(ui.DiscardPile);
         return GetTowerPosition(card);
     }
 
     private static Vector2 GetTowerPosition(CardModel card)
-        => KarenPromiseVfxStarManager.GetTowerPosition(card.Owner)
+        => KarenPromiseVfxStarManager.GetPileCanvasPosition(card.Owner)
            ?? NCombatRoom.Instance?.GetCreatureNode(card.Owner.Creature)?.VfxSpawnPosition
            ?? GetViewportSize() * 0.5f;
+
+    private static Vector2 PileIconPosition(Control pile)
+    {
+        var icon = pile.GetNodeOrNull<Control>("Icon") ?? pile;
+        return icon.GetGlobalTransformWithCanvas() * (icon.Size * 0.5f);
+    }
 
     private static Vector2 GetViewportSize()
     {

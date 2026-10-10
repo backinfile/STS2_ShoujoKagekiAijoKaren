@@ -93,8 +93,8 @@ public partial class NKarenPromiseStarNode
             DrawCircle(point, 7, new Color(TowerRed, light * 0.18f));
             DrawCircle(point, 2, new Color(White, light));
         }
-        if (_arrival > 0 || _departure > 0)
-            DrawStar(TowerOffset + TransferAnchor, 8 + 8 * Mathf.Max(_arrival, _departure), White,
+        if (!UsingVoidIconOrbit && (_arrival > 0 || _departure > 0))
+            DrawStar(PaintedSource, 8 + 8 * Mathf.Max(_arrival, _departure), White,
                 alpha * Mathf.Max(_arrival, _departure));
     }
 }

@@ -17,6 +17,7 @@ public partial class NKarenPromiseCardEntryVfx : Node
     private Vector2 _scale;
     private Color _color;
     private float _elapsed;
+    private bool _finished;
 
     public NKarenPromiseCardEntryVfx(NCard card, TaskCompletionSource completion)
     {
@@ -29,13 +30,14 @@ public partial class NKarenPromiseCardEntryVfx : Node
     {
         _scale = _card.Scale;
         _color = _card.Modulate;
-        KarenPromiseVfxStarManager.GuideIntoOrbit(_model, _card.GlobalPosition, fromCard: true);
+        KarenPromiseVfxStarManager.GuideIntoOrbit(_model, _card.GetGlobalTransformWithCanvas().Origin, fromCard: true);
         if (_model.Pile is { } pile) SfxCmd.PlayCardSwooshSfx(pile);
     }
 
     public override void _Process(double delta)
     {
-        if (!GodotObject.IsInstanceValid(_card) || !_card.IsInsideTree())
+        if (_finished) return;
+        if (!GodotObject.IsInstanceValid(_card) || !_card.IsInsideTree() || _card.Model != _model)
         {
             Finish();
             return;
@@ -43,7 +45,7 @@ public partial class NKarenPromiseCardEntryVfx : Node
         _elapsed += (float)delta;
         float t = Mathf.Clamp(_elapsed / 0.16f, 0, 1);
         float blend = t * t * (3 - 2 * t);
-        if (KarenPromiseVfxStarManager.GetStarPosition(_model) is { } position)
+        if (KarenPromiseVfxStarManager.GetStarPosition(_model, _card) is { } position)
             _card.GlobalPosition = position;
         _card.Scale = _scale * (1 - blend);
         _card.Modulate = new Color(_color, _color.A * (1 - blend));
@@ -55,6 +57,9 @@ public partial class NKarenPromiseCardEntryVfx : Node
 
     private void Finish()
     {
+        if (_finished) return;
+        _finished = true;
+        SetProcess(false);
         _completion.TrySetResult();
         GodotTreeExtensions.QueueFreeSafely(GetParent());
     }
