@@ -1,5 +1,6 @@
 param(
     [switch]$SkipMcpBuild,
+    [switch]$Headless,
     [ValidateSet('stable','beta')][string[]]$Environment = @('stable','beta'),
     [string]$ClientGamesRoot = ''
 )
@@ -38,10 +39,11 @@ try {
         $settings = Get-Content -LiteralPath $config -Raw -Encoding UTF8 | ConvertFrom-Json -AsHashtable
         $settings.port = if ($branch -eq 'stable') {15629} else {15630}
         $settings | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $config -Encoding UTF8
-        foreach ($characters in @(@('KAREN','IRONCLAD'),@('IRONCLAD','KAREN'))) {
+        $caseId = 700
+        foreach ($characters in @(@('KAREN','KAREN'),@('KAREN','IRONCLAD'),@('IRONCLAD','KAREN'),@('IRONCLAD','IRONCLAD'))) {
             try {
-                $caseId = if ($characters[0] -eq 'KAREN') {701} else {702}
-                $json = & (Join-Path $PSScriptRoot 'dev_matrix_case.ps1') -Branch $branch -HostCharacter $characters[0] -ClientCharacter $characters[1] -CaseId $caseId -RunRoot $runRoot -ReviewRegression -ClientGamesRoot $ClientGamesRoot
+                $caseId++
+                $json = & (Join-Path $PSScriptRoot 'dev_matrix_case.ps1') -Branch $branch -HostCharacter $characters[0] -ClientCharacter $characters[1] -CaseId $caseId -RunRoot $runRoot -ReviewRegression -ClientGamesRoot $ClientGamesRoot -Headless:$Headless
                 if (-not $?) { throw 'Review case failed' }
                 $result = $json | Select-Object -Last 1 | ConvertFrom-Json
                 if ($result.result -ne 'pass') { throw 'Review case did not pass' }
@@ -63,4 +65,4 @@ try {
     $results | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 (Join-Path $runRoot 'report.json')
     Write-Output "Report: $runRoot/report.json"
 }
-if (@($results | Where-Object result -eq 'fail').Count -gt 0 -or $results.Count -ne (2 * $Environment.Count)) { exit 1 }
+if (@($results | Where-Object result -eq 'fail').Count -gt 0 -or $results.Count -ne (4 * $Environment.Count)) { exit 1 }
