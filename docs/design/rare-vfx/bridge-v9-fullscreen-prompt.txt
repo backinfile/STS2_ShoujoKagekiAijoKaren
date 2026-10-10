@@ -1,0 +1,18 @@
+2026-10-10. Built-in imagegen, transparent image edit.
+Edit target: images/vfx/bridge/stage-v8.png.
+Framing reference: docs/design/rare-vfx/bridge-v2-concept.png.
+Output: exec-2b5e5b06-4d97-4f3d-927a-4799bb03b641.png.
+Saved unchanged as images/vfx/bridge/stage-v9.png. Mirroring and perspective are painted into this version; do not mirror again at runtime.
+
+Exact prompt:
+
+Use case: precise-object-edit.
+Asset type: transparent full-screen 16:9 painted scenery layer for a live game combat effect.
+Input 1 is the current V8 transparent two-tower-and-bridge architecture EDIT TARGET.
+Input 2 is the FIRST dramatic in-game CONCEPT REFERENCE, ONLY for gigantic edge-to-edge scale, under-bridge camera perspective and dramatic framing. It contains characters and UI; NEVER include these in output.
+The user requests a HORIZONTAL MIRROR of the architecture, corrected camera perspective, and FULL-SCREEN placement like the original concept. Repaint the architectural assembly under the new camera; this is not a small freestanding model centered within margins.
+MIRRORED IDENTITY: the stepped SPIRAL HALF-CYLINDER TOWER is on the LEFT. Its slate blue-gray curved exterior winds outward to the LEFT and its broad FLAT burgundy cut face looks inward RIGHT toward the bridge. The plain continuous half-cylinder tower is on the RIGHT, gray curved exterior outward right and flat burgundy inner face toward left. The beam physically INSERTS into a recessed entry on the LEFT spiral tower's inward flat face, perpendicular to that face in 3D. Preserve the clear socket and terminal occlusion, not a beam pasted over a closed wall.
+CAMERA: three-quarter low viewpoint from UNDER the bridge, looking diagonally along the beam from the nearer RIGHT plain tower toward the farther LEFT spiral tower. Clearly visible broad underside and coherent red side truss; nearer right-end girders and collar are about twice the size of the far left-end ones. All long parallel members share consistent vanishing direction toward the LEFT. Do not just roll a flat front elevation or skew two disconnected towers. Keep vertical towers plausibly upright with mild upward convergence.
+FULL-BLEED FRAMING on 1672x941 canvas: large plain near tower fills the RIGHT edge, extends off the top and right and bottom borders; only its inner curved section is seen around x1450..1672. Spiral far tower fills the LEFT edge around x0..200, its curved outer silhouette extends past the left and bottom borders, its upper tier near y100. Beam ascends toward the RIGHT as in a horizontally mirrored version of the concept: far left attachment around (180,345), near right attachment around (1500,90). Side plus underside combined beam thickness about 110px at far left and 210px at near right. Near girder can clip the TOP border. Architecture must reach BOTH lateral canvas borders, no outer transparent margin, and must span the entire top region. Large central and lower-middle empty area for real combat; no center column. This is a gigantic overhead stage bridge around the viewer, not a small diagram or miniature assembly.
+STYLE: keep V8's red metal lattice, cool pale slate-gray collars and smooth tower surfaces, restrained matte anime cel painting with broad clean tonal planes and readable structural thickness. Use a handful of broad girder bays, avoid tiny repeating ribbing, photoreal metallic scratches, dense grain and AI moire. The reference is framing inspiration, not permission to add landscape.
+Output ONLY the connected mirrored architecture on genuine transparent background, same 16:9 framing, no ground or sky, no characters, enemies, UI, cards, text, stars, lights or beam glow, labels, watermark or checkerboard. No opaque background.
