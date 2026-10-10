@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
-// Eight equal upright rings with overlapping two-second sequences.
+// One draw keeps the original eight rings; consecutive draws continue a bounded stream.
 public partial class NKarenPastAndFutureRingVfx : Node2D
 {
     private static readonly (float Start, float Duration, float Y, float Alpha)[] Rings =
@@ -20,7 +20,22 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
     private Node2D? _front;
     private Tween? _stopTween;
     private bool _stopping;
-    private readonly List<float> _sequences = [];
+    private sealed class TravellingRing(float age, float duration, float y, float alpha)
+    {
+        public float Age = age;
+        public readonly float Duration = duration;
+        public readonly float Y = y;
+        public readonly float Alpha = alpha;
+    }
+    private readonly List<TravellingRing> _travelling = [];
+    private const float StreamInterval = .20f;
+    private const float StreamHold = .55f;
+    private const int MaxRings = 8;
+    private float _streamRemaining;
+    private float _nextRing;
+    private int _streamIndex;
+    private bool _continuing;
+    private bool _accentPending;
     private float _radius = 150f;
 
     public bool BelongsTo(NCreature creature) => _creatureNode == creature;
@@ -55,14 +70,36 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
     public void Pulse()
     {
         if (_stopping) return;
-        // Each draw starts immediately while earlier rings finish independently.
-        _sequences.Add(0f);
+        if (_travelling.Count == 0 && _streamRemaining <= 0)
+        {
+            // Preserve all timing, heights and opacity of the standalone effect.
+            foreach (var ring in Rings)
+                _travelling.Add(new TravellingRing(-ring.Start, ring.Duration, ring.Y, ring.Alpha));
+            _continuing = false;
+            return;
+        }
+        if (!_continuing)
+        {
+            _continuing = true;
+            // Keep every visible ring on its current trajectory. Only replace rings
+            // which have not entered yet, so a second draw never resets the picture.
+            _travelling.RemoveAll(ring => ring.Age < 0);
+            float sinceEntry = float.MaxValue;
+            foreach (var ring in _travelling) sinceEntry = Mathf.Min(sinceEntry, ring.Age / 1.5f);
+            _nextRing = Mathf.Max(0, StreamInterval - sinceEntry);
+            _streamIndex = 0;
+        }
+        // Refresh a short emission window instead of accumulating one sequence per draw.
+        // Rapid triggers share the next bright leading ring; there is no queued tail.
+        _streamRemaining = StreamHold;
+        _accentPending = true;
     }
 
     public void Stop()
     {
         if (_stopping) return;
         _stopping = true;
+        _streamRemaining = 0;
         _stopTween = CreateTween();
         _stopTween.TweenProperty(this, "modulate", new Color(1f, 1f, 1f, 0f), 0.3f);
         _stopTween.TweenCallback(Callable.From(() =>
@@ -93,10 +130,26 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
 
     public override void _Process(double delta)
     {
-        for (int i = _sequences.Count - 1; i >= 0; i--)
+        float dt = (float)delta;
+        for (int i = _travelling.Count - 1; i >= 0; i--)
         {
-            _sequences[i] += (float)delta;
-            if (_sequences[i] >= 2f) _sequences.RemoveAt(i);
+            var ring = _travelling[i];
+            ring.Age += dt * 1.5f;
+            if (ring.Age >= ring.Duration) _travelling.RemoveAt(i);
+        }
+        if (_streamRemaining > 0)
+        {
+            _streamRemaining = Mathf.Max(0, _streamRemaining - dt);
+            _nextRing -= dt;
+            if (_streamRemaining > 0 && _nextRing <= 0 && _travelling.Count < MaxRings)
+            {
+                var style = Rings[_streamIndex++ % Rings.Length];
+                // Equal travel speed keeps repeated rings evenly separated. The original
+                // slight height variation and brighter draw accents remain readable.
+                _travelling.Add(new TravellingRing(0, 1.2f, style.Y, _accentPending ? 1f : .72f));
+                _accentPending = false;
+                _nextRing = StreamInterval;
+            }
         }
         UpdatePlacement();
         QueueRedraw();
@@ -113,16 +166,10 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
 
     private void DrawRings(Node2D canvas, bool front)
     {
-        foreach (float elapsed in _sequences) DrawSequence(canvas, front, elapsed);
-    }
-
-    private void DrawSequence(Node2D canvas, bool front, float elapsed)
-    {
-        float clock = elapsed * 1.5f;
         float unit = _radius / 92f;
-        foreach (var ring in Rings)
+        foreach (var ring in _travelling)
         {
-            float progress = (clock - ring.Start) / ring.Duration;
+            float progress = ring.Age / ring.Duration;
             if (progress <= 0f || progress >= 1f) continue;
             // Keep travel independent of ring size: larger hoops stay close to the actor.
             float x = 130f - 260f * progress;

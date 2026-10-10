@@ -1,6 +1,9 @@
 using Godot;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
@@ -15,6 +18,11 @@ public partial class NKarenBurnVfx : Node2D
     private float _auraTimer;
     private bool _stopping;
     private Tween? _stopTween;
+    private readonly Node2D _towerFlames = new() { Name = "TowerFlames", Scale = Vector2.One * .48f };
+    private readonly Node2D _towerSmoke = new() { Name = "TowerSmoke", Scale = Vector2.One * .45f };
+    private TextureRect? _drawIcon;
+    private Node2D? _drawFire;
+    private int _emitter;
 
     public bool BelongsTo(NCreature creature) => _creatureNode == creature;
 
@@ -22,8 +30,10 @@ public partial class NKarenBurnVfx : Node2D
     {
         _creatureNode = creatureNode;
         ZAsRelative = true;
-        ZIndex = 1;
+        ZIndex = 0;
+        ShowBehindParent = true;
         UpdatePlacement();
+        for (int i = 0; i < NKarenPromiseStarNode.BurnSiteCount; i++) EmitTowerFire(.5f);
     }
 
     public void Restart()
@@ -54,7 +64,11 @@ public partial class NKarenBurnVfx : Node2D
         _stopTween = null;
     }
 
-    public override void _ExitTree() => CancelFade();
+    public override void _ExitTree()
+    {
+        CancelFade();
+        ClearDrawFire();
+    }
 
     private bool UpdatePlacement()
     {
@@ -63,8 +77,8 @@ public partial class NKarenBurnVfx : Node2D
             GodotTreeExtensions.QueueFreeSafely(this);
             return false;
         }
-        // Follow the actor's visual size without flipping the upward flow of the fire.
-        // Assign the complete global basis so parent scale is not applied twice.
+        // The painted tower uses this same upright coordinate frame. Its anchors,
+        // rather than the actor's body bounds, determine every fire emitter.
         var visual = _creatureNode.Visuals.GlobalTransform;
         GlobalTransform = new Transform2D(
             new Vector2(Mathf.Max(visual.X.Length(), 0.001f), 0f),
@@ -75,12 +89,15 @@ public partial class NKarenBurnVfx : Node2D
 
     public override void _Ready()
     {
+        AddChild(_towerSmoke);
+        AddChild(_towerFlames);
         Restart();
     }
 
     public override void _Process(double delta)
     {
         if (!UpdatePlacement()) return;
+        UpdateDrawFire();
 
         if (_stopping) return;
 
@@ -89,15 +106,78 @@ public partial class NKarenBurnVfx : Node2D
         if (_particleTimer <= 0f)
         {
             _particleTimer = 0.05f;
-            AddChild(new NKarenWrathParticle(GlowSparkTexture));
+            EmitTowerFire();
+            if (GodotObject.IsInstanceValid(_drawFire))
+            {
+                float scale = _drawFire!.Scale.X;
+                var spark = new NKarenWrathParticle(GlowSparkTexture)
+                {
+                    Position = new Vector2((float)GD.RandRange(-.42, .42) * _drawIcon!.Size.X,
+                        -_drawIcon.Size.Y * .22f) / scale,
+                    Modulate = new Color(1, .24f, .045f, 0), ZIndex = 0
+                };
+                _drawFire.AddChild(spark);
+            }
         }
 
         _auraTimer -= d;
         if (_auraTimer <= 0f)
         {
-            _auraTimer = (float)GD.RandRange(0.3, 0.4);
-            AddChild(new NKarenStanceAura(ExhaustLargeTexture));
+            _auraTimer = .45f;
+            var aura = new NKarenStanceAura(ExhaustLargeTexture)
+            {
+                Position = NKarenPromiseStarNode.BurnSite(_emitter % 11) / _towerSmoke.Scale,
+                Modulate = new Color(.8f, .12f, .025f, 0), ZIndex = 0
+            };
+            _towerSmoke.AddChild(aura);
         }
+    }
+
+    private void EmitTowerFire(float warmup = 0)
+    {
+        // Walking a coprime stride keeps adjacent emitters from flashing together.
+        var origin = NKarenPromiseStarNode.BurnSite((_emitter++ * 5) % NKarenPromiseStarNode.BurnSiteCount);
+        var spark = new NKarenWrathParticle(GlowSparkTexture)
+        {
+            Position = (origin + new Vector2((float)GD.RandRange(-6, 6), (float)GD.RandRange(-4, 4))) / _towerFlames.Scale,
+            Modulate = new Color(1, .24f, .045f, 0), ZIndex = 0
+        };
+        _towerFlames.AddChild(spark);
+        if (warmup > 0) spark._Process(warmup);
+    }
+
+    private void UpdateDrawFire()
+    {
+        var player = _creatureNode?.Entity.Player;
+        var icon = player != null && LocalContext.IsMe(player)
+            && player.Creature.GetPower<KarenPromisePilePower>()?.IsVoidMode == true
+            ? NCombatRoom.Instance?.Ui.DrawPile.GetNodeOrNull<TextureRect>("Icon") : null;
+        if (icon != _drawIcon || !GodotObject.IsInstanceValid(_drawFire))
+        {
+            ClearDrawFire();
+            if (icon == null) return;
+            _drawIcon = icon;
+            _drawFire = new Node2D { Name = "KarenBurnDrawPile", ShowBehindParent = true };
+            icon.AddChild(_drawFire);
+        }
+        if (_drawFire == null) return;
+        // As an icon child, it follows native hover/resize transforms without stealing input.
+        // Behind the icon also keeps its card-count badge clear.
+        _drawFire.Position = icon!.Size * .5f;
+        _drawFire.Scale = Vector2.One * (icon.Size.X / 100f * .36f);
+        _drawFire.Modulate = Modulate;
+        _drawFire.Visible = Visible;
+    }
+
+    private void ClearDrawFire()
+    {
+        if (GodotObject.IsInstanceValid(_drawFire))
+        {
+            _drawFire!.Hide();
+            GodotTreeExtensions.QueueFreeSafely(_drawFire);
+        }
+        _drawIcon = null;
+        _drawFire = null;
     }
 
     private static Texture2D? LoadTexture(string path)

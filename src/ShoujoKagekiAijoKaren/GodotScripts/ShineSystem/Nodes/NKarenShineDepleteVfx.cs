@@ -26,7 +26,22 @@ public partial class NKarenShineDepleteVfx : Node2D
     private float _duration;
     private bool _released;
     private bool _fuel;
+    private bool _cardVisible;
     private Control.MouseFilterEnum _mouseFilter;
+    private sealed class Spark(Vector2 position, Vector2 velocity, float life, int variant)
+    {
+        public Vector2 Position = position;
+        public Vector2 Velocity = velocity;
+        public float Age;
+        public readonly float Life = life;
+        public readonly int Variant = variant;
+    }
+    private readonly List<Spark> _sparks = new();
+    private readonly Vector2[] _star = new Vector2[8];
+    private float _sparkClock;
+    private int _sparkIndex;
+    private static readonly Color Gold = new("#ffc96c");
+    private static readonly Color Hot = new("#fff5dc");
 
     public static bool Play(CardModel model, NCard? card)
     {
@@ -39,6 +54,7 @@ public partial class NKarenShineDepleteVfx : Node2D
         {
             _card = card, _model = model, _target = target, _source = source, _room = room,
             _mouseFilter = card.MouseFilter,
+            _cardVisible = card.Visible,
             _fuel = KarenFuelCardVisuals.IsBurst(card),
             _duration = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant ? .25f : .85f
         };
@@ -49,6 +65,7 @@ public partial class NKarenShineDepleteVfx : Node2D
         card.PlayPileTween = null;
         card.Reparent(effect);
         card.MouseFilter = Control.MouseFilterEnum.Ignore;
+        card.Visible = false;
         effect.PlaceCard(source);
         return true;
     }
@@ -57,6 +74,7 @@ public partial class NKarenShineDepleteVfx : Node2D
     {
         ZIndex = 110;
         TopLevel = true;
+        Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         GlobalTransform = GetCanvasTransform().AffineInverse();
     }
 
@@ -73,7 +91,16 @@ public partial class NKarenShineDepleteVfx : Node2D
         if (!GodotObject.IsInstanceValid(_room) || NCombatRoom.Instance != _room
             || !GodotObject.IsInstanceValid(_target) || !_target.IsInsideTree() || !CombatManager.Instance.IsInProgress)
         { Release(); QueueFree(); return; }
-        _age += (float)delta;
+        float dt = (float)delta;
+        _age += dt;
+        for (int i = _sparks.Count - 1; i >= 0; i--)
+        {
+            var spark = _sparks[i];
+            spark.Age += dt;
+            spark.Velocity += new Vector2(0, 110) * dt;
+            spark.Position += spark.Velocity * dt;
+            if (spark.Age >= spark.Life) _sparks.RemoveAt(i);
+        }
         GlobalTransform = GetCanvasTransform().AffineInverse();
         float t = Mathf.Clamp((_age - .10f) / _duration, 0, 1);
         float u = t * t * (3 - 2 * t);
@@ -81,17 +108,27 @@ public partial class NKarenShineDepleteVfx : Node2D
         var start = _source.Origin;
         var bend = new Vector2(start.X + (end.X - start.X) * .18f, Mathf.Max(75, start.Y - 210));
         var p = start * ((1-u)*(1-u)) + bend * (2*(1-u)*u) + end * (u*u);
-        _trail.Add(p);
-        if (_trail.Count > 16) _trail.RemoveAt(0);
-        if (!_released && GodotObject.IsInstanceValid(_card) && ReferenceEquals(_card.Model, _model))
+        if (t < 1 || !_released)
         {
-            float shrink = Mathf.Lerp(1, .035f, Mathf.Pow(t, .72f));
-            var xform = new Transform2D(_source.X * shrink, _source.Y * shrink, p);
-            PlaceCard(xform);
-            _card.Modulate = new Color(1, 1, 1, 1 - Mathf.Clamp((t - .80f) / .20f, 0, 1));
+            var direction = _trail.Count > 0 ? (p - _trail[^1]).Normalized() : Vector2.Up;
+            _trail.Add(p);
+            if (_trail.Count > 24) _trail.RemoveAt(0);
+            _sparkClock += dt;
+            if (_sparkClock >= .014f && _sparks.Count < 90)
+            {
+                _sparkClock = 0;
+                for (int j = 0; j < 2; j++)
+                {
+                    int index = _sparkIndex++;
+                    float side = index % 2 == 0 ? -1 : 1;
+                    var normal = new Vector2(-direction.Y, direction.X);
+                    var velocity = normal * side * (38 + index * 37 % 92) - direction * (30 + index * 13 % 50);
+                    _sparks.Add(new Spark(p, velocity, .35f + index % 5 * .065f, index));
+                }
+            }
         }
         if (t >= 1) Release();
-        if (_age >= _duration + .40f) QueueFree();
+        if (_age >= _duration + .75f) QueueFree();
         QueueRedraw();
     }
 
@@ -101,15 +138,34 @@ public partial class NKarenShineDepleteVfx : Node2D
         for (int i = 1; i < _trail.Count; i++)
         {
             float k = (float)i / _trail.Count;
-            DrawLine(_trail[i-1], _trail[i], new Color(1, .74f, .27f, k * fade * .55f), 2 + k * 3, true);
-            if (i % 3 == 0) DrawCircle(_trail[i] + new Vector2(Mathf.Sin(i*5) * 8, Mathf.Cos(i*3) * 8), 1.8f, new Color(1, .86f, .46f, k*fade));
+            float light = k * k * fade;
+            DrawLine(_trail[i-1], _trail[i], new Color(Gold, light * .10f), 8 + k * 18, true);
+            DrawLine(_trail[i-1], _trail[i], new Color(Gold, light * .45f), 3 + k * 7, true);
+            DrawLine(_trail[i-1], _trail[i], new Color(Hot, light), 1 + k * 2.5f, true);
+            if (i % 3 == 0)
+                DrawCircle(_trail[i] + new Vector2(Mathf.Sin(i*5) * 9, Mathf.Cos(i*3) * 9), 2.5f, new Color(Gold, light));
+        }
+        foreach (var spark in _sparks)
+        {
+            float light = Mathf.Pow(1 - spark.Age / spark.Life, 1.3f);
+            Color color = spark.Variant % 3 == 0 ? new Color("#ff9455") : Gold;
+            DrawCircle(spark.Position, 5, new Color(color, light * .14f));
+            DrawLine(spark.Position - spark.Velocity * .028f, spark.Position, new Color(color, light), 1.7f, true);
+            DrawCircle(spark.Position, spark.Variant % 4 == 0 ? 2.8f : 1.6f, new Color(Hot, light));
         }
         if (_trail.Count == 0) return;
         var p = _trail[^1];
-        float r = (_fuel ? 9 : 5) * fade;
-        DrawCircle(p, r * 1.7f, new Color(1, .59f, .13f, fade * .18f));
-        DrawLine(p - Vector2.Up * r, p + Vector2.Up * r, new Color(1, .93f, .65f, fade), 2, true);
-        DrawLine(p - Vector2.Right * r, p + Vector2.Right * r, new Color(1, .93f, .65f, fade), 2, true);
+        float r = (_fuel ? 17 : 21) * fade;
+        for (int layer = 8; layer > 0; layer--)
+            DrawCircle(p, r * 2 * layer / 8f, new Color(Gold, fade * .22f * Mathf.Pow(1 - layer / 9f, 2)));
+        for (int i = 0; i < _star.Length; i++)
+        {
+            float angle = i * Mathf.Pi / 4 - Mathf.Pi / 2;
+            _star[i] = p + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * r * (i % 2 == 0 ? 1 : .20f);
+        }
+        if (fade > 0) DrawColoredPolygon(_star, new Color(Hot, fade));
+        if (_released && fade > 0)
+            DrawArc(p, 8 + (1 - fade) * 24, 0, Mathf.Tau, 36, new Color(Gold, fade * .65f), 2, true);
     }
 
     private void Release()
@@ -119,6 +175,7 @@ public partial class NKarenShineDepleteVfx : Node2D
         if (GodotObject.IsInstanceValid(_card) && ReferenceEquals(_card.Model, _model))
         {
             _card.MouseFilter = _mouseFilter;
+            _card.Visible = _cardVisible;
             GodotTreeExtensions.QueueFreeSafely(_card);
         }
     }

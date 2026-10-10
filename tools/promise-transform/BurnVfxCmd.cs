@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.DevConsole.ConsoleCommands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
 // Test plugin only. Check after the transform/cycle has settled for several frames.
 public sealed class BurnVfxCmd : AbstractConsoleCmd
@@ -38,9 +39,17 @@ public sealed class BurnVfxCmd : AbstractConsoleCmd
         var upright = actual.X.X > 0 && actual.Y.Y > 0
             && Math.Abs(actual.X.Y) < 0.001f && Math.Abs(actual.Y.X) < 0.001f;
         var alive = !fire.IsQueuedForDeletion() && fire.Visible && fire.Modulate.A > 0.99f;
-        var particles = fire.GetChildCount();
-        return new(originError < 0.1f && scaleError < 0.001f && upright && alive && particles > 0,
+        var particles = fire.GetNodeOrNull<Node2D>("TowerFlames")?.GetChildCount() ?? 0;
+        bool behindActor = fire.ShowBehindParent && fire.ZIndex == 0;
+        var icon = NCombatRoom.Instance!.Ui.DrawPile.GetNode<TextureRect>("Icon");
+        var drawFires = icon.GetChildren().OfType<Node2D>().Where(n => n.Name == "KarenBurnDrawPile" && !n.IsQueuedForDeletion()).ToArray();
+        bool isVoid = player!.Creature.GetPower<KarenPromisePilePower>()?.IsVoidMode == true;
+        bool drawFireValid = !isVoid ? drawFires.Length == 0 : drawFires.Length == 1
+            && drawFires[0].ShowBehindParent && drawFires[0].Position.DistanceTo(icon.Size * .5f) < .1f
+            && drawFires[0].GetChildCount() > 0;
+        return new(originError < 0.1f && scaleError < 0.001f && upright && alive && particles > 0 && behindActor && drawFireValid,
             JsonSerializer.Serialize(new { originError, scaleError, upright, alive, particles,
+                behindActor, isVoid, drawFireValid, drawFireNodes = drawFires.Length,
                 expectedX = visual.X.Length(), actualX = actual.X.Length() }));
     }
 }
