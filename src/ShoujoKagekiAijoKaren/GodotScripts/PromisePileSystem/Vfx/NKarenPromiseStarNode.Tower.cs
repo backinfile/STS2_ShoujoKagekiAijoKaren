@@ -94,6 +94,28 @@ public partial class NKarenPromiseStarNode
         return PaintedPoint(leg[^1]);
     }
 
+    private static Vector2 TowerRunnerPoint(int side, float progress)
+    {
+        var leg = side < 0 ? PaintedLeftLeg : PaintedRightLeg;
+        // The idle light joins the fascia directly above its leg. Reproduction
+        // continues to use its separate route into the central card opening.
+        var deckLeft = PaintedLowerDeckEdge[side < 0 ? 1 : 2];
+        var deckRight = PaintedLowerDeckEdge[side < 0 ? 2 : 3];
+        var contact = deckLeft.Lerp(deckRight, (leg[^1].X - deckLeft.X) / (deckRight.X - deckLeft.X));
+        float length = leg[^1].DistanceTo(contact);
+        for (int i = 1; i < leg.Length; i++) length += leg[i - 1].DistanceTo(leg[i]);
+        float remaining = Mathf.Clamp(progress, 0, 1) * length;
+        for (int i = 1; i <= leg.Length; i++)
+        {
+            var next = i < leg.Length ? leg[i] : contact;
+            float segment = leg[i - 1].DistanceTo(next);
+            if (remaining <= segment)
+                return PaintedPoint(leg[i - 1].Lerp(next, remaining / segment));
+            remaining -= segment;
+        }
+        return PaintedPoint(contact);
+    }
+
     private void DrawTower(float alpha)
     {
         // Recess the painted prop behind Karen without baking lights or count into it.
@@ -105,12 +127,25 @@ public partial class NKarenPromiseStarNode
         for (int runner = 0; runner < 2; runner++)
         {
             float t = Mathf.PosMod(_time * .19f + (side > 0 ? .28f : 0) + runner * .5f, 1);
-            var from = ReplenishPath(side, t * 0.82f);
-            var to = ReplenishPath(side, Mathf.Min(t + .10f, 1) * 0.82f);
-            float glow = Mathf.Sin(t * Mathf.Pi) * alpha;
-            DrawLine(from, to, new Color(LampAmber, glow * .14f), 22, true);
-            DrawLine(from, to, new Color(LampAmber, glow * .55f), 8, true);
-            DrawLine(from, to, new Color(White, glow * (.85f + _arrival * .15f)), 3.5f, true);
+            const float arrival = .88f;
+            var to = TowerRunnerPoint(side, t / arrival);
+            float glow = Mathf.SmoothStep(0, .06f, t)
+                * (1 - Mathf.SmoothStep(arrival, 1, t)) * alpha;
+            // Keep full light while climbing. Only fade after reaching the deck,
+            // and let the tail catch up there before this runner restarts.
+            var from = TowerRunnerPoint(side, (t - .10f) / arrival);
+            for (int i = 1; i <= 5; i++)
+            {
+                float tail = Mathf.Lerp(t - .10f, t, i / 5f);
+                var next = TowerRunnerPoint(side, tail / arrival);
+                if (from.DistanceSquaredTo(next) > .01f)
+                {
+                    DrawLine(from, next, new Color(LampAmber, glow * .14f), 22, true);
+                    DrawLine(from, next, new Color(LampAmber, glow * .55f), 8, true);
+                    DrawLine(from, next, new Color(White, glow * (.85f + _arrival * .15f)), 3.5f, true);
+                }
+                from = next;
+            }
             DrawTowerLamp(to, 5, glow);
         }
         DrawStar(PaintedPoint(PaintedTipPixel), 5 + _pulse * 3, White,
