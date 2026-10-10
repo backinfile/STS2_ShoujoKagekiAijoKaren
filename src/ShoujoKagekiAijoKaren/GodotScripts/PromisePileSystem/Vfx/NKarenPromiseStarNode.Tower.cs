@@ -24,13 +24,20 @@ public partial class NKarenPromiseStarNode
     };
     private static readonly Vector2[] PaintedJunctions =
     {
-        PaintedLeftLeg[0], PaintedRightLeg[0], new(418, 705), new(614, 705),
-        new(472, 386), new(564, 386)
+        PaintedLeftLeg[0], PaintedRightLeg[0], new(420, 723), new(618, 730),
+        new(470, 403), new(566, 404)
     };
-    private static readonly Vector2[] PaintedLamps =
+    // Trace the cream fascia below the windows, including each perspective corner.
+    private static readonly Vector2[] PaintedUpperDeckEdge =
     {
-        new(479, 391), new(517, 391), new(555, 391),
-        new(431, 708), new(466, 708), new(501, 708), new(536, 708), new(571, 708), new(606, 708),
+        new(463, 404), new(534, 390), new(572, 407)
+    };
+    private static readonly Vector2[] PaintedLowerDeckEdge =
+    {
+        new(410, 729), new(420, 723), new(553, 707), new(622, 732)
+    };
+    private static readonly Vector2[] PaintedLegLamps =
+    {
         new(338, 1140), new(696, 1140), new(263, 1310), new(763, 1310)
     };
     private static readonly Color LampAmber = new("#ffbe70");
@@ -92,8 +99,8 @@ public partial class NKarenPromiseStarNode
         // Recess the painted prop behind Karen without baking lights or count into it.
         DrawPaintedTowerStrip(0, 1536, Vector2.Zero, new Color(0.90f, 0.90f, 0.90f, alpha * 0.92f));
         DrawVoidScan(alpha);
-        DrawDeckLights(new Vector2(474, 391), new Vector2(562, 391), alpha, .7f);
-        DrawDeckLights(new Vector2(423, 708), new Vector2(612, 708), alpha, 0);
+        DrawDeckLights(PaintedUpperDeckEdge, alpha, .7f);
+        DrawDeckLights(PaintedLowerDeckEdge, alpha, 0);
         for (int side = -1; side <= 1; side += 2)
         for (int runner = 0; runner < 2; runner++)
         {
@@ -115,9 +122,9 @@ public partial class NKarenPromiseStarNode
             DrawCircle(point, 7, new Color(TowerRed, light * 0.18f));
             DrawCircle(point, 2, new Color(White, light));
         }
-        for (int i = 0; i < PaintedLamps.Length; i++)
+        for (int i = 0; i < PaintedLegLamps.Length; i++)
         {
-            var point = PaintedPoint(PaintedLamps[i]);
+            var point = PaintedPoint(PaintedLegLamps[i]);
             float breath = .5f + .5f * Mathf.Sin(_time * 2.1f - i * .65f);
             float light = alpha * (.22f + breath * .78f);
             DrawTowerLamp(point, 3.5f + breath * 1.3f, light);
@@ -127,20 +134,34 @@ public partial class NKarenPromiseStarNode
                 alpha * Mathf.Max(_arrival, _departure));
     }
 
-    private void DrawDeckLights(Vector2 left, Vector2 right, float alpha, float phase)
+    private void DrawDeckLights(Vector2[] edge, float alpha, float phase)
     {
-        // Continuous platform strips remain readable at the normal combat zoom.
-        // Their travelling brightness is deliberately separate from inventory stars.
-        for (int i = 0; i < 12; i++)
+        float totalLength = 0;
+        for (int side = 1; side < edge.Length; side++)
+            totalLength += edge[side - 1].DistanceTo(edge[side]);
+        float travelled = 0;
+        for (int side = 1; side < edge.Length; side++)
         {
-            float t = i / 12f;
-            float wave = .5f + .5f * Mathf.Sin(_time * 2.1f - t * Mathf.Tau + phase);
-            float light = alpha * (.35f + wave * .65f);
-            var from = PaintedPoint(left.Lerp(right, t));
-            var to = PaintedPoint(left.Lerp(right, (i + 1) / 12f));
-            DrawLine(from, to, new Color(LampAmber, light * .13f), 20, true);
-            DrawLine(from, to, new Color(LampAmber, light * .7f), 7, true);
-            DrawLine(from, to, new Color(White, light), 3, true);
+            var left = edge[side - 1];
+            var right = edge[side];
+            float length = left.DistanceTo(right);
+            int segments = Mathf.Max(2, Mathf.CeilToInt(length / 16));
+            // Split at the artwork's corners; the wave continues by distance
+            // around the edge, while each stroke stays on its own visible face.
+            for (int i = 0; i < segments; i++)
+            {
+                float local = (float)i / segments;
+                float t = (travelled + length * local) / totalLength;
+                float wave = .5f + .5f * Mathf.Sin(_time * 2.1f - t * Mathf.Tau + phase);
+                float light = alpha * (.35f + wave * .65f);
+                var from = PaintedPoint(left.Lerp(right, local));
+                var to = PaintedPoint(left.Lerp(right, (i + 1f) / segments));
+                DrawLine(from, to, new Color(LampAmber, light * .13f), 20, true);
+                DrawLine(from, to, new Color(LampAmber, light * .7f), 7, true);
+                DrawLine(from, to, new Color(White, light), 3, true);
+                if (i % 3 == 1) DrawTowerLamp(from, 2.5f, light);
+            }
+            travelled += length;
         }
     }
 
