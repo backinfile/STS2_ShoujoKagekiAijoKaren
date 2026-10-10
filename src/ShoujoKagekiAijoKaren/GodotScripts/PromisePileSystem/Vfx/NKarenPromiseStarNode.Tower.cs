@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 
@@ -36,25 +37,29 @@ public partial class NKarenPromiseStarNode
     {
         new(410, 729), new(420, 723), new(553, 707), new(622, 732)
     };
-    // Idle lights pass around the platform frames and continue along the upper
-    // supports and antenna. Both routes finish at the tip, never at a deck.
-    private static readonly Vector2[] PaintedLeftRunner =
+    private readonly record struct TowerRunnerStep(Vector2 Pixel, bool CoveredFromPrevious = false)
+    {
+        public TowerRunnerStep(float x, float y, bool coveredFromPrevious = false)
+            : this(new Vector2(x, y), coveredFromPrevious) { }
+    }
+
+    // Follow the supports behind each platform. Covered spans still consume
+    // travel time, but neither the head nor the tail is drawn over the platform.
+    private static readonly TowerRunnerStep[] PaintedLeftRunner =
     [
-        .. PaintedLeftLeg,
-        new(445, 720), new(420, 723), new(410, 729), new(406, 685),
-        new(415, 672), new(443, 667), new(469, 496), new(482, 423),
-        new(463, 404), new(460, 370), new(471, 358), new(481, 354),
-        new(494, 296), new(500, 241), new(480, 239), new(480, 220),
-        new(494, 211), new(496, 198), new(505, 142), new(511, 64), PaintedTipPixel
+        .. Array.ConvertAll(PaintedLeftLeg[..^1], pixel => new TowerRunnerStep(pixel)),
+        new(443, 742), new(440, 660, coveredFromPrevious: true),
+        new(469, 496), new(482, 426), new(481, 347, coveredFromPrevious: true),
+        new(494, 296), new(500, 241), new(496, 198, coveredFromPrevious: true),
+        new(505, 142), new(511, 64), new(PaintedTipPixel)
     ];
-    private static readonly Vector2[] PaintedRightRunner =
+    private static readonly TowerRunnerStep[] PaintedRightRunner =
     [
-        .. PaintedRightLeg,
-        new(588, 720), new(622, 732), new(626, 687), new(620, 675),
-        new(594, 667), new(565, 496), new(552, 428), new(572, 407),
-        new(575, 372), new(565, 362), new(552, 355), new(543, 296),
-        new(535, 241), new(554, 239), new(554, 221), new(540, 212),
-        new(537, 198), new(529, 142), new(522, 64), PaintedTipPixel
+        .. Array.ConvertAll(PaintedRightLeg[..^1], pixel => new TowerRunnerStep(pixel)),
+        new(588, 748), new(595, 660, coveredFromPrevious: true),
+        new(565, 496), new(552, 429), new(552, 348, coveredFromPrevious: true),
+        new(543, 296), new(535, 241), new(537, 198, coveredFromPrevious: true),
+        new(529, 142), new(522, 64), new(PaintedTipPixel)
     ];
     private static readonly float LeftRunnerLength = PaintedPathLength(PaintedLeftRunner);
     private static readonly float RightRunnerLength = PaintedPathLength(PaintedRightRunner);
@@ -116,14 +121,14 @@ public partial class NKarenPromiseStarNode
         return PaintedPoint(leg[^1]);
     }
 
-    private static float PaintedPathLength(Vector2[] path)
+    private static float PaintedPathLength(TowerRunnerStep[] path)
     {
         float length = 0;
-        for (int i = 1; i < path.Length; i++) length += path[i - 1].DistanceTo(path[i]);
+        for (int i = 1; i < path.Length; i++) length += path[i - 1].Pixel.DistanceTo(path[i].Pixel);
         return length;
     }
 
-    private void DrawTowerRunner(Vector2[] path, float length, float phase, float alpha)
+    private void DrawTowerRunner(TowerRunnerStep[] path, float length, float phase, float alpha)
     {
         const float speed = 185; // Artwork pixels per second, independent of route length.
         float travelDuration = length / speed;
@@ -133,19 +138,20 @@ public partial class NKarenPromiseStarNode
         float tailDistance = Mathf.Max(0, (elapsed - .46f) * speed);
         float glow = Mathf.SmoothStep(0, .28f, elapsed)
             * (1 - Mathf.SmoothStep(travelDuration, cycleDuration, elapsed)) * alpha;
-        var head = PaintedPoint(path[^1]);
+        var head = PaintedPoint(path[^1].Pixel);
+        bool headCovered = false;
         float travelled = 0;
         for (int i = 1; i < path.Length; i++)
         {
-            var start = path[i - 1];
-            var end = path[i];
+            var start = path[i - 1].Pixel;
+            var end = path[i].Pixel;
             float segment = start.DistanceTo(end);
             float fromDistance = Mathf.Max(tailDistance, travelled);
             float toDistance = Mathf.Min(headDistance, travelled + segment);
-            if (toDistance - fromDistance > .01f)
+            if (!path[i].CoveredFromPrevious && toDistance - fromDistance > .01f)
             {
-                // Clip to each actual edge so a tail crossing a platform corner
-                // follows its frame instead of cutting diagonally across a window.
+                // Clip the tail independently so its lower end can still trail
+                // below a platform while the head has already emerged above it.
                 var from = PaintedPoint(start.Lerp(end, (fromDistance - travelled) / segment));
                 var to = PaintedPoint(start.Lerp(end, (toDistance - travelled) / segment));
                 DrawLine(from, to, new Color(LampAmber, glow * .14f), 22, true);
@@ -155,11 +161,12 @@ public partial class NKarenPromiseStarNode
             if (headDistance <= travelled + segment)
             {
                 head = PaintedPoint(start.Lerp(end, (headDistance - travelled) / segment));
+                headCovered = path[i].CoveredFromPrevious;
                 break;
             }
             travelled += segment;
         }
-        DrawTowerLamp(head, 5, glow);
+        if (!headCovered) DrawTowerLamp(head, 5, glow);
     }
 
     private void DrawTower(float alpha)
