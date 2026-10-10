@@ -6,6 +6,11 @@ namespace ShoujoKagekiAijoKaren.Core;
 [GlobalClass]
 public partial class SNCreatureVisuals : NCreatureVisuals
 {
+    private const double IdleCycleSeconds = 4.4;
+    private static readonly StringName IdlePhaseParameter = new("idle_phase");
+    private Sprite2D? _idleSprite;
+    private ShaderMaterial? _idleMaterial;
+    private double _idlePhase;
     private Tween? _deathTransitionTween;
     private Sprite2D? _corpseSprite;
     private ColorRect? _deathCurtain;
@@ -22,8 +27,21 @@ public partial class SNCreatureVisuals : NCreatureVisuals
         {
             _visualsStartPosition = visuals.Position;
             _visualsStartMaterial = visuals.Material;
+            _idleSprite = visuals;
+            _idleMaterial = visuals.Material as ShaderMaterial;
         }
         ApplyCapeSwayRegions();
+    }
+
+    public override void _Process(double delta)
+    {
+        // Deformation is independent of the attack/hurt position tracks. Do not
+        // advance a hidden/dead body or overwrite a temporary replacement material.
+        if (_idleSprite == null || _idleMaterial == null ||
+            !_idleSprite.IsVisibleInTree() || _idleSprite.Material != _idleMaterial) return;
+
+        _idlePhase = (_idlePhase + delta / IdleCycleSeconds) % 2.0;
+        _idleMaterial.SetShaderParameter(IdlePhaseParameter, (float)_idlePhase);
     }
 
     public void PlayKarenDeathTransition()
@@ -91,6 +109,8 @@ public partial class SNCreatureVisuals : NCreatureVisuals
             visuals.Modulate = Colors.White;
             visuals.RotationDegrees = 0f;
             visuals.Position = _visualsStartPosition;
+            _idlePhase = 0.0;
+            _idleMaterial?.SetShaderParameter(IdlePhaseParameter, 0f);
             ApplyCapeSwayRegions();
         }
 

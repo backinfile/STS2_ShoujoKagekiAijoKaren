@@ -4,57 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://bbod73jfse5qi" path="res://images/packed/Karen.png" id="2_5occ7"]
 [ext_resource type="Texture2D" path="res://images/packed/karen_corpse.png" id="3_7y60n"]
 
-[sub_resource type="Shader" id="Shader_karen_cape_sway"]
-code = "shader_type canvas_item;
-
-uniform float sway_strength : hint_range(0.0, 0.04) = 0.009;
-uniform float sway_speed : hint_range(0.1, 8.0) = 1.45;
-uniform float sway_frequency : hint_range(1.0, 20.0) = 7.5;
-uniform vec4 cape_region_1 = vec4(0.16, 0.20, 0.49, 0.44);
-uniform vec4 cape_region_2 = vec4(0.60, 0.02, 0.74, 0.38);
-uniform vec4 cape_region_3 = vec4(0.46, 0.18, 0.60, 0.36);
-
-float visible_pixel_mask(vec4 color) {
-	return smoothstep(0.12, 0.35, color.a);
-}
-
-float rect_mask(vec2 uv, vec4 rect) {
-	float left = smoothstep(rect.x, rect.x + 0.025, uv.x);
-	float right = 1.0 - smoothstep(rect.z - 0.025, rect.z, uv.x);
-	float top = smoothstep(rect.y, rect.y + 0.025, uv.y);
-	float bottom = 1.0 - smoothstep(rect.w - 0.025, rect.w, uv.y);
-	return left * right * top * bottom;
-}
-
-float cape_region_mask(vec2 uv) {
-	float left_cape = rect_mask(uv, cape_region_1);
-	float right_cape = rect_mask(uv, cape_region_2);
-	float center_cape = rect_mask(uv, cape_region_3);
-	return max(max(left_cape, right_cape), center_cape);
-}
-
-void fragment() {
-	vec4 base_color = texture(TEXTURE, UV);
-	float mask = visible_pixel_mask(base_color) * cape_region_mask(UV);
-
-	float phase = TIME * sway_speed + UV.x * sway_frequency;
-	float cross_wave = sin(phase + UV.y * 2.5);
-	float secondary_wave = sin(phase * 0.72 - UV.y * 5.0) * 0.35;
-	float edge_weight = mix(0.55, 1.0, smoothstep(0.02, 0.42, abs(UV.x - 0.5) * 2.0));
-	vec2 offset = vec2((cross_wave + secondary_wave) * 0.16, cross_wave + secondary_wave * 0.75);
-	offset *= sway_strength * edge_weight * mask;
-
-	vec4 swayed_color = texture(TEXTURE, UV + offset);
-	COLOR = mix(base_color, swayed_color, mask);
-}
-"
+[ext_resource type="Shader" path="res://materials/characters/karen_idle.gdshader" id="4_idle"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_karen_cape_sway"]
 resource_local_to_scene = true
-shader = SubResource("Shader_karen_cape_sway")
-shader_parameter/sway_strength = 0.009
-shader_parameter/sway_speed = 1.45
-shader_parameter/sway_frequency = 7.5
+shader = ExtResource("4_idle")
+shader_parameter/sway_strength = 0.005
 shader_parameter/cape_region_1 = Vector4(0.16, 0.2, 0.49, 0.44)
 shader_parameter/cape_region_2 = Vector4(0.6, 0.02, 0.74, 0.38)
 shader_parameter/cape_region_3 = Vector4(0.46, 0.18, 0.6, 0.36)
@@ -175,6 +130,7 @@ metadata/_edit_lock_ = true
 
 [node name="Visuals" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+texture_filter = 2
 material = SubResource("ShaderMaterial_karen_cape_sway")
 position = Vector2(10.69, -170)
 scale = Vector2(1.225, 1.225)
