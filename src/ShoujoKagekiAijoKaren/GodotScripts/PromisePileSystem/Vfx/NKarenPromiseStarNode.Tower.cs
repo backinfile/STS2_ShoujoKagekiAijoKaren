@@ -36,6 +36,28 @@ public partial class NKarenPromiseStarNode
     {
         new(410, 729), new(420, 723), new(553, 707), new(622, 732)
     };
+    // Idle lights pass around the platform frames and continue along the upper
+    // supports and antenna. Both routes finish at the tip, never at a deck.
+    private static readonly Vector2[] PaintedLeftRunner =
+    [
+        .. PaintedLeftLeg,
+        new(445, 720), new(420, 723), new(410, 729), new(406, 685),
+        new(415, 672), new(443, 667), new(469, 496), new(482, 423),
+        new(463, 404), new(460, 370), new(471, 358), new(481, 354),
+        new(494, 296), new(500, 241), new(480, 239), new(480, 220),
+        new(494, 211), new(496, 198), new(505, 142), new(511, 64), PaintedTipPixel
+    ];
+    private static readonly Vector2[] PaintedRightRunner =
+    [
+        .. PaintedRightLeg,
+        new(588, 720), new(622, 732), new(626, 687), new(620, 675),
+        new(594, 667), new(565, 496), new(552, 428), new(572, 407),
+        new(575, 372), new(565, 362), new(552, 355), new(543, 296),
+        new(535, 241), new(554, 239), new(554, 221), new(540, 212),
+        new(537, 198), new(529, 142), new(522, 64), PaintedTipPixel
+    ];
+    private static readonly float LeftRunnerLength = PaintedPathLength(PaintedLeftRunner);
+    private static readonly float RightRunnerLength = PaintedPathLength(PaintedRightRunner);
     private static readonly Vector2[] PaintedLegLamps =
     {
         new(338, 1140), new(696, 1140), new(263, 1310), new(763, 1310)
@@ -94,26 +116,50 @@ public partial class NKarenPromiseStarNode
         return PaintedPoint(leg[^1]);
     }
 
-    private static Vector2 TowerRunnerPoint(int side, float progress)
+    private static float PaintedPathLength(Vector2[] path)
     {
-        var leg = side < 0 ? PaintedLeftLeg : PaintedRightLeg;
-        // The idle light joins the fascia directly above its leg. Reproduction
-        // continues to use its separate route into the central card opening.
-        var deckLeft = PaintedLowerDeckEdge[side < 0 ? 1 : 2];
-        var deckRight = PaintedLowerDeckEdge[side < 0 ? 2 : 3];
-        var contact = deckLeft.Lerp(deckRight, (leg[^1].X - deckLeft.X) / (deckRight.X - deckLeft.X));
-        float length = leg[^1].DistanceTo(contact);
-        for (int i = 1; i < leg.Length; i++) length += leg[i - 1].DistanceTo(leg[i]);
-        float remaining = Mathf.Clamp(progress, 0, 1) * length;
-        for (int i = 1; i <= leg.Length; i++)
+        float length = 0;
+        for (int i = 1; i < path.Length; i++) length += path[i - 1].DistanceTo(path[i]);
+        return length;
+    }
+
+    private void DrawTowerRunner(Vector2[] path, float length, float phase, float alpha)
+    {
+        const float speed = 185; // Artwork pixels per second, independent of route length.
+        float travelDuration = length / speed;
+        float cycleDuration = travelDuration + .65f;
+        float elapsed = Mathf.PosMod(_time + phase * cycleDuration, cycleDuration);
+        float headDistance = Mathf.Min(elapsed * speed, length);
+        float tailDistance = Mathf.Max(0, (elapsed - .46f) * speed);
+        float glow = Mathf.SmoothStep(0, .28f, elapsed)
+            * (1 - Mathf.SmoothStep(travelDuration, cycleDuration, elapsed)) * alpha;
+        var head = PaintedPoint(path[^1]);
+        float travelled = 0;
+        for (int i = 1; i < path.Length; i++)
         {
-            var next = i < leg.Length ? leg[i] : contact;
-            float segment = leg[i - 1].DistanceTo(next);
-            if (remaining <= segment)
-                return PaintedPoint(leg[i - 1].Lerp(next, remaining / segment));
-            remaining -= segment;
+            var start = path[i - 1];
+            var end = path[i];
+            float segment = start.DistanceTo(end);
+            float fromDistance = Mathf.Max(tailDistance, travelled);
+            float toDistance = Mathf.Min(headDistance, travelled + segment);
+            if (toDistance - fromDistance > .01f)
+            {
+                // Clip to each actual edge so a tail crossing a platform corner
+                // follows its frame instead of cutting diagonally across a window.
+                var from = PaintedPoint(start.Lerp(end, (fromDistance - travelled) / segment));
+                var to = PaintedPoint(start.Lerp(end, (toDistance - travelled) / segment));
+                DrawLine(from, to, new Color(LampAmber, glow * .14f), 22, true);
+                DrawLine(from, to, new Color(LampAmber, glow * .55f), 8, true);
+                DrawLine(from, to, new Color(White, glow * (.85f + _arrival * .15f)), 3.5f, true);
+            }
+            if (headDistance <= travelled + segment)
+            {
+                head = PaintedPoint(start.Lerp(end, (headDistance - travelled) / segment));
+                break;
+            }
+            travelled += segment;
         }
-        return PaintedPoint(contact);
+        DrawTowerLamp(head, 5, glow);
     }
 
     private void DrawTower(float alpha)
@@ -123,30 +169,10 @@ public partial class NKarenPromiseStarNode
         DrawVoidScan(alpha);
         DrawDeckLights(PaintedUpperDeckEdge, alpha, .7f);
         DrawDeckLights(PaintedLowerDeckEdge, alpha, 0);
-        for (int side = -1; side <= 1; side += 2)
         for (int runner = 0; runner < 2; runner++)
         {
-            float t = Mathf.PosMod(_time * .19f + (side > 0 ? .28f : 0) + runner * .5f, 1);
-            const float arrival = .88f;
-            var to = TowerRunnerPoint(side, t / arrival);
-            float glow = Mathf.SmoothStep(0, .06f, t)
-                * (1 - Mathf.SmoothStep(arrival, 1, t)) * alpha;
-            // Keep full light while climbing. Only fade after reaching the deck,
-            // and let the tail catch up there before this runner restarts.
-            var from = TowerRunnerPoint(side, (t - .10f) / arrival);
-            for (int i = 1; i <= 5; i++)
-            {
-                float tail = Mathf.Lerp(t - .10f, t, i / 5f);
-                var next = TowerRunnerPoint(side, tail / arrival);
-                if (from.DistanceSquaredTo(next) > .01f)
-                {
-                    DrawLine(from, next, new Color(LampAmber, glow * .14f), 22, true);
-                    DrawLine(from, next, new Color(LampAmber, glow * .55f), 8, true);
-                    DrawLine(from, next, new Color(White, glow * (.85f + _arrival * .15f)), 3.5f, true);
-                }
-                from = next;
-            }
-            DrawTowerLamp(to, 5, glow);
+            DrawTowerRunner(PaintedLeftRunner, LeftRunnerLength, runner * .5f, alpha);
+            DrawTowerRunner(PaintedRightRunner, RightRunnerLength, .28f + runner * .5f, alpha);
         }
         DrawStar(PaintedPoint(PaintedTipPixel), 5 + _pulse * 3, White,
             alpha * (0.65f + Mathf.Sin(_time * 2.4f) * 0.12f));
