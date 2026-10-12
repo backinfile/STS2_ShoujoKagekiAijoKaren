@@ -33,7 +33,8 @@ public partial class NKarenBurnVfx : Node2D
         ZIndex = 0;
         ShowBehindParent = true;
         UpdatePlacement();
-        for (int i = 0; i < NKarenPromiseStarNode.BurnSiteCount; i++) EmitTowerFire(.5f);
+        if (UpdateTowerFireVisibility() > 0)
+            for (int i = 0; i < NKarenPromiseStarNode.BurnSiteCount; i++) EmitTowerFire(.5f);
     }
 
     public void Restart()
@@ -98,6 +99,7 @@ public partial class NKarenBurnVfx : Node2D
     {
         if (!UpdatePlacement()) return;
         UpdateDrawFire();
+        float towerAlpha = UpdateTowerFireVisibility();
 
         if (_stopping) return;
 
@@ -106,7 +108,7 @@ public partial class NKarenBurnVfx : Node2D
         if (_particleTimer <= 0f)
         {
             _particleTimer = 0.05f;
-            EmitTowerFire();
+            if (towerAlpha > 0) EmitTowerFire();
             if (GodotObject.IsInstanceValid(_drawFire))
             {
                 float scale = _drawFire!.Scale.X;
@@ -121,7 +123,7 @@ public partial class NKarenBurnVfx : Node2D
         }
 
         _auraTimer -= d;
-        if (_auraTimer <= 0f)
+        if (_auraTimer <= 0f && towerAlpha > 0)
         {
             _auraTimer = .45f;
             var aura = new NKarenStanceAura(ExhaustLargeTexture)
@@ -131,6 +133,14 @@ public partial class NKarenBurnVfx : Node2D
             };
             _towerSmoke.AddChild(aura);
         }
+    }
+
+    private float UpdateTowerFireVisibility()
+    {
+        float alpha = _creatureNode?.Entity.Player is { } owner
+            ? KarenPromiseVfxStarManager.GetTowerVisualAlpha(owner) : 0;
+        _towerFlames.Modulate = _towerSmoke.Modulate = new Color(1, 1, 1, alpha);
+        return alpha;
     }
 
     private void EmitTowerFire(float warmup = 0)

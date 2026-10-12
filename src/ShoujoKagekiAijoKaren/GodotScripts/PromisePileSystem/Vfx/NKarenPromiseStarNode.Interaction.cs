@@ -48,7 +48,7 @@ public partial class NKarenPromiseStarNode
         ];
 
         public override bool _HasPoint(Vector2 point)
-            => GetParent() is NKarenPromiseStarNode { _visibility: > 0.01f }
+            => GetParent() is NKarenPromiseStarNode { TowerVisualAlpha: > 0.01f }
                 && Geometry2D.IsPointInPolygon(point / PaintedScale, Outline);
     }
 }

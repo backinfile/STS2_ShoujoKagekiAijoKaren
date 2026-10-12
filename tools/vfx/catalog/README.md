@@ -30,3 +30,26 @@ python -u tools/vfx/catalog/record.py beta --output artifacts/vfx-catalog-202610
 删牌准备默认等待 2.2 秒再换场，以免测试版尚未完成的原生删牌回池与新房间清理重叠。`--scenes setup-control --setup-wait 0` 可复现这一夹具时机对照，常规录制不要关闭等待。预加载期间的历史 `Invalid Task ID` 仍需记录，不以出牌检查通过替代日志审阅。
 
 这套全览的实录环境与覆盖范围以 `docs/testing/vfx-catalog-2026-10-12.md` 为准，不代表执行过完整单人／多人测试矩阵。
+
+塔退场与抽牌堆图标接替的专项：
+
+```powershell
+python -u tools/vfx/catalog/record.py stable --output artifacts/void-tower-handoff-20261012 --scenes void-tower-handoff
+python -u tools/vfx/catalog/record.py beta --output artifacts/void-tower-handoff-20261012 --scenes void-tower-handoff
+```
+
+该专项单独录制正常转换、已有燃烧／光带的转换、空虚后点燃、下一场恢复四组场景；按实际节点归属核对图标层，检查塔淡出、隐藏点击区域、空库存、重复打出、取牌、塔桥和再生产。`void-tower-checks.json` 保存逐项结果，移牌操作额外保留 MCP 截图与 `karen_check_hand` 结果。准备方法和隔离环境前提同上；详见 `docs/testing/void-tower-handoff-2026-10-12.md`。
+
+向下扫光、塔脚传光与图标重组的专项：
+
+```powershell
+python -u tools/vfx/catalog/record.py stable --output artifacts/void-card-beam-20261012 --scenes void-tower-timing
+python -u tools/vfx/catalog/record.py beta --output artifacts/void-card-beam-20261012 --scenes void-tower-timing
+python tools/vfx/catalog/verify_void_projection.py --output artifacts/void-card-beam-20261012 --branch stable
+python tools/vfx/catalog/verify_void_projection.py --output artifacts/void-card-beam-20261012 --branch beta
+python tools/vfx/catalog/assemble_void_timing.py --output artifacts/void-card-beam-20261012
+```
+
+该专项逐帧读取实际塔和图标透明度、卡牌星星位置和亮度、光束路径，分别录制约定牌堆有 3 张牌与无牌，检查扫描期间塔保持完整、扫描结束后淡出、图标先隐藏再重现，以及库存转换与手牌一致性。有牌时额外核对星星不会提前飞到图标，传递阶段保持可见并位于对应光束上且不超过光头；无牌时真实库存星星应始终为零。`void-tower-timing-checks.json` 保存时序和轨迹结果，`tower-timeline.json` 保存逐帧数据；导出两个独立的编号／标题视频及两段合辑，保留游戏原声与原速。首次运行前仍需按上述前提分别准备两版隔离环境。
+
+`verify_void_projection.py` 从固定 1280×720 测试画面的塔脚光束区域、图标上方区域读取实际暖白像素，要求两个区域各至少 3 帧出现光线；无牌场景能避免用真实库存星星掩盖丢失的图标重组特效。也可用 `--video <原始录像>` 核查单段旧录像。区域与阈值仅用于这套固定布局，仍须查看连续帧和 MCP 前后截图；不能代替不同分辨率或角色位置的视觉审阅。

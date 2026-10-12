@@ -115,23 +115,36 @@ public partial class NKarenPromiseStarNode
         var center = FromVoidIcon(_voidOrbitIcon!.Size * 0.5f);
         if (age < 1.22f)
         {
-            float travel = Ease((age - 0.1f - star.Slot % 4 * 0.025f) / 0.7f);
-            var destination = _voidOrbitIcon.GetGlobalTransformWithCanvas() * (_voidOrbitIcon.Size * 0.5f);
-            var bend = new Vector2(Mathf.Min(sourceCanvas.X, destination.X) - 35,
-                Mathf.Lerp(sourceCanvas.Y, destination.Y, 0.5f));
-            var position = (1 - travel) * (1 - travel) * sourceCanvas
-                + 2 * (1 - travel) * travel * bend + travel * travel * destination;
-            return GetGlobalTransformWithCanvas().AffineInverse() * position;
+            int lane = star.Slot % 2;
+            var inverse = GetGlobalTransformWithCanvas().AffineInverse();
+            if (age < VoidProjectionStart)
+            {
+                // Wait for the descending scan to collect this card's light,
+                // then carry it down to the foot where the ribbon begins.
+                var source = inverse * sourceCanvas;
+                var foot = VoidProjectionFoot(lane);
+                float sourcePixelY = 19 + (source.Y - PaintedPoint(PaintedTipPixel).Y) / PaintedScale;
+                float caughtAt = 0.18f + 0.55f * Mathf.Clamp((sourcePixelY - 19) / 1491, 0, 1);
+                float gather = Ease((age - caughtAt) / Mathf.Max(0.01f, VoidProjectionStart - caughtAt));
+                float scanY = PaintedPoint(new Vector2(516, VoidScanPixelY(age))).Y;
+                return new Vector2(Mathf.Lerp(source.X, foot.X, gather),
+                    Mathf.Clamp(scanY, source.Y, Mathf.Max(source.Y, foot.Y)));
+            }
+            float progress = VoidProjectionProgress(age - VoidCardProjectionDelay(star));
+            return inverse * VoidProjectionPoint(lane, progress);
         }
         float t = Mathf.Clamp((age - 1.22f) / 0.65f, 0, 1) - 1;
         float pop = 1 + 2.2f * t * t * t + 1.2f * t * t;
         return center.Lerp(orbit, pop);
     }
 
+    private static float VoidCardProjectionDelay(Star star) => star.Slot / 2 % 4 * 0.025f;
+
     private float VoidOrbitLight(Star star)
     {
         if (star.VoidSourceCanvas == null || VoidAge >= 1.95f) return 1;
-        return VoidAge < 1.22f ? 1 - Ease((VoidAge - 0.78f) / 0.16f)
+        float arrival = VoidProjectionStart + VoidProjectionDuration + VoidCardProjectionDelay(star);
+        return VoidAge < 1.22f ? 1 - Ease((VoidAge - arrival) / 0.13f)
             : Ease((VoidAge - 1.22f) / 0.18f);
     }
 
@@ -143,7 +156,7 @@ public partial class NKarenPromiseStarNode
         if (!UsingVoidIconOrbit) return;
         float age = VoidAge;
         float gather = Ease((age - 0.45f) / 0.35f) * (1 - Ease((age - 1.05f) / 0.3f));
-        if (_count > 0 && gather > 0)
+        if (gather > 0)
             _voidOrbitBack!.DrawCircle(_voidOrbitIcon!.Size * 0.5f, 26,
                 new Color(White, gather * _visibility * 0.18f));
         DrawOrbitStars(_visibility, VoidOrbitAccent, behindTower: true, _voidOrbitBack);
@@ -153,6 +166,8 @@ public partial class NKarenPromiseStarNode
     {
         if (UsingVoidIconOrbit)
         {
+            DrawVoidProjection(_voidOrbitFront!, _visibility);
+            DrawVoidRecall(_voidOrbitFront!, _visibility);
             DrawReproduction(_visibility, _voidOrbitFront);
             DrawOrbitStars(_visibility, VoidOrbitAccent, behindTower: false, _voidOrbitFront);
             DrawTransferTrails(_voidOrbitFront!, _visibility, VoidOrbitAccent);

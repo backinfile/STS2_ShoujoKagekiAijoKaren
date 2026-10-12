@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Patches;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 // Recording fixture only. Card effects are executed by actual native card plays.
 public sealed class ShowcaseCmd : AbstractConsoleCmd
@@ -22,6 +23,12 @@ public sealed class ShowcaseCmd : AbstractConsoleCmd
     public override CmdResult Process(Player? player, string[] args)
     {
         if (player?.PlayerCombatState == null || args.Length == 0) return new(false, Args);
+        if (args[0] == "rebuild-tower")
+        {
+            KarenPromiseVfxStarManager.ClearAll(player);
+            KarenPromiseVfxStarManager.UpdatePromisePileStarCount(player);
+            return new(true, "Recreated presentation from authoritative combat state");
+        }
         if (args[0] == "next-exhaust" && args.Length == 2)
         {
             PileType.Hand.GetPile(player).Cards.Single(c => c.Id.Entry == args[1]).ExhaustOnNextPlay = true;

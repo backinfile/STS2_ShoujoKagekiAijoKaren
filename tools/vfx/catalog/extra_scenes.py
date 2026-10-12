@@ -1,4 +1,8 @@
 # Executed by record.py inside its MCP recording session.
+if 'void-tower-handoff' in wanted:
+    exec(compile(pathlib.Path(__file__).with_name('void_tower_handoff.py').read_text(encoding='utf-8'), 'void_tower_handoff.py', 'exec'))
+if 'void-tower-timing' in wanted:
+    exec(compile(pathlib.Path(__file__).with_name('void_tower_timing.py').read_text(encoding='utf-8'), 'void_tower_timing.py', 'exec'))
 if 'setup-control' in wanted:
     stage('setup-control', seed=False)
     settle('ready')

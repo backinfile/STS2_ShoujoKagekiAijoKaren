@@ -370,7 +370,8 @@ public partial class NKarenPromiseStarNode : Node2D
         bool burn = (_mode & PromisePileMode.Burn) != 0;
         bool past = (_mode & PromisePileMode.PastAndFuture) != 0;
         Color accent = past ? new Color("#b4f5ff") : burn ? new Color("#ffbc81") : White;
-        float alpha = _visibility;
+        float alpha = TowerVisualAlpha;
+        if (alpha <= 0) return;
         if (!UsingVoidIconOrbit) DrawOrbitStars(alpha, accent, behindTower: true);
         DrawTower(alpha);
         DrawTowerRecall(alpha);

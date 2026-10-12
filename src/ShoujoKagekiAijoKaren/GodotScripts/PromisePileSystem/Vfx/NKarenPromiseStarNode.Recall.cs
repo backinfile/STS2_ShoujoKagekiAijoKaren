@@ -134,6 +134,7 @@ public partial class NKarenPromiseStarNode
 
     private void DrawTowerRecall(float alpha)
     {
+        if (IsVoidPresentation) return;
         float age = _time - _recallStarted;
         float batch = _recallDepth > 0 ? 1 : Mathf.Clamp((_recallTailUntil - _time) / 0.42f, 0, 1);
         if (_recallPreviewAlpha > 0) DrawTransferPreview(alpha * _recallPreviewAlpha);
@@ -177,12 +178,36 @@ public partial class NKarenPromiseStarNode
         }
         DrawStar(PaintedSource, 9 + _recallSendPulse * 7, RecallGold,
             alpha * Mathf.Clamp(batch * 0.3f + _recallSendPulse, 0, 1));
-        if (UsingVoidIconOrbit)
+    }
+
+    private void DrawVoidRecall(CanvasItem surface, float alpha)
+    {
+        var center = _voidOrbitIcon!.Size * 0.5f;
+        float radius = _voidOrbitIcon.Size.X * 0.5f;
+        if (_recallPreviewAlpha > 0 && _transferPreview != PromiseTransferPreview.None)
         {
-            // In Void the card leaves the actual Draw icon; avoid a second stream from the tower.
-            var atIcon = FromVoidIcon(_voidOrbitIcon!.Size * 0.5f);
-            DrawStar(atIcon, 11 + _recallSendPulse * 5, RecallGold,
-                alpha * _recallSendPulse * 0.7f);
+            float age = _time - _transferPreviewStarted;
+            float light = alpha * _recallPreviewAlpha * (0.92f + Mathf.Sin(age * 3) * 0.08f);
+            bool taking = _transferPreview is PromiseTransferPreview.Take or PromiseTransferPreview.Tower
+                || (_transferPreview == PromiseTransferPreview.Both && (int)(age / 2.5f) % 2 == 1);
+            surface.DrawArc(center, radius, 0, Mathf.Tau, 48,
+                new Color(RecallGold, light * 0.55f), 2, true);
+            for (int comet = 0; comet < 3; comet++)
+            {
+                float angle = (taking ? -1 : 1) * age * 2 + comet * Mathf.Tau / 3;
+                var point = center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+                DrawStar(surface, point, 4, RecallGold, light);
+            }
+            DrawStar(surface, center, 9, RecallGold, light * 0.7f);
+        }
+        float batch = _recallDepth > 0 ? 1 : Mathf.Clamp((_recallTailUntil - _time) / 0.42f, 0, 1);
+        if (batch > 0)
+        {
+            float age = _time - _recallStarted;
+            float charge = _recallCanDraw ? 0.3f + _recallSendPulse
+                : RecallPulse(age, 0, 0.34f) * 0.55f;
+            DrawStar(surface, center, 11 + _recallSendPulse * 5, RecallGold,
+                alpha * batch * Mathf.Clamp(charge, 0, 1));
         }
     }
 
@@ -240,8 +265,6 @@ public partial class NKarenPromiseStarNode
             }
             DrawStar(PaintedPoint(PaintedTipPixel), 10, RecallGold, light);
         }
-        if (UsingVoidIconOrbit)
-            DrawStar(FromVoidIcon(_voidOrbitIcon!.Size * 0.5f), tower ? 15 : 10, RecallGold, light);
     }
 
     private void DrawPreviewRail(Vector2 from, Vector2 to, float light, bool tower)

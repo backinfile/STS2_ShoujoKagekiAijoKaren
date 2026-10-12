@@ -63,11 +63,12 @@ def stamp(seconds):
     return f'{n // 360000}:{n // 6000 % 60:02}:{n // 100 % 60:02}.{n % 100:02}'
 
 
-def assemble(root, branch, preview=False):
+def assemble(root, branch, preview=False, entries=None, title='Karen 特效全览 · 2026-10-12', filename='Karen-VFX-catalog-2026-10-12.mp4'):
+    entries = ENTRIES if entries is None else entries
     edit = root / 'edit'; edit.mkdir(exist_ok=True)
     version = 'v0.107.1' if branch == 'stable' else 'v0.111.0'
     manifest = []
-    for i, (name, title) in enumerate(ENTRIES, 1):
+    for i, (name, entry_title) in enumerate(entries, 1):
         source = root / branch / name / 'game.mp4'
         if preview and not source.exists():
             continue
@@ -76,7 +77,7 @@ def assemble(root, branch, preview=False):
         assert any(s['codec_type'] == 'audio' for s in data['streams']), source
         rec = json.loads(source.with_name('recording.json').read_text(encoding='utf-8'))
         assert rec['status'] == 'completed' and rec['audio'] and rec['audio_source'] == 'game_process', source
-        manifest.append(dict(index=i, name=name, title=title, source=str(source), duration=float(video['duration']), sha256=hashlib.sha256(source.read_bytes()).hexdigest(), captureBuild=rec.get('captureBuild'), captureFps=rec['capture_fps'], repeatedFrames=rec['frames_repeated']))
+        manifest.append(dict(index=i, name=name, title=entry_title, source=str(source), duration=float(video['duration']), sha256=hashlib.sha256(source.read_bytes()).hexdigest(), captureBuild=rec.get('captureBuild'), captureFps=rec['capture_fps'], repeatedFrames=rec['frames_repeated']))
 
     def encode(e):
         name = f"{e['index']:02}"
@@ -100,7 +101,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 '''
         def line(start, end, text):
             return f'Dialogue: 0,{stamp(start)},{stamp(end)},Footer,,0,0,0,,{text}\n'
-        ass += line(0, dur, r'{\pos(24,733)\fs37\b1\c&H8BCEFF&}' + f"{e['index']:02}" + r'{\fs18\b0\c&HA0AAA9&} / 32')
+        ass += line(0, dur, r'{\pos(24,733)\fs37\b1\c&H8BCEFF&}' + f"{e['index']:02}" + r'{\fs18\b0\c&HA0AAA9&} / ' + f'{len(entries):02}')
         ass += line(0, dur, r'{\pos(152,732)\fs27\b1}' + e['title'])
         ass += line(0, dur, r'{\an9\pos(1256,738)\fs16\c&HA0AAA9&}' + version + ' · 原速实录')
         for j, marker in enumerate(marks):
@@ -121,7 +122,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     (edit / 'concat.txt').write_text(''.join(f"file '{e['index']:02}.mp4'\n" for e in manifest), encoding='utf-8')
     # Derive chapter positions from the concat demuxer's actual segment lengths.
     offset = 0
-    meta = ';FFMETADATA1\ntitle=Karen 特效全览 · 2026-10-12\n'
+    meta = f';FFMETADATA1\ntitle={title}\n'
     for e in manifest:
         e['start'] = offset
         offset += float(probe(edit / f"{e['index']:02}.mp4")['format']['duration'])
@@ -131,7 +132,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     measured = call(['ffmpeg', '-hide_banner', '-f', 'concat', '-safe', '0', '-i', str(edit / 'concat.txt'), '-vn', '-af', 'volumedetect', '-f', 'null', 'NUL'], edit / 'source-audio.log')
     peak = float(re.search(r'max_volume: (-?[\d.]+) dB', measured).group(1))
     gain = max(0, min(8, -2 - peak))
-    target = root / 'Karen-VFX-catalog-2026-10-12.mp4'
+    target = root / filename
     call(['ffmpeg', '-hide_banner', '-y', '-f', 'concat', '-safe', '0', '-i', str(edit / 'concat.txt'), '-i', str(edit / 'chapters.ffmeta'), '-map_metadata', '1', '-map_chapters', '1', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-af', f'volume={gain}dB', '-movflags', '+faststart', str(target)], edit / 'concat.log')
     (root / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
     (root / 'chapters.txt').write_text('\n'.join(f"{int(e['start'])//60:02}:{int(e['start'])%60:02}  {e['index']:02}  {e['title']}" for e in manifest) + '\n', encoding='utf-8')

@@ -37,6 +37,15 @@ public static class KarenPromiseVfxStarManager
     public static Vector2? GetTowerPosition(Player player)
         => GetOrCreateNode(player)?.TransferGlobalPosition;
 
+    internal static float GetTowerVisualAlpha(Player player)
+    {
+        // Particle shutdown can outlive the tower's cleanup. A visibility
+        // query must not recreate a prop after ClearAll has removed it.
+        var node = Nodes.Get(player);
+        return GodotObject.IsInstanceValid(node) && !node!.IsQueuedForDeletion()
+            ? node.TowerVisualAlpha : 0;
+    }
+
     // All effects share the active entrance: the painted deck, or the local
     // Draw icon in Void. Convert between canvases only at the drawing boundary.
     public static Vector2? GetPileCanvasPosition(Player player)
