@@ -1,0 +1,106 @@
+[
+  {
+    "name": "02-cookies",
+    "strength": 0.25,
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_identical": true,
+    "seconds": 2.89,
+    "visible_rgb_mean_absolute_change": 2.111,
+    "source_sha256": "931ac9e6c581cb8f643a9ce438b14996f6ea496f3b752887446a05a393318835",
+    "output_sha256": "e91e28c895c96ec99531a870d66cad13a1d441fca4d81d092a49f98ff776a9ed"
+  },
+  {
+    "name": "02-cookies",
+    "strength": 0.5,
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_identical": true,
+    "seconds": 2.48,
+    "visible_rgb_mean_absolute_change": 2.217,
+    "source_sha256": "931ac9e6c581cb8f643a9ce438b14996f6ea496f3b752887446a05a393318835",
+    "output_sha256": "760248069e0380f052b3dc781578b45645c5cf239ffd3f89996470bec078b664"
+  },
+  {
+    "name": "04-baseball-cat",
+    "strength": 0.25,
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_identical": true,
+    "seconds": 2.51,
+    "visible_rgb_mean_absolute_change": 2.912,
+    "source_sha256": "36bd765fbb2c0874901aa16f4e70261990e881ba80e708de57c7596cf6fd040b",
+    "output_sha256": "9241f8f0e8abe8edda36458cb34724e63784533bd2f8e78918e6c32ba71f596f"
+  },
+  {
+    "name": "04-baseball-cat",
+    "strength": 0.5,
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_identical": true,
+    "seconds": 2.48,
+    "visible_rgb_mean_absolute_change": 3.249,
+    "source_sha256": "36bd765fbb2c0874901aa16f4e70261990e881ba80e708de57c7596cf6fd040b",
+    "output_sha256": "4269882508c3ff36ce54f03e437253517505b8c25ed1cad7166fb943b15600ae"
+  },
+  {
+    "name": "05-mr-white",
+    "strength": 0.25,
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_identical": true,
+    "seconds": 2.5,
+    "visible_rgb_mean_absolute_change": 2.205,
+    "source_sha256": "e91d18075ca169b073d0b428bc80997a6eb177d460772e49a9c38f9ae3271415",
+    "output_sha256": "f48592d9d21eef9f1fc6cbbf13ea257604046fb66fe925208ba2aa486b6b24a3"
+  },
+  {
+    "name": "05-mr-white",
+    "strength": 0.5,
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_identical": true,
+    "seconds": 2.49,
+    "visible_rgb_mean_absolute_change": 2.444,
+    "source_sha256": "e91d18075ca169b073d0b428bc80997a6eb177d460772e49a9c38f9ae3271415",
+    "output_sha256": "183bded29f370418742b6a2efeec456439b0e7edf37dc7ca2905ef2bf431cbae"
+  },
+  {
+    "name": "07-star-tiara",
+    "strength": 0.25,
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_identical": true,
+    "seconds": 2.44,
+    "visible_rgb_mean_absolute_change": 4.605,
+    "source_sha256": "337f5302eb90d5ffef26001f02d3a6f3f0f17acbb99f5f72a073f2d9a01842e8",
+    "output_sha256": "2a6d924a23a1bbca7db6c835e9fde9ccd5b9afdb441cad8d34c22f3a3f7c5aa4"
+  },
+  {
+    "name": "07-star-tiara",
+    "strength": 0.5,
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_identical": true,
+    "seconds": 2.47,
+    "visible_rgb_mean_absolute_change": 5.272,
+    "source_sha256": "337f5302eb90d5ffef26001f02d3a6f3f0f17acbb99f5f72a073f2d9a01842e8",
+    "output_sha256": "a51561f57fdf23b8f8bfce30b6ec4044d77e974901535d777cf2b99c3c7b7708"
+  }
+]

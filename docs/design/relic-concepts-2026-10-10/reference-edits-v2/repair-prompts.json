@@ -1,0 +1,40 @@
+[
+  {
+    "id": "01-watch",
+    "refs": [
+      "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/edits/01-watch.png",
+      "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/references/01-watch.jpg"
+    ],
+    "prompt": "Faithful image edit / outpainting. Image 1 is the extracted watch to fix, image 2 is its original photo reference. Keep ALL existing watch pixels and its object design, dial, text, lid, gold color, lighting and perspective as closely as possible. Only give the object more transparent padding so the large top keyring is fully inside the canvas, and complete just the missing arc of that same circular keyring at the top. Remove isolated background/fringe specks outside the object. Do not add chains or other objects; do not change any watch details. The whole object including completed ring must fit with at least 6 percent margin all around on a genuinely transparent square canvas."
+  },
+  {
+    "id": "02-cookies",
+    "refs": [
+      "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/references/02-cookies.jpg"
+    ],
+    "prompt": "Faithful extraction EDIT of the provided official biscuit product photo, not a product redesign. Isolate the CENTRAL transparent long bag, retaining its actual photographic appearance. Critical invariant: all FIVE biscuits have a SQUARE/ROUNDED-SQUARE outline with short straight sides and lightly scalloped edges; they are NOT circular cookies. Their icing and five printed patterns must match the original central bag exactly (red revue mark, red giraffe seal, gray circular star arrangement, gray interlaced star, black bear head), preserve wrapper with fine white flower motifs and narrow gold tie. Remove the two neighboring bags and background; repair only the tiny occluded wrapper edge. Preserve original proportions, folds, colors and square biscuits; do not beautify into a new food design, do not redraw the logos creatively. Center the entire bag with 6 percent padding on transparent background, clean alpha edges, no detached pixels."
+  },
+  {
+    "id": "05-mr-white",
+    "refs": [
+      "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/references/05-mr-white.jpg"
+    ],
+    "prompt": "Faithful cutout and restoration EDIT of this exact reference graphic, not a photo rendering. Extract the Mr White bear HEAD and its existing ball chain. Preserve the original flat, smooth 2D product illustration with thin gray edge, near-white soft shading, perfectly circular black eyes and exact T-nose/W-mouth; preserve the flattened wide face, round ears with pinched notches below them, and chain's original curves. Remove the gray SAMPLE overlay and all surrounding dimensions/copyright text/background. Restore the covered white areas in the same simple flat illustration. CRITICAL: no fur, plush fibers, seams, stitches, fabric texture, 3D rendering, body or extra details. Enlarge cleanly with actual transparent background and neat alpha edges with 6 percent padding."
+  },
+  {
+    "id": "03-little-star",
+    "refs": [
+      "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/references/03-star-rocks.jpg",
+      "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/references/03-star-scene.jpg"
+    ],
+    "prompt": "Use case: precise-object-edit plus background-extraction. Faithful extraction/restoration of a single pink star-shaped stone from Revue Starlight episode 12 screenshots. Image 1 is the primary target: the pink star stone held against Hikari's chest, approximately x770..1100 y450..715 in the 1280x720 image. Image 2 is supporting close-up reference for its matte pink material and softly rounded angular edges only. Extract the held stone, preserving its tilted orientation, irregular thick star silhouette, dusty rose-pink palette, soft violet shading, small visible dark scuff marks and simple flat anime rendering. Remove girl, hands, background and other rocks. Conservatively complete only the stone points hidden by hands/foreground stone or cut at bottom, extrapolating the visible thickness and contour. This is a weathered matte stage stone, not a gem or shining magic icon. No crystal facets, glowing center, golden crack, sparkles, outline glow, pedestal or new ornament. Keep surface simple and understated. Output single object with clean alpha and 8 percent padding on genuinely transparent square PNG."
+  },
+  {
+    "id": "02-cookies",
+    "refs": [
+      "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/references/02-cookies.jpg"
+    ],
+    "prompt": "请严格编辑这张官方商品参考图，只提取中央竖直摆放的那一袋饼干。目标是尽量保持原图，不是重新设计商品。图中是五块纵向排列、四边有较短直线且四角圆润的近方形饼干，不能画成圆饼。请让每块饼干的四条边和四个圆角都能辨认：它们的白色糖霜也依照原来近方形轮廓。照着原图保留五个印花及顺序、透明细长塑料袋、白色小花边、顶端金色细扎带。只删除左右另外两袋和背景，补齐被右袋盖住的一小段透明包装边缘，轻度提高分辨率和清晰度。请不要美化或改变材料、不要把印花改画成别的形状，不新增装饰。最终为中央这一个完整袋子的透明底PNG，居中四周留边。参考图本身是唯一造型依据，尽量使用原图可见内容。",
+    "status": "not_selected_background_halo_and_shape_drift"
+  }
+]

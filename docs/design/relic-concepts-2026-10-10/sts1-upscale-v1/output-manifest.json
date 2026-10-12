@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-11",
+  "tool": "built-in image_gen",
+  "mode": "edit",
+  "source": "STS1 Karen original relic PNG files",
+  "outputs": [
+    {
+      "id": "CookieRelic",
+      "name": "饼干",
+      "reference": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/relics/CookieRelic.png",
+      "file": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/CookieRelic-hd.png",
+      "generatedSource": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-c53f3b1f-8bcf-4ff1-95fb-555751b7475a.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "retained": "红色横向包装、折叠的左端、米白色印刷图形和原来的倾斜角度。",
+      "limitations": "原图印刷图形很小，高清稿保留其大致形状；包装褶皱包含补绘。"
+    },
+    {
+      "id": "CatRelic",
+      "name": "棒球猫",
+      "reference": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/relics/CatRelic.png",
+      "file": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/CatRelic-hd.png",
+      "generatedSource": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-e3f1b148-dd10-4259-b603-e9d3d30e5d11.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "retained": "左上方球棒、红帽、蓝灰球衣、白色身体和原来的站姿。已单独返修，去除像素阶梯。",
+      "limitations": "原图胸口字样和五官只有少量像素，高清稿有推补；需要重点对照表情和字样。"
+    },
+    {
+      "id": "MrWhiteRelic",
+      "name": "Mr.White",
+      "reference": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/relics/MrWhiteRelic.png",
+      "file": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/MrWhiteRelic-hd.png",
+      "generatedSource": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-95216a8f-f9eb-4319-ba3c-4955cd9b72aa.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "retained": "圆耳白熊头、小黑眼、鼻口形状及浅灰色阴影，没有添加挂链、身体或配件。",
+      "limitations": "外轮廓已重描，描边比原图看起来更粗；整体比例基本保留。"
+    },
+    {
+      "id": "StarCrownRelic",
+      "name": "星之皇冠",
+      "reference": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/relics/StarCrownRelic.png",
+      "file": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/StarCrownRelic-hd.png",
+      "generatedSource": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-3c295f69-5769-4397-93f2-35a5a5647f36.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "retained": "低而宽的冠冕、卷曲镂空、淡金色冠架与中央粉色宝石；宝石已返修为圆润椭圆。",
+      "limitations": "细小卷曲与金属高光有重绘，镂空边缘仍有少量杂点，当前为高清草稿。"
+    }
+  ]
+}

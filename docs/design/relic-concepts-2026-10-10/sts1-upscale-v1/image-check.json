@@ -1,0 +1,150 @@
+[
+  {
+    "id": "CookieRelic",
+    "original": {
+      "path": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\sts1-sources\\relics\\CookieRelic.png",
+      "width": 128,
+      "height": 128,
+      "mode": "RGBA",
+      "bbox": [
+        37,
+        49,
+        94,
+        79
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "09bf2eaf8122a01cd35db78e48a5faed8b161542b0291f46ff861134b9ec5af4"
+    },
+    "edit": {
+      "path": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\sts1-upscale-v1\\edits\\CookieRelic-hd.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bbox": [
+        51,
+        372,
+        1215,
+        936
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "931ac9e6c581cb8f643a9ce438b14996f6ea496f3b752887446a05a393318835"
+    }
+  },
+  {
+    "id": "CatRelic",
+    "original": {
+      "path": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\sts1-sources\\relics\\CatRelic.png",
+      "width": 128,
+      "height": 128,
+      "mode": "RGBA",
+      "bbox": [
+        35,
+        39,
+        79,
+        87
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "70142a8eb58cf31411ed736370d09296a4b49b075bb3576f1faa46536ed39f54"
+    },
+    "edit": {
+      "path": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\sts1-upscale-v1\\edits\\CatRelic-hd.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bbox": [
+        191,
+        245,
+        984,
+        1065
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "36bd765fbb2c0874901aa16f4e70261990e881ba80e708de57c7596cf6fd040b"
+    }
+  },
+  {
+    "id": "MrWhiteRelic",
+    "original": {
+      "path": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\sts1-sources\\relics\\MrWhiteRelic.png",
+      "width": 128,
+      "height": 128,
+      "mode": "RGBA",
+      "bbox": [
+        39,
+        42,
+        91,
+        86
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "ba1e21300afe64e0996dc3844593315f60f296e053ebf26d57f51d9d2f1215f8"
+    },
+    "edit": {
+      "path": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\sts1-upscale-v1\\edits\\MrWhiteRelic-hd.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bbox": [
+        129,
+        220,
+        1123,
+        1034
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "e91d18075ca169b073d0b428bc80997a6eb177d460772e49a9c38f9ae3271415"
+    }
+  },
+  {
+    "id": "StarCrownRelic",
+    "original": {
+      "path": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\sts1-sources\\relics\\StarCrownRelic.png",
+      "width": 128,
+      "height": 128,
+      "mode": "RGBA",
+      "bbox": [
+        28,
+        47,
+        100,
+        84
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "sha256": "bce4c8b052a59fc24990baae9b7b868e2923a00156e573652ec694640e8666f8"
+    },
+    "edit": {
+      "path": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\sts1-upscale-v1\\edits\\StarCrownRelic-hd.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bbox": [
+        61,
+        402,
+        1193,
+        917
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "337f5302eb90d5ffef26001f02d3a6f3f0f17acbb99f5f72a073f2d9a01842e8"
+    }
+  }
+]

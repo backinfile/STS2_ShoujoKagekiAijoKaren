@@ -1,0 +1,18 @@
+[
+  {
+    "id": "CatRelic",
+    "refs": [
+      "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/relics/CatRelic.png",
+      "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/CatRelic-hd.png"
+    ],
+    "prompt": "Image 1 is the original STS1 Karen cat relic; image 2 is the first enlarged restoration. Edit image 2 ONLY to REMOVE the blocky pixel-art stair steps and replace them with smooth, clean, softly antialiased 2D illustrated contours. Preserve the exact composition and design: white small cat, muted red baseball cap, slate-blue shirt and red chest marking, small feet, bat held on the left diagonally up-left, same eye shapes and expression. Preserve the original muted colors rather than increasing saturation. Fine consistent dark outline and flat cel shading. Do not create pixel art, nearest-neighbor enlarged blocks, thick stepped edges, fur texture or new details. Chest graphic should retain the original source's red shapes without inventing new branding. Transparent background, clean alpha including underarms and between legs; no halo. Center entire figure and bat with comfortable padding, high-resolution square PNG."
+  },
+  {
+    "id": "StarCrownRelic",
+    "refs": [
+      "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/StarCrownRelic-hd.png",
+      "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/relics/StarCrownRelic.png"
+    ],
+    "prompt": "Faithful targeted edit. Image 1 is the enlarged crown icon; image 2 is the original STS1 icon. Change ONLY the central pink jewel and its gold bezel in image 1 to the original's softly ROUNDED OVAL silhouette: rounded top, rounded bottom, no pointed ends and no angular marquise facets. Preserve its pink/magenta palette with the simpler original anime highlight. Keep every other crown loop, outline, ornament, base, perspective and palette of image 1 unchanged. Also clean any isolated alpha fringe specks around and inside the scrollwork; all gaps truly transparent. No new objects. Transparent high-resolution PNG."
+  }
+]

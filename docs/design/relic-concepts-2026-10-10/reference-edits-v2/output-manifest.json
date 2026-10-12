@@ -1,0 +1,43 @@
+{
+  "tool": "built-in image_gen",
+  "mode": "edit from referenced local source images",
+  "outputs": [
+    {
+      "id": "01-watch",
+      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-8d938c2b-b3d4-4ddb-9b7b-207b32bae98c.png",
+      "destination": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/edits/01-watch.png"
+    },
+    {
+      "id": "02-cookies",
+      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-c19edda3-e701-4c4a-a3e8-1ce0fa837961.png",
+      "destination": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/edits/02-cookies.png"
+    },
+    {
+      "id": "03-little-star",
+      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-729c628b-a21a-4de4-a8e2-0e77b5b10554.png",
+      "destination": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/edits/03-little-star.png"
+    },
+    {
+      "id": "04-suzdal-cat",
+      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-5a1d8f27-55a6-45a0-9eb6-226f67b90e1d.png",
+      "destination": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/edits/04-suzdal-cat.png"
+    },
+    {
+      "id": "05-mr-white",
+      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-280e6474-cccc-44fc-aa44-8791b018e51b.png",
+      "destination": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/edits/05-mr-white.png"
+    },
+    {
+      "id": "06-hairclip",
+      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-98939d74-9f2d-47ae-9247-88b96627b244.png",
+      "destination": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/edits/06-hairclip.png"
+    },
+    {
+      "id": "07-tiara",
+      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-13e0cf3f-0c2a-45ef-9ddf-d0c6e75da0e0.png",
+      "destination": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/reference-edits-v2/edits/07-tiara.png"
+    }
+  ],
+  "cookieStatus": "保留第二轮供比对；轮廓仍偏圆，未通过保真检查",
+  "note": "参考图与编辑结果分开保存；当前仅为设计草稿，未部署到游戏。"
+}

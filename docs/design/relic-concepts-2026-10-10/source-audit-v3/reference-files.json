@@ -1,0 +1,58 @@
+[
+  {
+    "file": "hikari-hairclip-back-detail.jpg",
+    "dimensions": [
+      500,
+      452
+    ],
+    "sha256": "5074d520d875fc890d51ab37d023f4bfe10a2bc473b262a1755d66a5a9ad896a"
+  },
+  {
+    "file": "hikari-hairclip-front-detail.jpg",
+    "dimensions": [
+      500,
+      435
+    ],
+    "sha256": "04954ec8fc1db9bb190104fb278928ab1823c42bc0afb514a4572bb291a21045"
+  },
+  {
+    "file": "hikari-karen-official-hairclips.jpg",
+    "dimensions": [
+      500,
+      401
+    ],
+    "sha256": "8205a653a8ff64f93fc4c03ecc74c3a6ff2ba311d4b8cb388a3bf224a893b621"
+  },
+  {
+    "file": "hikari-official-product.jpg",
+    "dimensions": [
+      500,
+      398
+    ],
+    "sha256": "f87db1c71ee13fe38c20cdd3dc67de7b4130fa9416b9b483b785a37fcfb2961d"
+  },
+  {
+    "file": "suzdal-cat-official-art.jpg",
+    "dimensions": [
+      1000,
+      1000
+    ],
+    "sha256": "8c27d791da3d2072a72a0211127618871813c65b6f178a11521622925ee6f158"
+  },
+  {
+    "file": "suzdal-cat-official-plush.jpg",
+    "dimensions": [
+      3597,
+      2878
+    ],
+    "sha256": "517cf624a5e618c472ee4202ff2a1bdf76f684343b0d40ea3011a5eb92b8a3bf"
+  },
+  {
+    "file": "tiara-tv11.jpg",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "sha256": "d86c9fe0b285ec76e2ec219e6115c3b8e1408cfa9188b459191ee4a0af47f34a"
+  }
+]

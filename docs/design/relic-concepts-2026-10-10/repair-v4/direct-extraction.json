@@ -1,0 +1,44 @@
+[
+  {
+    "name": "06-star-hairclip",
+    "method": "Official COSPA photo, manually traced alpha; original RGB",
+    "native_size": [
+      336,
+      384
+    ],
+    "source_rgb_preserved": true
+  },
+  {
+    "name": "07-star-tiara",
+    "method": "TV episode 11 pixels; perimeter plus gold/white/pink colour mask",
+    "native_size": [
+      388,
+      223
+    ],
+    "source_rgb_preserved": true
+  },
+  {
+    "name": "02-cookies",
+    "method": "Retained prior locally cleaned STS1-based illustration",
+    "native_size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "name": "03-little-star",
+    "method": "Retained prior locally cleaned STS1-based illustration",
+    "native_size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "name": "05-mr-white",
+    "method": "Retained prior locally cleaned STS1-based illustration",
+    "native_size": [
+      1254,
+      1254
+    ]
+  }
+]

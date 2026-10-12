@@ -1,0 +1,29 @@
+{
+  "mode": "built-in image_gen edit",
+  "prompts": [
+    {
+      "id": "01-watch-card",
+      "name": "怀表牌",
+      "references": [
+        "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/relics/DrawExtraRelic.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Edit the supplied original STS1 Karen relic icon, faithfully reconstructing its same object at high resolution on true transparent background. It is the small tilted gray rectangular card/booklet with a pocket-watch illustration and pink looping chain/cord printed or laid on its front. Preserve the original gray-green palette, rectangular silhouette, clockwise tilt, visible thickness, green/teal motif and round pale clock face with tiny pink details, and pink loop to the right. Treat the source as authoritative even where tiny details are ambiguous: clarify existing shapes conservatively without inventing legible letters or new decoration. One centered object filling about 75 percent of a square canvas. Clean anime/game-icon illustration, smooth controlled flat color and minimal original shading. Remove pixel stairs, fake grain, checker patterns, stippling and muddy sharpening; do not introduce paper texture. No new real pocket-watch case, no metal chain extending above, no numbers, no red gem, no extra objects, no ground shadow, no background."
+    },
+    {
+      "id": "03-little-star",
+      "name": "小小星",
+      "references": [
+        "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/other/Star.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Faithfully restore and upscale the supplied STS1 Karen gold four-point star asset on a true transparent background. Keep exactly ONE gold four-point star with long vertical top and bottom tips, shorter left and right tips, rounded broad shoulders and a slightly raised central cross/faceted form. Preserve the original upright pose, silhouette, yellow-gold light facets and ochre darker left facets. Improve clarity with smoothly drawn contours and clean simple cel shading. Eliminate source blur, pink edge contamination and scattered pixels. Remove all AI grain, moire, stipple, brushed and paper texture: surfaces should be clean colored shapes. Do not redesign into a five-point star, diamond gemstone, realistic metal badge or lens flare. Do not add a border, sparkles, glow, text, second star, shadow or any supporting object. Center the same whole star with comfortable transparent margins, square canvas."
+    },
+    {
+      "id": "06-star-hairclip",
+      "name": "星形发饰",
+      "references": [
+        "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/cards/Star_p.png"
+      ],
+      "prompt": "Use case: background-extraction and precise-object-edit. Extract and faithfully redraw ONLY the pair of pale gold four-point star ornaments seen in the supplied original STS1 Karen card art. Remove both hands, sleeves, blue clothing/background, and wrist bracelet completely. Preserve the two stars' exact anime design: a tall large star at upper left with very long vertical tips and shorter thin horizontal tips, and a smaller matching star offset lower right. Smooth concave curves connect the four tapering tips. Preserve their relative placement and proportions, use the source's pale warm yellow flat fill with a very thin restrained warm-gray outline if needed. Restore the large star's top tip cut by the source frame and the small portions hidden by fingers by continuing the existing simple silhouette. Do not add crown motifs, gems, a bow, glitter, a face or extra stars. Do not turn four-point stars into five-point stars. Clean anime cel artwork with no grain, moire, fake paper texture, embroidery, 3D bevel or heavy shadows. Whole pair centered on true transparent background in square canvas. This is faithful object extraction and missing-edge repair, not a new jewelry design."
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+[
+  {
+    "id": "01-watch",
+    "name": "怀表",
+    "rarity": "普通",
+    "ref": "01-watch.jpg",
+    "size": [
+      720,
+      800
+    ],
+    "crop": [
+      145,
+      0,
+      430,
+      790
+    ],
+    "source": "https://amnibus.com/products/detail/65803",
+    "image": "https://cdn.amnibus.com/upload/save_image/20241106164412_672b1e4c3cbd74.99442342.jpg",
+    "kind": "AMNIBUS 官方周边商品图",
+    "effect": "每场战斗第一次获得临时力量时，保留力量2回合。",
+    "change": "提取打开状态的怀表、提高细节清晰度，补全原图顶部被裁断的挂环。",
+    "check": "保留翻盖、黑色表盘、彩色花形刻度及 Position Zero 标记；金色更饱和，表盘小字和微小刻度存在重绘差异。",
+    "status": "修复草稿"
+  },
+  {
+    "id": "02-cookies",
+    "name": "饼干",
+    "rarity": "罕见",
+    "ref": "02-cookies.jpg",
+    "size": [
+      750,
+      750
+    ],
+    "crop": [
+      293,
+      145,
+      167,
+      453
+    ],
+    "source": "https://art.parco.jp/galleryx/detail/?id=176",
+    "image": "https://art.parco.jp/img/galleryx/store/storage/w750xh750/cokkie.jpg",
+    "kind": "PARCO 官方展览周边商品图",
+    "effect": "拾起时，随机获得普通、罕见、稀有闪耀牌各一张。",
+    "change": "提取中间的一袋，去掉左右包装，修复遮住的袋边；保留五枚饼干及印花顺序。",
+    "check": "未通过：多次编辑仍把饼干画得过圆，印花也有偏差。右图仅记录问题，不采用为定稿。中间的原图局部可直接核对。",
+    "status": "未通过保真检查"
+  },
+  {
+    "id": "03-little-star",
+    "name": "小小星",
+    "rarity": "罕见",
+    "ref": "03-star-rocks.jpg",
+    "size": [
+      1280,
+      720
+    ],
+    "crop": [
+      768,
+      441,
+      355,
+      279
+    ],
+    "source": "https://benigmatica.wordpress.com/2018/09/29/shoujo-kageki-revue-starlight-episode-12/",
+    "image": "https://i.imgur.com/E6mv0Uy.jpg",
+    "kind": "第三方文章所载 TV 第12话动画截图",
+    "effect": "战斗开始时，将光辉加入约定牌堆。",
+    "change": "提取小光怀中的粉色星形石块，去掉人物和其他石块；用另一张同集近景辅助核对材质。",
+    "check": "保留粉色、钝角、暗色擦痕和哑光表面；右下和底部原本被遮挡，完整轮廓包含推补，不能视为原作完整设定图。",
+    "status": "含遮挡推补",
+    "extraRef": "03-star-scene.jpg",
+    "extraSource": "https://anitubu.com/archives/post-14520.html"
+  },
+  {
+    "id": "04-suzdal-cat",
+    "name": "棒球猫",
+    "rarity": "稀有",
+    "ref": "04-suzdal-cat.jpg",
+    "size": [
+      3597,
+      2878
+    ],
+    "crop": [
+      460,
+      90,
+      2700,
+      2700
+    ],
+    "source": "https://bushiroad-store.com/products/2000185923000",
+    "image": "https://bushiroad-store.com/cdn/shop/files/IMG_1033_1.jpg?v=1724040803",
+    "kind": "Bushiroad 官方玩偶商品图",
+    "effect": "每场战斗中，每耗尽一张非同名闪耀牌，获得一个闪耀牌奖励。",
+    "change": "提取官方玩偶，去掉影棚背景；保留原来的正面姿势和毛绒材质。",
+    "check": "保留黄眼睛、黑色竖瞳、粉色舌头、红帽、蓝紫球衣与 SCC 字样。没有添加球棒；绒毛和刺绣细节有重绘。",
+    "status": "修复草稿"
+  },
+  {
+    "id": "05-mr-white",
+    "name": "Mr. White",
+    "rarity": "稀有",
+    "ref": "05-mr-white.jpg",
+    "size": [
+      600,
+      600
+    ],
+    "crop": [
+      75,
+      41,
+      450,
+      532
+    ],
+    "source": "https://bushiroad.com/gbp_srl2019_goods",
+    "image": "https://s3-ap-northeast-1.amazonaws.com/bushiroad-com/57ba1681-b206-44cb-97f6-eecb5a8af782.jpg",
+    "kind": "Bushiroad 官方钥匙扣商品示意图",
+    "effect": "每场战斗的第一回合结束时，可选择任意手牌放入约定牌堆。",
+    "change": "提取白熊头与珠链，去掉 SAMPLE 叠字并补齐白色区域；返修为原图的平滑简洁造型。",
+    "check": "保留圆耳、黑色圆眼与原本的鼻口轮廓；未添加身体、拉链或卡牌。珠链和耳部比例存在细微重绘差异。",
+    "status": "修复草稿"
+  },
+  {
+    "id": "06-hairclip",
+    "name": "星形发饰",
+    "rarity": "稀有",
+    "ref": "06-hairclip.jpg",
+    "size": [
+      1200,
+      1350
+    ],
+    "crop": [
+      622,
+      970,
+      290,
+      269
+    ],
+    "source": "https://note.com/theatreduflamme/n/n5c317622bb05",
+    "image": "https://assets.st-note.com/img/1672468114307-iYOOfQ21Ai.jpg?width=1200",
+    "kind": "第三方文章所载 TV 第8话动画画面",
+    "effect": "打出约定之塔时，额外获得8点格挡。",
+    "change": "提取下半画面手持的发饰，清除手指与人物，补齐夹杆和被手指盖住的细小边缘。",
+    "check": "保留一大一小两颗四角星、横杆、淡绿金色和动画画法；被手指遮挡的接合部分有推补。",
+    "status": "含遮挡推补"
+  },
+  {
+    "id": "07-tiara",
+    "name": "星之王冠",
+    "rarity": "商店",
+    "ref": "07-tiara.jpg",
+    "size": [
+      1920,
+      1080
+    ],
+    "crop": [
+      760,
+      76,
+      411,
+      235
+    ],
+    "source": "https://anime-tip.com/sahplant/revuestarlight/9060",
+    "image": "https://anime-tip.com/wp-content/uploads/2018/09/8mz5ykr96d4r.jpg",
+    "kind": "第三方文章所载 TV 第11话动画截图",
+    "effect": "每回合开始时禁用1个遗物，然后获得1点能量。",
+    "change": "提取额头上方的冠冕，清除人物、头发及镂空中的背景，放大并修复线条。",
+    "check": "保留卷曲冠架、中央椭圆粉宝石与白色叶形饰件。卷曲粗细、镶嵌小点和宝石高光有重绘差异。",
+    "status": "修复草稿"
+  }
+]
