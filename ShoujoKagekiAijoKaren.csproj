@@ -12,6 +12,7 @@
   <ItemGroup>
     <Compile Remove="audio\**" />
     <Compile Remove="artifacts\**" />
+    <Compile Remove="output\**" />
     <Compile Remove="fonts\**" />
     <Compile Remove="images\**" />
     <Compile Remove="materials\**" />
@@ -65,8 +66,6 @@
     <None Include="src\Core\PromisePileSystem\Patches\PromisePileCombatPatch.cs.uid" />
     <None Include="src\Core\PromisePileSystem\PromisePileAnimator.cs.uid" />
     <None Include="src\Core\PromisePileSystem\PromisePileManager.cs.uid" />
-    <None Include="src\Core\SaveSystem\KarenModSaveBuffer.cs.uid" />
-    <None Include="src\Core\SaveSystem\KarenRunSaveData.cs.uid" />
     <None Include="src\Core\SaveSystem\Patches\RunSaveManager_Patches.cs.uid" />
     <None Include="src\Core\ShineSystem\Patches\ShinePatch.cs.uid" />
     <None Include="src\Core\ShineSystem\Patches\ShinePilePatch.cs.uid" />

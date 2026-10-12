@@ -27,5 +27,10 @@ server.pid
 /.dotnet_home
 /artifacts/
 /.compat-tmp/
+# Local previews and generated media; keep the Godot import boundary in Git.
+/output/*
+!/output/.gdignore
+*.csproj.Backup*.tmp
+*.import*.tmp
 __pycache__/
 *.pyc
