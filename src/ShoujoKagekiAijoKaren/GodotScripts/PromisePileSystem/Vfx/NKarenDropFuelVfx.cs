@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -17,10 +18,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>Card-origin burst, screen-wide scatter, then a subtle irregular planar curl into its owner.</summary>
 public partial class NKarenDropFuelVfx : Node2D
 {
+    public const string BurstSfxPath = "res://ShoujoKagekiAijoKaren/audio/karen_fuel_ignite.wav";
     // Allow card travel, charge, and burst before drawing. Use native waits, not GPU completion.
     public const float NormalResourceTime = 0.8f;
     public const float FastResourceTime = 0.8f;
     private const float ChargeTime = 0.20f;
+    private const float BurstSoundLeadTime = 0.12f;
     private static readonly Vector2 DesignSize = new(1280, 720);
     private static Texture2D? _softTexture;
     private static Texture2D? _starTexture;
@@ -42,11 +45,13 @@ public partial class NKarenDropFuelVfx : Node2D
     private float _energyAt = -1f;
     private float _speed;
     private float _seed;
+    private bool _burstSoundPlayed;
+    public bool IsReplay { get; private set; }
     public bool HasEnergyPulse => _burstAt >= 0f && _energyAt >= 0f
-        && _elapsed >= PulseStart && _elapsed < PulseStart + 0.7f;
-    private float PulseStart => Mathf.Max(_burstAt + 1.35f, _energyAt);
+        && _elapsed >= PulseStart && _elapsed < PulseStart + 0.42f;
+    private float PulseStart => _energyAt;
 
-    public static NKarenDropFuelVfx? Play(CardModel card)
+    public static NKarenDropFuelVfx? Play(CardModel card, int playIndex = 0)
     {
         var room = NCombatRoom.Instance;
         if (NonInteractiveMode.IsActive || !LocalContext.IsMe(card.Owner)
@@ -63,6 +68,7 @@ public partial class NKarenDropFuelVfx : Node2D
             _owner = card.Owner,
             _card = cardNode,
             _model = card,
+            IsReplay = playIndex > 0,
             _speed = SaveManager.Instance.PrefsSave.FastMode switch
             {
                 // Fast mode keeps the same visual rhythm as Normal.
@@ -80,7 +86,7 @@ public partial class NKarenDropFuelVfx : Node2D
     {
         if (GodotObject.IsInstanceValid(effect) && !effect!.IsQueuedForDeletion())
             effect._energyAt = effect._elapsed;
-        // PlayerCmd.GainEnergy owns its sound. No duplicate gain or attack/fire sound here.
+        // PlayerCmd.GainEnergy owns its sound; the separate burst cue starts during charge.
     }
 
     public override void _Ready()
@@ -91,7 +97,7 @@ public partial class NKarenDropFuelVfx : Node2D
         _starTexture ??= MakeTexture(true);
         AddChild(_stage);
         _cardGlow = AddGlow(new Vector2(140, 195));
-        _bodyGlow = AddGlow(new Vector2(160, 230));
+        _bodyGlow = AddGlow(new Vector2(125, 185));
         UpdateCoordinates();
         CaptureSource();
         // Instant mode may resolve and pool the card before the next process frame.
@@ -143,18 +149,38 @@ public partial class NKarenDropFuelVfx : Node2D
         _axisY = transform.Y * (NCard.defaultSize.Y * 0.48f) * scale;
     }
 
+    private void PlayBurstSound()
+    {
+        if (_burstSoundPlayed) return;
+        _burstSoundPlayed = true;
+        // Play the approved fireball explosion at its original pitch and full
+        // duration. Keep the player local to this VFX's lifetime.
+        var sound = new AudioStreamPlayer
+        {
+            Stream = PreloadManager.Cache.GetAsset<AudioStream>(BurstSfxPath),
+            Bus = "SFX",
+            VolumeLinear = IsReplay ? .40f : .68f
+        };
+        AddChild(sound);
+        sound.Finished += sound.QueueFree;
+        sound.Play();
+    }
+
     private void Emit()
     {
         CaptureSource();
         _burstAt = _elapsed;
+        // Instant mode has no charge phase; guarantee one cue without a duplicate.
+        PlayBurstSound();
         if (GodotObject.IsInstanceValid(_card) && _card.Model == _model)
             KarenFuelCardVisuals.Burst(_card);
         _cardGlow.Position = _source;
         _cardGlow.Scale = new Vector2(140, 195) / 48f;
-        AddParticles(0, 1f, 480, false);
-        AddParticles(0.014f, 0.28f, 480, false);
-        AddParticles(0.028f, 0.10f, 480, false);
-        AddParticles(0, 0.85f, 28, true);
+        // The real CardPlay index owns replay intensity; separate casts do not share mutable state.
+        AddParticles(0, IsReplay ? .68f : 1f, IsReplay ? 160 : 480, false);
+        AddParticles(0.014f, IsReplay ? .14f : .24f, IsReplay ? 160 : 480, false);
+        AddParticles(0.028f, IsReplay ? .05f : .08f, IsReplay ? 96 : 480, false);
+        AddParticles(0, IsReplay ? .60f : .85f, IsReplay ? 12 : 28, true);
     }
 
     private void AddParticles(float delay, float alpha, int amount, bool star)
@@ -168,6 +194,7 @@ public partial class NKarenDropFuelVfx : Node2D
         material.SetShaderParameter("trail_delay", delay);
         material.SetShaderParameter("trail_alpha", alpha);
         material.SetShaderParameter("bright_star", star);
+        material.SetShaderParameter("spread_scale", IsReplay ? .54f : 1f);
         _materials.Add(material);
         var particles = new GpuParticles2D
         {
@@ -221,19 +248,26 @@ public partial class NKarenDropFuelVfx : Node2D
             if (_chargeAt < 0f) return;
             CaptureSource();
             _cardGlow.Position = _source;
-            float charge = Mathf.Clamp((_elapsed - _chargeAt) / ChargeTime, 0, 1);
+            float chargeDuration = IsReplay ? .10f : ChargeTime;
+            float chargeAge = _elapsed - _chargeAt;
+            // Queue the sound before the flash so its audible attack lands with
+            // the burst. Short replay charges start it immediately, never twice.
+            if (chargeAge >= Mathf.Max(0, chargeDuration - BurstSoundLeadTime * _speed))
+                PlayBurstSound();
+            float charge = Mathf.Clamp(chargeAge / chargeDuration, 0, 1);
             _cardGlow.Scale = new Vector2(170, 235).Lerp(new Vector2(95, 130), charge) / 48f;
-            _cardGlow.Modulate = new Color(1, 0.60f + charge * 0.22f, 0.10f, charge * charge * 1.25f);
+            _cardGlow.Modulate = new Color(1, 0.60f + charge * 0.22f, 0.10f, charge * charge * (IsReplay ? .65f : 1.1f));
             if (charge < 1f) return;
             Emit();
         }
         float age = _elapsed - _burstAt;
-        float flash = Mathf.Clamp((0.50f - age) / 0.35f, 0, 1);
-        _cardGlow.Modulate = new Color(1, 0.69f, 0.29f, flash * 1.5f);
+        float flashLife = IsReplay ? .20f : .34f;
+        float flash = 1 - Mathf.SmoothStep(0, flashLife, age);
+        _cardGlow.Modulate = new Color(1, 0.69f, 0.29f, flash * (IsReplay ? .8f : 1.35f));
         float pulseAge = _elapsed - PulseStart;
-        float pulse = HasEnergyPulse ? Mathf.Sin(Mathf.Clamp(pulseAge / 0.7f, 0, 1) * Mathf.Pi) : 0;
-        _bodyGlow.Modulate = new Color(1, 0.73f, 0.39f, pulse * 0.68f);
-        if (age >= 2.6f && (_energyAt < 0f || _elapsed >= PulseStart + 0.7f))
+        float pulse = HasEnergyPulse ? Mathf.Sin(Mathf.Clamp(pulseAge / .42f, 0, 1) * Mathf.Pi) : 0;
+        _bodyGlow.Modulate = new Color(1, 0.83f, 0.55f, pulse * .82f);
+        if (age >= 2.6f && (_energyAt < 0f || _elapsed >= PulseStart + .42f))
             GodotTreeExtensions.QueueFreeSafely(this);
     }
 }

@@ -5,12 +5,15 @@ parser.add_argument('branch', choices=['stable','beta'])
 parser.add_argument('--output',type=pathlib.Path,required=True)
 parser.add_argument('--scenes',default='')
 parser.add_argument('--setup-wait',type=float,default=2.2)
+parser.add_argument('--port',type=int)
+parser.add_argument('--package',type=pathlib.Path)
+parser.add_argument('--speed',choices=['normal','fast'],default='normal')
 args=parser.parse_args()
 assert args.setup_wait >= 0
 root=args.output.resolve()
 main=pathlib.Path(__file__).resolve().parents[3]
 branch=args.branch; dev=root/'isolated'/branch; game=dev/'game'; mods=game/'mods'
-port=18637 if branch=='stable' else 18638
+port=args.port or (18637 if branch=='stable' else 18638)
 with socket.socket() as check:
     check.settimeout(.3)
     assert check.connect_ex(('127.0.0.1',port))!=0, 'Test port is already occupied; no deployment performed'
@@ -62,7 +65,7 @@ def monitor_loop():
             return True
         u.EnumWindows(window,0);stop.wait(.02)
 try:
-    shutil.copytree(main/'artifacts/ShoujoKagekiAijoKaren',mods/'ShoujoKagekiAijoKaren',dirs_exist_ok=True)
+    shutil.copytree(args.package or main/'artifacts/ShoujoKagekiAijoKaren',mods/'ShoujoKagekiAijoKaren',dirs_exist_ok=True)
     package=mods/'ShoujoKagekiAijoKaren'
     capture_build=dict(assemblySha256=hashlib.sha256((package/'lib'/f'ShoujoKagekiAijoKaren.{branch.title()}.dll').read_bytes()).hexdigest(),
                        packSha256=hashlib.sha256((package/'ShoujoKagekiAijoKaren.pck').read_bytes()).hexdigest())
@@ -221,7 +224,7 @@ try:
         return settle(card+'-after')
     def finish():
         save('final-state',integration());check_hand('final-hand');record_stop();print('RECORDED',case.name,flush=True)
-    cmd('native_speed normal');fight()
+    cmd('native_speed '+args.speed);fight()
     if want('tower'):
         stage('tower',seed=False)
         for card in ['KAREN_DEFEND','KAREN_STRIKE','KAREN_FALL','KAREN_TOWER_OF_PROMISE']:prep(card)
@@ -292,7 +295,18 @@ try:
         for _ in range(9):cmd('card KAREN_DEFEND Draw');time.sleep(.08)
         prep('KAREN_STARLIGHT02_CARD');prep('KAREN_DROP_FUEL')
         record_start();clip_cast('KAREN_STARLIGHT02_CARD','Starlight 第二幕｜赋予闪耀牌额外重播')
-        clip_cast('KAREN_DROP_FUEL','第二幕 × 投下燃料｜三次演出与闪耀耗尽');time.sleep(5)
+        marking('第二幕 × 投下燃料｜三次演出与闪耀耗尽')
+        snap(case/'KAREN_DROP_FUEL-before');play('KAREN_DROP_FUEL')
+        time.sleep(.12);snap(case/'KAREN_DROP_FUEL-during')
+        # Promise-pile flights can be empty while native replay is still drawing.
+        # Wait for all three real CardPlay completions before inspecting settled hands.
+        for _ in range(160):
+            history=json.loads(cmd('bridge_vfx status')['message'])
+            if sum(e['id']=='KAREN_DROP_FUEL' for e in history['finished'])==3:break
+            time.sleep(.1)
+        else:raise AssertionError(('Fuel replays did not finish',history))
+        save('replay-native-finished',history)
+        settle('KAREN_DROP_FUEL-after');time.sleep(1)
         settle('replay-complete');assert state()['player']['energy']==14,state()
         finish()
     for void in [False,True]:

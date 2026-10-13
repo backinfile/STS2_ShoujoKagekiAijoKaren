@@ -25,6 +25,9 @@ public sealed class KarenDropFuel : KarenBaseCardModel
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];
 
+    protected override IEnumerable<string> ExtraRunAssetPaths =>
+        [NKarenDropFuelVfx.BurstSfxPath];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
         new CardsVar(2),
@@ -33,7 +36,7 @@ public sealed class KarenDropFuel : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var effect = NKarenDropFuelVfx.Play(this);
+        var effect = NKarenDropFuelVfx.Play(this, cardPlay.PlayIndex);
         // Let the short charge and burst lead into the resource effects in both speed modes.
         await Cmd.CustomScaledWait(NKarenDropFuelVfx.FastResourceTime, NKarenDropFuelVfx.NormalResourceTime);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);

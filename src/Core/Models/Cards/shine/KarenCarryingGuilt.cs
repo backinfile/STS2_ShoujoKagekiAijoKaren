@@ -43,12 +43,13 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
     {
         if (cardPlay.Target == null) return;
         ClearAllFocus();
-        NKarenStageLightVfx.Play(cardPlay.Target);
-        await Cmd.Wait(0.25f);
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            //.WithHitFx(VfxCmd.heavyBluntPath)
+            .WithAttackerFx(() => NKarenStageLightVfx.Create(cardPlay.Target))
+            .WithAttackerAnim("Attack", 0f)
+            .WithWaitBeforeHit(NKarenStageLightVfx.FastHitTime, NKarenStageLightVfx.HitTime)
+            .WithHitVfxNode(NKarenStageLightImpactVfx.Create)
             .Execute(choiceContext);
     }
 
@@ -113,4 +114,3 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
             Clear(creature);
     }
 }
-

@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,10 @@ public partial class NKarenNononVfx : Node2D
     private NCreature[] _targets = [];
     private readonly List<Vector2> _hitPoints = [];
     private readonly Vector2[] _ribbon = new Vector2[Segments * 2];
+    private readonly Vector2[] _ribbonUvs = new Vector2[Segments * 2];
+    private readonly Color[] _ribbonColors = new Color[1];
+    private readonly Node2D _edgeLayer = new();
+    private ShaderMaterial? _edgeMaterial;
     private Transform2D _portraitToEffect;
     private Rect2 _portraitRect;
     private Vector2 _sourceFloor;
@@ -76,6 +81,11 @@ public partial class NKarenNononVfx : Node2D
         ZIndex = 10;
         Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         CaptureGeometry();
+        var shader = KarenResourceLoader.Load<Shader>("res://shaders/nonon_edge.gdshader", nameof(NKarenNononVfx));
+        if (shader != null) _edgeLayer.Material = _edgeMaterial = new ShaderMaterial { Shader = shader };
+        else _edgeLayer.Material = Material;
+        _edgeLayer.Draw += DrawSwordEdges;
+        AddChild(_edgeLayer);
         CreateParticles();
         QueueRedraw();
     }
@@ -159,20 +169,25 @@ public partial class NKarenNononVfx : Node2D
             return;
         }
         QueueRedraw();
+        _edgeMaterial?.SetShaderParameter("age", _age);
+        _edgeLayer.QueueRedraw();
         _debrisLayer.QueueRedraw();
     }
 
     public override void _Draw()
     {
-        SilverEdge(Source(205, 355), Source(218, 186), Source(439, 131), LiftStart, LiftDrawTime, 11, .51f);
         // The standing portrait's sword hand is left of her waist.
         HiltGlint(Source(169, 271));
-
-        SilverEdge(Source(300, 222), SweepBend(), _sweepEnd, SweepStart, SweepDrawTime, 18, .66f);
 
         foreach (var point in _hitPoints)
             HitGlint(point);
         DrawParticles(this, luminous: true);
+    }
+
+    private void DrawSwordEdges()
+    {
+        SilverEdge(Source(205, 355), Source(218, 186), Source(439, 131), LiftStart, LiftDrawTime, 11, .51f);
+        SilverEdge(Source(300, 222), SweepBend(), _sweepEnd, SweepStart, SweepDrawTime, 18, .66f);
     }
 
     private Vector2 SweepBend()
@@ -202,6 +217,8 @@ public partial class NKarenNononVfx : Node2D
         width *= _unit * Mathf.Min(1f, progress * 6f);
         _ribbon[0] = start;
         _ribbon[Segments] = Bezier(start, bend, end, progress);
+        _ribbonUvs[0] = new Vector2(0, .5f);
+        _ribbonUvs[Segments] = new Vector2(progress, .5f);
         for (int i = 1; i < Segments; i++)
         {
             float u = progress * i / Segments;
@@ -211,8 +228,11 @@ public partial class NKarenNononVfx : Node2D
             float taper = Mathf.Pow(Mathf.Sin(Mathf.Pi * i / Segments), .64f);
             _ribbon[i] = point + normal * width * taper;
             _ribbon[Segments * 2 - i] = point - normal * width * taper * .46f;
+            _ribbonUvs[i] = new Vector2(u, 0);
+            _ribbonUvs[Segments * 2 - i] = new Vector2(u, 1);
         }
-        DrawColoredPolygon(_ribbon, new Color(color, alpha));
+        _ribbonColors[0] = new Color(color, alpha);
+        _edgeLayer.DrawPolygon(_ribbon, _ribbonColors, _ribbonUvs);
     }
 
     private void HiltGlint(Vector2 center)

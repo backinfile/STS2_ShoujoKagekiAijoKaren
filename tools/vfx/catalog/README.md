@@ -14,6 +14,19 @@ python tools/vfx/catalog/verify.py --output artifacts/vfx-catalog-20261012
 
 已准备的目录不要再次运行 `prepare.py`；用 `record.py --scenes tower,normal-moves` 单独复录对应目录即可。`tools/launch_vfx_recording.ps1` 包装准备和录制步骤；`tools/record_gear_vfx.sh` 仅录齿轮两种模式。
 
+在 worktree 中可用 `prepare.py --source-dev <主目录/artifacts/dev-game>` 读取游戏快照；`--port` 可覆盖测试端口，准备和录制必须传相同端口。必须先完成 Mod 构建再准备探针，两步不要并行。`record.py --package <包目录>` 可录制封存的基线包；`--speed fast` 验证原生快速模式。每批使用独立 `--output`，避免覆盖旧录像、日志或存档。
+
+2026-10-13 优化专项使用 `before/stable`、`after/stable`、`after/beta`、`fast/stable`、`fast/beta` 五批证据：普通模式九组（guilt、fuel、replay、nonon、normal-star-guide、void-star-guide、allstack-normal、allstack-void、geer），快速模式三组（guilt、replay、nonon）。在共同父目录运行以下命令生成与核查对比片：
+
+```powershell
+python tools/vfx/catalog/compare.py --output artifacts/vfx-polish-20261013
+python tools/vfx/catalog/verify_polish.py --output artifacts/vfx-polish-20261013
+```
+
+对比片按每次 MCP 动作标记对齐，左右保持 1× 原速，短片段末帧停留；默认保留右侧原声，齿轮第一次施放另提供两遍原声 A/B。核查脚本验证真实手牌节点、库存身份、伤害/降力量/回能/闪耀耗尽、基线与优化版最终牌堆及媒体哈希；日志错误单列，需人工审阅。
+
+连续重播必须等原生三次 `CardPlaysFinished` 后再检查静止手牌；约定牌堆没有活动飞行不代表原生抽牌已经完成。`record.py --scenes replay-timing --speed fast` 逐步保存能量、真实打出历史、模型与可见手牌节点，可配合 `--package` 对照旧包。
+
 `assemble.py` 的 `ENTRIES` 明确列出 32 段顺序与标题。输出下方增加 96 像素标题区，显示编号、标题、动作阶段和版本；保留原速、完整手牌画面与音频，并嵌入 MP4 章节。`manifest.json` 保存每段原始视频哈希和捕获数据，`chapters.txt` 是文本索引，`verification.json` 汇总媒体、手牌和音频检查。
 
 状态相关的塔预览专项可分别运行：

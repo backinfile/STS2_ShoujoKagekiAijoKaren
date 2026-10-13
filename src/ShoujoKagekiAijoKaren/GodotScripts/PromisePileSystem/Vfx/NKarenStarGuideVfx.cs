@@ -16,7 +16,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// </summary>
 public partial class NKarenStarGuideVfx : Node2D
 {
-    private const float BorderDuration = 2.0f;
+    private const float BorderDuration = .95f;
 
     /// <summary>
     /// 播放前必须传入逻辑上即将移动的牌列表；VFX 会先从当前桌面节点抓取起点位置。
@@ -113,7 +113,7 @@ public partial class NKarenStarGuideVfx : Node2D
 /// </summary>
 internal partial class NKarenGoldBorderFlash : Control
 {
-    private const float FadeInDuration = 0.2f;
+    private const float FadeInDuration = .12f;
 
     private static readonly Texture2D? BorderGlowTexture =
         KarenResourceLoader.LoadTexture("res://images/packed/vfx/star_guide/border_glow_2.png", nameof(NKarenGoldBorderFlash));
@@ -131,7 +131,7 @@ internal partial class NKarenGoldBorderFlash : Control
     {
         _durationMax = duration;
         _duration = duration;
-        _startAlpha = 1f;
+        _startAlpha = .64f;
         MouseFilter = MouseFilterEnum.Ignore;
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         ZIndex = 100;
@@ -149,7 +149,7 @@ internal partial class NKarenGoldBorderFlash : Control
         float elapsed = _durationMax - _duration;
         float alpha = elapsed < FadeInDuration
             ? Mathf.Ease(Mathf.Clamp(elapsed / FadeInDuration, 0f, 1f), -2.0f) * _startAlpha
-            : Mathf.Ease(Mathf.Clamp(_duration / _durationMax, 0f, 1f), 0.4f) * _startAlpha;
+            : (1 - Mathf.SmoothStep(FadeInDuration, _durationMax, elapsed)) * _startAlpha;
 
         Modulate = new Color(1f, 0.84f, 0.35f, alpha);
 

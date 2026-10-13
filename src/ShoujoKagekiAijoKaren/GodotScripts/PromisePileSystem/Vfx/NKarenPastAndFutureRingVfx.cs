@@ -176,6 +176,7 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
             float fade = Mathf.Min(1f, Mathf.Min(progress / 0.07f, (1f - progress) / 0.2f));
             float crossing = Mathf.Exp(-Mathf.Pow(x / 55f, 2f));
             float alpha = fade * ring.Alpha * (0.78f + 0.22f * crossing) * (front ? 1f : 0.75f);
+            alpha *= Mathf.Lerp(KarenVfxComposition.AmbientWeight(_creatureNode?.Entity), 1f, crossing);
             var center = new Vector2(x, ring.Y) * unit;
             float start = front ? Mathf.Pi / 2f : -Mathf.Pi / 2f;
             for (int i = 0; i < _arc.Length; i++)

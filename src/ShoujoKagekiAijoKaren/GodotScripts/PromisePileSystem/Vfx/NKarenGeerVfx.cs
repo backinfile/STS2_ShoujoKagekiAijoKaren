@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
+using ShoujoKagekiAijoKaren.src.Core.Audio;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -16,6 +17,8 @@ public partial class NKarenGeerVfx : Node2D
     private bool _fullScreen;
     private bool _castOnOwner;
     private float _age;
+    private bool _soundPlayed;
+    private AudioStreamPlayer? _engageSound;
     public bool FullScreen => _fullScreen;
     private bool IsCast => _fullScreen || _castOnOwner;
     public float Age => _age;
@@ -67,9 +70,21 @@ public partial class NKarenGeerVfx : Node2D
             return;
         }
         // Each casting layer has its own envelope, so the owner's gear remains last.
+        if (!_fullScreen && !_soundPlayed && _age >= (IsCast ? .22f : .10f))
+        {
+            _soundPlayed = true;
+            _engageSound = KarenAudioManager.PlaySfx("karen_bridge_lock.wav", IsCast ? .24f : .16f,
+                IsCast ? 1.28f : 1.65f);
+        }
         Modulate = new Color(1, 1, 1, IsCast ? 1 : Envelope(0, 0.08f, 0.42f, duration));
         UpdatePlacement();
         QueueRedraw();
+    }
+    public override void _ExitTree()
+    {
+        if (GodotObject.IsInstanceValid(_engageSound))
+        { _engageSound!.Stop(); _engageSound.QueueFree(); }
+        _engageSound = null;
     }
     private float Envelope(float start, float attack, float release, float end)
     {

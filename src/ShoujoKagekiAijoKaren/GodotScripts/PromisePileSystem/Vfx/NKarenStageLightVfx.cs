@@ -1,8 +1,11 @@
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core.Audio;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System.Linq;
@@ -12,6 +15,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenStageLightVfx : Node2D
 {
+    public const float HitTime = .28f;
+    public const float FastHitTime = HitTime * .7f;
+    internal static float PlaybackSpeed => SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1f / .7f : 1f;
     private const float Duration = 0.6f;
     private const float SpawnInterval = 0.06f;
     private const float FocusOverlayAlpha = 0.2f;
@@ -30,6 +36,7 @@ public partial class NKarenStageLightVfx : Node2D
     private ColorRect? _darkOverlay;
     private Tween? _overlayTween;
     private StageLightTargetArea _lastTargetArea;
+    private float _age;
 
     private NKarenStageLightVfx(Creature target, bool persistent)
     {
@@ -37,16 +44,20 @@ public partial class NKarenStageLightVfx : Node2D
         _persistent = persistent;
         ZAsRelative = true;
         ZIndex = 20;
+        TopLevel = true;
     }
 
-    public static void Play(Creature target)
+    public static NKarenStageLightVfx? Create(Creature target)
     {
-        if (NCombatRoom.Instance?.CombatVfxContainer == null) return;
+        if (NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
+            || NCombatRoom.Instance?.CombatVfxContainer == null) return null;
+        return new NKarenStageLightVfx(target, persistent: false);
+    }
 
-        var vfx = new NKarenStageLightVfx(target, persistent: false);
-        NCombatRoom.Instance.CombatVfxContainer.AddChildSafely(vfx);
-        vfx.GlobalPosition = Vector2.Zero;
-        KarenAudioManager.PlaySfx(KarenSfx.StageLight, volume: 0.9f);
+    public override void _Ready()
+    {
+        GlobalPosition = Vector2.Zero;
+        if (!_persistent) KarenAudioManager.PlaySfx(KarenSfx.StageLight, volume: .85f);
     }
 
     public static NKarenStageLightVfx? StartFocus(Creature target)
@@ -88,7 +99,8 @@ public partial class NKarenStageLightVfx : Node2D
     public override void _Process(double delta)
     {
         if (!_stopping && !(NCombatRoom.Instance?.CreatureNodes.Any(creature => creature.Entity == _target) ?? false)) Stop();
-        float d = (float)delta;
+        float d = (float)delta * (_persistent ? 1f : PlaybackSpeed);
+        _age += d;
         if (!_persistent)
             _duration -= d;
 
@@ -105,7 +117,7 @@ public partial class NKarenStageLightVfx : Node2D
                     break;
                 }
 
-                AddChild(new NKarenStageLightBeam(StageLightTexture, GetTargetArea, BeamDegrees[_nextBeam], persistent: false));
+                AddChild(new NKarenStageLightBeam(StageLightTexture, GetTargetArea, BeamDegrees[_nextBeam], persistent: false, () => _age));
                 _nextBeam++;
             }
         }
@@ -176,11 +188,13 @@ internal partial class NKarenStageLightBeam : Sprite2D
     private readonly Func<StageLightTargetArea> _getTargetArea;
     private float _duration = Duration;
     private bool _stopping;
+    private readonly Func<float>? _castAge;
 
-    public NKarenStageLightBeam(Texture2D? texture, Func<StageLightTargetArea> getTargetArea, float degrees, bool persistent)
+    public NKarenStageLightBeam(Texture2D? texture, Func<StageLightTargetArea> getTargetArea, float degrees, bool persistent, Func<float>? castAge = null)
     {
         _persistent = persistent;
         _getTargetArea = getTargetArea;
+        _castAge = castAge;
         Texture = texture;
         Centered = false;
         ZAsRelative = true;
@@ -203,7 +217,13 @@ internal partial class NKarenStageLightBeam : Sprite2D
         var height = GetClampedHeight(endPosition, beamDirection);
         Position = endPosition - beamDirection * height;
         if (Texture != null)
-            Scale = new Vector2(TargetWidth / Texture.GetWidth(), height / Texture.GetHeight());
+        {
+            float age = _castAge?.Invoke() ?? 0;
+            float focus = Mathf.SmoothStep(0, NKarenStageLightVfx.HitTime, age);
+            float release = Mathf.SmoothStep(NKarenStageLightVfx.HitTime, NKarenStageLightVfx.HitTime + .23f, age);
+            float width = Mathf.Lerp(1.1f, .40f, focus) + release * .18f;
+            Scale = new Vector2(TargetWidth * width / Texture.GetWidth(), height / Texture.GetHeight());
+        }
     }
 
     private static float GetClampedHeight(Vector2 endPosition, Vector2 beamDirection)
@@ -222,13 +242,17 @@ internal partial class NKarenStageLightBeam : Sprite2D
 
     public override void _Process(double delta)
     {
-        float d = (float)delta;
+        float d = (float)delta * NKarenStageLightVfx.PlaybackSpeed;
         UpdatePlacement();
         if (!_persistent || _stopping)
             _duration -= d;
 
         float alpha = Mathf.Clamp(_duration / Duration, 0f, 1f);
-        Modulate = new Color(1f, 1f, 1f, alpha);
+        float age = _castAge?.Invoke() ?? 0;
+        float strike = Mathf.Exp(-Mathf.Pow((age - NKarenStageLightVfx.HitTime) / .07f, 2));
+        float entry = Mathf.SmoothStep(0, .055f, Duration - _duration);
+        Modulate = new Color(1f, Mathf.Lerp(.78f, 1f, strike), Mathf.Lerp(.85f, 1f, strike),
+            entry * alpha * (.45f + strike * .9f));
 
         if (_duration <= 0f)
             GodotTreeExtensions.QueueFreeSafely(this);

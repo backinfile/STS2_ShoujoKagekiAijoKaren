@@ -1,0 +1,18 @@
+karen_fuel_ignite.wav
+
+Title: Fireball Explosion.wav
+Author: Blankened (previously HighPixel)
+Source: https://freesound.org/people/Blankened/sounds/431174/
+License: CC0 1.0 Universal
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+
+The user selected the public high-quality MP3 preview (F1):
+https://cdn.freesound.org/previews/431/431174_6512859-hq.mp3
+SHA-256: de9d01525e7b297b3c0188f21715e111cd67c52b3415a8e4722384bb22babe5e
+
+Decoded in full to 44.1 kHz stereo PCM 16-bit WAV for Godot.
+No trimming, gain adjustment, pitch change, filtering or added envelope.
+Godot import keeps PCM uncompressed, with trim and normalization disabled.
+This is a decode of the approved MP3 preview, not the original WAV download.
+
+Reproduction: tools/vfx/prepare_fuel_ignition.py SOURCE --report REPORT.json

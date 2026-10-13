@@ -8,6 +8,7 @@ uniform float trail_delay = 0.0;
 uniform float trail_alpha = 1.0;
 uniform bool bright_star = false;
 uniform float flow_seed = 3.0;
+uniform float spread_scale = 1.0;
 float rand(float seed) { return fract(sin(seed*127.1+311.7)*43758.5453); }
 void start() {
  float seed=float(NUMBER)+flow_seed;
@@ -23,6 +24,7 @@ void process() {
  float seed=float(NUMBER)+flow_seed;
  vec2 origin=source_position+source_axis_x*(rand(seed+1.0)*2.0-1.0)+source_axis_y*(rand(seed+2.0)*2.0-1.0);
  vec2 spread=vec2(28.0+rand(seed+6.0)*1224.0,92.0+rand(seed+9.0)*552.0);
+ spread=mix(source_position,spread,spread_scale);
  // Join the burst to the curl at a shared position AND velocity. There is no hold phase.
  float gather_start=0.40+rand(seed+12.0)*0.45;
  float gather_duration=CUSTOM.y-gather_start;

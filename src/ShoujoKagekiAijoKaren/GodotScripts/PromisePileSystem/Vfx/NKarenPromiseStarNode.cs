@@ -27,9 +27,10 @@ public partial class NKarenPromiseStarNode : Node2D
         public float? PilePhase;
         public Vector2? VoidSourceCanvas;
         public GuidedEntry? Entry;
+        public bool EntryConfirmed;
         public readonly List<Vector2> Trail = new();
     }
-    private sealed record GuidedEntry(Vector2 Source, float StartedAt, float Duration, bool LocalSource = false);
+    private sealed record GuidedEntry(Vector2 Source, float StartedAt, float Duration, bool LocalSource = false, bool HighlightArrival = false);
     private readonly Dictionary<CardModel, Star> _stars = new();
     private readonly List<CardModel> _expired = new();
     private readonly Vector2[] _starPolygon = new Vector2[8];
@@ -191,7 +192,8 @@ public partial class NKarenPromiseStarNode : Node2D
         if (star.Present && !fromCard) return;
         float duration = fromCard ? 0.48f : 1.25f + (star.Slot % 5) * 0.09f;
         PlaceInOrbitGap(star, _time + duration);
-        star.Entry = new GuidedEntry(sourceCanvas, _time, duration);
+        star.Entry = new GuidedEntry(sourceCanvas, _time, duration, HighlightArrival: !fromCard);
+        star.EntryConfirmed = false;
         star.Flight = null;
         star.Trail.Clear();
         star.Pulse = 0;
@@ -339,6 +341,14 @@ public partial class NKarenPromiseStarNode : Node2D
                     }
                 }
                 else { star.Flight = null; star.Trail.Clear(); star.Pulse = 1; }
+            }
+            // Confirm the same card light only after its real model is present and its flight arrives.
+            if (star.Entry is { HighlightArrival: true } arrival && !star.EntryConfirmed
+                && star.Present && _time >= arrival.StartedAt + arrival.Duration)
+            {
+                star.EntryConfirmed = true;
+                star.Pulse = 1;
+                _pulse = Mathf.Max(_pulse, .55f);
             }
             // Keep the last entry trajectory until all trail samples have crossed into orbit.
             if (star.Entry is { } entry && _time - entry.StartedAt > entry.Duration + 0.2f)

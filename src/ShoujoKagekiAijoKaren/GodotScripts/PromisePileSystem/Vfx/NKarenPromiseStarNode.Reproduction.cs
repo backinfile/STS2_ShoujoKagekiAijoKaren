@@ -168,7 +168,8 @@ public partial class NKarenPromiseStarNode
             if (arrivalAge >= 0 && arrivalAge < 0.28f)
                 received = Mathf.Max(received, 1 - arrivalAge / 0.28f);
         }
-        float light = (0.12f + surge * 0.16f + received * 0.7f) * alpha;
+        float light = (0.12f * KarenVfxComposition.AmbientWeight(_creature?.Entity)
+            + surge * 0.16f + received * 0.7f) * alpha;
         bool atIcon = UsingVoidIconOrbit;
         float unit = atIcon ? 1 / Mathf.Max(GetGlobalTransformWithCanvas().X.Length(), 0.001f) : 1;
         if (atIcon)

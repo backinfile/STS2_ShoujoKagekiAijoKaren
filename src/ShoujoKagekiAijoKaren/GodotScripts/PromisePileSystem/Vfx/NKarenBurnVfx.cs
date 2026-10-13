@@ -139,7 +139,9 @@ public partial class NKarenBurnVfx : Node2D
     {
         float alpha = _creatureNode?.Entity.Player is { } owner
             ? KarenPromiseVfxStarManager.GetTowerVisualAlpha(owner) : 0;
-        _towerFlames.Modulate = _towerSmoke.Modulate = new Color(1, 1, 1, alpha);
+        float weight = KarenVfxComposition.AmbientWeight(_creatureNode?.Entity);
+        _towerFlames.Modulate = new Color(1, 1, 1, alpha * weight);
+        _towerSmoke.Modulate = new Color(1, 1, 1, alpha * weight * .7f);
         return alpha;
     }
 
@@ -175,7 +177,7 @@ public partial class NKarenBurnVfx : Node2D
         // Behind the icon also keeps its card-count badge clear.
         _drawFire.Position = icon!.Size * .5f;
         _drawFire.Scale = Vector2.One * (icon.Size.X / 100f * .36f);
-        _drawFire.Modulate = Modulate;
+        _drawFire.Modulate = new Color(Modulate, Modulate.A * KarenVfxComposition.AmbientWeight(player?.Creature));
         _drawFire.Visible = Visible;
     }
 

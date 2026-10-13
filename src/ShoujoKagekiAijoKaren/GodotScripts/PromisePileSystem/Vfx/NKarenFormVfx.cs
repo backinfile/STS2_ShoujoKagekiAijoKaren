@@ -17,6 +17,8 @@ public partial class NKarenFormVfx : Node2D
     private float _drawSurgeHold;
     private int _drawSfxRound = -1;
     public float SpeedMultiplier { get; private set; } = 1f;
+    public float VisualWeight => Mathf.Lerp(KarenVfxComposition.AmbientWeight(_creatureNode?.Entity),
+        1f, Mathf.Clamp((SpeedMultiplier - 1f) / 1.8f, 0f, 1f));
 
     public void PulseDraw()
     {
@@ -158,7 +160,7 @@ internal partial class NKarenWindyParticle : Sprite2D
         float edgeFade = Mathf.Clamp(Mathf.Min(Position.Y - _topBound, _bottomBound - Position.Y) / 40f, 0f, 1f);
         float alpha = Mathf.Min(Mathf.Clamp(_elapsed / 0.12f, 0f, 1f),
             Mathf.Clamp((_lifetime - _elapsed) / 0.12f, 0f, 1f));
-        Modulate = new Color(0.28f, 0.1f, 0.08f, 0.9f * alpha * edgeFade);
+        Modulate = new Color(0.28f, 0.1f, 0.08f, 0.9f * alpha * edgeFade * _wind.VisualWeight);
         if (_elapsed >= _lifetime || Position.X < _leftBound || edgeFade <= 0f)
             GodotTreeExtensions.QueueFreeSafely(this);
     }

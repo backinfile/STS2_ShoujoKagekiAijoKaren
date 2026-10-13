@@ -171,22 +171,24 @@ public partial class NKarenPromiseStarNode
 
     private void DrawTower(float alpha)
     {
+        float weight = KarenVfxComposition.AmbientWeight(_creature?.Entity);
+        float ambientAlpha = alpha * Mathf.Lerp(weight, 1f, Mathf.Clamp(_arrival, 0f, 1f));
         // Recess the painted prop behind Karen without baking lights or count into it.
         DrawPaintedTowerStrip(0, 1536, Vector2.Zero, new Color(0.90f, 0.90f, 0.90f, alpha * 0.92f));
         DrawVoidScan(alpha);
-        DrawDeckLights(PaintedUpperDeckEdge, alpha, .7f);
-        DrawDeckLights(PaintedLowerDeckEdge, alpha, 0);
+        DrawDeckLights(PaintedUpperDeckEdge, ambientAlpha, .7f);
+        DrawDeckLights(PaintedLowerDeckEdge, ambientAlpha, 0);
         for (int runner = 0; runner < 2; runner++)
         {
-            DrawTowerRunner(PaintedLeftRunner, LeftRunnerLength, runner * .5f, alpha);
-            DrawTowerRunner(PaintedRightRunner, RightRunnerLength, .28f + runner * .5f, alpha);
+            DrawTowerRunner(PaintedLeftRunner, LeftRunnerLength, runner * .5f, ambientAlpha);
+            DrawTowerRunner(PaintedRightRunner, RightRunnerLength, .28f + runner * .5f, ambientAlpha);
         }
         DrawStar(PaintedPoint(PaintedTipPixel), 5 + _pulse * 3, White,
-            alpha * (0.65f + Mathf.Sin(_time * 2.4f) * 0.12f));
+            alpha * (0.65f + Mathf.Sin(_time * 2.4f) * 0.12f) * Mathf.Lerp(weight, 1f, _pulse));
         foreach (var pixel in PaintedJunctions)
         {
             var point = PaintedPoint(pixel);
-            float light = alpha * (0.28f + _pulse * 0.45f);
+            float light = alpha * (0.28f * weight + _pulse * 0.45f);
             DrawCircle(point, 7, new Color(TowerRed, light * 0.18f));
             DrawCircle(point, 2, new Color(White, light));
         }
@@ -194,7 +196,7 @@ public partial class NKarenPromiseStarNode
         {
             var point = PaintedPoint(PaintedLegLamps[i]);
             float breath = .5f + .5f * Mathf.Sin(_time * 2.1f - i * .65f);
-            float light = alpha * (.22f + breath * .78f);
+            float light = ambientAlpha * (.22f + breath * .78f);
             DrawTowerLamp(point, 3.5f + breath * 1.3f, light);
         }
         if (!UsingVoidIconOrbit && (_arrival > 0 || _departure > 0))
