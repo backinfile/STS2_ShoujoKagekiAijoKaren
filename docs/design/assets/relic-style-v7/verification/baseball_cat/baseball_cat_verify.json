@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "reasons": [],
+  "limits": {
+    "structure_max_diff_std": 0.6,
+    "structure_min_hf_ratio": 0.9,
+    "flat_max_band_increase": 0.02,
+    "whole_max_diff_std": 1.0
+  },
+  "whole_image": {
+    "hf_std_before": 3.1552,
+    "hf_std_after": 3.1525,
+    "hf_std_ratio": 0.999,
+    "band_std_before": 3.3084,
+    "band_std_after": 3.3055,
+    "diff_std": 0.1059,
+    "diff_abs_max": 0.7431
+  },
+  "flat_windows": [],
+  "structure_windows": [
+    {
+      "hf_std_before": 2.7569,
+      "hf_std_after": 2.7558,
+      "hf_std_ratio": 1.0,
+      "band_std_before": 2.9195,
+      "band_std_after": 2.917,
+      "diff_std": 0.0871,
+      "diff_abs_max": 0.3376,
+      "box": [
+        697,
+        138,
+        793,
+        234
+      ],
+      "ok": true
+    },
+    {
+      "hf_std_before": 3.9418,
+      "hf_std_after": 3.9404,
+      "hf_std_ratio": 1.0,
+      "band_std_before": 4.1099,
+      "band_std_after": 4.1088,
+      "diff_std": 0.0802,
+      "diff_abs_max": 0.3845,
+      "box": [
+        136,
+        399,
+        232,
+        495
+      ],
+      "ok": true
+    },
+    {
+      "hf_std_before": 1.9651,
+      "hf_std_after": 1.9673,
+      "hf_std_ratio": 1.001,
+      "band_std_before": 2.0637,
+      "band_std_after": 2.0643,
+      "diff_std": 0.1743,
+      "diff_abs_max": 0.5939,
+      "box": [
+        496,
+        237,
+        592,
+        333
+      ],
+      "ok": true
+    }
+  ],
+  "stage": "verify",
+  "before": "docs\\design\\assets\\relic-style-v6\\baseball_cat.png",
+  "after": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_notch.png",
+  "time": "2026-10-11T16:22:07+08:00",
+  "board": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_verify_board.png"
+}

@@ -1,0 +1,194 @@
+[
+  {
+    "name": "water_bottle",
+    "generated_file": "exec-e250c45f-5e7a-4122-a4f0-dfb09050c13d.png",
+    "master": "water_bottle.png",
+    "prompt": "../relic-style-v6/water_bottle-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11",
+    "artwork_method": "V6内置ImageGen母稿，经本地Mi-Ripple选择性去周期纹（V7）",
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "cc3ba4eb9bbd5aaa25296650221523badd5229b5218625780e8b82bfcb700c80",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "notch_strength": 1,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/water_bottle/water_bottle_restored.json",
+      "accepted_sha256": "5f6da6945d2649b83514073f39c68aa7fc9aeb6b7b87ac66eb9f3df6be499969"
+    }
+  },
+  {
+    "name": "cookie",
+    "generated_file": "exec-a38a3c7f-02d6-4e89-99c2-69ae452e7902.png",
+    "master": "cookie.png",
+    "prompt": "../relic-style-v6/cookie-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11",
+    "artwork_method": "保留V6内置ImageGen母稿；Mi-Ripple未检出可处理周期纹（V7）",
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "e120efbcfd81b0802d8bd6a4892cc1ced0a70388a47e75d0cbe4c628a2efbd6f",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "finish"
+      ],
+      "notch_strength": 0,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/cookie/cookie_restored.json",
+      "accepted_sha256": "e120efbcfd81b0802d8bd6a4892cc1ced0a70388a47e75d0cbe4c628a2efbd6f"
+    }
+  },
+  {
+    "name": "little_star",
+    "generated_file": "exec-4532dba1-7943-403e-896a-64a335299547.png",
+    "master": "little_star.png",
+    "prompt": "../relic-style-v6/little_star-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11",
+    "artwork_method": "V6内置ImageGen母稿，经本地Mi-Ripple选择性去周期纹（V7）",
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "620c23d17ab89a70e8ef5c36a625f236b08bcf9b233bda4062cb446ffaa5e9d0",
+      "outcome": "delivered_gentle_verified",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "notch_strength": 0.25,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/little_star/little_star_restored.json",
+      "accepted_sha256": "07569b27bb6e285d1e502b869c496043c94aca256ace504442cf3cd126198ff3"
+    }
+  },
+  {
+    "name": "baseball_cat",
+    "generated_file": "exec-e498b7b3-dba9-411e-a869-0c47bf61a3a0.png",
+    "master": "baseball_cat.png",
+    "prompt": "../relic-style-v6/baseball_cat-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11",
+    "artwork_method": "V6内置ImageGen母稿，经本地Mi-Ripple选择性去周期纹（V7）",
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "6fa8530ae17dcd833f89ddce9e8b602ca1564e92b3e4f91f5ca15ab173224f64",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "notch_strength": 1,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/baseball_cat/baseball_cat_restored.json",
+      "accepted_sha256": "b535b2db6354067d38414caea6a664149ac6b9cb1a0da4882396fc8d5848d1b0"
+    }
+  },
+  {
+    "name": "mr_white",
+    "generated_file": "exec-339af158-ec07-48c3-a7c0-0ae0de2c7dc3.png",
+    "master": "mr_white.png",
+    "prompt": "../relic-style-v6/mr_white-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11",
+    "artwork_method": "V6内置ImageGen母稿，经本地Mi-Ripple选择性去周期纹（V7）",
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "863225f15d6028a45d6df62243c433f50cb5f649c0209dbca74cdaa89b53dad8",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "notch_strength": 1,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/mr_white/mr_white_restored.json",
+      "accepted_sha256": "25c0dccccd49664b0646623c82fbf5863459db9ad6605e5c7fcbd70709fced59"
+    }
+  },
+  {
+    "name": "star_hairclip",
+    "generated_file": "exec-70890bac-29ce-41b8-b8d5-8595439d9040.png",
+    "master": "star_hairclip.png",
+    "prompt": "../relic-style-v6/star_hairclip-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11",
+    "artwork_method": "保留V6内置ImageGen母稿；Mi-Ripple未检出可处理周期纹（V7）",
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "aeae2d1c5151b72089c0de6c46797fec1b34cf8d05346b4c45bc81d8fd21cdef",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "finish"
+      ],
+      "notch_strength": 0,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/star_hairclip/star_hairclip_restored.json",
+      "accepted_sha256": "aeae2d1c5151b72089c0de6c46797fec1b34cf8d05346b4c45bc81d8fd21cdef"
+    }
+  },
+  {
+    "name": "star_tiara",
+    "generated_file": "exec-0f4c9410-ad27-42ad-a1e3-2daf432b81f7.png",
+    "master": "star_tiara.png",
+    "prompt": "star_tiara-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11",
+    "refinement_prompt": "star_tiara-refinement-prompt.txt",
+    "artwork_method": "内置ImageGen按TV第11话画面纠正冠饰造型（V7），本地Mi-Ripple检查",
+    "notes": "以TV第11话画面为结构依据，恢复浅金细冠架、两颗卷环内小白圆饰及下方小菱饰；去掉V6夸大的切面白宝石，缩小白色饰件，保留单颗纵向粉色椭圆宝石与原有六个卷环。非像素原图，绘制误差以对照图评估。",
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "267ae3725c326c16c7bca6a3c50f3bdcc0d7a906e08547429839989dd9e0f7ad",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "finish"
+      ],
+      "notch_strength": 0,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/star_tiara-unfiltered/star_tiara-unfiltered_restored.json",
+      "accepted_sha256": "267ae3725c326c16c7bca6a3c50f3bdcc0d7a906e08547429839989dd9e0f7ad"
+    }
+  }
+]

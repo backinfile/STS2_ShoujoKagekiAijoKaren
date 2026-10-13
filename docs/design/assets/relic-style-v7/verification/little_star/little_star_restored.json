@@ -1,0 +1,85 @@
+{
+  "stage": "restore",
+  "outcome": "delivered_with_verify_failure",
+  "human_note": "",
+  "source": "docs\\design\\assets\\relic-style-v6\\little_star.png",
+  "source_sha256": "620c23d17ab89a70e8ef5c36a625f236b08bcf9b233bda4062cb446ffaa5e9d0",
+  "final": "artifacts\\relic-moire-v7\\little_star\\little_star_restored.png",
+  "final_sha256": "317c0911e345cfd6a46f4466b9897b95d454ce99d137d1d0b345b45ad21dd9b2",
+  "final_is_source_copy": false,
+  "regen_rounds": 0,
+  "mode": "rules",
+  "diag": "artifacts\\relic-moire-v7\\little_star\\little_star_input_diag.json",
+  "verify": {
+    "passed": false,
+    "reasons": [
+      "Structure window [701, 306, 797, 402]: residual SD 1.5811, HF retention 0.991",
+      "Structure window [666, 209, 762, 305]: residual SD 1.4971, HF retention 0.991"
+    ],
+    "board": "artifacts\\relic-moire-v7\\little_star\\little_star_verify_board.png"
+  },
+  "steps": [
+    {
+      "n": 1,
+      "current": "docs\\design\\assets\\relic-style-v6\\little_star.png",
+      "action": "diagnose",
+      "by": "rules",
+      "reason": "Diagnosis is required before treatment.",
+      "result": {
+        "action": "diagnose",
+        "lattice": true,
+        "granule_level": "none",
+        "scale_tile_pct": 0.0,
+        "scale_level": "none",
+        "board": "artifacts\\relic-moire-v7\\little_star\\little_star_input_diag_board.png",
+        "scale_heatmap": "artifacts\\relic-moire-v7\\little_star\\little_star_input_scaleheat.png"
+      }
+    },
+    {
+      "n": 2,
+      "current": "docs\\design\\assets\\relic-style-v6\\little_star.png",
+      "action": "notch",
+      "by": "rules",
+      "reason": "An isolated periodic lattice was detected.",
+      "result": {
+        "action": "notch",
+        "output": "artifacts\\relic-moire-v7\\little_star\\little_star_notch.png",
+        "components_above_tau": 438,
+        "isolated_components_kept": 438,
+        "rejected_large_components": 0,
+        "notched_bins": 607,
+        "notched_bins_pct": 0.0318,
+        "max_peak_excess": 2.573,
+        "energy_removed_pct": 0.15795
+      }
+    },
+    {
+      "n": 3,
+      "current": "artifacts\\relic-moire-v7\\little_star\\little_star_notch.png",
+      "action": "verify",
+      "by": "rules",
+      "reason": "Verify aligned filtering distortion.",
+      "result": {
+        "action": "verify",
+        "passed": false,
+        "reasons": [
+          "Structure window [701, 306, 797, 402]: residual SD 1.5811, HF retention 0.991",
+          "Structure window [666, 209, 762, 305]: residual SD 1.4971, HF retention 0.991"
+        ],
+        "board": "artifacts\\relic-moire-v7\\little_star\\little_star_verify_board.png"
+      }
+    },
+    {
+      "n": 4,
+      "current": "artifacts\\relic-moire-v7\\little_star\\little_star_notch.png",
+      "action": "finish",
+      "by": "rules",
+      "reason": "No further processing is required.",
+      "result": {
+        "action": "finish"
+      }
+    }
+  ],
+  "acceptance": "A person must inspect the boards and decide whether to accept the candidate.",
+  "time": "2026-10-11T16:22:15+08:00"
+}

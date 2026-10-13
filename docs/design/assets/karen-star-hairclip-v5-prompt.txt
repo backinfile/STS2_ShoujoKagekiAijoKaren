@@ -1,0 +1,17 @@
+Built-in ImageGen / style-transfer / 2026-10-11.
+User request: 星形发饰的图片太实体了，更符合当前项目的风格。
+
+Redraw the photographic hairclip as a transparent 2D anime inventory icon.
+References: current hairclip, lower accessory in the TV episode 8 screenshot,
+the existing illustrated Little Star and Karen Water Bottle relic icons.
+Preserve exactly two connected four-point stars of unequal size: large above-left,
+small below-right, with a slender gold horizontal bar extending left behind them.
+Follow the anime's pale yellow-green gold, a thin warm brown outline and broad
+cel-shaded cream highlights / olive shadows. Prioritize readability at small size.
+Remove photographic metal reflections, screws, knobs, thick 3D extrusion and
+realistic product rendering. No hands, people, text, extra sparkles or background.
+Centered square composition, true alpha transparency and generous padding.
+
+Output copied from exec-cc5f8525-402a-4008-a0e3-5221232d8ba3.png.
+Game texture: crop alpha bounds, fit 216 px on a 256 px RGBA canvas.
+Outline: white silhouette with 9 px alpha dilation, same as the other six relics.

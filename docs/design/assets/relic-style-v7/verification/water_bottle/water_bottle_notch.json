@@ -1,0 +1,101 @@
+{
+  "stage": "notch",
+  "grade": "deliverable",
+  "source_before": "docs\\design\\assets\\relic-style-v6\\water_bottle.png",
+  "params": {
+    "local_win": 21,
+    "peak_tau": 1.2,
+    "max_support": 80,
+    "low_cut": 24,
+    "feather": 1.5
+  },
+  "channels": [
+    "L"
+  ],
+  "per_channel": {
+    "L": {
+      "components_above_tau": 559,
+      "isolated_components_kept": 557,
+      "rejected_large_components": 2,
+      "notched_bins": 1206,
+      "notched_bins_pct": 0.0631,
+      "max_peak_excess": 2.812,
+      "peaks_top": [
+        {
+          "excess": 2.812,
+          "support": 20,
+          "period_px": 2.01,
+          "angle_deg": 180.0
+        },
+        {
+          "excess": 2.757,
+          "support": 20,
+          "period_px": 2.01,
+          "angle_deg": 0.0
+        },
+        {
+          "excess": 2.534,
+          "support": 18,
+          "period_px": 2.84,
+          "angle_deg": -45.0
+        },
+        {
+          "excess": 2.534,
+          "support": 18,
+          "period_px": 2.84,
+          "angle_deg": 135.0
+        },
+        {
+          "excess": 2.418,
+          "support": 16,
+          "period_px": 2.01,
+          "angle_deg": 90.0
+        },
+        {
+          "excess": 2.239,
+          "support": 12,
+          "period_px": 2.01,
+          "angle_deg": -90.0
+        },
+        {
+          "excess": 1.897,
+          "support": 11,
+          "period_px": 2.84,
+          "angle_deg": -135.1
+        },
+        {
+          "excess": 1.897,
+          "support": 11,
+          "period_px": 2.84,
+          "angle_deg": 44.9
+        },
+        {
+          "excess": 1.648,
+          "support": 24,
+          "period_px": 10.41,
+          "angle_deg": -173.9
+        },
+        {
+          "excess": 1.648,
+          "support": 24,
+          "period_px": 10.41,
+          "angle_deg": 6.1
+        },
+        {
+          "excess": 1.623,
+          "support": 7,
+          "period_px": 10.04,
+          "angle_deg": -174.2
+        },
+        {
+          "excess": 1.623,
+          "support": 7,
+          "period_px": 10.04,
+          "angle_deg": 5.8
+        }
+      ],
+      "energy_removed_pct": 0.05284
+    }
+  },
+  "time": "2026-10-11T16:22:28+08:00"
+}

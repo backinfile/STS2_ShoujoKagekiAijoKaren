@@ -1,0 +1,65 @@
+[
+  {
+    "name": "water_bottle",
+    "generated_file": "exec-e250c45f-5e7a-4122-a4f0-dfb09050c13d.png",
+    "master": "water_bottle.png",
+    "prompt": "water_bottle-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11"
+  },
+  {
+    "name": "cookie",
+    "generated_file": "exec-a38a3c7f-02d6-4e89-99c2-69ae452e7902.png",
+    "master": "cookie.png",
+    "prompt": "cookie-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11"
+  },
+  {
+    "name": "little_star",
+    "generated_file": "exec-4532dba1-7943-403e-896a-64a335299547.png",
+    "master": "little_star.png",
+    "prompt": "little_star-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11"
+  },
+  {
+    "name": "baseball_cat",
+    "generated_file": "exec-e498b7b3-dba9-411e-a869-0c47bf61a3a0.png",
+    "master": "baseball_cat.png",
+    "prompt": "baseball_cat-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11"
+  },
+  {
+    "name": "mr_white",
+    "generated_file": "exec-339af158-ec07-48c3-a7c0-0ae0de2c7dc3.png",
+    "master": "mr_white.png",
+    "prompt": "mr_white-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11"
+  },
+  {
+    "name": "star_hairclip",
+    "generated_file": "exec-70890bac-29ce-41b8-b8d5-8595439d9040.png",
+    "master": "star_hairclip.png",
+    "prompt": "star_hairclip-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11"
+  },
+  {
+    "name": "star_tiara",
+    "generated_file": "exec-63658727-d805-43fa-8106-50c319d7d341.png",
+    "master": "star_tiara.png",
+    "prompt": "star_tiara-prompt.txt",
+    "tool": "built-in image_gen",
+    "reference": "actual native relics: blood_vial, strawberry, vajra, lantern, black_star, white_star, white_beast_statue, toy_box, velvet_choker, bag_of_preparation, nunchaku",
+    "generated_at": "2026-10-11"
+  }
+]

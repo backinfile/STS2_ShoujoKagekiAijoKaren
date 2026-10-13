@@ -9,6 +9,7 @@ param(
     [switch]$PromiseRegression,
     [switch]$PromiseTurnEndRegression,
     [switch]$ReviewRegression,
+    [switch]$SevenRelicRegression,
     [switch]$Headless,
     [string]$ClientGamesRoot = '',
     [ValidateSet('host','client')][string]$ShineActor = 'host'
@@ -57,6 +58,27 @@ function Post-Action([int]$port, [string]$endpoint, [hashtable]$action) {
     $result = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/$endpoint" -Method Post -ContentType 'application/json' -Body ($action | ConvertTo-Json -Compress) -TimeoutSec 8
     if ($result.status -ne 'ok') { throw "Action failed on $port : $($result | ConvertTo-Json -Compress)" }
     return $result
+}
+
+function Wait-MultiplayerEntry([int]$port) {
+    for ($attempt = 0; $attempt -lt 45; $attempt++) {
+        try {
+            $s = Get-State $port 'singleplayer'
+            if ($s.menu_screen -eq 'tutorial_prompt') { return $s }
+        } catch { }
+        try {
+            $s = Get-State $port 'multiplayer'
+            if ($s.state_type -eq 'map') { return $s }
+            if ($s.menu_screen -eq 'tutorial_prompt') {
+                $promptBody = @{ option='no'; prompt_id=$s.prompt_id } | ConvertTo-Json -Compress
+                $dismissed = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/ui/prompt" -Method Post `
+                    -ContentType 'application/json' -Body $promptBody -TimeoutSec 5
+                if ($dismissed.status -ne 'ok') { throw 'Could not dismiss multiplayer tutorial prompt' }
+            }
+        } catch { }
+        Start-Sleep -Milliseconds 500
+    }
+    throw "Timed out waiting for multiplayer tutorial or map on port $port"
 }
 
 function Wait-PromisePile([int]$port, [string]$expected, [string]$absent) {
@@ -133,14 +155,22 @@ if ($GlobalMoveRegression) { $caseName += '-global-move-regression' }
 if ($PromiseRegression) { $caseName += '-promise-regression' }
 if ($PromiseTurnEndRegression) { $caseName += '-promise-turn-end-regression' }
 if ($ReviewRegression) { $caseName += '-review-regression' }
+if ($SevenRelicRegression) {
+    $caseName += '-seven-relic-regression'
+    . (Join-Path $PSScriptRoot 'relic-regression/mp-actions.ps1')
+}
 
 try {
     $hostProcess = Start-Game $hostGame $hostRoot 'host_standard' $hostId
     $null = Wait-State $hostPort 'singleplayer' { param($s) $s.menu_screen -eq 'character_select' } 'host lobby'
-    $null = Invoke-RestMethod -Uri "http://127.0.0.1:$hostPort/api/v1/window/minimize" -Method Post -TimeoutSec 5
+    if (-not ($SevenRelicRegression -or $PromiseRegression -or $PromiseTurnEndRegression)) {
+        $null = Invoke-RestMethod -Uri "http://127.0.0.1:$hostPort/api/v1/window/minimize" -Method Post -TimeoutSec 5
+    }
     $clientProcess = Start-Game $clientGame $clientRoot 'join' $clientId
     $null = Wait-State $clientPort 'singleplayer' { param($s) $s.lobby.player_count -eq 2 } 'joined lobby'
-    $null = Invoke-RestMethod -Uri "http://127.0.0.1:$clientPort/api/v1/window/minimize" -Method Post -TimeoutSec 5
+    if (-not ($SevenRelicRegression -or $PromiseRegression -or $PromiseTurnEndRegression)) {
+        $null = Invoke-RestMethod -Uri "http://127.0.0.1:$clientPort/api/v1/window/minimize" -Method Post -TimeoutSec 5
+    }
 
     $null = Post-Action $hostPort 'singleplayer' @{ action='menu_select'; option=$HostCharacter }
     $null = Post-Action $clientPort 'singleplayer' @{ action='menu_select'; option=$ClientCharacter }
@@ -157,17 +187,24 @@ try {
     $null = Post-Action $hostPort 'singleplayer' @{ action='menu_select'; option='embark' }
     $null = Post-Action $clientPort 'singleplayer' @{ action='menu_select'; option='embark' }
     foreach ($port in @($hostPort, $clientPort)) {
-        $s = Wait-State $port 'singleplayer' { param($state) $state.menu_screen -eq 'tutorial_prompt' } 'tutorial prompt'
-        $null = Post-Action $port 'singleplayer' @{ action='menu_select'; option='no' }
+        $s = Wait-MultiplayerEntry $port
+        if ($s.menu_screen -eq 'tutorial_prompt') {
+            $null = Post-Action $port 'singleplayer' @{ action='menu_select'; option='no' }
+        }
     }
     foreach ($port in @($hostPort, $clientPort)) {
         $null = Wait-State $port 'multiplayer' { param($s) $s.state_type -eq 'map' } 'map'
     }
+    if ($SevenRelicRegression) { Initialize-SevenRelicCase }
     foreach ($port in @($hostPort, $clientPort)) {
         $null = Post-Action $port 'multiplayer' @{ action='choose_map_node'; index=0 }
     }
     foreach ($port in @($hostPort, $clientPort)) {
         $null = Wait-State $port 'multiplayer' { param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase } 'first combat'
+    }
+    if ($SevenRelicRegression) {
+        Invoke-SevenRelicCase | ConvertTo-Json -Compress
+        return
     }
 
     if ($ReviewRegression) {

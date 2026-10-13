@@ -25,7 +25,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite f
 
 每次运行的 JSON 结果、两端日志和隔离用户数据保存在 `artifacts/test-matrix/<运行标识>/`。任一测试失败时脚本退出码为 1，其余测试仍会继续。`full` 不测试跨版本联机。历史跨版本调查中，游戏拒绝不同版本的握手，客户端游戏本体的错误弹窗还会抛出 `SwitchExpressionException`；此结果单独记录，不影响本 Mod 的双版本兼容性验收。
 
-单人移牌视觉专项另行运行 `pwsh -NoProfile -File tools/test_promise_visuals.ps1 -Environment beta`（正式版改为 `stable`）。它检查《坠落》移入、《约定之塔》抽回以及取回后继续出牌，保存各阶段截图和 MCP 状态，并调用只读命令 `karen_check_hand` 比较可见节点与模型。脚本先从隔离日志确认 KarenSTS2MCP 启动，再访问接口。默认游戏就绪后自动最小化；加 `-Record` 时保持 1280 × 720 窗口并静音，避免最小化 Vulkan 窗口导致录像重复旧帧。结果保存在 `artifacts/test-promise-visuals/`。该检查能发现模型已抽回但画面仍缺牌的问题。
+单人移牌视觉专项另行运行 `pwsh -NoProfile -File tools/test_promise_visuals.ps1 -Environment beta`（正式版改为 `stable`）。它检查《坠落》移入、《约定之塔》抽回以及取回后继续出牌，保存各阶段截图和 MCP 状态，并调用只读命令 `karen_check_hand` 比较可见节点与模型。脚本先从隔离日志确认 KarenSTS2MCP 启动，再访问接口。检查时始终保持 1280 × 720 窗口；加 `-Record` 时额外录像并静音，避免最小化 Vulkan 窗口导致画面停止更新。结果保存在 `artifacts/test-promise-visuals/`。该检查能发现模型已抽回但画面仍缺牌的问题。
 
 游戏快照固定为正式版 v0.107.1、测试版 v0.111.0；游戏升级后先重新准备快照并核对兼容性。更新脚本不会执行 `git pull`，避免覆盖 MCP 源码目录中的未提交改动；如果需要远端新提交，应先在 MCP 仓库处理更新，再运行此脚本。
 

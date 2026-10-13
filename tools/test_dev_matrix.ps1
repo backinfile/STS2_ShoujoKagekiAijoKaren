@@ -139,8 +139,10 @@ function Test-Solo([string]$branch, [int]$caseId) {
         }
         $null = Post-Action $port 'singleplayer' @{ action='menu_select'; option='KAREN' }
         $null = Post-Action $port 'singleplayer' @{ action='menu_select'; option='embark' }
-        $null = Wait-State $port 'singleplayer' { param($s) $s.menu_screen -eq 'tutorial_prompt' } 'tutorial prompt'
-        $null = Post-Action $port 'singleplayer' @{ action='menu_select'; option='no' }
+        $entry = Wait-State $port 'singleplayer' { param($s) $s.menu_screen -eq 'tutorial_prompt' -or $s.state_type -eq 'map' } 'tutorial prompt or map'
+        if ($entry.menu_screen -eq 'tutorial_prompt') {
+            $null = Post-Action $port 'singleplayer' @{ action='menu_select'; option='no' }
+        }
         $null = Wait-State $port 'singleplayer' { param($s) $s.state_type -eq 'map' } 'map'
         $null = Post-Action $port 'singleplayer' @{ action='choose_map_node'; index=0 }
         $before = Wait-State $port 'singleplayer' { param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase } 'combat'

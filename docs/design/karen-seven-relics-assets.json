@@ -1,0 +1,330 @@
+[
+  {
+    "resource": "karen_water_bottle_relic",
+    "source_artifact": "docs/design/assets/relic-style-v7/water_bottle.png",
+    "source_sha256": "5f6da6945d2649b83514073f39c68aa7fc9aeb6b7b87ac66eb9f3df6be499969",
+    "reference": "TV第5话原画面（转载）",
+    "source_url": "https://minkara.carview.co.jp/userid/968130/blog/41815373/",
+    "artwork_method": "V6内置ImageGen母稿，经本地Mi-Ripple选择性去周期纹（V7）",
+    "notes": "保留动画道具的粉色直筒与打开的黑色翻盖，改用粗深色轮廓、低饱和粉色及简洁手绘明暗。",
+    "packing": "按alpha>1的完整可见轮廓等比裁边（忽略0.4%透明残点）；小图85×85、最长边79px；大图256×256、最长边246px；按alpha重心微调；小图alpha膨胀1px生成白色高亮轮廓。母稿alpha保持原样。",
+    "prompt": "docs/design/assets/relic-style-v6/water_bottle-prompt.txt",
+    "style_reference": "本体 blood_vial、strawberry、vajra、lantern、black_star、white_star、white_beast_statue、toy_box、velvet_choker、bag_of_preparation、nunchaku；本地原始PNG与relic_atlas实际尺寸。",
+    "small_size": [
+      85,
+      85
+    ],
+    "small_bbox": [
+      22,
+      3,
+      67,
+      82
+    ],
+    "big_size": [
+      256,
+      256
+    ],
+    "big_bbox": [
+      62,
+      7,
+      203,
+      253
+    ],
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "cc3ba4eb9bbd5aaa25296650221523badd5229b5218625780e8b82bfcb700c80",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "notch_strength": 1,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/water_bottle/water_bottle_restored.json",
+      "accepted_sha256": "5f6da6945d2649b83514073f39c68aa7fc9aeb6b7b87ac66eb9f3df6be499969"
+    }
+  },
+  {
+    "resource": "karen_cookie_relic",
+    "source_artifact": "docs/design/assets/relic-style-v7/cookie.png",
+    "source_sha256": "e120efbcfd81b0802d8bd6a4892cc1ced0a70388a47e75d0cbe4c628a2efbd6f",
+    "reference": "STS1 CookieRelic.png",
+    "source_url": "",
+    "artwork_method": "保留V6内置ImageGen母稿；Mi-Ripple未检出可处理周期纹（V7）",
+    "notes": "保留老Mod红色包装与浅色印刷块；印刷细节为图形推补，不认定为原作品牌。包装折痕用手绘分面表现。",
+    "packing": "按alpha>1的完整可见轮廓等比裁边（忽略0.4%透明残点）；小图85×85、最长边79px；大图256×256、最长边246px；按alpha重心微调；小图alpha膨胀1px生成白色高亮轮廓。母稿alpha保持原样。",
+    "prompt": "docs/design/assets/relic-style-v6/cookie-prompt.txt",
+    "style_reference": "本体 blood_vial、strawberry、vajra、lantern、black_star、white_star、white_beast_statue、toy_box、velvet_choker、bag_of_preparation、nunchaku；本地原始PNG与relic_atlas实际尺寸。",
+    "small_size": [
+      85,
+      85
+    ],
+    "small_bbox": [
+      1,
+      21,
+      80,
+      63
+    ],
+    "big_size": [
+      256,
+      256
+    ],
+    "big_bbox": [
+      1,
+      61,
+      247,
+      193
+    ],
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "e120efbcfd81b0802d8bd6a4892cc1ced0a70388a47e75d0cbe4c628a2efbd6f",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "finish"
+      ],
+      "notch_strength": 0,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/cookie/cookie_restored.json",
+      "accepted_sha256": "e120efbcfd81b0802d8bd6a4892cc1ced0a70388a47e75d0cbe4c628a2efbd6f"
+    }
+  },
+  {
+    "resource": "karen_little_star_relic",
+    "source_artifact": "docs/design/assets/relic-style-v7/little_star.png",
+    "source_sha256": "07569b27bb6e285d1e502b869c496043c94aca256ace504442cf3cd126198ff3",
+    "reference": "STS1 otherResources/Star.png",
+    "source_url": "",
+    "artwork_method": "V6内置ImageGen母稿，经本地Mi-Ripple选择性去周期纹（V7）",
+    "notes": "独立金色四角星，保留中心交叉脊线；改用暖金、赭色分面与粗轮廓，减少镜面金属反光。",
+    "packing": "按alpha>1的完整可见轮廓等比裁边（忽略0.4%透明残点）；小图85×85、最长边79px；大图256×256、最长边246px；按alpha重心微调；小图alpha膨胀1px生成白色高亮轮廓。母稿alpha保持原样。",
+    "prompt": "docs/design/assets/relic-style-v6/little_star-prompt.txt",
+    "style_reference": "本体 blood_vial、strawberry、vajra、lantern、black_star、white_star、white_beast_statue、toy_box、velvet_choker、bag_of_preparation、nunchaku；本地原始PNG与relic_atlas实际尺寸。",
+    "small_size": [
+      85,
+      85
+    ],
+    "small_bbox": [
+      7,
+      3,
+      77,
+      82
+    ],
+    "big_size": [
+      256,
+      256
+    ],
+    "big_bbox": [
+      19,
+      6,
+      236,
+      252
+    ],
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "620c23d17ab89a70e8ef5c36a625f236b08bcf9b233bda4062cb446ffaa5e9d0",
+      "outcome": "delivered_gentle_verified",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "notch_strength": 0.25,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/little_star/little_star_restored.json",
+      "accepted_sha256": "07569b27bb6e285d1e502b869c496043c94aca256ace504442cf3cd126198ff3"
+    }
+  },
+  {
+    "resource": "karen_baseball_cat_relic",
+    "source_artifact": "docs/design/assets/relic-style-v7/baseball_cat.png",
+    "source_sha256": "b535b2db6354067d38414caea6a664149ac6b9cb1a0da4882396fc8d5848d1b0",
+    "reference": "武士道官方造型",
+    "source_url": "https://prtimes.jp/main/html/rd/p/000006806.000014827.html",
+    "artwork_method": "V6内置ImageGen母稿，经本地Mi-Ripple选择性去周期纹（V7）",
+    "notes": "保留黄眼竖瞳、黑鼻吐舌、白猫耳、红色护耳头盔、SCC球衣和球棒；简化为原版玩具类遗物的手绘色面。",
+    "packing": "按alpha>1的完整可见轮廓等比裁边（忽略0.4%透明残点）；小图85×85、最长边79px；大图256×256、最长边246px；按alpha重心微调；小图alpha膨胀1px生成白色高亮轮廓。母稿alpha保持原样。",
+    "prompt": "docs/design/assets/relic-style-v6/baseball_cat-prompt.txt",
+    "style_reference": "本体 blood_vial、strawberry、vajra、lantern、black_star、white_star、white_beast_statue、toy_box、velvet_choker、bag_of_preparation、nunchaku；本地原始PNG与relic_atlas实际尺寸。",
+    "small_size": [
+      85,
+      85
+    ],
+    "small_bbox": [
+      2,
+      4,
+      79,
+      83
+    ],
+    "big_size": [
+      256,
+      256
+    ],
+    "big_bbox": [
+      3,
+      8,
+      242,
+      254
+    ],
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "6fa8530ae17dcd833f89ddce9e8b602ca1564e92b3e4f91f5ca15ab173224f64",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "notch_strength": 1,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/baseball_cat/baseball_cat_restored.json",
+      "accepted_sha256": "b535b2db6354067d38414caea6a664149ac6b9cb1a0da4882396fc8d5848d1b0"
+    }
+  },
+  {
+    "resource": "karen_mr_white_relic",
+    "source_artifact": "docs/design/assets/relic-style-v7/mr_white.png",
+    "source_sha256": "25c0dccccd49664b0646623c82fbf5863459db9ad6605e5c7fcbd70709fced59",
+    "reference": "STS1 MrWhiteRelic.png",
+    "source_url": "",
+    "artwork_method": "V6内置ImageGen母稿，经本地Mi-Ripple选择性去周期纹（V7）",
+    "notes": "仍为白熊头像，保留圆耳、点眼与鼻口；不增加身体或挂链。奶白与蓝灰阴影提升小图辨识度。",
+    "packing": "按alpha>1的完整可见轮廓等比裁边（忽略0.4%透明残点）；小图85×85、最长边79px；大图256×256、最长边246px；按alpha重心微调；小图alpha膨胀1px生成白色高亮轮廓。母稿alpha保持原样。",
+    "prompt": "docs/design/assets/relic-style-v6/mr_white-prompt.txt",
+    "style_reference": "本体 blood_vial、strawberry、vajra、lantern、black_star、white_star、white_beast_statue、toy_box、velvet_choker、bag_of_preparation、nunchaku；本地原始PNG与relic_atlas实际尺寸。",
+    "small_size": [
+      85,
+      85
+    ],
+    "small_bbox": [
+      3,
+      10,
+      82,
+      74
+    ],
+    "big_size": [
+      256,
+      256
+    ],
+    "big_bbox": [
+      5,
+      29,
+      251,
+      227
+    ],
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "863225f15d6028a45d6df62243c433f50cb5f649c0209dbca74cdaa89b53dad8",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "notch_strength": 1,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/mr_white/mr_white_restored.json",
+      "accepted_sha256": "25c0dccccd49664b0646623c82fbf5863459db9ad6605e5c7fcbd70709fced59"
+    }
+  },
+  {
+    "resource": "karen_star_hairclip_relic",
+    "source_artifact": "docs/design/assets/relic-style-v7/star_hairclip.png",
+    "source_sha256": "aeae2d1c5151b72089c0de6c46797fec1b34cf8d05346b4c45bc81d8fd21cdef",
+    "reference": "TV第8话动画发饰造型＋现有Mod二维图标",
+    "source_url": "https://note.com/theatreduflamme/n/n5c317622bb05",
+    "artwork_method": "保留V6内置ImageGen母稿；Mi-Ripple未检出可处理周期纹（V7）",
+    "notes": "保留大小两颗四角星、横向金色发针及淡金绿色；按用户要求保持二维分面，增加原版风格的粗轮廓。",
+    "packing": "按alpha>1的完整可见轮廓等比裁边（忽略0.4%透明残点）；小图85×85、最长边79px；大图256×256、最长边246px；按alpha重心微调；小图alpha膨胀1px生成白色高亮轮廓。母稿alpha保持原样。",
+    "prompt": "docs/design/assets/relic-style-v6/star_hairclip-prompt.txt",
+    "style_reference": "本体 blood_vial、strawberry、vajra、lantern、black_star、white_star、white_beast_statue、toy_box、velvet_choker、bag_of_preparation、nunchaku；本地原始PNG与relic_atlas实际尺寸。",
+    "small_size": [
+      85,
+      85
+    ],
+    "small_bbox": [
+      1,
+      5,
+      80,
+      77
+    ],
+    "big_size": [
+      256,
+      256
+    ],
+    "big_bbox": [
+      1,
+      12,
+      247,
+      235
+    ],
+    "moire": {
+      "tool": "Mi-Ripple",
+      "version": "0.1.0",
+      "commit": "865a1481acc22da80427bbebe11f1d7f00dc99be",
+      "regeneration": false,
+      "source_sha256": "aeae2d1c5151b72089c0de6c46797fec1b34cf8d05346b4c45bc81d8fd21cdef",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "finish"
+      ],
+      "notch_strength": 0,
+      "alpha_unchanged": true,
+      "report": "docs/design/assets/relic-style-v7/verification/star_hairclip/star_hairclip_restored.json",
+      "accepted_sha256": "aeae2d1c5151b72089c0de6c46797fec1b34cf8d05346b4c45bc81d8fd21cdef"
+    }
+  },
+  {
+    "resource": "karen_star_tiara_relic",
+    "source_artifact": "docs/design/assets/relic-style-v8/star_tiara.png",
+    "source_sha256": "6771be04f8915dab438c99299a6b09aeeb7245365c220d9bf63b5e407eb3e78e",
+    "reference": "TV第11话原画面（转载）",
+    "source_url": "https://anime-tip.com/sahplant/revuestarlight/9060",
+    "artwork_method": "内置ImageGen：按原作结构适配STS2遗物小图轮廓与手绘色块（V8）",
+    "notes": "名称改为星之皇冠。保留六个卷环、八处白色饰件及单颗纵向粉色宝石；收窄两侧、提高主体高度，适度加厚金色线条和炭黑轮廓，增强小图辨识度。V7原作细线稿单独保留。",
+    "packing": "按alpha>1的完整可见轮廓等比裁边（忽略0.4%透明残点）；小图85×85、最长边79px；大图256×256、最长边246px；按alpha重心微调；小图alpha膨胀1px生成白色高亮轮廓。母稿alpha保持原样。",
+    "prompt": "docs/design/assets/relic-style-v8/star_tiara-prompt.txt",
+    "style_reference": "本体 blood_vial、strawberry、vajra、lantern、black_star、white_star、white_beast_statue、toy_box、velvet_choker、bag_of_preparation、nunchaku；本地原始PNG与relic_atlas实际尺寸。",
+    "small_size": [
+      85,
+      85
+    ],
+    "small_bbox": [
+      3,
+      15,
+      82,
+      66
+    ],
+    "big_size": [
+      256,
+      256
+    ],
+    "big_bbox": [
+      5,
+      44,
+      251,
+      201
+    ]
+  }
+]

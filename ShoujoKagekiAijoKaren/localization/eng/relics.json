@@ -9,5 +9,33 @@
 
   "KAREN_LOCK_RELIC.title": "Locked Relic",
   "KAREN_LOCK_RELIC.description": "A relic is locked here. It will unlock at the end of combat.",
-  "KAREN_LOCK_RELIC.flavor": ""
+  "KAREN_LOCK_RELIC.flavor": "",
+
+  "KAREN_WATER_BOTTLE_RELIC.title": "Karen’s Water Bottle",
+  "KAREN_WATER_BOTTLE_RELIC.description": "The first time you gain [gold]Temporary Strength[/gold] each combat, [gold]Retain Strength[/gold] for [blue]{Turns}[/blue] turns.",
+  "KAREN_WATER_BOTTLE_RELIC.flavor": "A sip of water between rehearsals, then back to the stage.",
+
+  "KAREN_COOKIE_RELIC.title": "Cookies",
+  "KAREN_COOKIE_RELIC.description": "Upon pickup, obtain [blue]1[/blue] random Common, Uncommon, and Rare [gold]Shine[/gold] card each.",
+  "KAREN_COOKIE_RELIC.flavor": "A shared snack before the next performance.",
+
+  "KAREN_STAR_HAIRCLIP_RELIC.title": "Star Hairclip",
+  "KAREN_STAR_HAIRCLIP_RELIC.description": "At the start of combat, add [blue]1[/blue] [gold]Radiance[/gold] to your [gold]Promise Pile[/gold].",
+  "KAREN_STAR_HAIRCLIP_RELIC.flavor": "Two stars, one large and one small, holding the same promise.",
+
+  "KAREN_BASEBALL_CAT_RELIC.title": "Baseball Cat",
+  "KAREN_BASEBALL_CAT_RELIC.description": "Each combat, gain [blue]1[/blue] [gold]Shine Card Reward[/gold] for each distinct name of [gold]Shine[/gold] card you deplete.",
+  "KAREN_BASEBALL_CAT_RELIC.flavor": "Suzdal Cat is ready to take the field!",
+
+  "KAREN_MR_WHITE_RELIC.title": "Mr. White",
+  "KAREN_MR_WHITE_RELIC.description": "At the end of your first turn each combat, you may put any number of cards from your hand into your [gold]Promise Pile[/gold].",
+  "KAREN_MR_WHITE_RELIC.flavor": "Keep what you want to carry into tomorrow.",
+
+  "KAREN_LITTLE_STAR_RELIC.title": "Little Star",
+  "KAREN_LITTLE_STAR_RELIC.description": "Whenever you play [gold]Tower of Promise[/gold], gain [blue]{StrengthPower}[/blue] [gold]Temporary Strength[/gold].",
+  "KAREN_LITTLE_STAR_RELIC.flavor": "Even a little star can light the way back.",
+
+  "KAREN_STAR_TIARA_RELIC.title": "Star Crown",
+  "KAREN_STAR_TIARA_RELIC.description": "At the start of each turn, [gold]disable[/gold] [blue]1[/blue] relic and gain [blue]{Energy}[/blue] Energy.",
+  "KAREN_STAR_TIARA_RELIC.flavor": "Those who reach for the stars still pay a price for their next performance."
 }

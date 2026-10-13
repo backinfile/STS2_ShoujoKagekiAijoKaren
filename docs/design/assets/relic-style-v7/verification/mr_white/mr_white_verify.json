@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "reasons": [],
+  "limits": {
+    "structure_max_diff_std": 0.6,
+    "structure_min_hf_ratio": 0.9,
+    "flat_max_band_increase": 0.02,
+    "whole_max_diff_std": 1.0
+  },
+  "whole_image": {
+    "hf_std_before": 2.0781,
+    "hf_std_after": 2.0781,
+    "hf_std_ratio": 1.0,
+    "band_std_before": 2.0814,
+    "band_std_after": 2.0814,
+    "diff_std": 0.0026,
+    "diff_abs_max": 0.3656
+  },
+  "flat_windows": [],
+  "structure_windows": [
+    {
+      "hf_std_before": 4.0367,
+      "hf_std_after": 4.0367,
+      "hf_std_ratio": 1.0,
+      "band_std_before": 4.1182,
+      "band_std_after": 4.1182,
+      "diff_std": 0.0,
+      "diff_abs_max": 0.0,
+      "box": [
+        82,
+        621,
+        178,
+        717
+      ],
+      "ok": true
+    },
+    {
+      "hf_std_before": 3.1819,
+      "hf_std_after": 3.1819,
+      "hf_std_ratio": 1.0,
+      "band_std_before": 3.1999,
+      "band_std_after": 3.1998,
+      "diff_std": 0.0264,
+      "diff_abs_max": 0.3656,
+      "box": [
+        570,
+        989,
+        666,
+        1085
+      ],
+      "ok": true
+    },
+    {
+      "hf_std_before": 0.8001,
+      "hf_std_after": 0.8001,
+      "hf_std_ratio": 1.0,
+      "band_std_before": 0.8034,
+      "band_std_after": 0.8034,
+      "diff_std": 0.0,
+      "diff_abs_max": 0.0,
+      "box": [
+        666,
+        965,
+        762,
+        1061
+      ],
+      "ok": true
+    }
+  ],
+  "stage": "verify",
+  "before": "docs\\design\\assets\\relic-style-v6\\mr_white.png",
+  "after": "artifacts\\relic-moire-v7\\mr_white\\mr_white_notch.png",
+  "time": "2026-10-11T16:22:20+08:00",
+  "board": "artifacts\\relic-moire-v7\\mr_white\\mr_white_verify_board.png"
+}

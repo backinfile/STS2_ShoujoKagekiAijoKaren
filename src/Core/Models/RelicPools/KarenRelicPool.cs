@@ -20,6 +20,13 @@ public sealed class KarenRelicPool : RelicPoolModel
         [
             ModelDb.Relic<KarenHairpinRelic>(),
             ModelDb.Relic<KarenHairpin2Relic>(),
+            ModelDb.Relic<KarenWaterBottleRelic>(),
+            ModelDb.Relic<KarenCookieRelic>(),
+            ModelDb.Relic<KarenStarHairclipRelic>(),
+            ModelDb.Relic<KarenBaseballCatRelic>(),
+            ModelDb.Relic<KarenMrWhiteRelic>(),
+            ModelDb.Relic<KarenLittleStarRelic>(),
+            ModelDb.Relic<KarenStarTiaraRelic>(),
         ];
     }
 

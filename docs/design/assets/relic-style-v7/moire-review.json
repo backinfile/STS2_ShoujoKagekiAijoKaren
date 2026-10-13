@@ -1,0 +1,179 @@
+{
+  "tool": "Mi-Ripple 0.1.0",
+  "native_resolution": true,
+  "regeneration": false,
+  "assets": [
+    {
+      "name": "star_tiara-unfiltered",
+      "source": "docs\\design\\assets\\relic-style-v7\\star_tiara-unfiltered.png",
+      "source_sha256": "267ae3725c326c16c7bca6a3c50f3bdcc0d7a906e08547429839989dd9e0f7ad",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "finish"
+      ],
+      "source_copy": true,
+      "report": "artifacts\\relic-moire-v7\\star_tiara-unfiltered\\star_tiara-unfiltered_restored.json",
+      "candidate": "artifacts\\relic-moire-v7\\star_tiara-unfiltered\\star_tiara-unfiltered_candidate-rgba.png",
+      "acceptance": "accepted after source, diagnostic, heat-map and comparison inspection",
+      "candidate_sha256": "6c997b5fb9ed15f47423b62d62530aa48bc52a134a4845d833074e5a943d096f",
+      "alpha_unchanged": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "pixels_unchanged": true,
+      "adopted_master": "docs/design/assets/relic-style-v7/star_tiara.png",
+      "adopted_sha256": "267ae3725c326c16c7bca6a3c50f3bdcc0d7a906e08547429839989dd9e0f7ad"
+    },
+    {
+      "name": "baseball_cat",
+      "source": "docs\\design\\assets\\relic-style-v6\\baseball_cat.png",
+      "source_sha256": "6fa8530ae17dcd833f89ddce9e8b602ca1564e92b3e4f91f5ca15ab173224f64",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "source_copy": false,
+      "report": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_restored.json",
+      "candidate": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_candidate-rgba.png",
+      "acceptance": "accepted after source, diagnostic, heat-map and comparison inspection",
+      "candidate_sha256": "b535b2db6354067d38414caea6a664149ac6b9cb1a0da4882396fc8d5848d1b0",
+      "alpha_unchanged": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "pixels_unchanged": false,
+      "adopted_master": "docs/design/assets/relic-style-v7/baseball_cat.png",
+      "adopted_sha256": "b535b2db6354067d38414caea6a664149ac6b9cb1a0da4882396fc8d5848d1b0"
+    },
+    {
+      "name": "cookie",
+      "source": "docs\\design\\assets\\relic-style-v6\\cookie.png",
+      "source_sha256": "e120efbcfd81b0802d8bd6a4892cc1ced0a70388a47e75d0cbe4c628a2efbd6f",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "finish"
+      ],
+      "source_copy": true,
+      "report": "artifacts\\relic-moire-v7\\cookie\\cookie_restored.json",
+      "candidate": "artifacts\\relic-moire-v7\\cookie\\cookie_candidate-rgba.png",
+      "acceptance": "accepted after source, diagnostic, heat-map and comparison inspection",
+      "candidate_sha256": "20ea6e6a404de87985179049c8c6df8eab55375b592614ccf90b49cc4b953fd8",
+      "alpha_unchanged": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "pixels_unchanged": true,
+      "adopted_master": "docs/design/assets/relic-style-v7/cookie.png",
+      "adopted_sha256": "e120efbcfd81b0802d8bd6a4892cc1ced0a70388a47e75d0cbe4c628a2efbd6f"
+    },
+    {
+      "name": "little_star",
+      "source": "docs\\design\\assets\\relic-style-v6\\little_star.png",
+      "source_sha256": "620c23d17ab89a70e8ef5c36a625f236b08bcf9b233bda4062cb446ffaa5e9d0",
+      "outcome": "delivered_gentle_verified",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "source_copy": false,
+      "report": "artifacts\\relic-moire-v7\\little_star\\little_star_restored.json",
+      "candidate": "artifacts\\relic-moire-v7\\little_star\\little_star_candidate-rgba.png",
+      "acceptance": "accepted after source, diagnostic, heat-map and comparison inspection",
+      "gentle_report": "artifacts\\relic-moire-v7\\little_star\\little_star_gentle_verify.json",
+      "gentle_passed": true,
+      "notch_strength": 0.25,
+      "candidate_sha256": "07569b27bb6e285d1e502b869c496043c94aca256ace504442cf3cd126198ff3",
+      "alpha_unchanged": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "pixels_unchanged": false,
+      "adopted_master": "docs/design/assets/relic-style-v7/little_star.png",
+      "adopted_sha256": "07569b27bb6e285d1e502b869c496043c94aca256ace504442cf3cd126198ff3"
+    },
+    {
+      "name": "mr_white",
+      "source": "docs\\design\\assets\\relic-style-v6\\mr_white.png",
+      "source_sha256": "863225f15d6028a45d6df62243c433f50cb5f649c0209dbca74cdaa89b53dad8",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "source_copy": false,
+      "report": "artifacts\\relic-moire-v7\\mr_white\\mr_white_restored.json",
+      "candidate": "artifacts\\relic-moire-v7\\mr_white\\mr_white_candidate-rgba.png",
+      "acceptance": "accepted after source, diagnostic, heat-map and comparison inspection",
+      "candidate_sha256": "25c0dccccd49664b0646623c82fbf5863459db9ad6605e5c7fcbd70709fced59",
+      "alpha_unchanged": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "pixels_unchanged": false,
+      "adopted_master": "docs/design/assets/relic-style-v7/mr_white.png",
+      "adopted_sha256": "25c0dccccd49664b0646623c82fbf5863459db9ad6605e5c7fcbd70709fced59"
+    },
+    {
+      "name": "star_hairclip",
+      "source": "docs\\design\\assets\\relic-style-v6\\star_hairclip.png",
+      "source_sha256": "aeae2d1c5151b72089c0de6c46797fec1b34cf8d05346b4c45bc81d8fd21cdef",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "finish"
+      ],
+      "source_copy": true,
+      "report": "artifacts\\relic-moire-v7\\star_hairclip\\star_hairclip_restored.json",
+      "candidate": "artifacts\\relic-moire-v7\\star_hairclip\\star_hairclip_candidate-rgba.png",
+      "acceptance": "accepted after source, diagnostic, heat-map and comparison inspection",
+      "candidate_sha256": "76f004606bad28b187a30ea29577896fa36b09f10cdc76badf20ccf0d6866ea4",
+      "alpha_unchanged": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "pixels_unchanged": true,
+      "adopted_master": "docs/design/assets/relic-style-v7/star_hairclip.png",
+      "adopted_sha256": "aeae2d1c5151b72089c0de6c46797fec1b34cf8d05346b4c45bc81d8fd21cdef"
+    },
+    {
+      "name": "water_bottle",
+      "source": "docs\\design\\assets\\relic-style-v6\\water_bottle.png",
+      "source_sha256": "cc3ba4eb9bbd5aaa25296650221523badd5229b5218625780e8b82bfcb700c80",
+      "outcome": "delivered",
+      "actions": [
+        "diagnose",
+        "notch",
+        "verify",
+        "finish"
+      ],
+      "source_copy": false,
+      "report": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_restored.json",
+      "candidate": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_candidate-rgba.png",
+      "acceptance": "accepted after source, diagnostic, heat-map and comparison inspection",
+      "candidate_sha256": "5f6da6945d2649b83514073f39c68aa7fc9aeb6b7b87ac66eb9f3df6be499969",
+      "alpha_unchanged": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "pixels_unchanged": false,
+      "adopted_master": "docs/design/assets/relic-style-v7/water_bottle.png",
+      "adopted_sha256": "5f6da6945d2649b83514073f39c68aa7fc9aeb6b7b87ac66eb9f3df6be499969"
+    }
+  ]
+}

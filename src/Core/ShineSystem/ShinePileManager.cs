@@ -19,6 +19,7 @@ using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.SaveSystem;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
+using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 using System;
@@ -77,6 +78,7 @@ public static class ShinePileManager
     public static async Task MoveToShinePile(CardModel original, PlayerChoiceContext ctx)
     {
         var combatState = original.CombatState;
+        var wasShineCard = original.IsShineCard();
         var card = original.DeckVersion ?? original;
         if (card?.Owner == null)
         {
@@ -119,6 +121,16 @@ public static class ShinePileManager
             var combatManager = CombatManager.Instance;
             var inCombat = combatManager?.IsInProgress == true && !combatManager.IsEnding;
             await karenCard.OnShineExhausted(ctx, inCombat, combatState!);
+        }
+
+        // Include depletion from the finishing play. IsEnding must not suppress its reward.
+        if (wasShineCard && combatState != null)
+        {
+            foreach (var relic in original.Owner.Relics.ToList())
+            {
+                if (!relic.HasBeenRemovedFromState && relic is IShineExhaustionListener listener)
+                    await listener.AfterShineExhausted(ctx, original);
+            }
         }
 
         // 联机下需要等待战斗区节点移除完成，否则远端客户端可能残留在打出区中央。

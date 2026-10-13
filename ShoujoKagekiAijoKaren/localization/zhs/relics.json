@@ -9,5 +9,33 @@
 
   "KAREN_LOCK_RELIC.title": "上锁的遗物",
   "KAREN_LOCK_RELIC.description": "这里锁着一个遗物，会在战斗结束时解锁。",
-  "KAREN_LOCK_RELIC.flavor": ""
+  "KAREN_LOCK_RELIC.flavor": "",
+
+  "KAREN_WATER_BOTTLE_RELIC.title": "华恋的水壶",
+  "KAREN_WATER_BOTTLE_RELIC.description": "每场战斗第一次获得[gold]临时力量[/gold]时，[gold]保留力量[/gold][blue]{Turns}[/blue]回合。",
+  "KAREN_WATER_BOTTLE_RELIC.flavor": "练习间隙，喝一口水，再回到舞台。",
+
+  "KAREN_COOKIE_RELIC.title": "饼干",
+  "KAREN_COOKIE_RELIC.description": "拾起时，随机获得普通、罕见、稀有[gold]闪耀[/gold]牌各[blue]1[/blue]张。",
+  "KAREN_COOKIE_RELIC.flavor": "分给大家的点心，也为下一场演出补充精神。",
+
+  "KAREN_STAR_HAIRCLIP_RELIC.title": "星形发饰",
+  "KAREN_STAR_HAIRCLIP_RELIC.description": "战斗开始时，将[gold]光辉[/gold]加入[gold]约定牌堆[/gold]。",
+  "KAREN_STAR_HAIRCLIP_RELIC.flavor": "一大一小的两颗星，记着同一个约定。",
+
+  "KAREN_BASEBALL_CAT_RELIC.title": "棒球猫",
+  "KAREN_BASEBALL_CAT_RELIC.description": "每场战斗中，每耗尽一张非同名[gold]闪耀[/gold]牌，获得[blue]1[/blue]个[gold]闪耀牌奖励[/gold]。",
+  "KAREN_BASEBALL_CAT_RELIC.flavor": "スズダルキャット，准备上场！",
+
+  "KAREN_MR_WHITE_RELIC.title": "Mr. White",
+  "KAREN_MR_WHITE_RELIC.description": "每场战斗的第一回合结束时，可选择任意数量的手牌放入[gold]约定牌堆[/gold]。",
+  "KAREN_MR_WHITE_RELIC.flavor": "把想要留到明天的东西，好好收起来。",
+
+  "KAREN_LITTLE_STAR_RELIC.title": "小小星",
+  "KAREN_LITTLE_STAR_RELIC.description": "打出[gold]约定之塔[/gold]时，获得[blue]{StrengthPower}[/blue]点[gold]临时力量[/gold]。",
+  "KAREN_LITTLE_STAR_RELIC.flavor": "即使是小小的星，也能照亮回去的路。",
+
+  "KAREN_STAR_TIARA_RELIC.title": "星之皇冠",
+  "KAREN_STAR_TIARA_RELIC.description": "每回合开始时，[gold]禁用[/gold][blue]1[/blue]个遗物，获得[blue]{Energy}[/blue]点能量。",
+  "KAREN_STAR_TIARA_RELIC.flavor": "摘星之人，仍要为下一次登台付出代价。"
 }

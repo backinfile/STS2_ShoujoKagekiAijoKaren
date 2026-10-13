@@ -65,6 +65,15 @@ function Post([hashtable]$body) {
     if ($result.status -ne 'ok') { throw "Action failed: $($body | ConvertTo-Json -Compress): $($result | ConvertTo-Json -Compress)" }
     return $result
 }
+function Check-Hand([string]$label) {
+    $result = Post @{ action='run_command'; command='karen_check_hand' }
+    $result | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath (Join-Path $run "$label-hand.json") -Encoding UTF8
+    $handCheck = $result.message | ConvertFrom-Json
+    if ($handCheck.modelCount -ne $handCheck.visualCount -or @($handCheck.missing).Count -or
+        @($handCheck.unexpected).Count -or @($handCheck.unexpectedPileIcons).Count) {
+        throw "Hand model and visuals differ after $label"
+    }
+}
 
 try {
     $oldRoaming = $env:APPDATA
@@ -92,18 +101,15 @@ try {
     }
     if (-not $mcpStarted) { throw 'Karen STS2 MCP did not start; inspect the isolated game log' }
     $null = Wait-State { param($s) $s.menu_screen -eq 'main' -and @($s.options) -contains 'singleplayer' } 'main menu'
-    if ($Record) {
-        # Minimized Vulkan windows can repeat stale frames throughout a recording.
-        $null = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/settings" -Method Post `
-            -ContentType 'application/json' -Body '{"fullscreen":false,"window_width":1280,"window_height":720,"muted":true}' -TimeoutSec 5
-    }
-    else {
-        $null = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/window/minimize" -Method Post -TimeoutSec 5
-    }
+    # Visual assertions also require current rendered frames, even without a video.
+    $null = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/settings" -Method Post `
+        -ContentType 'application/json' -Body '{"fullscreen":false,"window_width":1280,"window_height":720,"muted":true}' -TimeoutSec 5
     $null = Post @{ action='menu_select'; option='singleplayer' }
+    $entry = Wait-State { param($s) $s.menu_screen -in @('singleplayer','character_select') } 'character selection'
+    if ($entry.menu_screen -eq 'singleplayer') { $null = Post @{ action='menu_select'; option='standard' } }
     $null = Post @{ action='menu_select'; option='KAREN' }
     $null = Post @{ action='menu_select'; option='embark' }
-    $state = Get-State
+    $state = Wait-State { param($s) $s.menu_screen -eq 'tutorial_prompt' -or $s.state_type -eq 'map' } 'tutorial prompt or map'
     if ($state.menu_screen -eq 'tutorial_prompt') { $null = Post @{ action='menu_select'; option='no' } }
     $null = Wait-State { param($s) $s.state_type -eq 'map' } 'map'
     $null = Post @{ action='choose_map_node'; index=0 }
@@ -128,11 +134,18 @@ try {
         $null = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/recording/start" -Method Post -ContentType 'application/json' -Body '{"fps":30,"max_duration_seconds":180,"width":1280,"height":720}'
         $recordingStarted = $true
     }
+    $initialHand = Get-State
+    $initialSelected = @($initialHand.player.hand | Where-Object id -eq $SelectedId).Count
+    $initialFalls = @($initialHand.player.hand | Where-Object id -eq 'KAREN_FALL').Count
     $null = Post @{ action='run_command'; command="card $SelectedId Hand" }
     $null = Post @{ action='run_command'; command='card KAREN_FALL Hand' }
-    $state = Wait-State { param($s) @($s.player.hand | Where-Object id -eq 'KAREN_FALL').Count -gt 0 } 'Fall in hand'
+    $state = Wait-State { param($s)
+        @($s.player.hand | Where-Object id -eq 'KAREN_FALL').Count -eq $initialFalls + 1 -and
+        @($s.player.hand | Where-Object id -eq $SelectedId).Count -eq $initialSelected + 1
+    } 'both fixture cards in hand'
     $before = @($state.player.hand | Where-Object id -eq $SelectedId).Count
     Capture 'before-fall'
+    Check-Hand 'before-fall'
     $fall = $state.player.hand | Where-Object id -eq 'KAREN_FALL' | Select-Object -Last 1
     $null = Post @{ action='play_card'; card_index=$fall.index }
     $selection = Wait-State { param($s) $s.state_type -eq 'hand_select' } 'Fall selection'
@@ -147,7 +160,7 @@ try {
     if ($Record) { Start-Sleep -Seconds 5 } # Let the idle VFX read clearly in the preview.
     $state = Get-State
     $afterFall = @($state.player.hand | Where-Object id -eq $SelectedId).Count
-    $null = Post @{ action='run_command'; command='karen_check_hand' }
+    Check-Hand 'after-fall'
     $null = Post @{ action='run_command'; command='card KAREN_TOWER_OF_PROMISE Hand' }
     $state = Wait-State { param($s) @($s.player.hand | Where-Object id -eq 'KAREN_TOWER_OF_PROMISE').Count -gt 0 } 'Tower in hand'
     Start-Sleep -Milliseconds 650
@@ -157,13 +170,13 @@ try {
     Capture 'after-tower'
     $state = Get-State
     $afterTower = @($state.player.hand | Where-Object id -eq $SelectedId).Count
-    $null = Post @{ action='run_command'; command='karen_check_hand' }
+    Check-Hand 'after-tower'
 
     $restoredCard = $state.player.hand | Where-Object id -eq $SelectedId | Select-Object -First 1
     if ($SelectedId -eq 'KAREN_DEFEND') {
         $null = Post @{ action='play_card'; card_index=$restoredCard.index }
         Capture 'after-play-returned-card'
-        $null = Post @{ action='run_command'; command='karen_check_hand' }
+        Check-Hand 'after-play-returned-card'
     }
     if ($OrbitPreview) {
         # A short visual sample for separate inventory stars, without the full mode showcase.

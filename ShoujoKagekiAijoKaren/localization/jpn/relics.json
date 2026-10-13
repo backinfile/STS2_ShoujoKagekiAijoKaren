@@ -7,5 +7,33 @@
   "KAREN_HAIRPIN2_RELIC.flavor": "幼い頃、ひかりちゃんと東京タワー近くのお店で買った一対の髪留め。そのうちの王冠の形をしたほう。",
   "KAREN_LOCK_RELIC.title": "封印されたレリック",
   "KAREN_LOCK_RELIC.description": "ここにはレリックが封印されている。戦闘終了時に解放される。",
-  "KAREN_LOCK_RELIC.flavor": ""
+  "KAREN_LOCK_RELIC.flavor": "",
+
+  "KAREN_WATER_BOTTLE_RELIC.title": "華恋の水筒",
+  "KAREN_WATER_BOTTLE_RELIC.description": "各戦闘で初めて[gold]一時筋力[/gold]を得た時、[blue]{Turns}[/blue]ターンの間[gold]筋力を保持[/gold]する。",
+  "KAREN_WATER_BOTTLE_RELIC.flavor": "稽古の合間に一口。そして、また舞台へ。",
+
+  "KAREN_COOKIE_RELIC.title": "クッキー",
+  "KAREN_COOKIE_RELIC.description": "獲得時、コモン、アンコモン、レアの[gold]キラめき[/gold]カードをランダムに[blue]1[/blue]枚ずつ得る。",
+  "KAREN_COOKIE_RELIC.flavor": "みんなで分けるおやつ。次の舞台への元気も一緒に。",
+
+  "KAREN_STAR_HAIRCLIP_RELIC.title": "星の髪飾り",
+  "KAREN_STAR_HAIRCLIP_RELIC.description": "戦闘開始時、[gold]約束の山札[/gold]に[gold]輝き[/gold]を[blue]1[/blue]枚加える。",
+  "KAREN_STAR_HAIRCLIP_RELIC.flavor": "大きな星と小さな星。二つに宿る、一つの約束。",
+
+  "KAREN_BASEBALL_CAT_RELIC.title": "スズダルキャット",
+  "KAREN_BASEBALL_CAT_RELIC.description": "各戦闘で、異なる名前の[gold]キラめき[/gold]カードを使い切るたび、[gold]キラめきカード報酬[/gold]を[blue]1[/blue]つ得る。",
+  "KAREN_BASEBALL_CAT_RELIC.flavor": "スズダルキャット、出番です！",
+
+  "KAREN_MR_WHITE_RELIC.title": "ミスターホワイト",
+  "KAREN_MR_WHITE_RELIC.description": "各戦闘の最初のターン終了時、手札から好きな枚数のカードを[gold]約束の山札[/gold]に置いてもよい。",
+  "KAREN_MR_WHITE_RELIC.flavor": "明日へ持っていきたいものを、大切にしまって。",
+
+  "KAREN_LITTLE_STAR_RELIC.title": "小さな星",
+  "KAREN_LITTLE_STAR_RELIC.description": "[gold]約束の塔[/gold]をプレイするたび、[blue]{StrengthPower}[/blue]の[gold]一時筋力[/gold]を得る。",
+  "KAREN_LITTLE_STAR_RELIC.flavor": "小さな星でも、帰り道を照らせる。",
+
+  "KAREN_STAR_TIARA_RELIC.title": "星の王冠",
+  "KAREN_STAR_TIARA_RELIC.description": "各ターン開始時、レリックを[blue]1[/blue]個[gold]無効化[/gold]し、[blue]{Energy}[/blue]エナジーを得る。",
+  "KAREN_STAR_TIARA_RELIC.flavor": "星を摘む者も、次の舞台へ進む代償を払う。"
 }
