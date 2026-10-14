@@ -5,17 +5,20 @@ import json
 import pathlib
 import re
 import subprocess
-from assemble import ENTRIES, probe, call
+from assemble import ENTRIES, CURRENT_ENTRIES, probe, call
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--output', type=pathlib.Path, required=True)
 parser.add_argument('--branch', default='stable', choices=['stable', 'beta'])
+parser.add_argument('--catalog', choices=['legacy', 'current'], default='legacy')
 args = parser.parse_args()
 root = args.output.resolve()
-movie = root / 'Karen-VFX-catalog-2026-10-12.mp4'
+entries = CURRENT_ENTRIES if args.catalog == 'current' else ENTRIES
+movie = root / ('Karen-VFX-catalog-2026-10-14.mp4' if args.catalog == 'current' else 'Karen-VFX-catalog-2026-10-12.mp4')
 manifest = json.loads((root / 'manifest.json').read_text(encoding='utf-8'))
 data = probe(movie)
-assert len(manifest) == len(ENTRIES) == len(data['chapters']) == 32
+assert len(manifest) == len(entries) == len(data['chapters'])
+assert [e['name'] for e in manifest] == [e[0] for e in entries]
 video = next(s for s in data['streams'] if s['codec_type'] == 'video')
 audio = next(s for s in data['streams'] if s['codec_type'] == 'audio')
 assert (video['width'], video['height'], video['r_frame_rate']) == (1280, 816, '30/1')
@@ -45,6 +48,9 @@ for path in (root / args.branch).rglob('window-monitor.json'):
 log = call(['ffmpeg', '-hide_banner', '-threads', '2', '-i', str(movie), '-af', 'volumedetect', '-vn', '-f', 'null', 'NUL'], root / 'edit' / 'final-audio.log')
 peak = float(re.search(r'max_volume: (-?[\d.]+) dB', log).group(1))
 assert -60 < peak < 0
-report = dict(sections=32, duration=float(data['format']['duration']), resolution='1280x816', fps=30, handChecks=hand_checks, audioPeakDb=peak, sources=sources, sha256=hashlib.sha256(movie.read_bytes()).hexdigest())
+decode_errors = call(['ffmpeg', '-hide_banner', '-v', 'error', '-xerror', '-threads', '2', '-i', str(movie),
+                     '-fps_mode', 'passthrough', '-enc_time_base', '-1', '-f', 'null', 'NUL'], root / 'edit' / 'final-decode.log')
+assert not decode_errors.strip(), decode_errors
+report = dict(sections=len(entries), duration=float(data['format']['duration']), resolution='1280x816', fps=30, handChecks=hand_checks, audioPeakDb=peak, fullDecode=True, sources=sources, sha256=hashlib.sha256(movie.read_bytes()).hexdigest())
 (root / 'verification.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
 print(json.dumps({k: v for k, v in report.items() if k != 'sources'}, ensure_ascii=False))

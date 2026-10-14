@@ -91,6 +91,7 @@ public partial class NKarenStageCueVfx : Node2D
     private bool Alive => GodotObject.IsInstanceValid(this) && IsInsideTree() && !IsQueuedForDeletion();
     public override void _Ready()
     {
+        KarenVfxComposition.RegisterCue(this, _owner.Creature, Kind is CueKind.Act2Hover or CueKind.Act2Cast);
         _soft ??= new GradientTexture2D { Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
             FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
                 Offsets = [0, .28f, .6f, 1], Colors = [Colors.White, new(1,1,1,.65f), new(1,1,1,.15f), Colors.Transparent] } };
@@ -119,6 +120,9 @@ public partial class NKarenStageCueVfx : Node2D
         if (_waitingForDepletion && !_depletionWait.Any(NKarenShineDepleteVfx.IsAnimating)) { _waitingForDepletion = false; Finish(); }
         float tail = Kind switch { CueKind.Act2Hover => .18f, CueKind.Act1Draw => .52f, CueKind.Act1Cast => .52f, CueKind.Act2Cast => .56f, CueKind.TicketReturn => .60f, CueKind.TicketCast => .52f, _ => .9f };
         if ((_releaseAt >= 0 && _age >= _releaseAt + tail) || (Kind != CueKind.Act2Hover && _age > 8)) { HideAll(); QueueFree(); return; }
+        KarenVfxComposition.SetCueStrength(this, Alpha);
+        float backgroundWeight = KarenVfxComposition.EventWeight(_owner.Creature, this);
+        _back.Modulate = _shade.Modulate = new Color(1, 1, 1, backgroundWeight);
         var oldScreen = _screen; Place();
         if (Kind != CueKind.Act2Hover || opening || _releaseAt >= 0 || oldScreen != _screen) { QueueRedraw(); _back.QueueRedraw(); _shade.QueueRedraw(); _hud.QueueRedraw(); }
     }
@@ -140,6 +144,7 @@ public partial class NKarenStageCueVfx : Node2D
     private void Sound(string file,float volume) { var sound=KarenAudioManager.PlaySfx(file,volume);if(sound!=null)_sounds.Add(sound); }
     public override void _ExitTree()
     {
+        KarenVfxComposition.RemoveCue(this);
         foreach (var layer in new[] { _back, _shade, _hud }) if (GodotObject.IsInstanceValid(layer)) { layer.Hide(); layer.QueueFree(); }
         Stopped?.Invoke(this); Stopped = null; _cards.Clear(); _cardTimes.Clear(); _depletionWait.Clear(); _source = null;
         foreach(var sound in _sounds)if(GodotObject.IsInstanceValid(sound)){sound.Stop();sound.QueueFree();}_sounds.Clear();

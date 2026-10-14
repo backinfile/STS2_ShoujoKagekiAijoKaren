@@ -45,6 +45,27 @@ ENTRIES = [
     ('lastword', '最后的台词'),
 ]
 
+CURRENT_ENTRIES = ENTRIES[:-1] + [
+    ('encore', '续演 · 命中与星屑消耗'),
+    ('banana-cake', 'Banana蛋糕 · 药水交接'),
+    ('banana-cake-full', 'Banana蛋糕 · 满槽退场'),
+    ('banana-snack', 'Banana什锦 · 临时力量'),
+    ('banana-dinner', 'Banana晚餐 · 永久力量'),
+    ('snack-transform', 'Banana什锦 → Banana晚餐'),
+    ('ticket', '门票 B · 铺光路与回合回返'),
+    ('dream', '两人的梦想 · 汇聚与光辉生成'),
+    ('radiance', '光辉 · 卡图散光与回能'),
+    ('shine-team', '一起闪耀吧 · 队伍脚灯'),
+    ('duet-normal', '命运与本能 · 约定塔交接'),
+    ('duet-void', '命运与本能 · 空虚交接'),
+    ('starlight-act1', 'Starlight 第一幕 · 开场与抽牌'),
+    ('starlight-act2', 'Starlight 第二幕 · 背光与重播'),
+    ('newstack-normal', '新旧特效兼容 · 约定塔模式'),
+    ('newstack-void', '新旧特效兼容 · 空虚模式'),
+    ('stage-lifecycle', '舞台光场 · 取消、换场与 Instant'),
+    ENTRIES[-1],
+]
+
 
 def probe(path):
     return json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_streams', '-show_format', '-show_chapters', '-of', 'json', str(path)], encoding='utf-8'))
@@ -131,7 +152,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     (edit / 'chapters.ffmeta').write_text(meta, encoding='utf-8')
     measured = call(['ffmpeg', '-hide_banner', '-f', 'concat', '-safe', '0', '-i', str(edit / 'concat.txt'), '-vn', '-af', 'volumedetect', '-f', 'null', 'NUL'], edit / 'source-audio.log')
     peak = float(re.search(r'max_volume: (-?[\d.]+) dB', measured).group(1))
-    gain = max(0, min(8, -2 - peak))
+    gain = max(0, -2 - peak)
     target = root / filename
     call(['ffmpeg', '-hide_banner', '-y', '-f', 'concat', '-safe', '0', '-i', str(edit / 'concat.txt'), '-i', str(edit / 'chapters.ffmeta'), '-map_metadata', '1', '-map_chapters', '1', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-af', f'volume={gain}dB', '-movflags', '+faststart', str(target)], edit / 'concat.log')
     (root / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
@@ -145,5 +166,10 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=pathlib.Path, required=True)
     parser.add_argument('--branch', choices=['stable', 'beta'], default='stable')
     parser.add_argument('--preview', action='store_true')
+    parser.add_argument('--catalog', choices=['legacy', 'current'], default='legacy')
     args = parser.parse_args()
-    assemble(args.output.resolve(), args.branch, args.preview)
+    if args.catalog == 'current':
+        assemble(args.output.resolve(), args.branch, args.preview, CURRENT_ENTRIES,
+                 'Karen 全特效与兼容演示 · 2026-10-14', 'Karen-VFX-catalog-2026-10-14.mp4')
+    else:
+        assemble(args.output.resolve(), args.branch, args.preview)

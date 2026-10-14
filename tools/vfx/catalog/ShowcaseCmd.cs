@@ -1,6 +1,9 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Collections;
+using System.Text.Json;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.DevConsole;
@@ -8,6 +11,8 @@ using MegaCrit.Sts2.Core.DevConsole.ConsoleCommands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Patches;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
@@ -23,6 +28,21 @@ public sealed class ShowcaseCmd : AbstractConsoleCmd
     public override CmdResult Process(Player? player, string[] args)
     {
         if (player?.PlayerCombatState == null || args.Length == 0) return new(false, Args);
+        if (args[0] == "composition")
+        {
+            var room = NCombatRoom.Instance!;
+            return new(true, JsonSerializer.Serialize(new {
+                ambient = KarenVfxComposition.AmbientWeight(player.Creature),
+                eventWeight = KarenVfxComposition.EventWeight(player.Creature),
+                otherOwnerWeight = KarenVfxComposition.EventWeight(null),
+                registered = ((IDictionary)typeof(KarenVfxComposition).GetField("Cues", BindingFlags.Static | BindingFlags.NonPublic)!.GetValue(null)!).Count,
+                states = ((IDictionary)typeof(KarenStarlightStage).GetField("States", BindingFlags.Static | BindingFlags.NonPublic)!.GetValue(null)!).Count,
+                stages = room.CombatVfxContainer.GetChildren().OfType<NKarenStageCueVfx>().Count(),
+                benefits = room.CombatVfxContainer.GetChildren().OfType<NKarenBenefitVfx>().Count(),
+                back = room.BackCombatVfxContainer.GetChildren().Count(n => n.Name.ToString().StartsWith("KarenStage") || n.Name.ToString().StartsWith("KarenBenefit")),
+                hud = room.Ui.GetChildren().Count(n => n.Name.ToString().StartsWith("KarenStage") || n.Name.ToString().StartsWith("KarenBenefit"))
+            }));
+        }
         if (args[0] == "rebuild-tower")
         {
             KarenPromiseVfxStarManager.ClearAll(player);

@@ -162,6 +162,7 @@ public partial class NKarenBenefitVfx : Node2D
 
     public override void _Ready()
     {
+        KarenVfxComposition.RegisterCue(this, Owner.Creature);
         _smoke??=Load("shared_use/smoke_vfx.png");
         _ash??=Load("shared_use/ash_particle.png"); _sparkle??=Load("vfx_power_up/sparkle.png");
         _shader??=KarenResourceLoader.Load<Shader>("res://shaders/karen_benefit_flow.gdshader",nameof(NKarenBenefitVfx));
@@ -218,6 +219,7 @@ public partial class NKarenBenefitVfx : Node2D
     }
     public override void _ExitTree()
     {
+        KarenVfxComposition.RemoveCue(this);
         foreach(var node in new[]{_back,_hud})
             if(GodotObject.IsInstanceValid(node)&&!node.IsQueuedForDeletion()) {node.Hide();node.QueueFree();}
         _deliveries.Clear();_cardNodes.Clear();_recipients.Clear();_powerChanged=null;_energyBefore=null;
@@ -227,6 +229,9 @@ public partial class NKarenBenefitVfx : Node2D
     }
     private void Redraw()
     {
+        KarenVfxComposition.SetCueStrength(this, StoryAlpha);
+        float backgroundWeight = KarenVfxComposition.EventWeight(Owner.Creature, this);
+        _back.Modulate = new Color(1, 1, 1, backgroundWeight);
         UpdateFlowMaterial(_veil);UpdateFlowMaterial(_edge);
         _back.QueueRedraw();_front.QueueRedraw();_ink.QueueRedraw();_hud.QueueRedraw();_atmosphere.QueueRedraw();_accent.QueueRedraw();
     }

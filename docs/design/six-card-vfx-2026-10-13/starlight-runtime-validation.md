@@ -51,3 +51,5 @@
 已将最新包更新至主工作区 `artifacts/ShoujoKagekiAijoKaren` 及 `artifacts/dev-game/stable/game/mods/ShoujoKagekiAijoKaren`、beta 对应目录，逐项核对 5 文件 SHA256。只更新 Karen，其他 14 个 Mod 文件保持哈希；旧包备份、部署记录及精简测试证据保存在上述记录根目录。未更新 Steam／创意工坊。
 
 主工作区原有 6 份脏文件保持哈希。源代码仍在任务工作树，合并 main 需最后确认；任务记录见 [README](../../worktree-tasks/karen-six-card-vfx-20261013/README.md)。
+
+后续状态（2026-10-14）：上述实现已由 `9d58cec` 集成 main。新的常驻亮度协调、兼容专项和当前全特效录像见 [全特效目录与新旧表现兼容](../../testing/vfx-catalog-2026-10-14.md)；前文的待合并说明保留为当时记录。

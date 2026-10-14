@@ -213,6 +213,7 @@ try:
     def stage(name,void=False,seed=True):
         begin(name,void,seed)
         cmd('bridge_vfx watch')
+        cmd('stage_probe watch')
         cmd('showcase restore-relics')
         cmd('bridge_vfx energy2')
         # Enough energy for individual demonstrations, without a distracting 100+ counter.
@@ -223,7 +224,10 @@ try:
         if card=='KAREN_VOID':time.sleep(2.5)
         return settle(card+'-after')
     def finish():
-        save('final-state',integration());check_hand('final-hand');record_stop();print('RECORDED',case.name,flush=True)
+        save('final-state',integration());check_hand('final-hand')
+        save('native-finished',json.loads(cmd('bridge_vfx status')['message']))
+        save('stage-probe',json.loads(cmd('stage_probe status')['message']))
+        record_stop();print('RECORDED',case.name,flush=True)
     cmd('native_speed '+args.speed);fight()
     if want('tower'):
         stage('tower',seed=False)
@@ -327,6 +331,7 @@ try:
         else:raise AssertionError(bs)
         save('bridge-completed',bs);settle('bridge-after');finish()
     exec(compile((pathlib.Path(__file__).with_name('extra_scenes.py')).read_text(encoding='utf-8'), 'extra_scenes.py', 'exec'))
+    exec(compile((pathlib.Path(__file__).with_name('benefit_scenes.py')).read_text(encoding='utf-8'), 'benefit_scenes.py', 'exec'))
     if want('lastword'):
         stage('lastword',seed=True);cmd('showcase clear');trim();prep('KAREN_LAST_WORD');time.sleep(1)
         snap(case/'playable');check_hand('playable-hand')
