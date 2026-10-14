@@ -13,9 +13,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 
 public static class ShineVfx
 {
-    public static bool WillDeplete(CardModel card) => card.IsShineCard() && !card.IsDupe
+    public static bool WillDeplete(CardModel card, bool shineAlreadyDecreased = false) => card.IsShineCard() && !card.IsDupe
         && !card.Keywords.Contains(CardKeyword.Eternal)
-        && (card.GetShineValue() <= 1 || card.ShouldEnterShinePileAfterPlay()
+        && (card.GetShineValue() <= (shineAlreadyDecreased ? 0 : 1) || card.ShouldEnterShinePileAfterPlay()
             || card.Owner?.Creature.Powers.Any(p => p is KarenStarlight02Power) == true);
 
     private static readonly SpireField<NCard, NKarenShineWarningVfx?> Warnings = new(() => null);

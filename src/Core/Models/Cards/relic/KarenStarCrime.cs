@@ -4,13 +4,14 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
+using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 
 /// <summary>
-/// 星罪 - 禁用X个遗物，然后抽2张牌
+/// 星罪 - 禁用X个遗物，然后抽3张牌
 /// </summary>
 public sealed class KarenStarCrime : KarenDisableRelicBaseCardModel
 {
@@ -21,7 +22,7 @@ public sealed class KarenStarCrime : KarenDisableRelicBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DisableRelicCmd.DisableRelic(Owner, DisableRelicVar.IntValue);
+        await DisableRelicCmd.DisableRelic(Owner, DisableRelicVar.IntValue, NDisableRelicAbsorbVfx.TargetKind.DrawPile);
         // 抽牌
         await CardPileCmd.Draw(choiceContext, (int)DynamicVars.Cards.BaseValue, Owner);
     }

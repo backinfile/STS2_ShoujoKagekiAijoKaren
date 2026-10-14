@@ -24,7 +24,7 @@ if want('nonon'):
     cmd('upgrade ' + str(cards[-1]['index'])); time.sleep(.5)
     record_start()
     clip_cast('KAREN_NONON', 'NONNON哒哟｜剑风卷起细屑与不规则碎片')
-    clip_cast('KAREN_NONON', 'NONNON哒哟＋｜升级后的风斩演出')
+    clip_cast('KAREN_NONON', 'NONNON哒哟＋｜与普通版共用同款剑风，仅提升数值')
     finish()
 
 for void in (False, True):

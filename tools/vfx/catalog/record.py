@@ -214,6 +214,7 @@ try:
         begin(name,void,seed)
         cmd('bridge_vfx watch')
         cmd('stage_probe watch')
+        cmd('revision_probe watch')
         cmd('showcase restore-relics')
         cmd('bridge_vfx energy2')
         # Enough energy for individual demonstrations, without a distracting 100+ counter.
@@ -227,6 +228,7 @@ try:
         save('final-state',integration());check_hand('final-hand')
         save('native-finished',json.loads(cmd('bridge_vfx status')['message']))
         save('stage-probe',json.loads(cmd('stage_probe status')['message']))
+        save('revision-probe',json.loads(cmd('revision_probe status')['message']))
         record_stop();print('RECORDED',case.name,flush=True)
     cmd('native_speed '+args.speed);fight()
     if want('tower'):
@@ -269,13 +271,33 @@ try:
         clip_cast('KAREN_CARRYING_GUILT','我们犯下的罪过｜四束舞台灯命中');finish()
     if want('relic-pick'):
         stage('relic-pick',seed=False);save('relic-help',cmd('help relic'))
-        cmd('relic ANCHOR');time.sleep(.6);prep('KAREN_PICK_STAR');cmd('bridge_vfx energy2')
+        cmd('relic ANCHOR');cmd('relic PEN_NIB');time.sleep(.6);prep('KAREN_PICK_STAR');cmd('bridge_vfx energy2')
         record_start();marking('摘星｜待禁用遗物的星光预告');cmd('showcase relichover KAREN_PICK_STAR');time.sleep(1.7);snap(case/'preview')
-        cmd('showcase relicoff');clip_cast('KAREN_PICK_STAR','摘星｜吸收遗物星光并获得能量');finish()
+        cmd('showcase relicoff');clip_cast('KAREN_PICK_STAR','摘星｜遗物星光汇入实际能量图标，回能 2')
+        assert state()['player']['energy'] == 4, state()['player']
+        cmd('showcase restore-relics');prep('KAREN_PICK_STAR');cmd('stage_probe upgrade KAREN_PICK_STAR');cmd('bridge_vfx energy2')
+        clip_cast('KAREN_PICK_STAR','摘星＋｜禁用一个遗物，星光仍落入能量图标')
+        assert state()['player']['energy'] == 4, state()['player']
+        relic_report=json.loads(cmd('revision_probe status')['message'])
+        assert len(relic_report['absorbs'])==3 and relic_report['liveAbsorbs']==0, relic_report
+        assert all(s['destination']=='Energy' and s['landings']==6 and s['landingError']<.1 and s['canvasError']<.1 for s in relic_report['absorbs']), relic_report
+        finish()
     if want('relic-crime'):
-        stage('relic-crime',seed=False);cmd('relic ANCHOR');time.sleep(.6);prep('KAREN_STAR_CRIME')
+        stage('relic-crime',seed=False);cmd('relic ANCHOR');cmd('relic PEN_NIB');time.sleep(.6);prep('KAREN_STAR_CRIME')
+        cmd('showcase clear')
+        for _ in range(7):cmd('card KAREN_DEFEND Draw');time.sleep(.15)
         record_start();marking('星罪｜待禁用遗物的星光预告');cmd('showcase relichover KAREN_STAR_CRIME');time.sleep(1.7);snap(case/'preview')
-        cmd('showcase relicoff');clip_cast('KAREN_STAR_CRIME','星罪｜吸收遗物星光并抽牌');finish()
+        before=len(state()['player']['hand'])
+        cmd('showcase relicoff');clip_cast('KAREN_STAR_CRIME','星罪｜遗物星光汇入实际抽牌堆图标，抽牌 3')
+        assert len(state()['player']['hand'])==before+2, state()['player']
+        cmd('showcase restore-relics');prep('KAREN_STAR_CRIME');cmd('stage_probe upgrade KAREN_STAR_CRIME')
+        before=len(state()['player']['hand'])
+        clip_cast('KAREN_STAR_CRIME','星罪＋｜禁用一个遗物，星光仍落入抽牌堆图标')
+        assert len(state()['player']['hand'])==before+2, state()['player']
+        relic_report=json.loads(cmd('revision_probe status')['message'])
+        assert len(relic_report['absorbs'])==3 and relic_report['liveAbsorbs']==0, relic_report
+        assert all(s['destination']=='DrawPile' and s['landings']==6 and s['landingError']<.1 and s['canvasError']<.1 for s in relic_report['absorbs']), relic_report
+        finish()
     if want('geer'):
         stage('geer');prep('KAREN_GEER')
         record_start();clip_cast('KAREN_GEER','命运的齿轮｜施放机械演出')

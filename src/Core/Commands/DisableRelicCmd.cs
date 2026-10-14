@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Entities.Players;
 using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
+using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Commands;
@@ -16,7 +17,7 @@ public static class DisableRelicCmd
     /// <param name="player">玩家</param>
     /// <param name="count">要禁用的遗物数量</param>
     /// <returns>实际禁用的遗物数量</returns>
-    public static async Task<int> DisableRelic(Player player, int count)
+    public static async Task<int> DisableRelic(Player player, int count, NDisableRelicAbsorbVfx.TargetKind target = NDisableRelicAbsorbVfx.TargetKind.Player)
     {
         if (player == null || count <= 0) return 0;
 
@@ -44,7 +45,7 @@ public static class DisableRelicCmd
             }
 
             // 禁用该位置的遗物
-            if (DisableRelicManager.DisableRelicAtPosition(player, position))
+            if (DisableRelicManager.DisableRelicAtPosition(player, position, target))
             {
                 disabledCount++;
                 // 下次搜索到当前位置为止（因为列表长度不变，只是替换了遗物）

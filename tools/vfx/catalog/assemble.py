@@ -53,7 +53,7 @@ CURRENT_ENTRIES = ENTRIES[:-1] + [
     ('banana-dinner', 'Banana晚餐 · 永久力量'),
     ('snack-transform', 'Banana什锦 → Banana晚餐'),
     ('ticket', '门票 B · 铺光路与回合回返'),
-    ('dream', '两人的梦想 · 汇聚与光辉生成'),
+    ('dream', '两人的梦想 · 回合交接生成光辉'),
     ('radiance', '光辉 · 卡图散光与回能'),
     ('shine-team', '一起闪耀吧 · 队伍脚灯'),
     ('duet-normal', '命运与本能 · 约定塔交接'),
@@ -84,13 +84,15 @@ def stamp(seconds):
     return f'{n // 360000}:{n // 6000 % 60:02}:{n // 100 % 60:02}.{n % 100:02}'
 
 
-def assemble(root, branch, preview=False, entries=None, title='Karen 特效全览 · 2026-10-12', filename='Karen-VFX-catalog-2026-10-12.mp4'):
+def assemble(root, branch, preview=False, entries=None, title='Karen 特效全览 · 2026-10-12', filename='Karen-VFX-catalog-2026-10-12.mp4', source_root=None):
     entries = ENTRIES if entries is None else entries
+    source_root = root if source_root is None else source_root
+    root.mkdir(parents=True, exist_ok=True)
     edit = root / 'edit'; edit.mkdir(exist_ok=True)
     version = 'v0.107.1' if branch == 'stable' else 'v0.111.0'
     manifest = []
     for i, (name, entry_title) in enumerate(entries, 1):
-        source = root / branch / name / 'game.mp4'
+        source = source_root / branch / name / 'game.mp4'
         if preview and not source.exists():
             continue
         data = probe(source)
@@ -167,8 +169,18 @@ if __name__ == '__main__':
     parser.add_argument('--branch', choices=['stable', 'beta'], default='stable')
     parser.add_argument('--preview', action='store_true')
     parser.add_argument('--catalog', choices=['legacy', 'current'], default='legacy')
+    parser.add_argument('--separate', action='store_true', help='Export each selected scene as its own annotated video')
+    parser.add_argument('--scenes', help='Comma-separated scene names in delivery order')
     args = parser.parse_args()
-    if args.catalog == 'current':
+    if args.separate:
+        available = dict(CURRENT_ENTRIES + [('shine-play', '闪耀临界 · 提示随卡牌完成打出')])
+        names = args.scenes.split(',') if args.scenes else list(available)
+        for name in names:
+            assemble(args.output.resolve() / 'clips' / name, args.branch, entries=[(name, available[name])],
+                     title=available[name], filename=f'Karen-{name}.mp4', source_root=args.output.resolve())
+    elif args.scenes:
+        parser.error('--scenes currently requires --separate')
+    elif args.catalog == 'current':
         assemble(args.output.resolve(), args.branch, args.preview, CURRENT_ENTRIES,
                  'Karen 全特效与兼容演示 · 2026-10-14', 'Karen-VFX-catalog-2026-10-14.mp4')
     else:

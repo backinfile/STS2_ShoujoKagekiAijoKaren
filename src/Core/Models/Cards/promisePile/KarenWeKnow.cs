@@ -6,7 +6,6 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
@@ -24,11 +23,7 @@ public sealed class KarenWeKown : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var effect = NKarenBenefitVfx.Play(Owner, NKarenBenefitVfx.BenefitKind.Dream);
-        if (effect != null) await NKarenBenefitVfx.WaitForCue(NKarenBenefitVfx.BenefitKind.Dream);
-        effect?.WatchPower<KarenWeKownPower>();
         await PowerCmd.Apply<KarenWeKownPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
-        effect?.CheckPower();
     }
 
     protected override void OnUpgrade()

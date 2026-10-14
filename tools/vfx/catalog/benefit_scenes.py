@@ -79,7 +79,7 @@ if want('snack-transform'):
 
 if want('ticket'):
     stage('ticket', seed=False); prep('KAREN_TICKET'); record_start()
-    clip_cast('KAREN_TICKET', '门票 B｜近端至远端铺光路，能力确认')
+    clip_cast('KAREN_TICKET', '门票｜连续透视光路由近至远铺开，能力确认')
     marking('门票回返｜回合开始生成真实约定之塔并交接到手牌')
     next_turn('ticket-return')
     assert any(c['id'] == 'KAREN_TOWER_OF_PROMISE' for c in state()['player']['hand'])
@@ -87,10 +87,12 @@ if want('ticket'):
 
 if want('dream'):
     stage('dream', seed=False); prep('KAREN_WE_KOWN'); record_start()
-    clip_cast('KAREN_WE_KOWN', '两人的梦想｜双向光流汇聚，能力确认')
+    clip_cast('KAREN_WE_KOWN', '两人的梦想｜打出仅应用能力，移除自定义开场特效')
+    report=json.loads(cmd('revision_probe status')['message']);assert report['dreamCast']==report['dreamTrigger']==0,report
     marking('梦想兑现｜回合结束生成光辉，真实入塔与星光交接')
     next_turn('dream-return')
     assert 'KAREN_WE_KOWN_TOKEN' in integration()['promise'], integration()
+    report=json.loads(cmd('revision_probe status')['message']);assert report['dreamCast']==0 and report['dreamTrigger']==1,report
     finish()
 
 for void in (False, True):
@@ -118,11 +120,22 @@ def stage_hover(label):
 
 if want('starlight-act2'):
     stage('starlight-act2', seed=False); prep('KAREN_STARLIGHT02_CARD'); prep('KAREN_SHINE_STRIKE')
-    record_start(); clip_cast('KAREN_STARLIGHT02_CARD', 'Starlight 第二幕｜顶灯亮核与七束扇形追光')
+    record_start(); clip_cast('KAREN_STARLIGHT02_CARD', 'Starlight 第二幕｜前后双层灯束触底，灰色暗场突出灯光')
     marking('第二幕预览｜蓝白平行背光，角色与敌人位于光幕前方'); stage_hover('hover')
     time.sleep(1); marking('第二幕结算｜同一背光覆盖三次重播与闪耀耗尽')
     clip_cast('KAREN_SHINE_STRIKE', '重播与耗尽｜背景持有至实际卡牌完整结算')
     effects_idle('act2'); finish()
+
+if want('shine-play'):
+    stage('shine-play',seed=False);prep('KAREN_SHINE_STRIKE');cmd('revision_probe shine KAREN_SHINE_STRIKE 1')
+    record_start();marking('闪耀临界｜手牌卡缘与星屑提示');time.sleep(1)
+    clip_cast('KAREN_SHINE_STRIKE','最后一点闪耀｜提示跟随卡牌进入打出区，持续至耗尽交接')
+    report=json.loads(cmd('revision_probe status')['message'])
+    assert report['handWarningFrames']>0 and report['playWarningFrames']>0 and report['missingPlayFrames']==0,report
+    prep('KAREN_SHINE_STRIKE');cmd('revision_probe shine KAREN_SHINE_STRIKE 2')
+    clip_cast('KAREN_SHINE_STRIKE','两点闪耀对照｜本次不会耗尽，打出过程中不误亮临界提示')
+    report=json.loads(cmd('revision_probe status')['message']);assert report['falseWarningFrames']==0,report
+    finish()
 
 for void in (False, True):
     name = 'newstack-void' if void else 'newstack-normal'

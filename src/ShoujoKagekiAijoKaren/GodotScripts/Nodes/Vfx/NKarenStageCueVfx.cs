@@ -37,7 +37,7 @@ public partial class NKarenStageCueVfx : Node2D
     private NCombatRoom _room = null!;
     private Player _owner = null!;
     private CardModel? _source;
-    private readonly Node2D _back = new(), _shade = new(), _hud = new();
+    private readonly Node2D _back = new(), _shade = new(), _hud = new(), _frontShade = new();
     private readonly List<CardModel> _cards = new();
     private readonly Dictionary<CardModel, float> _cardTimes = new();
     private readonly List<CardModel> _depletionWait = new();
@@ -98,6 +98,10 @@ public partial class NKarenStageCueVfx : Node2D
         Material = _back.Material = _hud.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         TextureFilter = _back.TextureFilter = _hud.TextureFilter = TextureFilterEnum.Linear;
         _back.Name = "KarenStageBackLight"; _shade.Name = "KarenStageBackShade"; _hud.Name = "KarenStageCardLight";
+        // Normal blending darkens the characters before the parent's additive beams.
+        _frontShade.Name = "KarenStageFrontShade"; _frontShade.ShowBehindParent = true;
+        _frontShade.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Mix };
+        AddChild(_frontShade); _frontShade.Draw += DrawForegroundShade;
         _room.BackCombatVfxContainer.AddChildSafely(_shade); _room.BackCombatVfxContainer.AddChildSafely(_back);
         _room.Ui.AddChildSafely(_hud); _hud.ZIndex = 50;
         _back.Draw += DrawBackground; _shade.Draw += DrawShade; _hud.Draw += DrawCards;
@@ -108,7 +112,7 @@ public partial class NKarenStageCueVfx : Node2D
         // Hover uses a quieter single opening cue, never a loop or a per-replay cue.
         if (Kind == CueKind.Act2Hover) Sound(KarenSfx.StageLight, .11f);
         if (Kind is CueKind.TicketCast or CueKind.TicketReturn or CueKind.Duet) Sound("karen_benefit_gather.wav", Kind==CueKind.TicketReturn?.12f:.18f);
-        QueueRedraw(); _back.QueueRedraw(); _shade.QueueRedraw(); _hud.QueueRedraw();
+        QueueRedraw(); _back.QueueRedraw(); _shade.QueueRedraw(); _hud.QueueRedraw(); _frontShade.QueueRedraw();
     }
     public override void _Process(double delta)
     {
@@ -122,14 +126,15 @@ public partial class NKarenStageCueVfx : Node2D
         if ((_releaseAt >= 0 && _age >= _releaseAt + tail) || (Kind != CueKind.Act2Hover && _age > 8)) { HideAll(); QueueFree(); return; }
         KarenVfxComposition.SetCueStrength(this, Alpha);
         float backgroundWeight = KarenVfxComposition.EventWeight(_owner.Creature, this);
-        _back.Modulate = _shade.Modulate = new Color(1, 1, 1, backgroundWeight);
+        _back.Modulate = _shade.Modulate = _frontShade.Modulate = new Color(1, 1, 1, backgroundWeight);
         var oldScreen = _screen; Place();
-        if (Kind != CueKind.Act2Hover || opening || _releaseAt >= 0 || oldScreen != _screen) { QueueRedraw(); _back.QueueRedraw(); _shade.QueueRedraw(); _hud.QueueRedraw(); }
+        if (Kind != CueKind.Act2Hover || opening || _releaseAt >= 0 || oldScreen != _screen) { QueueRedraw(); _back.QueueRedraw(); _shade.QueueRedraw(); _hud.QueueRedraw(); _frontShade.QueueRedraw(); }
     }
     private void Place()
     {
         GlobalTransform = GetCanvasTransform().AffineInverse();
         foreach (var layer in new[] { _back, _shade, _hud }) layer.GlobalTransform = layer.GetCanvasTransform().AffineInverse();
+        if (_frontShade.IsInsideTree()) _frontShade.GlobalTransform = _frontShade.GetCanvasTransform().AffineInverse();
         _screen = GetViewport().GetVisibleRect().Size;
         var hit = _room.GetCreatureNode(_owner.Creature)!.Hitbox;
         _body = hit.GetGlobalTransformWithCanvas() * (hit.Size * .5f);
@@ -140,7 +145,7 @@ public partial class NKarenStageCueVfx : Node2D
         }
     }
     public override void _Draw() => DrawForeground();
-    private void HideAll() { Hide(); _back.Hide(); _shade.Hide(); _hud.Hide(); }
+    private void HideAll() { Hide(); _back.Hide(); _shade.Hide(); _hud.Hide(); _frontShade.Hide(); }
     private void Sound(string file,float volume) { var sound=KarenAudioManager.PlaySfx(file,volume);if(sound!=null)_sounds.Add(sound); }
     public override void _ExitTree()
     {

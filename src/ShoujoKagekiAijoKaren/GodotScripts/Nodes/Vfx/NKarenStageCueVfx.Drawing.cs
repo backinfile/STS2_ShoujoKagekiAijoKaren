@@ -16,8 +16,8 @@ public partial class NKarenStageCueVfx
     private static float Win(float t, float start, float end, float attack=.05f, float release=.15f) => P(t,start,start+attack)*(1-P(t,end-release,end));
     private Vector2 S(float x,float y) => new(x/1280*_screen.X,y/720*_screen.Y);
     private float Alpha => P(_age,0,.18f)*(_releaseAt<0 ? 1 : 1-P(_age-_releaseAt,Kind==CueKind.Act2Hover?0:.18f,Kind==CueKind.Act2Hover?.18f:.55f));
-    private Vector2 Near => _foot+new Vector2(80,12)*_unit;
-    private Vector2 Far => Near+new Vector2(185,-70)*_unit;
+    private Vector2 Near => _foot+new Vector2(85,6)*_unit;
+    private Vector2 Far => _foot+new Vector2(165,-145)*_unit;
     private Vector2 DuetCenter => _body+new Vector2(130,-105)*_unit;
     private static Vector2 Arc(Vector2 a,Vector2 b,float u,float h) => a.Lerp(b,u)+Vector2.Up*Mathf.Sin(u*Mathf.Pi)*h;
     private void Soft(Node2D node, Vector2 point, Vector2 size, Color c,float a,float angle=0)
@@ -49,11 +49,44 @@ public partial class NKarenStageCueVfx
     }
     private void DrawShade()
     {
-        if(Kind!=CueKind.Act2Hover)return;
-        _shade.DrawRect(new Rect2(S(0,54),S(1280,482)),new Color(.035f,.07f,.15f,Alpha*.18f));
+        if(Kind==CueKind.Act2Hover)
+            _shade.DrawRect(new Rect2(S(0,54),S(1280,482)),new Color(.035f,.07f,.15f,Alpha*.18f));
+        if(Kind!=CueKind.Act2Cast)return;
+        float a=Alpha;
+        _shade.DrawRect(new Rect2(S(0,54),S(1280,666)),new Color(.065f,.068f,.075f,a*.52f));
+        // Gray wedges between the rear beams keep each shaft distinct across the whole floor.
+        for(int i=0;i<6;i++){
+            float x=44+i*198;
+            _shade.DrawColoredPolygon([S(640,82),S(x+36,720),S(x+142,720)],new Color(.045f,.048f,.055f,a*.24f));
+        }
+        _shade.DrawRect(new Rect2(S(0,470),S(1280,250)),new Color(.08f,.082f,.09f,a*.14f));
+    }
+    private void DrawForegroundShade()
+    {
+        if(Kind!=CueKind.Act2Cast)return;
+        float a=Alpha;
+        _frontShade.DrawRect(new Rect2(S(0,54),S(1280,666)),new Color(.075f,.078f,.085f,a*.16f));
+        _frontShade.DrawColoredPolygon([S(0,54),S(480,54),S(170,720),S(0,720)],new Color(.055f,.058f,.065f,a*.12f));
+        _frontShade.DrawColoredPolygon([S(800,54),S(1280,54),S(1280,720),S(1110,720)],new Color(.055f,.058f,.065f,a*.12f));
+    }
+    private void DrawCastBeams(Node2D layer,bool front)
+    {
+        float a=Alpha,u=Ease(P(_age,.02f,.48f));var from=S(640,82);
+        int count=front?5:7;
+        for(int i=0;i<count;i++){
+            var floor=S(front?135+i*252:44+i*198,720);
+            var end=from.Lerp(floor,u);var delta=end-from;if(delta.Length()<1)continue;
+            var normal=new Vector2(-delta.Y,delta.X).Normalized();
+            float width=(front?26:54)*_screen.X/1280;
+            layer.DrawColoredPolygon([from-normal*3,from+normal*3,end+normal*width,end-normal*width],new Color(Blue.R,Blue.G,Blue.B,a*(front?.055f:.09f)));
+            Soft(layer,from.Lerp(end,.5f),new Vector2(width*2.5f,delta.Length()*1.25f),Blue,a*(front?.43f:.57f),delta.Angle()-Mathf.Pi/2);
+            var c=White;c.A=a*(front?.75f:.33f);layer.DrawLine(from,end,c,(front?2.5f:3.5f)*_screen.X/1280,true);
+            Soft(layer,end,new Vector2(width*2.4f,24*_screen.Y/720),Blue,a*u*(front?.18f:.26f));
+        }
     }
     private void DrawBackground()
     {
+        if(Kind==CueKind.Act2Cast){DrawCastBeams(_back,false);return;}
         if(Kind==CueKind.Act2Hover){
             float a=Alpha;for(int i=0;i<6;i++){
                 float x=95+i*218, slant=i<3?-74:74;
@@ -72,22 +105,25 @@ public partial class NKarenStageCueVfx
     {
         float a=Kind==CueKind.TicketReturn ? (_drawAt<0?Alpha*.72f:Win(_age-_drawAt,0,.26f,.015f,.18f)*.7f) : Alpha;
         float opened=Kind==CueKind.TicketCast?Ease(P(_age,.02f,.54f)):1;
-        for(int i=0;i<24;i++){
-            float q=i/23f;if(q>opened)break;var p=Near.Lerp(Far,q);float width=80-61*q;
-            Soft(_back,p,new Vector2(width,13-8*q)*_unit,White,a*.53f);
-            if(i%4==0){var c=White;c.A=a*.48f;_back.DrawLine(p+Vector2.Left*width*.45f*_unit,p+Vector2.Right*width*.45f*_unit,c,1.4f*_unit,true);}
+        for(int i=0;i<28;i++){
+            float q=i/28f;if(q>=opened)break;float next=Mathf.Min((i+1)/28f,opened);
+            var p=Near.Lerp(Far,q);var end=Near.Lerp(Far,next);
+            float width=Mathf.Lerp(104,18,q)*_unit, endWidth=Mathf.Lerp(104,18,next)*_unit;
+            // Continuous tapered ground projection, with soft nested edges rather than floating bars.
+            for(int band=0;band<6;band++){
+                float f=1-band*.14f;
+                _back.DrawColoredPolygon([p+Vector2.Left*width*.5f*f,p+Vector2.Right*width*.5f*f,end+Vector2.Right*endWidth*.5f*f,end+Vector2.Left*endWidth*.5f*f],
+                    new Color(White.R,White.G,White.B,a*(.022f+band*.007f)*(1-q*.3f)));
+            }
+            if(i%5==0){var c=White;c.A=a*.27f;_back.DrawLine(p+Vector2.Left*width*.42f,p+Vector2.Right*width*.42f,c,Mathf.Lerp(1.7f,.7f,q)*_unit,true);}
         }
+        var head=Near.Lerp(Far,opened);Soft(_back,head,new Vector2(Mathf.Lerp(130,30,opened),18)*_unit,White,a*.48f);
     }
     private void DrawForeground()
     {
         if(Kind==CueKind.Act2Cast){
-            float a=Alpha,u=Ease(P(_age,.02f,.48f));var from=S(640,82);
-            for(int i=0;i<7;i++){
-                var end=from.Lerp(S(640+(i-3)/3f*578,526),u);var mid=from.Lerp(end,.5f);float angle=(end-from).Angle()-Mathf.Pi/2;
-                Soft(this,mid,new Vector2(_screen.X/1280*70,from.DistanceTo(end)*1.15f),Blue,a*.72f,angle);
-                var c=White;c.A=a*.9f;DrawLine(from,end,c,(i==3?5:3.5f)*_screen.X/1280,true);
-            }
-            Soft(this,from,S(380,190),Blue,a*.72f);Soft(this,from,S(155,95),White,a*.95f);Soft(this,S(640,512),S(1230,80),Blue,a*.4f);return;
+            DrawCastBeams(this,true);var from=S(640,82);
+            Soft(this,from,S(380,190),Blue,Alpha*.65f);Soft(this,from,S(155,95),White,Alpha*.92f);return;
         }
         if(Kind==CueKind.Duet){
             float u=Ease(P(_age,0,.35f)),a=_energyAt<0?1:1-P(_age-_energyAt,.06f,.32f);

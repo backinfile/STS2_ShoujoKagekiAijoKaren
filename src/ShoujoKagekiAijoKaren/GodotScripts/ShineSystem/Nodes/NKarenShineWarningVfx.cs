@@ -5,10 +5,11 @@ using MegaCrit.Sts2.Core.Nodes.Cards;
 
 namespace ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
 
-/// <summary>Last-light embers stay in the hand card's own draw order.</summary>
+/// <summary>Last-light embers follow the card from hand through the whole play.</summary>
 public partial class NKarenShineWarningVfx(NCard card, CardModel model) : Node2D
 {
     private float _age;
+    private bool _warnedInHand;
     private readonly Vector2[] _star = new Vector2[8];
     public bool BelongsTo(CardModel? candidate) => ReferenceEquals(candidate, model);
     public override void _Ready() => Visible = false;
@@ -16,8 +17,13 @@ public partial class NKarenShineWarningVfx(NCard card, CardModel model) : Node2D
     public override void _Process(double delta)
     {
         if (!GodotObject.IsInstanceValid(card) || !BelongsTo(card.Model)) { Hide(); QueueFree(); return; }
-        Visible = model.Pile?.Type == PileType.Hand && card.DisplayingPile == PileType.Hand
-            && ShineVfx.WillDeplete(model);
+        bool inHand = model.Pile?.Type == PileType.Hand;
+        bool inPlay = model.Pile?.Type == PileType.Play;
+        if (inHand) _warnedInHand = ShineVfx.WillDeplete(model);
+        // Shine is decremented at the start of OnPlayWrapper. Keep the hand warning
+        // during queue/Play transitions, without mistaking a 2→1 play for depletion.
+        Visible = card.DisplayingPile is PileType.Hand or PileType.Play
+            && ((inHand && _warnedInHand) || (inPlay && (_warnedInHand || ShineVfx.WillDeplete(model, shineAlreadyDecreased: true))));
         if (!Visible) return;
         _age += (float)delta;
         QueueRedraw();
