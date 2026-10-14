@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-12",
+  "kind": "Canvas concept preview, no gameplay code changes",
+  "source_previews": [
+    "D:\\Godot\\Proj\\worktrees\\banana-vfx-20261012\\docs\\design\\banana-vfx-2026-10-12\\index.html",
+    "D:\\Godot\\Proj\\worktrees\\ticket-dream-shine-vfx-20261012\\docs\\design\\ticket-dream-shine-vfx\\preview.html"
+  ],
+  "textures": {
+    "karen": "0761f052b45267e96a652349916e06e5fa643d1252effdf047e95eaee8f36327",
+    "beam": "345326cc9b9035d3b5aee250284c8f30a181fdb8988935e3e76648cf15e4b10f",
+    "ring": "06aab75b6e9e0c582cc8b064cc14260ee216e790518c282dfe2696607b890d93",
+    "baseGlow": "560318b13e07d28b00056cccc885a20d35ba52d3454f2eade4d1acbed0dbdb37",
+    "sparkle": "ce399e11d632617c727f51eec4ceed4103965db623e535e176749a148f74e7cd",
+    "ash": "0d7b0200939406b265c3a4fb5279f1496659c316e4a742b8045a729d09b3e09e",
+    "strength": "b0dd4753330756a03232145a54ed77ce5209056201e73ec1483609bd5ec414df",
+    "smoke": "308cbaf565335d0b6ade9de7b485f804ee7e54af9ae52d6f9ded6afdeb5c444c",
+    "potion": "bcecb09c88a55f0b666986f407d8c3093cdd2354b135d3a02014efea10c51293",
+    "towerCard": "2725201e48d248c724a1e3e65ab4768bd3c20ae56d97445aae4e66e16d31eb0f",
+    "stageFocus": "1c932b39769512496bb20d09f5caab72001a8551e641db5017ca00c9e3deee1d",
+    "old-cake": "132d7c2afc19f604df6be82c084a173d8acd35c05ab81b74116a2ebb97008a2e",
+    "old-snack": "f3b31fb3aac036986d2291370324404ca62ded63f72a32c5067bd6133938006c",
+    "old-dinner": "445d13abe630ebc3312048e55011439389ce13cc6f18a97ca5b4cacb8d546920",
+    "old-ticket": "9540edf5e1997d749494fd531c724f24da3aabf4a15f18b3196c47868f2fca84",
+    "old-dream": "356b5f72e5178a2e92d740b2d452cfe7085c7898b31ac4e47a6e255e4e01971d",
+    "old-together": "dd452dedc3c070a4f2d740678da8a423d973e704efcb5a26aec03c9f818dc56c"
+  }
+}
