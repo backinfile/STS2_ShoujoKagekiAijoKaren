@@ -9,6 +9,9 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
@@ -27,7 +30,13 @@ public sealed class KarenWeKownPower : KarenBasePower
         if (side == CombatSide.Player && participants.Contains(Owner) && Owner.Player is Player player)
         {
             Flash();
-            await PromisePileCmd.AddToken<KarenWeKownToken>(player, CombatState, Amount);
+            var effect = NKarenBenefitVfx.Play(player, NKarenBenefitVfx.BenefitKind.DreamTrigger);
+            if (effect != null) await NKarenBenefitVfx.WaitForCue(NKarenBenefitVfx.BenefitKind.DreamTrigger);
+            // Retain actual model identities from the same native generation command.
+            var cards = new List<CardModel>();
+            for (int i = 0; i < Amount; i++) cards.Add(CombatState.CreateCard<KarenWeKownToken>(player));
+            await CardPileCmd.AddGeneratedCardsToCombat(cards, KarenCustomEnum.PromisePile, player);
+            effect?.ConfirmCards(cards);
         }
     }
 }

@@ -7,6 +7,7 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 
@@ -26,12 +27,18 @@ public sealed class KarenStarlight02Card() : KarenBaseCardModel(2, CardType.Powe
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        var effect = NKarenStageCueVfx.Play(Owner, NKarenStageCueVfx.CueKind.Act2Cast, this);
+        try {
+        if (effect != null) await NKarenStageCueVfx.WaitForCue(NKarenStageCueVfx.CueKind.Act2Cast);
+        int before = Owner.Creature.GetPowerAmount<KarenStarlight02Power>();
         await PowerCmd.Apply<KarenStarlight02Power>(choiceContext, 
             Owner.Creature,
             DynamicVars[nameof(KarenStarlight02Power)].BaseValue,
             Owner.Creature,
             this
         );
+        if (Owner.Creature.GetPowerAmount<KarenStarlight02Power>() > before) effect?.ConfirmPower();
+        } finally { effect?.Finish(); }
     }
 
     protected override void OnUpgrade()

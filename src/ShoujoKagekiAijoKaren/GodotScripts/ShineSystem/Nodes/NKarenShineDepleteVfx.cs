@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
 
@@ -44,6 +45,9 @@ public partial class NKarenShineDepleteVfx : Node2D
     private int _sparkIndex;
     private static readonly Color Gold = new("#ffc96c");
     private static readonly Color Hot = new("#fff5dc");
+
+    public static bool IsAnimating(CardModel model) => NRun.Instance?.GlobalUi.GetChildren()
+        .OfType<NKarenShineDepleteVfx>().Any(v => v._model == model && !v.IsQueuedForDeletion()) == true;
 
     public static bool Play(CardModel model, NCard? card)
     {

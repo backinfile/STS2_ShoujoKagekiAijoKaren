@@ -8,6 +8,7 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
@@ -20,7 +21,13 @@ public sealed class KarenTicket : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KarenTicketPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
+        var effect = NKarenStageCueVfx.Play(Owner, NKarenStageCueVfx.CueKind.TicketCast, this);
+        try {
+            if (effect != null) await NKarenStageCueVfx.WaitForCue(NKarenStageCueVfx.CueKind.TicketCast);
+            int before = Owner.Creature.GetPowerAmount<KarenTicketPower>();
+            await PowerCmd.Apply<KarenTicketPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
+            if (Owner.Creature.GetPowerAmount<KarenTicketPower>() > before) effect?.ConfirmPower();
+        } finally { effect?.Finish(); }
     }
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 

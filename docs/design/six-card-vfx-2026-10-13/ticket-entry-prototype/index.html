@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>门票 · 四组演出方案</title>
+  <link rel="stylesheet" href="preview.css">
+  <script src="variants.js" defer></script>
+  <script src="preview.js" defer></script>
+</head>
+<body>
+<main>
+  <header>
+    <div><p class="eyebrow">门票 · 动效设计</p><h1>四种方式，进入命运舞台。</h1>
+      <p class="intro">门票已选 B · 光路入场。其他方案保留比较，也能独立搭配。</p></div>
+    <div class="transport"><button id="play-both">同时播放比较</button>
+      <label>速度 <select id="speed"><option value="1">原速</option><option value="0.5">慢放 0.5×</option></select></label></div>
+  </header>
+  <nav class="variants" aria-label="整组演出方案">
+    <button data-variant="curtain" aria-pressed="false"><strong>A · 光幕开场</strong><span>光幕向两侧展开</span></button>
+    <button data-variant="path" aria-pressed="true"><strong>B · 光路入场</strong><span>光路向舞台纵深铺开</span></button>
+    <button data-variant="stars" aria-pressed="false"><strong>C · 双星引路</strong><span>大小双星定位与接力</span></button>
+    <button data-variant="wave" aria-pressed="false"><strong>D · 幕间揭光</strong><span>薄幕向上掀起</span></button>
+  </nav>
+  <div class="variant-intro"><p id="variant-summary" aria-live="polite">B · 光路入场：用向远处铺开的光路，强调一步步走进舞台的纵深。</p><button id="recommended">回到已选 B 方案</button></div>
+  <p class="disclosure">概念动效预览 · 背景与卡牌取自已有实机截图，光效在浏览器中绘制。用于确认演出方案。</p>
+  <div class="comparison">
+    <section aria-labelledby="cast-title">
+      <div class="panel-title"><div><h2 id="cast-title">打出门票<span>开场</span></h2><p id="cast-description">纵向展开 · 获得门票能力</p></div><div class="panel-choice"><label>打出方案 <select id="cast-variant"><option value="curtain">A · 光幕开场</option><option value="path">B · 光路入场</option><option value="stars">C · 双星引路</option><option value="wave">D · 幕间揭光</option></select></label><span class="duration" id="cast-duration">1.20 秒</span></div></div>
+      <canvas id="cast" width="1280" height="720" aria-label="门票打出特效的动态概念预览"></canvas>
+      <div class="play-controls"><button id="play-cast">播放打出</button><label class="scrub"><span class="sr-only">打出时间轴</span><input id="cast-time" type="range" min="0" max="1200" step="1" value="430"></label><output id="cast-clock" for="cast-time">0.43 s</output></div>
+      <div class="steps" id="cast-steps"><button data-time="100">白光立起</button><button data-time="370">光幕展开</button><button data-time="650">能力确认</button><button data-time="920">光收至图标</button></div>
+      <p class="state" id="cast-state" aria-live="polite">光幕展开 · 尚未确认能力</p>
+      <p class="rationale" id="cast-rationale">窄白光在华恋身侧立起，分向两侧，让出一条舞台入口。能力生效时，入口上方出现大小两点金色星光；余光收至门票图标。</p>
+      <p class="constraint">这段只确认门票能力，塔牌在后续回合开始时生成。</p>
+    </section>
+    <section aria-labelledby="trigger-title">
+      <div class="panel-title"><div><h2 id="trigger-title">回合触发<span>登场</span></h2><p id="trigger-description">横向掠光 · 塔牌进入手牌</p></div><div class="panel-choice"><label>触发方案 <select id="trigger-variant"><option value="curtain">A · 光幕开场</option><option value="path">B · 光路入场</option><option value="stars">C · 双星引路</option><option value="wave">D · 幕间揭光</option></select></label><span class="duration" id="trigger-duration">0.90 秒</span></div></div>
+      <canvas id="trigger" width="1280" height="720" aria-label="门票回合触发特效的动态概念预览"></canvas>
+      <div class="play-controls"><button id="play-trigger">播放触发</button><label class="scrub"><span class="sr-only">触发时间轴</span><input id="trigger-time" type="range" min="0" max="900" step="1" value="460"></label><output id="trigger-clock" for="trigger-time">0.46 s</output></div>
+      <div class="steps" id="trigger-steps"><button data-time="60">图标亮起</button><button data-time="180">幕缝掠光</button><button data-time="440">光流交接</button><button data-time="740">塔牌落位</button></div>
+      <div class="trigger-options"><label>门票层数 <select id="count"><option value="1">1 层 · 1 张塔</option><option value="2">2 层 · 2 张塔</option></select></label><span>主体一次，按张数交接</span></div>
+      <p class="state" id="trigger-state" aria-live="polite">光流交接 · 1 张约定之塔</p>
+      <p class="rationale" id="trigger-rationale">图标短亮，舞台位置掠过一道横向白光。确认生成后，金白光流飞向各张塔牌，抵达时留下一个很小的星点。</p>
+      <p class="constraint">每回合的动作更短，主体只演一次，交接按实际生成张数展开。</p>
+    </section>
+  </div>
+  <section class="reference" aria-labelledby="reference-title">
+    <div class="reference-text"><h2 id="reference-title">演出依据</h2><p>TV 第 11 话：举票望向白色入口，入口上方是大小两颗金星。</p><a href="https://www.bilibili.com/video/BV1xHHv6hEV5/" target="_blank" rel="noopener">参考视频 · 21:48–22:14</a><p class="caption">蓝色只用于门票图标的响应。光幕取珍珠白，交接取塔牌的淡金色。</p></div>
+    <figure><img src="assets/ticket.png" width="500" height="380" alt="门票卡图：华恋举着票望向舞台入口"><figcaption>门票 · 入场凭证</figcaption></figure>
+    <figure class="buff-reference"><img src="assets/buff.png" width="64" height="64" alt="门票能力图标的白色三角与蓝色纹样"><figcaption>能力 · 持续生效</figcaption></figure>
+    <figure><img src="assets/tower.png" width="500" height="380" alt="约定之塔卡图的金色塔身"><figcaption>约定之塔 · 每回合所得</figcaption></figure>
+  </section>
+  <p class="footer-note">本页为设计原型，时间轴中的能力与发牌是结果示意。正式接入时分别绑定实际 Power 生效和真实生成卡牌节点。</p>
+</main>
+</body>
+</html>

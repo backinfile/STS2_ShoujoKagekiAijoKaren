@@ -8,6 +8,8 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Models.CardPools;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Godot;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 
@@ -27,12 +29,16 @@ public sealed class KarenBanana : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        var effect = NKarenBananaVfx.Play(Owner, NKarenBananaVfx.CastKind.Dinner);
+        if (effect != null) await NKarenBananaVfx.WaitForCue(NKarenBananaVfx.CastKind.Dinner);
+        if (GodotObject.IsInstanceValid(effect) && !effect!.IsQueuedForDeletion()) effect.WatchStrength();
         await PowerCmd.Apply<StrengthPower>(choiceContext, 
             Owner.Creature,
             DynamicVars.Strength.BaseValue,
             Owner.Creature,
             this
         );
+        if (GodotObject.IsInstanceValid(effect) && !effect!.IsQueuedForDeletion()) effect.CheckStrength();
     }
 
     protected override void OnUpgrade()

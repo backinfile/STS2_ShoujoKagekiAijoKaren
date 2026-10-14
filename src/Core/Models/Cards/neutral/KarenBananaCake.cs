@@ -7,6 +7,8 @@ using MegaCrit.Sts2.Core.Models.Potions;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Godot;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 
@@ -25,7 +27,20 @@ public sealed class KarenBananaCake : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PotionCmd.TryToProcure<FlexPotion>(Owner);
+        var effect = NKarenBananaVfx.Play(Owner, NKarenBananaVfx.CastKind.Cake);
+        if (effect != null) await NKarenBananaVfx.WaitForCue(NKarenBananaVfx.CastKind.Cake);
+        var potion = ModelDb.Potion<FlexPotion>().ToMutable();
+        NKarenBananaVfx.RegisterPotionOrigin(potion, effect);
+        try
+        {
+            var result = await PotionCmd.TryToProcure(potion, Owner);
+            if (GodotObject.IsInstanceValid(effect) && !effect!.IsQueuedForDeletion())
+                effect.ConfirmPotion(result.success);
+        }
+        finally
+        {
+            NKarenBananaVfx.RemovePotionOrigin(potion);
+        }
     }
 
     protected override void OnUpgrade()

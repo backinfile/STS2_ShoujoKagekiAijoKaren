@@ -1,0 +1,6 @@
+{
+  "name": "promise_hands",
+  "prompt": "Use case: stylized-concept. Asset type: a single transparent 2D anime game effect sprite depicting a shared promise. Primary subject: a close-up of exactly TWO human hands gently clasping each other at center, one hand reaching from the lower-left wearing a short vermilion-red theatrical jacket cuff with thin gold trim, the other reaching from the lower-right wearing a short cobalt-blue theatrical jacket cuff with thin gold trim. Both hands have pale natural skin and believable elegant youthful feminine anatomy, exactly five fingers per hand with natural occlusion. Gesture reads clearly as holding hands, mutual trust, not a handshake for business, not fists, not praying. Only hands and very short wrist cuffs, no faces, no bodies or full arms. Hand-painted anime cel illustration, warm soft highlights, clean fine brown linework, restrained two-to-three tone shading, not photorealistic. Centered horizontally in a compact silhouette, 15% empty padding. Fully transparent background. Absolutely no glow, halo, background, vignette, shadow, text, symbols, objects, ribbons or particles; the game adds the moving light.",
+  "tool": "built-in image_gen",
+  "transparent_background": true
+}

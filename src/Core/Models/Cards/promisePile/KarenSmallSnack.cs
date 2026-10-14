@@ -10,6 +10,8 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers.tmpStrength;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Godot;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
@@ -34,17 +36,25 @@ public sealed class KarenSmallSnack : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        var effect = NKarenBananaVfx.Play(Owner, NKarenBananaVfx.CastKind.Snack);
+        if (effect != null) await NKarenBananaVfx.WaitForCue(NKarenBananaVfx.CastKind.Snack);
+        if (GodotObject.IsInstanceValid(effect) && !effect!.IsQueuedForDeletion()) effect.WatchStrength();
         await PowerCmd.Apply<KarenSmallSnackTempStrengthPower>(choiceContext, 
             Owner.Creature,
             DynamicVars.Strength.BaseValue,
             Owner.Creature,
             this
         );
+        if (GodotObject.IsInstanceValid(effect) && !effect!.IsQueuedForDeletion()) effect.CheckStrength();
     }
 
     public override async Task OnTurnEndInPromisePile()
     {
         if (CombatState == null) return;
+
+        var effect = NKarenBenefitVfx.Play(Owner, NKarenBenefitVfx.BenefitKind.SnackTransform);
+        effect?.TrackTransformation(this);
+        if (effect != null) await NKarenBenefitVfx.WaitForCue(NKarenBenefitVfx.BenefitKind.SnackTransform);
 
         var banana = CombatState.CreateCard<KarenBanana>(Owner);
         if (IsUpgraded)
@@ -53,6 +63,7 @@ public sealed class KarenSmallSnack : KarenBaseCardModel
         }
 
         await CardCmd.Transform(this, banana, CardPreviewStyle.HorizontalLayout);
+        effect?.ConfirmCards([banana]);
     }
 
     protected override void OnUpgrade()

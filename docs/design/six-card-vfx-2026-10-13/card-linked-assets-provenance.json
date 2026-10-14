@@ -1,0 +1,95 @@
+{
+  "referenceModAssetsCopied": [],
+  "reference": "Regent FX c3ba1eb186b3492e229392d5ce861a7093e0f9db (methods study only)",
+  "originalCodeAndSynthesizedAudio": [
+    {
+      "path": "shaders/karen_benefit_atmosphere.gdshader",
+      "sha256": "43b0d732f22c1fa2169ee13572d1bd27327dbb2d4ca3e38f569fae6e89665490",
+      "bytes": 807
+    },
+    {
+      "path": "shaders/karen_story_prop.gdshader",
+      "sha256": "3254bc587126b20d7f7430705636d274d6879a244e4e5009fc88e84ac9b17588",
+      "bytes": 290
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/audio/karen_benefit_bloom.wav",
+      "sha256": "9cec71410c8da1151861a30c82370219209d9e2373014064e3c75cf5996d1952",
+      "bytes": 119114
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/audio/karen_benefit_gather.wav",
+      "sha256": "d4c9d15f9dbc446e8879e375270630d43a1abc17ca2bebb857b60a2a2376609a",
+      "bytes": 42380
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/audio/karen_story_ceramic.wav",
+      "sha256": "ca9ba7e4262bcc5e0b424eeef941a67df54594bb4a35959036dfa9e4f3f6527a",
+      "bytes": 37088
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/audio/karen_story_energy.wav",
+      "sha256": "4f35ac8f2990dbd08a75f1a3460ea5a14d5ce7e9115fba617f0bd3addeae51d8",
+      "bytes": 63548
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/audio/karen_story_paper.wav",
+      "sha256": "de0b3864c966e5fab3405ec76dafde0723e986ae2c7e6a20e0bb30b642a645ea",
+      "bytes": 40616
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/audio/karen_story_punch.wav",
+      "sha256": "4c178b3161e6ca7ca2435fca873f080f95dd47f8bf8cef39fcff29525ecced63",
+      "bytes": 24740
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/audio/karen_story_steam.wav",
+      "sha256": "76355492d79c9927871108b337fec0f2a1c46a297c7a89d84e65fb2c3964a116",
+      "bytes": 79424
+    }
+  ],
+  "generatedSprites": [
+    {
+      "path": "images/vfx/card_stories/assorted_hotpot.png",
+      "sha256": "1f74e0cb8994c7f52607a1a46b28f43f41e8d92079a3380bce4346d21b1b917a",
+      "bytes": 1524332,
+      "generator": "built-in image_gen",
+      "alpha": "original file preserved; runtime material suppresses soft exterior matte"
+    },
+    {
+      "path": "images/vfx/card_stories/banana_cake.png",
+      "sha256": "edf6c05d61731ba7872cd51ab1394d8009fd71b8f3992fd32777a097ac3c4c6d",
+      "bytes": 1709715,
+      "generator": "built-in image_gen",
+      "alpha": "original file preserved; runtime material suppresses soft exterior matte"
+    },
+    {
+      "path": "images/vfx/card_stories/promise_hands.png",
+      "sha256": "5865b32947b874fb83807aca1e81d40c97e00450044099ec54783d76235cbbab",
+      "bytes": 1407608,
+      "generator": "built-in image_gen",
+      "alpha": "original file preserved; runtime material suppresses soft exterior matte"
+    },
+    {
+      "path": "images/vfx/card_stories/served_dinner.png",
+      "sha256": "39c168db768a8697e0cbfa45a943cc06b775c81bff762a061f48c69529e63c91",
+      "bytes": 2049633,
+      "generator": "built-in image_gen",
+      "alpha": "original file preserved; runtime material suppresses soft exterior matte"
+    }
+  ],
+  "nativeRuntimeAssets": [
+    "STS2 sparkle.png",
+    "StrengthPower.Icon",
+    "FlexPotion.Image"
+  ],
+  "projectExistingAssets": [
+    "KarenShineCardRewardPower.Icon"
+  ],
+  "prompts": [
+    "imagegen-prompts.json",
+    "promise-hands-prompt.json"
+  ],
+  "status": "Retired literal-prop revision; no longer loaded or packaged. Recover original runtime paths from commit 2f8f957.",
+  "archive": "artifacts/abstract-card-vfx/retired-assets"
+}

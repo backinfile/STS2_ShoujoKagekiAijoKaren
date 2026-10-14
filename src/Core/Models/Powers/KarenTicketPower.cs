@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
@@ -24,12 +25,17 @@ public sealed class KarenTicketPower : KarenBasePower
         if (player == Owner.Player)
         {
             Flash();
+            var effect = NKarenStageCueVfx.Play(player, NKarenStageCueVfx.CueKind.TicketReturn);
+            try {
+            if (effect != null) await NKarenStageCueVfx.WaitForCue(NKarenStageCueVfx.CueKind.TicketReturn);
             var cards = new List<CardModel>();
             for (int i = 0; i < Amount; i++)
             {
                 cards.Add(CombatState.CreateCard<KarenTowerOfPromise>(player));
             }
             await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, player);
+            effect?.ConfirmCards(cards);
+            } finally { effect?.Finish(); }
         }
     }
 }
