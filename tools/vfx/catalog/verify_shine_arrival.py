@@ -16,7 +16,7 @@ parser.add_argument('--output',type=Path,required=True)
 root=parser.parse_args().output.resolve()
 read=lambda path:json.loads(path.read_text(encoding='utf-8'))
 sha=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
-names=['shine-motion','shine-speeds','shine-arrival-control']
+names=['shine-motion','shine-speeds','shine-arrival-control','shine-count-control']
 report={'versions':{},'clips':[]}
 for branch in ['stable','beta']:
     scenes={};hands=0
@@ -30,12 +30,30 @@ for branch in ['stable','beta']:
         assert all(abs(s-1)<.001 for s in motion['pileIconScale']),motion
         assert abs(motion['pileIconRotation'])<.001,motion
         assert revision['missingPlayFrames']==revision['falseWarningFrames']==0,revision
+        counter=motion['counter']
+        assert counter['displayed']==counter['target']==counter['model']==len(read(folder/'final-state.json')['shine']),counter
+        assert counter['pending']==counter['earlyFrames']==0 and not counter['animating'] and abs(counter['scale']-1)<.001,counter
         expected={'shine-motion':['KAREN_SHINE_STRIKE','KAREN_NONON'],
                   'shine-speeds':['KAREN_SHINE_STRIKE','KAREN_SHINE_STRIKE','KAREN_DROP_FUEL'],
-                  'shine-arrival-control':[]}[name]
+                  'shine-arrival-control':[],'shine-count-control':[]}[name]
         assert len(motion['depletes'])==len(expected)
-        assert read(folder/'final-state.json')['shine']==read(folder/'initial-state.json')['shine']+expected
+        if name=='shine-count-control':
+            assert read(folder/'final-state.json')['shine']==['KAREN_SHINE_STRIKE']*4
+            burst=read(folder/'count-burst.json')['counter'];settled=read(folder/'count-burst-settled.json')['counter']
+            assert burst['displayed']<burst['model'] and settled['displayed']==settled['model'],burst
+            changes=settled['changes']
+            steps=[(a,b) for a,b in zip(changes,changes[1:]) if b['count']>a['count']]
+            assert len(steps)==3 and all(b['count']==a['count']+1 for a,b in steps),changes
+            assert all(b[1]['time']-a[1]['time']>=.15 for a,b in zip(steps,steps[1:])),steps
+            for filename,n in [('count-cleared',0),('count-snapshot',3),('count-cancelled',4)]:
+                c=read(folder/f'{filename}.json')['counter']
+                assert c['displayed']==c['model']==n and c['pending']==0 and not c['animating'],c
+            held=read(folder/'count-held.json')['counter']
+            assert held['displayed']==3 and held['model']==4 and held['pending']==1,held
+        else:
+            assert read(folder/'final-state.json')['shine']==read(folder/'initial-state.json')['shine']+expected
         assert sum(a['count'] for a in motion['arrivals'])==(3 if name=='shine-arrival-control' else len(expected)),motion
+        if expected:assert counter['heldFrames']>20,counter
         for d in motion['depletes']:
             assert d['released'] and d['arrived'] and not d['faceReappeared'] and d['landingError']<.1,d
             assert -.001<=d['arrivalDelay']<.06,d

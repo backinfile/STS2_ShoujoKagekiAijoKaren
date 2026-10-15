@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.DevConsole;
 using MegaCrit.Sts2.Core.DevConsole.ConsoleCommands;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -14,6 +16,7 @@ using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
+using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
 // Observes real visual motion only. This assembly is never included in the Mod package.
 [ModInitializer(nameof(Initialize))]
@@ -39,6 +42,25 @@ public static class ShineMotionProbe
         public readonly float Duration = (float)Field(node,"_duration")!;
     }
     internal static readonly List<Arrival> Arrivals = new();
+    private static readonly List<object> CountChanges = new();
+    private static int _initialCount, _lastCount, _earlyCountFrames, _heldCountFrames;
+    private static ulong _countStart;
+    internal static NTopBarShinePileButton? Button => NRun.Instance?.GlobalUi.TopBar.GetNodeOrNull<NTopBarShinePileButton>("RightAlignedStuff/ShinePile");
+
+    private static (int Model, int Display, int Target, int Pending, bool Animating, float Scale) ReadCount()
+    {
+        var button = Button!;
+        var tween = Field(button,"_bumpTween") as Tween;
+        return ((int)Field(button,"_modelCount")!,int.Parse(button.GetNode<Label>("ShinePileCardCount").Text),
+            (int)Field(button,"_countTarget")!,((IEnumerable)Field(button,"_inFlight")!).Cast<object>().Count(),
+            tween?.IsRunning()==true,button.GetNode<Label>("ShinePileCardCount").Scale.X);
+    }
+    internal static object CountStatus()
+    {
+        var c = ReadCount();
+        return new {model=c.Model,displayed=c.Display,target=c.Target,pending=c.Pending,animating=c.Animating,scale=c.Scale,
+            earlyFrames=_earlyCountFrames,heldFrames=_heldCountFrames,changes=CountChanges};
+    }
     internal static bool Watching;
     internal static int DetachedSparkFrames, MaxSparks, FloorFrames;
     internal static float MaxRigidDifference, MaxFloorY, MaxFloorOffset, ViewportHeight;
@@ -84,6 +106,18 @@ public static class ShineMotionProbe
                 seen.MinRotation = Math.Min(seen.MinRotation,rotation);
                 seen.MaxRotation = Math.Max(seen.MaxRotation,rotation);
             }
+        if (button != null)
+        {
+            var c = ReadCount();
+            bool flying = Depletes.Any(d=>GodotObject.IsInstanceValid(d.Node) && !d.Arrived && !(bool)Field(d.Node,"_released")!);
+            if (flying && c.Display > _initialCount+Depletes.Count(d=>d.Arrived)) _earlyCountFrames++;
+            if (c.Pending>0 && c.Model>c.Display) _heldCountFrames++;
+            if (c.Display != _lastCount)
+            {
+                CountChanges.Add(new {time=(Time.GetTicksMsec()-_countStart)/1000.0,count=c.Display,model=c.Model,arrivals=Depletes.Count(d=>d.Arrived)});
+                _lastCount = c.Display;
+            }
+        }
         var alive = new HashSet<object>();
         foreach (var warning in ShineFuelProbe.Descend(run).OfType<Node2D>()
             .Where(w=>w is NKarenShineWarningVfx or NKarenShineAmbientVfx).Where(w=>w.Visible && w.IsVisibleInTree())) {
@@ -111,7 +145,10 @@ public static class ShineMotionProbe
             FloorFrames++;
         }
     }
-    internal static void Reset() { Watching=true;Depletes.Clear();Arrivals.Clear();Previous.Clear();DetachedSparkFrames=MaxSparks=FloorFrames=0;MaxRigidDifference=MaxFloorY=MaxFloorOffset=ViewportHeight=0; }
+    internal static void Reset() {
+        Watching=true;Depletes.Clear();Arrivals.Clear();Previous.Clear();DetachedSparkFrames=MaxSparks=FloorFrames=0;MaxRigidDifference=MaxFloorY=MaxFloorOffset=ViewportHeight=0;
+        CountChanges.Clear();_initialCount=ReadCount().Display;_lastCount=int.MinValue;_earlyCountFrames=_heldCountFrames=0;_countStart=Time.GetTicksMsec();
+    }
     internal static object Status()=>new {
         detachedSparkFrames=DetachedSparkFrames,maxRigidDifference=MaxRigidDifference,maxSparks=MaxSparks,
         floorFrames=FloorFrames,maxFloorY=MaxFloorY,maxFloorOffset=MaxFloorOffset,viewportHeight=ViewportHeight,
@@ -122,18 +159,40 @@ public static class ShineMotionProbe
         pileIconScale = NRun.Instance?.GlobalUi.TopBar.GetNodeOrNull<Control>("RightAlignedStuff/ShinePile/Control/Icon") is {} icon
             ? new[]{icon.Scale.X,icon.Scale.Y} : new float[0],
         pileIconRotation = NRun.Instance?.GlobalUi.TopBar.GetNodeOrNull<Control>("RightAlignedStuff/ShinePile/Control/Icon")?.Rotation ?? -1,
+        counter=CountStatus(),
         arrivals = Arrivals.Select(s=>new {count=s.Count,duration=s.Duration,maxScale=s.MaxScale,minScale=s.MinScale,minRotation=s.MinRotation,maxRotation=s.MaxRotation}),
         depletes=Depletes.Select(s=>new {duration=s.Duration,gather=s.Gather,fuel=s.Fuel,landingError=s.LandingError,minCardScale=s.MinCardScale,released=s.Released,faceReappeared=s.FaceReappeared,arrived=s.Arrived,arrivalDelay=s.ArrivalDelay,samples=s.Samples})
     };
 }
 public sealed class ShineMotionProbeCommand:AbstractConsoleCmd
 {
+    private static NKarenShineDepleteVfx? _countTicket;
     public override string CmdName=>"shine_motion";
-    public override string Args=>"watch|status|arrival|focus|unfocus";
+    public override string Args=>"watch|status|arrival|focus|unfocus|count_add N|count_clear|count_init|count_hold|count_cancel";
     public override string Description=>"Observe independent embers, flight timing and scene-ground endpoints.";
     public override bool IsNetworked=>false;
     public override CmdResult Process(Player? player,string[] args) {
+        if(args.Length==2 && args[0]=="count_add" && player!=null) {
+            var model=ModelDb.AllCards.Single(c=>c.Id.Entry=="KAREN_SHINE_STRIKE");
+            for(int i=0;i<int.Parse(args[1]);i++)
+                ShinePileManager.AddToShinePileInternal(player,CombatManager.Instance.DebugOnlyGetState()!.CreateCard(model,player));
+            return new(true,"Added count fixture cards without flight");
+        }
         if(args.Length!=1)return new(false,Args);
+        if(args[0]=="count_clear" && player!=null) {
+            var pile=ShinePileManager.GetShinePile(player);
+            foreach(var card in pile.Cards.ToArray()) pile.RemoveInternal(card);
+            return new(true,"Cleared count fixture pile");
+        }
+        if(args[0]=="count_init" && player!=null) { ShineMotionProbe.Button!.Initialize(player);return new(true,"Rebound count snapshot"); }
+        if(args[0]=="count_hold") {
+            if(_countTicket!=null)return new(false,"Count ticket already held");
+            _countTicket=new NKarenShineDepleteVfx();ShineMotionProbe.Button!.BeginDepletion(_countTicket);return new(true,"Held visual count ticket");
+        }
+        if(args[0]=="count_cancel") {
+            if(_countTicket==null)return new(false,"No count ticket");
+            ShineMotionProbe.Button!.FinishDepletion(_countTicket,false);_countTicket.Free();_countTicket=null;return new(true,"Cancelled visual count ticket");
+        }
         if(args[0]=="watch"){ShineMotionProbe.Reset();return new(true,"watch");}
         if(args[0] is "arrival" or "focus" or "unfocus") {
             var button = NRun.Instance!.GlobalUi.TopBar.GetNode<NTopBarShinePileButton>("RightAlignedStuff/ShinePile");

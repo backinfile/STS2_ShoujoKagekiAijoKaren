@@ -178,7 +178,8 @@ if want('shine-ambient-modes'):
 def shine_idle():
     for _ in range(100):
         motion=json.loads(cmd('shine_motion status')['message'])
-        if motion['liveDepletes']==motion['liveArrivals']==0:return motion
+        counter=motion['counter']
+        if motion['liveDepletes']==motion['liveArrivals']==0 and counter['pending']==0 and counter['displayed']==counter['model'] and not counter['animating']:return motion
         time.sleep(.05)
     raise AssertionError(motion)
 
@@ -191,8 +192,8 @@ if want('shine-motion'):
     post(action='hover_card',card_index=card['index']);time.sleep(.7)
     marking('移开预览｜余烬保留惯性，亮星柔和跟随卡牌')
     post(action='unhover_card');time.sleep(.8)
-    clip_cast('KAREN_SHINE_STRIKE','闪耀打击耗尽｜抵达后图标左晃 → 右晃 → 小幅回摆，闪亮并回正')
-    clip_cast('KAREN_NONON','NONNON 耗尽｜图标接住星光后旋转晃动，保留轻压回弹与星屑')
+    clip_cast('KAREN_SHINE_STRIKE','闪耀打击耗尽｜抵达图标再加一，数字柔和放大、停留与回落')
+    clip_cast('KAREN_NONON','NONNON 耗尽｜飞行中保留旧数量，抵达后数字与图标一起反馈')
     prep('KAREN_SHINE_STRIKE');cmd('shine_fuel set KAREN_SHINE_STRIKE 2')
     clip_cast('KAREN_SHINE_STRIKE','两点闪耀对照｜本次不耗尽，不误亮临界提示')
     motion=shine_idle();save('motion-assertions',motion)
@@ -227,6 +228,28 @@ if want('shine-arrival-control'):
     cmd('shine_motion unfocus');time.sleep(1.2)
     report=json.loads(cmd('shine_motion status')['message'])
     assert all(abs(s-1)<.001 for s in report['pileIconScale']),report
+    finish()
+
+if want('shine-count-control'):
+    stage('shine-count-control',seed=False);record_start()
+    marking('数字专项｜连续增加逐个显示，清空与读入数量立即校准')
+    cmd('shine_motion count_add 3');time.sleep(.05)
+    burst=json.loads(cmd('shine_motion status')['message']);save('count-burst',burst)
+    assert burst['counter']['displayed']<burst['counter']['model'],burst
+    settled=shine_idle();save('count-burst-settled',settled)
+    cmd('shine_motion count_add 3');cmd('shine_motion count_clear')
+    cleared=json.loads(cmd('shine_motion status')['message']);save('count-cleared',cleared)
+    assert cleared['counter']['displayed']==cleared['counter']['model']==0,cleared
+    time.sleep(.7)
+    cmd('shine_motion count_add 3');cmd('shine_motion count_init')
+    snapshot=json.loads(cmd('shine_motion status')['message']);save('count-snapshot',snapshot)
+    assert snapshot['counter']['displayed']==snapshot['counter']['model']==3 and not snapshot['counter']['animating'],snapshot
+    cmd('shine_motion count_hold');cmd('shine_motion count_add 1')
+    held=json.loads(cmd('shine_motion status')['message']);save('count-held',held)
+    assert held['counter']['model']==4 and held['counter']['displayed']==3 and held['counter']['pending']==1,held
+    cmd('shine_motion count_cancel')
+    cancelled=shine_idle();save('count-cancelled',cancelled)
+    assert cancelled['counter']['displayed']==cancelled['counter']['model']==4 and cancelled['counter']['pending']==0,cancelled
     finish()
 
 for void in (False, True):

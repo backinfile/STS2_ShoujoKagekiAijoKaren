@@ -20,6 +20,7 @@ public partial class NKarenShineDepleteVfx : Node2D
     private NCard _card = null!;
     private CardModel _model = null!;
     private Control _target = null!;
+    private NTopBarShinePileButton? _pileButton;
     private NCombatRoom _room = null!;
     private Transform2D _source;
     private readonly List<Vector2> _trail = new();
@@ -65,6 +66,7 @@ public partial class NKarenShineDepleteVfx : Node2D
         var effect = new NKarenShineDepleteVfx
         {
             _card = card, _model = model, _target = target, _source = source, _room = room,
+            _pileButton = target.GetParent()?.GetParent() as NTopBarShinePileButton,
             _mouseFilter = card.MouseFilter,
             _cardVisible = card.Visible,
             _cardColor = card.Modulate,
@@ -77,6 +79,7 @@ public partial class NKarenShineDepleteVfx : Node2D
             : (speed == FastModeType.Instant ? .07f : speed == FastModeType.Fast ? .24f : .34f);
         effect._headPosition = source.Origin;
         ui!.AddChild(effect);
+        effect._pileButton?.BeginDepletion(effect);
         // Removing the visual from the play container prevents native RemoveFromCombat
         // from taking ownership a second time. This node returns it to the pool exactly once.
         card.PlayPileTween?.Kill();
@@ -157,8 +160,6 @@ public partial class NKarenShineDepleteVfx : Node2D
         if (t >= 1 && !_released)
         {
             _arrived = true;
-            if (_target.GetParent()?.GetParent() is NTopBarShinePileButton button)
-                button.PlayDepletionArrival();
             Release();
         }
         if (_age >= _gatherDuration + _duration + .42f) QueueFree();
@@ -282,6 +283,8 @@ public partial class NKarenShineDepleteVfx : Node2D
     {
         if (_released) return;
         _released = true;
+        if (GodotObject.IsInstanceValid(_pileButton) && _pileButton!.IsInsideTree())
+            _pileButton.FinishDepletion(this, _arrived);
         if (GodotObject.IsInstanceValid(_card) && ReferenceEquals(_card.Model, _model))
         {
             _card.MouseFilter = _mouseFilter;

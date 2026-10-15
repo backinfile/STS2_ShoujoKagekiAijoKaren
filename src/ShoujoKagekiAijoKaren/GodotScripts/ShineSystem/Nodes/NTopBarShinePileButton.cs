@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Godot;
 using MegaCrit.Sts2.addons.mega_text;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -24,9 +25,27 @@ public partial class NTopBarShinePileButton : MegaCrit.Sts2.Core.Nodes.TopBar.NT
     private const float _defaultV = 0.9f;
     private Player? _player;
     private Label _countLabel = null!;
-    private float _count;
+    private int _count, _modelCount, _countTarget;
+    private float _numberStepClock;
+    private readonly HashSet<NKarenShineDepleteVfx> _inFlight = new();
     private Tween? _bumpTween;
     private NKarenShinePileArrivalVfx? _arrivalVfx;
+
+    public void BeginDepletion(NKarenShineDepleteVfx flight) => _inFlight.Add(flight);
+
+    public void FinishDepletion(NKarenShineDepleteVfx flight, bool arrived)
+    {
+        if (!_inFlight.Remove(flight)) return;
+        RefreshCount(arrived);
+        if (arrived) PlayDepletionArrival();
+    }
+
+    public override void _Process(double delta)
+    {
+        _numberStepClock = Mathf.Max(0, _numberStepClock-(float)delta);
+        if (_count < _countTarget && _numberStepClock <= 0)
+            ShowCount(_count+1, true);
+    }
 
     public void PlayDepletionArrival()
     {
@@ -49,6 +68,8 @@ public partial class NTopBarShinePileButton : MegaCrit.Sts2.Core.Nodes.TopBar.NT
     public override void _ExitTree()
     {
         base._ExitTree();
+        _inFlight.Clear();
+        _bumpTween?.Kill();
         if (_player != null)
         {
             var pile = ShinePileManager.GetShinePile(_player);
@@ -58,36 +79,57 @@ public partial class NTopBarShinePileButton : MegaCrit.Sts2.Core.Nodes.TopBar.NT
 
     public void Initialize(Player player)
     {
+        if (_player != null)
+            ShinePileManager.GetShinePile(_player).ContentsChanged -= OnPileContentsChanged;
+        _inFlight.Clear();
         _player = player;
         var pile = ShinePileManager.GetShinePile(player);
         pile.ContentsChanged += OnPileContentsChanged;
-        OnPileContentsChanged();
+        RefreshCount(false);
         MainFile.Logger.Info($"[ShinePileButton] Initialized for player {player.Character.Id.Entry}, count={ShinePileManager.GetShinePileCount(player)}");
     }
 
     private void OnPileContentsChanged()
     {
         if (_player == null) return;
-        int count = ShinePileManager.GetShinePileCount(_player);
-        MainFile.Logger.Info($"[ShinePileButton] OnPileContentsChanged: count={count}, prevCount={_count}");
-        if ((float)count > _count)
+        MainFile.Logger.Info($"[ShinePileButton] OnPileContentsChanged: count={ShinePileManager.GetShinePileCount(_player)}, displayed={_count}");
+        RefreshCount(true);
+    }
+
+    private void RefreshCount(bool animate)
+    {
+        if (_player == null) return;
+        // The model settles immediately; its visual count waits for outstanding flights.
+        _modelCount = ShinePileManager.GetShinePileCount(_player);
+        _countTarget = Mathf.Max(0, _modelCount-_inFlight.Count);
+        if (!animate || _countTarget < _count)
+            ShowCount(_countTarget, false);
+        else if (_count < _countTarget && _numberStepClock <= 0)
+            ShowCount(_count+1, true);
+    }
+
+    private void ShowCount(int count, bool animate)
+    {
+        _count = count;
+        if (_countLabel is MegaLabel megaLabel) megaLabel.SetTextAutoSize(count.ToString());
+        else _countLabel.Text = count.ToString();
+        _countLabel.PivotOffset = _countLabel.Size*.5f;
+        _bumpTween?.Kill();
+        if (animate)
         {
-            _bumpTween?.Kill();
+            // Leave successive increments readable, with a softer grow/hold/settle.
+            _numberStepClock = .18f;
             _bumpTween = CreateTween();
-            _bumpTween.TweenProperty(_countLabel, "scale", Vector2.One, 0.5f)
-                .From(Vector2.One * 1.5f)
-                .SetEase(Tween.EaseType.Out)
-                .SetTrans(Tween.TransitionType.Expo);
-            _countLabel.PivotOffset = _countLabel.Size * 0.5f;
-            _count = count;
-        }
-        if (_countLabel is MegaCrit.Sts2.addons.mega_text.MegaLabel megaLabel)
-        {
-            megaLabel.SetTextAutoSize(count.ToString());
+            _bumpTween.TweenProperty(_countLabel,"scale",Vector2.One*1.24f,.10f)
+                .SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Cubic);
+            _bumpTween.TweenInterval(.11f);
+            _bumpTween.TweenProperty(_countLabel,"scale",Vector2.One,.42f)
+                .SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
         }
         else
         {
-            _countLabel.Text = count.ToString();
+            _numberStepClock = 0;
+            _countLabel.Scale = Vector2.One;
         }
     }
 
