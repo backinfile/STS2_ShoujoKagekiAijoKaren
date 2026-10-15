@@ -53,3 +53,9 @@
 - 同步后正式版重新执行上述全部骄傲专项，通过，日志 ERROR / Exception 为 0。使用单独端口 `18749`，证据保存在 `artifacts/arrogant-vfx-20261015/synchronized/`。
 - 测试版同步后只重建，未重复实机；此前的测试版实测仍对应上文准确记录的包。合辑也对应上文的原实测包，不把它标为同步包录像。
 - 同步包 SHA-256：PCK `3a395e27bcfcf36000713c976d7fcf87b2700ea7017567501ca334713b89d2ba`；Stable DLL `8448b19e3f3e79e67179bc5502e315f5a44ce498645b6ede792c59822cf4a045`；Beta DLL `65bbbbc48e3eae9e591fbdd4ac521d8dd00cc9fe5bbf4634bb6d8bbfba8474c`。
+
+用户确认合并后，再同步本地 `main` 的 `bcfe75e`（包含双星与醒来特效），无冲突；骄傲运行时代码、贴图、时序及录制工具与前一同步结果完全一致。再次构建双版本发行包通过，0 错误；Python 脚本语法与 Git 空白检查通过。未重复运行游戏，录像仍对应原实测包。
+
+- 本轮构建日志：`artifacts/arrogant-vfx-20261015/build-merge-final.log`。
+- 本轮包 SHA-256：PCK `602e803c02b0d8452c5e29d780e7b2aa4ab2f27911335e747692b5cf6dbd524e`；Stable DLL `e7ef9b1f2cd0b6e4717b1ad986fecd22578906785449530f48d44d43419550c1`；Beta DLL `951433a22d399b2755cd5e0f491784b81f8d5aefce3e509a10ab59bc6daeb2da`。
+- 最终视频与验证材料已复制到原检出的同名 artifacts 目录，263 个文件逐一通过 SHA-256 核对，清单为 `archive-manifest.json`；不依赖临时工作树保存交付物。
