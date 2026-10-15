@@ -68,7 +68,7 @@ public partial class NKarenShineDepleteVfx : Node2D
             _cardVisible = card.Visible,
             _cardColor = card.Modulate,
             _fuel = KarenFuelCardVisuals.IsBurst(card),
-            _duration = SaveManager.Instance.PrefsSave.FastMode switch { FastModeType.Instant => .12f, FastModeType.Fast => .30f, _ => .42f }
+            _duration = SaveManager.Instance.PrefsSave.FastMode switch { FastModeType.Instant => .12f, FastModeType.Fast => .38f, _ => .54f }
         };
         var speed = SaveManager.Instance.PrefsSave.FastMode;
         effect._gatherDuration = effect._fuel
@@ -163,8 +163,8 @@ public partial class NKarenShineDepleteVfx : Node2D
         _flightEnd = end;
         var start = _source.Origin; var delta = end - start;
         float unit = GetViewport().GetVisibleRect().Size.Y / 1080f;
-        float lift = Mathf.Clamp(Mathf.Abs(delta.X) * .24f + Mathf.Abs(delta.Y) * .16f, 100 * unit, 270 * unit);
-        var c1 = start + new Vector2(delta.X * .08f, -lift);
+        float lift = Mathf.Clamp(Mathf.Abs(delta.X) * .30f + Mathf.Abs(delta.Y) * .18f, 140 * unit, 300 * unit);
+        var c1 = start + new Vector2(-delta.X * .12f, -lift);
         var c2 = end + new Vector2(-delta.X * .22f, Mathf.Clamp(Mathf.Abs(delta.Y) * .18f, 40 * unit, 110 * unit));
         _flightLengths[0] = 0; _flightPoints[0] = start;
         for (int i = 1; i < _flightPoints.Length; i++) {
@@ -174,15 +174,26 @@ public partial class NKarenShineDepleteVfx : Node2D
         }
         _pathLength = _flightLengths[^1];
     }
-    // Integrate a short acceleration (16%), fast cruise (72%) and light braking
-    // (12%). Arc-length lookup keeps the designed speed independent of curvature.
+    // A slow lift (first 30% of time, only 3% of distance), a distinct surge,
+    // then braking into a short catch. Peak speed is 3.15 times the average.
+    // Integrating smooth velocity ramps avoids jumps at all phase boundaries;
+    // arc-length lookup keeps curvature from flattening the intended rhythm.
     private static float TravelProgress(float t)
     {
-        const float acceleration = .16f, braking = .12f, peak = 1 / (1 - (acceleration + braking) / 2);
-        if (t < acceleration) return peak * t * t / (2 * acceleration);
-        if (t <= 1 - braking) return peak * (t - acceleration / 2);
-        return 1 - peak * (1-t) * (1-t) / (2 * braking);
+        t = Mathf.Clamp(t, 0, 1);
+        const float lift = .30f, surge = .32f, brake = .22f, catchTime = .16f;
+        const float launchSpeed = .20f, peakSpeed = 3f, catchSpeed = .42f;
+        const float liftDistance = lift * launchSpeed / 2;
+        const float surgeDistance = surge * (launchSpeed + peakSpeed) / 2;
+        const float brakeDistance = brake * (peakSpeed + catchSpeed) / 2;
+        const float total = liftDistance + surgeDistance + brakeDistance + catchTime * catchSpeed / 2;
+        if (t < lift) return lift * IntegratedRamp(t / lift, 0, launchSpeed) / total;
+        if (t < lift + surge) return (liftDistance + surge * IntegratedRamp((t-lift) / surge, launchSpeed, peakSpeed)) / total;
+        if (t < lift + surge + brake) return (liftDistance + surgeDistance + brake * IntegratedRamp((t-lift-surge) / brake, peakSpeed, catchSpeed)) / total;
+        return (liftDistance + surgeDistance + brakeDistance + catchTime * IntegratedRamp((t-lift-surge-brake) / catchTime, catchSpeed, 0)) / total;
     }
+    private static float IntegratedRamp(float t, float from, float to)
+        => from * t + (to-from) * (t*t*t - .5f*t*t*t*t);
     private Vector2 FlightPoint(float progress)
     {
         float distance = progress * _pathLength;

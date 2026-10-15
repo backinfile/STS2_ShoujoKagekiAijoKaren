@@ -146,14 +146,14 @@ if want('shine-motion'):
     post(action='hover_card',card_index=card['index']);time.sleep(.7)
     marking('移开预览｜余烬保留惯性，亮星柔和跟随卡牌')
     post(action='unhover_card');time.sleep(.8)
-    clip_cast('KAREN_SHINE_STRIKE','闪耀打击耗尽｜大范围星屑收拢，短弧快速入堆')
-    clip_cast('KAREN_NONON','NONNON 耗尽｜卡牌整体缩小，星屑汇为亮点后加速飞入')
+    clip_cast('KAREN_SHINE_STRIKE','闪耀打击耗尽｜缓缓提起 → 加速掠过 → 减速吸入耗尽图标')
+    clip_cast('KAREN_NONON','NONNON 耗尽｜左上起弧，中段急加速，末段收束；峰值约平均速度 3.15 倍')
     prep('KAREN_SHINE_STRIKE');cmd('shine_fuel set KAREN_SHINE_STRIKE 2')
     clip_cast('KAREN_SHINE_STRIKE','两点闪耀对照｜本次不耗尽，不误亮临界提示')
     motion=json.loads(cmd('shine_motion status')['message']);save('motion-assertions',motion)
     assert motion['detachedSparkFrames']>0 and motion['maxSparks']<=40,motion
     assert len(motion['depletes'])==2 and motion['liveDepletes']==0,motion
-    assert all(s['released'] and s['landingError']<.1 and s['duration']<.43 and s['minCardScale']<.2 for s in motion['depletes']),motion
+    assert all(s['released'] and s['landingError']<.1 and s['duration']<.55 and s['minCardScale']<.2 for s in motion['depletes']),motion
     report=json.loads(cmd('revision_probe status')['message'])
     assert report['missingPlayFrames']==report['falseWarningFrames']==0 and report['playWarningFrames']>0,report
     finish()
@@ -166,7 +166,7 @@ if want('shine-speeds'):
     motion=json.loads(cmd('shine_motion status')['message']);save('motion-assertions',motion)
     assert len(motion['depletes'])==3 and motion['liveDepletes']==0,motion
     assert all(s['released'] and s['landingError']<.1 and not s['faceReappeared'] for s in motion['depletes']),motion
-    assert all(abs(s['duration']-duration)<.001 for s,duration in zip(motion['depletes'],[.30,.12,.42])),motion
+    assert all(abs(s['duration']-duration)<.001 for s,duration in zip(motion['depletes'],[.38,.12,.54])),motion
     finish()
 
 for void in (False, True):

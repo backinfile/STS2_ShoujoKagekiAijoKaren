@@ -14,6 +14,29 @@ read=lambda p:json.loads(p.read_text(encoding='utf-8'))
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 report={'versions':{},'clips':[]}
 names=['shine-motion','shine-speeds','starlight-act2']
+
+def check_flight_speed(d):
+    buckets=[[],[],[]];path=early=peak=0
+    cutoff=d['gather']+d['duration']*.30
+    for a,b in zip(d['samples'],d['samples'][1:]):
+        dt=b['age']-a['age']
+        if dt<=0:continue
+        distance=math.hypot(b['x']-a['x'],b['y']-a['y'])
+        path+=distance;peak=max(peak,distance/dt)
+        early+=distance*max(0,min(1,(cutoff-a['age'])/dt))
+        if a['age']<d['gather'] or b['age']>d['gather']+d['duration']:continue
+        t=((a['age']+b['age'])/2-d['gather'])/d['duration']
+        speed=distance/dt
+        if 0<t<.24:buckets[0].append(speed)
+        if .5<t<.72:buckets[1].append(speed)
+        if .9<t<1:buckets[2].append(speed)
+    assert all(buckets),d
+    averages=[sum(b)/len(b) for b in buckets]
+    assert averages[1]>averages[0]*6 and averages[1]>averages[2]*4,averages
+    ratio=peak/(path/d['duration']);early_share=early/path
+    assert ratio>2.6 and early_share<.05,(ratio,early_share)
+    return dict(launch=averages[0],surge=averages[1],catch=averages[2],peakToAverage=ratio,first30PercentDistance=early_share)
+
 for branch in ['stable','beta']:
     branch_report={};hands=0
     for name in names:
@@ -31,27 +54,14 @@ for branch in ['stable','beta']:
                   'starlight-act2':['KAREN_SHINE_STRIKE']}[name]
         assert final==initial+expected,(branch,name,initial,final)
         for d in motion['depletes']:
-            assert d['duration']<=.43 and d['gather']<=.341 and d['minCardScale']<.2
-        speed_checks=[]
+            assert d['duration']<=.55 and d['gather']<=.341 and d['minCardScale']<.2
+        speed_checks=[check_flight_speed(d) for d in motion['depletes'] if d['duration']>=.3]
         if name=='shine-motion':
             assert len(motion['depletes'])==2 and motion['detachedSparkFrames']>0
             assert revision['playWarningFrames']>0
-            for d in motion['depletes']:
-                buckets=[[],[],[]]
-                for a,b in zip(d['samples'],d['samples'][1:]):
-                    t=((a['age']+b['age'])/2-d['gather'])/d['duration']
-                    if a['age']<d['gather'] or b['age']>d['gather']+d['duration']:continue
-                    speed=math.hypot(b['x']-a['x'],b['y']-a['y'])/(b['age']-a['age'])
-                    if 0<t<.14:buckets[0].append(speed)
-                    if .3<t<.75:buckets[1].append(speed)
-                    if .88<t<1:buckets[2].append(speed)
-                assert all(buckets),d
-                averages=[sum(b)/len(b) for b in buckets]
-                assert averages[1]>averages[0]*1.1 and averages[1]>averages[2]*1.1,averages
-                speed_checks.append(dict(launch=averages[0],cruise=averages[1],braking=averages[2]))
         if name=='shine-speeds':
             assert len(motion['depletes'])==3
-            assert all(abs(d['duration']-v)<.001 for d,v in zip(motion['depletes'],[.30,.12,.42]))
+            assert all(abs(d['duration']-v)<.001 for d,v in zip(motion['depletes'],[.38,.12,.54]))
             assert motion['depletes'][-1]['fuel']
         if name=='starlight-act2':
             assert motion['floorFrames']>0 and motion['maxFloorY']<motion['viewportHeight']*.8
