@@ -120,7 +120,7 @@ def stage_hover(label):
 
 if want('starlight-act2'):
     stage('starlight-act2', seed=False); prep('KAREN_STARLIGHT02_CARD'); prep('KAREN_SHINE_STRIKE')
-    record_start(); clip_cast('KAREN_STARLIGHT02_CARD', 'Starlight 第二幕｜前后双层灯束触底，灰色暗场突出灯光')
+    record_start(); clip_cast('KAREN_STARLIGHT02_CARD', 'Starlight 第二幕｜前后灯束落在场景地面，扁平光斑承接')
     marking('第二幕预览｜蓝白平行背光，角色与敌人位于光幕前方'); stage_hover('hover')
     time.sleep(1); marking('第二幕结算｜同一背光覆盖三次重播与闪耀耗尽')
     clip_cast('KAREN_SHINE_STRIKE', '重播与耗尽｜背景持有至实际卡牌完整结算')
@@ -135,6 +135,38 @@ if want('shine-play'):
     prep('KAREN_SHINE_STRIKE');cmd('revision_probe shine KAREN_SHINE_STRIKE 2')
     clip_cast('KAREN_SHINE_STRIKE','两点闪耀对照｜本次不会耗尽，打出过程中不误亮临界提示')
     report=json.loads(cmd('revision_probe status')['message']);assert report['falseWarningFrames']==0,report
+    finish()
+
+if want('shine-motion'):
+    stage('shine-motion',seed=False)
+    for card in ['KAREN_SHINE_STRIKE','KAREN_NONON']:
+        prep(card);cmd('shine_fuel set '+card+' 1')
+    record_start();marking('临界提示｜错拍流光与自由漂浮星屑');time.sleep(1.2)
+    card=next(c for c in state()['player']['hand'] if c['id']=='KAREN_SHINE_STRIKE')
+    post(action='hover_card',card_index=card['index']);time.sleep(.7)
+    marking('移开预览｜余烬保留惯性，亮星柔和跟随卡牌')
+    post(action='unhover_card');time.sleep(.8)
+    clip_cast('KAREN_SHINE_STRIKE','闪耀打击耗尽｜大范围星屑收拢，短弧快速入堆')
+    clip_cast('KAREN_NONON','NONNON 耗尽｜卡牌整体缩小，星屑汇为亮点后加速飞入')
+    prep('KAREN_SHINE_STRIKE');cmd('shine_fuel set KAREN_SHINE_STRIKE 2')
+    clip_cast('KAREN_SHINE_STRIKE','两点闪耀对照｜本次不耗尽，不误亮临界提示')
+    motion=json.loads(cmd('shine_motion status')['message']);save('motion-assertions',motion)
+    assert motion['detachedSparkFrames']>0 and motion['maxSparks']<=40,motion
+    assert len(motion['depletes'])==2 and motion['liveDepletes']==0,motion
+    assert all(s['released'] and s['landingError']<.1 and s['duration']<.43 and s['minCardScale']<.2 for s in motion['depletes']),motion
+    report=json.loads(cmd('revision_probe status')['message'])
+    assert report['missingPlayFrames']==report['falseWarningFrames']==0 and report['playWarningFrames']>0,report
+    finish()
+
+if want('shine-speeds'):
+    stage('shine-speeds',seed=False);record_start()
+    for speed,card in [('fast','KAREN_SHINE_STRIKE'),('instant','KAREN_SHINE_STRIKE'),('normal','KAREN_DROP_FUEL')]:
+        cmd('stage_probe speed '+speed);prep(card);cmd('shine_fuel set '+card+' 1')
+        clip_cast(card,speed+'｜耗尽飞行时长与落点；燃料爆散后不重新显示卡面')
+    motion=json.loads(cmd('shine_motion status')['message']);save('motion-assertions',motion)
+    assert len(motion['depletes'])==3 and motion['liveDepletes']==0,motion
+    assert all(s['released'] and s['landingError']<.1 and not s['faceReappeared'] for s in motion['depletes']),motion
+    assert all(abs(s['duration']-duration)<.001 for s,duration in zip(motion['depletes'],[.30,.12,.42])),motion
     finish()
 
 for void in (False, True):

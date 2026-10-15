@@ -23,6 +23,11 @@ public partial class NKarenShineDepleteVfx : Node2D
     private NCombatRoom _room = null!;
     private Transform2D _source;
     private readonly List<Vector2> _trail = new();
+    private readonly List<float> _trailTimes = new();
+    private readonly Vector2[] _flightPoints = new Vector2[33];
+    private readonly float[] _flightLengths = new float[33];
+    private Vector2 _flightEnd, _headPosition;
+    private float _pathLength;
     private float _age;
     private float _duration;
     private float _gatherDuration;
@@ -63,11 +68,13 @@ public partial class NKarenShineDepleteVfx : Node2D
             _cardVisible = card.Visible,
             _cardColor = card.Modulate,
             _fuel = KarenFuelCardVisuals.IsBurst(card),
-            _duration = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant ? .25f : .85f
+            _duration = SaveManager.Instance.PrefsSave.FastMode switch { FastModeType.Instant => .12f, FastModeType.Fast => .30f, _ => .42f }
         };
-        bool instant = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant;
-        effect._gatherDuration = effect._fuel ? (instant ? .06f : .10f) : (instant ? .10f : .28f);
-        effect._trail.Add(source.Origin);
+        var speed = SaveManager.Instance.PrefsSave.FastMode;
+        effect._gatherDuration = effect._fuel
+            ? (speed == FastModeType.Instant ? .025f : speed == FastModeType.Fast ? .07f : .10f)
+            : (speed == FastModeType.Instant ? .07f : speed == FastModeType.Fast ? .24f : .34f);
+        effect._headPosition = source.Origin;
         ui!.AddChild(effect);
         // Removing the visual from the play container prevents native RemoveFromCombat
         // from taking ownership a second time. This node returns it to the pool exactly once.
@@ -119,18 +126,19 @@ public partial class NKarenShineDepleteVfx : Node2D
         {
             _card.Modulate = new Color(_cardColor, _cardColor.A * (1 - gather));
             _card.Visible = _cardVisible && !_fuel && _age < _gatherDuration;
+            float shrink = Mathf.Lerp(1, .10f, gather);
+            PlaceCard(new Transform2D(_source.X * shrink, _source.Y * shrink, _source.Origin));
         }
         float t = Mathf.Clamp((_age - _gatherDuration) / _duration, 0, 1);
-        float u = t * t * (3 - 2 * t);
         var end = _target.GetGlobalTransformWithCanvas() * (_target.Size * .5f);
-        var start = _source.Origin;
-        var bend = new Vector2(start.X + (end.X - start.X) * .18f, Mathf.Max(75, start.Y - 210));
-        var p = start * ((1-u)*(1-u)) + bend * (2*(1-u)*u) + end * (u*u);
-        if (t < 1 || !_released)
+        if (_pathLength <= 0 || end.DistanceSquaredTo(_flightEnd) > .25f) BuildFlight(end);
+        var p = FlightPoint(TravelProgress(t));
+        var direction = (p - _headPosition).Normalized();
+        _headPosition = p;
+        while (_trailTimes.Count > 0 && _age - _trailTimes[0] > .16f) { _trail.RemoveAt(0); _trailTimes.RemoveAt(0); }
+        if (_age >= _gatherDuration && (t < 1 || !_released))
         {
-            var direction = _trail.Count > 0 ? (p - _trail[^1]).Normalized() : Vector2.Up;
-            if (p.DistanceSquaredTo(_trail[^1]) > .04f || t >= 1) _trail.Add(p);
-            if (_trail.Count > 24) _trail.RemoveAt(0);
+            if (_trail.Count == 0 || p.DistanceSquaredTo(_trail[^1]) > .04f || t >= 1) { _trail.Add(p); _trailTimes.Add(_age); }
             _sparkClock += dt;
             if (t > 0 && _sparkClock >= .014f && _sparks.Count < 90)
             {
@@ -141,13 +149,47 @@ public partial class NKarenShineDepleteVfx : Node2D
                     float side = index % 2 == 0 ? -1 : 1;
                     var normal = new Vector2(-direction.Y, direction.X);
                     var velocity = normal * side * (38 + index * 37 % 92) - direction * (30 + index * 13 % 50);
-                    _sparks.Add(new Spark(p, velocity, .35f + index % 5 * .065f, index));
+                    _sparks.Add(new Spark(p, velocity, .22f + index % 5 * .035f, index));
                 }
             }
         }
         if (t >= 1) Release();
-        if (_age >= _gatherDuration + _duration + .65f) QueueFree();
+        if (_age >= _gatherDuration + _duration + .42f) QueueFree();
         QueueRedraw();
+    }
+
+    private void BuildFlight(Vector2 end)
+    {
+        _flightEnd = end;
+        var start = _source.Origin; var delta = end - start;
+        float unit = GetViewport().GetVisibleRect().Size.Y / 1080f;
+        float lift = Mathf.Clamp(Mathf.Abs(delta.X) * .24f + Mathf.Abs(delta.Y) * .16f, 100 * unit, 270 * unit);
+        var c1 = start + new Vector2(delta.X * .08f, -lift);
+        var c2 = end + new Vector2(-delta.X * .22f, Mathf.Clamp(Mathf.Abs(delta.Y) * .18f, 40 * unit, 110 * unit));
+        _flightLengths[0] = 0; _flightPoints[0] = start;
+        for (int i = 1; i < _flightPoints.Length; i++) {
+            float t = i / 32f, v = 1 - t;
+            _flightPoints[i] = start * (v*v*v) + c1 * (3*v*v*t) + c2 * (3*v*t*t) + end * (t*t*t);
+            _flightLengths[i] = _flightLengths[i-1] + _flightPoints[i].DistanceTo(_flightPoints[i-1]);
+        }
+        _pathLength = _flightLengths[^1];
+    }
+    // Integrate a short acceleration (16%), fast cruise (72%) and light braking
+    // (12%). Arc-length lookup keeps the designed speed independent of curvature.
+    private static float TravelProgress(float t)
+    {
+        const float acceleration = .16f, braking = .12f, peak = 1 / (1 - (acceleration + braking) / 2);
+        if (t < acceleration) return peak * t * t / (2 * acceleration);
+        if (t <= 1 - braking) return peak * (t - acceleration / 2);
+        return 1 - peak * (1-t) * (1-t) / (2 * braking);
+    }
+    private Vector2 FlightPoint(float progress)
+    {
+        float distance = progress * _pathLength;
+        for (int i = 1; i < _flightPoints.Length; i++)
+            if (distance <= _flightLengths[i]) return _flightPoints[i-1].Lerp(_flightPoints[i],
+                Mathf.Clamp((distance - _flightLengths[i-1]) / Mathf.Max(.001f, _flightLengths[i] - _flightLengths[i-1]), 0, 1));
+        return _flightEnd;
     }
 
     public override void _Draw()
@@ -156,23 +198,28 @@ public partial class NKarenShineDepleteVfx : Node2D
         float fade = 1 - Ease((_age - _gatherDuration - _duration) / .3f);
         if (!_fuel && _age < _gatherDuration)
         {
-            // Warm fragments converge while the stationary card fades beneath them.
-            // The same light becomes the travelling head once the face is gone.
-            float light = Mathf.Sin(gather * Mathf.Pi) * .7f;
-            for (int i = 0; i < 16; i++)
+            // A loose, card-sized outer cloud curls inward as the actual face shrinks.
+            // The whole silhouette participates before it becomes a compact flight head.
+            for (int i = 0; i < 40; i++)
             {
-                float angle = i * Mathf.Tau / 16;
-                var edge = _source * new Vector2(Mathf.Cos(angle) * 115, Mathf.Sin(angle) * 170);
-                var point = edge.Lerp(_source.Origin, gather);
-                var tail = edge.Lerp(_source.Origin, Mathf.Max(0, gather - .10f));
-                DrawLine(tail, point, new Color(Gold, light), 2, true);
-                DrawCircle(point, 2.3f, new Color(Hot, light));
+                float u = Mathf.Clamp((gather - i % 5 * .022f) / (1 - i % 5 * .022f), 0, 1);
+                float angle = i * 2.399963f;
+                var offset = new Vector2(Mathf.Cos(angle) * (180 + i % 4 * 18), Mathf.Sin(angle) * (245 + i % 5 * 16));
+                var edge = _source * offset - _source.Origin;
+                var tangent = new Vector2(-edge.Y, edge.X).Normalized() * (22 + i % 7 * 7);
+                var point = _source.Origin + edge * (1-u) + tangent * Mathf.Sin(u * Mathf.Pi);
+                float previous = Mathf.Max(0, u - .09f);
+                var tail = _source.Origin + edge * (1-previous) + tangent * Mathf.Sin(previous * Mathf.Pi);
+                float light = Mathf.Sin(u * Mathf.Pi) * (.55f + i % 3 * .12f);
+                DrawLine(tail, point, new Color(Gold, light * .15f), 8, true);
+                DrawLine(tail, point, new Color(Gold, light), 2.2f, true);
+                DrawCircle(point, i % 4 == 0 ? 4 : 2.2f, new Color(Hot, light));
             }
         }
         for (int i = 1; i < _trail.Count; i++)
         {
             float k = (float)i / _trail.Count;
-            float light = k * k * fade;
+            float light = k * k * fade * Mathf.Clamp(1 - (_age - _trailTimes[i]) / .16f, 0, 1);
             DrawLine(_trail[i-1], _trail[i], new Color(Gold, light * .10f), 8 + k * 18, true);
             DrawLine(_trail[i-1], _trail[i], new Color(Gold, light * .45f), 3 + k * 7, true);
             DrawLine(_trail[i-1], _trail[i], new Color(Hot, light), 1 + k * 2.5f, true);
@@ -187,8 +234,7 @@ public partial class NKarenShineDepleteVfx : Node2D
             DrawLine(spark.Position - spark.Velocity * .028f, spark.Position, new Color(color, light), 1.7f, true);
             DrawCircle(spark.Position, spark.Variant % 4 == 0 ? 2.8f : 1.6f, new Color(Hot, light));
         }
-        if (_trail.Count == 0) return;
-        var p = _trail[^1];
+        var p = _headPosition;
         float headLight = gather * fade;
         float r = 17 * (.65f + .35f * gather) * fade;
         for (int layer = 8; layer > 0; layer--)

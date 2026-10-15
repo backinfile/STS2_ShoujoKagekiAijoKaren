@@ -173,7 +173,9 @@ if __name__ == '__main__':
     parser.add_argument('--scenes', help='Comma-separated scene names in delivery order')
     args = parser.parse_args()
     if args.separate:
-        available = dict(CURRENT_ENTRIES + [('shine-play', '闪耀临界 · 提示随卡牌完成打出')])
+        available = dict(CURRENT_ENTRIES + [('shine-play', '闪耀临界 · 提示随卡牌完成打出'),
+            ('shine-motion', '闪耀耗尽 · 漂浮预告、星屑收拢与快速入堆'),
+            ('shine-speeds', '闪耀耗尽 · Fast、Instant 与燃料兼容')])
         names = args.scenes.split(',') if args.scenes else list(available)
         for name in names:
             assemble(args.output.resolve() / 'clips' / name, args.branch, entries=[(name, available[name])],

@@ -54,10 +54,10 @@ public partial class NKarenStageCueVfx
         if(Kind!=CueKind.Act2Cast)return;
         float a=Alpha;
         _shade.DrawRect(new Rect2(S(0,54),S(1280,666)),new Color(.065f,.068f,.075f,a*.52f));
-        // Gray wedges between the rear beams keep each shaft distinct across the whole floor.
+        // The backdrop's stage plane follows the character's foot line, not the viewport edge.
         for(int i=0;i<6;i++){
             float x=44+i*198;
-            _shade.DrawColoredPolygon([S(640,82),S(x+36,720),S(x+142,720)],new Color(.045f,.048f,.055f,a*.24f));
+            _shade.DrawColoredPolygon([S(640,82),CastGroundPoint(x+36,false),CastGroundPoint(x+142,false)],new Color(.045f,.048f,.055f,a*.24f));
         }
         _shade.DrawRect(new Rect2(S(0,470),S(1280,250)),new Color(.08f,.082f,.09f,a*.14f));
     }
@@ -66,22 +66,30 @@ public partial class NKarenStageCueVfx
         if(Kind!=CueKind.Act2Cast)return;
         float a=Alpha;
         _frontShade.DrawRect(new Rect2(S(0,54),S(1280,666)),new Color(.075f,.078f,.085f,a*.16f));
-        _frontShade.DrawColoredPolygon([S(0,54),S(480,54),S(170,720),S(0,720)],new Color(.055f,.058f,.065f,a*.12f));
-        _frontShade.DrawColoredPolygon([S(800,54),S(1280,54),S(1280,720),S(1110,720)],new Color(.055f,.058f,.065f,a*.12f));
+        _frontShade.DrawColoredPolygon([S(0,54),S(480,54),CastGroundPoint(170,true),CastGroundPoint(0,true)],new Color(.055f,.058f,.065f,a*.12f));
+        _frontShade.DrawColoredPolygon([S(800,54),S(1280,54),CastGroundPoint(1280,true),CastGroundPoint(1110,true)],new Color(.055f,.058f,.065f,a*.12f));
     }
+    private Vector2 CastGroundPoint(float designX,bool front) => new(S(designX,0).X,
+        _foot.Y + (front ? 7 : -14) * _unit - Mathf.Sin(designX / 1280 * Mathf.Pi) * 5 * _unit);
     private void DrawCastBeams(Node2D layer,bool front)
     {
         float a=Alpha,u=Ease(P(_age,.02f,.48f));var from=S(640,82);
         int count=front?5:7;
         for(int i=0;i<count;i++){
-            var floor=S(front?135+i*252:44+i*198,720);
+            var floor=CastGroundPoint(front?135+i*252:44+i*198,front);
             var end=from.Lerp(floor,u);var delta=end-from;if(delta.Length()<1)continue;
-            var normal=new Vector2(-delta.Y,delta.X).Normalized();
             float width=(front?26:54)*_screen.X/1280;
-            layer.DrawColoredPolygon([from-normal*3,from+normal*3,end+normal*width,end-normal*width],new Color(Blue.R,Blue.G,Blue.B,a*(front?.055f:.09f)));
-            Soft(layer,from.Lerp(end,.5f),new Vector2(width*2.5f,delta.Length()*1.25f),Blue,a*(front?.43f:.57f),delta.Angle()-Mathf.Pi/2);
+            // Nested feathered strips have a flat end on the perspective floor.
+            // A radial texture along the shaft would leak past that plane.
+            for(int band=0;band<7;band++){
+                float w=width*(1-band*.13f);
+                layer.DrawColoredPolygon([from-Vector2.Right*2,from+Vector2.Right*2,end+Vector2.Right*w,end-Vector2.Right*w],
+                    new Color(Blue.R,Blue.G,Blue.B,a*(front?.022f:.035f)));
+            }
             var c=White;c.A=a*(front?.75f:.33f);layer.DrawLine(from,end,c,(front?2.5f:3.5f)*_screen.X/1280,true);
-            Soft(layer,end,new Vector2(width*2.4f,24*_screen.Y/720),Blue,a*u*(front?.18f:.26f));
+            float landed=P(_age,.40f,.52f);
+            Soft(layer,floor,new Vector2(width*3.6f,22*_screen.Y/720),Blue,a*landed*(front?.45f:.56f));
+            Soft(layer,floor,new Vector2(width*2,7*_screen.Y/720),White,a*landed*.38f);
         }
     }
     private void DrawBackground()

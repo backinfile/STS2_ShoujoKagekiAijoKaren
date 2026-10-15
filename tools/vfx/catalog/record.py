@@ -215,6 +215,7 @@ try:
         cmd('bridge_vfx watch')
         cmd('stage_probe watch')
         cmd('revision_probe watch')
+        cmd('shine_motion watch')
         cmd('showcase restore-relics')
         cmd('bridge_vfx energy2')
         # Enough energy for individual demonstrations, without a distracting 100+ counter.
@@ -229,6 +230,7 @@ try:
         save('native-finished',json.loads(cmd('bridge_vfx status')['message']))
         save('stage-probe',json.loads(cmd('stage_probe status')['message']))
         save('revision-probe',json.loads(cmd('revision_probe status')['message']))
+        save('shine-motion',json.loads(cmd('shine_motion status')['message']))
         record_stop();print('RECORDED',case.name,flush=True)
     cmd('native_speed '+args.speed);fight()
     if want('tower'):
