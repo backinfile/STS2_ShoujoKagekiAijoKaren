@@ -55,7 +55,8 @@ for branch in ['stable','beta']:
             assert motion['depletes'][-1]['fuel']
         if name=='starlight-act2':
             assert motion['floorFrames']>0 and motion['maxFloorY']<motion['viewportHeight']*.8
-            assert motion['maxFloorOffset']<motion['viewportHeight']*.05
+            # The foreground plane projects another 36 pixels down at 720p.
+            assert motion['maxFloorOffset']<motion['viewportHeight']*.10
             stage=read(folder/'stage-probe.json')
             assert stage['live']==stage['allLive']==stage['backLive']==stage['hudLive']==0
             hover=next(s for s in stage['casts'] if s['kind']=='Act2Hover')

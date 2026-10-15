@@ -70,7 +70,8 @@ public partial class NKarenStageCueVfx
         _frontShade.DrawColoredPolygon([S(800,54),S(1280,54),CastGroundPoint(1280,true),CastGroundPoint(1110,true)],new Color(.055f,.058f,.065f,a*.12f));
     }
     private Vector2 CastGroundPoint(float designX,bool front) => new(S(designX,0).X,
-        _foot.Y + (front ? 7 : -14) * _unit - Mathf.Sin(designX / 1280 * Mathf.Pi) * 5 * _unit);
+        _foot.Y + (front ? 7 : -14) * _unit - Mathf.Sin(designX / 1280 * Mathf.Pi) * 5 * _unit
+        + (front ? S(0,36).Y : 0));
     private void DrawCastBeams(Node2D layer,bool front)
     {
         float a=Alpha,u=Ease(P(_age,.02f,.48f));var from=S(640,82);
@@ -88,8 +89,8 @@ public partial class NKarenStageCueVfx
             }
             var c=White;c.A=a*(front?.75f:.33f);layer.DrawLine(from,end,c,(front?2.5f:3.5f)*_screen.X/1280,true);
             float landed=P(_age,.40f,.52f);
-            Soft(layer,floor,new Vector2(width*3.6f,22*_screen.Y/720),Blue,a*landed*(front?.45f:.56f));
-            Soft(layer,floor,new Vector2(width*2,7*_screen.Y/720),White,a*landed*.38f);
+            Soft(layer,floor,new Vector2(width*3.6f,(front?40:22)*_screen.Y/720),Blue,a*landed*(front?.45f:.56f));
+            Soft(layer,floor,new Vector2(width*2,(front?13:7)*_screen.Y/720),White,a*landed*.38f);
         }
     }
     private void DrawBackground()

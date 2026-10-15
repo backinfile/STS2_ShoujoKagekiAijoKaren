@@ -120,7 +120,7 @@ def stage_hover(label):
 
 if want('starlight-act2'):
     stage('starlight-act2', seed=False); prep('KAREN_STARLIGHT02_CARD'); prep('KAREN_SHINE_STRIKE')
-    record_start(); clip_cast('KAREN_STARLIGHT02_CARD', 'Starlight 第二幕｜前后灯束落在场景地面，扁平光斑承接')
+    record_start(); clip_cast('KAREN_STARLIGHT02_CARD', 'Starlight 第二幕｜前景落点下移，地面椭圆铺光加厚')
     marking('第二幕预览｜蓝白平行背光，角色与敌人位于光幕前方'); stage_hover('hover')
     time.sleep(1); marking('第二幕结算｜同一背光覆盖三次重播与闪耀耗尽')
     clip_cast('KAREN_SHINE_STRIKE', '重播与耗尽｜背景持有至实际卡牌完整结算')
