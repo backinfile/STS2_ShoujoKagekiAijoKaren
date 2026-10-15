@@ -2,7 +2,9 @@
 
 用户澄清需要卡牌上的常驻特效。撤回 `300babc` 中误加的普通回牌演出，移除 `NKarenShineReturnVfx`、回牌来源记录及 `NCardFlyVfx` 接管补丁、对应专项脚本。普通移牌恢复原生流程；既有闪耀耗尽的轨迹和速度曲线保留。
 
-## 卡牌上的表现
+当前可见性加强参数见文末“后续调整：手牌尺寸下的可辨识度”；下列初版参数和录像保留为历史记录。
+
+## 初版卡牌表现（2cbd015）
 
 `NKarenShineAmbientVfx` 挂在 `NCard.OverlayContainer`，为仍有闪耀且不处于临界状态的可见牌面持续绘制：细金色开放边角、两侧缓慢向上游走的亮痕，以及少量轻柔上浮星屑。卡图、数值和文字区域保持清楚；没有大亮星、整圈宽亮边或新增音效。
 
@@ -44,3 +46,25 @@
 - `clips/starlight-act2/Karen-starlight-act2.mp4`：9.173 秒，第二幕交接复核，峰值 -1.7 dB。
 
 两套主开发环境已更新并校验 Karen 五个包文件，其他 Mod 文件保持不变；旧包位于 `deployment-backup/`，清单为 `deployment.json`。正式版实现 DLL SHA-256 为 `c373f6c7396e9896cc6711f6188cd7d6a5a780ce826c77ff0c094e0b141e389e`，测试版为 `3a0970f69f56886370f1fe286299e33e560dde315bce521bf82efbb2f4359f8c`，共用 PCK 为 `dbcd8d5c3d92f148c57dc6a50c709f7d4603c21c6588f3203a53e4adcf66aa74`。此前普通回牌录像仅作撤回历史，不代表当前效果。
+
+## 后续调整：手牌尺寸下的可辨识度
+
+用户反馈常驻微光不明显。原版以零散的 1.8 单位细边角为主，缩为手牌尺寸后容易被原生可打出的青蓝边框覆盖。本轮增加连续金色侧缘及顶部细线，核心线宽提升到 3，柔光扩大到 12；边角亮度由最高约 0.36 增至 0.62，边角线段加长。两侧亮痕由各一条变为各两条，长度和亮度同步提高，形成更容易读出的缓慢游走。
+
+卡牌上方新增半径 7–9 的小亮星，alpha 0.55–0.70，带轻微摆动和受限的惯性跟随。临界提示仍保留半径 13–18 的大亮星、较宽亮边及更密余烬，两层互斥规则保留。普通粒子每 0.065 秒发射一颗，上限由 8 增至 14，半径由 1.5–2.3 增至 2.3–3.3，发光系数由 0.40 增至 0.68；仍使用独立视口位置漂浮。没有修改移牌、耗尽轨迹、闪耀结算或临界提示的参数。
+
+本轮证据为 `artifacts/shine-ambient-visible-20261015/`。两版构建通过，各有 26 条既有编译警告、零错误。由于本轮仅加强绘制参数，通过 KarenSTS2MCP 在正式版 v0.107.1、测试版 v0.111.0 各重跑 `shine-ambient`：同屏普通闪耀／临界／普通牌，逐牌悬停，3→2 普通打出和 1→0 耗尽对照；未重复速度／燃料／第二幕三场景套件或全面联机矩阵。
+
+| 核查 | 正式版 | 测试版 |
+| --- | --- | --- |
+| 普通常驻手牌／打出发光帧样本 | 1630／16 | 1625／16 |
+| 单卡星屑实测峰值 | 13 | 14 |
+| 常驻漏亮／叠亮／泄漏、临界漏亮／误亮 | 均为 0 | 均为 0 |
+| 手牌模型与可见节点核对 | 5 次通过 | 5 次通过 |
+| 游戏捕获帧率 | 29.26 fps | 29.52 fps |
+
+已保存并查看两版 MCP 操作前后截图；耗尽实际进入牌堆、终点误差及临时节点清理检查通过。首次正式版启动在 Common 预载期间出现一次 `Godot.Bridge.ScriptManagerBridge.GetPropertyInfoList` 的 `KeyNotFoundException`，该次完整证据保留在 `stable-first-startup-error/`，没有加入日志白名单。同一生产包重启重录后未复现；最终正式版、测试版日志均无错误。窗口前台／恢复采样仍为零。
+
+复核命令：`python tools/vfx/catalog/verify_shine_ambient.py --output artifacts/shine-ambient-visible-20261015 --scenes shine-ambient`，结果为 `verification.json`。新单独录像为 `clips/shine-ambient/Karen-shine-ambient.mp4`，16.128 秒，1280×816、30 fps、游戏原声 AAC 与底部逐段说明，峰值 -2.4 dB，完整解码通过。`review/hand-before-after.png` 保留相同尺寸的调整前后手牌对照，`review/mcp-before-after.png` 为双版本操作前后核对图。
+
+两套主开发环境均已更新 Karen 五个包文件并核对哈希，其他 Mod 的 8／6 个文件保持不变；旧包及清单在本轮证据的 `deployment-backup/`、`deployment.json`。正式版实现 DLL SHA-256 为 `9ab917190b9a1fad1805bfa1406e657a44cb95ed5350d455843e0fb66d17bca2`，测试版为 `db69619e3143adf27809141b06f3aae10d7d45f5ad332b85a92f680b9b90c16e`，共用 PCK 仍为 `dbcd8d5c3d92f148c57dc6a50c709f7d4603c21c6588f3203a53e4adcf66aa74`。

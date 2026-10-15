@@ -14,13 +14,15 @@ public partial class NKarenShineAmbientVfx(NCard card, CardModel model, NKarenSh
     private int _sparkIndex;
     private bool _hasPose;
     private Transform2D _previousPose;
+    private Vector2 _lightWorld;
+    private readonly Vector2[] _star = new Vector2[8];
     private sealed class Spark(Vector2 position, Vector2 velocity, float life, float radius)
     {
         public Vector2 Position = position, Velocity = velocity;
         public float Age;
         public readonly float Life = life, Radius = radius;
     }
-    private readonly List<Spark> _sparks = new(8);
+    private readonly List<Spark> _sparks = new(14);
     public bool BelongsTo(CardModel? candidate) => ReferenceEquals(candidate, model);
     public override void _Ready() { _phase = GetInstanceId()%997*.017f; _Process(0); }
 
@@ -36,6 +38,9 @@ public partial class NKarenShineAmbientVfx(NCard card, CardModel model, NKarenSh
         _age += dt;
         var pose = GetGlobalTransformWithCanvas();
         float unit = Mathf.Max(.1f, pose.Scale.Length()/Mathf.Sqrt(2));
+        var lightTarget = pose*new Vector2(28+Mathf.Sin(_age*1.4f+_phase)*12,-219+Mathf.Sin(_age*1.9f+_phase)*5);
+        _lightWorld = _hasPose ? _lightWorld.Lerp(lightTarget,1-Mathf.Exp(-12*dt)) : lightTarget;
+        _lightWorld = lightTarget+(_lightWorld-lightTarget).LimitLength(18*unit);
         var inherited = _hasPose ? ((pose.Origin-_previousPose.Origin)/Mathf.Max(dt,.001f)).LimitLength(90*unit)*.08f : Vector2.Zero;
         _previousPose = pose; _hasPose = true;
         for (int i=_sparks.Count-1; i>=0; i--)
@@ -45,13 +50,13 @@ public partial class NKarenShineAmbientVfx(NCard card, CardModel model, NKarenSh
             if (spark.Age >= spark.Life) _sparks.RemoveAt(i);
         }
         _spawnClock += dt;
-        if (_spawnClock >= .12f && _sparks.Count < 8)
+        if (_spawnClock >= .065f && _sparks.Count < 14)
         {
             _spawnClock = 0;
             int i = _sparkIndex++; float side = i%2==0 ? -1 : 1;
-            var origin = i%3==0 ? new Vector2(-78+i*37%165,-198) : new Vector2(side*140,-150+i*71%290);
-            var velocity = pose.BasisXform(new Vector2(side*(3+i%4),-12-i%5*3))+inherited;
-            _sparks.Add(new Spark(pose*origin,velocity,.65f+i%4*.07f,(1.5f+i%3*.4f)*unit));
+            var origin = i%3==0 ? new Vector2(-78+i*37%165,-202) : new Vector2(side*145,-158+i*71%300);
+            var velocity = pose.BasisXform(new Vector2(side*(5+i%4),-18-i%5*4))+inherited;
+            _sparks.Add(new Spark(pose*origin,velocity,.75f+i%4*.07f,(2.3f+i%3*.5f)*unit));
         }
         QueueRedraw();
     }
@@ -60,34 +65,53 @@ public partial class NKarenShineAmbientVfx(NCard card, CardModel model, NKarenSh
     {
         float pulse = .5f+.5f*Mathf.Sin(_age*1.7f+_phase);
         var gold = new Color("#ffd48b"); var hot = new Color("#fff1cc");
-        // Open corners and two slow edge glints leave the artwork and labels clear.
-        // Their narrow light is subordinate to the warning's broad rim and large star.
+        // A readable golden rim at normal hand scale; the warning still owns the
+        // broader, brighter light, larger star and much denser embers.
         for (int side=-1; side<=1; side+=2)
         {
             float x = side*139;
+            DrawLine(new Vector2(x,-184),new Vector2(x,178),new Color(gold,.10f+pulse*.06f),12,true);
+            DrawLine(new Vector2(x,-184),new Vector2(x,178),new Color(gold,.36f+pulse*.12f),3,true);
             for (int edge=0; edge<2; edge++)
             {
                 float y = edge==0 ? -190 : 178;
                 float inward = y<0 ? 1 : -1;
                 var p = new Vector2(x,y);
-                DrawLine(p,new Vector2(x-side*27,y),new Color(gold,.035f+pulse*.025f),9,true);
-                DrawLine(p,p+new Vector2(0,inward*33),new Color(gold,.035f+pulse*.025f),9,true);
-                DrawLine(p,new Vector2(x-side*27,y),new Color(hot,.24f+pulse*.12f),1.8f,true);
-                DrawLine(p,p+new Vector2(0,inward*33),new Color(gold,.20f+pulse*.10f),1.8f,true);
+                DrawLine(p,new Vector2(x-side*42,y),new Color(gold,.10f+pulse*.06f),12,true);
+                DrawLine(p,p+new Vector2(0,inward*44),new Color(gold,.10f+pulse*.06f),12,true);
+                DrawLine(p,new Vector2(x-side*42,y),new Color(hot,.48f+pulse*.14f),3,true);
+                DrawLine(p,p+new Vector2(0,inward*44),new Color(gold,.42f+pulse*.12f),3,true);
             }
-            float t = Mathf.PosMod(_age*.15f+_phase*.1f+side*.27f,1);
-            var glint = new Vector2(x,162-t*322);
-            float light = Mathf.Sin(t*Mathf.Pi)*(.25f+pulse*.10f);
-            DrawLine(glint,glint+new Vector2(0,15),new Color(gold,light*.20f),7,true);
-            DrawLine(glint,glint+new Vector2(0,12),new Color(hot,light),2,true);
+            for (int j=0; j<2; j++)
+            {
+                float t = Mathf.PosMod(_age*.19f+_phase*.1f+side*.27f+j*.5f,1);
+                var glint = new Vector2(x,153-t*308);
+                float light = Mathf.Sin(t*Mathf.Pi)*(.58f+pulse*.12f);
+                DrawLine(glint,glint+new Vector2(0,28),new Color(gold,light*.20f),12,true);
+                DrawLine(glint,glint+new Vector2(0,24),new Color(hot,light),3,true);
+            }
         }
+        DrawLine(new Vector2(-100,-199),new Vector2(120,-199),new Color(gold,.09f+pulse*.05f),12,true);
+        DrawLine(new Vector2(-100,-199),new Vector2(120,-199),new Color(gold,.40f+pulse*.12f),3,true);
+        var lightPoint = GetGlobalTransformWithCanvas().AffineInverse()*_lightWorld;
+        float radius = 7+pulse*2;
+        for (int layer=5; layer>0; layer--)
+            DrawCircle(lightPoint,radius*2*layer/5f,new Color(gold,.14f*Mathf.Pow(1-layer/6f,2)));
+        for (int i=0; i<_star.Length; i++)
+        {
+            float angle = i*Mathf.Pi/4-Mathf.Pi/2;
+            _star[i] = new Vector2(Mathf.Cos(angle),Mathf.Sin(angle))*(i%2==0 ? 1 : .22f);
+        }
+        DrawSetTransform(lightPoint,0,Vector2.One*radius);
+        DrawColoredPolygon(_star,new Color(hot,.55f+pulse*.15f));
+        DrawSetTransform(Vector2.Zero);
         DrawSetTransformMatrix(GetGlobalTransformWithCanvas().AffineInverse());
         foreach (var spark in _sparks)
         {
             float t = spark.Age/spark.Life;
-            float a = Mathf.Sin(Mathf.Min(1,t*4)*Mathf.Pi/2)*Mathf.Pow(1-t,1.2f)*.40f;
-            DrawCircle(spark.Position,spark.Radius*2,new Color(gold,a*.10f));
-            DrawLine(spark.Position-spark.Velocity*.04f,spark.Position,new Color(gold,a*.5f),spark.Radius*.6f,true);
+            float a = Mathf.Sin(Mathf.Min(1,t*4)*Mathf.Pi/2)*Mathf.Pow(1-t,1.2f)*.68f;
+            DrawCircle(spark.Position,spark.Radius*2.2f,new Color(gold,a*.15f));
+            DrawLine(spark.Position-spark.Velocity*.05f,spark.Position,new Color(gold,a*.65f),spark.Radius*.7f,true);
             DrawCircle(spark.Position,spark.Radius,new Color(hot,a));
         }
         DrawSetTransform(Vector2.Zero);

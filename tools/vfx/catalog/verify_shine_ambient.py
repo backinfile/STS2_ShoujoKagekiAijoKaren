@@ -13,10 +13,12 @@ from audit_log import audit
 
 parser=argparse.ArgumentParser()
 parser.add_argument('--output',type=pathlib.Path,required=True)
-root=parser.parse_args().output.resolve()
+parser.add_argument('--scenes',default='shine-ambient,shine-ambient-modes,starlight-act2')
+args=parser.parse_args();root=args.output.resolve()
 read=lambda p:json.loads(p.read_text(encoding='utf-8'))
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
-names=['shine-ambient','shine-ambient-modes','starlight-act2']
+names=args.scenes.split(',')
+assert names and all(n in ['shine-ambient','shine-ambient-modes','starlight-act2'] for n in names),names
 report={'versions':{},'clips':[]}
 for branch in ['stable','beta']:
     assembly=repo/f'artifacts/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.{branch.title()}.dll'
@@ -31,10 +33,10 @@ for branch in ['stable','beta']:
         assert capture['captureBuild']['assemblySha256']==sha(assembly)
         assert capture['captureBuild']['packSha256']==sha(repo/'artifacts/ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.pck')
         assert all(revision[k]==0 for k in ['missingAmbientFrames','ambientOverlapFrames','ambientLeakFrames','missingPlayFrames','falseWarningFrames']),revision
-        assert revision['maxAmbientSparks']<=8
+        assert revision['maxAmbientSparks']<=14
         if name.startswith('shine-ambient'):
             assert revision['handAmbientFrames']>100 and revision['playAmbientFrames']>0,revision
-            assert revision['maxAmbientSparks']>=3,revision
+            assert revision['maxAmbientSparks']>=8,revision
         if name=='shine-ambient':
             assert motion['detachedSparkFrames']>0 and revision['handWarningFrames']>0
         assert motion['liveDepletes']==0
