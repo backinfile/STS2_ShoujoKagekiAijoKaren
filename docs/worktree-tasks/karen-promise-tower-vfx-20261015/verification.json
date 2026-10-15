@@ -1,0 +1,2303 @@
+{
+  "buildBase": "bcfe75e9db3ffdd659a8334b0085c985e00e8be1",
+  "testedRenderers": "Vulkan Forward+ on stable and beta",
+  "runs": {
+    "stable": {
+      "vfxRun": "artifacts/tower-recall/20261015-152953-stable",
+      "checks": [
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "cancel-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": "KAREN_TOWER_OF_PROMISE",
+            "selectedPile": "Hand",
+            "computed": "Tower",
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 0,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 0,
+            "landed": 0,
+            "promise": 3,
+            "hand": 1,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "cancel-clears-preview",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "cancel-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "normal-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "normal-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "normal-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "normal-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "repeat-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "repeat-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "repeat-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "repeat-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "small-flip-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "small-flip-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "small-flip-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "small-flip-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "fast-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Fast",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 31,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "fast-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Fast",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 31,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "fast-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "fast-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "instant-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Instant",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 3,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": true,
+            "current": 0,
+            "crest": 0,
+            "seen": 0,
+            "landed": 0,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "instant-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Instant",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 3,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": true,
+            "current": 0,
+            "crest": 0,
+            "seen": 0,
+            "landed": 0,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "instant-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "instant-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 10,
+            "visualCount": 10,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "full-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 44,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 1,
+            "landed": 1,
+            "promise": 2,
+            "hand": 10,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "full-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 44,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 1,
+            "landed": 1,
+            "promise": 2,
+            "hand": 10,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "full-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 10,
+            "visualCount": 10,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "full-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "empty-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 19,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 0,
+            "landed": 0,
+            "promise": 0,
+            "hand": 0,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "empty-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 19,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 0,
+            "landed": 0,
+            "promise": 0,
+            "hand": 0,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "empty-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 0,
+            "visualCount": 0,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": []
+          },
+          "case": "empty-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "void-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "void-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "void-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "void-after-hand",
+          "passed": true
+        }
+      ],
+      "recording": {
+        "status": "completed",
+        "fps": 30,
+        "max_duration_seconds": 120,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 2092,
+        "video_duration_seconds": 69.73333333333333,
+        "frames_captured": 2003,
+        "frames_repeated": 89,
+        "capture_fps": 28.731575846506853,
+        "capture_average_ms": 15.273313030454297,
+        "capture_max_ms": 182.1072,
+        "elapsed_seconds": 70.9916582,
+        "audio": true,
+        "audio_source": "game_process"
+      },
+      "fallRun": "artifacts/test-promise-visuals/20261015-153312-stable-0a5a1a",
+      "fallResult": {
+        "video": null,
+        "result": "pass",
+        "placementFailures": [],
+        "selected": "KAREN_DEFEND",
+        "countBefore": 2,
+        "countAfterFall": 1,
+        "countAfterTower": 2
+      },
+      "recordedDllSha256": "6febebb4567cb0f430e37d6efd1c988df586d1d367a0b1f89a50747939c8cb7d"
+    },
+    "beta": {
+      "vfxRun": "artifacts/tower-recall/20261015-153128-beta",
+      "checks": [
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "cancel-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": "KAREN_TOWER_OF_PROMISE",
+            "selectedPile": "Hand",
+            "computed": "Tower",
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 0,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 0,
+            "landed": 0,
+            "promise": 3,
+            "hand": 1,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "cancel-clears-preview",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "cancel-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "normal-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "normal-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "normal-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "normal-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "repeat-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "repeat-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "repeat-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "repeat-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "small-flip-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "small-flip-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "small-flip-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "small-flip-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "fast-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Fast",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 31,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "fast-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Fast",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 31,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "fast-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "fast-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "instant-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Instant",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 3,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": true,
+            "current": 0,
+            "crest": 0,
+            "seen": 0,
+            "landed": 0,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "instant-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Instant",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 3,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": true,
+            "current": 0,
+            "crest": 0,
+            "seen": 0,
+            "landed": 0,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "instant-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "instant-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 10,
+            "visualCount": 10,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "full-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 44,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 1,
+            "landed": 1,
+            "promise": 2,
+            "hand": 10,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "full-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 44,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 1,
+            "landed": 1,
+            "promise": 2,
+            "hand": 10,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "full-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 10,
+            "visualCount": 10,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "full-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "empty-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 18,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 0,
+            "landed": 0,
+            "promise": 0,
+            "hand": 0,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "empty-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 18,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 0,
+            "landed": 0,
+            "promise": 0,
+            "hand": 0,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "empty-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 0,
+            "visualCount": 0,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": []
+          },
+          "case": "empty-after-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 1,
+            "visualCount": 1,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_TOWER_OF_PROMISE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "void-before-hand",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "void-recall",
+          "passed": true
+        },
+        {
+          "detail": {
+            "preparing": false,
+            "preparationError": null,
+            "speed": "Normal",
+            "local": true,
+            "selected": null,
+            "selectedPile": null,
+            "computed": null,
+            "inCardPlay": false,
+            "preview": null,
+            "profile": "Tower",
+            "alpha": 0,
+            "resolving": 0,
+            "playFrames": 76,
+            "playMinimumAlpha": 1,
+            "active": 0,
+            "instant": false,
+            "current": 0,
+            "crest": 0,
+            "seen": 3,
+            "landed": 3,
+            "promise": 0,
+            "hand": 3,
+            "screen": null,
+            "screenTitle": null
+          },
+          "case": "void-model-result",
+          "passed": true
+        },
+        {
+          "detail": {
+            "modelCount": 3,
+            "visualCount": 3,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          },
+          "case": "void-after-hand",
+          "passed": true
+        }
+      ],
+      "recording": {
+        "status": "completed",
+        "fps": 30,
+        "max_duration_seconds": 120,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 1635,
+        "video_duration_seconds": 54.5,
+        "frames_captured": 1543,
+        "frames_repeated": 92,
+        "capture_fps": 28.316428501982404,
+        "capture_average_ms": 14.589413674659761,
+        "capture_max_ms": 193.8202,
+        "elapsed_seconds": 55.6014171,
+        "audio": true,
+        "audio_source": "game_process"
+      },
+      "fallRun": "artifacts/test-promise-visuals/20261015-153343-beta-f2ba03",
+      "fallResult": {
+        "video": null,
+        "result": "pass",
+        "placementFailures": [],
+        "selected": "KAREN_DEFEND",
+        "countBefore": 3,
+        "countAfterFall": 2,
+        "countAfterTower": 3
+      },
+      "recordedDllSha256": "5c43cc5e8a40c467dedb2abd1cbf5f71f76ee10ac5d7cbbd9423f639ed6ab963"
+    }
+  },
+  "videoQA": {
+    "metadata": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "mime_codec_string": "avc1.640020",
+          "width": 1280,
+          "height": 816,
+          "coded_width": 1280,
+          "coded_height": 816,
+          "has_b_frames": 2,
+          "pix_fmt": "yuv420p",
+          "level": 32,
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/15360",
+          "start_pts": 323,
+          "start_time": "0.021029",
+          "duration_ts": 420864,
+          "duration": "27.400000",
+          "bit_rate": "1613071",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "822",
+          "extradata_size": 46,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "encoder": "Lavc62.28.100 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "mime_codec_string": "mp4a.40.2",
+          "sample_fmt": "fltp",
+          "sample_rate": "48000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 0,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/48000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 1316224,
+          "duration": "27.421333",
+          "bit_rate": "160307",
+          "nb_frames": "1294",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler"
+          }
+        }
+      ],
+      "format": {
+        "filename": "D:\\Godot\\Proj\\worktrees\\karen-promise-tower-vfx-20261015\\artifacts\\promise-tower\\deliverables\\tower-of-promise-showcase.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "27.421333",
+        "size": "6105841",
+        "bit_rate": "1781340",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf62.12.100"
+        }
+      }
+    },
+    "motion": [
+      {
+        "file": "00.mp4",
+        "sampledFrames": 22,
+        "uniqueFrames": 22
+      },
+      {
+        "file": "01.mp4",
+        "sampledFrames": 22,
+        "uniqueFrames": 22
+      },
+      {
+        "file": "02.mp4",
+        "sampledFrames": 19,
+        "uniqueFrames": 19
+      },
+      {
+        "file": "03.mp4",
+        "sampledFrames": 22,
+        "uniqueFrames": 22
+      },
+      {
+        "file": "04.mp4",
+        "sampledFrames": 22,
+        "uniqueFrames": 22
+      },
+      {
+        "file": "05.mp4",
+        "sampledFrames": 22,
+        "uniqueFrames": 22
+      },
+      {
+        "file": "06.mp4",
+        "sampledFrames": 16,
+        "uniqueFrames": 16
+      },
+      {
+        "file": "07.mp4",
+        "sampledFrames": 22,
+        "uniqueFrames": 22
+      }
+    ],
+    "audioMeanDb": -34.3,
+    "audioPeakDb": -16.6,
+    "freezeDiagnostics": []
+  }
+}
