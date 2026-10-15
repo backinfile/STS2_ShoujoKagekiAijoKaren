@@ -1,0 +1,12 @@
+Asset: karen_act2_lights_on.wav
+Purpose: Starlight Act 2 cast / initial hover opening cue.
+
+Source: Existing STS1 Karen Mod asset, not a new web download.
+D:/Github/STS_ShoujoKageki/src/main/resources/ShoujoKagekiResources/audio/sound/Karen_starlight02_lightoff.wav
+The old Mod's Starlight2VideoEffect constructor plays this asset when the Act 2 presentation starts.
+Its exact TV episode / official audio source has not been verified; the filename alone does not establish an on/off action.
+
+Processing: Preserve stereo 48 kHz PCM S16LE. Keep source 0.04–1.38 s; apply 5 ms fade-in and final 160 ms fade-out; gain +22.5 dB.
+The result is 1.34 s, with peak approximately -3.1 dBFS. Level is raised so the cue remains distinct from native card-play sounds.
+Cast gain 0.55; hover gain 0.18. Fast uses pitch 1/0.7 so the cue finishes within its shorter visual lifetime.
+No synthetic layers, speech generation, music replacement, or source separation.

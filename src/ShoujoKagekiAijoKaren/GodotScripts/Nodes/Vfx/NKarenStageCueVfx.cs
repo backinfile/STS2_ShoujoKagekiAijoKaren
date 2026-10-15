@@ -108,9 +108,10 @@ public partial class NKarenStageCueVfx : Node2D
         Place();
         var anchor = KarenPromiseVfxStarManager.GetPilePosition(_owner, this);
         _promisePoint = anchor is {} point ? ToLocal(point) : _body + new Vector2(-80, -160) * _unit;
-        if (Kind is CueKind.Act1Cast or CueKind.Act2Cast) Sound(KarenSfx.StageLight, .28f);
+        if (Kind == CueKind.Act1Cast) Sound(KarenSfx.StageLight, .28f);
+        if (Kind == CueKind.Act2Cast) Sound(KarenSfx.Act2LightsOn, .55f, 1 / Speed);
         // Hover uses a quieter single opening cue, never a loop or a per-replay cue.
-        if (Kind == CueKind.Act2Hover) Sound(KarenSfx.StageLight, .11f);
+        if (Kind == CueKind.Act2Hover) Sound(KarenSfx.Act2LightsOn, .18f, 1 / Speed);
         if (Kind is CueKind.TicketCast or CueKind.TicketReturn or CueKind.Duet) Sound("karen_benefit_gather.wav", Kind==CueKind.TicketReturn?.12f:.18f);
         QueueRedraw(); _back.QueueRedraw(); _shade.QueueRedraw(); _hud.QueueRedraw(); _frontShade.QueueRedraw();
     }
@@ -146,7 +147,7 @@ public partial class NKarenStageCueVfx : Node2D
     }
     public override void _Draw() => DrawForeground();
     private void HideAll() { Hide(); _back.Hide(); _shade.Hide(); _hud.Hide(); _frontShade.Hide(); }
-    private void Sound(string file,float volume) { var sound=KarenAudioManager.PlaySfx(file,volume);if(sound!=null)_sounds.Add(sound); }
+    private void Sound(string file,float volume,float pitch=1) { var sound=KarenAudioManager.PlaySfx(file,volume,pitch);if(sound!=null)_sounds.Add(sound); }
     public override void _ExitTree()
     {
         KarenVfxComposition.RemoveCue(this);
