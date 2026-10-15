@@ -10,6 +10,7 @@ using ShoujoKagekiAijoKaren.src.Core.ExtraReplaySystem;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ public sealed class KarenStar : KarenBaseCardModel
 {
 
     private CardModel? toPlay = null;
+    private NKarenStarVfx.Playback? _presentation;
 
     public KarenStar() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
@@ -39,21 +41,40 @@ public sealed class KarenStar : KarenBaseCardModel
         if (toPlay != null)
         {
             MainFile.Logger.Info($"KarenStar: To play card is {toPlay.Title}");
-            // 先将这张卡移动到打出区
-            await CardPileCmd.Add(toPlay, PileType.Play);
-            // 增加打出次数
-            toPlay.AddExtraReplayCountForNextPlay(Math.Max(0, toPlay.GetShineValueRounded() - 1));
-            // 耗尽
-            toPlay.SetEnterShinePileAfterPlay(true);
-            // 打出这张卡
-            await CardCmd.AutoPlay(choiceContext, toPlay, null);
-            // 获得闪耀牌奖励
-            await ExtraRewardCmd.AddShineCardReward(Owner, toPlay);
+            using var presentation = NKarenStarVfx.Play(toPlay, toPlay.GetShineValueRounded());
+            var previous = _presentation;
+            _presentation = presentation;
+            try
+            {
+                await NKarenStarVfx.WaitForGather();
+                // 先将这张卡移动到打出区
+                await CardPileCmd.Add(toPlay, PileType.Play);
+                // 增加打出次数
+                toPlay.AddExtraReplayCountForNextPlay(Math.Max(0, toPlay.GetShineValueRounded() - 1));
+                // 耗尽
+                toPlay.SetEnterShinePileAfterPlay(true);
+                // 打出这张卡
+                await CardCmd.AutoPlay(choiceContext, toPlay, null);
+                // 获得闪耀牌奖励
+                await ExtraRewardCmd.AddShineCardReward(Owner, toPlay);
+                presentation.ConfirmReward();
+            }
+            finally
+            {
+                _presentation = previous;
+            }
         }
         else
         {
             MainFile.Logger.Info("KarenStar: No card to play");
         }
+    }
+
+    public override Task BeforeCardPlayed(CardPlay cardPlay)
+    {
+        // The native hook supplies the final replay count, including other modifiers.
+        _presentation?.BeforePlay(cardPlay);
+        return Task.CompletedTask;
     }
 
     protected override void OnUpgrade()

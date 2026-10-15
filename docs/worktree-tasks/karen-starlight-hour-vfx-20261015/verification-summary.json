@@ -1,0 +1,1080 @@
+{
+  "date": "2026-10-15",
+  "baseCommit": "c0c51dc43fdadd744613d6e39350cb974a533c8c",
+  "stable": {
+    "normal9": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 0,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "sourcePile": null,
+        "shineCount": 1,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          159
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 9,
+            "played": 9,
+            "reward": true,
+            "frames": 596,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "discard3": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Discard",
+        "shineCount": 1,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2
+        ],
+        "sourcePile": null,
+        "shineCount": 2,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          213
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 3,
+            "played": 3,
+            "reward": true,
+            "frames": 315,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "draw1": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Draw",
+        "shineCount": 2,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0
+        ],
+        "sourcePile": null,
+        "shineCount": 3,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          231
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 1,
+            "played": 1,
+            "reward": true,
+            "frames": 219,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "promise4": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "334401314",
+        "shineCount": 3,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "sourcePile": null,
+        "shineCount": 4,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          204
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 4,
+            "played": 4,
+            "reward": true,
+            "frames": 364,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "fast": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 4,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2
+        ],
+        "sourcePile": null,
+        "shineCount": 5,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          213
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 3,
+            "played": 3,
+            "reward": true,
+            "frames": 215,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "instant": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 5,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2
+        ],
+        "sourcePile": null,
+        "shineCount": 6,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          213
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      }
+    },
+    "cancel": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 6,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2
+        ],
+        "sourcePile": null,
+        "shineCount": 7,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          213
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 3,
+            "played": 0,
+            "reward": false,
+            "frames": 18,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "multiple": {
+      "passed": true,
+      "response": {
+        "status": "error",
+        "error": "Card '星光闪耀之时' cannot be played: BlockedByCardLogic"
+      }
+    },
+    "stacked": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 7,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "sourcePile": null,
+        "shineCount": 8,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          195
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 5,
+            "played": 5,
+            "reward": true,
+            "frames": 417,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "high14": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 8,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "sourcePile": null,
+        "shineCount": 9,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          114
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 14,
+            "played": 14,
+            "reward": true,
+            "frames": 823,
+            "backCorrect": true
+          }
+        ]
+      }
+    }
+  },
+  "beta": {
+    "normal9": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 0,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "sourcePile": null,
+        "shineCount": 1,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          159
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 9,
+            "played": 9,
+            "reward": true,
+            "frames": 622,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "discard3": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Discard",
+        "shineCount": 1,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2
+        ],
+        "sourcePile": null,
+        "shineCount": 2,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          213
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 3,
+            "played": 3,
+            "reward": true,
+            "frames": 307,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "draw1": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Draw",
+        "shineCount": 2,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0
+        ],
+        "sourcePile": null,
+        "shineCount": 3,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          231
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 1,
+            "played": 1,
+            "reward": true,
+            "frames": 200,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "promise4": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "334401314",
+        "shineCount": 3,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "sourcePile": null,
+        "shineCount": 4,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          204
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 4,
+            "played": 4,
+            "reward": true,
+            "frames": 367,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "fast": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 4,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2
+        ],
+        "sourcePile": null,
+        "shineCount": 5,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          213
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 3,
+            "played": 3,
+            "reward": true,
+            "frames": 217,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "instant": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 5,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2
+        ],
+        "sourcePile": null,
+        "shineCount": 6,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          213
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      }
+    },
+    "cancel": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 6,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2
+        ],
+        "sourcePile": null,
+        "shineCount": 7,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          213
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 3,
+            "played": 0,
+            "reward": false,
+            "frames": 19,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "multiple": {
+      "passed": true,
+      "response": {
+        "status": "error",
+        "error": "Card '星光闪耀之时' cannot be played: BlockedByCardLogic"
+      }
+    },
+    "stacked": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 7,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "sourcePile": null,
+        "shineCount": 8,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          195
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 5,
+            "played": 5,
+            "reward": true,
+            "frames": 409,
+            "backCorrect": true
+          }
+        ]
+      }
+    },
+    "high14": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 8,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "sourcePile": null,
+        "shineCount": 9,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          114
+        ],
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 14,
+            "played": 14,
+            "reward": true,
+            "frames": 597,
+            "backCorrect": true
+          }
+        ]
+      }
+    }
+  },
+  "stableLethal": {
+    "lethal": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 0,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          1
+        ],
+        "playPileCount": 0,
+        "visibleHandNodes": 2,
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2
+        ],
+        "sourcePile": null,
+        "shineCount": 1,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [],
+        "playPileCount": 0,
+        "visibleHandNodes": 0,
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 3,
+            "played": 1,
+            "reward": false,
+            "frames": 79,
+            "backCorrect": true
+          }
+        ]
+      }
+    }
+  },
+  "betaLethal": {
+    "lethal": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 0,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          1
+        ],
+        "playPileCount": 0,
+        "visibleHandNodes": 2,
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0
+        ],
+        "sourcePile": null,
+        "shineCount": 1,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [],
+        "playPileCount": 0,
+        "visibleHandNodes": 0,
+        "live": 0,
+        "backLive": 0,
+        "cues": [
+          {
+            "planned": 3,
+            "played": 1,
+            "reward": false,
+            "frames": 85,
+            "backCorrect": true
+          }
+        ]
+      }
+    }
+  },
+  "betaNativeControl": {
+    "instant": {
+      "passed": true,
+      "before": {
+        "plays": [],
+        "sourcePile": "Hand",
+        "shineCount": 0,
+        "sourceDepleted": false,
+        "extraRewards": 0,
+        "hp": [
+          240
+        ],
+        "playPileCount": 0,
+        "visibleHandNodes": 3,
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      },
+      "after": {
+        "plays": [
+          0,
+          1,
+          2
+        ],
+        "sourcePile": null,
+        "shineCount": 1,
+        "sourceDepleted": true,
+        "extraRewards": 1,
+        "hp": [
+          213
+        ],
+        "playPileCount": 0,
+        "visibleHandNodes": 1,
+        "live": 0,
+        "backLive": 0,
+        "cues": []
+      }
+    },
+    "multiple": {
+      "passed": true,
+      "response": {
+        "status": "error",
+        "error": "Card '星光闪耀之时' cannot be played: BlockedByCardLogic"
+      }
+    }
+  },
+  "video": {
+    "metadata": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "mime_codec_string": "avc1.640020",
+          "width": 1280,
+          "height": 784,
+          "coded_width": 1280,
+          "coded_height": 784,
+          "has_b_frames": 2,
+          "pix_fmt": "yuv420p",
+          "level": 32,
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "1127040/37591",
+          "time_base": "1/15360",
+          "start_pts": 323,
+          "start_time": "0.021029",
+          "duration_ts": 300728,
+          "duration": "19.578646",
+          "bit_rate": "2551794",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "587",
+          "extradata_size": 46,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "encoder": "Lavc62.28.100 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "mime_codec_string": "mp4a.40.2",
+          "sample_fmt": "fltp",
+          "sample_rate": "48000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 0,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/48000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 941704,
+          "duration": "19.618833",
+          "bit_rate": "161018",
+          "nb_frames": "922",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler"
+          }
+        }
+      ],
+      "format": {
+        "filename": "artifacts/star-showcase/karen-star-showcase.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "19.618833",
+        "size": "6662884",
+        "bit_rate": "2716933",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf62.12.100"
+        }
+      }
+    },
+    "audioMeanDb": -36.3,
+    "audioPeakDb": -13.4,
+    "motion": [
+      {
+        "clip": "part-0.mp4",
+        "sampledFrames": 53,
+        "uniqueFrames": 53
+      },
+      {
+        "clip": "part-1.mp4",
+        "sampledFrames": 25,
+        "uniqueFrames": 25
+      }
+    ],
+    "freezeDiagnostics": []
+  },
+  "scope": "Targeted singleplayer; multiplayer and full matrix not tested",
+  "knownDiagnostics": [
+    "Exporter NKarenBananaVfx TypeLoadException before successful pack export",
+    "Beta NCard double-pool diagnostics during debug fight jumps after presentation cancellation; cause unresolved",
+    "Beta startup Invalid Task ID also observed in no-VFX control",
+    "Rewards-page combat-only hand checker sees a hidden native holder in the filler-card fixture; two-card lethal fixture passed 0/0",
+    "One beta recording attempt failed memory allocation in MCP GetImage before play; screenshot-only retry passed"
+  ],
+  "buildHashes": {
+    "ShoujoKagekiAijoKaren.dll": "a6b3b07a6c4af6ad58d2888d270a9a6d86084e3a407dcc7466cdf3f5b755e20e",
+    "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+    "ShoujoKagekiAijoKaren.pck": "e8babe36d35bccfbf1bbef515654e23463e7cc1a900c6a2c35af5d766cdd44c5",
+    "lib\\ShoujoKagekiAijoKaren.Beta.dll": "2316045af228e4781fb034e58bcbb59105ce986e89dc9908e3fd79eb844fd99c",
+    "lib\\ShoujoKagekiAijoKaren.Stable.dll": "12d0852f652a685653bb6692ecf47d77877191ff2d8cb58acef080236e84d55d"
+  }
+}

@@ -137,18 +137,25 @@ public static class PromisePileCmd
     /// 从约定牌堆中选择count 张牌加入手牌。
     /// Void 模式下改为从抽牌堆中选择加入手牌。
     /// </summary>
-    public static async Task SelectedToHand(PlayerChoiceContext ctx, Player player, int count)
+    public static async Task SelectedToHand(PlayerChoiceContext ctx, Player player, int count,
+        Action<IEnumerable<CardModel>>? beforeMove = null)
     {
         if (IsVoidMode(player))
         {
-            await CardPileCmdEx.SelectFromDrawPileToHand(ctx, player, count);
+            await CardPileCmdEx.SelectFromDrawPileToHand(ctx, player, count, beforeMove);
             return;
         }
 
         // 无限模式直接改为抽牌，不需要选择
         if (IsInfiniteMode(player))
         {
-            await Draw(ctx, player, count);
+            for (int i = 0; i < count; i++)
+            {
+                // Replenishment may replace the next card after each draw.
+                var next = PromisePileManager.GetPromisePile(player).Cards.FirstOrDefault();
+                if (next != null) beforeMove?.Invoke([next]);
+                if (await Draw(ctx, player) == null) break;
+            }
             return;
         }
 
@@ -162,6 +169,8 @@ public static class PromisePileCmd
 
         var selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
         if (selected == null) return;
+        selected = selected.ToList();
+        beforeMove?.Invoke(selected);
 
         foreach (var card in selected)
         {
