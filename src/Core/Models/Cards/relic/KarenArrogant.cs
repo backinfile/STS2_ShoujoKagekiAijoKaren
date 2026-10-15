@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -27,12 +28,25 @@ public sealed class KarenArrogant : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 给予自身易伤
-        var power = await PowerCmd.Apply<VulnerablePower>(choiceContext, base.Owner.Creature, base.DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
-        if (power != null) power.SkipNextDurationTick = false;
+        var effect = NKarenArrogantVfx.Play(Owner);
+        bool completed = false;
+        try
+        {
+            if (effect != null) await NKarenArrogantVfx.WaitForRelease();
+            int vulnerableBefore = Owner.Creature.GetPowerAmount<VulnerablePower>();
+            var power = await PowerCmd.Apply<VulnerablePower>(choiceContext, Owner.Creature, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
+            if (power != null) power.SkipNextDurationTick = false;
+            if (Owner.Creature.GetPowerAmount<VulnerablePower>() > vulnerableBefore) effect?.ConfirmVulnerable();
 
-        // 应用Power来在战斗结束时获得遗物
-        await ExtraRewardCmd.AddRelicReward(Owner);
+            // Confirm only after the real extra reward has been registered.
+            await ExtraRewardCmd.AddRelicReward(Owner);
+            effect?.ConfirmReward();
+            completed = true;
+        }
+        finally
+        {
+            if (!completed) effect?.Abort();
+        }
     }
 
     protected override void OnUpgrade()
