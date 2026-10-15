@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
@@ -28,6 +29,7 @@ public sealed class KarenWakeUp : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        using var curtain = NKarenWakeUpSelectionVfx.Begin(Owner);
         if (IsUpgraded)
         {
             if (CombatState != null)
@@ -51,7 +53,7 @@ public sealed class KarenWakeUp : KarenBaseCardModel
         }
         else
         {
-            await CardPileCmdEx.SelectFromDrawPileToHand(choiceContext, Owner, 2);
+            await CardPileCmdEx.SelectFromDrawPileToHand(choiceContext, Owner, 2, NKarenWakeUpCardVfx.Observe);
         }
 
     }

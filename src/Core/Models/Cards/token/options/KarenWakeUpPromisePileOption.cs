@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options
 
         public override async Task DoOption(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PromisePileCmd.SelectedToHand(choiceContext, Owner, 2);
+            await PromisePileCmd.SelectedToHand(choiceContext, Owner, 2, NKarenWakeUpCardVfx.Observe);
         }
     }
 }
