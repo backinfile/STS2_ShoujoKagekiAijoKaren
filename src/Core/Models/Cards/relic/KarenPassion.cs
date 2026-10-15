@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -27,6 +28,8 @@ public sealed class KarenPassion : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await ExtraRewardCmd.AddRelicReward(Owner);
+        // Only celebrate the committed reservation; the relic is still revealed after combat.
+        NKarenPassionVfx.Play(Owner);
     }
 
     protected override void OnUpgrade()
