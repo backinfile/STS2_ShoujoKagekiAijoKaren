@@ -15,7 +15,7 @@
 
 ## 定向检查与证据
 
-工作树 `../worktrees/karen-baseball-vfx-20261015`，分支 `codex/karen-baseball-vfx-20261015`，从 main `5311a28` 开始。构建包与证据位于工作树的 `artifacts/`，共享开发环境和 main 原有未提交文件不改动。
+制作工作树 `../worktrees/karen-baseball-vfx-20261015`，分支 `codex/karen-baseball-vfx-20261015`，从 main `5311a28` 开始，功能提交 `d72b5a5`。2026-10-15 用户确认合并后快进集成 main；证据归档到主目录 `artifacts/baseball-vfx-20261015/`，最终双版本包另存该目录的 `package/`。不归档隔离游戏副本；共享开发环境未修改。main 原有概念图和提示词经 SHA-256 核对与任务副本一致，保留原内容并纳入版本管理。
 
 最终包已完成双版本实机专项。本轮仅做与棒球有关的单人专项，不运行完整矩阵、多人或第三方 Mod 共存测试。
 
