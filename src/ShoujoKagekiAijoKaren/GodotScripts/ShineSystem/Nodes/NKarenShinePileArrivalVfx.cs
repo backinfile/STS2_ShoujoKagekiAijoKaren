@@ -10,8 +10,9 @@ public partial class NKarenShinePileArrivalVfx(TextureRect icon, Control visual)
 {
     private readonly List<float> _impacts = new(3);
     private readonly Vector2 _baseScale = visual.Scale, _basePivot = visual.PivotOffset;
+    private readonly float _baseRotation = visual.Rotation;
     private Vector2 _startScale = Vector2.One;
-    private float _time, _age, _duration;
+    private float _time, _age, _duration, _startRotation;
     private int _arrivals;
     private static readonly Color Gold = new("#ffcf79"), Hot = new("#fff4d5");
 
@@ -25,6 +26,7 @@ public partial class NKarenShinePileArrivalVfx(TextureRect icon, Control visual)
     public void Restart()
     {
         _startScale = visual.Scale / _baseScale;
+        _startRotation = visual.Rotation - _baseRotation;
         _duration = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant ? .20f : .46f;
         _age = 0; _arrivals++;
         if (_impacts.Count == 3) _impacts.RemoveAt(0);
@@ -45,13 +47,18 @@ public partial class NKarenShinePileArrivalVfx(TextureRect icon, Control visual)
     private void UpdatePose()
     {
         GlobalTransform = GetCanvasTransform().AffineInverse();
-        // Scaling about the icon centre keeps the actual flight destination fixed.
+        // Rotate and scale about the icon centre, keeping the flight destination fixed.
         visual.PivotOffset = icon.Position + icon.PivotOffset;
         float t = Mathf.Clamp(_age / _duration, 0, 1);
         Vector2 stretch = t < .12f ? _startScale.Lerp(new Vector2(1.13f,.88f), Ease(t / .12f))
             : t < .34f ? new Vector2(1.13f,.88f).Lerp(new Vector2(1.23f,1.21f), Ease((t-.12f)/.22f))
             : new Vector2(1.23f,1.21f).Lerp(Vector2.One, 1-Mathf.Pow(1-(t-.34f)/.66f,3));
         visual.Scale = _baseScale * stretch;
+        float turn = t < .18f ? Mathf.Lerp(_startRotation,-.28f,Ease(t/.18f))
+            : t < .46f ? Mathf.Lerp(-.28f,.21f,Ease((t-.18f)/.28f))
+            : t < .72f ? Mathf.Lerp(.21f,-.085f,Ease((t-.46f)/.26f))
+            : Mathf.Lerp(-.085f,0,Ease((t-.72f)/.28f));
+        visual.Rotation = _baseRotation + turn;
     }
 
     public override void _Draw()
@@ -90,7 +97,7 @@ public partial class NKarenShinePileArrivalVfx(TextureRect icon, Control visual)
     private void Restore()
     {
         if (!GodotObject.IsInstanceValid(visual)) return;
-        visual.Scale = _baseScale; visual.PivotOffset = _basePivot;
+        visual.Scale = _baseScale; visual.Rotation = _baseRotation; visual.PivotOffset = _basePivot;
     }
     public override void _ExitTree() => Restore();
 }

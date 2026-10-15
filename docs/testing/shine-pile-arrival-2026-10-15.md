@@ -2,6 +2,8 @@
 
 卡牌耗尽飞到右上角图标后，增加“接住星光”的反馈。此前只有飞行头与落点小圆环消退，图标自身没有动作。
 
+当前版本另外增加了旋转晃动，见文末“追加：抵达时左右旋转”；前面的首版录像与参数保留为历史记录。
+
 ## 表现与接线
 
 - `NKarenShineDepleteVfx` 的实际飞行进度到达 1 时，只触发一次 `NTopBarShinePileButton.PlayDepletionArrival()`；提前退出／清理不会触发。
@@ -50,3 +52,21 @@ python tools/vfx/catalog/verify_shine_arrival.py --output artifacts/shine-pile-a
 两套主开发环境已更新并校验 Karen 五个包文件，其他 Mod 的 8／6 个文件哈希保持一致；旧包和清单在本次证据的 `deployment-backup/`、`deployment.json`。
 
 最终 SHA-256：正式版实现 DLL `97cd3d891236da73ef8d11c9d0e5988886af3dbb65eaa15338bcda34a387c431`，测试版 `7138a4fb423bceaf436b9b1e3611315bffde42a6ab5c9fb60ef63e38bd4b1a3b`，共用 PCK `ed3798ca70cd5bdfbaa135fe8937c73bb7d26d6255457d81dbcc6e53153c4f9a`。
+
+## 追加：抵达时左右旋转
+
+用户希望耗尽图标晃动、旋转。保留轻压回弹和闪亮，在相同视觉父层叠加递减的左右回摆：先转到 -0.28 rad（约左 16°），再 +0.21 rad（约右 12°），回摆 -0.085 rad（约左 4.9°），最后回到原角度；转折分别位于反馈时长的 18%／46%／72%／100%，各段使用 smoothstep。正常／Fast 仍为 0.46 秒、Instant 为 0.20 秒。
+
+连续抵达从当前角度继续，避免先跳回零度；结束和离树同时恢复原始旋转、缩放、轴心。原生 Icon 的悬停旋转仍独立作用；图标中心和飞行目标不移动。
+
+本轮证据为 `artifacts/shine-pile-wobble-20261015/`。两版重新构建、通过 MCP 各重录 `shine-motion`、`shine-speeds`、`shine-arrival-control`：每版五次真实耗尽，以及悬停中连续三次视觉重触发。每个反馈都检测到左／右旋转，整体采样极值正式版 -16.04°／+12.03°，测试版 -16.04°／+12.02°；结束父层旋转／缩放／轴心恢复误差均为 0，飞行落点误差均为 0。
+
+悬停期间 Icon 自身保留旋转 π 和缩放 1.1，退出悬停后恢复旋转 0、缩放 1；两版各 13 次手牌模型／可见节点核对通过，已保存并查看三组 MCP 操作前后截图。最终日志均无错误，捕获帧率最低 28.92 fps，前台／恢复窗口采样均为零。仅进行本次相关单人专项，未运行全面单人／多人矩阵。
+
+复核：`python tools/vfx/catalog/verify_shine_arrival.py --output artifacts/shine-pile-wobble-20261015`，结果为 `verification.json`，已增加实际旋转幅度、原生悬停角度和最终回正断言。新录像与预览为：
+
+- `clips/shine-motion/Karen-shine-motion.mp4`：12.075 秒，正常入堆左右晃动与不耗尽反例，峰值 -2.3 dB。
+- `clips/shine-speeds/Karen-shine-speeds.mp4`：10.496 秒，Fast／Instant／燃料旋转反馈，峰值 -2.4 dB。
+- `review/icon-arrival.gif` 与 `review/wobble-timeline.png`：同一实录的局部动态预览和连续帧；两段成片保留底部逐段说明、游戏进程原声，完整解码通过。
+
+两套主开发环境已更新并校验 Karen 五个文件；其他 Mod 的 8／6 个文件哈希保持一致，旧包和部署清单位于本轮证据的 `deployment-backup/`、`deployment.json`。正式版实现 DLL SHA-256 为 `98037fce50f2a01b16d3aecd6c5eb7ff5512a81afcc3391f2cd07c81bd1cca0a`，测试版 `5abe2267dbfddd1fb582e1ebe0c54bfdcde3cdea85f534bd3c6c5285c8e26efb`，PCK 保持 `ed3798ca70cd5bdfbaa135fe8937c73bb7d26d6255457d81dbcc6e53153c4f9a`。

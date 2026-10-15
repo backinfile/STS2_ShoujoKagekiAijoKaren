@@ -35,6 +35,7 @@ public static class ShineMotionProbe
         public readonly NKarenShinePileArrivalVfx Node = node;
         public int Count;
         public float MaxScale = 1, MinScale = 1;
+        public float MinRotation, MaxRotation;
         public readonly float Duration = (float)Field(node,"_duration")!;
     }
     internal static readonly List<Arrival> Arrivals = new();
@@ -79,6 +80,9 @@ public static class ShineMotionProbe
                 var scale = visual.Scale/(Vector2)Field(node,"_baseScale")!;
                 seen.MaxScale = Math.Max(seen.MaxScale,Math.Max(scale.X,scale.Y));
                 seen.MinScale = Math.Min(seen.MinScale,Math.Min(scale.X,scale.Y));
+                float rotation = visual.Rotation-(float)Field(node,"_baseRotation")!;
+                seen.MinRotation = Math.Min(seen.MinRotation,rotation);
+                seen.MaxRotation = Math.Max(seen.MaxRotation,rotation);
             }
         var alive = new HashSet<object>();
         foreach (var warning in ShineFuelProbe.Descend(run).OfType<Node2D>()
@@ -114,10 +118,11 @@ public static class ShineMotionProbe
         liveDepletes=NRun.Instance?.GlobalUi.GetChildren().OfType<NKarenShineDepleteVfx>().Count()??0,
         liveArrivals = NRun.Instance?.GlobalUi.TopBar.GetNodeOrNull("RightAlignedStuff/ShinePile")?.GetChildren().OfType<NKarenShinePileArrivalVfx>().Count()??0,
         pileVisualRestoreError = NRun.Instance?.GlobalUi.TopBar.GetNodeOrNull<Control>("RightAlignedStuff/ShinePile/Control") is {} visual
-            ? (visual.Scale-Vector2.One).Length()+visual.PivotOffset.Length() : -1,
+            ? (visual.Scale-Vector2.One).Length()+visual.PivotOffset.Length()+Math.Abs(visual.Rotation) : -1,
         pileIconScale = NRun.Instance?.GlobalUi.TopBar.GetNodeOrNull<Control>("RightAlignedStuff/ShinePile/Control/Icon") is {} icon
             ? new[]{icon.Scale.X,icon.Scale.Y} : new float[0],
-        arrivals = Arrivals.Select(s=>new {count=s.Count,duration=s.Duration,maxScale=s.MaxScale,minScale=s.MinScale}),
+        pileIconRotation = NRun.Instance?.GlobalUi.TopBar.GetNodeOrNull<Control>("RightAlignedStuff/ShinePile/Control/Icon")?.Rotation ?? -1,
+        arrivals = Arrivals.Select(s=>new {count=s.Count,duration=s.Duration,maxScale=s.MaxScale,minScale=s.MinScale,minRotation=s.MinRotation,maxRotation=s.MaxRotation}),
         depletes=Depletes.Select(s=>new {duration=s.Duration,gather=s.Gather,fuel=s.Fuel,landingError=s.LandingError,minCardScale=s.MinCardScale,released=s.Released,faceReappeared=s.FaceReappeared,arrived=s.Arrived,arrivalDelay=s.ArrivalDelay,samples=s.Samples})
     };
 }

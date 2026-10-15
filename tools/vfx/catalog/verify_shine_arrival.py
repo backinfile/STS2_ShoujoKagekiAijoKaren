@@ -28,6 +28,7 @@ for branch in ['stable','beta']:
         assert capture['captureBuild']['packSha256']==sha(repo/'artifacts/ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.pck')
         assert motion['liveDepletes']==motion['liveArrivals']==0 and motion['pileVisualRestoreError']<.001,motion
         assert all(abs(s-1)<.001 for s in motion['pileIconScale']),motion
+        assert abs(motion['pileIconRotation'])<.001,motion
         assert revision['missingPlayFrames']==revision['falseWarningFrames']==0,revision
         expected={'shine-motion':['KAREN_SHINE_STRIKE','KAREN_NONON'],
                   'shine-speeds':['KAREN_SHINE_STRIKE','KAREN_SHINE_STRIKE','KAREN_DROP_FUEL'],
@@ -40,6 +41,7 @@ for branch in ['stable','beta']:
             assert -.001<=d['arrivalDelay']<.06,d
         for a in motion['arrivals']:
             assert 1.12<a['maxScale']<1.24 and .87<a['minScale']<1,a
+            assert -.29<a['minRotation']<-.18 and .12<a['maxRotation']<.22,a
         if name=='shine-speeds':
             assert all(abs(a['duration']-t)<.001 for a,t in zip(motion['arrivals'],[.46,.20,.46]))
             assert motion['depletes'][-1]['fuel']
@@ -48,6 +50,7 @@ for branch in ['stable','beta']:
             assert len(hover['arrivals'])==1 and hover['arrivals'][0]['count']==3,hover
             assert hover['liveArrivals']==0 and hover['pileVisualRestoreError']<.001,hover
             assert all(abs(s-1.1)<.001 for s in hover['pileIconScale']),hover
+            assert abs(hover['pileIconRotation']-3.14159265)<.001,hover
         for path in folder.glob('*hand.json'):
             hand=json.loads(read(path)['message'])
             assert hand['modelCount']==hand['visualCount'] and not hand['missing'] and not hand['unexpected'] and not hand['unexpectedPileIcons'],path
