@@ -1,5 +1,7 @@
 # Karen 特效全览录制
 
+[棒球专项](../../../docs/testing/baseball-vfx-2026-10-15.md) 使用显式 `--scenes baseball`：正常录像只录普通版／升级版，随后在录像外验证 Fast、Instant、缩放翻转、目标偏移旋转及击杀清理。`BaseballProbe` 观察真实命中回调、完整画布定位与节点退出；检查工具不随正式包发布。该专项未加入默认完整目录。
+
 当前完整目录见 [2026-10-14 记录](../../../docs/testing/vfx-catalog-2026-10-14.md)：49 段，增加 Banana、门票 B、梦想、光辉、双幕 Starlight 和新旧组合。`record.py` 默认录全部当前场景；合成与核查使用 `--catalog current`，旧 32 段数据仍用默认 legacy。`verify_runtime.py --branch stable --full-catalog` 核查当前所有原片的最终包哈希、手牌、生命周期与真实重播，beta 不带 full 参数核查四组兼容专项。
 
 [2026-10-15 兼容审查](../../../docs/testing/vfx-compatibility-review-2026-10-15.md) 补充音效总线路由、原生卡牌对象池和 8 组双版本专项。`verify_runtime.py --scenes <逗号分隔场景>` 可核查相应子集；`compatibility-regressions` 会调用 `vfx_review audio`／`card-cache`，旧包应明确失败。Showcase 编译中间目录已按 Variant 分开，避免 Stable／Beta 增量构建串用 DLL。像素级卡框检查只在 `revision_probe watch-border` 或 `shine-ambient*` 场景启用，避免无关场景重复读回大型图集。
