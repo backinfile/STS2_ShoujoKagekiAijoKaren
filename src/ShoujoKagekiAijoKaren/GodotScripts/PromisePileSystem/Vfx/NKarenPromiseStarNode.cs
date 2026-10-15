@@ -70,7 +70,22 @@ public partial class NKarenPromiseStarNode : Node2D
         // lengths: the stage stays upright even when the body/visuals face left.
         var visual = _creature!.Visuals.GlobalTransform;
         var size = new Vector2(Mathf.Max(visual.X.Length(), 0.001f), Mathf.Max(visual.Y.Length(), 0.001f));
-        GlobalTransform = new Transform2D(new Vector2(size.X, 0), new Vector2(0, size.Y), _creature.VfxSpawnPosition);
+        bool crowded = (_creature.Entity.CombatState?.Players.Count ?? 1) >= 3;
+        if (crowded) size *= .76f;
+        var placement = new Transform2D(new Vector2(size.X, 0), new Vector2(0, size.Y), _creature.VfxSpawnPosition);
+        if (crowded)
+        {
+            // The native rear row sits near the top/left edge in 3-4 player
+            // formations. Fit the painted prop and count beneath the top bar.
+            // Transfers use this same transform through TransferCanvasPosition.
+            var canvas = GetCanvasTransform();
+            var topLeft = canvas * (placement * (PaintedPoint(Vector2.Zero) - new Vector2(12, 28)));
+            var viewport = GetViewport().GetVisibleRect().Size;
+            var correction = new Vector2(Mathf.Max(0, viewport.X * 18 / 1280 - topLeft.X),
+                Mathf.Max(0, viewport.Y * 64 / 720 - topLeft.Y));
+            placement.Origin += canvas.BasisXformInv(correction);
+        }
+        GlobalTransform = placement;
     }
     public Vector2 TransferGlobalPosition
     {
@@ -292,6 +307,7 @@ public partial class NKarenPromiseStarNode : Node2D
     }
     public void ClearAll()
     {
+        EndCombatEntrance();
         ClearVoidOrbitLayers();
         _stars.Clear();
         _count = 0;
@@ -368,6 +384,7 @@ public partial class NKarenPromiseStarNode : Node2D
     }
     public override void _ExitTree()
     {
+        EndCombatEntrance();
         ClearVoidOrbitLayers();
         ClearReproduction();
         ClearTowerRecall();
@@ -404,8 +421,9 @@ public partial class NKarenPromiseStarNode : Node2D
                 Mathf.Clamp(tip.Y - 22, 90, Mathf.Max(90, viewport.Y - 30)));
             DrawSetTransformMatrix(canvas.AffineInverse());
             var p = center - new Vector2(size.X * 0.5f, 0);
-            DrawStringOutline(font, p, text, HorizontalAlignment.Left, -1, 26, 5, new Color(0.10f, 0.07f, 0.12f, alpha));
-            DrawString(font, p, text, HorizontalAlignment.Left, -1, 26, new Color(White, alpha));
+            float countAlpha = alpha * EntranceHeader;
+            DrawStringOutline(font, p, text, HorizontalAlignment.Left, -1, 26, 5, new Color(0.10f, 0.07f, 0.12f, countAlpha));
+            DrawString(font, p, text, HorizontalAlignment.Left, -1, 26, new Color(White, countAlpha));
             DrawSetTransform(Vector2.Zero);
         }
     }

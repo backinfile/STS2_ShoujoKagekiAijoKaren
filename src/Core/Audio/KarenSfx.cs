@@ -8,6 +8,7 @@ public static class KarenSfx
 {
     // --- 舞台灯 ---
     public const string StageLight = "karen_stage_light.mp3";
+    public const string EntranceStageLight = "karen_entrance_stage_light.wav";
     public const string Act2LightsOn = "karen_act2_lights_on.wav";
 
     // --- 最后的台词 ---

@@ -1,0 +1,11 @@
+Karen combat entrance stage-light sample
+
+Derived only from the existing project audio/karen_stage_light.mp3, also used by
+the STS1 Karen mod. Original recording provenance is not verified.
+No speech, music layer, synthesized effect or additional third-party sample added.
+
+Processing: retain source 0.06-1.10 s, stereo-linked peak compression, then peak
+normalization to -1.5 dBFS; 5 ms fade-in / 40 ms fade-out. 44.1 kHz stereo PCM 16-bit.
+FFmpeg filter: atrim=start=0.06:end=1.10,asetpts=PTS-STARTPTS,acompressor=threshold=0.002:ratio=20:attack=0.01:release=0.1:detection=peak:link=maximum
+Reproduce: python tools/vfx/entrance/prepare_audio.py (requires FFmpeg and NumPy).
+Source SHA-256: fc4fc0424d4243d0ba993c856efc1e4bded3f77e6db8b7c6e19ffeacde74a70f

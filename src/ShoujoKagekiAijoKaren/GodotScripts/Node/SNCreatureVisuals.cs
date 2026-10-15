@@ -31,6 +31,7 @@ public partial class SNCreatureVisuals : NCreatureVisuals
             _idleMaterial = visuals.Material as ShaderMaterial;
         }
         ApplyCapeSwayRegions();
+        InitializeEntranceAnimation();
     }
 
     public override void _Process(double delta)

@@ -174,21 +174,22 @@ public partial class NKarenPromiseStarNode
         float weight = KarenVfxComposition.AmbientWeight(_creature?.Entity);
         float ambientAlpha = alpha * Mathf.Lerp(weight, 1f, Mathf.Clamp(_arrival, 0f, 1f));
         // Recess the painted prop behind Karen without baking lights or count into it.
-        DrawPaintedTowerStrip(0, 1536, Vector2.Zero, new Color(0.90f, 0.90f, 0.90f, alpha * 0.92f));
+        if (IsCombatEntranceActive) DrawCombatEntranceTower(alpha);
+        else DrawPaintedTowerStrip(0, 1536, Vector2.Zero, new Color(0.90f, 0.90f, 0.90f, alpha * 0.92f));
         DrawVoidScan(alpha);
         DrawDeckLights(PaintedUpperDeckEdge, ambientAlpha, .7f);
         DrawDeckLights(PaintedLowerDeckEdge, ambientAlpha, 0);
         for (int runner = 0; runner < 2; runner++)
         {
-            DrawTowerRunner(PaintedLeftRunner, LeftRunnerLength, runner * .5f, ambientAlpha);
-            DrawTowerRunner(PaintedRightRunner, RightRunnerLength, .28f + runner * .5f, ambientAlpha);
+            DrawTowerRunner(PaintedLeftRunner, LeftRunnerLength, runner * .5f, ambientAlpha * EntranceAmbient);
+            DrawTowerRunner(PaintedRightRunner, RightRunnerLength, .28f + runner * .5f, ambientAlpha * EntranceAmbient);
         }
         DrawStar(PaintedPoint(PaintedTipPixel), 5 + _pulse * 3, White,
-            alpha * (0.65f + Mathf.Sin(_time * 2.4f) * 0.12f) * Mathf.Lerp(weight, 1f, _pulse));
+            alpha * EntranceHeader * (0.65f + Mathf.Sin(_time * 2.4f) * 0.12f) * Mathf.Lerp(weight, 1f, _pulse));
         foreach (var pixel in PaintedJunctions)
         {
             var point = PaintedPoint(pixel);
-            float light = alpha * (0.28f * weight + _pulse * 0.45f);
+            float light = alpha * (0.28f * weight + _pulse * 0.45f) * EntranceLampVisibility(point);
             DrawCircle(point, 7, new Color(TowerRed, light * 0.18f));
             DrawCircle(point, 2, new Color(White, light));
         }
@@ -226,6 +227,7 @@ public partial class NKarenPromiseStarNode
                 float light = alpha * (.35f + wave * .65f);
                 var from = PaintedPoint(left.Lerp(right, local));
                 var to = PaintedPoint(left.Lerp(right, (i + 1f) / segments));
+                light *= EntranceLampVisibility(from.Lerp(to, .5f));
                 DrawLine(from, to, new Color(LampAmber, light * .13f), 20, true);
                 DrawLine(from, to, new Color(LampAmber, light * .7f), 7, true);
                 DrawLine(from, to, new Color(White, light), 3, true);
@@ -237,6 +239,7 @@ public partial class NKarenPromiseStarNode
 
     private void DrawTowerLamp(Vector2 point, float radius, float light)
     {
+        light *= EntranceLampVisibility(point);
         for (int layer = 5; layer > 0; layer--)
             DrawCircle(point, radius * layer, new Color(LampAmber, light * .055f * (6 - layer)));
         DrawCircle(point, radius, new Color(LampAmber, light * .8f));

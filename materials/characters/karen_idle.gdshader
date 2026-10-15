@@ -4,6 +4,12 @@ shader_type canvas_item;
 uniform float idle_phase = 0.0;
 uniform float breath_lift : hint_range(0.0, 0.02) = 0.006;
 uniform float sway_strength : hint_range(0.0, 0.04) = 0.005;
+// Independent entrance pose. Native AnimationPlayer tracks keep ownership of
+// Sprite2D transforms; the visual controller cancels this layer on any action.
+uniform vec2 entrance_offset = vec2(0.0);
+uniform vec2 entrance_pivot = vec2(0.0, 128.8);
+uniform float entrance_lean = 0.0;
+uniform float entrance_cape = 0.0;
 uniform vec4 cape_region_1 = vec4(0.16, 0.20, 0.49, 0.44);
 uniform vec4 cape_region_2 = vec4(0.60, 0.02, 0.74, 0.38);
 uniform vec4 cape_region_3 = vec4(0.46, 0.18, 0.60, 0.36);
@@ -12,6 +18,10 @@ varying vec4 sprite_modulate;
 
 void vertex() {
 	sprite_modulate = COLOR;
+	vec2 point = VERTEX - entrance_pivot;
+	float c = cos(entrance_lean);
+	float s = sin(entrance_lean);
+	VERTEX = vec2(c * point.x - s * point.y, s * point.x + c * point.y) + entrance_pivot + entrance_offset;
 }
 
 float rect_mask(vec2 uv, vec4 rect) {
@@ -46,6 +56,9 @@ void fragment() {
 	float secondary = sin(3.14159265 * idle_phase - uv.y * 4.0) * 0.22;
 	vec2 cloth = vec2(wave * 0.22, wave + secondary);
 	uv += cloth * sway_strength * cape * mix(0.18, 1.0, free_edge);
+	// A single outward gust, concentrated at the free ends, then back to breathing.
+	uv += vec2(-0.012, sin(uv.x * 8.0 - entrance_cape * 2.0) * 0.024)
+		* entrance_cape * cape * free_edge;
 
 	// Sample once, including transparent pixels, so the silhouette moves without
 	// leaving the original outline behind. Preserve Sprite2D/ancestor modulation.

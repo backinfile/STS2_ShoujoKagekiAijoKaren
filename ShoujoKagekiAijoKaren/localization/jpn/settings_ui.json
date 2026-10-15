@@ -4,6 +4,8 @@
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "各ランの終了後に生成されるJSONデータを統計サーバーへ送信する。",
   "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.title": "起動時にキリンを表示",
   "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.hover.desc": "ゲーム起動時、MegaCritのロゴより前にキリンのスプラッシュ画面を表示する。",
+  "SHOUJOKAGEKIAIJOKAREN-ENABLE_COMBAT_ENTRANCE.title": "戦闘開始時の登場演出",
+  "SHOUJOKAGEKIAIJOKAREN-ENABLE_COMBAT_ENTRANCE.hover.desc": "自分の華恋の登場モーション、舞台照明、パーティクル、約束の塔の出現演出と点灯音を再生する。次の戦闘から適用。",
   "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML.title": "Mod情報のHTMLを生成",
   "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_BUTTON.title": "Mod情報をエクスポート",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT_JSON_ONLY_BUTTON.title": "JSONのみエクスポート",

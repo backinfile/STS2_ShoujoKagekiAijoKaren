@@ -43,6 +43,7 @@ public partial class NKarenPromiseStarNode
 
     public IDisposable BeginTowerRecall(bool canDraw)
     {
+        EndCombatEntrance();
         if (_recallDepth++ == 0)
         {
             _recallStarted = _time;

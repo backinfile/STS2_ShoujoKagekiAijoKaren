@@ -17,6 +17,12 @@ public static class KarenPromiseVfxStarManager
 {
     private static readonly SpireField<Player, int> TransitionDepth = new(() => 0);
     private static readonly SpireField<Player, NKarenPromiseStarNode?> Nodes = new(() => null);
+    private sealed class EntranceCue(NCombatRoom room)
+    {
+        public readonly NCombatRoom Room = room;
+        public float Age;
+    }
+    private static readonly SpireField<Player, EntranceCue?> Entrances = new(() => null);
     private static NKarenPromiseStarNode? GetOrCreateNode(Player player)
     {
         var creature = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
@@ -29,8 +35,33 @@ public static class KarenPromiseVfxStarManager
         // Keep the tower above the room background but before all creature visuals.
         creature.MoveChild(node, 0);
         Nodes.Set(player, node);
+        // Combat setup can clear/recreate the prop after the entrance Prefix.
+        // Attach the same visual clock when normal pile setup creates its node.
+        if (Entrances.Get(player) is { } cue && cue.Room == NCombatRoom.Instance)
+            node.BeginCombatEntrance(cue.Age);
         return node;
     }
+    internal static void BeginCombatEntrance(Player player)
+    {
+        if (NCombatRoom.Instance is not { } room) return;
+        Entrances.Set(player, new EntranceCue(room));
+        var node = Nodes.Get(player);
+        if (GodotObject.IsInstanceValid(node) && !node!.IsQueuedForDeletion()) node.BeginCombatEntrance(0);
+    }
+    internal static void AdvanceCombatEntrance(Player player, float age)
+    {
+        if (Entrances.Get(player) is not { } cue || cue.Room != NCombatRoom.Instance) return;
+        cue.Age = age;
+        var node = Nodes.Get(player);
+        if (GodotObject.IsInstanceValid(node) && !node!.IsQueuedForDeletion()) node.AdvanceCombatEntrance(age);
+    }
+    internal static void EndCombatEntrance(Player player)
+    {
+        Entrances.Set(player, null);
+        var node = Nodes.Get(player);
+        if (GodotObject.IsInstanceValid(node) && !node!.IsQueuedForDeletion()) node.EndCombatEntrance();
+    }
+
     public static Vector2? TrackOutgoingCard(NCard card)
         => card.Model.Owner is { } player ? GetOrCreateNode(player)?.TrackOutgoingCard(card) : null;
 

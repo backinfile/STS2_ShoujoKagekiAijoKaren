@@ -15,6 +15,7 @@ public partial class NKarenPromiseStarNode
 
     public void StartVoidActivation()
     {
+        EndCombatEntrance();
         _voidStarted = _time;
         _voidPending = true;
         BeginVoidIconTransfer();

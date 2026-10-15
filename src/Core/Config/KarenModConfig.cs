@@ -27,6 +27,12 @@ public class KarenModConfig : SimpleModConfig
     public static bool ShowSplashScreen { get; set; } = true;
 
     /// <summary>
+    /// 播放本机华恋的战斗入场表现。
+    /// </summary>
+    [ConfigHoverTip]
+    public static bool EnableCombatEntrance { get; set; } = true;
+
+    /// <summary>
     /// 生成卡牌截图与卡牌信息索引，供 mod 信息 HTML 使用。
     /// </summary>
     public override void SetupConfigUI(Control optionContainer)

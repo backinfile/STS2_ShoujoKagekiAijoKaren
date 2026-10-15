@@ -43,6 +43,7 @@ public partial class NKarenPromiseStarNode
     public void PlayReproductionActivation()
     {
         if (!HasReproductionMode()) return;
+        EndCombatEntrance();
         _reproductionActive = true;
         _reproductionAge = 0;
         // Keep the real deliveries from EnterMode. Only this explicit card play

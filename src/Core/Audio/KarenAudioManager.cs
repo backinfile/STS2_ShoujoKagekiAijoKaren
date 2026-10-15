@@ -29,13 +29,20 @@ public static class KarenAudioManager
 
     public static AudioStreamPlayer PlaySfx(string fileName, float volume = 1f, float pitchScale = 1f)
     {
+        return PlaySfxOnGameBus(fileName, volume * GetEffectiveVolume(isMusic: false), pitchScale);
+    }
+
+    /// <summary>Play a calibrated sample through the game's SFX and Master buses.
+    /// Those buses already apply the user's volume sliders; do not apply them again here.</summary>
+    public static AudioStreamPlayer PlaySfxOnGameBus(string fileName, float volume = 1f, float pitchScale = 1f)
+    {
         var stream = PreparePlaybackStream(fileName, loop: false);
         if (stream == null) return null;
 
         var player = new AudioStreamPlayer
         {
             Stream = stream,
-            VolumeLinear = volume * GetEffectiveVolume(isMusic: false),
+            VolumeLinear = volume,
             PitchScale = pitchScale,
             Bus = SfxBus
         };
