@@ -1,4 +1,6 @@
 # Executed by record.py inside its MCP recording session.
+if wanted & {'jealousy', 'jealousy-checks', 'jealousy-lethal'}:
+    exec(compile(pathlib.Path(__file__).with_name('jealousy.py').read_text(encoding='utf-8'), 'jealousy.py', 'exec'))
 if 'baseball' in wanted:
     exec(compile(pathlib.Path(__file__).with_name('baseball.py').read_text(encoding='utf-8'), 'baseball.py', 'exec'))
 if 'replay-timing' in wanted:

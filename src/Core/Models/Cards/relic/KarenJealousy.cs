@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
@@ -38,11 +39,15 @@ public sealed class KarenJealousy : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
-        // 造成伤害
+        NKarenJealousyVfx? sweep = null;
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(() => sweep = NKarenJealousyVfx.Create(Owner.Creature, cardPlay.Target))
+            .WithAttackerAnim("Attack", 0f)
+            .WithWaitBeforeHit(NKarenJealousyVfx.FastHitTime, NKarenJealousyVfx.HitTime)
+            .WithHitFx(tmpSfx: "slash_attack.mp3")
+            .WithHitVfxNode(target => NKarenJealousyVfx.CreateImpact(target, sweep))
             .Execute(choiceContext);
     }
 
@@ -56,5 +61,6 @@ public sealed class KarenJealousy : KarenBaseCardModel
     {
         for (var i = 0; i < DynamicVars["Relics"].IntValue; i++)
             await ExtraRewardCmd.AddRelicReward(Owner);
+        if (inCombat) NKarenJealousyVfx.ConfirmReward(Owner.Creature, DynamicVars["Relics"].IntValue);
     }
 }
