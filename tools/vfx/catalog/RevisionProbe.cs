@@ -86,6 +86,8 @@ public static class RevisionProbe
             bool playing = model.Pile?.Type == PileType.Play;
             bool expected = ShineVfx.WillDeplete(model, shineAlreadyDecreased: playing);
             var ambient = card.OverlayContainer.GetChildren().OfType<NKarenShineAmbientVfx>().SingleOrDefault();
+            if (ambient?.Visible == true) ShineBorderProbe.Sample(ambient, card, false);
+            if (warning?.Visible == true) ShineBorderProbe.Sample(warning, card, true);
             bool ambientExpected = model.HasShine() && !expected && warning?.Visible != true;
             if (ambient?.Visible == true) {
                 if (playing) PlayAmbientFrames++; else HandAmbientFrames++;
@@ -109,6 +111,7 @@ public static class RevisionProbe
         missingPlayFrames = MissingPlayFrames, falseWarningFrames = FalseWarningFrames, castLayerFrames = CastLayerFrames,
         handAmbientFrames=HandAmbientFrames,playAmbientFrames=PlayAmbientFrames,missingAmbientFrames=MissingAmbientFrames,
         ambientOverlapFrames=AmbientOverlapFrames,ambientLeakFrames=AmbientLeakFrames,maxAmbientSparks=MaxAmbientSparks,
+        border = ShineBorderProbe.Status(),
         absorbs = Absorbs.Select(s => new { destination = s.Destination, frames = s.Frames, landings = s.Landings,
             landingError = s.MaxLandingError, canvasError = s.MaxCanvasError,
             source = new[] { s.Source.X, s.Source.Y }, target = new[] { s.Target.X, s.Target.Y } }),
@@ -120,6 +123,69 @@ public static class RevisionProbe
         Owner = owner; Watching = true; Absorbs.Clear(); Benefits.Clear(); Stages.Clear();
         HandWarningFrames = PlayWarningFrames = MissingPlayFrames = FalseWarningFrames = CastLayerFrames = 0;
         HandAmbientFrames=PlayAmbientFrames=MissingAmbientFrames=AmbientOverlapFrames=AmbientLeakFrames=MaxAmbientSparks=0;
+        ShineBorderProbe.Reset();
+    }
+}
+
+// Validate the actual drawn contour against native Frame alpha, in frame texture space.
+// A shrunken hand-drawn rectangle fails because both sides of its line are opaque.
+internal static class ShineBorderProbe
+{
+    private static readonly Dictionary<Texture2D, Image> Images = new();
+    private static int _clock, _ambientSamples, _warningSamples, _misses;
+    private static float _maxEdgeError, _minScale, _maxScale, _ambientOpacity;
+    internal static void Sample(Node2D overlay, NCard card, bool warning)
+    {
+        if (++_clock % 10 != 0) return;
+        if (warning) _warningSamples++; else { _ambientSamples++; _ambientOpacity = overlay.SelfModulate.A; }
+        var border = overlay.GetType().GetField("_border", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(overlay);
+        if (border?.GetType().GetProperty("Outline")?.GetValue(border) is not Vector2[] { Length: > 1 } outline) { _misses++; return; }
+        var frame = card.GetNode<TextureRect>("%Frame");
+        var texture = frame.Texture;
+        if (!Images.TryGetValue(texture, out var image))
+        {
+            if (texture is AtlasTexture atlas)
+            {
+                using var source = atlas.Atlas.GetImage(); if (source.IsCompressed()) source.Decompress();
+                image = source.GetRegion(new Rect2I((Vector2I)atlas.Region.Position, (Vector2I)atlas.Region.Size));
+            }
+            else { image = texture.GetImage(); if (image.IsCompressed()) image.Decompress(); }
+            Images.Add(texture, image);
+        }
+        Vector2 size = texture.GetSize();
+        float fit = Math.Min(frame.Size.X / size.X, frame.Size.Y / size.Y);
+        var offset = (frame.Size - size * fit) * .5f;
+        var pose = frame.GetGlobalTransformWithCanvas();
+        float scale = pose.Scale.Length() / Mathf.Sqrt(2);
+        _minScale = Math.Min(_minScale, scale); _maxScale = Math.Max(_maxScale, scale);
+        var transform = pose.AffineInverse() * overlay.GetGlobalTransformWithCanvas();
+        for (int i = 0; i < outline.Length - 1; i += Math.Max(1, outline.Length / 32))
+        {
+            var pixel = (transform * outline[i] - offset) / fit;
+            int x = (int)Math.Floor(pixel.X), y = (int)Math.Floor(pixel.Y), radius;
+            for (radius = 1; radius <= 3; radius++)
+            {
+                bool opaque = false, clear = false;
+                for (int dy = -radius; dy <= radius; dy++)
+                    for (int dx = -radius; dx <= radius; dx++)
+                    {
+                        int px = x + dx, py = y + dy;
+                        float alpha = px < 0 || py < 0 || px >= image.GetWidth() || py >= image.GetHeight() ? 0 : image.GetPixel(px, py).A;
+                        if (alpha >= .5f) opaque = true; else clear = true;
+                    }
+                if (opaque && clear) break;
+            }
+            if (radius > 3) _misses++;
+            _maxEdgeError = Math.Max(_maxEdgeError, radius * fit * scale);
+        }
+    }
+    internal static object Status() => new { ambientSamples = _ambientSamples, warningSamples = _warningSamples,
+        edgeMisses = _misses, maxEdgeErrorPixels = _maxEdgeError, minScale = _minScale, maxScale = _maxScale, ambientOpacity = _ambientOpacity };
+    internal static void Reset()
+    {
+        foreach (var image in Images.Values) image.Dispose(); Images.Clear();
+        _clock = _ambientSamples = _warningSamples = _misses = 0;
+        _maxEdgeError = _maxScale = _ambientOpacity = 0; _minScale = float.MaxValue;
     }
 }
 public sealed class RevisionProbeCommand : AbstractConsoleCmd

@@ -14,6 +14,7 @@ public partial class NKarenShineWarningVfx(NCard card, CardModel model) : Node2D
     private bool _hasPose;
     private Transform2D _previousPose;
     private Vector2 _lightWorld, _lightVelocity;
+    private readonly ShineCardBorder _border = new(card);
     private float _spawnClock;
     private int _sparkIndex;
     private sealed class Spark(Vector2 position, Vector2 velocity, float life, float radius, float phase)
@@ -40,9 +41,10 @@ public partial class NKarenShineWarningVfx(NCard card, CardModel model) : Node2D
         if (!Visible) { _sparks.Clear(); _hasPose = false; return; }
         float dt = Mathf.Min((float)delta, .05f);
         _age += dt;
+        _border.Update(this);
         var pose = GetGlobalTransformWithCanvas();
         float unit = Mathf.Max(.1f, pose.Scale.Length() / Mathf.Sqrt(2));
-        var target = pose * new Vector2(28 + Mathf.Sin(_age * 1.9f) * 12, -233 + Mathf.Sin(_age * 2.7f + .8f) * 7);
+        var target = pose * (_border.TopCenter + new Vector2(28 + Mathf.Sin(_age * 1.9f) * 12, -22 + Mathf.Sin(_age * 2.7f + .8f) * 7));
         if (!_hasPose) { _lightWorld = target; _lightVelocity = Vector2.Zero; _previousPose = pose; }
         _lightVelocity = (_lightVelocity + (target - _lightWorld) * (110 * dt)) * Mathf.Exp(-13 * dt);
         _lightWorld += _lightVelocity * dt;
@@ -61,8 +63,7 @@ public partial class NKarenShineWarningVfx(NCard card, CardModel model) : Node2D
             _spawnClock -= .025f;
             if (_sparks.Count >= 40) break;
             int i = _sparkIndex++; float side = i % 2 == 0 ? -1 : 1;
-            var origin = i % 3 == 0 ? new Vector2(-90 + i * 43 % 205, -198)
-                : new Vector2(side * 139, -180 + i * 71 % 320);
+            var origin = _border.At(i * .381966f);
             var velocity = pose.BasisXform(new Vector2(side * (7 + i * 13 % 20), -32 - i * 19 % 42)) + inherited;
             _sparks.Add(new Spark(pose * origin, velocity, .48f + i % 7 * .045f, (1.5f + i % 3 * .65f) * unit, i * 2.39996f));
         }
@@ -74,26 +75,18 @@ public partial class NKarenShineWarningVfx(NCard card, CardModel model) : Node2D
         float pulse = .5f + .5f * Mathf.Sin(_age * 3.6f);
         var gold = new Color("#ffcb62");
         var hot = new Color("#fff4ce");
-        // A broad, breathing last-light rim remains legible at actual hand scale.
-        // Keep it outside the artwork and native cost/shine labels.
-        for (int side = -1; side <= 1; side += 2)
+        // Share the native frame contour with the ordinary light, at warning strength.
+        if (_border.Outline.Length > 1)
         {
-            var top = new Vector2(side * 137, -183);
-            var bottom = new Vector2(side * 141, 178);
-            DrawLine(top, bottom, new Color(gold, .08f + pulse * .10f), 20, true);
-            DrawLine(top, bottom, new Color(gold, .25f + pulse * .25f), 7, true);
-            for (int j = 0; j < 5; j++)
+            DrawPolyline(_border.Outline, new Color(gold, .08f + pulse * .10f), 20, true);
+            DrawPolyline(_border.Outline, new Color(gold, .25f + pulse * .25f), 7, true);
+            for (int j = 0; j < 10; j++)
             {
-                float t = Mathf.PosMod(_age * (.22f + j * .015f) + j * .203f + side * .07f, 1);
+                float t = Mathf.PosMod(_age * (.065f + j * .003f) + j * .101f, 1);
                 float ember = Mathf.Sin(t * Mathf.Pi) * (.65f + .35f * Mathf.Sin(_age * 3.6f - j * .7f));
-                var p = new Vector2(side * (139 + Mathf.Sin(_age * 2 + j) * 2), 180 - t * 360);
-                DrawLine(p, p + new Vector2(side * 2, 18 + j % 3 * 6), new Color(hot, ember * .9f), 3.5f, true);
+                DrawPolyline(_border.Segment(t,18 + j % 3 * 6), new Color(hot, ember * .9f), 3.5f, true);
             }
         }
-        var left = new Vector2(-100, -199);
-        var right = new Vector2(120, -199);
-        DrawLine(left, right, new Color(gold, .12f + pulse * .15f), 18, true);
-        DrawLine(left, right, new Color(gold, .65f + pulse * .25f), 5, true);
         var lastLight = GetGlobalTransformWithCanvas().AffineInverse() * _lightWorld;
         float radius = 13 + pulse * 5;
         for (int layer = 8; layer > 0; layer--)

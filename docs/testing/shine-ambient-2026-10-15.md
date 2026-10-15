@@ -2,7 +2,7 @@
 
 用户澄清需要卡牌上的常驻特效。撤回 `300babc` 中误加的普通回牌演出，移除 `NKarenShineReturnVfx`、回牌来源记录及 `NCardFlyVfx` 接管补丁、对应专项脚本。普通移牌恢复原生流程；既有闪耀耗尽的轨迹和速度曲线保留。
 
-当前可见性加强参数见文末“后续调整：手牌尺寸下的可辨识度”；下列初版参数和录像保留为历史记录。
+当前轮廓和透明度参数见文末“后续校正：光框贴合与普通常驻减淡”；下列各版参数和录像保留为历史记录。
 
 ## 初版卡牌表现（2cbd015）
 
@@ -68,3 +68,28 @@
 复核命令：`python tools/vfx/catalog/verify_shine_ambient.py --output artifacts/shine-ambient-visible-20261015 --scenes shine-ambient`，结果为 `verification.json`。新单独录像为 `clips/shine-ambient/Karen-shine-ambient.mp4`，16.128 秒，1280×816、30 fps、游戏原声 AAC 与底部逐段说明，峰值 -2.4 dB，完整解码通过。`review/hand-before-after.png` 保留相同尺寸的调整前后手牌对照，`review/mcp-before-after.png` 为双版本操作前后核对图。
 
 两套主开发环境均已更新 Karen 五个包文件并核对哈希，其他 Mod 的 8／6 个文件保持不变；旧包及清单在本轮证据的 `deployment-backup/`、`deployment.json`。正式版实现 DLL SHA-256 为 `9ab917190b9a1fad1805bfa1406e657a44cb95ed5350d455843e0fb66d17bca2`，测试版为 `db69619e3143adf27809141b06f3aae10d7d45f5ad332b85a92f680b9b90c16e`，共用 PCK 仍为 `dbcd8d5c3d92f148c57dc6a50c709f7d4603c21c6588f3203a53e4adcf66aa74`。
+
+## 后续校正：光框贴合与普通常驻减淡
+
+用户指出普通／即将耗尽两种光框都与原生卡框不对齐，并要求普通常驻弱一些。原因是两种效果分别使用约 ±139、顶部 -199、底部 178 的手绘直线；原生 `Frame` 约为 300×422，且带圆角。上一版真实悬停截图的同一水平截线上，金色线与原生外缘高亮间隔为 7 像素，牌面底部还形成了额外的内框。
+
+新增共用的 `ShineCardBorder`：按当前原生 `Frame.Texture` 的 alpha 轮廓生成闭合路径，保留圆角，合并直线段，并缓存各纹理的轮廓。压缩图集先解压原 atlas，再截取区域，避免 `AtlasTexture.GetImage()` 直接截取压缩图像时的 `Cannot blit_rect`。路径按 Frame 实际尺寸、KeepAspectCentered 比例和相对 Overlay 的完整变换映射；光框、沿边亮痕及发射位置共用该轮廓。亮星继续惯性跟随，离开卡缘的粒子继续独立漂浮。
+
+普通常驻整体 `SelfModulate.A` 设为 0.65，即在上一版基础上降低 35% 不透明度，包含卡缘、小亮星及星屑。临界层保留原亮度、大亮星、密集余烬和宽光晕。没有改动结算、移牌和耗尽速度曲线。
+
+本轮最终证据为 `artifacts/shine-frame-align-20261015/`。双版本构建通过；正式版 v0.107.1、测试版 v0.111.0 各通过 MCP 录制 `shine-ambient`，覆盖实际手牌、悬停放大、3→2 普通打出、普通牌反例和 1→0 耗尽。观察器把实际绘制路径反投影到原生纹理，检查采样点两侧的 alpha 交界，避免仅比较两套手写尺寸。
+
+| 项目 | 正式版 | 测试版 |
+| --- | --- | --- |
+| 普通／临界轮廓采样次数 | 173／77 | 120／132 |
+| 偏离原生 alpha 边界的采样点 | 0 | 0 |
+| 最大边界采样半径（视口像素） | 0.5 | 0.5 |
+| 实测 Frame 缩放范围 | 0.615–1.0 | 0.8–1.0 |
+| 普通常驻最终 alpha 倍率 | 0.65 | 0.65 |
+| 手牌模型／可见节点核对 | 5 次通过 | 5 次通过 |
+
+两版常驻漏亮／叠亮／泄漏、临界漏亮／误亮均为零；最终日志均无错误。实际耗尽牌堆增量与临时节点清理通过。已保存并查看双版本 MCP 前后截图，以及普通／临界悬停的同尺寸前后对照 `review/frame-before-after.png`。最低游戏捕获帧率 28.77 fps，窗口前台／恢复采样为零。本轮没有执行完整单人／多人矩阵或重复燃料／第二幕专项。
+
+验证入口：`python tools/vfx/catalog/verify_shine_ambient.py --output artifacts/shine-frame-align-20261015 --scenes shine-ambient`，结果为 `verification.json`。新单独录像 `clips/shine-ambient/Karen-shine-ambient.mp4` 为 16.064 秒、1280×816、30 fps、游戏进程原声及底部说明；音轨峰值 -2.2 dB，完整解码通过。早期探针构建串版和压缩图集截取失败的尝试分别保留在 `stable-probe-build-error/`、`stable-compressed-atlas-error/`，未当作最终验收数据；探针改为逐版本强制重建，生产代码已修正图集读取后重新构建及实录。
+
+两套主开发环境已更新并校验 Karen 五个包文件，其他 Mod 的 8／6 个文件哈希保持一致；备份及部署清单位于本轮证据的 `deployment-backup/`、`deployment.json`。正式版实现 DLL SHA-256 为 `ed847c10bd8d4bd3afd64fb3e17be3501fc52d1248319ba4ccbae12621e28b4a`，测试版为 `7365f051f4eb8361758e824346e381476ee5510776bdfb24f3c3812eb5118fa5`，共用 PCK 为 `ca092115f82a5b5af604c3cb228ac4c4657cbec1e108fe32b805e4fb825087dd`。

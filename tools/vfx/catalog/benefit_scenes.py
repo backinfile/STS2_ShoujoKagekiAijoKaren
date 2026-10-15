@@ -142,7 +142,7 @@ if want('shine-ambient'):
     for card,n in [('KAREN_SHINE_STRIKE',3),('KAREN_NONON',9),('KAREN_DRINK_WATER',1)]:
         prep(card);cmd('shine_fuel set '+card+' '+str(n))
     prep('KAREN_STRIKE');record_start()
-    marking('牌面常驻对照｜普通闪耀：金色卡缘、小亮星与浮光；最后一点：更强亮星与余烬');time.sleep(2.2)
+    marking('光框贴合原生圆角｜普通闪耀：65% 不透明度；临界提示：保留强亮星与余烬');time.sleep(2.2)
     for card,label in [('KAREN_SHINE_STRIKE','闪耀打击'),('KAREN_NONON','NONNON'),('KAREN_DRINK_WATER','水分补充：最后一点闪耀')]:
         c=next(c for c in state()['player']['hand'] if c['id']==card)
         marking(label+'｜悬停观察卡面常驻层，星屑保留自由漂浮')

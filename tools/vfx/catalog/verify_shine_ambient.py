@@ -39,6 +39,11 @@ for branch in ['stable','beta']:
             assert revision['maxAmbientSparks']>=8,revision
         if name=='shine-ambient':
             assert motion['detachedSparkFrames']>0 and revision['handWarningFrames']>0
+            border=revision['border']
+            assert border['ambientSamples']>20 and border['warningSamples']>20,border
+            assert border['edgeMisses']==0 and border['maxEdgeErrorPixels']<=1,border
+            assert border['minScale']<border['maxScale'],border
+            assert abs(border['ambientOpacity']-.65)<.001,border
         assert motion['liveDepletes']==0
         assert len(motion['depletes'])==(0 if name=='shine-ambient-modes' else 1)
         assert all(d['released'] and d['landingError']<.1 and not d['faceReappeared'] for d in motion['depletes'])
