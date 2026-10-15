@@ -2,6 +2,8 @@
 if 'arrogant' in wanted:
     exec(compile((main / 'tools/vfx/arrogant/scene.py').read_text(encoding='utf-8'), 'arrogant/scene.py', 'exec'))
 
+if 'baseball' in wanted:
+    exec(compile(pathlib.Path(__file__).with_name('baseball.py').read_text(encoding='utf-8'), 'baseball.py', 'exec'))
 if 'replay-timing' in wanted:
     exec(compile(pathlib.Path(__file__).with_name('replay_timing.py').read_text(encoding='utf-8'), 'replay_timing.py', 'exec'))
 if 'void-tower-handoff' in wanted:

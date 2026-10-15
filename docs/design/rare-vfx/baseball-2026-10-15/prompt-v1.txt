@@ -1,0 +1,33 @@
+Generation: built-in image_gen.imagegen, 2026-10-15.
+Output: concept-v1.png. Concept only, not implemented gameplay footage.
+Reference 1: images/packed/card_portraits/karen/karen_baseball.png
+Reference 2: artifacts/vfx-compat-review-20261015/after/stable/compatibility-regressions/recording-before.png
+Design source: docs/19.创意工坊特效Mod解包与制作流程.md
+
+Prompt submitted:
+
+Use case: stylized-concept.
+Asset type: game VFX art direction storyboard, a new concept sheet composited from the supplied actual combat screenshot, for the Karen character mod for Slay the Spire 2.
+
+Input image 1 is the existing BASEBALL CARD ART, a thematic reference only: a brown-haired girl, a wooden baseball bat, white baseball, red seam stitching, youthful confident clean swing. Input image 2 is the ACTUAL GAMEPLAY SCREENSHOT and must be the exact visual and spatial base for all four frames: petite anime Karen in her red stage costume with white cape on the LEFT, existing red painted promise tower behind her, waterfall cavern environment, stone giant enemy on the RIGHT, native HUD around the edges. Preserve the recognizable actual game aesthetic, battle composition, camera, creature designs and relative scales from image 2. Do not redraw this as cinematic closeups or replace the game character with the school uniform girl. This is a GAMEPLAY VFX OVERLAY CONCEPT, not a new character illustration.
+
+Deliver ONE polished wide landscape concept board, approximately 2560x1680, with FOUR LARGE GAMEPLAY PANELS in a clean 2-by-2 grid, same viewpoint across all panels, separated by narrow charcoal gutters, with a restrained header and small elegant Chinese captions outside the gameplay frames. Make the effect clearly visible at game scale and visually plausible to implement with Godot Shader + short Trail + sparse particles and optional short transparent flipbook. Keep original screenshot texture and the enemy/player visible. Crisp designed VFX with precise edges and soft glow, visually rich but controlled. The effect's signature is BASEBALL SEAM MOTION, not a generic sword slash or magic circle.
+
+Concept title at top, exact Chinese: “棒球 · 缝线破空”.
+Small subtitle, exact Chinese: “击球命中 → 四项保留”.
+Panel order left-to-right, top-to-bottom, each caption outside the screenshot:
+“01 蓄势 · 0.00–0.15s”
+“02 击球 · 0.15–0.35s”
+“03 命中 · 0.35–0.50s”
+“04 保留确认 · 0.50–0.90s”
+
+PANEL 1: Karen's existing red-costume combat sprite remains at the actual original left-side position. A SMALL abstract warm-gold bat-swing light arc gathers by her attacking hand/weapon, with subtle paired RED baseball stitch marks along the short moving edge. A tiny white-gold ball core is about to be launched from her side. Suggest a clean forceful windup through light motion only, do not equip a giant prop or alter the character design. Most of the combat screen remains quiet.
+
+PANEL 2: Show a fast small luminous WHITE BASEBALL, with discernible red double seam stitching, flying from Karen toward the actual stone enemy's torso in the right half of the screenshot. Ball diameter only about 2.5% of gameplay panel width, not enormous. It follows one shallow rising then descending arc through the existing combat space. A tapering white-gold motion ribbon narrows behind it, with red seam segments that gently corkscrew around the near end of the trajectory, plus just a few short gold embers. Its travel reads as baseball velocity and weight, not a laser beam. One ball and one trajectory; no duplicate hits.
+
+PANEL 3: The ball strikes the actual enemy torso, at the same valid target position as the previous panel. A localized, decisive white-gold impact spark, two curved red seam fragments, short flattened shock ellipse and a few sharp gold streaks indicate ONE hit. Keep the enemy silhouette readable. The burst is compact, about 12% of gameplay panel width, not a whole-screen explosion. No invented damage numbers or new gameplay objects.
+
+PANEL 4: Attack has finished. Show the separate successful buff confirmation at Karen's side: four BRIEF thin light strokes, warm gold for energy, pale ivory for hand, cool pale blue for block, muted ruby for strength, flow a short distance into four tiny native-style buff icons aligned beneath her existing health bar, matching the native power icon row location. A very faint open diamond shaped home-plate suggestion at her feet may frame the four light origins, but it should be incomplete and immediately fading, not a big physical baseball field, arena, scoreboard, UI panel or occult magic circle. The character and the full existing hand area stay unobstructed. These are confirmation gestures, not four big permanent floating symbols. Small bottom legend outside the panel: “能量 · 手牌 · 格挡 · 力量”, and “保留 2 回合｜状态由实际能力驱动”.
+
+Visual language: white-gold core with restrained red stitching; four buff accents secondary and coordinated. Fine trailing motion, tiny particles, clean negative space, high quality painted game compositing. Use existing stage atmosphere, not new stadium scenery. Design must communicate a single attack followed by retaining four resources for two turns. The timings are proposed visual timing, not established game footage. Include a small unobtrusive label at bottom: “特效概念分镜 · 非实机画面”.
+Avoid: giant bats, newly drawn character poses, baseball stadium crowds, giant scoreboards, heavy HUD frames, dense magical runes, neon purple fantasy effects, permanent shields obscuring the character, full screen flash, unrelated stars everywhere, random English labels, watermarks.

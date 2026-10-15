@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -32,10 +33,14 @@ public sealed class KarenBaseball : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
+        NKarenBaseballVfx? flight = null;
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(() => flight = NKarenBaseballVfx.Create(Owner.Creature, cardPlay.Target))
+            .WithAttackerAnim("Attack", 0f)
+            .WithWaitBeforeHit(NKarenBaseballVfx.FastHitTime, NKarenBaseballVfx.HitTime)
+            .WithHitVfxNode(target => NKarenBaseballVfx.CreateImpact(target, flight))
             .Execute(choiceContext);
 
         // 同时应用4种保留效果，各2回合

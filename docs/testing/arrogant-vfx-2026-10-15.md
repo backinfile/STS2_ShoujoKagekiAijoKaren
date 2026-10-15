@@ -44,3 +44,12 @@
 最终实测包 SHA-256：PCK `2c7bd6738db99ecb3cf8fb927da0c1552d36b0e9b7cf733933ee98f90d7d6f23`；Stable DLL `b56dbd3f38b66adb4251c72fa68873daa76033da313c11e8c673b90f0acdd22e`；Beta DLL `1b27003970cf5a33f6caf85b6995a1781785cd8e88547981c9a907e89a36d175`。后续同步主分支如重建整个包，另记同步后的验证与哈希，不将旧录像冒称重建包录像。
 
 复现入口：`tools/vfx/arrogant/README.md`。任务工作树合回前保留；清理前须把最终视频和证据复制到主检出的同名 artifacts 目录。
+
+## 同步主分支复核
+
+任务提交 `740bdf6` 后同步本地 `main` 的 `c0c51dc`（同期棒球特效）。唯一冲突为 `extra_scenes.py` 的两个新入口，已并列保留。骄傲的运行时代码、贴图与时序均未改变。
+
+- 双版本发行包、正式／测试两版探针重建通过，0 错误；Python 场景与合辑脚本语法检查通过。
+- 同步后正式版重新执行上述全部骄傲专项，通过，日志 ERROR / Exception 为 0。使用单独端口 `18749`，证据保存在 `artifacts/arrogant-vfx-20261015/synchronized/`。
+- 测试版同步后只重建，未重复实机；此前的测试版实测仍对应上文准确记录的包。合辑也对应上文的原实测包，不把它标为同步包录像。
+- 同步包 SHA-256：PCK `3a395e27bcfcf36000713c976d7fcf87b2700ea7017567501ca334713b89d2ba`；Stable DLL `8448b19e3f3e79e67179bc5502e315f5a44ce498645b6ede792c59822cf4a045`；Beta DLL `65bbbbc48e3eae9e591fbdd4ac521d8dd00cc9fe5bbf4634bb6d8bbfba8474c`。
