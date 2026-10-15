@@ -231,6 +231,7 @@ public static class ShinePileManager
         {
             var screen = NCardPileScreen.ShowScreen(snapshot, System.Array.Empty<string>());
             screen.Name = "NCardPileScreen-ShinePile";
+            ShoujoKagekiAijoKaren.src.Core.Nodes.NKarenPileViewVfx.Attach(screen, promise: false);
             MainFile.Logger.Info($"[ShinePileManager] NCardPileScreen opened, name={screen.Name}");
 
             var bottomLabel = screen.GetNode<MegaCrit.Sts2.addons.mega_text.MegaRichTextLabel>("%BottomLabel");

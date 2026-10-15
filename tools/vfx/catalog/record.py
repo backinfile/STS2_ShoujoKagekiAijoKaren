@@ -8,6 +8,7 @@ parser.add_argument('--setup-wait',type=float,default=2.2)
 parser.add_argument('--port',type=int)
 parser.add_argument('--package',type=pathlib.Path)
 parser.add_argument('--speed',choices=['normal','fast'],default='normal')
+parser.add_argument('--renderer',choices=['vulkan','opengl3'],default='vulkan')
 args=parser.parse_args()
 assert args.setup_wait >= 0
 root=args.output.resolve()
@@ -81,7 +82,9 @@ try:
     env=os.environ.copy();env['APPDATA']=str(dev/'user/AppData/Roaming');env['LOCALAPPDATA']=str(dev/'user/AppData/Local');env['STS2_MCP_FFMPEG']=shutil.which('ffmpeg')
     startup=subprocess.STARTUPINFO();startup.dwFlags=subprocess.STARTF_USESHOWWINDOW;startup.wShowWindow=0
     t=threading.Thread(target=monitor_loop,daemon=True);t.start()
-    process=subprocess.Popen([str(game/'SlayTheSpire2.exe'),'--rendering-driver','vulkan','--force-steam=off','--log-file',str(dev/'godot.log')],cwd=game,env=env,startupinfo=startup)
+    renderer_args=['--rendering-driver',args.renderer]
+    if args.renderer=='opengl3': renderer_args+=['--rendering-method','gl_compatibility']
+    process=subprocess.Popen([str(game/'SlayTheSpire2.exe'),*renderer_args,'--force-steam=off','--log-file',str(dev/'godot.log')],cwd=game,env=env,startupinfo=startup)
     for _ in range(100):
         time.sleep(.5)
         try:
@@ -123,6 +126,7 @@ try:
             time.sleep(.2)
         assert rec['status']=='completed' and rec.get('audio') and rec.get('audio_source')=='game_process',rec
         rec['captureBuild']=capture_build
+        rec['renderer']=args.renderer
         shutil.copy2(rec['output_path'],case/'game.mp4');save('recording',rec)
         recording=False; snap(case/'recording-after')
         api('/settings',dict(muted=True))
@@ -234,7 +238,8 @@ try:
         save('revision-probe',json.loads(cmd('revision_probe status')['message']))
         save('shine-motion',json.loads(cmd('shine_motion status')['message']))
         record_stop();print('RECORDED',case.name,flush=True)
-    cmd('native_speed '+args.speed);fight()
+    cmd('native_speed '+args.speed)
+    if wanted != {'pile-view'}: fight()
     if want('tower'):
         stage('tower',seed=False)
         for card in ['KAREN_DEFEND','KAREN_STRIKE','KAREN_FALL','KAREN_TOWER_OF_PROMISE']:prep(card)
@@ -371,6 +376,8 @@ try:
             time.sleep(.15)
         else:raise AssertionError(('No reward screen',s))
         marking('最后的台词｜伤害结算与战斗收尾');snap(case/'rewards');time.sleep(1.5);record_stop();print('RECORDED lastword',flush=True)
+    if 'pile-view' in wanted:
+        exec(compile((main/'tools/vfx/pile-view/scene.py').read_text(encoding='utf-8'), 'pile-view/scene.py', 'exec'))
     cmd('native_speed restore')
 
 
