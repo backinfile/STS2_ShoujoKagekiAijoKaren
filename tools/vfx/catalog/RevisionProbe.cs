@@ -38,6 +38,7 @@ public static class RevisionProbe
     internal static readonly HashSet<NKarenBenefitVfx> Benefits = new();
     internal static readonly HashSet<NKarenStageCueVfx> Stages = new();
     internal static int HandWarningFrames, PlayWarningFrames, MissingPlayFrames, FalseWarningFrames, CastLayerFrames;
+    internal static int HandAmbientFrames, PlayAmbientFrames, MissingAmbientFrames, AmbientOverlapFrames, AmbientLeakFrames, MaxAmbientSparks;
     static object? Field(object node, string name) => node.GetType().GetField(name, BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(node);
     public static void Initialize() => ((SceneTree)Engine.GetMainLoop()).ProcessFrame += () => Callable.From(Sample).CallDeferred();
     static void Sample()
@@ -84,16 +85,30 @@ public static class RevisionProbe
             var warning = card.OverlayContainer.GetChildren().OfType<NKarenShineWarningVfx>().SingleOrDefault();
             bool playing = model.Pile?.Type == PileType.Play;
             bool expected = ShineVfx.WillDeplete(model, shineAlreadyDecreased: playing);
+            var ambient = card.OverlayContainer.GetChildren().OfType<NKarenShineAmbientVfx>().SingleOrDefault();
+            bool ambientExpected = model.HasShine() && !expected && warning?.Visible != true;
+            if (ambient?.Visible == true) {
+                if (playing) PlayAmbientFrames++; else HandAmbientFrames++;
+                MaxAmbientSparks = Math.Max(MaxAmbientSparks,((IEnumerable)Field(ambient,"_sparks")!).Cast<object>().Count());
+                if (warning?.Visible == true) AmbientOverlapFrames++;
+            }
+            if (ambientExpected && ambient?.Visible != true) MissingAmbientFrames++;
             if (!playing && warning?.Visible == true) HandWarningFrames++;
             if (!playing) continue;
             if (expected && warning?.Visible == true) PlayWarningFrames++;
             if (expected && warning?.Visible != true) MissingPlayFrames++;
             if (!expected && warning?.Visible == true) FalseWarningFrames++;
         }
+        foreach (var card in ShineFuelProbe.Descend(NRun.Instance!).OfType<NCard>()
+            .Where(c=>c.IsNodeReady() && c.Model!=null && c.OverlayContainer!=null))
+            foreach (var ambient in card.OverlayContainer.GetChildren().OfType<NKarenShineAmbientVfx>().Where(a=>a.Visible))
+                if (!ambient.BelongsTo(card.Model) || !card.Model.HasShine()) AmbientLeakFrames++;
     }
     internal static object Status() => new {
         handWarningFrames = HandWarningFrames, playWarningFrames = PlayWarningFrames,
         missingPlayFrames = MissingPlayFrames, falseWarningFrames = FalseWarningFrames, castLayerFrames = CastLayerFrames,
+        handAmbientFrames=HandAmbientFrames,playAmbientFrames=PlayAmbientFrames,missingAmbientFrames=MissingAmbientFrames,
+        ambientOverlapFrames=AmbientOverlapFrames,ambientLeakFrames=AmbientLeakFrames,maxAmbientSparks=MaxAmbientSparks,
         absorbs = Absorbs.Select(s => new { destination = s.Destination, frames = s.Frames, landings = s.Landings,
             landingError = s.MaxLandingError, canvasError = s.MaxCanvasError,
             source = new[] { s.Source.X, s.Source.Y }, target = new[] { s.Target.X, s.Target.Y } }),
@@ -104,6 +119,7 @@ public static class RevisionProbe
     internal static void Reset(Player owner) {
         Owner = owner; Watching = true; Absorbs.Clear(); Benefits.Clear(); Stages.Clear();
         HandWarningFrames = PlayWarningFrames = MissingPlayFrames = FalseWarningFrames = CastLayerFrames = 0;
+        HandAmbientFrames=PlayAmbientFrames=MissingAmbientFrames=AmbientOverlapFrames=AmbientLeakFrames=MaxAmbientSparks=0;
     }
 }
 public sealed class RevisionProbeCommand : AbstractConsoleCmd

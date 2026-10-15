@@ -137,36 +137,42 @@ if want('shine-play'):
     report=json.loads(cmd('revision_probe status')['message']);assert report['falseWarningFrames']==0,report
     finish()
 
-if want('shine-return'):
-    stage('shine-return',seed=False)
-    for card,n in [('KAREN_SHINE_STRIKE',2),('KAREN_NONON',3)]:
+if want('shine-ambient'):
+    stage('shine-ambient',seed=False)
+    for card,n in [('KAREN_SHINE_STRIKE',3),('KAREN_NONON',9),('KAREN_DRINK_WATER',1)]:
         prep(card);cmd('shine_fuel set '+card+' '+str(n))
-    record_start();marking('普通闪耀｜手牌中不增加临界预告；打出后轻量收拢与回牌');time.sleep(.6)
-    clip_cast('KAREN_SHINE_STRIKE','闪耀 2→1｜十二束细星屑、小星点与短尾迹，回到真实弃牌图标')
-    clip_cast('KAREN_NONON','NONNON 3→2｜同一轻量回牌效果，亮度与规模低于耗尽')
-    prep('KAREN_STRIKE');clip_cast('KAREN_STRIKE','普通牌对照｜不添加闪耀回牌特效')
+    prep('KAREN_STRIKE');record_start()
+    marking('牌面常驻对照｜普通闪耀：薄金卡缘与稀疏浮光；最后一点：更强亮星与余烬');time.sleep(2.2)
+    for card,label in [('KAREN_SHINE_STRIKE','闪耀打击'),('KAREN_NONON','NONNON'),('KAREN_DRINK_WATER','水分补充：最后一点闪耀')]:
+        c=next(c for c in state()['player']['hand'] if c['id']==card)
+        marking(label+'｜悬停观察卡面常驻层，星屑保留自由漂浮')
+        post(action='hover_card',card_index=c['index']);time.sleep(.9)
+        post(action='unhover_card');time.sleep(.55)
+    clip_cast('KAREN_SHINE_STRIKE','普通闪耀 3→2｜卡面微光在打出区持续，移牌恢复原生演出')
+    clip_cast('KAREN_STRIKE','普通牌对照｜没有闪耀常驻层，原生回牌流程')
     prep('KAREN_SHINE_STRIKE');cmd('shine_fuel set KAREN_SHINE_STRIKE 1')
-    clip_cast('KAREN_SHINE_STRIKE','耗尽对照 1→0｜保留大范围收拢、强亮星点与急加速入耗尽堆')
-    motion=json.loads(cmd('shine_motion status')['message']);save('return-assertions',motion)
-    assert [r['card'] for r in motion['returns']]==['KAREN_SHINE_STRIKE','KAREN_NONON'],motion
-    assert [r['remainingShine'] for r in motion['returns']]==[1,2],motion
-    assert len(motion['depletes'])==1 and motion['liveReturns']==motion['liveDepletes']==0,motion
-    assert all(r['released'] and r['landingError']<.1 for r in motion['returns']),motion
+    clip_cast('KAREN_SHINE_STRIKE','耗尽对照 1→0｜原有强临界提示、收拢与入堆曲线保持')
+    report=json.loads(cmd('revision_probe status')['message']);save('ambient-assertions',report)
+    assert report['handAmbientFrames']>100 and report['playAmbientFrames']>0,report
+    assert report['missingAmbientFrames']==report['ambientOverlapFrames']==report['ambientLeakFrames']==0,report
+    assert 3<=report['maxAmbientSparks']<=8,report
     finish()
 
-if want('shine-return-modes'):
-    stage('shine-return-modes',seed=False);record_start()
+if want('shine-ambient-modes'):
+    stage('shine-ambient-modes',seed=False);record_start()
     for speed,card in [('fast','KAREN_SHINE_STRIKE'),('normal','KAREN_DROP_FUEL'),('instant','KAREN_SHINE_STRIKE')]:
         cmd('stage_probe speed '+speed);prep(card);cmd('shine_fuel set '+card+' 2')
-        clip_cast(card,speed+'｜普通闪耀回牌；燃料保留自己的爆散与消耗，Instant 保留原生退场')
-    cmd('stage_probe speed normal');prep('KAREN_SHINE_STRIKE');cmd('shine_fuel set KAREN_SHINE_STRIKE 2')
-    before=len(json.loads(cmd('shine_motion status')['message'])['returns'])
-    marking('回合弃牌对照｜未打出的闪耀牌不触发打出收拢与回牌星光')
-    next_turn('unplayed-discard')
-    motion=json.loads(cmd('shine_motion status')['message']);save('return-assertions',motion)
-    assert before==len(motion['returns'])==1 and motion['liveReturns']==motion['liveDepletes']==0,motion
-    assert [r['card'] for r in motion['returns']]==['KAREN_SHINE_STRIKE'],motion
-    assert all(r['released'] and r['landingError']<.1 and r['remainingShine']==1 for r in motion['returns']),motion
+        marking(speed+'｜常驻牌面光，保持原有打出和移牌流程');time.sleep(.7)
+        clip_cast(card,speed+'｜微光与燃料自己的演出共存，退场后停止发光')
+    cmd('stage_probe speed normal');trim()
+    for _ in range(2):
+        prep('KAREN_STRIKE');clip_cast('KAREN_STRIKE','对象池复用对照｜普通牌不继承闪耀卡缘或星屑')
+    prep('KAREN_SHINE_STRIKE');cmd('shine_fuel set KAREN_SHINE_STRIKE 3');time.sleep(.7)
+    marking('回合交接｜卡面常驻随可见卡牌更新，不接管弃牌路径')
+    next_turn('ambient-turn')
+    report=json.loads(cmd('revision_probe status')['message']);save('ambient-assertions',report)
+    assert report['handAmbientFrames']>0 and report['playAmbientFrames']>0,report
+    assert report['missingAmbientFrames']==report['ambientOverlapFrames']==report['ambientLeakFrames']==0,report
     finish()
 
 if want('shine-motion'):

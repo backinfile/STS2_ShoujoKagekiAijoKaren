@@ -1,4 +1,4 @@
-"""Check actual surviving-Shine returns, depletion separation, ownership, and recorded media."""
+"""Verify persistent card light, warning separation, native returns and actual MCP captures."""
 import argparse
 import hashlib
 import json
@@ -16,38 +16,32 @@ parser.add_argument('--output',type=pathlib.Path,required=True)
 root=parser.parse_args().output.resolve()
 read=lambda p:json.loads(p.read_text(encoding='utf-8'))
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+names=['shine-ambient','shine-ambient-modes','starlight-act2']
 report={'versions':{},'clips':[]}
-names=['shine-return','shine-return-modes','starlight-act2']
 for branch in ['stable','beta']:
+    assembly=repo/f'artifacts/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.{branch.title()}.dll'
+    binary=assembly.read_bytes()
+    assert b'NKarenShineAmbientVfx' in binary
+    assert all(name not in binary for name in [b'NKarenShineReturnVfx',b'ReturnSourcePatch']), 'Retired return code remains'
     scenes={};hands=0
     for name in names:
         folder=root/branch/name
-        capture=read(folder/'recording.json');motion=read(folder/'shine-motion.json')
+        capture=read(folder/'recording.json');revision=read(folder/'revision-probe.json');motion=read(folder/'shine-motion.json')
         assert capture['status']=='completed' and capture['audio_source']=='game_process' and capture['capture_fps']>=20,capture
-        assert capture['captureBuild']['assemblySha256']==sha(repo/f'artifacts/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.{branch.title()}.dll')
+        assert capture['captureBuild']['assemblySha256']==sha(assembly)
         assert capture['captureBuild']['packSha256']==sha(repo/'artifacts/ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.pck')
-        assert motion['liveReturns']==motion['liveDepletes']==0,motion
-        returns=motion['returns'];depletes=motion['depletes']
-        expected={'shine-return':['KAREN_SHINE_STRIKE','KAREN_NONON'],'shine-return-modes':['KAREN_SHINE_STRIKE'],'starlight-act2':[]}[name]
-        assert [r['card'] for r in returns]==expected,returns
-        for r in returns:
-            assert r['released'] and r['frames']>10 and r['landingError']<.1,r
-            assert r['destination']=='Discard' and r['remainingShine']>0,r
-            assert r['gather']<.15 and r['duration']<.37,r
-        if name=='shine-return':
-            assert [r['remainingShine'] for r in returns]==[1,2],returns
-            assert all(abs(r['duration']-.36)<.001 for r in returns)
-        if name=='shine-return-modes':
-            assert abs(returns[0]['duration']-.26)<.001 and returns[0]['remainingShine']==1
-            # The fixture also plays Fuel, uses Instant and discards an unplayed Shine card.
-            # Those must not create this replacement return flourish.
-            assert len(read(folder/'return-assertions.json')['returns'])==1
-        assert len(depletes)==(0 if name=='shine-return-modes' else 1)
-        assert all(d['released'] and d['landingError']<.1 and not d['faceReappeared'] for d in depletes)
+        assert all(revision[k]==0 for k in ['missingAmbientFrames','ambientOverlapFrames','ambientLeakFrames','missingPlayFrames','falseWarningFrames']),revision
+        assert revision['maxAmbientSparks']<=8
+        if name.startswith('shine-ambient'):
+            assert revision['handAmbientFrames']>100 and revision['playAmbientFrames']>0,revision
+            assert revision['maxAmbientSparks']>=3,revision
+        if name=='shine-ambient':
+            assert motion['detachedSparkFrames']>0 and revision['handWarningFrames']>0
+        assert motion['liveDepletes']==0
+        assert len(motion['depletes'])==(0 if name=='shine-ambient-modes' else 1)
+        assert all(d['released'] and d['landingError']<.1 and not d['faceReappeared'] for d in motion['depletes'])
         initial=read(folder/'initial-state.json')['shine'];final=read(folder/'final-state.json')['shine']
-        assert final==initial+(['KAREN_SHINE_STRIKE'] if depletes else []),(name,initial,final)
-        revision=read(folder/'revision-probe.json')
-        assert revision['missingPlayFrames']==revision['falseWarningFrames']==0,revision
+        assert final==initial+(['KAREN_SHINE_STRIKE'] if motion['depletes'] else []),(name,initial,final)
         stage=read(folder/'stage-probe.json')
         assert all(stage[k]==0 for k in ['live','allLive','backLive','hudLive'])
         if name=='starlight-act2':
@@ -58,13 +52,15 @@ for branch in ['stable','beta']:
             assert hand['modelCount']==hand['visualCount'] and not hand['missing'] and not hand['unexpected'] and not hand['unexpectedPileIcons'],path
             hands+=1
         assert all((folder/f'recording-{s}.png').exists() for s in ['before','after'])
-        scenes[name]=dict(captureFps=capture['capture_fps'],returns=returns,depletes=depletes,warning=revision)
+        scenes[name]=dict(captureFps=capture['capture_fps'],cardLight=revision,motion=motion)
     window=read(root/branch/'window-monitor.json')
     assert window['foreground_samples']==window['restored_samples']==0,window
     log=(root/branch/'godot.log').read_text(encoding='utf-8')
     assert '[Karen STS2 MCP]' in log
     errors=audit(log);assert not errors['unexpectedErrors'],errors
-    report['versions'][branch]=dict(handChecks=hands,scenes=scenes,errors=errors,window=window)
+    preload=next(i for i,line in enumerate(log.splitlines(),1) if "Preloading 'Common' Complete:" in line)
+    assert all(e['line']<preload for e in errors['knownStartupWorkerPoolErrors'])
+    report['versions'][branch]=dict(handChecks=hands,scenes=scenes,errors=errors,window=window,retiredReturnCodePresent=False)
 for name in names:
     folder=root/'clips'/name;movie=folder/f'Karen-{name}.mp4';info=probe(movie)
     video=next(s for s in info['streams'] if s['codec_type']=='video')

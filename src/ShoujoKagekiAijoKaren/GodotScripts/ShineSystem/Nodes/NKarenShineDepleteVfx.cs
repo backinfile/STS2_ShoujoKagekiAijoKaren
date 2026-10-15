@@ -178,7 +178,7 @@ public partial class NKarenShineDepleteVfx : Node2D
     // then braking into a short catch. Peak speed is 3.15 times the average.
     // Integrating smooth velocity ramps avoids jumps at all phase boundaries;
     // arc-length lookup keeps curvature from flattening the intended rhythm.
-    internal static float TravelProgress(float t)
+    private static float TravelProgress(float t)
     {
         t = Mathf.Clamp(t, 0, 1);
         const float lift = .30f, surge = .32f, brake = .22f, catchTime = .16f;
