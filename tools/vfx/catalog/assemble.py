@@ -175,6 +175,8 @@ if __name__ == '__main__':
     if args.separate:
         available = dict(CURRENT_ENTRIES + [('shine-play', '闪耀临界 · 提示随卡牌完成打出'),
             ('shine-motion', '闪耀耗尽 · 缓起、急加速与减速吸入'),
+            ('shine-return', '普通闪耀 · 轻量收拢与回牌'),
+            ('shine-return-modes', '普通闪耀 · Fast、燃料与回合弃牌核查'),
             ('shine-speeds', '闪耀耗尽 · Fast、Instant 与燃料兼容')])
         names = args.scenes.split(',') if args.scenes else list(available)
         for name in names:

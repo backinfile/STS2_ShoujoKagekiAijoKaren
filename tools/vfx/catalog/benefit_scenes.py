@@ -137,6 +137,38 @@ if want('shine-play'):
     report=json.loads(cmd('revision_probe status')['message']);assert report['falseWarningFrames']==0,report
     finish()
 
+if want('shine-return'):
+    stage('shine-return',seed=False)
+    for card,n in [('KAREN_SHINE_STRIKE',2),('KAREN_NONON',3)]:
+        prep(card);cmd('shine_fuel set '+card+' '+str(n))
+    record_start();marking('普通闪耀｜手牌中不增加临界预告；打出后轻量收拢与回牌');time.sleep(.6)
+    clip_cast('KAREN_SHINE_STRIKE','闪耀 2→1｜十二束细星屑、小星点与短尾迹，回到真实弃牌图标')
+    clip_cast('KAREN_NONON','NONNON 3→2｜同一轻量回牌效果，亮度与规模低于耗尽')
+    prep('KAREN_STRIKE');clip_cast('KAREN_STRIKE','普通牌对照｜不添加闪耀回牌特效')
+    prep('KAREN_SHINE_STRIKE');cmd('shine_fuel set KAREN_SHINE_STRIKE 1')
+    clip_cast('KAREN_SHINE_STRIKE','耗尽对照 1→0｜保留大范围收拢、强亮星点与急加速入耗尽堆')
+    motion=json.loads(cmd('shine_motion status')['message']);save('return-assertions',motion)
+    assert [r['card'] for r in motion['returns']]==['KAREN_SHINE_STRIKE','KAREN_NONON'],motion
+    assert [r['remainingShine'] for r in motion['returns']]==[1,2],motion
+    assert len(motion['depletes'])==1 and motion['liveReturns']==motion['liveDepletes']==0,motion
+    assert all(r['released'] and r['landingError']<.1 for r in motion['returns']),motion
+    finish()
+
+if want('shine-return-modes'):
+    stage('shine-return-modes',seed=False);record_start()
+    for speed,card in [('fast','KAREN_SHINE_STRIKE'),('normal','KAREN_DROP_FUEL'),('instant','KAREN_SHINE_STRIKE')]:
+        cmd('stage_probe speed '+speed);prep(card);cmd('shine_fuel set '+card+' 2')
+        clip_cast(card,speed+'｜普通闪耀回牌；燃料保留自己的爆散与消耗，Instant 保留原生退场')
+    cmd('stage_probe speed normal');prep('KAREN_SHINE_STRIKE');cmd('shine_fuel set KAREN_SHINE_STRIKE 2')
+    before=len(json.loads(cmd('shine_motion status')['message'])['returns'])
+    marking('回合弃牌对照｜未打出的闪耀牌不触发打出收拢与回牌星光')
+    next_turn('unplayed-discard')
+    motion=json.loads(cmd('shine_motion status')['message']);save('return-assertions',motion)
+    assert before==len(motion['returns'])==1 and motion['liveReturns']==motion['liveDepletes']==0,motion
+    assert [r['card'] for r in motion['returns']]==['KAREN_SHINE_STRIKE'],motion
+    assert all(r['released'] and r['landingError']<.1 and r['remainingShine']==1 for r in motion['returns']),motion
+    finish()
+
 if want('shine-motion'):
     stage('shine-motion',seed=False)
     for card in ['KAREN_SHINE_STRIKE','KAREN_NONON']:
