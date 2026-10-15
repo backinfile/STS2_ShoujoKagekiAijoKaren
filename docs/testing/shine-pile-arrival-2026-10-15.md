@@ -97,3 +97,13 @@ python tools/vfx/catalog/verify_shine_arrival.py --output artifacts/shine-pile-a
 新成片保留原速游戏进程原声与底部逐段说明，完整解码通过：`clips/shine-motion/Karen-shine-motion.mp4` 为 12.075 秒、音轨峰值 -2.2 dB；`clips/shine-speeds/Karen-shine-speeds.mp4` 为 10.688 秒、峰值 -2.0 dB。`review/count-arrival.gif` 为同一正常飞行实录的局部动态预览，`review/count-timeline.png` 可核对数字在抵达前后变化，`review/caption-review.png` 为成片字幕检查。
 
 已更新两套主开发环境的 Karen 五个文件并校验与实测包哈希一致，其他 Mod 的 8／6 个文件哈希保持一致；旧包和清单保存在本轮 `deployment-backup/`、`deployment.json`。正式版实现 DLL SHA-256 为 `2295234c57bc4b6ac22f9d1cc0ef991f7262ca621ca484ac0a73f36f2c47d759`，测试版 `8abcd084b68b261ac8ea4ac67f408e7f0fee7532d2fd39a47f83d8bb44eeaabf`；共用 PCK 仍为 `ed3798ca70cd5bdfbaa135fe8937c73bb7d26d6255457d81dbcc6e53153c4f9a`。
+
+## 追加：战斗结束时的数字收尾
+
+用户询问恰逢战斗结束的情况。现有生产实现已覆盖：`NKarenShineDepleteVfx._Process()` 在战斗不再进行或房间被替换时调用 `Release()`，离树也调用同一幂等收尾。未抵达的节点以 `FinishDepletion(..., false)` 释放显示登记，立即按真实牌堆数量校准数字并停止数字弹动；不会补播抵达的图标晃动。模型耗尽先前已经完成，不需要等待飞行，不会因为中止视觉而少计一张。本轮只补专项验证，生产包保持上节哈希。
+
+证据为 `artifacts/shine-combat-end-20261015/`。通过 MCP 在两版各执行两种真实边界：`shine-lethal` 将敌人降到 1 HP，再用最后一点闪耀的闪耀打击完成击杀；`shine-end-flight` 先正常打出并确认耗尽飞行已离开收拢阶段、数字仍等待，再用开发者击杀命令结束战斗。两种情况均确认进入奖励界面，随后另开战斗检查手牌模型／可见节点与数字。没有手工调用取消登记，也没有改动结算状态来代替实际战斗结束。
+
+两版中未抵达的飞行均被清理，没有误播图标承接；奖励界面显示数／目标数／模型数一致、待抵达登记为 0、无数字 Tween，进入下一场后仍一致。第一场实际耗尽为 1，第二场累计为 2。每版六次手牌节点核对通过；两组操作前后和下一场的 MCP 截图已保存并查看。`depletes[].released` 是观察器在存活节点上采样到的状态，取消与删除在同帧完成时可能保留 false，本专项以节点归零、登记归零、真实数量及下一场一致性作为收尾断言。
+
+两版日志均无错误，捕获帧率最低 28.04 fps，前台／恢复窗口采样均为零。复核命令：`python tools/vfx/catalog/verify_shine_combat_end.py --output artifacts/shine-combat-end-20261015`。原速游戏实录为各版本 `shine-lethal/game.mp4` 和 `shine-end-flight/game.mp4`；核对结果写入 `verification.json`。仅覆盖本次相关双版本单人边界，未运行全面单人／多人矩阵。

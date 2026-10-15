@@ -252,6 +252,39 @@ if want('shine-count-control'):
     assert cancelled['counter']['displayed']==cancelled['counter']['model']==4 and cancelled['counter']['pending']==0,cancelled
     finish()
 
+for end_case in ['shine-lethal','shine-end-flight']:
+    if not want(end_case): continue
+    stage(end_case,seed=False);prep('KAREN_SHINE_STRIKE');cmd('shine_fuel set KAREN_SHINE_STRIKE 1')
+    before=json.loads(cmd('shine_motion status')['message'])['counter']['model']
+    # The tower observer assumes an active PlayerCombatState; it is unrelated to this test.
+    cmd('promise_integration off')
+    if end_case=='shine-lethal':
+        enemy=state()['battle']['enemies'][0]
+        cmd('damage '+str(enemy['hp']-1));time.sleep(.5)
+        assert state()['battle']['enemies'][0]['hp']==1
+    record_start();marking('战斗结束边界｜最后一击耗尽' if end_case=='shine-lethal' else '战斗结束边界｜耗尽飞行途中结束战斗')
+    play('KAREN_SHINE_STRIKE')
+    if end_case=='shine-end-flight':
+        for _ in range(100):
+            flying=json.loads(cmd('shine_motion status')['message'])
+            if flying['counter']['pending']==1 and flying['depletes'] and flying['depletes'][0]['samples'][-1]['age']>.38:break
+            time.sleep(.01)
+        else:raise AssertionError(('No active flight before ending combat',flying))
+        save('before-end-flight',flying);cmd('kill all')
+    for _ in range(160):
+        current=state()
+        if current['state_type']=='rewards':break
+        time.sleep(.1)
+    else:raise AssertionError(('No rewards after ending combat',current))
+    report=shine_idle();save('rewards-counter',report);save('rewards-state',current)
+    assert report['counter']['model']==report['counter']['displayed']==before+1 and report['counter']['pending']==0,report
+    save('shine-motion',report);marking('奖励界面｜耗尽数量正确，无等待中的飞行');time.sleep(.6)
+    record_stop()
+    fight();trim();time.sleep(.5)
+    resumed=shine_idle();save('next-combat-counter',resumed);check_hand('next-combat-hand');snap(case/'next-combat')
+    assert resumed['counter']['model']==resumed['counter']['displayed']==before+1 and resumed['counter']['pending']==0,resumed
+    print('RECORDED',end_case,flush=True)
+
 for void in (False, True):
     name = 'newstack-void' if void else 'newstack-normal'
     if not want(name): continue
