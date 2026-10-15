@@ -19,9 +19,26 @@
 
 最终证据根目录：`artifacts/jealousy-reviewed-20261015/`。制作工作树：`../worktrees/STS2_ShoujoKagekiAijoKaren/jealousy-vfx`，分支 `codex/jealousy-vfx`；开始时 main 为 `bcfe75e` 且工作区干净。
 
-最终双版本结果待补入本节。
+| 检查项 | 正式版 v0.107.1 | 测试版 v0.111.0 |
+| --- | --- | --- |
+| 双版本构建与同步后发行包重建 | 通过，25 警告、0 错误 | 通过，25 警告、0 错误 |
+| 普通／升级伤害、非耗尽与耗尽奖励 | 15／20 伤害；0／2 份真实 RelicReward，通过 | 同左，通过 |
+| 普通耗尽获得一份奖励 | Fast、Instant、变换各 1，通过 | 同左，通过 |
+| Fast / Instant | Fast 缩时；Instant 无自定义节点，规则正常 | 同左，通过 |
+| 65% 缩放＋翻转，敌人偏移＋旋转 | 通过，unit=0.63375 | 同左，通过 |
+| 最大目标定位误差 | 0 像素（本组采样） | 0 像素（本组采样） |
+| 节点释放，含击杀、下一战无残留 | 13／13，通过 | 13／13，通过 |
+| `karen_check_hand` | 9／9，通过 | 9／9，通过 |
+| 通过轮次的日志异常 | 0 | 0 |
+| 前台／恢复窗口采样 | 均为 0 | 均为 0 |
 
-早期证据分别保存在 `artifacts/jealousy-vfx-20261015/` 与 `artifacts/jealousy-final-20261015/`。正式版曾两次在 MCP `CaptureScreenshot → Texture2D.GetImage()` 报原生内存分配失败，随后 HTTP 连接中断；当时还存在其他项目的多个游戏进程。未据此断言具体根因，也没有停止其他项目进程。改为减少重复初始截图、将击杀与换房间拆成独立进程后复测；早期失败日志不作为最终通过证据。
+已查看两版共 22 张前后／下一战 MCP 截图以及正常出牌的命中、奖励连续帧。两段原片约 6 秒，包含普通和升级耗尽各一次；两版拼接约 13 秒，均为原速。音轨包含实际非静音游戏声音；采集帧率、重复帧、实测音量和构建哈希见 `preview/manifest.json` 与各版 `recording.json`。
+
+功能提交为 `5372733`；同步本地 main 的 `86abd19` 时，仅录制场景入口发生冲突，保留嫉妒与骄傲各自入口。嫉妒的三个运行时源文件经 diff 核对无变化。同步后双版本发行包重新构建，使用该包重新实际打出普通／升级牌并重录两版视频；两版击杀和下一战清理也在同步后的包中通过。Fast、Instant 与变换专项的证据来自同步前相同嫉妒运行代码。最终视频元数据中的 DLL / PCK 哈希与同步后的交付包一致。
+
+成功的 core、同步后重录与击杀日志分别保留；最终 `runtime-verification.json` 同时审查保留的成功轮次日志。测试配置与临时 DLL 从成功的隔离游戏移除，进程已结束。工作树和任务分支保留，等待用户明确确认合并；当前未向远端推送。
+
+早期证据分别保存在 `artifacts/jealousy-vfx-20261015/` 与 `artifacts/jealousy-final-20261015/`。正式版曾两次在 MCP `CaptureScreenshot → Texture2D.GetImage()` 报原生内存分配失败，随后 HTTP 连接中断；当时还存在其他项目的多个游戏进程。未据此断言具体根因，也没有停止其他项目进程。测试版另有一次启动在 Vulkan 64 MiB 缓冲分配处失败，日志单独保留为 `beta-startup-vulkan-failed.log`。改为减少重复初始截图、将击杀与换房间拆成独立进程，并在资源可用后复测；早期失败日志不作为最终通过证据。
 
 打包导出日志另含 Banana 类型读取和外部主题引用诊断；PCK 写出完成，卡牌的最终效果以双版本实际出牌证据核查，未把导出日志当作运行兼容结论。
 
@@ -33,7 +50,7 @@ python tools/vfx/catalog/prepare.py stable --output artifacts/jealousy-reviewed-
 python tools/vfx/catalog/prepare.py beta --output artifacts/jealousy-reviewed-20261015 --source-dev <共享开发环境的artifacts/dev-game> --port 18728
 # 两版串行执行；core 后先保留日志和窗口采样，再单独启动 lethal。
 python tools/vfx/catalog/record.py stable --output artifacts/jealousy-reviewed-20261015 --scenes jealousy,jealousy-checks --port 18727
-# 复制 stable/godot.log 到根目录 stable-run-core-godot.log，窗口采样另存 stable-window-core.json。
+# 复制 stable/godot.log 到根目录 stable-run-core-godot.log，窗口采样另存 stable-window-core.json；再次重录时也先保留前一轮日志。
 python tools/vfx/catalog/record.py stable --output artifacts/jealousy-reviewed-20261015 --scenes jealousy-lethal --port 18727
 # beta 用同样流程，端口换成 18728。
 python tools/vfx/catalog/verify_runtime.py --output artifacts/jealousy-reviewed-20261015 --branch stable --scenes jealousy
