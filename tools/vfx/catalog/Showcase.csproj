@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 <PropertyGroup><TargetFramework>net9.0</TargetFramework><Nullable>enable</Nullable><AssemblyName>KarenPromiseTransformTests</AssemblyName><Variant Condition="'$(Variant)' == ''">Stable</Variant><Game>$(MSBuildThisFileDirectory)../../../artifacts/dev-game/$(Variant)/game</Game></PropertyGroup>
+<PropertyGroup><IntermediateOutputPath>obj/$(Variant)/$(Configuration)/</IntermediateOutputPath></PropertyGroup>
 <ItemGroup>
 <Compile Remove="guard/**" /><Compile Include="../../promise-transform/*.cs" />
 <Compile Include="../starlight/StageProbe.cs" />

@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--output', required=True, type=pathlib.Path)
 parser.add_argument('--branch', choices=['stable', 'beta'], required=True)
 parser.add_argument('--full-catalog', action='store_true')
+parser.add_argument('--scenes', help='Comma-separated targeted scenes; defaults to the four stage compatibility scenes')
 args = parser.parse_args()
 repo = pathlib.Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(repo / 'tools/vfx/six-card'))
@@ -48,7 +49,12 @@ package = repo / 'artifacts/ShoujoKagekiAijoKaren'
 expected = dict(assemblySha256=hashlib.sha256((package / 'lib' / f'ShoujoKagekiAijoKaren.{args.branch.title()}.dll').read_bytes()).hexdigest(),
                 packSha256=hashlib.sha256((package / 'ShoujoKagekiAijoKaren.pck').read_bytes()).hexdigest())
 recordings = []
-names = [n for n, _ in CURRENT_ENTRIES] if args.full_catalog else ['starlight-act2', 'newstack-normal', 'newstack-void', 'stage-lifecycle']
+if args.scenes:
+    names = args.scenes.split(',')
+elif args.full_catalog:
+    names = [n for n, _ in CURRENT_ENTRIES]
+else:
+    names = ['starlight-act2', 'newstack-normal', 'newstack-void', 'stage-lifecycle']
 for name in names:
     scene = folder / name
     rec = read(scene / 'recording.json')
@@ -56,7 +62,12 @@ for name in names:
     assert rec['captureBuild'] == expected, (scene, 'Not the final package')
     assert rec['capture_fps'] >= 20, (scene, rec['capture_fps'])
     assert (scene / 'recording-before.png').is_file() and (scene / 'recording-after.png').is_file(), scene
-    if name != 'lastword':
+    if name in ['shine-lethal', 'shine-end-flight']:
+        counter = read(scene / 'next-combat-counter.json')
+        assert counter['liveDepletes'] == counter['liveArrivals'] == 0, counter
+        counter = counter['counter']
+        assert counter['displayed'] == counter['target'] == counter['model'] and counter['pending'] == 0, counter
+    elif name != 'lastword':
         final = read(scene / 'final-state.json')
         assert final['identitiesMatch'] and final['flightModelMismatchFrames'] == 0 and final['anchorError'] < .1, (scene, final)
     if name in ['starlight-act2', 'newstack-normal', 'newstack-void']:
@@ -64,18 +75,30 @@ for name in names:
         hovers = [c for c in observed['casts'] if c['kind'] == 'Act2Hover' and c['ownedFrames'] > 0]
         assert len(hovers) == 1 and hovers[0]['playIndices'] == [0, 1, 2], (scene, observed)
         assert hovers[0]['backCorrect'], (scene, observed)
+    if name == 'compatibility-regressions':
+        regressions = read(scene / 'regressions.json')
+        assert all(regressions['cardCache'].values()), regressions
+        for row in regressions['audio']:
+            assert row['buses'] == ['SFX'] * 3, row
+            assert all(abs(row[k] - .4) < .001 for k in ['direct', 'ordinary', 'loop']), row
     recordings.append(dict(name=name, captureFps=rec['capture_fps'], repeatedFrames=rec['frames_repeated']))
 
 logs = [folder / 'godot.log', *sorted(root.glob(args.branch + '-run-*-godot.log'))]
 diagnostics = dict(knownStartupWorkerPoolErrors=[], unexpectedErrors=[], files=[])
 for path in logs:
-    result = audit(path.read_text(encoding='utf-8', errors='replace'))
+    log = path.read_text(encoding='utf-8', errors='replace')
+    result = audit(log)
+    if result['knownStartupWorkerPoolErrors']:
+        preload = next(i for i, line in enumerate(log.splitlines(), 1) if "Preloading 'Common' Complete:" in line)
+        assert all(e['line'] < preload for e in result['knownStartupWorkerPoolErrors']), (path, result)
     diagnostics['files'].append(str(path.relative_to(root)))
     for key in ['knownStartupWorkerPoolErrors', 'unexpectedErrors']:
         diagnostics[key].extend(dict(file=str(path.relative_to(root)), **entry) for entry in result[key])
 assert not diagnostics['unexpectedErrors'], diagnostics
-report = dict(branch=args.branch, scenes=len(names), handChecks=len(checks), cleanupChecks=len(cleanup), heldChecks=len(holds),
+window = read(folder / 'window-monitor.json')
+assert window['foreground_samples'] == window['restored_samples'] == 0, window
+report = dict(branch=args.branch, scenes=len(names), sceneNames=names, handChecks=len(checks), cleanupChecks=len(cleanup), heldChecks=len(holds),
               captureBuild=expected, recordings=recordings, log=diagnostics,
-              scope='Targeted singleplayer VFX; no full singleplayer/multiplayer matrix; team-footlight card injected into singleplayer only')
+              window=window, scope='Targeted singleplayer VFX; no full singleplayer/multiplayer matrix or third-party mod coexistence testing')
 (folder / 'runtime-verification.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
 print(json.dumps({k: v for k, v in report.items() if k != 'recordings'}, ensure_ascii=False))

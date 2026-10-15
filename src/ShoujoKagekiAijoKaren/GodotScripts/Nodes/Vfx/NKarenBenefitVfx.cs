@@ -291,12 +291,18 @@ public partial class NKarenBenefitVfx : Node2D
     private void DrawHud(){if(Design==BenefitKind.Radiance){CaptureRadianceSource();DrawRadianceCore();DrawEnergyDelivery();}}
     private Vector2? CardPoint(CardModel card)
     {
-        if(!_cardNodes.TryGetValue(card,out var node)||!GodotObject.IsInstanceValid(node)){
-            node=Room.FindChildren("*","",true,false).OfType<NCard>().FirstOrDefault(n=>n.Model==card);
+        // A pooled NCard stays valid while its model, visibility and owner change.
+        // Only the current visible representation may receive this card's trail.
+        bool IsTarget(NCard? candidate) => GodotObject.IsInstanceValid(candidate)
+            && candidate!.Model == card && candidate.IsInsideTree()
+            && !candidate.IsQueuedForDeletion() && candidate.IsVisibleInTree();
+        if(!_cardNodes.TryGetValue(card,out var node)||!IsTarget(node)){
+            _cardNodes.Remove(card);
+            node=Room.FindChildren("*","",true,false).OfType<NCard>().FirstOrDefault(IsTarget);
             if(node!=null)_cardNodes[card]=node;
         }
-        return node!=null&&GodotObject.IsInstanceValid(node)&&node.IsInsideTree()
-            ? GetGlobalTransformWithCanvas().AffineInverse()*(node.GetGlobalTransformWithCanvas()*(node.Size*.5f)) : null;
+        return IsTarget(node)
+            ? GetGlobalTransformWithCanvas().AffineInverse()*(node!.GetGlobalTransformWithCanvas()*(node.Size*.5f)) : null;
     }
     private void DrawDeliveries()
     {

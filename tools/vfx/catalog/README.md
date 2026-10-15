@@ -2,6 +2,8 @@
 
 当前完整目录见 [2026-10-14 记录](../../../docs/testing/vfx-catalog-2026-10-14.md)：49 段，增加 Banana、门票 B、梦想、光辉、双幕 Starlight 和新旧组合。`record.py` 默认录全部当前场景；合成与核查使用 `--catalog current`，旧 32 段数据仍用默认 legacy。`verify_runtime.py --branch stable --full-catalog` 核查当前所有原片的最终包哈希、手牌、生命周期与真实重播，beta 不带 full 参数核查四组兼容专项。
 
+[2026-10-15 兼容审查](../../../docs/testing/vfx-compatibility-review-2026-10-15.md) 补充音效总线路由、原生卡牌对象池和 8 组双版本专项。`verify_runtime.py --scenes <逗号分隔场景>` 可核查相应子集；`compatibility-regressions` 会调用 `vfx_review audio`／`card-cache`，旧包应明确失败。Showcase 编译中间目录已按 Variant 分开，避免 Stable／Beta 增量构建串用 DLL。像素级卡框检查只在 `revision_probe watch-border` 或 `shine-ambient*` 场景启用，避免无关场景重复读回大型图集。
+
 通过 KarenSTS2MCP 录制真实游戏画面、游戏进程音频、选牌与移牌。运行环境保持后台渲染，监控是否抢占前台。不会使用 Computer Use。
 
 前提：`artifacts/dev-game/<branch>/game` 快照与 BaseLib、当前 KarenSTS2MCP 已准备，`tools/build_dual_branch.ps1` 已产出双版本包，本机有 Python、.NET 9、ffmpeg 和 ffprobe。输入用户目录需要有默认用户 1 的 Karen 可继续单人存档；`--user-source` 可指定另一份这样的目录。准备阶段复制存档、Mod 和配置，只对只读游戏本体使用硬链接。端口为 18637 / 18638。

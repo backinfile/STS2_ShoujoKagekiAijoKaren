@@ -24,6 +24,9 @@ def next_turn(label):
         raise AssertionError(('No next turn', current))
     settle(label); effects_idle(label)
 
+if 'compatibility-regressions' in wanted:
+    exec(compile(pathlib.Path(__file__).with_name('compatibility_review.py').read_text(encoding='utf-8'), 'compatibility_review.py', 'exec'))
+
 if want('encore'):
     stage('encore', seed=False)
     for _ in range(4): prep('KAREN_CONTINUE')

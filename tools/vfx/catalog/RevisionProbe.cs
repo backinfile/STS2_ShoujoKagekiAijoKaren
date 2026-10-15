@@ -33,6 +33,7 @@ public static class RevisionProbe
         public Vector2 Source, Target;
     }
     internal static bool Watching;
+    internal static bool WatchBorders;
     internal static Player? Owner;
     internal static readonly List<Absorb> Absorbs = new();
     internal static readonly HashSet<NKarenBenefitVfx> Benefits = new();
@@ -136,7 +137,7 @@ internal static class ShineBorderProbe
     private static float _maxEdgeError, _minScale, _maxScale, _ambientOpacity;
     internal static void Sample(Node2D overlay, NCard card, bool warning)
     {
-        if (++_clock % 10 != 0) return;
+        if (!RevisionProbe.WatchBorders || ++_clock % 10 != 0) return;
         if (warning) _warningSamples++; else { _ambientSamples++; _ambientOpacity = overlay.SelfModulate.A; }
         var border = overlay.GetType().GetField("_border", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(overlay);
         if (border?.GetType().GetProperty("Outline")?.GetValue(border) is not Vector2[] { Length: > 1 } outline) { _misses++; return; }
@@ -191,13 +192,16 @@ internal static class ShineBorderProbe
 public sealed class RevisionProbeCommand : AbstractConsoleCmd
 {
     public override string CmdName => "revision_probe";
-    public override string Args => "watch|status|shine ID N";
+    public override string Args => "watch|watch-border|status|shine ID N";
     public override string Description => "Observe icon arrivals, stage layers and whole-play warning visibility.";
     public override bool IsNetworked => false;
     public override CmdResult Process(Player? player, string[] args)
     {
         if (player?.PlayerCombatState == null || args.Length == 0) return new(false, Args);
-        if (args[0] == "watch") { RevisionProbe.Reset(player); return new(true, "watch"); }
+        if (args[0] is "watch" or "watch-border") {
+            RevisionProbe.WatchBorders = args[0] == "watch-border";
+            RevisionProbe.Reset(player); return new(true, args[0]);
+        }
         if (args[0] == "status") return new(true, JsonSerializer.Serialize(RevisionProbe.Status()));
         if (args[0] == "shine" && args.Length == 3) {
             player.PlayerCombatState.Hand.Cards.First(c => c.Id.Entry == args[1]).SetShineCurrent(int.Parse(args[2]));

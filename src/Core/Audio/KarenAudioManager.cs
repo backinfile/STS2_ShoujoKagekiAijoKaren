@@ -29,7 +29,7 @@ public static class KarenAudioManager
 
     public static AudioStreamPlayer PlaySfx(string fileName, float volume = 1f, float pitchScale = 1f)
     {
-        return PlaySfxOnGameBus(fileName, volume * GetEffectiveVolume(isMusic: false), pitchScale);
+        return PlaySfxOnGameBus(fileName, volume, pitchScale);
     }
 
     /// <summary>Play a calibrated sample through the game's SFX and Master buses.
@@ -62,7 +62,8 @@ public static class KarenAudioManager
         var player = new AudioStreamPlayer
         {
             Stream = stream,
-            VolumeLinear = volume * GetEffectiveVolume(isMusic: false),
+            // The SFX and Master buses apply live settings, including mute/unmute.
+            VolumeLinear = volume,
             Bus = SfxBus
         };
 

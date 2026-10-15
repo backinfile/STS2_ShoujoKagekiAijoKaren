@@ -214,7 +214,9 @@ try:
         begin(name,void,seed)
         cmd('bridge_vfx watch')
         cmd('stage_probe watch')
-        cmd('revision_probe watch')
+        # Native atlas readback is expensive; reserve pixel-level contour checks
+        # for the dedicated border scenes instead of every unrelated VFX cast.
+        cmd('revision_probe '+('watch-border' if name.startswith('shine-ambient') else 'watch'))
         cmd('shine_motion watch')
         cmd('showcase restore-relics')
         cmd('bridge_vfx energy2')
