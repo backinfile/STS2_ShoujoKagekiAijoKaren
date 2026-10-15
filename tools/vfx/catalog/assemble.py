@@ -174,10 +174,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if args.separate:
         available = dict(CURRENT_ENTRIES + [('shine-play', '闪耀临界 · 提示随卡牌完成打出'),
-            ('shine-motion', '闪耀耗尽 · 缓起、急加速与减速吸入'),
+            ('shine-motion', '闪耀耗尽 · 飞入图标与入堆反馈'),
             ('shine-ambient', '普通闪耀 · 卡牌常驻微光与临界对照'),
             ('shine-ambient-modes', '闪耀常驻 · 速度、燃料与对象池核查'),
-            ('shine-speeds', '闪耀耗尽 · Fast、Instant 与燃料兼容')])
+            ('shine-speeds', '耗尽图标反馈 · Fast、Instant 与燃料')])
         names = args.scenes.split(',') if args.scenes else list(available)
         for name in names:
             assemble(args.output.resolve() / 'clips' / name, args.branch, entries=[(name, available[name])],

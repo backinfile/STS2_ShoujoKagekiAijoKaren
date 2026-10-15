@@ -26,6 +26,18 @@ public partial class NTopBarShinePileButton : MegaCrit.Sts2.Core.Nodes.TopBar.NT
     private Label _countLabel = null!;
     private float _count;
     private Tween? _bumpTween;
+    private NKarenShinePileArrivalVfx? _arrivalVfx;
+
+    public void PlayDepletionArrival()
+    {
+        if (GodotObject.IsInstanceValid(_arrivalVfx) && !_arrivalVfx!.IsQueuedForDeletion())
+            _arrivalVfx.Restart();
+        else
+        {
+            _arrivalVfx = new NKarenShinePileArrivalVfx((TextureRect)_icon, GetNode<Control>("Control"));
+            AddChild(_arrivalVfx);
+        }
+    }
 
     public override void _Ready()
     {
@@ -121,7 +133,8 @@ public partial class NTopBarShinePileButton : MegaCrit.Sts2.Core.Nodes.TopBar.NT
     {
         base.OnFocus();
         var nHoverTipSet = NHoverTipSet.CreateAndShow(this, _hoverTip);
-        nHoverTipSet.GlobalPosition = base.GlobalPosition + new Vector2(base.Size.X - nHoverTipSet.Size.X, base.Size.Y + 20f);
+        if (nHoverTipSet != null)
+            nHoverTipSet.GlobalPosition = base.GlobalPosition + new Vector2(base.Size.X - nHoverTipSet.Size.X, base.Size.Y + 20f);
     }
 
     protected override void OnUnfocus()

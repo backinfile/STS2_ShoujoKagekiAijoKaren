@@ -32,6 +32,7 @@ public partial class NKarenShineDepleteVfx : Node2D
     private float _duration;
     private float _gatherDuration;
     private bool _released;
+    private bool _arrived;
     private bool _fuel;
     private bool _cardVisible;
     private Color _cardColor;
@@ -153,7 +154,13 @@ public partial class NKarenShineDepleteVfx : Node2D
                 }
             }
         }
-        if (t >= 1) Release();
+        if (t >= 1 && !_released)
+        {
+            _arrived = true;
+            if (_target.GetParent()?.GetParent() is NTopBarShinePileButton button)
+                button.PlayDepletionArrival();
+            Release();
+        }
         if (_age >= _gatherDuration + _duration + .42f) QueueFree();
         QueueRedraw();
     }
@@ -263,8 +270,6 @@ public partial class NKarenShineDepleteVfx : Node2D
             DrawColoredPolygon(_star, new Color(Hot, headLight));
             DrawSetTransform(Vector2.Zero);
         }
-        if (_released && fade > 0)
-            DrawArc(p, 8 + (1 - fade) * 24, 0, Mathf.Tau, 36, new Color(Gold, fade * .65f), 2, true);
     }
 
     private static float Ease(float progress)

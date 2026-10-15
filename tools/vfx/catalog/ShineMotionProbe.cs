@@ -25,10 +25,19 @@ public static class ShineMotionProbe
         public readonly float Duration = (float)Field(node, "_duration")!, Gather = (float)Field(node, "_gatherDuration")!;
         public readonly bool Fuel = (bool)Field(node, "_fuel")!;
         public float LandingError = float.MaxValue, MinCardScale = 1;
-        public bool Released, FaceReappeared;
+        public bool Released, FaceReappeared, Arrived;
+        public float ArrivalDelay = float.MaxValue;
         public readonly List<object> Samples = new();
     }
     internal static readonly List<Deplete> Depletes = new();
+    internal sealed class Arrival(NKarenShinePileArrivalVfx node)
+    {
+        public readonly NKarenShinePileArrivalVfx Node = node;
+        public int Count;
+        public float MaxScale = 1, MinScale = 1;
+        public readonly float Duration = (float)Field(node,"_duration")!;
+    }
+    internal static readonly List<Arrival> Arrivals = new();
     internal static bool Watching;
     internal static int DetachedSparkFrames, MaxSparks, FloorFrames;
     internal static float MaxRigidDifference, MaxFloorY, MaxFloorOffset, ViewportHeight;
@@ -46,6 +55,10 @@ public static class ShineMotionProbe
             var target = (Control)Field(node,"_target")!;
             var card = (NCard)Field(node,"_card")!;
             bool released = (bool)Field(node,"_released")!;
+            if ((bool)Field(node,"_arrived")!) {
+                seen.Arrived = true;
+                seen.ArrivalDelay = Math.Min(seen.ArrivalDelay,age-seen.Gather-seen.Duration);
+            }
             seen.Released |= released;
             if (released) seen.LandingError = Math.Min(seen.LandingError,head.DistanceTo(target.GetGlobalTransformWithCanvas()*(target.Size*.5f)));
             if (!released && GodotObject.IsInstanceValid(card)) {
@@ -56,6 +69,17 @@ public static class ShineMotionProbe
             if (age <= seen.Gather+seen.Duration+.02f)
                 seen.Samples.Add(new { age, x=head.X, y=head.Y, released });
         }
+        var button = run.GlobalUi.TopBar.GetNodeOrNull<NTopBarShinePileButton>("RightAlignedStuff/ShinePile");
+        if (button != null)
+            foreach (var node in button.GetChildren().OfType<NKarenShinePileArrivalVfx>()) {
+                var seen = Arrivals.FirstOrDefault(s=>s.Node==node);
+                if (seen == null) { seen = new(node); Arrivals.Add(seen); }
+                seen.Count = Math.Max(seen.Count,(int)Field(node,"_arrivals")!);
+                var visual = button.GetNode<Control>("Control");
+                var scale = visual.Scale/(Vector2)Field(node,"_baseScale")!;
+                seen.MaxScale = Math.Max(seen.MaxScale,Math.Max(scale.X,scale.Y));
+                seen.MinScale = Math.Min(seen.MinScale,Math.Min(scale.X,scale.Y));
+            }
         var alive = new HashSet<object>();
         foreach (var warning in ShineFuelProbe.Descend(run).OfType<Node2D>()
             .Where(w=>w is NKarenShineWarningVfx or NKarenShineAmbientVfx).Where(w=>w.Visible && w.IsVisibleInTree())) {
@@ -83,23 +107,35 @@ public static class ShineMotionProbe
             FloorFrames++;
         }
     }
-    internal static void Reset() { Watching=true;Depletes.Clear();Previous.Clear();DetachedSparkFrames=MaxSparks=FloorFrames=0;MaxRigidDifference=MaxFloorY=MaxFloorOffset=ViewportHeight=0; }
+    internal static void Reset() { Watching=true;Depletes.Clear();Arrivals.Clear();Previous.Clear();DetachedSparkFrames=MaxSparks=FloorFrames=0;MaxRigidDifference=MaxFloorY=MaxFloorOffset=ViewportHeight=0; }
     internal static object Status()=>new {
         detachedSparkFrames=DetachedSparkFrames,maxRigidDifference=MaxRigidDifference,maxSparks=MaxSparks,
         floorFrames=FloorFrames,maxFloorY=MaxFloorY,maxFloorOffset=MaxFloorOffset,viewportHeight=ViewportHeight,
         liveDepletes=NRun.Instance?.GlobalUi.GetChildren().OfType<NKarenShineDepleteVfx>().Count()??0,
-        depletes=Depletes.Select(s=>new {duration=s.Duration,gather=s.Gather,fuel=s.Fuel,landingError=s.LandingError,minCardScale=s.MinCardScale,released=s.Released,faceReappeared=s.FaceReappeared,samples=s.Samples})
+        liveArrivals = NRun.Instance?.GlobalUi.TopBar.GetNodeOrNull("RightAlignedStuff/ShinePile")?.GetChildren().OfType<NKarenShinePileArrivalVfx>().Count()??0,
+        pileVisualRestoreError = NRun.Instance?.GlobalUi.TopBar.GetNodeOrNull<Control>("RightAlignedStuff/ShinePile/Control") is {} visual
+            ? (visual.Scale-Vector2.One).Length()+visual.PivotOffset.Length() : -1,
+        pileIconScale = NRun.Instance?.GlobalUi.TopBar.GetNodeOrNull<Control>("RightAlignedStuff/ShinePile/Control/Icon") is {} icon
+            ? new[]{icon.Scale.X,icon.Scale.Y} : new float[0],
+        arrivals = Arrivals.Select(s=>new {count=s.Count,duration=s.Duration,maxScale=s.MaxScale,minScale=s.MinScale}),
+        depletes=Depletes.Select(s=>new {duration=s.Duration,gather=s.Gather,fuel=s.Fuel,landingError=s.LandingError,minCardScale=s.MinCardScale,released=s.Released,faceReappeared=s.FaceReappeared,arrived=s.Arrived,arrivalDelay=s.ArrivalDelay,samples=s.Samples})
     };
 }
 public sealed class ShineMotionProbeCommand:AbstractConsoleCmd
 {
     public override string CmdName=>"shine_motion";
-    public override string Args=>"watch|status";
+    public override string Args=>"watch|status|arrival|focus|unfocus";
     public override string Description=>"Observe independent embers, flight timing and scene-ground endpoints.";
     public override bool IsNetworked=>false;
     public override CmdResult Process(Player? player,string[] args) {
         if(args.Length!=1)return new(false,Args);
         if(args[0]=="watch"){ShineMotionProbe.Reset();return new(true,"watch");}
+        if(args[0] is "arrival" or "focus" or "unfocus") {
+            var button = NRun.Instance!.GlobalUi.TopBar.GetNode<NTopBarShinePileButton>("RightAlignedStuff/ShinePile");
+            if(args[0]=="arrival") button.PlayDepletionArrival();
+            else button.EmitSignal(args[0]=="focus" ? Control.SignalName.MouseEntered : Control.SignalName.MouseExited);
+            return new(true,"visual control");
+        }
         return new(true,JsonSerializer.Serialize(ShineMotionProbe.Status()));
     }
 }

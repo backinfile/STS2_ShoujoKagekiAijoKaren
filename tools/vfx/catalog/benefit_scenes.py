@@ -175,6 +175,13 @@ if want('shine-ambient-modes'):
     assert report['missingAmbientFrames']==report['ambientOverlapFrames']==report['ambientLeakFrames']==0,report
     finish()
 
+def shine_idle():
+    for _ in range(100):
+        motion=json.loads(cmd('shine_motion status')['message'])
+        if motion['liveDepletes']==motion['liveArrivals']==0:return motion
+        time.sleep(.05)
+    raise AssertionError(motion)
+
 if want('shine-motion'):
     stage('shine-motion',seed=False)
     for card in ['KAREN_SHINE_STRIKE','KAREN_NONON']:
@@ -184,11 +191,11 @@ if want('shine-motion'):
     post(action='hover_card',card_index=card['index']);time.sleep(.7)
     marking('移开预览｜余烬保留惯性，亮星柔和跟随卡牌')
     post(action='unhover_card');time.sleep(.8)
-    clip_cast('KAREN_SHINE_STRIKE','闪耀打击耗尽｜缓缓提起 → 加速掠过 → 减速吸入耗尽图标')
-    clip_cast('KAREN_NONON','NONNON 耗尽｜左上起弧，中段急加速，末段收束；峰值约平均速度 3.15 倍')
+    clip_cast('KAREN_SHINE_STRIKE','闪耀打击耗尽｜抵达图标后轻压回弹、金光一闪与星屑散开')
+    clip_cast('KAREN_NONON','NONNON 耗尽｜飞行减速接入，图标接住星光后复原')
     prep('KAREN_SHINE_STRIKE');cmd('shine_fuel set KAREN_SHINE_STRIKE 2')
     clip_cast('KAREN_SHINE_STRIKE','两点闪耀对照｜本次不耗尽，不误亮临界提示')
-    motion=json.loads(cmd('shine_motion status')['message']);save('motion-assertions',motion)
+    motion=shine_idle();save('motion-assertions',motion)
     assert motion['detachedSparkFrames']>0 and motion['maxSparks']<=40,motion
     assert len(motion['depletes'])==2 and motion['liveDepletes']==0,motion
     assert all(s['released'] and s['landingError']<.1 and s['duration']<.55 and s['minCardScale']<.2 for s in motion['depletes']),motion
@@ -200,11 +207,26 @@ if want('shine-speeds'):
     stage('shine-speeds',seed=False);record_start()
     for speed,card in [('fast','KAREN_SHINE_STRIKE'),('instant','KAREN_SHINE_STRIKE'),('normal','KAREN_DROP_FUEL')]:
         cmd('stage_probe speed '+speed);prep(card);cmd('shine_fuel set '+card+' 1')
-        clip_cast(card,speed+'｜耗尽飞行时长与落点；燃料爆散后不重新显示卡面')
-    motion=json.loads(cmd('shine_motion status')['message']);save('motion-assertions',motion)
+        clip_cast(card,speed+'｜抵达才触发图标回弹；Instant 缩短反馈，燃料爆散后不重新显示卡面')
+    motion=shine_idle();save('motion-assertions',motion)
     assert len(motion['depletes'])==3 and motion['liveDepletes']==0,motion
     assert all(s['released'] and s['landingError']<.1 and not s['faceReappeared'] for s in motion['depletes']),motion
     assert all(abs(s['duration']-duration)<.001 for s,duration in zip(motion['depletes'],[.38,.12,.54])),motion
+    finish()
+
+if want('shine-arrival-control'):
+    stage('shine-arrival-control',seed=False);record_start()
+    marking('视觉专项｜图标悬停时连续三次接收反馈，不改变真实牌堆')
+    cmd('shine_motion focus');time.sleep(.55)
+    for _ in range(3): cmd('shine_motion arrival');time.sleep(.06)
+    time.sleep(.6)
+    hovered=json.loads(cmd('shine_motion status')['message']);save('hover-arrivals',hovered)
+    assert len(hovered['arrivals'])==1 and hovered['arrivals'][0]['count']==3,hovered
+    assert hovered['liveArrivals']==0 and hovered['pileVisualRestoreError']<.001,hovered
+    assert all(abs(s-1.1)<.001 for s in hovered['pileIconScale']),hovered
+    cmd('shine_motion unfocus');time.sleep(1.2)
+    report=json.loads(cmd('shine_motion status')['message'])
+    assert all(abs(s-1)<.001 for s in report['pileIconScale']),report
     finish()
 
 for void in (False, True):
