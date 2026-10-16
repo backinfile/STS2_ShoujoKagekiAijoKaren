@@ -166,7 +166,16 @@ def check(name, predicate):
 def remove(name):
     cmd('pzero remove')
     time.sleep(.25)
-    return check(name, lambda r: r['live'] == r['back'] == 0 and abs(r['weight'] - 1) < .001)
+    return check(name, lambda r: r['live'] == r['back'] == r['cardLights'] == 0 and abs(r['weight'] - 1) < .001)
+
+def hover(card):
+    c = next(c for c in state()['player']['hand'] if c['id'] == card)
+    post(action='hover_card', card_index=c['index'])
+    time.sleep(.45)
+
+def unhover():
+    post(action='unhover_card')
+    time.sleep(.2)
 
 try:
     # Observe the specified MCP implementation in this process before its first request.
@@ -192,7 +201,7 @@ try:
     wait(lambda s: bool(s.get('player')) and (s.get('battle', {}).get('is_play_phase')
          or s.get('state_type') in ['map', 'rewards']))
     prepare()
-    for card in ['KAREN_POSITION0', 'KAREN_STRIKE', 'KAREN_STRIKE']:
+    for card in ['KAREN_POSITION0', 'KAREN_STRIKE', 'KAREN_STRIKE', 'KAREN_DEFEND']:
         add(card)
     shot('before')
     hand('before')
@@ -204,13 +213,32 @@ try:
     time.sleep(.4)
     shot('claim')
     time.sleep(1.6)
-    check('normal-claim', lambda r: r['live'] == r['amount'] == 1 and r['back'] == 0 and r['ownership'] and r['maxLive'] == 1)
+    check('normal-claim', lambda r: r['live'] == r['amount'] == 1 and r['back'] == 0 and r['ownership']
+          and r['maxLive'] == 1 and r['ready'] and r['remaining'] == 1 and r['nodes'][0]['claimStarts'] == 1)
     if args.review_seconds:
         print('REVIEW READY', flush=True)
         time.sleep(args.review_seconds)
+    hover('KAREN_DEFEND')
+    check('skill-hover', lambda r: not r['hover'] and r['cardLights'] == 0 and r['ready'])
+    unhover()
+    hover('KAREN_STRIKE')
+    check('attack-hover', lambda r: r['hover'] and r['hoverCard'] == 'KAREN_STRIKE' and r['cardLights'] == 1)
+    shot('attack-hover-frame')
+    time.sleep(.8)
+    hover('KAREN_STRIKE')
+    check('repeat-hover', lambda r: r['hover'] and r['cardLights'] == 1 and r['nodes'][0]['claimStarts'] == 1)
+    unhover()
+    check('attack-unhover', lambda r: not r['hover'] and r['cardLights'] == 0 and r['ready'])
+    hover('KAREN_STRIKE')
     play('KAREN_STRIKE')
     time.sleep(1.15)
-    first = check('normal-trigger', lambda r: r['confirmations'] == 1 and r['block'] > 0 and r['maxReturns'] >= 1)
+    first = check('normal-trigger', lambda r: r['confirmations'] == 1 and r['block'] > 0 and r['maxLights'] >= 1
+                  and not r['ready'] and r['remaining'] == 0 and r['readyAlpha'] < .01
+                  and not r['hover'] and r['cardLights'] == 0 and r['nodes'][0]['claimStarts'] == 1)
+    hover('KAREN_STRIKE')
+    check('exhausted-hover', lambda r: not r['hover'] and r['cardLights'] == 0 and not r['ready'])
+    shot('exhausted-hover-frame')
+    unhover()
     play('KAREN_STRIKE')
     time.sleep(1.1)
     check('normal-limit', lambda r: r['confirmations'] == 1 and r['block'] == first['block'])
@@ -219,12 +247,17 @@ try:
     # The next natural turn resets the existing attack counter.
     round_before = state()['battle']['round']
     post(action='end_turn')
+    time.sleep(.25)
+    check('turn-end-lights', lambda r: not r['ready'] and not r['hover'] and r['cardLights'] == 0)
     wait(lambda s: s.get('battle', {}).get('is_play_phase') and s['battle']['round'] > round_before)
     cmd('energy 8')
     add('KAREN_STRIKE')
+    check('next-turn-ready', lambda r: r['ready'] and r['remaining'] == 1)
+    hover('KAREN_STRIKE')
+    check('next-turn-hover', lambda r: r['ready'] and r['hover'] and r['cardLights'] == 1)
     play('KAREN_STRIKE')
     time.sleep(1.15)
-    check('normal-next-turn', lambda r: r['confirmations'] == 2 and r['live'] == 1 and r['back'] == 0)
+    check('normal-next-turn', lambda r: r['confirmations'] == 2 and r['live'] == 1 and r['back'] == 0 and not r['ready'] and not r['hover'])
     time.sleep(.5)
     api('/recording/stop', {})
     for _ in range(150):
@@ -250,19 +283,24 @@ try:
     play('KAREN_POSITION0'); time.sleep(.3)
     play('KAREN_POSITION0'); time.sleep(.4)
     play('TWIN_STRIKE'); time.sleep(1.1)
-    check('stack-multihit', lambda r: r['amount'] == 2 and r['confirmations'] == 2 and r['live'] == r['maxLive'] == 1 and r['back'] == 0)
+    check('stack-multihit', lambda r: r['amount'] == 2 and r['confirmations'] == 2 and r['live'] == r['maxLive'] == 1
+          and r['back'] == 0 and not r['ready'] and r['remaining'] == 0 and r['nodes'][0]['claimStarts'] == 2)
     remove('stack-removed')
 
     prepare('fast')
     add('KAREN_POSITION0'); add('KAREN_STRIKE')
     play('KAREN_POSITION0'); time.sleep(.3)
+    hover('KAREN_STRIKE')
+    check('fast-hover', lambda r: r['hover'] and r['cardLights'] == 1)
     play('KAREN_STRIKE'); time.sleep(1)
     check('fast', lambda r: r['confirmations'] == 1 and r['live'] == 1)
     remove('fast-removed')
 
     prepare('instant')
     add('KAREN_POSITION0'); add('KAREN_STRIKE')
-    play('KAREN_POSITION0'); play('KAREN_STRIKE'); time.sleep(.4)
+    play('KAREN_POSITION0'); hover('KAREN_STRIKE')
+    check('instant-hover', lambda r: r['live'] == r['cardLights'] == 0 and not r['hover'])
+    play('KAREN_STRIKE'); time.sleep(.4)
     check('instant', lambda r: r['live'] == r['back'] == r['maxLive'] == r['confirmations'] == 0 and r['amount'] == 1 and r['block'] > 0)
     remove('instant-removed')
 
@@ -271,17 +309,24 @@ try:
     play('KAREN_POSITION0'); time.sleep(.3)
     cmd('pzero weak-attack'); time.sleep(.3)
     play('KAREN_STRIKE'); time.sleep(1)
-    check('blocked-gain', lambda r: r['block'] == r['confirmations'] == 0 and r['live'] == 1)
+    check('blocked-gain', lambda r: r['block'] == r['confirmations'] == r['maxLights'] == 0 and r['live'] == 1 and not r['ready'])
     remove('no-block-removed')
 
     prepare()
-    add('KAREN_POSITION0')
+    add('KAREN_POSITION0'); add('KAREN_STRIKE')
+    play('KAREN_POSITION0'); hover('KAREN_STRIKE')
+    check('hover-before-remove', lambda r: r['hover'] and r['cardLights'] == 1)
+    remove('hover-removed')
+
+    prepare()
+    add('KAREN_POSITION0'); add('KAREN_STRIKE')
     play('KAREN_POSITION0')
-    check('before-combat-end', lambda r: r['live'] == 1)
+    hover('KAREN_STRIKE')
+    check('before-combat-end', lambda r: r['live'] == 1 and r['hover'] and r['cardLights'] == 1)
     cmd('kill all')
     wait(lambda s: s.get('state_type') == 'rewards')
     time.sleep(.4)
-    check('combat-end-cleanup', lambda r: r['live'] == r['back'] == 0 and abs(r['weight'] - 1) < .001)
+    check('combat-end-cleanup', lambda r: r['live'] == r['back'] == r['cardLights'] == 0 and abs(r['weight'] - 1) < .001)
     save('results', dict(passed=True, checks=results))
     print(args.branch, 'PASS', len(results), 'targeted assertions', flush=True)
 finally:

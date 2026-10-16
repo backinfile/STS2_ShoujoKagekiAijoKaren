@@ -1,55 +1,69 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core.Audio;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.Patches;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
-/// <summary>Theatre tape and warm follow spots; the power owns the stage, actual block owns each return.</summary>
+/// <summary>Fixed warm cast, cool block lights, and remaining-opportunity footlights with an owned card preview.</summary>
 public partial class NKarenPositionZeroVfx : Node2D
 {
-    private sealed class Return(Creature target, float strength)
+    private sealed class BlockLight(float strength)
     {
-        public readonly Creature Target = target;
         public readonly float Strength = strength;
-        public Vector2 Source;
         public float Age;
     }
 
     private KarenPosition0Power _power = null!;
     private NCombatRoom _room = null!;
     private NCreature _creature = null!;
-    private readonly List<Return> _returns = new();
+    private readonly List<BlockLight> _blockLights = new();
     private readonly List<AudioStreamPlayer> _sounds = new();
     private static GradientTexture2D? _soft;
     private static readonly Color Red = new("#fb455a"), Gold = new("#ffd58a"), Ivory = new("#fff4d9");
+    private static readonly Color Cool = new("#c8e9ff");
+    private NCard? _hoverCard;
+    private CardModel? _hoverModel;
+    private NKarenPositionZeroCardHoverVfx? _cardLight;
     private Vector2 _foot, _body;
-    private float _age, _claimAge, _unit, _facing, _lastSound = -10;
+    private float _age, _claimAge, _unit, _readyAlpha, _hoverAlpha, _lastSound = -10;
     public int Confirmations { get; private set; }
-    public int ActiveReturns => _returns.Count;
+    public int ActiveBlockLights => _blockLights.Count;
     public float ClaimAge => _claimAge;
+    public int ClaimStarts { get; private set; }
+    public int RemainingTriggers => Math.Max(0, _power.Amount - AttackCounter.GetAttackCount(_power.Owner.Player!));
+    public bool ReadyActive => RemainingTriggers > 0 && _power.Owner.Player is {} player
+        && CombatManager.Instance.IsPartOfPlayerTurn(player) && player.PlayerCombatState?.Phase == PlayerTurnPhase.Play;
+    public float ReadyAlpha => _readyAlpha;
+    public bool HoverActive => CanHover(_hoverCard) && _hoverCard!.Model == _hoverModel;
+    public CardModel? HoverModel => HoverActive ? _hoverModel : null;
     public Creature StageOwner => _power.Owner;
     public Vector2 FootPoint => _foot;
     private static bool Enabled => !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     private float Speed => SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? .65f : 1;
     private float Claim => Window(_claimAge, .22f, 1.65f, .25f, .6f);
-    private float Pulse => _returns.Count == 0 ? 0 : _returns.Max(r => Window(r.Age, .18f, .8f, .08f, .45f));
+    private float Pulse => _blockLights.Count == 0 ? 0 : _blockLights.Max(r => Window(r.Age, 0, .72f, .07f, .4f));
 
     public static NKarenPositionZeroVfx? Ensure(KarenPosition0Power power, bool claim = false)
     {
         var room = NCombatRoom.Instance;
         var creature = room?.GetCreatureNode(power.Owner);
-        if (!Enabled || room == null || creature == null || !CombatManager.Instance.IsInProgress
+        if (!Enabled || room == null || creature == null || power.Owner.Player == null || !CombatManager.Instance.IsInProgress
             || power.Amount <= 0 || power.Owner.GetPower<KarenPosition0Power>() != power) return null;
         var existing = room.CombatVfxContainer.GetChildren().OfType<NKarenPositionZeroVfx>()
             .FirstOrDefault(n => n._power == power && !n.IsQueuedForDeletion());
@@ -73,23 +87,51 @@ public partial class NKarenPositionZeroVfx : Node2D
     private void ClaimStage()
     {
         _claimAge = 0;
+        ClaimStarts++;
         Sound("karen_benefit_gather.wav", .18f, .9f);
     }
 
-    public void ConfirmBlock(Creature target, decimal actualGain)
+    public void ConfirmBlock(decimal actualGain)
     {
         if (actualGain <= 0 || !IsInsideTree() || IsQueuedForDeletion()) return;
         Confirmations++;
-        // Closely spaced hits share one stage. Bound transient geometry for replay/AOE bursts.
-        if (_returns.Count >= 6) _returns.RemoveAt(0);
-        var pulse = new Return(target, Mathf.Clamp(Mathf.Log((float)actualGain + 1) / 3, .45f, 1));
-        pulse.Source = TargetPoint(target);
-        _returns.Add(pulse);
+        // Block confirmation never restarts or changes the fixed cast sequence.
+        if (_blockLights.Count >= 6) _blockLights.RemoveAt(0);
+        _blockLights.Add(new BlockLight(Mathf.Clamp(Mathf.Log((float)actualGain + 1) / 3, .45f, 1)));
         if (_age - _lastSound > .12f)
         {
             Sound("karen_benefit_bloom.wav", .15f, 1.16f);
             _lastSound = _age;
         }
+    }
+
+    public static void Hover(NCard card, bool hovered)
+    {
+        if (card.Model?.Owner is not {} player || NCombatRoom.Instance is not {} room) return;
+        if (!hovered)
+        {
+            foreach (var node in room.CombatVfxContainer.GetChildren().OfType<NKarenPositionZeroVfx>())
+                if (node._hoverModel == card.Model) node.ClearHover();
+            return;
+        }
+        if (player.Creature.GetPower<KarenPosition0Power>() is not {} power) return;
+        var effect = Ensure(power);
+        if (effect == null || !effect.CanHover(card)) return;
+        if (effect._hoverCard == card && effect._hoverModel == card.Model) return;
+        effect.ClearHover();
+        effect._hoverCard = card; effect._hoverModel = card.Model;
+        effect._cardLight = new NKarenPositionZeroCardHoverVfx(effect, card, card.Model);
+        card.OverlayContainer.AddChild(effect._cardLight);
+    }
+
+    private bool CanHover(NCard? card) => Enabled && ReadyActive && GodotObject.IsInstanceValid(card)
+        && card!.IsInsideTree() && card.IsVisibleInTree() && card.Model?.Owner == _power.Owner.Player
+        && LocalContext.IsMe(card.Model.Owner) && card.Model.Type == CardType.Attack && card.Model.Pile?.Type == PileType.Hand;
+
+    private void ClearHover()
+    {
+        if (GodotObject.IsInstanceValid(_cardLight)) { _cardLight!.Hide(); _cardLight.QueueFree(); }
+        _cardLight = null; _hoverCard = null; _hoverModel = null;
     }
 
     public override void _Ready()
@@ -100,7 +142,7 @@ public partial class NKarenPositionZeroVfx : Node2D
         TextureFilter = TextureFilterEnum.Linear;
         KarenVfxComposition.RegisterCue(this, _power.Owner);
         Place();
-        if (_claimAge == 0) Sound("karen_benefit_gather.wav", .18f, .9f);
+        if (_claimAge == 0) { ClaimStarts = 1; Sound("karen_benefit_gather.wav", .18f, .9f); }
     }
 
     public override void _Process(double delta)
@@ -112,13 +154,14 @@ public partial class NKarenPositionZeroVfx : Node2D
         { Stop(); return; }
         float dt = (float)delta / Speed;
         _age += dt; _claimAge += dt;
-        for (int i = _returns.Count - 1; i >= 0; i--)
+        for (int i = _blockLights.Count - 1; i >= 0; i--)
         {
-            var pulse = _returns[i]; pulse.Age += dt;
-            if (pulse.Age >= .86f) _returns.RemoveAt(i);
-            else if (_room.GetCreatureNode(pulse.Target) is {} target && GodotObject.IsInstanceValid(target))
-                pulse.Source = TargetPoint(pulse.Target);
+            var pulse = _blockLights[i]; pulse.Age += dt;
+            if (pulse.Age >= .76f) _blockLights.RemoveAt(i);
         }
+        if (!HoverActive) ClearHover();
+        _readyAlpha = Mathf.MoveToward(_readyAlpha, ReadyActive ? 1 : 0, dt * 8);
+        _hoverAlpha = Mathf.MoveToward(_hoverAlpha, HoverActive ? 1 : 0, dt * 9);
         _sounds.RemoveAll(s => !GodotObject.IsInstanceValid(s));
         Place();
         KarenVfxComposition.SetCueStrength(this, Mathf.Max(Claim, Pulse) * .7f);
@@ -134,13 +177,6 @@ public partial class NKarenPositionZeroVfx : Node2D
         _body = transform * (hit.Size * .5f);
         _foot = transform * new Vector2(hit.Size.X * .5f, hit.Size.Y);
         _unit = Mathf.Clamp(Mathf.Abs(_foot.Y - _body.Y) / 95, .5f, 2.5f);
-        _facing = _creature.Scale.X < 0 ? -1 : 1;
-    }
-
-    private Vector2 TargetPoint(Creature target)
-    {
-        var hit = _room.GetCreatureNode(target)?.Hitbox;
-        return hit == null ? _body : hit.GetGlobalTransformWithCanvas() * (hit.Size * .5f);
     }
 
     private void DrawStage()
@@ -161,7 +197,7 @@ public partial class NKarenPositionZeroVfx : Node2D
 
     private void DrawFloor()
     {
-        float ambient = KarenVfxComposition.AmbientWeight(_power.Owner);
+        float ambient = KarenVfxComposition.AmbientWeight(_power.Owner) * _readyAlpha;
         float reveal = Ease(P(_claimAge, 0, .28f));
         float a = reveal * (.35f * ambient + Claim * .65f + Pulse * .35f);
         Vector2 at = _foot + new Vector2(0, -9) * _unit;
@@ -177,7 +213,7 @@ public partial class NKarenPositionZeroVfx : Node2D
 
     private void Tape(Vector2 from, Vector2 to, float width, float alpha)
     {
-        if (from.DistanceSquaredTo(to) < .1f) return;
+        if (alpha <= .001f || from.DistanceSquaredTo(to) < .1f) return;
         DrawLine(from, to, new Color(Red, alpha * .10f), width * 3.5f, true);
         DrawLine(from, to, new Color(Red, alpha * .3f), width * 1.8f, true);
         DrawLine(from, to, new Color(Red, Mathf.Min(1, alpha + .25f)), width, true);
@@ -200,42 +236,50 @@ public partial class NKarenPositionZeroVfx : Node2D
 
     public override void _Draw()
     {
-        // Projected light tints the actor softly; tape and guard follow it in the native VFX plane.
+        // The fixed warm cast is independent of opportunity and cool block-light timing.
         DrawStage();
         DrawFloor();
-        foreach (var pulse in _returns)
+        DrawReadyLights();
+        foreach (var pulse in _blockLights)
         {
-            float flight = P(pulse.Age, 0, .27f);
-            for (int i = 0; i < 15; i++)
+            float strength = Window(pulse.Age, 0, .72f, .07f, .4f) * pulse.Strength;
+            float sweep = Ease(P(pulse.Age, 0, .48f));
+            for (int side = -1; side <= 1; side += 2)
             {
-                float t = Mathf.Clamp(flight - i * .018f, 0, 1);
-                Vector2 point = ReturnPoint(pulse.Source, t);
-                Soft(this, point, new Vector2(24, 7) * _unit, i < 4 ? Ivory : Gold,
-                    (1 - i / 15f) * (1 - P(pulse.Age, .22f, .4f)) * pulse.Strength * .8f);
+                var source = _body + new Vector2(side * 235, -150) * _unit;
+                var target = _body + new Vector2(side * Mathf.Lerp(-70, 80, sweep), 20) * _unit;
+                Cone(source, target, 60 * _unit, Cool, strength * .45f);
             }
-            float guard = Window(pulse.Age, .18f, .84f, .09f, .4f) * pulse.Strength;
-            if (guard <= .001f) continue;
-            Vector2 center = _body + new Vector2(30 * _facing, 0) * _unit;
-            float facingAngle = _facing < 0 ? Mathf.Pi : 0;
-            for (int i = 0; i < 4; i++)
-            {
-                float radius = (55 + i * 4) * _unit;
-                DrawArc(center, radius, facingAngle - 1.05f, facingAngle + 1.05f, 40,
-                    new Color(i == 0 ? Ivory : Gold, guard * (i == 0 ? .9f : .16f)), (i == 0 ? 2.5f : 5) * _unit, true);
-            }
-            for (int i = 0; i < 8; i++)
-            {
-                float angle = facingAngle - .9f + i / 7f * 1.8f;
-                Vector2 dot = center + Vector2.FromAngle(angle) * (58 + P(pulse.Age, .27f, .8f) * 24) * _unit;
-                Soft(this, dot, Vector2.One * 6 * _unit, Ivory, guard * .65f);
-            }
+            Soft(this, _body, new Vector2(140, 250) * _unit, Cool, strength * .17f);
+            Soft(this, _foot + new Vector2(0, -9) * _unit, new Vector2(250, 30) * _unit, Ivory, strength * .65f);
         }
     }
 
-    private Vector2 ReturnPoint(Vector2 source, float t)
+    private void DrawReadyLights()
     {
-        Vector2 end = _body + new Vector2(80 * _facing, -4) * _unit;
-        return source.Lerp(end, t) + new Vector2(0, -40 * Mathf.Sin(t * Mathf.Pi)) * _unit;
+        if (_readyAlpha <= .001f) return;
+        float breath = .78f + .12f * Mathf.Sin(_age * 2.2f);
+        for (int side = -1; side <= 1; side += 2)
+        {
+            Vector2 lamp = _foot + new Vector2(side * 84, -14) * _unit;
+            float strength = _readyAlpha * breath;
+            Soft(this, lamp, new Vector2(44, 13) * _unit, Gold, strength * (.36f + .25f * _hoverAlpha));
+            Cone(lamp, lamp + new Vector2(side * 5, -54 - _hoverAlpha * 64) * _unit,
+                (9 + 8 * _hoverAlpha) * _unit, Ivory, strength * (.25f + .18f * _hoverAlpha));
+        }
+    }
+
+    private void Cone(Vector2 source, Vector2 target, float spread, Color color, float alpha)
+    {
+        Vector2 normal = (target - source).Normalized().Orthogonal();
+        for (int i = 0; i < 12; i++)
+        {
+            float x0 = i / 6f - 1, x1 = (i + 1) / 6f - 1;
+            float a = Mathf.Pow(1 - Mathf.Abs((x0 + x1) * .5f), 1.5f) * alpha;
+            DrawPolygon([source + normal * x0 * 3 * _unit, source + normal * x1 * 3 * _unit,
+                target + normal * x1 * spread, target + normal * x0 * spread],
+                [new(color, a), new(color, a), new(color, a * .35f), new(color, a * .35f)]);
+        }
     }
     private static void Soft(Node2D node, Vector2 center, Vector2 size, Color color, float alpha)
     {
@@ -252,8 +296,9 @@ public partial class NKarenPositionZeroVfx : Node2D
     public void Stop() { Hide(); QueueFree(); }
     public override void _ExitTree()
     {
+        ClearHover();
         KarenVfxComposition.RemoveCue(this);
         foreach (var sound in _sounds) if (GodotObject.IsInstanceValid(sound)) { sound.Stop(); sound.QueueFree(); }
-        _sounds.Clear(); _returns.Clear();
+        _sounds.Clear(); _blockLights.Clear();
     }
 }

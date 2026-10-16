@@ -24,11 +24,11 @@ public static class PositionZeroProbe
     private sealed class Seen(NKarenPositionZeroVfx node)
     {
         public readonly NKarenPositionZeroVfx Node = node;
-        public int Frames, Claims, Returns, Confirmations;
+        public int Frames, Claims, Lights, Ready, Hover, Confirmations, ClaimStarts;
     }
     private static readonly List<Seen> Nodes = new();
     private static bool Watching;
-    private static int MaxLive, MaxReturns;
+    private static int MaxLive, MaxLights;
     public static void Initialize() => ((SceneTree)Engine.GetMainLoop()).ProcessFrame += Sample;
     private static void Sample()
     {
@@ -41,26 +41,34 @@ public static class PositionZeroProbe
             if (seen == null) { seen = new(node); Nodes.Add(seen); }
             seen.Frames++;
             if (node.ClaimAge < 1.65f) seen.Claims++;
-            if (node.ActiveReturns > 0) seen.Returns++;
+            if (node.ActiveBlockLights > 0) seen.Lights++;
+            if (node.ReadyActive) seen.Ready++;
+            if (node.HoverActive) seen.Hover++;
+            seen.ClaimStarts = Math.Max(seen.ClaimStarts, node.ClaimStarts);
             seen.Confirmations = Math.Max(seen.Confirmations, node.Confirmations);
-            MaxReturns = Math.Max(MaxReturns, node.ActiveReturns);
+            MaxLights = Math.Max(MaxLights, node.ActiveBlockLights);
         }
     }
-    internal static void Watch() { Nodes.Clear(); MaxLive = MaxReturns = 0; Watching = true; }
+    internal static void Watch() { Nodes.Clear(); MaxLive = MaxLights = 0; Watching = true; }
     internal static object Status(Player p)
     {
         var room = NCombatRoom.Instance;
         var live = room?.CombatVfxContainer.GetChildren().OfType<NKarenPositionZeroVfx>().Where(n => !n.IsQueuedForDeletion()).ToArray() ?? [];
         return new {
-            live = live.Length, maxLive = MaxLive, maxReturns = MaxReturns,
+            live = live.Length, maxLive = MaxLive, maxLights = MaxLights,
             back = room?.FindChildren("KarenPositionZeroBack", "", true, false).Count(n => !n.IsQueuedForDeletion()) ?? 0,
             amount = p.Creature.GetPowerAmount<KarenPosition0Power>(), block = p.Creature.Block,
             attacks = AttackCounter.GetAttackCount(p), weight = KarenVfxComposition.EventWeight(p.Creature),
             ownership = live.All(n => n.StageOwner == p.Creature),
+            remaining = live.FirstOrDefault()?.RemainingTriggers ?? 0,
+            ready = live.Any(n => n.ReadyActive), readyAlpha = live.FirstOrDefault()?.ReadyAlpha ?? 0,
+            hover = live.Any(n => n.HoverActive), hoverCard = live.FirstOrDefault()?.HoverModel?.Id.Entry,
+            cardLights = room?.FindChildren("*", "", true, false).OfType<NKarenPositionZeroCardHoverVfx>().Count(n => !n.IsQueuedForDeletion()) ?? 0,
             geometry = live.Select(n => new { foot = n.FootPoint.ToString(), transform = n.GlobalTransform.ToString(), canvas = n.GetCanvasTransform().ToString(),
                 unit = typeof(NKarenPositionZeroVfx).GetField("_unit", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(n) }),
             confirmations = Nodes.Sum(n => n.Confirmations),
-            nodes = Nodes.Select(n => new { frames = n.Frames, claimFrames = n.Claims, returnFrames = n.Returns, confirmations = n.Confirmations })
+            nodes = Nodes.Select(n => new { frames = n.Frames, claimFrames = n.Claims, blockLightFrames = n.Lights, readyFrames = n.Ready,
+                hoverFrames = n.Hover, confirmations = n.Confirmations, claimStarts = n.ClaimStarts })
         };
     }
 }

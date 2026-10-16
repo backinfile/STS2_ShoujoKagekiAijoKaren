@@ -57,7 +57,7 @@ public class KarenPosition0Power : PowerModel
                 int before = dealer.Block;
                 await CreatureCmd.GainBlock(dealer, amount, ValueProp.Unpowered, null);
                 if (dealer.Block > before)
-                    NKarenPositionZeroVfx.Ensure(this)?.ConfirmBlock(target, dealer.Block - before);
+                    NKarenPositionZeroVfx.Ensure(this)?.ConfirmBlock(dealer.Block - before);
                 Flash();
             }
         }
