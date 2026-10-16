@@ -406,5 +406,186 @@
     "freezeOverOneSecond": false,
     "sha256": "3c5940301178910889163a56f2c9a7389a7314587904a14ea31e0d5fece05b32"
   },
-  "sourceEvidence": "output/exchange-fate-vfx/revision-v3"
+  "sourceEvidence": "output/exchange-fate-vfx/revision-v3",
+  "synchronizedMain": {
+    "main": "05ea59391591652f427df1fce257e0ac2f1acd52",
+    "taskCommit": "7fa71c5",
+    "exchangeFateImplementationUnchanged": true,
+    "dualVersionBuild": "success",
+    "packCheck": {
+      "packEntries": 981,
+      "unusedOrnamentResources": [],
+      "passed": true
+    },
+    "runs": {
+      "stable": {
+        "normal": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 121,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "logErrors": [],
+        "packageSha256": {
+          "ShoujoKagekiAijoKaren.dll": "b238acb994766b3ec46cbd0c248ba61ea5176a1ab2a03729240aa446567bffb1",
+          "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+          "ShoujoKagekiAijoKaren.pck": "edbca92957dced2af19be6186f820618906a23a58f1563bb412a076512bc0ef6",
+          "lib\\ShoujoKagekiAijoKaren.Beta.dll": "7e16968f5597f450a86c7a66b29d6da8bc96e4a37bb72199bb86b39c47be09f8",
+          "lib\\ShoujoKagekiAijoKaren.Stable.dll": "4189b46b54af52c4df88b8935528b52efc11452a9da4a3cb23b6445089fbde6e"
+        },
+        "screenshotsReviewed": [
+          "before",
+          "cross",
+          "after"
+        ]
+      },
+      "beta": {
+        "normal": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 114,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "logErrors": [],
+        "packageSha256": {
+          "ShoujoKagekiAijoKaren.dll": "b238acb994766b3ec46cbd0c248ba61ea5176a1ab2a03729240aa446567bffb1",
+          "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+          "ShoujoKagekiAijoKaren.pck": "edbca92957dced2af19be6186f820618906a23a58f1563bb412a076512bc0ef6",
+          "lib\\ShoujoKagekiAijoKaren.Beta.dll": "7e16968f5597f450a86c7a66b29d6da8bc96e4a37bb72199bb86b39c47be09f8",
+          "lib\\ShoujoKagekiAijoKaren.Stable.dll": "4189b46b54af52c4df88b8935528b52efc11452a9da4a3cb23b6445089fbde6e"
+        },
+        "screenshotsReviewed": [
+          "before",
+          "cross",
+          "after"
+        ]
+      }
+    },
+    "probeRetry": {
+      "initialBetaAttempt": "failed before gameplay: shared intermediate build directory produced a probe referencing Stable instead of Beta",
+      "resolution": "clean probe and rerun beta alone",
+      "failedEvidence": "sync-beta",
+      "passedEvidence": "sync-beta-retry"
+    }
+  }
 }
