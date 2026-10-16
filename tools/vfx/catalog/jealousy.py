@@ -4,9 +4,16 @@ def jealousy_status():
 
 
 def jealousy_result(label, hp, damage, rewards, kinds):
+    # Native replays include their own scheduling gap. Wait for the last real cast's particles.
+    for _ in range(80):
+        observed = jealousy_status()
+        if observed['live'] == 0 and len(observed['casts']) == len(kinds): break
+        time.sleep(.05)
     current = state()
     assert hp - current['battle']['enemies'][0]['hp'] == damage, current
-    observed = jealousy_status()
+    if label == 'replay':
+        snap(case / 'visual-finished')
+        check_hand('visual-finished-hand')
     save(label + '-jealousy', observed)
     assert observed['relicRewards'] == rewards, observed
     assert observed['live'] == 0 and observed['actorOffsetError'] < .001 and observed['modelPositionError'] < .001, observed
@@ -20,7 +27,15 @@ def jealousy_result(label, hp, damage, rewards, kinds):
             assert cast['preHitFrames'] > 0 and cast['confirmed'] > 0, cast
             assert abs(cast['confirmedAt'] - .5) < .08, cast
         assert cast['ghosts'] == 0, cast
+        assert cast['emitters'] == (1 if cast['kind'] == 'sweep' else 2), cast
+        assert cast['particleCapacity'] == (12 if cast['kind'] == 'sweep' else 48), cast
+        assert cast['emittingFrames'] > 0, cast
+    assert observed['distinctParticleMaterials'] == sum(c['emitters'] for c in observed['casts']), observed
+    assert observed['maxLiveParticleCapacity'] <= 108, observed
+    if label == 'overlap':
+        assert observed['maxLiveNodes'] == 2 and observed['maxLiveParticleCapacity'] == 96, observed
     save(label + '-rules', dict(damage=damage, relicRewards=rewards, powers=current['player']['status']))
+    print(branch, 'CHECKED jealousy', label, flush=True)
     return observed
 
 
@@ -38,20 +53,29 @@ if 'jealousy' in wanted:
     finish()
 
 
-if 'jealousy-checks' in wanted:
+if 'jealousy-checks' in wanted or 'jealousy-replay-check' in wanted:
     # Targeted cases are kept out of the normal-speed presentation clip.
-    for mode in ('fast', 'instant', 'pose', 'cancel'):
+    modes = ('fast', 'instant', 'pose', 'cancel', 'cancel-impact', 'replay', 'overlap') if 'jealousy-checks' in wanted else ('replay',)
+    for mode in modes:
         cmd('promise_integration off'); fight(); trim()
         case = out / ('jealousy-' + mode); case.mkdir(exist_ok=True)
         cmd('promise_integration watch')
-        cmd('stage_probe speed ' + ('normal' if mode in ('pose', 'cancel') else mode))
+        cmd('stage_probe speed ' + (mode if mode in ('fast', 'instant') else 'normal'))
         if mode == 'pose': cmd('jealousy_probe pose'); time.sleep(.5)
-        prep('KAREN_JEALOUSY'); cmd('jealousy_probe deplete-last'); cmd('jealousy_probe watch')
+        prep('KAREN_JEALOUSY')
+        if mode != 'overlap':
+            cmd('jealousy_probe replay-last' if mode == 'replay' else 'jealousy_probe deplete-last')
+        cmd('jealousy_probe watch')
         hp = state()['battle']['enemies'][0]['hp']; snap(case / 'before')
-        play('KAREN_JEALOUSY')
+        if mode == 'overlap': cmd('jealousy_probe overlap')
+        else: play('KAREN_JEALOUSY')
         if mode == 'cancel': time.sleep(.3); cmd('jealousy_probe cancel')
+        if mode == 'cancel-impact': time.sleep(.62); cmd('jealousy_probe cancel-all')
         settle('after')
-        report = jealousy_result(mode, hp, 15, 1, [] if mode == 'instant' else ['sweep', 'impact'])
+        kinds = [] if mode == 'instant' else ['sweep', 'impact'] * (2 if mode == 'replay' else 1)
+        if mode == 'overlap': kinds = ['impact', 'impact']
+        damage = 0 if mode == 'overlap' else 30 if mode == 'replay' else 15
+        report = jealousy_result(mode, hp, damage, 0 if mode in ('replay', 'overlap') else 1, kinds)
         if mode == 'pose': assert report['casts'][0]['unit'] < .7, report
 
 

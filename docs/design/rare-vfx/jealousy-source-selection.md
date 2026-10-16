@@ -1,6 +1,12 @@
 # 嫉妒：参考与特效设计
 
-## 当前第三版：角色原位与 TV 方片（2026-10-16）
+## 当前第四版：粒子制作轮（2026-10-16）
+
+当前 [第四版预览](jealousy-2026-10-15/concept-particles-v4.png)、[完整内置 ImageGen 提示词](jealousy-2026-10-15/prompt-particles-v4.txt)、[机制及制作选择](jealousy-particles-v4.md)。保留角色原位、无专属奖励特效，主体切光与装饰粒子分开。
+
+本轮重新打开 TBS 剧集资料和 Bushiroad 官方周边页；实际下载并查看 [Dear 9 原图](https://bushiroad-store.com/cdn/shop/files/ABK_5_ari_800x.jpg?v=1778577241)，见 [官方商品页](https://bushiroad-store.com/products/2000292057056)：薄荷深绿背景、暖金边饰、白金小星形。只取色彩与细小星闪，不复制商品外形、美术或商标。TV 方片仍以以下实际看过的第 5 话截图为依据，预览输入为真实游戏截图、TV 方片、官方周边三张参考。技术选型另核对 Godot 4.5 [CPUParticles2D](https://docs.godotengine.org/en/4.5/classes/class_cpuparticles2d.html) 与 [CanvasItem Shader](https://docs.godotengine.org/en/4.5/tutorials/shaders/shader_reference/canvas_item_shader.html) 官方文档。
+
+## 历史第三版：角色原位与绘制方片（2026-10-16，已替换）
 
 用户要求「不要移动角色，单纯制作攻击特效即可」，并指定参考 TV 真昼闪亮方片。已生成 [第三版预览](jealousy-2026-10-15/concept-square-v3.png)，[完整内置 ImageGen 提示词](jealousy-2026-10-15/prompt-square-v3.txt)。预览用于形状与时序设计，实机不使用生成画面作贴图。
 

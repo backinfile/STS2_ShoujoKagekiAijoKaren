@@ -1,5 +1,5 @@
 # Executed by record.py inside its MCP recording session.
-if wanted & {'jealousy', 'jealousy-checks', 'jealousy-lethal'}:
+if wanted & {'jealousy', 'jealousy-checks', 'jealousy-lethal', 'jealousy-replay-check'}:
     exec(compile(pathlib.Path(__file__).with_name('jealousy.py').read_text(encoding='utf-8'), 'jealousy.py', 'exec'))
 if 'arrogant' in wanted:
     exec(compile((main / 'tools/vfx/arrogant/scene.py').read_text(encoding='utf-8'), 'arrogant/scene.py', 'exec'))

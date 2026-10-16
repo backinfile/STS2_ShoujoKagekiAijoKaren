@@ -15,7 +15,6 @@ public partial class NKarenJealousyVfx : Node2D
 {
     public const float HitTime = .5f;
     public const float FastHitTime = HitTime * .7f;
-    private const int SweepSquares = 18, ImpactSquares = 28;
     private NCombatRoom _room = null!;
     private NCreature? _sourceView;
     private NCreature _targetView = null!;
@@ -59,7 +58,7 @@ public partial class NKarenJealousyVfx : Node2D
         _light.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         AddChild(_light);
         _light.Draw += DrawLight;
-        Place(); QueueRedraw(); _light.QueueRedraw();
+        Place(); InitializeParticles(); UpdateParticles(); _light.QueueRedraw();
     }
 
     private static bool Present(Node? node) => GodotObject.IsInstanceValid(node)
@@ -83,16 +82,17 @@ public partial class NKarenJealousyVfx : Node2D
     }
     private Vector2 FlightPoint(float progress) => _source.Lerp(_target, progress)
         + Vector2.Up * Mathf.Sin(progress * Mathf.Pi) * 68 * _unit;
+    private float FlightProgress => Mathf.Pow(Mathf.Clamp((_age - .08f) / (HitTime - .08f), 0, 1), 1.6f);
 
     public override void _Process(double delta)
     {
         _age += (float)delta * _speed;
         bool cancelled = !Present(_targetView) || (!_impact && (!Present(_sourceView)
             || (!CombatManager.Instance.IsInProgress && _confirmedAt < 0)));
-        float lifetime = _impact ? .62f : _confirmedAt >= 0 ? _confirmedAt + .12f : HitTime + .45f;
+        float lifetime = _impact ? .72f : _confirmedAt >= 0 ? _confirmedAt + .24f : HitTime + .45f;
         if (!Present(_room) || NCombatRoom.Instance != _room || cancelled || _age >= lifetime) {
             Hide(); QueueFree(); return;
         }
-        Place(); QueueRedraw(); _light.QueueRedraw();
+        Place(); UpdateParticles(); _light.QueueRedraw();
     }
 }
