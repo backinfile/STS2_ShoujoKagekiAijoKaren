@@ -16,7 +16,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite f
 | `solo` | 两版 Karen 开局、MCP 设置读写并恢复、CMD、闪耀打击中途清场后耗尽 |
 | `multiplayer` | 两版各四种主客角色组合：双方出牌、敌人生命同步、共同进入第 2 回合 |
 | `regression` | 两版 Karen 主机／客户端的清场耗尽、混合角色清场耗尽、《旋转》全局移牌同步及 `promise` 用例 |
-| `promise` | 两版各跑 Karen/Karen、Karen/原版、原版/Karen 的约定牌堆移入及抽回；保存前后截图并检查双端手牌节点与模型一致 |
+| `promise` | 两版各跑 Karen/Karen、Karen/原版、原版/Karen 的约定牌堆移入及抽回；保存前后截图并检查双端手牌节点与模型一致，并附带 `turn-end` 六组转化检查 |
 | `turn-end` | 两版各覆盖 Karen/Karen、Karen/原版、原版/Karen，双方各将《小零食》放入约定牌堆，结束回合后逐人检查它变为《香蕉》 |
 | `cross` | 可选的跨版本连接调查；不属于日常验收 |
 | `full` | `smoke`、`solo`、`multiplayer`、`regression`、`turn-end` 的全部用例；默认套件，不含 `cross` |
@@ -34,3 +34,5 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite f
 审查修复的升级／附魔副本、重播转移／拒绝接收、保留能量、远端 UI 和战后遗物清理专项：`pwsh -NoProfile -File tools/test_review_regressions.ps1`。它临时部署独立测试插件、默认启用仅本机传输，并保存结果、截图及双端日志；详细范围见 [修复记录](review-fixes-2026-09-24.md)。
 
 修复专项的客户端游戏使用工作树内的可复用缓存，避免每次复制数 GB 文件。日志与用户数据仍按运行隔离；`-ClientGamesRoot` 可指定 `artifacts/test-matrix/` 下已有客户端副本目录。
+
+修复专项把测试版启动期的原生 WorkerThreadPool 诊断单列为 `startupWorkerPoolErrorCount`：必须是 Common 预加载完成之前的 `ERROR: Invalid Task ID`，且调用位置为 `core/object/worker_thread_pool.cpp`。其余原生错误仍使测试失败；不能把出牌阶段同名错误归为启动诊断。`headlessRendererErrorCount` 仅统计 headless dummy renderer 的错误，窗口测试应为 0。

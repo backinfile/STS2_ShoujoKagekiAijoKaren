@@ -115,10 +115,10 @@ public partial class NKarenArrogantVfx : Node2D
         _foot = hit.GetGlobalTransformWithCanvas() * new Vector2(hit.Size.X * .5f, hit.Size.Y);
         _unit = Mathf.Clamp((_foot.Y - _body.Y) / 95f, .6f, 2.5f);
         _button = _body + new Vector2(35 + 35 * Ease(P(_age, 0, .5f)), -42 - 100 * Ease(P(_age, 0, .5f))) * _unit;
-        if (RewardConfirmed && (!GodotObject.IsInstanceValid(_rewardIcon) || !_rewardIcon!.IsInsideTree()))
-            _rewardIcon = _creature.FindChildren("*", "", true, false).OfType<NPower>()
-                .FirstOrDefault(p => p.Model.Owner == _owner.Creature && p.Model is KarenPassionPower);
-        if (GodotObject.IsInstanceValid(_rewardIcon) && _rewardIcon!.IsInsideTree())
+        var rewardPower = _owner.Creature.GetPower<KarenPassionPower>();
+        if (!KarenPowerVfxAnchor.IsFor(_rewardIcon, rewardPower))
+            _rewardIcon = RewardConfirmed ? KarenPowerVfxAnchor.Find(_room, rewardPower) : null;
+        if (_rewardIcon != null)
         {
             var icon = _rewardIcon.GetNode<TextureRect>("%Icon");
             _destination = icon.GetGlobalTransformWithCanvas() * (icon.Size * .5f);

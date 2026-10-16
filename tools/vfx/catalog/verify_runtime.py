@@ -82,6 +82,21 @@ for name in names:
         for row in regressions['audio']:
             assert row['buses'] == ['SFX'] * 3, row
             assert all(abs(row[k] - .4) < .001 for k in ['direct', 'ordinary', 'loop']), row
+    if name == 'coexistence-regressions':
+        regressions = read(scene / 'regressions.json')
+        assert len(regressions['composition']) == 11 and len(regressions['music']) == 9, regressions
+        if 'powerAnchor' in regressions: assert len(regressions['powerAnchor']) == 10, regressions
+        assert all(all(values.values()) for values in regressions.values()), regressions
+    if name in ['recent-stack-normal', 'recent-stack-void']:
+        observed = read(scene / 'native-finished.json')
+        played = {row['id'] for row in observed['finished']}
+        required = {'KAREN_POSITION0', 'KAREN_PASSION', 'KAREN_ARROGANT', 'KAREN_JEALOUSY',
+                    'KAREN_BACK_TO_BACK_CARD', 'KAREN_SHINE_TOGETHER', 'KAREN_WHY',
+                    'KAREN_WAKE_UP', 'KAREN_EXCHANGE_FATE'}
+        assert required <= played, (scene, required - played)
+        for label, kind in [('why', 'hand_select'), ('wakeup', 'card_select')]:
+            assert read(scene / (label + '-selection.json'))['state_type'] == kind, scene
+            assert (scene / (label + '-before.png')).is_file() and (scene / (label + '-after.png')).is_file(), scene
     recordings.append(dict(name=name, captureFps=rec['capture_fps'], repeatedFrames=rec['frames_repeated']))
 
 logs = [folder / 'godot.log', *sorted(root.glob(args.branch + '-run-*-godot.log'))]

@@ -30,12 +30,21 @@ public static class KarenVfxComposition
         float reduction = 0;
         foreach (var (effect, cue) in Cues)
         {
-            if (effect == except || !GodotObject.IsInstanceValid(effect)
-                || !effect.IsInsideTree() || effect.IsQueuedForDeletion() || !effect.Visible) continue;
+            if (effect == except || !IsPresent(effect)) continue;
             if (cue.StageWide || cue.Owner == owner)
                 reduction = Mathf.Max(reduction, cue.Strength * (cue.StageWide ? .28f : .16f));
         }
         return 1f - reduction;
+    }
+
+    private static bool IsPresent(Node2D effect)
+    {
+        if (!GodotObject.IsInstanceValid(effect) || !effect.IsInsideTree() || !effect.IsVisibleInTree()) return false;
+        // A room/container can be queued before its children receive TreeExiting.
+        // Those children must stop suppressing other effects in this same frame.
+        for (Node? node = effect; node != null; node = node.GetParent())
+            if (node.IsQueuedForDeletion()) return false;
+        return true;
     }
 
     public static float AmbientWeight(Creature? owner)

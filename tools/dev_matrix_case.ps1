@@ -272,14 +272,28 @@ try {
         }
         $errors = @(Select-String -Path (Join-Path $logDir "mp-$caseName-host.log"),(Join-Path $logDir "mp-$caseName-client.log") -Pattern '^\[ERROR\]')
         if ($errors.Count -gt 0) { throw "Review game logged $($errors.Count) errors" }
-        $nativeErrors = @(Select-String -Path (Join-Path $logDir "mp-$caseName-host.log"),(Join-Path $logDir "mp-$caseName-client.log") -Pattern '^ERROR:' -Context 0,2)
-        $unexpectedNativeErrors = @($nativeErrors | Where-Object { -not ($Headless -and ($_.Context.PostContext -join ' ') -match 'servers/rendering/dummy/') })
+        $nativeErrors = @(Select-String -Path (Join-Path $logDir "mp-$caseName-host.log"),(Join-Path $logDir "mp-$caseName-client.log") -Pattern '^ERROR:' -Context 0,32)
+        # Beta may emit a native worker-pool diagnostic during Common preload.
+        # Keep its exact source/phase separate; do not excuse gameplay errors.
+        $startupWorkerPoolErrors = @($nativeErrors | Where-Object {
+            $commonComplete = Select-String -LiteralPath $_.Path -SimpleMatch "Preloading 'Common' Complete:" | Select-Object -First 1
+            $firstPlay = Select-String -LiteralPath $_.Path -SimpleMatch ' playing card ' | Select-Object -First 1
+            $sourceLine = $_.Context.PostContext | Where-Object {
+                $_ -ne 'ERROR: Invalid Task ID' -and $_ -notmatch '^\s*(C# backtrace \(most recent call first\):|\[\d+\] .+)$'
+            } | Select-Object -First 1
+            $_.Line -eq 'ERROR: Invalid Task ID' -and $commonComplete -and $_.LineNumber -lt $commonComplete.LineNumber -and
+                (-not $firstPlay -or $_.LineNumber -lt $firstPlay.LineNumber) -and
+                $sourceLine -match 'wait_for_task_completion \(core/object/worker_thread_pool\.cpp:'
+        })
+        $unexpectedNativeErrors = @($nativeErrors | Where-Object {
+            $_ -notin $startupWorkerPoolErrors -and -not ($Headless -and ($_.Context.PostContext -join ' ') -match 'servers/rendering/dummy/')
+        })
         if ($unexpectedNativeErrors.Count -gt 0) { throw "Review game logged $($unexpectedNativeErrors.Count) native errors" }
         foreach ($side in @('host', 'client')) {
             $replays = @(Select-String -LiteralPath (Join-Path $logDir "mp-$caseName-$side.log") -SimpleMatch '总播放次数调整为 3')
             if ($replays.Count -lt 2) { throw "Both relay cases must actually replay three times on $side" }
         }
-        [PSCustomObject]@{case=$caseName;result='pass';fixtures=@('models','downgrade','relay','energy','rejection','ui','relic');visuals=if($Headless){'not_tested_headless'}else{'screenshots_captured'};errorCount=0;headlessRendererErrorCount=$nativeErrors.Count} | ConvertTo-Json -Compress
+        [PSCustomObject]@{case=$caseName;result='pass';fixtures=@('models','downgrade','relay','energy','rejection','ui','relic');visuals=if($Headless){'not_tested_headless'}else{'screenshots_captured'};errorCount=0;startupWorkerPoolErrorCount=$startupWorkerPoolErrors.Count;headlessRendererErrorCount=@($nativeErrors | Where-Object { $Headless -and ($_.Context.PostContext -join ' ') -match 'servers/rendering/dummy/' }).Count} | ConvertTo-Json -Compress
         return
     }
 
@@ -436,6 +450,13 @@ try {
             } 'both promise fixture cards in hand'
             $fall = $withFall.player.hand | Where-Object id -eq 'KAREN_FALL' | Select-Object -Last 1
             $defendBefore = @($withFall.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count
+            $screenshotDir = Join-Path $RunRoot 'logs'
+            New-Item -ItemType Directory -Path $screenshotDir -Force | Out-Null
+            $side = if ($port -eq $hostPort) { 'host' } else { 'client' }
+            Start-Sleep -Milliseconds 700
+            Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" `
+                -OutFile (Join-Path $screenshotDir "mp-$caseName-$side-before-fall.png") -TimeoutSec 15 | Out-Null
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
             $null = Post-Action $port 'multiplayer' @{ action='play_card'; card_index=$fall.index }
             $selection = Wait-State $port 'multiplayer' { param($s) $s.state_type -eq 'hand_select' } 'promise card selection'
             $defend = $selection.hand_select.cards | Where-Object id -eq 'KAREN_DEFEND' | Select-Object -Last 1
@@ -448,9 +469,6 @@ try {
             $null = Wait-State $port 'multiplayer' {
                 param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase
             } 'promise selection completion'
-            $screenshotDir = Join-Path $RunRoot 'logs'
-            New-Item -ItemType Directory -Path $screenshotDir -Force | Out-Null
-            $side = if ($port -eq $hostPort) { 'host' } else { 'client' }
             Start-Sleep -Milliseconds 500
             Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" `
                 -OutFile (Join-Path $screenshotDir "mp-$caseName-$side-after-fall.png") -TimeoutSec 15 | Out-Null
@@ -464,6 +482,10 @@ try {
                 param($s) @($s.player.hand | Where-Object id -eq 'KAREN_TOWER_OF_PROMISE').Count -gt 0
             } 'KarenTowerOfPromise in hand'
             $tower = $withTower.player.hand | Where-Object id -eq 'KAREN_TOWER_OF_PROMISE' | Select-Object -Last 1
+            Start-Sleep -Milliseconds 700
+            Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" `
+                -OutFile (Join-Path $screenshotDir "mp-$caseName-$side-before-tower.png") -TimeoutSec 15 | Out-Null
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
             $null = Post-Action $port 'multiplayer' @{ action='play_card'; card_index=$tower.index }
             $null = Wait-State $port 'multiplayer' {
                 param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase

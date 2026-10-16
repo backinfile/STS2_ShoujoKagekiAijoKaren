@@ -12,6 +12,7 @@ args = parser.parse_args()
 repo = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(repo / 'tools/vfx/six-card'))
 from isolated_desktop import TestDesktop
+from audit_log import audit
 root = args.output.resolve()
 assert not root.exists(), 'Use a fresh evidence directory'
 root.mkdir(parents=True)
@@ -102,6 +103,13 @@ try:
     settings = api('/settings'); save('original-settings', settings)
     api('/settings', dict(fullscreen=False, window_width=1280, window_height=720, muted=False))
     for name in args.cases.split(','):
+        # Finish the previous native combat before jumping to the next fixture.
+        # Replacing a live room can return beta's pooled NCards twice and make
+        # the next fixture invalid before its card has even been played.
+        if state().get('battle', {}).get('is_play_phase'):
+            cmd('kill all')
+            until(lambda: state().get('state_type') == 'rewards')
+            time.sleep(.8)
         cmd('fight WATERFALL_GIANT_BOSS')
         until(lambda: state().get('battle', {}).get('is_play_phase')); time.sleep(.8)
         if any(r['id'] == 'KAREN_HAIRPIN_RELIC' for r in state()['player']['relics']): cmd('relic remove KAREN_HAIRPIN_RELIC')
@@ -165,4 +173,9 @@ finally:
         api('/settings', dict(muted=True))
     except Exception: pass
     desktop.close()
-    if (dev / 'godot.log').exists(): shutil.copy2(dev / 'godot.log', out / 'godot.log')
+    if (dev / 'godot.log').exists():
+        shutil.copy2(dev / 'godot.log', out / 'godot.log')
+        diagnostics = audit((out / 'godot.log').read_text(encoding='utf-8', errors='replace'))
+        save('log-audit', diagnostics)
+
+assert not diagnostics['unexpectedErrors'], diagnostics

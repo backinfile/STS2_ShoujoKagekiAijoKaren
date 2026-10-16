@@ -15,6 +15,8 @@ public static class CombatBgmReplacementManager
     private const float FadeOutDuration = 0.35f;
 
     private static AudioStreamPlayer? _currentPlayer;
+    private static AudioStreamPlayer? _fadingPlayer;
+    private static Tween? _fadeTween;
     private static int _restoreRequestId;
     private static bool _needsGameMusicRestore;
 
@@ -62,7 +64,8 @@ public static class CombatBgmReplacementManager
 
     public static void RestoreGameMusicIfNeeded()
     {
-        if (!_needsGameMusicRestore || GodotObject.IsInstanceValid(_currentPlayer))
+        if (!_needsGameMusicRestore || GodotObject.IsInstanceValid(_currentPlayer)
+            || GodotObject.IsInstanceValid(_fadingPlayer))
             return;
 
         RequestRestoreGameMusic();
@@ -70,6 +73,8 @@ public static class CombatBgmReplacementManager
 
     private static void StopAndRestoreGameMusic()
     {
+        // Repeated combat-end hooks must not restore the native track halfway through a fade.
+        if (GodotObject.IsInstanceValid(_fadingPlayer)) return;
         if (!GodotObject.IsInstanceValid(_currentPlayer))
         {
             _currentPlayer = null;
@@ -79,11 +84,18 @@ public static class CombatBgmReplacementManager
 
         var audioPlayer = _currentPlayer;
         _currentPlayer = null;
+        _fadingPlayer = audioPlayer;
+        var requestId = ++_restoreRequestId;
 
         var tween = audioPlayer!.CreateTween();
+        _fadeTween = tween;
         tween.TweenProperty(audioPlayer, "volume_linear", 0f, FadeOutDuration);
         tween.Finished += () =>
         {
+            // Cutscenes, replacement tracks and run exit revoke this fade's ownership.
+            if (requestId != _restoreRequestId || _fadingPlayer != audioPlayer) return;
+            _fadingPlayer = null;
+            _fadeTween = null;
             if (GodotObject.IsInstanceValid(audioPlayer))
             {
                 audioPlayer.Stop();
@@ -96,6 +108,14 @@ public static class CombatBgmReplacementManager
 
     private static void StopImmediate()
     {
+        _fadeTween?.Kill();
+        _fadeTween = null;
+        if (GodotObject.IsInstanceValid(_fadingPlayer))
+        {
+            _fadingPlayer!.Stop();
+            _fadingPlayer.QueueFree();
+        }
+        _fadingPlayer = null;
         if (!GodotObject.IsInstanceValid(_currentPlayer))
         {
             _currentPlayer = null;
@@ -133,7 +153,8 @@ public static class CombatBgmReplacementManager
         if (tree != null)
             await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
 
-        if (requestId != _restoreRequestId || GodotObject.IsInstanceValid(_currentPlayer))
+        if (requestId != _restoreRequestId || GodotObject.IsInstanceValid(_currentPlayer)
+            || GodotObject.IsInstanceValid(_fadingPlayer))
             return;
 
         RestoreGameMusic();

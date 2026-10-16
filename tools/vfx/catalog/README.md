@@ -1,5 +1,9 @@
 # Karen 特效全览录制
 
+[2026-10-16 main 共存专项](../../../docs/testing/vfx-coexistence-2026-10-16.md) 增加 `coexistence-regressions`：11 项实际 Godot 可见性／权重检查及 9 项真实音乐淡出中断检查；旧包会在祖先隐藏、祖先排队释放及旧音乐恢复回调上失败。`recent-stack-normal,recent-stack-void` 将 Position 0、激情、骄傲、嫉妒、背靠背、永不遗忘的闪耀、Why、唤醒和命运交换放在四种旧常驻表现上真实出牌，并在换房后检查注册清零。选牌和交换的 MCP 前后截图放在录制之外保存。当前全量入口清单见 [特效总览](../../../docs/21.特效总览与兼容约定.md)，历史 49 段合辑不代表包含这些近期演出。
+
+同日完整矩阵后的接力专项捕获了 NPower 场景 Ready 但 Model 未绑定时的异常。`coexistence-regressions` 另含 `vfx_coexist power-anchor` 的十项原生节点检查，覆盖未绑定占位、精确模型、空目标、隐藏恢复、脱树与排队释放；激情、骄傲、星光及舞台图标共用安全锚点入口。最终包与初轮包的区别及实际复测范围见 [完整矩阵与边界记录](../../../docs/testing/full-matrix-vfx-boundaries-2026-10-16.md)。
+
 [棒球专项](../../../docs/testing/baseball-vfx-2026-10-15.md) 使用显式 `--scenes baseball`：正常录像只录普通版／升级版，随后在录像外验证 Fast、Instant、缩放翻转、目标偏移旋转及击杀清理。`BaseballProbe` 观察真实命中回调、完整画布定位与节点退出；检查工具不随正式包发布。该专项未加入默认完整目录。
 
 当前完整目录见 [2026-10-14 记录](../../../docs/testing/vfx-catalog-2026-10-14.md)：49 段，增加 Banana、门票 B、梦想、光辉、双幕 Starlight 和新旧组合。`record.py` 默认录全部当前场景；合成与核查使用 `--catalog current`，旧 32 段数据仍用默认 legacy。`verify_runtime.py --branch stable --full-catalog` 核查当前所有原片的最终包哈希、手牌、生命周期与真实重播，beta 不带 full 参数核查四组兼容专项。

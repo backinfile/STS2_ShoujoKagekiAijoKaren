@@ -15,7 +15,15 @@ python tools/vfx/six-card/verify_multiplayer.py beta --source-repo D:/Godot/Proj
 
 单人验证包含七张牌、什锦在约定中变为晚餐、门票和梦想的回合触发、约定之塔取回并实际打出光辉、升级、满药水栏、Fast/Instant、缩放翻转、提前取消，共 33 项。光辉检查实际增加 2/4 能量、相应数量的火花和真实能量槽落点。`--focused` 保留 19 项，跳过额外 Banana 边界检查。涉及移牌的前后截图与 `karen_check_hand` 结果一起保存。
 
-多人验证为 Karen 主机＋铁甲战士客户端；两端必须观察到一次演出、两个真实受益者、前后层与 HUD 层清理，以及每人一项 `special_card` 战后奖励。这是专项，不是全矩阵。
+多人验证默认 Karen 主机＋铁甲战士客户端。可用 `--host-character KAREN|IRONCLAD`、`--client-character KAREN|IRONCLAD` 交换归属，用 `--casts-per-actor 3` 让每位 Karen 连续打出三张共享奖励牌；双 Karen 按主客机交替打出六次。至少一方必须是 Karen。
+
+两端都核对原生 `CardPlaysFinished`、每次施法者 NetId、两个真实受益者、精确奖励层数、前后景与 HUD 层全部清理，以及相同数量的 `special_card` 战后奖励。多次施放还必须实际观察到至少两个演出同时存活，避免只有顺序单次测试却声称覆盖重叠。两端截图、手牌模型与可见节点核对结果一并保留。这是专项，不是全矩阵。
+
+`--ambient-stack` 让每位 Karen 先真实打出燃烧、过去与未来、觉醒和再生产，再执行交替施放。观察器逐帧记录每位玩家的最低事件权重：局部 cue 不得把权重叠乘到 `.84` 以下，也不能压暗无关玩家；演出结束后事件权重回到 `1`，四种常驻的基础权重恢复 `.58`。
+
+```powershell
+python tools/vfx/six-card/verify_multiplayer.py beta --source-repo D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren --output artifacts/shared-repeated-beta --host-character KAREN --client-character KAREN --casts-per-actor 3 --ambient-stack
+```
 
 录制来源为 KarenSTS2MCP 游戏视口和 `game_process` 音频。视频导出与章节位于 output，不入正式 PCK。录制期间依赖隔离测试 Guard 强制后台渲染，必须复核连续帧，不能用帧计数单独判定画面成功。
 

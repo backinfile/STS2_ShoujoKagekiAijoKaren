@@ -124,8 +124,7 @@ public partial class NKarenStarVfx : Node2D
         if (_rewardAt < 0 && _playback.Reward)
         {
             _rewardAt = _age;
-            var badge = _room.FindChildren("*", "", true, false).OfType<NPower>()
-                .FirstOrDefault(p => p.Model.Owner == creature && p.Model is KarenShineCardRewardPower);
+            var badge = KarenPowerVfxAnchor.Find(_room, creature.GetPower<KarenShineCardRewardPower>());
             // Confirm the real reward marker; no invented reward slot in the HUD.
             _rewardPoint = badge != null ? badge.GetGlobalTransformWithCanvas() * (badge.Size * .5f) : _foot + new Vector2(28, 26) * _unit;
             Sound("karen_star_resolve.wav", .48f);

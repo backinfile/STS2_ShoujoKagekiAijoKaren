@@ -1,4 +1,4 @@
-"""Targeted Karen host + Ironclad client: real shared reward cast and both views. Isolated loopback only."""
+"""Real shared reward plays, alternating owners and overlapping cues in both views. Isolated loopback only."""
 import argparse, ctypes, hashlib, json, os, pathlib, shutil, socket, subprocess, threading, time, urllib.request
 from isolated_desktop import TestDesktop
 from audit_log import audit
@@ -7,7 +7,15 @@ parser=argparse.ArgumentParser()
 parser.add_argument('branch',choices=['stable','beta'])
 parser.add_argument('--source-repo',type=pathlib.Path,required=True)
 parser.add_argument('--output',type=pathlib.Path,required=True)
+parser.add_argument('--host-character',choices=['KAREN','IRONCLAD'],default='KAREN')
+parser.add_argument('--client-character',choices=['KAREN','IRONCLAD'],default='IRONCLAD')
+parser.add_argument('--casts-per-actor',type=int,choices=range(1,4),default=1)
+parser.add_argument('--ambient-stack',action='store_true',help='Play Burn, Past and Future, Form and Reproduction before shared casts')
 args=parser.parse_args()
+characters=[args.host_character,args.client_character]
+actors=[side for side,character in enumerate(characters) if character=='KAREN']
+assert actors,'At least one Karen is required for this shared-card test'
+schedule=actors*args.casts_per_actor
 repo=pathlib.Path(__file__).resolve().parents[3]
 root=args.output.resolve();root.mkdir(parents=True,exist_ok=True)
 source=args.source_repo.resolve()/'artifacts/dev-game'/args.branch
@@ -111,7 +119,7 @@ try:
         else:raise AssertionError('MCP not loaded')
         if side==0:wait(0,lambda s:s.get('menu_screen')=='character_select','host lobby','singleplayer')
     wait(1,lambda s:s.get('lobby',{}).get('player_count')==2,'joined lobby','singleplayer')
-    for side,character in [(0,'KAREN'),(1,'IRONCLAD')]:
+    for side,character in enumerate(characters):
         post(side,'singleplayer',action='menu_select',option=character)
         wait(side,lambda s:any(p.get('is_local') and p.get('character_id')==character for p in s.get('lobby',{}).get('players',[])),
             'selected character','singleplayer')
@@ -120,31 +128,69 @@ try:
     for side in range(2):post(side,action='choose_map_node',index=0)
     for side in range(2):wait(side,lambda s:s.get('battle',{}).get('is_play_phase'),'combat')
     time.sleep(2)
+    for side in range(2):cmd(side,'banana_probe speed normal')
+    if args.ambient_stack:
+        for side in actors:
+            for card in list(state(side)['player']['hand']):cmd(side,'remove_card '+card['id']+' Hand')
+            cmd(side,'energy 99');time.sleep(.7)
+            for name in ['KAREN_BURN','KAREN_PAST_AND_FUTURE','KAREN_FORM','KAREN_STAGE_REPRODUCE']:
+                cmd(side,'card '+name+' Hand')
+                ready=wait(side,lambda s:any(c['id']==name for c in s['player']['hand']),'ambient setup card')
+                time.sleep(.65)
+                card=next(c for c in ready['player']['hand'] if c['id']==name)
+                post(side,action='play_card',card_index=card['index'])
+                wait(side,lambda s:all(c['id']!=name for c in s['player']['hand']),'ambient setup played')
+                time.sleep(1)
+        time.sleep(3)
     for side in range(2):
-        cmd(side,'banana_probe speed normal');cmd(side,'six_probe watch');snap(side,f'{side}-before')
-    cmd(0,'card KAREN_SHINE_TOGETHER_ALL Hand')
-    ready=wait(0,lambda s:any(c['id']=='KAREN_SHINE_TOGETHER_ALL' for c in s['player']['hand']),'shared shine card')
+        cmd(side,'six_probe watch');snap(side,f'{side}-before')
+    # Only fixtures grant cards/energy. Every cast below uses the native network play action.
+    for side in actors:
+        cmd(side,'energy 99')
+        for _ in range(args.casts_per_actor):cmd(side,'card KAREN_SHINE_TOGETHER_ALL Hand')
+        wait(side,lambda s:sum(c['id']=='KAREN_SHINE_TOGETHER_ALL' for c in s['player']['hand'])==args.casts_per_actor,'shared shine cards')
     time.sleep(1)
     for side in range(2):save(f'{side}-before-probe',probe(side))
+    actor_ids=[probe(side)['netId'] for side in actors]
+    if args.ambient_stack:
+        for side in range(2):
+            assert all(abs(p['ambientWeight']-(.58 if p['netId'] in actor_ids else 1))<.001 for p in probe(side)['party']),probe(side)
     api(0,'/settings',dict(muted=False))
     api(0,'/recording/start',dict(fps=30,max_duration_seconds=40,width=1280,height=720,audio=True));recording=True
-    started=time.monotonic();save('chapters',[dict(label='一起闪耀吧 · Karen + 铁甲战士',time=0)])
+    started=time.monotonic();save('chapters',[dict(label='一起闪耀吧 · '+' + '.join(characters),time=0)])
     time.sleep(.6)
-    card=next(c for c in ready['player']['hand'] if c['id']=='KAREN_SHINE_TOGETHER_ALL')
-    post(0,action='play_card',card_index=card['index'])
-    for _ in range(100):
-        if probe(0)['casts']:break
-        time.sleep(.04)
-    time.sleep(.45)
-    snap(0,'host-burst');snap(1,'client-burst')
+    expected_owners=[]
+    for number,side in enumerate(schedule,1):
+        ready=state(side)
+        card=next(c for c in ready['player']['hand'] if c['id']=='KAREN_SHINE_TOGETHER_ALL')
+        owner=probe(side)['netId']
+        expected_owners.append(owner)
+        post(side,action='play_card',card_index=card['index'])
+        for _ in range(140):
+            reports=[probe(0),probe(1)]
+            if all(len(r['sharedFinished'])==number and all(p['reward']==number for p in r['party']) for r in reports):break
+            time.sleep(.035)
+        else:raise AssertionError(('native shared play did not finish on both peers',number,reports))
+        # Observe the previous cast still alive when the next native play begins.
+        if number==min(2,len(schedule)):
+            snap(0,'host-burst');snap(1,'client-burst')
     for _ in range(120):
         reports=[probe(0),probe(1)]
-        if all(r['live']==0 and r['backLive']==0 and r['hudLive']==0 and len(r['casts'])==1 and r['casts'][0]['recipients']==2 for r in reports):break
+        if all(r['live']==0 and r['backLive']==0 and r['hudLive']==0 and len(r['casts'])==len(schedule) and all(c['recipients']==2 for c in r['casts']) for r in reports):break
         time.sleep(.07)
     else:raise AssertionError(('shared cast cleanup',reports))
     for side,r in enumerate(reports):
-        assert len(r['party'])==2 and all(p['reward']==1 for p in r['party']),r
-        assert r['casts'][0]['kind']=='Shine' and r['casts'][0]['confirmed'],r
+        assert len(r['party'])==2 and all(p['reward']==len(schedule) for p in r['party']),r
+        assert all(c['kind']=='Shine' and c['confirmed'] for c in r['casts']),r
+        assert [c['ownerNetId'] for c in r['casts']]==expected_owners,r
+        assert r['sharedFinished']==expected_owners,r
+        if len(schedule)>1:assert r['peakLive']>=2,('overlap not exercised',r)
+        assert r['registeredCues']==0,('cue registry did not clean up',r)
+        for p in r['party']:
+            assert p['minimumEventWeight']>=.839 and abs(p['eventWeight']-1)<.001,p
+            if p['netId'] in actor_ids:assert p['minimumEventWeight']<.95,p
+            else:assert abs(p['minimumEventWeight']-1)<.001,('foreign owner was dimmed',p)
+            if args.ambient_stack:assert abs(p['ambientWeight']-(.58 if p['netId'] in actor_ids else 1))<.001,p
         save(f'{side}-after-probe',r);snap(side,f'{side}-after')
         check=json.loads(cmd(side,'karen_check_hand')['message']);save(f'{side}-hand',check)
         assert check['modelCount']==check['visualCount'] and not check['missing'] and not check['unexpected'] and not check['unexpectedPileIcons'],check
@@ -160,9 +206,9 @@ try:
     cmd(0,'kill all')
     for side in range(2):
         reward=wait(side,lambda s:s.get('state_type')=='rewards','post-combat rewards')
-        assert sum(item['type']=='special_card' for item in reward['rewards']['items'])==1,reward
+        assert sum(item['type']=='special_card' for item in reward['rewards']['items'])==len(schedule),reward
         save(f'{side}-rewards',reward)
-    save('results',dict(branch=args.branch,players=['KAREN','IRONCLAD'],sharedCasts=reports,rewardsReachedOnBoth=True))
+    save('results',dict(branch=args.branch,players=characters,ambientStack=args.ambient_stack,castSchedule=schedule,expectedOwners=expected_owners,sharedCasts=reports,rewardsReachedOnBoth=True))
     print(args.branch,'MULTIPLAYER PASS',flush=True)
 finally:
     if recording:

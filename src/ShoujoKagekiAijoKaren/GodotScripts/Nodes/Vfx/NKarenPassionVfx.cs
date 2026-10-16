@@ -98,13 +98,11 @@ public partial class NKarenPassionVfx : Node2D
         float screenUnit = Mathf.Min(screen.X / 1280, screen.Y / 720);
         _unit = Mathf.Clamp(height / 190, .60f * screenUnit, 1.2f * screenUnit);
         _origin = _body + new Vector2(72, -72) * _unit;
-        if (!GodotObject.IsInstanceValid(_badge) || !_badge!.IsInsideTree() || _badge.IsQueuedForDeletion()
-            || _badge.Model != _power || !_badge.IsVisibleInTree()) _badge = null;
+        if (!KarenPowerVfxAnchor.IsFor(_badge, _power)) _badge = null;
         if (_badge == null && _age >= _searchAt)
         {
             _searchAt = _age + .08f;
-            _badge = _room.FindChildren("*", "", true, false).OfType<NPower>()
-                .FirstOrDefault(p => p.Model == _power && p.IsVisibleInTree());
+            _badge = KarenPowerVfxAnchor.Find(_room, _power);
         }
         if (_badge != null) _destination = _badge.GetGlobalTransformWithCanvas() * (_badge.Size * .5f);
     }

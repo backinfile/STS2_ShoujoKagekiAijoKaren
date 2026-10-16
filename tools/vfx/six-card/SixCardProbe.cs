@@ -10,11 +10,13 @@ using MegaCrit.Sts2.Core.DevConsole.ConsoleCommands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 // Observes real OnPlay and Power hooks; never calls VFX.Play or grants rewards.
@@ -27,6 +29,7 @@ public static class SixCardProbe
         public Node2D Back=null!;
         public Node2D Hud=null!;
         public string Kind="";
+        public ulong OwnerNetId;
         public bool Confirmed;
         public int Deliveries,Recipients;
         public int EnergyGain,EnergyMotes;
@@ -38,6 +41,8 @@ public static class SixCardProbe
     }
     internal static readonly List<Cast> Casts=new();
     internal static bool Watching;
+    internal static int PeakLive;
+    internal static readonly Dictionary<Player,float> MinimumEventWeight=new();
     public static void Initialize()
     {
         ((SceneTree)Engine.GetMainLoop()).ProcessFrame += Sample;
@@ -47,10 +52,13 @@ public static class SixCardProbe
     private static void Sample()
     {
         if(!Watching||NCombatRoom.Instance is not {} room)return;
+        foreach(var player in MinimumEventWeight.Keys.ToArray())
+            MinimumEventWeight[player]=Math.Min(MinimumEventWeight[player],KarenVfxComposition.EventWeight(player.Creature));
         foreach(var effect in room.CombatVfxContainer.GetChildren().OfType<NKarenBenefitVfx>())
         {
-            if(Casts.All(c=>c.Effect!=effect))Casts.Add(new Cast{Effect=effect,Back=effect.BackLayer,Hud=effect.HudLayer,Kind=effect.Design.ToString()});
+            if(Casts.All(c=>c.Effect!=effect))Casts.Add(new Cast{Effect=effect,Back=effect.BackLayer,Hud=effect.HudLayer,Kind=effect.Design.ToString(),OwnerNetId=((Player)Field(effect,"Owner")!).NetId});
         }
+        PeakLive=Math.Max(PeakLive,Casts.Count(c=>GodotObject.IsInstanceValid(c.Effect)&&c.Effect.IsInsideTree()&&!c.Effect.IsQueuedForDeletion()));
         foreach(var cast in Casts)
         {
             if(!GodotObject.IsInstanceValid(cast.Effect))continue;
@@ -77,17 +85,26 @@ public static class SixCardProbe
         }
     }
     internal static object Status(Player player)=>new {
+        netId=player.NetId,
         energy=player.PlayerCombatState!.Energy,
         ticket=player.Creature.GetPowerAmount<KarenTicketPower>(),
         dream=player.Creature.GetPowerAmount<KarenWeKownPower>(),
         reward=player.Creature.GetPowerAmount<KarenShineCardRewardPower>(),
+        peakLive=PeakLive,
+        registeredCues=((IDictionary)typeof(KarenVfxComposition).GetField("Cues",BindingFlags.Static|BindingFlags.NonPublic)!.GetValue(null)!).Count,
+        sharedFinished=CombatManager.Instance.History.CardPlaysFinished
+            .Where(e=>e.CardPlay.Card.Id.Entry=="KAREN_SHINE_TOGETHER_ALL")
+            .Select(e=>e.CardPlay.Card.Owner.NetId).ToArray(),
         promise=PromisePileManager.GetPromisePile(player).Cards.Select(c=>c.Id.Entry).ToArray(),
         promiseCards=PromisePileManager.GetPromisePile(player).Cards.Select(c=>new{id=c.Id.Entry,upgraded=c.IsUpgraded}).ToArray(),
-        party=player.Creature.CombatState!.Players.Select(p=>new{netId=p.NetId,reward=p.Creature.GetPowerAmount<KarenShineCardRewardPower>()}),
+        party=player.Creature.CombatState!.Players.Select(p=>new{netId=p.NetId,reward=p.Creature.GetPowerAmount<KarenShineCardRewardPower>(),
+            ambientWeight=KarenVfxComposition.AmbientWeight(p.Creature),
+            eventWeight=KarenVfxComposition.EventWeight(p.Creature),
+            minimumEventWeight=MinimumEventWeight.GetValueOrDefault(p,1f)}),
         live=Casts.Count(c=>GodotObject.IsInstanceValid(c.Effect)&&c.Effect.IsInsideTree()),
         backLive=Casts.Count(c=>GodotObject.IsInstanceValid(c.Back)&&c.Back.IsInsideTree()),
         hudLive=Casts.Count(c=>GodotObject.IsInstanceValid(c.Hud)&&c.Hud.IsInsideTree()),
-        casts=Casts.Select(c=>new{kind=c.Kind,confirmed=c.Confirmed,deliveries=c.Deliveries,recipients=c.Recipients,maximumAge=c.MaximumAge,
+        casts=Casts.Select(c=>new{kind=c.Kind,ownerNetId=c.OwnerNetId,confirmed=c.Confirmed,deliveries=c.Deliveries,recipients=c.Recipients,maximumAge=c.MaximumAge,
             energyGain=c.EnergyGain,energyMotes=c.EnergyMotes,usesEnergyHud=c.UsesEnergyHud,
             usesPlayedCardSource=c.UsesPlayedCardSource,cardSourceSamples=c.CardSourceSamples,cardSourceMaxError=c.CardSourceMaxError})
     };
@@ -104,7 +121,11 @@ public sealed class SixCardProbeCmd:AbstractConsoleCmd
         if(args[0]=="energy"&&args.Length==2&&int.TryParse(args[1],out int energy)&&energy>=0)
             return new(PlayerCmd.SetEnergy(energy,player),true,"Set fixture energy");
         if(args[0]=="status")return new(true,JsonSerializer.Serialize(SixCardProbe.Status(player)));
-        if(args[0]=="watch"){SixCardProbe.Casts.Clear();SixCardProbe.Watching=true;return new(true,"watch");}
+        if(args[0]=="watch"){
+            SixCardProbe.Casts.Clear();SixCardProbe.PeakLive=0;SixCardProbe.MinimumEventWeight.Clear();
+            foreach(var p in player.Creature.CombatState!.Players)SixCardProbe.MinimumEventWeight[p]=1f;
+            SixCardProbe.Watching=true;return new(true,"watch");
+        }
         if(args[0]=="cancel"){
             foreach(var effect in NCombatRoom.Instance!.CombatVfxContainer.GetChildren().OfType<NKarenBenefitVfx>())effect.QueueFree();
             return new(true,"cancel");

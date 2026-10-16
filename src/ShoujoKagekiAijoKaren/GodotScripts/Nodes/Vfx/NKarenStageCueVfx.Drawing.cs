@@ -43,8 +43,10 @@ public partial class NKarenStageCueVfx
     }
     private Vector2 PowerPoint()
     {
-        var power=_room.FindChildren("*","",true,false).OfType<NPower>().FirstOrDefault(p=>p.Model.Owner==_owner.Creature &&
-            (Kind is CueKind.TicketCast or CueKind.TicketReturn ? p.Model is KarenTicketPower : Kind is CueKind.Act1Cast or CueKind.Act1Draw ? p.Model is KarenStarlightPower : p.Model is KarenStarlight02Power));
+        PowerModel? model = Kind is CueKind.TicketCast or CueKind.TicketReturn ? _owner.Creature.GetPower<KarenTicketPower>()
+            : Kind is CueKind.Act1Cast or CueKind.Act1Draw ? _owner.Creature.GetPower<KarenStarlightPower>()
+            : _owner.Creature.GetPower<KarenStarlight02Power>();
+        var power=KarenPowerVfxAnchor.Find(_room,model);
         return power != null ? power.GetGlobalTransformWithCanvas()*(power.Size*.5f) : _foot+new Vector2(30,25)*_unit;
     }
     private void DrawShade()

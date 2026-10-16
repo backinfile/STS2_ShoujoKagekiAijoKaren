@@ -12,6 +12,8 @@ python tools/vfx/exchange-fate/package_video.py output/exchange-fate-vfx
 
 两版分别覆盖正常双向、仅放入、仅取出、两边为空、12 张进入手牌上限、快速、瞬时、空虚模式、升级与连续交换、移除演出节点。核查实际卡牌身份的最终牌堆、手牌模型/可见节点、消耗/弃牌、真实到达反馈和节点清理；每项保存前后 MCP 截图与 `karen_check_hand` JSON。
 
+连续用例先用原生 `kill all` 完成旧战斗并等待奖励界面，再跳到下一场；不能在仍进行中的战斗里反复 `fight`。旧流程在测试版会触发 NCard 重复回池，导致下一例出牌前就出现模型与节点不一致。脚本保存 `log-audit.json`，除已单独记录的启动期 `Invalid Task ID` 外，任何原生或托管运行时错误都使测试失败。
+
 正式版和测试版命令须串行运行：临时 Probe 工程共享中间构建目录，同时编译可能使探针引用另一版本的实现程序集。若出现这种启动失败，先 `dotnet clean tools/vfx/exchange-fate/Probe.csproj`，再用新证据目录单独重跑；该失败不计为游戏行为通过。
 
 normal / void / repeat 录制游戏进程音频。剪辑展示片包含正常、半速、空虚和连续交换，音轨统一提升 8 dB，未添加替代音效。临时探针不加入正式安装包。
