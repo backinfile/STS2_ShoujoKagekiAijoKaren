@@ -1041,5 +1041,13 @@
     "path": "position-zero-soft-floor.mp4",
     "sha256": "1ecbc54b8a769a1113179a9970d9eb211c57ec5736fa9a971b5ff88bd21d68b4",
     "note": "Two native captures, labelled and concatenated; game process audio +8 dB, no added audio"
+  },
+  "synchronization": {
+    "main": "05ea59391591652f427df1fce257e0ac2f1acd52",
+    "revisionCommit": "90012f9",
+    "positionZeroRuntimeUnchanged": true,
+    "stableExportReleaseCompile": "pass: 0 errors, 26 warnings",
+    "betaExportReleaseCompile": "pass: 0 errors, 26 warnings",
+    "runtimeSuiteRepeatedAfterSync": false
   }
 }
