@@ -30,8 +30,13 @@ public static class ExchangeFateProbe
     private sealed class Seen(NKarenExchangeFateVfx node)
     {
         public readonly NKarenExchangeFateVfx Node = node;
+        public readonly ulong StartedMs = Time.GetTicksMsec();
+        public readonly Dictionary<CardModel, PileType?> Initial = Outgoing.Concat(Incoming).ToDictionary(c => c, c => c.Pile?.Type);
         public int Frames, Sent, Received;
-        public bool Confirmed;
+        public int FramesBeforeSwap;
+        public float SwapProgress = -1;
+        public long SwapMs = -1, FirstMoveMs = -1, EndMs = -1;
+        public bool Confirmed, MovedBeforeSwap;
     }
     private static readonly List<Seen> SeenNodes = new();
     private static readonly List<CardModel> Outgoing = new(), Incoming = new();
@@ -46,7 +51,16 @@ public static class ExchangeFateProbe
                 if (SeenNodes.All(s => s.Node != node)) SeenNodes.Add(new(node));
             foreach (var s in SeenNodes)
                 if (GodotObject.IsInstanceValid(s.Node) && s.Node.IsInsideTree())
-                { s.Frames++; s.Sent = s.Node.SentCount; s.Received = s.Node.ReceivedCount; s.Confirmed |= s.Node.Confirmed; }
+                {
+                    s.Frames++; s.Sent = s.Node.SentCount; s.Received = s.Node.ReceivedCount; s.Confirmed |= s.Node.Confirmed;
+                    long ms = (long)(Time.GetTicksMsec() - s.StartedMs);
+                    if (!s.Node.ExchangeStarted) s.FramesBeforeSwap++;
+                    else if (s.SwapMs < 0) { s.SwapMs = ms; s.SwapProgress = s.Node.ExchangeProgress; }
+                    bool moved = s.Initial.Any(x => x.Key.Pile?.Type != x.Value);
+                    if (moved && s.FirstMoveMs < 0) s.FirstMoveMs = ms;
+                    s.MovedBeforeSwap |= moved && !s.Node.ExchangeStarted;
+                }
+                else if (s.EndMs < 0) s.EndMs = (long)(Time.GetTicksMsec() - s.StartedMs);
         };
         GD.Print("[Exchange Fate Probe] Loaded");
     }
@@ -85,7 +99,9 @@ public static class ExchangeFateProbe
         playCount = PileType.Play.GetPile(p).Cards.Count,
         live = NCombatRoom.Instance?.Ui.GetChildren().OfType<NKarenExchangeFateVfx>().Count() ?? 0,
         progress = NCombatRoom.Instance?.Ui.GetChildren().OfType<NKarenExchangeFateVfx>().Select(n => n.ExchangeProgress).ToArray(),
-        cues = SeenNodes.Select(s => new { frames = s.Frames, sent = s.Sent, received = s.Received, confirmed = s.Confirmed }).ToArray()
+        cues = SeenNodes.Select(s => new { frames = s.Frames, sent = s.Sent, received = s.Received, confirmed = s.Confirmed,
+            framesBeforeSwap = s.FramesBeforeSwap, swapMs = s.SwapMs, firstMoveMs = s.FirstMoveMs, endMs = s.EndMs,
+            swapProgress = s.SwapProgress, movedBeforeSwap = s.MovedBeforeSwap }).ToArray()
     };
 }
 public sealed class ExchangeFateProbeCmd : AbstractConsoleCmd

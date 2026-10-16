@@ -32,7 +32,7 @@ public sealed class KarenExchangeFate : KarenBaseCardModel
         var cue = NKarenExchangeFateVfx.Play(Owner, outgoing, incoming);
         try
         {
-            if (cue != null) await NKarenExchangeFateVfx.WaitForOpening();
+            if (cue != null) await cue.WaitForExchange();
             cue?.BeginExchange();
             await PromisePileCmd.SwitchHand(choiceContext, Owner, this);
             cue?.ConfirmTransfers();

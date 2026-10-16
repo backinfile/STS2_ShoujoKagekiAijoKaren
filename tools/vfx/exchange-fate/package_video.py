@@ -5,15 +5,25 @@ from pathlib import Path
 p = argparse.ArgumentParser()
 p.add_argument('folder', type=Path, help='Contains final-stable and final-beta verification directories')
 p.add_argument('--prefix', default='final', help='Verification folder prefix, e.g. delivery')
+p.add_argument('--beta-prefix', help='Optional separate prefix for a resumed beta verification run')
+p.add_argument('--compact', action='store_true', help='V4 short motion: tighter cuts and a full-gesture slow replay')
 a = p.parse_args()
 root = a.folder.resolve()
 parts = root / 'video-parts'; parts.mkdir(exist_ok=True)
+beta = root / f'{a.beta_prefix or a.prefix}-beta/beta'
 clips = [
     (root / f'{a.prefix}-stable/stable/normal.mp4', .6, None, 1, '正式版 · 重制特效 / 正常速度'),
     (root / f'{a.prefix}-stable/stable/normal.mp4', 1.5, 2.5, .5, '正式版 · 0.5 倍慢放'),
-    (root / f'{a.prefix}-beta/beta/void.mp4', .6, None, 1, '测试版 · 空虚模式：与抽牌堆交换'),
-    (root / f'{a.prefix}-beta/beta/repeat.mp4', .6, None, 1, '测试版 · 升级与连续交换'),
+    (beta / 'void.mp4', .6, None, 1, '测试版 · 空虚模式：与抽牌堆交换'),
+    (beta / 'repeat.mp4', .6, None, 1, '测试版 · 升级与连续交换'),
 ]
+if a.compact:
+    clips = [
+        (root / f'{a.prefix}-stable/stable/normal.mp4', .85, 2.35, 1, '新版 · 正常速度 / 交汇时换牌'),
+        (root / f'{a.prefix}-stable/stable/normal.mp4', 1.20, 1.60, .5, '新版 · 0.5 倍慢放'),
+        (beta / 'void.mp4', .85, 2.35, 1, '测试版 · 空虚模式'),
+        (beta / 'repeat.mp4', .85, None, 1, '测试版 · 升级与连续交换'),
+    ]
 for source, *_ in clips:
     assert source.is_file(), f'Recording is not ready: {source}'
 for i, (source, start, length, speed, caption) in enumerate(clips):

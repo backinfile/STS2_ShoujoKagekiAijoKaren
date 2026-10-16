@@ -120,14 +120,15 @@ try:
         index = next(c['index'] for c in state()['player']['hand'] if c['id'] == 'KAREN_EXCHANGE_FATE')
         post(action='hover_card', card_index=index); time.sleep(.55)
         post(action='play_card', card_index=index)
-        time.sleep(.47 if speed == 'normal' else .13)
+        time.sleep(.07 if speed == 'normal' else .04)
         snap(name + '-opening')
         if name == 'cancel': cmd('fate_probe cancel')
         elif speed == 'normal' and nout + nin > 0:
             until(lambda: any(t >= .35 for t in status()['progress']))
             snap(name + '-cross')
         after = until(lambda: p if (p := status())['live'] == p['playCount'] == 0 and p['sourcePile'] in ('Exhaust', 'Discard') else None)
-        time.sleep(.8); snap(name + '-after'); hand(name + '-after'); save(name + '-after-probe', after)
+        time.sleep(.8); snap(name + '-after'); hand(name + '-after')
+        after = status(); save(name + '-after-probe', after)
         destination = 'Draw' if mode == 'void' else 'PromisePile'
         # Custom pile enum uses its registered name; assert one consistent non-native destination.
         assert len(after['sent']) == nout and all(x == 'Draw' if mode == 'void' else x not in (None, 'Hand', 'Draw', 'Discard', 'Exhaust', 'Play') for x in after['sent']), after
@@ -139,6 +140,11 @@ try:
         elif name != 'cancel':
             assert len(after['cues']) == 1 and after['cues'][0]['confirmed'], after
             assert after['cues'][0]['sent'] == nout and after['cues'][0]['received'] == min(10, nin), after
+            cue = after['cues'][0]
+            assert cue['framesBeforeSwap'] > 0 and not cue['movedBeforeSwap'], cue
+            assert cue['firstMoveMs'] >= cue['swapMs'] > 0, cue
+            assert .49 <= cue['swapProgress'] <= .51, cue
+            assert 0 < cue['endMs'] < 1200, cue
         if name == 'repeat':
             index = next(c['index'] for c in state()['player']['hand'] if c['id'] == 'KAREN_EXCHANGE_FATE')
             post(action='play_card', card_index=index)

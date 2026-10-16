@@ -18,7 +18,6 @@ void fragment(){
     float fiber=pow(max(0.0,.5+.5*sin(warp*103.0+u*24.0-age*4.0+n*8.0)),12.0);
     float pearl=pow(fold,8.0)*(.3+.7*fine);
     float body=(.16+.37*n+.20*fold+.24*pearl+.10*fiber)*feather;
-    body*=1.0-.42*exp(-pow((u-.60)/.08,2.0));
     float tips=smoothstep(0.0,.10,u)*(1.0-smoothstep(.86,1.0,u));
     float torn=smoothstep(erosion-.10,erosion+.20,n);
     vec3 color=mix(tint.rgb,vec3(1.0,.89,.74),clamp(pearl*.16+fiber*.10,0.0,.3));

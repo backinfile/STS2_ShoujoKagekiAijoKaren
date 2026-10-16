@@ -22,4 +22,8 @@ V2 重制验证输出位于 `output/exchange-fate-vfx/revision-v2/`。`final-sta
 
 V3 按反馈移除两枚实体头饰，证据在 `output/exchange-fate-vfx/revision-v3/`。使用 `verify.py stable --cases normal --output output/exchange-fate-vfx/revision-v3/final-stable` 和 `verify.py beta --cases normal,void,repeat --output output/exchange-fate-vfx/revision-v3/final-beta`，再运行 `package_video.py output/exchange-fate-vfx/revision-v3`。资源包检查确认不含旧头饰图集。
 
+V4 重做动线与时序，标准速度交汇点为动画时间 0.29 秒，视觉结束 0.76 秒；快速为 0.6 倍，瞬时跳过。`WaitForExchange` 等待特效自己的交汇标记，移除特效也会解除等待。探针逐帧记录换牌前模型是否静止、实际移动是否在标记之后、交换时的轨迹进度及节点寿命。`polish-stable` 包含 10 项，测试版执行情况与最终回归见下段，命令仍串行运行。`final-stable` 是固定 delay 初稿，`delivery-stable` 是事件标记初稿（满手案例的生命周期快照读取过早，后续已刷新快照修正），均保留作过程记录。
+
+V4 后续修正：`polish-beta` 实际完成前 6 项，瞬时模式出牌前准备检查发现强制切房残留《坠落》节点而中止，剩余 4 项在 `remainder-beta` 跑完。该轮取消暴露了在 `_ExitTree` 内恢复换牌的重入错误，现已 deferred 到退树后恢复。最终修正使用 `regression-stable`（normal,cancel）与 `regression-beta`（normal,void,repeat,cancel）回归；最新成片命令为 `package_video.py output/exchange-fate-vfx/revision-v4 --prefix regression --compact`。两版中断未再出现树忙/重挂父节点错误；测试版强制切房仍有既有的 NCard 卡池重复回收日志，逐项记录保留。需要混剪不同批次时可传 `--beta-prefix`，默认与 `--prefix` 一致。
+
 需要 MCP 配置与开发游戏中已有 Karen 存档。测试退出后关闭本脚本创建的游戏进程，保留隔离目录作为证据。未运行完整多人矩阵。
