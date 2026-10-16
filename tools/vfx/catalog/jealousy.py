@@ -25,7 +25,7 @@ def jealousy_result(label, hp, damage, rewards, kinds):
         assert cast['exited'] and cast['maxAnchorError'] < .1 and cast['frames'] > 0, cast
         assert cast['ghosts'] == 0, cast
         assert cast['emitters'] == 2 and cast['particleCapacity'] == 88, cast
-        assert cast['minDirectionDot'] > .99 and cast['maxSpread'] <= 70, cast
+        assert cast['minDirectionDot'] > .99 and cast['maxSpread'] <= 46, cast
         assert cast['emittingFrames'] > 0, cast
     assert observed['distinctParticleMaterials'] == sum(c['emitters'] for c in observed['casts']), observed
     assert observed['maxLiveParticleCapacity'] <= 176, observed
@@ -50,9 +50,10 @@ if 'jealousy' in wanted:
     finish()
 
 
-if 'jealousy-checks' in wanted or 'jealousy-replay-check' in wanted:
+if any(scene in wanted for scene in ('jealousy-checks', 'jealousy-replay-check', 'jealousy-angle-checks')):
     # Targeted cases are kept out of the normal-speed presentation clip.
-    modes = ('fast', 'instant', 'pose', 'reverse', 'pre-hit', 'cancel-impact', 'replay', 'overlap') if 'jealousy-checks' in wanted else ('replay',)
+    modes = (('fast', 'instant', 'pose', 'reverse', 'pre-hit', 'cancel-impact', 'replay', 'overlap') if 'jealousy-checks' in wanted
+             else ('fast', 'instant', 'reverse', 'replay') if 'jealousy-angle-checks' in wanted else ('replay',))
     for mode in modes:
         cmd('promise_integration off'); fight(); trim()
         case = out / ('jealousy-' + mode); case.mkdir(exist_ok=True)
