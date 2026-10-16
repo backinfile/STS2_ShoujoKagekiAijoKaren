@@ -1,0 +1,834 @@
+{
+  "date": "2026-10-16",
+  "scope": "Targeted Back to Back native singleplayer VFX checks; not the full multiplayer matrix",
+  "implementations": {
+    "beta": {
+      "lib/ShoujoKagekiAijoKaren.Beta.dll": "4c71ea0df1c3f3b1d525c068e2e56c54a2b43fa1b6653f8c9c9eeaed528722b3",
+      "ShoujoKagekiAijoKaren.pck": "157b4e21d9c8cc7f8013aaf9e581b58425e6c7c334149615a188351900f7ac07"
+    },
+    "stable": {
+      "lib/ShoujoKagekiAijoKaren.Stable.dll": "1ca043f1609cf54e889f35176d339ce4996ce0025445abc99ea739f91dd7e213",
+      "ShoujoKagekiAijoKaren.pck": "157b4e21d9c8cc7f8013aaf9e581b58425e6c7c334149615a188351900f7ac07"
+    }
+  },
+  "cases": [
+    {
+      "environment": "stable",
+      "name": "normal4",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 16,
+      "actualDamage": 16,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 19,
+          "exited": true,
+          "finalAge": 0.34538668,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 25,
+          "exited": true,
+          "finalAge": 0.52602446,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 26.044701609315297,
+      "framesWritten": 91,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "stable",
+      "name": "zero",
+      "passed": true,
+      "stock": 0,
+      "expectedDamage": 0,
+      "actualDamage": 0,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 0,
+          "strength": 0,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.34998697,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 0,
+          "strength": 0,
+          "frames": 25,
+          "exited": true,
+          "finalAge": 0.5318178,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 24.708944081806372,
+      "framesWritten": 93,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "stable",
+      "name": "one",
+      "passed": true,
+      "stock": 1,
+      "expectedDamage": 4,
+      "actualDamage": 4,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 1,
+          "strength": 0.31622776,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.35085186,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 1,
+          "strength": 0.31622776,
+          "frames": 25,
+          "exited": true,
+          "finalAge": 0.53431755,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 23.935058880730015,
+      "framesWritten": 93,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "stable",
+      "name": "ten",
+      "passed": true,
+      "stock": 10,
+      "expectedDamage": 40,
+      "actualDamage": 40,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 10,
+          "strength": 1,
+          "frames": 20,
+          "exited": true,
+          "finalAge": 0.34895337,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 10,
+          "strength": 1,
+          "frames": 25,
+          "exited": true,
+          "finalAge": 0.52999693,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 24.17463863488821,
+      "framesWritten": 92,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "stable",
+      "name": "upgraded",
+      "passed": true,
+      "stock": 10,
+      "expectedDamage": 60,
+      "actualDamage": 60,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 10,
+          "strength": 1,
+          "frames": 20,
+          "exited": true,
+          "finalAge": 0.3459007,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 10,
+          "strength": 1,
+          "frames": 23,
+          "exited": true,
+          "finalAge": 0.5251748,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 23.940687658077287,
+      "framesWritten": 93,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "stable",
+      "name": "high24",
+      "passed": true,
+      "stock": 24,
+      "expectedDamage": 96,
+      "actualDamage": 96,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 24,
+          "strength": 1,
+          "frames": 20,
+          "exited": true,
+          "finalAge": 0.34403136,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 24,
+          "strength": 1,
+          "frames": 24,
+          "exited": true,
+          "finalAge": 0.52894706,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 24.817350018386062,
+      "framesWritten": 92,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "stable",
+      "name": "fast",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 16,
+      "actualDamage": 16,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 15,
+          "exited": true,
+          "finalAge": 0.3571262,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 15,
+          "exited": true,
+          "finalAge": 0.5347686,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 25.70897356230888,
+      "framesWritten": 92,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "stable",
+      "name": "instant",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 16,
+      "actualDamage": 16,
+      "casts": [],
+      "live": 0,
+      "captureFps": 25.522051068696115,
+      "framesWritten": 91,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "stable",
+      "name": "replay",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 48,
+      "actualDamage": 48,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 19,
+          "exited": true,
+          "finalAge": 0.340344,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 23,
+          "exited": true,
+          "finalAge": 0.52672106,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.3495389,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 32,
+          "exited": true,
+          "finalAge": 0.53540474,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.34048945,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 30,
+          "exited": true,
+          "finalAge": 0.5352893,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 26.878930607588174,
+      "framesWritten": 147,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "stable",
+      "name": "pose",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 16,
+      "actualDamage": 16,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.35269898,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.5200913,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 23.987088093152146,
+      "framesWritten": 79,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "stable",
+      "name": "cancel",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 16,
+      "actualDamage": 16,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 10,
+          "exited": true,
+          "finalAge": 0.16665967,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 25,
+          "exited": true,
+          "finalAge": 0.5221155,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 23.66724395958401,
+      "framesWritten": 80,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "stable",
+      "name": "lethal",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 1,
+      "actualDamage": 1,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.351428,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 22,
+          "exited": true,
+          "finalAge": 0.52575046,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 25.791152824002275,
+      "framesWritten": 139,
+      "handCheck": "before passed; after N/A because native combat UI was destroyed"
+    },
+    {
+      "environment": "beta",
+      "name": "normal4",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 16,
+      "actualDamage": 16,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 19,
+          "exited": true,
+          "finalAge": 0.34153438,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 25,
+          "exited": true,
+          "finalAge": 0.52270085,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 24.413267176430946,
+      "framesWritten": 79,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "beta",
+      "name": "zero",
+      "passed": true,
+      "stock": 0,
+      "expectedDamage": 0,
+      "actualDamage": 0,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 0,
+          "strength": 0,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.34998602,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 0,
+          "strength": 0,
+          "frames": 24,
+          "exited": true,
+          "finalAge": 0.5212678,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 24.482720003483966,
+      "framesWritten": 81,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "beta",
+      "name": "one",
+      "passed": true,
+      "stock": 1,
+      "expectedDamage": 4,
+      "actualDamage": 4,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 1,
+          "strength": 0.31622776,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.34998435,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 1,
+          "strength": 0.31622776,
+          "frames": 25,
+          "exited": true,
+          "finalAge": 0.52024263,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 23.815612500463622,
+      "framesWritten": 77,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "beta",
+      "name": "ten",
+      "passed": true,
+      "stock": 10,
+      "expectedDamage": 40,
+      "actualDamage": 40,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 10,
+          "strength": 1,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.34998637,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 10,
+          "strength": 1,
+          "frames": 24,
+          "exited": true,
+          "finalAge": 0.53274643,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 24.68558757811976,
+      "framesWritten": 78,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "beta",
+      "name": "upgraded",
+      "passed": true,
+      "stock": 10,
+      "expectedDamage": 60,
+      "actualDamage": 60,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 10,
+          "strength": 1,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.34998703,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 10,
+          "strength": 1,
+          "frames": 24,
+          "exited": true,
+          "finalAge": 0.52445626,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 23.861448116648614,
+      "framesWritten": 78,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "beta",
+      "name": "high24",
+      "passed": true,
+      "stock": 24,
+      "expectedDamage": 96,
+      "actualDamage": 96,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 24,
+          "strength": 1,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.34998667,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 24,
+          "strength": 1,
+          "frames": 26,
+          "exited": true,
+          "finalAge": 0.5324108,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 24.774610081508854,
+      "framesWritten": 78,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "beta",
+      "name": "fast",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 16,
+      "actualDamage": 16,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 14,
+          "exited": true,
+          "finalAge": 0.34852666,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 16,
+          "exited": true,
+          "finalAge": 0.55561095,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 22.580206304054897,
+      "framesWritten": 75,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "beta",
+      "name": "instant",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 16,
+      "actualDamage": 16,
+      "casts": [],
+      "live": 0,
+      "captureFps": 22.38793718044329,
+      "framesWritten": 73,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "beta",
+      "name": "replay",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 48,
+      "actualDamage": 48,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.34195933,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 22,
+          "exited": true,
+          "finalAge": 0.5233791,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.34496987,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 30,
+          "exited": true,
+          "finalAge": 0.52458817,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 20,
+          "exited": true,
+          "finalAge": 0.34488404,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 30,
+          "exited": true,
+          "finalAge": 0.52849394,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 26.820393032135033,
+      "framesWritten": 148,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "beta",
+      "name": "pose",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 16,
+      "actualDamage": 16,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.349987,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 23,
+          "exited": true,
+          "finalAge": 0.5260244,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 24.64042402473683,
+      "framesWritten": 78,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "beta",
+      "name": "cancel",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 16,
+      "actualDamage": 16,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 10,
+          "exited": true,
+          "finalAge": 0.16666,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 24,
+          "exited": true,
+          "finalAge": 0.53181106,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 24.148446248720948,
+      "framesWritten": 79,
+      "handCheck": "before and after passed"
+    },
+    {
+      "environment": "beta",
+      "name": "lethal",
+      "passed": true,
+      "stock": 4,
+      "expectedDamage": 1,
+      "actualDamage": 1,
+      "casts": [
+        {
+          "impact": false,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 21,
+          "exited": true,
+          "finalAge": 0.34998602,
+          "maxAnchorError": 0
+        },
+        {
+          "impact": true,
+          "stock": 4,
+          "strength": 0.6324555,
+          "frames": 23,
+          "exited": true,
+          "finalAge": 0.52660644,
+          "maxAnchorError": 0
+        }
+      ],
+      "live": 0,
+      "captureFps": 26.097686540463904,
+      "framesWritten": 135,
+      "handCheck": "before passed; after N/A because native combat UI was destroyed"
+    }
+  ],
+  "media": {
+    "path": "back-to-back-showcase.mp4",
+    "durationSeconds": 34.133008,
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "videoCodec": "h264",
+    "audioCodec": "aac",
+    "audioSource": "game_process",
+    "meanVolumeDb": -39.5,
+    "peakVolumeDb": -12.6,
+    "freezeEventsOverOneSecond": 0,
+    "halfSpeedReplayExplicitlyLabeled": true,
+    "sha256": "4d0bca0a72f96fcb9a030847f161063e6039fc31cbfeee233d69acbfe8684d3a"
+  },
+  "runtimeLogErrors": 0
+}
