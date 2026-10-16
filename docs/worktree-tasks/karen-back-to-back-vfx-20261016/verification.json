@@ -830,5 +830,102 @@
     "halfSpeedReplayExplicitlyLabeled": true,
     "sha256": "4d0bca0a72f96fcb9a030847f161063e6039fc31cbfeee233d69acbfe8684d3a"
   },
-  "runtimeLogErrors": 0
+  "runtimeLogErrors": 0,
+  "postSynchronization": {
+    "mainRevision": "b222b16d66a8f4e4345d9a591ec4501dc880461f",
+    "taskCommit": "d27f5fc",
+    "attackSourceUnchanged": true,
+    "tests": [
+      {
+        "environment": "stable",
+        "probe": {
+          "live": 0,
+          "promise": 4,
+          "casts": [
+            {
+              "impact": false,
+              "stock": 4,
+              "strength": 0.6324555,
+              "frames": 20,
+              "exited": true,
+              "finalAge": 0.35050735,
+              "maxAnchorError": 0
+            },
+            {
+              "impact": true,
+              "stock": 4,
+              "strength": 0.6324555,
+              "frames": 24,
+              "exited": true,
+              "finalAge": 0.5207027,
+              "maxAnchorError": 0
+            }
+          ]
+        },
+        "result": {
+          "case": "normal4",
+          "stock": 4,
+          "speed": "normal",
+          "damage": 16,
+          "expected": 16,
+          "casts": 2,
+          "live": 0,
+          "elapsed": 1.8346689000027254,
+          "passed": true
+        }
+      },
+      {
+        "environment": "beta",
+        "probe": {
+          "live": 0,
+          "promise": 4,
+          "casts": [
+            {
+              "impact": false,
+              "stock": 4,
+              "strength": 0.6324555,
+              "frames": 19,
+              "exited": true,
+              "finalAge": 0.34213838,
+              "maxAnchorError": 0
+            },
+            {
+              "impact": true,
+              "stock": 4,
+              "strength": 0.6324555,
+              "frames": 25,
+              "exited": true,
+              "finalAge": 0.530115,
+              "maxAnchorError": 0
+            }
+          ]
+        },
+        "result": {
+          "case": "normal4",
+          "stock": 4,
+          "speed": "normal",
+          "damage": 16,
+          "expected": 16,
+          "casts": 2,
+          "live": 0,
+          "elapsed": 1.7728056000196375,
+          "passed": true
+        }
+      }
+    ],
+    "builds": {
+      "stable": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "14f8500dd0b0a748f4c6b3a092a02a7e20eb0b1e493c655b26253991677a36c7",
+        "ShoujoKagekiAijoKaren.pck": "edaa90a68792b0158ba62794cc8603d674ac70be8a90b41f50c45b9b8e2d8796"
+      },
+      "beta": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "7c05239111bfd0861b69da29da217255e1fd45817d273c65a5ce4070ee35462b",
+        "ShoujoKagekiAijoKaren.pck": "edaa90a68792b0158ba62794cc8603d674ac70be8a90b41f50c45b9b8e2d8796"
+      }
+    },
+    "vfxErrors": 0,
+    "startupDiagnostics": [
+      "beta: Sentry: Failed to close native SDK cleanly. Error code: 1. Native startup telemetry; targeted play, damage and cleanup passed."
+    ]
+  }
 }
