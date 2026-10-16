@@ -7,13 +7,14 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
 /// <summary>
-/// 背靠背 - 1费攻击，造成约定牌堆中卡牌数量×4(升6)的伤害（最多10张）。
+/// 背靠背 - 1费攻击，造成约定牌堆中卡牌数量×4(升6)的伤害。
 /// </summary>
 public sealed class KarenBackToBackCard : KarenBaseCardModel
 {
@@ -31,10 +32,15 @@ public sealed class KarenBackToBackCard : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (cardPlay.Target == null) return;
+        int promiseCount = PromisePileManager.GetCount(Owner);
+        NKarenBackToBackVfx? approach = null;
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(() => approach = NKarenBackToBackVfx.CreateApproach(Owner.Creature, cardPlay.Target, promiseCount))
+            .WithAttackerAnim("Attack", 0f)
+            .WithWaitBeforeHit(NKarenBackToBackVfx.FastHitTime, NKarenBackToBackVfx.HitTime)
+            .WithHitVfxNode(target => NKarenBackToBackVfx.CreateImpact(Owner.Creature, target, promiseCount, approach))
             .Execute(choiceContext);
     }
 

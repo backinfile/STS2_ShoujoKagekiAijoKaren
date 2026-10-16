@@ -2799,5 +2799,16 @@
     "v2_delivery_beta_forced_room_change_pool_errors": 1,
     "final_polish_errors": 0,
     "message": "Native NCard pool duplicate-return diagnostic after dev-console fight room replacement; also present in V1 and following an Instant-mode play with no VFX node. Not fixed in this visual revision. Card identity and hand visual checks passed."
+  },
+  "synchronizedMain": {
+    "revision": "4f3cc844efc7ed37d5076ce50bb52a98e0f439ce",
+    "validation": "full dual-version package built successfully after synchronization; upstream change only adds Back to Back card VFX, Exchange Fate source unchanged",
+    "build": {
+      "ShoujoKagekiAijoKaren.dll": "a22fc7bbf48773e35467e9723a70d2435b38f441c43f078b9d76680042492406",
+      "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+      "ShoujoKagekiAijoKaren.pck": "d174eb14bdafce8d24cb6d36f7340be9eee820f37f0d7879bb96a6644ee3a560",
+      "lib\\ShoujoKagekiAijoKaren.Beta.dll": "5b1ce307154db9acae351896882e6f08514174abc0ee43d4e9ad57c158a4015c",
+      "lib\\ShoujoKagekiAijoKaren.Stable.dll": "740d7e5f8b742a6444ece8cdd090ae04bb4592a41e89e1dfab49970dce075eea"
+    }
   }
 }
