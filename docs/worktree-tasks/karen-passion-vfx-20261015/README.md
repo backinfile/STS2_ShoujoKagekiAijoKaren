@@ -61,7 +61,8 @@
 
 ### 交付
 
-- 新视频：`artifacts/passion-buff-review/showcase/passion-showcase.mp4`，约 11 秒、1280×720、30 fps，实际游戏原速，含首次获得、连续叠层和战后遗物奖励。
+- [新版实录](passion-buff-showcase.mp4)已随本任务文档归档，约 11 秒、1280×720、30 fps，实际游戏原速，含首次获得、连续叠层和战后遗物奖励。原始整理结果仍保留于 `artifacts/passion-buff-review/showcase/passion-showcase.mp4`。
+- [验证摘要](verification.json)保存两版 18 项结果、节点观察、录像构建哈希、媒体信息和视频 SHA-256，随 Git 保留。
 - 游戏进程音频，经测得原始峰值后增益 13.3 dB，最终峰值 −12.1 dB；没有外部音乐或人声。已检查编码后关键连续帧、章节文字、真实 Buff 落点及奖励画面。
 - 两版证据：`artifacts/passion-buff-review/stable/` 与 `beta/` 下的 `results.json`、`log-audit.json`、前后 PNG/状态、手牌检查、真实增量、节点寿命、奖励及构建哈希。
 - 视频检查：`artifacts/passion-buff-review/showcase/validation.json`、`chapters.json`、`audio-check.txt`；首次过期纹理录制已被修复后实录替换，旧信封录像保留在另一历史目录 `artifacts/passion-review/`。
@@ -69,4 +70,6 @@
 
 ### 集成状态
 
-重做前已同步 main `0bddccc`。本轮提交和最终 main 同步正在收尾；原始集成目标仍为 main。用户尚未确认合并，保留任务分支与工作树。主工作区后来新增的未跟踪文件 `docs/20.卡牌特效制作步骤提示词.md` 保持未动，不进入本任务。
+重做提交为 `41c9cda`。重做前同步 main `0bddccc`，收尾时又无冲突同步 main `b222b16d66a8f4e4345d9a591ec4501dc880461f`；同步引入牌堆查看界面装饰，激情 Power、特效、奖励命令保持与 18 项实测时完全一致。同步后的双版本完整构建再次通过，记录在 `artifacts/build-passion-buff-synchronized.log`。
+
+原始集成目标仍为 main。用户尚未确认合并，保留任务分支与工作树。主工作区后来新增的未跟踪文件 `docs/20.卡牌特效制作步骤提示词.md` 保持未动，不进入本任务；同步前后 SHA-256 均为 `06DC5F217BB63854E9539689544C4C1493F147881AB46E5EE95FAF9D0A2FFAAE`。
