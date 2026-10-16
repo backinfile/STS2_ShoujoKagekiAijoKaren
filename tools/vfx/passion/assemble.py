@@ -14,10 +14,9 @@ out = args.output.resolve()
 out.mkdir(parents=True, exist_ok=True)
 font = 'C\\:/Windows/Fonts/msyh.ttc'
 segments = [
-    ('normal', '激情 · 红缎封印', '普通打出 / 折星 → 烫印 → 收向状态图标', None),
-    ('upgrade', '激情+ · 零费预约', '升级打出 / 同样的奖励与演出', None),
-    ('repeat', '连续打出 · 三份预约', '真实叠加 3 层 / 最多两组演出同时在场', None),
-    ('reward', '战后 · 揭晓遗物', '预约奖励在战斗结束后兑现', 4.2),
+    ('normal', '获得激情 Buff', '金红星光 → 状态图标 / 约一秒的获得确认', None),
+    ('repeat', '激情 Buff · 连续叠层', '每次正向增加都响应 / 战后追加 3 份遗物奖励', None),
+    ('reward', '战后 · 额外遗物奖励', '特效只确认预约，遗物到战后才揭晓', 2.2),
 ]
 chapters = []
 position = 0.0
@@ -51,7 +50,8 @@ for index, (name, title, caption, start) in enumerate(segments):
 (out / 'concat.txt').write_text(''.join(f"file '{p.name}'\n" for p in encoded), encoding='utf-8')
 native = out / 'passion-showcase-native.mp4'
 subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'warning', '-y', '-f', 'concat', '-safe', '0', '-i', 'concat.txt',
-                '-c:v', 'copy', '-af', 'asetpts=N/SR/TB', '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart', str(native)], cwd=out, check=True)
+                '-vf', 'fps=30', '-c:v', 'libx264', '-threads', '2', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p',
+                '-af', 'asetpts=N/SR/TB', '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart', str(native)], cwd=out, check=True)
 native_sound = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(native), '-vn', '-af', 'volumedetect', '-f', 'null', 'NUL'], capture_output=True, text=True, check=True)
 native_peak = float(re.search(r'max_volume: ([\d.\-]+) dB', native_sound.stderr)[1])
 gain = -12.0 - native_peak
