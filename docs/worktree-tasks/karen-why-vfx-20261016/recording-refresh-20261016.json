@@ -1,0 +1,282 @@
+{
+  "request": "更新下mcp，视频卡死了重新录制",
+  "mcpUpdate": {
+    "sourceCommit": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
+    "buildSource": "Clean tracked git archive; original MCP checkout unchanged.",
+    "versions": {
+      "stable": {
+        "bytes": 297472,
+        "sha256": "47d27d52e8e4d4ef38df6a1167daefae7995899634dcd0a31944150bc7ce9e7d",
+        "installedIn": "artifacts/why-vfx-rerecord-20261016/isolated/stable/game/mods/KarenSTS2MCP.dll"
+      },
+      "beta": {
+        "bytes": 297472,
+        "sha256": "552b85105e22827e433e9b3abf00c48094e9e0dab508b2e33ba9e3c99c17310f",
+        "installedIn": "artifacts/why-vfx-rerecord-20261016/isolated/beta/game/mods/KarenSTS2MCP.dll"
+      }
+    }
+  },
+  "unchangedVfxSourceSha256": {
+    "src/Core/Models/Cards/ancient/KarenWhy.cs": "c8dbd9e1352a7ea29f17f4ec52bbe05a0b90eeb2dc785ec25ac9260ef6556777",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWhyVfx.cs": "97a0efbf6da2ac6505c1e7021c5cccbf3abf69dff63a6f6701444e8623736f41",
+    "materials/vfx/karen_why_edge_light.gdshader": "421535fc71f53a2fc688f2491ec058af080d8efbe576409bac4153d5c4e13a71",
+    "images/vfx/why/reference_border.png": "1634839b30ee2645f140b3a8cecb18e0a02de56a42dda4f2d7d02460a65e4de1"
+  },
+  "nativeViewport": true,
+  "recordings": {
+    "stable": {
+      "status": "completed",
+      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261016-055113-9705f074fd8e41fb83de95f33cd002b7.mp4",
+      "fps": 30,
+      "max_duration_seconds": 20,
+      "width": 1280,
+      "height": 720,
+      "frames_written": 261,
+      "video_duration_seconds": 8.7,
+      "frames_captured": 260,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "encoder": "h264_nvenc",
+      "capture_fps": 29.90798211143774,
+      "capture_average_ms": 4.904022692307689,
+      "capture_max_ms": 38.8435,
+      "encode_write_average_ms": 0.8634693486590039,
+      "encode_write_max_ms": 83.3448,
+      "elapsed_seconds": 9.0364724,
+      "audio": true,
+      "audio_source": "game_process"
+    },
+    "beta": {
+      "status": "completed",
+      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261016-055237-2ac777caac7c47f78292a28f0796abd5.mp4",
+      "fps": 30,
+      "max_duration_seconds": 20,
+      "width": 1280,
+      "height": 720,
+      "frames_written": 257,
+      "video_duration_seconds": 8.566666666666666,
+      "frames_captured": 256,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "encoder": "h264_nvenc",
+      "capture_fps": 29.964108499240954,
+      "capture_average_ms": 7.889031640624999,
+      "capture_max_ms": 40.1299,
+      "encode_write_average_ms": 0.823326848249027,
+      "encode_write_max_ms": 67.5897,
+      "elapsed_seconds": 8.8649035,
+      "audio": true,
+      "audio_source": "game_process"
+    }
+  },
+  "clockAudits": {
+    "stable": {
+      "encoder": "h264_nvenc",
+      "captureFps": 29.752475405953774,
+      "repeatedFrames": 2,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 238,
+      "longestUnchangedClockSeconds": 0.06666666666666667,
+      "largestClockJumpSeconds": 0.07000000000000006,
+      "clockSeconds": 7.96,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.0066670000000002005,
+      "strictlyIncreasingPts": true
+    },
+    "beta": {
+      "encoder": "h264_nvenc",
+      "captureFps": 29.749989215628908,
+      "repeatedFrames": 2,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 238,
+      "longestUnchangedClockSeconds": 0.06666666666666667,
+      "largestClockJumpSeconds": 0.07000000000000006,
+      "clockSeconds": 7.969999999999999,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.003332999999998698,
+      "strictlyIncreasingPts": true
+    }
+  },
+  "checks": {
+    "stable": [
+      {
+        "case": "upgrade",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 345,
+              "SelectionFrames": 320,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 345,
+              "ShaderSamples": 57,
+              "AdvancingSamples": 56,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 12,
+          "hand": [
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "draw": []
+        },
+        "duration": 8.915667699999176
+      }
+    ],
+    "beta": [
+      {
+        "case": "void",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 333,
+              "SelectionFrames": 308,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 333,
+              "ShaderSamples": 55,
+              "AdvancingSamples": 54,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [],
+          "draw": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ]
+        },
+        "duration": 8.761956700007431
+      }
+    ]
+  },
+  "logs": {
+    "stable": {
+      "sha256": "12683df8a88adb6decc907005dec36fee104f47d45f005048687c4c601ff45db",
+      "errors": []
+    },
+    "beta": {
+      "sha256": "06cba19416b63fe598f24eb34762025130220ab6b6e920bb1b15adf7d8125377",
+      "errors": []
+    }
+  },
+  "negativeControl": {
+    "encoder": "h264_nvenc",
+    "captureFps": 30.00445866255726,
+    "repeatedFrames": 0,
+    "droppedFrames": 0,
+    "decodedFrames": 240,
+    "distinctClockValues": 30,
+    "longestUnchangedClockSeconds": 7.033333333333333,
+    "largestClockJumpSeconds": 0.040000000000000036,
+    "clockSeconds": 0.9700000000000001,
+    "videoSeconds": 7.966667,
+    "timelineDriftSeconds": 6.996667,
+    "strictlyIncreasingPts": true
+  },
+  "negativeControlRejected": true,
+  "videoQa": {
+    "duration": "17.301000",
+    "streams": [
+      [
+        "video",
+        "h264"
+      ],
+      [
+        "audio",
+        "aac"
+      ]
+    ],
+    "audioMeanDb": -46.4,
+    "audioPeakDb": -23.8,
+    "motion": [
+      {
+        "clip": "part-0.mp4",
+        "sampledFrames": 35,
+        "uniqueFrames": 35
+      },
+      {
+        "clip": "part-1.mp4",
+        "sampledFrames": 34,
+        "uniqueFrames": 34
+      }
+    ],
+    "freezeDiagnostics": [],
+    "strictlyIncreasingVideoPts": true,
+    "largestVideoFrameStepSeconds": 0.03333400000000353,
+    "audioVideoDurationDifferenceSeconds": 0.0009999999999976694
+  },
+  "manifest": {
+    "capture": "KarenSTS2MCP viewport + game_process audio",
+    "editing": "Native 1280x720 viewport; concatenate through one continuous H.264/AAC encode, no added graphics or frame interpolation.",
+    "sources": [
+      {
+        "file": "stable/upgrade/game.mp4",
+        "sha256": "0e9d052cd2db11a3d4256490c0803a707b83e3769ef9e690c75db99c28f46de4"
+      },
+      {
+        "file": "beta/void/game.mp4",
+        "sha256": "cc003be120e64b8f33884378bdee33403dec8c134be9f3de392e092dcd4ee907"
+      }
+    ]
+  },
+  "evidenceRoot": "artifacts/why-vfx-rerecord-20261016",
+  "scope": "Updated isolated recording environments only. Stable upgrade and beta void replayed serially. VFX code and assets unchanged; no full gameplay matrix rerun.",
+  "qaViewed": "Both native-move before/after MCP screenshot pairs, both showcase motion sheets, actual-clock video decode.",
+  "withPngReference": {
+    "status": "completed",
+    "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261016-054821-5358cc40cee84e5c8d9c88e776813959.mp4",
+    "fps": 30,
+    "max_duration_seconds": 20,
+    "width": 1280,
+    "height": 720,
+    "frames_written": 282,
+    "video_duration_seconds": 9.4,
+    "frames_captured": 265,
+    "frames_repeated": 17,
+    "frames_dropped": 0,
+    "encoder": "h264_nvenc",
+    "capture_fps": 28.20908763103041,
+    "capture_average_ms": 10.762001886792453,
+    "capture_max_ms": 201.9152,
+    "encode_write_average_ms": 0.8223340425531914,
+    "encode_write_max_ms": 70.6161,
+    "elapsed_seconds": 9.6659281,
+    "audio": true,
+    "audio_source": "game_process"
+  },
+  "deliveredVideoSha256": "0d56773ea984e9a512ce131e08d70c4cdaf9aa14604087f47ed583693cc7867e"
+}

@@ -1,0 +1,664 @@
+{
+  "revision": "v7",
+  "baseMain": "756b419395f86c98575c536433afc202361a0a02",
+  "scope": "Targeted singleplayer: base, upgrade, void, peek, resize, exit. No full matrix or multiplayer. Zero/fast/instant/empty/repeat were not rerun for this visual-only revision.",
+  "build": "Stable/beta packages compiled with 26 existing warnings per implementation, 0 errors; fixture 0 warnings, 0 errors.",
+  "sourceSha256": {
+    "src/Core/Models/Cards/ancient/KarenWhy.cs": "c8dbd9e1352a7ea29f17f4ec52bbe05a0b90eeb2dc785ec25ac9260ef6556777",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWhyVfx.cs": "97a0efbf6da2ac6505c1e7021c5cccbf3abf69dff63a6f6701444e8623736f41",
+    "materials/vfx/karen_why_edge_light.gdshader": "421535fc71f53a2fc688f2491ec058af080d8efbe576409bac4153d5c4e13a71",
+    "images/vfx/why/reference_border.png": "1634839b30ee2645f140b3a8cecb18e0a02de56a42dda4f2d7d02460a65e4de1"
+  },
+  "results": {
+    "stable": [
+      {
+        "case": "base",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "effects": [
+            {
+              "Frames": 393,
+              "SelectionFrames": 379,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 393,
+              "ShaderSamples": 65,
+              "AdvancingSamples": 64,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 10.987428699969314
+      },
+      {
+        "case": "upgrade",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "effects": [
+            {
+              "Frames": 339,
+              "SelectionFrames": 321,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 339,
+              "ShaderSamples": 56,
+              "AdvancingSamples": 55,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 12,
+          "hand": [
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "draw": []
+        },
+        "duration": 9.28402860002825
+      },
+      {
+        "case": "void",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "effects": [
+            {
+              "Frames": 329,
+              "SelectionFrames": 310,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 329,
+              "ShaderSamples": 54,
+              "AdvancingSamples": 53,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [],
+          "draw": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ]
+        },
+        "duration": 9.095661800005473
+      },
+      {
+        "case": "peek",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "effects": [
+            {
+              "Frames": 139,
+              "SelectionFrames": 96,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 139,
+              "ShaderSamples": 23,
+              "AdvancingSamples": 22,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 5.220674999989569
+      },
+      {
+        "case": "resize",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(1334, 750)",
+          "effects": [
+            {
+              "Frames": 128,
+              "SelectionFrames": 110,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 128,
+              "ShaderSamples": 21,
+              "AdvancingSamples": 20,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 5.315874499967322
+      },
+      {
+        "case": "exit",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "effects": [
+            {
+              "Frames": 63,
+              "SelectionFrames": 58,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 63,
+              "ShaderSamples": 10,
+              "AdvancingSamples": 9,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 0,
+          "hand": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND",
+            "KAREN_SHINE_STRIKE",
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "promise": [],
+          "draw": [
+            "KAREN_STRIKE",
+            "KAREN_STRIKE",
+            "KAREN_DEFEND",
+            "KAREN_FALL",
+            "KAREN_DEFEND"
+          ]
+        },
+        "duration": 7.234467100002803
+      }
+    ],
+    "beta": [
+      {
+        "case": "base",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "effects": [
+            {
+              "Frames": 397,
+              "SelectionFrames": 381,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 397,
+              "ShaderSamples": 66,
+              "AdvancingSamples": 65,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 11.209120400017127
+      },
+      {
+        "case": "upgrade",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "effects": [
+            {
+              "Frames": 338,
+              "SelectionFrames": 320,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 338,
+              "ShaderSamples": 56,
+              "AdvancingSamples": 55,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 12,
+          "hand": [
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "draw": []
+        },
+        "duration": 9.35486259998288
+      },
+      {
+        "case": "void",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "effects": [
+            {
+              "Frames": 336,
+              "SelectionFrames": 311,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 336,
+              "ShaderSamples": 56,
+              "AdvancingSamples": 55,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [],
+          "draw": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ]
+        },
+        "duration": 9.117599599994719
+      },
+      {
+        "case": "peek",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "effects": [
+            {
+              "Frames": 134,
+              "SelectionFrames": 94,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 134,
+              "ShaderSamples": 22,
+              "AdvancingSamples": 21,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 5.139552000036929
+      },
+      {
+        "case": "resize",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(1334, 750)",
+          "effects": [
+            {
+              "Frames": 122,
+              "SelectionFrames": 103,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 122,
+              "ShaderSamples": 20,
+              "AdvancingSamples": 19,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 5.127483999996912
+      },
+      {
+        "case": "exit",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "effects": [
+            {
+              "Frames": 63,
+              "SelectionFrames": 58,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 63,
+              "ShaderSamples": 10,
+              "AdvancingSamples": 9,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 0,
+          "hand": [
+            "KAREN_STRIKE",
+            "KAREN_STRIKE",
+            "KAREN_FALL",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ],
+          "promise": [],
+          "draw": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND",
+            "KAREN_SHINE_STRIKE",
+            "KAREN_DEFEND",
+            "KAREN_STRIKE"
+          ]
+        },
+        "duration": 7.115703399991617
+      }
+    ]
+  },
+  "logs": {
+    "stable": {
+      "sha256": "3209d1797fbdb608dfbbca087f02ee64bb63867147624c526f60d86c7543ccdb",
+      "errors": []
+    },
+    "beta": {
+      "sha256": "4d3817f9d8857f448cbaa82b8b45b47462d38ac5be4566b37bff660bdf9ebfca",
+      "errors": []
+    }
+  },
+  "edgeChecks": {
+    "stable": {
+      "distribution": {
+        "changedPixels": 143994,
+        "edgeChangedFraction": 0.9997152659138575,
+        "ignored": "Interior of native animated hand area below 72% screen height"
+      },
+      "motion": {
+        "edgePixelsChanged": 9398,
+        "intervalSeconds": 0.65,
+        "threshold": 20
+      }
+    },
+    "beta": {
+      "distribution": {
+        "changedPixels": 143904,
+        "edgeChangedFraction": 0.9996247498332221,
+        "ignored": "Interior of native animated hand area below 72% screen height"
+      },
+      "motion": {
+        "edgePixelsChanged": 9139,
+        "intervalSeconds": 0.65,
+        "threshold": 20
+      }
+    }
+  },
+  "referenceChecks": {
+    "stable": {
+      "measurements": {
+        "reference": {
+          "lowerLeft": {
+            "warmPixels": 27381,
+            "centroid": [
+              0.0643775917134554,
+              0.8681760355911771
+            ]
+          },
+          "upperRight": {
+            "warmPixels": 9912,
+            "centroid": [
+              0.9554451566684069,
+              0.10745595717276288
+            ]
+          },
+          "leftDiffuseWidthAtRedDelta15": 0.10625
+        },
+        "gameplay": {
+          "lowerLeft": {
+            "warmPixels": 40529,
+            "centroid": [
+              0.06929291614917706,
+              0.8537235662847511
+            ]
+          },
+          "upperRight": {
+            "warmPixels": 11089,
+            "centroid": [
+              0.9584390161100093,
+              0.14242554009434621
+            ]
+          },
+          "leftDiffuseWidthAtRedDelta15": 0.10703125
+        }
+      },
+      "method": "Coarse overlay diagnostics from positive RGB difference against an MCP frame with the effect hidden. Reference UI was generated and is not pixel-identical; the measurements do not establish whole-image equivalence.",
+      "reference": "docs/worktree-tasks/karen-why-vfx-20261016/preview-v6.png",
+      "gameplay": "stable/base/selection.png"
+    },
+    "beta": {
+      "measurements": {
+        "reference": {
+          "lowerLeft": {
+            "warmPixels": 27154,
+            "centroid": [
+              0.06419406240473916,
+              0.8682347317620631
+            ]
+          },
+          "upperRight": {
+            "warmPixels": 9833,
+            "centroid": [
+              0.9552296639382947,
+              0.10711262243336132
+            ]
+          },
+          "leftDiffuseWidthAtRedDelta15": 0.10625
+        },
+        "gameplay": {
+          "lowerLeft": {
+            "warmPixels": 40548,
+            "centroid": [
+              0.0690394648267336,
+              0.8536756484857035
+            ]
+          },
+          "upperRight": {
+            "warmPixels": 11030,
+            "centroid": [
+              0.9582482661951689,
+              0.14253767614331242
+            ]
+          },
+          "leftDiffuseWidthAtRedDelta15": 0.10703125
+        }
+      },
+      "method": "Coarse overlay diagnostics from positive RGB difference against an MCP frame with the effect hidden. Reference UI was generated and is not pixel-identical; the measurements do not establish whole-image equivalence.",
+      "reference": "docs/worktree-tasks/karen-why-vfx-20261016/preview-v6.png",
+      "gameplay": "beta/base/selection.png"
+    }
+  },
+  "video": {
+    "duration": "18.620667",
+    "streams": [
+      [
+        "video",
+        "h264"
+      ],
+      [
+        "audio",
+        "aac"
+      ]
+    ],
+    "audioMeanDb": -46.3,
+    "audioPeakDb": -24.5,
+    "motion": [
+      {
+        "clip": "part-0.mp4",
+        "sampledFrames": 37,
+        "uniqueFrames": 37
+      },
+      {
+        "clip": "part-1.mp4",
+        "sampledFrames": 37,
+        "uniqueFrames": 37
+      }
+    ],
+    "freezeDiagnostics": [
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_start: 1.821029",
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_duration: 1",
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_end: 2.821029",
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_start: 4.654362",
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_duration: 1.3",
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_end: 5.954362",
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_start: 10.535352",
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_duration: 1.066667",
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_end: 11.602018",
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_start: 13.435352",
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_duration: 1.366667",
+      "[Parsed_freezedetect_0 @ 000001ec93c66e00] lavfi.freezedetect.freeze_end: 14.802018"
+    ]
+  },
+  "recordingManifest": {
+    "capture": "KarenSTS2MCP viewport + game_process audio",
+    "editing": "External 64px title strip and concatenation; game view unmodified.",
+    "sources": [
+      {
+        "file": "stable/upgrade/game.mp4",
+        "sha256": "9ac4a0c06598dd1beb93f51743720450a06fda97576ba2f3d7d77866a4b4eef5"
+      },
+      {
+        "file": "beta/void/game.mp4",
+        "sha256": "e61e7b6ddb49e953420a24591327260d7c638786c1efce475a216b0d369373f0"
+      }
+    ]
+  },
+  "videoNearStaticNote": "The whole-frame detector flags 1.0 to 1.37 s low-motion intervals during a deliberately held selection. All 74 sampled video frames differ; separate actual edge screenshots show motion. Raw diagnostics are preserved, not reported as zero freezes.",
+  "evidenceRoot": "artifacts/why-vfx-v7-20261016",
+  "qaViewed": "4 before/after sheets, 2 clean-recording motion sheets, reference/gameplay side-by-side, selection/peek/resize comparison."
+}

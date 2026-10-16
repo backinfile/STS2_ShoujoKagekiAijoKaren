@@ -1,0 +1,1008 @@
+{
+  "revision": "v5 - native hand selection UI border particles",
+  "testedBaseMain": "2258764ef228233ce739361f58ffb137bd2bbd66",
+  "versions": {
+    "stable": {
+      "checks": [
+        {
+          "case": "base",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 202,
+                "SelectionFrames": 189,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 33,
+                "MovingSamples": 13,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 7.429938699991908
+        },
+        {
+          "case": "zero",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 70,
+                "SelectionFrames": 55,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 11,
+                "MovingSamples": 3,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 3.9268206999986432
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 178,
+                "SelectionFrames": 171,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 29,
+                "MovingSamples": 10,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 12,
+            "hand": [
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 7.335166199947707
+        },
+        {
+          "case": "fast",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 96,
+                "SelectionFrames": 80,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 16,
+                "MovingSamples": 7,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 4.2537628999562
+        },
+        {
+          "case": "instant",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 4.025044700014405
+        },
+        {
+          "case": "void",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 185,
+                "SelectionFrames": 168,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 30,
+                "MovingSamples": 14,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ]
+          },
+          "duration": 6.818594499956816
+        },
+        {
+          "case": "empty",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [],
+            "block": 9,
+            "hand": [],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 2.4232966999989003
+        },
+        {
+          "case": "repeat",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 87,
+                "SelectionFrames": 64,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 14,
+                "MovingSamples": 3,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              },
+              {
+                "Frames": 82,
+                "SelectionFrames": 67,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 13,
+                "MovingSamples": 4,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 18,
+            "hand": [
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 5.9632496000267565
+        },
+        {
+          "case": "peek",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 139,
+                "SelectionFrames": 94,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 23,
+                "MovingSamples": 5,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 5.516010000021197
+        },
+        {
+          "case": "resize",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(1334, 750)",
+            "effects": [
+              {
+                "Frames": 118,
+                "SelectionFrames": 102,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 19,
+                "MovingSamples": 4,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 5.228566999954637
+        },
+        {
+          "case": "exit",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 62,
+                "SelectionFrames": 58,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 10,
+                "MovingSamples": 1,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 0,
+            "hand": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL",
+              "KAREN_STRIKE"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_DEFEND"
+            ]
+          },
+          "duration": 7.221998200053349
+        }
+      ],
+      "buildHashes": {
+        "ShoujoKagekiAijoKaren.dll": "345c35f09225402aaf1fb8b676e65d7ac3aab5912f9f33c693f62b8bc75c63f1",
+        "ShoujoKagekiAijoKaren.pck": "04617e9431514ef8223813b73b974ba9159fd05a1fb6609469f752a4baea8c0e",
+        "ShoujoKagekiAijoKaren.Beta.dll": "72dfde02f6e786bb896ce31ac7d5851d58f4ee76ff919b86a05e9ea04202aa53",
+        "ShoujoKagekiAijoKaren.Stable.dll": "1d09f53f4ffb69013ae58eb87b4f26c1aff121f82230173384cca291844d7930"
+      },
+      "borderDistribution": {
+        "changedPixels": 6746,
+        "edgeChangedFraction": 0.9942187963237474,
+        "ignored": "Interior of native animated hand area below 72% screen height"
+      }
+    },
+    "beta": {
+      "checks": [
+        {
+          "case": "base",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 191,
+                "SelectionFrames": 178,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 31,
+                "MovingSamples": 11,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 7.719285900006071
+        },
+        {
+          "case": "zero",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 71,
+                "SelectionFrames": 55,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 11,
+                "MovingSamples": 4,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 3.863746999995783
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 190,
+                "SelectionFrames": 179,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 31,
+                "MovingSamples": 12,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 12,
+            "hand": [
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 7.462329000001773
+        },
+        {
+          "case": "fast",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 87,
+                "SelectionFrames": 84,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 14,
+                "MovingSamples": 6,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 4.300190899986774
+        },
+        {
+          "case": "instant",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 4.170681299990974
+        },
+        {
+          "case": "void",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 191,
+                "SelectionFrames": 174,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 31,
+                "MovingSamples": 13,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ]
+          },
+          "duration": 6.890795900020748
+        },
+        {
+          "case": "empty",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [],
+            "block": 9,
+            "hand": [],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 2.3580923000117764
+        },
+        {
+          "case": "repeat",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 73,
+                "SelectionFrames": 59,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 12,
+                "MovingSamples": 4,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              },
+              {
+                "Frames": 94,
+                "SelectionFrames": 71,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 15,
+                "MovingSamples": 5,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 18,
+            "hand": [
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 5.802413899975363
+        },
+        {
+          "case": "peek",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 137,
+                "SelectionFrames": 96,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 22,
+                "MovingSamples": 4,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 5.2931418000371195
+        },
+        {
+          "case": "resize",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(1334, 750)",
+            "effects": [
+              {
+                "Frames": 123,
+                "SelectionFrames": 106,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 20,
+                "MovingSamples": 4,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 5.17125399998622
+        },
+        {
+          "case": "exit",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "visible": false,
+            "selecting": false,
+            "peeking": false,
+            "viewport": "(1920, 1080)",
+            "texture": "(854, 480)",
+            "effects": [
+              {
+                "Frames": 57,
+                "SelectionFrames": 55,
+                "UnexpectedVisibleFrames": 0,
+                "ScopeCorrect": true,
+                "Freed": true,
+                "ParticleEmitters": 5,
+                "BoundsSamples": 9,
+                "MovingSamples": 2,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 3792.6794
+              }
+            ],
+            "block": 0,
+            "hand": [
+              "KAREN_DEFEND",
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_FALL",
+              "KAREN_STRIKE",
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_STRIKE"
+            ]
+          },
+          "duration": 7.185533499985468
+        }
+      ],
+      "buildHashes": {
+        "ShoujoKagekiAijoKaren.dll": "345c35f09225402aaf1fb8b676e65d7ac3aab5912f9f33c693f62b8bc75c63f1",
+        "ShoujoKagekiAijoKaren.pck": "04617e9431514ef8223813b73b974ba9159fd05a1fb6609469f752a4baea8c0e",
+        "ShoujoKagekiAijoKaren.Beta.dll": "72dfde02f6e786bb896ce31ac7d5851d58f4ee76ff919b86a05e9ea04202aa53",
+        "ShoujoKagekiAijoKaren.Stable.dll": "1d09f53f4ffb69013ae58eb87b4f26c1aff121f82230173384cca291844d7930"
+      },
+      "borderDistribution": {
+        "changedPixels": 7132,
+        "edgeChangedFraction": 0.99298934380258,
+        "ignored": "Interior of native animated hand area below 72% screen height"
+      }
+    }
+  },
+  "video": {
+    "duration": "21.824896",
+    "streams": [
+      [
+        "video",
+        "h264"
+      ],
+      [
+        "audio",
+        "aac"
+      ]
+    ],
+    "audioMeanDb": -47.3,
+    "audioPeakDb": -22.9,
+    "motion": [
+      {
+        "clip": "part-0.mp4",
+        "sampledFrames": 30,
+        "uniqueFrames": 30
+      },
+      {
+        "clip": "part-1.mp4",
+        "sampledFrames": 29,
+        "uniqueFrames": 29
+      },
+      {
+        "clip": "part-2.mp4",
+        "sampledFrames": 28,
+        "uniqueFrames": 28
+      }
+    ],
+    "freezeDiagnostics": []
+  },
+  "recording": {
+    "capture": "KarenSTS2MCP viewport + game_process audio",
+    "editing": "External 64px title strip and concatenation; game view unmodified.",
+    "sources": [
+      {
+        "file": "stable/base/game.mp4",
+        "sha256": "30ed36fd70812fa31da49750cfa4e2817d91b6da12776da7ebeb74aae1108944"
+      },
+      {
+        "file": "stable/upgrade/game.mp4",
+        "sha256": "f37ce069cdbe8389a952bff3bcbcc1b1d5adeac6c2f0a3990ed60e4406bc97ae"
+      },
+      {
+        "file": "beta/void/game.mp4",
+        "sha256": "a3416d9279c83a5019efad80739fc3d72ae3fb02692424a4dede76998679d51e"
+      }
+    ]
+  },
+  "logObservation": "Beta Common asset preload emitted Invalid Task ID at WorkerThreadPool; preload completed and all selection checks passed. Original and archived startup logs retained.",
+  "synchronization": {
+    "main": "57c435cf4a60852e055346419f8bf5c849d573aa",
+    "whyImplementationAndAssetsUnchanged": true,
+    "versions": {
+      "stable": {
+        "checks": [
+          {
+            "case": "base",
+            "passed": true,
+            "metrics": {
+              "live": 0,
+              "layers": 0,
+              "visible": false,
+              "selecting": false,
+              "peeking": false,
+              "viewport": "(1920, 1080)",
+              "texture": "(854, 480)",
+              "effects": [
+                {
+                  "Frames": 200,
+                  "SelectionFrames": 187,
+                  "UnexpectedVisibleFrames": 0,
+                  "ScopeCorrect": true,
+                  "Freed": true,
+                  "ParticleEmitters": 5,
+                  "BoundsSamples": 33,
+                  "MovingSamples": 13,
+                  "ParticleBoundsFinite": true,
+                  "ParticleSpread": 3792.6794
+                }
+              ],
+              "block": 9,
+              "hand": [
+                "KAREN_SHINE_STRIKE",
+                "KAREN_FALL"
+              ],
+              "promise": [
+                "KAREN_STRIKE",
+                "KAREN_DEFEND"
+              ],
+              "draw": []
+            },
+            "duration": 7.706969199993182
+          }
+        ],
+        "buildHashes": {
+          "ShoujoKagekiAijoKaren.dll": "ad32e8e6a6db717d4c3e98a021712803623c549c02a6292b9cd6ab90da653167",
+          "ShoujoKagekiAijoKaren.pck": "93bf9d65b8bb294c2305ee18ea296bff5f514c9fe8eaf8ef7f1ccbf266393dd9",
+          "ShoujoKagekiAijoKaren.Beta.dll": "760b4aae27314fdf2eb740fae481e3026e8bfc3b28583bab671fccdb5185acee",
+          "ShoujoKagekiAijoKaren.Stable.dll": "b6f640144c1fcca4def038b55a2140513d778845f4fa23086b69bc41025152c2"
+        },
+        "borderDistribution": {
+          "changedPixels": 7171,
+          "edgeChangedFraction": 0.912146144191884,
+          "ignored": "Interior of native animated hand area below 72% screen height"
+        },
+        "runtimeErrors": []
+      },
+      "beta": {
+        "checks": [
+          {
+            "case": "base",
+            "passed": true,
+            "metrics": {
+              "live": 0,
+              "layers": 0,
+              "visible": false,
+              "selecting": false,
+              "peeking": false,
+              "viewport": "(1920, 1080)",
+              "texture": "(854, 480)",
+              "effects": [
+                {
+                  "Frames": 202,
+                  "SelectionFrames": 189,
+                  "UnexpectedVisibleFrames": 0,
+                  "ScopeCorrect": true,
+                  "Freed": true,
+                  "ParticleEmitters": 5,
+                  "BoundsSamples": 33,
+                  "MovingSamples": 13,
+                  "ParticleBoundsFinite": true,
+                  "ParticleSpread": 3792.6794
+                }
+              ],
+              "block": 9,
+              "hand": [
+                "KAREN_SHINE_STRIKE",
+                "KAREN_FALL"
+              ],
+              "promise": [
+                "KAREN_STRIKE",
+                "KAREN_DEFEND"
+              ],
+              "draw": []
+            },
+            "duration": 7.590015100024175
+          }
+        ],
+        "buildHashes": {
+          "ShoujoKagekiAijoKaren.dll": "ad32e8e6a6db717d4c3e98a021712803623c549c02a6292b9cd6ab90da653167",
+          "ShoujoKagekiAijoKaren.pck": "93bf9d65b8bb294c2305ee18ea296bff5f514c9fe8eaf8ef7f1ccbf266393dd9",
+          "ShoujoKagekiAijoKaren.Beta.dll": "760b4aae27314fdf2eb740fae481e3026e8bfc3b28583bab671fccdb5185acee",
+          "ShoujoKagekiAijoKaren.Stable.dll": "b6f640144c1fcca4def038b55a2140513d778845f4fa23086b69bc41025152c2"
+        },
+        "borderDistribution": {
+          "changedPixels": 7007,
+          "edgeChangedFraction": 0.9925788497217068,
+          "ignored": "Interior of native animated hand area below 72% screen height"
+        },
+        "runtimeErrors": []
+      }
+    }
+  }
+}

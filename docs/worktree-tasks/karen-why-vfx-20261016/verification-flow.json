@@ -1,0 +1,656 @@
+{
+  "request": "现在静态状态是对的，需要让特效流动起来",
+  "baseMain": "756b419395f86c98575c536433afc202361a0a02",
+  "mcpSource": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
+  "productionChange": "Only the border shader; accepted texture, C# lifecycle, native selection and pile rules unchanged.",
+  "shaderSha256": "9bddf2662afe8ed79eef1f08d77231230918131e6067adffe98e32f19273cddc",
+  "normalizedShaderSha256": "21f67b465ddb0a0c05e6bc4980abbe2d8a07b30b9fa1963d222ba8606c7ed6fd",
+  "acceptedTextureSha256": "1634839b30ee2645f140b3a8cecb18e0a02de56a42dda4f2d7d02460a65e4de1",
+  "acceptedTextureUnchangedFromHead": true,
+  "recordedVsFinalShaderComparison": "Normalized shader equality asserted by reading both PCKs before the diagnostic fixture replaced the recorded package; final build removes UTF-8 BOM and trailing whitespace only.",
+  "recordedBuilds": {
+    "stable": {
+      "ShoujoKagekiAijoKaren.dll": "f3862145f9e089d5e9e49a0d223952a7968b89530ad74007b0e0940281e96e01",
+      "ShoujoKagekiAijoKaren.pck": "611a3cb13841617cab7c41676d8f0bf3ccb70bd766ef46b1b32a8fe648f8739d",
+      "ShoujoKagekiAijoKaren.Beta.dll": "9199d609c8373ba330d3938dc4727e98376764f9df45840a85d22fd476d9f6b1",
+      "ShoujoKagekiAijoKaren.Stable.dll": "8150f5d6a8a46c18a70cee5bfa9fbcead5005c6c108dbe3aa1bb137aabdef067"
+    },
+    "beta": {
+      "ShoujoKagekiAijoKaren.dll": "f3862145f9e089d5e9e49a0d223952a7968b89530ad74007b0e0940281e96e01",
+      "ShoujoKagekiAijoKaren.pck": "611a3cb13841617cab7c41676d8f0bf3ccb70bd766ef46b1b32a8fe648f8739d",
+      "ShoujoKagekiAijoKaren.Beta.dll": "9199d609c8373ba330d3938dc4727e98376764f9df45840a85d22fd476d9f6b1",
+      "ShoujoKagekiAijoKaren.Stable.dll": "8150f5d6a8a46c18a70cee5bfa9fbcead5005c6c108dbe3aa1bb137aabdef067"
+    }
+  },
+  "finalBuilds": {
+    "stable": {
+      "ShoujoKagekiAijoKaren.dll": "f3862145f9e089d5e9e49a0d223952a7968b89530ad74007b0e0940281e96e01",
+      "ShoujoKagekiAijoKaren.pck": "4784c7c540e0f54872c5247190e28f751bb5827f7325f91643822e863ab29642",
+      "ShoujoKagekiAijoKaren.Beta.dll": "9199d609c8373ba330d3938dc4727e98376764f9df45840a85d22fd476d9f6b1",
+      "ShoujoKagekiAijoKaren.Stable.dll": "8150f5d6a8a46c18a70cee5bfa9fbcead5005c6c108dbe3aa1bb137aabdef067"
+    },
+    "beta": {
+      "ShoujoKagekiAijoKaren.dll": "f3862145f9e089d5e9e49a0d223952a7968b89530ad74007b0e0940281e96e01",
+      "ShoujoKagekiAijoKaren.pck": "4784c7c540e0f54872c5247190e28f751bb5827f7325f91643822e863ab29642",
+      "ShoujoKagekiAijoKaren.Beta.dll": "9199d609c8373ba330d3938dc4727e98376764f9df45840a85d22fd476d9f6b1",
+      "ShoujoKagekiAijoKaren.Stable.dll": "8150f5d6a8a46c18a70cee5bfa9fbcead5005c6c108dbe3aa1bb137aabdef067"
+    }
+  },
+  "results": {
+    "stable": [
+      {
+        "case": "upgrade",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 525,
+              "SelectionFrames": 500,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 525,
+              "ShaderSamples": 87,
+              "AdvancingSamples": 86,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 12,
+          "hand": [
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "draw": []
+        },
+        "duration": 11.918410300044343
+      },
+      {
+        "case": "peek",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 136,
+              "SelectionFrames": 97,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 136,
+              "ShaderSamples": 22,
+              "AdvancingSamples": 21,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 5.262134900025558
+      },
+      {
+        "case": "resize",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(1334, 750)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 135,
+              "SelectionFrames": 110,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 135,
+              "ShaderSamples": 22,
+              "AdvancingSamples": 21,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 5.281214300019201
+      },
+      {
+        "case": "exit",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 60,
+              "SelectionFrames": 55,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 60,
+              "ShaderSamples": 10,
+              "AdvancingSamples": 9,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 0,
+          "hand": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_STRIKE",
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "promise": [],
+          "draw": [
+            "KAREN_FALL",
+            "KAREN_DEFEND",
+            "KAREN_STRIKE",
+            "KAREN_SHINE_STRIKE",
+            "KAREN_STRIKE"
+          ]
+        },
+        "duration": 7.139580799965188
+      },
+      {
+        "case": "base",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 276,
+              "SelectionFrames": 259,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 276,
+              "ShaderSamples": 46,
+              "AdvancingSamples": 45,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 8.032260600011796
+      }
+    ],
+    "beta": [
+      {
+        "case": "void",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 514,
+              "SelectionFrames": 490,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 514,
+              "ShaderSamples": 85,
+              "AdvancingSamples": 84,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [],
+          "draw": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ]
+        },
+        "duration": 11.912301800039131
+      },
+      {
+        "case": "peek",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 135,
+              "SelectionFrames": 94,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 135,
+              "ShaderSamples": 22,
+              "AdvancingSamples": 21,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 5.29718850000063
+      },
+      {
+        "case": "resize",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(1334, 750)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 136,
+              "SelectionFrames": 111,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 136,
+              "ShaderSamples": 22,
+              "AdvancingSamples": 21,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 5.289115599996876
+      },
+      {
+        "case": "exit",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 60,
+              "SelectionFrames": 55,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 60,
+              "ShaderSamples": 10,
+              "AdvancingSamples": 9,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 0,
+          "hand": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [],
+          "draw": [
+            "KAREN_STRIKE",
+            "KAREN_SHINE_STRIKE",
+            "KAREN_STRIKE",
+            "KAREN_DEFEND",
+            "KAREN_STRIKE"
+          ]
+        },
+        "duration": 7.17589939996833
+      },
+      {
+        "case": "base",
+        "passed": true,
+        "metrics": {
+          "live": 0,
+          "layers": 0,
+          "visible": false,
+          "selecting": false,
+          "peeking": false,
+          "viewport": "(1920, 1080)",
+          "texture": "(854, 480)",
+          "clock": null,
+          "effects": [
+            {
+              "Frames": 288,
+              "SelectionFrames": 263,
+              "UnexpectedVisibleFrames": 0,
+              "ScopeCorrect": true,
+              "Freed": true,
+              "SurfaceFrames": 288,
+              "ShaderSamples": 48,
+              "AdvancingSamples": 47,
+              "SurfaceCoversViewport": true,
+              "InputIgnored": true
+            }
+          ],
+          "block": 9,
+          "hand": [
+            "KAREN_SHINE_STRIKE",
+            "KAREN_FALL"
+          ],
+          "promise": [
+            "KAREN_STRIKE",
+            "KAREN_DEFEND"
+          ],
+          "draw": []
+        },
+        "duration": 8.1352404000354
+      }
+    ]
+  },
+  "recordings": {
+    "stable": {
+      "status": "completed",
+      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261016-060730-70d47bb7cb0f4a18bd4b8121a6202acd.mp4",
+      "fps": 30,
+      "max_duration_seconds": 20,
+      "width": 1280,
+      "height": 720,
+      "frames_written": 351,
+      "video_duration_seconds": 11.7,
+      "frames_captured": 351,
+      "frames_repeated": 0,
+      "frames_dropped": 0,
+      "encoder": "h264_nvenc",
+      "capture_fps": 30.03402675540629,
+      "capture_average_ms": 10.437165527065535,
+      "capture_max_ms": 32.2504,
+      "encode_write_average_ms": 0.7707957264957267,
+      "encode_write_max_ms": 97.5195,
+      "elapsed_seconds": 12.0585625,
+      "audio": true,
+      "audio_source": "game_process"
+    },
+    "beta": {
+      "status": "completed",
+      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261016-060939-08bc36d1a8bb4a1e9df5c2703c11f1e8.mp4",
+      "fps": 30,
+      "max_duration_seconds": 20,
+      "width": 1280,
+      "height": 720,
+      "frames_written": 349,
+      "video_duration_seconds": 11.633333333333333,
+      "frames_captured": 347,
+      "frames_repeated": 2,
+      "frames_dropped": 0,
+      "encoder": "h264_nvenc",
+      "capture_fps": 29.89209170256266,
+      "capture_average_ms": 10.487544092219016,
+      "capture_max_ms": 32.4613,
+      "encode_write_average_ms": 0.7506974212034384,
+      "encode_write_max_ms": 81.5387,
+      "elapsed_seconds": 11.9768334,
+      "audio": true,
+      "audio_source": "game_process"
+    }
+  },
+  "captureAudits": {
+    "stable": {
+      "encoder": "h264_nvenc",
+      "captureFps": 29.997462214696633,
+      "repeatedFrames": 0,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 240,
+      "longestUnchangedClockSeconds": 0.03333333333333333,
+      "largestClockJumpSeconds": 0.05000000000000071,
+      "clockSeconds": 7.970000000000001,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.0033330000000004745,
+      "strictlyIncreasingPts": true
+    },
+    "beta": {
+      "encoder": "h264_nvenc",
+      "captureFps": 29.998394710903032,
+      "repeatedFrames": 0,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 240,
+      "longestUnchangedClockSeconds": 0.03333333333333333,
+      "largestClockJumpSeconds": 0.050000000000000044,
+      "clockSeconds": 7.960000000000001,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.006666999999999312,
+      "strictlyIncreasingPts": true
+    }
+  },
+  "visibleMotion": {
+    "samplingFps": 12,
+    "handInput": "No selections during the measured hold; select() waits seven seconds before first action.",
+    "new": {
+      "lowerLeft": {
+        "halfSecondMeanChange": 46.18611111111111,
+        "halfSecondChangedFractionAbove12": 0.7967529935950989,
+        "minimumHalfSecondChangedPixels": 7845,
+        "pixels": 13300
+      },
+      "upperRight": {
+        "halfSecondMeanChange": 36.57841750841751,
+        "halfSecondChangedFractionAbove12": 0.735998075998076,
+        "minimumHalfSecondChangedPixels": 6872,
+        "pixels": 11550
+      },
+      "leftHaze": {
+        "halfSecondMeanChange": 3.7929892787524366,
+        "halfSecondChangedFractionAbove12": 0.028226120857699804,
+        "minimumHalfSecondChangedPixels": 42,
+        "pixels": 19000
+      }
+    },
+    "previous": {
+      "lowerLeft": {
+        "halfSecondMeanChange": 6.334391335481561,
+        "halfSecondChangedFractionAbove12": 0.08421947726459005,
+        "minimumHalfSecondChangedPixels": 64,
+        "pixels": 13300
+      },
+      "upperRight": {
+        "halfSecondMeanChange": 7.923189033189034,
+        "halfSecondChangedFractionAbove12": 0.22662543805400948,
+        "minimumHalfSecondChangedPixels": 0,
+        "pixels": 11550
+      },
+      "leftHaze": {
+        "halfSecondMeanChange": 0.960670426065163,
+        "halfSecondChangedFractionAbove12": 0.0,
+        "minimumHalfSecondChangedPixels": 0,
+        "pixels": 19000
+      }
+    },
+    "limitation": "Pixel changes measure visible motion, not its artistic direction. The contact sheet is also inspected. Regions exclude cards, characters and selection buttons.",
+    "previousWindowSeconds": [
+      2,
+      6
+    ],
+    "newWindowSeconds": [
+      2,
+      7
+    ]
+  },
+  "distribution": {
+    "stable": {
+      "changedPixels": 141407,
+      "edgeChangedFraction": 0.9996181235723832,
+      "ignored": "Interior of native animated hand area below 72% screen height"
+    },
+    "beta": {
+      "changedPixels": 141021,
+      "edgeChangedFraction": 0.9995745314527623,
+      "ignored": "Interior of native animated hand area below 72% screen height"
+    }
+  },
+  "motionScreenshots": {
+    "stable": {
+      "edgePixelsChanged": 53670,
+      "intervalSeconds": 0.65,
+      "threshold": 20
+    },
+    "beta": {
+      "edgePixelsChanged": 54239,
+      "intervalSeconds": 0.65,
+      "threshold": 20
+    }
+  },
+  "delivery": {
+    "duration": "23.360000",
+    "streams": [
+      [
+        "video",
+        "h264"
+      ],
+      [
+        "audio",
+        "aac"
+      ]
+    ],
+    "audioMeanDb": -46.4,
+    "audioPeakDb": -24.4,
+    "motion": [
+      {
+        "clip": "part-0.mp4",
+        "sampledFrames": 47,
+        "uniqueFrames": 47
+      },
+      {
+        "clip": "part-1.mp4",
+        "sampledFrames": 47,
+        "uniqueFrames": 47
+      }
+    ],
+    "freezeDiagnostics": [],
+    "strictlyIncreasingVideoPts": true,
+    "largestVideoFrameStepSeconds": 0.03333400000000353,
+    "audioVideoDurationDifferenceSeconds": 0.026991999999999905
+  },
+  "deliveryManifest": {
+    "capture": "KarenSTS2MCP viewport + game_process audio",
+    "editing": "Native 1280x720 viewport; concatenate through one continuous H.264/AAC encode, no added graphics or frame interpolation.",
+    "sources": [
+      {
+        "file": "stable/upgrade/game.mp4",
+        "sha256": "5127923fae055f79ed6a9d3586fa3edcc320b25c4cd79234a1a4c91427b72940"
+      },
+      {
+        "file": "beta/void/game.mp4",
+        "sha256": "b180f5449456dc08222e652befe771e711a96ad9d0b7573c7de7d3333512f2b0"
+      }
+    ]
+  },
+  "scope": "Targeted single-player tests only; no multiplayer/full matrix.",
+  "diagnosticFailure": "A preliminary base run combined PNG diagnostics with recording and failed cadence (26.79fps, 28 repeated frames). Re-ran base diagnostics with --no-recording on both versions. Showcase uses --smooth-recording with no PNG capture during recording.",
+  "viewedEvidence": [
+    "Both raw video motion contact sheets",
+    "Four before/after movement contact sheets",
+    "Dual-version selection, peeking and resize contact sheet"
+  ],
+  "logErrors": {
+    "stable": [],
+    "beta": []
+  }
+}

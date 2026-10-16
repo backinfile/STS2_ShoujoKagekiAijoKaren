@@ -1,0 +1,560 @@
+{
+  "revision": "Painted art rework after user rejection",
+  "stable": [
+    {
+      "case": "base",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 237,
+            "Selected": 2,
+            "Delivered": 2,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 9,
+        "hand": [
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND"
+        ],
+        "draw": []
+      },
+      "duration": 6.117866999993566
+    },
+    {
+      "case": "zero",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 217,
+            "Selected": 0,
+            "Delivered": 0,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 9,
+        "hand": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND",
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [],
+        "draw": []
+      },
+      "duration": 4.9103915999876335
+    },
+    {
+      "case": "upgrade",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 250,
+            "Selected": 3,
+            "Delivered": 3,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 12,
+        "hand": [
+          "KAREN_FALL"
+        ],
+        "promise": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND",
+          "KAREN_SHINE_STRIKE"
+        ],
+        "draw": []
+      },
+      "duration": 6.340332199994009
+    },
+    {
+      "case": "fast",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 186,
+            "Selected": 2,
+            "Delivered": 2,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 9,
+        "hand": [
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND"
+        ],
+        "draw": []
+      },
+      "duration": 4.7140820999629796
+    },
+    {
+      "case": "instant",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [],
+        "block": 9,
+        "hand": [
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND"
+        ],
+        "draw": []
+      },
+      "duration": 3.8847407000139356
+    },
+    {
+      "case": "void",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 236,
+            "Selected": 2,
+            "Delivered": 2,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 9,
+        "hand": [
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [],
+        "draw": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND"
+        ]
+      },
+      "duration": 6.15991300001042
+    },
+    {
+      "case": "empty",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 162,
+            "Selected": 0,
+            "Delivered": 0,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 9,
+        "hand": [],
+        "promise": [],
+        "draw": []
+      },
+      "duration": 3.286656200012658
+    },
+    {
+      "case": "repeat",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 138,
+            "Selected": 0,
+            "Delivered": 0,
+            "Block": true,
+            "Freed": true
+          },
+          {
+            "Frames": 239,
+            "Selected": 1,
+            "Delivered": 1,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 18,
+        "hand": [
+          "KAREN_DEFEND",
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [
+          "KAREN_STRIKE"
+        ],
+        "draw": []
+      },
+      "duration": 7.764142600004561
+    },
+    {
+      "case": "exit",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 167,
+            "Selected": 2,
+            "Delivered": 2,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 0,
+        "hand": [
+          "KAREN_DEFEND",
+          "KAREN_STRIKE",
+          "KAREN_DEFEND",
+          "KAREN_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [],
+        "draw": [
+          "KAREN_DEFEND",
+          "KAREN_STRIKE",
+          "KAREN_DEFEND",
+          "KAREN_STRIKE",
+          "KAREN_SHINE_STRIKE"
+        ]
+      },
+      "duration": 10.930409500026144
+    }
+  ],
+  "beta": [
+    {
+      "case": "base",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 232,
+            "Selected": 2,
+            "Delivered": 2,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 9,
+        "hand": [
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND"
+        ],
+        "draw": []
+      },
+      "duration": 6.3014973000390455
+    },
+    {
+      "case": "zero",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 223,
+            "Selected": 0,
+            "Delivered": 0,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 9,
+        "hand": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND",
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [],
+        "draw": []
+      },
+      "duration": 5.104742800001986
+    },
+    {
+      "case": "upgrade",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 254,
+            "Selected": 3,
+            "Delivered": 3,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 12,
+        "hand": [
+          "KAREN_FALL"
+        ],
+        "promise": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND",
+          "KAREN_SHINE_STRIKE"
+        ],
+        "draw": []
+      },
+      "duration": 6.400079199986067
+    },
+    {
+      "case": "fast",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 185,
+            "Selected": 2,
+            "Delivered": 2,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 9,
+        "hand": [
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND"
+        ],
+        "draw": []
+      },
+      "duration": 4.702795999997761
+    },
+    {
+      "case": "instant",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [],
+        "block": 9,
+        "hand": [
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND"
+        ],
+        "draw": []
+      },
+      "duration": 3.8914230999653228
+    },
+    {
+      "case": "void",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 239,
+            "Selected": 2,
+            "Delivered": 2,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 9,
+        "hand": [
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [],
+        "draw": [
+          "KAREN_STRIKE",
+          "KAREN_DEFEND"
+        ]
+      },
+      "duration": 6.1745327999815345
+    },
+    {
+      "case": "empty",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 164,
+            "Selected": 0,
+            "Delivered": 0,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 9,
+        "hand": [],
+        "promise": [],
+        "draw": []
+      },
+      "duration": 3.375669499975629
+    },
+    {
+      "case": "repeat",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 149,
+            "Selected": 0,
+            "Delivered": 0,
+            "Block": true,
+            "Freed": true
+          },
+          {
+            "Frames": 234,
+            "Selected": 1,
+            "Delivered": 1,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 18,
+        "hand": [
+          "KAREN_DEFEND",
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL"
+        ],
+        "promise": [
+          "KAREN_STRIKE"
+        ],
+        "draw": []
+      },
+      "duration": 8.057010199991055
+    },
+    {
+      "case": "exit",
+      "passed": true,
+      "metrics": {
+        "live": 0,
+        "layers": 0,
+        "effects": [
+          {
+            "Frames": 162,
+            "Selected": 2,
+            "Delivered": 2,
+            "Block": true,
+            "Freed": true
+          }
+        ],
+        "block": 0,
+        "hand": [
+          "KAREN_STRIKE",
+          "KAREN_SHINE_STRIKE",
+          "KAREN_FALL",
+          "KAREN_DEFEND",
+          "KAREN_STRIKE"
+        ],
+        "promise": [],
+        "draw": [
+          "KAREN_STRIKE",
+          "KAREN_STRIKE",
+          "KAREN_DEFEND",
+          "KAREN_DEFEND",
+          "KAREN_DEFEND"
+        ]
+      },
+      "duration": 8.914079200010747
+    }
+  ],
+  "build": {
+    "ShoujoKagekiAijoKaren.dll": "1a523c8af1b67554e67ab659c93ea16153353f94782599be003c92bf38c78de0",
+    "ShoujoKagekiAijoKaren.pck": "e471fff6677e2b7323a84ea3c3570859ac7f42b0f8fbf124aa806e9872dc0929",
+    "ShoujoKagekiAijoKaren.Beta.dll": "3609f53c50ea35cb539548ba90211b633a6dfbe39b918dff9451128d5a337d44",
+    "ShoujoKagekiAijoKaren.Stable.dll": "2da8a90d3fa9b0a747749937a7e33ea58b22db06c24c670ca2ddd7a328da5513"
+  },
+  "video": {
+    "duration": "18.968729",
+    "streams": [
+      [
+        "video",
+        "h264"
+      ],
+      [
+        "audio",
+        "aac"
+      ]
+    ],
+    "audioMeanDb": -46.8,
+    "audioPeakDb": -23.6,
+    "motion": [
+      {
+        "clip": "part-0.mp4",
+        "sampledFrames": 25,
+        "uniqueFrames": 25
+      },
+      {
+        "clip": "part-1.mp4",
+        "sampledFrames": 26,
+        "uniqueFrames": 26
+      },
+      {
+        "clip": "part-2.mp4",
+        "sampledFrames": 25,
+        "uniqueFrames": 25
+      }
+    ],
+    "freezeDiagnostics": []
+  },
+  "logs": {
+    "betaStartupDetail": "Invalid Task ID at worker_thread_pool.wait_for_task_completion / ScriptManagerBridge during Common asset preload; preload subsequently completed. No runtime VFX or shader errors observed in card scenarios.",
+    "betaStartupErrors": 2,
+    "stableErrors": 0
+  },
+  "scope": "Targeted singleplayer; no multiplayer/full matrix",
+  "settle": "Bounded observation of actual node/layer cleanup after native card resolution, rather than a fixed 2-second sleep.",
+  "synchronization": {
+    "cardCodeAndArtUnchanged": true,
+    "runtimeChecks": "18 targeted cases recorded before unrelated Back to Back merge; synchronized tree rebuilt for both versions.",
+    "betaBuildPassed": true,
+    "mainHead": "4f3cc844efc7ed37d5076ce50bb52a98e0f439ce",
+    "stableBuildPassed": true
+  }
+}

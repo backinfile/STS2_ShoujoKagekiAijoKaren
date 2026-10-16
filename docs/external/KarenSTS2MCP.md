@@ -49,3 +49,11 @@ MCP 源码 `2d2a4c5` 支持在 `POST /api/v1/recording/start` 中设置 `audio: 
 开始录制前，通过 `/api/v1/settings` 设置 `fullscreen:false` 和成对的 `window_width/window_height`，切回普通窗口；录制期间不调用 `/window/minimize`。结束并完成封装后恢复原设置，再最小化。单独添加 `RenderingServer.ForceDraw(false)` 的试验未完整解决本场景，因此未保留该 MCP 修改。
 
 收尾以游戏状态为准：记录奖励界面已出现，并留短暂停留，不要只按固定秒数停止。复核连续帧和成片；可用 FFmpeg `freezedetect=n=-50dB:d=1` 辅助发现超过一秒的近似静帧，但静态菜单本身不应判作故障，应结合画面阶段判断。详见 [最后的台词修复记录](../testing/last-word-vfx-2026-09-29.md)。
+
+### 采帧/编码更新与录像期间截图（2026-10-16）
+
+本地 MCP 提交 `70c9dc2` 将采帧与编码写入分离，以三帧有界队列保留较新的采样，优先探测并使用 NVENC。开始录制可设置 `encoder:"auto"`、`"h264_nvenc"` 或 `"libx264"`。结束统计应包含 `encoder`、`capture_fps`、`frames_repeated`、`frames_dropped` 及编码写入耗时；没有这些字段说明仍加载了旧 DLL。Mod 必须分别构建、部署后重启对应隔离游戏进程，不能仅更新源码。
+
+截图接口仍在游戏主线程运行 `SavePngToBuffer()`。对流畅录像，将所需 MCP 前后截图放在开始前/停止后，录像中保留 JSON 状态即可，避免 PNG 编码干扰采帧。移牌前后截图和 `karen_check_hand` 的项目要求继续执行。
+
+Why 录像工具的 `--audit-capture` 会先录制独立的 8 秒画面内墙钟，逐帧解码时间值，核对长时间不变、时间跳跃及视频时间轴偏差；时钟仅在测试插件中，不进入正式 Mod 或交付视频。另以人为制造的 7 秒停帧负例验证检查器确实拒绝故障视频。不能仅凭容器标称 30fps 或帧哈希不同认定录像流畅。
