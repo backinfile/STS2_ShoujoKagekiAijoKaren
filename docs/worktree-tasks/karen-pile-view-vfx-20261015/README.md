@@ -4,6 +4,8 @@
 
 > $worktree-task 为查看约定牌堆和闪耀耗尽牌堆制作特效，不要太华丽，读取 D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/19.创意工坊特效Mod解包与制作流程.md 你先搜搜相关官方和周边参考资料，然后用imagegen生成特效表现预览图，然后参考这个预览图开始实现，最后录制效果成视频给我看看
 
+> 确认，合并回 main，保留预览图、视频和测试记录后清理工作树。
+
 ## Brief task plan
 
 - Original checkout: repository root; integration target: `main` at `86abd1940cfbe517cfc9895849500076e21bdcfd`; original checkout clean.
@@ -15,7 +17,7 @@
 
 ## Result and changes
 
-实现、针对性实测与视频交付已完成；等待 `worktree-task` 要求的合并确认。原工作区 `main` 初始无未提交改动，集成前仍保持干净。任务分支和工作树保留供审阅。
+实现、针对性实测与视频交付已完成。2026-10-16 用户明确确认合并回 `main`，并要求保留预览图、视频及测试记录后清理工作树。原工作区初始及集成复核时均无未提交改动。
 
 ### 行为与文件
 
@@ -51,16 +53,23 @@
 
 ### Deliverables
 
-全部产物位于本任务工作树；本地录像、构建包和原始证据按项目惯例留在 Git 忽略目录。
+预览图、成片及验证汇总随本任务文档保存在 Git 中。完整原始录像、截图、动作/状态、日志、测试插件和精确录制包已复制到主仓库的忽略目录，并逐文件核对 SHA-256；未复制可重新生成的隔离游戏。
 
-- imagegen 概念图：`output/pile-view-vfx/concept.png`，内置工具生成；未作为游戏贴图使用。
-- 双版实机展示：`output/pile-view-vfx/pile-view-showcase.mp4`，约 12.7 秒、1280×768、H.264/AAC、30 fps 编码；原游戏区域为 1280×720，字幕在下方附加区域，保留原速与原声。已从两个版本段提取成片帧人工检查。
+- imagegen 概念图：[preview.png](preview.png)，另保留主仓库 `output/pile-view-vfx/concept.png`；内置工具生成，未作为游戏贴图使用。
+- 双版实机展示：[pile-view-showcase.mp4](pile-view-showcase.mp4)，另保留主仓库 `output/pile-view-vfx/pile-view-showcase.mp4`；约 12.7 秒、1280×768、H.264/AAC、30 fps 编码；原游戏区域为 1280×720，字幕在下方附加区域，保留原速与原声。已从两个版本段提取成片帧人工检查。
 - 录像含 MCP 补帧；实际捕获速率见表，不声称每个编码帧都是独立捕获。
 - 完整证据：`artifacts/pile-view-vfx-20261015/{stable,beta}/pile-view/`，含空堆/有牌/三个速度的截图、动作及牌堆状态、手牌检查、完整原始录像和捕获构建哈希；各版日志位于上一级。
 - 自动核查：`artifacts/pile-view-vfx-20261015/verification.json`；剪辑元数据：同目录 `showcase-metadata.json`。
-- 最终包：`artifacts/ShoujoKagekiAijoKaren/`。
+- 精确录制包：`artifacts/pile-view-vfx-20261015/tested-package/`；后续构建可通过 `verify.py --package` 对照这份历史包复核，避免将其当作最新主分支包。
 - 正式版 DLL SHA-256：`045f99d880f436221154ce2922d47c0a350cc40d536979921e594b599f6fa074`。
 - 测试版 DLL SHA-256：`07ab5a4599da044ee6045a1a9470165c7510e6191edde39f5dd1cf18b87ee3a9`。
 - 成片 SHA-256：`b2a566c00e890f98d659469554fd0160123087a6a06e23dda41d5d47f23be604`。
 
-合并获批后应先将预览、成片和最终证据复制回原仓库的对应忽略目录，再清理本任务工作树，避免丢失本地媒体。
+### 2026-10-16 Integration
+
+- 原始功能提交：`e1f9a45`。等待确认期间 `main` 前进，先在任务工作树无冲突合入 `0bddcccd8e153e1a347b2024c2459e7c528550c0`，再由主分支快进接收同步结果。
+- 两个实际查看入口、装饰节点和运行时测试夹具均与原实测提交一致；同步没有改变本任务游戏实现。
+- 同步后正式版和测试版编译均通过，各 25 个现有警告、0 错误。没有重复执行完整游戏矩阵；原双版界面专项证据仍对应上列精确录制包。
+- 从主仓库归档位置使用 `verify.py --output artifacts/pile-view-vfx-20261015 --package artifacts/pile-view-vfx-20261015/tested-package` 重新核查，通过两版各 24 项手牌检查及 19 项清理检查。
+- [验证汇总](verification.json)、预览图与成片纳入本同步提交；主仓库的 `output/pile-view-vfx/` 和 `artifacts/pile-view-vfx-20261015/` 保留其余产物。
+- 按用户确认，在快进及树一致性、提交包含关系、归档哈希和原工作区状态检查通过后，移除本任务工作树与任务分支；其他工作树不在清理范围。

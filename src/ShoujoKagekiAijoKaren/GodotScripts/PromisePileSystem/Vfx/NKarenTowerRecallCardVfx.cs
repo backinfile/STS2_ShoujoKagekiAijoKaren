@@ -4,6 +4,8 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Cards.Holders;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -12,18 +14,28 @@ public partial class NKarenTowerRecallCardVfx : Node2D
 {
     private readonly NCard _card;
     private readonly CardModel _model;
-    private readonly List<Vector2> _trail = new();
+    private readonly NKarenPromiseStarNode _source;
+    private readonly record struct TrailPoint(Vector2 Position, float Age, float Distance);
+    private readonly List<TrailPoint> _trail = new();
     private readonly Vector2[] _outline = new Vector2[5];
-    private readonly Vector2[] _star = new Vector2[8];
-    private static readonly Color Gold = new("#ffd18a");
+    private static readonly Color Gold = new("#ffc774");
+    private static readonly Color Blue = new("#a4d2ff");
     private static readonly Color White = new("#fff5db");
+    private readonly float _arrivalDuration;
+    private readonly float _trailDuration;
+    private float _distance;
     private float _age;
     private float _landedAt = -1;
 
-    public NKarenTowerRecallCardVfx(NCard card, CardModel model)
+    public NKarenTowerRecallCardVfx(NCard card, CardModel model, NKarenPromiseStarNode source)
     {
         _card = card;
         _model = model;
+        _source = source;
+        bool fast = SaveManager.Instance?.PrefsSave.FastMode == FastModeType.Fast;
+        _arrivalDuration = fast ? 0.24f : 0.46f;
+        _trailDuration = fast ? 0.22f : 0.38f;
+        _trail.Add(new TrailPoint(source.TransferCanvasPosition, 0, 0));
         Name = "KarenTowerRecallCardVfx";
         ZIndex = 30;
     }
@@ -31,7 +43,8 @@ public partial class NKarenTowerRecallCardVfx : Node2D
     public override void _Process(double delta)
     {
         _age += (float)delta;
-        if (!GodotObject.IsInstanceValid(_card) || !_card.IsInsideTree() || _card.Model != _model
+        if (!GodotObject.IsInstanceValid(_source) || !_source.IsInsideTree() || _source.IsQueuedForDeletion()
+            || !GodotObject.IsInstanceValid(_card) || !_card.IsInsideTree() || _card.Model != _model
             || _card.IsQueuedForDeletion() || _model.Pile?.Type != PileType.Hand || _age > 2.5f)
         {
             QueueFree();
@@ -39,12 +52,14 @@ public partial class NKarenTowerRecallCardVfx : Node2D
         }
         var body = _card.Body;
         var point = body.GetGlobalTransformWithCanvas() * (body.Size * 0.5f);
-        _trail.Add(point);
-        if (_trail.Count > 16) _trail.RemoveAt(0);
+        _distance += _trail[^1].Position.DistanceTo(point);
+        _trail.Add(new TrailPoint(point, _age, _distance));
+        // Time-based history gives the same tail length at different render rates.
+        while (_trail.Count > 2 && (_age - _trail[0].Age > _trailDuration || _trail.Count > 48)) _trail.RemoveAt(0);
         if (_landedAt < 0 && _age >= 0.09f && _card.GetParent() is NHandCardHolder holder
             && holder.Position.DistanceTo(holder.TargetPosition) < 8)
             _landedAt = _age;
-        if (_landedAt >= 0 && _age - _landedAt > 0.36f) { QueueFree(); return; }
+        if (_landedAt >= 0 && _age - _landedAt > _arrivalDuration) { QueueFree(); return; }
         QueueRedraw();
     }
 
@@ -53,18 +68,27 @@ public partial class NKarenTowerRecallCardVfx : Node2D
         if (!GodotObject.IsInstanceValid(_card) || _card.Model != _model || _trail.Count < 2) return;
         var inverse = GetGlobalTransformWithCanvas().AffineInverse();
         float after = _landedAt < 0 ? 0 : _age - _landedAt;
-        float tail = 1 - Mathf.Clamp(after / 0.2f, 0, 1);
+        float tail = 1 - Mathf.Clamp(after / (_arrivalDuration * 0.55f), 0, 1);
+        // Both ribbons follow observations of the native NCard; the card itself
+        // remains owned, positioned and pooled entirely by the native hand.
+        for (int ribbon = 0; ribbon < 2; ribbon++)
         for (int i = 1; i < _trail.Count; i++)
         {
-            float alpha = i / (float)_trail.Count * tail;
-            var from = inverse * _trail[i - 1];
-            var to = inverse * _trail[i];
-            DrawLine(from, to, new Color(Gold, alpha * 0.12f), 12, true);
-            DrawLine(from, to, new Color(Gold, alpha * 0.58f), 3, true);
-            DrawLine(from, to, new Color(White, alpha * 0.74f), 1, true);
+            float alpha = Mathf.Sin(i / (float)_trail.Count * Mathf.Pi * 0.7f) * tail;
+            var from = RibbonPoint(i - 1, ribbon, inverse);
+            var to = RibbonPoint(i, ribbon, inverse);
+            Color tint = ribbon == 0 ? Gold : Blue;
+            DrawLine(from, to, new Color(tint, alpha * 0.085f), 20, true);
+            DrawLine(from, to, new Color(tint, alpha * 0.20f), 9, true);
+            DrawLine(from, to, new Color(tint, alpha * 0.95f), 4.2f, true);
+            DrawLine(from, to, new Color(White, alpha * 0.45f), 0.75f, true);
         }
+        for (int i = 3; i < _trail.Count - 2; i += 7)
+            NKarenPromiseStarNode.DrawPromiseStar(this, RibbonPoint(i, i % 2, inverse), 4.5f,
+                i % 2 == 0 ? Gold : Blue, tail * i / _trail.Count * 0.65f);
         if (_landedAt < 0) return;
-        float light = Mathf.Sin(Mathf.Clamp(after / 0.36f, 0, 1) * Mathf.Pi);
+        float progress = Mathf.Clamp(after / _arrivalDuration, 0, 1);
+        float light = Mathf.Sin(progress * Mathf.Pi);
         var body = _card.Body;
         var map = inverse * body.GetGlobalTransformWithCanvas();
         var rect = new Rect2(new Vector2(8, 8), body.Size - new Vector2(16, 16));
@@ -73,20 +97,25 @@ public partial class NKarenTowerRecallCardVfx : Node2D
         _outline[2] = map * rect.End;
         _outline[3] = map * new Vector2(rect.Position.X, rect.End.Y);
         _outline[4] = _outline[0];
-        DrawPolyline(_outline, new Color(Gold, light * 0.12f), 10, true);
-        DrawPolyline(_outline, new Color(White, light * 0.7f), 1.8f, true);
-        DrawGlint(_outline[0], 8, light);
-        DrawGlint(_outline[2], 5, light * 0.8f);
+        DrawPolyline(_outline, new Color(Gold, light * 0.07f), 9, true);
+        DrawPolyline(_outline, new Color(Gold, light * 0.65f), 1.5f, true);
+        NKarenPromiseStarNode.DrawPromiseStar(this, _outline[0], 9, Gold, light);
+        NKarenPromiseStarNode.DrawPromiseStar(this, _outline[2], 6, Blue, light * 0.8f);
+        var upperEdge = _outline[0].Lerp(_outline[1], progress);
+        DrawCircle(upperEdge, 3, new Color(White, light));
     }
 
-    private void DrawGlint(Vector2 point, float radius, float alpha)
+    private Vector2 RibbonPoint(int index, int ribbon, Transform2D inverse)
     {
-        DrawCircle(point, radius * 2, new Color(Gold, alpha * 0.1f));
-        for (int i = 0; i < 8; i++)
-        {
-            float angle = i * Mathf.Pi / 4;
-            _star[i] = point + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * (i % 2 == 0 ? radius : radius * 0.22f);
-        }
-        DrawColoredPolygon(_star, new Color(White, alpha));
+        var sample = _trail[index];
+        var before = _trail[System.Math.Max(0, index - 1)].Position;
+        var next = _trail[System.Math.Min(_trail.Count - 1, index + 1)].Position;
+        var normal = (next - before).Normalized().Orthogonal();
+        float taper = Mathf.Sin(index / (float)(_trail.Count - 1) * Mathf.Pi);
+        float twist = Mathf.Sin(sample.Distance * 0.035f - _age * 7 + ribbon * Mathf.Pi);
+        // Canvas-space widths survive resolution changes without changing the
+        // actual trajectory; the head converges exactly on the observed card.
+        float scale = GetViewport().GetVisibleRect().Size.Y / 1080f;
+        return inverse * (sample.Position + normal * twist * 13 * taper * scale);
     }
 }

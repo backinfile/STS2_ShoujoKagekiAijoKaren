@@ -18,3 +18,5 @@ python -u tools/vfx/catalog/record.py beta --output artifacts/pile-view-vfx-2026
 `results.json` 只表示脚本断言通过，仍需人工查看截图/视频和审计 `godot.log`。中途失败时不会生成成功结果。失败重试前另存旧日志和产物，避免混淆不同构建。
 
 最后运行 `python tools/vfx/pile-view/verify.py --output <产物目录>` 和 `python tools/vfx/pile-view/assemble.py --output <产物目录>`。前者把构建哈希、手牌/清理检查、日志及媒体数据写入 `verification.json`；后者只拼接双版本普通模式，原速保留实际游戏画面和原声，并在画面外添加版本字幕。
+
+检查历史归档时使用 `verify.py --output <归档目录> --package <归档目录>/tested-package`，以录制时的精确包核对捕获哈希，避免与后续开发构建混淆。

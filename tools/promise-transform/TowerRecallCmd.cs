@@ -18,6 +18,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Screens.Capstones;
 using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
@@ -46,6 +47,14 @@ public sealed class TowerRecallCmd : AbstractConsoleCmd
         var room = NCombatRoom.Instance;
         if (player?.PlayerCombatState == null || room == null || args.Length == 0) return new(false, Args);
         var hand = room.Ui.Hand;
+        if (args[0] == "speed" && args.Length == 2)
+        {
+            var speed = args[1] switch { "normal" => FastModeType.Normal, "fast" => FastModeType.Fast,
+                "instant" => FastModeType.Instant, _ => (FastModeType?)null };
+            if (speed == null) return new(false, "Use speed normal|fast|instant");
+            SaveManager.Instance.PrefsSave.FastMode = speed.Value;
+            return new(true, speed.Value.ToString());
+        }
         if (args[0] == "click")
             return new(ClickTower(room, player, args.Length > 1 && args[1] == "outside"), true, "Pointer click queued");
         if (args[0] == "close")
@@ -101,7 +110,9 @@ public sealed class TowerRecallCmd : AbstractConsoleCmd
             resolving=(_tower == null ? null : Field(_tower, "_transferResolutions") as System.Collections.ICollection)?.Count ?? 0,
             playFrames=_playFrames, playMinimumAlpha=_playMinimumAlpha,
             active=_tower == null ? 0 : Field(_tower, "_recallDepth"),
+            instant=_tower == null ? null : Field(_tower, "_recallInstant"),
             current=room.Ui.GetChildren().OfType<NKarenTowerRecallCardVfx>().Count(),
+            crest=room.Ui.GetChildren().Count(n => n.Name == "KarenTowerRecallCrest"),
             seen=Seen.Count, landed=Landed.Count,
             promise=PromisePileManager.GetPromisePile(player).Cards.Count,
             hand=PileType.Hand.GetPile(player).Cards.Count,

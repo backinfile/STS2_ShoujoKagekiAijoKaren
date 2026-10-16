@@ -9,6 +9,7 @@ import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--output', type=Path, required=True)
+parser.add_argument('--package', type=Path, help='Exact package associated with archived recordings')
 args = parser.parse_args()
 root = args.output.resolve()
 repo = Path(__file__).resolve().parents[3]
@@ -27,7 +28,7 @@ for branch in ['stable', 'beta']:
     results = read(folder / 'results.json')
     assert results['passed'], results
     capture = read(folder / 'recording.json')
-    package = repo / 'artifacts/ShoujoKagekiAijoKaren'
+    package = (args.package or repo / 'artifacts/ShoujoKagekiAijoKaren').resolve()
     assert capture['captureBuild']['assemblySha256'] == digest(package / 'lib' / f'ShoujoKagekiAijoKaren.{branch.title()}.dll')
     assert capture['captureBuild']['packSha256'] == digest(package / 'ShoujoKagekiAijoKaren.pck')
     assert capture['status'] == 'completed' and capture['audio_source'] == 'game_process', capture
