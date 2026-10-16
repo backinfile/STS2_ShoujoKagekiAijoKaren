@@ -121,8 +121,11 @@ try:
         post(action='hover_card', card_index=index); time.sleep(.55)
         post(action='play_card', card_index=index)
         time.sleep(.47 if speed == 'normal' else .13)
-        snap(name + '-cross')
+        snap(name + '-opening')
         if name == 'cancel': cmd('fate_probe cancel')
+        elif speed == 'normal' and nout + nin > 0:
+            until(lambda: any(t >= .35 for t in status()['progress']))
+            snap(name + '-cross')
         after = until(lambda: p if (p := status())['live'] == p['playCount'] == 0 and p['sourcePile'] in ('Exhaust', 'Discard') else None)
         time.sleep(.8); snap(name + '-after'); hand(name + '-after'); save(name + '-after-probe', after)
         destination = 'Draw' if mode == 'void' else 'PromisePile'

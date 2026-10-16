@@ -84,6 +84,7 @@ public static class ExchangeFateProbe
         handCount = PileType.Hand.GetPile(p).Cards.Count,
         playCount = PileType.Play.GetPile(p).Cards.Count,
         live = NCombatRoom.Instance?.Ui.GetChildren().OfType<NKarenExchangeFateVfx>().Count() ?? 0,
+        progress = NCombatRoom.Instance?.Ui.GetChildren().OfType<NKarenExchangeFateVfx>().Select(n => n.ExchangeProgress).ToArray(),
         cues = SeenNodes.Select(s => new { frames = s.Frames, sent = s.Sent, received = s.Received, confirmed = s.Confirmed }).ToArray()
     };
 }
