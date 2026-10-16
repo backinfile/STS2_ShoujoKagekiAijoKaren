@@ -27,9 +27,10 @@ public partial class NKarenFightRelayVfx : Node2D
     private int _count;
     private float _age, _unit, _speed;
     private Vector2 _from, _to, _fromFoot, _toFoot;
-    private float Life => _finale ? 2.05f : 1.7f;
+    private float Life => _finale ? .78f : 1.7f;
+    private float Tail => _finale ? .30f : .55f;
     private float Alpha => Mathf.SmoothStep(0, 1, Mathf.Clamp(_age / .18f, 0, 1))
-        * (1 - Mathf.SmoothStep(0, 1, Mathf.Clamp((_age - Life + .55f) / .55f, 0, 1)));
+        * (1 - Mathf.SmoothStep(0, 1, Mathf.Clamp((_age - Life + Tail) / Tail, 0, 1)));
 
     public static void Transferred(Player source, Player target, int remainingShine) => Play(source, target, false, remainingShine);
     public static void RewardRegistered(Player owner, int rewards) { if (rewards > 0) Play(owner, owner, true, rewards); }
@@ -61,7 +62,7 @@ public partial class NKarenFightRelayVfx : Node2D
         AddChild(_light);
         _back.Draw += DrawBack; _light.Draw += DrawLight;
         KarenVfxComposition.RegisterCue(this, _source.Creature);
-        Sound("karen_benefit_gather.wav", .20f, _finale ? .86f : 1.12f);
+        if (!_finale) Sound("karen_benefit_gather.wav", .20f, 1.12f);
         Place();
     }
 
@@ -74,7 +75,7 @@ public partial class NKarenFightRelayVfx : Node2D
         _age += (float)delta / _speed;
         if (_age >= Life) { HideLayers(); QueueFree(); return; }
         Place();
-        if (!_arrivalSound && _age >= (_finale ? .42f : 1.0f))
+        if (!_finale && !_arrivalSound && _age >= 1.0f)
         {
             _arrivalSound = true;
             // Remote actors remain visible; one local participant supplies the short sound cue.
@@ -124,7 +125,8 @@ public partial class NKarenFightRelayVfx : Node2D
     private void DrawBack()
     {
         float a = Alpha;
-        Footlight(_fromFoot, a, _finale ? 110 : 76);
+        if (_finale) { Footlight(_fromFoot, a * .30f, 60); return; }
+        Footlight(_fromFoot, a, 76);
         if (!_finale) Footlight(_toFoot, a * Mathf.SmoothStep(0, 1, Mathf.Clamp((_age - .75f) / .3f, 0, 1)), 76);
         // Layered translucent cones keep the character readable and avoid a global filter.
         int beams = _finale ? 3 : 1;
@@ -204,39 +206,36 @@ public partial class NKarenFightRelayVfx : Node2D
     }
     private void DrawFinale()
     {
-        float open = Mathf.SmoothStep(0, 1, Mathf.Clamp((_age - .12f) / .42f, 0, 1));
-        if (open < .06f) return;
-        var center = _from + Vector2.Up * 145 * _unit;
-        float a = Alpha * open;
-        // Medal silhouette + laurel leaves, not a model of an already awarded relic.
-        Star(this, center, 38 * open, Gold, a * .9f);
-        Star(this, center, 27 * open, new Color("#823437"), a);
-        Star(this, center, 14 * open, Ivory, a);
+        // A brief closing gesture, not a second medal/count for the same reward.
+        float open = Mathf.SmoothStep(0, 1, Mathf.Clamp(_age / .25f, 0, 1));
+        var center = _from + Vector2.Up * 80 * _unit;
         for (int side = -1; side <= 1; side += 2)
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 16; i++)
             {
-                var p = center + new Vector2(side * (26 + i * 5), 33 - i * 11) * _unit * open;
-                var leaf = new Vector2[] { new(0, 0), new(side * 12,-12), new(side * 13,-24), new(0,-13) };
-                DrawColoredPolygon(leaf.Select(v => p + v * _unit * open).ToArray(), new Color(Gold, a * .70f));
+                float u = i / 16f, v = (i + 1) / 16f;
+                Vector2 Point(float t) => center + new Vector2(side * (12 + t * 48 * open),
+                    t * 23 + Mathf.Sin(t * Mathf.Pi) * 13) * _unit;
+                float taper = Mathf.Sin((u + v) * .5f * Mathf.Pi);
+                DrawLine(Point(u), Point(v), new Color(Red, Alpha * taper * .55f),
+                    (2 + 5 * taper) * _unit, true);
             }
-        for (int i = 0; i < 9; i++)
-        {
-            float angle = Mathf.Lerp(-2.85f, -.29f, i / 8f);
-            var p = center + new Vector2(Mathf.Cos(angle) * 100, Mathf.Sin(angle) * 68) * _unit * open;
-            Star(this, p, 6 + Mathf.Sin(_age * 5 + i) * 1.5f, Ivory, a);
-        }
-        // Two modest red ribbons below the theatre medal.
-        for (int side = -1; side <= 1; side += 2)
-        {
-            var p = center + new Vector2(side * 15, 24) * _unit;
-            DrawColoredPolygon(new Vector2[] { p, p + new Vector2(side*25,34)*_unit,
-                p + new Vector2(side*8,28)*_unit, p + new Vector2(-side*5,39)*_unit }, new Color(Red, a * .8f));
-        }
-        for (int i = 0; i < _count; i++) Star(this, center + new Vector2((i - (_count-1)*.5f)*17, 65)*_unit, 5, Ivory, a);
+        Star(this, center, 9 * open, Ivory, Alpha * .75f);
     }
 
     private void DrawLight()
     {
+        if (_finale)
+        {
+            var center = _from + Vector2.Up * 80 * _unit;
+            float progress = Mathf.Clamp(_age / Life, 0, 1);
+            for (int i = 0; i < 6; i++)
+            {
+                var direction = Vector2.Up.Rotated((i - 2.5f) * .38f);
+                Star(_light, center + direction * (12 + 40 * progress) * _unit,
+                    2 + i % 2, Gold, Alpha * (1 - progress) * .65f);
+            }
+            return;
+        }
         if (!_finale)
         {
             float t = Mathf.SmoothStep(0, 1, Mathf.Clamp((_age - .22f) / .82f, 0, 1));

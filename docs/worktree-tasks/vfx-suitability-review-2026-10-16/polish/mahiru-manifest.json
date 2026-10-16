@@ -1,0 +1,104 @@
+{
+  "method": "Action-marker alignment; original speed; shorter side holds its last frame. Right game-process audio only. No added effects.",
+  "audio": {
+    "sourcePeakDb": -24.1,
+    "gainDb": 20.1
+  },
+  "videoSha256": "d9421b26c0936108b231aa8e261deacd3b9fa09f2ce5dff44e4c190045f509bb",
+  "entries": [
+    {
+      "index": 1,
+      "scene": "polish-jealousy",
+      "title": "嫉妒 · TV真昼彩纸",
+      "phase": "嫉妒｜普通攻击，原位命中与向玩家回飘",
+      "note": "恢复粉／黄／绿／紫片面，增强侧翻、珍珠光泽与边角短闪；攻击方向和节奏保持",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\synced\\before\\stable\\polish-jealousy\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\synced\\after\\stable\\polish-jealousy\\game.mp4"
+      ],
+      "sourceSha256": [
+        "843874b584af0195de033c555d2c57a29f879adec2617e7a56ad337bb4ce1bf2",
+        "1879e2ac335cbfb335ee669ef179dc34799d324b4402e5d659ed82a162f8c771"
+      ],
+      "starts": [
+        0.2859999999590218,
+        0.28600000001722947
+      ],
+      "ends": [
+        3.1609999999590217,
+        3.1460000000032595
+      ],
+      "duration": 2.875,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 26.463582748547758,
+          "frames_repeated": 26,
+          "frames_dropped": 1,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.77148275460113,
+          "frames_repeated": 9,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "beadf63cbe9152ad9da10f30a97e6bacef5ff0456f52bc30d66b47fee86153ef",
+            "packSha256": "a67050e8f6a9b98924511e042e68d1d93c7f59a2297faeb857bacb4ae083a561"
+          }
+        }
+      ],
+      "start": 0
+    },
+    {
+      "index": 2,
+      "scene": "polish-jealousy",
+      "title": "嫉妒 · TV真昼彩纸",
+      "phase": "嫉妒＋｜相同运动方向，20点实际伤害",
+      "note": "恢复粉／黄／绿／紫片面，增强侧翻、珍珠光泽与边角短闪；攻击方向和节奏保持",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\synced\\before\\stable\\polish-jealousy\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\synced\\after\\stable\\polish-jealousy\\game.mp4"
+      ],
+      "sourceSha256": [
+        "843874b584af0195de033c555d2c57a29f879adec2617e7a56ad337bb4ce1bf2",
+        "1879e2ac335cbfb335ee669ef179dc34799d324b4402e5d659ed82a162f8c771"
+      ],
+      "starts": [
+        3.1609999999590217,
+        3.1460000000032595
+      ],
+      "ends": [
+        7.0,
+        7.033008
+      ],
+      "duration": 3.88700799999674,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 26.463582748547758,
+          "frames_repeated": 26,
+          "frames_dropped": 1,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.77148275460113,
+          "frames_repeated": 9,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "beadf63cbe9152ad9da10f30a97e6bacef5ff0456f52bc30d66b47fee86153ef",
+            "packSha256": "a67050e8f6a9b98924511e042e68d1d93c7f59a2297faeb857bacb4ae083a561"
+          }
+        }
+      ],
+      "start": 2.875
+    }
+  ]
+}

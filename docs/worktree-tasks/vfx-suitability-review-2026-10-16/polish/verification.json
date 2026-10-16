@@ -1,0 +1,399 @@
+{
+  "scope": "Targeted single-player VFX checks only. Relay cards are injected to exercise actual exhaustion/reward, not multiplayer transfer.",
+  "runs": [
+    {
+      "version": "before",
+      "branch": "stable",
+      "build": {
+        "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+        "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+      },
+      "scenes": [
+        {
+          "name": "jealousy",
+          "outcomes": "passed",
+          "nodes": 2,
+          "captureFps": 25.341028940599482,
+          "repeatedFrames": 36,
+          "droppedFrames": 1,
+          "encoder": "h264_nvenc",
+          "movieSha256": "cdcc79fcf29aee8b8a8a1942d79dc75c2a81d0190f98d78bf26360e6f461180e"
+        },
+        {
+          "name": "wake",
+          "outcomes": "passed",
+          "nodes": 3,
+          "captureFps": 25.37974620903653,
+          "repeatedFrames": 55,
+          "droppedFrames": 2,
+          "encoder": "h264_nvenc",
+          "movieSha256": "7a0bce5b8943622c01fb7feb86a365731913916773cee639d939788634e30395"
+        },
+        {
+          "name": "arrogant",
+          "outcomes": "passed",
+          "nodes": 4,
+          "captureFps": 26.694185734039603,
+          "repeatedFrames": 31,
+          "droppedFrames": 6,
+          "encoder": "h264_nvenc",
+          "movieSha256": "ece068fa809c54bc96a4481a2a0a13ec27c4c25d53dcfa7f49c885bceac9c874"
+        },
+        {
+          "name": "relay",
+          "outcomes": "passed",
+          "nodes": 4,
+          "captureFps": 28.907146762296705,
+          "repeatedFrames": 9,
+          "droppedFrames": 0,
+          "encoder": "h264_nvenc",
+          "movieSha256": "1eb30d153f03f7bc21949982200d2146a56f9ddf7aa7ceb12af3973153cee36f"
+        }
+      ],
+      "handChecks": 16,
+      "windowMonitor": {
+        "samples": 3915,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 63
+      },
+      "logDiagnostics": []
+    },
+    {
+      "version": "after",
+      "branch": "stable",
+      "build": {
+        "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+        "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+      },
+      "scenes": [
+        {
+          "name": "jealousy",
+          "outcomes": "passed",
+          "nodes": 2,
+          "captureFps": 26.463582748547758,
+          "repeatedFrames": 26,
+          "droppedFrames": 1,
+          "encoder": "h264_nvenc",
+          "movieSha256": "843874b584af0195de033c555d2c57a29f879adec2617e7a56ad337bb4ce1bf2"
+        },
+        {
+          "name": "wake",
+          "outcomes": "passed",
+          "nodes": 3,
+          "captureFps": 27.79574080050226,
+          "repeatedFrames": 25,
+          "droppedFrames": 0,
+          "encoder": "h264_nvenc",
+          "movieSha256": "180ab93c65ba9fe575cf52a82b11df948607b07e0658bdd58761997bb8a6a967"
+        },
+        {
+          "name": "arrogant",
+          "outcomes": "passed",
+          "nodes": 4,
+          "captureFps": 26.516672493119195,
+          "repeatedFrames": 29,
+          "droppedFrames": 3,
+          "encoder": "h264_nvenc",
+          "movieSha256": "b40f8d7494a399268e09c5d8f6b57635f7b7b49814c5db268ac77b9535fd0190"
+        },
+        {
+          "name": "relay",
+          "outcomes": "passed",
+          "nodes": 4,
+          "captureFps": 29.2903490435086,
+          "repeatedFrames": 6,
+          "droppedFrames": 0,
+          "encoder": "h264_nvenc",
+          "movieSha256": "c0b257f3f47c3a75d733f5f1e283be01bf5348df75d106655b099f5c4b90923d"
+        }
+      ],
+      "handChecks": 16,
+      "windowMonitor": {
+        "samples": 3795,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 69
+      },
+      "logDiagnostics": []
+    },
+    {
+      "version": "after",
+      "branch": "beta",
+      "build": {
+        "assemblySha256": "947a1be9475a35422fd0a01d6390c07411fb32a447c6019c94c3828eaf7119bf",
+        "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+      },
+      "scenes": [
+        {
+          "name": "jealousy",
+          "outcomes": "passed",
+          "nodes": 2,
+          "captureFps": 28.095006072534883,
+          "repeatedFrames": 14,
+          "droppedFrames": 0,
+          "encoder": "h264_nvenc",
+          "movieSha256": "a61a171976144cd04871c92d10d74f90fdbc0f8eaf6522c9d14d0074b0b4e16f"
+        },
+        {
+          "name": "wake",
+          "outcomes": "passed",
+          "nodes": 3,
+          "captureFps": 28.615941219550002,
+          "repeatedFrames": 18,
+          "droppedFrames": 2,
+          "encoder": "h264_nvenc",
+          "movieSha256": "96d9c6f29d9f6df544767d81c1096c97571d3d150c83d85a5eb2d93331cf0083"
+        },
+        {
+          "name": "arrogant",
+          "outcomes": "passed",
+          "nodes": 4,
+          "captureFps": 29.41498232331379,
+          "repeatedFrames": 5,
+          "droppedFrames": 0,
+          "encoder": "h264_nvenc",
+          "movieSha256": "92749ff4fed9753e17e8a1c91682864c1f791b5650c5d6d523bf62d52e4b6869"
+        },
+        {
+          "name": "relay",
+          "outcomes": "passed",
+          "nodes": 4,
+          "captureFps": 29.040824056995252,
+          "repeatedFrames": 8,
+          "droppedFrames": 0,
+          "encoder": "h264_nvenc",
+          "movieSha256": "b253494b8c25686cf4e95b2a9d8e7f9cb3b1280324e872b868ed82837a0fe333"
+        }
+      ],
+      "handChecks": 35,
+      "windowMonitor": {
+        "samples": 9518,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 71
+      },
+      "logDiagnostics": []
+    }
+  ],
+  "regressions": [
+    {
+      "branch": "stable",
+      "cases": [
+        "fast",
+        "instant",
+        "pose",
+        "reverse",
+        "pre-hit",
+        "cancel-impact",
+        "replay",
+        "overlap",
+        "polish-check-fast-karen_arrogant",
+        "polish-check-fast-karen_fight_relay",
+        "polish-check-instant-karen_arrogant",
+        "polish-check-instant-karen_fight_relay",
+        "lethal-and-next-room"
+      ],
+      "package": "first-presentation-pass",
+      "note": "Stable regression was before final foil opacity/size tuning; final Stable ordinary/upgraded and all final Beta cases were rerun. Motion/lifetimes/callbacks are unchanged by that last tuning."
+    },
+    {
+      "branch": "beta",
+      "cases": [
+        "fast",
+        "instant",
+        "pose",
+        "reverse",
+        "pre-hit",
+        "cancel-impact",
+        "replay",
+        "overlap",
+        "polish-check-fast-karen_arrogant",
+        "polish-check-fast-karen_fight_relay",
+        "polish-check-instant-karen_arrogant",
+        "polish-check-instant-karen_fight_relay",
+        "lethal-and-next-room"
+      ],
+      "package": "final-package",
+      "note": "Stable regression was before final foil opacity/size tuning; final Stable ordinary/upgraded and all final Beta cases were rerun. Motion/lifetimes/callbacks are unchanged by that last tuning."
+    }
+  ],
+  "upgradedWakeTwoStages": [
+    {
+      "version": "before",
+      "branch": "stable",
+      "passed": true,
+      "sourceOptions": 3,
+      "candidates": 3,
+      "handChecks": 4,
+      "showingCurtains": [
+        0,
+        1
+      ],
+      "captureFps": 29.487821557632532,
+      "captureBuild": {
+        "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+        "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+      },
+      "movieSha256": "e118f443ddf1d172f60258d9b79168ce8d7ac65a808e823609f003d859048d3b"
+    },
+    {
+      "version": "after",
+      "branch": "stable",
+      "passed": true,
+      "sourceOptions": 3,
+      "candidates": 3,
+      "handChecks": 4,
+      "showingCurtains": [
+        0,
+        1
+      ],
+      "captureFps": 28.72737144950922,
+      "captureBuild": {
+        "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+        "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+      },
+      "movieSha256": "db548e5d4efea8c06f77621017f6b90631def97a8a27ac194ff89fe8d5cf22f4"
+    },
+    {
+      "version": "after",
+      "branch": "beta",
+      "passed": true,
+      "sourceOptions": 3,
+      "candidates": 3,
+      "handChecks": 4,
+      "showingCurtains": [
+        0,
+        1
+      ],
+      "captureFps": 28.06133178832885,
+      "captureBuild": {
+        "assemblySha256": "947a1be9475a35422fd0a01d6390c07411fb32a447c6019c94c3828eaf7119bf",
+        "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+      },
+      "movieSha256": "e3738f6b63368bb421d1c882dedca93e92ec8a944d4e91f323a2e50511928851"
+    }
+  ],
+  "mahiruTvRevision": [
+    {
+      "branch": "stable",
+      "passed": true,
+      "modes": [
+        "fast",
+        "instant",
+        "pose",
+        "reverse",
+        "pre-hit",
+        "cancel-impact",
+        "replay",
+        "overlap"
+      ],
+      "lethalAndNextRoom": true,
+      "handChecks": 15,
+      "captureBuild": {
+        "assemblySha256": "90dbdb3f16f77e3435c1e5c35dd707714363c1806abc377dd8533fdcbb6b6039",
+        "packSha256": "32cc982e2fdd0ea20c5794e40ccf8ea98a4cc55c49ffa03ba73d7d07073f32ca"
+      },
+      "captureFps": 27.990538736207554,
+      "repeatedFrames": 14,
+      "droppedFrames": 0,
+      "movieSha256": "6ba2f20dffaac7f73ef005e2c8ad82e66a424b134e41f5be90f825cb391c37e8",
+      "logDiagnostics": []
+    },
+    {
+      "branch": "beta",
+      "passed": true,
+      "modes": [
+        "fast",
+        "instant",
+        "reverse",
+        "replay"
+      ],
+      "lethalAndNextRoom": true,
+      "handChecks": 11,
+      "captureBuild": {
+        "assemblySha256": "c095b5d42e4c75d9b36c06b406b1db91b5b0c56a1f9490adbecf09ed3e8f4f30",
+        "packSha256": "32cc982e2fdd0ea20c5794e40ccf8ea98a4cc55c49ffa03ba73d7d07073f32ca"
+      },
+      "captureFps": 28.540498663831343,
+      "repeatedFrames": 11,
+      "droppedFrames": 0,
+      "movieSha256": "c6a45c11821e18e5bd31b0a784a79b26c72daa22f009ba5f03de185d95037c79",
+      "logDiagnostics": []
+    }
+  ],
+  "synchronizedMain": [
+    {
+      "branch": "stable",
+      "main": "04ed9bd75ae041afc0307740f1f6cf4fda817d72",
+      "captureBuild": {
+        "assemblySha256": "beadf63cbe9152ad9da10f30a97e6bacef5ff0456f52bc30d66b47fee86153ef",
+        "packSha256": "a67050e8f6a9b98924511e042e68d1d93c7f59a2297faeb857bacb4ae083a561"
+      },
+      "scenes": [
+        {
+          "name": "jealousy",
+          "passed": true,
+          "captureFps": 28.77148275460113,
+          "movieSha256": "1879e2ac335cbfb335ee669ef179dc34799d324b4402e5d659ed82a162f8c771"
+        },
+        {
+          "name": "wake",
+          "passed": true,
+          "captureFps": 28.475045594533196,
+          "movieSha256": "37faa9b3b9ff3722148998f41bec32b2da854599ba0bb6b4129aa02000a6ef5c"
+        },
+        {
+          "name": "arrogant",
+          "passed": true,
+          "captureFps": 29.018901958873954,
+          "movieSha256": "41d953e8ab090bd3f947c6bc090cbae8b0b34c37e534fdb2320c48d7e8f0ae3f"
+        },
+        {
+          "name": "relay",
+          "passed": true,
+          "captureFps": 27.514891052293656,
+          "movieSha256": "bd3f86aee270b0e21ada6a7f82d16b82e331de910637bc652f360abd3a165767"
+        }
+      ],
+      "handChecks": 16,
+      "logDiagnostics": []
+    },
+    {
+      "branch": "beta",
+      "main": "04ed9bd75ae041afc0307740f1f6cf4fda817d72",
+      "captureBuild": {
+        "assemblySha256": "0a0158a6cb8ef52497c455fb332a262fc066770e83a4e1088020f87180f2775d",
+        "packSha256": "a67050e8f6a9b98924511e042e68d1d93c7f59a2297faeb857bacb4ae083a561"
+      },
+      "scenes": [
+        {
+          "name": "jealousy",
+          "passed": true,
+          "captureFps": 27.496886084504112,
+          "movieSha256": "1a1d9787bb42ed2db5e328f8808ae502bfa1bf71543c729619c850c96b6b90e3"
+        },
+        {
+          "name": "wake",
+          "passed": true,
+          "captureFps": 27.92165159261938,
+          "movieSha256": "23044763efbdb317d6569c3d94f6388888c18b07efcc6889234f67c44a636916"
+        },
+        {
+          "name": "arrogant",
+          "passed": true,
+          "captureFps": 28.455678770285157,
+          "movieSha256": "e5236c8910186c5d2b41eb8ceaa497a968d6e1290673968154a2446998f982cf"
+        },
+        {
+          "name": "relay",
+          "passed": true,
+          "captureFps": 28.371983563326317,
+          "movieSha256": "b841ef3707d921f238ab232901720bce60ca534de2d2c8204dc005897b767012"
+        }
+      ],
+      "handChecks": 16,
+      "logDiagnostics": []
+    }
+  ]
+}

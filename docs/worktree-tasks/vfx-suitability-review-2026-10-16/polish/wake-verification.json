@@ -1,0 +1,623 @@
+{
+  "scope": "Additional final-package native Wake Up targeted tests, without recording.",
+  "runs": [
+    {
+      "branch": "stable",
+      "build": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+      "cases": [
+        {
+          "case": "controls",
+          "passed": true,
+          "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+          "effects": 2,
+          "metrics": {
+            "live": 0,
+            "liveCurtains": 0,
+            "showingCurtains": 0,
+            "selected": 0,
+            "curtains": [
+              {
+                "Frames": 199,
+                "PeakSelected": 1,
+                "Targets": 2,
+                "Shown": true,
+                "BelowCards": true,
+                "InputIgnored": true,
+                "Gathered": true,
+                "Freed": true
+              }
+            ],
+            "effects": [
+              {
+                "card": "KAREN_DEFEND",
+                "Frames": 76,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 513.7157
+              },
+              {
+                "card": "KAREN_FALL",
+                "Frames": 76,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 769.93494
+              }
+            ]
+          }
+        },
+        {
+          "case": "void",
+          "passed": true,
+          "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+          "effects": 2,
+          "metrics": {
+            "live": 0,
+            "liveCurtains": 0,
+            "showingCurtains": 0,
+            "selected": 0,
+            "curtains": [
+              {
+                "Frames": 103,
+                "PeakSelected": 1,
+                "Targets": 2,
+                "Shown": true,
+                "BelowCards": true,
+                "InputIgnored": true,
+                "Gathered": true,
+                "Freed": true
+              }
+            ],
+            "effects": [
+              {
+                "card": "KAREN_DEFEND",
+                "Frames": 59,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 0
+              },
+              {
+                "card": "KAREN_FALL",
+                "Frames": 76,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 44.792736
+              }
+            ]
+          }
+        },
+        {
+          "case": "full",
+          "passed": true,
+          "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+          "effects": 1,
+          "metrics": {
+            "live": 0,
+            "liveCurtains": 0,
+            "showingCurtains": 0,
+            "selected": 0,
+            "curtains": [
+              {
+                "Frames": 104,
+                "PeakSelected": 1,
+                "Targets": 2,
+                "Shown": true,
+                "BelowCards": true,
+                "InputIgnored": true,
+                "Gathered": true,
+                "Freed": true
+              }
+            ],
+            "effects": [
+              {
+                "card": "KAREN_DEFEND",
+                "Frames": 74,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 28.610392
+              },
+              {
+                "card": "KAREN_FALL",
+                "Frames": 104,
+                "Started": false,
+                "Landed": false,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 0,
+                "MaxSparks": 0,
+                "FrameBound": false,
+                "FiniteMesh": true,
+                "Distance": 0
+              }
+            ]
+          }
+        },
+        {
+          "case": "instant",
+          "passed": true,
+          "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+          "effects": 2,
+          "metrics": {
+            "live": 0,
+            "liveCurtains": 0,
+            "showingCurtains": 0,
+            "selected": 0,
+            "curtains": [
+              {
+                "Frames": 125,
+                "PeakSelected": 1,
+                "Targets": 2,
+                "Shown": true,
+                "BelowCards": true,
+                "InputIgnored": true,
+                "Gathered": true,
+                "Freed": true
+              }
+            ],
+            "effects": [
+              {
+                "card": "KAREN_DEFEND",
+                "Frames": 86,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 575.3601
+              },
+              {
+                "card": "KAREN_FALL",
+                "Frames": 89,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 4,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 789.8017
+              }
+            ]
+          }
+        },
+        {
+          "case": "cancel",
+          "passed": true,
+          "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+          "effects": 2,
+          "metrics": {
+            "live": 0,
+            "liveCurtains": 0,
+            "showingCurtains": 0,
+            "selected": 0,
+            "curtains": [
+              {
+                "Frames": 54,
+                "PeakSelected": 0,
+                "Targets": 0,
+                "Shown": true,
+                "BelowCards": true,
+                "InputIgnored": true,
+                "Gathered": false,
+                "Freed": true
+              }
+            ],
+            "effects": [
+              {
+                "card": "KAREN_DEFEND",
+                "Frames": 84,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 575.7654
+              },
+              {
+                "card": "KAREN_FALL",
+                "Frames": 88,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 862.95135
+              }
+            ]
+          }
+        }
+      ],
+      "handChecks": [
+        {
+          "path": "cancel\\after-hand.json",
+          "count": 5
+        },
+        {
+          "path": "cancel\\before-hand.json",
+          "count": 4
+        },
+        {
+          "path": "controls\\after-hand.json",
+          "count": 5
+        },
+        {
+          "path": "controls\\before-hand.json",
+          "count": 4
+        },
+        {
+          "path": "full\\after-hand.json",
+          "count": 10
+        },
+        {
+          "path": "full\\before-hand.json",
+          "count": 10
+        },
+        {
+          "path": "instant\\after-hand.json",
+          "count": 5
+        },
+        {
+          "path": "instant\\before-hand.json",
+          "count": 4
+        },
+        {
+          "path": "void\\after-hand.json",
+          "count": 5
+        },
+        {
+          "path": "void\\before-hand.json",
+          "count": 4
+        }
+      ],
+      "logDiagnostics": []
+    },
+    {
+      "branch": "beta",
+      "build": "947a1be9475a35422fd0a01d6390c07411fb32a447c6019c94c3828eaf7119bf",
+      "cases": [
+        {
+          "case": "controls",
+          "passed": true,
+          "assemblySha256": "947a1be9475a35422fd0a01d6390c07411fb32a447c6019c94c3828eaf7119bf",
+          "effects": 2,
+          "metrics": {
+            "live": 0,
+            "liveCurtains": 0,
+            "showingCurtains": 0,
+            "selected": 0,
+            "curtains": [
+              {
+                "Frames": 201,
+                "PeakSelected": 1,
+                "Targets": 2,
+                "Shown": true,
+                "BelowCards": true,
+                "InputIgnored": true,
+                "Gathered": true,
+                "Freed": true
+              }
+            ],
+            "effects": [
+              {
+                "card": "KAREN_DEFEND",
+                "Frames": 84,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 20,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 498.40866
+              },
+              {
+                "card": "KAREN_FALL",
+                "Frames": 87,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 20,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 730.2419
+              }
+            ]
+          }
+        },
+        {
+          "case": "void",
+          "passed": true,
+          "assemblySha256": "947a1be9475a35422fd0a01d6390c07411fb32a447c6019c94c3828eaf7119bf",
+          "effects": 2,
+          "metrics": {
+            "live": 0,
+            "liveCurtains": 0,
+            "showingCurtains": 0,
+            "selected": 0,
+            "curtains": [
+              {
+                "Frames": 108,
+                "PeakSelected": 1,
+                "Targets": 2,
+                "Shown": true,
+                "BelowCards": true,
+                "InputIgnored": true,
+                "Gathered": true,
+                "Freed": true
+              }
+            ],
+            "effects": [
+              {
+                "card": "KAREN_DEFEND",
+                "Frames": 61,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 0
+              },
+              {
+                "card": "KAREN_FALL",
+                "Frames": 68,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 11.8131895
+              }
+            ]
+          }
+        },
+        {
+          "case": "full",
+          "passed": true,
+          "assemblySha256": "947a1be9475a35422fd0a01d6390c07411fb32a447c6019c94c3828eaf7119bf",
+          "effects": 1,
+          "metrics": {
+            "live": 0,
+            "liveCurtains": 0,
+            "showingCurtains": 0,
+            "selected": 0,
+            "curtains": [
+              {
+                "Frames": 114,
+                "PeakSelected": 1,
+                "Targets": 2,
+                "Shown": true,
+                "BelowCards": true,
+                "InputIgnored": true,
+                "Gathered": true,
+                "Freed": true
+              }
+            ],
+            "effects": [
+              {
+                "card": "KAREN_DEFEND",
+                "Frames": 90,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 4,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 946.6549
+              },
+              {
+                "card": "KAREN_FALL",
+                "Frames": 112,
+                "Started": false,
+                "Landed": false,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 0,
+                "MaxSparks": 0,
+                "FrameBound": false,
+                "FiniteMesh": true,
+                "Distance": 0
+              }
+            ]
+          }
+        },
+        {
+          "case": "instant",
+          "passed": true,
+          "assemblySha256": "947a1be9475a35422fd0a01d6390c07411fb32a447c6019c94c3828eaf7119bf",
+          "effects": 2,
+          "metrics": {
+            "live": 0,
+            "liveCurtains": 0,
+            "showingCurtains": 0,
+            "selected": 0,
+            "curtains": [
+              {
+                "Frames": 105,
+                "PeakSelected": 1,
+                "Targets": 2,
+                "Shown": true,
+                "BelowCards": true,
+                "InputIgnored": true,
+                "Gathered": true,
+                "Freed": true
+              }
+            ],
+            "effects": [
+              {
+                "card": "KAREN_DEFEND",
+                "Frames": 63,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 0
+              },
+              {
+                "card": "KAREN_FALL",
+                "Frames": 76,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 48.69709
+              }
+            ]
+          }
+        },
+        {
+          "case": "cancel",
+          "passed": true,
+          "assemblySha256": "947a1be9475a35422fd0a01d6390c07411fb32a447c6019c94c3828eaf7119bf",
+          "effects": 2,
+          "metrics": {
+            "live": 0,
+            "liveCurtains": 0,
+            "showingCurtains": 0,
+            "selected": 0,
+            "curtains": [
+              {
+                "Frames": 51,
+                "PeakSelected": 0,
+                "Targets": 0,
+                "Shown": true,
+                "BelowCards": true,
+                "InputIgnored": true,
+                "Gathered": false,
+                "Freed": true
+              }
+            ],
+            "effects": [
+              {
+                "card": "KAREN_DEFEND",
+                "Frames": 76,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 571.2823
+              },
+              {
+                "card": "KAREN_FALL",
+                "Frames": 76,
+                "Started": true,
+                "Landed": true,
+                "Freed": true,
+                "WrongCard": false,
+                "MaxTrail": 19,
+                "MaxSparks": 5,
+                "FrameBound": true,
+                "FiniteMesh": true,
+                "Distance": 856.2322
+              }
+            ]
+          }
+        }
+      ],
+      "handChecks": [
+        {
+          "path": "cancel\\after-hand.json",
+          "count": 5
+        },
+        {
+          "path": "cancel\\before-hand.json",
+          "count": 4
+        },
+        {
+          "path": "controls\\after-hand.json",
+          "count": 5
+        },
+        {
+          "path": "controls\\before-hand.json",
+          "count": 4
+        },
+        {
+          "path": "full\\after-hand.json",
+          "count": 10
+        },
+        {
+          "path": "full\\before-hand.json",
+          "count": 10
+        },
+        {
+          "path": "instant\\after-hand.json",
+          "count": 5
+        },
+        {
+          "path": "instant\\before-hand.json",
+          "count": 4
+        },
+        {
+          "path": "void\\after-hand.json",
+          "count": 5
+        },
+        {
+          "path": "void\\before-hand.json",
+          "count": 4
+        }
+      ],
+      "logDiagnostics": []
+    }
+  ]
+}

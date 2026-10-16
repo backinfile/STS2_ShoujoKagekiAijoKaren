@@ -1,0 +1,22 @@
+{
+  "damage": 15,
+  "relicRewards": 1,
+  "powers": [
+    {
+      "id": "KAREN_PROMISE_PILE_POWER",
+      "name": "约定牌堆",
+      "amount": 1,
+      "type": "Buff",
+      "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+      "keywords": []
+    },
+    {
+      "id": "KAREN_PASSION_POWER",
+      "name": "激情",
+      "amount": 1,
+      "type": "Buff",
+      "description": "战斗结束后，额外获得1个随机遗物。",
+      "keywords": []
+    }
+  ]
+}

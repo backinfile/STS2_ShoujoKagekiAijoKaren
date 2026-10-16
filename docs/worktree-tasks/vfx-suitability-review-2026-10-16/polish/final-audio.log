@@ -1,0 +1,103 @@
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'artifacts/vfx-suitability-polish/comparison/Karen-VFX-before-after.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    title           : Karen 特效审查调整 · 修改前后对比
+    encoder         : Lavf62.12.100
+  Duration: 00:00:32.62, start: 0.000000, bitrate: 3586 kb/s
+  Chapters:
+    Chapter #0:0: start 0.000000, end 2.969000
+      Metadata:
+        title           : 01 嫉妒
+    Chapter #0:1: start 2.969000, end 7.081000
+      Metadata:
+        title           : 02 嫉妒
+    Chapter #0:2: start 7.081000, end 13.284000
+      Metadata:
+        title           : 03 唤醒
+    Chapter #0:3: start 13.284000, end 14.017000
+      Metadata:
+        title           : 04 唤醒
+    Chapter #0:4: start 14.017000, end 18.224000
+      Metadata:
+        title           : 05 唤醒
+    Chapter #0:5: start 18.224000, end 21.333000
+      Metadata:
+        title           : 06 骄傲
+    Chapter #0:6: start 21.333000, end 25.403000
+      Metadata:
+        title           : 07 骄傲
+    Chapter #0:7: start 25.403000, end 28.544000
+      Metadata:
+        title           : 08 接力耗尽
+    Chapter #0:8: start 28.544000, end 32.583000
+      Metadata:
+        title           : 09 接力耗尽
+  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1920x660 [SAR 1:1 DAR 32:11], 3389 kb/s, 29.96 fps, 30 tbr, 15360 tbn, start 0.021029 (default)
+    Metadata:
+      handler_name    : VideoHandler
+      encoder         : Lavc62.28.100 libx264
+  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 191 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+  Stream #0:2[0x3](eng): Data: bin_data (text / 0x74786574), 0 kb/s
+    Metadata:
+      handler_name    : SubtitleHandler
+[Parsed_volumedetect_0 @ 000001e1e7400a00] n_samples: 0
+Stream mapping:
+  Stream #0:1 -> #0:0 (aac (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'NUL':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    title           : Karen 特效审查调整 · 修改前后对比
+    encoder         : Lavf62.12.100
+  Chapters:
+    Chapter #0:0: start 0.000000, end 2.969000
+      Metadata:
+        title           : 01 嫉妒
+    Chapter #0:1: start 2.969000, end 7.081000
+      Metadata:
+        title           : 02 嫉妒
+    Chapter #0:2: start 7.081000, end 13.284000
+      Metadata:
+        title           : 03 唤醒
+    Chapter #0:3: start 13.284000, end 14.017000
+      Metadata:
+        title           : 04 唤醒
+    Chapter #0:4: start 14.017000, end 18.224000
+      Metadata:
+        title           : 05 唤醒
+    Chapter #0:5: start 18.224000, end 21.333000
+      Metadata:
+        title           : 06 骄傲
+    Chapter #0:6: start 21.333000, end 25.403000
+      Metadata:
+        title           : 07 骄傲
+    Chapter #0:7: start 25.403000, end 28.544000
+      Metadata:
+        title           : 08 接力耗尽
+    Chapter #0:8: start 28.544000, end 32.583000
+      Metadata:
+        title           : 09 接力耗尽
+  Stream #0:0(und): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+    Metadata:
+      encoder         : Lavc62.28.100 pcm_s16le
+      handler_name    : SoundHandler
+[Parsed_volumedetect_0 @ 000001e1e5366940] n_samples: 3137536
+[Parsed_volumedetect_0 @ 000001e1e5366940] mean_volume: -33.2 dB
+[Parsed_volumedetect_0 @ 000001e1e5366940] max_volume: -4.2 dB
+[Parsed_volumedetect_0 @ 000001e1e5366940] histogram_4db: 11
+[Parsed_volumedetect_0 @ 000001e1e5366940] histogram_5db: 13
+[Parsed_volumedetect_0 @ 000001e1e5366940] histogram_6db: 13
+[Parsed_volumedetect_0 @ 000001e1e5366940] histogram_7db: 30
+[Parsed_volumedetect_0 @ 000001e1e5366940] histogram_8db: 172
+[Parsed_volumedetect_0 @ 000001e1e5366940] histogram_9db: 441
+[Parsed_volumedetect_0 @ 000001e1e5366940] histogram_10db: 910
+[Parsed_volumedetect_0 @ 000001e1e5366940] histogram_11db: 1183
+[Parsed_volumedetect_0 @ 000001e1e5366940] histogram_12db: 1426
+[out#0/null @ 000001e1e7025340] video:0KiB audio:6128KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+size=N/A time=00:00:32.61 bitrate=N/A speed=1.03e+03x elapsed=0:00:00.03

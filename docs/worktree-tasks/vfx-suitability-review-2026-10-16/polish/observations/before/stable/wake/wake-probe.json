@@ -1,0 +1,46 @@
+{
+  "live": 0,
+  "liveCurtains": 0,
+  "showingCurtains": 0,
+  "selected": 0,
+  "curtains": [
+    {
+      "Frames": 305,
+      "PeakSelected": 1,
+      "Targets": 2,
+      "Shown": true,
+      "BelowCards": true,
+      "InputIgnored": true,
+      "Gathered": true,
+      "Freed": true
+    }
+  ],
+  "effects": [
+    {
+      "card": "KAREN_DEFEND",
+      "Frames": 44,
+      "Started": true,
+      "Landed": true,
+      "Freed": true,
+      "WrongCard": false,
+      "MaxTrail": 12,
+      "MaxSparks": 4,
+      "FrameBound": true,
+      "FiniteMesh": true,
+      "Distance": 49.087852
+    },
+    {
+      "card": "KAREN_FALL",
+      "Frames": 47,
+      "Started": true,
+      "Landed": true,
+      "Freed": true,
+      "WrongCard": false,
+      "MaxTrail": 12,
+      "MaxSparks": 4,
+      "FrameBound": true,
+      "FiniteMesh": true,
+      "Distance": 88.90964
+    }
+  ]
+}

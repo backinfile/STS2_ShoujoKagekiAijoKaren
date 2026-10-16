@@ -1,0 +1,10 @@
+{
+  "previousTask": "docs/worktree-tasks/jealousy-vfx/README.md",
+  "previousWorktree": "../worktrees/STS2_ShoujoKagekiAijoKaren/jealousy-vfx (no longer registered)",
+  "archivedImage": "artifacts/jealousy-reference-v3/ep05-end.png",
+  "imageSha256": "c0176380b9ded2f9bdd8a0eaaa41d154a97999f8b5a83ac36516dea6902d35cd",
+  "originalSource": "https://cdn-ak.f.st-hatena.com/images/fotolife/m/mamiya7/20180815/20180815172924.png",
+  "sourceRecord": "docs/design/rare-vfx/jealousy-source-selection.md",
+  "observed": "Pastel pink/white, pale yellow/gold, mint and lavender luminous faces; side-on thin pieces and small corner glints. Static TV frame, not motion timing evidence.",
+  "use": "Visual analysis only; TV image is not a runtime asset or distributed in the Mod."
+}

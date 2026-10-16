@@ -18,7 +18,7 @@ using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
-/// <summary>A detached cloak clasp, the cost of vulnerability, then an earned reward seal.
+/// <summary>A local cloak-clasp flourish and vulnerability cost; the shared Passion cue confirms the reward.
 /// All coordinates follow this owner; no rule state, shared materials or global time are changed.</summary>
 public partial class NKarenArrogantVfx : Node2D
 {
@@ -33,7 +33,6 @@ public partial class NKarenArrogantVfx : Node2D
     private Vector2 _body, _foot, _button, _destination;
     private NPower? _rewardIcon;
     private float _age, _unit, _speed = 1, _costAt = -1, _rewardAt = -1;
-    private bool _arrived;
     private static readonly Color Gold = new("#ffd482"), Ivory = new("#fff4d8"), Red = new("#e84258");
     public bool RewardConfirmed => _rewardAt >= 0;
     public bool CostConfirmed => _costAt >= 0;
@@ -42,9 +41,9 @@ public partial class NKarenArrogantVfx : Node2D
 
     private static bool Enabled => !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     private bool Alive => GodotObject.IsInstanceValid(this) && IsInsideTree() && !IsQueuedForDeletion();
-    private float ArrivalAt => Mathf.Max(.64f, _rewardAt);
-    private float Flight => RewardConfirmed ? P(_age, ArrivalAt, ArrivalAt + .48f) : 0;
-    private float Alpha => P(_age, 0, .10f) * (RewardConfirmed ? 1 - P(_age, ArrivalAt + .60f, ArrivalAt + .88f) : 1);
+    private float ArrivalAt => Mathf.Max(.45f, _rewardAt);
+    private float Flight => RewardConfirmed ? P(_age, ArrivalAt, ArrivalAt + .40f) : 0;
+    private float Alpha => P(_age, 0, .10f) * (RewardConfirmed ? 1 - P(_age, ArrivalAt + .12f, ArrivalAt + .48f) : 1);
 
     public static NKarenArrogantVfx? Play(Player owner)
     {
@@ -94,13 +93,9 @@ public partial class NKarenArrogantVfx : Node2D
             || !CombatManager.Instance.IsInProgress || _owner.Creature.IsDead)
         { Abort(); return; }
         _age += (float)delta / _speed;
-        if (_age > 4 || (RewardConfirmed && _age > ArrivalAt + .88f)) { Abort(); return; }
+        if (_age > 4 || (RewardConfirmed && _age > ArrivalAt + .48f)) { Abort(); return; }
         Place();
-        if (!_arrived && RewardConfirmed && Flight >= 1)
-        {
-            _arrived = true;
-            Sound("karen_benefit_bloom.wav", .18f, 1.25f);
-        }
+
         KarenVfxComposition.SetCueStrength(this, Alpha);
         QueueRedraw(); _back.QueueRedraw(); _light.QueueRedraw();
     }
@@ -130,9 +125,9 @@ public partial class NKarenArrogantVfx : Node2D
     {
         if (_clasp == null) return;
         float flight = Flight;
-        float alpha = P(_age, 0, .12f) * (1 - P(flight, .82f, 1));
+        float alpha = Alpha * (1 - P(flight, .72f, 1));
         Vector2 center = FlightPoint(flight);
-        float diameter = Mathf.Lerp(68, 112, Ease(P(_age, 0, .45f))) * Mathf.Lerp(1, .06f, flight * flight) * _unit;
+        float diameter = Mathf.Lerp(68, 112, Ease(P(_age, 0, .45f))) * Mathf.Lerp(1, .72f, flight * flight) * _unit;
         float flip = Mathf.Lerp(.28f, 1f, Mathf.Abs(Mathf.Cos(_age * 7.2f)));
         DrawSetTransform(center, -.20f + .35f * Mathf.Sin(_age * 4), new Vector2(flip, 1));
         DrawTextureRect(_clasp, new Rect2(-Vector2.One * diameter * .5f, Vector2.One * diameter), false, new Color(1, 1, 1, alpha));
@@ -140,15 +135,12 @@ public partial class NKarenArrogantVfx : Node2D
         DrawCloth(-1); DrawCloth(1);
     }
 
-    private Vector2 FlightPoint(float progress)
-    {
-        float u = progress * progress * (3 - 2 * progress);
-        return _button.Lerp(_destination, u) + new Vector2(52 * Mathf.Sin(u * Mathf.Pi), -32 * Mathf.Sin(u * Mathf.Pi)) * _unit;
-    }
+    // The clasp settles locally; only NKarenPassionVfx travels to the reward badge.
+    private Vector2 FlightPoint(float progress) => _button + Vector2.Up * (12 * progress * _unit);
 
     private void DrawStage()
     {
-        float a = Window(_age, 0, .95f, .14f, .40f) * KarenVfxComposition.EventWeight(_owner.Creature, this);
+        float a = Window(_age, 0, .95f, .14f, .40f) * Alpha * KarenVfxComposition.EventWeight(_owner.Creature, this);
         if (a <= 0) return;
         for (int side = -1; side <= 1; side += 2)
         {
@@ -207,22 +199,7 @@ public partial class NKarenArrogantVfx : Node2D
             Vector2 point = _body + new Vector2(50, -65) * _unit + Vector2.FromAngle(theta) * (18 + t * 95) * _unit + Vector2.Down * t * t * 35 * _unit;
             Star(_light, point, (2 + i % 3) * _unit, Gold, Mathf.Sin(t * Mathf.Pi) * .6f * (1 - flight));
         }
-        if (RewardConfirmed && flight > 0)
-        {
-            for (int i = 0; i < 20; i++)
-            {
-                float u = flight - i * .016f;
-                if (u < 0) break;
-                Soft(_light, FlightPoint(u), Vector2.One * (13 - i * .45f) * _unit, Gold, (1 - i / 20f) * a * .4f);
-            }
-            Star(_light, center, 10 * _unit, Ivory, a);
-            float arrival = P(_age, ArrivalAt + .48f, ArrivalAt + .84f);
-            if (flight >= 1)
-            {
-                _light.DrawArc(_destination, (10 + 24 * arrival) * _unit, 0, Mathf.Tau, 48, new Color(Gold, (1 - arrival) * .7f), 1.6f * _unit, true);
-                Soft(_light, _destination, Vector2.One * 70 * _unit, Gold, (1 - arrival) * .5f);
-            }
-        }
+
     }
 
     private static void Soft(Node2D node, Vector2 center, Vector2 size, Color color, float alpha)

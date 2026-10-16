@@ -1,0 +1,6 @@
+{
+  "status": "ok",
+  "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_FIGHT_RELAY\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_FIGHT_RELAY\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+  "command": "karen_check_hand",
+  "async": false
+}

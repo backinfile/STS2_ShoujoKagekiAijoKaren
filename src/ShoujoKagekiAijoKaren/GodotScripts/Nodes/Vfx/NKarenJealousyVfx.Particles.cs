@@ -50,9 +50,10 @@ public partial class NKarenJealousyVfx
         ScaleAmountMin = (glint ? .22f : .5f) * _unit,
         ScaleAmountMax = (glint ? .65f : 1.5f) * _unit,
         ColorInitialRamp = new Gradient { Offsets = [0, .27f, .45f, .65f, .85f, 1],
+            // TV episode 5 Mahiru: distinct mint, pale gold, pink and lavender faces.
             Colors = [new("#9beac5"), new("#cbfff0"), new("#ffe18c"), new("#ffa7d6"), new("#d0b4ff"), new("#fff1bc")] },
-        ColorRamp = new Gradient { Offsets = [0, .045f, .48f, 1],
-            Colors = [new(1, 1, 1, .2f), Colors.White, Colors.White, Colors.Transparent] }
+        ColorRamp = new Gradient { Offsets = [0, .035f, .40f, .82f, 1],
+            Colors = [new(1, 1, 1, .2f), Colors.White, new(1, 1, 1, .95f), new(1, 1, 1, .55f), Colors.Transparent] }
     };
 
     private void UpdateParticles()

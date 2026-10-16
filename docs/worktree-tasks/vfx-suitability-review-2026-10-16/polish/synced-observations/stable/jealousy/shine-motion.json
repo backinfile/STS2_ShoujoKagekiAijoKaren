@@ -1,0 +1,37 @@
+{
+  "detachedSparkFrames": 1288,
+  "maxRigidDifference": 298.58377,
+  "maxSparks": 13,
+  "floorFrames": 0,
+  "maxFloorY": 0,
+  "maxFloorOffset": 0,
+  "viewportHeight": 0,
+  "liveDepletes": 0,
+  "liveArrivals": 0,
+  "pileVisualRestoreError": 0,
+  "pileIconScale": [
+    1,
+    1
+  ],
+  "pileIconRotation": 0,
+  "counter": {
+    "model": 16,
+    "displayed": 16,
+    "target": 16,
+    "pending": 0,
+    "animating": false,
+    "scale": 1,
+    "earlyFrames": 0,
+    "heldFrames": 0,
+    "changes": [
+      {
+        "time": 0.005,
+        "count": 16,
+        "model": 16,
+        "arrivals": 0
+      }
+    ]
+  },
+  "arrivals": [],
+  "depletes": []
+}

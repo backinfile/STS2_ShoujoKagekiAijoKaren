@@ -1,0 +1,310 @@
+{
+  "live": 0,
+  "peaks": {
+    "NKarenWakeUpSelectionVfx": 1,
+    "NKarenWakeUpCardVfx": 2
+  },
+  "nodes": [
+    {
+      "type": "NKarenWakeUpSelectionVfx",
+      "frames": 721,
+      "exited": true
+    },
+    {
+      "type": "NKarenWakeUpCardVfx",
+      "frames": 104,
+      "exited": true
+    },
+    {
+      "type": "NKarenWakeUpCardVfx",
+      "frames": 107,
+      "exited": true
+    }
+  ],
+  "curtains": [
+    {
+      "time": 6.681999999999995,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.75063473,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 6.882999999999996,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 7.086999999999996,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 7.286999999999999,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 7.509,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 7.711999999999996,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 7.918999999999997,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 8.122999999999998,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 8.326999999999998,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 8.54,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 8.762,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 8.974999999999994,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 9.177999999999997,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 9.378999999999998,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 9.588999999999999,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 9.815999999999995,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 10.016999999999996,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 10.216999999999999,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 10.436999999999998,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 10.644999999999996,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 10.851999999999997,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 11.053999999999995,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 11.271,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 11.471999999999994,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 11.686,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 11.891999999999996,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 12.096999999999994,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 12.308999999999997,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 12.518,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 12.720999999999997,
+      "showing": true,
+      "selected": 1,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 12.931999999999995,
+      "showing": true,
+      "selected": 1,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 13.140999999999998,
+      "showing": true,
+      "selected": 1,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": null
+    },
+    {
+      "time": 13.358999999999995,
+      "showing": true,
+      "selected": 1,
+      "strength": 1,
+      "closing": 0.030303434,
+      "flowAge": null
+    },
+    {
+      "time": 13.564999999999998,
+      "showing": true,
+      "selected": 1,
+      "strength": 1,
+      "closing": 0.48542976,
+      "flowAge": null
+    },
+    {
+      "time": 13.775999999999996,
+      "showing": true,
+      "selected": 1,
+      "strength": 0.32986778,
+      "closing": 0.86541605,
+      "flowAge": null
+    }
+  ],
+  "passion": 0,
+  "vulnerable": 0,
+  "relicRewards": 0,
+  "back": 0
+}

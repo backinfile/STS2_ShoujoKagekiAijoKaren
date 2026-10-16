@@ -1,6 +1,8 @@
 shader_type canvas_item;
 render_mode unshaded, blend_add;
 uniform float age = 0.0;
+uniform float flow_age = 0.0;
+uniform float motion_amount = 1.0;
 uniform float strength = 0.0;
 uniform float closing = 0.0;
 uniform vec2 gather_a = vec2(0.4, 0.3);
@@ -16,10 +18,10 @@ vec3 silk(vec2 p) {
     valid *= mix(1.0, border, smoothstep(0.0, 0.15, closing));
     // Travelling waves bend the painted folds, not just their opacity.
     vec2 uv = p;
-    uv.x += sin(p.y * 8.0 - age * 1.65) * 0.034 + sin(p.y * 18.0 + age * 2.1) * 0.014;
-    uv.y += sin(p.x * 7.5 + age * 1.35) * 0.044 + sin(p.x * 16.0 - age * 1.8) * 0.018;
+    uv.x += (sin(p.y * 8.0 - flow_age * 1.65) * 0.034 + sin(p.y * 18.0 + flow_age * 2.1) * 0.014) * motion_amount;
+    uv.y += (sin(p.x * 7.5 + flow_age * 1.35) * 0.044 + sin(p.x * 16.0 - flow_age * 1.8) * 0.018) * motion_amount;
     vec4 cloth = texture(curtain_tex, clamp(uv, vec2(0.001), vec2(0.999)));
-    return cloth.rgb * cloth.a * valid * (0.82 + 0.10 * sin(p.y * 13.0 - age * 2.2));
+    return cloth.rgb * cloth.a * valid * (0.82 + 0.10 * sin(p.y * 13.0 - flow_age * 2.2));
 }
 void fragment() {
     vec2 p = UV;
@@ -44,7 +46,7 @@ void fragment() {
             + vec3(0.22, 0.12, 0.045) * exp(-dot(pool_delta, pool_delta))) * ambient_fade;
     for (int i = 0; i < 7; i++) {
         float f = float(i) - 3.0;
-        float x = 0.47 + f * (0.024 + p.y * 0.055) + sin(age * 0.8 + f) * 0.008;
+        float x = 0.47 + f * (0.024 + p.y * 0.055) + sin(flow_age * 0.8 + f) * 0.008;
         float shaft = band(p.x - x, 0.008 + p.y * 0.008) * (1.0 - smoothstep(0.04, 0.72, p.y));
         light += vec3(1.0, 0.71, 0.35) * shaft * 0.34 * ambient_fade;
     }
@@ -52,9 +54,9 @@ void fragment() {
     for (int i = 0; i < 32; i++) {
         float f = float(i) + 1.0;
         vec2 star = vec2(fract(sin(f * 12.9898) * 43758.5453),
-                         fract(sin(f * 78.233) * 23421.631 - age * (0.025 + mod(f, 3.0) * 0.01)));
-        star.x += sin(age * 1.3 + f * 2.0) * 0.018;
-        float twinkle = pow(0.5 + 0.5 * sin(age * 3.2 + f * 2.7), 2.0);
+                         fract(sin(f * 78.233) * 23421.631 - flow_age * (0.025 + mod(f, 3.0) * 0.01)));
+        star.x += sin(flow_age * 1.3 + f * 2.0) * 0.018;
+        float twinkle = pow(0.5 + 0.5 * sin(flow_age * 3.2 + f * 2.7), 2.0);
         vec2 d = (p - star) * vec2(aspect, 1.0);
         float halo = exp(-dot(d, d) / 0.000075);
         float cross = band(d.x, 0.0008) * band(d.y, 0.008) + band(d.y, 0.0008) * band(d.x, 0.008);

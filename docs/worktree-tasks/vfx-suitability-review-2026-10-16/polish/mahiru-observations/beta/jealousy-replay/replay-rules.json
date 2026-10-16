@@ -1,0 +1,14 @@
+{
+  "damage": 30,
+  "relicRewards": 0,
+  "powers": [
+    {
+      "id": "KAREN_PROMISE_PILE_POWER",
+      "name": "约定牌堆",
+      "amount": 1,
+      "type": "Buff",
+      "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+      "keywords": []
+    }
+  ]
+}

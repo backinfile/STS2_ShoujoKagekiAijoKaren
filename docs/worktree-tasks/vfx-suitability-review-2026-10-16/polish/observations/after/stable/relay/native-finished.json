@@ -1,0 +1,42 @@
+{
+  "preparing": false,
+  "nodeCount": 0,
+  "nodes": [],
+  "casts": 0,
+  "spots": 0,
+  "emptyCasts": 0,
+  "drawCasts": 0,
+  "prematureExitFrames": 0,
+  "lightingGapFrames": 0,
+  "heldLightFrames": 0,
+  "timeline": [],
+  "promise": [],
+  "draw": [
+    "KAREN_DEFEND",
+    "KAREN_FALL",
+    "KAREN_DEFEND",
+    "KAREN_SHINE_STRIKE",
+    "KAREN_STRIKE"
+  ],
+  "discard": [],
+  "started": [
+    {
+      "id": "KAREN_FIGHT_RELAY",
+      "auto": false
+    },
+    {
+      "id": "KAREN_FIGHT_RELAY",
+      "auto": false
+    }
+  ],
+  "finished": [
+    {
+      "id": "KAREN_FIGHT_RELAY",
+      "auto": false
+    },
+    {
+      "id": "KAREN_FIGHT_RELAY",
+      "auto": false
+    }
+  ]
+}

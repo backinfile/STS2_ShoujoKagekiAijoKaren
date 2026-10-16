@@ -1,0 +1,169 @@
+{
+  "state_type": "boss",
+  "battle": {
+    "round": 1,
+    "turn": "player",
+    "is_play_phase": true,
+    "enemies": [
+      {
+        "entity_id": "WATERFALL_GIANT_0",
+        "combat_id": 1,
+        "name": "瀑布巨兽",
+        "hp": 240,
+        "max_hp": 240,
+        "block": 0,
+        "status": [],
+        "intents": [
+          {
+            "type": "Buff",
+            "label": "",
+            "title": "强化",
+            "description": "这个敌人将要使用一个强化效果。"
+          }
+        ]
+      }
+    ]
+  },
+  "run": {
+    "act": 1,
+    "floor": 35,
+    "ascension": 0
+  },
+  "player": {
+    "character": "爱城华恋",
+    "hp": 72,
+    "max_hp": 72,
+    "block": 0,
+    "energy": 10,
+    "max_energy": 3,
+    "hand": [
+      {
+        "id": "KAREN_ARROGANT",
+        "name": "骄傲",
+        "type": "Power",
+        "cost": "3",
+        "star_cost": null,
+        "description": "固有。虚无。 给予自身2层易伤。 战斗结束时，获得一个随机遗物。",
+        "rarity": "Rare",
+        "is_upgraded": false,
+        "keywords": [
+          {
+            "name": "固有",
+            "description": "每场战斗开始时这张牌会出现在你的手牌。"
+          },
+          {
+            "name": "虚无",
+            "description": "如果这张牌在这个回合结束时留在你的手牌中，则将其消耗。"
+          },
+          {
+            "name": "消耗",
+            "description": "在战斗结束前移除。"
+          }
+        ],
+        "index": 0,
+        "target_type": "Self",
+        "can_play": true,
+        "unplayable_reason": null
+      },
+      {
+        "id": "KAREN_ARROGANT",
+        "name": "骄傲",
+        "type": "Power",
+        "cost": "3",
+        "star_cost": null,
+        "description": "固有。虚无。 给予自身2层易伤。 战斗结束时，获得一个随机遗物。",
+        "rarity": "Rare",
+        "is_upgraded": false,
+        "keywords": [
+          {
+            "name": "固有",
+            "description": "每场战斗开始时这张牌会出现在你的手牌。"
+          },
+          {
+            "name": "虚无",
+            "description": "如果这张牌在这个回合结束时留在你的手牌中，则将其消耗。"
+          },
+          {
+            "name": "消耗",
+            "description": "在战斗结束前移除。"
+          }
+        ],
+        "index": 1,
+        "target_type": "Self",
+        "can_play": true,
+        "unplayable_reason": null
+      }
+    ],
+    "draw_pile_count": 5,
+    "discard_pile_count": 0,
+    "exhaust_pile_count": 0,
+    "draw_pile": [
+      {
+        "name": "防御",
+        "cost": "1",
+        "star_cost": null,
+        "description": "获得5点格挡。"
+      },
+      {
+        "name": "坠落",
+        "cost": "1",
+        "star_cost": null,
+        "description": "获得8点格挡。 将1张牌放入约定牌堆。"
+      },
+      {
+        "name": "打击",
+        "cost": "1",
+        "star_cost": null,
+        "description": "造成6点伤害。"
+      },
+      {
+        "name": "打击",
+        "cost": "1",
+        "star_cost": null,
+        "description": "造成6点伤害。"
+      },
+      {
+        "name": "打击",
+        "cost": "1",
+        "star_cost": null,
+        "description": "造成6点伤害。"
+      }
+    ],
+    "discard_pile": [],
+    "exhaust_pile": [],
+    "gold": 99,
+    "status": [
+      {
+        "id": "KAREN_PROMISE_PILE_POWER",
+        "name": "约定牌堆",
+        "amount": 1,
+        "type": "Buff",
+        "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+        "keywords": []
+      }
+    ],
+    "relics": [
+      {
+        "id": "KAREN_HAIRPIN_RELIC",
+        "name": "发夹",
+        "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+        "counter": null,
+        "keywords": [
+          {
+            "name": "约定之塔",
+            "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+          }
+        ]
+      },
+      {
+        "id": "NEOWS_TALISMAN",
+        "name": "涅奥的护符",
+        "description": "拾起时，升级你的1张打击和1张防御。",
+        "counter": null,
+        "keywords": []
+      }
+    ],
+    "potions": [],
+    "max_potion_slots": 3
+  }
+}

@@ -34,7 +34,7 @@ public partial class NKarenWakeUpSelectionVfx : Node2D
     private readonly List<Vector2> _targets = new(2);
     private readonly List<CardModel> _gatherModels = new(2);
     private Callable _pressed;
-    private float _age, _closingAt = -1;
+    private float _age, _flowAge, _interactionAt = -1, _closingAt = -1;
     private bool _disposed;
     public bool Showing => GodotObject.IsInstanceValid(_field) && _field!.IsVisibleInTree();
     public int SelectedCount => _selected.Count;
@@ -74,8 +74,18 @@ public partial class NKarenWakeUpSelectionVfx : Node2D
                 if (_gatherModels[i].Pile?.Type == MegaCrit.Sts2.Core.Entities.Cards.PileType.Hand
                     && NCard.FindOnTable(_gatherModels[i]) is { } moving && GodotObject.IsInstanceValid(moving))
                     _targets[i] = Shoulder(moving);
+        // Keep a visible opening, then let the candidate cards own the held selection.
+        // Integrate a separate flow clock so changing speed never jumps the painted folds.
+        float opening = 1 - Mathf.SmoothStep(0, 1, Mathf.Clamp((_age - .65f) / .85f, 0, 1));
+        float picked = _interactionAt < 0 ? 0 : Mathf.Exp(-(_age - _interactionAt) * 6);
+        float attention = _closingAt < 0 ? Mathf.Max(opening, picked * .65f)
+            : Mathf.SmoothStep(0, 1, Mathf.Clamp((_age - _closingAt) / .10f, 0, 1));
+        _flowAge += (float)delta * Mathf.Lerp(.42f, 1, attention);
         _material!.SetShaderParameter("age", _age);
+        _material.SetShaderParameter("flow_age", _flowAge);
+        _material.SetShaderParameter("motion_amount", Mathf.Lerp(.60f, 1, attention));
         _material.SetShaderParameter("strength", Mathf.SmoothStep(0, 1, Mathf.Clamp(_age / .32f, 0, 1))
+            * Mathf.Lerp(.58f, 1, attention)
             * (1 - Mathf.SmoothStep(0, 1, Mathf.Clamp((close - .65f) / .35f, 0, 1))));
         _material.SetShaderParameter("closing", close);
         for (int i = 0; i < _targets.Count; i++)
@@ -105,6 +115,7 @@ public partial class NKarenWakeUpSelectionVfx : Node2D
         var completed = _screen!.CardsSelected();
         if (completed.IsCompletedSuccessfully) { Complete(completed.Result); return; }
         if (!_selected.Remove(card)) _selected.Add(card);
+        _interactionAt = _age;
     }
 
     private static Vector2 Shoulder(NCard card)
