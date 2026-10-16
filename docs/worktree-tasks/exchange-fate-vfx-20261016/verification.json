@@ -2419,5 +2419,260 @@
       "encoder": "Lavf62.12.100"
     }
   },
-  "scope": "targeted single-player checks only; multiplayer not run"
+  "scope": "targeted single-player checks only; multiplayer not run",
+  "synchronizedMain": {
+    "revision": "b222b16d66a8f4e4345d9a591ec4501dc880461f",
+    "cases": {
+      "stable": {
+        "normal": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 91,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "build": {
+          "ShoujoKagekiAijoKaren.dll": "1b06191da407822a24646b8dead85cc11899065a1252e4c5ed31ee52b349251c",
+          "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+          "ShoujoKagekiAijoKaren.pck": "1f503d593e6022f388eb316116668e6f583661bf7310b0e020980528ea0febc6",
+          "lib\\ShoujoKagekiAijoKaren.Beta.dll": "4ca2fda82ea08f62ad5cdffae77b9210bfce4ebdb74d4f633e9ddfb800057a1b",
+          "lib\\ShoujoKagekiAijoKaren.Stable.dll": "dcc38b39cf584ec2970d1a385cbb60c0c1cc322219ae8f5af261dc0d3d8c279b"
+        }
+      },
+      "beta": {
+        "normal": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 86,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "build": {
+          "ShoujoKagekiAijoKaren.dll": "1b06191da407822a24646b8dead85cc11899065a1252e4c5ed31ee52b349251c",
+          "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+          "ShoujoKagekiAijoKaren.pck": "1f503d593e6022f388eb316116668e6f583661bf7310b0e020980528ea0febc6",
+          "lib\\ShoujoKagekiAijoKaren.Beta.dll": "4ca2fda82ea08f62ad5cdffae77b9210bfce4ebdb74d4f633e9ddfb800057a1b",
+          "lib\\ShoujoKagekiAijoKaren.Stable.dll": "dcc38b39cf584ec2970d1a385cbb60c0c1cc322219ae8f5af261dc0d3d8c279b"
+        }
+      }
+    }
+  }
 }
