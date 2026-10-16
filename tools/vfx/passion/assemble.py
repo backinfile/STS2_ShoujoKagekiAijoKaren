@@ -15,8 +15,8 @@ out.mkdir(parents=True, exist_ok=True)
 font = 'C\\:/Windows/Fonts/msyh.ttc'
 segments = [
     ('preview_card', '卡牌特效 · 全屏粒子', '独立粒子层预览 / 不附加 Buff 或奖励', None),
-    ('direct', 'Buff 特效 · 获得反馈', '独立 Buff 层预览 / 只加 Buff，不播放卡牌粒子', None),
-    ('normal', '实际打出激情 · 双层互补', '全屏金红粒子 + 局部图标反馈，分别触发与清理', None),
+    ('direct', 'Buff 特效 · 无提示音', '只加 Buff / 保留图标与星光反馈', None),
+    ('normal', '实际打出激情 · 双层互补', '保留卡牌粒子音效 / Buff 获得反馈无提示音', None),
     ('repeat', '连续打出 · 两层分别合并', '粒子最多 320 枚 / 仍登记 3 份真实奖励', None),
     ('reward', '战后 · 额外遗物奖励', '实际预约的遗物到战后才揭晓', 3.0),
 ]

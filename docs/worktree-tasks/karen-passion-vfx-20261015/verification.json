@@ -674,5 +674,252 @@
     "original_speed": true,
     "game_process_audio": true,
     "sha256": "0e916242a5ed91dc871fa6a95ef3441e76c79094f53ec2d31e95a89f09752de2"
+  },
+  "silentBuffRevision": {
+    "userInput": "去掉激情 Buff的音效",
+    "runtimeBuffSoundRemoved": true,
+    "cardSoundUnchanged": true,
+    "cardSoundSha256": "b0f8821d1dee3bb1e9ce46840da6c4a5a5531c762c927ac67b347e37e543a119",
+    "buildLog": "artifacts/build-passion-silent-buff.log",
+    "variants": {
+      "stable": {
+        "captureBuild": {
+          "lib\\ShoujoKagekiAijoKaren.Stable.dll": "940ff5bb713d72201fbd3ada5ff3a0c922f065b45a8801a246f5614e4deb2abc",
+          "ShoujoKagekiAijoKaren.pck": "9ff561733dc704c650d784ca1ffc4774a369b4d0d762fd034427a63b05536417"
+        },
+        "logAudit": {
+          "knownStartupWorkerPoolErrors": [],
+          "unexpectedErrors": []
+        },
+        "cases": [
+          {
+            "case": "direct",
+            "passed": true,
+            "powerBefore": 0,
+            "powerAfter": 2,
+            "reservedBefore": 0,
+            "reservedAfter": 0,
+            "overlapFrames": 0,
+            "buffEffects": [
+              {
+                "Frames": 64,
+                "Gains": 2,
+                "PeakPulses": 1,
+                "Arrived": true,
+                "Bound": true,
+                "Freed": true,
+                "Finite": true,
+                "IconValid": true,
+                "Age": 1.0416242,
+                "Duration": 1.0570000000000022,
+                "ArrivalError": 0
+              }
+            ],
+            "cardEffects": []
+          },
+          {
+            "case": "normal",
+            "passed": true,
+            "powerBefore": 0,
+            "powerAfter": 1,
+            "reservedBefore": 0,
+            "reservedAfter": 1,
+            "overlapFrames": 63,
+            "buffEffects": [
+              {
+                "Frames": 63,
+                "Gains": 1,
+                "PeakPulses": 1,
+                "Arrived": true,
+                "Bound": true,
+                "Freed": true,
+                "Finite": true,
+                "IconValid": true,
+                "Age": 1.0497096,
+                "Duration": 1.0459999999999994,
+                "ArrivalError": 0
+              }
+            ],
+            "cardEffects": [
+              {
+                "Frames": 127,
+                "Plays": 1,
+                "PeakParticles": 252,
+                "Freed": true,
+                "Finite": true,
+                "HasControls": false,
+                "CoversViewport": true,
+                "ProtectsBuff": true,
+                "MaxQuietAlpha": 0.1,
+                "Duration": 2.100999999999999
+              }
+            ]
+          },
+          {
+            "case": "repeat",
+            "passed": true,
+            "powerBefore": 0,
+            "powerAfter": 3,
+            "reservedBefore": 0,
+            "reservedAfter": 3,
+            "overlapFrames": 54,
+            "buffEffects": [
+              {
+                "Frames": 54,
+                "Gains": 3,
+                "PeakPulses": 3,
+                "Arrived": true,
+                "Bound": true,
+                "Freed": true,
+                "Finite": true,
+                "IconValid": true,
+                "Age": 1.5047286,
+                "Duration": 1.4960000000000022,
+                "ArrivalError": 0
+              }
+            ],
+            "cardEffects": [
+              {
+                "Frames": 114,
+                "Plays": 3,
+                "PeakParticles": 320,
+                "Freed": true,
+                "Finite": true,
+                "HasControls": false,
+                "CoversViewport": true,
+                "ProtectsBuff": true,
+                "MaxQuietAlpha": 0.1,
+                "Duration": 2.5900000000000034
+              }
+            ]
+          }
+        ]
+      },
+      "beta": {
+        "captureBuild": {
+          "lib\\ShoujoKagekiAijoKaren.Beta.dll": "849c0725d149e48bfb16b42786c36a73c5408b34a7dff4f155222f5234ec9e5a",
+          "ShoujoKagekiAijoKaren.pck": "9ff561733dc704c650d784ca1ffc4774a369b4d0d762fd034427a63b05536417"
+        },
+        "logAudit": {
+          "knownStartupWorkerPoolErrors": [],
+          "unexpectedErrors": []
+        },
+        "cases": [
+          {
+            "case": "direct",
+            "passed": true,
+            "powerBefore": 0,
+            "powerAfter": 2,
+            "reservedBefore": 0,
+            "reservedAfter": 0,
+            "overlapFrames": 0,
+            "buffEffects": [
+              {
+                "Frames": 64,
+                "Gains": 2,
+                "PeakPulses": 1,
+                "Arrived": true,
+                "Bound": true,
+                "Freed": true,
+                "Finite": true,
+                "IconValid": true,
+                "Age": 1.0499997,
+                "Duration": 1.0509999999999984,
+                "ArrivalError": 0
+              }
+            ],
+            "cardEffects": []
+          },
+          {
+            "case": "normal",
+            "passed": true,
+            "powerBefore": 0,
+            "powerAfter": 1,
+            "reservedBefore": 0,
+            "reservedAfter": 1,
+            "overlapFrames": 64,
+            "buffEffects": [
+              {
+                "Frames": 64,
+                "Gains": 1,
+                "PeakPulses": 1,
+                "Arrived": true,
+                "Bound": true,
+                "Freed": true,
+                "Finite": true,
+                "IconValid": true,
+                "Age": 1.0430129,
+                "Duration": 1.054000000000002,
+                "ArrivalError": 0
+              }
+            ],
+            "cardEffects": [
+              {
+                "Frames": 129,
+                "Plays": 1,
+                "PeakParticles": 252,
+                "Freed": true,
+                "Finite": true,
+                "HasControls": false,
+                "CoversViewport": true,
+                "ProtectsBuff": true,
+                "MaxQuietAlpha": 0.1,
+                "Duration": 2.1129999999999995
+              }
+            ]
+          },
+          {
+            "case": "repeat",
+            "passed": true,
+            "powerBefore": 0,
+            "powerAfter": 3,
+            "reservedBefore": 0,
+            "reservedAfter": 3,
+            "overlapFrames": 78,
+            "buffEffects": [
+              {
+                "Frames": 78,
+                "Gains": 3,
+                "PeakPulses": 3,
+                "Arrived": true,
+                "Bound": true,
+                "Freed": true,
+                "Finite": true,
+                "IconValid": true,
+                "Age": 1.458574,
+                "Duration": 1.4510000000000005,
+                "ArrivalError": 0
+              }
+            ],
+            "cardEffects": [
+              {
+                "Frames": 147,
+                "Plays": 3,
+                "PeakParticles": 320,
+                "Freed": true,
+                "Finite": true,
+                "HasControls": false,
+                "CoversViewport": true,
+                "ProtectsBuff": true,
+                "MaxQuietAlpha": 0.1,
+                "Duration": 2.6580000000000013
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "video": {
+      "duration": "11.400998",
+      "fps": 30,
+      "width": 1280,
+      "height": 720,
+      "audio_peak_db": -12.0,
+      "audio_gain_db": 19.1,
+      "original_speed": true,
+      "game_process_audio": true,
+      "file": "passion-silent-buff-showcase.mp4",
+      "sha256": "10f82fa4c1ce79c8725bed140e65f1bce591ecb78d277607e5904edd12d19d9e"
+    }
   }
 }

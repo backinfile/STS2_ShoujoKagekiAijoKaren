@@ -9,13 +9,12 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
-using ShoujoKagekiAijoKaren.src.Core.Audio;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
-/// <summary>Brief confirmation of an actual Passion buff gain, using its existing icon and status location.</summary>
+/// <summary>Silent confirmation of an actual Passion buff gain, using its existing icon and status location.</summary>
 public partial class NKarenPassionVfx : Node2D
 {
     private sealed record Pulse(float At, int Gain);
@@ -24,13 +23,12 @@ public partial class NKarenPassionVfx : Node2D
     private static GradientTexture2D? _soft;
     private readonly Node2D _light = new();
     private readonly List<Pulse> _pulses = new(3);
-    private readonly List<AudioStreamPlayer> _sounds = new();
     private NCombatRoom _room = null!;
     private KarenPassionPower _power = null!;
     private Creature _owner = null!;
     private NPower? _badge;
     private Vector2 _body, _origin, _destination;
-    private float _age, _unit, _speed, _searchAt, _lastSoundAt = -1;
+    private float _age, _unit, _speed, _searchAt;
     private int _totalGain;
     private const float TravelAt = .18f, ArriveAt = .70f, Lifetime = 1.05f;
 
@@ -58,7 +56,6 @@ public partial class NKarenPassionVfx : Node2D
         _totalGain += gain;
         if (_pulses.Count == 3) _pulses.RemoveAt(0);
         _pulses.Add(new Pulse(_age, gain));
-        Sound();
     }
 
     public override void _Ready()
@@ -73,7 +70,7 @@ public partial class NKarenPassionVfx : Node2D
         _light.Draw += DrawLight;
         TextureFilter = TextureFilterEnum.Linear;
         KarenVfxComposition.RegisterCue(this, _owner);
-        Place(); Sound();
+        Place();
     }
 
     public override void _Process(double delta)
@@ -186,19 +183,10 @@ public partial class NKarenPassionVfx : Node2D
         _light.DrawLine(point - Vector2.Up * radius, point + Vector2.Up * radius, new Color(color, alpha), _unit, true);
         _light.DrawLine(point - Vector2.Right * radius * .6f, point + Vector2.Right * radius * .6f, new Color(color, alpha), _unit, true);
     }
-    private void Sound()
-    {
-        if (_lastSoundAt >= 0 && (_age - _lastSoundAt) / _speed < .12f) return;
-        _lastSoundAt = _age;
-        var sound = KarenAudioManager.PlaySfxOnGameBus("karen_passion_gain.wav", .7f, Mathf.Min(_speed, 1.1f));
-        if (sound != null) _sounds.Add(sound);
-    }
     public override void _ExitTree()
     {
         KarenVfxComposition.RemoveCue(this);
-        foreach (var sound in _sounds)
-            if (GodotObject.IsInstanceValid(sound)) { sound.Stop(); sound.QueueFree(); }
-        _sounds.Clear(); _pulses.Clear(); _badge = null;
+        _pulses.Clear(); _badge = null;
         _icon?.Dispose(); _icon = null;
     }
 }

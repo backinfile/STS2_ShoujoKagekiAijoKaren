@@ -1,4 +1,4 @@
-"""Original, brief rising confirmation for Passion buff acquisition; no source samples."""
+"""Original Passion card sound and archived buff cue; runtime buff feedback is silent."""
 import math
 from pathlib import Path
 import random
@@ -21,7 +21,7 @@ with wave.open(str(DEST / 'karen_passion_gain.wav'), 'wb') as audio:
     audio.setparams((1, 2, RATE, 0, 'NONE', 'not compressed'))
     audio.writeframes(struct.pack('<' + 'h' * len(samples), *(round(x * gain) for x in samples)))
 
-# The card has its own low, airy rise; it leaves room for the buff's higher confirmation chime.
+# Preserve the card's established low, airy rise independently of the now-silent buff.
 card_samples = []
 filtered = 0
 for i in range(round(RATE * .74)):
