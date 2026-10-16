@@ -1,0 +1,167 @@
+{
+  "stable": {
+    "assemblySha256": "123c9ff76b22757d642e321a1d5ea56747a0022c21654aa3166e7b64d0c9f168",
+    "pckSha256": "775b53fa4cbd8f4037d497134136f45dfc485329279e80b11b90f3ed12d309c8",
+    "cases": [
+      "fast",
+      "instant",
+      "last",
+      "lethal",
+      "ordinary",
+      "pose",
+      "replay",
+      "upgrade"
+    ],
+    "passed": true,
+    "handChecks": 16,
+    "effects": 16,
+    "freed": 16,
+    "particleEmitters": 32,
+    "rewardVfx": 0,
+    "maxAnchorError": 0.00012207031,
+    "startupLogErrors": [],
+    "combatLogErrors": 0,
+    "recordings": {
+      "ordinary": {
+        "duration": 4.066666666666666,
+        "captureFps": 27.124694588268344,
+        "uniqueActionFrames": 45
+      },
+      "last": {
+        "duration": 4,
+        "captureFps": 28.2223554720577,
+        "uniqueActionFrames": 45
+      }
+    },
+    "previewPeakDb": -6.2,
+    "preview": "preview\\stable\\Unforgettable-Shine-stable.mp4",
+    "visualStages": {
+      "01-focus": {
+        "sha256": "772bc7d6d328501a9a75086984c21749bd0f7071ca40ad5d6b5be0b061aeb8dc",
+        "observed": {
+          "stage": "01-focus",
+          "age": 0.144957,
+          "Kind": "Attack",
+          "particleEmitters": 4,
+          "emitting": 0
+        }
+      },
+      "02-cut": {
+        "sha256": "bbdcbc34b4a18a948b92f598345b96adc334daaff75690f92c558df83f194b8a",
+        "observed": {
+          "stage": "02-cut",
+          "age": 0.5347223,
+          "Kind": "Attack",
+          "particleEmitters": 4,
+          "emitting": 4
+        }
+      },
+      "03-shine": {
+        "sha256": "095d3becdd219e0ac643555aa4c5765173143dc790793ed0d824520394ab0ab4",
+        "observed": {
+          "stage": "03-shine",
+          "age": 0.12128133,
+          "Kind": "Impact",
+          "particleEmitters": 0,
+          "emitting": 0
+        }
+      },
+      "04-remain": {
+        "sha256": "0ea4006f9621cbc893e10dbb9985caf98fc16c14e94f398022602a766b12051a",
+        "observed": {
+          "stage": "04-remain",
+          "age": 1.701383,
+          "Kind": "Attack",
+          "particleEmitters": 4,
+          "emitting": 0
+        }
+      }
+    },
+    "comparison": "preview\\stable\\reference-vs-game.png"
+  },
+  "beta": {
+    "assemblySha256": "f5d21adbf9bb3146e17b7aae90f195dbf037d9005ca21b9edf90f2d6869bcabb",
+    "pckSha256": "775b53fa4cbd8f4037d497134136f45dfc485329279e80b11b90f3ed12d309c8",
+    "cases": [
+      "fast",
+      "instant",
+      "last",
+      "lethal",
+      "ordinary",
+      "pose",
+      "replay",
+      "upgrade"
+    ],
+    "passed": true,
+    "handChecks": 16,
+    "effects": 16,
+    "freed": 16,
+    "particleEmitters": 32,
+    "rewardVfx": 0,
+    "maxAnchorError": 0.00012207031,
+    "startupLogErrors": [],
+    "combatLogErrors": 0,
+    "recordings": {
+      "ordinary": {
+        "duration": 4.066666666666666,
+        "captureFps": 27.008368282740047,
+        "uniqueActionFrames": 45
+      },
+      "last": {
+        "duration": 4,
+        "captureFps": 28.15292315948694,
+        "uniqueActionFrames": 45
+      }
+    },
+    "previewPeakDb": -4.2,
+    "preview": "preview\\beta\\Unforgettable-Shine-beta.mp4",
+    "visualStages": {
+      "01-focus": {
+        "sha256": "d11e85eeb522cb77f468a52d332d5936bf288b97b17cd9da0623717c46df77ee",
+        "observed": {
+          "stage": "01-focus",
+          "age": 0.15184902,
+          "Kind": "Attack",
+          "particleEmitters": 4,
+          "emitting": 0
+        }
+      },
+      "02-cut": {
+        "sha256": "e60937e4ada937163d9c166524a0f35e33b337475c9b486d32e329f01067e3b4",
+        "observed": {
+          "stage": "02-cut",
+          "age": 0.5379708,
+          "Kind": "Attack",
+          "particleEmitters": 4,
+          "emitting": 4
+        }
+      },
+      "03-shine": {
+        "sha256": "fea7bd4c72d8409e000d58659129188ab2fc0e4975b161a14fb82bf477daf1ef",
+        "observed": {
+          "stage": "03-shine",
+          "age": 0.12534267,
+          "Kind": "Impact",
+          "particleEmitters": 0,
+          "emitting": 0
+        }
+      },
+      "04-remain": {
+        "sha256": "7388d775ce431326abc63ee58a9d261fc574b143849d168e070beedd7d6eead8",
+        "observed": {
+          "stage": "04-remain",
+          "age": 1.7021211,
+          "Kind": "Attack",
+          "particleEmitters": 4,
+          "emitting": 0
+        }
+      }
+    },
+    "comparison": "preview\\beta\\reference-vs-game.png"
+  },
+  "scope": "Targeted single-card singleplayer checks; full matrix, multiplayer and third-party coexistence not run.",
+  "design": "Unmodified ImageGen transparent diagonal blade sprite matching the new reference. Isotropic rendering, hit pivot and 32 rim samples measured from its alpha. Four sparse native particle layers (20 slots). All card-specific VFX sound calls and exclusive WAV removed; exhaust-reward VFX remains removed.",
+  "visualScope": "Age-triggered viewport captures are a separate pass; functional timing checks and final recordings do not perform mid-animation GPU readback. Frame hashes and functional tests do not establish visual fidelity; inspect the comparison images and videos.",
+  "customSoundCalls": 0,
+  "spriteSha256": "f3da4b099a9f1f1be73822e5a9eefe75112a9033f5bf330ff3897401dd82b89f"
+}

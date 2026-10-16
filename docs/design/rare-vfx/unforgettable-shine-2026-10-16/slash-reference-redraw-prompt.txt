@@ -1,0 +1,11 @@
+Use case: stylized-concept.
+Asset type: practical 2D game VFX reference board for the attack card "Unforgettable Shine".
+Input image: reference for the EXISTING game's scene, Karen character, enemy and their scale. Use it as the battle-context panel; the image contains no desired slash to copy.
+
+Make a new landscape reference board with two clearly separated panels. Left about 70%: retain the screenshot's battle setting, character, enemy, camera, and user interface. Add ONE compact sword-slash effect at the enemy's front. Right about 30%: show the EXACT SAME slash body enlarged on a plain dark blue-gray background, so its silhouette is easy to judge. Small clean Chinese headings: left "战斗比例", right "主体放大". This is a concept reference, not a gameplay recording.
+
+The slash must read as a NORMAL HALF-MOON SWORD SWEEP, a slender continuous curved blade-motion ribbon, with two sharply tapered tips and one modestly thick middle. Show it at an oblique diagonal angle of roughly 35 degrees, giving the feeling of a fast upward sword cut from Karen toward the enemy. Use an approximately 180-degree curved sweep; keep the concave opening toward the attacker. Its body should be graceful and slightly asymmetric from motion, with a long fine trailing tip and a short sharp leading tip. It must read as a slashing blade trail, not as a stationary moon pictogram. In the battle panel the visible slash is only about 70% of Karen's visible body height, located close to the enemy's torso. Maintain ample empty space between Karen and this local slash.
+
+Art direction: deliberately PLAIN and restrained. One pale blue-white flat cel-shaded surface, clean smooth edges, only minimal soft edge light. No internal lines, stripes, multiple bright bands, brush texture, splintered edges, filigree, or complex glowing cores. A few tiny detached pale-gold and blue particles may appear around the slash in the battle panel, clearly separate from its body; show ONLY the plain body in the enlarged panel. Keep the body shape identical in both panels.
+
+No giant oval, full ring, orbit around Karen, floor-hugging ribbon, long horizontal stretch between characters, large impact explosion, reward comet, extra characters, decorative frame, curtains, or additional effects. Do not redesign the character or the enemy. Show a single legible slash moment.

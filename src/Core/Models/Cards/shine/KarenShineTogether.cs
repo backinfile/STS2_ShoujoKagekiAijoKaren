@@ -12,11 +12,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShoujoKagekiAijoKaren.src.Core;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 
 /// <summary>
-/// 一起闪耀吧 - 2费稀有攻击牌，造成30/40点伤害。闪耀3。
+/// 永不遗忘的闪耀 - 2费稀有攻击牌，造成30/40点伤害。闪耀3。
 /// Shine耗尽时，获得三次闪耀牌奖励。
 /// </summary>
 public sealed class KarenShineTogether : KarenBaseCardModel
@@ -42,10 +43,14 @@ public sealed class KarenShineTogether : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
+        NKarenUnforgottenShineVfx? attack = null;
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(() => attack = NKarenUnforgottenShineVfx.Create(Owner.Creature, cardPlay.Target))
+            .WithAttackerAnim("Attack", 0f)
+            .WithWaitBeforeHit(NKarenUnforgottenShineVfx.FastHitTime, NKarenUnforgottenShineVfx.HitTime)
+            .WithHitVfxNode(target => NKarenUnforgottenShineVfx.Hit(target, attack))
             .Execute(choiceContext);
     }
 

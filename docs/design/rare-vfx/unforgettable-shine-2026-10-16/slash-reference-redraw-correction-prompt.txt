@@ -1,0 +1,7 @@
+Precise correction edit of this VFX reference board. Preserve the two-panel layout, headings, game scene, character, enemy, camera and UI.
+
+Use the enlarged RIGHT panel's slender diagonal curved blade-slash silhouette as the MASTER SHAPE. Make BOTH panels show precisely this SAME silhouette. In the left battle panel remove the upright C-shaped moon icon, then place a SMALL scaled copy of the right master slash close to the front of the enemy's torso, tilted exactly like the right master. It should occupy only about 70% of Karen's visible body height. Leave a clear gap between Karen and this local slash. Do not put a second slash near Karen.
+
+On BOTH slash copies simplify the interior to ONE uniform pale blue-white surface. Remove all white facets, streaks, segmented highlights and internal bands. Preserve the master's two very sharp tapering tips and graceful curved blade-motion shape. Only a tiny soft edge light, no large halo. Keep 3 or 4 tiny detached gold/blue particles around the battle slash, and none around the enlarged body.
+
+The two views must match in shape and angle; the only difference is their scale. Do not introduce a round moon pictogram, large ring, impact explosion, trails across the whole battlefield, decorative elements or extra text.

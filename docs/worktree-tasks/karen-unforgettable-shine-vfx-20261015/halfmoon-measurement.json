@@ -1,0 +1,16 @@
+{
+  "before": {
+    "bodyPixels": 44764,
+    "x": 384,
+    "y": 215,
+    "width": 607,
+    "height": 264
+  },
+  "after": {
+    "bodyPixels": 3386,
+    "x": 905,
+    "y": 255,
+    "width": 73,
+    "height": 146
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "scope": "Remove card-specific VFX sounds and produce a new ImageGen reference; no new slash implementation or current video. Ordinary and final-Shine cases only.",
+  "customSoundCalls": 0,
+  "exclusiveSoundAssetRemoved": true,
+  "generatorRemoved": true,
+  "stable": {
+    "passed": true,
+    "cases": [
+      "ordinary",
+      "last"
+    ],
+    "assemblySha256": "1459f00e1acbebb5211f65966295ceacc7255232cc741dcd00636ca19fc2d293",
+    "pckSha256": "a5dd2d51d60ff34309c44e6770778aaed9851c3a3c9bbacc9edc02cda3d6f179",
+    "handChecks": 4,
+    "effects": 4,
+    "freed": 4,
+    "particleEmitters": 8,
+    "startupLogErrors": [],
+    "combatLogErrors": []
+  },
+  "beta": {
+    "passed": true,
+    "cases": [
+      "ordinary",
+      "last"
+    ],
+    "assemblySha256": "70624247ae4ff53095a9d4ecda6126ce4376992a52ba9bc97cb217e5d84425ea",
+    "pckSha256": "a5dd2d51d60ff34309c44e6770778aaed9851c3a3c9bbacc9edc02cda3d6f179",
+    "handChecks": 4,
+    "effects": 4,
+    "freed": 4,
+    "particleEmitters": 8,
+    "startupLogErrors": [],
+    "combatLogErrors": []
+  }
+}
