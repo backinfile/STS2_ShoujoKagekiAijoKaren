@@ -1,0 +1,805 @@
+{
+  "date": "2026-10-16",
+  "scope": "Targeted singleplayer VFX verification; full matrix and multiplayer not run",
+  "branches": {
+    "stable": {
+      "passed": true,
+      "checks": {
+        "normal-claim": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 157,
+              "claimFrames": 93,
+              "returnFrames": 0,
+              "confirmations": 0
+            }
+          ]
+        },
+        "normal-trigger": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 272,
+              "claimFrames": 93,
+              "returnFrames": 52,
+              "confirmations": 1
+            }
+          ]
+        },
+        "normal-limit": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 2,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 387,
+              "claimFrames": 93,
+              "returnFrames": 52,
+              "confirmations": 1
+            }
+          ]
+        },
+        "normal-next-turn": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 857,
+              "claimFrames": 93,
+              "returnFrames": 104,
+              "confirmations": 2
+            }
+          ]
+        },
+        "removed": {
+          "live": 0,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 0,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 934,
+              "claimFrames": 93,
+              "returnFrames": 104,
+              "confirmations": 2
+            }
+          ]
+        },
+        "stack-multihit": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 2,
+          "back": 0,
+          "amount": 2,
+          "block": 10,
+          "attacks": 2,
+          "weight": 0.9999922,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 293,
+              "claimFrames": 198,
+              "returnFrames": 87,
+              "confirmations": 2
+            }
+          ]
+        },
+        "stack-removed": {
+          "live": 0,
+          "maxLive": 1,
+          "maxReturns": 2,
+          "back": 0,
+          "amount": 0,
+          "block": 10,
+          "attacks": 2,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 295,
+              "claimFrames": 198,
+              "returnFrames": 89,
+              "confirmations": 2
+            }
+          ]
+        },
+        "fast": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 176,
+              "claimFrames": 65,
+              "returnFrames": 34,
+              "confirmations": 1
+            }
+          ]
+        },
+        "fast-removed": {
+          "live": 0,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 0,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 178,
+              "claimFrames": 65,
+              "returnFrames": 34,
+              "confirmations": 1
+            }
+          ]
+        },
+        "instant": {
+          "live": 0,
+          "maxLive": 0,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 0,
+          "nodes": []
+        },
+        "instant-removed": {
+          "live": 0,
+          "maxLive": 0,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 0,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 0,
+          "nodes": []
+        },
+        "blocked-gain": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 178,
+              "claimFrames": 100,
+              "returnFrames": 0,
+              "confirmations": 0
+            }
+          ]
+        },
+        "no-block-removed": {
+          "live": 0,
+          "maxLive": 1,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 0,
+          "block": 0,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 180,
+              "claimFrames": 100,
+              "returnFrames": 0,
+              "confirmations": 0
+            }
+          ]
+        },
+        "before-combat-end": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 0.888,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 31,
+              "claimFrames": 31,
+              "returnFrames": 0,
+              "confirmations": 0
+            }
+          ]
+        },
+        "combat-end-cleanup": {
+          "live": 0,
+          "maxLive": 1,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 0,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 33,
+              "claimFrames": 33,
+              "returnFrames": 0,
+              "confirmations": 0
+            }
+          ]
+        }
+      },
+      "hands": [
+        "after-attacks-hand.json",
+        "after-hand.json",
+        "before-hand.json",
+        "setup-fast-hand.json",
+        "setup-instant-hand.json",
+        "setup-normal-hand.json"
+      ],
+      "recording": {
+        "status": "completed",
+        "fps": 30,
+        "max_duration_seconds": 75,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 531,
+        "video_duration_seconds": 17.7,
+        "frames_captured": 508,
+        "frames_repeated": 23,
+        "capture_fps": 28.71970105459647,
+        "capture_average_ms": 14.71197716535433,
+        "capture_max_ms": 271.8679,
+        "elapsed_seconds": 18.2778907,
+        "audio": true,
+        "audio_source": "game_process",
+        "build": {
+          "lib/ShoujoKagekiAijoKaren.Stable.dll": "7500a9ce6e606011c0c9a1c363f70e1245a3c98e08a5cc9e7182e5375068f4fc",
+          "ShoujoKagekiAijoKaren.pck": "760bdfc5e0559fd96b7fe2567e97ce2190e4a4b77fa02e0e3c06fb2db090b439"
+        },
+        "source": "artifacts/position-zero-delivery/stable/game.mp4"
+      },
+      "audio": {
+        "meanDb": -47.5,
+        "peakDb": -22.2
+      },
+      "freezeIntervalsOverOneSecond": 0
+    },
+    "beta": {
+      "passed": true,
+      "checks": {
+        "normal-claim": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 161,
+              "claimFrames": 93,
+              "returnFrames": 0,
+              "confirmations": 0
+            }
+          ]
+        },
+        "normal-trigger": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 281,
+              "claimFrames": 93,
+              "returnFrames": 52,
+              "confirmations": 1
+            }
+          ]
+        },
+        "normal-limit": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 2,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 395,
+              "claimFrames": 93,
+              "returnFrames": 52,
+              "confirmations": 1
+            }
+          ]
+        },
+        "normal-next-turn": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 851,
+              "claimFrames": 93,
+              "returnFrames": 105,
+              "confirmations": 2
+            }
+          ]
+        },
+        "removed": {
+          "live": 0,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 0,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 931,
+              "claimFrames": 93,
+              "returnFrames": 105,
+              "confirmations": 2
+            }
+          ]
+        },
+        "stack-multihit": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 2,
+          "back": 0,
+          "amount": 2,
+          "block": 10,
+          "attacks": 2,
+          "weight": 0.9999923,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 293,
+              "claimFrames": 199,
+              "returnFrames": 87,
+              "confirmations": 2
+            }
+          ]
+        },
+        "stack-removed": {
+          "live": 0,
+          "maxLive": 1,
+          "maxReturns": 2,
+          "back": 0,
+          "amount": 0,
+          "block": 10,
+          "attacks": 2,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 295,
+              "claimFrames": 199,
+              "returnFrames": 89,
+              "confirmations": 2
+            }
+          ]
+        },
+        "fast": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 166,
+              "claimFrames": 64,
+              "returnFrames": 34,
+              "confirmations": 1
+            }
+          ]
+        },
+        "fast-removed": {
+          "live": 0,
+          "maxLive": 1,
+          "maxReturns": 1,
+          "back": 0,
+          "amount": 0,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 168,
+              "claimFrames": 64,
+              "returnFrames": 34,
+              "confirmations": 1
+            }
+          ]
+        },
+        "instant": {
+          "live": 0,
+          "maxLive": 0,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 0,
+          "nodes": []
+        },
+        "instant-removed": {
+          "live": 0,
+          "maxLive": 0,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 0,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 0,
+          "nodes": []
+        },
+        "blocked-gain": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 179,
+              "claimFrames": 99,
+              "returnFrames": 0,
+              "confirmations": 0
+            }
+          ]
+        },
+        "no-block-removed": {
+          "live": 0,
+          "maxLive": 1,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 0,
+          "block": 0,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 181,
+              "claimFrames": 99,
+              "returnFrames": 0,
+              "confirmations": 0
+            }
+          ]
+        },
+        "before-combat-end": {
+          "live": 1,
+          "maxLive": 1,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 0.888,
+          "ownership": true,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 33,
+              "claimFrames": 33,
+              "returnFrames": 0,
+              "confirmations": 0
+            }
+          ]
+        },
+        "combat-end-cleanup": {
+          "live": 0,
+          "maxLive": 1,
+          "maxReturns": 0,
+          "back": 0,
+          "amount": 0,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "geometry": [],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 35,
+              "claimFrames": 35,
+              "returnFrames": 0,
+              "confirmations": 0
+            }
+          ]
+        }
+      },
+      "hands": [
+        "after-attacks-hand.json",
+        "after-hand.json",
+        "before-hand.json",
+        "setup-fast-hand.json",
+        "setup-instant-hand.json",
+        "setup-normal-hand.json"
+      ],
+      "recording": {
+        "status": "completed",
+        "fps": 30,
+        "max_duration_seconds": 75,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 521,
+        "video_duration_seconds": 17.366666666666667,
+        "frames_captured": 503,
+        "frames_repeated": 18,
+        "capture_fps": 28.999306461119275,
+        "capture_average_ms": 15.13348369781312,
+        "capture_max_ms": 254.621,
+        "elapsed_seconds": 17.8159307,
+        "audio": true,
+        "audio_source": "game_process",
+        "build": {
+          "lib/ShoujoKagekiAijoKaren.Beta.dll": "c643124a830e4d38c5a826a9ecf354ffdf151b95d1b1044257da396e2be00876",
+          "ShoujoKagekiAijoKaren.pck": "760bdfc5e0559fd96b7fe2567e97ce2190e4a4b77fa02e0e3c06fb2db090b439"
+        },
+        "source": "artifacts/position-zero-delivery/beta/game.mp4"
+      },
+      "audio": {
+        "meanDb": -43.0,
+        "peakDb": -21.6
+      },
+      "freezeIntervalsOverOneSecond": 0
+    }
+  },
+  "video": {
+    "path": "position-zero-showcase.mp4",
+    "sha256": "f56f2ffa8257adf2fd9f2ee102e5f6d95fa2f7e9c72f364dcbe409ac70c945c3",
+    "note": "Two native captures, labelled and concatenated; game process audio +8 dB, no added audio"
+  }
+}
