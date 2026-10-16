@@ -12,16 +12,20 @@
 
 脚底为啥看起来像是有一道横线，有点怪，修改下
 
+合并授权（原文）：
+
+合并吧
+
 ## Brief task plan
 
 - 沿用初版官方/授权来源与 imagegen 构图，固定原暖金打出时序。
 - 将格挡确认改成冷白交叉扫灯；按真实剩余攻击机会控制常驻脚灯与攻击牌 hover。
 - 分别使用隔离正式版/测试版和 KarenSTS2MCP 验证、截图、录像、检查音轨与清理。
-- 保存一个修订提交，同步本地 main 后等待明确合并确认。
+- 保存修订提交，同步本地 main，按用户明确授权快进合并并清理任务工作树。
 
 ## Result and changes
 
-已按后续要求完成，尚未合并回 `main`。
+已按后续要求完成；用户已明确授权合并回 `main`。
 
 - **固定打出**：保持原暖金双聚光、金尘与起势；`DrawStage`、`Beam` 相对 `724dfa2` 完全一致。hover 和格挡确认不重启打出演出。按最新反馈去掉脚底地面 T，避免横杠像第二根血条。
 - **格挡触发**：移除敌人回流轨迹与护弧。实际格挡正增长后，播放约 0.76 秒的冷白交叉侧灯与地光短闪，区别于暖金打出。
@@ -56,13 +60,13 @@
 - [上一轮灯光/hover 修订视频](position-zero-light-revision.mp4)：保留用于对照。录像保留游戏进程音轨并增益 8 dB，无外加音频。
 - [最新来源与分镜](references.md)、[初版 imagegen 预览](preview.png)、[内置 imagegen 完整提示词](imagegen-prompt.txt)。初版预览中的回流护弧已按后续输入替换成灯光；预览不作为运行纹理。
 - 保留 [初版视频](position-zero-showcase.mp4) 和 [初版验证](verification.json) 便于对照。
-- 当前原始录像、逐动作 JSON、前后截图与日志：工作树 `artifacts/position-zero-soft-floor/`；上一轮为 `artifacts/position-zero-light-final/`。工具入口：`tools/vfx/position-zero/README.md`。未部署 Steam 或共享开发环境。
+- 原始录像、逐动作 JSON、前后截图与日志已归档到主目录 `artifacts/position-zero-evidence-20261016/`，包含最新 `position-zero-soft-floor/`、上一轮 `position-zero-light-final/`、初版 `position-zero-delivery/`、构建日志及打包输出；269 个文件逐个核对 SHA256。隔离游戏副本为可重建测试环境，不归档。工具入口：`tools/vfx/position-zero/README.md`。未部署 Steam 或共享开发环境。
 
 ## Integration state
 
 本轮去掉脚底硬线的任务提交为 `90012f9`。随后已无冲突同步本地最新 `main@05ea593`（另一任务的 Passion 特效及记录），同步后两版 ExportRelease 编译均通过（0 错误，各 26 条警告）。本次 Position 0 运行代码与任务提交完全一致，13 项实机验证和录像来自这份实现；未因无关主线更新重复完整专项。
 
-此前初版/灯光修订提交及验证均保留。原主目录 HEAD 与未跟踪文档哈希保持一致，尚未合并回主目录。任务分支 `codex/position-zero-vfx` 与工作树保留，等待用户明确合并确认。
+此前初版/灯光修订提交及验证均保留。2026-10-16 用户以“合并吧”明确授权将最终修正并入捕获的原分支 `main`。合并前再次核对：主目录仍为 `main@05ea593`，无进行中的 Git 操作，任务分支包含该主线；原未跟踪文档 `docs/20.卡牌特效制作步骤提示词.md` 的 SHA256 仍为 `2396f33473560138071ed7f7d42315f16d98422ab9e8ba9a44ee405a686e6272`。集成采用 fast-forward；合并后核对两端提交树、任务提交包含关系及原文档哈希，再清理本任务工作树和分支。最终媒体与记录随 Git 保留，原始证据归档见上。
 
 ## Baseline
 
