@@ -15,6 +15,7 @@ parser.add_argument('branch', choices=['stable', 'beta'])
 parser.add_argument('--source-dev', required=True, type=Path)
 parser.add_argument('--output', type=Path)
 parser.add_argument('--review-seconds', type=float, default=0)
+parser.add_argument('--normal-only', action='store_true', help='Only the cast/hover/trigger/exhaustion/rearm/removal visual flow')
 args = parser.parse_args()
 project = Path(__file__).resolve().parents[3]
 root = (args.output or project / 'artifacts/position-zero').resolve()
@@ -277,6 +278,11 @@ try:
     hand('after')
     remove('removed')
     print(args.branch, 'recorded normal', flush=True)
+
+    if args.normal_only:
+        save('results', dict(passed=True, scope='normal-only', checks=results))
+        print(args.branch, 'PASS', len(results), 'targeted visual assertions', flush=True)
+        raise SystemExit(0)
 
     prepare()
     add('KAREN_POSITION0'); add('KAREN_POSITION0'); add('TWIN_STRIKE')

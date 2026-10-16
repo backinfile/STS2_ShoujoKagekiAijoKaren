@@ -1,0 +1,1045 @@
+{
+  "date": "2026-10-16",
+  "scope": "Targeted singleplayer VFX verification; full matrix and multiplayer not run",
+  "fixedCast": {
+    "baseline": "724dfa2",
+    "unchanged": true,
+    "methods": {
+      "private void DrawStage()": "50c7bedb0d99fba7cb17f68ee6f4ac7c8726ecfa18d4dcc87bf8c28e4b106be0",
+      "private void Beam(": "e8e1db5019c39afe9be0d4c73cda4ffdc7249eb9defac1037b3dea7ae37cfe6e"
+    }
+  },
+  "branches": {
+    "stable": {
+      "passed": true,
+      "scope": "normal-only",
+      "checks": {
+        "normal-claim": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 158,
+              "claimFrames": 93,
+              "blockLightFrames": 0,
+              "readyFrames": 158,
+              "hoverFrames": 0,
+              "confirmations": 0,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "skill-hover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 188,
+              "claimFrames": 93,
+              "blockLightFrames": 0,
+              "readyFrames": 188,
+              "hoverFrames": 0,
+              "confirmations": 0,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "attack-hover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": true,
+          "hoverCard": "KAREN_STRIKE",
+          "cardLights": 1,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 232,
+              "claimFrames": 93,
+              "blockLightFrames": 0,
+              "readyFrames": 232,
+              "hoverFrames": 28,
+              "confirmations": 0,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "repeat-hover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": true,
+          "hoverCard": "KAREN_STRIKE",
+          "cardLights": 1,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 311,
+              "claimFrames": 93,
+              "blockLightFrames": 0,
+              "readyFrames": 311,
+              "hoverFrames": 107,
+              "confirmations": 0,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "attack-unhover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 325,
+              "claimFrames": 93,
+              "blockLightFrames": 0,
+              "readyFrames": 325,
+              "hoverFrames": 108,
+              "confirmations": 0,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "normal-trigger": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 473,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 366,
+              "hoverFrames": 136,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "exhausted-hover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 503,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 366,
+              "hoverFrames": 136,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "normal-limit": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 2,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 632,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 366,
+              "hoverFrames": 136,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "turn-end-lights": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 2,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 654,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 366,
+              "hoverFrames": 136,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "next-turn-ready": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 991,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 399,
+              "hoverFrames": 136,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "next-turn-hover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": true,
+          "hoverCard": "KAREN_STRIKE",
+          "cardLights": 1,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 1021,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 429,
+              "hoverFrames": 165,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "normal-next-turn": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 1139,
+              "claimFrames": 93,
+              "blockLightFrames": 92,
+              "readyFrames": 439,
+              "hoverFrames": 166,
+              "confirmations": 2,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "removed": {
+          "live": 0,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 0,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 1215,
+              "claimFrames": 93,
+              "blockLightFrames": 92,
+              "readyFrames": 439,
+              "hoverFrames": 166,
+              "confirmations": 2,
+              "claimStarts": 1
+            }
+          ]
+        }
+      },
+      "hands": [
+        "after-attacks-hand.json",
+        "after-hand.json",
+        "before-hand.json",
+        "setup-normal-hand.json"
+      ],
+      "recording": {
+        "status": "completed",
+        "fps": 30,
+        "max_duration_seconds": 75,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 676,
+        "video_duration_seconds": 22.533333333333335,
+        "frames_captured": 650,
+        "frames_repeated": 26,
+        "capture_fps": 28.852880109806783,
+        "capture_average_ms": 13.750430000000016,
+        "capture_max_ms": 232.0416,
+        "elapsed_seconds": 23.0488428,
+        "audio": true,
+        "audio_source": "game_process",
+        "build": {
+          "lib/ShoujoKagekiAijoKaren.Stable.dll": "0ecb8967db58ff941804e2717123cbee1e4be3e5ec5cd60ecb0c36288d25ea19",
+          "ShoujoKagekiAijoKaren.pck": "3e59931595881b1ee00dc89dbc2f61a19f6abdfe290f7cb42534817aa096adf7"
+        },
+        "source": "artifacts/position-zero-soft-floor/stable/game.mp4"
+      },
+      "audio": {
+        "meanDb": -48.5,
+        "peakDb": -23.5
+      },
+      "freezeIntervalsOverOneSecond": 0
+    },
+    "beta": {
+      "passed": true,
+      "scope": "normal-only",
+      "checks": {
+        "normal-claim": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 156,
+              "claimFrames": 93,
+              "blockLightFrames": 0,
+              "readyFrames": 156,
+              "hoverFrames": 0,
+              "confirmations": 0,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "skill-hover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 185,
+              "claimFrames": 93,
+              "blockLightFrames": 0,
+              "readyFrames": 185,
+              "hoverFrames": 0,
+              "confirmations": 0,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "attack-hover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": true,
+          "hoverCard": "KAREN_STRIKE",
+          "cardLights": 1,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 228,
+              "claimFrames": 93,
+              "blockLightFrames": 0,
+              "readyFrames": 228,
+              "hoverFrames": 28,
+              "confirmations": 0,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "repeat-hover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": true,
+          "hoverCard": "KAREN_STRIKE",
+          "cardLights": 1,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 308,
+              "claimFrames": 93,
+              "blockLightFrames": 0,
+              "readyFrames": 308,
+              "hoverFrames": 108,
+              "confirmations": 0,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "attack-unhover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 0,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 0,
+          "nodes": [
+            {
+              "frames": 322,
+              "claimFrames": 93,
+              "blockLightFrames": 0,
+              "readyFrames": 322,
+              "hoverFrames": 108,
+              "confirmations": 0,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "normal-trigger": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 469,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 361,
+              "hoverFrames": 138,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "exhausted-hover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 499,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 361,
+              "hoverFrames": 138,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "normal-limit": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 2,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 625,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 361,
+              "hoverFrames": 138,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "turn-end-lights": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 2,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 644,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 361,
+              "hoverFrames": 138,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "next-turn-ready": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 972,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 398,
+              "hoverFrames": 138,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "next-turn-hover": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 0,
+          "attacks": 0,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 1,
+          "ready": true,
+          "readyAlpha": 1,
+          "hover": true,
+          "hoverCard": "KAREN_STRIKE",
+          "cardLights": 1,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 1,
+          "nodes": [
+            {
+              "frames": 1001,
+              "claimFrames": 93,
+              "blockLightFrames": 46,
+              "readyFrames": 427,
+              "hoverFrames": 166,
+              "confirmations": 1,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "normal-next-turn": {
+          "live": 1,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 1,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [
+            {
+              "foot": "(479.99997, 720)",
+              "transform": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "canvas": "[X: (1, 0), Y: (0, 1), O: (0, 0)]",
+              "unit": 1.231579
+            }
+          ],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 1119,
+              "claimFrames": 93,
+              "blockLightFrames": 92,
+              "readyFrames": 439,
+              "hoverFrames": 168,
+              "confirmations": 2,
+              "claimStarts": 1
+            }
+          ]
+        },
+        "removed": {
+          "live": 0,
+          "maxLive": 1,
+          "maxLights": 1,
+          "back": 0,
+          "amount": 0,
+          "block": 6,
+          "attacks": 1,
+          "weight": 1,
+          "ownership": true,
+          "remaining": 0,
+          "ready": false,
+          "readyAlpha": 0,
+          "hover": false,
+          "hoverCard": null,
+          "cardLights": 0,
+          "geometry": [],
+          "confirmations": 2,
+          "nodes": [
+            {
+              "frames": 1195,
+              "claimFrames": 93,
+              "blockLightFrames": 92,
+              "readyFrames": 439,
+              "hoverFrames": 168,
+              "confirmations": 2,
+              "claimStarts": 1
+            }
+          ]
+        }
+      },
+      "hands": [
+        "after-attacks-hand.json",
+        "after-hand.json",
+        "before-hand.json",
+        "setup-normal-hand.json"
+      ],
+      "recording": {
+        "status": "completed",
+        "fps": 30,
+        "max_duration_seconds": 75,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 674,
+        "video_duration_seconds": 22.466666666666665,
+        "frames_captured": 645,
+        "frames_repeated": 29,
+        "capture_fps": 28.710214575336447,
+        "capture_average_ms": 14.633735503875979,
+        "capture_max_ms": 238.8605,
+        "elapsed_seconds": 23.0601001,
+        "audio": true,
+        "audio_source": "game_process",
+        "build": {
+          "lib/ShoujoKagekiAijoKaren.Beta.dll": "be2c6c03c1efa3d725b4278a391b9f36eef1fef6ce75ce39df2871794a87be39",
+          "ShoujoKagekiAijoKaren.pck": "3e59931595881b1ee00dc89dbc2f61a19f6abdfe290f7cb42534817aa096adf7"
+        },
+        "source": "artifacts/position-zero-soft-floor/beta/game.mp4"
+      },
+      "audio": {
+        "meanDb": -43.3,
+        "peakDb": -22.2
+      },
+      "freezeIntervalsOverOneSecond": 0
+    }
+  },
+  "video": {
+    "path": "position-zero-soft-floor.mp4",
+    "sha256": "1ecbc54b8a769a1113179a9970d9eb211c57ec5736fa9a971b5ff88bd21d68b4",
+    "note": "Two native captures, labelled and concatenated; game process audio +8 dB, no added audio"
+  }
+}

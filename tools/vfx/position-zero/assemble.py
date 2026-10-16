@@ -9,6 +9,7 @@ import subprocess
 parser = argparse.ArgumentParser()
 parser.add_argument('--input', required=True, type=Path)
 parser.add_argument('--output', required=True, type=Path)
+parser.add_argument('--name', default='light-revision')
 args = parser.parse_args()
 args.output.mkdir(parents=True, exist_ok=True)
 reports = {}
@@ -16,7 +17,8 @@ project = Path(__file__).resolve().parents[3]
 for branch in ['stable', 'beta']:
     folder = args.input / branch
     result = json.loads((folder / 'results.json').read_text(encoding='utf-8'))
-    assert result['passed'] and len(result['checks']) >= 26, result
+    minimum = 13 if result.get('scope') == 'normal-only' else 26
+    assert result['passed'] and len(result['checks']) >= minimum, result
     recording = json.loads((folder / 'recording.json').read_text(encoding='utf-8'))
     assert recording['status'] == 'completed' and recording['audio'] and recording['audio_source'] == 'game_process'
     assert recording['capture_fps'] >= 20 and recording['frames_repeated'] / recording['frames_written'] < .15, recording
@@ -40,10 +42,10 @@ for branch in ['stable', 'beta']:
     frozen = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(folder / 'game.mp4'), '-vf', 'freezedetect=n=-50dB:d=1',
                              '-an', '-f', 'null', '-'], capture_output=True, text=True, check=True).stderr
     assert 'freeze_start' not in frozen, 'Review frozen interval in ' + branch
-    reports[branch] = dict(passed=True, checks=result['checks'], hands=hands, recording=recording,
+    reports[branch] = dict(passed=True, scope=result.get('scope', 'targeted-regressions'), checks=result['checks'], hands=hands, recording=recording,
                            audio=dict(meanDb=mean, peakDb=peak), freezeIntervalsOverOneSecond=0)
 
-target = args.output / 'position-zero-light-revision.mp4'
+target = args.output / ('position-zero-' + args.name + '.mp4')
 font = "C\\:/Windows/Fonts/arial.ttf"
 graph = (
     f"[0:v]trim=start=0.6:end=14.5,setpts=PTS-STARTPTS,drawtext=fontfile='{font}':"
@@ -79,5 +81,5 @@ report = dict(date='2026-10-16', scope='Targeted singleplayer VFX verification; 
               fixedCast=dict(baseline='724dfa2', unchanged=True, methods=fixed_cast),
               branches=reports, video=dict(path=target.name, sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
                                           note='Two native captures, labelled and concatenated; game process audio +8 dB, no added audio'))
-(args.output / 'light-revision-verification.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+(args.output / (args.name + '-verification.json')).write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
 print(target)

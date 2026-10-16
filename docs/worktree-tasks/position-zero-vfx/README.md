@@ -8,6 +8,10 @@
 
 打出特效固定；触发获得格挡时，要求改为灯光特效（和打出的不一样）；当还有剩余的触发机会时（就是还有攻击牌次数），增加一个常驻特效和攻击牌的hover特效
 
+后续输入（原文）：
+
+脚底为啥看起来像是有一道横线，有点怪，修改下
+
 ## Brief task plan
 
 - 沿用初版官方/授权来源与 imagegen 构图，固定原暖金打出时序。
@@ -19,15 +23,17 @@
 
 已按后续要求完成，尚未合并回 `main`。
 
-- **固定打出**：保持原暖金双聚光、金尘与起势；`DrawStage`、`Beam` 相对 `724dfa2` 完全一致。hover 和格挡确认不重启打出演出。
+- **固定打出**：保持原暖金双聚光、金尘与起势；`DrawStage`、`Beam` 相对 `724dfa2` 完全一致。hover 和格挡确认不重启打出演出。按最新反馈去掉脚底地面 T，避免横杠像第二根血条。
 - **格挡触发**：移除敌人回流轨迹与护弧。实际格挡正增长后，播放约 0.76 秒的冷白交叉侧灯与地光短闪，区别于暖金打出。
-- **剩余机会常驻**：原有层数减 `AttackCounter` 大于零、且所属玩家处于可出牌阶段时，保留低亮 T 与两侧轻呼吸脚灯。次数耗尽后熄灭；下回合原生计数重置后恢复。
+- **剩余机会常驻**：原有层数减 `AttackCounter` 大于零、且所属玩家处于可出牌阶段时，显示柔和地光与两侧轻呼吸脚灯，地面不再绘制硬横线/竖线。次数耗尽后熄灭；下回合原生计数重置后恢复。
 - **攻击牌 hover**：只对本地真实攻击手牌显示，脚灯加强，卡框上缘增加小 T 与双灯光标。技能牌不显示。移开、打出、次数耗尽、回池/更换模型、能力移除和结束时清除；每个 Power 最多一份卡牌提示，不改原生高亮或输入。
 - 普通/快速/瞬时沿用统一表现开关；瞬时模式无自定义常驻、hover 或触发节点。伤害、格挡命令和原有攻击计数规则保持不变。
 
 ## Verification
 
-两版各通过 **27 项针对性实测断言**，完整证据见 [light-revision-verification.json](light-revision-verification.json)。
+脚底修正只删除地面 `Tape` 线条及其绘制方法，保留双聚光、侧灯和 hover 的实现及规则。针对视觉反馈使用 `--normal-only` 在两版各复测 13 项（正常打出、技能/攻击 hover、重复/移开、触发、耗尽、自然换回合恢复、移除），重新检查前后 MCP 截图与录像。证据见 [soft-floor-verification.json](soft-floor-verification.json)。
+
+上一轮机制修订两版各通过 **27 项针对性实测断言**，完整证据保留于 [light-revision-verification.json](light-revision-verification.json)，其覆盖范围如下；本次未重复叠加/多段、快速/瞬时、零伤害和带 hover 战斗结束等未改动部分。
 
 | 验证 | 正式版 v0.107.1 | 测试版 v0.111.0 |
 | --- | --- | --- |
@@ -40,16 +46,17 @@
 | 手牌模型/可见节点、日志、连续帧、游戏进程音轨 | 通过 | 通过 |
 | 完整单人/多人矩阵 | 未测：本次为专项验证 | 未测：本次为专项验证 |
 
-最终日志无 `[ERROR]`/`ERROR:`。录像捕获分别约 28.59/28.70 fps，FFmpeg 未检出超过 1 秒的冻结，音轨非静音；DLL/PCK SHA-256 与当前打包产物一致。录像与测试通过真实出牌、原生 hover、自然换回合运行，观察夹具不直接触发特效或修改攻击计数。重复 hover 检查按实际节点类型计数，避免 Godot 自动重命名导致漏数。
+各轮最终日志及录像指标分别保存在对应验证 JSON 中。录像与测试通过真实出牌、原生 hover、自然换回合运行，观察夹具不直接触发特效或修改攻击计数。重复 hover 检查按实际节点类型计数，避免 Godot 自动重命名导致漏数。
 
 额外未实测：同版本联机、断线/存档恢复、死亡路径、极端尺寸与多种常驻能力组合。对应身份校验与清理路径已实现，不将静态检查作为这些实测的通过结论。
 
 ## Deliverables
 
-- [新版 28 秒双版本对照视频](position-zero-light-revision.mp4)：1280×720、30 fps，包含固定打出、常驻、hover、触发灯及耗尽；保留游戏进程音轨并增益 8 dB，无外加音频。
+- [最新：去掉脚底横线的 28 秒双版本视频](position-zero-soft-floor.mp4)：1280×720、30 fps，保留双聚光、常驻脚灯、hover、触发灯及耗尽；只有地面线条被去除。
+- [上一轮灯光/hover 修订视频](position-zero-light-revision.mp4)：保留用于对照。录像保留游戏进程音轨并增益 8 dB，无外加音频。
 - [最新来源与分镜](references.md)、[初版 imagegen 预览](preview.png)、[内置 imagegen 完整提示词](imagegen-prompt.txt)。初版预览中的回流护弧已按后续输入替换成灯光；预览不作为运行纹理。
 - 保留 [初版视频](position-zero-showcase.mp4) 和 [初版验证](verification.json) 便于对照。
-- 当前原始录像、逐动作 JSON、前后截图与日志：工作树 `artifacts/position-zero-light-final/`。工具入口：`tools/vfx/position-zero/README.md`。未部署 Steam 或共享开发环境。
+- 当前原始录像、逐动作 JSON、前后截图与日志：工作树 `artifacts/position-zero-soft-floor/`；上一轮为 `artifacts/position-zero-light-final/`。工具入口：`tools/vfx/position-zero/README.md`。未部署 Steam 或共享开发环境。
 
 ## Integration state
 

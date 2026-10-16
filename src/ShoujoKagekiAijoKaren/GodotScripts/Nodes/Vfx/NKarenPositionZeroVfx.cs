@@ -35,7 +35,7 @@ public partial class NKarenPositionZeroVfx : Node2D
     private readonly List<BlockLight> _blockLights = new();
     private readonly List<AudioStreamPlayer> _sounds = new();
     private static GradientTexture2D? _soft;
-    private static readonly Color Red = new("#fb455a"), Gold = new("#ffd58a"), Ivory = new("#fff4d9");
+    private static readonly Color Gold = new("#ffd58a"), Ivory = new("#fff4d9");
     private static readonly Color Cool = new("#c8e9ff");
     private NCard? _hoverCard;
     private CardModel? _hoverModel;
@@ -170,7 +170,7 @@ public partial class NKarenPositionZeroVfx : Node2D
 
     private void Place()
     {
-        // Screen space keeps the T upright for mirrored remote players and camera/viewport scaling.
+        // Screen-space projection follows the current creature and camera/viewport scaling.
         GlobalTransform = GetCanvasTransform().AffineInverse();
         var hit = _creature.Hitbox;
         var transform = hit.GetGlobalTransformWithCanvas();
@@ -199,25 +199,9 @@ public partial class NKarenPositionZeroVfx : Node2D
     {
         float ambient = KarenVfxComposition.AmbientWeight(_power.Owner) * _readyAlpha;
         float reveal = Ease(P(_claimAge, 0, .28f));
-        float a = reveal * (.35f * ambient + Claim * .65f + Pulse * .35f);
         Vector2 at = _foot + new Vector2(0, -9) * _unit;
         Soft(this, at, new Vector2(260, 64) * _unit, Gold, reveal * (.09f * ambient + .37f * Claim + .18f * Pulse));
         Soft(this, at, new Vector2(150, 32) * _unit, Ivory, reveal * (.06f * ambient + .24f * Claim));
-        // A shallow perspective T made from theatre tape, with a solid red body and warm lit edge.
-        float width = 72 * _unit * reveal;
-        Tape(at + new Vector2(-width, 0), at + new Vector2(width, 0), 6 * _unit, a);
-        float stem = Ease(P(_claimAge, .17f, .42f));
-        // The native health bar sits just below the sole. Keep the perspective stem above that HUD.
-        Tape(at, at + new Vector2(0, 13 * stem) * _unit, 8 * _unit, a);
-    }
-
-    private void Tape(Vector2 from, Vector2 to, float width, float alpha)
-    {
-        if (alpha <= .001f || from.DistanceSquaredTo(to) < .1f) return;
-        DrawLine(from, to, new Color(Red, alpha * .10f), width * 3.5f, true);
-        DrawLine(from, to, new Color(Red, alpha * .3f), width * 1.8f, true);
-        DrawLine(from, to, new Color(Red, Mathf.Min(1, alpha + .25f)), width, true);
-        DrawLine(from + new Vector2(0, -width * .4f), to + new Vector2(0, -width * .4f), new Color(Ivory, alpha * .7f), _unit, true);
     }
 
     private void Beam(Vector2 at, float offset, float spread, float alpha)

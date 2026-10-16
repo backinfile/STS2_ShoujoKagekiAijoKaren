@@ -25,4 +25,6 @@ python -u tools/vfx/position-zero/record.py beta --source-dev <原仓库>/artifa
 
 修订版录像合成：`python tools/vfx/position-zero/assemble.py --input artifacts/position-zero-light-final --output docs/worktree-tasks/position-zero-vfx`。保留初版视频，另存 `position-zero-light-revision.mp4` 与 `light-revision-verification.json`。
 
+纯视觉调整可给录制脚本加 `--normal-only`，只复测并录制 13 项正常打出/hover/触发/耗尽/恢复/移除流程。去掉脚底横线的本轮输出为 `artifacts/position-zero-soft-floor/`，合成时加 `--name soft-floor`，生成 `position-zero-soft-floor.mp4` 和 `soft-floor-verification.json`；不冒充重新跑过完整 27 项。
+
 录制通过后检查 `results.json`、`recording.json`（`completed`、`game_process`、捕获帧率）、日志、连续视频帧及真实音轨；`frames_captured` 本身不代表画面没有冻结。
