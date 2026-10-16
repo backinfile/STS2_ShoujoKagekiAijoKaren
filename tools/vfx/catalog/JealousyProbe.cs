@@ -142,7 +142,7 @@ public sealed class JealousyProbeCmd : AbstractConsoleCmd
                 return new(true, "two overlapping visual-only contact bursts");
             case "cancel-all":
                 foreach (var node in room.CombatVfxContainer.GetChildren().OfType<NKarenJealousyVfx>()) node.QueueFree();
-                return new(true, "cancelled flight and contact particle parents");
+                return new(true, "cancelled contact particle parents");
             case "reverse":
                 room.GetCreatureNode(player.Creature)!.Position += new Vector2(820, 0);
                 room.CreatureNodes.First(v => v.Entity.IsMonster).Position += new Vector2(-700, 0);

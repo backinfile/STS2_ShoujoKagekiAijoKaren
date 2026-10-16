@@ -24,13 +24,13 @@ def jealousy_result(label, hp, damage, rewards, kinds):
     for cast in observed['casts']:
         assert cast['exited'] and cast['maxAnchorError'] < .1 and cast['frames'] > 0, cast
         assert cast['ghosts'] == 0, cast
-        assert cast['emitters'] == 2 and cast['particleCapacity'] == 48, cast
-        assert cast['minDirectionDot'] > .99 and cast['maxSpread'] <= 38, cast
+        assert cast['emitters'] == 2 and cast['particleCapacity'] == 88, cast
+        assert cast['minDirectionDot'] > .99 and cast['maxSpread'] <= 70, cast
         assert cast['emittingFrames'] > 0, cast
     assert observed['distinctParticleMaterials'] == sum(c['emitters'] for c in observed['casts']), observed
-    assert observed['maxLiveParticleCapacity'] <= 96, observed
+    assert observed['maxLiveParticleCapacity'] <= 176, observed
     if label == 'overlap':
-        assert observed['maxLiveNodes'] == 2 and observed['maxLiveParticleCapacity'] == 96, observed
+        assert observed['maxLiveNodes'] == 2 and observed['maxLiveParticleCapacity'] == 176, observed
     save(label + '-rules', dict(damage=damage, relicRewards=rewards, powers=current['player']['status']))
     print(branch, 'CHECKED jealousy', label, flush=True)
     return observed
@@ -42,7 +42,7 @@ if 'jealousy' in wanted:
     cmd('jealousy_probe upgrade-last'); time.sleep(.3)
     cmd('jealousy_probe watch'); record_start()
     hp = state()['battle']['enemies'][0]['hp']
-    clip_cast('KAREN_JEALOUSY', '嫉妒｜无中间轨迹、命中方片向玩家飘')
+    clip_cast('KAREN_JEALOUSY', '嫉妒｜大范围方片向玩家扩散')
     jealousy_result('ordinary', hp, 15, 0, ['impact'])
     hp = state()['battle']['enemies'][0]['hp']
     clip_cast('KAREN_JEALOUSY', '嫉妒＋｜同一方片攻击，保留20点伤害')

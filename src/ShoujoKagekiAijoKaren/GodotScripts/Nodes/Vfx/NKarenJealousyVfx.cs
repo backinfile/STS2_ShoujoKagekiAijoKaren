@@ -76,7 +76,7 @@ public partial class NKarenJealousyVfx : Node2D
     {
         _age += (float)delta * _speed;
         bool cancelled = !Present(_targetView) || !Present(_sourceView);
-        if (!Present(_room) || NCombatRoom.Instance != _room || cancelled || _age >= .88f) {
+        if (!Present(_room) || NCombatRoom.Instance != _room || cancelled || _age >= 1.22f) {
             Hide(); QueueFree(); return;
         }
         Place(); UpdateParticles(); _light.QueueRedraw();

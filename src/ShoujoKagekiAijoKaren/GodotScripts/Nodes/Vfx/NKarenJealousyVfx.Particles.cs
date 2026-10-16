@@ -14,24 +14,25 @@ public partial class NKarenJealousyVfx
             Gradient = new Gradient { Offsets = [0, 1], Colors = [Colors.White, Colors.White] } };
         _foilShader ??= GD.Load<Shader>("res://materials/vfx/jealousy_foil.gdshader");
         _glintShader ??= GD.Load<Shader>("res://materials/vfx/jealousy_glint.gdshader");
-        _foils = Emitter("ContactFoils", 34, .72, false);
-        _foils.EmissionRectExtents = new Vector2(24, 46) * _unit;
-        _foils.Spread = 30;
-        _foils.InitialVelocityMin = 170 * _unit;
-        _foils.InitialVelocityMax = 440 * _unit;
-        _foils.DampingMin = 50 * _unit;
-        _foils.DampingMax = 120 * _unit;
+        // A broad fan opens from contact, with every initial velocity still facing the player.
+        _foils = Emitter("ContactFoils", 64, 1.05, false);
+        _foils.EmissionRectExtents = new Vector2(40, 65) * _unit;
+        _foils.Spread = 65;
+        _foils.InitialVelocityMin = 470 * _unit;
+        _foils.InitialVelocityMax = 1050 * _unit;
+        _foils.DampingMin = 90 * _unit;
+        _foils.DampingMax = 180 * _unit;
         _foils.Gravity = new Vector2(0, -14) * _unit;
         AddChild(_foils);
         _foils.Restart();
 
-        _glints = Emitter("ContactGlints", 14, .35, true);
-        _glints.Spread = 38;
-        _glints.EmissionRectExtents = new Vector2(12, 23) * _unit;
-        _glints.InitialVelocityMin = 100 * _unit;
-        _glints.InitialVelocityMax = 260 * _unit;
+        _glints = Emitter("ContactGlints", 24, .65, true);
+        _glints.Spread = 70;
+        _glints.EmissionRectExtents = new Vector2(24, 40) * _unit;
+        _glints.InitialVelocityMin = 220 * _unit;
+        _glints.InitialVelocityMax = 620 * _unit;
         _glints.DampingMin = 60 * _unit;
-        _glints.DampingMax = 140 * _unit;
+        _glints.DampingMax = 130 * _unit;
         AddChild(_glints);
         _glints.Restart();
     }
