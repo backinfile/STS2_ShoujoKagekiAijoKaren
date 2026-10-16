@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +71,7 @@ public sealed class KarenFightRelay : KarenBaseCardModel
         {
             await ExtraRewardCmd.AddRelicReward(Owner);
         }
+        if (inCombat) NKarenFightRelayVfx.RewardRegistered(Owner, DynamicVars["Relics"].IntValue);
     }
 
     public override async Task OnShineNotExhausted(PlayerChoiceContext ctx, CardPlay cardPlay)
@@ -111,6 +113,7 @@ public sealed class KarenFightRelay : KarenBaseCardModel
         }
 
         MainFile.Logger.Info($"[KarenFightRelay] Added transferred '{transferred.Title}' to player {target.NetId}'s deck.");
+        NKarenFightRelayVfx.Transferred(Owner, target, transferred.GetShineValue());
         CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.MessyLayout);
 
         if (DeckVersion?.Pile?.Type == PileType.Deck)

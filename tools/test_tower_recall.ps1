@@ -3,9 +3,11 @@ param(
     [string]$GameDirectory='',
     [int]$McpPort=0,
     [ValidateSet('normal','fast')][string]$NativeSpeed='normal',
+    [ValidateSet('vulkan','opengl3')][string]$RenderingDriver='vulkan',
     [switch]$SkipCardChecks,
     [switch]$InteractionOnly,
     [switch]$ResolutionOnly,
+    [switch]$VfxShowcase,
     [switch]$ReuseFixture
 )
 $ErrorActionPreference='Stop'
@@ -61,7 +63,7 @@ function Check-Hand([string]$name) {
     Check $name ($hand.modelCount -eq $hand.visualCount -and @($hand.missing).Count -eq 0 -and @($hand.unexpected).Count -eq 0 -and @($hand.unexpectedPileIcons).Count -eq 0) $hand
 }
 try {
-    & dotnet build (Join-Path $PSScriptRoot 'promise-transform/KarenPromiseTransformTests.csproj') "-p:Variant=$variant" -o $output --nologo -v:q
+    & dotnet build (Join-Path $PSScriptRoot 'promise-transform/KarenPromiseTransformTests.csproj') "-p:Variant=$variant" "-p:Game=$game" -o $output --nologo -v:q
     if ($LASTEXITCODE -ne 0) {throw 'Fixture build failed'}
     Copy-Item -LiteralPath (Join-Path $output 'KarenPromiseTransformTests.dll') -Destination $plugin
     @{id='KarenPromiseTransformTests';name='Promise recall test';author='Karen tests';version='1.0.0';has_dll=$true;has_pck=$false;affects_gameplay=$false;dependencies=@(@{id='ShoujoKagekiAijoKaren'})} | ConvertTo-Json -Depth 4 | Set-Content -Encoding UTF8 (Join-Path $plugin 'KarenPromiseTransformTests.json')
@@ -73,7 +75,8 @@ try {
     $oldRoaming=$env:APPDATA; $oldLocal=$env:LOCALAPPDATA
     try {
         $env:APPDATA=$roaming; $env:LOCALAPPDATA=$local
-        $process=Start-Process -FilePath $exe -WorkingDirectory $game -WindowStyle Hidden -PassThru -ArgumentList "--rendering-driver vulkan --force-steam=off --clientId=66041 --log-file `"$(Join-Path $run 'godot.log')`""
+        $renderer=if($RenderingDriver -eq 'opengl3'){'--rendering-method gl_compatibility --rendering-driver opengl3'}else{'--rendering-driver vulkan'}
+        $process=Start-Process -FilePath $exe -WorkingDirectory $game -WindowStyle Hidden -PassThru -ArgumentList "$renderer --force-steam=off --clientId=66041 --log-file `"$(Join-Path $run 'godot.log')`""
     } finally { $env:APPDATA=$oldRoaming; $env:LOCALAPPDATA=$oldLocal }
     $started=$false
     for($i=0;$i -lt 100;$i++) {
@@ -87,11 +90,72 @@ try {
     foreach($option in @('singleplayer','KAREN','embark')) {$null=Post @{action='menu_select';option=$option}}
     if ((State).menu_screen -eq 'tutorial_prompt') {$null=Post @{action='menu_select';option='no'}}
     $null=Wait-State {param($s) $s.state_type -eq 'map'}
-    $null=Post @{action='choose_map_node';index=0}
+    # The map snapshot can become available before the travel animation unlocks.
+    $entered=$false
+    for($attempt=0;$attempt -lt 40;$attempt++) {
+        $travel=Invoke-RestMethod $url -Method Post -ContentType 'application/json' -Body '{"action":"choose_map_node","index":0}' -TimeoutSec 10
+        if($travel.status -eq 'ok'){$entered=$true;break}
+        if($travel.error -notmatch 'Already traveling'){throw ($travel|ConvertTo-Json -Compress)}
+        Start-Sleep -Milliseconds 250
+    }
+    if(-not $entered){throw 'Map travel did not unlock'}
     $null=Wait-State {param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase}
+    Start-Sleep -Milliseconds 1400 # Native opening draws finish after the play-phase flag appears.
     $null=Cmd "native_speed $NativeSpeed"
     $null=Cmd 'tower_recall prepare'
     Wait-Fixture
+    if ($VfxShowcase) {
+        $chapters=[Collections.Generic.List[object]]::new()
+        $null=Invoke-RestMethod "http://127.0.0.1:$port/api/v1/recording/start" -Method Post -ContentType 'application/json' -Body '{"fps":30,"max_duration_seconds":120,"width":1280,"height":720,"audio":true}'
+        $recording=$true
+        $clock=[Diagnostics.Stopwatch]::StartNew()
+        foreach($case in @('cancel','normal','repeat','small-flip','fast','instant','full','empty','void')) {
+            $speed=if($case -in @('fast','instant')){$case}else{'normal'}
+            $null=Cmd "tower_recall speed $speed"
+            $mode=if($case -in @('full','empty','void')){$case}else{'prepare'}
+            $null=Cmd "tower_recall $mode"
+            Wait-Fixture
+            if($case -eq 'small-flip'){$null=Cmd 'promise_transform small_flip'}
+            Start-Sleep -Milliseconds 200
+            Shot "$case-before"
+            Check-Hand "$case-before-hand"
+            $chapters.Add(@{case=$case;time=$clock.Elapsed.TotalSeconds})
+            $null=Cmd 'tower_recall drag KAREN_TOWER_OF_PROMISE'
+            Start-Sleep -Milliseconds 800
+            if($case -eq 'cancel') {
+                Shot 'cancel-held'
+                $null=Cmd 'tower_recall cancel'
+                Start-Sleep -Milliseconds 500
+                $probe=Probe
+                Check 'cancel-clears-preview' ($probe.alpha -le 0.01 -and $probe.active -eq 0 -and $probe.current -eq 0 -and $probe.crest -eq 0 -and $probe.promise -eq 3) $probe
+            } else {
+                $null=Cmd 'tower_recall play'
+                Start-Sleep -Milliseconds 2300
+                $probe=Probe
+                $expected=if($case -eq 'empty'){0}elseif($case -eq 'full'){1}else{3}
+                $visual=if($case -eq 'instant'){0}else{$expected}
+                Check "$case-recall" ($probe.seen -eq $visual -and $probe.landed -eq $visual -and $probe.current -eq 0 -and $probe.crest -eq 0 -and $probe.active -eq 0 -and $probe.alpha -le 0.01) $probe
+                Check "$case-model-result" ($probe.hand -eq $(if($case -eq 'full'){10}else{$expected}) -and $probe.promise -eq $(if($case -eq 'full'){2}else{0})) $probe
+            }
+            Shot "$case-after"
+            Check-Hand "$case-after-hand"
+            if($case -eq 'small-flip'){$null=Cmd 'promise_transform normal'}
+        }
+        $chapters.Add(@{case='end';time=$clock.Elapsed.TotalSeconds})
+        $chapters | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $run 'chapters.json') -Encoding UTF8
+        $null=Invoke-RestMethod "http://127.0.0.1:$port/api/v1/recording/stop" -Method Post
+        for($i=0;$i -lt 100;$i++) {
+            $rec=Invoke-RestMethod "http://127.0.0.1:$port/api/v1/recording"
+            if($rec.status -in @('completed','failed')){break}
+            Start-Sleep -Milliseconds 300
+        }
+        if($rec.status -ne 'completed' -or -not $rec.audio -or $rec.audio_source -ne 'game_process'){throw 'Game-process audio recording failed'}
+        $rec | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath (Join-Path $run 'recording.json') -Encoding UTF8
+        Copy-Item -LiteralPath $rec.output_path -Destination (Join-Path $run "tower-promise-$Environment.mp4")
+        $recording=$false
+        Write-Output "PASS VFX showcase $Environment : $($checks.Count) checks; $run"
+        return
+    }
     if ($ResolutionOnly) {
         foreach($id in @('KAREN_FALL','KAREN_DEFEND','KAREN_STRIKE')) {$null=Cmd "card $id Hand"}
         Start-Sleep -Milliseconds 700
@@ -274,7 +338,7 @@ try {
     if ($recording) {try {$null=Invoke-RestMethod "http://127.0.0.1:$port/api/v1/recording/stop" -Method Post -TimeoutSec 5} catch {}}
     if ($process) {
         $running=Get-Process -Id $process.Id -ErrorAction SilentlyContinue
-        if ($running -and $running.Path.Equals($exe,[StringComparison]::OrdinalIgnoreCase)) {Stop-Process -Id $process.Id; $running.WaitForExit(5000)|Out-Null}
+        if ($running -and $running.Path -and $running.Path.Equals($exe,[StringComparison]::OrdinalIgnoreCase)) {Stop-Process -Id $process.Id; $running.WaitForExit(5000)|Out-Null}
     }
     if (-not $ReuseFixture) { foreach($file in @('KarenPromiseTransformTests.dll','KarenPromiseTransformTests.json')) {
         $path=Join-Path $plugin $file
