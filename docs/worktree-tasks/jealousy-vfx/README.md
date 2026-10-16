@@ -146,3 +146,14 @@
 - 已查看 22 张 MCP 截图、两版连续命中帧、成片命中和片尾。当前原速有声视频约 12.75 秒：`artifacts/jealousy-angle-20261016/preview/Karen-Jealousy-showcase.mp4`。音轨非静音、无削波，运行包哈希通过，两版本轮日志无非预期异常或 Shader 错误。详细记录为 `docs/testing/jealousy-angle-v7-2026-10-16.md`。
 - 此轮未重复第六版的变换／中断／并发／击杀／下一战专项，不把历史结果算作新实测；未跑 full／多人或第三方共存矩阵。两个隔离进程退出、临时配置恢复，共享开发游戏未修改。
 - 原检出仍为 main `57c435c`，唯一未跟踪文件 `docs/20.卡牌特效制作步骤提示词.md` 未写入，SHA-256 仍为 `f583ee87d1af18daf80b4d1acf971fbe7d94538c9fccf47b654fa273b7ffb989`。实现及视频完成，工作树与任务分支保留，合并回 main 仍等待用户明确确认。
+
+## Follow-up user input: approved integration and cleanup (2026-10-16)
+
+> 合并并清理worktree
+
+## Integration and evidence preservation
+
+- 用户已明确批准合入最初目标 main 并清理本任务工作树／分支。最终功能提交为 `b391180`，main 在集成前仍为已同步的 `57c435c`，可采用快进合并；本次没有额外功能修改，不重复已通过的双版本专项。
+- 清理前已把本任务各版实录、截图、探针记录、日志及封存录制包保存到主仓库 `artifacts/`，保持原有 `jealousy*` 相对路径；共 2362 个文件、约 783.5 MiB，逐文件 SHA-256 核对一致。隔离游戏／用户数据目录 `isolated/` 是可再生成的临时测试环境，不作归档。
+- 当前视频为主仓库 `artifacts/jealousy-angle-20261016/preview/Karen-Jealousy-showcase.mp4`，测试记录和设计资料随 Git 合入。证据清单为 `artifacts/jealousy-worktree-cleanup-20261016.json`；执行后的合并／清理核查保存在同目录 `jealousy-integration-20261016.json`。
+- 集成只清理 `../worktrees/STS2_ShoujoKagekiAijoKaren/jealousy-vfx` 与 `codex/jealousy-vfx`，保留其他任务。原检出唯一未跟踪文件保持原样，其 SHA-256 核对仍为 `f583ee87d1af18daf80b4d1acf971fbe7d94538c9fccf47b654fa273b7ffb989`。
