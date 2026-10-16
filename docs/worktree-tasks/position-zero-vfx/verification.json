@@ -801,5 +801,15 @@
     "path": "position-zero-showcase.mp4",
     "sha256": "f56f2ffa8257adf2fd9f2ee102e5f6d95fa2f7e9c72f364dcbe409ac70c945c3",
     "note": "Two native captures, labelled and concatenated; game process audio +8 dB, no added audio"
+  },
+  "synchronization": {
+    "main": "b222b16d66a8f4e4345d9a591ec4501dc880461f",
+    "featureCommit": "9c9f4fa",
+    "positionZeroRuntimeFilesUnchanged": true,
+    "stableExportReleaseCompile": "pass: 0 errors, 25 existing warnings",
+    "betaExportReleaseCompile": "pass: 0 errors, 25 existing warnings",
+    "diffCheck": "pass",
+    "originalCheckoutAndUntrackedDocumentPreserved": true,
+    "runtimeSuiteRepeatedAfterSync": false
   }
 }

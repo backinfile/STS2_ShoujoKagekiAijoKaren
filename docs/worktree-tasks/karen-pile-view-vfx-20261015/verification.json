@@ -1,0 +1,142 @@
+{
+  "stable": {
+    "checks": [
+      "empty",
+      "populated",
+      "normal",
+      "fast",
+      "instant",
+      "native-return",
+      "early-close",
+      "replacement",
+      "vanilla-control",
+      "unchanged-piles",
+      "hand-model-view"
+    ],
+    "hand_checks": 24,
+    "cleanup_checks": 19,
+    "not_measured": [
+      "Actual viewport resize: the hidden-window guard preserves the display"
+    ],
+    "window_setting_requests": [
+      {
+        "requested": [
+          1600,
+          900
+        ],
+        "screenshot": [
+          1280,
+          720
+        ]
+      },
+      {
+        "requested": [
+          1100,
+          800
+        ],
+        "screenshot": [
+          1280,
+          720
+        ]
+      }
+    ],
+    "capture": {
+      "status": "completed",
+      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261015-152318-d37c11a58e8541c8a195e8db2e2edafe.mp4",
+      "fps": 30,
+      "max_duration_seconds": 180,
+      "width": 1280,
+      "height": 720,
+      "frames_written": 541,
+      "video_duration_seconds": 18.033333333333335,
+      "frames_captured": 449,
+      "frames_repeated": 92,
+      "capture_fps": 24.901782019772003,
+      "capture_average_ms": 22.015973496659246,
+      "capture_max_ms": 183.8873,
+      "elapsed_seconds": 18.4475604,
+      "audio": true,
+      "audio_source": "game_process",
+      "captureBuild": {
+        "assemblySha256": "045f99d880f436221154ce2922d47c0a350cc40d536979921e594b599f6fa074",
+        "packSha256": "24d973a5e4faa341993f4c1653717bba09237a9f0e1dad5a5f610afa39e9f2cb"
+      },
+      "renderer": "opengl3"
+    },
+    "errors": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "video_sha256": "749cf523f98cf4a2fa53d05709b03375dc8d62f06b956ec3e253a849480389e4"
+  },
+  "beta": {
+    "checks": [
+      "empty",
+      "populated",
+      "normal",
+      "fast",
+      "instant",
+      "native-return",
+      "early-close",
+      "replacement",
+      "vanilla-control",
+      "unchanged-piles",
+      "hand-model-view"
+    ],
+    "hand_checks": 24,
+    "cleanup_checks": 19,
+    "not_measured": [
+      "Actual viewport resize: the hidden-window guard preserves the display"
+    ],
+    "window_setting_requests": [
+      {
+        "requested": [
+          1600,
+          900
+        ],
+        "screenshot": [
+          1280,
+          720
+        ]
+      },
+      {
+        "requested": [
+          1100,
+          800
+        ],
+        "screenshot": [
+          1280,
+          720
+        ]
+      }
+    ],
+    "capture": {
+      "status": "completed",
+      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261015-152455-bfae4525897b4f1bab9893e528c47185.mp4",
+      "fps": 30,
+      "max_duration_seconds": 180,
+      "width": 1280,
+      "height": 720,
+      "frames_written": 552,
+      "video_duration_seconds": 18.4,
+      "frames_captured": 464,
+      "frames_repeated": 88,
+      "capture_fps": 25.241582068380097,
+      "capture_average_ms": 21.64893771551723,
+      "capture_max_ms": 198.8112,
+      "elapsed_seconds": 18.8383555,
+      "audio": true,
+      "audio_source": "game_process",
+      "captureBuild": {
+        "assemblySha256": "07ab5a4599da044ee6045a1a9470165c7510e6191edde39f5dd1cf18b87ee3a9",
+        "packSha256": "24d973a5e4faa341993f4c1653717bba09237a9f0e1dad5a5f610afa39e9f2cb"
+      },
+      "renderer": "opengl3"
+    },
+    "errors": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "video_sha256": "3821b93b6645cc823f00c3b38bf50ac8cc66cc65bbae34200770b2a6942f896b"
+  }
+}
