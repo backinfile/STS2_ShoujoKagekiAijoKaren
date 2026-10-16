@@ -55,3 +55,7 @@ python tools/vfx/catalog/package_jealousy.py --source artifacts/jealousy-square-
 ```
 
 测试版将 stable 改为 beta，并改用 18768 端口。临时游戏进程已退出，测试探针和临时配置由录制脚本恢复；工作树保留以供用户评审。
+
+## 提交与同步
+
+第三版任务提交 `2fb69ad`，随后同步本地 main `05ea593` 的独立《热情》工作。同步后双版本包重建通过（各 25 警告、0 错误，loader 1 警告、0 错误），嫉妒卡牌与两个 VFX 源文件相对录制版本的 diff 为空。该独立同步未再次运行或重录嫉妒；上表全部实机结果及视频对应 `recorded-package/`，同步后已使用 `--package` 重新核验其实际哈希，均通过。

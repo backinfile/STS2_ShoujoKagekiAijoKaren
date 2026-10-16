@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,6 +27,8 @@ public sealed class KarenPassion : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        // Card presentation and actual buff acquisition have independent owners and lifetimes.
+        NKarenPassionCardVfx.Play(Owner);
         await ExtraRewardCmd.AddRelicReward(Owner);
     }
 
