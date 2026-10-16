@@ -1,0 +1,889 @@
+{
+  "stable": {
+    "result": {
+      "result": "pass",
+      "scope": "Targeted same-version Karen/Karen relay and pending relic VFX; not full matrix",
+      "cases": 8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "5ce6d93c8a28abcf076d4c773551578c4364bc8ff637b6eb5c87cc78009b5845",
+        "ShoujoKagekiAijoKaren.pck": "06eeb7f879cb2d18444cdf0eaf0682e56c505b4257c4a804a7c4979eca9010d4"
+      }
+    },
+    "cases": [
+      {
+        "name": "01-host-to-client",
+        "mode": "normal",
+        "side": 0,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 3,
+                  "upgrade": 0
+                }
+              ]
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 0,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "02-client-to-host",
+        "mode": "normal",
+        "side": 1,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 0,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 1,
+                  "upgrade": 0
+                }
+              ]
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "03-shine-exhausted",
+        "mode": "normal",
+        "side": 0,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 1,
+                  "upgrade": 0
+                }
+              ]
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "04-upgraded-finale",
+        "mode": "normal",
+        "side": 1,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 1,
+                  "upgrade": 1
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 2,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "05-fast-relay",
+        "mode": "fast",
+        "side": 0,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": [
+                {
+                  "shine": 3,
+                  "upgrade": 0
+                }
+              ]
+            },
+            {
+              "id": "7911",
+              "pending": 2,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 2,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "06-fast-finale",
+        "mode": "fast",
+        "side": 1,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 2,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                },
+                {
+                  "shine": 1,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 3,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "07-instant-relay",
+        "mode": "instant",
+        "side": 0,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": [
+                {
+                  "shine": 3,
+                  "upgrade": 0
+                }
+              ]
+            },
+            {
+              "id": "7911",
+              "pending": 3,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 3,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                },
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "08-instant-finale",
+        "mode": "instant",
+        "side": 1,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 3,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                },
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                },
+                {
+                  "shine": 1,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 4,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                },
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      }
+    ],
+    "handChecks": 34,
+    "logReview": {
+      "host": {
+        "setupErrors": [
+          "ERROR: Parameter \"mem\" is null.",
+          "ERROR: Parameter \"mem_new\" is null.",
+          "ERROR: Failed decoding WebP image.",
+          "ERROR: Condition \"img.is_null() || img->is_empty()\" is true. Returning: Ref<Image>()",
+          "ERROR: Failed loading resource: res://.godot/imported/karen_fall.png-d575bda0e8b6b74c1b80a8061eadef09.ctex.",
+          "ERROR: Failed loading resource: res://images/packed/card_portraits/karen/karen_fall.png.",
+          "ERROR: Error loading resource: 'res://images/packed/card_portraits/karen/karen_fall.png'.",
+          "ERROR: No loader found for resource:  (expected type: unknown)",
+          "ERROR: Failed loading resource: res://images/packed/card_portraits/beta.png.",
+          "ERROR: Error loading resource: 'res://images/packed/card_portraits/beta.png'.",
+          "ERROR: Cannot open file 'res://images/atlases/card_atlas.sprites/karen/karen_fall.tres'.",
+          "ERROR: Failed loading resource: res://images/atlases/card_atlas.sprites/karen/karen_fall.tres.",
+          "ERROR: Error loading resource: 'res://images/atlases/card_atlas.sprites/karen/karen_fall.tres'."
+        ],
+        "presentationErrors": []
+      },
+      "client": {
+        "setupErrors": [],
+        "presentationErrors": []
+      }
+    },
+    "recording": {
+      "status": "completed",
+      "fps": 30,
+      "max_duration_seconds": 90,
+      "width": 1280,
+      "height": 720,
+      "frames_written": 1343,
+      "video_duration_seconds": 44.766666666666666,
+      "frames_captured": 1183,
+      "frames_repeated": 160,
+      "capture_fps": 26.428054147521976,
+      "capture_average_ms": 18.118396534234968,
+      "capture_max_ms": 254.0433,
+      "elapsed_seconds": 45.8397836,
+      "audio": true,
+      "audio_source": "game_process"
+    }
+  },
+  "beta": {
+    "result": {
+      "result": "pass",
+      "scope": "Targeted same-version Karen/Karen relay and pending relic VFX; not full matrix",
+      "cases": 8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a751190c516dd41a200f13a5614410fbf0f4aca1fc1bbbdffe78bb00df5ce26d",
+        "ShoujoKagekiAijoKaren.pck": "06eeb7f879cb2d18444cdf0eaf0682e56c505b4257c4a804a7c4979eca9010d4"
+      },
+      "setupErrorCounts": {
+        "host": 0,
+        "client": 0
+      }
+    },
+    "cases": [
+      {
+        "name": "01-host-to-client",
+        "mode": "normal",
+        "side": 0,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 3,
+                  "upgrade": 0
+                }
+              ]
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 0,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "02-client-to-host",
+        "mode": "normal",
+        "side": 1,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 0,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 1,
+                  "upgrade": 0
+                }
+              ]
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "03-shine-exhausted",
+        "mode": "normal",
+        "side": 0,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 1,
+                  "upgrade": 0
+                }
+              ]
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "04-upgraded-finale",
+        "mode": "normal",
+        "side": 1,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 0,
+              "deck": [
+                {
+                  "shine": 1,
+                  "upgrade": 1
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 2,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "05-fast-relay",
+        "mode": "fast",
+        "side": 0,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": [
+                {
+                  "shine": 3,
+                  "upgrade": 0
+                }
+              ]
+            },
+            {
+              "id": "7911",
+              "pending": 2,
+              "deck": []
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 2,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "06-fast-finale",
+        "mode": "fast",
+        "side": 1,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 2,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                },
+                {
+                  "shine": 1,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 3,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "07-instant-relay",
+        "mode": "instant",
+        "side": 0,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": [
+                {
+                  "shine": 3,
+                  "upgrade": 0
+                }
+              ]
+            },
+            {
+              "id": "7911",
+              "pending": 3,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 3,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                },
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      },
+      {
+        "name": "08-instant-finale",
+        "mode": "instant",
+        "side": 1,
+        "before": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 3,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                },
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                },
+                {
+                  "shine": 1,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        },
+        "after": {
+          "players": [
+            {
+              "id": "1",
+              "pending": 1,
+              "deck": []
+            },
+            {
+              "id": "7911",
+              "pending": 4,
+              "deck": [
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                },
+                {
+                  "shine": 2,
+                  "upgrade": 0
+                }
+              ]
+            }
+          ],
+          "active": 0,
+          "back": 0
+        }
+      }
+    ],
+    "handChecks": 34,
+    "logReview": {
+      "host": {
+        "setupErrors": [],
+        "presentationErrors": []
+      },
+      "client": {
+        "setupErrors": [],
+        "presentationErrors": []
+      }
+    },
+    "recording": {
+      "status": "completed",
+      "fps": 30,
+      "max_duration_seconds": 90,
+      "width": 1280,
+      "height": 720,
+      "frames_written": 1399,
+      "video_duration_seconds": 46.63333333333333,
+      "frames_captured": 1175,
+      "frames_repeated": 224,
+      "capture_fps": 25.201111897078384,
+      "capture_average_ms": 20.125430723404236,
+      "capture_max_ms": 322.6862,
+      "elapsed_seconds": 47.5966094,
+      "audio": true,
+      "audio_source": "game_process"
+    }
+  },
+  "delivery": {
+    "videoSha256": "021df44dd449b276dd29dd42e7d1ef79a7adb0b65359db32b0cb32e0102e17d9",
+    "previewSha256": "0c528072250a5facf6a6e56d9cd3e5c307e97b20e4413522963b5d403ef9ca1c",
+    "audioGainDb": 10
+  }
+}

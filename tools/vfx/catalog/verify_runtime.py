@@ -9,6 +9,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 parser = argparse.ArgumentParser()
 parser.add_argument('--output', required=True, type=pathlib.Path)
 parser.add_argument('--branch', choices=['stable', 'beta'], required=True)
+parser.add_argument('--package', type=pathlib.Path, help='Exact package used by the capture; defaults to the current build')
 parser.add_argument('--full-catalog', action='store_true')
 parser.add_argument('--scenes', help='Comma-separated targeted scenes; defaults to the four stage compatibility scenes')
 args = parser.parse_args()
@@ -45,7 +46,7 @@ for path in folder.rglob('*-held.json'):
         assert abs(report['ambient'] - .4176) < .002, (path, report)
     holds.append(str(path.relative_to(folder)))
 
-package = repo / 'artifacts/ShoujoKagekiAijoKaren'
+package = args.package.resolve() if args.package else repo / 'artifacts/ShoujoKagekiAijoKaren'
 expected = dict(assemblySha256=hashlib.sha256((package / 'lib' / f'ShoujoKagekiAijoKaren.{args.branch.title()}.dll').read_bytes()).hexdigest(),
                 packSha256=hashlib.sha256((package / 'ShoujoKagekiAijoKaren.pck').read_bytes()).hexdigest())
 recordings = []

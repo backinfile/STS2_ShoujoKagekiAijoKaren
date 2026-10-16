@@ -63,6 +63,6 @@ for branch, edition in [('stable', '正式版 v0.107.1'), ('beta', '测试版 v0
 combined = out / 'Karen-Jealousy-showcase.mp4'
 run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', str(out / 'concat.txt'),
      '-c', 'copy', '-movflags', '+faststart', str(combined)])
-run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-ss', '0.85', '-i', str(combined), '-frames:v', '1', str(out / 'poster.png')])
+run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-ss', '1.0', '-i', str(combined), '-frames:v', '1', str(out / 'poster.png')])
 (out / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
 print(combined)

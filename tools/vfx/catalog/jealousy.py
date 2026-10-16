@@ -10,6 +10,7 @@ def jealousy_result(label, hp, damage, rewards, kinds):
     save(label + '-jealousy', observed)
     assert observed['relicRewards'] == rewards, observed
     assert observed['live'] == 0 and observed['actorOffsetError'] < .001 and observed['modelPositionError'] < .001, observed
+    assert observed['actorZError'] == 0, observed
     assert [c['kind'] for c in observed['casts']] == kinds, observed
     for cast in observed['casts']:
         assert cast['exited'] and cast['maxAnchorError'] < .1 and cast['frames'] > 0, cast
@@ -64,6 +65,7 @@ if 'jealousy-lethal' in wanted:
     time.sleep(.7); snap(case / 'after')
     observed = jealousy_status(); save('lethal-jealousy', observed)
     assert observed['actorOffsetError'] < .001 and observed['modelPositionError'] < .001, observed
+    assert observed['actorZError'] == 0, observed
     assert observed['live'] == 0 and len(observed['casts']) == 2 and all(c['exited'] for c in observed['casts']), observed
     fight(); time.sleep(.5)
     observed = jealousy_status(); save('next-room-jealousy', observed)

@@ -20,6 +20,7 @@ public partial class NKarenJealousyVfx : Node2D
     private NCreature? _sourceView;
     private NCreature _targetView = null!;
     private Sprite2D? _actor;
+    private int _actorZLift;
     private readonly Node2D _light = new();
     private readonly Sprite2D[] _ghosts = new Sprite2D[3];
     private readonly float[] _ghostBorn = [-1, -1, -1];
@@ -66,6 +67,10 @@ public partial class NKarenJealousyVfx : Node2D
         AddChild(_light); _light.Draw += DrawLight;
         if (!_impact && Present(_sourceView) && _sourceView!.Body is Sprite2D actor) {
             _actor = actor;
+            // The source normally draws before the monsters. Keep the moving body in front at contact.
+            int raised = Mathf.Clamp(actor.ZIndex + 18, -4096, 4095);
+            _actorZLift = raised - actor.ZIndex;
+            actor.ZIndex = raised;
             _ghostMaterial ??= new ShaderMaterial { Shader = new Shader { Code = """
                 shader_type canvas_item;
                 render_mode unshaded, blend_add;
@@ -75,7 +80,7 @@ public partial class NKarenJealousyVfx : Node2D
                 _ghosts[i] = new Sprite2D { Texture = actor.Texture, Centered = actor.Centered,
                     Hframes = actor.Hframes, Vframes = actor.Vframes, Frame = actor.Frame,
                     RegionEnabled = actor.RegionEnabled, RegionRect = actor.RegionRect,
-                    FlipH = actor.FlipH, FlipV = actor.FlipV, Material = _ghostMaterial, Visible = false, ZIndex = -1 };
+                    FlipH = actor.FlipH, FlipV = actor.FlipV, Material = _ghostMaterial, Visible = false, ZIndex = -6 };
                 AddChild(_ghosts[i]);
             }
         }
@@ -152,7 +157,11 @@ public partial class NKarenJealousyVfx : Node2D
     }
     public override void _ExitTree()
     {
-        if (GodotObject.IsInstanceValid(_actor)) _actor!.Offset -= _actorOffsetLocal;
+        if (GodotObject.IsInstanceValid(_actor)) {
+            _actor!.Offset -= _actorOffsetLocal;
+            _actor.ZIndex -= _actorZLift;
+        }
         _actorOffsetLocal = Vector2.Zero;
+        _actorZLift = 0;
     }
 }

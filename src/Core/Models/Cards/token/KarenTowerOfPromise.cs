@@ -30,7 +30,7 @@ public sealed class KarenTowerOfPromise : KarenBaseCardModel
             ? PileType.Draw.GetPile(Owner).Cards.Count + PileType.Discard.GetPile(Owner).Cards.Count > 0
             : PromisePileManager.GetPromisePile(Owner).Cards.Count > 0);
         using var recall = KarenPromiseVfxStarManager.BeginTowerRecall(Owner, canDraw);
-        if (canDraw) await Cmd.CustomScaledWait(0.14f, 0.32f);
+        if (canDraw) await Cmd.CustomScaledWait(0.18f, 0.48f);
         await PromisePileCmd.DrawToFullHand(choiceContext, Owner);
     }
 

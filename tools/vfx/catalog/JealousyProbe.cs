@@ -32,6 +32,7 @@ public static class JealousyProbe
     private static readonly List<Seen> Casts = new();
     private static bool _watching;
     private static Vector2 _baselineOffset, _baselinePosition;
+    private static int _baselineZ;
     private static object? Field(object node, string name) => node.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(node);
     public static void Initialize() => ((SceneTree)Engine.GetMainLoop()).ProcessFrame += () => Callable.From(Sample).CallDeferred();
     private static bool Alive(NKarenJealousyVfx node) => GodotObject.IsInstanceValid(node) && node.IsInsideTree() && !node.IsQueuedForDeletion();
@@ -65,6 +66,7 @@ public static class JealousyProbe
         live = Casts.Count(s => Alive(s.Node)),
         actorOffsetError = ((NCombatRoom.Instance?.GetCreatureNode(player.Creature)?.Body as Sprite2D)?.Offset ?? Vector2.Zero).DistanceTo(_baselineOffset),
         modelPositionError = (NCombatRoom.Instance?.GetCreatureNode(player.Creature)?.Position ?? Vector2.Zero).DistanceTo(_baselinePosition),
+        actorZError = ((NCombatRoom.Instance?.GetCreatureNode(player.Creature)?.Body as Sprite2D)?.ZIndex ?? 0) - _baselineZ,
         relicRewards = player.RunState.CurrentRoom is CombatRoom room && room.ExtraRewards.TryGetValue(player, out var rewards)
             ? rewards.OfType<RelicReward>().Count() : 0,
         hand = player.PlayerCombatState!.Hand.Cards.Select(c => new { id = c.Id.Entry, shine = c.GetShineValue() }),
@@ -74,6 +76,7 @@ public static class JealousyProbe
     internal static void Watch(Player player) { Casts.Clear(); _watching = true;
         var view = NCombatRoom.Instance!.GetCreatureNode(player.Creature)!;
         _baselineOffset = (view.Body as Sprite2D)?.Offset ?? Vector2.Zero;
+        _baselineZ = (view.Body as Sprite2D)?.ZIndex ?? 0;
         _baselinePosition = view.Position;
     }
 }
