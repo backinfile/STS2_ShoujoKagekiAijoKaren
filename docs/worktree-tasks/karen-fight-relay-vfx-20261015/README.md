@@ -4,6 +4,10 @@
 
 [$worktree-task](C:\Users\17575\\.codex\skills\worktree-task\SKILL.md) 为歌唱吧舞蹈吧...这张牌制作特效，读取 D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/19.创意工坊特效Mod解包与制作流程.md 你先搜搜相关官方和周边参考资料，然后用imagegen生成特效表现预览图，然后参考这个预览图开始实现，最后录制效果成视频给我看看
 
+后续用户输入（2026-10-16）：
+
+> 合并
+
 ## Brief task plan
 
 - 起始分支 `main`，起始提交 `bcfe75e9db3ffdd659a8334b0085c985e00e8be1`，起始工作区干净。
@@ -15,7 +19,7 @@
 
 ## Result and changes
 
-已完成官方／授权周边检索、内置 imagegen 预览、游戏内实现与双版本实录。等待用户明确确认后合并回 `main`；未推送远端，未部署到共享开发游戏或 Steam Mod 目录。
+已完成官方／授权周边检索、内置 imagegen 预览、游戏内实现与双版本实录。用户于 2026-10-16 明确确认后，`main` 已快进合入 `80e00f7`；未推送远端，未部署到共享开发游戏或 Steam Mod 目录。
 
 - 研究与设计推导：[references.md](references.md)；预览：[preview.png](preview.png)；内置 imagegen 原始提示词：[imagegen-prompt.txt](imagegen-prompt.txt)。预览仅用于美术方向，没有作为整屏贴图覆盖游戏。
 - 成片：[fight-relay-showcase.mp4](fight-relay-showcase.mp4)，约 24.7 秒，1280×792、30 fps、H.264/AAC。主画面是完整 1280×720 游戏录像，底部补充中文分段说明；游戏进程原声音轨统一增加 10 dB，未加入其他音乐或配音。片段来源见 [video-timeline.json](video-timeline.json)。
@@ -44,10 +48,12 @@
 
 范围限制：未运行全面单人／多人矩阵、混合角色组合、其他 Mod 共存、存档恢复或创意工坊发布测试。`receive` 是拍摄布置：把接收方牌组中真实转入的卡牌克隆为战斗牌，方便一场战斗展示跨战斗接力；出牌与规则仍由游戏本身执行。
 
-原始证据位于任务工作区 `artifacts/relay-recording-final/{stable,beta}/`，包括完整有声原片、两端日志、动作和状态、MCP 前后截图；交付视频、关键画面与汇总记录已加入任务提交，清理工作区后仍可保留。
+原始证据已从任务工作区保留到主项目 `artifacts/fight-relay-vfx-20261015/`，最终实录位于其 `relay-recording-final/{stable,beta}/`，包括完整有声原片、两端日志、动作和状态、MCP 前后截图；也保留了迭代记录和验证日志。共 509 个文件、144,203,378 字节，复制前后逐文件 SHA-256 一致，清单为 `preservation-manifest.json`。交付视频、关键画面与汇总记录已加入任务提交，清理工作区后仍可保留。
 
 ### 同步与合并
 
 起始工作区干净。任务提交为 `0ae2ef2`。执行过程中本地 `main` 前进到 `86abd1940cfbe517cfc9895849500076e21bdcfd`（其他任务的 Arrogant 特效），已无冲突同步到本任务分支。同步后正式版与测试版编译均为 0 错误、25 条现有警告，本任务卡牌接线与演出代码没有因同步改变。
 
-实机录像来自同步前本任务的独立构建，准确哈希保存在 `verification.json`；同步引入的 Arrogant 独立特效未在本任务录像中触发。同步后只复核双版本编译，没有重复 16 项实录，不把此记录当作整合包的全面验收。原始工作区仍在 `main`，其未提交状态仍为空；任务分支和工作区保留，合并回原工作区仍等待用户确认。
+实机录像来自同步前本任务的独立构建，准确哈希保存在 `verification.json`；同步引入的 Arrogant 独立特效未在本任务录像中触发。同步后只复核双版本编译，没有重复 16 项实录，不把此记录当作整合包的全面验收。
+
+2026-10-16 合并前再次核对：主项目仍在 `main`，HEAD 为 `86abd19`，未提交状态为空；任务工作区也干净。已通过 `git merge --ff-only` 将 `main` 更新到 `80e00f7`，双方提交树一致，且包含任务提交 `0ae2ef2`。本条收尾记录完成后随同快进回 `main`；重要忽略文件已保全，随后清理本次任务分支与工作区。
