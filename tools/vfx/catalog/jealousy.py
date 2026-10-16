@@ -11,13 +11,15 @@ def jealousy_result(label, hp, damage, rewards, kinds):
     assert observed['relicRewards'] == rewards, observed
     assert observed['live'] == 0 and observed['actorOffsetError'] < .001 and observed['modelPositionError'] < .001, observed
     assert observed['actorZError'] == 0, observed
+    assert all(observed[k] < .001 for k in ('maxActorOffsetError', 'maxModelPositionError', 'maxVisualPositionError')), observed
+    assert observed['maxActorZError'] == 0, observed
     assert [c['kind'] for c in observed['casts']] == kinds, observed
     for cast in observed['casts']:
         assert cast['exited'] and cast['maxAnchorError'] < .1 and cast['frames'] > 0, cast
         if cast['kind'] == 'sweep' and label != 'cancel':
-            assert cast['travel'] > 0 and cast['confirmed'] > 0, cast
+            assert cast['preHitFrames'] > 0 and cast['confirmed'] > 0, cast
             assert abs(cast['confirmedAt'] - .5) < .08, cast
-            assert cast['maxTravel'] > 90 and 0 < cast['ghosts'] <= 3, cast
+        assert cast['ghosts'] == 0, cast
     save(label + '-rules', dict(damage=damage, relicRewards=rewards, powers=current['player']['status']))
     return observed
 
@@ -28,10 +30,10 @@ if 'jealousy' in wanted:
     cmd('jealousy_probe upgrade-last'); time.sleep(.3)
     cmd('jealousy_probe watch'); record_start()
     hp = state()['battle']['enemies'][0]['hp']
-    clip_cast('KAREN_JEALOUSY', '嫉妒｜后撤蓄势、突进挥槌、命中回位')
+    clip_cast('KAREN_JEALOUSY', '嫉妒｜角色原位、方片掠击、命中碎闪')
     jealousy_result('ordinary', hp, 15, 0, ['sweep', 'impact'])
     hp = state()['battle']['enemies'][0]['hp']
-    clip_cast('KAREN_JEALOUSY', '嫉妒＋｜同一突进挥击，保留20点伤害')
+    clip_cast('KAREN_JEALOUSY', '嫉妒＋｜同一方片攻击，保留20点伤害')
     report = jealousy_result('upgraded', hp, 20, 0, ['sweep', 'impact', 'sweep', 'impact'])
     finish()
 
@@ -66,6 +68,8 @@ if 'jealousy-lethal' in wanted:
     observed = jealousy_status(); save('lethal-jealousy', observed)
     assert observed['actorOffsetError'] < .001 and observed['modelPositionError'] < .001, observed
     assert observed['actorZError'] == 0, observed
+    assert all(observed[k] < .001 for k in ('maxActorOffsetError', 'maxModelPositionError', 'maxVisualPositionError')), observed
+    assert observed['maxActorZError'] == 0, observed
     assert observed['live'] == 0 and len(observed['casts']) == 2 and all(c['exited'] for c in observed['casts']), observed
     fight(); time.sleep(.5)
     observed = jealousy_status(); save('next-room-jealousy', observed)

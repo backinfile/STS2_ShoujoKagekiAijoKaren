@@ -44,7 +44,7 @@ public sealed class KarenJealousy : KarenBaseCardModel
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithAttackerFx(() => sweep = NKarenJealousyVfx.Create(Owner.Creature, cardPlay.Target))
-            .WithAttackerAnim("Attack", 0f)
+            .WithNoAttackerAnim()
             .WithWaitBeforeHit(NKarenJealousyVfx.FastHitTime, NKarenJealousyVfx.HitTime)
             .WithHitVfxNode(target => NKarenJealousyVfx.CreateImpact(target, sweep))
             .Execute(choiceContext);

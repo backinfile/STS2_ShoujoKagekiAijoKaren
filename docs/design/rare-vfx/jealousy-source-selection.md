@@ -1,5 +1,17 @@
 # 嫉妒：参考与特效设计
 
+## 当前第三版：角色原位与 TV 方片（2026-10-16）
+
+用户要求「不要移动角色，单纯制作攻击特效即可」，并指定参考 TV 真昼闪亮方片。已生成 [第三版预览](jealousy-2026-10-15/concept-square-v3.png)，[完整内置 ImageGen 提示词](jealousy-2026-10-15/prompt-square-v3.txt)。预览用于形状与时序设计，实机不使用生成画面作贴图。
+
+- [TBS 剧集介绍](https://www.tbs.co.jp/tbs-ch/item/a0305/) 确认第 5 话为「キラめきのありか」，主线涉及真昼和华恋。
+- [第 5 话图文记录](https://mamiya7.hatenablog.com/entry/2018/08/16/202447) 的 [实际查看截图](https://cdn-ak.f.st-hatena.com/images/fotolife/m/mamiya7/20180815/20180815172924.png)：真昼穿校服持指挥棒，周围有粉白、浅黄、薄荷绿、淡紫的薄方片，部分侧向压扁，边角有短亮闪。它是人物闪耀表现参考，不能据此声称逐帧还原战斗动作。
+- [第 5 话战斗截图索引](https://benigmatica.wordpress.com/2018/08/12/shoujo-kageki-revue-starlight-episode-05/) 用于定位战斗段；其 Imgur 战斗图在本轮访问受限，未把未看到的帧列为已核实内容。
+
+本地参考截图仅存于 `artifacts/jealousy-reference-v3/ep05-end.png`，不作为发行资源。运行时由代码绘制有限凸四边形及边角亮闪；方片沿攻击路径聚拢，真实命中后切光和翻转方片在目标处展开，不使用奖励星扣、玩家光环、实体槌或人物残影。角色的 Offset、变换、层级均不由特效修改，卡牌停用自带的 Attack 位移动画。专项与当前视频见 [第三版记录](../../testing/jealousy-square-vfx-2026-10-16.md)。
+
+## 历史第二版：身体突进（已停用）
+
 当前采用 **2026-10-16 攻击重制版**：[动作预览](jealousy-2026-10-15/concept-attack-v2.png)、[完整 ImageGen 提示词](jealousy-2026-10-15/prompt-attack-v2.txt)、[实装与验证](../../testing/jealousy-attack-vfx-2026-10-16.md)。用户要求「更侧重攻击这个动作，闪耀耗尽的奖励不用制作特效」。采用授权真昼立绘中实际观察过的银灰棱面槌头、红棕槌柄、蓝色小宝石和青绿配色；金色星扣／绳结的第一版已停用。新预览依然是动作设计示意，实际使用现有 Karen 立绘，不替换人物或声称新增了关节动画。
 
 日期：2026-10-15。先查资料、生成 ImageGen 预览，再按预览实现；不宣称还原了未查看的官方动画镜头。

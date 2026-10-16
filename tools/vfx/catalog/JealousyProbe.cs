@@ -24,14 +24,16 @@ public static class JealousyProbe
     {
         public readonly NKarenJealousyVfx Node = node;
         public readonly string Kind = (bool)Field(node, "_impact")! ? "impact" : "sweep";
-        public int Frames, Travel, Confirmed, Ghosts;
-        public float MaxTravel;
+        public int Frames, PreHitFrames, Confirmed, Ghosts;
         public float MaxAnchorError, ConfirmedAt = -1, FinalAge, Unit;
         public bool Exited;
     }
     private static readonly List<Seen> Casts = new();
     private static bool _watching;
-    private static Vector2 _baselineOffset, _baselinePosition;
+    private static Vector2 _baselineOffset, _baselinePosition, _baselineVisualPosition;
+    private static NCreature? _ownerView;
+    private static float _maxOffsetError, _maxPositionError, _maxVisualPositionError;
+    private static int _maxZError;
     private static int _baselineZ;
     private static object? Field(object node, string name) => node.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(node);
     public static void Initialize() => ((SceneTree)Engine.GetMainLoop()).ProcessFrame += () => Callable.From(Sample).CallDeferred();
@@ -39,6 +41,14 @@ public static class JealousyProbe
     private static void Sample()
     {
         if (!_watching || NCombatRoom.Instance is not { } room) return;
+        if (GodotObject.IsInstanceValid(_ownerView) && _ownerView!.IsInsideTree()) {
+            _maxPositionError = Math.Max(_maxPositionError, _ownerView.Position.DistanceTo(_baselinePosition));
+            _maxVisualPositionError = Math.Max(_maxVisualPositionError, _ownerView.Visuals.Position.DistanceTo(_baselineVisualPosition));
+            if (_ownerView.Body is Sprite2D actor) {
+                _maxOffsetError = Math.Max(_maxOffsetError, actor.Offset.DistanceTo(_baselineOffset));
+                _maxZError = Math.Max(_maxZError, Math.Abs(actor.ZIndex - _baselineZ));
+            }
+        }
         foreach (var node in room.CombatVfxContainer.GetChildren().OfType<NKarenJealousyVfx>()) {
             var seen = Casts.FirstOrDefault(s => s.Node == node);
             if (seen == null) {
@@ -47,9 +57,8 @@ public static class JealousyProbe
                 node.TreeExiting += () => { tracked.Exited = true; tracked.FinalAge = (float)Field(node, "_age")!; };
             }
             seen.Frames++; seen.Unit = (float)Field(node, "_unit")!;
-            seen.MaxTravel = Math.Max(seen.MaxTravel, ((Vector2)Field(node, "_actorTravel")!).Length());
             seen.Ghosts = Math.Max(seen.Ghosts, node.GetChildren().OfType<Sprite2D>().Count(g => g.Visible));
-            if (seen.Kind == "sweep" && (float)Field(node, "_confirmedAt")! < 0) seen.Travel++;
+            if (seen.Kind == "sweep" && (float)Field(node, "_confirmedAt")! < 0) seen.PreHitFrames++;
             if ((float)Field(node, "_confirmedAt")! >= 0) { seen.Confirmed++; seen.ConfirmedAt = (float)Field(node, "_confirmedAt")!; }
             var view = (NCreature)Field(node, "_targetView")!;
             if (!GodotObject.IsInstanceValid(view) || !view.IsInsideTree() || view.IsQueuedForDeletion()) continue;
@@ -67,14 +76,18 @@ public static class JealousyProbe
         actorOffsetError = ((NCombatRoom.Instance?.GetCreatureNode(player.Creature)?.Body as Sprite2D)?.Offset ?? Vector2.Zero).DistanceTo(_baselineOffset),
         modelPositionError = (NCombatRoom.Instance?.GetCreatureNode(player.Creature)?.Position ?? Vector2.Zero).DistanceTo(_baselinePosition),
         actorZError = ((NCombatRoom.Instance?.GetCreatureNode(player.Creature)?.Body as Sprite2D)?.ZIndex ?? 0) - _baselineZ,
+        maxActorOffsetError = _maxOffsetError, maxModelPositionError = _maxPositionError,
+        maxVisualPositionError = _maxVisualPositionError, maxActorZError = _maxZError,
         relicRewards = player.RunState.CurrentRoom is CombatRoom room && room.ExtraRewards.TryGetValue(player, out var rewards)
             ? rewards.OfType<RelicReward>().Count() : 0,
         hand = player.PlayerCombatState!.Hand.Cards.Select(c => new { id = c.Id.Entry, shine = c.GetShineValue() }),
-        casts = Casts.Select(s => new { kind = s.Kind, frames = s.Frames, travel = s.Travel,
+        casts = Casts.Select(s => new { kind = s.Kind, frames = s.Frames, preHitFrames = s.PreHitFrames,
             confirmed = s.Confirmed, confirmedAt = s.ConfirmedAt, unit = s.Unit, maxAnchorError = s.MaxAnchorError,
-            maxTravel = s.MaxTravel, ghosts = s.Ghosts, exited = s.Exited, finalAge = s.FinalAge }) });
+            ghosts = s.Ghosts, exited = s.Exited, finalAge = s.FinalAge }) });
     internal static void Watch(Player player) { Casts.Clear(); _watching = true;
         var view = NCombatRoom.Instance!.GetCreatureNode(player.Creature)!;
+        _ownerView = view; _baselineVisualPosition = view.Visuals.Position;
+        _maxOffsetError = _maxPositionError = _maxVisualPositionError = 0; _maxZError = 0;
         _baselineOffset = (view.Body as Sprite2D)?.Offset ?? Vector2.Zero;
         _baselineZ = (view.Body as Sprite2D)?.ZIndex ?? 0;
         _baselinePosition = view.Position;
