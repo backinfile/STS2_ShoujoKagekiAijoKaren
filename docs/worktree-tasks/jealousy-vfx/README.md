@@ -80,7 +80,7 @@
 - 主体保留短促攻击切光；装饰改为引擎原生粒子，Shader 表现薄片翻转和亮闪，材质与发射器按次独立，方向性散射代替规则圆环。
 - 双版本针对性验证真实命中、连续／额外重播、速度模式、定位变换、中断和退场，重新录制原速有声视频；同步 main 后等待明确合并确认。
 
-## Result and changes: 当前第四版
+## Historical v4 result: 原生粒子与飞行尾迹（已替换）
 
 - 已梳理 1 费单次攻击、15／20 伤害、9 闪耀、耗尽 1／2 遗物奖励及真实 ExtraReplay 调度。没有常驻 Power，继续遵守角色原位与无专属奖励特效的明确要求。
 - 已重新搜索并查看官方 TV 剧集资料、Dear 9 真昼周边图及 TV 方片截图。内置 ImageGen 预览与完整提示词为 `docs/design/rare-vfx/jealousy-2026-10-15/concept-particles-v4.png`、`prompt-particles-v4.txt`，机制与制作选择在 `docs/design/rare-vfx/jealousy-particles-v4.md`。
@@ -90,3 +90,22 @@
 - 已查看 40 张 MCP 截图及两版原片／成片关键帧和片尾；约 13 秒原速有声视频：`artifacts/jealousy-particles-reviewed-20261016/preview/Karen-Jealousy-showcase.mp4`。音轨来自游戏进程，非静音且无削波；录制包封存 `recorded-package/`，哈希与原片核对通过。
 - 当前记录：`docs/testing/jealousy-particles-vfx-2026-10-16.md`。共享开发游戏、原检出及其未跟踪文档未修改；测试进程已退出、临时配置恢复。任务实现与媒体已完成，工作树保留，合并回 main 等待明确确认。
 - 第四版功能提交为 `c647da3`。已同步本地 main `57c435c` 的独立零位／命运交换等工作，两版构建通过（各 26 警告、0 错误；loader 1 警告、0 错误）。嫉妒运行源码和两份 Shader 与录制版本无变化，本次独立同步未重复运行／重录；封存录制包再次校验通过。原检出仍为 main、同步期间 HEAD 未变，原有未跟踪文档 SHA-256 仍为 `f583ee87d1af18daf80b4d1acf971fbe7d94538c9fccf47b654fa273b7ffb989`，未被本任务写入。
+
+## Follow-up user input: contact-only drift (2026-10-16)
+
+> 不要中间的轨迹，击中后，粒子的方向应该是向玩家飘的
+
+## Current revision plan
+
+- 移除玩家到敌人的短尖端、飞行光线和途中方片尾迹，命中前不创建嫉妒特效节点。
+- 只在真实命中回调中生成切光／方片／星闪；粒子按真实目标到玩家的向量飘散，兼容缩放、换边与目标移动。
+- 沿用角色原位、无专属奖励演出；双版本专项实测并重录视频。
+
+## Result and changes: v5 命中后向玩家回飘
+
+- 删除 `KarenJealousy.cs` 的 WithAttackerFx 接线；VFX 主类、绘制和粒子分部移除所有途中尖端／光线／方片发射器。仅真实命中回调创建目标切光、34 方片与 14 星闪，方向为实际目标到实际玩家的向量，收窄散射并减速形成回飘。普通／升级伤害 15／20、命中等待及闪耀／奖励规则不变；角色保持原位，无专属奖励演出。
+- 更新 `JealousyProbe.cs`、`jealousy.py` 和视频封装说明，新增命中前零节点检查、玩家右侧换边和发射方向核对。第五版实测记录为 `docs/testing/jealousy-contact-v5-2026-10-16.md`；参考来源与第四版记录已标明途中轨迹停用。
+- 双版本构建通过（各 26 警告、0 错误，loader 1 警告、0 错误）。两版普通／升级、Fast／Instant、变换、换边、中断、额外重播、并发视觉、击杀与下一战专项通过。每版 12／12 父节点退出、24 个子发射器随父释放，15／15 手牌核查通过；模型与 Visuals 位置、Offset、ZIndex 最大变化均 0，目标定位误差 0。命中前无嫉妒节点，发射方向最小点积 0.99999994。
+- 已查看 46 张 MCP 截图及两版原片／成片关键帧。当前双版本原速有声视频约 13.12 秒：`artifacts/jealousy-contact-20261016/preview/Karen-Jealousy-showcase.mp4`，录制包封存于同目录 `recorded-package/`，运行哈希核对通过。两版战斗段无非预期异常或 Shader 错误；测试版单列 1 条 Common 预载前的已知 Invalid Task ID 启动诊断。
+- 本轮基于已同步的 main `57c435c` 构建和实测；原检出仍在该 main，唯一未跟踪文件 `docs/20.卡牌特效制作步骤提示词.md` 的 SHA-256 仍为 `f583ee87d1af18daf80b4d1acf971fbe7d94538c9fccf47b654fa273b7ffb989`，未被本任务写入。隔离测试进程已退出、临时配置恢复，共享开发游戏未修改。
+- 仅做本次相关单人专项，未跑 full／多人或第三方共存矩阵。实现和实机媒体已完成，任务分支与工作树保留；合并回 main 仍等待用户明确确认。

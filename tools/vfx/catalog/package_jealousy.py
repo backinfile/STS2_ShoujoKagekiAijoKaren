@@ -36,7 +36,7 @@ for branch, edition in [('stable', '正式版 v0.107.1'), ('beta', '测试版 v0
     assert levels['mean'] > -65, levels
     gain = min(12, -2 - levels['max'])
     for i, text in enumerate([f'嫉妒  ·  {edition}  ·  普通攻击', f'嫉妒＋  ·  {edition}  ·  升级攻击',
-                              '角色保持原位 · 方片掠击 → 命中碎闪    |    原速游戏实录', '升级20伤害 · 同一方片攻击与命中    |    原速游戏实录']):
+                              '角色保持原位 · 命中后方片朝玩家飘散    |    原速游戏实录', '升级20伤害 · 命中点切光与回飘粒子    |    原速游戏实录']):
         (out / f'{branch}-{i}.txt').write_text(text, encoding='utf-8')
     change = marks[1]['time']
     vf = 'pad=1280:800:0:0:color=0x0d181c'

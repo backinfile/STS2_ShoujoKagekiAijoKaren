@@ -14,19 +14,6 @@ public partial class NKarenJealousyVfx
     // Only the attack's main shape is drawn here; decoration lives in native particle emitters.
     private void DrawLight()
     {
-        if (!_impact) {
-            float fade = _confirmedAt < 0 ? Mathf.SmoothStep(.04f, .13f, _age)
-                : 1 - Mathf.SmoothStep(0, .06f, _age - _confirmedAt);
-            if (fade < .01f) return;
-            var tip = FlightPoint(FlightProgress);
-            var tail = FlightPoint(Mathf.Max(0, FlightProgress - .07f));
-            if (tip.DistanceTo(tail) > .2f * _unit) {
-                _light.DrawLine(tail, tip, new Color(Mint, .35f * fade), 5 * _unit, true);
-                _light.DrawLine(tail, tip, new Color(Hot, .8f * fade), 1.4f * _unit, true);
-            }
-            Halo(tip, 17, Mint, .18f * fade);
-            return;
-        }
         float flash = Mathf.Exp(-_age * 40);
         Halo(_target, 65, Mint, flash * .48f);
         float fadeOut = 1 - Mathf.SmoothStep(.08f, .21f, _age);

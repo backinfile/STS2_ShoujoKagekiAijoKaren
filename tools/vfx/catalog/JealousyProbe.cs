@@ -24,10 +24,10 @@ public static class JealousyProbe
     private sealed class Seen(NKarenJealousyVfx node)
     {
         public readonly NKarenJealousyVfx Node = node;
-        public readonly string Kind = (bool)Field(node, "_impact")! ? "impact" : "sweep";
-        public int Frames, PreHitFrames, Confirmed, Ghosts, Emitters, ParticleCapacity, EmittingFrames;
+        public readonly string Kind = "impact";
+        public int Frames, Ghosts, Emitters, ParticleCapacity, EmittingFrames;
         public readonly HashSet<ulong> Materials = new();
-        public float MaxAnchorError, ConfirmedAt = -1, FinalAge, Unit;
+        public float MaxAnchorError, FinalAge, Unit, MinDirectionDot = 1, MaxSpread;
         public bool Exited;
     }
     private static readonly List<Seen> Casts = new();
@@ -70,8 +70,11 @@ public static class JealousyProbe
             seen.ParticleCapacity = Math.Max(seen.ParticleCapacity, particles.Sum(p => p.Amount));
             if (particles.Any(p => p.Emitting)) seen.EmittingFrames++;
             foreach (var p in particles) if (p.Material != null) seen.Materials.Add(p.Material.GetInstanceId());
-            if (seen.Kind == "sweep" && (float)Field(node, "_confirmedAt")! < 0) seen.PreHitFrames++;
-            if ((float)Field(node, "_confirmedAt")! >= 0) { seen.Confirmed++; seen.ConfirmedAt = (float)Field(node, "_confirmedAt")!; }
+            var towardPlayer = ((Vector2)Field(node, "_source")! - (Vector2)Field(node, "_target")!).Normalized();
+            foreach (var p in particles) {
+                seen.MinDirectionDot = Math.Min(seen.MinDirectionDot, p.Direction.Normalized().Dot(towardPlayer));
+                seen.MaxSpread = Math.Max(seen.MaxSpread, p.Spread);
+            }
             var view = (NCreature)Field(node, "_targetView")!;
             if (!GodotObject.IsInstanceValid(view) || !view.IsInsideTree() || view.IsQueuedForDeletion()) continue;
             var bounds = view.Visuals.GetNodeOrNull<Control>("%Bounds") ?? view.Hitbox;
@@ -95,8 +98,8 @@ public static class JealousyProbe
         relicRewards = player.RunState.CurrentRoom is CombatRoom room && room.ExtraRewards.TryGetValue(player, out var rewards)
             ? rewards.OfType<RelicReward>().Count() : 0,
         hand = player.PlayerCombatState!.Hand.Cards.Select(c => new { id = c.Id.Entry, shine = c.GetShineValue() }),
-        casts = Casts.Select(s => new { kind = s.Kind, frames = s.Frames, preHitFrames = s.PreHitFrames,
-            confirmed = s.Confirmed, confirmedAt = s.ConfirmedAt, unit = s.Unit, maxAnchorError = s.MaxAnchorError,
+        casts = Casts.Select(s => new { kind = s.Kind, frames = s.Frames,
+            unit = s.Unit, maxAnchorError = s.MaxAnchorError, minDirectionDot = s.MinDirectionDot, maxSpread = s.MaxSpread,
             ghosts = s.Ghosts, emitters = s.Emitters, particleCapacity = s.ParticleCapacity,
             emittingFrames = s.EmittingFrames, exited = s.Exited, finalAge = s.FinalAge }) });
     internal static void Watch(Player player) { Casts.Clear(); _watching = true;
@@ -113,7 +116,7 @@ public static class JealousyProbe
 public sealed class JealousyProbeCmd : AbstractConsoleCmd
 {
     public override string CmdName => "jealousy_probe";
-    public override string Args => "watch|status|deplete-last|upgrade-last|replay-last|overlap|pose|lethal|cancel|cancel-all";
+    public override string Args => "watch|status|deplete-last|upgrade-last|replay-last|overlap|pose|reverse|lethal|cancel-all";
     public override string Description => "Observe real jealousy casts and pending relic rewards.";
     public override bool IsNetworked => false;
     public override CmdResult Process(Player? player, string[] args)
@@ -135,15 +138,15 @@ public sealed class JealousyProbeCmd : AbstractConsoleCmd
                 // Visual concurrency fixture only: no card play, no damage and no reward.
                 var enemy = room.CreatureNodes.First(v => v.Entity.IsMonster).Entity;
                 for (int i = 0; i < 2; i++)
-                    if (NKarenJealousyVfx.CreateImpact(enemy, null) is { } impact) room.CombatVfxContainer.AddChild(impact);
+                    if (NKarenJealousyVfx.CreateImpact(player.Creature, enemy) is { } impact) room.CombatVfxContainer.AddChild(impact);
                 return new(true, "two overlapping visual-only contact bursts");
             case "cancel-all":
                 foreach (var node in room.CombatVfxContainer.GetChildren().OfType<NKarenJealousyVfx>()) node.QueueFree();
                 return new(true, "cancelled flight and contact particle parents");
-            case "cancel":
-                foreach (var node in room.CombatVfxContainer.GetChildren().OfType<NKarenJealousyVfx>())
-                    if (node.Name == "KarenJealousySwing") node.QueueFree();
-                return new(true, "cancelled owned visual; native attack continues");
+            case "reverse":
+                room.GetCreatureNode(player.Creature)!.Position += new Vector2(820, 0);
+                room.CreatureNodes.First(v => v.Entity.IsMonster).Position += new Vector2(-700, 0);
+                return new(true, "visual fixture: player right, target left");
             case "lethal": room.CreatureNodes.First(v => v.Entity.IsMonster).Entity.SetCurrentHpInternal(12); return new(true, "hp=12");
             case "pose":
                 var owner = room.GetCreatureNode(player.Creature)!;
