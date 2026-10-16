@@ -2230,5 +2230,27 @@
     "src/Core/Models/Cards/promisePile/KarenExchangeFate.cs": "7c477e4a77de2c2cdb7f6d42a362caa8725691a581032083f39f9e6727773db3",
     "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenExchangeFateVfx.cs": "8c8b643ea2c0c42f5751db61c51a8305428d371c3534f912b468ed5e3038bc67",
     "shaders/karen_fate_silk.gdshader": "17f75ee8132f8020a05408353b94478f9834b960cedc235abed696e5f892f583"
+  },
+  "synchronizedMain": {
+    "main": "2258764ef228233ce739361f58ffb137bd2bbd66",
+    "taskCommit": "8a7c5e6",
+    "implementationAndAudioUnchanged": true,
+    "build": "Full dual-version package success: 26 warnings per implementation (also recorded by incoming Position 0 task), loader 1 warning; 0 errors.",
+    "runtimeVerification": "Prior targeted game checks retained. No new runtime replay after this unrelated Position 0-only merge; Exchange Fate code, shader, sounds and its dependencies were unchanged.",
+    "packageSha256": {
+      "ShoujoKagekiAijoKaren.dll": "0811b2de93b51d4ac2f5ef2db451501d15c86b704b217ab04dd5cda5d82aa369",
+      "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+      "ShoujoKagekiAijoKaren.pck": "39c2bbe5911f4d857a957a7a451611b85a095749d9032987908686d0c7ec6667",
+      "lib\\ShoujoKagekiAijoKaren.Beta.dll": "e0878e5ed21f0ef8baddc329d0a0d2a22b8022295e6440e8cc56f12404573a11",
+      "lib\\ShoujoKagekiAijoKaren.Stable.dll": "eb1b48e65b4d2d5958d4913e9d00c444299a6e6e6c4e9b1b548983ebce6d7466"
+    },
+    "packCheck": {
+      "entries": 984,
+      "ornamentResources": [],
+      "passed": true
+    },
+    "observedOriginalUntrackedDocumentSha256BeforeSync": "2396f33473560138071ed7f7d42315f16d98422ab9e8ba9a44ee405a686e6272",
+    "observedOriginalUntrackedDocumentSha256AtFinalCheck": "f583ee87d1af18daf80b4d1acf971fbe7d94538c9fccf47b654fa273b7ffb989",
+    "originalUntrackedDocumentNote": "Content changed outside this task during work. This task only read the original checkout and did not write, stage or restore this untracked document; current contents preserved."
   }
 }
