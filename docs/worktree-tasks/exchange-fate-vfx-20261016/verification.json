@@ -1,0 +1,2423 @@
+{
+  "versions": {
+    "stable": {
+      "cases": {
+        "normal": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 87,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "empty-in": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [],
+            "handCount": 0,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 88,
+                "sent": 4,
+                "received": 0,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 0,
+              "visualCount": 0,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": []
+            }
+          }
+        },
+        "empty-out": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 1,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 90,
+                "sent": 0,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 1,
+              "visualCount": 1,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "empty": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [],
+            "received": [],
+            "handCount": 1,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [],
+            "received": [],
+            "handCount": 0,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 1,
+              "visualCount": 1,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 0,
+              "visualCount": 0,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": []
+            }
+          }
+        },
+        "full": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 10,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Discard",
+              "Discard"
+            ],
+            "handCount": 10,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 86,
+                "sent": 9,
+                "received": 10,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 10,
+              "visualCount": 10,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 10,
+              "visualCount": 10,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "fast": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 51,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "instant": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "void": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "Draw",
+              "Draw",
+              "Draw"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "Draw",
+              "Draw",
+              "Draw",
+              "Draw"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 90,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "repeat": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Discard",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 85,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          },
+          "second": {
+            "ready": true,
+            "sourcePile": "Discard",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "Exhaust",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 4,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 85,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              },
+              {
+                "frames": 89,
+                "sent": 2,
+                "received": 4,
+                "confirmed": true
+              }
+            ]
+          },
+          "secondHandCheck": {
+            "modelCount": 4,
+            "visualCount": 4,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          }
+        },
+        "cancel": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 32,
+                "sent": 0,
+                "received": 0,
+                "confirmed": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        }
+      },
+      "build": {
+        "ShoujoKagekiAijoKaren.dll": "3dbca469be39a69d61fdd38c9a054a20ab3135189f33275feda3853f98f9ea3b",
+        "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+        "ShoujoKagekiAijoKaren.pck": "dadb3fb9e884d01d76bb6d933eac1b0fb671e643a571eef60b856b7675d7d38d",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "aa9c0a0d98ed55176aee189493ca671cd7aca8c42f818ba849221120d28ebd43",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "9bac35980b8ff0500c8212bdccd63541f911d445bcab5f1232e495d095237298"
+      }
+    },
+    "beta": {
+      "cases": {
+        "normal": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 87,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "empty-in": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [],
+            "handCount": 0,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 91,
+                "sent": 4,
+                "received": 0,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 0,
+              "visualCount": 0,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": []
+            }
+          }
+        },
+        "empty-out": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 1,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 91,
+                "sent": 0,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 1,
+              "visualCount": 1,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "empty": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [],
+            "received": [],
+            "handCount": 1,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [],
+            "received": [],
+            "handCount": 0,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 1,
+              "visualCount": 1,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 0,
+              "visualCount": 0,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": []
+            }
+          }
+        },
+        "full": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 10,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Discard",
+              "Discard"
+            ],
+            "handCount": 10,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 64,
+                "sent": 9,
+                "received": 10,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 10,
+              "visualCount": 10,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 10,
+              "visualCount": 10,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "fast": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 51,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "instant": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "void": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "Draw",
+              "Draw",
+              "Draw"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "Draw",
+              "Draw",
+              "Draw",
+              "Draw"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 90,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        },
+        "repeat": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Discard",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 74,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          },
+          "second": {
+            "ready": true,
+            "sourcePile": "Discard",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "Exhaust",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 4,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 74,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true
+              },
+              {
+                "frames": 71,
+                "sent": 2,
+                "received": 4,
+                "confirmed": true
+              }
+            ]
+          },
+          "secondHandCheck": {
+            "modelCount": 4,
+            "visualCount": 4,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          }
+        },
+        "cancel": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "cues": [
+              {
+                "frames": 32,
+                "sent": 0,
+                "received": 0,
+                "confirmed": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_STRIKE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_EXCHANGE_FATE",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": [],
+              "burnOverlays": [
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                },
+                {
+                  "card": "KAREN_DEFEND",
+                  "expected": 0,
+                  "actual": 0,
+                  "valid": true
+                }
+              ]
+            }
+          }
+        }
+      },
+      "build": {
+        "ShoujoKagekiAijoKaren.dll": "3dbca469be39a69d61fdd38c9a054a20ab3135189f33275feda3853f98f9ea3b",
+        "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+        "ShoujoKagekiAijoKaren.pck": "dadb3fb9e884d01d76bb6d933eac1b0fb671e643a571eef60b856b7675d7d38d",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "aa9c0a0d98ed55176aee189493ca671cd7aca8c42f818ba849221120d28ebd43",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "9bac35980b8ff0500c8212bdccd63541f911d445bcab5f1232e495d095237298"
+      }
+    }
+  },
+  "video": {
+    "nb_streams": 2,
+    "nb_programs": 0,
+    "nb_stream_groups": 0,
+    "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+    "format_long_name": "QuickTime / MOV",
+    "start_time": "0.000000",
+    "duration": "19.354362",
+    "size": "5702473",
+    "bit_rate": "2357080",
+    "probe_score": 100,
+    "tags": {
+      "major_brand": "isom",
+      "minor_version": "512",
+      "compatible_brands": "isomiso2avc1mp41",
+      "encoder": "Lavf62.12.100"
+    }
+  },
+  "scope": "targeted single-player checks only; multiplayer not run"
+}
