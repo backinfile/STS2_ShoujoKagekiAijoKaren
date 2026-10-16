@@ -19,13 +19,13 @@ using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
-/// <summary>Room-owned jewelled ornaments and flowing silk. Native commands own all cards.</summary>
+/// <summary>Room-owned flowing silk and optical dust. Native commands own all cards.</summary>
 public partial class NKarenExchangeFateVfx : Node2D
 {
     private const int Segments = 64;
     private static readonly Color Red = new("#fa5169"), Blue = new("#779fff"), Gold = new("#ffc16d"), Ivory = new("#fff4db");
     private static GradientTexture2D? _soft;
-    private static Texture2D? _atlas, _streak;
+    private static Texture2D? _streak;
     private static Shader? _shader;
     private sealed class Silk(bool blue, int strand)
     {
@@ -46,7 +46,7 @@ public partial class NKarenExchangeFateVfx : Node2D
         public readonly bool Glint = glint;
         public float Age;
     }
-    private readonly Node2D _light = new(), _ornaments = new(), _front = new();
+    private readonly Node2D _light = new(), _front = new();
     private readonly List<Silk> _silks = new();
     private readonly List<Dust> _dust = new(180);
     private readonly List<AudioStreamPlayer> _sounds = new();
@@ -109,14 +109,12 @@ public partial class NKarenExchangeFateVfx : Node2D
             FillTo = new(1, .5f),
             Gradient = new Gradient { Offsets = [0, .12f, .40f, 1], Colors = [Colors.White, new(1, 1, 1, .72f), new(1, 1, 1, .16f), Colors.Transparent] }
         };
-        _atlas ??= GD.Load<Texture2D>("res://images/vfx/exchange_fate/ornaments.png");
         _streak ??= GD.Load<Texture2D>("res://images/vfx/sts/horizontal_line.png");
         _shader ??= GD.Load<Shader>("res://shaders/karen_fate_silk.gdshader");
         _light.Material = _front.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
-        _ornaments.ZIndex = 5; _front.ZIndex = 6;
-        _ornaments.TextureFilter = TextureFilterEnum.LinearWithMipmaps;
-        AddChild(_light); AddChild(_ornaments); AddChild(_front);
-        _light.Draw += DrawLight; _ornaments.Draw += DrawOrnaments; _front.Draw += DrawDust;
+        _front.ZIndex = 6;
+        AddChild(_light); AddChild(_front);
+        _light.Draw += DrawLight; _front.Draw += DrawDust;
         KarenVfxComposition.RegisterCue(this, _owner.Creature);
         GlobalTransform = GetCanvasTransform().AffineInverse(); _unit = GetViewportRect().Size.Y / 1080f;
         var hit = _room.GetCreatureNode(_owner.Creature)!.Hitbox;
@@ -183,9 +181,9 @@ public partial class NKarenExchangeFateVfx : Node2D
         }
         foreach (var silk in _silks) UpdateSilk(silk);
         KarenVfxComposition.SetCueStrength(this, Alpha);
-        QueueRedraw(); _light.QueueRedraw(); _ornaments.QueueRedraw(); _front.QueueRedraw();
+        QueueRedraw(); _light.QueueRedraw(); _front.QueueRedraw();
     }
-    private Vector2 OrnamentPoint(bool blue)
+    private Vector2 FlowHead(bool blue)
     {
         if (_exchangeAt < 0)
         {
@@ -194,15 +192,14 @@ public partial class NKarenExchangeFateVfx : Node2D
         }
         float t2 = Mathf.SmoothStep(0, 1, Travel), s = blue ? 1 - t2 : t2;
         var stage = _left.Lerp(_right, s) + Vector2.Up * Mathf.Sin(s * Mathf.Tau) * (blue ? -75 : 75) * _unit;
-        // One passes behind the other. Keep the jewels away from the optical meeting
-        // point so their silhouettes and the burst are all readable at game scale.
+        // The two silk heads pass above/below the optical meeting point.
         float passing = Mathf.Exp(-Mathf.Pow((Travel - .50f) / .19f, 2));
         stage += Vector2.Up * (blue ? 85 : -85) * passing * _unit;
         return stage.Lerp(blue ? _hand : _pile, Arrival);
     }
     private Vector2 Flow(float u, bool blue)
     {
-        var from = blue ? _pile : _hand; var head = OrnamentPoint(blue);
+        var from = blue ? _pile : _hand; var head = FlowHead(blue);
         u *= Mathf.SmoothStep(0, 1, Mathf.Clamp((_age - .08f) / .40f, 0, 1));
         if (u < .60f)
             return from.BezierInterpolate(from + new Vector2(blue ? 5 : 130, blue ? -250 : -180) * _unit,
@@ -239,7 +236,7 @@ public partial class NKarenExchangeFateVfx : Node2D
         for (int b = 0; b < 2; b++)
         {
             bool blue = b == 1; if ((blue ? _incoming.Length : _outgoing.Length) == 0) continue; var color = blue ? Blue : Red;
-            Glow(_light, OrnamentPoint(blue), Vector2.One * 90 * _unit, color, a * .25f);
+            Glow(_light, FlowHead(blue), Vector2.One * 90 * _unit, color, a * .25f);
             for (int j = 1; j < 36; j++) _light.DrawLine(Flow(j / 36f, blue), Flow((j + 1) / 36f, blue), color with { A = a * .028f }, 45 * _unit, true);
             for (int thread = 0; thread < 2; thread++)
             {
@@ -256,33 +253,12 @@ public partial class NKarenExchangeFateVfx : Node2D
         }
         Glow(_light, _focus, Vector2.One * (80 + 115 * CrossPulse) * _unit, Gold, CrossPulse * .56f);
     }
-    private void DrawOrnaments()
-    {
-        if (_atlas == null) return;
-        for (int b = 0; b < 2; b++)
-        {
-            bool blue = b == 1; if ((blue ? _incoming.Length : _outgoing.Length) == 0) continue; var p = OrnamentPoint(blue);
-            float size = (1 - Arrival * .75f) * (.88f + .12f * Mathf.Sin(Travel * Mathf.Pi));
-            float turn = (blue ? .12f : -.16f) + Mathf.Sin(Travel * Mathf.Tau) * .14f;
-            float yaw = 1 - .16f * Mathf.Sin(Travel * Mathf.Pi);
-            _ornaments.DrawSetTransform(p, turn, new Vector2(yaw, 1) * size * _unit);
-            var atlasSize = _atlas.GetSize(); float cell = atlasSize.X / 2;
-            _ornaments.DrawTextureRectRegion(_atlas, new Rect2(-93, -93, 186, 186), new Rect2(blue ? cell : 0, 0, cell, atlasSize.Y), new Color(1, 1, 1, Alpha * (1 - Arrival * .55f)));
-            _ornaments.DrawSetTransform(Vector2.Zero);
-        }
-    }
     private void Emit(Vector2 p, Vector2 velocity, bool glint)
     {
         if (_dust.Count < 180) _dust.Add(new Dust(p, velocity, _random.RandfRange(.30f, .88f), _random.RandfRange(glint ? 2 : .5f, glint ? 3.7f : 1.4f) * _unit, glint));
     }
     private void DrawDust()
     {
-        for (int b = 0; b < 2; b++)
-        {
-            bool blue = b == 1; if ((blue ? _incoming.Length : _outgoing.Length) == 0) continue;
-            Glint(_front, OrnamentPoint(blue) + new Vector2(-28, -24) * _unit, 10 * _unit,
-                Alpha * (.2f + .35f * Mathf.Pow(Mathf.Max(0, Mathf.Sin(_age * 6 + (blue ? 2 : 0))), 8)) * (1 - Arrival));
-        }
         foreach (var d in _dust)
         {
             float fade = Mathf.Sin(Mathf.Pow(d.Age / d.Life, .7f) * Mathf.Pi) * Alpha;

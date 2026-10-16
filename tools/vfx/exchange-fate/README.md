@@ -18,4 +18,6 @@ V2 重制验证输出位于 `output/exchange-fate-vfx/revision-v2/`。`final-sta
 
 最后曝光微调的实录位于 `polish-stable`（normal）和 `polish-beta`（normal,void,repeat）。最新交付使用 `--prefix polish`；delivery 视频保留作过程记录。
 
+V3 按反馈移除两枚实体头饰，证据在 `output/exchange-fate-vfx/revision-v3/`。使用 `verify.py stable --cases normal --output output/exchange-fate-vfx/revision-v3/final-stable` 和 `verify.py beta --cases normal,void,repeat --output output/exchange-fate-vfx/revision-v3/final-beta`，再运行 `package_video.py output/exchange-fate-vfx/revision-v3`。资源包检查确认不含旧头饰图集。
+
 需要 MCP 配置与开发游戏中已有 Karen 存档。测试退出后关闭本脚本创建的游戏进程，保留隔离目录作为证据。未运行完整多人矩阵。
