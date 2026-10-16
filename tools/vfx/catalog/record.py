@@ -9,6 +9,8 @@ parser.add_argument('--port',type=int)
 parser.add_argument('--package',type=pathlib.Path)
 parser.add_argument('--speed',choices=['normal','fast'],default='normal')
 parser.add_argument('--renderer',choices=['vulkan','opengl3'],default='vulkan')
+parser.add_argument('--audit-capture',action='store_true')
+parser.add_argument('--recording-encoder',choices=['auto','h264_nvenc','libx264'],default='auto')
 args=parser.parse_args()
 assert args.setup_wait >= 0
 root=args.output.resolve()
@@ -116,7 +118,7 @@ try:
         global recording
         snap(case/'recording-before');check_hand('recording-before-hand')
         api('/settings',dict(muted=False));time.sleep(.3)
-        api('/recording/start',dict(fps=30,max_duration_seconds=180,width=1280,height=720,audio=True));recording=True
+        api('/recording/start',dict(fps=30,max_duration_seconds=180,width=1280,height=720,audio=True,encoder=args.recording_encoder));recording=True
     def record_stop():
         global recording
         api('/recording/stop',{})
@@ -202,6 +204,23 @@ try:
             if state()['state_type']=='card_select':post(action='confirm_selection')
             # Multi-choice screens expose confirmation only when needed.
         time.sleep(.12);snap(case/(label+'-moving'));return settle(label+'-after')
+    if args.audit_capture:
+        folder=out/'capture-audit';folder.mkdir(exist_ok=True)
+        cmd('waiting_probe clock on');time.sleep(.3)
+        clock=json.loads(cmd('waiting_probe status')['message'])['clock']
+        (folder/'clock.json').write_text(json.dumps(clock,indent=2),encoding='utf-8')
+        snap(folder/'before')
+        api('/settings',dict(fullscreen=False,muted=False,window_width=1280,window_height=720))
+        api('/recording/start',dict(fps=30,max_duration_seconds=8,width=1280,height=720,audio=True,encoder=args.recording_encoder));recording=True
+        for _ in range(150):
+            rec=api('/recording')
+            if rec['status'] in ('completed','failed'):break
+            time.sleep(.2)
+        assert rec['status']=='completed',rec
+        (folder/'recording.json').write_text(json.dumps(rec,indent=2),encoding='utf-8')
+        shutil.copy2(rec['output_path'],folder/'game.mp4');recording=False
+        cmd('waiting_probe clock off');api('/settings',dict(muted=True))
+        subprocess.run([sys.executable,str(main/'tools/vfx/why/check_capture.py'),str(folder)],check=True)
     wanted=set(args.scenes.split(',')) if args.scenes else set()
     def want(name): return not wanted or name in wanted
     def marking(title):
@@ -376,6 +395,14 @@ try:
             time.sleep(.15)
         else:raise AssertionError(('No reward screen',s))
         marking('最后的台词｜伤害结算与战斗收尾');snap(case/'rewards');time.sleep(1.5);record_stop();print('RECORDED lastword',flush=True)
+    if wanted.intersection({'waiting-stage', 'waiting-stage-tail', 'waiting-stage-void', 'waiting-stage-preview'}):
+        exec(compile((main/'tools/vfx/catalog/waiting_stage.py').read_text(encoding='utf-8'), 'waiting_stage.py', 'exec'))
+        if 'waiting-stage' in wanted:
+            exec(compile((main/'tools/vfx/catalog/waiting_lifecycle.py').read_text(encoding='utf-8'), 'waiting_lifecycle.py', 'exec'))
+    if 'waiting-stage-audio' in wanted:
+        exec(compile((main/'tools/vfx/catalog/waiting_audio_scenes.py').read_text(encoding='utf-8'), 'waiting_audio_scenes.py', 'exec'))
+    if 'waiting-stage-lifecycle' in wanted:
+        exec(compile((main/'tools/vfx/catalog/waiting_lifecycle.py').read_text(encoding='utf-8'), 'waiting_lifecycle.py', 'exec'))
     if 'pile-view' in wanted:
         exec(compile((main/'tools/vfx/pile-view/scene.py').read_text(encoding='utf-8'), 'pile-view/scene.py', 'exec'))
     cmd('native_speed restore')

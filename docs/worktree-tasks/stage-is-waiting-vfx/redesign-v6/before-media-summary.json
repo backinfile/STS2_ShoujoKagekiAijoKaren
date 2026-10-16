@@ -1,0 +1,92 @@
+{
+  "video": "showcase.mp4",
+  "duration": 46.881043,
+  "bytes": 16927030,
+  "sha256": "bbdc61b4c50081138c2304d07da3bf573ff6dbfcd464d4324554bc6c8296f44a",
+  "audio": "game_process",
+  "composition": "Untouched 1280x720 captures with captions only in an added bottom strip.",
+  "sourceMcp": {
+    "sourceCommit": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
+    "builds": {
+      "stable": "ab3aab34c4860455e4d527e47460824538874cc5d1b287fe590185cb8dc25020",
+      "beta": "4b0ac55eb57793ae92016d492b36c14142b1b47b61c1b692748660e9fd8142e1"
+    }
+  },
+  "freezes": [],
+  "branches": {
+    "stable": {
+      "captureFps": 29.2377229611628,
+      "meanAudioDb": -52.6,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 29.87153191514465,
+        "repeatedFrames": 1,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 239,
+        "longestUnchangedClockSeconds": 0.06666666666666667,
+        "largestClockJumpSeconds": 0.06999999999999984,
+        "clockSeconds": 7.96,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.0066670000000002005,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 38,
+      "provenance": {
+        "assemblySha256": "635503480472f7967c2f4f677dad183039bbaa3cc05adb062ed2ea3075102de9",
+        "packSha256": "58982b5a11451fc2671e361e5007d2554626ead59657882d5ed859bea5ceebf2"
+      }
+    },
+    "beta": {
+      "captureFps": 29.577144627904925,
+      "meanAudioDb": -45.1,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 28.797657668410782,
+        "repeatedFrames": 1,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 239,
+        "longestUnchangedClockSeconds": 0.06666666666666667,
+        "largestClockJumpSeconds": 0.06000000000000005,
+        "clockSeconds": 7.970000000000001,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.0033330000000004745,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 38,
+      "provenance": {
+        "assemblySha256": "f47d8ddcd86b5ad473957142f44b08a3dffc71a4e2bfcc00d4f9169bdb3dea6f",
+        "packSha256": "58982b5a11451fc2671e361e5007d2554626ead59657882d5ed859bea5ceebf2"
+      }
+    }
+  },
+  "cleanup": {
+    "stage-is-waiting-film/stable": {
+      "port": 18817,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    },
+    "stage-is-waiting-film/beta": {
+      "port": 18818,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    },
+    "stage-is-waiting-film-video/stable": {
+      "port": 18827,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    },
+    "stage-is-waiting-film-video/beta": {
+      "port": 18828,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    }
+  }
+}

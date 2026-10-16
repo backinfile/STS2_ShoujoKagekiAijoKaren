@@ -1,0 +1,15 @@
+{
+  "branch": "main",
+  "status": [
+    "?? docs/20.卡牌特效制作步骤提示词.md"
+  ],
+  "head": "57c435cf4a60852e055346419f8bf5c849d573aa",
+  "root": ".",
+  "untracked": [
+    {
+      "path": "docs/20.卡牌特效制作步骤提示词.md",
+      "hash": "F583EE87D1AF18DAF80B4D1ACF971FBE7D94538C9FCCF47B654FA273B7FFB989"
+    }
+  ],
+  "worktree": "../worktrees/STS2_ShoujoKagekiAijoKaren/stage-is-waiting-vfx"
+}

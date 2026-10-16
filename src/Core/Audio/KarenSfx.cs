@@ -11,6 +11,11 @@ public static class KarenSfx
     public const string EntranceStageLight = "karen_entrance_stage_light.wav";
     public const string Act2LightsOn = "karen_act2_lights_on.wav";
 
+    // --- 舞台正在等待着：光幕、回能与落点 ---
+    public const string WaitingCurtainRise = "karen_waiting_curtain_rise.wav";
+    public const string WaitingCurtainPulse = "karen_waiting_curtain_pulse.wav";
+    public const string WaitingEnergyArrive = "karen_waiting_energy_arrive.wav";
+
     // --- 最后的台词 ---
     public const string LastWord = "karen_last_word.wav";
 

@@ -1,0 +1,570 @@
+{
+  "stable": {
+    "captureAudit": {
+      "encoder": "h264_nvenc",
+      "captureFps": 30.00143969408732,
+      "repeatedFrames": 0,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 240,
+      "longestUnchangedClockSeconds": 0.03333333333333333,
+      "largestClockJumpSeconds": 0.050000000000000044,
+      "clockSeconds": 7.960000000000001,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.006666999999999312,
+      "strictlyIncreasingPts": true
+    },
+    "recordingEncoder": "h264_nvenc",
+    "statePoses": {
+      "occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 0,
+        "radius": 76,
+        "build": 1,
+        "strength": 0.22
+      },
+      "empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 79,
+        "build": 1,
+        "strength": 0.16
+      },
+      "stack-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 79,
+        "build": 1,
+        "strength": 0.16
+      },
+      "refilled-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 2,
+        "radius": 76,
+        "build": 1,
+        "strength": 0.22
+      },
+      "second-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3,
+        "radius": 79,
+        "build": 1,
+        "strength": 0.16
+      }
+    },
+    "observations": 42,
+    "captureFps": 29.65276865933991,
+    "meanAudioDb": -53.0,
+    "rapid": {
+      "frames": 961,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 3,
+      "peakBursts": 10,
+      "anchorError": 0,
+      "unit": 0.9999998,
+      "peakCast": 1,
+      "peakTrigger": 1,
+      "peakStage": 0.3933916,
+      "stageNow": 0.16,
+      "ringError": 0,
+      "ringWidth": 176,
+      "radius": 79,
+      "shaderOpening": 1,
+      "buildNow": 1,
+      "minBuild": 0,
+      "maxBuild": 1,
+      "creationStarts": 1,
+      "partialFrames": 50,
+      "peakCreationHeads": 2,
+      "headsNow": 0,
+      "orbitTravel": 11.782481,
+      "buildSamples": [
+        {
+          "age": 0,
+          "build": 0,
+          "heads": 2
+        },
+        {
+          "age": 0.37331575,
+          "build": 0.09697022,
+          "heads": 2
+        },
+        {
+          "age": 0.45331523,
+          "build": 0.19306643,
+          "heads": 2
+        },
+        {
+          "age": 0.5333094,
+          "build": 0.30987486,
+          "heads": 2
+        },
+        {
+          "age": 0.5888649,
+          "build": 0.39873505,
+          "heads": 2
+        },
+        {
+          "age": 0.6399718,
+          "build": 0.4832891,
+          "heads": 2
+        },
+        {
+          "age": 0.69330406,
+          "build": 0.5719506,
+          "heads": 2
+        },
+        {
+          "age": 0.7466358,
+          "build": 0.6585839,
+          "heads": 2
+        },
+        {
+          "age": 0.799967,
+          "build": 0.7406918,
+          "heads": 2
+        },
+        {
+          "age": 0.8799606,
+          "build": 0.84990484,
+          "heads": 2
+        },
+        {
+          "age": 0.9599605,
+          "build": 0.93490094,
+          "heads": 2
+        },
+        {
+          "age": 1.095513,
+          "build": 0.9999257,
+          "heads": 2
+        }
+      ],
+      "belowDigits": true,
+      "uiVisible": true,
+      "firstFeedbackAge": 0.18665549,
+      "feedbackEarly": false,
+      "peakSounds": 1,
+      "audioEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.28,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.16000001,
+          "pitch": 1.6,
+          "bus": "SFX"
+        }
+      ],
+      "pileEmpty": true,
+      "pileCount": 0,
+      "opening": 1,
+      "stateChanges": 16,
+      "minOpening": 0.11014019,
+      "maxOpening": 1,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "3c777f5c0f02b2990bbfc5f1cc7010976344db805ffad981e6328dddb007cacf",
+      "packSha256": "a948af68df42537ea1832aaca5f1145f40ab1e0e9b8eec9cda0b038ac196c8c1"
+    },
+    "scope": "visual and audio revision",
+    "audio": {
+      "normalEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.28,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.16000001,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.94,
+          "volume": 0.28,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.16000001,
+          "pitch": 1,
+          "bus": "SFX"
+        }
+      ],
+      "peakNormalVoices": 1,
+      "fastConfirmations": 8,
+      "peakFastVoices": 1,
+      "interruptAndSpeedSwitch": "pass"
+    }
+  },
+  "beta": {
+    "captureAudit": {
+      "encoder": "h264_nvenc",
+      "captureFps": 30.00023025176718,
+      "repeatedFrames": 0,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 240,
+      "longestUnchangedClockSeconds": 0.03333333333333333,
+      "largestClockJumpSeconds": 0.050000000000000044,
+      "clockSeconds": 7.970000000000001,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.0033330000000004745,
+      "strictlyIncreasingPts": true
+    },
+    "recordingEncoder": "h264_nvenc",
+    "statePoses": {
+      "occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 0,
+        "radius": 76,
+        "build": 1,
+        "strength": 0.22
+      },
+      "empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 79,
+        "build": 1,
+        "strength": 0.16
+      },
+      "stack-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 79,
+        "build": 1,
+        "strength": 0.16
+      },
+      "refilled-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 2,
+        "radius": 76,
+        "build": 1,
+        "strength": 0.22
+      },
+      "second-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3,
+        "radius": 79,
+        "build": 1,
+        "strength": 0.16
+      }
+    },
+    "observations": 42,
+    "captureFps": 29.493184463586214,
+    "meanAudioDb": -45.2,
+    "rapid": {
+      "frames": 959,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 3,
+      "peakBursts": 10,
+      "anchorError": 0,
+      "unit": 0.9999998,
+      "peakCast": 1,
+      "peakTrigger": 1,
+      "peakStage": 0.39368957,
+      "stageNow": 0.16,
+      "ringError": 0,
+      "ringWidth": 176,
+      "radius": 79,
+      "shaderOpening": 1,
+      "buildNow": 1,
+      "minBuild": 0,
+      "maxBuild": 1,
+      "creationStarts": 1,
+      "partialFrames": 48,
+      "peakCreationHeads": 2,
+      "headsNow": 0,
+      "orbitTravel": 11.7749815,
+      "buildSamples": [
+        {
+          "age": 0,
+          "build": 0,
+          "heads": 2
+        },
+        {
+          "age": 0.3733184,
+          "build": 0.09697298,
+          "heads": 2
+        },
+        {
+          "age": 0.4533152,
+          "build": 0.19306643,
+          "heads": 2
+        },
+        {
+          "age": 0.53331196,
+          "build": 0.30987892,
+          "heads": 2
+        },
+        {
+          "age": 0.58664525,
+          "build": 0.39510635,
+          "heads": 2
+        },
+        {
+          "age": 0.63997275,
+          "build": 0.4832907,
+          "heads": 2
+        },
+        {
+          "age": 0.693306,
+          "build": 0.5719539,
+          "heads": 2
+        },
+        {
+          "age": 0.74663675,
+          "build": 0.6585853,
+          "heads": 2
+        },
+        {
+          "age": 0.79996955,
+          "build": 0.7406956,
+          "heads": 2
+        },
+        {
+          "age": 0.87996423,
+          "build": 0.8499093,
+          "heads": 2
+        },
+        {
+          "age": 0.959961,
+          "build": 0.93490136,
+          "heads": 2
+        },
+        {
+          "age": 1.093291,
+          "build": 0.9998341,
+          "heads": 2
+        }
+      ],
+      "belowDigits": true,
+      "uiVisible": true,
+      "firstFeedbackAge": 0.16256908,
+      "feedbackEarly": false,
+      "peakSounds": 1,
+      "audioEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.28,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.16000001,
+          "pitch": 1.6,
+          "bus": "SFX"
+        }
+      ],
+      "pileEmpty": true,
+      "pileCount": 0,
+      "opening": 1,
+      "stateChanges": 16,
+      "minOpening": 0.105173826,
+      "maxOpening": 1,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "c4ba7d6a3882da82fa076de39ccd1761efaa636e9aa2c9732d647d227369b6c9",
+      "packSha256": "a948af68df42537ea1832aaca5f1145f40ab1e0e9b8eec9cda0b038ac196c8c1"
+    },
+    "scope": "visual and audio revision",
+    "audio": {
+      "normalEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.28,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.16000001,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.94,
+          "volume": 0.28,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.22000003,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.16000001,
+          "pitch": 1,
+          "bus": "SFX"
+        }
+      ],
+      "peakNormalVoices": 1,
+      "fastConfirmations": 8,
+      "peakFastVoices": 1,
+      "interruptAndSpeedSwitch": "pass"
+    }
+  }
+}

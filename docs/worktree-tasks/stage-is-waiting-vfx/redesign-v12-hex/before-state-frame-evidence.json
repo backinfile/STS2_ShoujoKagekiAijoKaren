@@ -1,0 +1,222 @@
+[
+  {
+    "file": "state-occupied-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-card-palette/stable/waiting-stage/game.mp4",
+    "sourceSha256": "d860d2bfed15f963723294ea9a9b991b01866ab143eeb13a78e65c2cf5fc5050",
+    "time": 5.731639699917286,
+    "observation": "occupied-idle",
+    "observationTiming": "Observer is the settled phase state; screenshot is independently sampled from video at the exact time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.82,
+      "radius": 92,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "headsNow": 2,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-empty-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-card-palette/stable/waiting-stage/game.mp4",
+    "sourceSha256": "d860d2bfed15f963723294ea9a9b991b01866ab143eeb13a78e65c2cf5fc5050",
+    "time": 9.871086099999957,
+    "observation": "empty-idle",
+    "observationTiming": "Observer is the settled phase state; screenshot is independently sampled from video at the exact time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.58,
+      "radius": 94,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "headsNow": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-refilled-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-card-palette/stable/waiting-stage/game.mp4",
+    "sourceSha256": "d860d2bfed15f963723294ea9a9b991b01866ab143eeb13a78e65c2cf5fc5050",
+    "time": 17.35817509996705,
+    "observation": "refilled-idle",
+    "observationTiming": "Observer is the settled phase state; screenshot is independently sampled from video at the exact time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.82,
+      "radius": 92,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "headsNow": 2,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "trigger-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-card-palette/stable/waiting-stage/game.mp4",
+    "sourceSha256": "d860d2bfed15f963723294ea9a9b991b01866ab143eeb13a78e65c2cf5fc5050",
+    "time": 7.881932299979963,
+    "observation": "trigger-one",
+    "observationTiming": "Observer is the settled phase state; screenshot is independently sampled from video at the exact time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.58,
+      "radius": 94,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "headsNow": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "cast-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-card-palette/stable/waiting-stage/game.mp4",
+    "sourceSha256": "d860d2bfed15f963723294ea9a9b991b01866ab143eeb13a78e65c2cf5fc5050",
+    "time": 2.050189899955876,
+    "observation": "cast-quiet",
+    "observationTiming": "Observer is the settled phase state; screenshot is independently sampled from video at the exact time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.82,
+      "radius": 92,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "headsNow": 2,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-occupied-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-card-palette/beta/waiting-stage/game.mp4",
+    "sourceSha256": "0f92e10daa1f9747f1aef8c61c5dafd98d0499fb40324535dfb30e999f318fbe",
+    "time": 5.709295699978247,
+    "observation": "occupied-idle",
+    "observationTiming": "Observer is the settled phase state; screenshot is independently sampled from video at the exact time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.82,
+      "radius": 92,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "headsNow": 2,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-empty-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-card-palette/beta/waiting-stage/game.mp4",
+    "sourceSha256": "0f92e10daa1f9747f1aef8c61c5dafd98d0499fb40324535dfb30e999f318fbe",
+    "time": 9.77217859996017,
+    "observation": "empty-idle",
+    "observationTiming": "Observer is the settled phase state; screenshot is independently sampled from video at the exact time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.58,
+      "radius": 94,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "headsNow": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-refilled-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-card-palette/beta/waiting-stage/game.mp4",
+    "sourceSha256": "0f92e10daa1f9747f1aef8c61c5dafd98d0499fb40324535dfb30e999f318fbe",
+    "time": 17.248084499989638,
+    "observation": "refilled-idle",
+    "observationTiming": "Observer is the settled phase state; screenshot is independently sampled from video at the exact time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.82,
+      "radius": 92,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "headsNow": 2,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "trigger-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-card-palette/beta/waiting-stage/game.mp4",
+    "sourceSha256": "0f92e10daa1f9747f1aef8c61c5dafd98d0499fb40324535dfb30e999f318fbe",
+    "time": 7.85950069995597,
+    "observation": "trigger-one",
+    "observationTiming": "Observer is the settled phase state; screenshot is independently sampled from video at the exact time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.58,
+      "radius": 94,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "headsNow": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "cast-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-card-palette/beta/waiting-stage/game.mp4",
+    "sourceSha256": "0f92e10daa1f9747f1aef8c61c5dafd98d0499fb40324535dfb30e999f318fbe",
+    "time": 2.050424199993722,
+    "observation": "cast-quiet",
+    "observationTiming": "Observer is the settled phase state; screenshot is independently sampled from video at the exact time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.82,
+      "radius": 92,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "headsNow": 2,
+      "belowDigits": true
+    }
+  }
+]

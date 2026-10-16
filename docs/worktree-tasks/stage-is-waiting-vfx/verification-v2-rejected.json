@@ -1,0 +1,68 @@
+{
+  "stable": {
+    "observations": 24,
+    "captureFps": 28.925394355989603,
+    "meanAudioDb": -48.8,
+    "rapid": {
+      "frames": 899,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 4,
+      "peakBursts": 6,
+      "anchorError": 0,
+      "unit": 1.231579,
+      "peakCast": 1,
+      "peakTrigger": 1,
+      "sweepDistance": 192.00002,
+      "backCorrect": true,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "a535cc5a3ec0f793d798afb1e9221f28c1e601de11654908a12dcf3b4e5b60cf",
+      "packSha256": "34871beed0d89008cb67e210a1560d08cc1b64edc2f874823699ec7090398bdc"
+    }
+  },
+  "beta": {
+    "observations": 24,
+    "captureFps": 29.290408049556277,
+    "meanAudioDb": -44.0,
+    "rapid": {
+      "frames": 899,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 4,
+      "peakBursts": 6,
+      "anchorError": 0,
+      "unit": 1.231579,
+      "peakCast": 1,
+      "peakTrigger": 1,
+      "sweepDistance": 192.00002,
+      "backCorrect": true,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [
+        {
+          "line": 252,
+          "message": "ERROR: Invalid Task ID",
+          "file": "godot.log"
+        }
+      ],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "a488a0882965ae87f1185749731e91bb02fc24764b62866d82835666e5f28c55",
+      "packSha256": "34871beed0d89008cb67e210a1560d08cc1b64edc2f874823699ec7090398bdc"
+    }
+  }
+}

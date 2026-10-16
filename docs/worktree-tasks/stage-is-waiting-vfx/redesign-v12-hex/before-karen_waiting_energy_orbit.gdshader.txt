@@ -1,0 +1,36 @@
+shader_type canvas_item;
+render_mode unshaded, blend_add;
+uniform float strength = 0.0;
+uniform float clock = 0.0;
+uniform float build = 1.0;
+uniform float opening = 0.0;
+uniform float phase = 0.0;
+uniform vec4 light_color : source_color = vec4(0.94, 0.54, 0.64, 1.0);
+uniform vec4 core_color : source_color = vec4(1.0, 0.965, 0.98, 1.0);
+const float ORBIT_TAU = 6.28318530718;
+const float ORBIT_PI = 3.14159265359;
+float comet(float angle, float head) {
+    float behind = mod(head - angle + ORBIT_TAU * 8.0, ORBIT_TAU);
+    return exp(-behind / 0.24) * (1.0 - smoothstep(0.65, 0.90, behind));
+}
+void fragment() {
+    vec2 p = (UV - vec2(0.5)) * 2.0;
+    p.y /= 0.84;
+    float angle = mod(atan(p.y, p.x) + ORBIT_TAU, ORBIT_TAU);
+    float radius = mix(92.0, 94.0, opening) / 120.0;
+    // Small moving radial irregularities keep the rim a light trail rather than a wire.
+    float ripple = (sin(angle * 5.0 + clock * 0.45) + 0.45 * sin(angle * 11.0 - clock * 0.70)) * 0.0020;
+    float delta = abs(length(p) - radius - ripple);
+    float core = exp(-pow(delta / 0.0080, 2.0));
+    float inner = exp(-pow(delta / 0.022, 2.0)) * 0.30;
+    float glow = exp(-pow(delta / 0.065, 2.0)) * 0.12;
+    float sector = mod(angle, ORBIT_PI) / ORBIT_PI;
+    float painted = build >= 0.999 ? 1.0 : (1.0 - smoothstep(build - 0.012, build + 0.012, sector));
+    if (build <= 0.001) painted = 0.0;
+    float tails = comet(angle, phase) + (1.0 - opening) * comet(angle, phase + ORBIT_PI);
+    float shimmer = 0.94 + 0.06 * sin(angle * 7.0 - clock * 0.8);
+    float light = core * (0.72 + 0.90 * tails) * shimmer + inner * (1.0 + tails) + glow;
+    vec3 tint = light_color.rgb * 1.20;
+    vec3 emission = mix(tint, core_color.rgb * 1.10, core * 0.08);
+    COLOR = vec4(emission, strength * painted * light);
+}

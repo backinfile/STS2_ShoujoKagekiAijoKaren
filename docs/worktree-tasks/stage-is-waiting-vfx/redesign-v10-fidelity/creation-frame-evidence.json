@@ -1,0 +1,37 @@
+[
+  {
+    "file": "redesign-v10-fidelity/creation-arrival-in-game.png",
+    "source": "artifacts/stage-is-waiting-design-match-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "c9d8af8c73d5b67a5d5bdae395650d5fd7128384e3009c684ce1532f01a6ab93",
+    "time": 1.85,
+    "phase": "arrival"
+  },
+  {
+    "file": "redesign-v10-fidelity/creation-tracing-in-game.png",
+    "source": "artifacts/stage-is-waiting-design-match-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "c9d8af8c73d5b67a5d5bdae395650d5fd7128384e3009c684ce1532f01a6ab93",
+    "time": 2.1,
+    "phase": "tracing"
+  },
+  {
+    "file": "redesign-v10-fidelity/creation-joining-in-game.png",
+    "source": "artifacts/stage-is-waiting-design-match-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "c9d8af8c73d5b67a5d5bdae395650d5fd7128384e3009c684ce1532f01a6ab93",
+    "time": 2.6,
+    "phase": "joining"
+  },
+  {
+    "file": "redesign-v10-fidelity/creation-complete-in-game.png",
+    "source": "artifacts/stage-is-waiting-design-match-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "c9d8af8c73d5b67a5d5bdae395650d5fd7128384e3009c684ce1532f01a6ab93",
+    "time": 3.0,
+    "phase": "complete"
+  },
+  {
+    "file": "redesign-v10-fidelity/creation-patrol-in-game.png",
+    "source": "artifacts/stage-is-waiting-design-match-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "c9d8af8c73d5b67a5d5bdae395650d5fd7128384e3009c684ce1532f01a6ab93",
+    "time": 5.8,
+    "phase": "patrol"
+  }
+]

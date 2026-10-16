@@ -1,0 +1,16 @@
+{
+  "originalBranch": "main",
+  "mergeBack": "pending explicit confirmation",
+  "taskBranch": "codex/stage-is-waiting-vfx",
+  "visualVersion": "compact two-state chest aperture with two brief right-side followspots and tower decoration handoff",
+  "originalRevision": "57c435cf4a60852e055346419f8bf5c849d573aa",
+  "synchronizedMainRevision": "04ed9bd75ae041afc0307740f1f6cf4fda817d72",
+  "synchronizations": 4,
+  "audioVersion": "original rise, pulse and arrival cue family",
+  "retainedBaseline": "preserved-light-curtain/",
+  "stateRevision": "38 full targeted observations before synchronization; 15 integration observations per version plus lifecycle, audio and NVENC clock audit",
+  "latestEvidence": "artifacts/stage-is-waiting-coexist/",
+  "videoSha256": "b45e0c693a645d74cc55ba7c6762ba34c9e34dd2e79ec8e65fed2af73ccf4364",
+  "deliveryEvidence": "artifacts/stage-is-waiting-coexist-synced/",
+  "mcpCommit": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce"
+}

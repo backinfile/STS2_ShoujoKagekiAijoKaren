@@ -1,0 +1,86 @@
+[
+  {
+    "state": "occupied",
+    "label": "原分镜（生成预览）",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/redesign-v9-orbit/orbit-creation-preview.png",
+    "sha256": "118fa9411f0b552b5ca1d78c4ac522053cd01d3cd1c361bdcff19f950f31c99f",
+    "redIconBounds": [
+      157,
+      632,
+      342,
+      793
+    ],
+    "scale": 0.972972972972973,
+    "normalizedIconWidth": 180
+  },
+  {
+    "state": "occupied",
+    "label": "上版实机",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/redesign-v10-fidelity/before-state-occupied-in-game.png",
+    "sha256": "063c73a65df02b8156b202be7b68520ad5a7742864bf8368beec39cef89a99fb",
+    "redIconBounds": [
+      70,
+      556,
+      148,
+      632
+    ],
+    "scale": 2.3076923076923075,
+    "normalizedIconWidth": 180
+  },
+  {
+    "state": "occupied",
+    "label": "本版实机",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/state-occupied-in-game.png",
+    "sha256": "e370dfc43df161993cc23f00b62cae10aa48c8b32eeed422d1026793cb2e1264",
+    "redIconBounds": [
+      70,
+      556,
+      148,
+      632
+    ],
+    "scale": 2.3076923076923075,
+    "normalizedIconWidth": 180
+  },
+  {
+    "state": "empty",
+    "label": "原分镜（生成预览）",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/redesign-v9-orbit/orbit-creation-preview.png",
+    "sha256": "118fa9411f0b552b5ca1d78c4ac522053cd01d3cd1c361bdcff19f950f31c99f",
+    "redIconBounds": [
+      650,
+      635,
+      830,
+      792
+    ],
+    "scale": 1.0,
+    "normalizedIconWidth": 180
+  },
+  {
+    "state": "empty",
+    "label": "上版实机",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/redesign-v10-fidelity/before-state-empty-in-game.png",
+    "sha256": "360083f163d499b6f8b06c8008a51fe7f2742e95a38878812c5eb74355971afd",
+    "redIconBounds": [
+      70,
+      556,
+      148,
+      632
+    ],
+    "scale": 2.3076923076923075,
+    "normalizedIconWidth": 180
+  },
+  {
+    "state": "empty",
+    "label": "本版实机",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/state-empty-in-game.png",
+    "sha256": "5b1f066975a9cd0ae97df3ee859c1744f2af51bd7b54f9b1bc0839df5ffd4732",
+    "redIconBounds": [
+      70,
+      556,
+      148,
+      632
+    ],
+    "scale": 2.3076923076923075,
+    "normalizedIconWidth": 180
+  }
+]

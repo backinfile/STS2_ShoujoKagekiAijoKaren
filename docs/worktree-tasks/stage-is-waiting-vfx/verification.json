@@ -1,0 +1,422 @@
+{
+  "stable": {
+    "captureAudit": {
+      "encoder": "h264_nvenc",
+      "captureFps": 29.873783763578526,
+      "repeatedFrames": 1,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 239,
+      "longestUnchangedClockSeconds": 0.06666666666666667,
+      "largestClockJumpSeconds": 0.06000000000000005,
+      "clockSeconds": 7.970000000000001,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.0033330000000004745,
+      "strictlyIncreasingPts": true
+    },
+    "recordingEncoder": "h264_nvenc",
+    "statePoses": {
+      "occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 0,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.4,
+        "layers": 1,
+        "lights": 1,
+        "lightScale": [
+          1.15
+        ],
+        "lightStrength": [
+          1
+        ]
+      },
+      "empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 1,
+        "lights": 1,
+        "lightScale": [
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997
+        ]
+      },
+      "stack-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 2,
+        "lights": 2,
+        "lightScale": [
+          0.72,
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997,
+          0.27999997
+        ]
+      },
+      "refilled-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 2,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.4,
+        "layers": 2,
+        "lights": 2,
+        "lightScale": [
+          1.15,
+          1.15
+        ],
+        "lightStrength": [
+          1,
+          1
+        ]
+      },
+      "second-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 2,
+        "lights": 2,
+        "lightScale": [
+          0.72,
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997,
+          0.27999997
+        ]
+      },
+      "three-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 3,
+        "lights": 3,
+        "lightScale": [
+          0.72,
+          0.72,
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997,
+          0.27999997,
+          0.27999997
+        ]
+      },
+      "three-occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 4,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.4,
+        "layers": 3,
+        "lights": 3,
+        "lightScale": [
+          1.15,
+          1.15,
+          1.15
+        ],
+        "lightStrength": [
+          1,
+          1,
+          1
+        ]
+      },
+      "third-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 5,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 3,
+        "lights": 3,
+        "lightScale": [
+          0.72,
+          0.72,
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997,
+          0.27999997,
+          0.27999997
+        ]
+      },
+      "reduced-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 5,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 2,
+        "lights": 2,
+        "lightScale": [
+          0.72,
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997,
+          0.27999997
+        ]
+      }
+    },
+    "observations": 24,
+    "captureFps": 29.221389175916663,
+    "meanAudioDb": -52.7,
+    "rapid": null,
+    "lifecycle": "creation, gain interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "46619d23055e6a7c7c69d4006d46a4f706d1c2dd25ac2997b5009593feb3daeb",
+      "packSha256": "0367e39cdc8c1b727551390badc6ac690938853d7d261ae0a181da31f1f901fd"
+    },
+    "scope": "visual revision",
+    "audio": null
+  },
+  "beta": {
+    "captureAudit": {
+      "encoder": "h264_nvenc",
+      "captureFps": 30.00258547280312,
+      "repeatedFrames": 0,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 240,
+      "longestUnchangedClockSeconds": 0.03333333333333333,
+      "largestClockJumpSeconds": 0.06000000000000005,
+      "clockSeconds": 7.97,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.0033329999999995863,
+      "strictlyIncreasingPts": true
+    },
+    "recordingEncoder": "h264_nvenc",
+    "statePoses": {
+      "occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 0,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.4,
+        "layers": 1,
+        "lights": 1,
+        "lightScale": [
+          1.15
+        ],
+        "lightStrength": [
+          1
+        ]
+      },
+      "empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 1,
+        "lights": 1,
+        "lightScale": [
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997
+        ]
+      },
+      "stack-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 2,
+        "lights": 2,
+        "lightScale": [
+          0.72,
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997,
+          0.27999997
+        ]
+      },
+      "refilled-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 2,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.4,
+        "layers": 2,
+        "lights": 2,
+        "lightScale": [
+          1.15,
+          1.15
+        ],
+        "lightStrength": [
+          1,
+          1
+        ]
+      },
+      "second-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 2,
+        "lights": 2,
+        "lightScale": [
+          0.72,
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997,
+          0.27999997
+        ]
+      },
+      "three-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 3,
+        "lights": 3,
+        "lightScale": [
+          0.72,
+          0.72,
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997,
+          0.27999997,
+          0.27999997
+        ]
+      },
+      "three-occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 4,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.4,
+        "layers": 3,
+        "lights": 3,
+        "lightScale": [
+          1.15,
+          1.15,
+          1.15
+        ],
+        "lightStrength": [
+          1,
+          1,
+          1
+        ]
+      },
+      "third-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 5,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 3,
+        "lights": 3,
+        "lightScale": [
+          0.72,
+          0.72,
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997,
+          0.27999997,
+          0.27999997
+        ]
+      },
+      "reduced-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 5,
+        "radius": 62,
+        "build": 1,
+        "strength": 0.22,
+        "layers": 2,
+        "lights": 2,
+        "lightScale": [
+          0.72,
+          0.72
+        ],
+        "lightStrength": [
+          0.27999997,
+          0.27999997
+        ]
+      }
+    },
+    "observations": 24,
+    "captureFps": 29.393782372982702,
+    "meanAudioDb": -45.1,
+    "rapid": null,
+    "lifecycle": "creation, gain interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [
+        {
+          "line": 254,
+          "message": "ERROR: Invalid Task ID",
+          "file": "godot.log"
+        }
+      ],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "a9d7baee38671bb3a6f1c5cd85491d590d88b0db06d1fb43f02f4814eacb74c3",
+      "packSha256": "0367e39cdc8c1b727551390badc6ac690938853d7d261ae0a181da31f1f901fd"
+    },
+    "scope": "visual revision",
+    "audio": null
+  }
+}

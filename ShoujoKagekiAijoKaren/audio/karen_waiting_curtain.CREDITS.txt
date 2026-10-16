@@ -1,0 +1,13 @@
+Stage Is Waiting: original light-curtain cue family.
+
+Files:
+- karen_waiting_curtain_rise.wav: 0.94 seconds, light air lift and soft glass-like partials.
+- karen_waiting_curtain_pulse.wav: 0.38 seconds, short response on a confirmed energy gain.
+- karen_waiting_energy_arrive.wav: 0.22 seconds, small confirmation at the real energy icon.
+
+Source: deterministic procedural synthesis for this project, using NumPy.
+No recorded samples, speech, music, or claimed official Revue Starlight audio.
+Generator: tools/vfx/catalog/prepare_waiting_audio.py
+Format: 44.1 kHz stereo PCM S16LE. Peaks: -6.5 / -8 / -10 dBFS.
+Runtime gains: 0.40 / 0.34 / 0.26 on the game's SFX bus.
+Fast follows presentation speed; idle has no loop. Players belong to the VFX lifetime.

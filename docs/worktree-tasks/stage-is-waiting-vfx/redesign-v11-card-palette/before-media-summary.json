@@ -1,0 +1,106 @@
+{
+  "video": "showcase.mp4",
+  "duration": 47.182585,
+  "bytes": 17987920,
+  "sha256": "f066bd001abff7e2b1c2f1c74bb369f1fe9f3f6405e08590e8261e73d0aeccf7",
+  "audio": "game_process",
+  "composition": "Original 1280x720 gameplay unchanged; captions and a synchronized energy-counter crop below the viewport.",
+  "mainRevision": "afb661c1aa9cf637cb98011fbb5506c8e421bd14",
+  "sourceMcp": {
+    "sourceCommit": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
+    "builds": {
+      "stable": "ab3aab34c4860455e4d527e47460824538874cc5d1b287fe590185cb8dc25020",
+      "beta": "4b0ac55eb57793ae92016d492b36c14142b1b47b61c1b692748660e9fd8142e1"
+    }
+  },
+  "freezes": [],
+  "branches": {
+    "stable": {
+      "captureFps": 29.66798013549699,
+      "meanAudioDb": -53.0,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 29.997348609349793,
+        "repeatedFrames": 0,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 240,
+        "longestUnchangedClockSeconds": 0.03333333333333333,
+        "largestClockJumpSeconds": 0.050000000000000044,
+        "clockSeconds": 7.960000000000001,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.006666999999999312,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 42,
+      "provenance": {
+        "assemblySha256": "bb88e1368cbef37e4444e05b8ba98670bab2f7743f008a9bde3297aaa4e38434",
+        "packSha256": "7d375902a40c574406b14f6763d78f630701fb62ec02c457fe22def60a83baf2"
+      }
+    },
+    "beta": {
+      "captureFps": 29.772884444453222,
+      "meanAudioDb": -45.2,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 29.74988546294097,
+        "repeatedFrames": 2,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 238,
+        "longestUnchangedClockSeconds": 0.06666666666666667,
+        "largestClockJumpSeconds": 0.07000000000000006,
+        "clockSeconds": 7.950000000000001,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.0166669999999991,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 42,
+      "provenance": {
+        "assemblySha256": "a67978fc21308889a85f99c8b92e33fbd0da4b9ddaac331adb8cd783fc58e01a",
+        "packSha256": "7d375902a40c574406b14f6763d78f630701fb62ec02c457fe22def60a83baf2"
+      }
+    }
+  },
+  "cleanup": {
+    "stable": {
+      "port": 18897,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    },
+    "beta": {
+      "port": 18898,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    }
+  },
+  "creationDetail": {
+    "file": "design-match-creation.mp4",
+    "duration": 5.2,
+    "sha256": "94d90dcf8c744fb0dd6ae8fe4a3b87019a4a3fc58e86ca23b64adf40893693a9",
+    "source": "artifacts/stage-is-waiting-design-match-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "c9d8af8c73d5b67a5d5bdae395650d5fd7128384e3009c684ce1532f01a6ab93",
+    "trimStart": 1.2,
+    "trimDuration": 5.2,
+    "crop": [
+      0,
+      490,
+      220,
+      190
+    ],
+    "magnification": 3
+  },
+  "visualComparison": {
+    "file": "design-match-comparison.png",
+    "normalization": "Red energy icon width 180 pixels in all six panels; only crop, scale and external labels",
+    "evidence": "redesign-v10-fidelity/comparison-evidence.json"
+  },
+  "supersededPreview": {
+    "path": "artifacts/stage-is-waiting-design-match-v1",
+    "reason": "superseded iterations: initial gold hue/halo, then overly circular and loose orbit; not final acceptance evidence"
+  }
+}

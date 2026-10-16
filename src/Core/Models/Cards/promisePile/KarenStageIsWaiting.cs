@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 
 /// <summary>
-/// 舞台正在等待着 - 约定牌堆被清空时，获得2能量
+/// 舞台正在等待着 - 约定牌堆被清空时，每层获得1能量
 /// </summary>
 public sealed class KarenStageIsWaiting : KarenBaseCardModel
 {

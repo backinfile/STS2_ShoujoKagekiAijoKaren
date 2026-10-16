@@ -1,0 +1,33 @@
+shader_type canvas_item;
+render_mode unshaded, blend_add;
+uniform float strength = 0.0;
+uniform float clock = 0.0;
+uniform float build = 1.0;
+uniform float opening = 0.0;
+uniform float phase = 0.0;
+uniform vec4 light_color : source_color = vec4(1.0, 0.8, 0.5, 1.0);
+const float ORBIT_TAU = 6.28318530718;
+const float ORBIT_PI = 3.14159265359;
+float comet(float angle, float head) {
+    float behind = mod(head - angle + ORBIT_TAU * 8.0, ORBIT_TAU);
+    return exp(-behind / 0.20) * (1.0 - smoothstep(0.55, 0.75, behind));
+}
+void fragment() {
+    vec2 p = (UV - vec2(0.5)) * 2.0;
+    p.y /= 0.96;
+    float radius = mix(76.0, 79.0, opening) / 88.0;
+    float delta = abs(length(p) - radius);
+    float line = exp(-pow(delta / 0.010, 2.0));
+    float halo = exp(-pow(delta / 0.042, 2.0)) * 0.11;
+    float angle = mod(atan(p.y, p.x) + ORBIT_TAU, ORBIT_TAU);
+    // Two seeds each paint half the perimeter. Creation cannot reveal an
+    // already-complete circle merely by changing overall opacity.
+    float sector = mod(angle, ORBIT_PI) / ORBIT_PI;
+    float painted = build >= 0.999 ? 1.0 : (1.0 - smoothstep(build - 0.018, build + 0.018, sector));
+    if (build <= 0.001) painted = 0.0;
+    float tails = comet(angle, phase) + (1.0 - opening) * comet(angle, phase + ORBIT_PI);
+    float head_halo = exp(-pow(delta / 0.028, 2.0)) * pow(clamp(tails, 0.0, 1.0), 5.0) * 0.30;
+    float shimmer = 0.98 + 0.02 * sin(angle * 8.0 - clock * 0.7);
+    vec3 emission = light_color.rgb * mix(vec3(1.40, 1.05, 0.80), vec3(1.05), opening);
+    COLOR = vec4(emission, strength * painted * (line * (0.55 + 0.95 * tails) * shimmer + halo + head_halo));
+}

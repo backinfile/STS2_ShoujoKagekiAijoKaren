@@ -1,0 +1,21 @@
+{
+  "mode": "native image_gen.imagegen",
+  "userInput": "选D，去掉底座部分",
+  "prompts": [
+    {
+      "role": "selected-preview",
+      "file": "concept-options-v3/D-star-curtain-no-base.png",
+      "prompt": "Use case: precise-object-edit. Input image: edit target, the user's selected option D, a real combat screenshot with a gold star curtain VFX. Make ONE targeted change: completely remove the wide bright white/gold oval pedestal-like light pool underneath the character and tower, including its red elliptical rim and any horizontal floor rings. Restore the original natural dark rocky ground in that region. There must be no physical pedestal, no disc, no stage platform, no circular halo or horizontal glow strip under the feet. The character stands directly on the original rocky battlefield. Preserve the vertical rising gold light threads, floating red and gold star confetti, large thin gold five-point star outline behind the character, and overhead diagonal warm white spotlight. The threads should terminate at varied points in the air near ankle level with small independent glints rather than joining a bright floor line. Keep the original character, red tower, enemy, camera composition, HUD, all cards, health bars, scenery and every other element unchanged. Do not add labels, captions or new objects. Match the selected concept exactly except for removing its bottom base."
+    },
+    {
+      "role": "main-star",
+      "file": "images/vfx/waiting_stage/star_outline.png",
+      "prompt": "Use case: stylized-concept. Asset type: one transparent game VFX main-shape sprite for the selected golden star-curtain ability. The input screenshot is a STYLE REFERENCE ONLY: isolate the visual idea of the large hollow five-point gold outline star behind the character; do not include the screenshot or any other element. Produce one upright classic FIVE-point star perimeter, centered in a square canvas, filling about 80% of canvas width. It is a single hollow star silhouette outline with ten alternating outer and inner vertices, NOT a pentagram with crossing inner lines. Warm champagne gold luminous tapered strokes, pale ivory hot core, very restrained soft amber edge glow, fine hand-painted light texture, tapered slight breaks near two inner corners. Thin elegant outline, about 7 pixels wide on a 1024px canvas. Completely empty transparent center and outside. No filled star, no ground, no platform, no rays, no curtain threads, no particles, no confetti, no rings, no text, no characters, no stage props, no background color. Preserve actual alpha transparency. This sprite will be combined with runtime shader light threads and particle systems; draw only this main star shape."
+    },
+    {
+      "role": "particle",
+      "file": "images/vfx/waiting_stage/star_confetti.png",
+      "prompt": "Game particle texture on a truly transparent background. Exactly one simple upright regular FIVE-point star, solid warm ivory-white (#fff5db), centered and occupying about 70% of a square canvas. Five outer tips and five inner corners, clean balanced proportions. Flat filled silhouette with extremely subtle rounded edges and clean antialiasing, no outline, no bevel, no internal lines, no shadow, no sparkles, no glow, no background color, no text, no other objects. The star is a tiny confetti texture tinted red or gold by the game particle engine. Preserve true alpha transparency outside the star."
+    }
+  ]
+}

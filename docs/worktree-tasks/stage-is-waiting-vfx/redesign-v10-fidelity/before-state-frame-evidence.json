@@ -1,0 +1,212 @@
+[
+  {
+    "file": "state-occupied-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "eea0cbe6a35e9af4afe54b5e2b88f35b877251ad05e083323b570290edcbd1c4",
+    "time": 5.7729117999784645,
+    "observation": "occupied-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.22,
+      "radius": 76,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-empty-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "eea0cbe6a35e9af4afe54b5e2b88f35b877251ad05e083323b570290edcbd1c4",
+    "time": 9.93282350001391,
+    "observation": "empty-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.16,
+      "radius": 79,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-refilled-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "eea0cbe6a35e9af4afe54b5e2b88f35b877251ad05e083323b570290edcbd1c4",
+    "time": 17.385819399985486,
+    "observation": "refilled-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.22,
+      "radius": 76,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "trigger-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "eea0cbe6a35e9af4afe54b5e2b88f35b877251ad05e083323b570290edcbd1c4",
+    "time": 7.923297500051558,
+    "observation": "trigger-one",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.16,
+      "radius": 79,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "cast-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "eea0cbe6a35e9af4afe54b5e2b88f35b877251ad05e083323b570290edcbd1c4",
+    "time": 2.05030520001892,
+    "observation": "cast-quiet",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.22,
+      "radius": 76,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-occupied-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/beta/waiting-stage/game.mp4",
+    "sourceSha256": "13b4b653ce22818fa4c125603aae503efbb99b2b2ba3e509362aede2dc16a27d",
+    "time": 5.778596899961121,
+    "observation": "occupied-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.22,
+      "radius": 76,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-empty-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/beta/waiting-stage/game.mp4",
+    "sourceSha256": "13b4b653ce22818fa4c125603aae503efbb99b2b2ba3e509362aede2dc16a27d",
+    "time": 9.871195199899375,
+    "observation": "empty-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.16,
+      "radius": 79,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-refilled-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/beta/waiting-stage/game.mp4",
+    "sourceSha256": "13b4b653ce22818fa4c125603aae503efbb99b2b2ba3e509362aede2dc16a27d",
+    "time": 17.39158540000208,
+    "observation": "refilled-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.22,
+      "radius": 76,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "trigger-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/beta/waiting-stage/game.mp4",
+    "sourceSha256": "13b4b653ce22818fa4c125603aae503efbb99b2b2ba3e509362aede2dc16a27d",
+    "time": 7.928701699990779,
+    "observation": "trigger-one",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.16,
+      "radius": 79,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "cast-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/beta/waiting-stage/game.mp4",
+    "sourceSha256": "13b4b653ce22818fa4c125603aae503efbb99b2b2ba3e509362aede2dc16a27d",
+    "time": 2.050504999910481,
+    "observation": "cast-quiet",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.22,
+      "radius": 76,
+      "buildNow": 1,
+      "creationStarts": 1,
+      "belowDigits": true
+    }
+  }
+]

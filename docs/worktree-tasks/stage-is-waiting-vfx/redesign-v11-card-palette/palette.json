@@ -1,0 +1,6 @@
+{
+  "occupied": "#f08aa3",
+  "empty": "#bda2b8",
+  "feedback": "#e2f1ff",
+  "core": "#fff6fa"
+}

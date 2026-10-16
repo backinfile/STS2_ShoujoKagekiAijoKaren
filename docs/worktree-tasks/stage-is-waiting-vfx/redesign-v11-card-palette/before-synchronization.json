@@ -1,0 +1,16 @@
+{
+  "originalBranch": "main",
+  "mergeBack": "pending explicit confirmation",
+  "taskBranch": "codex/stage-is-waiting-vfx",
+  "visualVersion": "original storyboard fidelity: luminous persistent comet seeds, gold core and halo, detached orbit, pearl-white single empty state",
+  "originalRevision": "57c435cf4a60852e055346419f8bf5c849d573aa",
+  "synchronizedMainRevision": "afb661c1aa9cf637cb98011fbb5506c8e421bd14",
+  "synchronizations": 5,
+  "audioVersion": "original rise, pulse and arrival cue family",
+  "retainedBaseline": "preserved-light-curtain/",
+  "stateRevision": "42 targeted observations per version plus creation/lifecycle; visual comparison normalized by icon width",
+  "latestEvidence": "artifacts/stage-is-waiting-design-match-final/",
+  "videoSha256": "f066bd001abff7e2b1c2f1c74bb369f1fe9f3f6405e08590e8261e73d0aeccf7",
+  "deliveryEvidence": "artifacts/stage-is-waiting-design-match-final/",
+  "mcpCommit": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce"
+}

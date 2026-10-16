@@ -1,0 +1,26 @@
+[
+  {
+    "file": "state-occupied-in-game.png",
+    "videoTime": 6.088034000014886,
+    "source": "artifacts/stage-is-waiting-states/stable/waiting-stage/game.mp4",
+    "observation": "occupied-idle",
+    "pileCount": 1,
+    "opening": 0
+  },
+  {
+    "file": "state-empty-in-game.png",
+    "videoTime": 10.305478900030721,
+    "source": "artifacts/stage-is-waiting-states/stable/waiting-stage/game.mp4",
+    "observation": "empty-idle",
+    "pileCount": 0,
+    "opening": 1
+  },
+  {
+    "file": "state-refilled-in-game.png",
+    "videoTime": 17.39215740003856,
+    "source": "artifacts/stage-is-waiting-states/stable/waiting-stage/game.mp4",
+    "observation": "refilled-idle",
+    "pileCount": 1,
+    "opening": 0
+  }
+]

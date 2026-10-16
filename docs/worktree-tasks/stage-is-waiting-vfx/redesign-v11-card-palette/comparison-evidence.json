@@ -1,0 +1,64 @@
+[
+  {
+    "kind": "card",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/redesign-v11-card-palette/card-reference.png",
+    "sha256": "95ec8b196aa22f540f0a46514a565285388f39a59b75ab63653dbd3a5f4475cd"
+  },
+  {
+    "kind": "power",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/redesign-v11-card-palette/power-reference.png",
+    "sha256": "4107caea438b733005523171ed95f50d2fb91f6ca65507ebc4003742953e77cc"
+  },
+  {
+    "kind": "old",
+    "state": "occupied",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/redesign-v11-card-palette/before-state-occupied-in-game.png",
+    "sha256": "e370dfc43df161993cc23f00b62cae10aa48c8b32eeed422d1026793cb2e1264",
+    "crop": [
+      0,
+      515,
+      220,
+      675
+    ],
+    "scale": 1.7272727272727273
+  },
+  {
+    "kind": "new",
+    "state": "occupied",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/state-occupied-in-game.png",
+    "sha256": "9908a29b0b290dd3ae7025a15e96e1576efa54555c74dd1018091ad44fb0e2f9",
+    "crop": [
+      0,
+      515,
+      220,
+      675
+    ],
+    "scale": 1.7272727272727273
+  },
+  {
+    "kind": "old",
+    "state": "empty",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/redesign-v11-card-palette/before-state-empty-in-game.png",
+    "sha256": "5b1f066975a9cd0ae97df3ee859c1744f2af51bd7b54f9b1bc0839df5ffd4732",
+    "crop": [
+      0,
+      515,
+      220,
+      675
+    ],
+    "scale": 1.7272727272727273
+  },
+  {
+    "kind": "new",
+    "state": "empty",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/state-empty-in-game.png",
+    "sha256": "acb0a5da672260256a38cdbe998f91a2d3671d9bbfd18be5163750eb06842e12",
+    "crop": [
+      0,
+      515,
+      220,
+      675
+    ],
+    "scale": 1.7272727272727273
+  }
+]

@@ -1,10 +1,14 @@
 using MegaCrit.Sts2.Core.Commands;
+using Godot;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Rooms;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
@@ -17,12 +21,52 @@ public class KarenStageIsWaitingPower : KarenBasePower
     public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerType Type => PowerType.Buff;
 
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount,
+        Creature? applier, CardModel? cardSource)
+    {
+        if (power == this && amount > 0) NKarenWaitingStageVfx.Ensure(this, cast: true);
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterRoomEntered(AbstractRoom room)
+    {
+        if (room is CombatRoom) Callable.From(() => NKarenWaitingStageVfx.Ensure(this)).CallDeferred();
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    {
+        if (player == Owner.Player) NKarenWaitingStageVfx.Ensure(this);
+        return Task.CompletedTask;
+    }
+
+    public override Task OnCardAddedToPromisePile(CardModel card)
+    {
+        if (card.Owner == Owner.Player) NKarenWaitingStageVfx.Ensure(this)?.RefreshPileState();
+        return Task.CompletedTask;
+    }
+
+    public override Task OnCardRemovedFromPromisePile(CardModel card)
+    {
+        if (card.Owner == Owner.Player) NKarenWaitingStageVfx.Ensure(this)?.RefreshPileState();
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterRemoved(Creature oldOwner)
+    {
+        NKarenWaitingStageVfx.Remove(this);
+        return Task.CompletedTask;
+    }
+
     public override async Task OnPromisePileEmpty()
     {
         if (Owner.Player is Player player)
         {
+            int before = player.PlayerCombatState?.Energy ?? 0;
             Flash();
             await PlayerCmd.GainEnergy(Amount, player);
+            int actual = (player.PlayerCombatState?.Energy ?? before) - before;
+            if (actual > 0) NKarenWaitingStageVfx.Ensure(this)?.ConfirmEnergy(actual);
         }
     }
     
