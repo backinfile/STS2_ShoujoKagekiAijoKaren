@@ -35,8 +35,8 @@ for branch, edition in [('stable', '正式版 v0.107.1'), ('beta', '测试版 v0
     levels = audio(source)
     assert levels['mean'] > -65, levels
     gain = min(12, -2 - levels['max'])
-    for i, text in enumerate([f'嫉妒  ·  {edition}  ·  普通攻击', f'嫉妒＋  ·  {edition}  ·  闪耀耗尽',
-                              '青绿弧光 → 星扣命中    |    原速游戏实录', '追加两份遗物奖励 → 双星扣升起    |    原速游戏实录']):
+    for i, text in enumerate([f'嫉妒  ·  {edition}  ·  普通攻击', f'嫉妒＋  ·  {edition}  ·  升级攻击',
+                              '后撤蓄势 → 突进挥槌 → 命中回位    |    原速游戏实录', '升级20伤害 · 同一攻击动作与命中    |    原速游戏实录']):
         (out / f'{branch}-{i}.txt').write_text(text, encoding='utf-8')
     change = marks[1]['time']
     vf = 'pad=1280:800:0:0:color=0x0d181c'
