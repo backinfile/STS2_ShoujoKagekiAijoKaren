@@ -22,7 +22,7 @@ from audit_log import audit
 parser = argparse.ArgumentParser()
 parser.add_argument('branch', choices=['stable', 'beta'])
 parser.add_argument('--output', type=Path, required=True)
-parser.add_argument('--cases', default='normal,repeat,fast,instant,cancel,reward,direct,loss,unrelated')
+parser.add_argument('--cases', default='preview_card,direct,normal,repeat,fast,instant,remove_buff,cancel,reward')
 parser.add_argument('--record', action='store_true')
 args = parser.parse_args()
 main = Path(__file__).resolve().parents[3]
@@ -177,12 +177,13 @@ try:
     cmd('card KAREN_PASSION Hand')
     time.sleep(.7)
     play()
-    time.sleep(1.8)
+    time.sleep(2.6)
     for name in args.cases.split(','):
         fight()
+        visual_only = name == 'preview_card'
         buff_only = name in ['direct', 'loss', 'unrelated']
         count = 3 if name == 'repeat' else 2 if name == 'direct' else 1
-        for _ in range(0 if buff_only else count):
+        for _ in range(0 if buff_only or visual_only else count):
             cmd('card KAREN_PASSION Hand')
             time.sleep(.5)
         if name in ['loss', 'unrelated']:
@@ -198,15 +199,22 @@ try:
         before = probe()
         snap(name + '-before')
         hand_check(name + '-before')
-        capturing = args.record and name in ['normal', 'repeat', 'reward']
+        capturing = args.record and name in ['preview_card', 'direct', 'normal', 'repeat', 'reward']
         if capturing:
             record_start()
             time.sleep(.8)
-        if buff_only:
+        if visual_only:
+            cmd('passion_probe preview_card')
+        elif buff_only:
             cmd('passion_probe ' + {'direct': 'gain 2', 'loss': 'lose 1', 'unrelated': 'unrelated'}[name])
         else:
             play()
-        if name not in ['loss', 'unrelated']:
+        if visual_only:
+            for _ in range(100):
+                if probe()['liveCard'] > 0: break
+                time.sleep(.025)
+            else: raise AssertionError('Card particle preview did not appear')
+        elif name not in ['loss', 'unrelated']:
             for _ in range(150):
                 report = probe()
                 if report['power'] > before['power']:
@@ -227,7 +235,17 @@ try:
         if name == 'cancel':
             time.sleep(.15)
             cmd('kill all')
-        time.sleep(1.8 if name not in ['fast', 'instant'] else 1.3)
+        if name == 'remove_buff':
+            for _ in range(100):
+                if probe()['overlapFrames'] > 0: break
+                time.sleep(.025)
+            else: raise AssertionError('Card and buff layers did not coexist before removal')
+            cmd('passion_probe lose 1')
+            time.sleep(.15)
+            independent = probe()
+            save('remove-buff-while-card-active', independent)
+            assert independent['live'] == 0 and independent['liveCard'] == 1, independent
+        time.sleep(2.6 if name not in ['fast', 'instant'] else 1.7)
         after = probe()
         save(name + '-probe', after)
         if name != 'cancel':
@@ -244,17 +262,32 @@ try:
             record_stop(name)
         snap(name + '-after')
         assert after['live'] == 0 and all(e['Freed'] and e['Finite'] and e['IconValid'] for e in after['effects']), (name, after)
-        if name not in ['cancel', 'loss', 'unrelated']:
+        assert after['liveCard'] == 0 and after['cardBacks'] == 0, after
+        assert all(e['Freed'] and e['Finite'] and not e['HasControls'] and e['PeakParticles'] <= 320
+            and e['CoversViewport'] and e['MaxQuietAlpha'] <= .101 for e in after['cardEffects']), after
+        if visual_only:
+            assert after['power'] == before['power'] and after['reserved'] == before['reserved'] and not after['effects'], after
+        elif name not in ['cancel', 'loss', 'unrelated', 'remove_buff']:
             assert after['power'] - before['power'] == count, (name, before, after)
             assert after['reserved'] - before['reserved'] == (0 if buff_only else count), (name, before, after)
             assert after['relics'] == before['relics'], 'Relic was given early'
-        if name in ['instant', 'loss', 'unrelated']:
+        if visual_only:
+            assert sum(e['Plays'] for e in after['cardEffects']) == 1, after
+        elif name in ['instant', 'loss', 'unrelated']:
             assert not after['effects'], after
             if name == 'loss': assert after['power'] == before['power'] - 1, after
             if name == 'unrelated': assert after['power'] == before['power'], after
-        elif name != 'cancel':
+        elif name not in ['cancel', 'remove_buff']:
             assert after['effects'] and all(e['Arrived'] and e['Bound'] and e['PeakPulses'] <= 3 and 0 <= e['ArrivalError'] < .01 for e in after['effects']), (name, after)
             assert sum(e['Gains'] for e in after['effects']) == count, (name, after)
+        if buff_only or name == 'instant':
+            assert not after['cardEffects'], after
+        elif not visual_only:
+            assert sum(e['Plays'] for e in after['cardEffects']) == count, after
+            if name not in ['cancel', 'remove_buff']:
+                assert after['overlapFrames'] > 0 and all(e['ProtectsBuff'] for e in after['cardEffects']), after
+        if name == 'remove_buff':
+            assert after['power'] == before['power'] and after['reserved'] == before['reserved'] + 1, after
         results = [r for r in results if r['case'] != name]
         results.append(dict(case=name, passed=True, before=before, after=after))
         save('results', results)

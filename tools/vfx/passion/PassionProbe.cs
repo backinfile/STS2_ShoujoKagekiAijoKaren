@@ -32,12 +32,52 @@ public static class PassionProbe
         public double Duration;
     }
     internal static readonly List<Seen> Effects = new();
+    internal sealed class CardSeen(NKarenPassionCardVfx node)
+    {
+        public readonly NKarenPassionCardVfx Node = node;
+        public int Frames, Plays, PeakParticles;
+        public bool Freed, Finite = true, HasControls, CoversViewport, ProtectsBuff;
+        public float MaxQuietAlpha;
+        public readonly double Started = Time.GetTicksMsec() / 1000.0;
+        public double Duration;
+    }
+    internal static readonly List<CardSeen> CardEffects = new();
+    internal static int OverlapFrames;
     internal static bool Watching;
     static object? Field(object node, string name) => node.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(node);
     public static void Initialize() => ((SceneTree)Engine.GetMainLoop()).ProcessFrame += () => Callable.From(Sample).CallDeferred();
     static void Sample()
     {
         if (!Watching || NCombatRoom.Instance is not { } room) return;
+        var cards = room.CombatVfxContainer.GetChildren().OfType<NKarenPassionCardVfx>().ToArray();
+        if (cards.Length > 0 && room.CombatVfxContainer.GetChildren().OfType<NKarenPassionVfx>().Any()) OverlapFrames++;
+        foreach (var node in cards)
+        {
+            var seen = CardEffects.FirstOrDefault(s => s.Node == node);
+            if (seen == null)
+            {
+                seen = new CardSeen(node); CardEffects.Add(seen);
+                var captured = seen;
+                node.TreeExiting += () => { captured.Freed = true; captured.Duration = Time.GetTicksMsec() / 1000.0 - captured.Started; };
+            }
+            seen.Frames++;
+            seen.Plays = Math.Max(seen.Plays, (int)Field(node, "_plays")!);
+            var particles = ((System.Collections.IEnumerable)Field(node, "_particles")!).Cast<object>().ToArray();
+            seen.PeakParticles = Math.Max(seen.PeakParticles, particles.Length);
+            seen.HasControls |= node.FindChildren("*", "", true, false).OfType<Control>().Any();
+            var origins = particles.Select(p => (Vector2)p.GetType().GetProperty("Origin")!.GetValue(p)!).ToArray();
+            seen.Finite &= origins.All(v => v.IsFinite()) && ((Vector2)Field(node, "_screen")!).IsFinite();
+            if (origins.Length > 100)
+                seen.CoversViewport |= origins.Min(v => v.X) < .05f && origins.Max(v => v.X) > .95f
+                    && origins.Min(v => v.Y) < .05f && origins.Max(v => v.Y) > .95f;
+            var quiet = (Rect2)Field(node, "_quietRegion")!;
+            float quietAlpha = (float)node.GetType().GetMethod("Visibility", BindingFlags.NonPublic | BindingFlags.Instance)!
+                .Invoke(node, new object[] { quiet.GetCenter() })!;
+            seen.MaxQuietAlpha = Math.Max(seen.MaxQuietAlpha, quietAlpha);
+            foreach (var badge in room.FindChildren("*", "", true, false).OfType<MegaCrit.Sts2.Core.Nodes.Combat.NPower>()
+                .Where(p => p.Model is KarenPassionPower))
+                seen.ProtectsBuff |= quiet.HasPoint(badge.GetGlobalTransformWithCanvas() * (badge.Size * .5f));
+        }
         foreach (var node in room.CombatVfxContainer.GetChildren().OfType<NKarenPassionVfx>())
         {
             var seen = Effects.FirstOrDefault(s => s.Node == node);
@@ -67,10 +107,15 @@ public static class PassionProbe
     }
     internal static object Status(Player player) => new {
         live = NCombatRoom.Instance?.CombatVfxContainer.GetChildren().OfType<NKarenPassionVfx>().Count() ?? 0,
+        liveCard = NCombatRoom.Instance?.CombatVfxContainer.GetChildren().OfType<NKarenPassionCardVfx>().Count() ?? 0,
+        cardBacks = NCombatRoom.Instance?.BackCombatVfxContainer.GetChildren().Count(n => n.Name == "KarenPassionCardBackground") ?? 0,
+        overlapFrames = OverlapFrames,
         reserved = player.RunState.CurrentRoom is CombatRoom room && room.ExtraRewards.TryGetValue(player, out var rewards) ? rewards.OfType<RelicReward>().Count() : 0,
         power = player.Creature.GetPowerAmount<KarenPassionPower>(),
         relics = player.Relics.Select(r => r.Id.Entry).ToArray(),
-        effects = Effects.Select(s => new { s.Frames, s.Gains, s.PeakPulses, s.Arrived, s.Bound, s.Freed, s.Finite, s.IconValid, s.Age, s.Duration, s.ArrivalError })
+        effects = Effects.Select(s => new { s.Frames, s.Gains, s.PeakPulses, s.Arrived, s.Bound, s.Freed, s.Finite, s.IconValid, s.Age, s.Duration, s.ArrivalError }),
+        cardEffects = CardEffects.Select(s => new { s.Frames, s.Plays, s.PeakParticles, s.Freed, s.Finite, s.HasControls,
+            s.CoversViewport, s.ProtectsBuff, s.MaxQuietAlpha, s.Duration })
     };
 }
 public sealed class PassionProbeCmd : AbstractConsoleCmd
@@ -84,8 +129,10 @@ public sealed class PassionProbeCmd : AbstractConsoleCmd
         if (player == null || args.Length == 0) return new(false, Args);
         switch (args[0])
         {
-            case "watch": PassionProbe.Effects.Clear(); PassionProbe.Watching = true; return new(true, "Watching");
+            case "watch": PassionProbe.Effects.Clear(); PassionProbe.CardEffects.Clear(); PassionProbe.OverlapFrames = 0;
+                PassionProbe.Watching = true; return new(true, "Watching");
             case "status": return new(true, JsonSerializer.Serialize(PassionProbe.Status(player)));
+            case "preview_card": NKarenPassionCardVfx.Play(player); return new(true, "Card particle layer preview only; no card/reward/buff applied");
             case "gain": return new(PowerCmd.Apply<KarenPassionPower>(new ThrowingPlayerChoiceContext(), player.Creature,
                 int.Parse(args[1]), player.Creature, null), true, "Applied actual Passion buff without playing a card");
             case "lose": return new(PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), player.Creature.GetPower<KarenPassionPower>()!,

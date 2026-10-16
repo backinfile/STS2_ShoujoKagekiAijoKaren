@@ -1,12 +1,12 @@
 {
   "date": "2026-10-16",
-  "scope": "Passion buff-gain feedback; targeted singleplayer checks only",
+  "scope": "Independent fullscreen card particles and Passion buff feedback; targeted singleplayer checks only",
   "variants": {
     "stable": {
       "version": "v0.107.1",
       "captureBuild": {
-        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "61df3a382edb67fd84d43b218e1861ada98a9616c10e6b550439b0f00c2fb545",
-        "ShoujoKagekiAijoKaren.pck": "5c0cda33493c68f208baf0ee61cbd51300c268f1c716288cfd18975c4ae3f6da"
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "2642afb3580498026be0d8c84a057bc942fefd14cf4e84703723b50680bdaab4",
+        "ShoujoKagekiAijoKaren.pck": "29fff31e31a61b6e5ee5aeb3eb67290b9c51a5a1376f9a0701a06f6bbf395785"
       },
       "logAudit": {
         "knownStartupWorkerPoolErrors": [],
@@ -14,112 +14,26 @@
       },
       "cases": [
         {
-          "case": "normal",
-          "passed": true,
-          "powerBefore": 0,
-          "powerAfter": 1,
-          "reservedBefore": 0,
-          "reservedAfter": 1,
-          "effects": [
-            {
-              "Frames": 64,
-              "Gains": 1,
-              "PeakPulses": 1,
-              "Arrived": true,
-              "Bound": true,
-              "Freed": true,
-              "Finite": true,
-              "IconValid": true,
-              "Age": 1.044403,
-              "Duration": 1.0569999999999986,
-              "ArrivalError": 0
-            }
-          ]
-        },
-        {
-          "case": "repeat",
-          "passed": true,
-          "powerBefore": 0,
-          "powerAfter": 3,
-          "reservedBefore": 0,
-          "reservedAfter": 3,
-          "effects": [
-            {
-              "Frames": 84,
-              "Gains": 3,
-              "PeakPulses": 3,
-              "Arrived": true,
-              "Bound": true,
-              "Freed": true,
-              "Finite": true,
-              "IconValid": true,
-              "Age": 1.417436,
-              "Duration": 1.436,
-              "ArrivalError": 0
-            }
-          ]
-        },
-        {
-          "case": "fast",
-          "passed": true,
-          "powerBefore": 0,
-          "powerAfter": 1,
-          "reservedBefore": 0,
-          "reservedAfter": 1,
-          "effects": [
-            {
-              "Frames": 40,
-              "Gains": 1,
-              "PeakPulses": 1,
-              "Arrived": true,
-              "Bound": true,
-              "Freed": true,
-              "Finite": true,
-              "IconValid": true,
-              "Age": 1.026625,
-              "Duration": 0.6519999999999939,
-              "ArrivalError": 0
-            }
-          ]
-        },
-        {
-          "case": "instant",
-          "passed": true,
-          "powerBefore": 0,
-          "powerAfter": 1,
-          "reservedBefore": 0,
-          "reservedAfter": 1,
-          "effects": []
-        },
-        {
-          "case": "cancel",
+          "case": "preview_card",
           "passed": true,
           "powerBefore": 0,
           "powerAfter": 0,
           "reservedBefore": 0,
-          "reservedAfter": 1,
-          "effects": []
-        },
-        {
-          "case": "reward",
-          "passed": true,
-          "powerBefore": 0,
-          "powerAfter": 1,
-          "reservedBefore": 0,
-          "reservedAfter": 1,
-          "effects": [
+          "reservedAfter": 0,
+          "overlapFrames": 0,
+          "buffEffects": [],
+          "cardEffects": [
             {
-              "Frames": 64,
-              "Gains": 1,
-              "PeakPulses": 1,
-              "Arrived": true,
-              "Bound": true,
+              "Frames": 128,
+              "Plays": 1,
+              "PeakParticles": 252,
               "Freed": true,
               "Finite": true,
-              "IconValid": true,
-              "Age": 1.0446255,
-              "Duration": 1.0609999999999928,
-              "ArrivalError": 0
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": false,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 2.0990000000000038
             }
           ]
         },
@@ -130,7 +44,8 @@
           "powerAfter": 2,
           "reservedBefore": 0,
           "reservedAfter": 0,
-          "effects": [
+          "overlapFrames": 0,
+          "buffEffects": [
             {
               "Frames": 64,
               "Gains": 2,
@@ -140,43 +55,13 @@
               "Freed": true,
               "Finite": true,
               "IconValid": true,
-              "Age": 1.0471767,
-              "Duration": 1.0499999999999972,
+              "Age": 1.0416259,
+              "Duration": 1.0419999999999945,
               "ArrivalError": 0
             }
-          ]
+          ],
+          "cardEffects": []
         },
-        {
-          "case": "loss",
-          "passed": true,
-          "powerBefore": 2,
-          "powerAfter": 1,
-          "reservedBefore": 0,
-          "reservedAfter": 0,
-          "effects": []
-        },
-        {
-          "case": "unrelated",
-          "passed": true,
-          "powerBefore": 2,
-          "powerAfter": 2,
-          "reservedBefore": 0,
-          "reservedAfter": 0,
-          "effects": []
-        }
-      ]
-    },
-    "beta": {
-      "version": "v0.111.0",
-      "captureBuild": {
-        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "22baf1e5e22d7c585c308cea7c5ff27e57256ec84ebedc852b846ac4ec072a4f",
-        "ShoujoKagekiAijoKaren.pck": "5c0cda33493c68f208baf0ee61cbd51300c268f1c716288cfd18975c4ae3f6da"
-      },
-      "logAudit": {
-        "knownStartupWorkerPoolErrors": [],
-        "unexpectedErrors": []
-      },
-      "cases": [
         {
           "case": "normal",
           "passed": true,
@@ -184,7 +69,8 @@
           "powerAfter": 1,
           "reservedBefore": 0,
           "reservedAfter": 1,
-          "effects": [
+          "overlapFrames": 64,
+          "buffEffects": [
             {
               "Frames": 64,
               "Gains": 1,
@@ -194,9 +80,23 @@
               "Freed": true,
               "Finite": true,
               "IconValid": true,
-              "Age": 1.0430123,
-              "Duration": 1.051999999999996,
+              "Age": 1.048289,
+              "Duration": 1.0409999999999968,
               "ArrivalError": 0
+            }
+          ],
+          "cardEffects": [
+            {
+              "Frames": 128,
+              "Plays": 1,
+              "PeakParticles": 252,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 2.118000000000002
             }
           ]
         },
@@ -207,9 +107,10 @@
           "powerAfter": 3,
           "reservedBefore": 0,
           "reservedAfter": 3,
-          "effects": [
+          "overlapFrames": 79,
+          "buffEffects": [
             {
-              "Frames": 85,
+              "Frames": 79,
               "Gains": 3,
               "PeakPulses": 3,
               "Arrived": true,
@@ -217,9 +118,23 @@
               "Freed": true,
               "Finite": true,
               "IconValid": true,
-              "Age": 1.4187483,
-              "Duration": 1.4200000000000017,
+              "Age": 1.4340363,
+              "Duration": 1.4270000000000067,
               "ArrivalError": 0
+            }
+          ],
+          "cardEffects": [
+            {
+              "Frames": 133,
+              "Plays": 3,
+              "PeakParticles": 320,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 2.404999999999987
             }
           ]
         },
@@ -230,7 +145,8 @@
           "powerAfter": 1,
           "reservedBefore": 0,
           "reservedAfter": 1,
-          "effects": [
+          "overlapFrames": 40,
+          "buffEffects": [
             {
               "Frames": 40,
               "Gains": 1,
@@ -240,9 +156,23 @@
               "Freed": true,
               "Finite": true,
               "IconValid": true,
-              "Age": 1.0266286,
-              "Duration": 0.6510000000000034,
+              "Age": 1.0399584,
+              "Duration": 0.6529999999999916,
               "ArrivalError": 0
+            }
+          ],
+          "cardEffects": [
+            {
+              "Frames": 80,
+              "Plays": 1,
+              "PeakParticles": 252,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 1.2929999999999922
             }
           ]
         },
@@ -253,7 +183,47 @@
           "powerAfter": 1,
           "reservedBefore": 0,
           "reservedAfter": 1,
-          "effects": []
+          "overlapFrames": 0,
+          "buffEffects": [],
+          "cardEffects": []
+        },
+        {
+          "case": "remove_buff",
+          "passed": true,
+          "powerBefore": 0,
+          "powerAfter": 0,
+          "reservedBefore": 0,
+          "reservedAfter": 1,
+          "overlapFrames": 6,
+          "buffEffects": [
+            {
+              "Frames": 6,
+              "Gains": 1,
+              "PeakPulses": 1,
+              "Arrived": false,
+              "Bound": true,
+              "Freed": true,
+              "Finite": true,
+              "IconValid": true,
+              "Age": 0.076793,
+              "Duration": 0.08799999999999386,
+              "ArrivalError": -1
+            }
+          ],
+          "cardEffects": [
+            {
+              "Frames": 128,
+              "Plays": 1,
+              "PeakParticles": 252,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 2.1029999999999944
+            }
+          ]
         },
         {
           "case": "cancel",
@@ -262,7 +232,22 @@
           "powerAfter": 0,
           "reservedBefore": 0,
           "reservedAfter": 1,
-          "effects": []
+          "overlapFrames": 0,
+          "buffEffects": [],
+          "cardEffects": [
+            {
+              "Frames": 13,
+              "Plays": 1,
+              "PeakParticles": 252,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 0.23999999999999488
+            }
+          ]
         },
         {
           "case": "reward",
@@ -271,10 +256,132 @@
           "powerAfter": 1,
           "reservedBefore": 0,
           "reservedAfter": 1,
-          "effects": [
+          "overlapFrames": 64,
+          "buffEffects": [
             {
               "Frames": 64,
               "Gains": 1,
+              "PeakPulses": 1,
+              "Arrived": true,
+              "Bound": true,
+              "Freed": true,
+              "Finite": true,
+              "IconValid": true,
+              "Age": 1.0499582,
+              "Duration": 1.0390000000000015,
+              "ArrivalError": 0
+            }
+          ],
+          "cardEffects": [
+            {
+              "Frames": 128,
+              "Plays": 1,
+              "PeakParticles": 252,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 2.11099999999999
+            }
+          ]
+        }
+      ],
+      "removalIndependence": {
+        "live": 0,
+        "liveCard": 1,
+        "cardBacks": 1,
+        "overlapFrames": 6,
+        "reserved": 1,
+        "power": 0,
+        "relics": [
+          "KAREN_HAIRPIN_RELIC",
+          "NEOWS_TALISMAN"
+        ],
+        "effects": [
+          {
+            "Frames": 6,
+            "Gains": 1,
+            "PeakPulses": 1,
+            "Arrived": false,
+            "Bound": true,
+            "Freed": true,
+            "Finite": true,
+            "IconValid": true,
+            "Age": 0.076793,
+            "Duration": 0.08799999999999386,
+            "ArrivalError": -1
+          }
+        ],
+        "cardEffects": [
+          {
+            "Frames": 29,
+            "Plays": 1,
+            "PeakParticles": 252,
+            "Freed": false,
+            "Finite": true,
+            "HasControls": false,
+            "CoversViewport": true,
+            "ProtectsBuff": true,
+            "MaxQuietAlpha": 0.1,
+            "Duration": 0
+          }
+        ]
+      }
+    },
+    "beta": {
+      "version": "v0.111.0",
+      "captureBuild": {
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "f9b53718e5d8ea4e91e124c70db8ce761531e37733c1043e6615b7c6e0596ad5",
+        "ShoujoKagekiAijoKaren.pck": "29fff31e31a61b6e5ee5aeb3eb67290b9c51a5a1376f9a0701a06f6bbf395785"
+      },
+      "logAudit": {
+        "knownStartupWorkerPoolErrors": [
+          {
+            "line": 247,
+            "message": "ERROR: Invalid Task ID"
+          }
+        ],
+        "unexpectedErrors": []
+      },
+      "cases": [
+        {
+          "case": "preview_card",
+          "passed": true,
+          "powerBefore": 0,
+          "powerAfter": 0,
+          "reservedBefore": 0,
+          "reservedAfter": 0,
+          "overlapFrames": 0,
+          "buffEffects": [],
+          "cardEffects": [
+            {
+              "Frames": 127,
+              "Plays": 1,
+              "PeakParticles": 252,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": false,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 2.093999999999994
+            }
+          ]
+        },
+        {
+          "case": "direct",
+          "passed": true,
+          "powerBefore": 0,
+          "powerAfter": 2,
+          "reservedBefore": 0,
+          "reservedAfter": 0,
+          "overlapFrames": 0,
+          "buffEffects": [
+            {
+              "Frames": 64,
+              "Gains": 2,
               "PeakPulses": 1,
               "Arrived": true,
               "Bound": true,
@@ -282,64 +389,290 @@
               "Finite": true,
               "IconValid": true,
               "Age": 1.049958,
-              "Duration": 1.0520000000000067,
+              "Duration": 1.0519999999999996,
               "ArrivalError": 0
             }
-          ]
+          ],
+          "cardEffects": []
         },
         {
-          "case": "direct",
+          "case": "normal",
           "passed": true,
           "powerBefore": 0,
-          "powerAfter": 2,
+          "powerAfter": 1,
           "reservedBefore": 0,
-          "reservedAfter": 0,
-          "effects": [
+          "reservedAfter": 1,
+          "overlapFrames": 64,
+          "buffEffects": [
             {
               "Frames": 64,
-              "Gains": 2,
+              "Gains": 1,
               "PeakPulses": 1,
               "Arrived": true,
               "Bound": true,
               "Freed": true,
               "Finite": true,
               "IconValid": true,
-              "Age": 1.0439824,
-              "Duration": 1.0499999999999972,
+              "Age": 1.0499603,
+              "Duration": 1.054000000000002,
               "ArrivalError": 0
+            }
+          ],
+          "cardEffects": [
+            {
+              "Frames": 126,
+              "Plays": 1,
+              "PeakParticles": 252,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 2.0889999999999986
             }
           ]
         },
         {
-          "case": "loss",
+          "case": "repeat",
           "passed": true,
-          "powerBefore": 2,
-          "powerAfter": 1,
+          "powerBefore": 0,
+          "powerAfter": 3,
           "reservedBefore": 0,
-          "reservedAfter": 0,
-          "effects": []
+          "reservedAfter": 3,
+          "overlapFrames": 83,
+          "buffEffects": [
+            {
+              "Frames": 83,
+              "Gains": 3,
+              "PeakPulses": 3,
+              "Arrived": true,
+              "Bound": true,
+              "Freed": true,
+              "Finite": true,
+              "IconValid": true,
+              "Age": 1.4462719,
+              "Duration": 1.4479999999999933,
+              "ArrivalError": 0
+            }
+          ],
+          "cardEffects": [
+            {
+              "Frames": 152,
+              "Plays": 3,
+              "PeakParticles": 320,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 2.629000000000005
+            }
+          ]
         },
         {
-          "case": "unrelated",
+          "case": "fast",
           "passed": true,
-          "powerBefore": 2,
-          "powerAfter": 2,
+          "powerBefore": 0,
+          "powerAfter": 1,
           "reservedBefore": 0,
-          "reservedAfter": 0,
-          "effects": []
+          "reservedAfter": 1,
+          "overlapFrames": 40,
+          "buffEffects": [
+            {
+              "Frames": 40,
+              "Gains": 1,
+              "PeakPulses": 1,
+              "Arrived": true,
+              "Bound": true,
+              "Freed": true,
+              "Finite": true,
+              "IconValid": true,
+              "Age": 1.0398355,
+              "Duration": 0.6539999999999964,
+              "ArrivalError": 0
+            }
+          ],
+          "cardEffects": [
+            {
+              "Frames": 79,
+              "Plays": 1,
+              "PeakParticles": 252,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 1.277000000000001
+            }
+          ]
+        },
+        {
+          "case": "instant",
+          "passed": true,
+          "powerBefore": 0,
+          "powerAfter": 1,
+          "reservedBefore": 0,
+          "reservedAfter": 1,
+          "overlapFrames": 0,
+          "buffEffects": [],
+          "cardEffects": []
+        },
+        {
+          "case": "remove_buff",
+          "passed": true,
+          "powerBefore": 0,
+          "powerAfter": 0,
+          "reservedBefore": 0,
+          "reservedAfter": 1,
+          "overlapFrames": 5,
+          "buffEffects": [
+            {
+              "Frames": 5,
+              "Gains": 1,
+              "PeakPulses": 1,
+              "Arrived": false,
+              "Bound": true,
+              "Freed": true,
+              "Finite": true,
+              "IconValid": true,
+              "Age": 0.065276116,
+              "Duration": 0.0730000000000075,
+              "ArrivalError": -1
+            }
+          ],
+          "cardEffects": [
+            {
+              "Frames": 128,
+              "Plays": 1,
+              "PeakParticles": 252,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 2.1099999999999994
+            }
+          ]
+        },
+        {
+          "case": "cancel",
+          "passed": true,
+          "powerBefore": 0,
+          "powerAfter": 0,
+          "reservedBefore": 0,
+          "reservedAfter": 1,
+          "overlapFrames": 0,
+          "buffEffects": [],
+          "cardEffects": [
+            {
+              "Frames": 14,
+              "Plays": 1,
+              "PeakParticles": 252,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 0.25
+            }
+          ]
+        },
+        {
+          "case": "reward",
+          "passed": true,
+          "powerBefore": 0,
+          "powerAfter": 1,
+          "reservedBefore": 0,
+          "reservedAfter": 1,
+          "overlapFrames": 64,
+          "buffEffects": [
+            {
+              "Frames": 64,
+              "Gains": 1,
+              "PeakPulses": 1,
+              "Arrived": true,
+              "Bound": true,
+              "Freed": true,
+              "Finite": true,
+              "IconValid": true,
+              "Age": 1.0430163,
+              "Duration": 1.063999999999993,
+              "ArrivalError": 0
+            }
+          ],
+          "cardEffects": [
+            {
+              "Frames": 128,
+              "Plays": 1,
+              "PeakParticles": 252,
+              "Freed": true,
+              "Finite": true,
+              "HasControls": false,
+              "CoversViewport": true,
+              "ProtectsBuff": true,
+              "MaxQuietAlpha": 0.1,
+              "Duration": 2.096999999999994
+            }
+          ]
         }
-      ]
+      ],
+      "removalIndependence": {
+        "live": 0,
+        "liveCard": 1,
+        "cardBacks": 1,
+        "overlapFrames": 5,
+        "reserved": 1,
+        "power": 0,
+        "relics": [
+          "KAREN_HAIRPIN_RELIC",
+          "LAVA_ROCK"
+        ],
+        "effects": [
+          {
+            "Frames": 5,
+            "Gains": 1,
+            "PeakPulses": 1,
+            "Arrived": false,
+            "Bound": true,
+            "Freed": true,
+            "Finite": true,
+            "IconValid": true,
+            "Age": 0.065276116,
+            "Duration": 0.0730000000000075,
+            "ArrivalError": -1
+          }
+        ],
+        "cardEffects": [
+          {
+            "Frames": 29,
+            "Plays": 1,
+            "PeakParticles": 252,
+            "Freed": false,
+            "Finite": true,
+            "HasControls": false,
+            "CoversViewport": true,
+            "ProtectsBuff": true,
+            "MaxQuietAlpha": 0.1,
+            "Duration": 0
+          }
+        ]
+      }
     }
   },
   "video": {
-    "duration": "11.006009",
+    "duration": "19.599675",
     "fps": 30,
     "width": 1280,
     "height": 720,
-    "audio_peak_db": -12.1,
-    "audio_gain_db": 13.3,
+    "audio_peak_db": -11.9,
+    "audio_gain_db": 13.0,
     "original_speed": true,
     "game_process_audio": true,
-    "sha256": "a24cab33d59afc3918e1f80af25efd085a4cbf9e6a13b31b5d660b1cb8d5ba91"
+    "sha256": "0e916242a5ed91dc871fa6a95ef3441e76c79094f53ec2d31e95a89f09752de2"
   }
 }

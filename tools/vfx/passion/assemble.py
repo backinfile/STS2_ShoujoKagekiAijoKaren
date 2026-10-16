@@ -14,9 +14,11 @@ out = args.output.resolve()
 out.mkdir(parents=True, exist_ok=True)
 font = 'C\\:/Windows/Fonts/msyh.ttc'
 segments = [
-    ('normal', '获得激情 Buff', '金红星光 → 状态图标 / 约一秒的获得确认', None),
-    ('repeat', '激情 Buff · 连续叠层', '每次正向增加都响应 / 战后追加 3 份遗物奖励', None),
-    ('reward', '战后 · 额外遗物奖励', '特效只确认预约，遗物到战后才揭晓', 2.2),
+    ('preview_card', '卡牌特效 · 全屏粒子', '独立粒子层预览 / 不附加 Buff 或奖励', None),
+    ('direct', 'Buff 特效 · 获得反馈', '独立 Buff 层预览 / 只加 Buff，不播放卡牌粒子', None),
+    ('normal', '实际打出激情 · 双层互补', '全屏金红粒子 + 局部图标反馈，分别触发与清理', None),
+    ('repeat', '连续打出 · 两层分别合并', '粒子最多 320 枚 / 仍登记 3 份真实奖励', None),
+    ('reward', '战后 · 额外遗物奖励', '实际预约的遗物到战后才揭晓', 3.0),
 ]
 chapters = []
 position = 0.0
