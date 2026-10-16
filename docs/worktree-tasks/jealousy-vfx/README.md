@@ -89,3 +89,4 @@
 - 构建两版各 25 警告、0 错误，loader 0 警告、0 错误。最终完整专项及补充重播日志无异常错误或 Shader 编译错误。未跑 full／多人或第三方共存矩阵。
 - 已查看 40 张 MCP 截图及两版原片／成片关键帧和片尾；约 13 秒原速有声视频：`artifacts/jealousy-particles-reviewed-20261016/preview/Karen-Jealousy-showcase.mp4`。音轨来自游戏进程，非静音且无削波；录制包封存 `recorded-package/`，哈希与原片核对通过。
 - 当前记录：`docs/testing/jealousy-particles-vfx-2026-10-16.md`。共享开发游戏、原检出及其未跟踪文档未修改；测试进程已退出、临时配置恢复。任务实现与媒体已完成，工作树保留，合并回 main 等待明确确认。
+- 第四版功能提交为 `c647da3`。已同步本地 main `57c435c` 的独立零位／命运交换等工作，两版构建通过（各 26 警告、0 错误；loader 1 警告、0 错误）。嫉妒运行源码和两份 Shader 与录制版本无变化，本次独立同步未重复运行／重录；封存录制包再次校验通过。原检出仍为 main、同步期间 HEAD 未变，原有未跟踪文档 SHA-256 仍为 `f583ee87d1af18daf80b4d1acf971fbe7d94538c9fccf47b654fa273b7ffb989`，未被本任务写入。
