@@ -1,0 +1,22 @@
+{
+  "status": "completed",
+  "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-052301-bd00eed020ad49ed9c8c7dd6939a499c.mp4",
+  "fps": 30,
+  "max_duration_seconds": 15,
+  "width": 1280,
+  "height": 720,
+  "frames_written": 130,
+  "video_duration_seconds": 4.333333333333333,
+  "frames_captured": 129,
+  "frames_repeated": 1,
+  "frames_dropped": 0,
+  "encoder": "h264_nvenc",
+  "capture_fps": 29.881310046666265,
+  "capture_average_ms": 6.455835658914725,
+  "capture_max_ms": 47.0197,
+  "encode_write_average_ms": 1.3225415384615387,
+  "encode_write_max_ms": 90.2988,
+  "elapsed_seconds": 4.5552698,
+  "audio": true,
+  "audio_source": "game_process"
+}

@@ -1,0 +1,39 @@
+{
+  "live": 0,
+  "childLive": 0,
+  "shine": 5,
+  "pile": null,
+  "shineStock": 2,
+  "effects": [
+    {
+      "impact": false,
+      "index": 0,
+      "ownedChildren": 2,
+      "frames": 40,
+      "exited": true,
+      "final": false,
+      "maxAnchorError": 0,
+      "particleFrames": 39
+    },
+    {
+      "impact": true,
+      "index": 0,
+      "ownedChildren": 2,
+      "frames": 22,
+      "exited": true,
+      "final": false,
+      "maxAnchorError": 0,
+      "particleFrames": 15
+    },
+    {
+      "impact": true,
+      "index": 1,
+      "ownedChildren": 2,
+      "frames": 21,
+      "exited": true,
+      "final": true,
+      "maxAnchorError": 0,
+      "particleFrames": 14
+    }
+  ]
+}

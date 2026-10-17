@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -33,12 +34,26 @@ public sealed class KarenShineStrikeBarrage : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(DynamicVars.Repeat.IntValue)
-            .FromPlayedCard(this, cardPlay)
-            .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
-            .Execute(choiceContext);
+        NKarenShineBarrageVfx? preparation = null;
+        NKarenShineBarrageVfx? lastHit = null;
+        int hitIndex = 0;
+        try
+        {
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .WithHitCount(DynamicVars.Repeat.IntValue)
+                .FromPlayedCard(this, cardPlay)
+                .Targeting(cardPlay.Target)
+                .WithAttackerFx(() => preparation = NKarenShineBarrageVfx.Create(Owner.Creature, cardPlay.Target))
+                .WithAttackerAnim("Attack", .15f)
+                .OnlyPlayAnimOnce()
+                .WithWaitBeforeHit(NKarenShineBarrageVfx.FastHitInterval, NKarenShineBarrageVfx.HitInterval)
+                .WithHitVfxNode(target => lastHit = NKarenShineBarrageVfx.Hit(Owner.Creature, target, hitIndex++))
+                .Execute(choiceContext);
+        }
+        finally
+        {
+            NKarenShineBarrageVfx.Complete(preparation, lastHit);
+        }
     }
 
     protected override void OnUpgrade()

@@ -1,0 +1,92 @@
+[
+  {
+    "case": "normal",
+    "passed": true,
+    "damage": 12,
+    "expected": 12,
+    "impacts": 4,
+    "live": 0,
+    "elapsed": 3.922000000020489
+  },
+  {
+    "case": "upgrade",
+    "passed": true,
+    "damage": 15,
+    "expected": 15,
+    "impacts": 5,
+    "live": 0,
+    "elapsed": 4.327999999979511
+  },
+  {
+    "case": "last",
+    "passed": true,
+    "damage": 12,
+    "expected": 12,
+    "impacts": 4,
+    "live": 0,
+    "elapsed": 3.26500000001397
+  },
+  {
+    "case": "fast",
+    "passed": true,
+    "damage": 12,
+    "expected": 12,
+    "impacts": 4,
+    "live": 0,
+    "elapsed": 2.6719999999040738
+  },
+  {
+    "case": "instant",
+    "passed": true,
+    "damage": 12,
+    "expected": 12,
+    "impacts": 0,
+    "live": 0,
+    "elapsed": 1.8599999999860302
+  },
+  {
+    "case": "replay",
+    "passed": true,
+    "damage": 36,
+    "expected": 36,
+    "impacts": 12,
+    "live": 0,
+    "elapsed": 8.297000000020489
+  },
+  {
+    "case": "stage",
+    "passed": true,
+    "damage": 24,
+    "expected": 24,
+    "impacts": 8,
+    "live": 0,
+    "elapsed": 5.344000000040978
+  },
+  {
+    "case": "pose",
+    "passed": true,
+    "damage": 12,
+    "expected": 12,
+    "impacts": 4,
+    "live": 0,
+    "elapsed": 3.234000000054948
+  },
+  {
+    "case": "cancel",
+    "passed": true,
+    "damage": 12,
+    "expected": 12,
+    "impacts": 4,
+    "live": 0,
+    "elapsed": 3.312000000034459
+  },
+  {
+    "case": "lethal",
+    "passed": true,
+    "damage": 4,
+    "expected": 4,
+    "impacts": 2,
+    "live": 0,
+    "elapsed": 2.547000000020489
+  }
+]

@@ -1,0 +1,59 @@
+{
+  "live": 0,
+  "childLive": 0,
+  "shine": 5,
+  "pile": "Discard",
+  "shineStock": 4,
+  "effects": [
+    {
+      "impact": false,
+      "index": 0,
+      "ownedChildren": 2,
+      "frames": 103,
+      "exited": true,
+      "final": false,
+      "maxAnchorError": 6.1035156e-05,
+      "particleFrames": 93
+    },
+    {
+      "impact": true,
+      "index": 0,
+      "ownedChildren": 2,
+      "frames": 22,
+      "exited": true,
+      "final": false,
+      "maxAnchorError": 6.1035156e-05,
+      "particleFrames": 15
+    },
+    {
+      "impact": true,
+      "index": 1,
+      "ownedChildren": 2,
+      "frames": 22,
+      "exited": true,
+      "final": false,
+      "maxAnchorError": 6.1035156e-05,
+      "particleFrames": 15
+    },
+    {
+      "impact": true,
+      "index": 2,
+      "ownedChildren": 2,
+      "frames": 22,
+      "exited": true,
+      "final": false,
+      "maxAnchorError": 6.1035156e-05,
+      "particleFrames": 14
+    },
+    {
+      "impact": true,
+      "index": 3,
+      "ownedChildren": 2,
+      "frames": 22,
+      "exited": true,
+      "final": true,
+      "maxAnchorError": 6.1035156e-05,
+      "particleFrames": 15
+    }
+  ]
+}
