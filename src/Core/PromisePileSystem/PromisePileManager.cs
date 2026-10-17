@@ -212,15 +212,15 @@ public static class PromisePileManager
     /// minSelect == maxSelect，选满 N 张后自动确认（无手动按钮）；1 张时单击即确认。
     /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择, 此时要求传入source。
     /// </summary>
-    public static async Task AddFromPileAsync(
+    public static async Task<IReadOnlyList<CardModel>> AddFromPileAsync(
         PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt, AbstractModel? source = null, bool optional = false)
     {
-        if (player == null) return;
+        if (player == null) return [];
 
         var cardPile = pileType.GetPile(player);
         // 拍快照：避免选牌过程中列表变动
         var cards = cardPile.Cards.ToList();
-        if (cards.Count == 0) return;
+        if (cards.Count == 0) return [];
 
         int selectCount = Math.Min(count, cards.Count);
         var prefs = new CardSelectorPrefs(prompt, optional ? 0 : selectCount, selectCount);
@@ -235,10 +235,12 @@ public static class PromisePileManager
         {
             selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
         }
-        if (selected == null) return;
+        if (selected == null) return [];
 
-        foreach (var card in selected)
+        var moved = selected.ToArray();
+        foreach (var card in moved)
             await PromisePileCmd.Add(player, card);
+        return moved;
     }
 
     /// <summary>

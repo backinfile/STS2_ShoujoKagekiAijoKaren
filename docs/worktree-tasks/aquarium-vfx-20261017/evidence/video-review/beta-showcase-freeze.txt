@@ -1,0 +1,1 @@
+No >= 1s near-identical frame segment at -50 dB. This is supplemental, not a wall-clock audit.

@@ -1,0 +1,84 @@
+{
+  "scope": "targeted singleplayer, not full or multiplayer",
+  "cases": {
+    "stable/transient-visual": [
+      "normal",
+      "stack",
+      "void",
+      "fast",
+      "instant",
+      "empty",
+      "cancel",
+      "switch",
+      "remove",
+      "room"
+    ],
+    "stable/transient-recordings": [
+      "showcase"
+    ],
+    "beta/transient-visual": [
+      "normal",
+      "stack",
+      "void",
+      "fast",
+      "instant",
+      "empty",
+      "cancel",
+      "switch",
+      "remove",
+      "room"
+    ],
+    "beta/transient-recordings": [
+      "showcase"
+    ]
+  },
+  "recordings": [
+    {
+      "branch": "stable",
+      "case": "showcase",
+      "captureFps": 29.819895140214825,
+      "repeated": 3,
+      "dropped": 0,
+      "seconds": 15.2,
+      "audioMeanDb": -41.1,
+      "audioPeakDb": -18.2
+    },
+    {
+      "branch": "beta",
+      "case": "showcase",
+      "captureFps": 29.71233739563667,
+      "repeated": 5,
+      "dropped": 0,
+      "seconds": 14.966666666666667,
+      "audioMeanDb": -41.0,
+      "audioPeakDb": -17.2
+    }
+  ],
+  "logAudit": [
+    {
+      "branch": "stable",
+      "run": "transient-visual",
+      "startupInvalidTaskIds": 0,
+      "unexpectedErrors": 0
+    },
+    {
+      "branch": "stable",
+      "run": "transient-recordings",
+      "startupInvalidTaskIds": 0,
+      "unexpectedErrors": 0
+    },
+    {
+      "branch": "beta",
+      "run": "transient-visual",
+      "startupInvalidTaskIds": 6,
+      "unexpectedErrors": 0
+    },
+    {
+      "branch": "beta",
+      "run": "transient-recordings",
+      "startupInvalidTaskIds": 0,
+      "unexpectedErrors": 0
+    }
+  ],
+  "handChecks": 48
+}

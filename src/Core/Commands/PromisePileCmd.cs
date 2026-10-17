@@ -219,17 +219,16 @@ public static class PromisePileCmd
     /// Void 模式下改为放入抽牌堆顶部。
     /// optional:true表示可选0~count张牌
     /// </summary>
-    public static async Task AddFromHand(PlayerChoiceContext ctx, Player player, int count, AbstractModel source, bool optional = false)
+    public static async Task<IReadOnlyList<CardModel>> AddFromHand(PlayerChoiceContext ctx, Player player, int count, AbstractModel source, bool optional = false)
     {
         var prompt = Tips.PromisePileSelectFromHand;
         if (IsVoidMode(player))
         {
             // Void 模式：从手牌选牌放入抽牌堆顶部
-            await AddFromPileToDrawPile(ctx, player, PileType.Hand, count, prompt, source, optional);
-            return;
+            return await AddFromPileToDrawPile(ctx, player, PileType.Hand, count, prompt, source, optional);
         }
 
-        await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Hand, count, prompt, source, optional);
+        return await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Hand, count, prompt, source, optional);
     }
 
     /// <summary>
@@ -289,12 +288,12 @@ public static class PromisePileCmd
     /// Void 模式专用：从指定牌堆选牌放入抽牌堆
     /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择
     /// </summary>
-    private static async Task AddFromPileToDrawPile(
+    private static async Task<IReadOnlyList<CardModel>> AddFromPileToDrawPile(
         PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt, AbstractModel? source = null, bool optional = false)
     {
         var cardPile = pileType.GetPile(player);
         var cards = cardPile.Cards.ToList();
-        if (cards.Count == 0) return;
+        if (cards.Count == 0) return [];
 
         int selectCount = System.Math.Min(count, cards.Count);
         var prefs = new CardSelectorPrefs(prompt, optional ? 0 : selectCount, selectCount);
@@ -309,8 +308,10 @@ public static class PromisePileCmd
         {
             selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
         }
-        if (selected == null) return;
-        await CardPileCmd.Add(selected, PileType.Draw, CardPilePosition.Bottom, null, false);
+        if (selected == null) return [];
+        var moved = selected.ToArray();
+        await CardPileCmd.Add(moved, PileType.Draw, CardPilePosition.Bottom, null, false);
+        return moved;
     }
 
 

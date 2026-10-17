@@ -1,0 +1,368 @@
+[
+  {
+    "case": "normal",
+    "passed": true,
+    "turns": 3,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 0,
+      "promise": 3,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 1410,
+          "SelectionFrames": 134,
+          "ParticleFrames": 1410,
+          "Casts": 1,
+          "Turns": 3,
+          "Drawn": 3,
+          "Moved": 3,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "stack",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 11,
+      "promise": 2,
+      "amount": 2,
+      "effects": [
+        {
+          "Frames": 580,
+          "SelectionFrames": 50,
+          "ParticleFrames": 580,
+          "Casts": 2,
+          "Turns": 1,
+          "Drawn": 2,
+          "Moved": 2,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "full",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 9,
+      "draw": 18,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 397,
+          "SelectionFrames": 43,
+          "ParticleFrames": 397,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 0,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "empty",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 0,
+      "draw": 0,
+      "promise": 0,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 355,
+          "SelectionFrames": 0,
+          "ParticleFrames": 355,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 0,
+          "Moved": 0,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "single",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 0,
+      "draw": 0,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 368,
+          "SelectionFrames": 1,
+          "ParticleFrames": 368,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 0,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "void",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 13,
+      "promise": 0,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 492,
+          "SelectionFrames": 44,
+          "ParticleFrames": 492,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "fast",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 358,
+          "SelectionFrames": 41,
+          "ParticleFrames": 358,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "instant",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 0,
+      "layers": 0,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": []
+    }
+  },
+  {
+    "case": "remove",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 492,
+          "SelectionFrames": 47,
+          "ParticleFrames": 492,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "cancel",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 0,
+      "layers": 0,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 401,
+          "SelectionFrames": 44,
+          "ParticleFrames": 401,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "switch",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 0,
+      "layers": 0,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 391,
+          "SelectionFrames": 37,
+          "ParticleFrames": 391,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "room",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 489,
+          "SelectionFrames": 48,
+          "ParticleFrames": 489,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "pose",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 486,
+          "SelectionFrames": 43,
+          "ParticleFrames": 486,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "combo",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 478,
+          "SelectionFrames": 38,
+          "ParticleFrames": 478,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  }
+]
