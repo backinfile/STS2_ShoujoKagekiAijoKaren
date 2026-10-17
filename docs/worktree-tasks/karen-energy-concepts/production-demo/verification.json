@@ -1,0 +1,324 @@
+{
+  "passed": true,
+  "sourcePngUnchanged": true,
+  "sourceSha256": "d1b6d7c2b20fae028ed13a7a2157fb487585d14d472a2364a8a6890d70cb23f1",
+  "nativeCostControl": [
+    64,
+    64
+  ],
+  "nativeCostCenterRelativeToFrame": [
+    16,
+    16
+  ],
+  "battleCounter": [
+    128,
+    128
+  ],
+  "inlineIcon": [
+    24,
+    24
+  ],
+  "checks": [
+    {
+      "branch": "stable",
+      "snapshot": "00-production-start",
+      "handModelAndViewCount": 5,
+      "karenVisualPoolCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "01-hand",
+      "handModelAndViewCount": 5,
+      "karenVisualPoolCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "01-hover-card",
+      "handModelAndViewCount": 5,
+      "karenVisualPoolCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "02-before-spending",
+      "handModelAndViewCount": 5,
+      "karenVisualPoolCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "02-zero-energy",
+      "handModelAndViewCount": 2,
+      "karenVisualPoolCards": 2,
+      "energy": 0,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "03-turn-restored",
+      "handModelAndViewCount": 6,
+      "karenVisualPoolCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "04-inline-energy-icons",
+      "handModelAndViewCount": 7,
+      "karenVisualPoolCards": 6,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "04-energy-above-max",
+      "handModelAndViewCount": 6,
+      "karenVisualPoolCards": 5,
+      "energy": 6,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "05-two-cost",
+      "handModelAndViewCount": 8,
+      "karenVisualPoolCards": 7,
+      "energy": 6,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "05-X-cost",
+      "handModelAndViewCount": 8,
+      "karenVisualPoolCards": 7,
+      "energy": 6,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "06-before-fall",
+      "handModelAndViewCount": 9,
+      "karenVisualPoolCards": 8,
+      "energy": 6,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "06-after-fall",
+      "handModelAndViewCount": 7,
+      "karenVisualPoolCards": 6,
+      "energy": 5,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "07-before-tower",
+      "handModelAndViewCount": 8,
+      "karenVisualPoolCards": 6,
+      "energy": 5,
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "snapshot": "07-returned-one-cost",
+      "handModelAndViewCount": 8,
+      "karenVisualPoolCards": 7,
+      "energy": 5,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "00-production-start",
+      "handModelAndViewCount": 5,
+      "karenVisualPoolCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "01-hand",
+      "handModelAndViewCount": 5,
+      "karenVisualPoolCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "01-hover-card",
+      "handModelAndViewCount": 5,
+      "karenVisualPoolCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "02-before-spending",
+      "handModelAndViewCount": 5,
+      "karenVisualPoolCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "02-zero-energy",
+      "handModelAndViewCount": 2,
+      "karenVisualPoolCards": 2,
+      "energy": 0,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "03-turn-restored",
+      "handModelAndViewCount": 6,
+      "karenVisualPoolCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "04-inline-energy-icons",
+      "handModelAndViewCount": 7,
+      "karenVisualPoolCards": 6,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "04-energy-above-max",
+      "handModelAndViewCount": 6,
+      "karenVisualPoolCards": 5,
+      "energy": 6,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "05-two-cost",
+      "handModelAndViewCount": 8,
+      "karenVisualPoolCards": 7,
+      "energy": 6,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "05-X-cost",
+      "handModelAndViewCount": 8,
+      "karenVisualPoolCards": 7,
+      "energy": 6,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "06-before-fall",
+      "handModelAndViewCount": 9,
+      "karenVisualPoolCards": 8,
+      "energy": 6,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "06-after-fall",
+      "handModelAndViewCount": 7,
+      "karenVisualPoolCards": 6,
+      "energy": 5,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "07-before-tower",
+      "handModelAndViewCount": 8,
+      "karenVisualPoolCards": 6,
+      "energy": 5,
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "snapshot": "07-returned-one-cost",
+      "handModelAndViewCount": 8,
+      "karenVisualPoolCards": 7,
+      "energy": 5,
+      "passed": true
+    }
+  ],
+  "decodedEnergyMotion": [
+    {
+      "branch": "stable",
+      "clip": "01-native-layout",
+      "decodedFrames": 195,
+      "changedAdjacentFrames": 194,
+      "maxIdenticalRunFrames": 1,
+      "meanAbsolutePixelDelta": 0.02853971378273212,
+      "maxPixelDelta": 19
+    },
+    {
+      "branch": "stable",
+      "clip": "03-next-turn",
+      "decodedFrames": 249,
+      "changedAdjacentFrames": 210,
+      "maxIdenticalRunFrames": 13,
+      "meanAbsolutePixelDelta": 1.7385609767872026,
+      "maxPixelDelta": 241
+    },
+    {
+      "branch": "stable",
+      "clip": "04-inline-and-refill",
+      "decodedFrames": 256,
+      "changedAdjacentFrames": 254,
+      "maxIdenticalRunFrames": 2,
+      "meanAbsolutePixelDelta": 0.30018764594684755,
+      "maxPixelDelta": 241
+    },
+    {
+      "branch": "stable",
+      "clip": "07-promise-out",
+      "decodedFrames": 212,
+      "changedAdjacentFrames": 211,
+      "maxIdenticalRunFrames": 1,
+      "meanAbsolutePixelDelta": 0.03466517050561882,
+      "maxPixelDelta": 21
+    },
+    {
+      "branch": "beta",
+      "clip": "01-native-layout",
+      "decodedFrames": 194,
+      "changedAdjacentFrames": 193,
+      "maxIdenticalRunFrames": 1,
+      "meanAbsolutePixelDelta": 0.03040348067687265,
+      "maxPixelDelta": 25
+    },
+    {
+      "branch": "beta",
+      "clip": "03-next-turn",
+      "decodedFrames": 241,
+      "changedAdjacentFrames": 201,
+      "maxIdenticalRunFrames": 13,
+      "meanAbsolutePixelDelta": 1.6531793150073515,
+      "maxPixelDelta": 249
+    },
+    {
+      "branch": "beta",
+      "clip": "04-inline-and-refill",
+      "decodedFrames": 255,
+      "changedAdjacentFrames": 251,
+      "maxIdenticalRunFrames": 3,
+      "meanAbsolutePixelDelta": 0.3825490327414177,
+      "maxPixelDelta": 238
+    },
+    {
+      "branch": "beta",
+      "clip": "07-promise-out",
+      "decodedFrames": 212,
+      "changedAdjacentFrames": 199,
+      "maxIdenticalRunFrames": 5,
+      "meanAbsolutePixelDelta": 0.032973030278596535,
+      "maxPixelDelta": 29
+    }
+  ],
+  "motionNote": "Energy ROI changes verified across captured sequences. Intentional scene holds can be flagged by full-frame freezedetect; the filter is not a standalone pass/fail signal.",
+  "packageSha256": "4fc2ef529966b4c3fbd516ab56f073f12211d62faa9a42037d4c738050e04745",
+  "coreRulesChanged": false
+}

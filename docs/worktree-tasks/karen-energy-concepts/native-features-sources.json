@@ -1,0 +1,195 @@
+{
+  "classes": [
+    {
+      "name": "ironclad",
+      "label": "铁甲战士",
+      "shape": "近正八边形 · 顶端有角",
+      "card": {
+        "width": 74,
+        "height": 74,
+        "y": 1948,
+        "x": 1440,
+        "file": "ui_atlas_0.png"
+      },
+      "scene": "res://scenes/combat/energy_counters/ironclad_energy_counter.tscn",
+      "layers": [
+        {
+          "node": "Layer1",
+          "source": "res://images/ui/combat/energy_counters/ironclad/ironclad_orb_layer_1.png",
+          "file": "ironclad_orb_layer_1.png"
+        },
+        {
+          "node": "Layer2",
+          "source": "res://images/ui/combat/energy_counters/ironclad/ironclad_orb_layer_2.png",
+          "file": "ironclad_orb_layer_2.png"
+        },
+        {
+          "node": "Layer3",
+          "source": "res://images/ui/combat/energy_counters/ironclad/ironclad_orb_layer_3.png",
+          "file": "ironclad_orb_layer_3.png"
+        },
+        {
+          "node": "Layer4",
+          "source": "res://images/ui/combat/energy_counters/ironclad/ironclad_orb_layer_4.png",
+          "file": "ironclad_orb_layer_4.png"
+        },
+        {
+          "node": "Layer5",
+          "source": "res://images/ui/combat/energy_counters/ironclad/ironclad_orb_layer_5.png",
+          "file": "ironclad_orb_layer_5.png"
+        }
+      ]
+    },
+    {
+      "name": "silent",
+      "label": "静默猎手",
+      "shape": "尖顶六边形 · 上下有角",
+      "card": {
+        "width": 74,
+        "height": 74,
+        "y": 630,
+        "x": 1182,
+        "file": "ui_atlas_1.png"
+      },
+      "scene": "res://scenes/combat/energy_counters/silent_energy_counter.tscn",
+      "layers": [
+        {
+          "node": "Layer1",
+          "source": "res://images/ui/combat/energy_counters/silent/silent_orb_layer_1.png",
+          "file": "silent_orb_layer_1.png"
+        },
+        {
+          "node": "Layer2",
+          "source": "res://images/ui/combat/energy_counters/silent/silent_orb_layer_2.png",
+          "file": "silent_orb_layer_2.png"
+        },
+        {
+          "node": "Layer3",
+          "source": "res://images/ui/combat/energy_counters/silent/silent_orb_layer_3.png",
+          "file": "silent_orb_layer_3.png"
+        },
+        {
+          "node": "Layer4",
+          "source": "res://images/ui/combat/energy_counters/silent/silent_orb_layer_4.png",
+          "file": "silent_orb_layer_4.png"
+        },
+        {
+          "node": "Layer5",
+          "source": "res://images/ui/combat/energy_counters/silent/silent_orb_layer_5.png",
+          "file": "silent_orb_layer_5.png"
+        }
+      ]
+    },
+    {
+      "name": "regent",
+      "label": "储君",
+      "shape": "八芒太阳形 · 宽短尖角",
+      "card": {
+        "width": 74,
+        "height": 74,
+        "y": 829,
+        "x": 1942,
+        "file": "ui_atlas_1.png"
+      },
+      "scene": "res://scenes/combat/energy_counters/regent_energy_counter.tscn",
+      "layers": [
+        {
+          "node": "Layer1",
+          "source": "res://images/ui/combat/energy_counters/regent/regent_orb_layer_1.png",
+          "file": "regent_orb_layer_1.png"
+        },
+        {
+          "node": "Layer2",
+          "source": "res://images/ui/combat/energy_counters/regent/regent_orb_layer_2.png",
+          "file": "regent_orb_layer_2.png"
+        },
+        {
+          "node": "Layer3",
+          "source": "res://images/ui/combat/energy_counters/regent/regent_orb_layer_3.png",
+          "file": "regent_orb_layer_3.png"
+        },
+        {
+          "node": "Layer4",
+          "source": "res://images/ui/combat/energy_counters/regent/regent_orb_layer_5.png",
+          "file": "regent_orb_layer_5.png"
+        },
+        {
+          "node": "Layer5",
+          "source": "res://images/ui/combat/energy_counters/regent/regent_orb_layer_5.png",
+          "file": "regent_orb_layer_5.png"
+        }
+      ]
+    },
+    {
+      "name": "necrobinder",
+      "label": "亡灵契约师",
+      "shape": "平顶六边形 · 左右有角",
+      "card": {
+        "width": 74,
+        "height": 69,
+        "y": 706,
+        "x": 1182,
+        "file": "ui_atlas_1.png"
+      },
+      "scene": "res://scenes/combat/energy_counters/necrobinder_energy_counter.tscn",
+      "layers": [
+        {
+          "node": "Layer1",
+          "source": "res://images/ui/combat/energy_counters/necrobinder/necrobinder_orb_layer_1.png",
+          "file": "necrobinder_orb_layer_1.png"
+        },
+        {
+          "node": "Layer2",
+          "source": "res://images/ui/combat/energy_counters/necrobinder/necrobinder_orb_layer_2.png",
+          "file": "necrobinder_orb_layer_2.png"
+        },
+        {
+          "node": "Layer3",
+          "source": "res://images/ui/combat/energy_counters/necrobinder/necrobinder_orb_layer_3.png",
+          "file": "necrobinder_orb_layer_3.png"
+        }
+      ]
+    },
+    {
+      "name": "defect",
+      "label": "故障机器人",
+      "shape": "削角方形 · 四条主长边",
+      "card": {
+        "width": 71,
+        "height": 72,
+        "y": 879,
+        "x": 237,
+        "file": "ui_atlas_1.png"
+      },
+      "scene": "res://scenes/combat/energy_counters/defect_energy_counter.tscn",
+      "layers": [
+        {
+          "node": "Layer1",
+          "source": "res://images/ui/combat/energy_counters/defect/defect_orb_layer_1.png",
+          "file": "defect_orb_layer_1.png"
+        },
+        {
+          "node": "Layer2",
+          "source": "res://images/ui/combat/energy_counters/defect/defect_orb_layer_2.png",
+          "file": "defect_orb_layer_2.png"
+        },
+        {
+          "node": "Layer3",
+          "source": "res://images/ui/combat/energy_counters/defect/defect_orb_layer_3.png",
+          "file": "defect_orb_layer_3.png"
+        },
+        {
+          "node": "Layer4",
+          "source": "res://images/ui/combat/energy_counters/defect/defect_orb_layer_4.png",
+          "file": "defect_orb_layer_4.png"
+        },
+        {
+          "node": "Layer5",
+          "source": "res://images/ui/combat/energy_counters/defect/defect_orb_layer_5.png",
+          "file": "defect_orb_layer_5.png"
+        }
+      ]
+    }
+  ],
+  "metricsAlphaThreshold": 128
+}

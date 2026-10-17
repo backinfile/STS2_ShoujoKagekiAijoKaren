@@ -1,0 +1,105 @@
+{
+  "passed": true,
+  "gameVersion": "v0.107.1",
+  "environment": "isolated stable singleplayer",
+  "port": 15637,
+  "checks": [
+    {
+      "label": "original",
+      "passed": true,
+      "energy": 3,
+      "candidate": false,
+      "png": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "crown",
+      "passed": true,
+      "energy": 3,
+      "candidate": true,
+      "png": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "crown-card",
+      "passed": true,
+      "energy": 3,
+      "candidate": true,
+      "png": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "tomato",
+      "passed": true,
+      "energy": 3,
+      "candidate": true,
+      "png": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "tomato-card",
+      "passed": true,
+      "energy": 3,
+      "candidate": true,
+      "png": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "tomato-zero",
+      "passed": true,
+      "energy": 0,
+      "candidate": true,
+      "png": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "crown-zero",
+      "passed": true,
+      "energy": 0,
+      "candidate": true,
+      "png": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "crown-restored",
+      "passed": true,
+      "energy": 3,
+      "candidate": true,
+      "png": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "original-restored",
+      "passed": true,
+      "energy": 3,
+      "candidate": false,
+      "png": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "gameplayChanges": false,
+  "beta": "not tested",
+  "multiplayer": "not tested",
+  "candidateEffects": "static textures; old decorative particle layers hidden",
+  "probeSha256": "76ebec631526a55ae3ab5e46dd1cc335b8656e4aff47c22eb972ee37c8bc5b99",
+  "packSha256": "a336da2adf0a6bbd745f7cdca2e94dbfdec1f15012c9b109217c6391f64014a8",
+  "unexpectedErrors": []
+}

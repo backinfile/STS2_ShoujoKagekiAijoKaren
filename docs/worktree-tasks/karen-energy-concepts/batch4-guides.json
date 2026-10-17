@@ -1,0 +1,34 @@
+[
+  {
+    "key": "batch4-a-upper-pentagon",
+    "letter": "A",
+    "name": "上尖五边",
+    "sub": "上尖 · 平底 · 宽阔下半部",
+    "path": "M 50 2 L 98 37 L 80 96 L 20 96 L 2 37 Z",
+    "shape": "Exactly FIVE principal vertices: one short top apex at center, two side shoulders, and TWO bottom corners joined by one long HORIZONTAL FLAT BOTTOM. The flat bottom is crucial; there is NO bottom apex and no sixth corner. A compact near-regular upright pentagon with nearly equal width and height. Match guide 2's silhouette precisely, allowing only tiny hand-painted edge irregularities. Do not turn it into the Silent's six-sided shape with both top and bottom points."
+  },
+  {
+    "key": "batch4-b-lower-pentagon",
+    "letter": "B",
+    "name": "下尖五边",
+    "sub": "平顶 · 下尖 · 宽阔上半部",
+    "path": "M 20 4 L 80 4 L 98 63 L 50 98 L 2 63 Z",
+    "shape": "Exactly FIVE principal vertices: a long HORIZONTAL FLAT TOP, two outward side shoulders, and one short BOTTOM CENTER APEX. No top point, no sixth vertex, no beveled-square corners. One compact convex pentagon, width and height nearly equal, sufficiently broad center. Match guide 2 precisely; no deep shield-like elongation and no long triangular tip. It must not become Silent's top-and-bottom-pointed hexagon."
+  },
+  {
+    "key": "batch4-c-arc-triangle",
+    "letter": "C",
+    "name": "弧边三角",
+    "sub": "三段外鼓圆弧 · 饱满中心",
+    "path": "M 50 2 A 98 98 0 0 1 99 87 A 98 98 0 0 1 1 87 A 98 98 0 0 1 50 2 Z",
+    "shape": "A compact rounded constant-width TRIANGULAR BODY with exactly THREE broad outward-bulging arc sides (Reuleaux-like). The guide is exact: one short top corner and two low side corners, all connected by convex arcs; the bottom is also a convex arc. Nearly 1:1 footprint and a very generous circular middle. It is NOT an ordinary straight-sided triangle, circle, clover, teardrop, heart or three disconnected lobes. Keep corners short, body inflated and continuous, with no concave notches."
+  },
+  {
+    "key": "batch4-d-truncated-triangle",
+    "letter": "D",
+    "name": "三向切角",
+    "sub": "三条长边 × 三条短切边",
+    "path": "M 39 22 L 61 22 L 89 78 L 78 100 L 22 100 L 11 78 Z",
+    "shape": "Match guide 2's SIX-SIDED truncated triangular body exactly: a short flat top, two LONG slant sides descending outwards, two SHORT lower corner cuts, and a LONG flat bottom. The six edge lengths alternate SHORT / LONG / SHORT / LONG / SHORT / LONG around the shape. Overall visible bounding box is square. The guide's long flat bottom and short flat top must remain different lengths; the widest shoulders are low, not at mid-height. Do NOT replace it with a regular flat-top hexagon, Silent's pointed hexagon, a plain trapezoid or a sharp complete triangle. This is one compact convex solid with 3 long faces and 3 small corner cuts."
+  }
+]

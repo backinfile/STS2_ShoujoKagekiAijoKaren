@@ -1,0 +1,78 @@
+{
+  "alphaThreshold": 128,
+  "simplificationTolerancePixels": 5,
+  "principalVertices": [
+    [
+      100,
+      533
+    ],
+    [
+      282,
+      228
+    ],
+    [
+      629,
+      90
+    ],
+    [
+      971,
+      228
+    ],
+    [
+      1153,
+      535
+    ],
+    [
+      1087,
+      892
+    ],
+    [
+      816,
+      1124
+    ],
+    [
+      441,
+      1127
+    ],
+    [
+      165,
+      891
+    ]
+  ],
+  "principalSideCount": 9,
+  "sideLengths": [
+    355.1746049480452,
+    373.43406379172217,
+    368.79262465510345,
+    356.8935415498577,
+    363.0495833904785,
+    356.74220383913087,
+    375.0119998080061,
+    363.14184556451215,
+    363.8529922922168
+  ],
+  "sideLengthRelativeRange": 0.054496782808027146,
+  "interiorAnglesDegrees": [
+    138.8838100155443,
+    142.51287290740558,
+    136.33804712476666,
+    142.6354064241795,
+    138.86486673906663,
+    141.04068862649817,
+    139.8919026597281,
+    139.00880260338886,
+    140.82360289942224
+  ],
+  "visibleBounds": [
+    100,
+    90,
+    1054,
+    1038
+  ],
+  "visibleAspect": 1.0154142581888246,
+  "transparentPixels": 743489,
+  "sha256": "d1b6d7c2b20fae028ed13a7a2157fb487585d14d472a2364a8a6890d70cb23f1",
+  "pixelsModified": false,
+  "geometryGuide": "exact regular nonagon",
+  "bitmapNote": "Hand-painted nonagon approximation; bitmap is not a mathematically exact regular polygon."
+}
