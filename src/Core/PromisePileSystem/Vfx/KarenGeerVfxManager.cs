@@ -4,24 +4,28 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public static class KarenGeerVfxManager
 {
     public const float CastDuration = 1f;
+    internal static bool Enabled => !NonInteractiveMode.IsActive
+        && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     public static void PlayCast(Player player) => Play(player, true);
     public static void PlayTrigger(Player player) => Play(player, false);
 
     private static void Play(Player player, bool fullScreen)
     {
-        if (NonInteractiveMode.IsActive) return;
+        if (!Enabled) return;
         var room = NCombatRoom.Instance;
         if (room == null) return;
         Callable.From(() =>
         {
             // Never attach a deferred effect to a different combat.
-            if (!GodotObject.IsInstanceValid(room) || NCombatRoom.Instance != room
+            if (!Enabled || !GodotObject.IsInstanceValid(room) || NCombatRoom.Instance != room
                 || !CombatManager.Instance.IsInProgress) return;
             var creature = room.GetCreatureNode(player.Creature);
             if (creature == null) return;

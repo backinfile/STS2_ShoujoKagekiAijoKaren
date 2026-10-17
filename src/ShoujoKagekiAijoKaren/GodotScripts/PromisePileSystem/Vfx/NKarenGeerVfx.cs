@@ -37,6 +37,12 @@ public partial class NKarenGeerVfx : Node2D
     }
     public override void _Ready()
     {
+        if (!KarenGeerVfxManager.Enabled)
+        {
+            Hide();
+            GodotTreeExtensions.QueueFreeSafely(this);
+            return;
+        }
         _gearTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/geer/steel-gear.png", nameof(NKarenGeerVfx));
         TextureFilter = TextureFilterEnum.LinearWithMipmaps;
         UpdatePlacement();
@@ -62,7 +68,8 @@ public partial class NKarenGeerVfx : Node2D
     {
         _age += (float)delta;
         float duration = IsCast ? KarenGeerVfxManager.CastDuration : 0.62f;
-        if (!GodotObject.IsInstanceValid(_creature) || !GodotObject.IsInstanceValid(_room)
+        if (!KarenGeerVfxManager.Enabled
+            || !GodotObject.IsInstanceValid(_creature) || !GodotObject.IsInstanceValid(_room)
             || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress || _age >= duration)
         {
             Hide();

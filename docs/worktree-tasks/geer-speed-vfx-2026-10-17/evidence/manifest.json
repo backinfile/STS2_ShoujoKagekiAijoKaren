@@ -1,0 +1,480 @@
+{
+  "method": "Action-marker alignment; original speed; shorter side holds its last frame. Right game-process audio only. No added effects.",
+  "audio": {
+    "sourcePeakDb": -22.4,
+    "gainDb": 18.4
+  },
+  "videoSha256": "2df8369501d24e7535f8bb42e7ec42bbbeedc92fd012aad090be95702b5b6152",
+  "entries": [
+    {
+      "index": 1,
+      "scene": "geer-normal",
+      "title": "命运的齿轮 · 普通",
+      "phase": "NORMAL｜真实打出命运的齿轮",
+      "note": "保留1秒施放与0.62秒触发；选牌后真实自动打出",
+      "sources": [
+        "artifacts\\geer-speed-20261017\\before\\stable\\geer-normal\\game.mp4",
+        "artifacts\\geer-speed-20261017\\after\\stable\\geer-normal\\game.mp4"
+      ],
+      "sourceSha256": [
+        "f3e7cfd39da46fd35ac963d891721b6d602f5320f176d6976b30663c502bd64c",
+        "84a55a28861c9f833827008a9ba53f77e1c1e5b1217229b951212e5062b44ec1"
+      ],
+      "starts": [
+        0.28600000007543713,
+        0.28700000000651926
+      ],
+      "ends": [
+        2.458000000095926,
+        2.521000000061467
+      ],
+      "duration": 2.234000000054948,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.265277999513312,
+          "frames_repeated": 10,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.888035561820768,
+          "frames_repeated": 15,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "7b02da0eadbae535c40a85067af3ae838e968ddc54cbb17539fe39333f328842",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        }
+      ],
+      "start": 0
+    },
+    {
+      "index": 2,
+      "scene": "geer-normal",
+      "title": "命运的齿轮 · 普通",
+      "phase": "NORMAL｜下一回合触发与原生选牌",
+      "note": "保留1秒施放与0.62秒触发；选牌后真实自动打出",
+      "sources": [
+        "artifacts\\geer-speed-20261017\\before\\stable\\geer-normal\\game.mp4",
+        "artifacts\\geer-speed-20261017\\after\\stable\\geer-normal\\game.mp4"
+      ],
+      "sourceSha256": [
+        "f3e7cfd39da46fd35ac963d891721b6d602f5320f176d6976b30663c502bd64c",
+        "84a55a28861c9f833827008a9ba53f77e1c1e5b1217229b951212e5062b44ec1"
+      ],
+      "starts": [
+        2.458000000095926,
+        2.521000000061467
+      ],
+      "ends": [
+        9.255,
+        9.271000000061468
+      ],
+      "duration": 6.796999999904075,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.265277999513312,
+          "frames_repeated": 10,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.888035561820768,
+          "frames_repeated": 15,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "7b02da0eadbae535c40a85067af3ae838e968ddc54cbb17539fe39333f328842",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        }
+      ],
+      "start": 2.234
+    },
+    {
+      "index": 3,
+      "scene": "geer-normal",
+      "title": "命运的齿轮 · 普通",
+      "phase": "选定真实卡牌｜移入Play并自动打出",
+      "note": "保留1秒施放与0.62秒触发；选牌后真实自动打出",
+      "sources": [
+        "artifacts\\geer-speed-20261017\\before\\stable\\geer-normal\\game.mp4",
+        "artifacts\\geer-speed-20261017\\after\\stable\\geer-normal\\game.mp4"
+      ],
+      "sourceSha256": [
+        "f3e7cfd39da46fd35ac963d891721b6d602f5320f176d6976b30663c502bd64c",
+        "84a55a28861c9f833827008a9ba53f77e1c1e5b1217229b951212e5062b44ec1"
+      ],
+      "starts": [
+        9.255,
+        9.271000000061468
+      ],
+      "ends": [
+        12.7,
+        12.666667
+      ],
+      "duration": 3.4449999999999985,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.265277999513312,
+          "frames_repeated": 10,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.888035561820768,
+          "frames_repeated": 15,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "7b02da0eadbae535c40a85067af3ae838e968ddc54cbb17539fe39333f328842",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        }
+      ],
+      "start": 9.033999999999999
+    },
+    {
+      "index": 4,
+      "scene": "geer-fast",
+      "title": "命运的齿轮 · 快速",
+      "phase": "FAST｜真实打出命运的齿轮",
+      "note": "保留已有演出节拍及规则等待，选牌前齿轮收束",
+      "sources": [
+        "artifacts\\geer-speed-20261017\\before\\stable\\geer-fast\\game.mp4",
+        "artifacts\\geer-speed-20261017\\after\\stable\\geer-fast\\game.mp4"
+      ],
+      "sourceSha256": [
+        "5e3107e4f67a25e7079b43f54310abce1694d761bd28ca5a1ac95b33e1eaa204",
+        "a33c532f81ae546ffe7a7ca1e79a09c6ed6d9b44e848d4b54095337d8f4c54ca"
+      ],
+      "starts": [
+        0.28600000007543713,
+        0.28600000007543713
+      ],
+      "ends": [
+        1.989000000054948,
+        2.052000000020489
+      ],
+      "duration": 1.765999999945052,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.30456658479671,
+          "frames_repeated": 7,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.50645208475451,
+          "frames_repeated": 5,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "7b02da0eadbae535c40a85067af3ae838e968ddc54cbb17539fe39333f328842",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        }
+      ],
+      "start": 12.479
+    },
+    {
+      "index": 5,
+      "scene": "geer-fast",
+      "title": "命运的齿轮 · 快速",
+      "phase": "FAST｜下一回合触发与原生选牌",
+      "note": "保留已有演出节拍及规则等待，选牌前齿轮收束",
+      "sources": [
+        "artifacts\\geer-speed-20261017\\before\\stable\\geer-fast\\game.mp4",
+        "artifacts\\geer-speed-20261017\\after\\stable\\geer-fast\\game.mp4"
+      ],
+      "sourceSha256": [
+        "5e3107e4f67a25e7079b43f54310abce1694d761bd28ca5a1ac95b33e1eaa204",
+        "a33c532f81ae546ffe7a7ca1e79a09c6ed6d9b44e848d4b54095337d8f4c54ca"
+      ],
+      "starts": [
+        1.989000000054948,
+        2.052000000020489
+      ],
+      "ends": [
+        5.972999999993481,
+        6.052000000020489
+      ],
+      "duration": 4.0,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.30456658479671,
+          "frames_repeated": 7,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.50645208475451,
+          "frames_repeated": 5,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "7b02da0eadbae535c40a85067af3ae838e968ddc54cbb17539fe39333f328842",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        }
+      ],
+      "start": 14.245667
+    },
+    {
+      "index": 6,
+      "scene": "geer-fast",
+      "title": "命运的齿轮 · 快速",
+      "phase": "选定真实卡牌｜移入Play并自动打出",
+      "note": "保留已有演出节拍及规则等待，选牌前齿轮收束",
+      "sources": [
+        "artifacts\\geer-speed-20261017\\before\\stable\\geer-fast\\game.mp4",
+        "artifacts\\geer-speed-20261017\\after\\stable\\geer-fast\\game.mp4"
+      ],
+      "sourceSha256": [
+        "5e3107e4f67a25e7079b43f54310abce1694d761bd28ca5a1ac95b33e1eaa204",
+        "a33c532f81ae546ffe7a7ca1e79a09c6ed6d9b44e848d4b54095337d8f4c54ca"
+      ],
+      "starts": [
+        5.972999999993481,
+        6.052000000020489
+      ],
+      "ends": [
+        9.066667,
+        9.233008
+      ],
+      "duration": 3.181007999979511,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.30456658479671,
+          "frames_repeated": 7,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.50645208475451,
+          "frames_repeated": 5,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "7b02da0eadbae535c40a85067af3ae838e968ddc54cbb17539fe39333f328842",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        }
+      ],
+      "start": 18.245666999999997
+    },
+    {
+      "index": 7,
+      "scene": "geer-instant",
+      "title": "命运的齿轮 · 瞬时",
+      "phase": "INSTANT｜真实打出命运的齿轮",
+      "note": "瞬时模式跳过齿轮装饰与机械声，原生选牌和自动出牌保留",
+      "sources": [
+        "artifacts\\geer-speed-20261017\\before\\stable\\geer-instant\\game.mp4",
+        "artifacts\\geer-speed-20261017\\after\\stable\\geer-instant\\game.mp4"
+      ],
+      "sourceSha256": [
+        "28833adb91255475dcc27e399c128a66cb09fe7b8ea256095190afc6cf1dfb43",
+        "b5e50dfca6d80a359e205999255e33667d94b724288cab6f1eb746e6e70608fe"
+      ],
+      "starts": [
+        0.28700000000651926,
+        0.2859999999590218
+      ],
+      "ends": [
+        0.755,
+        0.7240000000409782
+      ],
+      "duration": 0.46799999999348074,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.85565537019893,
+          "frames_repeated": 1,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.743745337834046,
+          "frames_repeated": 6,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "7b02da0eadbae535c40a85067af3ae838e968ddc54cbb17539fe39333f328842",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        }
+      ],
+      "start": 21.426667
+    },
+    {
+      "index": 8,
+      "scene": "geer-instant",
+      "title": "命运的齿轮 · 瞬时",
+      "phase": "INSTANT｜下一回合触发与原生选牌",
+      "note": "瞬时模式跳过齿轮装饰与机械声，原生选牌和自动出牌保留",
+      "sources": [
+        "artifacts\\geer-speed-20261017\\before\\stable\\geer-instant\\game.mp4",
+        "artifacts\\geer-speed-20261017\\after\\stable\\geer-instant\\game.mp4"
+      ],
+      "sourceSha256": [
+        "28833adb91255475dcc27e399c128a66cb09fe7b8ea256095190afc6cf1dfb43",
+        "b5e50dfca6d80a359e205999255e33667d94b724288cab6f1eb746e6e70608fe"
+      ],
+      "starts": [
+        0.755,
+        0.7240000000409782
+      ],
+      "ends": [
+        1.7710000000614672,
+        1.692999999965541
+      ],
+      "duration": 1.0160000000614673,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.85565537019893,
+          "frames_repeated": 1,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.743745337834046,
+          "frames_repeated": 6,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "7b02da0eadbae535c40a85067af3ae838e968ddc54cbb17539fe39333f328842",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        }
+      ],
+      "start": 21.894667
+    },
+    {
+      "index": 9,
+      "scene": "geer-instant",
+      "title": "命运的齿轮 · 瞬时",
+      "phase": "选定真实卡牌｜移入Play并自动打出",
+      "note": "瞬时模式跳过齿轮装饰与机械声，原生选牌和自动出牌保留",
+      "sources": [
+        "artifacts\\geer-speed-20261017\\before\\stable\\geer-instant\\game.mp4",
+        "artifacts\\geer-speed-20261017\\after\\stable\\geer-instant\\game.mp4"
+      ],
+      "sourceSha256": [
+        "28833adb91255475dcc27e399c128a66cb09fe7b8ea256095190afc6cf1dfb43",
+        "b5e50dfca6d80a359e205999255e33667d94b724288cab6f1eb746e6e70608fe"
+      ],
+      "starts": [
+        1.7710000000614672,
+        1.692999999965541
+      ],
+      "ends": [
+        4.433008,
+        4.333008
+      ],
+      "duration": 2.662007999938533,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.85565537019893,
+          "frames_repeated": 1,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.743745337834046,
+          "frames_repeated": 6,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "7b02da0eadbae535c40a85067af3ae838e968ddc54cbb17539fe39333f328842",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        }
+      ],
+      "start": 22.910666999999997
+    },
+    {
+      "index": 10,
+      "scene": "geer-switch-cast",
+      "title": "命运的齿轮 · 播放中切瞬时",
+      "phase": "播放中切换瞬时｜0.30秒后更改原生偏好",
+      "note": "齿轮播放至0.30秒切换原生偏好；下一帧退出并停止所属音效",
+      "sources": [
+        "artifacts\\geer-speed-20261017\\before\\stable\\geer-switch-cast\\game.mp4",
+        "artifacts\\geer-speed-20261017\\after\\stable\\geer-switch-cast\\game.mp4"
+      ],
+      "sourceSha256": [
+        "90b3f43b6c2353fb7309289545529045e4a7e05d7c47e588b30b3bdab855cc29",
+        "8856c5e500b40b45888152a882a55fa9f61d5ace1cedc47522b2e3aee6dba3e7"
+      ],
+      "starts": [
+        0.28700000000651926,
+        0.2710000000614673
+      ],
+      "ends": [
+        3.1,
+        3.033008
+      ],
+      "duration": 2.812999999993481,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.067291652193575,
+          "frames_repeated": 3,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.073302683244485,
+          "frames_repeated": 3,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "7b02da0eadbae535c40a85067af3ae838e968ddc54cbb17539fe39333f328842",
+            "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+          }
+        }
+      ],
+      "start": 25.577333999999997
+    }
+  ]
+}

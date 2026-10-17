@@ -1,0 +1,3488 @@
+{
+  "cases": {
+    "geer-fast": {
+      "fast-selection-geer.json": {
+        "nativeMode": "Fast",
+        "now": 6.177000000000007,
+        "phaseAt": 2.936000000000007,
+        "powerAt": 2.6260000000000048,
+        "selectionAt": 6.138000000000005,
+        "switchAt": -1,
+        "peak": 2,
+        "selectionPeak": 0,
+        "selectionFrames": 1,
+        "live": 0,
+        "activeSounds": 0,
+        "power": 1,
+        "sourceCount": 3,
+        "offsetError": 0,
+        "positionError": 0,
+        "visualError": 0,
+        "zError": 0,
+        "nodes": [
+          {
+            "fullScreen": true,
+            "ownerCast": false,
+            "started": 1.6189999999999998,
+            "ended": 2.6119999999999948,
+            "duration": 0.992999999999995,
+            "frames": 57,
+            "age": 0.983857,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": true,
+            "started": 1.6189999999999998,
+            "ended": 2.6119999999999948,
+            "duration": 0.992999999999995,
+            "frames": 57,
+            "age": 0.983857,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": false,
+            "started": 5.4879999999999995,
+            "ended": 6.094000000000008,
+            "duration": 0.6060000000000088,
+            "frames": 36,
+            "age": 0.609088,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          }
+        ]
+      },
+      "fast-selection-state.json": {
+        "state_type": "card_select",
+        "card_select": {
+          "screen_type": "simple_select",
+          "prompt": "选择约定牌堆中1张卡牌并打出。",
+          "cards": [
+            {
+              "id": "KAREN_STRIKE",
+              "name": "打击",
+              "type": "Attack",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "name": "打击",
+              "type": "Attack",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "name": "打击",
+              "type": "Attack",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 2
+            }
+          ],
+          "preview_showing": false,
+          "can_cancel": false,
+          "can_confirm": false
+        },
+        "run": {
+          "act": 1,
+          "floor": 5,
+          "ascension": 0
+        },
+        "player": {
+          "character": "爱城华恋",
+          "hp": 72,
+          "max_hp": 72,
+          "block": 0,
+          "energy": 3,
+          "max_energy": 3,
+          "hand": [
+            {
+              "id": "KAREN_TOWER_OF_PROMISE",
+              "name": "约定之塔",
+              "type": "Skill",
+              "cost": "0",
+              "star_cost": null,
+              "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。",
+              "rarity": "Token",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "保留",
+                  "description": "保留的牌不会在回合结束时被弃掉。"
+                },
+                {
+                  "name": "消耗",
+                  "description": "在战斗结束前移除。"
+                },
+                {
+                  "name": "约定牌堆",
+                  "description": "爱城华恋特有的牌堆。\n约定牌堆是有序的，先放入的牌会先抽出。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 1,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 2,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 3,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 4,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 5,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            }
+          ],
+          "draw_pile_count": 0,
+          "discard_pile_count": 0,
+          "exhaust_pile_count": 0,
+          "draw_pile": [],
+          "discard_pile": [],
+          "exhaust_pile": [],
+          "gold": 99,
+          "status": [
+            {
+              "id": "KAREN_PROMISE_PILE_POWER",
+              "name": "约定牌堆",
+              "amount": 1,
+              "type": "Buff",
+              "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+              "keywords": [
+                {
+                  "name": "约定牌堆内容：",
+                  "description": "打击\n打击\n打击"
+                }
+              ]
+            },
+            {
+              "id": "KAREN_GEER_POWER",
+              "name": "命运的齿轮",
+              "amount": 1,
+              "type": "Buff",
+              "description": "回合开始时，选择约定牌堆中的1张牌并打出。",
+              "keywords": []
+            }
+          ],
+          "relics": [
+            {
+              "id": "KAREN_HAIRPIN_RELIC",
+              "name": "发夹",
+              "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+              "counter": null,
+              "keywords": [
+                {
+                  "name": "约定之塔",
+                  "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+                }
+              ]
+            },
+            {
+              "id": "NEOWS_TALISMAN",
+              "name": "涅奥的护符",
+              "description": "拾起时，升级你的1张打击和1张防御。",
+              "counter": null,
+              "keywords": []
+            }
+          ],
+          "potions": [],
+          "max_potion_slots": 3
+        }
+      },
+      "geer-native.json": {
+        "preparing": false,
+        "nodeCount": 0,
+        "nodes": [],
+        "casts": 0,
+        "spots": 0,
+        "emptyCasts": 0,
+        "drawCasts": 0,
+        "prematureExitFrames": 0,
+        "lightingGapFrames": 0,
+        "heldLightFrames": 0,
+        "timeline": [],
+        "promise": [
+          "KAREN_STRIKE",
+          "KAREN_STRIKE"
+        ],
+        "draw": [],
+        "discard": [
+          "KAREN_STRIKE"
+        ],
+        "started": [
+          {
+            "id": "KAREN_GEER",
+            "auto": false
+          },
+          {
+            "id": "KAREN_STRIKE",
+            "auto": true
+          }
+        ],
+        "finished": [
+          {
+            "id": "KAREN_GEER",
+            "auto": false
+          },
+          {
+            "id": "KAREN_STRIKE",
+            "auto": true
+          }
+        ]
+      },
+      "geer-result.json": {
+        "nativeMode": "Fast",
+        "now": 9.058999999999997,
+        "phaseAt": 2.936000000000007,
+        "powerAt": 2.6260000000000048,
+        "selectionAt": 6.138000000000005,
+        "switchAt": -1,
+        "peak": 2,
+        "selectionPeak": 0,
+        "selectionFrames": 47,
+        "live": 0,
+        "activeSounds": 0,
+        "power": 1,
+        "sourceCount": 2,
+        "offsetError": 0,
+        "positionError": 0,
+        "visualError": 0,
+        "zError": 0,
+        "nodes": [
+          {
+            "fullScreen": true,
+            "ownerCast": false,
+            "started": 1.6189999999999998,
+            "ended": 2.6119999999999948,
+            "duration": 0.992999999999995,
+            "frames": 57,
+            "age": 0.983857,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": true,
+            "started": 1.6189999999999998,
+            "ended": 2.6119999999999948,
+            "duration": 0.992999999999995,
+            "frames": 57,
+            "age": 0.983857,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": false,
+            "started": 5.4879999999999995,
+            "ended": 6.094000000000008,
+            "duration": 0.6060000000000088,
+            "frames": 36,
+            "age": 0.609088,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          }
+        ]
+      },
+      "markers.json": [
+        {
+          "time": 0.40600000007543713,
+          "title": "FAST｜真实打出命运的齿轮"
+        },
+        {
+          "time": 2.109000000054948,
+          "title": "FAST｜下一回合触发与原生选牌"
+        },
+        {
+          "time": 6.092999999993481,
+          "title": "选定真实卡牌｜移入Play并自动打出"
+        }
+      ],
+      "recording-after.json": {
+        "state_type": "boss",
+        "battle": {
+          "round": 2,
+          "turn": "player",
+          "is_play_phase": true,
+          "enemies": [
+            {
+              "entity_id": "WATERFALL_GIANT_0",
+              "combat_id": 1,
+              "name": "瀑布巨兽",
+              "hp": 234,
+              "max_hp": 240,
+              "block": 0,
+              "status": [
+                {
+                  "id": "STEAM_ERUPTION_POWER",
+                  "name": "蒸汽喷发",
+                  "amount": 15,
+                  "type": "Buff",
+                  "description": "被击杀时，在你的下一回合结束时造成15点伤害。",
+                  "keywords": []
+                }
+              ],
+              "intents": [
+                {
+                  "type": "Attack",
+                  "label": "15",
+                  "title": "攻势",
+                  "description": "这个敌人将要攻击造成15点伤害。"
+                },
+                {
+                  "type": "Debuff",
+                  "label": "",
+                  "title": "策略",
+                  "description": "这个敌人将要对你施加一个负面效果。"
+                },
+                {
+                  "type": "Buff",
+                  "label": "",
+                  "title": "强化",
+                  "description": "这个敌人将要使用一个强化效果。"
+                }
+              ]
+            }
+          ]
+        },
+        "run": {
+          "act": 1,
+          "floor": 5,
+          "ascension": 0
+        },
+        "player": {
+          "character": "爱城华恋",
+          "hp": 72,
+          "max_hp": 72,
+          "block": 0,
+          "energy": 3,
+          "max_energy": 3,
+          "hand": [
+            {
+              "id": "KAREN_TOWER_OF_PROMISE",
+              "name": "约定之塔",
+              "type": "Skill",
+              "cost": "0",
+              "star_cost": null,
+              "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。",
+              "rarity": "Token",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "保留",
+                  "description": "保留的牌不会在回合结束时被弃掉。"
+                },
+                {
+                  "name": "消耗",
+                  "description": "在战斗结束前移除。"
+                },
+                {
+                  "name": "约定牌堆",
+                  "description": "爱城华恋特有的牌堆。\n约定牌堆是有序的，先放入的牌会先抽出。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 1,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 2,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 3,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 4,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 5,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            }
+          ],
+          "draw_pile_count": 0,
+          "discard_pile_count": 1,
+          "exhaust_pile_count": 0,
+          "draw_pile": [],
+          "discard_pile": [
+            {
+              "name": "打击",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。"
+            }
+          ],
+          "exhaust_pile": [],
+          "gold": 99,
+          "status": [
+            {
+              "id": "KAREN_PROMISE_PILE_POWER",
+              "name": "约定牌堆",
+              "amount": 1,
+              "type": "Buff",
+              "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+              "keywords": [
+                {
+                  "name": "约定牌堆内容：",
+                  "description": "打击\n打击"
+                }
+              ]
+            },
+            {
+              "id": "KAREN_GEER_POWER",
+              "name": "命运的齿轮",
+              "amount": 1,
+              "type": "Buff",
+              "description": "回合开始时，选择约定牌堆中的1张牌并打出。",
+              "keywords": []
+            }
+          ],
+          "relics": [
+            {
+              "id": "KAREN_HAIRPIN_RELIC",
+              "name": "发夹",
+              "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+              "counter": null,
+              "keywords": [
+                {
+                  "name": "约定之塔",
+                  "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+                }
+              ]
+            },
+            {
+              "id": "NEOWS_TALISMAN",
+              "name": "涅奥的护符",
+              "description": "拾起时，升级你的1张打击和1张防御。",
+              "counter": null,
+              "keywords": []
+            }
+          ],
+          "potions": [],
+          "max_potion_slots": 3
+        }
+      },
+      "recording-before.json": {
+        "state_type": "boss",
+        "battle": {
+          "round": 1,
+          "turn": "player",
+          "is_play_phase": true,
+          "enemies": [
+            {
+              "entity_id": "WATERFALL_GIANT_0",
+              "combat_id": 1,
+              "name": "瀑布巨兽",
+              "hp": 240,
+              "max_hp": 240,
+              "block": 0,
+              "status": [],
+              "intents": [
+                {
+                  "type": "Buff",
+                  "label": "",
+                  "title": "强化",
+                  "description": "这个敌人将要使用一个强化效果。"
+                }
+              ]
+            }
+          ]
+        },
+        "run": {
+          "act": 1,
+          "floor": 5,
+          "ascension": 0
+        },
+        "player": {
+          "character": "爱城华恋",
+          "hp": 72,
+          "max_hp": 72,
+          "block": 0,
+          "energy": 18,
+          "max_energy": 3,
+          "hand": [
+            {
+              "id": "KAREN_GEER",
+              "name": "命运的齿轮",
+              "type": "Power",
+              "cost": "3",
+              "star_cost": null,
+              "description": "回合开始时，从约定牌堆中选择1张牌打出。",
+              "rarity": "Rare",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "约定牌堆",
+                  "description": "爱城华恋特有的牌堆。\n约定牌堆是有序的，先放入的牌会先抽出。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            }
+          ],
+          "draw_pile_count": 5,
+          "discard_pile_count": 0,
+          "exhaust_pile_count": 0,
+          "draw_pile": [
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            }
+          ],
+          "discard_pile": [],
+          "exhaust_pile": [],
+          "gold": 99,
+          "status": [
+            {
+              "id": "KAREN_PROMISE_PILE_POWER",
+              "name": "约定牌堆",
+              "amount": 1,
+              "type": "Buff",
+              "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+              "keywords": [
+                {
+                  "name": "约定牌堆内容：",
+                  "description": "打击\n打击\n打击"
+                }
+              ]
+            }
+          ],
+          "relics": [
+            {
+              "id": "KAREN_HAIRPIN_RELIC",
+              "name": "发夹",
+              "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+              "counter": null,
+              "keywords": [
+                {
+                  "name": "约定之塔",
+                  "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+                }
+              ]
+            },
+            {
+              "id": "NEOWS_TALISMAN",
+              "name": "涅奥的护符",
+              "description": "拾起时，升级你的1张打击和1张防御。",
+              "counter": null,
+              "keywords": []
+            }
+          ],
+          "potions": [],
+          "max_potion_slots": 3
+        }
+      },
+      "recording.json": {
+        "status": "completed",
+        "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-151046-0b3c67e72d114b74a73de4a51af06e30.mp4",
+        "fps": 30,
+        "max_duration_seconds": 180,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 272,
+        "video_duration_seconds": 9.066666666666666,
+        "frames_captured": 265,
+        "frames_repeated": 7,
+        "frames_dropped": 0,
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.30456658479671,
+        "capture_average_ms": 12.116058867924528,
+        "capture_max_ms": 46.2791,
+        "encode_write_average_ms": 0.8783220588235298,
+        "encode_write_max_ms": 73.8679,
+        "elapsed_seconds": 9.379923,
+        "audio": true,
+        "audio_source": "game_process",
+        "captureBuild": {
+          "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+          "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+        },
+        "renderer": "vulkan"
+      }
+    },
+    "geer-instant": {
+      "geer-native.json": {
+        "preparing": false,
+        "nodeCount": 0,
+        "nodes": [],
+        "casts": 0,
+        "spots": 0,
+        "emptyCasts": 0,
+        "drawCasts": 0,
+        "prematureExitFrames": 0,
+        "lightingGapFrames": 0,
+        "heldLightFrames": 0,
+        "timeline": [],
+        "promise": [
+          "KAREN_STRIKE",
+          "KAREN_STRIKE"
+        ],
+        "draw": [],
+        "discard": [
+          "KAREN_STRIKE"
+        ],
+        "started": [
+          {
+            "id": "KAREN_GEER",
+            "auto": false
+          },
+          {
+            "id": "KAREN_STRIKE",
+            "auto": true
+          }
+        ],
+        "finished": [
+          {
+            "id": "KAREN_GEER",
+            "auto": false
+          },
+          {
+            "id": "KAREN_STRIKE",
+            "auto": true
+          }
+        ]
+      },
+      "geer-result.json": {
+        "nativeMode": "Instant",
+        "now": 4.439999999999998,
+        "phaseAt": 1.7349999999999994,
+        "powerAt": 1.5379999999999967,
+        "selectionAt": 1.9579999999999984,
+        "switchAt": -1,
+        "peak": 3,
+        "selectionPeak": 3,
+        "selectionFrames": 48,
+        "live": 0,
+        "activeSounds": 0,
+        "power": 1,
+        "sourceCount": 2,
+        "offsetError": 0,
+        "positionError": 0,
+        "visualError": 0,
+        "zError": 0,
+        "nodes": [
+          {
+            "fullScreen": true,
+            "ownerCast": false,
+            "started": 1.5379999999999967,
+            "ended": 2.5180000000000007,
+            "duration": 0.980000000000004,
+            "frames": 52,
+            "age": 0.98227507,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 52,
+            "instantSoundFrames": 0
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": true,
+            "started": 1.5379999999999967,
+            "ended": 2.5180000000000007,
+            "duration": 0.980000000000004,
+            "frames": 52,
+            "age": 0.98227507,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 52,
+            "instantSoundFrames": 7
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": false,
+            "started": 1.9579999999999984,
+            "ended": 2.557000000000002,
+            "duration": 0.5990000000000038,
+            "frames": 37,
+            "age": 0.6188991,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 37,
+            "instantSoundFrames": 10
+          }
+        ]
+      },
+      "instant-selection-geer.json": {
+        "nativeMode": "Instant",
+        "now": 1.9909999999999997,
+        "phaseAt": 1.7349999999999994,
+        "powerAt": 1.5379999999999967,
+        "selectionAt": 1.9579999999999984,
+        "switchAt": -1,
+        "peak": 3,
+        "selectionPeak": 3,
+        "selectionFrames": 2,
+        "live": 3,
+        "activeSounds": 0,
+        "power": 1,
+        "sourceCount": 3,
+        "offsetError": 0,
+        "positionError": 0,
+        "visualError": 0,
+        "zError": 0,
+        "nodes": [
+          {
+            "fullScreen": true,
+            "ownerCast": false,
+            "started": 1.5379999999999967,
+            "ended": 0,
+            "duration": -1.5379999999999967,
+            "frames": 20,
+            "age": 0.43284667,
+            "exited": false,
+            "parentCorrect": true,
+            "instantFrames": 20,
+            "instantSoundFrames": 0
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": true,
+            "started": 1.5379999999999967,
+            "ended": 0,
+            "duration": -1.5379999999999967,
+            "frames": 20,
+            "age": 0.43284667,
+            "exited": false,
+            "parentCorrect": true,
+            "instantFrames": 20,
+            "instantSoundFrames": 7
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": false,
+            "started": 1.9579999999999984,
+            "ended": 0,
+            "duration": -1.9579999999999984,
+            "frames": 2,
+            "age": 0.020631,
+            "exited": false,
+            "parentCorrect": true,
+            "instantFrames": 2,
+            "instantSoundFrames": 0
+          }
+        ]
+      },
+      "instant-selection-state.json": {
+        "state_type": "card_select",
+        "card_select": {
+          "screen_type": "simple_select",
+          "prompt": "选择约定牌堆中1张卡牌并打出。",
+          "cards": [
+            {
+              "id": "KAREN_STRIKE",
+              "name": "打击",
+              "type": "Attack",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "name": "打击",
+              "type": "Attack",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "name": "打击",
+              "type": "Attack",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 2
+            }
+          ],
+          "preview_showing": false,
+          "can_cancel": false,
+          "can_confirm": false
+        },
+        "run": {
+          "act": 1,
+          "floor": 6,
+          "ascension": 0
+        },
+        "player": {
+          "character": "爱城华恋",
+          "hp": 72,
+          "max_hp": 72,
+          "block": 0,
+          "energy": 3,
+          "max_energy": 3,
+          "hand": [
+            {
+              "id": "KAREN_TOWER_OF_PROMISE",
+              "name": "约定之塔",
+              "type": "Skill",
+              "cost": "0",
+              "star_cost": null,
+              "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。",
+              "rarity": "Token",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "保留",
+                  "description": "保留的牌不会在回合结束时被弃掉。"
+                },
+                {
+                  "name": "消耗",
+                  "description": "在战斗结束前移除。"
+                },
+                {
+                  "name": "约定牌堆",
+                  "description": "爱城华恋特有的牌堆。\n约定牌堆是有序的，先放入的牌会先抽出。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 1,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 2,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 3,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 4,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 5,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            }
+          ],
+          "draw_pile_count": 0,
+          "discard_pile_count": 0,
+          "exhaust_pile_count": 0,
+          "draw_pile": [],
+          "discard_pile": [],
+          "exhaust_pile": [],
+          "gold": 99,
+          "status": [
+            {
+              "id": "KAREN_PROMISE_PILE_POWER",
+              "name": "约定牌堆",
+              "amount": 1,
+              "type": "Buff",
+              "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+              "keywords": [
+                {
+                  "name": "约定牌堆内容：",
+                  "description": "打击\n打击\n打击"
+                }
+              ]
+            },
+            {
+              "id": "KAREN_GEER_POWER",
+              "name": "命运的齿轮",
+              "amount": 1,
+              "type": "Buff",
+              "description": "回合开始时，选择约定牌堆中的1张牌并打出。",
+              "keywords": []
+            }
+          ],
+          "relics": [
+            {
+              "id": "KAREN_HAIRPIN_RELIC",
+              "name": "发夹",
+              "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+              "counter": null,
+              "keywords": [
+                {
+                  "name": "约定之塔",
+                  "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+                }
+              ]
+            },
+            {
+              "id": "NEOWS_TALISMAN",
+              "name": "涅奥的护符",
+              "description": "拾起时，升级你的1张打击和1张防御。",
+              "counter": null,
+              "keywords": []
+            }
+          ],
+          "potions": [],
+          "max_potion_slots": 3
+        }
+      },
+      "markers.json": [
+        {
+          "time": 0.40700000000651926,
+          "title": "INSTANT｜真实打出命运的齿轮"
+        },
+        {
+          "time": 0.875,
+          "title": "INSTANT｜下一回合触发与原生选牌"
+        },
+        {
+          "time": 1.8910000000614673,
+          "title": "选定真实卡牌｜移入Play并自动打出"
+        }
+      ],
+      "recording-after.json": {
+        "state_type": "boss",
+        "battle": {
+          "round": 2,
+          "turn": "player",
+          "is_play_phase": true,
+          "enemies": [
+            {
+              "entity_id": "WATERFALL_GIANT_0",
+              "combat_id": 1,
+              "name": "瀑布巨兽",
+              "hp": 234,
+              "max_hp": 240,
+              "block": 0,
+              "status": [
+                {
+                  "id": "STEAM_ERUPTION_POWER",
+                  "name": "蒸汽喷发",
+                  "amount": 15,
+                  "type": "Buff",
+                  "description": "被击杀时，在你的下一回合结束时造成15点伤害。",
+                  "keywords": []
+                }
+              ],
+              "intents": [
+                {
+                  "type": "Attack",
+                  "label": "15",
+                  "title": "攻势",
+                  "description": "这个敌人将要攻击造成15点伤害。"
+                },
+                {
+                  "type": "Debuff",
+                  "label": "",
+                  "title": "策略",
+                  "description": "这个敌人将要对你施加一个负面效果。"
+                },
+                {
+                  "type": "Buff",
+                  "label": "",
+                  "title": "强化",
+                  "description": "这个敌人将要使用一个强化效果。"
+                }
+              ]
+            }
+          ]
+        },
+        "run": {
+          "act": 1,
+          "floor": 6,
+          "ascension": 0
+        },
+        "player": {
+          "character": "爱城华恋",
+          "hp": 72,
+          "max_hp": 72,
+          "block": 0,
+          "energy": 3,
+          "max_energy": 3,
+          "hand": [
+            {
+              "id": "KAREN_TOWER_OF_PROMISE",
+              "name": "约定之塔",
+              "type": "Skill",
+              "cost": "0",
+              "star_cost": null,
+              "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。",
+              "rarity": "Token",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "保留",
+                  "description": "保留的牌不会在回合结束时被弃掉。"
+                },
+                {
+                  "name": "消耗",
+                  "description": "在战斗结束前移除。"
+                },
+                {
+                  "name": "约定牌堆",
+                  "description": "爱城华恋特有的牌堆。\n约定牌堆是有序的，先放入的牌会先抽出。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 1,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 2,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 3,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 4,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 5,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            }
+          ],
+          "draw_pile_count": 0,
+          "discard_pile_count": 1,
+          "exhaust_pile_count": 0,
+          "draw_pile": [],
+          "discard_pile": [
+            {
+              "name": "打击",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。"
+            }
+          ],
+          "exhaust_pile": [],
+          "gold": 99,
+          "status": [
+            {
+              "id": "KAREN_PROMISE_PILE_POWER",
+              "name": "约定牌堆",
+              "amount": 1,
+              "type": "Buff",
+              "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+              "keywords": [
+                {
+                  "name": "约定牌堆内容：",
+                  "description": "打击\n打击"
+                }
+              ]
+            },
+            {
+              "id": "KAREN_GEER_POWER",
+              "name": "命运的齿轮",
+              "amount": 1,
+              "type": "Buff",
+              "description": "回合开始时，选择约定牌堆中的1张牌并打出。",
+              "keywords": []
+            }
+          ],
+          "relics": [
+            {
+              "id": "KAREN_HAIRPIN_RELIC",
+              "name": "发夹",
+              "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+              "counter": null,
+              "keywords": [
+                {
+                  "name": "约定之塔",
+                  "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+                }
+              ]
+            },
+            {
+              "id": "NEOWS_TALISMAN",
+              "name": "涅奥的护符",
+              "description": "拾起时，升级你的1张打击和1张防御。",
+              "counter": null,
+              "keywords": []
+            }
+          ],
+          "potions": [],
+          "max_potion_slots": 3
+        }
+      },
+      "recording-before.json": {
+        "state_type": "boss",
+        "battle": {
+          "round": 1,
+          "turn": "player",
+          "is_play_phase": true,
+          "enemies": [
+            {
+              "entity_id": "WATERFALL_GIANT_0",
+              "combat_id": 1,
+              "name": "瀑布巨兽",
+              "hp": 240,
+              "max_hp": 240,
+              "block": 0,
+              "status": [],
+              "intents": [
+                {
+                  "type": "Buff",
+                  "label": "",
+                  "title": "强化",
+                  "description": "这个敌人将要使用一个强化效果。"
+                }
+              ]
+            }
+          ]
+        },
+        "run": {
+          "act": 1,
+          "floor": 6,
+          "ascension": 0
+        },
+        "player": {
+          "character": "爱城华恋",
+          "hp": 72,
+          "max_hp": 72,
+          "block": 0,
+          "energy": 18,
+          "max_energy": 3,
+          "hand": [
+            {
+              "id": "KAREN_GEER",
+              "name": "命运的齿轮",
+              "type": "Power",
+              "cost": "3",
+              "star_cost": null,
+              "description": "回合开始时，从约定牌堆中选择1张牌打出。",
+              "rarity": "Rare",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "约定牌堆",
+                  "description": "爱城华恋特有的牌堆。\n约定牌堆是有序的，先放入的牌会先抽出。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            }
+          ],
+          "draw_pile_count": 5,
+          "discard_pile_count": 0,
+          "exhaust_pile_count": 0,
+          "draw_pile": [
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            }
+          ],
+          "discard_pile": [],
+          "exhaust_pile": [],
+          "gold": 99,
+          "status": [
+            {
+              "id": "KAREN_PROMISE_PILE_POWER",
+              "name": "约定牌堆",
+              "amount": 1,
+              "type": "Buff",
+              "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+              "keywords": [
+                {
+                  "name": "约定牌堆内容：",
+                  "description": "打击\n打击\n打击"
+                }
+              ]
+            }
+          ],
+          "relics": [
+            {
+              "id": "KAREN_HAIRPIN_RELIC",
+              "name": "发夹",
+              "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+              "counter": null,
+              "keywords": [
+                {
+                  "name": "约定之塔",
+                  "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+                }
+              ]
+            },
+            {
+              "id": "NEOWS_TALISMAN",
+              "name": "涅奥的护符",
+              "description": "拾起时，升级你的1张打击和1张防御。",
+              "counter": null,
+              "keywords": []
+            }
+          ],
+          "potions": [],
+          "max_potion_slots": 3
+        }
+      },
+      "recording.json": {
+        "status": "completed",
+        "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-151111-a48e0a54ba4040c59bd204f6d5d59e07.mp4",
+        "fps": 30,
+        "max_duration_seconds": 180,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 133,
+        "video_duration_seconds": 4.433333333333334,
+        "frames_captured": 132,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.85565537019893,
+        "capture_average_ms": 10.738544696969695,
+        "capture_max_ms": 37.6343,
+        "encode_write_average_ms": 1.3323578947368417,
+        "encode_write_max_ms": 88.5527,
+        "elapsed_seconds": 4.6795914,
+        "audio": true,
+        "audio_source": "game_process",
+        "captureBuild": {
+          "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+          "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+        },
+        "renderer": "vulkan"
+      }
+    },
+    "geer-normal": {
+      "geer-native.json": {
+        "preparing": false,
+        "nodeCount": 0,
+        "nodes": [],
+        "casts": 0,
+        "spots": 0,
+        "emptyCasts": 0,
+        "drawCasts": 0,
+        "prematureExitFrames": 0,
+        "lightingGapFrames": 0,
+        "heldLightFrames": 0,
+        "timeline": [],
+        "promise": [
+          "KAREN_STRIKE",
+          "KAREN_STRIKE"
+        ],
+        "draw": [],
+        "discard": [
+          "KAREN_STRIKE"
+        ],
+        "started": [
+          {
+            "id": "KAREN_GEER",
+            "auto": false
+          },
+          {
+            "id": "KAREN_STRIKE",
+            "auto": true
+          }
+        ],
+        "finished": [
+          {
+            "id": "KAREN_GEER",
+            "auto": false
+          },
+          {
+            "id": "KAREN_STRIKE",
+            "auto": true
+          }
+        ]
+      },
+      "geer-result.json": {
+        "nativeMode": "Normal",
+        "now": 12.753999999999998,
+        "phaseAt": 3.488999999999997,
+        "powerAt": 3.201999999999998,
+        "selectionAt": 9.466999999999999,
+        "switchAt": -1,
+        "peak": 2,
+        "selectionPeak": 0,
+        "selectionFrames": 50,
+        "live": 0,
+        "activeSounds": 0,
+        "power": 1,
+        "sourceCount": 2,
+        "offsetError": 0,
+        "positionError": 0,
+        "visualError": 0,
+        "zError": 0,
+        "nodes": [
+          {
+            "fullScreen": true,
+            "ownerCast": false,
+            "started": 2.2039999999999935,
+            "ended": 3.183,
+            "duration": 0.9790000000000063,
+            "frames": 59,
+            "age": 0.99721307,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": true,
+            "started": 2.2039999999999935,
+            "ended": 3.183,
+            "duration": 0.9790000000000063,
+            "frames": 59,
+            "age": 0.99721307,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": false,
+            "started": 8.784999999999997,
+            "ended": 9.396999999999998,
+            "duration": 0.6120000000000019,
+            "frames": 33,
+            "age": 0.6166417,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          }
+        ]
+      },
+      "markers.json": [
+        {
+          "time": 0.40600000007543713,
+          "title": "NORMAL｜真实打出命运的齿轮"
+        },
+        {
+          "time": 2.5780000000959262,
+          "title": "NORMAL｜下一回合触发与原生选牌"
+        },
+        {
+          "time": 9.375,
+          "title": "选定真实卡牌｜移入Play并自动打出"
+        }
+      ],
+      "normal-selection-geer.json": {
+        "nativeMode": "Normal",
+        "now": 9.533999999999999,
+        "phaseAt": 3.488999999999997,
+        "powerAt": 3.201999999999998,
+        "selectionAt": 9.466999999999999,
+        "switchAt": -1,
+        "peak": 2,
+        "selectionPeak": 0,
+        "selectionFrames": 3,
+        "live": 0,
+        "activeSounds": 0,
+        "power": 1,
+        "sourceCount": 3,
+        "offsetError": 0,
+        "positionError": 0,
+        "visualError": 0,
+        "zError": 0,
+        "nodes": [
+          {
+            "fullScreen": true,
+            "ownerCast": false,
+            "started": 2.2039999999999935,
+            "ended": 3.183,
+            "duration": 0.9790000000000063,
+            "frames": 59,
+            "age": 0.99721307,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": true,
+            "started": 2.2039999999999935,
+            "ended": 3.183,
+            "duration": 0.9790000000000063,
+            "frames": 59,
+            "age": 0.99721307,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": false,
+            "started": 8.784999999999997,
+            "ended": 9.396999999999998,
+            "duration": 0.6120000000000019,
+            "frames": 33,
+            "age": 0.6166417,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 0,
+            "instantSoundFrames": 0
+          }
+        ]
+      },
+      "normal-selection-state.json": {
+        "state_type": "card_select",
+        "card_select": {
+          "screen_type": "simple_select",
+          "prompt": "选择约定牌堆中1张卡牌并打出。",
+          "cards": [
+            {
+              "id": "KAREN_STRIKE",
+              "name": "打击",
+              "type": "Attack",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "name": "打击",
+              "type": "Attack",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "name": "打击",
+              "type": "Attack",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 2
+            }
+          ],
+          "preview_showing": false,
+          "can_cancel": false,
+          "can_confirm": false
+        },
+        "run": {
+          "act": 1,
+          "floor": 4,
+          "ascension": 0
+        },
+        "player": {
+          "character": "爱城华恋",
+          "hp": 72,
+          "max_hp": 72,
+          "block": 0,
+          "energy": 3,
+          "max_energy": 3,
+          "hand": [
+            {
+              "id": "KAREN_TOWER_OF_PROMISE",
+              "name": "约定之塔",
+              "type": "Skill",
+              "cost": "0",
+              "star_cost": null,
+              "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。",
+              "rarity": "Token",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "保留",
+                  "description": "保留的牌不会在回合结束时被弃掉。"
+                },
+                {
+                  "name": "消耗",
+                  "description": "在战斗结束前移除。"
+                },
+                {
+                  "name": "约定牌堆",
+                  "description": "爱城华恋特有的牌堆。\n约定牌堆是有序的，先放入的牌会先抽出。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 1,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 2,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 3,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 4,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 5,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            }
+          ],
+          "draw_pile_count": 0,
+          "discard_pile_count": 0,
+          "exhaust_pile_count": 0,
+          "draw_pile": [],
+          "discard_pile": [],
+          "exhaust_pile": [],
+          "gold": 99,
+          "status": [
+            {
+              "id": "KAREN_PROMISE_PILE_POWER",
+              "name": "约定牌堆",
+              "amount": 1,
+              "type": "Buff",
+              "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+              "keywords": [
+                {
+                  "name": "约定牌堆内容：",
+                  "description": "打击\n打击\n打击"
+                }
+              ]
+            },
+            {
+              "id": "KAREN_GEER_POWER",
+              "name": "命运的齿轮",
+              "amount": 1,
+              "type": "Buff",
+              "description": "回合开始时，选择约定牌堆中的1张牌并打出。",
+              "keywords": []
+            }
+          ],
+          "relics": [
+            {
+              "id": "KAREN_HAIRPIN_RELIC",
+              "name": "发夹",
+              "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+              "counter": null,
+              "keywords": [
+                {
+                  "name": "约定之塔",
+                  "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+                }
+              ]
+            },
+            {
+              "id": "NEOWS_TALISMAN",
+              "name": "涅奥的护符",
+              "description": "拾起时，升级你的1张打击和1张防御。",
+              "counter": null,
+              "keywords": []
+            }
+          ],
+          "potions": [],
+          "max_potion_slots": 3
+        }
+      },
+      "recording-after.json": {
+        "state_type": "boss",
+        "battle": {
+          "round": 2,
+          "turn": "player",
+          "is_play_phase": true,
+          "enemies": [
+            {
+              "entity_id": "WATERFALL_GIANT_0",
+              "combat_id": 1,
+              "name": "瀑布巨兽",
+              "hp": 234,
+              "max_hp": 240,
+              "block": 0,
+              "status": [
+                {
+                  "id": "STEAM_ERUPTION_POWER",
+                  "name": "蒸汽喷发",
+                  "amount": 15,
+                  "type": "Buff",
+                  "description": "被击杀时，在你的下一回合结束时造成15点伤害。",
+                  "keywords": []
+                }
+              ],
+              "intents": [
+                {
+                  "type": "Attack",
+                  "label": "15",
+                  "title": "攻势",
+                  "description": "这个敌人将要攻击造成15点伤害。"
+                },
+                {
+                  "type": "Debuff",
+                  "label": "",
+                  "title": "策略",
+                  "description": "这个敌人将要对你施加一个负面效果。"
+                },
+                {
+                  "type": "Buff",
+                  "label": "",
+                  "title": "强化",
+                  "description": "这个敌人将要使用一个强化效果。"
+                }
+              ]
+            }
+          ]
+        },
+        "run": {
+          "act": 1,
+          "floor": 4,
+          "ascension": 0
+        },
+        "player": {
+          "character": "爱城华恋",
+          "hp": 72,
+          "max_hp": 72,
+          "block": 0,
+          "energy": 3,
+          "max_energy": 3,
+          "hand": [
+            {
+              "id": "KAREN_TOWER_OF_PROMISE",
+              "name": "约定之塔",
+              "type": "Skill",
+              "cost": "0",
+              "star_cost": null,
+              "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。",
+              "rarity": "Token",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "保留",
+                  "description": "保留的牌不会在回合结束时被弃掉。"
+                },
+                {
+                  "name": "消耗",
+                  "description": "在战斗结束前移除。"
+                },
+                {
+                  "name": "约定牌堆",
+                  "description": "爱城华恋特有的牌堆。\n约定牌堆是有序的，先放入的牌会先抽出。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 1,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 2,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 3,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 4,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "name": "防御",
+              "type": "Skill",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。",
+              "rarity": "Basic",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "格挡",
+                  "description": "在下个回合前，阻挡伤害。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 5,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            }
+          ],
+          "draw_pile_count": 0,
+          "discard_pile_count": 1,
+          "exhaust_pile_count": 0,
+          "draw_pile": [],
+          "discard_pile": [
+            {
+              "name": "打击",
+              "cost": "1",
+              "star_cost": null,
+              "description": "造成6点伤害。"
+            }
+          ],
+          "exhaust_pile": [],
+          "gold": 99,
+          "status": [
+            {
+              "id": "KAREN_PROMISE_PILE_POWER",
+              "name": "约定牌堆",
+              "amount": 1,
+              "type": "Buff",
+              "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+              "keywords": [
+                {
+                  "name": "约定牌堆内容：",
+                  "description": "打击\n打击"
+                }
+              ]
+            },
+            {
+              "id": "KAREN_GEER_POWER",
+              "name": "命运的齿轮",
+              "amount": 1,
+              "type": "Buff",
+              "description": "回合开始时，选择约定牌堆中的1张牌并打出。",
+              "keywords": []
+            }
+          ],
+          "relics": [
+            {
+              "id": "KAREN_HAIRPIN_RELIC",
+              "name": "发夹",
+              "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+              "counter": null,
+              "keywords": [
+                {
+                  "name": "约定之塔",
+                  "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+                }
+              ]
+            },
+            {
+              "id": "NEOWS_TALISMAN",
+              "name": "涅奥的护符",
+              "description": "拾起时，升级你的1张打击和1张防御。",
+              "counter": null,
+              "keywords": []
+            }
+          ],
+          "potions": [],
+          "max_potion_slots": 3
+        }
+      },
+      "recording-before.json": {
+        "state_type": "boss",
+        "battle": {
+          "round": 1,
+          "turn": "player",
+          "is_play_phase": true,
+          "enemies": [
+            {
+              "entity_id": "WATERFALL_GIANT_0",
+              "combat_id": 1,
+              "name": "瀑布巨兽",
+              "hp": 240,
+              "max_hp": 240,
+              "block": 0,
+              "status": [],
+              "intents": [
+                {
+                  "type": "Buff",
+                  "label": "",
+                  "title": "强化",
+                  "description": "这个敌人将要使用一个强化效果。"
+                }
+              ]
+            }
+          ]
+        },
+        "run": {
+          "act": 1,
+          "floor": 4,
+          "ascension": 0
+        },
+        "player": {
+          "character": "爱城华恋",
+          "hp": 72,
+          "max_hp": 72,
+          "block": 0,
+          "energy": 18,
+          "max_energy": 3,
+          "hand": [
+            {
+              "id": "KAREN_GEER",
+              "name": "命运的齿轮",
+              "type": "Power",
+              "cost": "3",
+              "star_cost": null,
+              "description": "回合开始时，从约定牌堆中选择1张牌打出。",
+              "rarity": "Rare",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "约定牌堆",
+                  "description": "爱城华恋特有的牌堆。\n约定牌堆是有序的，先放入的牌会先抽出。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            }
+          ],
+          "draw_pile_count": 5,
+          "discard_pile_count": 0,
+          "exhaust_pile_count": 0,
+          "draw_pile": [
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            }
+          ],
+          "discard_pile": [],
+          "exhaust_pile": [],
+          "gold": 99,
+          "status": [
+            {
+              "id": "KAREN_PROMISE_PILE_POWER",
+              "name": "约定牌堆",
+              "amount": 1,
+              "type": "Buff",
+              "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+              "keywords": [
+                {
+                  "name": "约定牌堆内容：",
+                  "description": "打击\n打击\n打击"
+                }
+              ]
+            }
+          ],
+          "relics": [
+            {
+              "id": "KAREN_HAIRPIN_RELIC",
+              "name": "发夹",
+              "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+              "counter": null,
+              "keywords": [
+                {
+                  "name": "约定之塔",
+                  "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+                }
+              ]
+            },
+            {
+              "id": "NEOWS_TALISMAN",
+              "name": "涅奥的护符",
+              "description": "拾起时，升级你的1张打击和1张防御。",
+              "counter": null,
+              "keywords": []
+            }
+          ],
+          "potions": [],
+          "max_potion_slots": 3
+        }
+      },
+      "recording.json": {
+        "status": "completed",
+        "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-151017-ec3913b161304c49bbe720dcd2d69cd9.mp4",
+        "fps": 30,
+        "max_duration_seconds": 180,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 381,
+        "video_duration_seconds": 12.7,
+        "frames_captured": 371,
+        "frames_repeated": 10,
+        "frames_dropped": 0,
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.265277999513312,
+        "capture_average_ms": 11.383181940700819,
+        "capture_max_ms": 37.9735,
+        "encode_write_average_ms": 0.7885514435695542,
+        "encode_write_max_ms": 73.9893,
+        "elapsed_seconds": 13.0422137,
+        "audio": true,
+        "audio_source": "game_process",
+        "captureBuild": {
+          "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+          "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+        },
+        "renderer": "vulkan"
+      }
+    },
+    "geer-switch-cast": {
+      "geer-result.json": {
+        "nativeMode": "Instant",
+        "now": 3.1799999999999926,
+        "phaseAt": 0,
+        "powerAt": 3.1370000000000005,
+        "selectionAt": -1,
+        "switchAt": 2.469999999999999,
+        "peak": 2,
+        "selectionPeak": 0,
+        "selectionFrames": 0,
+        "live": 0,
+        "activeSounds": 0,
+        "power": 1,
+        "sourceCount": 3,
+        "offsetError": 0,
+        "positionError": 0,
+        "visualError": 0,
+        "zError": 0,
+        "nodes": [
+          {
+            "fullScreen": true,
+            "ownerCast": false,
+            "started": 2.1289999999999907,
+            "ended": 3.1239999999999952,
+            "duration": 0.9950000000000045,
+            "frames": 59,
+            "age": 0.9914553,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 39,
+            "instantSoundFrames": 0
+          },
+          {
+            "fullScreen": false,
+            "ownerCast": true,
+            "started": 2.1289999999999907,
+            "ended": 3.1239999999999952,
+            "duration": 0.9950000000000045,
+            "frames": 59,
+            "age": 0.9914553,
+            "exited": true,
+            "parentCorrect": true,
+            "instantFrames": 39,
+            "instantSoundFrames": 4
+          }
+        ]
+      },
+      "markers.json": [
+        {
+          "time": 0.40700000000651926,
+          "title": "播放中切换瞬时｜0.30秒后更改原生偏好"
+        }
+      ],
+      "recording-after.json": {
+        "state_type": "boss",
+        "battle": {
+          "round": 1,
+          "turn": "player",
+          "is_play_phase": true,
+          "enemies": [
+            {
+              "entity_id": "WATERFALL_GIANT_0",
+              "combat_id": 1,
+              "name": "瀑布巨兽",
+              "hp": 240,
+              "max_hp": 240,
+              "block": 0,
+              "status": [],
+              "intents": [
+                {
+                  "type": "Buff",
+                  "label": "",
+                  "title": "强化",
+                  "description": "这个敌人将要使用一个强化效果。"
+                }
+              ]
+            }
+          ]
+        },
+        "run": {
+          "act": 1,
+          "floor": 7,
+          "ascension": 0
+        },
+        "player": {
+          "character": "爱城华恋",
+          "hp": 72,
+          "max_hp": 72,
+          "block": 0,
+          "energy": 15,
+          "max_energy": 3,
+          "hand": [],
+          "draw_pile_count": 5,
+          "discard_pile_count": 0,
+          "exhaust_pile_count": 0,
+          "draw_pile": [
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            }
+          ],
+          "discard_pile": [],
+          "exhaust_pile": [],
+          "gold": 99,
+          "status": [
+            {
+              "id": "KAREN_PROMISE_PILE_POWER",
+              "name": "约定牌堆",
+              "amount": 1,
+              "type": "Buff",
+              "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+              "keywords": [
+                {
+                  "name": "约定牌堆内容：",
+                  "description": "打击\n打击\n打击"
+                }
+              ]
+            },
+            {
+              "id": "KAREN_GEER_POWER",
+              "name": "命运的齿轮",
+              "amount": 1,
+              "type": "Buff",
+              "description": "回合开始时，选择约定牌堆中的1张牌并打出。",
+              "keywords": []
+            }
+          ],
+          "relics": [
+            {
+              "id": "KAREN_HAIRPIN_RELIC",
+              "name": "发夹",
+              "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+              "counter": null,
+              "keywords": [
+                {
+                  "name": "约定之塔",
+                  "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+                }
+              ]
+            },
+            {
+              "id": "NEOWS_TALISMAN",
+              "name": "涅奥的护符",
+              "description": "拾起时，升级你的1张打击和1张防御。",
+              "counter": null,
+              "keywords": []
+            }
+          ],
+          "potions": [],
+          "max_potion_slots": 3
+        }
+      },
+      "recording-before.json": {
+        "state_type": "boss",
+        "battle": {
+          "round": 1,
+          "turn": "player",
+          "is_play_phase": true,
+          "enemies": [
+            {
+              "entity_id": "WATERFALL_GIANT_0",
+              "combat_id": 1,
+              "name": "瀑布巨兽",
+              "hp": 240,
+              "max_hp": 240,
+              "block": 0,
+              "status": [],
+              "intents": [
+                {
+                  "type": "Buff",
+                  "label": "",
+                  "title": "强化",
+                  "description": "这个敌人将要使用一个强化效果。"
+                }
+              ]
+            }
+          ]
+        },
+        "run": {
+          "act": 1,
+          "floor": 7,
+          "ascension": 0
+        },
+        "player": {
+          "character": "爱城华恋",
+          "hp": 72,
+          "max_hp": 72,
+          "block": 0,
+          "energy": 18,
+          "max_energy": 3,
+          "hand": [
+            {
+              "id": "KAREN_GEER",
+              "name": "命运的齿轮",
+              "type": "Power",
+              "cost": "3",
+              "star_cost": null,
+              "description": "回合开始时，从约定牌堆中选择1张牌打出。",
+              "rarity": "Rare",
+              "is_upgraded": false,
+              "keywords": [
+                {
+                  "name": "约定牌堆",
+                  "description": "爱城华恋特有的牌堆。\n约定牌堆是有序的，先放入的牌会先抽出。"
+                },
+                {
+                  "name": "衍生牌",
+                  "description": "战斗中生成的牌。"
+                }
+              ],
+              "index": 0,
+              "target_type": "Self",
+              "can_play": true,
+              "unplayable_reason": null
+            }
+          ],
+          "draw_pile_count": 5,
+          "discard_pile_count": 0,
+          "exhaust_pile_count": 0,
+          "draw_pile": [
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            },
+            {
+              "name": "防御",
+              "cost": "1",
+              "star_cost": null,
+              "description": "获得5点格挡。"
+            }
+          ],
+          "discard_pile": [],
+          "exhaust_pile": [],
+          "gold": 99,
+          "status": [
+            {
+              "id": "KAREN_PROMISE_PILE_POWER",
+              "name": "约定牌堆",
+              "amount": 1,
+              "type": "Buff",
+              "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+              "keywords": [
+                {
+                  "name": "约定牌堆内容：",
+                  "description": "打击\n打击\n打击"
+                }
+              ]
+            }
+          ],
+          "relics": [
+            {
+              "id": "KAREN_HAIRPIN_RELIC",
+              "name": "发夹",
+              "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+              "counter": null,
+              "keywords": [
+                {
+                  "name": "约定之塔",
+                  "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+                }
+              ]
+            },
+            {
+              "id": "NEOWS_TALISMAN",
+              "name": "涅奥的护符",
+              "description": "拾起时，升级你的1张打击和1张防御。",
+              "counter": null,
+              "keywords": []
+            }
+          ],
+          "potions": [],
+          "max_potion_slots": 3
+        }
+      },
+      "recording.json": {
+        "status": "completed",
+        "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-151132-dda3659796b34a8194d001ab79eb36ec.mp4",
+        "fps": 30,
+        "max_duration_seconds": 180,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 93,
+        "video_duration_seconds": 3.1,
+        "frames_captured": 90,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.067291652193575,
+        "capture_average_ms": 11.319777777777777,
+        "capture_max_ms": 39.7213,
+        "encode_write_average_ms": 1.6291559139784955,
+        "encode_write_max_ms": 89.6821,
+        "elapsed_seconds": 3.3250817,
+        "audio": true,
+        "audio_source": "game_process",
+        "captureBuild": {
+          "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+          "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+        },
+        "renderer": "vulkan"
+      }
+    }
+  },
+  "handChecks": [
+    {
+      "source": "before\\stable\\geer-fast\\final-hand.json",
+      "result": {
+        "modelCount": 6,
+        "visualCount": 6,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_TOWER_OF_PROMISE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "source": "before\\stable\\geer-fast\\geer-finished-hand.json",
+      "result": {
+        "modelCount": 6,
+        "visualCount": 6,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_TOWER_OF_PROMISE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "source": "before\\stable\\geer-fast\\initial-hand.json",
+      "result": {
+        "modelCount": 0,
+        "visualCount": 0,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": []
+      }
+    },
+    {
+      "source": "before\\stable\\geer-fast\\recording-before-hand.json",
+      "result": {
+        "modelCount": 1,
+        "visualCount": 1,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_GEER",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "source": "before\\stable\\geer-instant\\final-hand.json",
+      "result": {
+        "modelCount": 6,
+        "visualCount": 6,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_TOWER_OF_PROMISE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "source": "before\\stable\\geer-instant\\geer-finished-hand.json",
+      "result": {
+        "modelCount": 6,
+        "visualCount": 6,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_TOWER_OF_PROMISE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "source": "before\\stable\\geer-instant\\initial-hand.json",
+      "result": {
+        "modelCount": 0,
+        "visualCount": 0,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": []
+      }
+    },
+    {
+      "source": "before\\stable\\geer-instant\\recording-before-hand.json",
+      "result": {
+        "modelCount": 1,
+        "visualCount": 1,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_GEER",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "source": "before\\stable\\geer-normal\\final-hand.json",
+      "result": {
+        "modelCount": 6,
+        "visualCount": 6,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_TOWER_OF_PROMISE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "source": "before\\stable\\geer-normal\\geer-finished-hand.json",
+      "result": {
+        "modelCount": 6,
+        "visualCount": 6,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_TOWER_OF_PROMISE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "source": "before\\stable\\geer-normal\\initial-hand.json",
+      "result": {
+        "modelCount": 0,
+        "visualCount": 0,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": []
+      }
+    },
+    {
+      "source": "before\\stable\\geer-normal\\recording-before-hand.json",
+      "result": {
+        "modelCount": 1,
+        "visualCount": 1,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_GEER",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "source": "before\\stable\\geer-switch-cast\\final-hand.json",
+      "result": {
+        "modelCount": 0,
+        "visualCount": 0,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": []
+      }
+    },
+    {
+      "source": "before\\stable\\geer-switch-cast\\initial-hand.json",
+      "result": {
+        "modelCount": 0,
+        "visualCount": 0,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": []
+      }
+    },
+    {
+      "source": "before\\stable\\geer-switch-cast\\recording-before-hand.json",
+      "result": {
+        "modelCount": 1,
+        "visualCount": 1,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_GEER",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    }
+  ],
+  "windowMonitor": {
+    "samples": 3720,
+    "foreground_samples": 0,
+    "restored_samples": 0,
+    "minimized_samples": 86
+  }
+}
