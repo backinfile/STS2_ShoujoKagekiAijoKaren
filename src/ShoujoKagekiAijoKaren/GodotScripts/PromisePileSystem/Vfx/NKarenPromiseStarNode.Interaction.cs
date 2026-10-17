@@ -1,7 +1,10 @@
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
@@ -17,10 +20,31 @@ public partial class NKarenPromiseStarNode
             Position = PaintedPoint(Vector2.Zero),
             Size = new Vector2(1024, 1536) * PaintedScale,
             MouseFilter = Control.MouseFilterEnum.Stop,
-            MouseDefaultCursorShape = Control.CursorShape.PointingHand,
+            MouseDefaultCursorShape = Control.CursorShape.Arrow,
             FocusMode = Control.FocusModeEnum.None
         };
         AddChild(hitbox);
+        var stateTracker = CombatManager.Instance.StateTracker;
+        void ShowTowerHoverTips()
+        {
+            if (player.Creature.GetPower<KarenPromisePilePower>() is { } power)
+                _creature.ShowHoverTips(power.HoverTips);
+            else
+                _creature.HideHoverTips();
+        }
+        void RefreshTowerHoverTips(CombatState _) => ShowTowerHoverTips();
+        void HideTowerHoverTips()
+        {
+            stateTracker.CombatStateChanged -= RefreshTowerHoverTips;
+            _creature.HideHoverTips();
+        }
+        hitbox.MouseEntered += () =>
+        {
+            ShowTowerHoverTips();
+            stateTracker.CombatStateChanged += RefreshTowerHoverTips;
+        };
+        hitbox.MouseExited += HideTowerHoverTips;
+        hitbox.TreeExiting += HideTowerHoverTips;
         bool pressedHere = false;
         hitbox.GuiInput += input =>
         {
