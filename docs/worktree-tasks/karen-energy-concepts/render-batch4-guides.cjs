@@ -1,0 +1,5 @@
+const fs=require('fs'),path=require('path');const {chromium}=require('playwright');
+const root=__dirname,variants=JSON.parse(fs.readFileSync(path.join(root,'batch4-guides.json'),'utf8'));const dir=path.join(root,'batch4-guides');fs.mkdirSync(dir,{recursive:true});
+(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.KAREN_PREVIEW_BROWSER});const page=await browser.newPage({viewport:{width:512,height:512},deviceScaleFactor:1});
+for(const v of variants){const svg='<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="-10 -10 120 120"><path d="'+v.path+'" fill="#bcbcbc"/></svg>';fs.writeFileSync(path.join(dir,v.key+'.svg'),svg);await page.setContent('<!doctype html><html><meta charset="utf-8"><style>html,body{margin:0;width:512px;height:512px;background:transparent}svg{display:block}</style>'+svg);await page.screenshot({path:path.join(dir,v.key+'.png'),omitBackground:true});}
+await browser.close();console.log(JSON.stringify({guides:variants.length}));})().catch(e=>{console.error(e);process.exitCode=1});

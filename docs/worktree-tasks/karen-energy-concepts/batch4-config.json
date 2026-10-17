@@ -1,0 +1,33 @@
+{
+  "title": "Karen 能量图标 · 第四批",
+  "heading": "Karen 能量图标 · 紧凑几何",
+  "subtitle": "依据本体特征重制 · 统一能量核心与显示尺寸 · 先比较外轮廓",
+  "outputStem": "batch4-comparison",
+  "shapeStrip": true,
+  "variants": [
+    [
+      "batch4-a-upper-pentagon",
+      "A",
+      "上尖五边",
+      "上尖 · 平底 · 宽阔下半部"
+    ],
+    [
+      "batch4-b-lower-pentagon",
+      "B",
+      "下尖五边",
+      "平顶 · 下尖 · 宽阔上半部"
+    ],
+    [
+      "batch4-c-arc-triangle",
+      "C",
+      "弧边三角",
+      "三段外鼓圆弧 · 饱满中心"
+    ],
+    [
+      "batch4-d-truncated-triangle",
+      "D",
+      "三向切角",
+      "三条长边 × 三条短切边"
+    ]
+  ]
+}

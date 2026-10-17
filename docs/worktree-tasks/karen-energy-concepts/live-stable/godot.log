@@ -1,0 +1,342 @@
+MegaDot v4.5.1.m.12.mono.custom_build - https://godotengine.org
+Vulkan 1.4.341 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4060
+
+FMOD Sound System: Successfully initialized
+[INFO] Found release_info.json at: D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\release_info.json
+[INFO] [Sentry.NET] Initialized: env=development, release=v0.107.1
+[INFO] Steam initialization skipped (editor mode). Use --force-steam to enable.
+[INFO] Registered 11 migrations
+[INFO] Current save versions: PrefsSave v2; ProfileSave v2; SerializableProgress v21; RunHistory v9; SerializableRun v16; SettingsSave v5
+[INFO] Found mod manifest file D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\mods\KarenSTS2MCP.json
+[INFO] Found mod manifest file D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\mods\BaseLib\BaseLib.json
+[INFO] Found mod manifest file D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\mods\KarenEnergyPreview\KarenEnergyPreview.json
+[INFO] Found mod manifest file D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\mods\ShoujoKagekiAijoKaren\ShoujoKagekiAijoKaren.json
+[INFO] Mods have been re-sorted because we detected a change or dependency order was broken. New sorting order:
+[INFO]   0: Karen STS2 MCP (KarenSTS2MCP)
+[INFO]   1: BaseLib (BaseLib)
+[INFO]   2: 少女歌剧爱城华恋ShoujoKagekiAijoKaren (ShoujoKagekiAijoKaren)
+[INFO]   3: Karen Energy A-D Live Preview (KarenEnergyPreview)
+[INFO] Loading assembly DLL D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\mods\KarenSTS2MCP.dll
+[INFO] Calling initializer method of type KarenSTS2MCP.McpMod for KarenSTS2MCP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[Karen STS2 MCP] v0.1.0 server started on http://localhost:15637/
+[INFO] Finished mod initialization for 'Karen STS2 MCP' (KarenSTS2MCP).
+[INFO] Loading assembly DLL D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\mods\BaseLib\BaseLib.dll
+[INFO] Loading Godot PCK D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\mods\BaseLib\BaseLib.pck
+[INFO] Calling initializer method of type BaseLib.BaseLibMain for BaseLib, Version=3.4.7.0, Culture=neutral, PublicKeyToken=null
+[INFO] [BaseLib] Created node factory for Control.
+[INFO] [BaseLib] Created node factory for NCreatureVisuals.
+[INFO] [BaseLib] Created node factory for NRestSiteCharacter.
+[INFO] [BaseLib] Created node factory for NMerchantCharacter.
+[INFO] [BaseLib] Created node factory for NEnergyCounter.
+[INFO] [BaseLib] Created node factory for NCustomTreasureRoomChest.
+[INFO] [BaseLib] Registered config for mod BaseLib
+[INFO] [BaseLib] Performing CustomPile Add patch
+[INFO] [BaseLib] Naive game version: v0.107.1
+[INFO] [BaseLib] Starting PatchAll for assembly BaseLib, Version=3.4.7.0, Culture=neutral, PublicKeyToken=null
+[INFO] [BaseLib] Reading state machine type [MegaCrit.Sts2.Core.Nodes.Combat.NCreature+<AnimDie>d__105]
+[INFO] [BaseLib] Adding new state 5 for method CustomAnimationPatch.WaitCustomAnim before Wait with result type None ()
+[INFO] [BaseLib] Reading state machine type [MegaCrit.Sts2.Core.Hooks.Hook+<AfterCardPlayed>d__16]
+[INFO] [BaseLib] Adding new state 2 for method AfterCardPlayedPatch.BeforeAfterPlayHooks before AfterCardPlayed with result type None ()
+[INFO] [BaseLib] Reading state machine type [MegaCrit.Sts2.Core.Models.CardModel+<SpendResources>d__336]
+[INFO] [BaseLib] Adding new state 2 for method CustomResourcePatches.SpendAdditionalCosts after SpendStars with result type None ()
+[INFO] [BaseLib] Reading state machine type [MegaCrit.Sts2.Core.Hooks.Hook+<AfterEnergyReset>d__30]
+[INFO] [BaseLib] Adding new state 2 for method CustomResourcePatches.BeforeEnergyResetHook before AfterEnergyReset with result type None ()
+[INFO] [BaseLib] No valid target found, skipping beta ExhaustivePatch
+[INFO] [BaseLib] No valid target found, skipping beta PurgePatch
+[INFO] [BaseLib] Skipping potion LargeImagePath patch; does not exist
+[INFO] [BaseLib] Applied 282 patches successfully, 0 failed
+[INFO] Finished mod initialization for 'BaseLib' (BaseLib).
+[INFO] Loading assembly DLL D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\mods\ShoujoKagekiAijoKaren\ShoujoKagekiAijoKaren.dll
+[INFO] Loading Godot PCK D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\mods\ShoujoKagekiAijoKaren\ShoujoKagekiAijoKaren.pck
+[INFO] Calling initializer method of type ShoujoKagekiAijoKaren.Loader.Bootstrap for ShoujoKagekiAijoKaren, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[INFO] [ShoujoKagekiAijoKaren] [KarenDiagnostics] Initialize marker=2026-05-11-character-select-diagnostics, assembly=D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\mods\ShoujoKagekiAijoKaren\lib\ShoujoKagekiAijoKaren.Stable.dll
+[INFO] [BaseLib] Registered config for mod ShoujoKagekiAijoKaren
+[INFO] [ShoujoKagekiAijoKaren] [NEnergyCounterOnEnergyChangedPatch] TargetMethod resolved: System.Void MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter::OnEnergyChanged(System.Int32 oldEnergy, System.Int32 newEnergy)
+[INFO] [ShoujoKagekiAijoKaren] [KarenDiagnostics] Harmony PatchAll completed.
+[INFO] [ShoujoKagekiAijoKaren] [KarenLoader] Loaded Stable implementation for game v0.107.1.
+[INFO] Finished mod initialization for '少女歌剧爱城华恋ShoujoKagekiAijoKaren' (ShoujoKagekiAijoKaren).
+[WARN] Mod KarenEnergyPreview does not declare min game version. Assuming that it is supported.
+[INFO] Loading assembly DLL D:\Godot\Proj\worktrees\STS2_ShoujoKagekiAijoKaren\karen-energy-concepts\artifacts\energy-ui-live\stable\game\mods\KarenEnergyPreview\KarenEnergyPreview.dll
+[INFO] Calling initializer method of type KarenEnergyPreview for KarenEnergyPreview, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[KarenEnergyPreview] Loaded. Actual Karen card TextureRect and native energy counter replacement; no overlay.
+[INFO] Finished mod initialization for 'Karen Energy A-D Live Preview' (KarenEnergyPreview).
+[INFO]  --- RUNNING MODDED! --- Loaded 4 mods (4 total)
+[Sentry.GDExtension] should_sample callable set
+[WARN] Asset not cached: res://scenes/debug/dev_console.tscn
+[WARN] Asset not cached: res://scenes/cards/card.tscn
+[WARN] Asset not cached: res://scenes/cards/holders/grid_card_holder.tscn
+[INFO] AtlasManager: Loaded ui_atlas with 102 sprites
+[INFO] AtlasManager: Loaded compressed with 45 sprites
+[INFO] [BaseLib] Performing early post-mod init
+[INFO] [BaseLib] Mod ShoujoKagekiAijoKaren that modifies gameplay has BaseLib dependency; gameplay modification enabled.
+[INFO] [BaseLib] Patching act types for custom encounters and events | DeprecatedAct | Glory | Hive | Overgrowth | Underdocks
+[INFO] [BaseLib] Generating interop methods and properties
+[INFO] Loading locale path=res://localization/eng
+[INFO] Found loc table from mod: eng ancients.json. Merging with base loc table
+[INFO] Found loc table from mod: eng card_keywords.json. Merging with base loc table
+[INFO] Found loc table from mod: eng card_keywords.json. Merging with base loc table
+[INFO] Found loc table from mod: eng card_selection.json. Merging with base loc table
+[INFO] Found loc table from mod: eng card_selection.json. Merging with base loc table
+[INFO] Found loc table from mod: eng cards.json. Merging with base loc table
+[INFO] Found loc table from mod: eng characters.json. Merging with base loc table
+[INFO] Found loc table from mod: eng credits.json. Merging with base loc table
+[INFO] Found loc table from mod: eng gameplay_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: eng gameplay_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: eng main_menu_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: eng potions.json. Merging with base loc table
+[INFO] Found loc table from mod: eng powers.json. Merging with base loc table
+[INFO] Found loc table from mod: eng powers.json. Merging with base loc table
+[INFO] Found loc table from mod: eng relics.json. Merging with base loc table
+[INFO] Found loc table from mod: eng settings_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: eng settings_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: eng static_hover_tips.json. Merging with base loc table
+[INFO] Loading locale path=res://localization/zhs
+[INFO] Found loc table from mod: zhs ancients.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs card_keywords.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs card_keywords.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs card_selection.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs card_selection.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs cards.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs characters.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs gameplay_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs gameplay_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs main_menu_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs potions.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs powers.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs powers.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs relics.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs settings_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs settings_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs static_hover_tips.json. Merging with base loc table
+[INFO] [BaseLib] Starting custom enum generation for 2468 modded types
+[INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Entities.Cards.TargetType with starting value 10 | IsFlag: False | Half-Size: 16
+[INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Rewards.RewardType with starting value 7 | IsFlag: False | Half-Size: 16
+[INFO] [BaseLib] Registering CustomReward deserializer for BaseLib.Common.Rewards.CardTransformReward
+[INFO] [BaseLib] Registering RewardType CardTransform
+[INFO] [BaseLib] Registering CustomReward deserializer for BaseLib.Common.Rewards.CardUpgradeReward
+[INFO] [BaseLib] Registering RewardType CardUpgrade
+[INFO] [BaseLib] Registering CustomReward deserializer for BaseLib.Common.Rewards.LinkedRewardSet.CustomLinkedRewardSet
+[INFO] [BaseLib] Registering RewardType CustomLinkedRewardType
+[INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Entities.Cards.CardTag with starting value 6 | IsFlag: False | Half-Size: 16
+[INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.HoverTips.StaticHoverTip with starting value 17 | IsFlag: False | Half-Size: 16
+[INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Entities.Cards.PileType with starting value 7 | IsFlag: False | Half-Size: 16
+[INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Entities.Cards.CardKeyword with starting value 8 | IsFlag: False | Half-Size: 16
+[INFO] [BaseLib] Registering CustomReward deserializer for BaseLib.Common.Rewards.RandomCardUpgradeReward
+[INFO] [BaseLib] Registering RewardType RandomCardUpgrade
+[INFO] ModelIdSerializationCache initialized. Categories: 20 Entries: 1781 Epochs: 57 Hash: 3652113536
+[INFO] [BaseLib] Performing late post-mod init
+[INFO] [BaseLib] Patching type NRewardButton to add nodes.
+[INFO] [BaseLib] Adding postfix static System.Void BaseLib.Utils.IAddedNodes`1<MegaCrit.Sts2.Core.Nodes.Rewards.NRewardButton>::UnconditionalAdd(MegaCrit.Sts2.Core.Nodes.Rewards.NRewardButton __instance)
+[INFO] [BaseLib] Found 2 SavedSpireFields.
+[INFO] [BaseLib] Adjusting keys of custom message wrappers.
+[INFO] [BaseLib] Using IDs 128 and 129 for custom message wrappers.
+[Sentry.GDExtension] Initialized: env=playtesters, release=v0.107.1
+[WARN] Tried to read file at user://default/1/leaderboards.save, but there was no such file
+[INFO] Profile-scoped data path initialized: user://default/1/modded/profile1
+[INFO] Wrote 811 bytes to path=user://default/1/modded/profile1\saves\progress.save save_dir=user://default/1
+[INFO] Player has set FTUEs enabled: False
+[INFO] Wrote 812 bytes to path=user://default/1/modded/profile1\saves\progress.save save_dir=user://default/1
+[INFO] Wrote 299 bytes to path=user://default/1/modded/profile1\saves\prefs.save save_dir=user://default/1
+[INFO] [Sentry.NET] Steam not initialized
+[INFO] [Sentry.NET] Shutting down because event reporting is disabled.
+[INFO] [Sentry.NET] Shutting down
+[INFO] [BaseLib] Skipping SentryService shutdown.
+[INFO] [BaseLib] Adding 0 custom acts to act list.
+[INFO] [BaseLib] Result: ACT.OVERGROWTH (7262639),ACT.UNDERDOCKS (65363754),ACT.HIVE (51402875),ACT.GLORY (59972691)
+[INFO] AtlasManager: Loaded controller_atlas with 112 sprites
+[INFO] [ShoujoKagekiAijoKaren] [KarenDiagnostics] ModelDb.AllCharacters patched. containsKaren=True, count=6
+[INFO] MuteInBackground: FocusIn received [tween=False, msSinceFocusOut=5537, windowFocused=True]
+[INFO] Wrote 2753 bytes to path=user://default/1/settings.save save_dir=user://default/1
+[INFO] Applying display settings...
+  FULLSCREEN: False
+  ASPECT_RATIO: (SixteenByNine)
+  TARGET_DISPLAY: (0)
+  WINDOW_SIZE: (1280, 720)
+  POSITION: (512, 245)
+[INFO] [Display] Min size: (64, 64) Max size: (32768, 32768)
+[INFO] [Display] Attempting WINDOWED mode on Display 1 of 1 at position (512, 245)
+[INFO] [Display] SUCCESS: (1280, 720) Windowed mode in Display 0: Position (512, 245) ((512, 245))
+[INFO] [Display] New size: (1280, 720) position: (512, 245)
+[INFO] VSync: Adaptive
+[WARN] Cannot initialize Steam Input because Steamworks is not initialized. Falling back to standard input.
+[INFO] === Godot OS Debug Information ===
+Timestamp: 10/17/2026 11:58:14
+OS: Windows
+OS Version: 10.0.26200
+Distribution Name: Windows
+Device Model: 90V2002CCP
+Is Debug Build: False
+Is Sandboxed: False
+Executable Path: D:/Godot/Proj/worktrees/STS2_ShoujoKagekiAijoKaren/karen-energy-concepts/artifacts/energy-ui-live/stable/game/SlayTheSpire2.exe
+Data Directory: D:/Godot/Proj/worktrees/STS2_ShoujoKagekiAijoKaren/karen-energy-concepts/artifacts/energy-ui-live/stable/user/AppData/Roaming
+User Data Directory: D:/Godot/Proj/worktrees/STS2_ShoujoKagekiAijoKaren/karen-energy-concepts/artifacts/energy-ui-live/stable/user/AppData/Roaming/SlayTheSpire2
+Command Line Args: --force-steam=off
+User Command Line Args: 
+OS Locale: zh_CN
+OS Language: zh
+Game Locale: zh_CN
+Is UserFS Persistent: True
+Is Stdout Verbose: False
+Is Low Processor Usage Mode: False
+Architecture: x86_64
+Engine Version: 4.5.1-m.12 (custom_build)
+Is Editor: False
+Release Version: v0.107.1
+Release Commit: 59260271
+Release Date: 06/18/2026 22:43:56
+Processor Count: 28
+Processor Name: Intel(R) Core(TM) i7-14700KF
+Main assembly hash: -1555940892
+Rendering device name: NVIDIA GeForce RTX 4060
+  Graphics adapter 0: NVIDIA GeForce RTX 4060
+  version: 32.0.16.0
+  Graphics adapter 1: NVIDIA GeForce RTX 4060
+  version: 32.0.16.0
+  Graphics adapter 2: NVIDIA GeForce RTX 4060
+  version: 32.0.16.0
+  Graphics adapter 3: Microsoft Basic Render Driver
+  version: 10.0.26100.0
+Screen info (primary 0):
+  Index 0: Size: (1920, 1080) Orientation: Landscape Scale: 1 DPI: 96 Refresh Rate: 119.998
+Video Memory Used: 0.0B
+Memory Info:
+  physical: 15.7GB
+  free: 3.0GB
+  available: 53.2GB
+  stack: 8.0MB
+  Static Memory Usage: 0.0B
+  Static Memory Peak Usage: 0.0B
+Disk Info:
+  Index 0: Name: C:\ Type: Fixed Format: NTFS Available: 6.1GB Total Free: 6.1GB Total Size: 300.0GB
+  Index 1: Name: D:\ Type: Fixed Format: NTFS Available: 100.7GB Total Free: 100.7GB Total Size: 0.6TB
+Important Environment Variables:
+  PATH: %USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;%USERPROFILE%\.codex\tmp\arg0\codex-arg0Cu4qkb;%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\libheif\libheif\bin;%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\jxrlib\jxrlib\bin;%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\poppler\Library\bin;%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\override;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;D:\App\Bandizip\Bandizip;D:\App\GDRE\GDRE_tools-v2.5.0-beta.1-windows;C:\Program Files\nodejs\;D:\App\wt\Microsoft.WindowsTerminal_1.24.10621.0_x64\terminal-1.24.10621.0;C:\Program Files\Notepad++;C:\Program Files\KeePassXC\;C:\Program Files\WireGuard;C:\Program Files\Tailscale\;C:\Program Files\WireGuard\;D:\Programs\Docker\resources\bin;%USERPROFILE%\.kimi-code\bin;%USERPROFILE%\.cargo\bin;%USERPROFILE%\.local\bin;%USERPROFILE%\AppData\Local\Programs\OpenAI\Codex\bin;%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;%USERPROFILE%\AppData\Local\GitHubDesktop\bin;%USERPROFILE%\AppData\Local\Python\bin;%USERPROFILE%\.dotnet\tools;%USERPROFILE%\AppData\Roaming\npm;%USERPROFILE%\AppData\Local\Programs\Ollama;D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\.dotnet_home\.dotnet\tools;%USERPROFILE%\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1-full_build\bin;%USERPROFILE%\AppData\Local\XPipe\bin;%USERPROFILE%\.local\go\go\bin;%USERPROFILE%\AppData\Local\Microsoft\WinGet\Packages\k3d.k3d_Microsoft.Winget.Source_8wekyb3d8bbwe;%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\fallback;%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin;%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\git\cmd;%USERPROFILE%\AppData\Local\OpenAI\Codex\bin\77fbd4d52e601e0a;%USERPROFILE%\AppData\Local\OpenAI\Codex\bin\9614f1d9b40d9c4f
+  GODOT_ROOT_DIR: 
+  HOME: 
+  DYLD_LIBRARY_PATH: 
+  LD_LIBRARY_PATH: 
+
+[INFO] Preloading 'MainMenuEssentials' assets... count=7 vfx=0
+[INFO] Preloading 'MainMenuEssentials' Complete: assets=7 time_elapsed=134ms
+[Karen STS2 MCP] Instant Mode checkbox injected into settings
+[INFO] [Startup] Time to main menu (Godot ticks): 6205ms
+[INFO] [Startup] Time to main menu: 6,255ms
+[INFO] [Startup] Resource stats (main menu loaded (essential)): StaticMem=0B, VRAM=390.9MB, Objects=8,321, Resources=654, Nodes=1,480, CachedAssets=10
+[INFO] AtlasManager: Loaded epoch_atlas with 57 sprites
+[INFO] AtlasManager: Loaded relic_atlas with 341 sprites
+[INFO] AtlasManager: Loaded relic_outline_atlas with 341 sprites
+[INFO] AtlasManager: Loaded power_atlas with 264 sprites
+[INFO] AtlasManager: Loaded card_atlas with 875 sprites
+[INFO] AtlasManager: Loaded potion_atlas with 63 sprites
+[INFO] AtlasManager: Loaded potion_outline_atlas with 63 sprites
+[INFO] AtlasManager: Loaded stats_screen_atlas with 16 sprites
+[INFO] AtlasManager: Loaded intent_atlas with 310 sprites
+[INFO] AtlasManager: Loaded era_atlas with 27 sprites
+[INFO] [ShoujoKagekiAijoKaren] [EventRelicPoolPatch] Injecting Karen event relics into EventRelicPool...
+[INFO] Unloading 3 missed cache assets
+[INFO] Preloading 'Common' assets... count=691 vfx=92
+[INFO] [Startup] Resource stats (main menu loaded (complete)): StaticMem=0B, VRAM=590.9MB, Objects=8,322, Resources=657, Nodes=1,478, CachedAssets=5
+[INFO] Preloading 'Common' Complete: assets=783 time_elapsed=3,574ms
+[INFO] Max ascension changed to 0
+[INFO] Max ascension changed to 0
+[INFO] [StartRunLobby (1)] CHARACTER.IRONCLAD has not revealed the Ascension Epoch, disabling Ascension.
+[INFO] Max ascension changed to 0
+[INFO] [StartRunLobby (1)] CHARACTER.KAREN has no progress, disabling Ascension.
+[INFO] [StartRunLobby (1)] Local player 1 is ready
+[INFO] Embarking on a singleplayer KAREN run. Ascension: 0 Seed: AWGL0CRZCS
+[INFO] First run ever. Presenting rooms in a set order.
+[INFO] Preloading 'characters=KAREN' assets... count=39 vfx=6
+[INFO] Preloading 'characters=KAREN' Complete: assets=45 time_elapsed=267ms
+[INFO] Preloading 'Act=OVERGROWTH' assets... count=6 vfx=0
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=6 time_elapsed=33ms
+[Karen STS2 MCP] Instant Mode checkbox injected into settings
+[INFO] [ShoujoKagekiAijoKaren] [ShinePilePatch] NTopBar._Ready Postfix executing
+[INFO] [ShoujoKagekiAijoKaren] [ShinePilePatch] NTopBar.Initialize Postfix executing
+[INFO] [ShoujoKagekiAijoKaren] [ShinePilePatch] Button instantiated, name=ShinePile
+[INFO] [ShoujoKagekiAijoKaren] [ShinePileButton] _Ready: countLabel type=Label
+[INFO] [ShoujoKagekiAijoKaren] [ShinePilePatch] Button added to RightAlignedStuff at index 3, actual index=3
+[INFO] [ShoujoKagekiAijoKaren] [ShinePilePatch] CapstoneContainer signals connected
+[INFO] [ShoujoKagekiAijoKaren] [ShinePilePatch] Initializing button for player KAREN
+[INFO] [ShoujoKagekiAijoKaren] [ShinePileButton] Initialized for player KAREN, count=0
+[INFO] Preloading 'Act=OVERGROWTH' assets... count=0 vfx=0
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=0 time_elapsed=29ms
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (3, 0))
+[INFO] Wrote 1426 bytes to path=user://default/1/modded/profile1\saves\progress.save save_dir=user://default/1
+[INFO] [BaseLib] Adding custom save data to SerializableRun.
+[INFO] [BaseLib] Added 0 new properties to SerializableRun
+[INFO] [BaseLib] Adding custom save data to SerializableCard.
+[INFO] [BaseLib] Added 1 new properties to SerializableCard
+[INFO] [BaseLib] Adding custom save data to SerializablePlayer.
+[INFO] [BaseLib] Added 0 new properties to SerializablePlayer
+[INFO] [BaseLib] Adding custom save data to SerializablePotion.
+[INFO] [BaseLib] Added 0 new properties to SerializablePotion
+[INFO] [BaseLib] Adding custom save data to SerializableRelic.
+[INFO] [BaseLib] Added 0 new properties to SerializableRelic
+[INFO] [BaseLib] Adding custom save data to SerializableReward.
+[INFO] [BaseLib] Added 1 new properties to SerializableReward
+[INFO] [ShoujoKagekiAijoKaren] [SaveSystem] 已将 extra_fields 扩展字段注入存档
+[INFO] Wrote 20232 bytes to path=user://default/1/modded/profile1\saves\current_run.save save_dir=user://default/1
+[INFO] Preloading 'Combat Room' assets... count=10 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=10 time_elapsed=50ms
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=NIBBITS_WEAK.
+[INFO] [ShoujoKagekiAijoKaren] Added click event to player 爱城华恋 Hitbox
+[INFO] [ShoujoKagekiAijoKaren] [Karen Entrance] Started (1 Karen, 1.50s); native opening continues in parallel.
+[INFO] [ShoujoKagekiAijoKaren] [PromisePile] ClearPromisePileInternal called for player KAREN
+[INFO] [ShoujoKagekiAijoKaren] [PromisePile] Promise pile count before clear: 0
+[INFO] [ShoujoKagekiAijoKaren] [PromisePile] Pile is empty, skipping clear but still calling star ClearAll
+[INFO] [ShoujoKagekiAijoKaren] [PromisePile] Initialized PromisePilePower for player LocString table characters entry KAREN.title
+[WARN] Asset not cached: res://images/powers/karen_promise_pile_power.png
+[WARN] Asset not cached: res://materials/cards/frames/card_frame_purple_mat.tres
+[INFO] [ShoujoKagekiAijoKaren] AfterCardChangedPiles card=防御 oldPile=Draw empty=False
+[INFO] [ShoujoKagekiAijoKaren] AfterCardChangedPiles card=防御 oldPile=Draw empty=False
+[INFO] [ShoujoKagekiAijoKaren] AfterCardChangedPiles card=防御 oldPile=Draw empty=False
+[INFO] [ShoujoKagekiAijoKaren] AfterCardChangedPiles card=防御 oldPile=Draw empty=False
+[INFO] [ShoujoKagekiAijoKaren] AfterCardChangedPiles card=打击 oldPile=Draw empty=False
+[INFO] MuteInBackground: environment [displayServer=Windows, os=Windows]
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] DevConsole: karen_energy_preview original
+[KarenEnergyPreview] Actual style set to original
+[INFO] DevConsole: karen_energy_preview status
+[INFO] DevConsole: karen_check_hand 
+[INFO] DevConsole: karen_energy_preview crown
+[KarenEnergyPreview] Actual style set to crown
+[INFO] DevConsole: karen_energy_preview status
+[INFO] DevConsole: karen_check_hand 
+[INFO] DevConsole: karen_energy_preview status
+[INFO] DevConsole: karen_check_hand 
+[INFO] DevConsole: karen_energy_preview tomato
+[KarenEnergyPreview] Actual style set to tomato
+[INFO] DevConsole: karen_energy_preview status
+[INFO] DevConsole: karen_check_hand 
+[INFO] DevConsole: karen_energy_preview status
+[INFO] DevConsole: karen_check_hand 
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=58769, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] DevConsole: karen_energy_preview energy 0
+[INFO] DevConsole: karen_energy_preview status
+[INFO] DevConsole: karen_check_hand 
+[INFO] DevConsole: karen_energy_preview crown
+[KarenEnergyPreview] Actual style set to crown
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=6405, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0
+[INFO] Restored foreground FPS
+[INFO] DevConsole: karen_energy_preview status
+[INFO] DevConsole: karen_check_hand 
+[INFO] DevConsole: karen_energy_preview energy 3
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] DevConsole: karen_energy_preview status
+[INFO] DevConsole: karen_check_hand 
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=8901, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 0
+[INFO] Restored foreground FPS
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] DevConsole: karen_energy_preview original
+[KarenEnergyPreview] Actual style set to original
+[INFO] DevConsole: karen_energy_preview status
+[INFO] DevConsole: karen_check_hand 

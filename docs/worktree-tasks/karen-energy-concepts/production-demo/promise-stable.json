@@ -1,0 +1,10 @@
+{
+  "video": null,
+  "result": "pass",
+  "placementFailures": [],
+  "selected": "KAREN_DEFEND",
+  "countBefore": 4,
+  "countAfterFall": 3,
+  "countAfterTower": 4,
+  "log": "D:\\Godot\\Proj\\worktrees\\STS2_ShoujoKagekiAijoKaren\\karen-energy-concepts\\artifacts\\test-promise-visuals\\20261017-131744-stable-b839b3\\godot.log"
+}

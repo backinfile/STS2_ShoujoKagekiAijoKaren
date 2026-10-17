@@ -1,0 +1,256 @@
+{
+  "sprites": {
+    "energy_defect": {
+      "width": 71,
+      "height": 72,
+      "y": 879,
+      "x": 237,
+      "file": "ui_atlas_1.png"
+    },
+    "card_frame_attack_s": {
+      "width": 598,
+      "height": 844,
+      "y": 83,
+      "x": 1320,
+      "file": "ui_atlas_0.png"
+    },
+    "energy_regent": {
+      "width": 74,
+      "height": 74,
+      "y": 829,
+      "x": 1942,
+      "file": "ui_atlas_1.png"
+    },
+    "card_portrait_border_attack_s": {
+      "width": 551,
+      "height": 420,
+      "y": 1,
+      "x": 1329,
+      "file": "ui_atlas_1.png"
+    },
+    "energy_ironclad": {
+      "width": 74,
+      "height": 74,
+      "y": 1948,
+      "x": 1440,
+      "file": "ui_atlas_0.png"
+    },
+    "energy_necrobinder": {
+      "width": 74,
+      "height": 69,
+      "y": 706,
+      "x": 1182,
+      "file": "ui_atlas_1.png"
+    },
+    "energy_silent": {
+      "width": 74,
+      "height": 74,
+      "y": 630,
+      "x": 1182,
+      "file": "ui_atlas_1.png"
+    },
+    "card_banner": {
+      "width": 653,
+      "height": 145,
+      "y": 1,
+      "x": 674,
+      "file": "ui_atlas_1.png"
+    },
+    "energy_colorless": {
+      "file": "ui_atlas_1.png",
+      "x": 237,
+      "y": 953,
+      "width": 71,
+      "height": 71
+    },
+    "energy_quest": {
+      "file": "ui_atlas_1.png",
+      "x": 1866,
+      "y": 829,
+      "width": 74,
+      "height": 74
+    }
+  },
+  "icons": {
+    "d-faceted-tomato": {
+      "x": 86,
+      "y": 148,
+      "file": "d-faceted-tomato.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "width": 1085,
+      "height": 982,
+      "transparentPixels": 808851
+    },
+    "a-faceted-crown": {
+      "x": 57,
+      "y": 146,
+      "file": "a-faceted-crown.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "width": 1137,
+      "height": 949,
+      "transparentPixels": 817392
+    },
+    "b-soft-crown": {
+      "x": 72,
+      "y": 212,
+      "file": "b-soft-crown.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "width": 1109,
+      "height": 847,
+      "transparentPixels": 884617
+    },
+    "c-graphic-crown": {
+      "x": 90,
+      "y": 216,
+      "file": "c-graphic-crown.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "width": 1073,
+      "height": 805,
+      "transparentPixels": 968603
+    },
+    "f-graphic-tomato": {
+      "x": 69,
+      "y": 114,
+      "file": "f-graphic-tomato.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "width": 1115,
+      "height": 1027,
+      "transparentPixels": 747117
+    },
+    "e-soft-tomato": {
+      "x": 75,
+      "y": 113,
+      "file": "e-soft-tomato.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "width": 1102,
+      "height": 1013,
+      "transparentPixels": 756414
+    },
+    "basic-a-triangle": {
+      "file": "basic-a-triangle.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "x": 73,
+      "y": 139,
+      "width": 1108,
+      "height": 965,
+      "transparentPixels": 944331
+    },
+    "basic-b-inverted-triangle": {
+      "file": "basic-b-inverted-triangle.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "x": 29,
+      "y": 176,
+      "width": 1196,
+      "height": 981,
+      "transparentPixels": 878556
+    },
+    "basic-c-trapezoid": {
+      "file": "basic-c-trapezoid.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "x": 24,
+      "y": 172,
+      "width": 1206,
+      "height": 911,
+      "transparentPixels": 736437
+    },
+    "basic-d-lens": {
+      "file": "basic-d-lens.png",
+      "imageWidth": 1457,
+      "imageHeight": 1080,
+      "x": 55,
+      "y": 152,
+      "width": 1345,
+      "height": 776,
+      "transparentPixels": 886563
+    },
+    "basic3-a-semicircle": {
+      "file": "basic3-a-semicircle.png",
+      "imageWidth": 1586,
+      "imageHeight": 992,
+      "x": 301,
+      "y": 266,
+      "width": 980,
+      "height": 496,
+      "transparentPixels": 1180365
+    },
+    "basic3-b-cross": {
+      "file": "basic3-b-cross.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "x": 111,
+      "y": 131,
+      "width": 1036,
+      "height": 986,
+      "transparentPixels": 881792
+    },
+    "basic3-c-double-lobe": {
+      "file": "basic3-c-double-lobe.png",
+      "imageWidth": 1484,
+      "imageHeight": 1060,
+      "x": 133,
+      "y": 172,
+      "width": 1218,
+      "height": 703,
+      "transparentPixels": 858710
+    },
+    "batch4-a-upper-pentagon": {
+      "file": "batch4-a-upper-pentagon.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "x": 113,
+      "y": 118,
+      "width": 1028,
+      "height": 999,
+      "transparentPixels": 843673
+    },
+    "batch4-b-lower-pentagon": {
+      "file": "batch4-b-lower-pentagon.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "x": 97,
+      "y": 139,
+      "width": 1061,
+      "height": 1015,
+      "transparentPixels": 823106
+    },
+    "batch4-c-arc-triangle": {
+      "file": "batch4-c-arc-triangle.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "x": 103,
+      "y": 118,
+      "width": 1048,
+      "height": 1040,
+      "transparentPixels": 788733
+    },
+    "batch4-d-truncated-triangle": {
+      "file": "batch4-d-truncated-triangle.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "x": 176,
+      "y": 200,
+      "width": 900,
+      "height": 851,
+      "transparentPixels": 1018772
+    },
+    "regular-nonagon": {
+      "x": 100,
+      "y": 90,
+      "file": "regular-nonagon.png",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "width": 1054,
+      "height": 1038,
+      "transparentPixels": 743489
+    }
+  }
+}

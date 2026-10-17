@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "panels": [
+    {
+      "label": "A 上尖五边",
+      "cardWidth": 200,
+      "costWidth": 42.66666793823242,
+      "costRatio": 0.2133333396911621,
+      "battleWidth": 500,
+      "battleHeight": 281.25,
+      "battleRatio": 1.7777777777777777,
+      "energyWidth": 33.333343505859375,
+      "energyRatio": 0.06666668701171875,
+      "detailWidth": 100,
+      "detailMagnification": 2.9999990844729356
+    },
+    {
+      "label": "B 下尖五边",
+      "cardWidth": 200,
+      "costWidth": 42.66668701171875,
+      "costRatio": 0.21333343505859376,
+      "battleWidth": 500,
+      "battleHeight": 281.25,
+      "battleRatio": 1.7777777777777777,
+      "energyWidth": 33.3333740234375,
+      "energyRatio": 0.066666748046875,
+      "detailWidth": 100,
+      "detailMagnification": 2.9999963378950953
+    },
+    {
+      "label": "C 弧边三角",
+      "cardWidth": 200,
+      "costWidth": 42.66666793823242,
+      "costRatio": 0.2133333396911621,
+      "battleWidth": 500,
+      "battleHeight": 281.25,
+      "battleRatio": 1.7777777777777777,
+      "energyWidth": 33.333343505859375,
+      "energyRatio": 0.06666668701171875,
+      "detailWidth": 100,
+      "detailMagnification": 2.9999990844729356
+    },
+    {
+      "label": "D 三向切角",
+      "cardWidth": 200,
+      "costWidth": 42.66668701171875,
+      "costRatio": 0.21333343505859376,
+      "battleWidth": 500,
+      "battleHeight": 281.25,
+      "battleRatio": 1.7777777777777777,
+      "energyWidth": 33.3333740234375,
+      "energyRatio": 0.066666748046875,
+      "detailWidth": 100,
+      "detailMagnification": 2.9999963378950953
+    }
+  ]
+}

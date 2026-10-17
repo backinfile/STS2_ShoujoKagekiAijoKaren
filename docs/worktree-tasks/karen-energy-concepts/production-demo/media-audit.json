@@ -1,0 +1,285 @@
+{
+  "streams": [
+    {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+      "profile": "High",
+      "codec_type": "video",
+      "codec_tag_string": "avc1",
+      "codec_tag": "0x31637661",
+      "mime_codec_string": "avc1.640020",
+      "width": 1280,
+      "height": 840,
+      "coded_width": 1280,
+      "coded_height": 840,
+      "has_b_frames": 2,
+      "sample_aspect_ratio": "1:1",
+      "display_aspect_ratio": "32:21",
+      "pix_fmt": "yuv420p",
+      "level": 32,
+      "chroma_location": "left",
+      "field_order": "progressive",
+      "is_avc": "true",
+      "nal_length_size": "4",
+      "id": "0x1",
+      "r_frame_rate": "30/1",
+      "avg_frame_rate": "45265920/1508809",
+      "time_base": "1/15360",
+      "start_pts": 0,
+      "start_time": "0.000000",
+      "duration_ts": 1508809,
+      "duration": "98.229753",
+      "bit_rate": "1313163",
+      "bits_per_raw_sample": "8",
+      "nb_frames": "2947",
+      "extradata_size": 48,
+      "disposition": {
+        "default": 1,
+        "dub": 0,
+        "original": 0,
+        "comment": 0,
+        "lyrics": 0,
+        "karaoke": 0,
+        "forced": 0,
+        "hearing_impaired": 0,
+        "visual_impaired": 0,
+        "clean_effects": 0,
+        "attached_pic": 0,
+        "timed_thumbnails": 0,
+        "non_diegetic": 0,
+        "captions": 0,
+        "descriptions": 0,
+        "metadata": 0,
+        "dependent": 0,
+        "still_image": 0,
+        "multilayer": 0
+      },
+      "tags": {
+        "language": "und",
+        "handler_name": "VideoHandler",
+        "encoder": "Lavc62.28.100 libx264"
+      }
+    },
+    {
+      "index": 1,
+      "codec_name": "bin_data",
+      "codec_long_name": "binary data",
+      "codec_type": "data",
+      "codec_tag_string": "text",
+      "codec_tag": "0x74786574",
+      "id": "0x2",
+      "r_frame_rate": "0/0",
+      "avg_frame_rate": "0/0",
+      "time_base": "1/1000",
+      "start_pts": 0,
+      "start_time": "0.000000",
+      "duration_ts": 98234,
+      "duration": "98.234000",
+      "bit_rate": "79",
+      "nb_frames": "14",
+      "extradata_size": 63,
+      "disposition": {
+        "default": 0,
+        "dub": 0,
+        "original": 0,
+        "comment": 0,
+        "lyrics": 0,
+        "karaoke": 0,
+        "forced": 0,
+        "hearing_impaired": 0,
+        "visual_impaired": 0,
+        "clean_effects": 0,
+        "attached_pic": 0,
+        "timed_thumbnails": 0,
+        "non_diegetic": 0,
+        "captions": 0,
+        "descriptions": 0,
+        "metadata": 0,
+        "dependent": 0,
+        "still_image": 0,
+        "multilayer": 0
+      },
+      "tags": {
+        "language": "eng",
+        "handler_name": "SubtitleHandler"
+      }
+    }
+  ],
+  "chapters": [
+    {
+      "id": 0,
+      "time_base": "1/1000",
+      "start": 0,
+      "start_time": "0.000000",
+      "end": 6500,
+      "end_time": "6.500000",
+      "tags": {
+        "title": "正式版 v0.107.1 · 卡牌费用与固定九边形外框"
+      }
+    },
+    {
+      "id": 1,
+      "time_base": "1/1000",
+      "start": 6500,
+      "start_time": "6.500000",
+      "end": 15133,
+      "end_time": "15.133000",
+      "tags": {
+        "title": "正式版 v0.107.1 · 真实出牌：3 → 2 → 1 → 0"
+      }
+    },
+    {
+      "id": 2,
+      "time_base": "1/1000",
+      "start": 15133,
+      "start_time": "15.133000",
+      "end": 23433,
+      "end_time": "23.433000",
+      "tags": {
+        "title": "正式版 v0.107.1 · 结束回合，能量恢复至 3/3"
+      }
+    },
+    {
+      "id": 3,
+      "time_base": "1/1000",
+      "start": 23433,
+      "start_time": "23.433000",
+      "end": 31966,
+      "end_time": "31.966000",
+      "tags": {
+        "title": "正式版 v0.107.1 · 零费卡、行内符号与实际补能"
+      }
+    },
+    {
+      "id": 4,
+      "time_base": "1/1000",
+      "start": 31966,
+      "start_time": "31.966000",
+      "end": 38433,
+      "end_time": "38.433000",
+      "tags": {
+        "title": "正式版 v0.107.1 · 2 费与 X 费卡牌显示"
+      }
+    },
+    {
+      "id": 5,
+      "time_base": "1/1000",
+      "start": 38433,
+      "start_time": "38.433000",
+      "end": 42200,
+      "end_time": "42.200000",
+      "tags": {
+        "title": "正式版 v0.107.1 · 坠落：放入约定牌堆"
+      }
+    },
+    {
+      "id": 6,
+      "time_base": "1/1000",
+      "start": 42200,
+      "start_time": "42.200000",
+      "end": 49267,
+      "end_time": "49.267000",
+      "tags": {
+        "title": "正式版 v0.107.1 · 约定之塔：取回后费用 2 → 1"
+      }
+    },
+    {
+      "id": 7,
+      "time_base": "1/1000",
+      "start": 49267,
+      "start_time": "49.267000",
+      "end": 55734,
+      "end_time": "55.734000",
+      "tags": {
+        "title": "测试版 v0.111.0 · 卡牌费用与固定九边形外框"
+      }
+    },
+    {
+      "id": 8,
+      "time_base": "1/1000",
+      "start": 55734,
+      "start_time": "55.734000",
+      "end": 64401,
+      "end_time": "64.401000",
+      "tags": {
+        "title": "测试版 v0.111.0 · 真实出牌：3 → 2 → 1 → 0"
+      }
+    },
+    {
+      "id": 9,
+      "time_base": "1/1000",
+      "start": 64401,
+      "start_time": "64.401000",
+      "end": 72434,
+      "end_time": "72.434000",
+      "tags": {
+        "title": "测试版 v0.111.0 · 结束回合，能量恢复至 3/3"
+      }
+    },
+    {
+      "id": 10,
+      "time_base": "1/1000",
+      "start": 72434,
+      "start_time": "72.434000",
+      "end": 80934,
+      "end_time": "80.934000",
+      "tags": {
+        "title": "测试版 v0.111.0 · 零费卡、行内符号与实际补能"
+      }
+    },
+    {
+      "id": 11,
+      "time_base": "1/1000",
+      "start": 80934,
+      "start_time": "80.934000",
+      "end": 87367,
+      "end_time": "87.367000",
+      "tags": {
+        "title": "测试版 v0.111.0 · 2 费与 X 费卡牌显示"
+      }
+    },
+    {
+      "id": 12,
+      "time_base": "1/1000",
+      "start": 87367,
+      "start_time": "87.367000",
+      "end": 91167,
+      "end_time": "91.167000",
+      "tags": {
+        "title": "测试版 v0.111.0 · 坠落：放入约定牌堆"
+      }
+    },
+    {
+      "id": 13,
+      "time_base": "1/1000",
+      "start": 91167,
+      "start_time": "91.167000",
+      "end": 98234,
+      "end_time": "98.234000",
+      "tags": {
+        "title": "测试版 v0.111.0 · 约定之塔：取回后费用 2 → 1"
+      }
+    }
+  ],
+  "format": {
+    "filename": "D:\\Godot\\Proj\\worktrees\\STS2_ShoujoKagekiAijoKaren\\karen-energy-concepts\\artifacts\\energy-demo-output\\full-demo.mp4",
+    "nb_streams": 2,
+    "nb_programs": 0,
+    "nb_stream_groups": 0,
+    "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+    "format_long_name": "QuickTime / MOV",
+    "start_time": "0.000000",
+    "duration": "98.234000",
+    "size": "16162942",
+    "bit_rate": "1316280",
+    "probe_score": 100,
+    "tags": {
+      "major_brand": "isom",
+      "minor_version": "512",
+      "compatible_brands": "isomiso2avc1mp41",
+      "title": "Karen 正九边形能量图标实机演示",
+      "encoder": "Lavf62.12.100"
+    }
+  }
+}

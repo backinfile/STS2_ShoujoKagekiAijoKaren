@@ -1,7 +1,7 @@
 """Validate observed results and archive review evidence; never substitutes for viewing screenshots/video."""
 import argparse, gzip, hashlib, json, re, shutil, subprocess
 from pathlib import Path
-parser=argparse.ArgumentParser();parser.add_argument('--run',default='transient');parser.add_argument('--cases',default='normal,stack,void,fast,instant,empty,cancel,switch,remove,room');args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--run',default='transient');parser.add_argument('--record-only',action='store_true');parser.add_argument('--cases',default='normal,stack,void,fast,instant,empty,cancel,switch,remove,room');args=parser.parse_args()
 ROOT=Path(__file__).resolve().parents[3];raw=ROOT/'artifacts/aquarium';out=ROOT/'docs/worktree-tasks/aquarium-vfx-20261017/evidence'/args.run;out.mkdir(parents=True,exist_ok=True)
 def save(p,v):p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 expected=set(args.cases.split(','))
@@ -9,7 +9,7 @@ summary={'scope':'targeted singleplayer, not full or multiplayer','cases':{},'re
 for branch in ['stable','beta']:
     package=ROOT/'artifacts/ShoujoKagekiAijoKaren'
     hashes={name:hashlib.sha256((package/name).read_bytes()).hexdigest() for name in ['ShoujoKagekiAijoKaren.pck',f'lib/ShoujoKagekiAijoKaren.{branch.title()}.dll']}
-    for kind in ['visual','recordings']:
+    for kind in (['recordings'] if args.record_only else ['visual','recordings']):
         run=args.run+'-'+kind
         folder=raw/branch/run
         assert json.loads((folder/'build.json').read_text(encoding='utf-8'))==hashes,'Stale tested package'
@@ -29,7 +29,7 @@ for branch in ['stable','beta']:
         for result in results:
             case=folder/result['case'];d=dest/result['case'];d.mkdir(exist_ok=True)
             for file in case.glob('*.json'):shutil.copy2(file,d/file.name)
-            if kind=='visual':
+            if kind=='visual' or args.record_only:
                 for file in case.glob('*.png'):shutil.copy2(file,d/file.name)
             for file in case.glob('*hand.json'):
                 h=json.loads(file.read_text(encoding='utf-8'));assert h['modelCount']==h['visualCount'] and not h['missing'] and not h['unexpected'] and not h['unexpectedPileIcons'] and all(b['valid'] for b in h['burnOverlays']),file

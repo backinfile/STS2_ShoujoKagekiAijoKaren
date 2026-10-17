@@ -1,0 +1,517 @@
+{
+  "started_utc": "20261017-130207-442e2a",
+  "suite": "full",
+  "passed": 36,
+  "failed": 0,
+  "client_copy_cleanup": "removed",
+  "results": [
+    {
+      "case": "smoke-stable",
+      "result": "pass",
+      "detail": "stable v0.107.1 smoke and MCP port 15627 check passed; log: D:\\Godot\\Proj\\worktrees\\STS2_ShoujoKagekiAijoKaren\\karen-energy-concepts\\artifacts\\dev-game\\stable\\godot.log",
+      "error": null
+    },
+    {
+      "case": "smoke-beta",
+      "result": "pass",
+      "detail": "beta v0.111.0 smoke and MCP port 15628 check passed; log: D:\\Godot\\Proj\\worktrees\\STS2_ShoujoKagekiAijoKaren\\karen-energy-concepts\\artifacts\\dev-game\\beta\\godot.log",
+      "error": null
+    },
+    {
+      "case": "solo-stable",
+      "result": "pass",
+      "detail": {
+        "case": "solo-stable",
+        "result": "pass",
+        "game_version": "stable",
+        "settings_api": true,
+        "settings_write_restored": true,
+        "original_hp": 45,
+        "damaged_hp": 5,
+        "shine_count_in_deck": 0
+      },
+      "error": null
+    },
+    {
+      "case": "solo-beta",
+      "result": "pass",
+      "detail": {
+        "case": "solo-beta",
+        "result": "pass",
+        "game_version": "beta",
+        "settings_api": true,
+        "settings_write_restored": true,
+        "original_hp": 44,
+        "damaged_hp": 4,
+        "shine_count_in_deck": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-KAREN-KAREN",
+      "result": "pass",
+      "detail": {
+        "case": "stable-KAREN-KAREN",
+        "result": "pass",
+        "enemyHp": 89,
+        "actions": [
+          "15627 : KAREN_STRIKE",
+          "15629 : KAREN_STRIKE"
+        ],
+        "round": 2,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-KAREN-IRONCLAD",
+      "result": "pass",
+      "detail": {
+        "case": "stable-KAREN-IRONCLAD",
+        "result": "pass",
+        "enemyHp": 82,
+        "actions": [
+          "15627 : KAREN_STRIKE",
+          "15629 : STRIKE_IRONCLAD"
+        ],
+        "round": 2,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-IRONCLAD-KAREN",
+      "result": "pass",
+      "detail": {
+        "case": "stable-IRONCLAD-KAREN",
+        "result": "pass",
+        "enemyHp": 80,
+        "actions": [
+          "15627 : STRIKE_IRONCLAD",
+          "15629 : KAREN_STRIKE"
+        ],
+        "round": 2,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-IRONCLAD-IRONCLAD",
+      "result": "pass",
+      "detail": {
+        "case": "stable-IRONCLAD-IRONCLAD",
+        "result": "pass",
+        "enemyHp": 82,
+        "actions": [
+          "15627 : STRIKE_IRONCLAD",
+          "15629 : STRIKE_IRONCLAD"
+        ],
+        "round": 2,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-KAREN-KAREN",
+      "result": "pass",
+      "detail": {
+        "case": "beta-KAREN-KAREN",
+        "result": "pass",
+        "enemyHp": 84,
+        "actions": [
+          "15628 : KAREN_STRIKE",
+          "15630 : KAREN_STRIKE"
+        ],
+        "round": 2,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-KAREN-IRONCLAD",
+      "result": "pass",
+      "detail": {
+        "case": "beta-KAREN-IRONCLAD",
+        "result": "pass",
+        "enemyHp": 84,
+        "actions": [
+          "15628 : KAREN_STRIKE",
+          "15630 : STRIKE_IRONCLAD"
+        ],
+        "round": 2,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-IRONCLAD-KAREN",
+      "result": "pass",
+      "detail": {
+        "case": "beta-IRONCLAD-KAREN",
+        "result": "pass",
+        "enemyHp": 75,
+        "actions": [
+          "15628 : BASH",
+          "15630 : KAREN_SHINE_STRIKE"
+        ],
+        "round": 2,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-IRONCLAD-IRONCLAD",
+      "result": "pass",
+      "detail": {
+        "case": "beta-IRONCLAD-IRONCLAD",
+        "result": "pass",
+        "enemyHp": 75,
+        "actions": [
+          "15628 : BASH",
+          "15630 : STRIKE_IRONCLAD"
+        ],
+        "round": 2,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-KAREN-KAREN-shine-host",
+      "result": "pass",
+      "detail": {
+        "case": "stable-KAREN-KAREN-shine-regression-host",
+        "result": "pass",
+        "originalHp": 101,
+        "damagedHp": 61,
+        "actorDeckShineCount": 0,
+        "bothAtRewards": true
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-KAREN-KAREN-shine-client",
+      "result": "pass",
+      "detail": {
+        "case": "stable-KAREN-KAREN-shine-regression-client",
+        "result": "pass",
+        "originalHp": 96,
+        "damagedHp": 56,
+        "actorDeckShineCount": 0,
+        "bothAtRewards": true
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-KAREN-IRONCLAD-shine-host",
+      "result": "pass",
+      "detail": {
+        "case": "stable-KAREN-IRONCLAD-shine-regression-host",
+        "result": "pass",
+        "originalHp": 96,
+        "damagedHp": 56,
+        "actorDeckShineCount": 0,
+        "bothAtRewards": true
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-IRONCLAD-KAREN-shine-client",
+      "result": "pass",
+      "detail": {
+        "case": "stable-IRONCLAD-KAREN-shine-regression-client",
+        "result": "pass",
+        "originalHp": 99,
+        "damagedHp": 59,
+        "actorDeckShineCount": 0,
+        "bothAtRewards": true
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-KAREN-IRONCLAD-global-move",
+      "result": "pass",
+      "detail": {
+        "case": "stable-KAREN-IRONCLAD-global-move-regression",
+        "result": "pass",
+        "originalHp": 92,
+        "enemyHp": 85,
+        "bothAtRound2": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-IRONCLAD-KAREN-global-move",
+      "result": "pass",
+      "detail": {
+        "case": "stable-IRONCLAD-KAREN-global-move-regression",
+        "result": "pass",
+        "originalHp": 99,
+        "enemyHp": 92,
+        "bothAtRound2": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-KAREN-KAREN-shine-host",
+      "result": "pass",
+      "detail": {
+        "case": "beta-KAREN-KAREN-shine-regression-host",
+        "result": "pass",
+        "originalHp": 92,
+        "damagedHp": 52,
+        "actorDeckShineCount": 0,
+        "bothAtRewards": true
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-KAREN-KAREN-shine-client",
+      "result": "pass",
+      "detail": {
+        "case": "beta-KAREN-KAREN-shine-regression-client",
+        "result": "pass",
+        "originalHp": 99,
+        "damagedHp": 59,
+        "actorDeckShineCount": 0,
+        "bothAtRewards": true
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-KAREN-IRONCLAD-shine-host",
+      "result": "pass",
+      "detail": {
+        "case": "beta-KAREN-IRONCLAD-shine-regression-host",
+        "result": "pass",
+        "originalHp": 92,
+        "damagedHp": 52,
+        "actorDeckShineCount": 0,
+        "bothAtRewards": true
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-IRONCLAD-KAREN-shine-client",
+      "result": "pass",
+      "detail": {
+        "case": "beta-IRONCLAD-KAREN-shine-regression-client",
+        "result": "pass",
+        "originalHp": 101,
+        "damagedHp": 61,
+        "actorDeckShineCount": 0,
+        "bothAtRewards": true
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-KAREN-IRONCLAD-global-move",
+      "result": "pass",
+      "detail": {
+        "case": "beta-KAREN-IRONCLAD-global-move-regression",
+        "result": "pass",
+        "originalHp": 92,
+        "enemyHp": 85,
+        "bothAtRound2": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-IRONCLAD-KAREN-global-move",
+      "result": "pass",
+      "detail": {
+        "case": "beta-IRONCLAD-KAREN-global-move-regression",
+        "result": "pass",
+        "originalHp": 96,
+        "enemyHp": 89,
+        "bothAtRound2": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-KAREN-KAREN-promise",
+      "result": "pass",
+      "detail": {
+        "case": "stable-KAREN-KAREN-promise-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "promiseDrawLogged": true,
+        "karenActors": 2,
+        "handVisualsMatched": true,
+        "cardCountsRestored": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-KAREN-IRONCLAD-promise",
+      "result": "pass",
+      "detail": {
+        "case": "stable-KAREN-IRONCLAD-promise-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "promiseDrawLogged": true,
+        "karenActors": 1,
+        "handVisualsMatched": true,
+        "cardCountsRestored": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-IRONCLAD-KAREN-promise",
+      "result": "pass",
+      "detail": {
+        "case": "stable-IRONCLAD-KAREN-promise-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "promiseDrawLogged": true,
+        "karenActors": 1,
+        "handVisualsMatched": true,
+        "cardCountsRestored": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-KAREN-KAREN-promise",
+      "result": "pass",
+      "detail": {
+        "case": "beta-KAREN-KAREN-promise-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "promiseDrawLogged": true,
+        "karenActors": 2,
+        "handVisualsMatched": true,
+        "cardCountsRestored": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-KAREN-IRONCLAD-promise",
+      "result": "pass",
+      "detail": {
+        "case": "beta-KAREN-IRONCLAD-promise-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "promiseDrawLogged": true,
+        "karenActors": 1,
+        "handVisualsMatched": true,
+        "cardCountsRestored": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-IRONCLAD-KAREN-promise",
+      "result": "pass",
+      "detail": {
+        "case": "beta-IRONCLAD-KAREN-promise-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "promiseDrawLogged": true,
+        "karenActors": 1,
+        "handVisualsMatched": true,
+        "cardCountsRestored": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-KAREN-KAREN-promise-turn-end",
+      "result": "pass",
+      "detail": {
+        "case": "stable-KAREN-KAREN-promise-turn-end-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "bothPromisePilesTransformed": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-KAREN-IRONCLAD-promise-turn-end",
+      "result": "pass",
+      "detail": {
+        "case": "stable-KAREN-IRONCLAD-promise-turn-end-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "bothPromisePilesTransformed": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-stable-IRONCLAD-KAREN-promise-turn-end",
+      "result": "pass",
+      "detail": {
+        "case": "stable-IRONCLAD-KAREN-promise-turn-end-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "bothPromisePilesTransformed": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-KAREN-KAREN-promise-turn-end",
+      "result": "pass",
+      "detail": {
+        "case": "beta-KAREN-KAREN-promise-turn-end-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "bothPromisePilesTransformed": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-KAREN-IRONCLAD-promise-turn-end",
+      "result": "pass",
+      "detail": {
+        "case": "beta-KAREN-IRONCLAD-promise-turn-end-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "bothPromisePilesTransformed": true,
+        "errorCount": 0
+      },
+      "error": null
+    },
+    {
+      "case": "mp-beta-IRONCLAD-KAREN-promise-turn-end",
+      "result": "pass",
+      "detail": {
+        "case": "beta-IRONCLAD-KAREN-promise-turn-end-regression",
+        "result": "pass",
+        "bothAtRound2": true,
+        "bothPromisePilesTransformed": true,
+        "errorCount": 0
+      },
+      "error": null
+    }
+  ],
+  "mcp_stable": {
+    "repository": "D:\\Github\\STS2_Mcp",
+    "revision": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
+    "source_has_uncommitted_changes": true,
+    "build_source_sha256": "EED0904BCBD99337B6D4734936340067F32CC9F886114AE9194D888A6CBE1D5F",
+    "game_version": "v0.107.1",
+    "built_utc": "2026-10-17T13:02:09.3510629Z",
+    "multiplayer_run_command_added_to_build_copy": true,
+    "loopback_only": true
+  },
+  "mcp_beta": {
+    "repository": "D:\\Github\\STS2_Mcp",
+    "revision": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
+    "source_has_uncommitted_changes": true,
+    "build_source_sha256": "EED0904BCBD99337B6D4734936340067F32CC9F886114AE9194D888A6CBE1D5F",
+    "game_version": "v0.111.0",
+    "built_utc": "2026-10-17T13:02:10.9580068Z",
+    "multiplayer_run_command_added_to_build_copy": true,
+    "loopback_only": true
+  }
+}

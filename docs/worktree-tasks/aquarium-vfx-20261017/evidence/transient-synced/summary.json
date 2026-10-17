@@ -1,0 +1,48 @@
+{
+  "scope": "targeted singleplayer, not full or multiplayer",
+  "cases": {
+    "stable/transient-synced-recordings": [
+      "showcase"
+    ],
+    "beta/transient-synced-recordings": [
+      "showcase"
+    ]
+  },
+  "recordings": [
+    {
+      "branch": "stable",
+      "case": "showcase",
+      "captureFps": 29.180104284209204,
+      "repeated": 13,
+      "dropped": 0,
+      "seconds": 15.333333333333334,
+      "audioMeanDb": -41.3,
+      "audioPeakDb": -19.1
+    },
+    {
+      "branch": "beta",
+      "case": "showcase",
+      "captureFps": 29.893494483646034,
+      "repeated": 2,
+      "dropped": 0,
+      "seconds": 15,
+      "audioMeanDb": -41.2,
+      "audioPeakDb": -15.4
+    }
+  ],
+  "logAudit": [
+    {
+      "branch": "stable",
+      "run": "transient-synced-recordings",
+      "startupInvalidTaskIds": 0,
+      "unexpectedErrors": 0
+    },
+    {
+      "branch": "beta",
+      "run": "transient-synced-recordings",
+      "startupInvalidTaskIds": 0,
+      "unexpectedErrors": 0
+    }
+  ],
+  "handChecks": 4
+}
