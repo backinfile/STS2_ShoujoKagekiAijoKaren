@@ -1,9 +1,11 @@
-# 永不遗忘的闪耀：ImageGen 刀光主体与独立粒子
+# 永不遗忘的闪耀：常驻星切烙痕
 
-当前运行主体为 slash-body.png，来自新 ImageGen 参考板的右侧刀光。原始生成 RGBA 直接复制，不做程序改像素；两端收尖、斜向弯曲、内部朴素蓝白。参考图、完整提示词及来源见 docs/design/rare-vfx/unforgettable-shine-2026-10-16/slash-reference-redraw.md。此前 crescent.svg 保留为历史资源，运行时不再加载。
+当前运行贴图是 `lingering-star.png`，对应用户选定的 C「星切烙痕」。内置 ImageGen 根据概念板制作透明四芒切口；原始 RGBA 直接复制，没有程序改写像素。参考与完整生产提示词见 [任务记录](../../../docs/worktree-tasks/unforgettable-vfx-concepts-20261018/README.md) 和 [生产提示词](../../../docs/worktree-tasks/unforgettable-vfx-concepts-20261018/implementation/asset-prompt.md)。
 
-运行时保持贴图原始比例和角度，命中锚点与 32 个外缘 UV 点来自对其 alpha 的只读分析。全贴图方形边长为 min(300 × unit, 视口高度 × 0.22)，不随攻击距离拉伸；Shader 从上尖端到下尖端展开，命中后整体淡出。
+真实命中回调在目标视觉边界中心生成切口，贴图等比显示，一长一短斜轴构成四芒。方形边长为 clamp(目标屏幕高度 × 0.42, 48, 140)，透明留白使可见主体更小；不随攻击距离拉长。以目标视觉中心为基准，在按体型限制的窄椭圆内随机偏移，并附加 ±10° 以内的旋转。从少量随机候选中优先选择远离附近旧痕的落点；随机仅用于表现。亮层与残痕共用一次采样的完整画布变换，之后固定在战场上。
 
-外围为四组原生 CpuParticles2D，共 20 槽：GoldSparks 10、GoldTwinkles 2、CoralFragments 4、BlueWisps 4。沿主体实际外缘发射，速度、随机寿命、缩放和淡出独立。命中后停发，残留粒子自然退出，子节点随攻击释放。
+命中亮层约 1.2 秒渐淡，静态同形痕迹保持至当前战斗结束，目标死亡或移动不会带走旧痕。所有旧痕在一个 CanvasGroup 中合成，再通过 SelfModulate 施加 0.20 的整体透明度，重合位置不会靠反复 alpha 叠加变成不透明白块。亮层结束后只保留静态 Sprite，不继续发射粒子或重播闪烁。
 
-focus.png、impact.png、starburst.png 保留蓄势、命中和留星。耗尽奖励专属特效维持删除；蓄势和斩击专属音效调用、独占 WAV 及音频生成脚本已删除，奖励规则不变。
+Fast 缩短亮层淡化，Instant 直接留下静态结果；非交互模拟不生成视觉。战斗结束或房间变更时清理战斗组。伤害、闪耀与奖励规则不变，无专属音效、无耗尽奖励专属演出。
+
+`slash-body.png`、`crescent.svg`、`focus.png`、`impact.png`、`starburst.png` 作为历史资源保留，本牌当前运行时不再加载。旧弧线外缘粒子、全屏压暗与独立放射命中已移除。

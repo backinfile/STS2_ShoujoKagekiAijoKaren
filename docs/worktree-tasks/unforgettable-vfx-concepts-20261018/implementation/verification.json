@@ -1,0 +1,76 @@
+{
+  "scope": "targeted singleplayer VFX validation; multiplayer/full matrix not run",
+  "versions": {
+    "stable": {
+      "version": "v0.107.1",
+      "cases": {
+        "fast": "passed",
+        "instant": "passed",
+        "last": "passed",
+        "lethal": "passed",
+        "ordinary": "passed",
+        "pose": "passed",
+        "replay": "passed",
+        "room": "passed",
+        "stack": "passed",
+        "turn": "passed",
+        "upgrade": "passed"
+      },
+      "showcase": "passed",
+      "handChecks": 36,
+      "maxAnchorDrift": 0,
+      "allCombatGroupsCleared": true,
+      "build": {
+        "ShoujoKagekiAijoKaren.pck": "2469c05b2ffa86da5b32d480f6285795fd4b62f5487fd99ba71bbb56f0ed1dc2",
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "94f670b4898898c25dd7d9f196c48d159de542f00555fc0613b171b28c5293c5"
+      },
+      "videoSeconds": 13.3,
+      "captureFps": 29.76714563661913,
+      "framesRepeated": 5,
+      "framesDropped": 1,
+      "audioPeakDb": -13.4,
+      "previewGainDb": 8.4
+    },
+    "beta": {
+      "version": "v0.111.0",
+      "cases": {
+        "fast": "passed",
+        "instant": "passed",
+        "last": "passed",
+        "lethal": "passed",
+        "ordinary": "passed",
+        "pose": "passed",
+        "replay": "passed",
+        "room": "passed",
+        "stack": "passed",
+        "turn": "passed",
+        "upgrade": "passed"
+      },
+      "showcase": "passed",
+      "handChecks": 36,
+      "maxAnchorDrift": 0,
+      "allCombatGroupsCleared": true,
+      "build": {
+        "ShoujoKagekiAijoKaren.pck": "2469c05b2ffa86da5b32d480f6285795fd4b62f5487fd99ba71bbb56f0ed1dc2",
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "cefe50a9fa3433f8a0a72a6e131c42d160ed50d1486d2c78de78b2c1206a88a9"
+      },
+      "videoSeconds": 13.166666666666666,
+      "captureFps": 29.81446965120105,
+      "framesRepeated": 3,
+      "framesDropped": 0,
+      "audioPeakDb": -14.1,
+      "previewGainDb": 9.1
+    }
+  },
+  "asset": {
+    "file": "images/vfx/unforgettable/lingering-star.png",
+    "sha256": "b32f3b3d43a51cdc8577263d7cda7a8c8d9cf40f463edabb1958c604b54eebf2",
+    "mode": "built-in image_gen; original RGBA copied unchanged"
+  },
+  "testInfrastructureNote": "First stable batch passed ordinary/stack then encountered MCP timeout during transition; raw log kept as artifacts/unforgettable-persistent-20261018/stable/checks/attempt1-timeout.log. Remaining checks were rerun separately with reward-screen settling before the next encounter and all passed. Timeout cause not claimed resolved in production.",
+  "limits": [
+    "No full multiplayer matrix",
+    "No save/reload restoration test for historical cosmetic scars",
+    "No third-party mod compatibility matrix"
+  ]
+}

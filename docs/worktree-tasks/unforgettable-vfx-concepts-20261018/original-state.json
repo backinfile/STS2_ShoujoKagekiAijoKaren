@@ -1,0 +1,353 @@
+{
+  "Root": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren",
+  "Branch": "main",
+  "Head": "b895ffa089a448f852673e8fceb22ed363a5b4ed",
+  "Status": [
+    " M ShoujoKagekiAijoKaren/localization/eng/cards.json",
+    " M ShoujoKagekiAijoKaren/localization/jpn/cards.json",
+    " M ShoujoKagekiAijoKaren/localization/zhs/cards.json",
+    " M docs/06.Karen核心系统.md",
+    " M docs/localization/source-hashes.json",
+    " D images/vfx/bridge/bridge.png",
+    " D images/vfx/bridge/bridge.png.import",
+    " D images/vfx/bridge/right-tower-v5.png",
+    " D images/vfx/bridge/right-tower-v5.png.import",
+    " D images/vfx/bridge/right-tower-v6.png",
+    " D images/vfx/bridge/right-tower-v6.png.import",
+    " D images/vfx/bridge/right-tower-v7.png",
+    " D images/vfx/bridge/right-tower-v7.png.import",
+    " D images/vfx/bridge/stage-v10.png",
+    " D images/vfx/bridge/stage-v10.png.import",
+    " D images/vfx/bridge/stage-v11.png",
+    " D images/vfx/bridge/stage-v11.png.import",
+    " D images/vfx/bridge/stage-v3.png",
+    " D images/vfx/bridge/stage-v3.png.import",
+    " D images/vfx/bridge/stage-v4.png",
+    " D images/vfx/bridge/stage-v4.png.import",
+    " D images/vfx/bridge/stage-v8.png",
+    " D images/vfx/bridge/stage-v8.png.import",
+    " D images/vfx/bridge/stage-v9.png",
+    " D images/vfx/bridge/stage-v9.png.import",
+    " D images/vfx/bridge/towers.png",
+    " D images/vfx/bridge/towers.png.import",
+    " M src/Core/Audio/KarenAudioManager.cs",
+    " M src/Core/DisableRelicSystem/Patches/DisableRelicRestorePatch.cs",
+    " M src/Core/Models/Cards/shine/KarenRewrite.cs",
+    " M src/Core/Models/Cards/shine/KarenStar.cs",
+    " M src/Core/Patches/KarenCharSelectVideoController.cs",
+    " M src/Core/Patches/NCharacterSelectKarenVideoPatch.cs",
+    " D src/Core/SaveSystem/KarenExtraFieldsSaveBuffer.cs",
+    " D src/Core/SaveSystem/KarenExtraFieldsSaveBuffer.cs.uid",
+    " M src/Core/SaveSystem/Patches/RunSaveManager_Patches.cs",
+    " M src/Core/SaveSystem/Patches/SerializablePlayerExtraFields_Patches.cs",
+    " M src/Core/SaveSystem/PlayerExtraFieldsHandlerBase.cs",
+    "?? docs/20.卡牌特效制作步骤提示词.md",
+    "?? docs/design/bridge-history-2026-10-18/",
+    "?? docs/testing/review-fixes-2026-10-18.md",
+    "?? src/Core/SaveSystem/KarenRunSaveReadScope.cs",
+    "?? src/Core/SaveSystem/KarenRunSaveReadScope.cs.uid",
+    "?? tools/clean_generated_artifacts.ps1",
+    "?? tools/preview_cleanup.ps1",
+    "?? tools/review-fixes/",
+    "?? tools/test_preview_cleanup.ps1"
+  ],
+  "Files": [
+    {
+      "Path": "docs/06.Karen核心系统.md",
+      "Hash": "CC9B8871A4E11BC5126C00CD7D4F18A6C3837900FCB3F984252E51B7CAE21559"
+    },
+    {
+      "Path": "docs/20.卡牌特效制作步骤提示词.md",
+      "Hash": "F583EE87D1AF18DAF80B4D1ACF971FBE7D94538C9FCCF47B654FA273B7FFB989"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/.gdignore",
+      "Hash": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/bridge.png",
+      "Hash": "2C32164D56FB984CF3DCB95F0F43B866045ECE20E68049AAFE342D389BFA968F"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/bridge.png.import",
+      "Hash": "CD35D98477A3857C8486EB5600B9176B6269251425F5C09E6C4432A309297F94"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/README.md",
+      "Hash": "68A5F7804E7FDBED19EB7DAA1DA0C55A379F50216191147DB530D3AEBCEB5286"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/right-tower-v5.png",
+      "Hash": "C0D0F53E6E253BB53FCB9FDD2029EACB47FD400FF71311CF87B4AC14B9D96949"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/right-tower-v5.png.import",
+      "Hash": "1D23A81AE4CCEE4EFA043819063D4902CE777203A564F22C7FEC94FBF4CF3454"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/right-tower-v6.png",
+      "Hash": "54B59678A0E1D72342BC18E193D9DD9D16D8617A02411CE4A6AB8933D5D0BFA1"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/right-tower-v6.png.import",
+      "Hash": "4777AF2A96693CF2275319A1D6E3531F566465B5932F1899C75FC60ACE16230B"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/right-tower-v7.png",
+      "Hash": "77AE50AA4F2A1778CC3F6964B31B8FF48C71724E74423A975090F66BEBC56586"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/right-tower-v7.png.import",
+      "Hash": "5FDC60C82E82B347D291A1B2FDD3A52EC9875AAF7FE6C2A9680F15FF129EFBF1"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v10.png",
+      "Hash": "ED42C46FA9C75413067224F35AA0937522686C5C17A61DE156D505EEE48967DC"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v10.png.import",
+      "Hash": "6E1053862AE378DB510294A1C2C2663E041D014445109237988503D23562E371"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v11.png",
+      "Hash": "DFD77B2A353DEB3C36F2227917C1594B34B034C590CFD12E954116D01293A57B"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v11.png.import",
+      "Hash": "34A91A0F9C51D4E7C21EC2A4B54A80294F962539B81D26531BE015CC27EF8996"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v3.png",
+      "Hash": "FD739CCAEDB2D8C63A094F501076B46524F4931C0AE7E0E4AF059C33159B3874"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v3.png.import",
+      "Hash": "2C72D78458D389387D21BF10EB7E6E8ABE3075FF6779A6D36AE4B9E12DD832D7"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v4.png",
+      "Hash": "B0F51AC9553E9D14C30846112B6C69591D3EECCD485A6A87B2FDF186719B04E0"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v4.png.import",
+      "Hash": "626470D2C45ED968F2B8EB50760AE05A8098EFF1FCE4DD5D6879BCB3CE88DF2C"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v8.png",
+      "Hash": "6D7C3C4506EE63EEA4BCD5B87AECA293DA027083522D64427D242472AE3F4B7D"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v8.png.import",
+      "Hash": "904126F397A1BC4318475D512FFD0B46D963279A72C1D31EFE6EE83323BED19A"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v9.png",
+      "Hash": "1635A032D39A1518864A31A548AA913C8F875B44FF79219947E383F3D66CC2F5"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/stage-v9.png.import",
+      "Hash": "5223E2DC152C7C609CE25E2EC5868C8D3479D90FF2D94738D598E9573EE4C78E"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/towers.png",
+      "Hash": "D6D749ED73BD694AE52A60C044089D907F72E2DB1CAE20124EDC6EA326D74C0A"
+    },
+    {
+      "Path": "docs/design/bridge-history-2026-10-18/towers.png.import",
+      "Hash": "A94EB5783AB2313932EC6946A1EF5C5B1A74B8D8C93B3867A93DA3C9FD6DFB38"
+    },
+    {
+      "Path": "docs/localization/source-hashes.json",
+      "Hash": "855EAE911787EBBEE037B8E7AD4E5D587E9C4E6FD78CD656B5915B9F49292033"
+    },
+    {
+      "Path": "docs/testing/review-fixes-2026-10-18.md",
+      "Hash": "C35BB7C40898BC4F2EFCB7C6539EA359514A9300D216539C982F29C4B583E934"
+    },
+    {
+      "Path": "images/vfx/bridge/bridge.png",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/bridge.png.import",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/right-tower-v5.png",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/right-tower-v5.png.import",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/right-tower-v6.png",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/right-tower-v6.png.import",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/right-tower-v7.png",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/right-tower-v7.png.import",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v10.png",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v10.png.import",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v11.png",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v11.png.import",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v3.png",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v3.png.import",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v4.png",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v4.png.import",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v8.png",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v8.png.import",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v9.png",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/stage-v9.png.import",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/towers.png",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "images/vfx/bridge/towers.png.import",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "ShoujoKagekiAijoKaren/localization/eng/cards.json",
+      "Hash": "CED32BD2B7ED276BC1CCB24DC50CE06BC6F06745253100BBBBAFA5DCB1634DAC"
+    },
+    {
+      "Path": "ShoujoKagekiAijoKaren/localization/jpn/cards.json",
+      "Hash": "1ECBA0B77D811F5FC975AA3720C37BB7518A17E74AA02C10082D1E020D1C79AD"
+    },
+    {
+      "Path": "ShoujoKagekiAijoKaren/localization/zhs/cards.json",
+      "Hash": "F520ABA5BD5DA7923F5600032F68D1FE4E8E42C88297F6B6E86AE9AB1C75F5DB"
+    },
+    {
+      "Path": "src/Core/Audio/KarenAudioManager.cs",
+      "Hash": "9FAAAAAA1F5A1E38A1BE53AB289C6E87E54C71A9F8A4756E549563F3229E436F"
+    },
+    {
+      "Path": "src/Core/DisableRelicSystem/Patches/DisableRelicRestorePatch.cs",
+      "Hash": "3B096E4A81509D23A27C70827FF44C410B84ADB3A0EB3B9A65A1C5DEA96978DD"
+    },
+    {
+      "Path": "src/Core/Models/Cards/shine/KarenRewrite.cs",
+      "Hash": "997196E067E1C0054469191ADF89E5485C675E738416DCBCB275C8AB93085EC1"
+    },
+    {
+      "Path": "src/Core/Models/Cards/shine/KarenStar.cs",
+      "Hash": "D3545776057717FFB728870394705DD3C13868884D6008D7E8FF1599A909BC9A"
+    },
+    {
+      "Path": "src/Core/Patches/KarenCharSelectVideoController.cs",
+      "Hash": "0F1A32D6C4406AD05E3DC3900B2438A9738E2FFF65EECA1919024D6DD0A4FA86"
+    },
+    {
+      "Path": "src/Core/Patches/NCharacterSelectKarenVideoPatch.cs",
+      "Hash": "09F87131CB3CAA2A4928A50C329D98D0D52EA0BE41C4402F900C15043229F3E5"
+    },
+    {
+      "Path": "src/Core/SaveSystem/KarenExtraFieldsSaveBuffer.cs",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "src/Core/SaveSystem/KarenExtraFieldsSaveBuffer.cs.uid",
+      "Hash": "<missing>"
+    },
+    {
+      "Path": "src/Core/SaveSystem/KarenRunSaveReadScope.cs",
+      "Hash": "C1436E60852FDBC228EEABAF12B472CEF585E556959DE07687ADB8A42282E894"
+    },
+    {
+      "Path": "src/Core/SaveSystem/KarenRunSaveReadScope.cs.uid",
+      "Hash": "5EDCF0B9C6BFB4A1E17FF43CE317F22DF1ACA62792929AC9BC4B2B1F00AA4C3A"
+    },
+    {
+      "Path": "src/Core/SaveSystem/Patches/RunSaveManager_Patches.cs",
+      "Hash": "1C729F2082C0EB282FC257D0F6AA261F69989E0076DE11A42C0624DD785F8B67"
+    },
+    {
+      "Path": "src/Core/SaveSystem/Patches/SerializablePlayerExtraFields_Patches.cs",
+      "Hash": "E3DE13F96326E0F6C78FE6B4D221E108DB81D9A9A8135B6DFA23B38FF04E7748"
+    },
+    {
+      "Path": "src/Core/SaveSystem/PlayerExtraFieldsHandlerBase.cs",
+      "Hash": "B7D9E2EF9D3AD927948DE0C9D24E4E6399A5225DA61074C70A865EE5B11E7F95"
+    },
+    {
+      "Path": "tools/clean_generated_artifacts.ps1",
+      "Hash": "2465DFB6A2BC5D4B1EF66A1E2C2990277A3B94B33A03E7B43D8F72BF187443B9"
+    },
+    {
+      "Path": "tools/preview_cleanup.ps1",
+      "Hash": "FD6BAFE4DCB4353558069DE06D57E40266C5049230AAA0A48B02342A19ECB750"
+    },
+    {
+      "Path": "tools/review-fixes/.gdignore",
+      "Hash": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "tools/review-fixes/KarenReviewFixes.csproj",
+      "Hash": "F298B7E442552D916D2B4B14441B8803E672C1F4BE33EFC44CC723BC9B6FC8A5"
+    },
+    {
+      "Path": "tools/review-fixes/README.md",
+      "Hash": "2CE9A8CFB2489A7E91ECC13CF1F3B06AC91E30F854E1F882FE1ED7E6A0EE4630"
+    },
+    {
+      "Path": "tools/review-fixes/ReviewFixesCmd.cs",
+      "Hash": "E5C4A5EDC52687572AEDAA4532A56F4B719B669559117922A6F1C065CCB6EF25"
+    },
+    {
+      "Path": "tools/review-fixes/run.py",
+      "Hash": "A75C820F1C598BDFE8170C57DCFEBCE64386D7C2CFE9864246FC3E5B30704031"
+    },
+    {
+      "Path": "tools/test_preview_cleanup.ps1",
+      "Hash": "418C3758B0C266C83DC1071F1D910BFA8E5AF933F996321C1FB0D97C6AABF205"
+    }
+  ],
+  "OriginalUserInput": "永不遗忘的特效太复杂了，你看看能不能完全重新设计下，你先用imagegen设计几种 [$worktree-task](C:\\Users\\17575\\\\.codex\\skills\\worktree-task\\SKILL.md) "
+}

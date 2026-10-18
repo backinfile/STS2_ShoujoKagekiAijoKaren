@@ -1,0 +1,113 @@
+{
+  "scope": "jitter revision; six targeted singleplayer checks per version",
+  "sampling": "presentation-only bounded offset; best of eight nearby candidates; additional rotation within +/-10 degrees; sampled once per hit",
+  "versions": {
+    "stable": {
+      "cases": {
+        "fast-stack": "passed",
+        "instant-replay": "passed",
+        "pose": "passed",
+        "replay": "passed",
+        "stack": "passed",
+        "turn": "passed"
+      },
+      "separation": {
+        "replay": {
+          "minCenterDistanceCanvasUnits": 55.229166816663934,
+          "additionalRotationDegrees": [
+            7.12426150297537,
+            9.61195887872193
+          ]
+        },
+        "stack": {
+          "minCenterDistanceCanvasUnits": 31.247865998216543,
+          "additionalRotationDegrees": [
+            9.953967126918036,
+            -2.995564873519341,
+            -2.236929619748724
+          ]
+        },
+        "fast-stack": {
+          "minCenterDistanceCanvasUnits": 24.36744432482827,
+          "additionalRotationDegrees": [
+            -6.736873278531517,
+            -7.762286104194635,
+            -6.269541398848652
+          ]
+        },
+        "instant-replay": {
+          "minCenterDistanceCanvasUnits": 44.499241841631424,
+          "additionalRotationDegrees": [
+            -4.73311725599087,
+            5.332270681515075
+          ]
+        }
+      },
+      "handChecks": 18,
+      "maxPositionDrift": 0,
+      "maxRotationDrift": 0,
+      "maxFlashToScarMismatch": 0,
+      "build": {
+        "ShoujoKagekiAijoKaren.pck": "1ceea3f01930c61db3216b20410ed7e97be99ff6db9952ee1a3e1ab6e9849795",
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "619ef37d661f5d22e06b29e5a0f44f2b4e44e0a2d28c80099c57033357aae307"
+      },
+      "videoSeconds": 9.133333333333333,
+      "captureFps": 29.078852509854467,
+      "audioSourcePeakDb": -14.6
+    },
+    "beta": {
+      "cases": {
+        "fast-stack": "passed",
+        "instant-replay": "passed",
+        "pose": "passed",
+        "replay": "passed",
+        "stack": "passed",
+        "turn": "passed"
+      },
+      "separation": {
+        "replay": {
+          "minCenterDistanceCanvasUnits": 39.31388172335062,
+          "additionalRotationDegrees": [
+            0.712568415718068,
+            6.279662698299638
+          ]
+        },
+        "stack": {
+          "minCenterDistanceCanvasUnits": 21.379402222007837,
+          "additionalRotationDegrees": [
+            -9.437417026717842,
+            7.1765633823460915,
+            8.139935764994648
+          ]
+        },
+        "fast-stack": {
+          "minCenterDistanceCanvasUnits": 32.21243767951137,
+          "additionalRotationDegrees": [
+            -2.6794466973244737,
+            -0.11220235939793681,
+            2.872780762867939
+          ]
+        },
+        "instant-replay": {
+          "minCenterDistanceCanvasUnits": 39.25994642884269,
+          "additionalRotationDegrees": [
+            -9.056494630992042,
+            -0.4640893682807716
+          ]
+        }
+      },
+      "handChecks": 18,
+      "maxPositionDrift": 0,
+      "maxRotationDrift": 0,
+      "maxFlashToScarMismatch": 0,
+      "build": {
+        "ShoujoKagekiAijoKaren.pck": "1ceea3f01930c61db3216b20410ed7e97be99ff6db9952ee1a3e1ab6e9849795",
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "6d6928848b9112f54d35de3ffed0f4c0acb4fcc280964848420bd7061801a9be"
+      },
+      "videoSeconds": 9.266666666666667,
+      "captureFps": 29.383152987750293,
+      "audioSourcePeakDb": -13.2
+    }
+  },
+  "limits": "The initial C build has its own earlier 11-case evidence. This revision reruns only these six directly related cases; full multiplayer and save/load history reconstruction not tested."
+}
