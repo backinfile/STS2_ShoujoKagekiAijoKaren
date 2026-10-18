@@ -2,12 +2,15 @@ using BaseLib.Utils;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Audio.Debug;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx.Cards;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -56,6 +59,8 @@ public partial class NKarenDrawPileDestroyVfx : Node2D
 
     public static async Task Play(Player player)
     {
+        if (NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant) return;
+
         var room = NCombatRoom.Instance;
         var icon = room?.Ui.DrawPile.GetNodeOrNull<TextureRect>("Icon");
         var model = player.PlayerCombatState?.DrawPile.Cards.FirstOrDefault();
@@ -71,7 +76,7 @@ public partial class NKarenDrawPileDestroyVfx : Node2D
         if (effect._countContainer != null)
             effect._originalCountModulate = effect._countContainer.Modulate;
         room!.Ui.AddChild(effect);
-        await Task.Delay(1100);
+        await Cmd.Wait(1.1f);
     }
 
     public override void _Ready()

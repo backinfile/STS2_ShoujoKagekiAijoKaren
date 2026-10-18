@@ -34,7 +34,11 @@ public sealed class KarenStarlightPower : PowerModel
             {
                 Flash();
                 var effect = NKarenStageCueVfx.Play(player, NKarenStageCueVfx.CueKind.Act1Draw, cardPlay.Card);
-                try { effect?.ConfirmCards(await CardPileCmd.Draw(context, Amount, player)); }
+                try
+                {
+                    var drawn = await CardPileCmd.Draw(context, Amount, player);
+                    effect?.ConfirmCards(drawn);
+                }
                 finally { effect?.Finish(); }
             }
         }
