@@ -1,3 +1,6 @@
+if wanted & {'geer-speed-baseline', 'geer-speed-after', 'geer-speed-checks'}:
+    exec(compile((main / 'tools/vfx/catalog/geer_speed.py').read_text(encoding='utf-8-sig'), 'geer_speed.py', 'exec'))
+
 if wanted & {'suitability-polish', 'suitability-checks', 'suitability-wake-upgraded', 'suitability-jealousy-mahiru'}:
     exec(compile((main / 'tools/vfx/catalog/suitability_polish.py').read_text(encoding='utf-8'), 'suitability_polish.py', 'exec'))
 

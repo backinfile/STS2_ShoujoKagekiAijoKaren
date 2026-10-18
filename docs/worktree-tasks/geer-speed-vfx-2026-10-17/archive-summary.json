@@ -1,0 +1,8 @@
+{
+  "source": "../worktrees/STS2_ShoujoKagekiAijoKaren/geer-speed-vfx-2026-10-17/artifacts/geer-speed-20261017",
+  "destination": "artifacts/geer-speed-20261017",
+  "excluded": "isolated game/user directories and all reparse points; development games can be recreated",
+  "fileCount": 1234,
+  "bytes": 461534430,
+  "manifestSha256": "77944a33f3a5e3ad4f866e7438ab4de30457c094a9ba051983b0008e90ba6a3a"
+}

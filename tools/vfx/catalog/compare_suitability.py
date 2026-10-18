@@ -10,8 +10,9 @@ parser.add_argument('--output', type=Path, required=True)
 parser.add_argument('--branch', choices=['stable', 'beta'], default='stable')
 parser.add_argument('--wake-upgraded', action='store_true', help='Compare the full upgraded two-stage Wake Up sequence only')
 parser.add_argument('--mahiru', action='store_true', help='Compare previous muted Jealousy with the TV Mahiru revision')
+parser.add_argument('--geer-speed', action='store_true', help='Compare real Geer plays in Normal/Fast/Instant and mid-cast Instant switching')
 args = parser.parse_args()
-assert not (args.mahiru and args.wake_upgraded)
+assert sum((args.mahiru, args.wake_upgraded, args.geer_speed)) <= 1
 root = args.output.resolve()
 repo = Path(__file__).resolve().parents[3]
 delivery = root / 'comparison'
@@ -44,6 +45,12 @@ if args.wake_upgraded:
     scenes = [('polish-wake-upgraded', '唤醒＋ · 两段完整选择', '第一段选牌堆保持原样；第二段选牌幕布收敛，确认后回手')]
 if args.mahiru:
     scenes = [('polish-jealousy', '嫉妒 · TV真昼彩纸', '恢复粉／黄／绿／紫片面，增强侧翻、珍珠光泽与边角短闪；攻击方向和节奏保持')]
+if args.geer_speed:
+    scenes = [(f'geer-{mode}', title, note) for mode, title, note in [
+        ('normal', '命运的齿轮 · 普通', '保留1秒施放与0.62秒触发；选牌后真实自动打出'),
+        ('fast', '命运的齿轮 · 快速', '保留已有演出节拍及规则等待，选牌前齿轮收束'),
+        ('instant', '命运的齿轮 · 瞬时', '瞬时模式跳过齿轮装饰与机械声，原生选牌和自动出牌保留'),
+        ('switch-cast', '命运的齿轮 · 播放中切瞬时', '齿轮播放至0.30秒切换原生偏好；下一帧退出并停止所属音效')]]
 manifest = []
 for scene, title, note in scenes:
     before = root / 'before/stable' / scene
@@ -53,7 +60,7 @@ for scene, title, note in scenes:
     marks = [json.loads((folder / 'markers.json').read_text(encoding='utf-8-sig')) for folder in (before, after)]
     assert len(marks[0]) == len(marks[1]) > 0
     captures = [json.loads((folder / 'recording.json').read_text(encoding='utf-8-sig')) for folder in (before, after)]
-    for capture, package, branch in [(captures[0], root / 'before-package', 'stable'), (captures[1], root / 'final-package', args.branch)]:
+    for capture, package, branch in [(captures[0], root / 'before-package', 'stable'), (captures[1], root / ('after-package' if args.geer_speed else 'final-package'), args.branch)]:
         assert capture['status'] == 'completed' and capture['audio_source'] == 'game_process'
         assert capture['captureBuild']['assemblySha256'] == sha(package / 'lib' / f'ShoujoKagekiAijoKaren.{branch.title()}.dll')
         assert capture['captureBuild']['packSha256'] == sha(package / 'ShoujoKagekiAijoKaren.pck')
@@ -82,8 +89,8 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 '''
         def line(text):
             return f'Dialogue: 0,0:00:00.00,{stamp(length)},Main,,0,0,0,,{text}\n'
-        ass += line(r'{\pos(22,10)\b1\c&HAAA9A0&}' + ('上一轮 · 压色版' if args.mahiru else '修改前 · main 782a71e'))
-        ass += line(r'{\pos(982,10)\b1\c&H8BCEFF&}' + ('修改后 · TV真昼参考修订' if args.mahiru else '修改后 · 审查调整版'))
+        ass += line(r'{\pos(22,10)\b1\c&HAAA9A0&}' + ('修改前 · main 386aa5a' if args.geer_speed else '上一轮 · 压色版' if args.mahiru else '修改前 · main 782a71e'))
+        ass += line(r'{\pos(982,10)\b1\c&H8BCEFF&}' + ('修改后 · 瞬时模式修复' if args.geer_speed else '修改后 · TV真昼参考修订' if args.mahiru else '修改后 · 审查调整版'))
         ass += line(r'{\an9\pos(1894,13)\fs20\c&HAAA9A0&}1× 原速 · 右侧游戏原声')
         ass += line(r'{\pos(22,598)\b1\fs25}' + f'{index:02}  {title}  ·  ' + marks[1][step]['title'].split('｜')[-1])
         ass += line(r'{\pos(22,633)\fs19\c&HD6DFDF&}' + note)
@@ -112,7 +119,7 @@ call(['ffmpeg','-hide_banner','-f','concat','-safe','0','-i',str(edit/'concat.tx
 import re
 peak = float(re.search(r'max_volume: (-?[\d.]+) dB', (edit/'audio.log').read_text(encoding='utf8')).group(1))
 gain = max(0, -4-peak)
-target = delivery / ('Karen-Jealousy-TV-Mahiru-before-after.mp4' if args.mahiru else 'Karen-WakeUp-two-stage-before-after.mp4' if args.wake_upgraded else 'Karen-VFX-before-after.mp4')
+target = delivery / ('Karen-Geer-speed-before-after.mp4' if args.geer_speed else 'Karen-Jealousy-TV-Mahiru-before-after.mp4' if args.mahiru else 'Karen-WakeUp-two-stage-before-after.mp4' if args.wake_upgraded else 'Karen-VFX-before-after.mp4')
 call(['ffmpeg','-hide_banner','-y','-f','concat','-safe','0','-i',str(edit/'concat.txt'),'-i',str(edit/'chapters.ffmeta'),'-map_metadata','1','-map_chapters','1',
       '-c:v','copy','-c:a','aac','-b:a','192k','-af',f'volume={gain}dB','-movflags','+faststart',str(target)], edit/'concat.log')
 (delivery/'manifest.json').write_text(json.dumps(dict(method='Action-marker alignment; original speed; shorter side holds its last frame. Right game-process audio only. No added effects.',

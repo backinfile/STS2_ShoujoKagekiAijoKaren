@@ -14,6 +14,12 @@
 水族馆的特效不要常驻
 ```
 
+合回确认（2026-10-18）：
+
+```text
+合并
+```
+
 ## Brief task plan
 
 - 从本次开始时捕获的 main 建立 `../worktrees/STS2_ShoujoKagekiAijoKaren/aquarium-vfx-20261017`；起点与原有未跟踪状态见 `original-state.json`。
@@ -24,7 +30,7 @@
 
 ## Result and changes
 
-已按最新反馈取消常驻，等待合回确认。当前视频：`aquarium-transient-synced-recordings.mp4`；本轮证据：`evidence/transient/`。旧 `aquarium-recordings.mp4` 与 `concept.png` 属于首版常驻方案，已被本轮取代。
+已按最新反馈取消常驻，用户于 2026-10-18 明确确认合回 `main`。当前视频：`aquarium-transient-synced-recordings.mp4`；本轮证据：`evidence/transient/`。旧 `aquarium-recordings.mp4` 与 `concept.png` 属于首版常驻方案，已被本轮取代。
 
 - 删除水母和水面 Shader 的基础常驻亮度、循环气泡，以及进入房间自动恢复特效的 Hook。
 - 水母／水光仅在施放与回合真实触发时短暂显示，约 1–1.5 秒淡出；真实抽牌的卡位水纹、实际移牌完成后的气泡收束同样限时播放。
@@ -87,4 +93,12 @@ python tools/vfx/aquarium/summarize.py --run transient
 
 ### 集成状态
 
-上一张贯穿特效已按用户明确确认合入 main（`3b4990147edc4d2f1ca151ae9b8e52c9753a94e1`），原工作树／分支已清理，本张使用独立工作树。原始 main 的 4 个未跟踪文件保留且不纳入本任务。本张实现与用户反馈整理为一个任务提交，随后合入最新本地 main 并完成同步验证；根据 worktree-task 要求单独确认合回。四个原有未跟踪文件已逐一对比 SHA-256，未纳入本提交。
+上一张贯穿特效已按用户明确确认合入 main（`3b4990147edc4d2f1ca151ae9b8e52c9753a94e1`），原工作树／分支已清理，本张使用独立工作树。原始 main 的 4 个未跟踪文件保留且不纳入本任务。本张实现与用户反馈整理为一个任务提交，随后合入最新本地 main 并完成同步验证；用户已于 2026-10-18 发送“合并”确认，采用快进合回。四个原有未跟踪文件已逐一对比 SHA-256，未纳入本提交。
+
+
+### 合回与清理核对（2026-10-18）
+
+- 合回前 main 在检查期间新增独立齿轮 Instant 模式修复 `cccf906998f771328410077693676c3ab47284a8`，已再次同步；水族馆的命令、能力、节点与 Shader 和已实测版本逐文件一致，双 API 集成编译各 27 个既有警告、0 错误。本次集成未追加完整矩阵或新的兼容性结论。
+- main 当前另有 6 个已跟踪修改和 6 个未跟踪文件，与本任务合回路径没有重叠；记录在 `pre-merge-state.json`，合回后再次核对。最初 4 个未跟踪文件的内容哈希也保持一致。
+- 原始实机材料、测试插件、MCP 与已验证包已归档到 `artifacts/vfx-archive/aquarium-vfx-20261017`，1420 个文件逐一比对哈希一致；概要见 `archive-summary.json`。包对应已验证视频的 main 386aa5a，归档用于重现验证，不代表额外部署。
+- 确认 main 包含本任务、提交树一致、未提交文件未被覆盖后，清理本任务的 `aquarium-vfx-20261017` 工作树及 `codex/aquarium-vfx-20261017` 分支；其他工作树与分支保留。
