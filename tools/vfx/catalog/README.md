@@ -1,5 +1,11 @@
 # Karen 特效全览录制
 
+`--scenes waiting-icon` 定向检查“舞台正在等待着”的能量图标贴边效果：真实打出能力、清空约定牌堆回能、1→3 层、计数器与图标层独立变换、Fast／Instant、能力移除清理。`WaitingStageProbe` 从实际纹理的 alpha 边缘独立测量光点误差，包含水平边；阈值为图标局部坐标 2 像素。沿用本文准备流程，每版使用各自的隔离环境、端口和观察器，结果写入 `waiting-icon*` 目录。移牌前后截图及 `karen_check_hand` 仍需查看。
+
+`--scenes waiting-icon-preview` 只跑上述普通模式的创建、回能、叠层、变换及清理，供小幅视觉调整预览使用。观察器另累计整圈光框是否曾经可见，去框版本必须始终为 `false`。
+
+边缘小亮点改为巡游光点掠过后短亮再淡出。`WaitingStageProbe` 用实际主光点的移动线段独立检查点亮来源，汇报 `unexpectedGlints` 和 `fadedGlints`；`waiting-stage-preview` 同时覆盖普通／Fast、各层数及空堆／有牌状态。
+
 [2026-10-16 main 共存专项](../../../docs/testing/vfx-coexistence-2026-10-16.md) 增加 `coexistence-regressions`：11 项实际 Godot 可见性／权重检查及 9 项真实音乐淡出中断检查；旧包会在祖先隐藏、祖先排队释放及旧音乐恢复回调上失败。`recent-stack-normal,recent-stack-void` 将 Position 0、激情、骄傲、嫉妒、背靠背、永不遗忘的闪耀、Why、唤醒和命运交换放在四种旧常驻表现上真实出牌，并在换房后检查注册清零。选牌和交换的 MCP 前后截图放在录制之外保存。当前全量入口清单见 [特效总览](../../../docs/21.特效总览与兼容约定.md)，历史 49 段合辑不代表包含这些近期演出。
 
 同日完整矩阵后的接力专项捕获了 NPower 场景 Ready 但 Model 未绑定时的异常。`coexistence-regressions` 另含 `vfx_coexist power-anchor` 的十项原生节点检查，覆盖未绑定占位、精确模型、空目标、隐藏恢复、脱树与排队释放；激情、骄傲、星光及舞台图标共用安全锚点入口。最终包与初轮包的区别及实际复测范围见 [完整矩阵与边界记录](../../../docs/testing/full-matrix-vfx-boundaries-2026-10-16.md)。

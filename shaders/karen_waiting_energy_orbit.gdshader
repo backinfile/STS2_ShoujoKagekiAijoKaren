@@ -6,7 +6,7 @@ uniform float build = 1.0;
 uniform float opening = 0.0;
 uniform float phase = 0.0;
 uniform int seed_count = 1;
-uniform vec2 outline_points[42];
+uniform vec2 outline_points[72];
 uniform float outline_perimeter = 6.0;
 uniform vec4 light_color : source_color = vec4(0.94, 0.54, 0.64, 1.0);
 uniform vec4 core_color : source_color = vec4(1.0, 0.965, 0.98, 1.0);
@@ -17,9 +17,9 @@ void fragment() {
     float delta = 10.0;
     float along = 0.0;
     float travelled = 0.0;
-    for (int i = 0; i < 42; i++) {
+    for (int i = 0; i < 72; i++) {
         vec2 a = outline_points[i] * radius;
-        vec2 edge = (outline_points[(i + 1) % 42] - outline_points[i]) * radius;
+        vec2 edge = (outline_points[(i + 1) % 72] - outline_points[i]) * radius;
         float edge_length = length(edge);
         float t = clamp(dot(p - a, edge) / max(dot(edge, edge), 0.0000001), 0.0, 1.0);
         float distance_to_edge = length(p - a - edge * t);

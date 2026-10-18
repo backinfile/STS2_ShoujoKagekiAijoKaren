@@ -34,6 +34,13 @@ public static class WaitingStageProbe
         public float MinBuild = 1, MaxBuild, BuildNow, MinPhase = float.MaxValue, MaxPhase = float.MinValue;
         public int CreationStarts, PartialFrames, PeakCreationHeads, HeadsNow;
         public float HexHeadError, HexCanvasError;
+        public float IconEdgeError;
+        public bool RingVisible;
+        public int PeakGlints, FadedGlints, UnexpectedGlints;
+        public readonly Dictionary<Sprite2D, Vector2> PreviousHeads = new();
+        public readonly Dictionary<Sprite2D, float> LastGlintPass = new();
+        public readonly HashSet<Sprite2D> LitGlints = new();
+        public object? IconEdgeWorst;
         public int HexSidesSeen, PowerLayers;
         public bool CountMatches = true;
         public float PatrolScale, PatrolBrightness;
@@ -49,6 +56,38 @@ public static class WaitingStageProbe
         public readonly List<object> AudioEvents = new();
     }
     private static readonly List<Seen> SeenNodes = new();
+    private static readonly Dictionary<Texture2D, Vector2[]> IconEdges = new();
+    private static Vector2[] IconEdge(Texture2D texture)
+    {
+        if (IconEdges.TryGetValue(texture, out var cached)) return cached;
+        var atlas = texture as AtlasTexture;
+        using var source = (atlas?.Atlas ?? texture).GetImage();
+        if (source.IsCompressed()) source.Decompress();
+        using var image = atlas == null ? source.Duplicate() as Image
+            : source.GetRegion(new Rect2I((Vector2I)atlas.Region.Position, (Vector2I)atlas.Region.Size));
+        var points = new List<Vector2>();
+        var offset = atlas?.Margin.Position ?? Vector2.Zero;
+        for (int y = 0; y < image!.GetHeight(); y += 2)
+        {
+            int left = 0, right = image.GetWidth() - 1;
+            while (left < image.GetWidth() && image.GetPixel(left, y).A < .5f) left++;
+            if (left == image.GetWidth()) continue;
+            while (right > left && image.GetPixel(right, y).A < .5f) right--;
+            points.Add((new Vector2(left, y + .5f) + offset) / texture.GetSize());
+            points.Add((new Vector2(right + 1, y + .5f) + offset) / texture.GetSize());
+        }
+        // Row endpoints alone omit horizontal edges (the nonagon's flat base).
+        for (int x = 0; x < image.GetWidth(); x += 2)
+        {
+            int top = 0, bottom = image.GetHeight() - 1;
+            while (top < image.GetHeight() && image.GetPixel(x, top).A < .5f) top++;
+            if (top == image.GetHeight()) continue;
+            while (bottom > top && image.GetPixel(x, bottom).A < .5f) bottom--;
+            points.Add((new Vector2(x + .5f, top) + offset) / texture.GetSize());
+            points.Add((new Vector2(x + .5f, bottom + 1) + offset) / texture.GetSize());
+        }
+        return IconEdges[texture] = points.ToArray();
+    }
     private static bool _watch;
     private static Node2D? _clock;
     private static readonly List<ColorRect> ClockCells = new();
@@ -101,14 +140,17 @@ public static class WaitingStageProbe
             seen.HudCorrect &= counter != null && node.Hud.GetParent() == counter;
             if (counter != null)
             {
-                var expected = counter.GetGlobalTransformWithCanvas() * (counter.Size * .5f);
+                var face = counter.GetNode<Control>("Layers/Layer1");
+                var expected = face.GetGlobalTransformWithCanvas() * (face.Size * .5f);
                 seen.AnchorError = Math.Max(seen.AnchorError, node.EnergyPointCanvas.DistanceTo(expected));
                 seen.BelowDigits &= node.Hud.ZIndex == 0 && node.Hud.GetIndex() > counter.GetNode("Layers").GetIndex()
                     && node.Hud.GetIndex() < counter.GetNode("Label").GetIndex();
             }
             seen.Unit = node.Unit;
             var ring = node.RingVisual;
+            seen.RingVisible |= ring.IsVisibleInTree();
             var ht = node.Hud.GetGlobalTransformWithCanvas();
+            var center = ht.AffineInverse() * node.EnergyPointCanvas;
             seen.RingError = Math.Max(seen.RingError, (ring.GetGlobalTransformWithCanvas() * (ring.Size * .5f)).DistanceTo(node.EnergyPointCanvas));
             seen.RingWidth = ring.Size.X / seen.Unit; seen.Radius = node.RingRadius;
             var material = (ShaderMaterial)ring.Material;
@@ -118,6 +160,53 @@ public static class WaitingStageProbe
             if (build > .05f && build < .95f) seen.PartialFrames++;
             seen.CreationStarts = node.CreationStarts;
             var heads = node.PatrolHeads.ToArray();
+            // Check the rendered head segments, independently of the effect's
+            // phase-crossing logic. A glint must have a recent visible pass.
+            var glints = node.RimHighlights.ToArray();
+            float glintClock = (float)Field(node, "_age")!;
+            int lit = 0;
+            foreach (var glint in glints)
+            {
+                if (node.UiVisible)
+                foreach (var head in heads)
+                {
+                    if (!seen.PreviousHeads.TryGetValue(head, out var previous) || previous.DistanceTo(head.Position) < .0001f) continue;
+                    if (glint.Position.DistanceTo(Geometry2D.GetClosestPointToSegment(glint.Position, previous, head.Position)) < 2 * node.Unit)
+                        seen.LastGlintPass[glint] = glintClock;
+                }
+                bool active = node.UiVisible && glint.IsVisibleInTree() && glint.Modulate.A > .005f;
+                if (active)
+                {
+                    lit++;
+                    if (!seen.LastGlintPass.TryGetValue(glint, out float passedAt) || glintClock - passedAt > .62f) seen.UnexpectedGlints++;
+                    seen.LitGlints.Add(glint);
+                }
+                else if (seen.LitGlints.Remove(glint) && node.UiVisible) seen.FadedGlints++;
+            }
+            seen.PeakGlints = Math.Max(seen.PeakGlints, lit);
+            foreach (var head in heads) seen.PreviousHeads[head] = head.Position;
+            if (build > .999f && counter?.GetNodeOrNull<TextureRect>("Layers/Layer1") is { Texture: { } texture } icon)
+            {
+                Vector2 size = texture.GetSize() * Mathf.Min(icon.Size.X / texture.GetWidth(), icon.Size.Y / texture.GetHeight());
+                Vector2 offset = (icon.Size - size) * .5f;
+                var transform = icon.GetGlobalTransformWithCanvas().AffineInverse();
+                var edge = IconEdge(texture).Select(p => offset + p * size).ToArray();
+                foreach (var head in heads)
+                {
+                    Vector2 point = transform * (head.GetGlobalTransformWithCanvas() * Vector2.Zero);
+                    float error = edge.Min(p => p.DistanceTo(point));
+                    if (error > seen.IconEdgeError)
+                    {
+                        seen.IconEdgeError = error;
+                        seen.IconEdgeWorst = new { age = (float)Field(node, "_buildAge")!,
+                            head = head.Name.ToString(), point = new[] {point.X, point.Y},
+                            local = new[] {head.Position.X, head.Position.Y},
+                            iconSize = new[] {icon.Size.X, icon.Size.Y},
+                            relative = (transform * ht).ToString(),
+                            casts = node.CastStarts, phase = node.OrbitPhase };
+                    }
+                }
+            }
             seen.HeadsNow = heads.Count(h => h.Visible && h.Modulate.A > .01f);
             seen.PowerLayers = node.PowerLayers; seen.CountMatches &= seen.HeadsNow == node.PowerLayers;
             seen.PatrolScale = node.PatrolScale; seen.PatrolBrightness = node.PatrolBrightness;
@@ -128,15 +217,17 @@ public static class WaitingStageProbe
                 Vector2[] rim = material.GetShaderParameter("outline_points").AsVector2Array();
                 foreach (var head in heads.Where(h => h.Visible && h.Modulate.A > .01f))
                 {
-                    Vector2 point = (head.Position - counter.Size * .5f) / node.Unit;
+                    Vector2 point = (head.Position - center) / node.Unit;
                     float nearest = float.MaxValue, canvasNearest = float.MaxValue; int side = 0;
                     for (int i = 0; i < rim.Length; i++)
                     {
                         Vector2 a = rim[i] * node.RingRadius, b = rim[(i + 1) % rim.Length] * node.RingRadius;
                         float error = point.DistanceTo(Geometry2D.GetClosestPointToSegment(point, a, b));
-                        if (error < nearest) { nearest = error; side = ((i + 3) % rim.Length) / 7; }
-                        Vector2 ca = ht * (counter.Size * .5f + a * node.Unit);
-                        Vector2 cb = ht * (counter.Size * .5f + b * node.Unit);
+                        // Six progress sectors retain historical coverage metrics;
+                        // the independent alpha-edge check verifies the icon shape.
+                        if (error < nearest) { nearest = error; side = i * 6 / rim.Length; }
+                        Vector2 ca = ht * (center + a * node.Unit);
+                        Vector2 cb = ht * (center + b * node.Unit);
                         Vector2 cp = head.GetGlobalTransformWithCanvas() * Vector2.Zero;
                         canvasNearest = Math.Min(canvasNearest, cp.DistanceTo(Geometry2D.GetClosestPointToSegment(cp, ca, cb)));
                     }
@@ -197,6 +288,10 @@ public static class WaitingStageProbe
                 peakDeliveries = s.PeakDeliveries, peakBursts = s.PeakBursts, anchorError = s.AnchorError, unit = s.Unit,
                 peakCast = s.PeakCast, peakTrigger = s.PeakTrigger, peakStage = s.PeakStage, stageNow = s.StageNow,
                 ringError = s.RingError, ringWidth = s.RingWidth, radius = s.Radius, shaderOpening = s.ShaderOpening,
+                iconEdgeError = s.IconEdgeError,
+                ringVisible = s.RingVisible,
+                peakGlints = s.PeakGlints, fadedGlints = s.FadedGlints, unexpectedGlints = s.UnexpectedGlints,
+                iconEdgeWorst = s.IconEdgeWorst,
                 buildNow = s.BuildNow, minBuild = s.MinBuild, maxBuild = s.MaxBuild,
                 creationStarts = s.CreationStarts, partialFrames = s.PartialFrames, peakCreationHeads = s.PeakCreationHeads,
                 headsNow = s.HeadsNow, powerLayers = s.PowerLayers, countMatches = s.CountMatches,
@@ -209,6 +304,25 @@ public static class WaitingStageProbe
                 hudCorrect = s.HudCorrect, exited = s.Exited }) });
     }
     private static NEnergyCounter? _posedCounter;
+    private static Control? _posedIcon;
+    private static Vector2 _iconPosition, _iconScale;
+    private static float _iconRotation;
+    internal static void IconPose(bool restore)
+    {
+        if (restore)
+        {
+            if (GodotObject.IsInstanceValid(_posedIcon))
+            {
+                _posedIcon!.Position = _iconPosition; _posedIcon.Scale = _iconScale; _posedIcon.Rotation = _iconRotation;
+            }
+            _posedIcon = null; return;
+        }
+        var icon = NCombatRoom.Instance?.Ui.EnergyCounterContainer.GetChildren().OfType<NEnergyCounter>()
+            .FirstOrDefault()?.GetNode<Control>("Layers/Layer1");
+        if (icon == null) return;
+        _posedIcon = icon; _iconPosition = icon.Position; _iconScale = icon.Scale; _iconRotation = icon.Rotation;
+        icon.Position += new Vector2(9, -6); icon.Scale *= new Vector2(.86f, 1.10f); icon.Rotation += .12f;
+    }
     private static Vector2 _savedPosition, _savedScale;
     internal static void UiPose(bool restore)
     {
@@ -284,6 +398,8 @@ public sealed class WaitingStageProbeCmd : AbstractConsoleCmd
             case "cancel-on-build": WaitingStageProbe.CancelOnCreation(); return new(true, "cancel while ring is only partly traced");
             case "ui-pose": WaitingStageProbe.UiPose(false); return new(true, "native counter translated and scaled");
             case "ui-reset": WaitingStageProbe.UiPose(true); return new(true, "native counter restored");
+            case "icon-pose": WaitingStageProbe.IconPose(false); return new(true, "visible icon translated, scaled and rotated independently");
+            case "icon-reset": WaitingStageProbe.IconPose(true); return new(true, "visible icon restored");
             case "ui-hide": WaitingStageProbe.UiVisible(false); return new(true, "native counter hidden");
             case "ui-show": WaitingStageProbe.UiVisible(true); return new(true, "native counter shown");
             case "clock" when args.Length == 2: WaitingStageProbe.ShowClock(args[1] == "on"); return new(true, "temporary recording audit clock");

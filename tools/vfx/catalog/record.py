@@ -395,6 +395,8 @@ try:
             time.sleep(.15)
         else:raise AssertionError(('No reward screen',s))
         marking('最后的台词｜伤害结算与战斗收尾');snap(case/'rewards');time.sleep(1.5);record_stop();print('RECORDED lastword',flush=True)
+    if wanted.intersection({'waiting-icon', 'waiting-icon-preview'}):
+        exec(compile((main/'tools/vfx/catalog/waiting_icon.py').read_text(encoding='utf-8'), 'waiting_icon.py', 'exec'))
     if wanted.intersection({'waiting-stage', 'waiting-stage-tail', 'waiting-stage-void', 'waiting-stage-preview'}):
         exec(compile((main/'tools/vfx/catalog/waiting_stage.py').read_text(encoding='utf-8'), 'waiting_stage.py', 'exec'))
         if 'waiting-stage' in wanted:

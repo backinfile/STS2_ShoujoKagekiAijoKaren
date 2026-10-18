@@ -32,8 +32,16 @@ public partial class NKarenWaitingStageVfx : Node2D
     private NCombatRoom _room = null!;
     private NCreature _view = null!;
     private NEnergyCounter? _counter;
+    private Texture2D? _iconTexture;
+    private Vector2 _iconSize;
+    private const int OutlineSamples = 72;
+    private static readonly Dictionary<Texture2D, Vector2[]> IconContours = new();
+    private Vector2[] _outline = [];
+    private float[] _outlineLengths = [];
+    private float _outlinePerimeter;
     private readonly Node2D _hud = new() { Name = "KarenWaitingStageHud" };
-    private readonly ColorRect _ring = new() { Name = "WaitingEnergyOrbit", MouseFilter = Control.MouseFilterEnum.Ignore };
+    // Retain the shared contour data, while only patrol lights and short tails are visible.
+    private readonly ColorRect _ring = new() { Name = "WaitingEnergyOrbit", Visible = false, MouseFilter = Control.MouseFilterEnum.Ignore };
     private ShaderMaterial _ringMaterial = null!;
     private sealed class PatrolLight
     {
@@ -42,6 +50,8 @@ public partial class NKarenWaitingStageVfx : Node2D
         public Line2D Tail = null!, Glow = null!;
         public readonly Vector2[] Points = new Vector2[16];
         public float Offset, FromOffset;
+        public float PreviousPhase;
+        public bool HasPreviousPhase;
         public int CreatorLane;
     }
     private readonly List<PatrolLight> _lights = new();
@@ -52,8 +62,15 @@ public partial class NKarenWaitingStageVfx : Node2D
     public int PowerLayers => Math.Max(0, (int)_power.Amount);
     public float PatrolScale => Mathf.Lerp(1.15f, .72f, _opening);
     public float PatrolBrightness => Mathf.Lerp(1f, .28f, _opening);
-    private CpuParticles2D _glints = null!;
-    private float _glintRadius = -1;
+    private sealed class RimGlint(Sprite2D sprite, float phase)
+    {
+        public readonly Sprite2D Sprite = sprite;
+        public readonly float Phase = phase;
+        public float PassedAt = -1;
+    }
+    private const float GlintFadeDuration = .45f;
+    private readonly List<RimGlint> _glints = new();
+    public IEnumerable<Sprite2D> RimHighlights => _glints.Select(glint => glint.Sprite);
     private readonly List<Delivery> _deliveries = new();
     private readonly List<(CpuParticles2D Node, float Until)> _bursts = new();
     private readonly List<AudioStreamPlayer> _sounds = new();
@@ -133,17 +150,17 @@ public partial class NKarenWaitingStageVfx : Node2D
             "res://shaders/karen_waiting_energy_orbit.gdshader", nameof(NKarenWaitingStageVfx)) };
         _ring.Material = _ringMaterial; _hud.AddChild(_ring);
         _ringMaterial.SetShaderParameter("core_color", CoreWhite);
-        _ringMaterial.SetShaderParameter("outline_points", Outline);
-        _ringMaterial.SetShaderParameter("outline_perimeter", OutlinePerimeter);
         _ringMaterial.SetShaderParameter("seed_count", Math.Max(1, _formationCount));
         _seedShader = KarenResourceLoader.Load<Shader>("res://shaders/karen_waiting_light_seed.gdshader", nameof(NKarenWaitingStageVfx));
         SyncLights();
         _hud.Draw += DrawDeliveries;
-        _glints = Particles(18, 2.4f, false);
-        _glints.EmissionShape = CpuParticles2D.EmissionShapeEnum.Points;
-        _glints.InitialVelocityMin = .6f; _glints.InitialVelocityMax = 2.5f;
-        _glints.ScaleAmountMin = .12f; _glints.ScaleAmountMax = .22f; _glints.Preprocess = 0; _glints.Emitting = false;
-        _glints.Modulate = new(1, 1, 1, 0); _hud.AddChild(_glints);
+        for (int i = 0; i < 24; i++)
+        {
+            var sprite = new Sprite2D { Name = "WaitingRimGlint" + i, Texture = _soft, Visible = false,
+                Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add } };
+            _hud.AddChild(sprite);
+            _glints.Add(new RimGlint(sprite, i * Mathf.Tau / 24));
+        }
         RefreshPileState(snap: true); Place();
         // ShaderMaterial getters otherwise return an unset Variant before the
         // first process tick; initialize the actual restored pose immediately.
@@ -256,9 +273,6 @@ public partial class NKarenWaitingStageVfx : Node2D
         _ringMaterial.SetShaderParameter("opening", _opening);
         _ringMaterial.SetShaderParameter("phase", _formationFinalized ? _orbitPhase : Mathf.Pi * BuildProgress);
         _ringMaterial.SetShaderParameter("light_color", CurrentTint.Lerp(SpotlightWhite, eventLight * .55f));
-        _glints.Emitting = UiVisible && BuildProgress > .98f;
-        _glints.Modulate = new Color(CurrentTint, reveal * (Mathf.Lerp(.72f, .45f, _opening) + .20f * eventLight));
-        _glints.SpeedScale = Speed;
         if (!UiVisible) foreach (var sound in _sounds) if (GodotObject.IsInstanceValid(sound)) sound.Stop();
         _hud.QueueRedraw();
     }
@@ -275,16 +289,19 @@ public partial class NKarenWaitingStageVfx : Node2D
     private void Place()
     {
         // Sit directly on the icon outline above its face, while Label stays in front.
-        // All lights and tails inherit the native counter transform.
+        // Follow the visible face, including its own transform and texture margins.
         var counter = _room.Ui.EnergyCounterContainer.GetChildren().OfType<NEnergyCounter>()
             .FirstOrDefault(c => c.IsInsideTree() && !c.IsQueuedForDeletion());
-        if (counter == null) { _counter = null; _hud.Hide(); return; }
+        var icon = counter?.GetNodeOrNull<TextureRect>("Layers/Layer1");
+        if (counter == null || icon?.Texture is not { } texture || icon.Size.X <= 0 || icon.Size.Y <= 0)
+        { _counter = null; _hud.Hide(); return; }
         _counter = counter;
         if (_hud.GetParent() != counter) { _hud.Reparent(counter, false); counter.MoveChild(_hud, counter.GetNode("Label").GetIndex()); }
-        _hud.Transform = Transform2D.Identity;
-        _hud.Visible = counter.IsVisibleInTree();
-        _center = counter.Size * .5f; _unit = Mathf.Clamp(Mathf.Min(counter.Size.X, counter.Size.Y) / 128f, .4f, 2.5f);
-        EnergyPointCanvas = counter.GetGlobalTransformWithCanvas() * _center;
+        _hud.Transform = counter.GetGlobalTransformWithCanvas().AffineInverse() * icon.GetGlobalTransformWithCanvas();
+        _center = icon.Size * .5f; _unit = Mathf.Clamp(Mathf.Min(icon.Size.X, icon.Size.Y) / 128f, .4f, 2.5f);
+        if (!UpdateOutline(texture, icon.Size)) { _hud.Hide(); return; }
+        _hud.Visible = icon.IsVisibleInTree();
+        EnergyPointCanvas = icon.GetGlobalTransformWithCanvas() * _center;
         _ring.Position = _center - new Vector2(120, 120) * _unit;
         _ring.Size = new Vector2(240, 240) * _unit;
         for (int i = 0; i < _lights.Count; i++)
@@ -293,6 +310,9 @@ public partial class NKarenWaitingStageVfx : Node2D
             light.Offset = Mathf.LerpAngle(light.FromOffset, i * Mathf.Tau / _lights.Count, Ease(P(_layoutAge, 0, .35f)));
             float phase = _formationFinalized ? _orbitPhase + light.Offset : CreationPhase(light, i, BuildProgress);
             light.Head.Position = _buildAge < .20f ? ArrivalPoint(i, _buildAge) : OrbitPoint(phase, RingRadius);
+            bool onRim = UiVisible && _buildAge >= .20f;
+            if (onRim && light.HasPreviousPhase) PassRimGlints(light.PreviousPhase, phase);
+            light.PreviousPhase = phase; light.HasPreviousPhase = onRim;
             light.Head.Scale = Vector2.One * (PatrolScale + .12f * Cast) * _unit;
             light.Head.Modulate = Colors.White;
             light.Head.Visible = true;
@@ -312,12 +332,28 @@ public partial class NKarenWaitingStageVfx : Node2D
             light.Glow.Modulate = new Color(CurrentTint, PatrolBrightness * .12f + Pulse * .06f);
             light.Tail.Visible = light.Glow.Visible = _buildAge >= .20f;
         }
-        _glints.Position = _center; _glints.Scale = Vector2.One * _unit;
-        if (Mathf.Abs(_glintRadius - RingRadius) > .05f)
+        foreach (var glint in _glints)
         {
-            _glintRadius = RingRadius;
-            _glints.EmissionPoints = Enumerable.Range(0, 24).Select(i =>
-                HexOffset(i * Mathf.Tau / 24, RingRadius + 4 * Mathf.Sin(i * 2.39996f))).ToArray();
+            if (!UiVisible) glint.PassedAt = -1;
+            float age = glint.PassedAt < 0 ? GlintFadeDuration : _age - glint.PassedAt;
+            float glow = 1 - Ease(P(age, .06f, GlintFadeDuration));
+            glint.Sprite.Position = OrbitPoint(glint.Phase, RingRadius);
+            glint.Sprite.Scale = Vector2.One * (.14f + .06f * glow) * _unit;
+            glint.Sprite.Modulate = new Color(CurrentTint.Lerp(SpotlightWhite, .35f), glow * PatrolBrightness * .75f);
+            glint.Sprite.Visible = UiVisible && age < GlintFadeDuration;
+        }
+    }
+
+    private void PassRimGlints(float previous, float current)
+    {
+        float travel = Mathf.AngleDifference(previous, current);
+        if (Mathf.Abs(travel) < .000001f) return;
+        foreach (var glint in _glints)
+        {
+            float distance = Mathf.PosMod(travel > 0 ? glint.Phase - previous : previous - glint.Phase, Mathf.Tau);
+            // Crossed arc (previous, current], including the wrap back to zero.
+            // A stationary head never refreshes a glint's fade timer.
+            if (distance > .000001f && distance <= Mathf.Abs(travel) + .000001f) glint.PassedAt = _age;
         }
     }
 
@@ -325,7 +361,7 @@ public partial class NKarenWaitingStageVfx : Node2D
     {
         int count = PowerLayers;
         if (_lights.Count == count) return;
-        foreach (var light in _lights) light.FromOffset = light.Offset;
+        foreach (var light in _lights) { light.FromOffset = light.Offset; light.HasPreviousPhase = false; }
         while (_lights.Count > count)
         {
             var light = _lights[^1]; light.Head.Hide(); light.Tail.Hide(); light.Glow.Hide();
@@ -358,48 +394,74 @@ public partial class NKarenWaitingStageVfx : Node2D
         return light.CreatorLane >= 0 ? (light.CreatorLane + progress) * sector
             : ((index % Math.Max(1, _formationCount)) + progress * (index + 1f) / Math.Max(1, _lights.Count)) * sector;
     }
-    // Tangent-continuous quadratic fillets sampled around the actual icon rim.
-    // The very same outline is passed to the shader and used by every light/tail.
-    private static readonly Vector2[] Outline = BuildOutline();
-    private static readonly float[] OutlineLengths = Enumerable.Range(0, Outline.Length)
-        .Select(i => Outline[i].DistanceTo(Outline[(i + 1) % Outline.Length])).ToArray();
-    private static readonly float OutlinePerimeter = OutlineLengths.Sum();
-    private static Vector2[] BuildOutline()
+    private bool UpdateOutline(Texture2D texture, Vector2 iconSize)
     {
-        Vector2[] vertices = [new(1, 0), new(.5f, .97f), new(-.5f, .97f), new(-1, 0), new(-.5f, -.97f), new(.5f, -.97f)];
-        var points = new List<Vector2>();
-        for (int i = 0; i < 6; i++)
-        {
-            var vertex = vertices[i];
-            var a = vertex + (vertices[(i + 5) % 6] - vertex).Normalized() * .16f;
-            var b = vertex + (vertices[(i + 1) % 6] - vertex).Normalized() * .16f;
-            for (int j = 0; j <= 6; j++)
-            {
-                float t = j / 6f;
-                points.Add(a * ((1 - t) * (1 - t)) + vertex * (2 * t * (1 - t)) + b * (t * t));
-            }
-        }
-        return Enumerable.Range(0, points.Count).Select(i => points[(i + 3) % points.Count]).ToArray();
+        if (_iconTexture == texture && _iconSize == iconSize) return _outline.Length > 0;
+        if (!IconContours.TryGetValue(texture, out var contour)) IconContours[texture] = contour = ReadIconContour(texture);
+        _iconTexture = texture; _iconSize = iconSize;
+        if (contour.Length == 0) { _outline = []; return false; }
+        // Layer1 uses KeepAspectCentered. The atlas margin is part of the texture
+        // size, so fitting its cropped region alone would leave the orbit too large.
+        Vector2 textureSize = texture.GetSize();
+        Vector2 fitted = textureSize * Mathf.Min(iconSize.X / textureSize.X, iconSize.Y / textureSize.Y);
+        Vector2 offset = (iconSize - fitted) * .5f;
+        _outline = contour.Select(p => (offset + p * fitted - _center) / (_unit * RingRadius)).ToArray();
+        _outlineLengths = Enumerable.Range(0, _outline.Length)
+            .Select(i => _outline[i].DistanceTo(_outline[(i + 1) % _outline.Length])).ToArray();
+        _outlinePerimeter = _outlineLengths.Sum();
+        _ringMaterial.SetShaderParameter("outline_points", _outline);
+        _ringMaterial.SetShaderParameter("outline_perimeter", _outlinePerimeter);
+        return true;
     }
-    private static Vector2 HexOffset(float phase, float radius)
+
+    private static Vector2[] ReadIconContour(Texture2D texture)
     {
-        float remaining = Mathf.PosMod(phase, Mathf.Tau) / Mathf.Tau * OutlinePerimeter;
-        for (int i = 0; i < Outline.Length; i++)
+        var atlas = texture as AtlasTexture;
+        // Decompress before cropping: native compressed AtlasTexture.GetImage()
+        // cannot extract a region. Keep the transparent atlas margin in the UVs.
+        using var source = (atlas?.Atlas ?? texture).GetImage();
+        if (source == null || source.IsEmpty() || (source.IsCompressed() && source.Decompress() != Error.Ok)) return [];
+        using var image = atlas == null ? source.GetRegion(new Rect2I(0, 0, source.GetWidth(), source.GetHeight()))
+            : source.GetRegion(new Rect2I((Vector2I)atlas.Region.Position, (Vector2I)atlas.Region.Size));
+        Vector2 margin = atlas?.Margin.Position ?? Vector2.Zero, size = texture.GetSize();
+        Vector2 center = size * .5f - margin;
+        var points = new Vector2[OutlineSamples];
+        for (int i = 0; i < points.Length; i++)
         {
-            float length = OutlineLengths[i];
-            if (remaining <= length || i == Outline.Length - 1)
-                return Outline[i].Lerp(Outline[(i + 1) % Outline.Length], remaining / length) * radius;
+            Vector2 direction = Vector2.FromAngle(-Mathf.Pi * .5f + i * Mathf.Tau / points.Length);
+            bool found = false;
+            for (float radius = size.Length() * .5f; radius >= 0; radius -= .5f)
+            {
+                Vector2 at = center + direction * radius;
+                if (at.X < 0 || at.Y < 0 || at.X >= image.GetWidth() || at.Y >= image.GetHeight()
+                    || image.GetPixel((int)at.X, (int)at.Y).A < .5f) continue;
+                points[i] = (at + direction * .5f + margin) / size;
+                found = true;
+                break;
+            }
+            if (!found) return [];
+        }
+        return points;
+    }
+    private Vector2 OutlineOffset(float phase, float radius)
+    {
+        float remaining = Mathf.PosMod(phase, Mathf.Tau) / Mathf.Tau * _outlinePerimeter;
+        for (int i = 0; i < _outline.Length; i++)
+        {
+            float length = _outlineLengths[i];
+            if (remaining <= length || i == _outline.Length - 1)
+                return _outline[i].Lerp(_outline[(i + 1) % _outline.Length], remaining / Mathf.Max(.0001f, length)) * radius;
             remaining -= length;
         }
-        return Outline[0] * radius;
+        return Vector2.Zero;
     }
-    private Vector2 OrbitPoint(float phase, float radius) => _center + HexOffset(phase, radius) * _unit;
+    private Vector2 OrbitPoint(float phase, float radius) => _center + OutlineOffset(phase, radius) * _unit;
     private Vector2 ArrivalPoint(int index, float age)
     {
         float phase = index < _lights.Count && _lights[index].CreatorLane >= 0
             ? _lights[index].CreatorLane * Mathf.Tau / Math.Max(1, _formationCount)
             : index * Mathf.Tau / Math.Max(1, _lights.Count);
-        Vector2 offset = HexOffset(phase, RingRadius), outward = offset.Normalized();
+        Vector2 offset = OutlineOffset(phase, RingRadius), outward = offset.Normalized();
         Vector2 tangent = new(outward.Y, -outward.X);
         float u = Ease(P(age, 0, .20f));
         var start = _center + (outward * 132 + tangent * 18) * _unit;

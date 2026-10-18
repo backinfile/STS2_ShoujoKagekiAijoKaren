@@ -5,6 +5,7 @@ def observed(label):
     for node in value['casts']:
         assert node['anchorError'] < .1 and node['hudCorrect'] and node['belowDigits'], node
         assert node['countMatches'], node
+        assert node['unexpectedGlints'] == 0 and not node['ringVisible'], node
         assert node['peakDeliveries'] <= 8 and node['peakBursts'] <= 12, node
         assert node['hexHeadError'] < .1 and node['hexCanvasError'] < .1, node
         assert node['ringError'] < .1 and abs(node['ringWidth'] - 240) < .1 and node['peakStage'] <= .61 and not node['feedbackEarly'], node
@@ -47,6 +48,7 @@ if not wanted.intersection({'waiting-stage-tail', 'waiting-stage-void'}):
     quiet = observed('cast-quiet')['casts'][0]
     assert quiet['peakStage'] > .5 and .399 < quiet['stageNow'] < .401 and quiet['minBuild'] < .1 and quiet['maxBuild'] > .99 and quiet['partialFrames'] > 4 and quiet['peakCreationHeads'] == 1 and quiet['headsNow'] == 1, quiet
     assert quiet['creationStarts'] == 1 and quiet['orbitTravel'] > .5 and quiet['hexSidesSeen'] == 63, quiet
+    assert quiet['peakGlints'] > 0 and quiet['fadedGlints'] > 0, quiet
     pile_pose('occupied-idle', False, 1)
     marking('有牌 · 候场｜1 层 · 1 枚放大光点贴边巡游')
     time.sleep(1.8)
