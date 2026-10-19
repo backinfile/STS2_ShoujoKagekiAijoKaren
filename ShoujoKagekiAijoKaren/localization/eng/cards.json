@@ -332,6 +332,8 @@
 
   "KAREN_REWRITE.title": "Rewrite",
   "KAREN_REWRITE.description": "Deal {Damage:diff()} damage.\nPlay all [gold]Rewrite[/gold] cards whose Shine is depleted.{InCombat:\n({Cnt} depleted.)|}",
+  "KAREN_REWRITE.extraPlayTip.title": "Card Count?",
+  "KAREN_REWRITE.extraPlayTip.description": "Plays [blue]{AdditionalPlays}[/blue] additional cards",
 
   "KAREN_SHINE_REPRODUCE.title": "Shine Reproduction",
   "KAREN_SHINE_REPRODUCE.description": "Choose {Cards:diff()} depleted [gold]Shine[/gold] {Cards:plural:card|cards} and add them back to your deck.",

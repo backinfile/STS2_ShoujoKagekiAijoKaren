@@ -21,8 +21,8 @@ public static class NCharacterSelectKarenVideoPatch
     [HarmonyPostfix]
     private static void OnSubmenuOpenedPostfix()
     {
-        KarenCharSelectVideoController.ResetCooldown();
         KarenCharSelectVideoController.Stop(immediatelyRestoreMusic: true);
+        KarenCharSelectVideoController.ResetCooldown();
     }
 
     [HarmonyPatch("OnSubmenuClosed")]

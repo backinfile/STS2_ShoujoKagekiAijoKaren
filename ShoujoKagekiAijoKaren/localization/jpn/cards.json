@@ -223,6 +223,8 @@
   "KAREN_BASEBALL.description": "{Damage:diff()}ダメージを与える。\n2ターンの間、エナジー、手札、[gold]ブロック[/gold]、[gold]筋力[/gold]を保留する。",
   "KAREN_REWRITE.title": "続きを綴る",
   "KAREN_REWRITE.description": "{Damage:diff()}ダメージを与える。\nキラめきが尽きた[gold]続きを綴る[/gold]をすべてプレイする。{InCombat:\n（枯渇済み：{Cnt}枚。）|}",
+  "KAREN_REWRITE.extraPlayTip.title": "枚数？",
+  "KAREN_REWRITE.extraPlayTip.description": "追加で[blue]{AdditionalPlays}[/blue]枚プレイする",
   "KAREN_SHINE_REPRODUCE.title": "キラめきの再生産",
   "KAREN_SHINE_REPRODUCE.description": "[gold]キラめき[/gold]が尽きたカードを{Cards:diff()}枚選び、デッキに戻す。",
   "KAREN_SHINE_REPRODUCE.tip.title": "ヒント",

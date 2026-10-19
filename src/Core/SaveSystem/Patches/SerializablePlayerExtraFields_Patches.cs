@@ -1,7 +1,6 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Multiplayer.Serialization;
-using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Saves.Runs;
 
@@ -71,18 +70,4 @@ internal static class SerializablePlayerExtraFields_Patches
         }
     }
 
-    [HarmonyPatch(typeof(RunState), nameof(RunState.FromSerializable))]
-    private static class RunState_FromSerializable_Patch
-    {
-        [HarmonyPostfix]
-        private static void Postfix(RunState __result)
-        {
-            if (!KarenExtraFieldsSaveBuffer.HasPending) return;
-
-            foreach (var handler in PlayerExtraFieldsHandlers.All)
-                handler.RestoreToRunState(__result.Players);
-
-            KarenExtraFieldsSaveBuffer.Consume();
-        }
-    }
 }

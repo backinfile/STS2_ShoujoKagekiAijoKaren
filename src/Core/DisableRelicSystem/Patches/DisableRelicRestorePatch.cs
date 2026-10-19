@@ -40,8 +40,8 @@ public static class DisableRelicOnDeathPatch
     [HarmonyPostfix]
     private static void Postfix(IRunState runState, CombatState? combatState, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
-        // 只有玩家角色死亡时才恢复遗物
-        if (creature?.Player == null) return;
+        // AfterDeath also runs before a Fairy/Lizard Tail prevents death. Its cost still lasts this combat.
+        if (wasRemovalPrevented || creature?.Player == null) return;
 
         var player = creature.Player;
         if (DisableRelicManager.GetDisabledRelicCount(player) > 0)

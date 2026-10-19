@@ -1,0 +1,64 @@
+{
+  "LastWord-stage-lights-before-after.mp4": {
+    "sha256": "43e342a68a7af83bd9426686a85f49effe534568ea78881b7b12284070c93e62",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1920,
+          "height": 668,
+          "r_frame_rate": "30/1"
+        },
+        {
+          "codec_type": "audio",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "10.133008"
+      }
+    },
+    "audio": {
+      "mean_volume": -54.5,
+      "max_volume": -28.9
+    },
+    "freezeStarts": []
+  },
+  "LastWord-stage-lights-showcase.mp4": {
+    "sha256": "6866e10f8fa68f3477a448177292e6eb6ff8bbf7f8f64a07b1e881407a2641ee",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1280,
+          "height": 784,
+          "r_frame_rate": "30/1"
+        },
+        {
+          "codec_type": "audio",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "23.456236"
+      }
+    },
+    "audio": {
+      "mean_volume": -38.1,
+      "max_volume": -21.0
+    },
+    "freezeStarts": [
+      22.122656
+    ]
+  },
+  "comparison": {
+    "speed": 1,
+    "alignment": "same action sequence, original timestamps; trim longer tail only",
+    "duration": 10.133008,
+    "audio": "after game process"
+  }
+}

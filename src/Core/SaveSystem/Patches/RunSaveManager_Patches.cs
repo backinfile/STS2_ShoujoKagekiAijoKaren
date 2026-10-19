@@ -3,9 +3,11 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Saves.Managers;
+using MegaCrit.Sts2.Core.Saves.Runs;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text.Json;
 
 namespace ShoujoKagekiAijoKaren.src.Core.SaveSystem;
@@ -19,10 +21,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.SaveSystem;
 ///
 /// 读取流程：
 ///   MigrationManager.LoadSaveFromPath → GodotFileIo.ReadFile(path) → string
-///   ↳ [Postfix] 从 players[*].extra_fields 提取闪耀牌堆 → KarenExtraFieldsSaveBuffer
+///   ↳ [Postfix] 在一次 LoadRunSave / LoadMultiplayerRunSave 调用内捕获 JSON
 ///
-/// 恢复时机：在 RunManager.SetUpSavedSingleplayer/SetUpSavedMultiplayer Postfix 中消费，
-/// 此时 RunState 和卡组 CardModel 实例均已就绪，无需等待战斗开始。
+/// 扩展字段绑定到本次返回的 SerializableRun，随 Player.FromSerializable 恢复。
+/// 菜单预读其他文件不会覆盖已加载对象的数据，也没有全局待消费缓冲区。
 /// 时机与游戏完全一致，数据嵌入同一个 .save 文件，无需伴随文件。
 /// System.Text.Json 默认忽略未知字段，游戏的反序列化不受影响。
 /// </summary>
@@ -68,15 +70,14 @@ internal static class RunSaveManager_Patches
 
     // ─────────────────────────────────────────────────────────────────────
     // 读取：MigrationManager.LoadSaveFromPath 调用 ReadFile(path) 获取 JSON 字符串
-    // Postfix 从结果中提取 Mod 数据存入缓冲区，__result 保持不变（游戏忽略未知字段）
+    // 仅原生读档作用域内记录结果；普通文件预读不会污染其他存档。
     // ─────────────────────────────────────────────────────────────────────
     [HarmonyPatch(typeof(GodotFileIo), nameof(GodotFileIo.ReadFile))]
     [HarmonyPostfix]
     private static void ReadFile_Postfix(string path, ref string? __result)
     {
         if (!IsRunSavePath(path)) return;
-        if (string.IsNullOrWhiteSpace(__result)) return;
-        ExtractAndBuffer(__result);
+        KarenRunSaveReadScope.Record(__result);
     }
 
     // ─────────────────────────────────────────────────────────────────────
@@ -121,67 +122,32 @@ internal static class RunSaveManager_Patches
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────
-    // 实现：提取
-    // ─────────────────────────────────────────────────────────────────────
-    private static void ExtractAndBuffer(string json)
+    [HarmonyPatch]
+    private static class NativeRunSaveReadPatch
     {
-        try
+        private static IEnumerable<MethodBase> TargetMethods()
         {
-            using var doc = JsonDocument.Parse(json);
-            if (!doc.RootElement.TryGetProperty(PlayersKey, out var playersElement) || playersElement.ValueKind != JsonValueKind.Array)
-                return;
+            yield return AccessTools.Method(typeof(RunSaveManager), nameof(RunSaveManager.LoadRunSave));
+            yield return AccessTools.Method(typeof(RunSaveManager), nameof(RunSaveManager.LoadMultiplayerRunSave));
+        }
 
-            foreach (var playerElement in playersElement.EnumerateArray())
+        private static void Prefix(out KarenRunSaveReadScope __state)
+            => __state = new KarenRunSaveReadScope();
+
+        private static void Postfix(ReadSaveResult<SerializableRun> __result, KarenRunSaveReadScope __state)
+        {
+            try { __state.Bind(__result); }
+            catch (Exception ex)
             {
-                if (!TryReadPlayerId(playerElement, out var playerId))
-                    continue;
-
-                if (playerElement.TryGetProperty(ExtraFieldsKey, out var extraFieldsElement) && extraFieldsElement.ValueKind == JsonValueKind.Object)
-                {
-                    foreach (var handler in PlayerExtraFieldsHandlers.All)
-                        handler.ReadPlayerField(extraFieldsElement, playerId);
-                }
+                MainFile.Logger.Error($"[SaveSystem] 绑定存档扩展字段失败: {ex}");
             }
-
-            KarenExtraFieldsSaveBuffer.MarkPending();
-            MainFile.Logger.Info("[SaveSystem] 已从 extra_fields 提取扩展字段，等待恢复");
         }
-        catch (Exception ex)
+
+        private static Exception? Finalizer(Exception? __exception, KarenRunSaveReadScope? __state)
         {
-            MainFile.Logger.Error($"[SaveSystem] 提取 Mod 数据失败: {ex.Message}");
+            __state?.Dispose();
+            return __exception;
         }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────
-    // 恢复：SerializableRun 加载进 RunManager 完成时消费缓冲区
-    // SetUpSavedSingleplayer / SetUpSavedMultiplayer 调用后 State 和卡组均已就绪
-    // ─────────────────────────────────────────────────────────────────────
-    [HarmonyPatch(typeof(RunManager), nameof(RunManager.SetUpSavedSingleplayer))]
-    [HarmonyPostfix]
-    private static void SetUpSavedSinglePlayer_Postfix()
-        => ConsumeAndRestore();
-
-    [HarmonyPatch(typeof(RunManager), nameof(RunManager.SetUpSavedMultiplayer))]
-    [HarmonyPostfix]
-    private static void SetUpSavedMultiPlayer_Postfix()
-        => ConsumeAndRestore();
-
-    private static void ConsumeAndRestore()
-    {
-        if (!KarenExtraFieldsSaveBuffer.HasPending) return;
-
-        var state = RunManager.Instance.DebugOnlyGetState();
-        if (state == null) return;
-
-        if (!KarenExtraFieldsSaveBuffer.Consume())
-        {
-            MainFile.Logger.Info("[SaveSystem] 无 Mod 数据可供恢复");
-            return;
-        }
-
-        foreach (var handler in PlayerExtraFieldsHandlers.All)
-            handler.RestoreToRunState(state.Players);
     }
 
     private static void WritePlayersWithInjectedFields(

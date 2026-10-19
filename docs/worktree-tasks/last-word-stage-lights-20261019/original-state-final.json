@@ -1,0 +1,27 @@
+{
+  "checkout": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren",
+  "branch": "main",
+  "head": "15fddc37b56514164982045cfac16ab8b4ff8b63",
+  "entries": [
+    {
+      "status": "??",
+      "path": "docs/20.卡牌特效制作步骤提示词.md",
+      "sha256": "f583ee87d1af18daf80b4d1acf971fbe7d94538c9fccf47b654fa273b7ffb989"
+    },
+    {
+      "status": "??",
+      "path": "tools/clean_generated_artifacts.ps1",
+      "sha256": "2465dfb6a2bc5d4b1ef66a1e2c2990277a3b94b33a03e7b43d8f72bf187443b9"
+    },
+    {
+      "status": "??",
+      "path": "tools/preview_cleanup.ps1",
+      "sha256": "fd6bafe4dcb4353558069de06d57e40266c5049230aaa0a48b02342a19ecb750"
+    },
+    {
+      "status": "??",
+      "path": "tools/test_preview_cleanup.ps1",
+      "sha256": "418c3758b0c266c83dc1071f1d910bfa8e5af933f996321c1fb0d97c6aabf205"
+    }
+  ]
+}
