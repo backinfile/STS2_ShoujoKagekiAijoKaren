@@ -382,6 +382,8 @@ try:
         save('bridge-completed',bs);settle('bridge-after');finish()
     exec(compile((pathlib.Path(__file__).with_name('extra_scenes.py')).read_text(encoding='utf-8'), 'extra_scenes.py', 'exec'))
     exec(compile((pathlib.Path(__file__).with_name('benefit_scenes.py')).read_text(encoding='utf-8'), 'benefit_scenes.py', 'exec'))
+    if wanted.intersection({'lastword-stage','lastword-stage-before','lastword-stage-void','lastword-stage-debug'}):
+        exec(compile((main/'tools/vfx/last-word-stage-lights/scenes.py').read_text(encoding='utf-8'), 'last-word-stage-lights/scenes.py', 'exec'))
     if want('lastword'):
         stage('lastword',seed=True);cmd('showcase clear');trim();prep('KAREN_LAST_WORD');time.sleep(1)
         snap(case/'playable');check_hand('playable-hand')

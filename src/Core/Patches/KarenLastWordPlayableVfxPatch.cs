@@ -1,6 +1,8 @@
 using BaseLib.Utils;
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes;
@@ -20,13 +22,15 @@ public static class KarenLastWordPlayableVfxPatch
     private static void Postfix(NHandCardHolder __instance)
     {
         var cardNode = __instance.CardNode;
+        NKarenLastWordStageLightsVfx.Refresh(cardNode);
         if (cardNode?.Model is not KarenLastWord lastWord)
         {
             Clear(cardNode);
             return;
         }
 
-        if (lastWord.Pile?.Type == PileType.Hand && lastWord.CanPlay())
+        if (!NonInteractiveMode.IsActive && CombatManager.Instance.IsInProgress && LocalContext.IsMe(lastWord.Owner)
+            && !lastWord.Owner.Creature.IsDead && lastWord.Pile?.Type == PileType.Hand && lastWord.CanPlay())
             Ensure(cardNode);
         else
             Clear(cardNode);
@@ -35,7 +39,7 @@ public static class KarenLastWordPlayableVfxPatch
     private static void Ensure(NCard cardNode)
     {
         var existing = Vfx.Get(cardNode);
-        if (existing != null && GodotObject.IsInstanceValid(existing))
+        if (existing != null && GodotObject.IsInstanceValid(existing) && !existing.IsQueuedForDeletion())
             return;
 
         var vfx = new NKarenLastWordPlayableVfx(cardNode);

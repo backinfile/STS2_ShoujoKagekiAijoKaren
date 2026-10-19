@@ -1,0 +1,377 @@
+{
+  "root": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren",
+  "branch": "main",
+  "head": "84ab49fca7128e9b0338669eea0f66163a7f6cb6",
+  "entries": [
+    {
+      "status": " M",
+      "path": "ShoujoKagekiAijoKaren/localization/eng/cards.json",
+      "sha256": "53725d90560b0ed638e55695b2b02f1c40208de4e4f623103045be44592e1b9d"
+    },
+    {
+      "status": " M",
+      "path": "ShoujoKagekiAijoKaren/localization/jpn/cards.json",
+      "sha256": "70517e207f8a00c6d09cd9152a328127a8868b6a76cb8b517f878331346e446d"
+    },
+    {
+      "status": " M",
+      "path": "ShoujoKagekiAijoKaren/localization/zhs/cards.json",
+      "sha256": "6f27d25f38d1d6043d694716ace624f92eee9c8991b259c102c3ba9ccb7dbc6f"
+    },
+    {
+      "status": " M",
+      "path": "docs/06.Karen����ϵͳ.md",
+      "sha256": "cc9b8871a4e11bc5126c00cd7d4f18a6c3837900fcb3f984252e51b7cae21559"
+    },
+    {
+      "status": " M",
+      "path": "docs/localization/source-hashes.json",
+      "sha256": "7a9c76be69be3856ce24328611902c8eeab1ca130f2e4f2414740cf40c4435eb"
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/bridge.png",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/bridge.png.import",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/right-tower-v5.png",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/right-tower-v5.png.import",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/right-tower-v6.png",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/right-tower-v6.png.import",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/right-tower-v7.png",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/right-tower-v7.png.import",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v10.png",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v10.png.import",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v11.png",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v11.png.import",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v3.png",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v3.png.import",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v4.png",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v4.png.import",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v8.png",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v8.png.import",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v9.png",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/stage-v9.png.import",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/towers.png",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "images/vfx/bridge/towers.png.import",
+      "sha256": null
+    },
+    {
+      "status": " M",
+      "path": "src/Core/Audio/KarenAudioManager.cs",
+      "sha256": "9faaaaaa1f5a1e38a1be53ab289c6e87e54c71a9f8a4756e549563f3229e436f"
+    },
+    {
+      "status": " M",
+      "path": "src/Core/DisableRelicSystem/Patches/DisableRelicRestorePatch.cs",
+      "sha256": "3b096e4a81509d23a27c70827ff44c410b84adb3a0eb3b9a65a1c5dea96978dd"
+    },
+    {
+      "status": " M",
+      "path": "src/Core/Models/Cards/shine/KarenRewrite.cs",
+      "sha256": "d7fabb71afac1e079d8672e82e88a505c00f9aeb07f6393c63d1be3eb538d112"
+    },
+    {
+      "status": " M",
+      "path": "src/Core/Models/Cards/shine/KarenStar.cs",
+      "sha256": "d3545776057717ffb728870394705dd3c13868884d6008d7e8ff1599a909bc9a"
+    },
+    {
+      "status": " M",
+      "path": "src/Core/Patches/KarenCharSelectVideoController.cs",
+      "sha256": "2cac9b791d8812136c38198c85535edc02b57e3870823027ac9c53db40172667"
+    },
+    {
+      "status": " M",
+      "path": "src/Core/Patches/NCharacterSelectKarenVideoPatch.cs",
+      "sha256": "09f87131cb3caa2a4928a50c329d98d0d52ea0be41c4402f900c15043229f3e5"
+    },
+    {
+      "status": " D",
+      "path": "src/Core/SaveSystem/KarenExtraFieldsSaveBuffer.cs",
+      "sha256": null
+    },
+    {
+      "status": " D",
+      "path": "src/Core/SaveSystem/KarenExtraFieldsSaveBuffer.cs.uid",
+      "sha256": null
+    },
+    {
+      "status": " M",
+      "path": "src/Core/SaveSystem/Patches/RunSaveManager_Patches.cs",
+      "sha256": "1c729f2082c0eb282fc257d0f6aa261f69989e0076de11a42c0624dd785f8b67"
+    },
+    {
+      "status": " M",
+      "path": "src/Core/SaveSystem/Patches/SerializablePlayerExtraFields_Patches.cs",
+      "sha256": "e3de13f96326e0f6c78fe6b4d221e108db81d9a9a8135b6dfa23b38ff04e7748"
+    },
+    {
+      "status": " M",
+      "path": "src/Core/SaveSystem/PlayerExtraFieldsHandlerBase.cs",
+      "sha256": "b7d9e2ef9d3ad927948de0c9d24e4e6399a5225da61074c70a865ee5b11e7f95"
+    },
+    {
+      "status": "??",
+      "path": "docs/20.������Ч����������ʾ��.md",
+      "sha256": "f583ee87d1af18daf80b4d1acf971fbe7d94538c9fccf47b654fa273b7ffb989"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/README.md",
+      "sha256": "68a5f7804e7fdbed19eb7daa1da0c55a379f50216191147db530d3aebceb5286"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/bridge.png",
+      "sha256": "2c32164d56fb984cf3dcb95f0f43b866045ece20e68049aafe342d389bfa968f"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/bridge.png.import",
+      "sha256": "cd35d98477a3857c8486eb5600b9176b6269251425f5c09e6c4432a309297f94"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/right-tower-v5.png",
+      "sha256": "c0d0f53e6e253bb53fcb9fdd2029eacb47fd400ff71311cf87b4ac14b9d96949"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/right-tower-v5.png.import",
+      "sha256": "1d23a81ae4ccee4efa043819063d4902ce777203a564f22c7fec94fbf4cf3454"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/right-tower-v6.png",
+      "sha256": "54b59678a0e1d72342bc18e193d9dd9d16d8617a02411ce4a6ab8933d5d0bfa1"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/right-tower-v6.png.import",
+      "sha256": "4777af2a96693cf2275319a1d6e3531f566465b5932f1899c75fc60ace16230b"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/right-tower-v7.png",
+      "sha256": "77ae50aa4f2a1778cc3f6964b31b8ff48c71724e74423a975090f66bebc56586"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/right-tower-v7.png.import",
+      "sha256": "5fdc60c82e82b347d291a1b2fdd3a52ec9875aaf7fe6c2a9680f15ff129efbf1"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v10.png",
+      "sha256": "ed42c46fa9c75413067224f35aa0937522686c5c17a61de156d505eee48967dc"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v10.png.import",
+      "sha256": "6e1053862ae378db510294a1c2c2663e041d014445109237988503d23562e371"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v11.png",
+      "sha256": "dfd77b2a353deb3c36f2227917c1594b34b034c590cfd12e954116d01293a57b"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v11.png.import",
+      "sha256": "34a91a0f9c51d4e7c21ec2a4b54a80294f962539b81d26531be015cc27ef8996"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v3.png",
+      "sha256": "fd739ccaedb2d8c63a094f501076b46524f4931c0ae7e0e4af059c33159b3874"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v3.png.import",
+      "sha256": "2c72d78458d389387d21bf10eb7e6e8abe3075ff6779a6d36ae4b9e12dd832d7"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v4.png",
+      "sha256": "b0f51ac9553e9d14c30846112b6c69591d3eeccd485a6a87b2fdf186719b04e0"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v4.png.import",
+      "sha256": "626470d2c45ed968f2b8eb50760ae05a8098eff1fce4dd5d6879bcb3ce88df2c"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v8.png",
+      "sha256": "6d7c3c4506ee63eea4bcd5b87aeca293da027083522d64427d242472ae3f4b7d"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v8.png.import",
+      "sha256": "904126f397a1bc4318475d512ffd0b46d963279a72c1d31efe6ee83323bed19a"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v9.png",
+      "sha256": "1635a032d39a1518864a31a548aa913c8f875b44ff79219947e383f3d66cc2f5"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/stage-v9.png.import",
+      "sha256": "5223e2dc152c7c609ce25e2ec5868c8d3479d90ff2d94738d598e9573ee4c78e"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/towers.png",
+      "sha256": "d6d749ed73bd694ae52a60c044089d907f72e2db1cae20124edc6ea326d74c0a"
+    },
+    {
+      "status": "??",
+      "path": "docs/design/bridge-history-2026-10-18/towers.png.import",
+      "sha256": "a94eb5783ab2313932ec6946a1ef5c5b1a74b8d8c93b3867a93da3c9fd6dfb38"
+    },
+    {
+      "status": "??",
+      "path": "docs/testing/review-fixes-2026-10-18.md",
+      "sha256": "c35bb7c40898bc4f2efcb7c6539ea359514a9300d216539c982f29c4b583e934"
+    },
+    {
+      "status": "??",
+      "path": "src/Core/SaveSystem/KarenRunSaveReadScope.cs",
+      "sha256": "c1436e60852fdbc228eeabaf12b472cef585e556959de07687adb8a42282e894"
+    },
+    {
+      "status": "??",
+      "path": "src/Core/SaveSystem/KarenRunSaveReadScope.cs.uid",
+      "sha256": "5edcf0b9c6bfb4a1e17ff43ce317f22df1aca62792929ac9bc4b2b1f00aa4c3a"
+    },
+    {
+      "status": "??",
+      "path": "tools/clean_generated_artifacts.ps1",
+      "sha256": "2465dfb6a2bc5d4b1ef66a1e2c2990277a3b94b33a03e7b43d8f72bf187443b9"
+    },
+    {
+      "status": "??",
+      "path": "tools/preview_cleanup.ps1",
+      "sha256": "fd6bafe4dcb4353558069de06d57e40266c5049230aaa0a48b02342a19ecb750"
+    },
+    {
+      "status": "??",
+      "path": "tools/review-fixes/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "status": "??",
+      "path": "tools/review-fixes/KarenReviewFixes.csproj",
+      "sha256": "f298b7e442552d916d2b4b14441b8803e672c1f4be33efc44cc723bc9b6fc8a5"
+    },
+    {
+      "status": "??",
+      "path": "tools/review-fixes/README.md",
+      "sha256": "2ce9a8cfb2489a7e91ecc13cf1f3b06ac91e30f854e1f882fe1ed7e6a0ee4630"
+    },
+    {
+      "status": "??",
+      "path": "tools/review-fixes/ReviewFixesCmd.cs",
+      "sha256": "e5c4a5edc52687572aedaa4532a56f4b719b669559117922a6f1c065ccb6ef25"
+    },
+    {
+      "status": "??",
+      "path": "tools/review-fixes/run.py",
+      "sha256": "a75c820f1c598bdfe8170c57dcfebce64386d7c2cfe9864246fc3e5b30704031"
+    },
+    {
+      "status": "??",
+      "path": "tools/test_preview_cleanup.ps1",
+      "sha256": "418c3758b0c266c83dc1071f1d910bfa8e5af933f996321c1fb0d97c6aabf205"
+    }
+  ]
+}

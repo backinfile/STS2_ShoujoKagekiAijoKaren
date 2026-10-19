@@ -1,4 +1,8 @@
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -22,11 +26,13 @@ public partial class NKarenLastWordPlayableVfx : Node2D
     ];
 
     private readonly NCard _card;
+    private readonly NCombatRoom? _room;
     private float _timer;
 
     public NKarenLastWordPlayableVfx(NCard card)
     {
         _card = card;
+        _room = NCombatRoom.Instance;
         Name = "KarenLastWordPlayableVfx";
         ZAsRelative = true;
         ZIndex = 0;
@@ -34,9 +40,11 @@ public partial class NKarenLastWordPlayableVfx : Node2D
 
     public override void _Process(double delta)
     {
-        if (!GodotObject.IsInstanceValid(_card) ||
+        if (NonInteractiveMode.IsActive || !CombatManager.Instance.IsInProgress || NCombatRoom.Instance != _room ||
+            !GodotObject.IsInstanceValid(_card) ||
             !GodotObject.IsInstanceValid(_card.Body) ||
-            _card.Model?.Pile?.Type != PileType.Hand)
+            _card.Model is not KarenLastWord model || model.Pile?.Type != PileType.Hand ||
+            !LocalContext.IsMe(model.Owner) || model.Owner.Creature.IsDead || !model.CanPlay())
         {
             QueueFree();
             return;
