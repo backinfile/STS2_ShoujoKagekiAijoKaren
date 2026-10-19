@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -36,6 +37,19 @@ public sealed class KarenRewrite : KarenBaseCardModel
     [
         new DamageVar(10m, ValueProp.Move)
     ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            bool inCombat = !IsCanonical && Owner != null && CombatManager.Instance?.IsInProgress == true;
+            int count = inCombat ? ShinePileManager.GetShinePile(Owner).Cards.OfType<KarenRewrite>().Count() : 0;
+            long additionalPlays = IsDupe ? 0 : (long)count * (count + 1L) / 2;
+            var description = new LocString("cards", "KAREN_REWRITE.extraPlayTip.description");
+            description.Add("AdditionalPlays", additionalPlays);
+            yield return new HoverTip(new LocString("cards", "KAREN_REWRITE.extraPlayTip.title"), description);
+        }
+    }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

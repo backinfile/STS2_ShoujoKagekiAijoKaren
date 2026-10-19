@@ -2,8 +2,6 @@ using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Multiplayer.Serialization;
 using MegaCrit.Sts2.Core.Saves;
-using MegaCrit.Sts2.Core.Saves.Runs;
-using System.Collections.Generic;
 using System.Text.Json;
 
 namespace ShoujoKagekiAijoKaren.src.Core.SaveSystem;
@@ -28,14 +26,9 @@ internal abstract class PlayerExtraFieldsHandlerBase
     public abstract void WritePlayerField(Utf8JsonWriter writer, Player player);
 
     /// <summary>
-    /// 本地 JSON 存档接口组：读取到缓冲区。
+    /// 本地 JSON 存档接口组：绑定到对应的序列化玩家。
     /// </summary>
-    public abstract void ReadPlayerField(JsonElement extraFieldsElement, ulong playerId);
-
-    /// <summary>
-    /// 本地 JSON 存档接口组：在 RunState 就绪后恢复到 Player。
-    /// </summary>
-    public abstract void RestoreToRunState(IReadOnlyList<Player> players);
+    public abstract void ReadPlayerField(JsonElement extraFieldsElement, SerializableExtraPlayerFields extraFields);
 
     /// <summary>
     /// SerializablePlayer / 联机同步接口组：从 Player 收集并挂到 SerializableExtraPlayerFields。
@@ -69,18 +62,12 @@ internal abstract class PlayerExtraFieldsHandlerBase
 ///
 /// 其余流程性工作都由基类统一处理：
 /// - 本地 JSON 存档写入/读取
-/// - 本地存档读取后的按玩家恢复
+/// - 本地存档读取后绑定到对应序列化玩家
 /// - SerializableExtraPlayerFields 上的临时挂载
 /// - 联机同步时的网络包序列化/反序列化
 /// </summary>
 internal abstract class PlayerExtraFieldsHandlerBase<TData> : PlayerExtraFieldsHandlerBase
 {
-    /// <summary>
-    /// 本地存档读取阶段的临时缓冲区。
-    /// key 是玩家 NetId，value 是该玩家对应的字段数据。
-    /// </summary>
-    private readonly Dictionary<ulong, TData> _buffer = [];
-
     /// <summary>
     /// SerializableExtraPlayerFields 本身不能直接扩展字段，
     /// 所以这里用 SpireField 给它附加一份运行时数据，供 Serialize/Deserialize 和恢复流程共享。
@@ -102,45 +89,20 @@ internal abstract class PlayerExtraFieldsHandlerBase<TData> : PlayerExtraFieldsH
     }
 
     /// <summary>
-    /// 本地存档读取时，只负责把字段值读入 _buffer，等待 RunState 就绪后再恢复。
+    /// 数据跟随序列化对象保存；缺失字段显式绑定空值，避免跨存档污染。
     /// </summary>
-    public override void ReadPlayerField(JsonElement extraFieldsElement, ulong playerId)
+    public override void ReadPlayerField(JsonElement extraFieldsElement, SerializableExtraPlayerFields extraFields)
     {
-        if (!extraFieldsElement.TryGetProperty(FieldName, out var fieldElement))
-            return;
-
-        _buffer[playerId] = JsonSerializer.Deserialize<TData>(fieldElement.GetRawText())!;
-    }
-
-    /// <summary>
-    /// 在 RunManager 完成建模后，按玩家逐个恢复之前缓存的数据。
-    /// 这里之所以不用子类直接处理 Dictionary，是为了让子类始终只关心“一个玩家对应一份数据”。
-    /// </summary>
-    public override void RestoreToRunState(IReadOnlyList<Player> players)
-    {
-        if (_buffer.Count == 0) return;
-
-        foreach (var (playerId, data) in _buffer)
+        var data = CreateEmptyData();
+        if (extraFieldsElement.ValueKind == JsonValueKind.Object
+            && extraFieldsElement.TryGetProperty(FieldName, out var fieldElement)
+            && fieldElement.ValueKind != JsonValueKind.Null)
         {
-            var player = FindPlayer(players, playerId);
-            if (player == null)
-                continue;
-
-            Restore(player, data);
+            var loaded = JsonSerializer.Deserialize<TData>(fieldElement.GetRawText());
+            if (loaded is not null)
+                data = loaded;
         }
-
-        _buffer.Clear();
-    }
-
-    private static Player? FindPlayer(IReadOnlyList<Player> players, ulong playerId)
-    {
-        foreach (var player in players)
-        {
-            if (player.NetId == playerId)
-                return player;
-        }
-
-        return null;
+        _serializedData.Set(extraFields, data);
     }
 
     /// <summary>

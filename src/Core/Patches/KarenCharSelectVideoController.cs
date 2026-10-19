@@ -82,13 +82,15 @@ internal static class KarenCharSelectVideoController
         }
 
         _overlay!.Close(immediatelyRestoreMusic);
-        _overlay = null;
     }
 
-    private static void OnOverlayFinished()
+    private static void OnOverlayFinished(NKarenCharSelectVideoOverlay overlay)
     {
+        // Detached/closing backgrounds must not release a newer video's music ownership.
+        if (_overlay != overlay) return;
         _lastShowVideoTicks = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         _overlay = null;
+        RestoreMenuMusicVolume();
     }
 
     private static void PlaySelectOnlyFeedback()
@@ -123,22 +125,21 @@ internal partial class NKarenCharSelectVideoOverlay : Control
     private const float VideoAspectRatio = 1920f / 1080f;
 
     private readonly VideoStream _stream;
-    private readonly Action _onFinished;
+    private readonly Action<NKarenCharSelectVideoOverlay> _onFinished;
     private ColorRect _black = null!;
     private VideoStreamPlayer _player = null!;
     private Action? _finishedHandler;
     private bool _closing;
     private float _fadeOutDelayTimer;
     private float _fadeTimer;
-    private bool _restoreMusicOnClose = true;
 
-    private NKarenCharSelectVideoOverlay(VideoStream stream, Action onFinished)
+    private NKarenCharSelectVideoOverlay(VideoStream stream, Action<NKarenCharSelectVideoOverlay> onFinished)
     {
         _stream = stream;
         _onFinished = onFinished;
     }
 
-    public static NKarenCharSelectVideoOverlay Create(VideoStream stream, Action onFinished)
+    public static NKarenCharSelectVideoOverlay Create(VideoStream stream, Action<NKarenCharSelectVideoOverlay> onFinished)
     {
         return new NKarenCharSelectVideoOverlay(stream, onFinished);
     }
@@ -194,11 +195,7 @@ internal partial class NKarenCharSelectVideoOverlay : Control
         _player.Modulate = new Color(1f, 1f, 1f, alpha);
         if (alpha <= 0.01f)
         {
-            if (_restoreMusicOnClose)
-                KarenCharSelectVideoController.RestoreMenuMusicVolume();
-
-            Resized -= LayoutVideo;
-            _onFinished.Invoke();
+            _onFinished.Invoke(this);
             QueueFree();
         }
     }
@@ -210,10 +207,11 @@ internal partial class NKarenCharSelectVideoOverlay : Control
 
     public void Close(bool immediatelyRestoreMusic)
     {
+        if (immediatelyRestoreMusic)
+            _onFinished.Invoke(this);
         if (_closing)
             return;
 
-        _restoreMusicOnClose = immediatelyRestoreMusic;
         _closing = true;
         _fadeOutDelayTimer = 0f;
         _fadeTimer = 0f;
@@ -221,9 +219,21 @@ internal partial class NKarenCharSelectVideoOverlay : Control
         if (GodotObject.IsInstanceValid(_player))
         {
             if (_finishedHandler != null)
+            {
                 _player.Finished -= _finishedHandler;
+                _finishedHandler = null;
+            }
             _player.Stop();
         }
+    }
+
+    public override void _ExitTree()
+    {
+        Resized -= LayoutVideo;
+        if (GodotObject.IsInstanceValid(_player) && _finishedHandler != null)
+            _player.Finished -= _finishedHandler;
+        _finishedHandler = null;
+        _onFinished.Invoke(this);
     }
 
     private void LayoutVideo()

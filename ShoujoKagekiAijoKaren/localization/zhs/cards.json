@@ -332,6 +332,8 @@
 
   "KAREN_REWRITE.title": "续写",
   "KAREN_REWRITE.description": "造成{Damage:diff()}点伤害。\n打出所有耗尽的[gold]续写[/gold]。{InCombat:\n（已耗尽{Cnt}张。）|}",
+  "KAREN_REWRITE.extraPlayTip.title": "续写次数",
+  "KAREN_REWRITE.extraPlayTip.description": "会额外打出[blue]{AdditionalPlays}[/blue]次。",
 
   "KAREN_SHINE_REPRODUCE.title": "闪耀的再生产",
   "KAREN_SHINE_REPRODUCE.description": "从耗尽的[gold]闪耀[/gold]牌中选择{Cards:diff()}张重新加入牌组。",
