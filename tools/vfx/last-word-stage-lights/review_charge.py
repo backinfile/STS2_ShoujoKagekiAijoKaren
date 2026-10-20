@@ -177,4 +177,3 @@ for p in outputs:
  metadata['videos'][p.name]={'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'probe':info,'audio':volumes,'freezeStarts':starts,'allowStaticAfterSeconds':allowed_after}
 (out/(tag+'-videos.json')).write_text(json.dumps(metadata,indent=2),encoding='utf-8')
 print('VIDEO PACKAGING PASSED',lengths,flush=True)
-
