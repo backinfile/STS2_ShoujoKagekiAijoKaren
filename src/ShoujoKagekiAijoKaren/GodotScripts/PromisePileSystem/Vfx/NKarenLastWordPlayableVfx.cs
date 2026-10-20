@@ -13,8 +13,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 public partial class NKarenLastWordPlayableVfx : Node2D
 {
     private const float SpawnInterval = 0.03f;
-    private const int EdgeParticlesPerWave = 3;
-    private const int CornerParticlesPerWave = 2;
+    private const int ParticlesPerWave = 5;
+    private const int PerimeterSlots = 48;
     private static readonly Color KarenColor = new(251f / 255f, 84f / 255f, 88f / 255f, 0.95f);
 
     private static readonly Texture2D?[] Textures =
@@ -28,6 +28,7 @@ public partial class NKarenLastWordPlayableVfx : Node2D
     private readonly NCard _card;
     private readonly NCombatRoom? _room;
     private float _timer;
+    private int _spawnSlot;
 
     public NKarenLastWordPlayableVfx(NCard card)
     {
@@ -61,16 +62,14 @@ public partial class NKarenLastWordPlayableVfx : Node2D
         {
             _timer += SpawnInterval;
             var cardSize = GetCardSize();
-            for (int i = 0; i < EdgeParticlesPerWave; i++)
-                AddParticle(cardSize, preferCorner: false);
-            for (int i = 0; i < CornerParticlesPerWave; i++)
-                AddParticle(cardSize, preferCorner: true);
+            for (int i = 0; i < ParticlesPerWave; i++)
+                AddParticle(cardSize);
         }
     }
 
-    private void AddParticle(Vector2 cardSize, bool preferCorner)
+    private void AddParticle(Vector2 cardSize)
     {
-        PickSpawn(cardSize, preferCorner, out var localPosition, out var localNormal);
+        PickSpawn(cardSize, out var localPosition, out var localNormal);
 
         AddChild(new NKarenLastWordPlayableTParticle(
             PickTexture(), localPosition, localNormal, GlobalScale.Abs()));
@@ -81,35 +80,36 @@ public partial class NKarenLastWordPlayableVfx : Node2D
         return _card.Size == Vector2.Zero ? NCard.defaultSize : _card.Size;
     }
 
-    private static void PickSpawn(Vector2 cardSize, bool preferCorner, out Vector2 position, out Vector2 normal)
+    private void PickSpawn(Vector2 size, out Vector2 position, out Vector2 normal)
     {
-        var edge = (int)GD.RandRange(0, 3);
-        var outset = 14f;
-        var halfSize = cardSize * 0.5f;
-        var cornerBandX = 46f;
-        var cornerBandY = 62f;
-        var x = PickAxisPosition(halfSize.X, outset, cornerBandX, preferCorner);
-        var y = PickAxisPosition(halfSize.Y, outset, cornerBandY, preferCorner);
-
-        switch (edge)
+        // Distribute births over the whole perimeter before revisiting a slot.
+        // Small within-slot jitter avoids a rigid grid while preventing clumps.
+        float fraction = (_spawnSlot + .5f + (float)GD.RandRange(-.18, .18)) / PerimeterSlots;
+        _spawnSlot = (_spawnSlot + 19) % PerimeterSlots;
+        float distance = fraction * 2f * (size.X + size.Y);
+        var half = size * .5f;
+        if (distance < size.X)
         {
-            case 0:
-                position = new Vector2(x, -halfSize.Y - outset);
-                normal = Vector2.Up;
-                break;
-            case 1:
-                position = new Vector2(halfSize.X + outset, y);
-                normal = Vector2.Right;
-                break;
-            case 2:
-                position = new Vector2(x, halfSize.Y + outset);
-                normal = Vector2.Down;
-                break;
-            default:
-                position = new Vector2(-halfSize.X - outset, y);
-                normal = Vector2.Left;
-                break;
+            position = new(-half.X + distance, -half.Y);
+            normal = Vector2.Up;
         }
+        else if ((distance -= size.X) < size.Y)
+        {
+            position = new(half.X, -half.Y + distance);
+            normal = Vector2.Right;
+        }
+        else if ((distance -= size.Y) < size.X)
+        {
+            position = new(half.X - distance, half.Y);
+            normal = Vector2.Down;
+        }
+        else
+        {
+            distance -= size.X;
+            position = new(-half.X, half.Y - distance);
+            normal = Vector2.Left;
+        }
+        position += normal * 14f;
     }
 
     private static Texture2D? PickTexture()
@@ -181,15 +181,5 @@ public partial class NKarenLastWordPlayableVfx : Node2D
             if (_age >= _life)
                 QueueFree();
         }
-    }
-
-    private static float PickAxisPosition(float half, float outset, float cornerBand, bool preferCorner)
-    {
-        if (!preferCorner)
-            return (float)GD.RandRange(-half + outset, half - outset);
-
-        var min = Mathf.Max(outset, half - cornerBand);
-        var distanceFromEdge = (float)GD.RandRange(min, half - outset);
-        return (GD.Randf() < 0.5f ? -1f : 1f) * distanceFromEdge;
     }
 }

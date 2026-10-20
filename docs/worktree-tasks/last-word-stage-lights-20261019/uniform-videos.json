@@ -1,0 +1,34 @@
+{
+  "comparisonDurations": {
+    "hover": 8.2
+  },
+  "videos": {
+    "LastWord-T-uniform-hover-before-after.mp4": {
+      "sha256": "d4703094756c28264873063f1dde967c6ee83014ff33e59e8d12f83f7143c67b",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1920,
+            "height": 668,
+            "r_frame_rate": "30/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "8.200000"
+        }
+      },
+      "audio": {
+        "mean_volume": -60.3,
+        "max_volume": -46.3
+      },
+      "freezeStarts": []
+    }
+  }
+}

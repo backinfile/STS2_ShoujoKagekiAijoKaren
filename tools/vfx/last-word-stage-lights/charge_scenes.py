@@ -1,7 +1,8 @@
 """Real native hover and play; passive production VFX observation only."""
 before='lastword-charge-before' in wanted
-regular='lastword-regular' in wanted
-stage('lastword-regular' if regular else ('lastword-charge-before' if before else 'lastword-charge'),seed=True)
+uniform='lastword-uniform' in wanted
+regular='lastword-regular' in wanted or uniform
+stage('lastword-uniform' if uniform else ('lastword-regular' if regular else ('lastword-charge-before' if before else 'lastword-charge')),seed=True)
 cmd('promise_integration off');cmd('showcase clear');trim()
 prep('KAREN_LAST_WORD');prep('KAREN_DEFEND')
 def charge_status(name):
@@ -53,4 +54,4 @@ record_stop()
 result=charge_status('postplay')
 assert not result['current']['attack'] and not result['current']['nodes'] and not result['current']['tNodes'],result['current']
 charge_snap('rewards-cleanup')
-print('LASTWORD_CHARGE_PASSED',branch,'before' if before else 'after',flush=True)
+print('LASTWORD_'+('UNIFORM' if uniform else 'CHARGE')+'_PASSED',branch,'before' if before else 'after',flush=True)

@@ -2,8 +2,9 @@
 """Review actual MCP hover distribution and post-film T afterglow; package original-speed footage."""
 from pathlib import Path
 import hashlib,json,math,re,subprocess,sys
-regular="--regular" in sys.argv
-tag="regular" if regular else "charge"
+uniform="--uniform" in sys.argv
+regular="--regular" in sys.argv or uniform
+tag="uniform" if uniform else ("regular" if regular else "charge")
 from PIL import Image,ImageDraw,ImageFont
 root=Path(__file__).resolve().parents[3]
 art=root/'artifacts/last-word-stage-lights';out=root/'docs/worktree-tasks/last-word-stage-lights-20261019'
@@ -16,7 +17,7 @@ def diagnostics(path):
  return values
 summary={'before':{},'branches':{},'unchanged':{}}
 pictures=[]
-before=art/('regular-prior/stable/lastword-charge' if regular else 'charge-before/stable/lastword-charge-before')
+before=art/('uniform-prior/stable/lastword-regular' if uniform else ('regular-prior/stable/lastword-charge' if regular else 'charge-before/stable/lastword-charge-before'))
 def measure(case,changed,normal_hover=False):
  phases={name:read(case/(name+'-probe.json')) for name in ['blocked','idle','hover-first','hover-held','hover-screenshot','unhover-restored','unhover-screenshot','postplay']}
  cvs=[]
@@ -50,6 +51,9 @@ def measure(case,changed,normal_hover=False):
   result['maxAfterglowAge']=max(n['afterglowAge'] for _,n,_ in tail)
   result['visibleLateAfterglow']=max(n['visible'] for n in late)
   result['tailSurvivedCombatEnd']=any(not combat and n['visible']>0 for _,n,combat in tail)
+ idle_cvs=[phases[name]['current']['tNodes'][0]['distributionCv'] for name in ['idle','unhover-restored','unhover-screenshot']]
+ result['idleDistributionCv']=idle_cvs
+ result['meanIdleDistributionCv']=sum(idle_cvs)/len(idle_cvs)
  result['handChecks']=0
  for p in case.rglob('*-hand.json'):
   value=read(p)
@@ -63,10 +67,13 @@ def measure(case,changed,normal_hover=False):
   assert v['status']=='completed' and v['frames_dropped']==0 and v['audio_source']=='game_process',v
   result['captures'].append({k:v.get(k) for k in ['capture_fps','frames_dropped','frames_repeated','video_duration_seconds','captureBuild']})
  return result
-summary['before']=measure(before,regular)
+summary['before']=measure(before,regular,uniform)
 for branch in ['stable','beta']:
  folder=art/branch;case=folder/('lastword-'+tag)
  result=measure(case,True,regular)
+ if uniform:
+  for key in ['meanIdleDistributionCv','meanHoverDistributionCv']:
+   assert result[key]<.35 and result[key]<summary['before'][key]*.75,(branch,key,result[key],summary['before'][key])
  if not regular:assert result['lastVisibleAttackSeconds']>summary['before']['lastVisibleAttackSeconds']+.6,(branch,result,summary['before'])
  monitor=read(folder/'window-monitor.json');assert monitor['foreground_samples']==monitor['restored_samples']==0,monitor
  result['windowMonitor']=monitor
@@ -89,9 +96,18 @@ for rel in [
  summary['unchanged'][rel]=hashlib.sha256(new).hexdigest()
 if regular:
  for revision,rel in [('fa9a435','src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordPlayableVfx.cs'),('b313907','src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVfx.cs'),('b313907','src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVideoVfx.cs')]:
+  if uniform and rel.endswith('NKarenLastWordPlayableVfx.cs'):continue
   old=subprocess.check_output(['git','show',revision+':'+rel],cwd=root).replace(b'\r\n',b'\n');new=(root/rel).read_bytes().replace(b'\r\n',b'\n')
   assert old==new,rel
   summary['unchanged'][revision+':'+rel]=hashlib.sha256(new).hexdigest()
+if uniform:
+ rel='src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordPlayableVfx.cs'
+ old=subprocess.check_output(['git','show','822395f:'+rel],cwd=root).decode('utf-8').replace('\r\n','\n');new=(root/rel).read_text(encoding='utf-8')
+ def particle_class(code):
+  start=code.index('    private partial class NKarenLastWordPlayableTParticle')
+  return code[start:code.index('\n    }\n',start)+7]
+ assert particle_class(old)==particle_class(new),'Outward drift, alpha, size, lifetime or rotation changed'
+ summary['unchanged']['822395f:particleMotion']=hashlib.sha256(particle_class(new).encode('utf-8')).hexdigest()
 font=ImageFont.truetype('C:/Windows/Fonts/arial.ttf',15)
 for page in range((len(pictures)+11)//12):
  contact=Image.new('RGB',(1600,3*251),(18,22,29));draw=ImageDraw.Draw(contact)
@@ -109,14 +125,16 @@ def strip(path,width,height,text,size=24):
  im=Image.new('RGB',(width,height),(18,21,29));d=ImageDraw.Draw(im)
  d.text((20,14),text,font=ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',size),fill='#ffdeea');im.save(path)
 case=art/('stable/lastword-'+tag);outputs=[];lengths={}
-video_prefix='LastWord-T-'+('regular-' if regular else '')
+video_prefix='LastWord-T-'+(tag+'-' if regular else '')
 for name,source,title in [('hover','ready-recording/game.mp4','Hover T 字｜恢复普通状态的向外飘散' if regular else 'Hover T 字｜均匀贴边、轻微内聚与呼吸蓄力'),('play','game.mp4','打出 T 字｜影片结束后减速停留、柔和淡出；伤害节奏保留')]:
+ if uniform and name=='play':continue
+ if uniform:title='T 字分布｜沿牌边均匀生成，保留普通向外飘散'
  old=before/source;new=case/source
  seconds=min(float(probe(old)['format']['duration']),float(probe(new)['format']['duration']))
  # This review sequence reaches rewards around 11.2s; retain the complete T tail
  # and rewards transition, omitting the extra static rewards hold.
  if regular and name=='play':seconds=min(seconds,11.9)
- strip(scratch/(name+'-header.png'),1920,64,'上一版｜hover 蓄力' if regular and name=='hover' else '上一版',26)
+ strip(scratch/(name+'-header.png'),1920,64,'上一版｜随机分布' if uniform else ('上一版｜hover 蓄力' if regular and name=='hover' else '上一版'),26)
  header=Image.open(scratch/(name+'-header.png'));ImageDraw.Draw(header).text((980,14),title,font=ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',25),fill='#ffdeea');header.save(scratch/(name+'-header.png'))
  strip(scratch/(name+'-footer.png'),1920,64,'1× 游戏实录 · 同一组原生操作 · 原 T 字、粉白/玫红灯光与影片保留',23)
  dest=out/(video_prefix+name+'-before-after.mp4')
@@ -124,12 +142,13 @@ for name,source,title in [('hover','ready-recording/game.mp4','Hover T 字｜恢
  '-filter_complex','[0:v]scale=960:540,setsar=1,setpts=PTS-STARTPTS[a];[1:v]scale=960:540,setsar=1,setpts=PTS-STARTPTS[b];[a][b]hstack[m];[2:v][m][3:v]vstack=inputs=3,format=yuv420p[v]',
  '-map','[v]','-map','1:a:0','-t',seconds,'-r','30','-c:v','libx264','-crf','19','-preset','medium','-threads','4','-c:a','aac','-b:a','160k','-movflags','+faststart',dest])
  outputs.append(dest);lengths[name]=seconds
-concat=scratch/'concat.txt';concat.write_text(''.join("file '"+str(p).replace('\\','/')+"'\n" for p in outputs),encoding='utf-8')
-review=out/(video_prefix+'review.mp4');run(['-f','concat','-safe','0','-i',concat,'-c','copy','-movflags','+faststart',review]);outputs.append(review)
-strip(scratch/'play-after-footer.png',1280,64,'最后的台词｜打出后的 T 字减速留存，再自然淡出',21)
-solo=out/(video_prefix+'play-after.mp4')
-run(['-i',case/'game.mp4','-loop','1','-framerate','30','-i',scratch/'play-after-footer.png','-filter_complex','[0:v][1:v]vstack=inputs=2,format=yuv420p[v]',
- '-map','[v]','-map','0:a:0','-t',min(float(probe(case/'game.mp4')['format']['duration']),11.9) if regular else probe(case/'game.mp4')['format']['duration'],'-r','30','-c:v','libx264','-crf','19','-preset','medium','-threads','4','-c:a','aac','-b:a','160k','-movflags','+faststart',solo]);outputs.append(solo)
+if not uniform:
+ concat=scratch/'concat.txt';concat.write_text(''.join("file '"+str(p).replace('\\','/')+"'\n" for p in outputs),encoding='utf-8')
+ review=out/(video_prefix+'review.mp4');run(['-f','concat','-safe','0','-i',concat,'-c','copy','-movflags','+faststart',review]);outputs.append(review)
+ strip(scratch/'play-after-footer.png',1280,64,'最后的台词｜打出后的 T 字减速留存，再自然淡出',21)
+ solo=out/(video_prefix+'play-after.mp4')
+ run(['-i',case/'game.mp4','-loop','1','-framerate','30','-i',scratch/'play-after-footer.png','-filter_complex','[0:v][1:v]vstack=inputs=2,format=yuv420p[v]',
+  '-map','[v]','-map','0:a:0','-t',min(float(probe(case/'game.mp4')['format']['duration']),11.9) if regular else probe(case/'game.mp4')['format']['duration'],'-r','30','-c:v','libx264','-crf','19','-preset','medium','-threads','4','-c:a','aac','-b:a','160k','-movflags','+faststart',solo]);outputs.append(solo)
 metadata={'comparisonDurations':lengths,'videos':{}}
 for p in outputs:
  run(['-i',p,'-f','null','-'])

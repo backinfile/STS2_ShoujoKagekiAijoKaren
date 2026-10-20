@@ -16,3 +16,5 @@
 T 字蓄力/尾韵专项：保存 fa9a435 包到 charge-before-package，使用 lastword-charge-before 录制旧版，退出后将 stable 输出移到 charge-before/stable。最终包分别运行两版 lastword-charge --audit-capture，再执行 review_charge.py，核对可见字形的周长分布、余韵透明度及战斗结束/奖励清理，生成 charge-*.json 和 LastWord-T-*.mp4。打出影片与伤害源保持不变；观察器只读取真实生产特效，不生成替代效果。
 
 恢复普通 hover T 字专项：保留上一轮两版输出到 regular-prior/stable 与 regular-prior/beta；当前生产包分别运行 lastword-regular --audit-capture，再执行 review_charge.py --regular。复核原生 hover 时 T 字蓄力值为 0、卡牌跟随、打出余韵与奖励清理；屏幕追光仍使用原先动态。输出 regular-*.json、regular-mcp-contact-*.jpg 和 LastWord-T-regular-*.mp4，不覆盖蓄力迭代的历史证据。
+
+均匀飘散专项：保留 822395f 的两版实录在 uniform-prior/stable 与 uniform-prior/beta，最终包运行 lastword-uniform --audit-capture，退出两版后执行 review_charge.py --uniform。比较实际可见粒子沿周长 16 段的离散度，复核原生常态/hover 共用普通飘散，生成 LastWord-T-uniform-hover-before-after.mp4 和 uniform-* 证据。粒子运动类与 822395f 核对一致，未恢复 hover 蓄力。
