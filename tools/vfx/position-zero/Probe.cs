@@ -63,7 +63,7 @@ public static class PositionZeroProbe
             remaining = live.FirstOrDefault()?.RemainingTriggers ?? 0,
             ready = live.Any(n => n.ReadyActive), readyAlpha = live.FirstOrDefault()?.ReadyAlpha ?? 0,
             hover = live.Any(n => n.HoverActive), hoverCard = live.FirstOrDefault()?.HoverModel?.Id.Entry,
-            cardLights = room?.FindChildren("*", "", true, false).OfType<NKarenPositionZeroCardHoverVfx>().Count(n => !n.IsQueuedForDeletion()) ?? 0,
+            cardLights = room?.FindChildren("*", "", true, false).Count(n => n.GetType().Name == "NKarenPositionZeroCardHoverVfx" && !n.IsQueuedForDeletion()) ?? 0,
             geometry = live.Select(n => new { foot = n.FootPoint.ToString(), transform = n.GlobalTransform.ToString(), canvas = n.GetCanvasTransform().ToString(),
                 unit = typeof(NKarenPositionZeroVfx).GetField("_unit", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(n) }),
             confirmations = Nodes.Sum(n => n.Confirmations),

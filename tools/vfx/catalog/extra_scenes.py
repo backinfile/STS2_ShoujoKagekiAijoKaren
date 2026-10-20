@@ -1,3 +1,6 @@
+if wanted & {'refinement-burn', 'refinement-position', 'refinement-why', 'refinement-lastword'}:
+    exec(compile(pathlib.Path(__file__).with_name('refinement_scenes.py').read_text(encoding='utf-8'), 'refinement_scenes.py', 'exec'))
+
 if wanted & {'geer-speed-baseline', 'geer-speed-after', 'geer-speed-checks'}:
     exec(compile((main / 'tools/vfx/catalog/geer_speed.py').read_text(encoding='utf-8-sig'), 'geer_speed.py', 'exec'))
 

@@ -54,7 +54,9 @@ void fragment() {
     // Different velocities keep this from reading as a whole-image brightness pulse.
     float crest = pow(0.5 + 0.5 * cos(angle * 8.0 - t * 3.2 + depth * 25.0 + smoke * 2.0), 3.0);
     float light_flow = mix(0.64 + smoke * 0.64, 0.72 + crest * 0.78, warm);
-    vec3 light = border.rgb * border.a * mix(0.58, 0.94, warm) * light_flow;
+    // Preserve the entrance, then let warm corners recede while flow continues.
+    float corner_exposure = mix(1.0, 0.44, smoothstep(0.65, 1.70, t));
+    vec3 light = border.rgb * border.a * mix(0.58, 0.94, warm) * light_flow * mix(1.0, corner_exposure, warm);
     float side_depth = min(p.x, 1.0 - p.x) * aspect;
     float red_shoulder = 0.055 * exp(-pow((side_depth - 0.14) / 0.09, 2.0));
     light += vec3(1.0, 0.022, 0.07) * red_shoulder * (0.55 + smoke * 0.85 + crest * 0.20);
