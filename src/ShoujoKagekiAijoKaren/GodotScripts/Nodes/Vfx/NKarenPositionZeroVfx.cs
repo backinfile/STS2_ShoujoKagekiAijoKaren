@@ -20,7 +20,7 @@ using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
-/// <summary>Fixed warm cast, cool block lights, and remaining-opportunity footlights.</summary>
+/// <summary>Fixed warm cast, cool block lights, and remaining-opportunity footlights with an owned card preview.</summary>
 public partial class NKarenPositionZeroVfx : Node2D
 {
     private sealed class BlockLight(float strength)
@@ -39,6 +39,7 @@ public partial class NKarenPositionZeroVfx : Node2D
     private static readonly Color Cool = new("#c8e9ff");
     private NCard? _hoverCard;
     private CardModel? _hoverModel;
+    private NKarenPositionZeroCardHoverVfx? _cardLight;
     private Vector2 _foot, _body;
     private float _age, _claimAge, _unit, _readyAlpha, _hoverAlpha, _lastSound = -10;
     public int Confirmations { get; private set; }
@@ -119,6 +120,8 @@ public partial class NKarenPositionZeroVfx : Node2D
         if (effect._hoverCard == card && effect._hoverModel == card.Model) return;
         effect.ClearHover();
         effect._hoverCard = card; effect._hoverModel = card.Model;
+        effect._cardLight = new NKarenPositionZeroCardHoverVfx(effect, card, card.Model);
+        card.OverlayContainer.AddChild(effect._cardLight);
     }
 
     private bool CanHover(NCard? card) => Enabled && ReadyActive && GodotObject.IsInstanceValid(card)
@@ -127,7 +130,8 @@ public partial class NKarenPositionZeroVfx : Node2D
 
     private void ClearHover()
     {
-        _hoverCard = null; _hoverModel = null;
+        if (GodotObject.IsInstanceValid(_cardLight)) { _cardLight!.Hide(); _cardLight.QueueFree(); }
+        _cardLight = null; _hoverCard = null; _hoverModel = null;
     }
 
     public override void _Ready()

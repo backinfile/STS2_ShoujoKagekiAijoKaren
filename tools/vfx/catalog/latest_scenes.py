@@ -75,10 +75,10 @@ if 'position-zero' in wanted:
     cmd('pzero watch'); record_start()
     clip_cast('KAREN_POSITION0', 'Position 0｜施放暖光与次数脚灯')
     card=next(c for c in state()['player']['hand'] if c['id']=='KAREN_STRIKE')
-    marking('悬停攻击牌｜脚灯增强，卡顶不再显示 T 标记')
+    marking('悬停攻击牌｜脚灯增强，T 标记固定在卡框顶部中央，不向上偏移')
     post(action='hover_card', card_index=card['index']); time.sleep(2)
     hovered = json.loads(cmd('pzero status')['message']); save('position-hover', hovered)
-    assert hovered['hover'] and hovered['cardLights'] == 0, hovered
+    assert hovered['hover'] and hovered['cardLights'] == 1, hovered
     post(action='unhover_card')
     clip_cast('KAREN_STRIKE', '第一次攻击｜确认格挡，冷光亮起后次数熄灭')
     marking('下一回合｜脚灯按真实回合重新就绪')

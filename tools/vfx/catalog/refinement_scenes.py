@@ -40,18 +40,25 @@ if 'refinement-position' in wanted:
     for card in ['KAREN_POSITION0', 'KAREN_SHINE_STRIKE', 'KAREN_STRIKE', 'KAREN_DEFEND']:
         prep(card)
     cmd('promise_integration shine1'); cmd('pzero watch')
-    record_start(); marking('Position 0｜施放暖光与次数脚灯，移除卡顶 T 标记')
+    record_start(); marking('Position 0｜施放暖光与次数脚灯，恢复卡顶 T 标记')
     clip_cast('KAREN_POSITION0', 'Position 0｜施放暖光与次数脚灯')
     cast_state = json.loads(cmd('pzero status')['message']); save('position-cast', cast_state)
     assert cast_state['live'] == cast_state['remaining'] == 1 and cast_state['ready'], cast_state
     for card_id in ['KAREN_DEFEND', 'KAREN_SHINE_STRIKE', 'KAREN_STRIKE']:
         card = next(c for c in state()['player']['hand'] if c['id'] == card_id)
-        marking(('技能牌' if card_id == 'KAREN_DEFEND' else '悬停攻击牌') + '｜卡顶无额外标记，闪耀与脚灯按各自状态显示')
+        marking('技能牌｜不显示卡顶标记' if card_id == 'KAREN_DEFEND' else '悬停攻击牌｜T 固定在卡框顶部中央，不向上偏移')
         post(action='hover_card', card_index=card['index']); time.sleep(1.6)
         hovered = json.loads(cmd('pzero status')['message']); save('position-hover-' + card_id, hovered)
-        assert hovered['cardLights'] == 0 and hovered['hover'] == (card_id != 'KAREN_DEFEND'), hovered
-        assert not any(c['position'] for c in refinement_observe()['hand'])
+        expected_marker = int(card_id != 'KAREN_DEFEND')
+        assert hovered['cardLights'] == expected_marker and hovered['hover'] == bool(expected_marker), hovered
+        assert sum(c['position'] for c in refinement_observe()['hand']) == expected_marker
+        if expected_marker:
+            post(action='hover_card', card_index=card['index']); time.sleep(.3)
+            repeated = json.loads(cmd('pzero status')['message']); save('position-repeat-hover-' + card_id, repeated)
+            assert repeated['hover'] and repeated['cardLights'] == 1 and repeated['nodes'][0]['claimStarts'] == 1, repeated
         post(action='unhover_card'); time.sleep(.3)
+        released = json.loads(cmd('pzero status')['message']); save('position-unhover-' + card_id, released)
+        assert not released['hover'] and released['cardLights'] == 0, released
     clip_cast('KAREN_STRIKE', '第一次攻击｜确认格挡与冷光，剩余次数脚灯熄灭')
     spent = json.loads(cmd('pzero status')['message']); save('position-spent', spent)
     assert spent['confirmations'] == 1 and spent['maxLights'] > 0 and spent['block'] > 0
@@ -60,7 +67,7 @@ if 'refinement-position' in wanted:
     post(action='hover_card', card_index=card['index']); time.sleep(.5)
     exhausted = json.loads(cmd('pzero status')['message']); save('position-exhausted-hover', exhausted)
     assert not exhausted['hover'] and exhausted['cardLights'] == 0, exhausted
-    post(action='unhover_card'); marking('下一回合｜次数脚灯重新就绪，卡顶标记仍保持移除')
+    post(action='unhover_card'); marking('下一回合｜次数脚灯重新就绪，攻击牌恢复固定卡顶 T 标记')
     before = state()['battle']['round']; post(action='end_turn')
     for _ in range(240):
         current = state()
@@ -73,8 +80,8 @@ if 'refinement-position' in wanted:
     card = next(c for c in state()['player']['hand'] if c['id'] == 'KAREN_STRIKE')
     post(action='hover_card', card_index=card['index']); time.sleep(1.5)
     rearmed = json.loads(cmd('pzero status')['message']); save('position-rearmed', rearmed)
-    assert rearmed['ready'] and rearmed['hover'] and rearmed['remaining'] == 1 and rearmed['cardLights'] == 0, rearmed
-    marking('悬停时移除能力｜脚灯与悬停状态一并清理')
+    assert rearmed['ready'] and rearmed['hover'] and rearmed['remaining'] == rearmed['cardLights'] == 1, rearmed
+    marking('悬停时移除能力｜脚灯、卡顶标记与悬停状态一并清理')
     cmd('pzero remove'); time.sleep(.8)
     removed = json.loads(cmd('pzero status')['message']); save('position-removed', removed)
     assert removed['live'] == removed['back'] == removed['cardLights'] == 0 and not removed['hover'], removed
