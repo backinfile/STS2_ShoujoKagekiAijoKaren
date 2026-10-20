@@ -28,9 +28,6 @@ public partial class NKarenLastWordPlayableVfx : Node2D
     private readonly NCard _card;
     private readonly NCombatRoom? _room;
     private float _timer;
-    private float _charge;
-    private float _age;
-    private int _chargeSlot;
 
     public NKarenLastWordPlayableVfx(NCard card)
     {
@@ -59,10 +56,6 @@ public partial class NKarenLastWordPlayableVfx : Node2D
         GlobalTransform = cardTransform;
 
         float d = (float)delta;
-        _age += d;
-        var holder = _room?.Ui.Hand.FocusedHolder;
-        bool hovered = GodotObject.IsInstanceValid(holder) && holder!.CardNode == _card;
-        _charge = Mathf.MoveToward(_charge, hovered ? 1f : 0f, d / (hovered ? .32f : .45f));
         _timer -= d;
         while (_timer <= 0f)
         {
@@ -77,29 +70,10 @@ public partial class NKarenLastWordPlayableVfx : Node2D
 
     private void AddParticle(Vector2 cardSize, bool preferCorner)
     {
-        Vector2 localPosition, localNormal;
-        if (_charge > .01f)
-            PickChargeSpawn(cardSize, out localPosition, out localNormal);
-        else
-            PickSpawn(cardSize, preferCorner, out localPosition, out localNormal);
+        PickSpawn(cardSize, preferCorner, out var localPosition, out var localNormal);
 
         AddChild(new NKarenLastWordPlayableTParticle(
-            PickTexture(), localPosition, localNormal, GlobalScale.Abs(), this));
-    }
-
-    private void PickChargeSpawn(Vector2 size, out Vector2 position, out Vector2 normal)
-    {
-        // Coprime stepping fills the whole perimeter every 48 births instead of
-        // emitting adjacent clumps or over-weighting the corners.
-        float distance = (((_chargeSlot++ * 19) % 48 + .5f) / 48f) * 2f * (size.X + size.Y);
-        var half = size * .5f;
-        if (distance < size.X) { position = new(-half.X + distance, -half.Y); normal = Vector2.Up; }
-        else if ((distance -= size.X) < size.Y) { position = new(half.X, -half.Y + distance); normal = Vector2.Right; }
-        else if ((distance -= size.Y) < size.X) { position = new(half.X - distance, half.Y); normal = Vector2.Down; }
-        else { distance -= size.X; position = new(-half.X, half.Y - distance); normal = Vector2.Left; }
-        var tangent = new Vector2(-normal.Y, normal.X);
-        position += normal * Mathf.Lerp(14f, 38f, _charge)
-            + tangent * (float)GD.RandRange(-3.0, 3.0);
+            PickTexture(), localPosition, localNormal, GlobalScale.Abs()));
     }
 
     private Vector2 GetCardSize()
@@ -165,15 +139,12 @@ public partial class NKarenLastWordPlayableVfx : Node2D
         };
 
         private readonly Vector2 _velocity;
-        private readonly Vector2 _origin, _normal;
-        private readonly NKarenLastWordPlayableVfx _emitter;
-        private readonly float _charge;
         private readonly float _rotationSpeed;
         private readonly Vector2 _startScale;
         private readonly float _life;
         private float _age;
 
-        public NKarenLastWordPlayableTParticle(Texture2D? texture, Vector2 position, Vector2 normal, Vector2 parentScale, NKarenLastWordPlayableVfx emitter)
+        public NKarenLastWordPlayableTParticle(Texture2D? texture, Vector2 position, Vector2 normal, Vector2 parentScale)
         {
             Texture = texture;
             Centered = true;
@@ -182,12 +153,10 @@ public partial class NKarenLastWordPlayableVfx : Node2D
             ZIndex = 0;
             Modulate = KarenColor;
             Position = position;
-            _origin = position; _normal = normal; _emitter = emitter;
-            _charge = Mathf.SmoothStep(0f, 1f, emitter._charge);
 
             var tangent = new Vector2(-normal.Y, normal.X) * (float)GD.RandRange(-45.0, 45.0);
             _velocity = (normal * (float)GD.RandRange(55.0, 105.0) + tangent) / parentScale;
-            _rotationSpeed = (float)GD.RandRange(-120.0, 120.0) * Mathf.Lerp(1f, .35f, _charge);
+            _rotationSpeed = (float)GD.RandRange(-120.0, 120.0);
             var scale = (float)GD.RandRange(0.35, 0.75);
             _startScale = Vector2.One * scale;
             _life = (float)GD.RandRange(0.9, 1.4);
@@ -201,17 +170,11 @@ public partial class NKarenLastWordPlayableVfx : Node2D
             float d = (float)delta;
             _age += d;
 
-            float t = Mathf.Clamp(_age / _life, 0f, 1f);
-            var tangent = new Vector2(-_normal.Y, _normal.X);
-            var gathering = -_normal * 24f * Mathf.SmoothStep(0f, 1f, t)
-                + tangent * (3f * Mathf.Sin(_age * 3.5f));
-            Position = _origin + (_velocity * _age).Lerp(gathering, _charge);
+            Position += _velocity * d;
             RotationDegrees += _rotationSpeed * d;
 
-            float envelope = Mathf.SmoothStep(0f, .12f, t) * (1f - Mathf.SmoothStep(.58f, 1f, t));
-            float breath = .90f + .08f * Mathf.Sin(_emitter._age * 2.2f);
-            float alpha = Mathf.Lerp(1f - t, envelope * breath, _charge);
-            Modulate = new Color(KarenColor.R, KarenColor.G, KarenColor.B, alpha * KarenColor.A);
+            float t = Mathf.Clamp(_age / _life, 0f, 1f);
+            Modulate = new Color(KarenColor.R, KarenColor.G, KarenColor.B, (1f - t) * KarenColor.A);
             // Offsets follow the card scale; keep each T glyph at its original screen size.
             GlobalScale = _startScale;
 

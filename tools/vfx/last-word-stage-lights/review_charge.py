@@ -1,7 +1,9 @@
 
 """Review actual MCP hover distribution and post-film T afterglow; package original-speed footage."""
 from pathlib import Path
-import hashlib,json,math,re,subprocess
+import hashlib,json,math,re,subprocess,sys
+regular="--regular" in sys.argv
+tag="regular" if regular else "charge"
 from PIL import Image,ImageDraw,ImageFont
 root=Path(__file__).resolve().parents[3]
 art=root/'artifacts/last-word-stage-lights';out=root/'docs/worktree-tasks/last-word-stage-lights-20261019'
@@ -14,8 +16,8 @@ def diagnostics(path):
  return values
 summary={'before':{},'branches':{},'unchanged':{}}
 pictures=[]
-before=art/'charge-before/stable/lastword-charge-before'
-def measure(case,changed):
+before=art/('regular-prior/stable/lastword-charge' if regular else 'charge-before/stable/lastword-charge-before')
+def measure(case,changed,normal_hover=False):
  phases={name:read(case/(name+'-probe.json')) for name in ['blocked','idle','hover-first','hover-held','hover-screenshot','unhover-restored','unhover-screenshot','postplay']}
  cvs=[]
  for name,data in phases.items():
@@ -26,7 +28,9 @@ def measure(case,changed):
    assert t['anchorError']<1 and t['basisError']<.02,(name,t)
   if name.startswith('hover'):
    t=data['current']['tNodes'][0];cvs.append(t['distributionCv'])
-   if changed:assert t['charge']>.99 and min(t['bins'])>0 and t['distributionCv']<.45,(name,t)
+   if normal_hover:
+    assert t['charge']==0 and data['current']['nodes'][0]['hover']>.99,(name,t)
+   elif changed:assert t['charge']>.99 and min(t['bins'])>0 and t['distributionCv']<.45,(name,t)
   if changed and name.startswith('unhover'):assert t['charge']<.01,(name,t)
  d=phases['postplay'];assert not d['current']['attack'] and not d['current']['videos']
  samples=d['samples']
@@ -59,11 +63,11 @@ def measure(case,changed):
   assert v['status']=='completed' and v['frames_dropped']==0 and v['audio_source']=='game_process',v
   result['captures'].append({k:v.get(k) for k in ['capture_fps','frames_dropped','frames_repeated','video_duration_seconds','captureBuild']})
  return result
-summary['before']=measure(before,False)
+summary['before']=measure(before,regular)
 for branch in ['stable','beta']:
- folder=art/branch;case=folder/'lastword-charge'
- result=measure(case,True)
- assert result['lastVisibleAttackSeconds']>summary['before']['lastVisibleAttackSeconds']+.6,(branch,result,summary['before'])
+ folder=art/branch;case=folder/('lastword-'+tag)
+ result=measure(case,True,regular)
+ if not regular:assert result['lastVisibleAttackSeconds']>summary['before']['lastVisibleAttackSeconds']+.6,(branch,result,summary['before'])
  monitor=read(folder/'window-monitor.json');assert monitor['foreground_samples']==monitor['restored_samples']==0,monitor
  result['windowMonitor']=monitor
  result['diagnostics']=diagnostics(folder/'godot.log')
@@ -83,40 +87,49 @@ for rel in [
  if rel.endswith(('.cs','.gdshader')):old=old.replace(b'\r\n',b'\n');new=new.replace(b'\r\n',b'\n')
  assert old==new,rel
  summary['unchanged'][rel]=hashlib.sha256(new).hexdigest()
+if regular:
+ for revision,rel in [('fa9a435','src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordPlayableVfx.cs'),('b313907','src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVfx.cs'),('b313907','src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVideoVfx.cs')]:
+  old=subprocess.check_output(['git','show',revision+':'+rel],cwd=root).replace(b'\r\n',b'\n');new=(root/rel).read_bytes().replace(b'\r\n',b'\n')
+  assert old==new,rel
+  summary['unchanged'][revision+':'+rel]=hashlib.sha256(new).hexdigest()
 font=ImageFont.truetype('C:/Windows/Fonts/arial.ttf',15)
 for page in range((len(pictures)+11)//12):
  contact=Image.new('RGB',(1600,3*251),(18,22,29));draw=ImageDraw.Draw(contact)
  for j,(label,path) in enumerate(pictures[page*12:(page+1)*12]):
   im=Image.open(path).convert('RGB');im.thumbnail((392,220));x=(j%4)*400+4;y=(j//4)*251+25
   contact.paste(im,(x,y));draw.text((x,y-21),label,font=font,fill='white')
- contact.save(out/('charge-mcp-contact-%02d.jpg'%(page+1)),quality=90)
-(out/'charge-verification.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
+ contact.save(out/(tag+'-mcp-contact-%02d.jpg'%(page+1)),quality=90)
+(out/(tag+'-verification.json')).write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps({key:{k:v[k] for k in ['meanHoverDistributionCv','lastVisibleAttackSeconds','visibleLateAfterglow','tailSurvivedCombatEnd']} for key,v in summary['branches'].items()},indent=2),flush=True)
 # Both game processes have exited before ffmpeg packaging.
-scratch=art/'delivery-charge';scratch.mkdir(exist_ok=True)
+scratch=art/('delivery-'+tag);scratch.mkdir(exist_ok=True)
 def probe(p):return json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration:stream=codec_type,width,height,r_frame_rate','-of','json',str(p)]))
 def run(args):subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y',*map(str,args)],check=True)
 def strip(path,width,height,text,size=24):
  im=Image.new('RGB',(width,height),(18,21,29));d=ImageDraw.Draw(im)
  d.text((20,14),text,font=ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',size),fill='#ffdeea');im.save(path)
-case=art/'stable/lastword-charge';outputs=[];lengths={}
-for name,source,title in [('hover','ready-recording/game.mp4','Hover T 字｜均匀贴边、轻微内聚与呼吸蓄力'),('play','game.mp4','打出 T 字｜影片结束后减速停留、柔和淡出；伤害节奏保留')]:
+case=art/('stable/lastword-'+tag);outputs=[];lengths={}
+video_prefix='LastWord-T-'+('regular-' if regular else '')
+for name,source,title in [('hover','ready-recording/game.mp4','Hover T 字｜恢复普通状态的向外飘散' if regular else 'Hover T 字｜均匀贴边、轻微内聚与呼吸蓄力'),('play','game.mp4','打出 T 字｜影片结束后减速停留、柔和淡出；伤害节奏保留')]:
  old=before/source;new=case/source
  seconds=min(float(probe(old)['format']['duration']),float(probe(new)['format']['duration']))
- strip(scratch/(name+'-header.png'),1920,64,'上一版',26)
+ # This review sequence reaches rewards around 11.2s; retain the complete T tail
+ # and rewards transition, omitting the extra static rewards hold.
+ if regular and name=='play':seconds=min(seconds,11.9)
+ strip(scratch/(name+'-header.png'),1920,64,'上一版｜hover 蓄力' if regular and name=='hover' else '上一版',26)
  header=Image.open(scratch/(name+'-header.png'));ImageDraw.Draw(header).text((980,14),title,font=ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',25),fill='#ffdeea');header.save(scratch/(name+'-header.png'))
  strip(scratch/(name+'-footer.png'),1920,64,'1× 游戏实录 · 同一组原生操作 · 原 T 字、粉白/玫红灯光与影片保留',23)
- dest=out/('LastWord-T-'+name+'-before-after.mp4')
+ dest=out/(video_prefix+name+'-before-after.mp4')
  run(['-i',old,'-i',new,'-loop','1','-framerate','30','-i',scratch/(name+'-header.png'),'-loop','1','-framerate','30','-i',scratch/(name+'-footer.png'),
  '-filter_complex','[0:v]scale=960:540,setsar=1,setpts=PTS-STARTPTS[a];[1:v]scale=960:540,setsar=1,setpts=PTS-STARTPTS[b];[a][b]hstack[m];[2:v][m][3:v]vstack=inputs=3,format=yuv420p[v]',
  '-map','[v]','-map','1:a:0','-t',seconds,'-r','30','-c:v','libx264','-crf','19','-preset','medium','-threads','4','-c:a','aac','-b:a','160k','-movflags','+faststart',dest])
  outputs.append(dest);lengths[name]=seconds
 concat=scratch/'concat.txt';concat.write_text(''.join("file '"+str(p).replace('\\','/')+"'\n" for p in outputs),encoding='utf-8')
-review=out/'LastWord-T-review.mp4';run(['-f','concat','-safe','0','-i',concat,'-c','copy','-movflags','+faststart',review]);outputs.append(review)
+review=out/(video_prefix+'review.mp4');run(['-f','concat','-safe','0','-i',concat,'-c','copy','-movflags','+faststart',review]);outputs.append(review)
 strip(scratch/'play-after-footer.png',1280,64,'最后的台词｜打出后的 T 字减速留存，再自然淡出',21)
-solo=out/'LastWord-T-play-after.mp4'
+solo=out/(video_prefix+'play-after.mp4')
 run(['-i',case/'game.mp4','-loop','1','-framerate','30','-i',scratch/'play-after-footer.png','-filter_complex','[0:v][1:v]vstack=inputs=2,format=yuv420p[v]',
- '-map','[v]','-map','0:a:0','-t',probe(case/'game.mp4')['format']['duration'],'-r','30','-c:v','libx264','-crf','19','-preset','medium','-threads','4','-c:a','aac','-b:a','160k','-movflags','+faststart',solo]);outputs.append(solo)
+ '-map','[v]','-map','0:a:0','-t',min(float(probe(case/'game.mp4')['format']['duration']),11.9) if regular else probe(case/'game.mp4')['format']['duration'],'-r','30','-c:v','libx264','-crf','19','-preset','medium','-threads','4','-c:a','aac','-b:a','160k','-movflags','+faststart',solo]);outputs.append(solo)
 metadata={'comparisonDurations':lengths,'videos':{}}
 for p in outputs:
  run(['-i',p,'-f','null','-'])
@@ -127,6 +140,6 @@ for p in outputs:
  info=probe(p);seconds=float(info['format']['duration'])
  assert not any(t<seconds-2 for t in starts),(p,starts)
  metadata['videos'][p.name]={'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'probe':info,'audio':volumes,'freezeStarts':starts}
-(out/'charge-videos.json').write_text(json.dumps(metadata,indent=2),encoding='utf-8')
+(out/(tag+'-videos.json')).write_text(json.dumps(metadata,indent=2),encoding='utf-8')
 print('VIDEO PACKAGING PASSED',lengths,flush=True)
 

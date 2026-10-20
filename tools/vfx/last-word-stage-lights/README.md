@@ -14,3 +14,5 @@
 2026-10-20 动态性迭代：旧生产包保存为 artifacts/last-word-stage-lights/motion-before-package。先用该包和 lastword-motion-before 场景录制同一常态/悬停序列，退出后将 stable 输出移到 motion-before/stable，再用最终包跑两版 lastword-stage,lastword-stage-void。验证与封装传 --motion，分别生成 motion-verification.json、motion-videos.json 和 LastWord-stage-motion-*.mp4，原版校色记录不覆盖。被动探针检查原生 FocusedHolder 驱动的平滑 hover、连续时钟及 T 字变换跟随。
 
 T 字蓄力/尾韵专项：保存 fa9a435 包到 charge-before-package，使用 lastword-charge-before 录制旧版，退出后将 stable 输出移到 charge-before/stable。最终包分别运行两版 lastword-charge --audit-capture，再执行 review_charge.py，核对可见字形的周长分布、余韵透明度及战斗结束/奖励清理，生成 charge-*.json 和 LastWord-T-*.mp4。打出影片与伤害源保持不变；观察器只读取真实生产特效，不生成替代效果。
+
+恢复普通 hover T 字专项：保留上一轮两版输出到 regular-prior/stable 与 regular-prior/beta；当前生产包分别运行 lastword-regular --audit-capture，再执行 review_charge.py --regular。复核原生 hover 时 T 字蓄力值为 0、卡牌跟随、打出余韵与奖励清理；屏幕追光仍使用原先动态。输出 regular-*.json、regular-mcp-contact-*.jpg 和 LastWord-T-regular-*.mp4，不覆盖蓄力迭代的历史证据。

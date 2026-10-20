@@ -1,6 +1,7 @@
 """Real native hover and play; passive production VFX observation only."""
 before='lastword-charge-before' in wanted
-stage('lastword-charge-before' if before else 'lastword-charge',seed=True)
+regular='lastword-regular' in wanted
+stage('lastword-regular' if regular else ('lastword-charge-before' if before else 'lastword-charge'),seed=True)
 cmd('promise_integration off');cmd('showcase clear');trim()
 prep('KAREN_LAST_WORD');prep('KAREN_DEFEND')
 def charge_status(name):
@@ -16,7 +17,7 @@ cmd('remove_card KAREN_DEFEND Hand');time.sleep(1.5)
 charge_nodes(charge_status('idle'),1);charge_snap('idle')
 card=next(c for c in state()['player']['hand'] if c['id']=='KAREN_LAST_WORD')
 record_start();marking('常态 T 字与舞台追光');time.sleep(1.1)
-marking('Hover｜牌边均匀分布，轻微内聚与呼吸')
+marking('Hover｜T 字保持普通状态的飘散' if regular else 'Hover｜牌边均匀分布，轻微内聚与呼吸')
 post(action='hover_card',card_index=card['index']);time.sleep(2.0)
 charge_status('hover-first');time.sleep(2.4)
 charge_status('hover-held')
@@ -30,7 +31,10 @@ for path in list(case.iterdir()):
         shutil.copy2(path,ready/path.name)
 post(action='hover_card',card_index=card['index']);time.sleep(1.8)
 hover=charge_status('hover-screenshot');charge_snap('hover-screenshot')
-if not before:
+if regular:
+    assert hover['current']['tNodes'][0]['charge']==0,hover['current']
+    assert hover['current']['nodes'][0]['hover']>.99,hover['current']
+elif not before:
     charge_t=hover['current']['tNodes'][0]
     assert charge_t['charge']>.99 and all(n>0 for n in charge_t['bins']) and charge_t['distributionCv']<.45,charge_t
 post(action='unhover_card');time.sleep(1.5)
