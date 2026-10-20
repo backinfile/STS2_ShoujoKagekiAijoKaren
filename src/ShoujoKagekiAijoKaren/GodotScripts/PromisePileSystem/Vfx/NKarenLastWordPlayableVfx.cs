@@ -50,7 +50,10 @@ public partial class NKarenLastWordPlayableVfx : Node2D
             return;
         }
 
-        Position = Vector2.Zero;
+        var cardTransform = _card.Body.GetGlobalTransform();
+        if (Mathf.Abs(cardTransform.Determinant()) < .0001f) { Hide(); return; }
+        Show();
+        GlobalTransform = cardTransform;
 
         float d = (float)delta;
         _timer -= d;
@@ -69,12 +72,8 @@ public partial class NKarenLastWordPlayableVfx : Node2D
     {
         PickSpawn(cardSize, preferCorner, out var localPosition, out var localNormal);
 
-        var cardTransform = _card.Body.GetGlobalTransform();
-        var globalPosition = cardTransform * localPosition;
-        var globalNormal = (cardTransform.X * localNormal.X + cardTransform.Y * localNormal.Y).Normalized();
-        var position = ToLocal(globalPosition);
-
-        AddChild(new NKarenLastWordPlayableTParticle(PickTexture(), position, globalNormal));
+        AddChild(new NKarenLastWordPlayableTParticle(
+            PickTexture(), localPosition, localNormal, GlobalScale.Abs()));
     }
 
     private Vector2 GetCardSize()
@@ -145,7 +144,7 @@ public partial class NKarenLastWordPlayableVfx : Node2D
         private readonly float _life;
         private float _age;
 
-        public NKarenLastWordPlayableTParticle(Texture2D? texture, Vector2 position, Vector2 normal)
+        public NKarenLastWordPlayableTParticle(Texture2D? texture, Vector2 position, Vector2 normal, Vector2 parentScale)
         {
             Texture = texture;
             Centered = true;
@@ -156,14 +155,14 @@ public partial class NKarenLastWordPlayableVfx : Node2D
             Position = position;
 
             var tangent = new Vector2(-normal.Y, normal.X) * (float)GD.RandRange(-45.0, 45.0);
-            _velocity = normal * (float)GD.RandRange(55.0, 105.0) + tangent;
+            _velocity = (normal * (float)GD.RandRange(55.0, 105.0) + tangent) / parentScale;
             _rotationSpeed = (float)GD.RandRange(-120.0, 120.0);
             var scale = (float)GD.RandRange(0.35, 0.75);
             _startScale = Vector2.One * scale;
             _life = (float)GD.RandRange(0.9, 1.4);
 
             RotationDegrees = (float)GD.RandRange(0.0, 360.0);
-            Scale = _startScale;
+            Scale = _startScale / parentScale;
         }
 
         public override void _Process(double delta)
@@ -176,7 +175,8 @@ public partial class NKarenLastWordPlayableVfx : Node2D
 
             float t = Mathf.Clamp(_age / _life, 0f, 1f);
             Modulate = new Color(KarenColor.R, KarenColor.G, KarenColor.B, (1f - t) * KarenColor.A);
-            Scale = _startScale;
+            // Offsets follow the card scale; keep each T glyph at its original screen size.
+            GlobalScale = _startScale;
 
             if (_age >= _life)
                 QueueFree();

@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.DevConsole.ConsoleCommands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Cards.Holders;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -31,11 +32,18 @@ public static class LastWordStageProbe
     private static object? Field(object n, string field) =>
         n.GetType().GetField(field, BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(n);
     private static object Current() => new {
-        tNodes = TNodes().Select(n => new { instance = n.GetInstanceId(), particles = n.GetChildCount() }).ToArray(),
+        tNodes = TNodes().Select(n => new {
+            instance = n.GetInstanceId(), particles = n.GetChildCount(),
+            anchorError = Field(n, "_card") is NCard card ? n.GlobalPosition.DistanceTo(card.Body.GlobalPosition) : -1f,
+            basisError = Field(n, "_card") is NCard target ? (n.GlobalTransform.X - target.Body.GetGlobalTransform().X).Length()
+                + (n.GlobalTransform.Y - target.Body.GetGlobalTransform().Y).Length() : -1f
+        }).ToArray(),
         nodes = Nodes().Select(n => new {
             instance = n.GetInstanceId(),
             opacity = Field(n, "_opacity") as float? ?? 1f,
             age = Field(n, "_age") as float? ?? 0f,
+            hover = Field(n, "_hover") as float? ?? 0f,
+            motionTime = Field(n, "_motionTime") as float? ?? 0f,
             width = n.GetViewportRect().Size.X, height = n.GetViewportRect().Size.Y,
             children = n.GetChildCount(), z = n.ZIndex,
             shader = n.GetChildren().OfType<ColorRect>().FirstOrDefault()?.Material?.ResourcePath,

@@ -4,6 +4,8 @@ render_mode unshaded, blend_mix;
 uniform vec2 screen_size = vec2(1920.0, 1080.0);
 uniform float effect_age = 0.0;
 uniform float strength = 0.0;
+uniform float motion_time = 0.0;
+uniform float hover_amount = 0.0;
 uniform vec4 hud_rect;
 uniform vec4 end_turn_rect;
 uniform vec4 energy_rect;
@@ -46,8 +48,13 @@ vec4 over(vec4 below, vec3 tint, float coverage) {
 }
 
 vec4 beam(vec4 light, vec2 p, vec2 origin, float angle, float spread, float phase, float haze) {
-    float t = effect_age;
-    angle += sin(t * 0.38 + phase) * 0.014;
+    float t = motion_time;
+    float sweep = sin(t * 0.72 + phase * 0.9) * 0.045
+        + sin(t * 0.31 + phase * 1.7) * 0.015;
+    angle = mix(angle, angle * 0.7 + 0.025, hover_amount)
+        + sweep * mix(1.0, 1.3, hover_amount);
+    spread *= (1.0 + 0.055 * sin(t * 1.06 + phase)) * mix(1.0, 0.82, hover_amount);
+    origin.x += sin(t * 0.43 + phase) * 0.004;
     vec2 axis = vec2(sin(angle), cos(angle));
     vec2 offset = p - origin;
     float along = dot(offset, axis);
@@ -56,9 +63,10 @@ vec4 beam(vec4 light, vec2 p, vec2 origin, float angle, float spread, float phas
     float core = exp(-1.8 * pow(across / width, 2.0));
     float halo = exp(-1.5 * pow(across / (width * 2.5), 2.0));
     float length_fade = (1.0 - smoothstep(0.16, 0.76, along)) * smoothstep(-0.010, 0.024, along);
-    float turn_on = smoothstep(phase * 0.055, phase * 0.055 + 0.38, t);
-    float breathing = 0.96 + 0.04 * sin(t * 0.75 + phase);
-    float power = length_fade * turn_on * breathing * mix(0.90, 1.04, haze);
+    float turn_on = smoothstep(phase * 0.055, phase * 0.055 + 0.38, effect_age);
+    float breathing = 0.90 + 0.10 * sin(t * 1.12 + phase * 0.75);
+    float power = length_fade * turn_on * breathing * mix(0.90, 1.04, haze)
+        * mix(0.96, 1.13, hover_amount);
     light = over(light, ROSE, halo * power * 0.56);
     vec3 core_tint = mix(WHITE_PINK * 1.14, vec3(1.0, 0.38, 0.56), smoothstep(0.035, 0.38, along));
     light = over(light, core_tint, core * power * 0.91);
@@ -77,10 +85,10 @@ void fragment() {
         float aspect = screen_size.x / screen_size.y;
         vec2 p = vec2(edge * aspect, uv.y);
         float side_phase = uv.x < 0.5 ? 0.0 : 1.7;
-        float t = effect_age;
-        float haze = noise(p * vec2(18.0, 6.0) + vec2(t * 0.07, -t * 0.12) + side_phase);
+        float t = motion_time;
+        float haze = noise(p * vec2(18.0, 6.0) + vec2(t * 0.10, -t * 0.20) + side_phase);
         float rig_y = max(0.070, hud_rect.w / screen_size.y + 0.014);
-        float shoulder = exp(-pow((p.x - 0.070) / 0.235, 2.0))
+        float shoulder = exp(-pow((p.x - 0.070 - 0.018 * sin(t * 0.48 + side_phase)) / 0.235, 2.0))
             * (1.0 - smoothstep(0.30, 1.02, uv.y)) * smoothstep(rig_y - 0.03, rig_y + 0.02, uv.y);
         vec4 light = over(vec4(0.0), CRIMSON, shoulder * mix(0.32, 0.54, haze));
         light = over(light, ROSE, shoulder * mix(0.12, 0.23, haze));
@@ -89,18 +97,18 @@ void fragment() {
         light = beam(light, p, vec2(0.215, rig_y), 0.295, 0.080, 2.0 + side_phase, haze);
 
         float dust = 0.0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 18; i++) {
             float seed = float(i) + side_phase * 19.0;
-            vec2 particle = vec2(0.01 + hash(vec2(seed, 2.0)) * 0.265,
-                0.095 + fract(hash(vec2(seed, 9.0)) - t * (0.008 + hash(vec2(seed, 5.0)) * 0.010)) * 0.78);
-            float radius = 0.0009 + hash(vec2(seed, 8.0)) * 0.0012;
-            dust += exp(-pow(length(p - particle) / radius, 2.0)) * (0.45 + 0.25 * sin(t * 1.1 + seed));
+            vec2 particle = vec2(0.01 + hash(vec2(seed, 2.0)) * 0.265 + sin(t * 0.55 + seed) * 0.006,
+                0.095 + fract(hash(vec2(seed, 9.0)) - t * (0.015 + hash(vec2(seed, 5.0)) * 0.020)) * 0.78);
+            float radius = 0.0012 + hash(vec2(seed, 8.0)) * 0.0013;
+            dust += exp(-pow(length(p - particle) / radius, 2.0)) * (0.55 + 0.25 * sin(t * 1.1 + seed));
         }
         light = over(light, WHITE_PINK, dust * 0.75);
         float controls = protect_control(uv * screen_size, hud_rect)
             * protect_control(uv * screen_size, end_turn_rect)
             * protect_orb(uv * screen_size, energy_rect);
-        float settle = mix(1.0, 0.94, smoothstep(0.70, 2.0, t));
+        float settle = mix(1.0, 0.94, smoothstep(0.70, 2.0, effect_age));
         COLOR = vec4(light.rgb / max(light.a, 0.0001), light.a * side_mask * controls * strength * settle) * COLOR;
     }
 }

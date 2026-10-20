@@ -26,6 +26,8 @@ public partial class NKarenLastWordStageLightsVfx : Node2D
     private ShaderMaterial _material = null!;
     private float _age;
     private float _opacity;
+    private float _hover;
+    private float _motionTime;
 
     public static void Refresh(NCard? card)
     {
@@ -100,6 +102,11 @@ public partial class NKarenLastWordStageLightsVfx : Node2D
         // Also observe the model directly: another pile can invalidate Last Word
         // without causing a hand-holder refresh, and pooled cards may change models.
         bool playable = CanShow(_card, _model);
+        var holder = _room.Ui.Hand.FocusedHolder;
+        bool hovered = playable && GodotObject.IsInstanceValid(holder) && holder!.CardNode == _card;
+        _hover = Mathf.MoveToward(_hover, hovered ? 1f : 0f, d / (hovered ? .32f : .45f));
+        // Integrate speed rather than changing time * frequency on hover: no phase jumps.
+        _motionTime += d * Mathf.Lerp(1f, 1.3f, Mathf.SmoothStep(0f, 1f, _hover));
         _opacity = Mathf.MoveToward(_opacity, playable ? 1f : 0f,
             d / (playable ? FadeInSeconds : FadeOutSeconds));
         if (!playable && _opacity <= 0f)
@@ -118,6 +125,8 @@ public partial class NKarenLastWordStageLightsVfx : Node2D
         _light.Size = screen;
         _material.SetShaderParameter("screen_size", screen);
         _material.SetShaderParameter("effect_age", _age);
+        _material.SetShaderParameter("motion_time", _motionTime);
+        _material.SetShaderParameter("hover_amount", Mathf.SmoothStep(0f, 1f, _hover));
         _material.SetShaderParameter("strength", Mathf.SmoothStep(0f, 1f, _opacity));
         _material.SetShaderParameter("hud_rect", TopBarBounds(screen));
         _material.SetShaderParameter("end_turn_rect", ScreenBounds(_room.Ui.EndTurnButton));

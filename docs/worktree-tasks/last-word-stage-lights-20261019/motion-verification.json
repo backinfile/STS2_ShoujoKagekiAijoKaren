@@ -1,0 +1,252 @@
+{
+  "branches": {
+    "stable": {
+      "cases": {
+        "blocked-before": 0,
+        "ready-after-recording": 1,
+        "blocked-Draw": 0,
+        "restored-Draw": 1,
+        "blocked-Discard": 0,
+        "restored-Discard": 1,
+        "blocked-Hand": 0,
+        "restored-Hand": 1,
+        "duplicate-blocked": 0,
+        "duplicate-restored": 1,
+        "repeated-native-refresh": 1,
+        "removed-lastword": 0,
+        "recreated-lastword": 1,
+        "resized-4x3": 1,
+        "resized-16x9": 1,
+        "rewards-cleanup": 0,
+        "hover-screenshot": 1,
+        "hover-return-screenshot": 1,
+        "void-draw-allowed": 1,
+        "void-discard-blocked": 0,
+        "void-restored": 1,
+        "new-room-cleanup": 0
+      },
+      "handChecks": 27,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.497269261034997,
+          "frames_captured": 504,
+          "frames_repeated": 9,
+          "frames_dropped": 0,
+          "video_duration_seconds": 17.1,
+          "captureBuild": {
+            "assemblySha256": "fbed4ae2c7fe5e904c239e9049ded1ed0597831fbd1ec156efe9f23a784a00f1",
+            "packSha256": "7d643e926a3672ec732303fd122533ffdde60d4d47929e1e01cbd4bfb6e8d6c9"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.29787006668775,
+          "frames_captured": 389,
+          "frames_repeated": 10,
+          "frames_dropped": 0,
+          "video_duration_seconds": 13.3,
+          "captureBuild": {
+            "assemblySha256": "fbed4ae2c7fe5e904c239e9049ded1ed0597831fbd1ec156efe9f23a784a00f1",
+            "packSha256": "7d643e926a3672ec732303fd122533ffdde60d4d47929e1e01cbd4bfb6e8d6c9"
+          }
+        }
+      ],
+      "tCue": "original glyphs, rate, world size and color; card-bound coordinates",
+      "motion": {
+        "idleClockRate": 1.0,
+        "hoverClockRate": 1.2999936349413488,
+        "intermediateFocusSamples": 36,
+        "phaseFocus": {
+          "idle-start": 0,
+          "idle-end": 0,
+          "hover-enter": 0.5250535,
+          "hover-ready": 1,
+          "hover-held": 1,
+          "hover-refreshed": 1,
+          "hover-exit": 0.6304312,
+          "idle-restored": 0,
+          "rapid-restored": 0
+        },
+        "oneContinuousInstance": true
+      },
+      "resizeRequests": {
+        "observedViewports": [
+          [
+            1920,
+            1080
+          ],
+          [
+            1920,
+            1080
+          ]
+        ],
+        "aspectCoverageConfirmed": false,
+        "note": "The hidden-window guard can retain the native 16:9 viewport; settings requests alone do not prove aspect-ratio coverage."
+      },
+      "edgeRedIncrease": {
+        "left": 105.63,
+        "right": 128.73
+      },
+      "windowMonitor": {
+        "samples": 4453,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 95
+      },
+      "captureAudit": [
+        {
+          "encoder": "h264_nvenc",
+          "captureFps": 29.74906290451851,
+          "repeatedFrames": 2,
+          "droppedFrames": 0,
+          "decodedFrames": 240,
+          "distinctClockValues": 238,
+          "longestUnchangedClockSeconds": 0.06666666666666667,
+          "largestClockJumpSeconds": 0.06000000000000005,
+          "clockSeconds": 7.970000000000001,
+          "videoSeconds": 7.966667,
+          "timelineDriftSeconds": 0.0033330000000004745,
+          "strictlyIncreasingPts": true
+        }
+      ],
+      "logDiagnostics": []
+    },
+    "beta": {
+      "cases": {
+        "blocked-before": 0,
+        "ready-after-recording": 1,
+        "blocked-Draw": 0,
+        "restored-Draw": 1,
+        "blocked-Discard": 0,
+        "restored-Discard": 1,
+        "blocked-Hand": 0,
+        "restored-Hand": 1,
+        "duplicate-blocked": 0,
+        "duplicate-restored": 1,
+        "repeated-native-refresh": 1,
+        "removed-lastword": 0,
+        "recreated-lastword": 1,
+        "resized-4x3": 1,
+        "resized-16x9": 1,
+        "rewards-cleanup": 0,
+        "hover-screenshot": 1,
+        "hover-return-screenshot": 1,
+        "void-draw-allowed": 1,
+        "void-discard-blocked": 0,
+        "void-restored": 1,
+        "new-room-cleanup": 0
+      },
+      "handChecks": 27,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.957846506891446,
+          "frames_captured": 513,
+          "frames_repeated": 1,
+          "frames_dropped": 0,
+          "video_duration_seconds": 17.133333333333333,
+          "captureBuild": {
+            "assemblySha256": "c13f2237a5e5c76f851be05b36ea1005d0e6a54dca83803bba612ea6b4700739",
+            "packSha256": "7d643e926a3672ec732303fd122533ffdde60d4d47929e1e01cbd4bfb6e8d6c9"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.495850896908628,
+          "frames_captured": 392,
+          "frames_repeated": 7,
+          "frames_dropped": 0,
+          "video_duration_seconds": 13.3,
+          "captureBuild": {
+            "assemblySha256": "c13f2237a5e5c76f851be05b36ea1005d0e6a54dca83803bba612ea6b4700739",
+            "packSha256": "7d643e926a3672ec732303fd122533ffdde60d4d47929e1e01cbd4bfb6e8d6c9"
+          }
+        }
+      ],
+      "tCue": "original glyphs, rate, world size and color; card-bound coordinates",
+      "motion": {
+        "idleClockRate": 1.0,
+        "hoverClockRate": 1.2999941262398678,
+        "intermediateFocusSamples": 36,
+        "phaseFocus": {
+          "idle-start": 0,
+          "idle-end": 0,
+          "hover-enter": 0.55609584,
+          "hover-ready": 1,
+          "hover-held": 1,
+          "hover-refreshed": 1,
+          "hover-exit": 0.63767195,
+          "idle-restored": 0,
+          "rapid-restored": 0
+        },
+        "oneContinuousInstance": true
+      },
+      "resizeRequests": {
+        "observedViewports": [
+          [
+            1920,
+            1080
+          ],
+          [
+            1920,
+            1080
+          ]
+        ],
+        "aspectCoverageConfirmed": false,
+        "note": "The hidden-window guard can retain the native 16:9 viewport; settings requests alone do not prove aspect-ratio coverage."
+      },
+      "edgeRedIncrease": {
+        "left": 105.3,
+        "right": 127.9
+      },
+      "windowMonitor": {
+        "samples": 4621,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 172
+      },
+      "captureAudit": [
+        {
+          "encoder": "h264_nvenc",
+          "captureFps": 29.748409947488305,
+          "repeatedFrames": 2,
+          "droppedFrames": 0,
+          "decodedFrames": 240,
+          "distinctClockValues": 238,
+          "longestUnchangedClockSeconds": 0.06666666666666667,
+          "largestClockJumpSeconds": 0.07000000000000006,
+          "clockSeconds": 7.969999999999999,
+          "videoSeconds": 7.966667,
+          "timelineDriftSeconds": 0.003332999999998698,
+          "strictlyIncreasingPts": true
+        }
+      ],
+      "logDiagnostics": [
+        {
+          "line": 254,
+          "text": "ERROR: Invalid Task ID"
+        }
+      ]
+    }
+  },
+  "baseline": {
+    "revision": "77ee78c",
+    "recording": {
+      "capture_fps": 29.7082951907747,
+      "frames_captured": 505,
+      "frames_dropped": 0,
+      "captureBuild": {
+        "assemblySha256": "7177dc53cc119688aa681596a5f697d139bb1c113eb160c28383181ef36aa500",
+        "packSha256": "b41af8af96eaacc657416c861a031201a60367b97df9874cbb0b863415f2616f"
+      }
+    }
+  },
+  "unchanged": {
+    "src/Core/Models/Cards/neutral/KarenLastWord.cs": "606822c6d3307725589b0448d7e200117b4ca38c6e654b47748a9cb80b9040fa",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVideoVfx.cs": "ea423cc1a86a776a613a7e5ae5ea5c5a523ebf0e04321b4e2e14309bab547215",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVfx.cs": "e5c9b898b5ff7995f5d7a77589e12bb3050fe563682d593c1f37d78ba983c533",
+    "ShoujoKagekiAijoKaren/video/last_word.ogv": "4214d3b3f150501cc8ac0b9528ed1e371a75101699b256639132b95dcb83038a"
+  },
+  "screenshots": 85
+}

@@ -10,3 +10,5 @@
 6. 游戏退出后执行 `package_video.py` 制作原速左右对比和修改后完整演示；原游戏画面不裁切，说明置于外加条带。完整解码交付 MP4。
 
 旧包必须来自同一 main 基线的 DLL。`lastword-stage-before` 仅录旧牌缘提示；`lastword-stage-debug` 只用于诊断真实遮罩范围。首轮采用不支持 Draw 的原生 remove_card 命令已修正为测试插件调用原生 CardPileCmd.RemoveFromCombat；换房间固定使用已验证的 WATERFALL_GIANT_BOSS。无多人、完整矩阵或 Steam 部署。
+
+2026-10-20 动态性迭代：旧生产包保存为 artifacts/last-word-stage-lights/motion-before-package。先用该包和 lastword-motion-before 场景录制同一常态/悬停序列，退出后将 stable 输出移到 motion-before/stable，再用最终包跑两版 lastword-stage,lastword-stage-void。验证与封装传 --motion，分别生成 motion-verification.json、motion-videos.json 和 LastWord-stage-motion-*.mp4，原版校色记录不覆盖。被动探针检查原生 FocusedHolder 驱动的平滑 hover、连续时钟及 T 字变换跟随。

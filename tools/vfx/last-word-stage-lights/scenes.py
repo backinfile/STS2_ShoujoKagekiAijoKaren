@@ -21,9 +21,10 @@ def lw_remove(card,pile):
     cmd(('remove_card ' if pile=='Hand' else 'lastword_stage remove ')+card+' '+pile)
     time.sleep(.25)
 
-if 'lastword-stage' in wanted or 'lastword-stage-before' in wanted:
+if wanted & {'lastword-stage','lastword-stage-before','lastword-motion-before'}:
     baseline='lastword-stage-before' in wanted
-    stage('lastword-stage-before' if baseline else 'lastword-stage',seed=True)
+    motion_baseline='lastword-motion-before' in wanted
+    stage('lastword-motion-before' if motion_baseline else 'lastword-stage-before' if baseline else 'lastword-stage',seed=True)
     cmd('promise_integration off')
     cmd('showcase clear');trim()
     prep('KAREN_LAST_WORD');prep('KAREN_DEFEND')
@@ -34,15 +35,36 @@ if 'lastword-stage' in wanted or 'lastword-stage-before' in wanted:
     time.sleep(1.0)
     marking('顶部扇形追光｜条件满足，依次亮起')
     lw_remove('KAREN_DEFEND','Hand')
-    time.sleep(3.3)
-    card=next(c for c in state()['player']['hand'] if c['id']=='KAREN_LAST_WORD')
-    marking('持续追光｜原生悬停，灯光保持屏幕位置')
-    post(action='hover_card',card_index=card['index'])
+    time.sleep(2.0)
+    lw_status('motion-idle-start')
+    marking('常态｜错相扫动、呼吸与上浮光尘')
     time.sleep(3.0)
+    lw_status('motion-idle-end')
+    card=next(c for c in state()['player']['hand'] if c['id']=='KAREN_LAST_WORD')
+    marking('原生悬停｜灯束平滑收拢、提亮并加快流动')
+    post(action='hover_card',card_index=card['index'])
+    time.sleep(.12)
+    lw_status('motion-hover-enter')
+    time.sleep(.5)
+    lw_status('motion-hover-ready')
+    time.sleep(4.0)
+    lw_status('motion-hover-held')
     cmd('lastword_stage refresh')
-    time.sleep(.8)
+    time.sleep(.3)
+    lw_status('motion-hover-refreshed')
+    marking('移开｜平滑恢复常态，T 字随卡牌收回')
     post(action='unhover_card')
-    time.sleep(.6)
+    time.sleep(.12)
+    lw_status('motion-hover-exit')
+    time.sleep(1.0)
+    lw_status('motion-idle-restored')
+    time.sleep(1.2)
+    marking('连续悬停/移开｜无叠加、无重播')
+    for _ in range(3):
+        post(action='hover_card',card_index=card['index']);time.sleep(.22)
+        post(action='unhover_card');time.sleep(.22)
+    time.sleep(.7)
+    lw_status('motion-rapid-restored')
     record_stop()
     ready_result=lw_expect('ready-after-recording',1)
     archive=case/'ready-recording'
@@ -52,7 +74,13 @@ if 'lastword-stage' in wanted or 'lastword-stage-before' in wanted:
             shutil.copy2(path,archive/path.name)
     assert ready_result['peak']==(0 if baseline else 1),ready_result
     assert ready_result['peakTNodes']==1 and ready_result['peakTParticles']>0,ready_result
-    if not baseline:
+    if not baseline and not motion_baseline:
+        post(action='hover_card',card_index=card['index'])
+        hovered=lw_expect('hover-screenshot',1,.7)
+        assert hovered['current']['nodes'][0]['hover']>.99,hovered
+        post(action='unhover_card')
+        restored=lw_expect('hover-return-screenshot',1,.7)
+        assert restored['current']['nodes'][0]['hover']<.01,restored
         assert ready_result['peakChildren']==1,ready_result
         for pile in ['Draw','Discard','Hand']:
             snap(case/('before-block-'+pile))

@@ -1,5 +1,9 @@
 """Verify accepted MCP evidence, lifetime, visible lighting, capture and unchanged card logic."""
-import json, pathlib, re, subprocess, hashlib
+import argparse, json, pathlib, re, subprocess, hashlib
+parser=argparse.ArgumentParser()
+parser.add_argument("--motion",action="store_true")
+args=parser.parse_args()
+prefix="motion-" if args.motion else ""
 from PIL import Image, ImageDraw, ImageFont, ImageStat
 
 main=pathlib.Path(__file__).resolve().parents[3]
@@ -13,6 +17,7 @@ expected={
  'blocked-Hand':0,'restored-Hand':1,'duplicate-blocked':0,'duplicate-restored':1,
  'repeated-native-refresh':1,'removed-lastword':0,'recreated-lastword':1,
  'resized-4x3':1,'resized-16x9':1,'rewards-cleanup':0}
+if args.motion:expected.update({'hover-screenshot':1,'hover-return-screenshot':1})
 void_expected={'void-draw-allowed':1,'void-discard-blocked':0,'void-restored':1,'new-room-cleanup':0}
 summary={'branches':{},'baseline':{},'unchanged':{}}
 pictures=[]
@@ -23,14 +28,18 @@ def red_weight(p,left=True):
  return r-(g+b)*.5
 for branch in ['stable','beta']:
  folder=root/branch
- result={'cases':{},'handChecks':0,'captures':[],'tCue':'original textures, density, scale, motion, color retained'}
+ result={'cases':{},'handChecks':0,'captures':[],'tCue':'original glyphs, rate, world size and color; card-bound coordinates' if args.motion else 'original textures, density, scale, motion, color retained'}
  for case_name,states in [('lastword-stage',expected),('lastword-stage-void',void_expected)]:
   case=folder/case_name
   for name,count in states.items():
    d=read(case/(name+'-probe.json'));nodes=d['current']['nodes']
    assert len(nodes)==count,(branch,name,nodes)
    assert len(d['current']['tNodes'])==count,(branch,name,'T cue',d['current']['tNodes'])
-   if count:assert d['current']['tNodes'][0]['particles']>0,(branch,name,'No T particles')
+   if count:
+    assert d['current']['tNodes'][0]['particles']>0,(branch,name,'No T particles')
+    if args.motion:
+     assert d['current']['tNodes'][0]['anchorError']<1,(branch,name,'T anchor drift')
+     assert d['current']['tNodes'][0]['basisError']<.02,(branch,name,'T basis drift')
    assert d['peakTNodes']<=1,(branch,name,'Duplicate T cue')
    assert d['peak']==1 or count==0,(branch,name,d['peak'])
    assert d['peakChildren']<=1,(branch,name,d['peakChildren'])
@@ -50,6 +59,27 @@ for branch in ['stable','beta']:
    result['handChecks']+=1
   pictures += [(branch+'/'+case_name+'/'+p.stem,p) for p in sorted(case.glob('*.png'))]
  case=folder/'lastword-stage'
+ if args.motion:
+  phases={name:read(case/('motion-'+name+'-probe.json')) for name in [
+    'idle-start','idle-end','hover-enter','hover-ready','hover-held','hover-refreshed','hover-exit','idle-restored','rapid-restored']}
+  phase_nodes={name:d['current']['nodes'][0] for name,d in phases.items()}
+  assert all(len(d['current']['nodes'])==1 and len(d['current']['tNodes'])==1 for d in phases.values())
+  assert len({d['instance'] for d in phase_nodes.values()})==1,phase_nodes
+  assert phase_nodes['idle-start']['hover']==phase_nodes['idle-end']['hover']==0
+  assert all(phase_nodes[k]['hover']>.99 for k in ['hover-ready','hover-held','hover-refreshed'])
+  assert phase_nodes['idle-restored']['hover']==phase_nodes['rapid-restored']['hover']==0
+  samples=phases['rapid-restored']['samples']
+  values=[sample['current']['nodes'][0]['hover'] for sample in samples if sample['current']['nodes']]
+  assert any(.05<v<.95 for v in values),'No smooth hover transition'
+  def speed(a,b):
+   x,y=phase_nodes[a],phase_nodes[b]
+   return (y['motionTime']-x['motionTime'])/(y['age']-x['age'])
+  idle_speed=speed('idle-start','idle-end');hover_speed=speed('hover-ready','hover-held')
+  assert .99<idle_speed<1.01 and 1.29<hover_speed<1.31,(idle_speed,hover_speed)
+  assert all(phase_nodes[k]['motionTime']>0 for k in phase_nodes)
+  result['motion']={'idleClockRate':idle_speed,'hoverClockRate':hover_speed,
+    'intermediateFocusSamples':sum(.05<v<.95 for v in values),
+    'phaseFocus':{k:v['hover'] for k,v in phase_nodes.items()},'oneContinuousInstance':True}
  first=read(case/'ready-after-recording-probe.json')
  refreshed=read(case/'repeated-native-refresh-probe.json')
  before_refresh=read(case/'duplicate-restored-probe.json')
@@ -84,9 +114,10 @@ for branch in ['stable','beta']:
  log=(folder/'godot.log').read_text(encoding='utf-8',errors='replace')
  diagnostics=[{'line':i+1,'text':line} for i,line in enumerate(log.splitlines()) if re.search(r'\bERROR\b|Exception|Invalid Task ID',line)]
  result['logDiagnostics']=diagnostics
- (out/('log-diagnostics-'+branch+'.json')).write_text(json.dumps(diagnostics,ensure_ascii=False,indent=2),encoding='utf-8')
+ (out/(prefix+'log-diagnostics-'+branch+'.json')).write_text(json.dumps(diagnostics,ensure_ascii=False,indent=2),encoding='utf-8')
  summary['branches'][branch]=result
-baseline=root/'before/stable/lastword-stage-before'
+baseline=root/('motion-before/stable/lastword-motion-before' if args.motion else 'before/stable/lastword-stage-before')
+summary['baseline']['revision']='77ee78c' if args.motion else '84ab49f'
 summary['baseline']['recording']={k:read(baseline/'ready-recording/recording.json').get(k) for k in ['capture_fps','frames_captured','frames_dropped','captureBuild']}
 assert summary['baseline']['recording']['frames_dropped']==0
 pictures += [('before/'+p.stem,p) for p in sorted(baseline.glob('*.png'))]
@@ -108,8 +139,8 @@ for page in range((len(pictures)+15)//16):
   image=Image.open(path).convert('RGB');image.thumbnail((392,220))
   x=(j%4)*400+4;y=(j//4)*251+25
   contact.paste(image,(x,y));draw.text((x,y-21),label[-50:],font=font,fill=(245,245,248))
- contact.save(out/('mcp-contact-%02d.jpg'%(page+1)),quality=86)
+ contact.save(out/(prefix+'mcp-contact-%02d.jpg'%(page+1)),quality=86)
 summary['screenshots']=len(pictures)
-(out/'verification.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
+(out/(prefix+'verification.json')).write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps({b:{'states':len(v['cases']),'hands':v['handChecks'],'edgeRedIncrease':v['edgeRedIncrease'],'diagnostics':v['logDiagnostics']} for b,v in summary['branches'].items()},ensure_ascii=False,indent=2))
 print('MCP screenshots:',len(pictures))
