@@ -1,0 +1,184 @@
+{
+  "before": {
+    "hoverDistributionCv": [
+      0.1445671262052295,
+      0.13467545820537918,
+      0.1294828921588377
+    ],
+    "meanHoverDistributionCv": 0.13624182552314879,
+    "lastVisibleAttackSeconds": 8.108000000000004,
+    "afterglowObserved": true,
+    "maxAfterglowAge": 1.7886943,
+    "visibleLateAfterglow": 131,
+    "tailSurvivedCombatEnd": true,
+    "idleDistributionCv": [
+      0.17895472440935933,
+      0.16701066428067124,
+      0.1604194285411356
+    ],
+    "meanIdleDistributionCv": 0.16879493907705542,
+    "handChecks": 10,
+    "captures": [
+      {
+        "capture_fps": 30.002990054081973,
+        "frames_dropped": 0,
+        "frames_repeated": 0,
+        "video_duration_seconds": 8.2,
+        "captureBuild": {
+          "assemblySha256": "96f46d556a5a1ba9c265f1e8311ba1622544c6f4a5439a256e6fcb42645017e6",
+          "packSha256": "7d643e926a3672ec732303fd122533ffdde60d4d47929e1e01cbd4bfb6e8d6c9"
+        }
+      },
+      {
+        "capture_fps": 29.36914739069694,
+        "frames_dropped": 0,
+        "frames_repeated": 9,
+        "video_duration_seconds": 12.966666666666667,
+        "captureBuild": {
+          "assemblySha256": "96f46d556a5a1ba9c265f1e8311ba1622544c6f4a5439a256e6fcb42645017e6",
+          "packSha256": "7d643e926a3672ec732303fd122533ffdde60d4d47929e1e01cbd4bfb6e8d6c9"
+        }
+      }
+    ]
+  },
+  "branches": {
+    "stable": {
+      "hoverDistributionCv": [
+        0.17180203318601237,
+        0.15432026751961647,
+        0.1224744871391589
+      ],
+      "meanHoverDistributionCv": 0.14953226261492925,
+      "lastVisibleAttackSeconds": 8.123999999999995,
+      "afterglowObserved": true,
+      "maxAfterglowAge": 1.7378865,
+      "visibleLateAfterglow": 113,
+      "tailSurvivedCombatEnd": true,
+      "idleDistributionCv": [
+        0.15554690794233555,
+        0.10939849705297877,
+        0.15896253282074194
+      ],
+      "meanIdleDistributionCv": 0.14130264593868544,
+      "handChecks": 10,
+      "captures": [
+        {
+          "capture_fps": 29.242729780194022,
+          "frames_dropped": 0,
+          "frames_repeated": 7,
+          "video_duration_seconds": 8.2,
+          "captureBuild": {
+            "assemblySha256": "5358cf5eea58873ed4b1b0968498e12b488258cec086041abdca92637de8b1c0",
+            "packSha256": "7d643e926a3672ec732303fd122533ffdde60d4d47929e1e01cbd4bfb6e8d6c9"
+          }
+        },
+        {
+          "capture_fps": 29.126990767045243,
+          "frames_dropped": 0,
+          "frames_repeated": 12,
+          "video_duration_seconds": 12.966666666666667,
+          "captureBuild": {
+            "assemblySha256": "5358cf5eea58873ed4b1b0968498e12b488258cec086041abdca92637de8b1c0",
+            "packSha256": "7d643e926a3672ec732303fd122533ffdde60d4d47929e1e01cbd4bfb6e8d6c9"
+          }
+        }
+      ],
+      "windowMonitor": {
+        "samples": 2640,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 98
+      },
+      "diagnostics": [],
+      "captureAudit": [
+        {
+          "encoder": "h264_nvenc",
+          "captureFps": 29.996938062547265,
+          "repeatedFrames": 0,
+          "droppedFrames": 0,
+          "decodedFrames": 240,
+          "distinctClockValues": 239,
+          "longestUnchangedClockSeconds": 0.06666666666666667,
+          "largestClockJumpSeconds": 0.06000000000000005,
+          "clockSeconds": 7.9799999999999995,
+          "videoSeconds": 7.966667,
+          "timelineDriftSeconds": 0.013332999999999373,
+          "strictlyIncreasingPts": true
+        }
+      ]
+    },
+    "beta": {
+      "hoverDistributionCv": [
+        0.12493494665185216,
+        0.17954227432749614,
+        0.10537155851115133
+      ],
+      "meanHoverDistributionCv": 0.13661625983016654,
+      "lastVisibleAttackSeconds": 8.15400000000001,
+      "afterglowObserved": true,
+      "maxAfterglowAge": 1.7657392,
+      "visibleLateAfterglow": 107,
+      "tailSurvivedCombatEnd": true,
+      "idleDistributionCv": [
+        0.2087572862885605,
+        0.17428064676492996,
+        0.17235458623955624
+      ],
+      "meanIdleDistributionCv": 0.18513083976434888,
+      "handChecks": 10,
+      "captures": [
+        {
+          "capture_fps": 29.553458236994555,
+          "frames_dropped": 0,
+          "frames_repeated": 4,
+          "video_duration_seconds": 8.2,
+          "captureBuild": {
+            "assemblySha256": "967892e7d81360af7b3b57d096a67eadc84898d01e0c8160475d00cbdc674010",
+            "packSha256": "7d643e926a3672ec732303fd122533ffdde60d4d47929e1e01cbd4bfb6e8d6c9"
+          }
+        },
+        {
+          "capture_fps": 29.319691570115697,
+          "frames_dropped": 0,
+          "frames_repeated": 9,
+          "video_duration_seconds": 12.966666666666667,
+          "captureBuild": {
+            "assemblySha256": "967892e7d81360af7b3b57d096a67eadc84898d01e0c8160475d00cbdc674010",
+            "packSha256": "7d643e926a3672ec732303fd122533ffdde60d4d47929e1e01cbd4bfb6e8d6c9"
+          }
+        }
+      ],
+      "windowMonitor": {
+        "samples": 2655,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 104
+      },
+      "diagnostics": [],
+      "captureAudit": [
+        {
+          "encoder": "h264_nvenc",
+          "captureFps": 29.99923426954527,
+          "repeatedFrames": 0,
+          "droppedFrames": 0,
+          "decodedFrames": 240,
+          "distinctClockValues": 239,
+          "longestUnchangedClockSeconds": 0.06666666666666667,
+          "largestClockJumpSeconds": 0.06000000000000005,
+          "clockSeconds": 7.970000000000001,
+          "videoSeconds": 7.966667,
+          "timelineDriftSeconds": 0.0033330000000004745,
+          "strictlyIncreasingPts": true
+        }
+      ]
+    }
+  },
+  "unchanged": {
+    "src/Core/Models/Cards/neutral/KarenLastWord.cs": "606822c6d3307725589b0448d7e200117b4ca38c6e654b47748a9cb80b9040fa",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordStageLightsVfx.cs": "c78fcd8d03b028ab3893f0283d3cfde252f567f639d45bea5847d5f2f7d3aaf3",
+    "materials/vfx/karen_last_word_stage_lights.gdshader": "15bbf4c16f14b05fc18e3bbe10149a47985b6fec124914c4ce419b0cf5d40ff1",
+    "ShoujoKagekiAijoKaren/video/last_word.ogv": "4214d3b3f150501cc8ac0b9528ed1e371a75101699b256639132b95dcb83038a",
+    "b313907:src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVfx.cs": "b4e69790a08233a1698e5cd52704f0efcc4b5366d3fd180362a526939b8fbe4d",
+    "b313907:src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVideoVfx.cs": "b1d4d4865b313b2b3598fb0983079539090b0fc3af47fcd29f462aaf0892581c"
+  }
+}

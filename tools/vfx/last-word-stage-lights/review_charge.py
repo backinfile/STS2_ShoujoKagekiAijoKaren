@@ -2,9 +2,10 @@
 """Review actual MCP hover distribution and post-film T afterglow; package original-speed footage."""
 from pathlib import Path
 import hashlib,json,math,re,subprocess,sys
+natural="--natural" in sys.argv
 uniform="--uniform" in sys.argv
-regular="--regular" in sys.argv or uniform
-tag="uniform" if uniform else ("regular" if regular else "charge")
+regular="--regular" in sys.argv or uniform or natural
+tag="natural" if natural else ("uniform" if uniform else ("regular" if regular else "charge"))
 from PIL import Image,ImageDraw,ImageFont
 root=Path(__file__).resolve().parents[3]
 art=root/'artifacts/last-word-stage-lights';out=root/'docs/worktree-tasks/last-word-stage-lights-20261019'
@@ -17,7 +18,7 @@ def diagnostics(path):
  return values
 summary={'before':{},'branches':{},'unchanged':{}}
 pictures=[]
-before=art/('uniform-prior/stable/lastword-regular' if uniform else ('regular-prior/stable/lastword-charge' if regular else 'charge-before/stable/lastword-charge-before'))
+before=art/('natural-prior/stable/lastword-uniform' if natural else ('uniform-prior/stable/lastword-regular' if uniform else ('regular-prior/stable/lastword-charge' if regular else 'charge-before/stable/lastword-charge-before')))
 def measure(case,changed,normal_hover=False):
  phases={name:read(case/(name+'-probe.json')) for name in ['blocked','idle','hover-first','hover-held','hover-screenshot','unhover-restored','unhover-screenshot','postplay']}
  cvs=[]
@@ -67,13 +68,15 @@ def measure(case,changed,normal_hover=False):
   assert v['status']=='completed' and v['frames_dropped']==0 and v['audio_source']=='game_process',v
   result['captures'].append({k:v.get(k) for k in ['capture_fps','frames_dropped','frames_repeated','video_duration_seconds','captureBuild']})
  return result
-summary['before']=measure(before,regular,uniform)
+summary['before']=measure(before,regular,uniform or natural)
 for branch in ['stable','beta']:
  folder=art/branch;case=folder/('lastword-'+tag)
  result=measure(case,True,regular)
  if uniform:
   for key in ['meanIdleDistributionCv','meanHoverDistributionCv']:
    assert result[key]<.35 and result[key]<summary['before'][key]*.75,(branch,key,result[key],summary['before'][key])
+ if natural:
+  assert result['meanIdleDistributionCv']<.35 and result['meanHoverDistributionCv']<.35,(branch,result)
  if not regular:assert result['lastVisibleAttackSeconds']>summary['before']['lastVisibleAttackSeconds']+.6,(branch,result,summary['before'])
  monitor=read(folder/'window-monitor.json');assert monitor['foreground_samples']==monitor['restored_samples']==0,monitor
  result['windowMonitor']=monitor
@@ -96,7 +99,7 @@ for rel in [
  summary['unchanged'][rel]=hashlib.sha256(new).hexdigest()
 if regular:
  for revision,rel in [('fa9a435','src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordPlayableVfx.cs'),('b313907','src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVfx.cs'),('b313907','src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVideoVfx.cs')]:
-  if uniform and rel.endswith('NKarenLastWordPlayableVfx.cs'):continue
+  if (uniform or natural) and rel.endswith('NKarenLastWordPlayableVfx.cs'):continue
   old=subprocess.check_output(['git','show',revision+':'+rel],cwd=root).replace(b'\r\n',b'\n');new=(root/rel).read_bytes().replace(b'\r\n',b'\n')
   assert old==new,rel
   summary['unchanged'][revision+':'+rel]=hashlib.sha256(new).hexdigest()
@@ -129,12 +132,13 @@ video_prefix='LastWord-T-'+(tag+'-' if regular else '')
 for name,source,title in [('hover','ready-recording/game.mp4','Hover T 字｜恢复普通状态的向外飘散' if regular else 'Hover T 字｜均匀贴边、轻微内聚与呼吸蓄力'),('play','game.mp4','打出 T 字｜影片结束后减速停留、柔和淡出；伤害节奏保留')]:
  if uniform and name=='play':continue
  if uniform:title='T 字分布｜沿牌边均匀生成，保留普通向外飘散'
+ if natural:title='T 字｜方向、大小、明暗渐隐各自变化' if name=='hover' else '实际打出｜影片与 T 字减速渐隐完整收尾'
  old=before/source;new=case/source
  seconds=min(float(probe(old)['format']['duration']),float(probe(new)['format']['duration']))
  # This review sequence reaches rewards around 11.2s; retain the complete T tail
  # and rewards transition, omitting the extra static rewards hold.
- if regular and name=='play':seconds=min(seconds,11.9)
- strip(scratch/(name+'-header.png'),1920,64,'上一版｜随机分布' if uniform else ('上一版｜hover 蓄力' if regular and name=='hover' else '上一版'),26)
+ if regular and not natural and name=='play':seconds=min(seconds,11.9)
+ strip(scratch/(name+'-header.png'),1920,64,'上一版｜均匀飘散' if natural else ('上一版｜随机分布' if uniform else ('上一版｜hover 蓄力' if regular and name=='hover' else '上一版')),26)
  header=Image.open(scratch/(name+'-header.png'));ImageDraw.Draw(header).text((980,14),title,font=ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',25),fill='#ffdeea');header.save(scratch/(name+'-header.png'))
  strip(scratch/(name+'-footer.png'),1920,64,'1× 游戏实录 · 同一组原生操作 · 原 T 字、粉白/玫红灯光与影片保留',23)
  dest=out/(video_prefix+name+'-before-after.mp4')
@@ -148,7 +152,7 @@ if not uniform:
  strip(scratch/'play-after-footer.png',1280,64,'最后的台词｜打出后的 T 字减速留存，再自然淡出',21)
  solo=out/(video_prefix+'play-after.mp4')
  run(['-i',case/'game.mp4','-loop','1','-framerate','30','-i',scratch/'play-after-footer.png','-filter_complex','[0:v][1:v]vstack=inputs=2,format=yuv420p[v]',
-  '-map','[v]','-map','0:a:0','-t',min(float(probe(case/'game.mp4')['format']['duration']),11.9) if regular else probe(case/'game.mp4')['format']['duration'],'-r','30','-c:v','libx264','-crf','19','-preset','medium','-threads','4','-c:a','aac','-b:a','160k','-movflags','+faststart',solo]);outputs.append(solo)
+  '-map','[v]','-map','0:a:0','-t',min(float(probe(case/'game.mp4')['format']['duration']),11.9) if regular and not natural else probe(case/'game.mp4')['format']['duration'],'-r','30','-c:v','libx264','-crf','19','-preset','medium','-threads','4','-c:a','aac','-b:a','160k','-movflags','+faststart',solo]);outputs.append(solo)
 metadata={'comparisonDurations':lengths,'videos':{}}
 for p in outputs:
  run(['-i',p,'-f','null','-'])
@@ -157,8 +161,20 @@ for p in outputs:
  freeze=subprocess.run(['ffmpeg','-hide_banner','-i',str(p),'-an','-vf','freezedetect=n=-50dB:d=1','-f','null','-'],capture_output=True,text=True,check=True)
  starts=[float(v) for v in re.findall(r'freeze_start: ([0-9.]+)',freeze.stderr)]
  info=probe(p);seconds=float(info['format']['duration'])
- assert not any(t<seconds-2 for t in starts),(p,starts)
- metadata['videos'][p.name]={'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'probe':info,'audio':volumes,'freezeStarts':starts}
+ allowed_after=seconds-2
+ if natural:
+  # Marker precedes the native play by 1s. Permit static native battle/rewards
+  # only after the observed T tail; retain the full recorded cast footage.
+  def tail_end(folder,measurement):
+   marker=read(folder/'markers.json')[0]['time']
+   return marker+1.0+measurement['lastVisibleAttackSeconds']-.15
+  cast_end=min(tail_end(before,summary['before']),tail_end(case,summary['branches']['stable']))
+  if p.name.endswith('hover-before-after.mp4'):allowed_after=seconds
+  elif p.name.endswith('review.mp4'):allowed_after=lengths['hover']+cast_end
+  elif p.name.endswith('play-after.mp4'):allowed_after=tail_end(case,summary['branches']['stable'])
+  else:allowed_after=cast_end
+ assert not any(t<allowed_after for t in starts),(p,starts,allowed_after)
+ metadata['videos'][p.name]={'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'probe':info,'audio':volumes,'freezeStarts':starts,'allowStaticAfterSeconds':allowed_after}
 (out/(tag+'-videos.json')).write_text(json.dumps(metadata,indent=2),encoding='utf-8')
 print('VIDEO PACKAGING PASSED',lengths,flush=True)
 

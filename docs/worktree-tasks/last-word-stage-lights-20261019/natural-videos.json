@@ -1,0 +1,128 @@
+{
+  "comparisonDurations": {
+    "hover": 8.2,
+    "play": 12.966667
+  },
+  "videos": {
+    "LastWord-T-natural-hover-before-after.mp4": {
+      "sha256": "77e1488c240b8c22d9fe279d0fa7ecef0fec4a8443885ba68a1eba9cad0e47af",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1920,
+            "height": 668,
+            "r_frame_rate": "30/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "8.200000"
+        }
+      },
+      "audio": {
+        "mean_volume": -60.1,
+        "max_volume": -45.6
+      },
+      "freezeStarts": [],
+      "allowStaticAfterSeconds": 8.2
+    },
+    "LastWord-T-natural-play-before-after.mp4": {
+      "sha256": "ae2943f2268042974c2d279057c5cb9d91eb4c2398322a7e20efd1f23fd03012",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1920,
+            "height": 668,
+            "r_frame_rate": "30/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "12.966667"
+        }
+      },
+      "audio": {
+        "mean_volume": -35.6,
+        "max_volume": -22.0
+      },
+      "freezeStarts": [
+        9.733333,
+        11.733333
+      ],
+      "allowStaticAfterSeconds": 9.364999999999247
+    },
+    "LastWord-T-natural-review.mp4": {
+      "sha256": "09d9444a9e8f8d52255158b571809b06eebedd881343cbc054f69f4e8dc9d906",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1920,
+            "height": 668,
+            "r_frame_rate": "30/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "21.189887"
+        }
+      },
+      "audio": {
+        "mean_volume": -37.8,
+        "max_volume": -22.0
+      },
+      "freezeStarts": [
+        17.956315,
+        19.956315
+      ],
+      "allowStaticAfterSeconds": 17.564999999999245
+    },
+    "LastWord-T-natural-play-after.mp4": {
+      "sha256": "c28943c19fb24fc84c29eb3a6960f0cd0511cf8166669d9dbb103bc30c4964f2",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1280,
+            "height": 784,
+            "r_frame_rate": "30/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "12.966016"
+        }
+      },
+      "audio": {
+        "mean_volume": -35.6,
+        "max_volume": -22.0
+      },
+      "freezeStarts": [
+        11.733333
+      ],
+      "allowStaticAfterSeconds": 9.380999999999238
+    }
+  }
+}

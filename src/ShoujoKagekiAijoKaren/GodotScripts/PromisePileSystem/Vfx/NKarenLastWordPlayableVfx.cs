@@ -84,7 +84,7 @@ public partial class NKarenLastWordPlayableVfx : Node2D
     {
         // Distribute births over the whole perimeter before revisiting a slot.
         // Small within-slot jitter avoids a rigid grid while preventing clumps.
-        float fraction = (_spawnSlot + .5f + (float)GD.RandRange(-.18, .18)) / PerimeterSlots;
+        float fraction = (_spawnSlot + .5f + (float)GD.RandRange(-.36, .36)) / PerimeterSlots;
         _spawnSlot = (_spawnSlot + 19) % PerimeterSlots;
         float distance = fraction * 2f * (size.X + size.Y);
         var half = size * .5f;
@@ -139,6 +139,9 @@ public partial class NKarenLastWordPlayableVfx : Node2D
         };
 
         private readonly Vector2 _velocity;
+        private readonly Vector2 _driftAxis;
+        private readonly float _driftSpeed, _driftPhase, _driftFrequency;
+        private readonly float _fadePower, _brightness, _endScale;
         private readonly float _rotationSpeed;
         private readonly Vector2 _startScale;
         private readonly float _life;
@@ -151,13 +154,20 @@ public partial class NKarenLastWordPlayableVfx : Node2D
             Material = AdditiveMaterial;
             ZAsRelative = true;
             ZIndex = 0;
-            Modulate = KarenColor;
             Position = position;
 
-            var tangent = new Vector2(-normal.Y, normal.X) * (float)GD.RandRange(-45.0, 45.0);
-            _velocity = (normal * (float)GD.RandRange(55.0, 105.0) + tangent) / parentScale;
+            var direction = normal.Rotated((float)GD.RandRange(-.55, .55));
+            _velocity = direction * (float)GD.RandRange(55.0, 105.0) / parentScale;
+            _driftAxis = new Vector2(-normal.Y, normal.X) / parentScale;
+            _driftSpeed = (float)GD.RandRange(12.0, 28.0);
+            _driftPhase = (float)GD.RandRange(0.0, Mathf.Tau);
+            _driftFrequency = (float)GD.RandRange(1.8, 3.2);
+            _fadePower = (float)GD.RandRange(.65, 1.65);
+            _brightness = (float)GD.RandRange(.72, 1.0);
+            _endScale = (float)GD.RandRange(.65, 1.05);
+            Modulate = new Color(KarenColor.R, KarenColor.G, KarenColor.B, _brightness * KarenColor.A);
             _rotationSpeed = (float)GD.RandRange(-120.0, 120.0);
-            var scale = (float)GD.RandRange(0.35, 0.75);
+            var scale = .28f + .64f * Mathf.Pow(GD.Randf(), 1.35f);
             _startScale = Vector2.One * scale;
             _life = (float)GD.RandRange(0.9, 1.4);
 
@@ -170,13 +180,15 @@ public partial class NKarenLastWordPlayableVfx : Node2D
             float d = (float)delta;
             _age += d;
 
-            Position += _velocity * d;
+            float drift = _driftSpeed * Mathf.Sin(_driftPhase + _age * _driftFrequency);
+            Position += (_velocity + _driftAxis * drift) * d;
             RotationDegrees += _rotationSpeed * d;
 
             float t = Mathf.Clamp(_age / _life, 0f, 1f);
-            Modulate = new Color(KarenColor.R, KarenColor.G, KarenColor.B, (1f - t) * KarenColor.A);
-            // Offsets follow the card scale; keep each T glyph at its original screen size.
-            GlobalScale = _startScale;
+            float alpha = Mathf.Pow(1f - t, _fadePower) * _brightness * KarenColor.A;
+            Modulate = new Color(KarenColor.R, KarenColor.G, KarenColor.B, alpha);
+            // Keep the independent glyph sizes while following the card transform.
+            GlobalScale = _startScale * Mathf.Lerp(1f, _endScale, Mathf.SmoothStep(0f, 1f, t));
 
             if (_age >= _life)
                 QueueFree();
