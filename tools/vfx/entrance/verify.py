@@ -170,7 +170,7 @@ try:
         time.sleep(.4)
         result = json.loads(cmd('entrance_probe status')['message'])
         expected_casts = 0 if speed in ['instant', 'config-off'] else 1
-        assert result['casts'] == expected_casts and result['soundCues'] == expected_casts, result
+        assert result['casts'] == expected_casts and result['soundCues'] == 0, result
         assert result['live'] == result['backLive'] == 0, result
         assert result['posesLive'] == result['towerEntrancesLive'] == 0 and result['materialPreserved'], result
         assert result['colorsPreserved'] and result['beforeStartCalls'] == 1, result

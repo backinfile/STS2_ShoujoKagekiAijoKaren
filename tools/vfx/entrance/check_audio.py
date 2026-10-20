@@ -9,6 +9,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('recording', type=Path)
 parser.add_argument('--source', type=Path, default=Path('ShoujoKagekiAijoKaren/audio/karen_entrance_stage_light.wav'))
 parser.add_argument('--output', type=Path)
+parser.add_argument('--absent', action='store_true', help='Verify the retired entrance sample is absent')
 args = parser.parse_args()
 
 def decode(path):
@@ -44,5 +45,8 @@ if args.output:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2), encoding='utf-8')
 print(json.dumps(result))
-assert result['score'] >= .65, 'Lamp sample is not reliably verified; unrelated game audio is insufficient evidence'
-assert result['signalToResidualDb'] >= 0, 'Lamp sample is below the surrounding mix'
+if args.absent:
+    assert result['score'] < .3, 'Retired entrance sample is still identifiable in the recording'
+else:
+    assert result['score'] >= .65, 'Lamp sample is not reliably verified; unrelated game audio is insufficient evidence'
+    assert result['signalToResidualDb'] >= 0, 'Lamp sample is below the surrounding mix'

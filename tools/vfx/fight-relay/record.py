@@ -1,18 +1,23 @@
 """Targeted two-process relay VFX recording through KarenSTS2MCP. No full matrix."""
-import argparse, hashlib, json, os, pathlib, shutil, socket, subprocess, time, urllib.request
+import argparse, hashlib, json, os, pathlib, shutil, socket, subprocess, sys, time, urllib.request
 
 parser = argparse.ArgumentParser()
 parser.add_argument('branch', choices=['stable', 'beta'])
 parser.add_argument('--source-dev', type=pathlib.Path, required=True)
 parser.add_argument('--output', type=pathlib.Path, required=True)
+parser.add_argument('--mcp-source', type=pathlib.Path)
+parser.add_argument('--normal-only', action='store_true')
 args = parser.parse_args()
 project = pathlib.Path(__file__).resolve().parents[3]
+sys.path.insert(0,str(project/'tools/vfx/six-card'))
+from isolated_desktop import TestDesktop
 source = args.source_dev.resolve() / args.branch
 out = args.output.resolve() / args.branch
 out.mkdir(parents=True, exist_ok=True)
 ports = [18957, 18958] if args.branch == 'stable' else [18959, 18960]
 processes, markers, cases = [], [], []
 recording = False
+desktop = TestDesktop()
 
 def save(name, data):
     (out / (name + '.json')).write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
@@ -57,6 +62,9 @@ def wait(side, predicate, endpoint='multiplayer', seconds=60):
 
 def snapshot(name, side):
     save(name + '-' + str(side), state(side))
+    # PNG compression pauses that game's main thread. Keep the recorded host
+    # rendering smoothly; use the peer's per-action screenshots during capture.
+    if recording and side == 0: return
     with urllib.request.urlopen(f'http://127.0.0.1:{ports[side]}/api/v1/screenshot', timeout=30) as r:
         (out / (name + '-' + str(side) + '.png')).write_bytes(r.read())
 
@@ -88,6 +96,9 @@ udp.bind(('127.0.0.1', 33771)); udp.close()
 subprocess.run(['dotnet', 'build', str(project/'tools/vfx/fight-relay/Probe.csproj'),
     '-p:Variant=' + args.branch.title(), '-p:Game=' + str(source/'game'),
     '-o', str(project/'artifacts/relay-probe'/args.branch), '--nologo', '-v:q', '-clp:ErrorsOnly'], check=True)
+guard = args.output.resolve()/'guard'/args.branch
+subprocess.run(['dotnet','build',str(project/'tools/vfx/catalog/guard/Guard.csproj'),
+    '-p:Game='+str(source/'game'),'-o',str(guard),'--nologo','-v:q','-clp:ErrorsOnly'],check=True)
 package = project / 'artifacts/ShoujoKagekiAijoKaren'
 build = {name: hashlib.sha256((package/name).read_bytes()).hexdigest() for name in
     [f'lib/ShoujoKagekiAijoKaren.{args.branch.title()}.dll', 'ShoujoKagekiAijoKaren.pck']}
@@ -103,16 +114,20 @@ try:
         mods = game/'mods'; mods.mkdir(exist_ok=True)
         shutil.copytree(source/'game/mods/BaseLib', mods/'BaseLib', dirs_exist_ok=True)
         # Use the project's previously built loopback-only MCP with networked console commands.
-        mcp = args.source_dev.resolve().parent / ('mcp-' + args.branch)
+        mcp = args.mcp_source.resolve() if args.mcp_source else args.source_dev.resolve().parent / ('mcp-' + args.branch)
         assert json.loads((mcp/'source-info.json').read_text(encoding='utf-8-sig'))['loopback_only']
         for suffix in ['dll', 'json']:
             shutil.copy2(mcp/('KarenSTS2MCP.'+suffix), mods)
         shutil.copytree(package, mods/'ShoujoKagekiAijoKaren', dirs_exist_ok=True)
+        shutil.copy2(guard/'KarenBackgroundTestGuard.dll',mods)
+        (mods/'KarenBackgroundTestGuard.json').write_text(json.dumps(dict(id='KarenBackgroundTestGuard',
+            name='KarenBackgroundTestGuard',version='1.0.0',author='Development',has_dll=True,has_pck=False,
+            affects_gameplay=False)),encoding='utf-8')
         shutil.copy2(project/'artifacts/relay-probe'/args.branch/'KarenRelayProbe.dll', mods)
         (mods/'KarenRelayProbe.json').write_text(json.dumps(dict(id='KarenRelayProbe', name='KarenRelayProbe',
             version='1.0.0', author='Development', description='Temporary isolated relay recording',
             has_dll=True, has_pck=False, affects_gameplay=True)), encoding='utf-8')
-        (mods/'KarenSTS2MCP.conf').write_text(json.dumps(dict(port=ports[side], fullscreen=False, muted=True,
+        (mods/'KarenSTS2MCP.conf').write_text(json.dumps(dict(port=ports[side], fullscreen=False, muted=False, silent_test=True,
             skip_tutorial=True, skip_first_prompt=True, window_width=1280, window_height=720)), encoding='utf-8')
         client_id = 7910 + side
         profile = dev/f'user/AppData/Roaming/SlayTheSpire2/default/{client_id}'
@@ -135,15 +150,15 @@ try:
                 data = json.loads(file.read_text(encoding='utf-8-sig'))
                 data.update(fast_mode='normal', mute_in_background=False)
                 file.write_text(json.dumps(data), encoding='utf-8')
-        (game/'override.cfg').write_text('[display]\nwindow/size/mode=0\nwindow/size/no_focus=true\n'
+        (game/'override.cfg').write_text('[display]\nwindow/size/mode=1\nwindow/size/no_focus=true\n'
             'window/size/window_width_override=1280\nwindow/size/window_height_override=720\n', encoding='utf-8')
         env = os.environ.copy()
         env.update(APPDATA=str(dev/'user/AppData/Roaming'), LOCALAPPDATA=str(dev/'user/AppData/Local'),
                    STS2_MCP_FFMPEG=shutil.which('ffmpeg'))
         startup = subprocess.STARTUPINFO(); startup.dwFlags = subprocess.STARTF_USESHOWWINDOW; startup.wShowWindow = 0
-        p = subprocess.Popen([str(game/'SlayTheSpire2.exe'), '--rendering-driver', 'vulkan', '--force-steam=off',
+        p = desktop.launch([str(game/'SlayTheSpire2.exe'), '--rendering-driver', 'vulkan', '--force-steam=off',
             '--fastmp=' + ('host_standard' if side == 0 else 'join'), '--clientId='+str(client_id),
-            '--log-file', str(dev/'godot.log')], cwd=game, env=env, startupinfo=startup)
+            '--log-file', str(dev/'godot.log')], cwd=game, env=env)
         processes.append(p)
         # Observe intended MCP startup before issuing its first request.
         for _ in range(180):
@@ -180,6 +195,11 @@ try:
     cmd(0,'relay_fixture seed 3 0')
     wait(0,lambda s:any(c['id']=='KAREN_FIGHT_RELAY' for c in s['player']['hand']))
     api(0,'/settings',dict(muted=False))
+    for side in range(2):
+        settings = api(side,'/settings')
+        assert settings.get('silent_test') and not settings.get('silent_test_error'), settings
+        save('silent-settings-'+str(side),settings)
+    snapshot('recording-before',0)
     api(0,'/recording/start',dict(fps=30,max_duration_seconds=90,width=1280,height=720,audio=True))
     recording=True; clock=time.monotonic(); time.sleep(.6)
 
@@ -193,7 +213,11 @@ try:
         slot = current['local_player_slot']
         original = before['players'][slot]['deck'][-1]
         for view in range(2): snapshot(name+'-before',view); hand(name+'-before',view)
-        markers.append(dict(time=time.monotonic()-clock,title=name))
+        labels={'01-host-to-client':'主机 → 客户端｜真实接力传递与接收方定位',
+                '02-client-to-host':'客户端 → 主机｜反向传递与剩余闪耀',
+                '03-shine-exhausted':'闪耀耗尽｜停止传递，登记遗物奖励',
+                '04-upgraded-finale':'升级版耗尽｜确认额外遗物奖励'}
+        markers.append(dict(time=time.monotonic()-clock,title=labels.get(name,name)))
         card=next(c for c in current['player']['hand'] if c['id']=='KAREN_FIGHT_RELAY')
         post(side,action='play_card',card_index=card['index'])
         if mode != 'instant':
@@ -226,17 +250,19 @@ try:
     cast('02-client-to-host',1,receive=True)
     cast('03-shine-exhausted',0,receive=True)
     cast('04-upgraded-finale',1,seed='1 1')
-    cast('05-fast-relay',0,mode='fast',seed='3 0')
-    cast('06-fast-finale',1,mode='fast',seed='1 0')
-    cast('07-instant-relay',0,mode='instant',seed='3 0')
-    cast('08-instant-finale',1,mode='instant',seed='1 0')
+    if not args.normal_only:
+        cast('05-fast-relay',0,mode='fast',seed='3 0')
+        cast('06-fast-finale',1,mode='fast',seed='1 0')
+        cast('07-instant-relay',0,mode='instant',seed='3 0')
+        cast('08-instant-finale',1,mode='instant',seed='1 0')
     api(0,'/recording/stop',{})
     for _ in range(160):
         rec=api(0,'/recording')
         if rec['status'] in ['completed','failed']: break
         time.sleep(.2)
-    assert rec['status']=='completed' and rec.get('audio_source')=='game_process',rec
+    assert rec['status']=='completed' and rec.get('audio_source')=='engine_mix',rec
     recording=False;save('recording',rec)
+    snapshot('recording-after',0)
     shutil.copy2(rec['output_path'],out/'game.mp4')
     save('markers',markers);save('cases',cases)
     cmd(0,'relay_fixture speed normal')
@@ -256,3 +282,4 @@ finally:
         except OSError: pass
     for p in reversed(processes):
         if p.poll() is None: p.terminate();p.wait(timeout=15)
+    desktop.close()

@@ -4,6 +4,7 @@ parser=argparse.ArgumentParser()
 parser.add_argument('branch', choices=['stable','beta'])
 parser.add_argument('--output',type=pathlib.Path,required=True)
 parser.add_argument('--scenes',default='')
+parser.add_argument('--catalog',choices=['latest'])
 parser.add_argument('--setup-wait',type=float,default=2.2)
 parser.add_argument('--port',type=int)
 parser.add_argument('--package',type=pathlib.Path)
@@ -15,6 +16,8 @@ args=parser.parse_args()
 assert args.setup_wait >= 0
 root=args.output.resolve()
 main=pathlib.Path(__file__).resolve().parents[3]
+sys.path.insert(0,str(main/'tools/vfx/six-card'))
+from isolated_desktop import TestDesktop
 branch=args.branch; dev=root/'isolated'/branch; game=dev/'game'; mods=game/'mods'
 port=args.port or (18637 if branch=='stable' else 18638)
 with socket.socket() as check:
@@ -48,13 +51,14 @@ for i,(p,data) in enumerate(backups.items()):
     if data is not None:(out/'backup'/str(i)).write_bytes(data)
 (out/'backup/index.json').write_text(json.dumps([str(p) for p in backups],indent=2))
 assert backups[game/'override.cfg'] is None,'Existing override requires merge'
-process=None;stop=threading.Event();recording=False;owned=[]
+process=None;desktop=None;stop=threading.Event();recording=False;owned=[]
 monitor={'samples':0,'foreground_samples':0,'restored_samples':0,'minimized_samples':0}
 u=ctypes.windll.user32
 u.GetForegroundWindow.restype=ctypes.c_void_p
 u.GetWindowThreadProcessId.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_ulong)]
 callback_type=ctypes.WINFUNCTYPE(ctypes.c_bool,ctypes.c_void_p,ctypes.c_void_p)
 u.IsIconic.argtypes=[ctypes.c_void_p];u.IsWindowVisible.argtypes=[ctypes.c_void_p]
+u.EnumDesktopWindows.argtypes=[ctypes.c_void_p,callback_type,ctypes.c_void_p]
 def monitor_loop():
     while not stop.is_set():
         monitor['samples']+=1
@@ -66,7 +70,8 @@ def monitor_loop():
             if process and pid.value==process.pid and u.IsWindowVisible(hwnd):
                 monitor['minimized_samples' if u.IsIconic(hwnd) else 'restored_samples']+=1
             return True
-        u.EnumWindows(window,0);stop.wait(.02)
+        if desktop is not None: u.EnumDesktopWindows(desktop.handle,window,0)
+        stop.wait(.02)
 try:
     shutil.copytree(args.package or main/'artifacts/ShoujoKagekiAijoKaren',mods/'ShoujoKagekiAijoKaren',dirs_exist_ok=True)
     package=mods/'ShoujoKagekiAijoKaren'
@@ -79,14 +84,15 @@ try:
         manifest={'id':name,'name':name,'version':'1.0.0','author':'Development','description':'Temporary isolated VFX test','has_dll':True,'has_pck':False,'affects_gameplay':False}
         (mods/(name+'.json')).write_text(json.dumps(manifest),encoding='utf-8')
     (game/'override.cfg').write_text('[display]\nwindow/size/mode=1\nwindow/size/no_focus=true\nwindow/size/window_width_override=1280\nwindow/size/window_height_override=720\n',encoding='utf-8')
-    conf=json.loads(backups[mods/'KarenSTS2MCP.conf'].decode('utf-8-sig'));conf.update(fullscreen=False,muted=True)
+    conf=json.loads(backups[mods/'KarenSTS2MCP.conf'].decode('utf-8-sig'));conf.update(fullscreen=False,muted=False,silent_test=True,skip_tutorial=True,skip_first_prompt=True)
     (mods/'KarenSTS2MCP.conf').write_text(json.dumps(conf),encoding='utf-8')
     env=os.environ.copy();env['APPDATA']=str(dev/'user/AppData/Roaming');env['LOCALAPPDATA']=str(dev/'user/AppData/Local');env['STS2_MCP_FFMPEG']=shutil.which('ffmpeg')
     startup=subprocess.STARTUPINFO();startup.dwFlags=subprocess.STARTF_USESHOWWINDOW;startup.wShowWindow=0
+    desktop=TestDesktop();monitor['desktopIsolation']=desktop.name
     t=threading.Thread(target=monitor_loop,daemon=True);t.start()
     renderer_args=['--rendering-driver',args.renderer]
     if args.renderer=='opengl3': renderer_args+=['--rendering-method','gl_compatibility']
-    process=subprocess.Popen([str(game/'SlayTheSpire2.exe'),*renderer_args,'--force-steam=off','--log-file',str(dev/'godot.log')],cwd=game,env=env,startupinfo=startup)
+    process=desktop.launch([str(game/'SlayTheSpire2.exe'),*renderer_args,'--force-steam=off','--log-file',str(dev/'godot.log')],cwd=game,env=env)
     for _ in range(100):
         time.sleep(.5)
         try:
@@ -96,6 +102,9 @@ try:
     log=(dev/'godot.log').read_text(encoding='utf-8',errors='replace')
     assert '[Karen STS2 MCP]' in log and '[Background Test Guard]' in log
     api('/window/minimize',{})
+    settings=api('/settings')
+    assert settings.get('silent_test') and settings.get('minimized_startup_guard') and not settings.get('silent_test_error'),settings
+    (out/'silent-settings.json').write_text(json.dumps(settings,indent=2),encoding='utf-8')
     assert monitor['foreground_samples']==0 and monitor['restored_samples']==0,monitor
     # Let menu background preloading settle before requesting Continue.
     for _ in range(160):
@@ -126,12 +135,11 @@ try:
             rec=api('/recording')
             if rec['status'] in ('completed','failed'):break
             time.sleep(.2)
-        assert rec['status']=='completed' and rec.get('audio') and rec.get('audio_source')=='game_process',rec
+        assert rec['status']=='completed' and rec.get('audio') and rec.get('audio_source')=='engine_mix',rec
         rec['captureBuild']=capture_build
         rec['renderer']=args.renderer
         shutil.copy2(rec['output_path'],case/'game.mp4');save('recording',rec)
         recording=False; snap(case/'recording-after')
-        api('/settings',dict(muted=True))
     def add(card):
         cmd('card '+card+' Hand');time.sleep(.55)
     def play(card):
@@ -152,6 +160,10 @@ try:
             if len(cards)<=3:break
             cmd('remove_card '+cards[-1]['id']+' Hand');time.sleep(.25)
         time.sleep(args.setup_wait)
+        music = json.loads(cmd('showcase music-status')['message'])
+        save('room-music', music)
+        assert not music['hasForm'] and not music['currentPlaying'] and not music['fadingPlaying'], music
+        assert music['musicPlayers'] == 0 and not music['needsRestore'], music
 
     def integration(): return json.loads(cmd('promise_integration status')['message'])
     def trim():
@@ -176,8 +188,8 @@ try:
         return s
     def begin(name,void=False,seed=True):
         global case
-        cmd('promise_integration off');time.sleep(1.5);fight();trim()
         case=out/name;case.mkdir(exist_ok=True)
+        cmd('promise_integration off');cmd('showcase reset-demo-relics');time.sleep(1.5);fight();trim()
         if void:
             add('KAREN_VOID');snap(case/'before-void');play('KAREN_VOID');time.sleep(2.5)
             check_hand('after-void-hand');snap(case/'after-void')
@@ -222,6 +234,9 @@ try:
         cmd('waiting_probe clock off');api('/settings',dict(muted=True))
         subprocess.run([sys.executable,str(main/'tools/vfx/why/check_capture.py'),str(folder)],check=True)
     wanted=set(args.scenes.split(',')) if args.scenes else set()
+    if args.catalog and not args.scenes:
+        from assemble import LATEST_ENTRIES
+        wanted={name for name,_ in LATEST_ENTRIES}
     def want(name): return not wanted or name in wanted
     def marking(title):
         marks.append({'time':max(0,time.monotonic()-record_clock),'title':title})
@@ -229,6 +244,9 @@ try:
     original_record_stop=record_stop
     def record_start():
         global marks,record_clock
+        music = json.loads(cmd('showcase music-status')['message'])
+        save('recording-music-before', music)
+        assert music['hasForm'] or not (music['currentPlaying'] or music['fadingPlaying'] or music['musicPlayers']), music
         original_record_start();record_clock=time.monotonic();marks=[]
         time.sleep(.4)
     def record_stop():
@@ -259,6 +277,7 @@ try:
         record_stop();print('RECORDED',case.name,flush=True)
     cmd('native_speed '+args.speed)
     if wanted != {'pile-view'}: fight()
+    exec(compile((main/'tools/vfx/catalog/music_scenes.py').read_text(encoding='utf-8'), 'music_scenes.py', 'exec'))
     if want('tower'):
         stage('tower',seed=False)
         for card in ['KAREN_DEFEND','KAREN_STRIKE','KAREN_FALL','KAREN_TOWER_OF_PROMISE']:prep(card)
@@ -382,6 +401,8 @@ try:
         save('bridge-completed',bs);settle('bridge-after');finish()
     exec(compile((pathlib.Path(__file__).with_name('extra_scenes.py')).read_text(encoding='utf-8'), 'extra_scenes.py', 'exec'))
     exec(compile((pathlib.Path(__file__).with_name('benefit_scenes.py')).read_text(encoding='utf-8'), 'benefit_scenes.py', 'exec'))
+    if wanted.intersection({'battle-entrance','position-zero','passion','back-to-back','polish-jealousy','unforgettable','shine-barrage','star','aquarium','why','wake-up','wake-upgraded','arrogant-show','relay-reward','waiting-show'}):
+        exec(compile((main/'tools/vfx/catalog/latest_scenes.py').read_text(encoding='utf-8'), 'latest_scenes.py', 'exec'))
     if wanted.intersection({'lastword-charge','lastword-charge-before','lastword-regular','lastword-uniform','lastword-natural'}):
         exec(compile((main/'tools/vfx/last-word-stage-lights/charge_scenes.py').read_text(encoding='utf-8'), 'last-word-charge-scenes', 'exec'))
     if wanted.intersection({'lastword-stage','lastword-stage-before','lastword-stage-void','lastword-stage-debug','lastword-motion-before'}):
@@ -390,7 +411,11 @@ try:
         stage('lastword',seed=True);cmd('showcase clear');trim();prep('KAREN_LAST_WORD');time.sleep(1)
         snap(case/'playable');check_hand('playable-hand')
         cmd('promise_integration off')
-        record_start();marking('最后的台词｜满足条件后的牌框提示');time.sleep(1.4)
+        record_start();marking('最后的台词｜满足条件：边缘舞台追光与漂浮 T 字');time.sleep(2)
+        c=next(c for c in state()['player']['hand'] if c['id']=='KAREN_LAST_WORD')
+        marking('悬停｜舞台灯平滑收拢、提亮，T 字保持自然漂浮')
+        post(action='hover_card',card_index=c['index']);time.sleep(2)
+        post(action='unhover_card');time.sleep(.7)
         marking('最后的台词｜文字、影片与最终伤害');play('KAREN_LAST_WORD');time.sleep(.4);snap(case/'letters')
         time.sleep(2.3);snap(case/'movie')
         for _ in range(160):
@@ -425,6 +450,7 @@ finally:
     if process and process.poll() is None:process.terminate();process.wait(timeout=15)
     stop.set()
     if 't' in globals():t.join(timeout=2)
+    if desktop is not None:desktop.close()
     (out/'window-monitor.json').write_text(json.dumps(monitor,indent=2))
     if (dev/'godot.log').exists():shutil.copy2(dev/'godot.log',out/'godot.log')
     for p,data in backups.items():

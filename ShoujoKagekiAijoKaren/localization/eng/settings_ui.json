@@ -6,7 +6,7 @@
   "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.title": "Show Giraffe Splash Screen",
   "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.hover.desc": "Show the giraffe splash screen before the MegaCrit logo when the game starts.",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_COMBAT_ENTRANCE.title": "Combat Entrance Effects",
-  "SHOUJOKAGEKIAIJOKAREN-ENABLE_COMBAT_ENTRANCE.hover.desc": "Play your Karen's entrance pose, stage lights, particles, Tower of Promise reveal, and lighting sound. Applies from the next combat.",
+  "SHOUJOKAGEKIAIJOKAREN-ENABLE_COMBAT_ENTRANCE.hover.desc": "Play your Karen's entrance pose, stage lights, particles, and Tower of Promise reveal. Applies from the next combat.",
   "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML.title": "Generate mod info HTML",
   "SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_BUTTON.title": "Export mod info",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT_JSON_ONLY_BUTTON.title": "Export JSON only",

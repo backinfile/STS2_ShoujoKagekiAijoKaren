@@ -243,7 +243,7 @@ for index, case in enumerate(cases):
                 list(pool.map(finish_recording, range(peer_count)))
         for side, report in enumerate(reports):
             count = int(characters[side] == 'KAREN' and speeds[side] != 'instant')
-            assert report['casts'] == count and report['soundCues'] == count, report
+            assert report['casts'] == count and report['soundCues'] == 0, report
             assert report['beforeStartCalls'] == 1 and report['beforeStartVisible'] == count, report
             assert report['live'] == report['backLive'] == report['posesLive'] == report['towerEntrancesLive'] == 0, report
             assert report['colorsPreserved'] and report['materialPreserved'], report
@@ -357,7 +357,7 @@ for index, case in enumerate(cases):
             second_room = [probe(side) for side in range(peer_count)]
             save(case_root / 'next-combat.json', second_room)
             pair_snap('next-combat')
-            assert all(p['casts'] == p['soundCues'] == p['beforeStartCalls'] == 1
+            assert all(p['casts'] == p['beforeStartCalls'] == 1 and p['soundCues'] == 0
                 and len(p['actors']) == expected and p['live'] == p['backLive'] == p['posesLive'] == p['towerEntrancesLive'] == 0
                 and sum(a['Local'] and a['PoseFrames'] > 0 and a['TowerFrames'] > 0 for a in p['actors']) == 1
                 and all(a['Local'] or a['PoseFrames'] == a['TowerFrames'] == 0 for a in p['actors'])

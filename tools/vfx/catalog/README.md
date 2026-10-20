@@ -1,5 +1,11 @@
 # Karen 特效全览录制
 
+2026-10-20 当前目录使用 `--catalog latest`，共 69 段，覆盖现有卡牌、战斗常驻、选牌与牌堆界面，以及独立同版本联机接力。当前录制默认在独立 Windows 测试桌面启动，MCP 配置启用 `silent_test=true`，保持本机静默并录制 FMOD/Godot 内部混音（`audio_source=engine_mix`）。旧录制的 `game_process` 来源仍可合成和核查。先更新 MCP、构建完整 Karen 包并分别准备环境，再用 `run_latest.py stable --output <新目录> --port <独立端口>` 录制；它按包哈希跳过已完成的分段，保留每次运行日志。接力传递由 `tools/vfx/fight-relay/record.py --normal-only` 单独执行真实双进程流程。成片使用 `assemble.py --catalog latest`，核查使用 `verify.py --catalog latest`，下方 96 像素说明条包含编号、标题、当前动作和游戏版本，另输出章节索引。
+
+音频专项：`record.py --scenes form-music-lifecycle,battle-entrance` 通过真实出牌、直接换场及正常战斗结束，检查 Form 替换播放器和原生 FMOD 音乐事件，并执行淡出中断回归。每次常规录制在新战斗和开录前保存 `showcase music-status`，防止无 Form 能力时仍录到替换 BGM。入场表现保留动作、灯光和粒子，不再播放额外亮灯采样；`tools/vfx/entrance/check_audio.py <原片> --absent` 可核查旧采样缺席。合成前执行 `audit_form_music.py --output <目录> --report <报告.json> --assert-clean`，对实际音轨匹配 Form 原始音乐，仅允许真实应用 Form 的 9 个演示段落出现该曲。
+
+当前音频修正版：[69 段合辑](../../../artifacts/vfx-audio-fix-20261020/after/Karen-VFX-catalog-2026-10-20.mp4)、[章节](../../../artifacts/vfx-audio-fix-20261020/after/chapters.txt)、[交付记录](../../../artifacts/vfx-audio-fix-20261020/after/delivery-summary.json)。50 段重录、19 段未受影响的原片复用，包含 4 项真实同版本接力。实际音轨核查确认 41 段误入的 Form 音乐已消除，9 段有意展示 Form 的音乐保留。主目录累计 411 次手牌核查、43 次表现清理及 5 次持有检查通过；双版本额外针对入场无声、换场清理及正常结束后真实音乐事件恢复做专项，详见 [音频修复记录](../../../docs/testing/combat-audio-fixes-2026-10-20.md)。媒体参数、逐段哈希及完整解码结果以 `verification.json` 为准。本轮未运行完整单人／多人测试矩阵；首轮合辑保留在 `artifacts/vfx-catalog-20261020/` 作为失败音轨基线。
+
 `--scenes waiting-icon` 定向检查“舞台正在等待着”的能量图标贴边效果：真实打出能力、清空约定牌堆回能、1→3 层、计数器与图标层独立变换、Fast／Instant、能力移除清理。`WaitingStageProbe` 从实际纹理的 alpha 边缘独立测量光点误差，包含水平边；阈值为图标局部坐标 2 像素。沿用本文准备流程，每版使用各自的隔离环境、端口和观察器，结果写入 `waiting-icon*` 目录。移牌前后截图及 `karen_check_hand` 仍需查看。
 
 `--scenes waiting-icon-preview` 只跑上述普通模式的创建、回能、叠层、变换及清理，供小幅视觉调整预览使用。观察器另累计整圈光框是否曾经可见，去框版本必须始终为 `false`。

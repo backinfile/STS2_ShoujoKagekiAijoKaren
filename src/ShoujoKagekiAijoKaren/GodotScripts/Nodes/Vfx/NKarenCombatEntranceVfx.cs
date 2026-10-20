@@ -9,7 +9,6 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
-using ShoujoKagekiAijoKaren.src.Core.Audio;
 using ShoujoKagekiAijoKaren.Core;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -21,7 +20,6 @@ public partial class NKarenCombatEntranceVfx : Node2D
     public const float Duration = 1.5f;
     private static readonly StringName PlayedMeta = new("karen_combat_entrance_played");
     private readonly List<NCreature> _karens = new();
-    private readonly List<AudioStreamPlayer> _sounds = new();
     private readonly Node2D _back = new() { Name = "KarenEntranceLights" };
     private NCombatRoom _room = null!;
     private static GradientTexture2D? _soft;
@@ -29,19 +27,19 @@ public partial class NKarenCombatEntranceVfx : Node2D
     private Vector2 _screen;
     private float _age;
     private float _speed = 1;
-    private bool _lit, _cleaned;
+    private bool _cleaned;
     public float Age => _age;
     public bool IsPlaying => !_cleaned;
 
     public static void Play(NCombatRoom room, IEnumerable<Player> players)
     {
         // Each peer owns its room node. Repeated presentation requests must not
-        // stack poses, lights or audio, including after the first cue is freed.
+        // stack poses or lights, including after the first cue is freed.
         if (!KarenModConfig.EnableCombatEntrance || room.HasMeta(PlayedMeta)) return;
         var node = new NKarenCombatEntranceVfx { _room = room, Name = "KarenCombatEntrance" };
         // Entrance presentation belongs to the player controlling this peer.
         // Keep this check here too, so direct presentation requests cannot
-        // animate remote Karens or play their lighting sound locally.
+        // animate remote Karens locally.
         node._karens.AddRange(players.Where(p => LocalContext.IsMe(p))
             .Select(p => room.GetCreatureNode(p.Creature)).OfType<NCreature>());
         if (node._karens.Count == 0) { node.Free(); return; }
@@ -80,7 +78,6 @@ public partial class NKarenCombatEntranceVfx : Node2D
         { Finish(); return; }
         _age += (float)delta / _speed;
         if (_age >= Duration) { Finish(); return; }
-        if (!_lit && _age >= .18f) { _lit = true; Sound(KarenSfx.EntranceStageLight, 1.15f); }
         foreach (var karen in _karens.Where(GodotObject.IsInstanceValid))
         {
             if (karen.Visuals is SNCreatureVisuals visuals) visuals.AdvanceKarenEntrance(_age);
@@ -188,11 +185,6 @@ public partial class NKarenCombatEntranceVfx : Node2D
             ? visuals.EntranceCanvasPoint(point) : sprite.GetGlobalTransformWithCanvas() * point;
     }
 
-    // The calibrated sample peaks at -1.5 dBFS; gain 1.15 keeps its peak below 0 dBFS.
-    // Native SFX/Master buses alone handle the user's volume sliders.
-    private void Sound(string file, float volume)
-    { var player = KarenAudioManager.PlaySfxOnGameBus(file, volume, 1 / _speed); if (player != null) _sounds.Add(player); }
-
     private void Finish()
     {
         if (_cleaned) return;
@@ -212,9 +204,6 @@ public partial class NKarenCombatEntranceVfx : Node2D
         }
         _particles.Clear();
         if (GodotObject.IsInstanceValid(_back)) { _back.Hide(); _back.QueueFree(); }
-        foreach (var sound in _sounds)
-            if (GodotObject.IsInstanceValid(sound)) { sound.Stop(); sound.QueueFree(); }
-        _sounds.Clear();
     }
 
     public override void _ExitTree()

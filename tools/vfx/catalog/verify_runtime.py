@@ -11,12 +11,13 @@ parser.add_argument('--output', required=True, type=pathlib.Path)
 parser.add_argument('--branch', choices=['stable', 'beta'], required=True)
 parser.add_argument('--package', type=pathlib.Path, help='Exact package used by the capture; defaults to the current build')
 parser.add_argument('--full-catalog', action='store_true')
+parser.add_argument('--catalog', choices=['current','latest'], default='current')
 parser.add_argument('--scenes', help='Comma-separated targeted scenes; defaults to the four stage compatibility scenes')
 args = parser.parse_args()
 repo = pathlib.Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(repo / 'tools/vfx/six-card'))
 from audit_log import audit
-from assemble import CURRENT_ENTRIES
+from assemble import CURRENT_ENTRIES, LATEST_ENTRIES
 
 root = args.output.resolve()
 folder = root / args.branch
@@ -53,13 +54,13 @@ recordings = []
 if args.scenes:
     names = args.scenes.split(',')
 elif args.full_catalog:
-    names = [n for n, _ in CURRENT_ENTRIES]
+    names = [n for n, _ in (LATEST_ENTRIES if args.catalog=='latest' else CURRENT_ENTRIES)]
 else:
     names = ['starlight-act2', 'newstack-normal', 'newstack-void', 'stage-lifecycle']
 for name in names:
     scene = folder / name
     rec = read(scene / 'recording.json')
-    assert rec['status'] == 'completed' and rec['audio_source'] == 'game_process' and rec['audio'], scene
+    assert rec['status'] == 'completed' and rec['audio_source'] in ('game_process','engine_mix') and rec['audio'], scene
     assert rec['captureBuild'] == expected, (scene, 'Not the final package')
     assert rec['capture_fps'] >= 20, (scene, rec['capture_fps'])
     assert (scene / 'recording-before.png').is_file() and (scene / 'recording-after.png').is_file(), scene
@@ -68,6 +69,8 @@ for name in names:
         assert counter['liveDepletes'] == counter['liveArrivals'] == 0, counter
         counter = counter['counter']
         assert counter['displayed'] == counter['target'] == counter['model'] and counter['pending'] == 0, counter
+    elif name == 'relay-transfer':
+        assert read(scene/'result.json')['result']=='pass', scene
     elif name != 'lastword':
         final = read(scene / 'final-state.json')
         assert final['identitiesMatch'] and final['flightModelMismatchFrames'] == 0 and final['anchorError'] < .1, (scene, final)
@@ -115,6 +118,6 @@ window = read(folder / 'window-monitor.json')
 assert window['foreground_samples'] == window['restored_samples'] == 0, window
 report = dict(branch=args.branch, scenes=len(names), sceneNames=names, handChecks=len(checks), cleanupChecks=len(cleanup), heldChecks=len(holds),
               captureBuild=expected, recordings=recordings, log=diagnostics,
-              window=window, scope='Targeted singleplayer VFX; no full singleplayer/multiplayer matrix or third-party mod coexistence testing')
+              window=window, scope='Targeted VFX capture, including same-version relay when selected; no full singleplayer/multiplayer matrix or third-party mod coexistence testing')
 (folder / 'runtime-verification.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
 print(json.dumps({k: v for k, v in report.items() if k != 'recordings'}, ensure_ascii=False))

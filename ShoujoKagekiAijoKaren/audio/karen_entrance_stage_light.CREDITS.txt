@@ -1,5 +1,8 @@
 Karen combat entrance stage-light sample
 
+Retired from automatic combat entrance playback on 2026-10-20 at the user's
+request. Retained as the reference for historical and absence audio checks.
+
 Derived only from the existing project audio/karen_stage_light.mp3, also used by
 the STS1 Karen mod. Original recording provenance is not verified.
 No speech, music layer, synthesized effect or additional third-party sample added.

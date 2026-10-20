@@ -96,7 +96,7 @@ if want('ticket'):
 
 if want('dream'):
     stage('dream', seed=False); prep('KAREN_WE_KOWN'); record_start()
-    clip_cast('KAREN_WE_KOWN', '两人的梦想｜打出仅应用能力，移除自定义开场特效')
+    clip_cast('KAREN_WE_KOWN', '两人的梦想｜获得持续能力，为回合结束生成光辉作准备')
     report=json.loads(cmd('revision_probe status')['message']);assert report['dreamCast']==report['dreamTrigger']==0,report
     marking('梦想兑现｜回合结束生成光辉，真实入塔与星光交接')
     next_turn('dream-return')
@@ -129,7 +129,7 @@ def stage_hover(label):
 
 if want('starlight-act2'):
     stage('starlight-act2', seed=False); prep('KAREN_STARLIGHT02_CARD'); prep('KAREN_SHINE_STRIKE')
-    record_start(); clip_cast('KAREN_STARLIGHT02_CARD', 'Starlight 第二幕｜更换独立灯光音效；前景下移与椭圆铺光')
+    record_start(); clip_cast('KAREN_STARLIGHT02_CARD', 'Starlight 第二幕｜舞台光场展开、椭圆脚灯与专属音效')
     marking('第二幕预览｜蓝白平行背光，角色与敌人位于光幕前方'); stage_hover('hover')
     time.sleep(1); marking('第二幕结算｜同一背光覆盖三次重播与闪耀耗尽')
     clip_cast('KAREN_SHINE_STRIKE', '重播与耗尽｜背景持有至实际卡牌完整结算')
@@ -151,7 +151,7 @@ if want('shine-ambient'):
     for card,n in [('KAREN_SHINE_STRIKE',3),('KAREN_NONON',9),('KAREN_DRINK_WATER',1)]:
         prep(card);cmd('shine_fuel set '+card+' '+str(n))
     prep('KAREN_STRIKE');record_start()
-    marking('光框贴合原生圆角｜普通闪耀：65% 不透明度；临界提示：保留强亮星与余烬');time.sleep(2.2)
+    marking('闪耀卡面｜柔和圆角微光；耗尽临界时保留亮星与余烬');time.sleep(2.2)
     for card,label in [('KAREN_SHINE_STRIKE','闪耀打击'),('KAREN_NONON','NONNON'),('KAREN_DRINK_WATER','水分补充：最后一点闪耀')]:
         c=next(c for c in state()['player']['hand'] if c['id']==card)
         marking(label+'｜悬停观察卡面常驻层，星屑保留自由漂浮')

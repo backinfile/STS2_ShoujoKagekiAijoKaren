@@ -5,16 +5,17 @@ import json
 import pathlib
 import re
 import subprocess
-from assemble import ENTRIES, CURRENT_ENTRIES, probe, call
+from assemble import ENTRIES, CURRENT_ENTRIES, LATEST_ENTRIES, probe, call
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--output', type=pathlib.Path, required=True)
 parser.add_argument('--branch', default='stable', choices=['stable', 'beta'])
-parser.add_argument('--catalog', choices=['legacy', 'current'], default='legacy')
+parser.add_argument('--catalog', choices=['legacy', 'current', 'latest'], default='legacy')
 args = parser.parse_args()
 root = args.output.resolve()
-entries = CURRENT_ENTRIES if args.catalog == 'current' else ENTRIES
-movie = root / ('Karen-VFX-catalog-2026-10-14.mp4' if args.catalog == 'current' else 'Karen-VFX-catalog-2026-10-12.mp4')
+entries = {'legacy':ENTRIES,'current':CURRENT_ENTRIES,'latest':LATEST_ENTRIES}[args.catalog]
+date = {'legacy':'2026-10-12','current':'2026-10-14','latest':'2026-10-20'}[args.catalog]
+movie = root / f'Karen-VFX-catalog-{date}.mp4'
 manifest = json.loads((root / 'manifest.json').read_text(encoding='utf-8'))
 data = probe(movie)
 assert len(manifest) == len(entries) == len(data['chapters'])

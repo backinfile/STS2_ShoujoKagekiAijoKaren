@@ -66,6 +66,29 @@ CURRENT_ENTRIES = ENTRIES[:-1] + [
     ENTRIES[-1],
 ]
 
+LATEST_ENTRIES = [('battle-entrance', 'Karen 入场 · 舞台揭幕与待机')] + [(n,t.replace('门票 B','门票').replace('新旧特效兼容','组合特效联动')) for n,t in CURRENT_ENTRIES[:-1]] + [
+    ('shine-ambient', '闪耀牌 · 常驻微光与临界提示'),
+    ('shine-motion', '闪耀耗尽 · 收拢、飞行与图标承接'),
+    ('waiting-show', '舞台正在等待着 · 巡游光点与清空回能'),
+    ('baseball', '棒球 · 蓄势、飞行与命中'),
+    ('back-to-back', '背靠背 · 红蓝双剑交击'),
+    ('polish-jealousy', '嫉妒 · 接触斩痕与回飘箔片'),
+    ('unforgettable', '永不遗忘的闪耀 · 星切与战斗留痕'),
+    ('shine-barrage', '用你的闪耀贯穿我吧 · 逐击贯穿'),
+    ('position-zero', 'Position 0 · 脚灯、T 标记与格挡'),
+    ('passion', '激情 · 全屏粒子与能力确认'),
+    ('arrogant-show', '骄傲 · 易伤、激情与遗物奖励登记'),
+    ('relay-reward', '歌唱吧舞蹈吧互相争斗吧 · 耗尽奖励'),
+    ('relay-transfer', '同版本联机 · 接力传递与耗尽奖励'),
+    ('star', '星光闪耀之时 · 聚集、重播与奖励'),
+    ('why', 'Why · 选牌边缘流光'),
+    ('wake-up', '唤醒 · 幕帘、选择与归手'),
+    ('wake-upgraded', '唤醒＋ · 牌堆选择与归手'),
+    ('aquarium', '水族馆 · 施放与回合抽牌'),
+    ('pile-view', '约定与耗尽牌堆 · 查看装饰'),
+    ('lastword', '最后的台词 · 舞台追光、T 字、影片与收尾'),
+]
+
 
 def probe(path):
     return json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_streams', '-show_format', '-show_chapters', '-of', 'json', str(path)], encoding='utf-8'))
@@ -99,7 +122,7 @@ def assemble(root, branch, preview=False, entries=None, title='Karen 特效全�
         video = next(s for s in data['streams'] if s['codec_type'] == 'video')
         assert any(s['codec_type'] == 'audio' for s in data['streams']), source
         rec = json.loads(source.with_name('recording.json').read_text(encoding='utf-8'))
-        assert rec['status'] == 'completed' and rec['audio'] and rec['audio_source'] == 'game_process', source
+        assert rec['status'] == 'completed' and rec['audio'] and rec['audio_source'] in ('game_process', 'engine_mix'), source
         manifest.append(dict(index=i, name=name, title=entry_title, source=str(source), duration=float(video['duration']), sha256=hashlib.sha256(source.read_bytes()).hexdigest(), captureBuild=rec.get('captureBuild'), captureFps=rec['capture_fps'], repeatedFrames=rec['frames_repeated']))
 
     def encode(e):
@@ -168,12 +191,12 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=pathlib.Path, required=True)
     parser.add_argument('--branch', choices=['stable', 'beta'], default='stable')
     parser.add_argument('--preview', action='store_true')
-    parser.add_argument('--catalog', choices=['legacy', 'current'], default='legacy')
+    parser.add_argument('--catalog', choices=['legacy', 'current', 'latest'], default='legacy')
     parser.add_argument('--separate', action='store_true', help='Export each selected scene as its own annotated video')
     parser.add_argument('--scenes', help='Comma-separated scene names in delivery order')
     args = parser.parse_args()
     if args.separate:
-        available = dict(CURRENT_ENTRIES + [('shine-play', '闪耀临界 · 提示随卡牌完成打出'),
+        available = dict(LATEST_ENTRIES + [('shine-play', '闪耀临界 · 提示随卡牌完成打出'),
             ('shine-motion', '闪耀耗尽 · 飞入图标与入堆反馈'),
             ('shine-ambient', '普通闪耀 · 卡牌常驻微光与临界对照'),
             ('shine-ambient-modes', '闪耀常驻 · 速度、燃料与对象池核查'),
@@ -184,6 +207,9 @@ if __name__ == '__main__':
                      title=available[name], filename=f'Karen-{name}.mp4', source_root=args.output.resolve())
     elif args.scenes:
         parser.error('--scenes currently requires --separate')
+    elif args.catalog == 'latest':
+        assemble(args.output.resolve(), args.branch, args.preview, LATEST_ENTRIES,
+                 'Karen 全特效展示 · 2026-10-20', 'Karen-VFX-catalog-2026-10-20.mp4')
     elif args.catalog == 'current':
         assemble(args.output.resolve(), args.branch, args.preview, CURRENT_ENTRIES,
                  'Karen 全特效与兼容演示 · 2026-10-14', 'Karen-VFX-catalog-2026-10-14.mp4')

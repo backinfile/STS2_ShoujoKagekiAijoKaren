@@ -7,8 +7,16 @@
 <Compile Include="../arrogant/ArrogantProbe.cs" />
 <Compile Include="../pile-view/PileViewProbe.cs" />
 <Compile Include="../wake-up/WakeUpProbe.cs" />
+<Compile Include="../star/StarProbe.cs" />
+<Compile Include="../aquarium/Probe.cs" />
+<Compile Include="../shine-barrage/Probe.cs" />
+<Compile Include="../unforgettable-persistent/ScarProbe.cs" />
+<Compile Include="../position-zero/Probe.cs" />
+<Compile Include="../entrance/EntranceProbe.cs" />
 <Reference Include="sts2"><HintPath>$(Game)/data_sts2_windows_x86_64/sts2.dll</HintPath><Private>false</Private></Reference>
 <Reference Include="GodotSharp"><HintPath>$(Game)/data_sts2_windows_x86_64/GodotSharp.dll</HintPath><Private>false</Private></Reference>
+<Reference Include="0Harmony"><HintPath>$(Game)/data_sts2_windows_x86_64/0Harmony.dll</HintPath><Private>false</Private></Reference>
+<Reference Include="BaseLib"><HintPath>$(Game)/mods/BaseLib/BaseLib.dll</HintPath><Private>false</Private></Reference>
 <Reference Include="Karen"><HintPath>../../../artifacts/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.$(Variant).dll</HintPath><Private>false</Private></Reference>
 </ItemGroup>
 </Project>

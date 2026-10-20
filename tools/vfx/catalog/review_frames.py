@@ -5,12 +5,13 @@ import json
 import pathlib
 import subprocess
 from PIL import Image, ImageDraw, ImageFont
-from assemble import CURRENT_ENTRIES, probe
+from assemble import CURRENT_ENTRIES, LATEST_ENTRIES, probe
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--output', required=True, type=pathlib.Path)
 parser.add_argument('--branch', choices=['stable', 'beta'], default='stable')
 parser.add_argument('--partial', action='store_true')
+parser.add_argument('--catalog', choices=['current','latest'], default='current')
 args = parser.parse_args()
 root = args.output.resolve()
 review = root / 'review' / args.branch
@@ -19,7 +20,7 @@ font = ImageFont.truetype('C:/Windows/Fonts/msyh.ttc', 17)
 rows = []
 repo = pathlib.Path(__file__).resolve().parents[3]
 pack_hash = hashlib.sha256((repo / 'artifacts/ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.pck').read_bytes()).hexdigest()
-for index, (name, title) in enumerate(CURRENT_ENTRIES, 1):
+for index, (name, title) in enumerate(LATEST_ENTRIES if args.catalog=='latest' else CURRENT_ENTRIES, 1):
     folder = root / args.branch / name
     if args.partial and not (folder / 'recording-after.png').exists():
         continue

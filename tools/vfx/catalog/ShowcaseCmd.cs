@@ -12,11 +12,14 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Audio;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core;
 using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Patches;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
+using ShoujoKagekiAijoKaren.src.Core.Audio;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
 // Recording fixture only. Card effects are executed by actual native card plays.
 public sealed class ShowcaseCmd : AbstractConsoleCmd
@@ -27,7 +30,26 @@ public sealed class ShowcaseCmd : AbstractConsoleCmd
     public override bool IsNetworked => false;
     public override CmdResult Process(Player? player, string[] args)
     {
-        if (player?.PlayerCombatState == null || args.Length == 0) return new(false, Args);
+        if (args.Length == 0) return new(false, Args);
+        if (args[0] == "music-status")
+        {
+            var flags = BindingFlags.Static | BindingFlags.NonPublic;
+            var current = typeof(CombatBgmReplacementManager).GetField("_currentPlayer", flags)!.GetValue(null) as AudioStreamPlayer;
+            var fading = typeof(CombatBgmReplacementManager).GetField("_fadingPlayer", flags)!.GetValue(null) as AudioStreamPlayer;
+            bool Playing(AudioStreamPlayer? sound) => GodotObject.IsInstanceValid(sound) && sound!.Playing;
+            var root = ((SceneTree)Engine.GetMainLoop()).Root;
+            var controller = NRunMusicController.Instance;
+            var proxy = controller?.GetNodeOrNull<Node>("Proxy");
+            var musicEvent = proxy?.Get("_musicEv").AsGodotObject();
+            return new(true, JsonSerializer.Serialize(new {
+                hasForm = player?.Creature.Powers.Any(p => p is KarenFormPower) == true,
+                currentPlaying = Playing(current), fadingPlaying = Playing(fading),
+                musicPlayers = root.GetChildren().OfType<AudioStreamPlayer>().Count(p => p.Bus == "KarenMusic" && p.Playing),
+                nativeMusicEvent = GodotObject.IsInstanceValid(musicEvent),
+                needsRestore = (bool)typeof(CombatBgmReplacementManager).GetField("_needsGameMusicRestore", flags)!.GetValue(null)!
+            }));
+        }
+        if (player?.PlayerCombatState == null) return new(false, "Player combat state required");
         if (args[0] == "composition")
         {
             var room = NCombatRoom.Instance!;
@@ -59,6 +81,8 @@ public sealed class ShowcaseCmd : AbstractConsoleCmd
             ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.DisableRelicManager.RestoreAllRelics(player);
             return new(true, "Restored fixture relics between recordings");
         }
+        if (args[0] == "reset-demo-relics")
+            return new(RemoveDemoRelics(player), true, "Removing relics added by the showcase");
         if (args[0] == "seed" && args.Length == 3)
         {
             var combat = CombatManager.Instance.DebugOnlyGetState()!;
@@ -86,5 +110,12 @@ public sealed class ShowcaseCmd : AbstractConsoleCmd
             return new(true, "Stopped preview callback");
         }
         return new(false, Args);
+    }
+
+    private static async System.Threading.Tasks.Task RemoveDemoRelics(Player player)
+    {
+        ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.DisableRelicManager.RestoreAllRelics(player);
+        foreach (var relic in player.Relics.Where(r => r.Id.Entry is "ANCHOR" or "PEN_NIB").ToArray())
+            await RelicCmd.Remove(relic);
     }
 }
