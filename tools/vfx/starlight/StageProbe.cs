@@ -34,9 +34,10 @@ public static class StageProbe
         public readonly NKarenStageCueVfx Node=node;
         public string Kind=node.Kind.ToString();
         public bool Confirmed,BackCorrect;
-        public int Cards,Energy,OwnedFrames,DepletionHeldFrames,SettledHeldFrames,EndingHeldFrames;
-        public float Age;
+        public int Cards,Energy,OwnedFrames,DepletionHeldFrames,SettledHeldFrames,EndingHeldFrames,ReadyCards;
+        public float Age,CardVisualDelay;
         public readonly HashSet<int> PlayIndices=new();
+        public readonly List<object> BeamSamples=new();
     }
     internal static readonly List<Seen> Casts=new();
     internal static bool Watching;
@@ -51,6 +52,18 @@ public static class StageProbe
             seen.Confirmed|=node.Confirmed;seen.Cards=Math.Max(seen.Cards,node.DeliveredCount);seen.Energy=Math.Max(seen.Energy,node.EnergyGain);
             seen.BackCorrect|=node.BackgroundLight.GetParent()==room.BackCombatVfxContainer;
             seen.Age=Math.Max(seen.Age,(float)Field(node,"_age")!);
+            if(node.Kind is NKarenStageCueVfx.CueKind.TicketReturn or NKarenStageCueVfx.CueKind.Act1Draw){
+                var times=(Dictionary<CardModel,float>)Field(node,"_cardTimes")!;
+                seen.ReadyCards=Math.Max(seen.ReadyCards,times.Values.Count(t=>t>=0));
+                float confirmedAt=(float)Field(node,"_drawAt")!;
+                if(confirmedAt>=0)seen.CardVisualDelay=Math.Max(seen.CardVisualDelay,times.Values.Where(t=>t>=0).Select(t=>t-confirmedAt).DefaultIfEmpty(0).Max());
+            }
+            if(node.Kind==NKarenStageCueVfx.CueKind.Act2Cast && seen.Age<=.6f){
+                var flags=BindingFlags.Instance|BindingFlags.NonPublic;
+                var progress=node.GetType().GetProperty("CastBeamProgress",flags)?.GetValue(node) as float?;
+                var landing=node.GetType().GetProperty("CastBeamLanding",flags)?.GetValue(node) as float?;
+                seen.BeamSamples.Add(new{age=seen.Age,progress=progress??-1,landing=landing??-1});
+            }
             if(node.PlaybackOwned){seen.OwnedFrames++;var owner=(Player)Field(node,"_owner")!;
                 if(owner.PlayerCombatState!=null)foreach(var card in PileType.Play.GetPile(owner).Cards)seen.PlayIndices.Add(card.CurrentPlayIndex);}
             if(node.Holding&&!node.PlaybackOwned&&seen.OwnedFrames>0)seen.SettledHeldFrames++;
@@ -66,7 +79,7 @@ public static class StageProbe
         ticket=p.Creature.GetPowerAmount<KarenTicketPower>(),act1=p.Creature.GetPowerAmount<KarenStarlightPower>(),act2=p.Creature.GetPowerAmount<KarenStarlight02Power>(),
         energy=p.PlayerCombatState?.Energy??0,promise=PromisePileManager.GetPromisePile(p).Cards.Count,shine=ShinePileManager.GetShinePile(p).Cards.Count,
         casts=Casts.Select(c=>new{kind=c.Kind,confirmed=c.Confirmed,cards=c.Cards,energy=c.Energy,age=c.Age,backCorrect=c.BackCorrect,
-            ownedFrames=c.OwnedFrames,depletionHeldFrames=c.DepletionHeldFrames,settledHeldFrames=c.SettledHeldFrames,endingHeldFrames=c.EndingHeldFrames,playIndices=c.PlayIndices.Order().ToArray()})
+            ownedFrames=c.OwnedFrames,depletionHeldFrames=c.DepletionHeldFrames,settledHeldFrames=c.SettledHeldFrames,endingHeldFrames=c.EndingHeldFrames,playIndices=c.PlayIndices.Order().ToArray(),beamSamples=c.BeamSamples,readyCards=c.ReadyCards,cardVisualDelay=c.CardVisualDelay})
     };
     internal static async Task Promise(Player p,int count){PromisePileManager.ClearPromisePileInternal(p);for(int i=0;i<count;i++)await PromisePileCmd.Add(p,p.Creature.CombatState!.CreateCard<KarenStrike>(p));}
 }

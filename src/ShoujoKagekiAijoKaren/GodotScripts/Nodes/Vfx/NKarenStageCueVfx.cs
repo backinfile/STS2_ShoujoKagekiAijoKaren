@@ -60,7 +60,7 @@ public partial class NKarenStageCueVfx : Node2D
     public static Task WaitForCue(CueKind kind)
     {
         if (!Enabled) return Task.CompletedTask;
-        float seconds = kind switch { CueKind.TicketCast => .62f, CueKind.TicketReturn => .28f, CueKind.Duet => .35f, CueKind.Act1Cast => .58f, CueKind.Act2Cast => .64f, _ => 0 };
+        float seconds = kind switch { CueKind.TicketCast => .30f, CueKind.TicketReturn => .14f, CueKind.Duet => .35f, CueKind.Act1Cast => .32f, CueKind.Act2Cast => .64f, _ => 0 };
         return Cmd.CustomScaledWait(seconds * .7f, seconds);
     }
     public void ConfirmPower() { if (!Alive) return; Confirmed = true; _confirmedAt = _age; Finish(); }
@@ -69,7 +69,7 @@ public partial class NKarenStageCueVfx : Node2D
         if (!Alive) return;
         if (_drawAt < 0) _drawAt = _age;
         foreach (var card in cards.Where(c => c.Pile?.Type == MegaCrit.Sts2.Core.Entities.Cards.PileType.Hand))
-            if (!_cards.Contains(card)) { _cards.Add(card); _cardTimes[card] = _age; }
+            if (!_cards.Contains(card)) { _cards.Add(card); _cardTimes[card] = Kind is CueKind.TicketReturn or CueKind.Act1Draw ? -1 : _age; }
         Confirmed |= _cards.Count > 0;
         if (Kind != CueKind.Duet) Finish();
     }
@@ -122,8 +122,9 @@ public partial class NKarenStageCueVfx : Node2D
             || (!CombatManager.Instance.IsInProgress && !finishingPlay) || _owner.Creature.IsDead) { HideAll(); QueueFree(); return; }
         if (Kind == CueKind.Act2Hover && !PlaybackOwned && !_waitingForDepletion && _owner.Creature.GetPowerAmount<KarenStarlight02Power>() <= 0) Finish();
         bool opening = _age < .3f; _age += (float)delta / Speed;
+        UpdateCardVisualTimes();
         if (_waitingForDepletion && !_depletionWait.Any(NKarenShineDepleteVfx.IsAnimating)) { _waitingForDepletion = false; Finish(); }
-        float tail = Kind switch { CueKind.Act2Hover => .18f, CueKind.Act1Draw => .52f, CueKind.Act1Cast => .52f, CueKind.Act2Cast => .56f, CueKind.TicketReturn => .60f, CueKind.TicketCast => .52f, _ => .9f };
+        float tail = Kind switch { CueKind.Act2Hover => .18f, CueKind.Act1Draw => .50f, CueKind.Act1Cast => .32f, CueKind.Act2Cast => .56f, CueKind.TicketReturn => .50f, CueKind.TicketCast => .30f, _ => .9f };
         if ((_releaseAt >= 0 && _age >= _releaseAt + tail) || (Kind != CueKind.Act2Hover && _age > 8)) { HideAll(); QueueFree(); return; }
         KarenVfxComposition.SetCueStrength(this, Alpha);
         float backgroundWeight = KarenVfxComposition.EventWeight(_owner.Creature, this);
@@ -144,6 +145,19 @@ public partial class NKarenStageCueVfx : Node2D
         if (!_sourceCaptured && _source != null && NCard.FindOnTable(_source) is {} card) {
             var portrait = card.GetNode<TextureRect>("%Portrait"); _sourcePoint = portrait.GetGlobalTransformWithCanvas() * (portrait.Size * .5f); _sourceCaptured = true;
         }
+    }
+    private void UpdateCardVisualTimes()
+    {
+        if (Kind is not (CueKind.TicketReturn or CueKind.Act1Draw) || _drawAt < 0) return;
+        foreach (var card in _cards)
+            if (_cardTimes[card] < 0 && card.Pile?.Type == MegaCrit.Sts2.Core.Entities.Cards.PileType.Hand
+                && CardPoint(card) is {} point && GetViewport().GetVisibleRect().HasPoint(point))
+                _cardTimes[card] = _age;
+        bool pending = _cards.Any(c => _cardTimes[c] < 0 && c.Pile?.Type == MegaCrit.Sts2.Core.Entities.Cards.PileType.Hand);
+        // Native deal animations can outlast the generation command. Keep only
+        // this bounded handoff alive, then give each actual visible card its full accent.
+        if (pending && _age - _drawAt < 1.5f) _releaseAt = _age;
+        else _releaseAt = Math.Max(_releaseAt, _cardTimes.Values.DefaultIfEmpty(_drawAt).Max());
     }
     public override void _Draw() => DrawForeground();
     private void HideAll() { Hide(); _back.Hide(); _shade.Hide(); _hud.Hide(); _frontShade.Hide(); }

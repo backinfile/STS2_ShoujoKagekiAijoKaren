@@ -56,7 +56,9 @@ public partial class NKarenBenefitVfx : Node2D
     private float LastResultAt => Design == BenefitKind.Shine && _recipients.Count > 0 ? _recipients.Values.Max() : ConfirmedAt;
     protected float ResultAge => Age - LastResultAt;
     protected float ResultAlpha => Confirmed ? Window(ResultAge, 0, Trigger ? 1.55f : 1.9f, .09f, .65f) : 0;
-    private float StoryAlpha => Confirmed ? 1-P(ResultAge,.38f,1.3f) : Window(Age,0,2.8f,.14f,.65f);
+    private float StoryAlpha => Design == BenefitKind.Dream ? Window(Age,0,1.0f,.06f,.25f)
+        : Design == BenefitKind.DreamTrigger ? (Confirmed ? 1-P(ResultAge,.6f,1.2f) : Window(Age,0,.8f,.06f,.24f))
+        : Confirmed ? 1-P(ResultAge,.38f,1.3f) : Window(Age,0,2.8f,.14f,.65f);
     private Vector2 StoryPoint => Design == BenefitKind.SnackTransform && _transformSourceCanvas is {} canvas
         ? GetGlobalTransformWithCanvas().AffineInverse()*canvas : Body;
     private static readonly Color Gold = new("#ffd68b"), Cream = new("#fff1d6"), Red = new("#f85269"), Blue = new("#74b7ff");
@@ -98,7 +100,7 @@ public partial class NKarenBenefitVfx : Node2D
         if (!Enabled) return Task.CompletedTask;
         float duration=kind switch {
             BenefitKind.Cake or BenefitKind.Dinner=>.82f, BenefitKind.Ticket=>.62f,
-            BenefitKind.Radiance=>.48f, BenefitKind.SnackTransform=>.55f,
+            BenefitKind.Radiance=>.48f, BenefitKind.SnackTransform=>.55f, BenefitKind.Dream=>.42f,
             BenefitKind.TicketTrigger or BenefitKind.DreamTrigger=>.28f, _=>.7f };
         return Cmd.CustomScaledWait(duration*.7f,duration);
     }
@@ -198,6 +200,9 @@ public partial class NKarenBenefitVfx : Node2D
         { Hide();QueueFree();return; }
         Age+=(float)delta/_timeScale;
         ObserveResult();
+        if ((Design==BenefitKind.Dream && Age>1.05f)
+            || (Design==BenefitKind.DreamTrigger && (Confirmed ? ResultAge>1.3f : Age>3)))
+        { Hide();QueueFree();return; }
         float lifetime=Design==BenefitKind.Shine ? 2.8f+Owner.Creature.CombatState!.Players.Count*.6f : Trigger ? 2f : 2.85f;
         if (Age>Mathf.Max(lifetime,LastResultAt+2.1f)) { Hide();QueueFree();return; }
         Place();CaptureRadianceSource();Redraw();
@@ -317,6 +322,7 @@ public partial class NKarenBenefitVfx : Node2D
             }
             else target=CardPoint(card);
             if(target is not {} point)continue;
+            if(Design==BenefitKind.DreamTrigger){DrawDreamDelivery(point);continue;}
             var from=StageCenter;
             float u=Ease(P(ResultAge,.05f,.8f)),alpha=Window(ResultAge,0,1.45f,.06f,.5f);
             var color=Design==BenefitKind.DreamTrigger?Blue:TicketBlue;

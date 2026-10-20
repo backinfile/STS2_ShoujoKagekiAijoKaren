@@ -60,27 +60,44 @@ public partial class NKarenBenefitVfx
         }
         if(Confirmed)Glow(_front,StageCenter,88,TicketBlue,Window(ResultAge,0,.45f,.04f,.30f)*.3f);
     }
+    private static readonly Color DreamWarm = new("#ffbb98"), DreamCool = new("#a2dfff");
+    private Vector2 DreamPoint(float u, int side, bool joining)
+    {
+        var center=StageCenter;
+        return KarenLightRibbon.Curve(center+new Vector2(side*92,50)*Unit,
+            center+new Vector2(side*115,-22)*Unit,center+new Vector2(-side*28,-85)*Unit,
+            center+new Vector2(joining?0:side*54,joining?0:-24)*Unit,u);
+    }
     private void DrawDreamCurrents()
     {
-        for(int side=0;side<2;side++) {
-            var color=side==0?new Color("#ffc38d"):new Color("#9be1ff");
-            float direction=side==0?-1:1;
-            var origin=StageCenter+new Vector2(direction*140,72)*Unit;
-            for(int i=0;i<40;i++) {
-                float start=Random(i+side*61)*.32f;
-                float u=(Age-start)/.8f;
-                if(u<=0||u>=1)continue;
-                var from=origin+new Vector2((Random(i+13)-.5f)*62,(Random(i+42)-.5f)*50)*Unit;
-                var point=Arc(from,StageCenter,Ease(u),15+Random(i+2)*30);
-                float a=Mathf.Sin(u*Mathf.Pi)*StoryAlpha;
-                Grain(_front,point,3+Random(i+7)*5,color,a*.8f,i+u);
-                if(i%13==0)Star(_front,point,5,0,color,a*.6f);
-            }
+        bool joining=Design==BenefitKind.DreamTrigger;
+        float lead=joining?.28f:.42f;
+        float u=Ease(P(Age,0,lead));
+        float ribbonHead=P(Age,0,joining?.48f:.70f)*1.45f;
+        for(int side=-1;side<=1;side+=2){
+            var color=side<0?DreamWarm:DreamCool;
+            KarenLightRibbon.Draw(_front,t=>DreamPoint(t,side,joining),ribbonHead,.54f,4.6f*Unit,color,StoryAlpha*.85f);
+            float starAlpha=StoryAlpha*(joining?1-P(Age,lead,lead+.15f):1);
+            Star(_front,DreamPoint(u,side,joining),joining?9:11,side*Age*.35f,color,starAlpha);
         }
-        if(Confirmed) {
-            float a=Window(ResultAge,0,.65f,.04f,.4f);
-            Star(_front,StageCenter,Design==BenefitKind.DreamTrigger?23:18,0,Ivory,a*.7f);
+        if(joining){
+            float alpha=Window(Age,.18f,.72f,.10f,.24f)*StoryAlpha;
+            Star(_front,StageCenter,Confirmed?18:11,0,Ivory,alpha*.72f);
+            if(Confirmed)Glow(_front,StageCenter,70,Ivory,Window(ResultAge,0,.35f,.02f,.24f)*.32f);
         }
+    }
+    private void DrawDreamDelivery(Vector2 target)
+    {
+        float head=P(ResultAge,.02f,.78f)*1.45f;
+        float alpha=Window(ResultAge,0,1.12f,.05f,.32f);
+        var from=StageCenter;
+        var normal=(target-from).Orthogonal().Normalized();
+        for(int side=-1;side<=1;side+=2){
+            Vector2 Path(float t)=>Arc(from,target,t,55)
+                +normal*(Mathf.Sin(t*Mathf.Tau*1.2f+side*Mathf.Pi*.5f)*Mathf.Sin(t*Mathf.Pi)*10*Unit);
+            KarenLightRibbon.Draw(_front,Path,head,.42f,3.8f*Unit,side<0?DreamWarm:DreamCool,alpha*.78f);
+        }
+        Star(_front,target,8,0,Ivory,Window(ResultAge,.53f,1.12f,.05f,.35f)*.68f);
     }
     private void DrawSharedFootlights()
     {

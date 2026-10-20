@@ -30,6 +30,8 @@ public partial class NKarenBenefitVfx
     }
     private void DrawFlowPlane(Node2D plane)
     {
+        // The paired stars own their thin ribbons; the former broad dream fog is retired.
+        if(Design is BenefitKind.Dream or BenefitKind.DreamTrigger)return;
         if(Design==BenefitKind.Radiance&&!UsesPlayedCardSource)return;
         if(Design!=BenefitKind.Shine){plane.DrawTextureRect(_soft,FlowRect(),false);return;}
         foreach(var player in Owner.Creature.CombatState!.Players){

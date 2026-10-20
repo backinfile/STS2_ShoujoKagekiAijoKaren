@@ -88,20 +88,32 @@ if want('snack-transform'):
 
 if want('ticket'):
     stage('ticket', seed=False); prep('KAREN_TICKET'); record_start()
-    clip_cast('KAREN_TICKET', '门票｜连续透视光路由近至远铺开，能力确认')
-    marking('门票回返｜回合开始生成真实约定之塔并交接到手牌')
+    clip_cast('KAREN_TICKET', '门票 C｜短丝带掠过，能力确认后全部消失')
+    effects_idle('ticket-cast-clean'); snap(case/'ticket-idle')
+    assert json.loads(cmd('stage_probe status')['message'])['ticket'] == 1
+    marking('回合触发｜丝带一闪引向真实塔牌，落定后不留场景特效')
     next_turn('ticket-return')
     assert any(c['id'] == 'KAREN_TOWER_OF_PROMISE' for c in state()['player']['hand'])
+    received=[c for c in json.loads(cmd('stage_probe status')['message'])['casts'] if c['kind']=='TicketReturn']
+    assert len(received)==1 and received[0]['readyCards']==received[0]['cards']==1,received
     finish()
 
-if want('dream'):
-    stage('dream', seed=False); prep('KAREN_WE_KOWN'); record_start()
-    clip_cast('KAREN_WE_KOWN', '两人的梦想｜获得持续能力，为回合结束生成光辉作准备')
-    report=json.loads(cmd('revision_probe status')['message']);assert report['dreamCast']==report['dreamTrigger']==0,report
-    marking('梦想兑现｜回合结束生成光辉，真实入塔与星光交接')
+for void in (False, True):
+    name='dream-void' if void else 'dream'
+    if not want(name): continue
+    stage(name, void, seed=False)
+    amount=2 if void else 1
+    for _ in range(amount): prep('KAREN_WE_KOWN')
+    record_start()
+    for _ in range(amount): clip_cast('KAREN_WE_KOWN', '两人的梦想 A｜双星织光，施放后清空，不留常驻星轨')
+    effects_idle('dream-cast-clean'); snap(case/'dream-idle')
+    report=json.loads(cmd('revision_probe status')['message']);assert report['dreamCast']==amount and report['dreamTrigger']==0,report
+    marking('梦想兑现｜两色丝光汇合，真实光辉'+('交接空虚抽牌图标' if void else '进入约定塔'))
     next_turn('dream-return')
-    assert 'KAREN_WE_KOWN_TOKEN' in integration()['promise'], integration()
-    report=json.loads(cmd('revision_probe status')['message']);assert report['dreamCast']==0 and report['dreamTrigger']==1,report
+    model=integration(); piles=['promise','draw','hand','discard','shine']
+    assert sum(model[p].count('KAREN_WE_KOWN_TOKEN') for p in piles)==amount,model
+    assert not void or not model['promise'],model
+    report=json.loads(cmd('revision_probe status')['message']);assert report['dreamCast']==amount and report['dreamTrigger']==1,report
     finish()
 
 for void in (False, True):
@@ -114,9 +126,16 @@ for void in (False, True):
 if want('starlight-act1'):
     stage('starlight-act1', seed=False)
     for _ in range(3): cmd('card KAREN_DEFEND Draw'); time.sleep(.15)
-    prep('KAREN_STARLIGHT_CARD'); prep('KAREN_SHINE_STRIKE'); record_start()
-    clip_cast('KAREN_STARLIGHT_CARD', 'Starlight 第一幕｜蓝幕升起与粉星能力确认')
-    clip_cast('KAREN_SHINE_STRIKE', '第一幕触发｜实际抽到卡牌上缘的短促掠光')
+    prep('KAREN_STARLIGHT_CARD'); prep('KAREN_SHINE_STRIKE'); prep('KAREN_DEFEND'); record_start()
+    clip_cast('KAREN_STARLIGHT_CARD', '第一幕 B｜短星轨依次亮起，施放结束后完全消失')
+    effects_idle('act1-cast-clean'); snap(case/'act1-idle')
+    clip_cast('KAREN_DEFEND', '普通牌对照｜不触发第一幕星轨与抽牌反馈')
+    observed=json.loads(cmd('stage_probe status')['message'])
+    assert observed['act1']==1 and not any(c['kind']=='Act1Draw' for c in observed['casts']),observed
+    clip_cast('KAREN_SHINE_STRIKE', '闪耀牌触发｜短星轨掠向真实抽牌图标，实际入手卡牌短亮')
+    observed=json.loads(cmd('stage_probe status')['message'])
+    draws=[c for c in observed['casts'] if c['kind']=='Act1Draw']
+    assert len(draws)==1 and draws[0]['readyCards']==draws[0]['cards']==1,observed
     effects_idle('act1'); finish()
 
 def stage_hover(label):
@@ -129,7 +148,13 @@ def stage_hover(label):
 
 if want('starlight-act2'):
     stage('starlight-act2', seed=False); prep('KAREN_STARLIGHT02_CARD'); prep('KAREN_SHINE_STRIKE')
-    record_start(); clip_cast('KAREN_STARLIGHT02_CARD', 'Starlight 第二幕｜舞台光场展开、椭圆脚灯与专属音效')
+    record_start(); clip_cast('KAREN_STARLIGHT02_CARD', 'Starlight 第二幕｜光束约 0.22 秒展开到位，脚灯同步提前亮起')
+    casts = json.loads(cmd('stage_probe status')['message'])['casts']
+    beam = next(c for c in casts if c['kind'] == 'Act2Cast')['beamSamples']
+    full = next((s['age'] for s in beam if s['progress'] >= .99999), None)
+    landed = next((s['age'] for s in beam if s['landing'] >= .99999), None)
+    save('beam-opening', dict(samples=beam, firstFullAge=full, firstLandingAge=landed))
+    assert len(beam) >= 6 and full is not None and full <= .26 and landed is not None and landed <= .30, beam
     marking('第二幕预览｜蓝白平行背光，角色与敌人位于光幕前方'); stage_hover('hover')
     time.sleep(1); marking('第二幕结算｜同一背光覆盖三次重播与闪耀耗尽')
     clip_cast('KAREN_SHINE_STRIKE', '重播与耗尽｜背景持有至实际卡牌完整结算')
