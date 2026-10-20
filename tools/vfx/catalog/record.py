@@ -269,6 +269,13 @@ try:
         if card=='KAREN_VOID':time.sleep(2.5)
         return settle(card+'-after')
     def finish():
+        # Depletion now ends at the gather. Let the independent icon/count
+        # feedback finish too before taking the final observation or cutting.
+        for _ in range(100):
+            motion=json.loads(cmd('shine_motion status')['message'])
+            if motion['liveDepletes']==motion['liveArrivals']==motion['counter']['pending']==0 and not motion['counter']['animating']:break
+            time.sleep(.05)
+        else:raise AssertionError(('Unfinished depletion feedback',motion))
         save('final-state',integration());check_hand('final-hand')
         save('native-finished',json.loads(cmd('bridge_vfx status')['message']))
         save('stage-probe',json.loads(cmd('stage_probe status')['message']))

@@ -25,9 +25,12 @@ public static class ShineMotionProbe
     internal sealed class Deplete(NKarenShineDepleteVfx node)
     {
         public readonly NKarenShineDepleteVfx Node = node;
-        public readonly float Duration = (float)Field(node, "_duration")!, Gather = (float)Field(node, "_gatherDuration")!;
+        public readonly float Duration = (float)(Field(node, "_duration") ?? 0f), Gather = (float)Field(node, "_gatherDuration")!;
+        public readonly bool HasFlight = Field(node, "_headPosition") is Vector2;
         public readonly bool Fuel = (bool)Field(node, "_fuel")!;
-        public float LandingError = float.MaxValue, MinCardScale = 1;
+        public float? LandingError;
+        public float MinCardScale = 1, GatherDisplacement;
+        public float? CompletionAge;
         public bool Released, FaceReappeared, Arrived;
         public float ArrivalDelay = float.MaxValue;
         public readonly List<object> Samples = new();
@@ -65,16 +68,23 @@ public static class ShineMotionProbe
     internal static int DetachedSparkFrames, MaxSparks, FloorFrames;
     internal static float MaxRigidDifference, MaxFloorY, MaxFloorOffset, ViewportHeight;
     static readonly Dictionary<object, (Vector2 Position, Transform2D Pose)> Previous = new();
-    internal static object? Field(object o,string field) => o.GetType().GetField(field,BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.Public)!.GetValue(o);
+    internal static object? Field(object o,string field) => o.GetType().GetField(field,BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.Public)?.GetValue(o);
     public static void Initialize() => ((SceneTree)Engine.GetMainLoop()).ProcessFrame += () => Callable.From(Sample).CallDeferred();
     static void Sample()
     {
         if (!Watching || NCombatRoom.Instance is not {} room || NRun.Instance is not {} run) return;
         foreach (var node in run.GlobalUi.GetChildren().OfType<NKarenShineDepleteVfx>()) {
             var seen = Depletes.FirstOrDefault(s => s.Node == node);
-            if (seen == null) { seen = new(node); Depletes.Add(seen); }
+            if (seen == null) {
+                seen = new(node); Depletes.Add(seen);
+                var observed = seen;
+                node.TreeExiting += () => {
+                    observed.CompletionAge = (float)Field(node,"_age")!;
+                    observed.Released = (bool)Field(node,"_released")!;
+                };
+            }
             float age = (float)Field(node,"_age")!;
-            var head = (Vector2)Field(node,"_headPosition")!;
+            var head = Field(node,"_headPosition") is Vector2 flightHead ? flightHead : ((Transform2D)Field(node,"_source")!).Origin;
             var target = (Control)Field(node,"_target")!;
             var card = (NCard)Field(node,"_card")!;
             bool released = (bool)Field(node,"_released")!;
@@ -83,11 +93,13 @@ public static class ShineMotionProbe
                 seen.ArrivalDelay = Math.Min(seen.ArrivalDelay,age-seen.Gather-seen.Duration);
             }
             seen.Released |= released;
-            if (released) seen.LandingError = Math.Min(seen.LandingError,head.DistanceTo(target.GetGlobalTransformWithCanvas()*(target.Size*.5f)));
+            if (released && seen.HasFlight) seen.LandingError = Math.Min(seen.LandingError ?? float.MaxValue,head.DistanceTo(target.GetGlobalTransformWithCanvas()*(target.Size*.5f)));
             if (!released && GodotObject.IsInstanceValid(card)) {
                 if (seen.Fuel && card.Visible) seen.FaceReappeared = true;
                 var source = (Transform2D)Field(node,"_source")!;
                 seen.MinCardScale = Math.Min(seen.MinCardScale,card.GetGlobalTransformWithCanvas().Scale.Length()/source.Scale.Length());
+                if(age <= seen.Gather)
+                    seen.GatherDisplacement = Math.Max(seen.GatherDisplacement,card.GetGlobalTransformWithCanvas().Origin.DistanceTo(source.Origin));
             }
             if (age <= seen.Gather+seen.Duration+.02f)
                 seen.Samples.Add(new { age, x=head.X, y=head.Y, released });
@@ -110,11 +122,13 @@ public static class ShineMotionProbe
         {
             var c = ReadCount();
             bool flying = Depletes.Any(d=>GodotObject.IsInstanceValid(d.Node) && !d.Arrived && !(bool)Field(d.Node,"_released")!);
-            if (flying && c.Display > _initialCount+Depletes.Count(d=>d.Arrived)) _earlyCountFrames++;
+            // A gather is freed on completion, so its final frame may be absent.
+            // Compare the actual displayed count with unresolved native tickets.
+            if (flying && c.Display > c.Model-c.Pending) _earlyCountFrames++;
             if (c.Pending>0 && c.Model>c.Display) _heldCountFrames++;
             if (c.Display != _lastCount)
             {
-                CountChanges.Add(new {time=(Time.GetTicksMsec()-_countStart)/1000.0,count=c.Display,model=c.Model,arrivals=Depletes.Count(d=>d.Arrived)});
+                CountChanges.Add(new {time=(Time.GetTicksMsec()-_countStart)/1000.0,count=c.Display,model=c.Model,pending=c.Pending,arrivals=Depletes.Count(d=>d.Arrived)});
                 _lastCount = c.Display;
             }
         }
@@ -161,7 +175,7 @@ public static class ShineMotionProbe
         pileIconRotation = NRun.Instance?.GlobalUi.TopBar.GetNodeOrNull<Control>("RightAlignedStuff/ShinePile/Control/Icon")?.Rotation ?? -1,
         counter=CountStatus(),
         arrivals = Arrivals.Select(s=>new {count=s.Count,duration=s.Duration,maxScale=s.MaxScale,minScale=s.MinScale,minRotation=s.MinRotation,maxRotation=s.MaxRotation}),
-        depletes=Depletes.Select(s=>new {duration=s.Duration,gather=s.Gather,fuel=s.Fuel,landingError=s.LandingError,minCardScale=s.MinCardScale,released=s.Released,faceReappeared=s.FaceReappeared,arrived=s.Arrived,arrivalDelay=s.ArrivalDelay,samples=s.Samples})
+        depletes=Depletes.Select(s=>new {duration=s.Duration,gather=s.Gather,fuel=s.Fuel,hasFlight=s.HasFlight,landingError=s.LandingError,minCardScale=s.MinCardScale,gatherDisplacement=s.GatherDisplacement,completionAge=s.CompletionAge,released=s.Released,faceReappeared=s.FaceReappeared,arrived=s.HasFlight ? (bool?)s.Arrived : null,arrivalDelay=s.HasFlight ? (float?)s.ArrivalDelay : null,samples=s.Samples})
     };
 }
 public sealed class ShineMotionProbeCommand:AbstractConsoleCmd
@@ -169,7 +183,7 @@ public sealed class ShineMotionProbeCommand:AbstractConsoleCmd
     private static NKarenShineDepleteVfx? _countTicket;
     public override string CmdName=>"shine_motion";
     public override string Args=>"watch|status|arrival|focus|unfocus|count_add N|count_clear|count_init|count_hold|count_cancel";
-    public override string Description=>"Observe independent embers, flight timing and scene-ground endpoints.";
+    public override string Description=>"Observe independent embers, fixed gather timing and scene-ground endpoints.";
     public override bool IsNetworked=>false;
     public override CmdResult Process(Player? player,string[] args) {
         if(args.Length==2 && args[0]=="count_add" && player!=null) {

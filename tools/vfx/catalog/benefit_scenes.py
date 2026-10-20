@@ -201,14 +201,14 @@ if want('shine-motion'):
     post(action='hover_card',card_index=card['index']);time.sleep(.7)
     marking('移开预览｜余烬保留惯性，亮星柔和跟随卡牌')
     post(action='unhover_card');time.sleep(.8)
-    clip_cast('KAREN_SHINE_STRIKE','闪耀打击耗尽｜抵达图标再加一，数字柔和放大、停留与回落')
-    clip_cast('KAREN_NONON','NONNON 耗尽｜飞行中保留旧数量，抵达后数字与图标一起反馈')
+    clip_cast('KAREN_SHINE_STRIKE','闪耀打击耗尽｜原地缩小收拢，直接触发图标与数字反馈')
+    clip_cast('KAREN_NONON','NONNON 耗尽｜保留开头收拢和结尾反馈，中间不再移动')
     prep('KAREN_SHINE_STRIKE');cmd('shine_fuel set KAREN_SHINE_STRIKE 2')
     clip_cast('KAREN_SHINE_STRIKE','两点闪耀对照｜本次不耗尽，不误亮临界提示')
     motion=shine_idle();save('motion-assertions',motion)
     assert motion['detachedSparkFrames']>0 and motion['maxSparks']<=40,motion
     assert len(motion['depletes'])==2 and motion['liveDepletes']==0,motion
-    assert all(s['released'] and s['landingError']<.1 and s['duration']<.55 and s['minCardScale']<.2 for s in motion['depletes']),motion
+    assert all(s['released'] and not s['hasFlight'] and s['duration']==0 and s['minCardScale']<.2 for s in motion['depletes']),motion
     report=json.loads(cmd('revision_probe status')['message'])
     assert report['missingPlayFrames']==report['falseWarningFrames']==0 and report['playWarningFrames']>0,report
     finish()
@@ -217,11 +217,11 @@ if want('shine-speeds'):
     stage('shine-speeds',seed=False);record_start()
     for speed,card in [('fast','KAREN_SHINE_STRIKE'),('instant','KAREN_SHINE_STRIKE'),('normal','KAREN_DROP_FUEL')]:
         cmd('stage_probe speed '+speed);prep(card);cmd('shine_fuel set '+card+' 1')
-        clip_cast(card,speed+'｜抵达才触发图标回弹；Instant 缩短反馈，燃料爆散后不重新显示卡面')
+        clip_cast(card,speed+'｜收拢后直接触发图标反馈；燃料爆散后不重新显示卡面')
     motion=shine_idle();save('motion-assertions',motion)
     assert len(motion['depletes'])==3 and motion['liveDepletes']==0,motion
-    assert all(s['released'] and s['landingError']<.1 and not s['faceReappeared'] for s in motion['depletes']),motion
-    assert all(abs(s['duration']-duration)<.001 for s,duration in zip(motion['depletes'],[.38,.12,.54])),motion
+    assert all(s['released'] and not s['hasFlight'] and s['duration']==0 and not s['faceReappeared'] for s in motion['depletes']),motion
+    assert all(abs(s['gather']-duration)<.001 for s,duration in zip(motion['depletes'],[.24,.07,.10])),motion
     finish()
 
 if want('shine-arrival-control'):
@@ -271,14 +271,14 @@ for end_case in ['shine-lethal','shine-end-flight']:
         enemy=state()['battle']['enemies'][0]
         cmd('damage '+str(enemy['hp']-1));time.sleep(.5)
         assert state()['battle']['enemies'][0]['hp']==1
-    record_start();marking('战斗结束边界｜最后一击耗尽' if end_case=='shine-lethal' else '战斗结束边界｜耗尽飞行途中结束战斗')
+    record_start();marking('战斗结束边界｜最后一击耗尽' if end_case=='shine-lethal' else '战斗结束边界｜原地收拢途中结束战斗')
     play('KAREN_SHINE_STRIKE')
     if end_case=='shine-end-flight':
         for _ in range(100):
             flying=json.loads(cmd('shine_motion status')['message'])
-            if flying['counter']['pending']==1 and flying['depletes'] and flying['depletes'][0]['samples'][-1]['age']>.38:break
+            if flying['counter']['pending']==1 and flying['depletes'] and 0<flying['depletes'][0]['samples'][-1]['age']<flying['depletes'][0]['gather']:break
             time.sleep(.01)
-        else:raise AssertionError(('No active flight before ending combat',flying))
+        else:raise AssertionError(('No active gather before ending combat',flying))
         save('before-end-flight',flying);cmd('kill all')
     for _ in range(160):
         current=state()
@@ -287,7 +287,7 @@ for end_case in ['shine-lethal','shine-end-flight']:
     else:raise AssertionError(('No rewards after ending combat',current))
     report=shine_idle();save('rewards-counter',report);save('rewards-state',current)
     assert report['counter']['model']==report['counter']['displayed']==before+1 and report['counter']['pending']==0,report
-    save('shine-motion',report);marking('奖励界面｜耗尽数量正确，无等待中的飞行');time.sleep(.6)
+    save('shine-motion',report);marking('奖励界面｜耗尽数量正确，无未完成的收拢');time.sleep(.6)
     record_stop()
     fight();trim();time.sleep(.5)
     resumed=shine_idle();save('next-combat-counter',resumed);check_hand('next-combat-hand');snap(case/'next-combat')

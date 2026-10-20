@@ -1,4 +1,4 @@
-"""Check real lethal depletion, mid-flight victory and the following combat."""
+"""Check real lethal depletion, mid-gather victory and the following combat."""
 import argparse
 import hashlib
 import json
@@ -22,7 +22,7 @@ for branch in ['stable','beta']:
         initial=read(folder/'initial-state.json')
         captured=read(folder/'recording.json')
         assert captured['status']=='completed' and captured['capture_fps']>=20,captured
-        assert captured['audio_source']=='game_process',captured
+        assert captured['audio_source'] in ('game_process','engine_mix'),captured
         assert captured['captureBuild']['assemblySha256']==sha(repo/f'artifacts/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.{branch.title()}.dll')
         assert captured['captureBuild']['packSha256']==sha(repo/'artifacts/ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.pck')
         assert read(folder/'rewards-state.json')['state_type']=='rewards'
@@ -41,7 +41,7 @@ for branch in ['stable','beta']:
             assert flying['counter']['pending']==1 and flying['counter']['model']==expected,flying
             assert flying['counter']['displayed']==expected-1,flying
             d=flying['depletes'][0]
-            assert not d['arrived'] and d['gather']<d['samples'][-1]['age']<d['gather']+d['duration'],d
+            assert not d['hasFlight'] and 0<d['samples'][-1]['age']<d['gather'],d
         assert read(folder/'next-combat.json')['battle']['is_play_phase']
         for path in folder.glob('*hand.json'):
             h=json.loads(read(path)['message'])

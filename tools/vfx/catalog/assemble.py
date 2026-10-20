@@ -68,7 +68,7 @@ CURRENT_ENTRIES = ENTRIES[:-1] + [
 
 LATEST_ENTRIES = [('battle-entrance', 'Karen 入场 · 舞台揭幕与待机')] + [(n,t.replace('门票 B','门票').replace('新旧特效兼容','组合特效联动')) for n,t in CURRENT_ENTRIES[:-1]] + [
     ('shine-ambient', '闪耀牌 · 常驻微光与临界提示'),
-    ('shine-motion', '闪耀耗尽 · 收拢、飞行与图标承接'),
+    ('shine-motion', '闪耀耗尽 · 原地收拢与图标反馈'),
     ('waiting-show', '舞台正在等待着 · 巡游光点与清空回能'),
     ('baseball', '棒球 · 蓄势、飞行与命中'),
     ('back-to-back', '背靠背 · 红蓝双剑交击'),
@@ -197,7 +197,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if args.separate:
         available = dict(LATEST_ENTRIES + [('shine-play', '闪耀临界 · 提示随卡牌完成打出'),
-            ('shine-motion', '闪耀耗尽 · 飞入图标与入堆反馈'),
+            ('shine-motion', '闪耀耗尽 · 原地收拢与图标反馈'),
             ('shine-ambient', '普通闪耀 · 卡牌常驻微光与临界对照'),
             ('shine-ambient-modes', '闪耀常驻 · 速度、燃料与对象池核查'),
             ('shine-speeds', '耗尽图标反馈 · Fast、Instant 与燃料')])

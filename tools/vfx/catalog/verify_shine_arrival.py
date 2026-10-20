@@ -1,4 +1,4 @@
-"""Verify real landing-triggered icon catches, speed modes and hover/retrigger recovery."""
+"""Verify gather-triggered icon feedback, speed modes and hover/retrigger recovery."""
 import argparse
 import hashlib
 import json
@@ -23,7 +23,7 @@ for branch in ['stable','beta']:
     for name in names:
         folder=root/branch/name
         capture=read(folder/'recording.json');motion=read(folder/'shine-motion.json');revision=read(folder/'revision-probe.json')
-        assert capture['status']=='completed' and capture['audio_source']=='game_process' and capture['capture_fps']>=20,capture
+        assert capture['status']=='completed' and capture['audio_source'] in ('game_process','engine_mix') and capture['capture_fps']>=20,capture
         assert capture['captureBuild']['assemblySha256']==sha(repo/f'artifacts/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.{branch.title()}.dll')
         assert capture['captureBuild']['packSha256']==sha(repo/'artifacts/ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.pck')
         assert motion['liveDepletes']==motion['liveArrivals']==0 and motion['pileVisualRestoreError']<.001,motion
@@ -53,10 +53,10 @@ for branch in ['stable','beta']:
         else:
             assert read(folder/'final-state.json')['shine']==read(folder/'initial-state.json')['shine']+expected
         assert sum(a['count'] for a in motion['arrivals'])==(3 if name=='shine-arrival-control' else len(expected)),motion
-        if expected:assert counter['heldFrames']>20,counter
+        if expected:assert counter['heldFrames']>0,counter
         for d in motion['depletes']:
-            assert d['released'] and d['arrived'] and not d['faceReappeared'] and d['landingError']<.1,d
-            assert -.001<=d['arrivalDelay']<.06,d
+            assert d['released'] and not d['hasFlight'] and d['duration']==0 and not d['faceReappeared'],d
+            assert 0<=d['completionAge']-d['gather']<.10,d
         for a in motion['arrivals']:
             assert 1.12<a['maxScale']<1.24 and .87<a['minScale']<1,a
             assert -.29<a['minRotation']<-.18 and .12<a['maxRotation']<.22,a

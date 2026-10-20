@@ -41,6 +41,9 @@ for path in folder.rglob('*-composition.json'):
 holds = []
 for path in folder.rglob('*-held.json'):
     report = read(path)
+    if 'counter' in report:
+        # count-held.json belongs to the independent depletion-count fixture.
+        continue
     assert report['stages'] == report['states'] == 1, (path, report)
     assert abs(report['eventWeight'] - .72) < .002 and abs(report['otherOwnerWeight'] - .72) < .002, (path, report)
     if path.parent.name.startswith('newstack'):
