@@ -55,6 +55,12 @@ hover时的不好，改为和普通状态一样的吧
 你制作视频要求包含打出后的效果
 ```
 
+追加反馈（2026-10-20，原文）：
+
+```text
+合并，然后清理worktree，视频，截图等
+```
+
 ## Brief task plan
 
 - 从捕获的 main（84ab49f）建立本任务隔离工作树，保留原工作区 74 个未提交/未跟踪文件状态；此前两个特效工作树不变。
@@ -73,19 +79,30 @@ hover时的不好，改为和普通状态一样的吧
 
 - 最新自然度反馈：保留周长分段覆盖，扩大少量生成点抖动，为每个 T 字独立随机飞出角度、侧向漂移、大小及渐隐曲线。常态与 hover 共用；双版本针对性实录，交付视频必须包含真实打出、影片及 T 字渐隐收尾。
 
+- 用户已明确确认合并和清理：先将已验证的 8b12aeb 快进合入 main，再移除任务预览媒体、生成图、关联原始录制缓存和专用工作树，保留实现、文字记录及 JSON 验证结果。
+
 ## Result and changes
 
-已在周长覆盖基础上增加每个 T 字独立的方向、漂移、大小及明暗渐隐差异，常态和 hover 共用。两版专项验证通过，已交付含完整打出影片及 T 字收尾的视频，尚未合回 main。
+实现 8b12aeb 已在用户明确确认后快进合回 main。按本次要求清理审阅媒体，保留代码、文字记录及 JSON 验证结果；下文历史迭代记录中的视频和截图已清理，以本节合并记录为准。
 
-### 2026-10-20 T 字自然随机变化与完整出牌视频（当前版本）
+### 2026-10-20 合并与清理
+
+- 用户明确授权“合并，然后清理worktree，视频，截图等”；已验证的实现 8b12aeb 已快进合入 main，未改写历史。
+- 本轮删除本任务文档目录中的 61 个审阅视频、截图、概念图及含图归档；保留本文件、各轮 JSON 验证、构建哈希和录像元数据。
+- 已删除本会话专用预览目录、生成图目录，以及由本任务录像元数据精确引用的 64 个 MCP 原始 MP4 缓存。没有清空全局录制目录。
+- 项目运行所需原有影片、T 字纹理、源代码和共享开发游戏保留。原工作区 4 个未跟踪文件的路径、状态和 SHA256 保持一致。
+- 清理变更从任务工作树提交并快进同步 main；只有在提交树一致、实现已包含于 main、工作树干净的校验通过后，才移除本任务工作树与分支。专用隔离游戏和临时构建产物随工作树一并回收。
+- 清单见 cleanup-manifest.json；此前审阅媒体链接已移除。以下历史记录保留当时验证结论。
+
+### 2026-10-20 T 字自然随机变化与完整出牌视频（最终实现）
 
 - 保留沿周长分段的覆盖和总生成率，增大段内位置抖动；每个 T 字独立随机飞出角度、少量侧向漂移及其相位，初始尺寸约 0.28–0.92，生存期内轻微缩放。亮度与渐隐曲线分别随机，避免尺寸和明暗节奏过于一致。仍使用原 t01–t04 纹理和 Karen 红色，常态/hover 使用同一逻辑。
 - 屏幕追光及色彩、卡牌规则、影片、实际打出 T 字控制器均未改；源码核对通过，仍保留约 1.8 秒的打出余韵。新增随机变化仅作用于手牌可用提示。
 - 正式版 v0.107.1 与测试版 v0.111.0 构建成功，两实现各有原有 28 条警告、0 错误。两版通过真实 MCP 不可用/可用、常态、持续 hover、移开、实际打出、影片后 T 字余韵及奖励清理；各 10 次手牌模型/可见节点一致性检查通过，日志均无 ERROR/Exception。所有稳定样本跟随误差为 0，hover 仍共用普通运动。
 - 周长 16 段真实可见粒子分布的平均变异系数：常态正式版 0.141、测试版 0.185，hover 0.150 / 0.137；加入随机变化后仍保持整圈覆盖。余韵观测超过 1.7 秒并跨过战斗结束，奖励界面无残留。四段原始录像编码丢帧均为 0，游戏进程音轨、时钟与窗口守卫审核通过。未运行多人、完整矩阵或实际 4:3 验证。
-- [完整对比视频](LastWord-T-natural-review.mp4)：约 21.19 秒，前 8.2 秒展示常态、hover、持续悬停与移开，后约 12.97 秒包含真实出牌、完整影片、T 字减速渐隐及奖励界面；左为上一版，右为本轮。另有 [未截短的单独打出实录](LastWord-T-natural-play-after.mp4)、[hover 单独对比](LastWord-T-natural-hover-before-after.mp4)、[打出单独对比](LastWord-T-natural-play-before-after.mp4)。
-- 视频均为原速有声、完整游戏画面，说明在画面外；单独打出片保留完整本次录像时长。完整解码与非静音音轨检查通过，静止仅发生在实测 T 字收尾后的原生战斗/奖励等待；逐张复核 3 页 natural-mcp-contact 联系图和 [成片阶段帧](natural-video-check.jpg)。
-- [验证结果](natural-verification.json)、[MCP 原始证据](natural-mcp-evidence.tar.gz)、[包哈希](natural-build-files.json)、[成片元数据](natural-videos.json)。旧版截图及录像元数据已在 uniform-mcp-evidence.tar.gz 保存，本轮保留历史记录。
+- 完整对比视频：约 21.19 秒，前 8.2 秒展示常态、hover、持续悬停与移开，后约 12.97 秒包含真实出牌、完整影片、T 字减速渐隐及奖励界面；左为上一版，右为本轮。另有 未截短的单独打出实录、hover 单独对比、打出单独对比。
+- 视频均为原速有声、完整游戏画面，说明在画面外；单独打出片保留完整本次录像时长。完整解码与非静音音轨检查通过，静止仅发生在实测 T 字收尾后的原生战斗/奖励等待；逐张复核 3 页 natural-mcp-contact 联系图和 成片阶段帧。
+- [验证结果](natural-verification.json)、MCP 原始证据、[包哈希](natural-build-files.json)、[成片元数据](natural-videos.json)。旧版截图及录像元数据已在 uniform-mcp-evidence.tar.gz 保存，本轮保留历史记录。
 - 原 main 仍为 15fddc3，4 个未跟踪文件的路径、状态及 SHA256 一致，见 natural-original-state-final.json。工作树和任务分支保留，合回前等待明确确认。
 
 ### 2026-10-20 T 字均匀飘散（上一轮记录）
@@ -94,8 +111,8 @@ hover时的不好，改为和普通状态一样的吧
 - 正式版 v0.107.1、测试版 v0.111.0 构建成功（每版原有 28 条警告，0 错误；loader 原有 1 条警告，0 错误）。两版通过原生 MCP 不可用/可用、常态、持续 hover、移开、实际出牌、余韵和奖励清理；每版 10 次手牌模型/节点一致性检查通过，日志均无 ERROR/Exception。只使用本任务专属隔离游戏和端口，未写共享开发环境/Steam。
 - 对真实可见 T 字坐标按周长 16 段采样：常态平均变异系数由上一版 0.433 降到正式版 0.169、测试版 0.145；hover 由 0.490 降到 0.136 / 0.130。该值越低表示局部分布差距越小，改善来自生成点分配。所有稳定样本均保持原普通运动（charge 为 0），卡牌位置/变换跟随误差为 0。
 - 屏幕追光、卡牌规则、影片及实际出牌 T 字控制器来源未改；打出余韵实测仍约 1.8 秒并跨过战斗结束，奖励界面无残留。两版录像编码丢帧均为 0，游戏进程音轨、独立时钟和窗口守卫审核通过；本次只做相关专项，未运行多人/完整矩阵或实际 4:3 验证。
-- [本轮对比视频](LastWord-T-uniform-hover-before-after.mp4)：8.2 秒，左为 822395f 随机分布，右为均匀生成后的普通飘散，依次展示常态、hover、持续悬停与移开。原速有声，完整游戏画面及外置说明；完整解码、非静音音轨、静帧检查通过。逐张复核 3 页 uniform-mcp-contact 联系图及 [视频阶段帧](uniform-video-check.jpg)。
-- [验证结果](uniform-verification.json)、[MCP 原始证据](uniform-mcp-evidence.tar.gz)、[包哈希](uniform-build-files.json)、[视频元数据](uniform-videos.json)。上一版截图及原始录像元数据仍保存在 regular-mcp-evidence.tar.gz，历史记录不覆盖。
+- 本轮对比视频：8.2 秒，左为 822395f 随机分布，右为均匀生成后的普通飘散，依次展示常态、hover、持续悬停与移开。原速有声，完整游戏画面及外置说明；完整解码、非静音音轨、静帧检查通过。逐张复核 3 页 uniform-mcp-contact 联系图及 视频阶段帧。
+- [验证结果](uniform-verification.json)、MCP 原始证据、[包哈希](uniform-build-files.json)、[视频元数据](uniform-videos.json)。上一版截图及原始录像元数据仍保存在 regular-mcp-evidence.tar.gz，历史记录不覆盖。
 - 原 main 仍为 15fddc3，4 个未跟踪文件的路径、状态、SHA256 完全一致，见 uniform-original-state-final.json。工作树及任务分支保留，合回前等待明确确认。
 
 ### 2026-10-20 Hover T 字恢复普通飘散（上一轮记录）
@@ -105,8 +122,8 @@ hover时的不好，改为和普通状态一样的吧
 - 两版生产构建均成功（原有 28 条警告，0 错误；loader 原有 1 条警告，0 错误）。正式版 v0.107.1 与测试版 v0.111.0 均通过真实 MCP 的不可用/可用、原生 hover、持续悬停、移开、实际出牌、尾段和奖励清理；每版 10 次手牌模型/节点一致性检查通过。所有 hover 样本 T 字 charge 为 0，随卡位置与变换误差均为 0。原生屏幕追光 hover 仍正常响应。
 - 打出 T 字最后可见时间在特效启动约 8.12 / 8.05 秒，余韵观测约 1.78 / 1.79 秒；战斗结束后仍柔和渐隐，奖励界面无残留。正式版无 ERROR/Exception；测试版有 2 条既有 Invalid Task ID，均在 Common 预加载完成前，专项期间无后续异常。
 - 两版四段原始录像均使用游戏进程音轨，编码丢帧为 0；独立时钟审核通过，两版均未抢前台。逐张查看 3 页 regular-mcp-contact 联系图和成片阶段帧。未进行多人、全面矩阵或实际 4:3 验证。
-- [Hover 前后对比](LastWord-T-regular-hover-before-after.mp4)：约 8.17 秒，左为上一轮蓄力，右为恢复普通飘散。[本轮完整对比](LastWord-T-regular-review.mp4) 约 20.07 秒；[单独出牌实录](LastWord-T-regular-play-after.mp4) 约 11.9 秒。均为原速有声、完整游戏画面、说明外置；只剪短末尾奖励停留，保留全部 T 字尾韵和奖励切换。完整解码、音轨及静帧检查通过，特效结束后保留原生战斗收尾的短暂停留。
-- [验证结果](regular-verification.json)、[MCP 原始证据](regular-mcp-evidence.tar.gz)、[包哈希](regular-build-files.json)、[成片元数据](regular-videos.json)、[阶段核对](regular-video-check.jpg)。历史蓄力证据保留，未覆盖。
+- Hover 前后对比：约 8.17 秒，左为上一轮蓄力，右为恢复普通飘散。本轮完整对比 约 20.07 秒；单独出牌实录 约 11.9 秒。均为原速有声、完整游戏画面、说明外置；只剪短末尾奖励停留，保留全部 T 字尾韵和奖励切换。完整解码、音轨及静帧检查通过，特效结束后保留原生战斗收尾的短暂停留。
+- [验证结果](regular-verification.json)、MCP 原始证据、[包哈希](regular-build-files.json)、[成片元数据](regular-videos.json)、阶段核对。历史蓄力证据保留，未覆盖。
 - 原 main 的 HEAD 及 4 个未跟踪文件保持一致，见 regular-original-state-final.json。工作树和任务分支保留，等待明确合回确认。
 
 ### 2026-10-20 T 字均匀蓄力与打出余韵（上一轮记录）
@@ -115,8 +132,8 @@ hover时的不好，改为和普通状态一样的吧
 - 影片结束时，现有打出 T 字进入 1.8 秒余韵：停止新生成、逐渐减速和淡出；战斗结束不再直接硬清除该尾段。奖励界面出现、切换房间或角色死亡时仍立即回收。卡牌等待/伤害结算、影片资源、屏幕追光均未修改。
 - 正式版 v0.107.1、测试版 v0.111.0 均以真实 KarenSTS2MCP 操作验证普通阻断/可用、持续 hover、移开恢复、实际出牌、影片末尾余韵和奖励清理，每版 10 次手牌模型/可见节点检查通过，日志均无 ERROR/Exception。守卫确认未抢前台，独立采帧时钟审核通过，两版四段录像均无编码丢帧。
 - 牌边 16 段可见 T 字数量的变异系数（越小越均匀）从上一版平均 0.528 降至正式版 0.071、测试版 0.091；这是对真实粒子坐标的被动观测。打出后最后可见 T 字在特效启动约 8.07 / 8.13 秒仍存在，尾段超过 1 秒后仍有百余个可见字形，并确实跨过战斗结束标志后柔和淡出；奖励界面无残留。
-- [合并对比视频](LastWord-T-review.mp4)：前约 8 秒为 hover 对比，后约 13 秒为打出收尾对比。另有 [hover 单独对比](LastWord-T-hover-before-after.mp4)、[打出单独对比](LastWord-T-play-before-after.mp4)、[修改后单独打出实录](LastWord-T-play-after.mp4)。均为原速有声、完整游戏画面，标题在画面外；完整解码与非静音音轨检查通过，只有末尾奖励界面短暂停留。
-- [验证结果](charge-verification.json)、[原始 MCP 证据](charge-mcp-evidence.tar.gz)、[包哈希](charge-build-files.json)、[视频元数据](charge-videos.json)、[成片阶段核对](charge-video-check.jpg)。逐张复核三页 charge-mcp-contact 联系图。
+- 合并对比视频：前约 8 秒为 hover 对比，后约 13 秒为打出收尾对比。另有 hover 单独对比、打出单独对比、修改后单独打出实录。均为原速有声、完整游戏画面，标题在画面外；完整解码与非静音音轨检查通过，只有末尾奖励界面短暂停留。
+- [验证结果](charge-verification.json)、原始 MCP 证据、[包哈希](charge-build-files.json)、[视频元数据](charge-videos.json)、成片阶段核对。逐张复核三页 charge-mcp-contact 联系图。
 - 首轮正式版 VFX 检查已通过，但录像脚本收尾出现变量覆盖监控线程的错误；已改名并按备份恢复本任务隔离环境，首次证据留在 artifacts 的 charge-attempt-1，最终结论使用干净重跑的正式版与测试版证据。
 - 本轮只执行相关专项，未做多人或完整矩阵，未复测实际 4:3。原 main 和 4 个未跟踪文件保持路径、状态及 SHA256 一致，见 charge-original-state-final.json。任务工作树与分支仍保留，尚未合回。
 
@@ -127,10 +144,10 @@ hover时的不好，改为和普通状态一样的吧
 - T 字：保留原字形、生成率、颜色与屏幕字形大小；粒子坐标系随卡牌位置、旋转及缩放变化，抬牌与收牌时不在旧位置留下整圈残影。实际出牌 T 字、影片、伤害规则均未修改。
 - 正式版 v0.107.1 / 测试版 v0.111.0 各通过 22 项状态检查与 27 次手牌模型/可见节点检查，包含普通/虚无可用条件、持续 hover、连续 hover、原生刷新、移除重建、真实出牌、奖励、切换战斗。查看 85 张 MCP 截图，T 字稳定状态位置误差与变换误差为 0；hover 的连续中间值和恢复值均正常，同一提示实例贯穿切换。
 - 两版独立的 8 秒采帧时钟审核通过，四段原始正式版/测试版录像编码丢帧均为 0。正式版无 ERROR/Exception；测试版有 1 条已知 Invalid Task ID，发生在 Common 预加载完成前，专项操作期间无异常。
-- 另用上一版 77ee78c 的真实生产包录制相同操作。实录左侧光芯质心在选定常态样本的移动范围由 2.16px 增至 13.01px，持续 hover 样本由 4.89px 增至 13.79px；该值用于辅助检查可见动态，非性能指标。见 [连续阶段截图](motion-phase-check.jpg)、[像素核对](motion-visible-check.json)。
+- 另用上一版 77ee78c 的真实生产包录制相同操作。实录左侧光芯质心在选定常态样本的移动范围由 2.16px 增至 13.01px，持续 hover 样本由 4.89px 增至 13.79px；该值用于辅助检查可见动态，非性能指标。见 连续阶段截图、[像素核对](motion-visible-check.json)。
 - 未进行多人或完整矩阵；实际 4:3 视口仍未测（守卫保留 1920×1080），本次仅复测相关专项。游戏只运行在原任务专属隔离环境，未写共享开发游戏/Steam，未使用 Computer Use。
-- [新版左右对比](LastWord-stage-motion-before-after.mp4)：17.00 秒，左侧上一版，右侧本次常态与 hover 动态；[新版完整演示](LastWord-stage-motion-showcase.mp4)：30.42 秒，包含原终幕演出。均为原速有声、游戏画面不裁切、说明条外置；完整解码与音轨检查通过。对比无超过 1 秒静帧，完整演示只有末尾奖励界面短暂停留。
-- [验证结果](motion-verification.json)、[MCP 原始证据](motion-mcp-evidence.tar.gz)、[包哈希](motion-build-files.json)、[视频元数据](motion-videos.json)、[成片阶段核对](motion-video-frame-check.jpg)。新截图为 motion-mcp-contact-01.jpg 至 motion-mcp-contact-06.jpg，旧版校色证据保留。
+- 新版左右对比：17.00 秒，左侧上一版，右侧本次常态与 hover 动态；新版完整演示：30.42 秒，包含原终幕演出。均为原速有声、游戏画面不裁切、说明条外置；完整解码与音轨检查通过。对比无超过 1 秒静帧，完整演示只有末尾奖励界面短暂停留。
+- [验证结果](motion-verification.json)、MCP 原始证据、[包哈希](motion-build-files.json)、[视频元数据](motion-videos.json)、成片阶段核对。新截图为 motion-mcp-contact-01.jpg 至 motion-mcp-contact-06.jpg，旧版校色证据保留。
 - 原 main 仍为 15fddc3，其 4 个未跟踪文件路径、状态和 SHA256 与上一轮完全一致，见 motion-original-state-final.json。当前仍保留任务工作树与分支，未执行合回。
 
 ### 2026-10-19 校色版（历史记录）
@@ -164,14 +181,14 @@ hover时的不好，改为和普通状态一样的吧
 | 实际 4:3 视口 | 未测：守卫保留 16:9 视口 | 未测：守卫保留 16:9 视口 |
 | 多人和全面矩阵 | 未测：本次只做相关专项 | 未测：本次只做相关专项 |
 
-复核 81 张 MCP 截图，见 mcp-contact-01.jpg 至 mcp-contact-06.jpg。两版均未抢前台。正式版日志无 ERROR/Exception；测试版预加载阶段有 2 条已知 Invalid Task ID，均在 Common 资源预加载完成前，专项操作期间无后续异常。详细状态、采样与日志见 [verification.json](verification.json) 和 [mcp-evidence.tar.gz](mcp-evidence.tar.gz)。包哈希见 [build-files.json](build-files.json)。
+复核 81 张 MCP 截图，见 mcp-contact-01.jpg 至 mcp-contact-06.jpg。两版均未抢前台。正式版日志无 ERROR/Exception；测试版预加载阶段有 2 条已知 Invalid Task ID，均在 Common 资源预加载完成前，专项操作期间无后续异常。详细状态、采样与日志见 [verification.json](verification.json) 和 mcp-evidence.tar.gz。包哈希见 [build-files.json](build-files.json)。
 
 ### 视频
 
-- [修改前后左右对比](LastWord-stage-lights-before-after.mp4)：10.13 秒，1920×668，左侧原 T 字、右侧原 T 字＋校色后追光。
-- [修改后完整演示](LastWord-stage-lights-showcase.mp4)：23.46 秒，1280×784，含常驻提示、悬停、真实出牌和原终幕演出。
+- 修改前后左右对比：10.13 秒，1920×668，左侧原 T 字、右侧原 T 字＋校色后追光。
+- 修改后完整演示：23.46 秒，1280×784，含常驻提示、悬停、真实出牌和原终幕演出。
 - 均为 1× 原速、保留完整游戏画面及游戏进程音频，说明条位于原画面之外；对比只截去较长一侧的尾部。完整解码和非静音音轨检查通过，对比无超过 1 秒的静帧；完整演示仅在末尾奖励界面有 1.33 秒静止。
-- [方案参考](selected-concept.png)、[当前实机](stage-lights-in-game.png)、[对比帧](comparison-frame.png)、[视频阶段抽查](video-frame-check.jpg)、[成片元数据](videos.json)。
+- 方案参考、当前实机、对比帧、视频阶段抽查、[成片元数据](videos.json)。
 
 复现流程见 tools/vfx/last-word-stage-lights/README.md。测试插件只用于隔离游戏，不进入生产包。
 
