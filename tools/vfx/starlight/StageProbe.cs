@@ -36,25 +36,47 @@ public static class StageProbe
         public bool Confirmed,BackCorrect;
         public int Cards,Energy,OwnedFrames,DepletionHeldFrames,SettledHeldFrames,EndingHeldFrames,ReadyCards;
         public float Age,CardVisualDelay;
+        public readonly ulong StartedMs=Time.GetTicksMsec();
+        public ulong CardReadyMs;
+        public int Sounds;
         public readonly HashSet<int> PlayIndices=new();
         public readonly List<object> BeamSamples=new();
     }
     internal static readonly List<Seen> Casts=new();
+    private static readonly Dictionary<NKarenBenefitVfx,(ulong Start,ulong Confirmed,int Cards,int Frames,int Mismatches)> Benefits=new();
+    internal static void Reset(){Casts.Clear();Benefits.Clear();Watching=true;}
     internal static bool Watching;
     public static void Initialize(){((SceneTree)Engine.GetMainLoop()).ProcessFrame+=Sample;GD.Print("[Stage Probe] Loaded; observes native casts and whole-card settlement.");}
     static object? Field(object o,string name)=>o.GetType().GetField(name,BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(o);
     static void Sample()
     {
         if(!Watching||NCombatRoom.Instance is not {} room)return;
+        foreach(var node in room.CombatVfxContainer.GetChildren().OfType<NKarenBenefitVfx>()){
+            if(!Benefits.TryGetValue(node,out var seen))seen=(Time.GetTicksMsec(),0,0,0,0);
+            if(node.Confirmed&&seen.Confirmed==0)seen.Confirmed=Time.GetTicksMsec();
+            if(node.Design==NKarenBenefitVfx.BenefitKind.DreamTrigger){
+                var cards=(Dictionary<CardModel,NCard>)Field(node,"_dreamCards")!;
+                int visible=0;
+                foreach(var card in cards){
+                    if(!GodotObject.IsInstanceValid(card.Value)||!card.Value.IsInsideTree()||!card.Value.IsVisibleInTree())continue;
+                    if(card.Value.Model!=card.Key||card.Key.Pile==null)seen.Mismatches++;
+                    visible++;
+                }
+                seen.Cards=Math.Max(seen.Cards,visible);if(visible>0)seen.Frames++;
+            }
+            Benefits[node]=seen;
+        }
         foreach(var node in room.CombatVfxContainer.GetChildren().OfType<NKarenStageCueVfx>())if(Casts.All(c=>c.Node!=node))Casts.Add(new(node));
         foreach(var seen in Casts){
             var node=seen.Node;if(!GodotObject.IsInstanceValid(node))continue;
             seen.Confirmed|=node.Confirmed;seen.Cards=Math.Max(seen.Cards,node.DeliveredCount);seen.Energy=Math.Max(seen.Energy,node.EnergyGain);
             seen.BackCorrect|=node.BackgroundLight.GetParent()==room.BackCombatVfxContainer;
             seen.Age=Math.Max(seen.Age,(float)Field(node,"_age")!);
+            seen.Sounds=Math.Max(seen.Sounds,((List<AudioStreamPlayer>)Field(node,"_sounds")!).Count);
             if(node.Kind is NKarenStageCueVfx.CueKind.TicketReturn or NKarenStageCueVfx.CueKind.Act1Draw){
                 var times=(Dictionary<CardModel,float>)Field(node,"_cardTimes")!;
                 seen.ReadyCards=Math.Max(seen.ReadyCards,times.Values.Count(t=>t>=0));
+                if(seen.ReadyCards>0&&seen.CardReadyMs==0)seen.CardReadyMs=Time.GetTicksMsec();
                 float confirmedAt=(float)Field(node,"_drawAt")!;
                 if(confirmedAt>=0)seen.CardVisualDelay=Math.Max(seen.CardVisualDelay,times.Values.Where(t=>t>=0).Select(t=>t-confirmedAt).DefaultIfEmpty(0).Max());
             }
@@ -72,14 +94,16 @@ public static class StageProbe
         }
     }
     internal static object Status(Player p)=>new{
-        live=Casts.Count(c=>GodotObject.IsInstanceValid(c.Node)&&c.Node.IsInsideTree()),
+        nowMs=Time.GetTicksMsec(),live=Casts.Count(c=>GodotObject.IsInstanceValid(c.Node)&&c.Node.IsInsideTree()),
         allLive=NCombatRoom.Instance?.CombatVfxContainer.GetChildren().OfType<NKarenStageCueVfx>().Count()??0,
         backLive=NCombatRoom.Instance?.BackCombatVfxContainer.GetChildren().Count(n=>n.Name.ToString().StartsWith("KarenStage"))??0,
         hudLive=NCombatRoom.Instance?.Ui.GetChildren().Count(n=>n.Name.ToString().StartsWith("KarenStage"))??0,
         ticket=p.Creature.GetPowerAmount<KarenTicketPower>(),act1=p.Creature.GetPowerAmount<KarenStarlightPower>(),act2=p.Creature.GetPowerAmount<KarenStarlight02Power>(),
         energy=p.PlayerCombatState?.Energy??0,promise=PromisePileManager.GetPromisePile(p).Cards.Count,shine=ShinePileManager.GetShinePile(p).Cards.Count,
+        benefits=Benefits.Select(c=>new{kind=c.Key.Design.ToString(),startedMs=c.Value.Start,confirmedMs=c.Value.Confirmed,
+            cards=c.Value.Cards,cardFrames=c.Value.Frames,modelMismatches=c.Value.Mismatches}),
         casts=Casts.Select(c=>new{kind=c.Kind,confirmed=c.Confirmed,cards=c.Cards,energy=c.Energy,age=c.Age,backCorrect=c.BackCorrect,
-            ownedFrames=c.OwnedFrames,depletionHeldFrames=c.DepletionHeldFrames,settledHeldFrames=c.SettledHeldFrames,endingHeldFrames=c.EndingHeldFrames,playIndices=c.PlayIndices.Order().ToArray(),beamSamples=c.BeamSamples,readyCards=c.ReadyCards,cardVisualDelay=c.CardVisualDelay})
+            startedMs=c.StartedMs,cardReadyMs=c.CardReadyMs,sounds=c.Sounds,ownedFrames=c.OwnedFrames,depletionHeldFrames=c.DepletionHeldFrames,settledHeldFrames=c.SettledHeldFrames,endingHeldFrames=c.EndingHeldFrames,playIndices=c.PlayIndices.Order().ToArray(),beamSamples=c.BeamSamples,readyCards=c.ReadyCards,cardVisualDelay=c.CardVisualDelay})
     };
     internal static async Task Promise(Player p,int count){PromisePileManager.ClearPromisePileInternal(p);for(int i=0;i<count;i++)await PromisePileCmd.Add(p,p.Creature.CombatState!.CreateCard<KarenStrike>(p));}
 }
@@ -93,7 +117,7 @@ public sealed class StageProbeCommand:AbstractConsoleCmd
     {
         if(player==null||args.Length==0)return new(false,Args);
         switch(args[0]){
-            case "watch":StageProbe.Casts.Clear();StageProbe.Watching=true;return new(true,"watch");
+            case "watch":StageProbe.Reset();return new(true,"watch");
             case "status":return new(true,JsonSerializer.Serialize(StageProbe.Status(player)));
             case "promise" when args.Length==2&&int.TryParse(args[1],out int n):return new(StageProbe.Promise(player,n),true,"Promise fixture");
             case "weaken":foreach(var enemy in player.Creature.CombatState!.Enemies)enemy.SetCurrentHpInternal(1);return new(true,"Enemy HP fixture");

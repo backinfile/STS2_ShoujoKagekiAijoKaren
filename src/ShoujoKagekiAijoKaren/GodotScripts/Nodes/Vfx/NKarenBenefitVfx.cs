@@ -45,6 +45,9 @@ public partial class NKarenBenefitVfx : Node2D
     private static GradientTexture2D? _soft;
     private readonly List<AudioStreamPlayer> _sounds = new();
     private readonly List<CardModel> _deliveries = new();
+    private readonly Dictionary<CardModel,float> _dreamFlights = new();
+    private readonly Dictionary<CardModel,NCard> _dreamCards = new();
+    private readonly Dictionary<CardModel,Vector2> _dreamCardScales = new();
     private readonly Dictionary<CardModel, NCard> _cardNodes = new();
     private readonly Dictionary<Player, float> _recipients = new();
     private Func<bool>? _powerChanged;
@@ -55,9 +58,10 @@ public partial class NKarenBenefitVfx : Node2D
     private bool Trigger => Design is BenefitKind.TicketTrigger or BenefitKind.DreamTrigger;
     private float LastResultAt => Design == BenefitKind.Shine && _recipients.Count > 0 ? _recipients.Values.Max() : ConfirmedAt;
     protected float ResultAge => Age - LastResultAt;
+    private float DreamDeliveryTail=>1.5f+.12f*Math.Min(9,Math.Max(0,_deliveries.Count-1));
     protected float ResultAlpha => Confirmed ? Window(ResultAge, 0, Trigger ? 1.55f : 1.9f, .09f, .65f) : 0;
-    private float StoryAlpha => Design == BenefitKind.Dream ? Window(Age,0,1.0f,.06f,.25f)
-        : Design == BenefitKind.DreamTrigger ? (Confirmed ? 1-P(ResultAge,.6f,1.2f) : Window(Age,0,.8f,.06f,.24f))
+    private float StoryAlpha => Design == BenefitKind.Dream ? Window(Age,0,1.22f,.06f,.28f)
+        : Design == BenefitKind.DreamTrigger ? (Confirmed ? 1-P(ResultAge,.65f,1.45f) : Window(Age,0,3,.06f,.40f))
         : Confirmed ? 1-P(ResultAge,.38f,1.3f) : Window(Age,0,2.8f,.14f,.65f);
     private Vector2 StoryPoint => Design == BenefitKind.SnackTransform && _transformSourceCanvas is {} canvas
         ? GetGlobalTransformWithCanvas().AffineInverse()*canvas : Body;
@@ -101,7 +105,7 @@ public partial class NKarenBenefitVfx : Node2D
         float duration=kind switch {
             BenefitKind.Cake or BenefitKind.Dinner=>.82f, BenefitKind.Ticket=>.62f,
             BenefitKind.Radiance=>.48f, BenefitKind.SnackTransform=>.55f, BenefitKind.Dream=>.42f,
-            BenefitKind.TicketTrigger or BenefitKind.DreamTrigger=>.28f, _=>.7f };
+            BenefitKind.DreamTrigger=>.64f, BenefitKind.TicketTrigger=>.28f, _=>.7f };
         return Cmd.CustomScaledWait(duration*.7f,duration);
     }
 
@@ -121,7 +125,16 @@ public partial class NKarenBenefitVfx : Node2D
     {
         if (!Alive) return;
         _deliveries.AddRange(cards.Where(c=>c.Pile!=null));
-        if (_deliveries.Count>0) Confirm();
+        if (_deliveries.Count>0){
+            Confirm();
+            if(Design==BenefitKind.DreamTrigger)ShowDreamCards();
+        }
+    }
+    public Task WaitForDreamDelivery()
+    {
+        if(!Alive||Design!=BenefitKind.DreamTrigger||_dreamCards.Count==0)return Task.CompletedTask;
+        float duration=1.12f+.12f*Math.Min(9,_dreamCards.Count-1);
+        return Cmd.CustomScaledWait(duration*.7f,duration);
     }
     public void ConfirmRecipient(Player player)
     {
@@ -189,7 +202,7 @@ public partial class NKarenBenefitVfx : Node2D
         Room.Ui.AddChildSafely(_hud);_hud.ZIndex=50;
         if (Design==BenefitKind.Radiance && LocalContext.IsMe(Owner))
             _energyCounter=Room.Ui.EnergyCounterContainer.GetChildren().OfType<NEnergyCounter>().FirstOrDefault();
-        Place();CaptureRadianceSource();Redraw();
+        Place();UpdateDreamCards();CaptureRadianceSource();Redraw();
         Sound(Design==BenefitKind.Snack ? "karen_story_steam.wav" : "karen_benefit_gather.wav",Trigger ? .12f : .18f,1);
     }
 
@@ -200,12 +213,13 @@ public partial class NKarenBenefitVfx : Node2D
         { Hide();QueueFree();return; }
         Age+=(float)delta/_timeScale;
         ObserveResult();
-        if ((Design==BenefitKind.Dream && Age>1.05f)
-            || (Design==BenefitKind.DreamTrigger && (Confirmed ? ResultAge>1.3f : Age>3)))
+        if ((Design==BenefitKind.Dream && Age>1.25f)
+            || (Design==BenefitKind.DreamTrigger && (Confirmed ? ResultAge>DreamDeliveryTail : Age>3)))
         { Hide();QueueFree();return; }
         float lifetime=Design==BenefitKind.Shine ? 2.8f+Owner.Creature.CombatState!.Players.Count*.6f : Trigger ? 2f : 2.85f;
-        if (Age>Mathf.Max(lifetime,LastResultAt+2.1f)) { Hide();QueueFree();return; }
-        Place();CaptureRadianceSource();Redraw();
+        if (Design is not (BenefitKind.Dream or BenefitKind.DreamTrigger)
+            && Age>Mathf.Max(lifetime,LastResultAt+2.1f)) { Hide();QueueFree();return; }
+        Place();UpdateDreamCards();CaptureRadianceSource();Redraw();
     }
     private void Place()
     {
@@ -225,9 +239,10 @@ public partial class NKarenBenefitVfx : Node2D
     public override void _ExitTree()
     {
         KarenVfxComposition.RemoveCue(this);
+        ClearDreamCards();
         foreach(var node in new[]{_back,_hud})
             if(GodotObject.IsInstanceValid(node)&&!node.IsQueuedForDeletion()) {node.Hide();node.QueueFree();}
-        _deliveries.Clear();_cardNodes.Clear();_recipients.Clear();_powerChanged=null;_energyBefore=null;
+        _deliveries.Clear();_dreamFlights.Clear();_dreamCards.Clear();_dreamCardScales.Clear();_cardNodes.Clear();_recipients.Clear();_powerChanged=null;_energyBefore=null;
         _radianceCard=null;_radianceModel=null;
         foreach(var sound in _sounds)if(GodotObject.IsInstanceValid(sound)){sound.Stop();sound.QueueFree();}
         _sounds.Clear();
@@ -311,18 +326,19 @@ public partial class NKarenBenefitVfx : Node2D
     }
     private void DrawDeliveries()
     {
+        if(Design==BenefitKind.DreamTrigger){
+            foreach(var pair in _dreamFlights.Where(p=>p.Value>=0&&p.Key.Pile!=null)){
+                var anchor=pair.Key.Pile!.Type==KarenCustomEnum.PromisePile
+                    ? KarenPromiseVfxStarManager.GetStarPosition(pair.Key,this)
+                    : KarenPromiseVfxStarManager.GetPilePosition(Owner,this);
+                if(anchor is {} world)DrawDreamDelivery(ToLocal(world),Age-pair.Value);
+            }
+            return;
+        }
         if(!Confirmed)return;
         foreach(var card in _deliveries.Take(10)){
-            Vector2? target;
-            if(Design==BenefitKind.DreamTrigger){
-                var anchor=card.Pile?.Type==KarenCustomEnum.PromisePile
-                    ? KarenPromiseVfxStarManager.GetStarPosition(card,this)
-                    : KarenPromiseVfxStarManager.GetPilePosition(Owner,this);
-                target=anchor is {} world?ToLocal(world):null;
-            }
-            else target=CardPoint(card);
+            var target=CardPoint(card);
             if(target is not {} point)continue;
-            if(Design==BenefitKind.DreamTrigger){DrawDreamDelivery(point);continue;}
             var from=StageCenter;
             float u=Ease(P(ResultAge,.05f,.8f)),alpha=Window(ResultAge,0,1.45f,.06f,.5f);
             var color=Design==BenefitKind.DreamTrigger?Blue:TicketBlue;

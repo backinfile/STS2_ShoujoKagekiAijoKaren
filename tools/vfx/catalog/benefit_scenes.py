@@ -114,6 +114,8 @@ for void in (False, True):
     assert sum(model[p].count('KAREN_WE_KOWN_TOKEN') for p in piles)==amount,model
     assert not void or not model['promise'],model
     report=json.loads(cmd('revision_probe status')['message']);assert report['dreamCast']==amount and report['dreamTrigger']==1,report
+    cue=next(c for c in json.loads(cmd('stage_probe status')['message'])['benefits'] if c['kind']=='DreamTrigger')
+    assert cue['cards']==amount and cue['cardFrames']>=6 and cue['modelMismatches']==0,cue
     finish()
 
 for void in (False, True):
@@ -156,8 +158,13 @@ if want('starlight-act2'):
     save('beam-opening', dict(samples=beam, firstFullAge=full, firstLandingAge=landed))
     assert len(beam) >= 6 and full is not None and full <= .26 and landed is not None and landed <= .30, beam
     marking('第二幕预览｜蓝白平行背光，角色与敌人位于光幕前方'); stage_hover('hover')
+    sounds=json.loads(cmd('stage_probe status')['message'])['casts']
+    assert next(c for c in sounds if c['kind']=='Act2Cast')['sounds']==1,sounds
+    assert all(c['sounds']==0 for c in sounds if c['kind']=='Act2Hover'),sounds
     time.sleep(1); marking('第二幕结算｜同一背光覆盖三次重播与闪耀耗尽')
     clip_cast('KAREN_SHINE_STRIKE', '重播与耗尽｜背景持有至实际卡牌完整结算')
+    sounds=json.loads(cmd('stage_probe status')['message'])['casts']
+    assert all(c['sounds']==0 for c in sounds if c['kind']=='Act2Hover'),sounds
     effects_idle('act2'); finish()
 
 if want('shine-play'):

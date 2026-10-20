@@ -37,6 +37,8 @@ public sealed class KarenWeKownPower : KarenBasePower
             for (int i = 0; i < Amount; i++) cards.Add(CombatState.CreateCard<KarenWeKownToken>(player));
             await CardPileCmd.AddGeneratedCardsToCombat(cards, KarenCustomEnum.PromisePile, player);
             effect?.ConfirmCards(cards);
+            // Finish the short card handoff before the native enemy-turn banner.
+            if(effect!=null)await effect.WaitForDreamDelivery();
         }
     }
 }

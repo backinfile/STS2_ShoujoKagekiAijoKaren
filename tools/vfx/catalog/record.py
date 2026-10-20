@@ -248,6 +248,8 @@ try:
         save('recording-music-before', music)
         assert music['hasForm'] or not (music['currentPlaying'] or music['fadingPlaying'] or music['musicPlayers']), music
         original_record_start();record_clock=time.monotonic();marks=[]
+        cue_clock=json.loads(cmd('stage_probe status')['message'])['nowMs']
+        save('recording-clock',dict(gameMs=cue_clock,videoTime=time.monotonic()-record_clock))
         time.sleep(.4)
     def record_stop():
         time.sleep(.65);original_record_stop();save('markers',marks)

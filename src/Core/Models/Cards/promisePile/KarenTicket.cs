@@ -21,13 +21,9 @@ public sealed class KarenTicket : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var effect = NKarenStageCueVfx.Play(Owner, NKarenStageCueVfx.CueKind.TicketCast, this);
-        try {
-            if (effect != null) await NKarenStageCueVfx.WaitForCue(NKarenStageCueVfx.CueKind.TicketCast);
-            int before = Owner.Creature.GetPowerAmount<KarenTicketPower>();
-            await PowerCmd.Apply<KarenTicketPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
-            if (Owner.Creature.GetPowerAmount<KarenTicketPower>() > before) effect?.ConfirmPower();
-        } finally { effect?.Finish(); }
+        // Silk starts on the actual native card-flight node, before its shrink.
+        await NKarenStageCueVfx.WaitForCue(NKarenStageCueVfx.CueKind.TicketCast);
+        await PowerCmd.Apply<KarenTicketPower>(choiceContext,Owner.Creature,1m,Owner.Creature,this);
     }
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 

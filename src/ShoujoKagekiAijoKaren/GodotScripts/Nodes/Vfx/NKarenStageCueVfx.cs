@@ -110,8 +110,6 @@ public partial class NKarenStageCueVfx : Node2D
         _promisePoint = anchor is {} point ? ToLocal(point) : _body + new Vector2(-80, -160) * _unit;
         if (Kind == CueKind.Act1Cast) Sound(KarenSfx.StageLight, .28f);
         if (Kind == CueKind.Act2Cast) Sound(KarenSfx.Act2LightsOn, .55f, 1 / Speed);
-        // Hover uses a quieter single opening cue, never a loop or a per-replay cue.
-        if (Kind == CueKind.Act2Hover) Sound(KarenSfx.Act2LightsOn, .18f, 1 / Speed);
         if (Kind is CueKind.TicketCast or CueKind.TicketReturn or CueKind.Duet) Sound("karen_benefit_gather.wav", Kind==CueKind.TicketReturn?.12f:.18f);
         QueueRedraw(); _back.QueueRedraw(); _shade.QueueRedraw(); _hud.QueueRedraw(); _frontShade.QueueRedraw();
     }
@@ -124,7 +122,7 @@ public partial class NKarenStageCueVfx : Node2D
         bool opening = _age < .3f; _age += (float)delta / Speed;
         UpdateCardVisualTimes();
         if (_waitingForDepletion && !_depletionWait.Any(NKarenShineDepleteVfx.IsAnimating)) { _waitingForDepletion = false; Finish(); }
-        float tail = Kind switch { CueKind.Act2Hover => .18f, CueKind.Act1Draw => .50f, CueKind.Act1Cast => .32f, CueKind.Act2Cast => .56f, CueKind.TicketReturn => .50f, CueKind.TicketCast => .30f, _ => .9f };
+        float tail = Kind switch { CueKind.Act2Hover => .18f, CueKind.Act1Draw => .88f, CueKind.Act1Cast => .65f, CueKind.Act2Cast => .56f, CueKind.TicketReturn => .80f, CueKind.TicketCast => .80f, _ => .9f };
         if ((_releaseAt >= 0 && _age >= _releaseAt + tail) || (Kind != CueKind.Act2Hover && _age > 8)) { HideAll(); QueueFree(); return; }
         KarenVfxComposition.SetCueStrength(this, Alpha);
         float backgroundWeight = KarenVfxComposition.EventWeight(_owner.Creature, this);
