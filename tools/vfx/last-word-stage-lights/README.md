@@ -12,3 +12,5 @@
 旧包必须来自同一 main 基线的 DLL。`lastword-stage-before` 仅录旧牌缘提示；`lastword-stage-debug` 只用于诊断真实遮罩范围。首轮采用不支持 Draw 的原生 remove_card 命令已修正为测试插件调用原生 CardPileCmd.RemoveFromCombat；换房间固定使用已验证的 WATERFALL_GIANT_BOSS。无多人、完整矩阵或 Steam 部署。
 
 2026-10-20 动态性迭代：旧生产包保存为 artifacts/last-word-stage-lights/motion-before-package。先用该包和 lastword-motion-before 场景录制同一常态/悬停序列，退出后将 stable 输出移到 motion-before/stable，再用最终包跑两版 lastword-stage,lastword-stage-void。验证与封装传 --motion，分别生成 motion-verification.json、motion-videos.json 和 LastWord-stage-motion-*.mp4，原版校色记录不覆盖。被动探针检查原生 FocusedHolder 驱动的平滑 hover、连续时钟及 T 字变换跟随。
+
+T 字蓄力/尾韵专项：保存 fa9a435 包到 charge-before-package，使用 lastword-charge-before 录制旧版，退出后将 stable 输出移到 charge-before/stable。最终包分别运行两版 lastword-charge --audit-capture，再执行 review_charge.py，核对可见字形的周长分布、余韵透明度及战斗结束/奖励清理，生成 charge-*.json 和 LastWord-T-*.mp4。打出影片与伤害源保持不变；观察器只读取真实生产特效，不生成替代效果。

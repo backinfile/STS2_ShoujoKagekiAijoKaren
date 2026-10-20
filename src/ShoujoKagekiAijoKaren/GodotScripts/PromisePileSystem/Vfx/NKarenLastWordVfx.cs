@@ -4,11 +4,14 @@ using MegaCrit.Sts2.Core.Nodes.Rooms;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Nodes.Screens;
+using MegaCrit.Sts2.Core.Nodes.Screens.Overlays;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenLastWordVfx : Node2D
 {
+    private const float AfterglowSeconds = 1.8f;
     private const float SpawnInterval = 0.035f;
     private const float SpawnDuration = 5.5f;
     private const float ParticleDuration = 5.5f;
@@ -27,6 +30,17 @@ public partial class NKarenLastWordVfx : Node2D
 
     private float _duration = SpawnDuration;
     private float _spawnTimer = SpawnInterval;
+    private float _afterglowAge = -1f;
+
+    internal float DriftSpeed => _afterglowAge < 0f ? 1f
+        : Mathf.Lerp(1f, .18f, Mathf.SmoothStep(0f, .35f, _afterglowAge));
+
+    public void BeginAfterglow()
+    {
+        if (_afterglowAge >= 0f) return;
+        _afterglowAge = 0f;
+        _duration = 0f;
+    }
 
     public static void Play(Player owner)
     {
@@ -50,7 +64,8 @@ public partial class NKarenLastWordVfx : Node2D
     public override void _Process(double delta)
     {
         if (!GodotObject.IsInstanceValid(_room) || !_room.IsInsideTree()
-            || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress)
+            || NCombatRoom.Instance != _room || _owner.Creature.IsDead
+            || NOverlayStack.Instance?.Peek() is NRewardsScreen)
         {
             Hide();
             GodotTreeExtensions.QueueFreeSafely(this);
@@ -58,6 +73,18 @@ public partial class NKarenLastWordVfx : Node2D
         }
 
         float d = (float)delta;
+        if (!CombatManager.Instance.IsInProgress) BeginAfterglow();
+        if (_afterglowAge >= 0f)
+        {
+            _afterglowAge += d;
+            Modulate = new Color(1f, 1f, 1f, 1f - Mathf.SmoothStep(.25f, AfterglowSeconds, _afterglowAge));
+            if (_afterglowAge >= AfterglowSeconds)
+            {
+                Hide();
+                GodotTreeExtensions.QueueFreeSafely(this);
+            }
+            return;
+        }
         _duration -= d;
 
         if (_duration > 0f)
@@ -69,7 +96,7 @@ public partial class NKarenLastWordVfx : Node2D
                 var source = GetSourcePosition();
                 var viewportSize = GetViewportSize();
                 for (int i = 0; i < ParticlesPerWave; i++)
-                    AddChild(new NKarenLastWordTParticle(PickTexture(), source, viewportSize));
+                    AddChild(new NKarenLastWordTParticle(PickTexture(), source, viewportSize, this));
             }
         }
 
@@ -123,12 +150,14 @@ internal partial class NKarenLastWordTParticle : Sprite2D
     };
 
     private readonly Vector2 _velocity;
+    private readonly NKarenLastWordVfx _emitter;
     private readonly float _rotationSpeed;
     private readonly float _scaleY;
     private float _duration = 5.5f;
 
-    public NKarenLastWordTParticle(Texture2D? texture, Vector2 source, Vector2 viewportSize)
+    public NKarenLastWordTParticle(Texture2D? texture, Vector2 source, Vector2 viewportSize, NKarenLastWordVfx emitter)
     {
+        _emitter = emitter;
         Texture = texture;
         Centered = true;
         Material = AdditiveMaterial;
@@ -161,8 +190,8 @@ internal partial class NKarenLastWordTParticle : Sprite2D
     public override void _Process(double delta)
     {
         float d = (float)delta;
-        Position += _velocity * d;
-        RotationDegrees += _rotationSpeed * d;
+        Position += _velocity * (d * _emitter.DriftSpeed);
+        RotationDegrees += _rotationSpeed * (d * _emitter.DriftSpeed);
 
         _duration -= d;
         if (_duration < 1f)

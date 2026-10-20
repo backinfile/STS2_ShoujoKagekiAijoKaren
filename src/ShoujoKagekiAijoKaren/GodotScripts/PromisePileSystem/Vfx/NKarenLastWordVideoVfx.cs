@@ -182,6 +182,7 @@ public partial class NKarenLastWordVideoVfx : Control
     private void BeginFadeOut()
     {
         if (_fading) return;
+        _letters?.BeginAfterglow();
         DetachLetters();
         _fading = true;
         _fadeTimer = 0f;

@@ -13,6 +13,8 @@ using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Cards.Holders;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Combat;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 // Passive test observer. Refresh exercises the native holder; it never creates an effect.
@@ -32,12 +34,19 @@ public static class LastWordStageProbe
     private static object? Field(object n, string field) =>
         n.GetType().GetField(field, BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(n);
     private static object Current() => new {
-        tNodes = TNodes().Select(n => new {
-            instance = n.GetInstanceId(), particles = n.GetChildCount(),
-            anchorError = Field(n, "_card") is NCard card ? n.GlobalPosition.DistanceTo(card.Body.GlobalPosition) : -1f,
-            basisError = Field(n, "_card") is NCard target ? (n.GlobalTransform.X - target.Body.GetGlobalTransform().X).Length()
-                + (n.GlobalTransform.Y - target.Body.GetGlobalTransform().Y).Length() : -1f
+        combatInProgress = CombatManager.Instance.IsInProgress,
+        attack = AttackNodes().Select(n => new {
+            instance = n.GetInstanceId(), alpha = n.Modulate.A,
+            remaining = Field(n, "_duration") as float? ?? -1f,
+            afterglowAge = Field(n, "_afterglowAge") as float? ?? -1f,
+            particles = n.GetChildCount(),
+            visible = n.GetChildren().OfType<Sprite2D>().Count(p => p.Modulate.A * n.Modulate.A > .04f
+                && n.GetViewportRect().HasPoint(p.GetGlobalTransformWithCanvas().Origin))
         }).ToArray(),
+        videos = VideoNodes().Select(n => new {
+            age = Field(n, "_timer") as float? ?? 0f, fading = Field(n, "_fading") as bool? ?? false
+        }).ToArray(),
+        tNodes = TNodes().Select(ReadyInfo).ToArray(),
         nodes = Nodes().Select(n => new {
             instance = n.GetInstanceId(),
             opacity = Field(n, "_opacity") as float? ?? 1f,
@@ -54,6 +63,41 @@ public static class LastWordStageProbe
                 key => key, key => (n.GetChildren().OfType<ColorRect>().FirstOrDefault()?.Material as ShaderMaterial)?.GetShaderParameter(key).ToString())
         }).ToArray()
     };
+    private static NKarenLastWordVideoVfx[] VideoNodes() =>
+        NRun.Instance?.GlobalUi.GetChildren().OfType<NKarenLastWordVideoVfx>()
+            .Where(n => !n.IsQueuedForDeletion()).ToArray() ?? [];
+    private static NKarenLastWordVfx[] AttackNodes() =>
+        (NRun.Instance?.GlobalUi.GetChildren().OfType<NKarenLastWordVfx>() ?? [])
+        .Concat(VideoNodes().SelectMany(n => n.GetChildren().OfType<NKarenLastWordVfx>()))
+        .Concat(NCombatRoom.Instance?.CombatVfxContainer.GetChildren().OfType<NKarenLastWordVfx>() ?? [])
+        .Where(n => n.IsInsideTree() && !n.IsQueuedForDeletion()).Distinct().ToArray();
+    private static object ReadyInfo(Node2D n)
+    {
+        var card = Field(n, "_card") as NCard;
+        Vector2 size = card?.Size ?? NCard.defaultSize;
+        if (size == Vector2.Zero) size = NCard.defaultSize;
+        var half = size * .5f;
+        int[] bins = new int[16];
+        foreach (var p in n.GetChildren().OfType<Sprite2D>().Where(p => p.Modulate.A > .12f)) {
+            Vector2 point = p.Position;
+            float distance;
+            if (Mathf.Abs(point.Y) / half.Y >= Mathf.Abs(point.X) / half.X)
+                distance = point.Y < 0 ? Mathf.Clamp(point.X + half.X, 0, size.X)
+                    : size.X + size.Y + Mathf.Clamp(half.X - point.X, 0, size.X);
+            else
+                distance = point.X > 0 ? size.X + Mathf.Clamp(point.Y + half.Y, 0, size.Y)
+                    : 2 * size.X + size.Y + Mathf.Clamp(half.Y - point.Y, 0, size.Y);
+            bins[Math.Clamp((int)(distance / (2f * (size.X + size.Y)) * bins.Length), 0, bins.Length - 1)]++;
+        }
+        double mean = bins.Average();
+        return new { instance = n.GetInstanceId(), particles = n.GetChildCount(),
+            anchorError = card == null ? -1f : n.GlobalPosition.DistanceTo(card.Body.GlobalPosition),
+            basisError = card == null ? -1f : (n.GlobalTransform.X - card.Body.GetGlobalTransform().X).Length()
+                + (n.GlobalTransform.Y - card.Body.GetGlobalTransform().Y).Length(),
+            charge = Field(n, "_charge") as float? ?? 0f, bins,
+            distributionCv = mean == 0 ? 0 : Math.Sqrt(bins.Average(v => (v - mean) * (v - mean))) / mean };
+    }
+
     public static void Initialize() => ((SceneTree)Engine.GetMainLoop()).ProcessFrame += Sample;
     private static void Sample()
     {
