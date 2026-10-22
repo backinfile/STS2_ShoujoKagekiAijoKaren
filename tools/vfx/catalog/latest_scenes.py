@@ -109,8 +109,8 @@ if 'star' in wanted:
     cmd('star_probe setup 3 discard'); time.sleep(1.5)
     record_start()
     clip_cast('KAREN_STAR', '唯一闪耀牌｜星光聚集，真实打出三次后耗尽并确认奖励')
-    save('star-probe', json.loads(cmd('star_probe status')['message']))
     finish()
+    save('star-probe', json.loads(cmd('star_probe status')['message']))
 
 if 'why' in wanted:
     stage('why', seed=False)

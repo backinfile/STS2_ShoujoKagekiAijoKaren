@@ -249,7 +249,8 @@ public static class WaitingStageProbe
             foreach (var delivery in (System.Collections.IEnumerable)Field(node, "_deliveries")!)
             {
                 float age = (float)delivery.GetType().GetField("Age")!.GetValue(delivery)!;
-                bool started = (bool)delivery.GetType().GetField("Started")!.GetValue(delivery)!;
+                // Observe visual feedback independently of optional trigger audio.
+                bool started = ((CpuParticles2D)delivery.GetType().GetField("Trail")!.GetValue(delivery)!).IsVisibleInTree();
                 seen.FeedbackEarly |= started && age < .16f;
                 if (started && seen.FirstFeedbackAge < 0) seen.FirstFeedbackAge = age;
             }

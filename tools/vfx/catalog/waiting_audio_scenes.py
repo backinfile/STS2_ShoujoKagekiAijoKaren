@@ -1,4 +1,4 @@
-# The normal showcase already checks both casts and two real gains. Stress short audio separately.
+# Repeated real gains must not add audio beyond the initial cast.
 stage('waiting-stage-audio', seed=False)
 cmd('stage_probe speed fast'); cmd('waiting_probe watch'); waiting_cast()
 before = state()['player']['energy']; cmd('waiting_probe rapid')
@@ -11,6 +11,7 @@ settle('audio-rapid')
 rapid = observed('audio-rapid')
 assert state()['player']['energy'] == before + 8
 assert rapid['casts'][0]['confirmations'] == 8 and rapid['casts'][0]['peakSounds'] <= 4, rapid
+assert len(rapid['casts'][0]['audioEvents']) == 1, rapid
 assert all(abs(cue['pitch'] - 1.6) < .01 and cue['bus'] == 'SFX' for cue in rapid['casts'][0]['audioEvents']), rapid
 cmd('waiting_probe remove'); time.sleep(.3)
 assert all(observed('audio-removed')[key] == 0 for key in ('live', 'back', 'hud', 'liveSounds'))

@@ -33,7 +33,7 @@ public partial class NKarenWaitingStageVfx : Node2D
         public readonly int Gain = gain;
         public readonly float Angle = angle;
         public float Age;
-        public bool Arrived, Started;
+        public bool Arrived;
         public CpuParticles2D Trail = null!;
     }
 
@@ -88,7 +88,7 @@ public partial class NKarenWaitingStageVfx : Node2D
         SpotlightWhite = new("#e2f1ff"), CoreWhite = new("#fff6fa");
     private Color CurrentTint => PromiseRose.Lerp(WaitingMauve, _opening);
     private Vector2 _center;
-    private float _age, _castAge = 4, _lastSound = -10, _unit = 1;
+    private float _age, _castAge = 4, _unit = 1;
     private float _buildAge = 4, _orbitPhase, _lastBuildBurst = -10;
     private bool _formationFinalized = true;
     private bool _pileKnown;
@@ -245,11 +245,6 @@ public partial class NKarenWaitingStageVfx : Node2D
         for (int i = _deliveries.Count - 1; i >= 0; i--)
         {
             var delivery = _deliveries[i]; delivery.Age += dt;
-            if (!delivery.Started && delivery.Age >= FeedbackDelay)
-            {
-                delivery.Started = true;
-                if (UiVisible && _age - _lastSound > .18f) { Sound(KarenSfx.WaitingCurtainPulse, .22f, 1f); _lastSound = _age; }
-            }
             delivery.Trail.Visible = UiVisible && delivery.Age >= .20f;
             delivery.Trail.Position = Path(delivery, P(delivery.Age, .20f, .68f));
             delivery.Trail.Emitting = UiVisible && delivery.Age >= .20f && delivery.Age < .68f;
@@ -260,7 +255,6 @@ public partial class NKarenWaitingStageVfx : Node2D
                 if (UiVisible)
                 {
                     Burst(OrbitPoint(delivery.Angle, 58), 4, 9);
-                    if (_age - _lastSound > .18f) { Sound(KarenSfx.WaitingEnergyArrive, .16f, 1f); _lastSound = _age; }
                 }
             }
             if (delivery.Age >= 1.05f) { RetireTrail(delivery); _deliveries.RemoveAt(i); }

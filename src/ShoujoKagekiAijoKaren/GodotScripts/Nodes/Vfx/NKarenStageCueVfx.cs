@@ -115,7 +115,6 @@ public partial class NKarenStageCueVfx : Node2D
         Place();
         var anchor = KarenPromiseVfxStarManager.GetPilePosition(_owner, this);
         _promisePoint = anchor is {} point ? ToLocal(point) : _body + new Vector2(-80, -160) * _unit;
-        if (Kind == CueKind.Act1Cast) Sound(KarenSfx.StageLight, .28f);
         if (Kind == CueKind.Act2Cast) Sound(KarenSfx.Act2LightsOn, .55f, 1 / Speed);
         if (Kind is CueKind.TicketCast or CueKind.TicketReturn or CueKind.Duet) Sound("karen_benefit_gather.wav", Kind==CueKind.TicketReturn?.12f:.18f);
         QueueRedraw(); _back.QueueRedraw(); _shade.QueueRedraw(); _hud.QueueRedraw(); _frontShade.QueueRedraw();

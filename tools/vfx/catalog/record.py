@@ -271,6 +271,19 @@ try:
         if card=='KAREN_VOID':time.sleep(2.5)
         return settle(card+'-after')
     def finish():
+        # Native plays may still be auto-replaying after the pile has settled.
+        for _ in range(400):
+            native=json.loads(cmd('bridge_vfx status')['message'])
+            if len(native.get('started',[]))==len(native.get('finished',[])):break
+            time.sleep(.1)
+        else:raise AssertionError(('Native card plays still running',native))
+        if case.name=='star':
+            for _ in range(200):
+                star=json.loads(cmd('star_probe status')['message'])
+                if len(star['plays'])==3 and star['sourceDepleted'] and star['extraRewards']>=1 and star['live']==star['backLive']==0:break
+                time.sleep(.1)
+            else:raise AssertionError(('Star presentation unfinished',star))
+            save('star-completed',star)
         # Depletion now ends at the gather. Let the independent icon/count
         # feedback finish too before taking the final observation or cutting.
         for _ in range(100):

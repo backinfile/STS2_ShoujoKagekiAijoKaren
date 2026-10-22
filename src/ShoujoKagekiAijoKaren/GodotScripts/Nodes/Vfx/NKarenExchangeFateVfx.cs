@@ -12,7 +12,6 @@ using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
-using ShoujoKagekiAijoKaren.src.Core.Audio;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -67,7 +66,6 @@ public partial class NKarenExchangeFateVfx : Node2D
     private readonly Node2D _light = new(), _front = new();
     private readonly List<Silk> _silks = new();
     private readonly List<Dust> _dust = new(180);
-    private readonly List<AudioStreamPlayer> _sounds = new();
     private readonly TaskCompletionSource _exchangeReady = new();
     private readonly RandomNumberGenerator _random = new() { Seed = 29617 };
     private NCombatRoom _room = null!;
@@ -113,7 +111,6 @@ public partial class NKarenExchangeFateVfx : Node2D
     {
         if (!Alive || _exchangeAt >= 0) return;
         _exchangeAt = _age;
-        Sound("karen_fate_cross.wav", .23f, 1);
         if (_outgoing.Length > 0 && _incoming.Length > 0)
             for (int i = 0; i < 16; i++) Emit(_focus, Vector2.FromAngle(i * Mathf.Tau / 16) * _random.RandfRange(60, 170) * _unit, i % 4 == 0);
     }
@@ -152,7 +149,6 @@ public partial class NKarenExchangeFateVfx : Node2D
         _normal = (_pile - _hand).Normalized().Orthogonal();
         if (_normal.LengthSquared() < .1f) _normal = Vector2.Right;
         for (int b = 0; b < 2; b++) for (int s = 0; s < 3; s++) CreateSilk(b == 1, s);
-        Sound("karen_fate_lift.wav", .24f, 1);
     }
     private void CreateSilk(bool blue, int strand)
     {
@@ -285,17 +281,12 @@ public partial class NKarenExchangeFateVfx : Node2D
         layer.DrawSetTransform(p, Mathf.Pi / 2); layer.DrawTextureRect(_streak!, new Rect2(-radius, -radius * .12f, radius * 2, radius * .24f), false, Ivory with { A = a * .72f });
         layer.DrawSetTransform(Vector2.Zero); layer.DrawCircle(p, radius * .07f, Ivory with { A = a });
     }
-    private void Sound(string file, float volume, float pitch)
-    {
-        if (!LocalContext.IsMe(_owner)) return; var sound = KarenAudioManager.PlaySfx(file, volume, pitch / _speed); if (sound != null) _sounds.Add(sound);
-    }
     public override void _ExitTree()
     {
         _exiting = true;
         KarenVfxComposition.RemoveCue(this);
-        foreach (var sound in _sounds) if (GodotObject.IsInstanceValid(sound)) { sound.Stop(); sound.QueueFree(); }
         foreach (var s in _silks) s.Mesh.Dispose();
-        _silks.Clear(); _dust.Clear(); _sounds.Clear(); _outgoing = []; _incoming = []; _random.Dispose();
+        _silks.Clear(); _dust.Clear(); _outgoing = []; _incoming = []; _random.Dispose();
         // Resume outside tree removal: native card commands may add/reparent nodes.
         var ready = _exchangeReady;
         Callable.From(() => { ready.TrySetResult(); }).CallDeferred();

@@ -16,7 +16,6 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
-using ShoujoKagekiAijoKaren.src.Core.Audio;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
@@ -64,9 +63,8 @@ public partial class NKarenStarVfx : Node2D
     private Playback _playback = null!;
     private readonly Node2D _back = new() { Name = "KarenStarBackLight" };
     private readonly List<Pulse> _pulses = new();
-    private readonly List<AudioStreamPlayer> _sounds = new();
     private Vector2 _screen, _body, _foot, _clasp, _cardPoint, _rewardPoint;
-    private float _unit, _age, _releaseAt = -1, _rewardAt = -1, _lastSoundAt = -1;
+    private float _unit, _age, _releaseAt = -1, _rewardAt = -1;
     private int _count, _played;
     private float _speed;
     public int PlannedCount => _count;
@@ -104,7 +102,6 @@ public partial class NKarenStarVfx : Node2D
         _back.Draw += DrawLights;
         KarenVfxComposition.RegisterCue(this, _playback.Card.Owner.Creature);
         Place();
-        Sound("karen_star_gather.wav", .52f);
     }
 
     public override void _Process(double delta)
@@ -121,11 +118,6 @@ public partial class NKarenStarVfx : Node2D
             _count = Math.Max(1, play.Count);
             _played = Math.Max(_played, play.Index + 1);
             _pulses.Add(new(play.Index, _count, _age));
-            if (_age - _lastSoundAt > .11f)
-            {
-                Sound("karen_star_step.wav", .2f, .92f + .26f * (play.Index / (float)_count));
-                _lastSoundAt = _age;
-            }
         }
         _pulses.RemoveAll(p => _age - p.At > .55f);
         if (_rewardAt < 0 && _playback.Reward)
@@ -134,7 +126,6 @@ public partial class NKarenStarVfx : Node2D
             var badge = KarenPowerVfxAnchor.Find(_room, creature.GetPower<KarenShineCardRewardPower>());
             // Confirm the real reward marker; no invented reward slot in the HUD.
             _rewardPoint = badge != null ? badge.GetGlobalTransformWithCanvas() * (badge.Size * .5f) : _foot + new Vector2(28, 26) * _unit;
-            Sound("karen_star_resolve.wav", .48f);
         }
         if (_releaseAt < 0 && _playback.Completed && !NKarenShineDepleteVfx.IsAnimating(_playback.Card)) _releaseAt = _age;
         if (_releaseAt >= 0 && _age - _releaseAt > .72f) { QueueFree(); return; }
@@ -258,16 +249,10 @@ public partial class NKarenStarVfx : Node2D
         }
     }
 
-    private void Sound(string file, float volume, float pitch = 1)
-    {
-        var sound = KarenAudioManager.PlaySfxOnGameBus(file, volume, pitch * Math.Min(_speed, 1.15f));
-        if (sound != null) _sounds.Add(sound);
-    }
     public override void _ExitTree()
     {
         KarenVfxComposition.RemoveCue(this);
         if (GodotObject.IsInstanceValid(_back)) { _back.Hide(); _back.QueueFree(); }
-        foreach (var sound in _sounds) if (GodotObject.IsInstanceValid(sound)) { sound.Stop(); sound.QueueFree(); }
-        _sounds.Clear(); _pulses.Clear();
+        _pulses.Clear();
     }
 }

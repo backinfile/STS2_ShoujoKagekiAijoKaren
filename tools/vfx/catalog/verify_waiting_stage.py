@@ -79,12 +79,14 @@ for branch in ('stable', 'beta'):
     if args.audio_check:
         audio_node = read(normal / 'second-empty-idle-waiting.json')['casts'][0]
         cues = audio_node['audioEvents']
-        expected_cues = [(.94, .28), (.38, .22), (.22, .16)]
+        expected_cues = [(.94, .28)]  # Only cast audio remains; gains are silent.
+        assert len(cues) == 2, cues
         for duration, volume in expected_cues:
             assert sum(abs(c['duration'] - duration) < .002 and abs(c['volume'] - volume) < .002 for c in cues) == 2, cues
         assert all(c['bus'] == 'SFX' and abs(c['pitch'] - 1) < .002 for c in cues), cues
         fast_audio = read(folder / 'waiting-stage-audio/audio-rapid-waiting.json')['casts'][0]
         assert fast_audio['confirmations'] == fast_audio['energy'] == 8 and fast_audio['peakSounds'] <= 4, fast_audio
+        assert len(fast_audio['audioEvents']) == 1, fast_audio
         assert all(c['bus'] == 'SFX' and abs(c['pitch'] - 1.6) < .002 for c in fast_audio['audioEvents']), fast_audio
         lifecycle = folder / 'waiting-stage-lifecycle'
         for name in ('interrupted', 'instant-switch', 'power-removal'):

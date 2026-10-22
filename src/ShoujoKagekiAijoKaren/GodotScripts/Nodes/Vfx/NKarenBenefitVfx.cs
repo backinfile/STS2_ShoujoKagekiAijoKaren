@@ -265,6 +265,7 @@ public partial class NKarenBenefitVfx : Node2D
     }
     private void Sound(string file,float volume,float pitch)
     {
+        if (Design is BenefitKind.Cake or BenefitKind.Dream or BenefitKind.DreamTrigger or BenefitKind.Shine) return;
         var sound=KarenAudioManager.PlaySfx(file,volume,pitch);if(sound!=null)_sounds.Add(sound);
     }
     private static Texture2D? Load(string path)=>KarenResourceLoader.LoadTexture("res://images/vfx/"+path,nameof(NKarenBenefitVfx));
