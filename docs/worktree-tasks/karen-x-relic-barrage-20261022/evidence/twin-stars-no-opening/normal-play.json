@@ -1,0 +1,86 @@
+{
+  "before": {
+    "state": "ready",
+    "attacks": [],
+    "artPreview": "off",
+    "visualEvents": [],
+    "activeVfx": 0,
+    "locks": 0,
+    "eligible": 3,
+    "relics": [
+      "STRAWBERRY",
+      "PEAR",
+      "MANGO"
+    ],
+    "playable": true,
+    "costX": true,
+    "capturedX": 0,
+    "upgraded": false,
+    "pile": "Hand",
+    "disableCost": 3,
+    "damage": 5,
+    "repeat": 2,
+    "pool": true,
+    "hasPortrait": true,
+    "portrait": "(500, 380)",
+    "title": "双星",
+    "description": "[gold]禁用[/gold]X个遗物，然后造成5点伤害2X次。\n（当前可禁用[blue]3[/blue]个遗物）",
+    "energy": 3,
+    "targetHp": 100
+  },
+  "after": {
+    "state": "ready",
+    "attacks": [
+      {
+        "hits": 6,
+        "damage": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5
+        ]
+      }
+    ],
+    "artPreview": "off",
+    "visualEvents": [
+      "start",
+      "gold",
+      "contact",
+      "pink",
+      "contact",
+      "gold",
+      "contact",
+      "pink",
+      "contact",
+      "gold",
+      "contact",
+      "pink",
+      "contact"
+    ],
+    "activeVfx": 0,
+    "locks": 3,
+    "eligible": 0,
+    "relics": [
+      "KAREN_LOCK_RELIC",
+      "KAREN_LOCK_RELIC",
+      "KAREN_LOCK_RELIC"
+    ],
+    "playable": true,
+    "costX": true,
+    "capturedX": 3,
+    "upgraded": false,
+    "pile": "Discard",
+    "disableCost": 0,
+    "damage": 5,
+    "repeat": 2,
+    "pool": true,
+    "hasPortrait": true,
+    "portrait": "(500, 380)",
+    "title": "双星",
+    "description": "[gold]禁用[/gold]X个遗物，然后造成5点伤害2X次。\n（当前可禁用[blue]0[/blue]个遗物）",
+    "energy": 0,
+    "targetHp": 70
+  }
+}

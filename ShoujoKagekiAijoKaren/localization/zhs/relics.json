@@ -37,5 +37,9 @@
 
   "KAREN_STAR_TIARA_RELIC.title": "星之皇冠",
   "KAREN_STAR_TIARA_RELIC.description": "每回合开始时，[gold]禁用[/gold][blue]1[/blue]个遗物，获得{Energy:energyIcons()}。",
-  "KAREN_STAR_TIARA_RELIC.flavor": "摘星之人，仍要为下一次登台付出代价。"
+  "KAREN_STAR_TIARA_RELIC.flavor": "摘星之人，仍要为下一次登台付出代价。",
+
+  "KAREN_FLOWER_RELIC.title": "花朵",
+  "KAREN_FLOWER_RELIC.description": "战斗后的遗物奖励额外提供[blue]1[/blue]个同稀有度选项，只能选择其一。单人宝箱也额外提供[blue]1[/blue]个选项。",
+  "KAREN_FLOWER_RELIC.flavor": "舞台落幕，仍有新的可能绽放。"
 }

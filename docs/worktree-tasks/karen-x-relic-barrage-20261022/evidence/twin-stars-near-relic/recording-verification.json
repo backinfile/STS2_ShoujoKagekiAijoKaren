@@ -1,0 +1,155 @@
+{
+  "clips": [
+    {
+      "mode": "normal",
+      "pairs": [
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 182,
+          "y": 116,
+          "centerX": 387.59998,
+          "centerY": 176.352,
+          "distance": 214.27486
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 114,
+          "y": 116,
+          "centerX": 325.92087,
+          "centerY": 175.07239,
+          "distance": 220
+        },
+        {
+          "index": 2,
+          "fromRelic": true,
+          "x": 46,
+          "y": 116,
+          "centerX": 258.57336,
+          "centerY": 172.67953,
+          "distance": 220.00002
+        }
+      ],
+      "relics_disabled": 3,
+      "hits": 6,
+      "damage": 30,
+      "per_hit": 5,
+      "visual_events": [
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact"
+      ],
+      "play_at": 3.125,
+      "resolved_at": 7.312999999994645,
+      "recording": {
+        "video_duration_seconds": 9.5,
+        "capture_fps": 28.960547909134267,
+        "frames_captured": 275,
+        "frames_repeated": 10,
+        "frames_dropped": 0,
+        "frames_written": 285,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      },
+      "duration": 9.5,
+      "audio_mean_db": -42.2,
+      "audio_peak_db": -14.9,
+      "longest_identical_frame_run": 1,
+      "unique_lowres_frames": 285,
+      "source_sha256": "18ab801b1398136d04a63bbcf51eb4c8de740b389b1195fafe48593a5704c086"
+    },
+    {
+      "mode": "upgrade",
+      "pairs": [
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 182,
+          "y": 116,
+          "centerX": 387.59998,
+          "centerY": 176.352,
+          "distance": 214.27486
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 114,
+          "y": 116,
+          "centerX": 325.5431,
+          "centerY": 176.41132,
+          "distance": 220.00002
+        },
+        {
+          "index": 2,
+          "fromRelic": true,
+          "x": 46,
+          "y": 116,
+          "centerX": 258.97845,
+          "centerY": 171.13785,
+          "distance": 220.00002
+        }
+      ],
+      "relics_disabled": 3,
+      "hits": 6,
+      "damage": 36,
+      "per_hit": 6,
+      "visual_events": [
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact"
+      ],
+      "play_at": 3.140999999974156,
+      "resolved_at": 7.155999999988126,
+      "recording": {
+        "video_duration_seconds": 9.366666666666667,
+        "capture_fps": 28.90814885384008,
+        "frames_captured": 270,
+        "frames_repeated": 11,
+        "frames_dropped": 0,
+        "frames_written": 281,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      },
+      "duration": 9.366667,
+      "audio_mean_db": -42.2,
+      "audio_peak_db": -15.3,
+      "longest_identical_frame_run": 1,
+      "unique_lowres_frames": 281,
+      "source_sha256": "8c48e6dac985e1a9284efa1ad251acc29efe06aa1c0fbac923743e58e22b36d3"
+    }
+  ],
+  "processing": "Native game speed; no gameplay compositing. Labels are added below the intact viewport.",
+  "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067",
+  "output": "docs/worktree-tasks/karen-x-relic-barrage-20261022/Twin-Stars-VFX-near-relic-showcase.mp4",
+  "output_sha256": "a19a6e95137e28bf64216e1aa16daa43f7c00b21c6f1c5e03f4f34d472ff4f33",
+  "duration": 18.922,
+  "source_hashes": {
+    "mod_dll": "3d1cd19038b149ba398b73e382053447c1354782cb1af805f059285bdb609291",
+    "pck": "1f594212261299ecf352bf8088e2f216e74446a35ca9cf2ea3196955c2fe1639",
+    "mcp_dll": "776a7d77b8a4a44e4edba30a5ac169a43674469b107878387be2abda4829794f",
+    "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067"
+  }
+}

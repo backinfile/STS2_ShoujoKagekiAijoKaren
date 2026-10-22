@@ -1,0 +1,82 @@
+{
+  "synchronizedMain": "b5b94a8d43551dc5c5d643f9b0e962edc6a4b227",
+  "effectFeatureCommit": "a6e6c74",
+  "effectAndHookFilesUnchanged": true,
+  "versions": {
+    "stable": {
+      "passed": true,
+      "loadedAssemblySha256": "1234fcf034ac12a1e108a6e88aaa8399f84d7091b84c7cc49e316c195ad99acd",
+      "visibility": {
+        "width": 1280,
+        "height": 720,
+        "peakChannelDelta": 102,
+        "pixelsDeltaAtLeast30": 54,
+        "backgroundPixelsDeltaAtLeast10": 0,
+        "passed": true
+      },
+      "idle": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 1.8167151,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "startupDiagnostics": [],
+      "runtimeErrors": []
+    },
+    "beta": {
+      "passed": true,
+      "loadedAssemblySha256": "f691307090b90c459de4d65a2c0d41ce6b504b3111ae526651bb5c0298774aca",
+      "visibility": {
+        "width": 1280,
+        "height": 720,
+        "peakChannelDelta": 102,
+        "pixelsDeltaAtLeast30": 52,
+        "backgroundPixelsDeltaAtLeast10": 0,
+        "passed": true
+      },
+      "idle": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 1.3700813,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "startupDiagnostics": [
+        {
+          "line": 244,
+          "text": "ERROR: Invalid Task ID"
+        }
+      ],
+      "runtimeErrors": []
+    }
+  }
+}

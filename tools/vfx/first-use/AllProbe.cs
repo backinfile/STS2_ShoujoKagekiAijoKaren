@@ -64,6 +64,14 @@ public sealed class AllVfxCmd : AbstractConsoleCmd
             var target=p.Creature.CombatState!.GetOpponentsOf(p.Creature).First();
             var card=PileType.Hand.GetPile(p).Cards.First();
             var cases=new List<(string Name,Func<Node?> Create)> {
+                ("twin-stars",()=>NKarenTwinStarsVfx.Begin(p,target,1)),
+                ("past-future",()=> {
+                    var actor=room.GetCreatureNode(p.Creature)!;
+                    var node=new NKarenPastAndFutureRingVfx();
+                    actor.GetParent().AddChild(node);
+                    actor.GetParent().MoveChild(node,actor.GetIndex());
+                    node.Init(actor);return node;
+                }),
                 ("nonon",()=>NKarenNononVfx.Create(p)),
                 ("barrage-start",()=>NKarenShineBarrageVfx.Create(p.Creature,target)),
                 ("barrage-hit",()=>NKarenShineBarrageVfx.Hit(p.Creature,target,0)),
@@ -93,12 +101,30 @@ public sealed class AllVfxCmd : AbstractConsoleCmd
                     if(node==null)throw new Exception("Factory returned null: "+test.Name);
                     if(node.GetParent()==null)room.CombatVfxContainer.AddChild(node);
                     double createMs=Stopwatch.GetElapsedTime(begin).TotalMilliseconds;
+                    if(node is NKarenTwinStarsVfx twins)
+                    {
+                        var sources=(List<Vector2?>)AccessTools.Field(typeof(NKarenTwinStarsVfx),"_relicSources").GetValue(twins)!;
+                        if(sources.Count==0 || sources[0]==null)throw new Exception("Twin Stars did not use a real relic HUD source");
+                        twins.Launch(target,0);await twins.TravelToContact();
+                        twins.Launch(target,1);await twins.TravelToContact();twins.Finish();
+                    }
+                    if(node is NKarenPastAndFutureRingVfx rings)
+                    {
+                        // Render idle traces before the draw accent, then exercise both layers.
+                        await room.ToSignal(tree.CreateTimer(.4),SceneTreeTimer.SignalName.Timeout);
+                        if(rings.GetChildren().OfType<ColorRect>().Count(c=>c.Visible && c.Modulate.A>0)!=3)
+                            throw new Exception("Past and Future ambient traces were not visible");
+                        rings.Pulse();
+                    }
                     await room.ToSignal(tree.CreateTimer(1.4),SceneTreeTimer.SignalName.Timeout);
                     tree.ProcessFrame-=Tick;
                     if(Engine.GetFramesDrawn()-frames<20)throw new Exception("No rendering");
                     passes.Add(new{pass,createMs,maxMs=samples.Max(),over33=samples.Count(x=>x>33.3),samples});
                     if(GodotObject.IsInstanceValid(node)&&!node.IsQueuedForDeletion())node.QueueFree();
                     await room.ToSignal(tree.CreateTimer(.3),SceneTreeTimer.SignalName.Timeout);
+                    if(GodotObject.IsInstanceValid(node))throw new Exception("VFX did not exit: "+test.Name);
+                    if(test.Name=="past-future" && room.GetCreatureNode(p.Creature)!.GetParent().GetChildren().Any(n=>n.Name=="PastAndFutureRingFront"))
+                        throw new Exception("Past and Future front layer leaked");
                 }
                 output.Add(new{effect=test.Name,passes});
             }

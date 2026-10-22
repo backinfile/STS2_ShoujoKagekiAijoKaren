@@ -70,7 +70,7 @@ def tower(label, mode='balance-prepare'):
     amount = power(before, 'KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER')
     cards = [c for c in before['player']['hand'] if c['id'] == 'KAREN_TOWER_OF_PROMISE']
     act('play_card', card_index=cards[-1]['index'])
-    delta = 10 if mode == 'balance-replay' else 5
+    delta = 6 if mode == 'balance-replay' else 3
     s = wait(lambda s: power(s, 'KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER') == amount + delta, label)
     fixture('balance-check', label + '-check')
     check(label, s['player']['block'] == before['player']['block'] and
@@ -112,7 +112,7 @@ try:
     capture('04-other-card-before')
     fixture('balance-ordinary')
     capture('04-other-card-after')
-    check('other-card-does-not-trigger', power(state(), 'KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER') == 20)
+    check('other-card-does-not-trigger', power(state(), 'KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER') == 12)
     s = end_to(2)
     check('expires-without-bottle', power(s, 'KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER') == 0 and power(s, 'STRENGTH_POWER') == 0)
     capture('05-without-bottle-expired')
@@ -124,7 +124,7 @@ try:
     s = tower('06-bottle-first-trigger')
     check('bottle-grants-one-retention', power(s, 'KAREN_RETAIN_TMP_STRENGTH_POWER') == 1)
     s = end_to(2)
-    check('retained-through-one-turn-end', power(s, 'KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER') == 5 and
+    check('retained-through-one-turn-end', power(s, 'KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER') == 3 and
           power(s, 'KAREN_RETAIN_TMP_STRENGTH_POWER') == 0)
     capture('07-retained-next-turn')
     s = tower('08-bottle-no-retrigger')

@@ -254,7 +254,7 @@ except Exception as error:
     print("FAIL", error, flush=True)
 finally:
     report = dict(platform="Windows x64 host / selected Mod package", android_arm64_tested=False,
-        branch=args.branch,effect=args.effect,renderer=args.renderer,measurement_protocol=2 if args.effect=="all" else 1,
+        branch=args.branch,effect=args.effect,renderer=args.renderer,measurement_protocol=3 if args.effect=="all" else 1,
         package_sha256={str(f.relative_to(mods / "ShoujoKagekiAijoKaren")):hashlib.sha256(f.read_bytes()).hexdigest() for f in (mods / "ShoujoKagekiAijoKaren").rglob("*") if f.is_file()},
         results=results)
     (run / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -142,7 +142,7 @@ elif args.phase == 'star':
     strength = power(state(), 'KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER')
     def action():
         play('KAREN_TOWER_OF_PROMISE')
-        wait(lambda s: power(s, 'KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER') == strength + 5, 'five temporary Strength')
+        wait(lambda s: power(s, 'KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER') == strength + 3, 'three temporary Strength')
         capture('04-star-after')
     record(4, 'star', action)
 elif args.phase == 'white':

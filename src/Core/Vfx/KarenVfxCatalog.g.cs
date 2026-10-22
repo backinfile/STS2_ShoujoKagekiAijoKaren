@@ -42,6 +42,7 @@ internal static class KarenVfxCatalog
         "res://ShoujoKagekiAijoKaren/audio/karen_waiting_energy_arrive.wav",
         "res://ShoujoKagekiAijoKaren/video/karen_on_select.ogv",
         "res://ShoujoKagekiAijoKaren/video/last_word.ogv",
+        "res://debug_audio/slash_attack.mp3",
         "res://images/atlases/ui_atlas.sprites/card/card_frame_ancient_s.tres",
         "res://images/atlases/ui_atlas.sprites/card/card_frame_attack_s.tres",
         "res://images/atlases/ui_atlas.sprites/card/card_frame_power_s.tres",
@@ -101,6 +102,10 @@ internal static class KarenVfxCatalog
         "res://images/ui/combat/energy_counters/karen/karen_orb_layer_5.png",
         "res://images/ui/combat/karen_draw_pile_void.png",
         "res://images/ui/configbutton.png",
+        "res://images/ui/flower/chain.png",
+        "res://images/ui/flower/chain.tres",
+        "res://images/ui/flower/chest_cradle.png",
+        "res://images/ui/flower/chest_cradle.tres",
         "res://images/ui/karen_splash.png",
         "res://images/ui/top_panel/character_icon_karen.png",
         "res://images/vfx/arrogant/gold-clasp.png",
@@ -135,6 +140,7 @@ internal static class KarenVfxCatalog
         "res://materials/vfx/jealousy_glint.gdshader",
         "res://materials/vfx/karen_last_word_stage_lights.gdshader",
         "res://materials/vfx/karen_why_edge_light.gdshader",
+        "res://materials/vfx/past_future_trace.gdshader",
         "res://materials/vfx/wake_up_curtain.gdshader",
         "res://scenes/combat/energy_counters/karen_energy_counter.tscn",
         "res://scenes/creature_visuals/karen.tscn",
@@ -232,6 +238,7 @@ internal static class KarenVfxCatalog
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenShineBarrageVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStageCueVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStarVfx",
+        "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenUnforgottenShineVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenWaitingStageVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenWakeUpCardVfx",
@@ -310,5 +317,9 @@ internal static class KarenVfxCatalog
         foreach (var r in ShoujoKagekiAijoKaren.src.Core.Vfx.KarenLightRibbon.PreparedResources) if (r != null) yield return r;
         ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenNononVfx.PrepareResources();
         foreach (var r in ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenNononVfx.PreparedResources) if (r != null) yield return r;
+        ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenPastAndFutureRingVfx.PrepareResources();
+        foreach (var r in ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenPastAndFutureRingVfx.PreparedResources) if (r != null) yield return r;
+        ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx.PrepareResources();
+        foreach (var r in ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx.PreparedResources) if (r != null) yield return r;
     }
 }

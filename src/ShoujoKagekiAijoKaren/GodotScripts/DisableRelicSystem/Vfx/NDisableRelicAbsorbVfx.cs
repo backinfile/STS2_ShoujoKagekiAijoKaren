@@ -22,7 +22,7 @@ public partial class NDisableRelicAbsorbVfx : Node2D
     }
     internal static Godot.Resource?[] PreparedResources => [StarTexture];
 
-    public enum TargetKind { Player, Energy, DrawPile }
+    public enum TargetKind { Player, Energy, DrawPile, None }
     private const int StarCount = 6;
     private const float ScatterDuration = 0.22f;
     private const float FlyDuration = 0.78f;
@@ -53,7 +53,7 @@ public partial class NDisableRelicAbsorbVfx : Node2D
 
     public static void Play(Player player, Vector2 source, TargetKind destination = TargetKind.Player)
     {
-        if (player == null) return;
+        if (player == null || destination == TargetKind.None) return;
         if (NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant) return;
         if (NRun.Instance?.GlobalUi == null || NCombatRoom.Instance is not {} room) return;
         // Remote players must never consume the local player's HUD icons.

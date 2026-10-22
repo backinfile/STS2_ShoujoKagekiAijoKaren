@@ -33,5 +33,7 @@
   "ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx.NDisableRelicAbsorbVfx",
   "ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx.NDisableRelicStarBurstVfx",
   "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenLightRibbon",
-  "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenNononVfx"
+  "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenNononVfx",
+  "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenPastAndFutureRingVfx",
+  "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx"
 ]

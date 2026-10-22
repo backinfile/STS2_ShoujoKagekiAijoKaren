@@ -1,0 +1,132 @@
+[
+  {
+    "source": "artifacts/twin-stars-edge-cases/capture/blocked/after-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-edge-cases/capture/blocked/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-edge-cases/capture/blocked/inspect-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-edge-cases/capture/replay/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-edge-cases/capture/replay/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-edge-cases/capture/replay/inspect-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-edge-cases/capture/replay-short/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-edge-cases/capture/replay-short/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-edge-cases/capture/replay-short/inspect-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,556 @@
+{
+  "selection": "B 星饰解扣",
+  "concept": "concept-B.png",
+  "concept_generator": "Built-in image_gen; design reference only",
+  "prompt": "concept-B-prompt.txt",
+  "scope": "Targeted single-player; full single-player/multiplayer matrix not run",
+  "revision": "Initial complete VFX, before the scale/color-only refinement",
+  "variants": {
+    "stable": {
+      "passed": true,
+      "results": [
+        {
+          "case": "blocked",
+          "passed": true,
+          "energy": 3,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "visual_events": [],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "zero",
+          "passed": true,
+          "energy": 0,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "visual_events": [],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "three",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "visual_events": [
+            "gather",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact"
+          ],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 36,
+          "visual_events": [
+            "gather",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact"
+          ],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "replay",
+          "passed": true,
+          "energy": 2,
+          "hits": 8,
+          "relics_disabled": 4,
+          "damage": 40,
+          "visual_events": [
+            "gather",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gather",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact"
+          ],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "fast",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "visual_events": [
+            "gather",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact"
+          ],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "instant",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "visual_events": [],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "combat-end-restoration",
+          "passed": true,
+          "restored": 3
+        },
+        {
+          "case": "lethal",
+          "passed": true,
+          "hits": 1,
+          "visual_events": [
+            "gather",
+            "gold",
+            "contact"
+          ],
+          "active_vfx_after": 0,
+          "relics_restored": true
+        }
+      ],
+      "hand_checks": [
+        {
+          "case": "blocked",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "blocked",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "fast",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "fast",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "instant",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "instant",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "lethal",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "lethal",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "replay",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "replay",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "three",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "three",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "upgrade",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "upgrade",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "zero",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "zero",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        }
+      ],
+      "screenshot_count": 16,
+      "errors": [],
+      "package_hashes": {
+        "ShoujoKagekiAijoKaren.pck": "1f594212261299ecf352bf8088e2f216e74446a35ca9cf2ea3196955c2fe1639",
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "213d45529ca8bbe18abf525c6c750534de7052e944dffdb7e8fd81da652fe9a9"
+      }
+    },
+    "beta": {
+      "passed": true,
+      "results": [
+        {
+          "case": "blocked",
+          "passed": true,
+          "energy": 3,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "visual_events": [],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "zero",
+          "passed": true,
+          "energy": 0,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "visual_events": [],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "three",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "visual_events": [
+            "gather",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact"
+          ],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 36,
+          "visual_events": [
+            "gather",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact"
+          ],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "replay",
+          "passed": true,
+          "energy": 2,
+          "hits": 8,
+          "relics_disabled": 4,
+          "damage": 40,
+          "visual_events": [
+            "gather",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gather",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact"
+          ],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "fast",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "visual_events": [
+            "gather",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact",
+            "gold",
+            "contact",
+            "pink",
+            "contact"
+          ],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "instant",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "visual_events": [],
+          "active_vfx_after": 0
+        },
+        {
+          "case": "combat-end-restoration",
+          "passed": true,
+          "restored": 3
+        },
+        {
+          "case": "lethal",
+          "passed": true,
+          "hits": 1,
+          "visual_events": [
+            "gather",
+            "gold",
+            "contact"
+          ],
+          "active_vfx_after": 0,
+          "relics_restored": true
+        }
+      ],
+      "hand_checks": [
+        {
+          "case": "blocked",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "blocked",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "fast",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "fast",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "instant",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "instant",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "lethal",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "lethal",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "replay",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "replay",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "three",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "three",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "upgrade",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "upgrade",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        },
+        {
+          "case": "zero",
+          "stage": "after-hand",
+          "passed": true,
+          "model_count": 0,
+          "visual_count": 0
+        },
+        {
+          "case": "zero",
+          "stage": "before-hand",
+          "passed": true,
+          "model_count": 1,
+          "visual_count": 1
+        }
+      ],
+      "screenshot_count": 16,
+      "errors": [],
+      "package_hashes": {
+        "ShoujoKagekiAijoKaren.pck": "1f594212261299ecf352bf8088e2f216e74446a35ca9cf2ea3196955c2fe1639",
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "7d9ec2627f23b65d3ba828bac6bf1508afeb7137f095da5520f6a158c2068ebd"
+      }
+    }
+  }
+}

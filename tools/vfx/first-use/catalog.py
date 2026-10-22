@@ -6,7 +6,7 @@ GENERATED=ROOT/'src/Core/Vfx/KarenVfxCatalog.g.cs'
 OWNER_FILE=Path(__file__).with_name('resource-owners.json')
 # Include complete directories, so dynamically assembled resource paths are covered too.
 DIRS=['images/vfx','images/packed/vfx','materials','shaders','themes','scenes',
-      'images/ui/combat','images/ui/top_bar','images/powers','ShoujoKagekiAijoKaren/audio','ShoujoKagekiAijoKaren/video']
+      'images/ui/combat','images/ui/flower','images/ui/top_bar','images/powers','ShoujoKagekiAijoKaren/audio','ShoujoKagekiAijoKaren/video']
 EXTS={'.png','.jpg','.tres','.tscn','.gdshader','.wav','.ogg','.mp3','.ogv'}
 def assets():
  result={p.relative_to(ROOT).as_posix() for d in DIRS for p in (ROOT/d).rglob('*') if p.suffix.lower() in EXTS}
@@ -14,7 +14,7 @@ def assets():
   if p==GENERATED:continue
   for path in re.findall(r'"res://([^"{}]+)"',p.read_text(encoding='utf-8-sig')):
    if (ROOT/path).is_file() and Path(path).suffix.lower() in EXTS:result.add(path)
- result.update(["scenes/vfx/vfx_shiv_throw.tscn"]+["images/atlases/ui_atlas.sprites/card/card_frame_"+k+"_s.tres" for k in ["attack","skill","power","quest","ancient"]])
+ result.update(["scenes/vfx/vfx_shiv_throw.tscn", "debug_audio/slash_attack.mp3"]+["images/atlases/ui_atlas.sprites/card/card_frame_"+k+"_s.tres" for k in ["attack","skill","power","quest","ancient"]])
  return sorted(result)
 def effects():
  result={}

@@ -1,0 +1,67 @@
+{
+  "clips": [
+    {
+      "mode": "normal",
+      "relics_disabled": 3,
+      "hits": 6,
+      "damage": 30,
+      "per_hit": 5,
+      "play_at": 3.109000000025844,
+      "resolved_at": 5.547000000020489,
+      "recording": {
+        "video_duration_seconds": 7.733333333333333,
+        "capture_fps": 29.630817737721742,
+        "frames_captured": 229,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "frames_written": 232,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      },
+      "duration": 7.733008,
+      "audio_mean_db": -38.5,
+      "audio_peak_db": -14.6,
+      "longest_identical_frame_run": 1,
+      "unique_lowres_frames": 232,
+      "source_sha256": "3d34f9d89cc03b27c1f1486fb4c384f7ab68b0fee9e2f5d04558a5832c6e248f"
+    },
+    {
+      "mode": "upgrade",
+      "relics_disabled": 3,
+      "hits": 6,
+      "damage": 36,
+      "per_hit": 6,
+      "play_at": 3.125,
+      "resolved_at": 5.405999999988126,
+      "recording": {
+        "video_duration_seconds": 7.6,
+        "capture_fps": 29.94271444292767,
+        "frames_captured": 227,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "frames_written": 228,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      },
+      "duration": 7.6,
+      "audio_mean_db": -38.5,
+      "audio_peak_db": -15.2,
+      "longest_identical_frame_run": 1,
+      "unique_lowres_frames": 228,
+      "source_sha256": "6fabe9f7ace19a6261769f2d8725757ab96785d70097d8a0119e3b4be0b433dd"
+    }
+  ],
+  "processing": "Native game speed; no gameplay compositing. Labels are added below the intact viewport.",
+  "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067",
+  "output": "docs/worktree-tasks/karen-x-relic-barrage-20261022/Twin-Stars-showcase.mp4",
+  "output_sha256": "79821606181321830769f03b90e2ccc59c2d14869381d8d79b0a22d00c4a21fb",
+  "duration": 15.381333,
+  "source_hashes": {
+    "mod_dll": "9a15a31156deb939b8e6dc12aff47b2858082d584f4f963442de937d0e720ff2",
+    "pck": "d7cbaff6280291351ca50552cd85bdb9d5fbf027039665926fc13335e49cd9e7",
+    "mcp_dll": "776a7d77b8a4a44e4edba30a5ac169a43674469b107878387be2abda4829794f",
+    "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067"
+  }
+}
