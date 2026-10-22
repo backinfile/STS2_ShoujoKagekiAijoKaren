@@ -13,13 +13,13 @@ namespace ShoujoKagekiAijoKaren.src.Models.Relics;
 
 public sealed class KarenMrWhiteRelic : KarenBaseRelic
 {
-    private bool _used;
+    private int _lastTriggeredTurn;
     public override RelicRarity Rarity => RelicRarity.Rare;
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [MechanicTip("KAREN_PROMISE_PILE")];
 
     public override Task BeforeCombatStart()
     {
-        _used = false;
+        _lastTriggeredTurn = 0;
         Status = RelicStatus.Normal;
         return Task.CompletedTask;
     }
@@ -27,11 +27,14 @@ public sealed class KarenMrWhiteRelic : KarenBaseRelic
     public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side,
         IEnumerable<Creature> participants)
     {
-        if (_used || side != CombatSide.Player || !participants.Contains(Owner.Creature) ||
-            Owner.PlayerCombatState!.TurnNumber != 1) return;
+        if (side != CombatSide.Player || !participants.Contains(Owner.Creature)) return;
 
-        _used = true;
-        Status = RelicStatus.Disabled;
+        var turnNumber = Owner.PlayerCombatState!.TurnNumber;
+        if (turnNumber is < 1 or > 2 || turnNumber <= _lastTriggeredTurn) return;
+
+        // Consume only this turn's opportunity, even if the hand is empty.
+        _lastTriggeredTurn = turnNumber;
+        Status = turnNumber == 2 ? RelicStatus.Disabled : RelicStatus.Normal;
         var count = PileType.Hand.GetPile(Owner).Cards.Count;
         if (count == 0) return;
         Flash();

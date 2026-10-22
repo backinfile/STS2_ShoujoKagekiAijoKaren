@@ -28,7 +28,7 @@
   "KAREN_BASEBALL_CAT_RELIC.flavor": "Suzdal Cat is ready to take the field!",
 
   "KAREN_MR_WHITE_RELIC.title": "Mr. White",
-  "KAREN_MR_WHITE_RELIC.description": "At the end of your first turn each combat, you may put any number of cards from your hand into your [gold]Promise Pile[/gold].",
+  "KAREN_MR_WHITE_RELIC.description": "At the end of each of your first [blue]2[/blue] turns each combat, you may put any number of cards from your hand into your [gold]Promise Pile[/gold].",
   "KAREN_MR_WHITE_RELIC.flavor": "Keep what you want to carry into tomorrow.",
 
   "KAREN_LITTLE_STAR_RELIC.title": "Little Star",
@@ -36,6 +36,6 @@
   "KAREN_LITTLE_STAR_RELIC.flavor": "Even a little star can light the way back.",
 
   "KAREN_STAR_TIARA_RELIC.title": "Star Crown",
-  "KAREN_STAR_TIARA_RELIC.description": "At the start of each turn, [gold]disable[/gold] [blue]1[/blue] relic and gain [blue]{Energy}[/blue] Energy.",
+  "KAREN_STAR_TIARA_RELIC.description": "At the start of each turn, [gold]disable[/gold] [blue]1[/blue] relic and gain {Energy:energyIcons()}.",
   "KAREN_STAR_TIARA_RELIC.flavor": "Those who reach for the stars still pay a price for their next performance."
 }

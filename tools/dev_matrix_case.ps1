@@ -10,6 +10,7 @@ param(
     [switch]$PromiseTurnEndRegression,
     [switch]$ReviewRegression,
     [switch]$SevenRelicRegression,
+    [switch]$MrWhiteRegression,
     [switch]$Headless,
     [string]$ClientGamesRoot = '',
     [ValidateSet('host','client')][string]$ShineActor = 'host'
@@ -33,6 +34,10 @@ $hostExe = Join-Path $hostGame 'SlayTheSpire2.exe'
 $clientExe = Join-Path $clientGame 'SlayTheSpire2.exe'
 $hostPort = if ($Branch -eq 'stable') { 15627 } else { 15628 }
 $clientPort = if ($Branch -eq 'stable') { 15629 } else { 15630 }
+if ($MrWhiteRegression) {
+    $hostPort = if ($Branch -eq 'stable') { 15767 } else { 15768 }
+    $clientPort = if ($Branch -eq 'stable') { 15769 } else { 15770 }
+}
 $hostId = $CaseId * 10
 $clientId = $hostId + 1
 $hostProcess = $null
@@ -133,7 +138,7 @@ function Stop-Verified([object]$process, [string]$expectedPath) {
     $running.WaitForExit(5000) | Out-Null
 }
 
-if ($ReviewRegression) {
+if ($ReviewRegression -or $MrWhiteRegression) {
     for ($attempt = 0; $attempt -lt 30; $attempt++) {
         $udpBusy = Get-NetUDPEndpoint -LocalPort 33771 -ErrorAction SilentlyContinue
         $tcpBusy = Get-NetTCPConnection -LocalPort $hostPort,$clientPort -State Listen -ErrorAction SilentlyContinue
@@ -160,15 +165,22 @@ if ($SevenRelicRegression) {
     . (Join-Path $PSScriptRoot 'relic-regression/mp-actions.ps1')
 }
 
+if ($MrWhiteRegression) {
+    $caseName += '-mr-white-regression'
+    . (Join-Path $PSScriptRoot 'relic-regression/mr-white-actions.ps1')
+}
+
 try {
     $hostProcess = Start-Game $hostGame $hostRoot 'host_standard' $hostId
+    if ($MrWhiteRegression) { Wait-MrWhiteMcp $hostRoot }
     $null = Wait-State $hostPort 'singleplayer' { param($s) $s.menu_screen -eq 'character_select' } 'host lobby'
-    if (-not ($SevenRelicRegression -or $PromiseRegression -or $PromiseTurnEndRegression)) {
+    if (-not ($SevenRelicRegression -or $PromiseRegression -or $PromiseTurnEndRegression -or $MrWhiteRegression)) {
         $null = Invoke-RestMethod -Uri "http://127.0.0.1:$hostPort/api/v1/window/minimize" -Method Post -TimeoutSec 5
     }
     $clientProcess = Start-Game $clientGame $clientRoot 'join' $clientId
+    if ($MrWhiteRegression) { Wait-MrWhiteMcp $clientRoot }
     $null = Wait-State $clientPort 'singleplayer' { param($s) $s.lobby.player_count -eq 2 } 'joined lobby'
-    if (-not ($SevenRelicRegression -or $PromiseRegression -or $PromiseTurnEndRegression)) {
+    if (-not ($SevenRelicRegression -or $PromiseRegression -or $PromiseTurnEndRegression -or $MrWhiteRegression)) {
         $null = Invoke-RestMethod -Uri "http://127.0.0.1:$clientPort/api/v1/window/minimize" -Method Post -TimeoutSec 5
     }
 
@@ -196,6 +208,7 @@ try {
         $null = Wait-State $port 'multiplayer' { param($s) $s.state_type -eq 'map' } 'map'
     }
     if ($SevenRelicRegression) { Initialize-SevenRelicCase }
+    if ($MrWhiteRegression) { Initialize-MrWhiteCase }
     foreach ($port in @($hostPort, $clientPort)) {
         $null = Post-Action $port 'multiplayer' @{ action='choose_map_node'; index=0 }
     }
@@ -204,6 +217,11 @@ try {
     }
     if ($SevenRelicRegression) {
         Invoke-SevenRelicCase | ConvertTo-Json -Compress
+        return
+    }
+
+    if ($MrWhiteRegression) {
+        Invoke-MrWhiteCase | ConvertTo-Json -Compress
         return
     }
 
