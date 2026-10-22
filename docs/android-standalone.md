@@ -2,15 +2,15 @@
 
 当前交付为正式版 v0.107.1 + Karen v0.1.3 + BaseLib v3.4.7 的本地直装测试 APK。游戏本体、模组、Android 运行时与对应兼容层已经放入包内；安装后首次自动解包，随后进入游戏。没有启动器首页、账号下载、导入页面或版本/配置选择流程。
 
-本轮已把新增特效适配合入源码；现存 r4 APK 生成于这些 main 更新之前，不包含新增双子星/过去与未来/花朵整合。本轮未重打 APK。后续交付新包需重新构建并按 `AGENTS.md` 校验。
+r5 已包含最新 main 特效适配与此前保留的静音调整，包括双子星、过去与未来、花朵界面及共用光带分配修复；发布校验针对最终签名包执行。Android 真机未测，按测试候选包交付。
 
 ## 安装与运行
 
-- 产物：`artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r4.apk`，2,046,717,577 字节，约 1.91 GiB。
+- 产物：`artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r5.apk`，2,047,385,225 字节，约 1.91 GiB。
 - Android 7.0/API 24 以上，仅 ARM64；建议预留至少 8 GB 可用存储空间，用于 APK、系统安装副本、首次解包和游戏缓存。
-- 应用名称为“塔2 · 华恋”，独立包名 `com.karenmod.sts2hd`，versionCode 为 10016，不使用此前 importer APK 的数据目录。
+- 应用名称为“塔2 · 华恋”，独立包名 `com.karenmod.sts2hd`，versionCode 为 10017，不使用此前 importer APK 的数据目录。
 - 第一次打开仅显示自动准备进度；准备完成后进入游戏。之后启动只检查安装标记和程序文件大小，避免反复解包整个本体。
-- r4 与原测试包使用相同包名和测试签名，可以覆盖安装；旧 r1/r2/r3 APK 已清理。
+- r5 与原测试包使用相同包名和测试签名，可以覆盖安装 r4；r4 保留作回退候选，旧 r1/r2/r3 APK 已清理。
 - 主菜单 → 设置 → Mods → 少女歌剧／爱城华恋 →「一键解锁全部」：解锁当前存档的全部角色、卡牌、遗物、药水、时间线和进阶（包括华恋），保留胜负、游玩时长和成就。解锁前自动保存独立备份；已有对局的解锁快照不改写，建议随后开新局。按钮仅在主菜单执行。
 - Karen/BaseLib 随本体安装并默认开启 Mod。存档/设置放在私有用户目录，程序文件更新不会覆盖它们。
 - 原版游戏设置保留；兼容层的 Android 设置按钮打开本项目自己的小型对话框，可设置画面兼容、声音兼容与横屏翻转，重启生效。退出游戏不会返回外部启动器。
@@ -61,7 +61,7 @@ Windows 环境需要 Python 3.11 以上与 .NET 9 SDK（用于真实游戏设置
 可复测安装逻辑与实际 APK 解包：
 
 ```powershell
-python tools/android-standalone/test.py --apk artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r4.apk
+python tools/android-standalone/test.py --apk artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r5.apk
 ```
 
 证据：`validation.json`、`badging.txt`、`signature.txt`、`pck-patch.json`、`installer-checks/`、`inspect/`、`build.log`，均位于 `artifacts/android-direct/`。这些检查证明打包和程序安装路径通过，不能证明 Android ARM64/Mono 和实际游戏运行已经通过。
@@ -72,3 +72,9 @@ python tools/android-standalone/test.py --apk artifacts/android-direct/StS2-Kare
 当前产物为 `artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r4.apk`（versionCode 10016，2046717577 字节，SHA-256 `1f75385f2ce044965e4d7d41e09471f1bfdc061cc1da75099637a8d2b1d97d66`）。与旧包同包名/签名，可覆盖安装；包含全目录预载、共用生成资源/轮廓缓存、实际离屏 Shader/粒子绘制准备和缓存保留。首轮主菜单加载本机增加约 1.5–4 秒。
 
 双版本 PC 全览各 29 组 × 3 次、闪耀/塔桥/真实移牌专项、最终签名/安装/完整解包及受测 Mod 哈希核查已完成；Android 真机仍未测，测试版原生预载错误待审，当前仅为测试候选包，不能据此宣称正式发布校验全部通过。完整记录见 `docs/testing/vfx-prewarm-2026-10-22.md`。旧导入器/r1/r2/r3 及重复构建/解包临时目录已按用户要求清理；保留密钥、最新包与测试证据。发布前主动执行 `tools/vfx/first-use/release_check.py`，流程要求见 `AGENTS.md`。
+
+## r5：最新源码整合候选包
+
+`artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r5.apk`，versionCode `10017`，versionName `0.107.1-karen.0.1.3.5`；2047385225 字节，SHA-256 `96c64e4f41132bd10141f0550edd0ecd92a9708e83b93ee7eaf633c8fd6eba0c`。沿用同包名与本地测试签名；Mod 来自源码提交 `3545c95`，游戏和 BaseLib 版本保持上述组合。
+
+本轮含最新双子星、过去与未来光痕、花朵 UI 的加载准备、光带复用缓冲，以及先前保留的静音约定。v2/v3 签名、版本/入口/ARM64 清单、213 个程序文件的包内哈希检查通过。最终包的八项双版本首播专项、每版七项功能 smoke、12 项安装回归及完整解包核验通过；Beta 两项保留既有原生预载错误待审，Android 真机未测，发布门禁为 pending。详情见 [r5 验证记录](testing/android-r5-2026-10-22.md)。
