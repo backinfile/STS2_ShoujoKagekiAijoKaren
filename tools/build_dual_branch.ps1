@@ -1,13 +1,18 @@
-param([string]$MegaDot = 'D:\Godot\megadot-4.5.1-m.12-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64.exe')
+param(
+    [string]$MegaDot = 'D:\Godot\megadot-4.5.1-m.12-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64.exe',
+    [ValidateSet('Desktop', 'Android')][string]$Target = 'Desktop'
+)
 
 $ErrorActionPreference = 'Stop'
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $modId = 'ShoujoKagekiAijoKaren'
-$packageRoot = [IO.Path]::GetFullPath((Join-Path $project 'artifacts'))
+$artifactRoot = [IO.Path]::GetFullPath((Join-Path $project 'artifacts'))
+$packageRoot = if ($Target -eq 'Android') { Join-Path $artifactRoot 'android' } else { $artifactRoot }
+$exportPreset = if ($Target -eq 'Android') { 'Android Mod Resources' } else { 'Windows Desktop' }
 $modDir = [IO.Path]::GetFullPath((Join-Path $packageRoot $modId))
 # Reference extracts may contain native resource UIDs; exclude them before Godot scans.
 New-Item -ItemType Directory -Force -Path $packageRoot | Out-Null
-New-Item -ItemType File -Force -Path (Join-Path $packageRoot '.gdignore') | Out-Null
+New-Item -ItemType File -Force -Path (Join-Path $artifactRoot '.gdignore') | Out-Null
 if (-not (Test-Path -LiteralPath $MegaDot)) {
     throw "MegaDot missing: $MegaDot"
 }
@@ -31,6 +36,7 @@ function Build-OrThrow([string]$projectPath, [string]$configuration, [string[]]$
 
 $modProject = Join-Path $project ($modId + '.csproj')
 $commonArgs = @('-p:Sts2ReferenceMode=package')
+$commonArgs += if ($Target -eq 'Android') { '-p:KarenAndroidBuild=true' } else { '-p:KarenAndroidBuild=false' }
 $godotOutput = Join-Path $project '.godot/mono/temp/bin/ExportRelease'
 
 # Build the original project identity first so Godot can export the shared assets.
@@ -38,17 +44,20 @@ Build-OrThrow $modProject 'ExportRelease' ($commonArgs + @('-p:Sts2Api=stable'))
 Push-Location $project
 $previousReferenceMode = $env:Sts2ReferenceMode
 $previousApi = $env:Sts2Api
+$previousAndroidBuild = $env:KarenAndroidBuild
 try {
     # Godot invokes dotnet publish during export; keep it on the same stable
     # reference assemblies used by the preceding build.
     $env:Sts2ReferenceMode = 'package'
     $env:Sts2Api = 'stable'
-    & $MegaDot --headless --export-pack 'Windows Desktop' (Join-Path $modDir ($modId + '.pck'))
+    $env:KarenAndroidBuild = if ($Target -eq 'Android') { 'true' } else { 'false' }
+    & $MegaDot --headless --export-pack $exportPreset (Join-Path $modDir ($modId + '.pck'))
     if ($LASTEXITCODE -ne 0) { throw 'PCK export failed.' }
 }
 finally {
     $env:Sts2ReferenceMode = $previousReferenceMode
     $env:Sts2Api = $previousApi
+    $env:KarenAndroidBuild = $previousAndroidBuild
     Pop-Location
 }
 
@@ -86,4 +95,4 @@ foreach ($required in @("$modId.dll", "$modId.pck", "$modId.json", "lib/$modId.S
         throw "Incomplete package: $required"
     }
 }
-Write-Host "Dual-branch package: $modDir"
+Write-Host "$Target dual-branch package: $modDir"

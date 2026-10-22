@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Nodes.Screens;
 using MegaCrit.Sts2.Core.Nodes.Screens.Capstones;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using static Godot.Control;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 
@@ -33,21 +34,15 @@ public static class NCreatureClickPatch
 
         // 确保 Hitbox 能接收鼠标事件
         __instance.Hitbox.MouseFilter = MouseFilterEnum.Stop;
-        __instance.Hitbox.Connect(
-            Control.SignalName.GuiInput,
-            Callable.From<InputEvent>(evt => OnHitboxInput(__instance, evt, player))
-        );
+        KarenPileInput.Bind(__instance.Hitbox,
+            () => CanInspectPile(__instance, player),
+            () => TryOpenPile(__instance, player),
+            () => __instance.ShowHoverTips(player.Creature.GetPower<KarenPromisePilePower>()!.HoverTips),
+            __instance.HideHoverTips);
         MainFile.Logger.Info($"Added click event to player {player.Creature.Name} Hitbox");
     }
 
-    private static void OnHitboxInput(NCreature creature, InputEvent evt, Player player)
-    {
-        if (evt is not InputEventMouseButton mb) return;
-        if (mb.ButtonIndex != MouseButton.Left || mb.Pressed) return;
-        if (TryOpenPile(creature, player)) creature.GetViewport().SetInputAsHandled();
-    }
-
-    internal static bool TryOpenPile(NCreature creature, Player player)
+    internal static bool CanInspectPile(NCreature creature, Player player)
     {
         if (!LocalContext.IsMe(player) || !CombatManager.Instance.IsInProgress) return false;
         if (NCombatRoom.Instance?.Ui.Hand.InCardPlay == true) return false;
@@ -62,6 +57,12 @@ public static class NCreatureClickPatch
         // Modal screens handle their own clicks. Do not replace an unrelated screen.
         if (NCapstoneContainer.Instance?.CurrentCapstoneScreen is { } current && current is not NCardPileScreen) return false;
 
+        return true;
+    }
+
+    internal static bool TryOpenPile(NCreature creature, Player player)
+    {
+        if (!CanInspectPile(creature, player)) return false;
         // Void 模式：打开抽牌堆界面
         if (PromisePileManager.IsVoidMode(player))
         {

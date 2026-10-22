@@ -91,6 +91,7 @@ public partial class KarenSplashScreen : Control
     {
         // 点击或按键跳过（与 STS1 逻辑一致）
         if (@event is InputEventMouseButton { Pressed: true }
+            || @event is InputEventScreenTouch { Pressed: true, Canceled: false }
             || @event.IsActionPressed("ui_accept")
             || @event.IsActionPressed("ui_cancel"))
         {

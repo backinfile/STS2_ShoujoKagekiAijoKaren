@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -45,20 +46,10 @@ public partial class NKarenPromiseStarNode
         };
         hitbox.MouseExited += HideTowerHoverTips;
         hitbox.TreeExiting += HideTowerHoverTips;
-        bool pressedHere = false;
-        hitbox.GuiInput += input =>
-        {
-            if (input is not InputEventMouseButton { ButtonIndex: MouseButton.Left } mouse) return;
-            if (mouse.Pressed)
-            {
-                pressedHere = NCombatRoom.Instance?.Ui.Hand.InCardPlay != true
-                    && !NTargetManager.Instance.IsInSelection;
-                return;
-            }
-            bool clicked = pressedHere && hitbox._HasPoint(mouse.Position);
-            pressedHere = false;
-            if (clicked && NCreatureClickPatch.TryOpenPile(_creature, player)) hitbox.AcceptEvent();
-        };
+        KarenPileInput.Bind(hitbox,
+            () => NCreatureClickPatch.CanInspectPile(_creature, player),
+            () => NCreatureClickPatch.TryOpenPile(_creature, player),
+            ShowTowerHoverTips, HideTowerHoverTips, hitbox._HasPoint);
     }
 
     // Follow the painted silhouette, including the spaces between its steelwork.

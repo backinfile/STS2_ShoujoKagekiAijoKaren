@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.karenmod.sts2hd" android:versionCode="10013" android:versionName="0.107.1-karen.0.1.3">
+<uses-sdk android:minSdkVersion="24" android:targetSdkVersion="35"/>
+<uses-feature android:glEsVersion="0x00030000" android:required="true"/>
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+<uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+<uses-permission android:name="android.permission.VIBRATE"/>
+<application android:name="com.karen.sts2.DirectApplication" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:label="塔2 · 华恋" android:icon="@*com.megacrit.sts2re:mipmap/icon" android:allowBackup="false" android:debuggable="false" android:extractNativeLibs="true" android:appCategory="game" android:theme="@android:style/Theme.Material.NoActionBar.Fullscreen">
+<meta-data android:name="org.godotengine.library.version" android:value="4.5.1.stable"/>
+<meta-data android:name="org.godotengine.plugin.v2.FmodPlugin" android:value="com.utopiarise.godot.fmod.android.plugin.FmodPlugin"/>
+<provider android:name="androidx.startup.InitializationProvider" android:authorities="com.karenmod.sts2hd.androidx-startup" android:exported="false">
+<meta-data android:name="androidx.lifecycle.ProcessLifecycleInitializer" android:value="androidx.startup"/>
+</provider>
+<activity android:name="com.karen.sts2.PrepareGameActivity" android:exported="true" android:screenOrientation="sensorLandscape">
+<intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+</activity>
+<activity android:name="com.karen.sts2.GameHost" android:exported="false" android:screenOrientation="sensorLandscape" android:launchMode="singleTask" android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize|screenLayout|uiMode|density|keyboard|navigation|touchscreen|layoutDirection"/>
+<activity android:name="org.godotengine.godot.utils.ProcessPhoenix" android:exported="false" android:process=":phoenix"/>
+</application></manifest>

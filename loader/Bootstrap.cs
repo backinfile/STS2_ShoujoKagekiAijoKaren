@@ -21,12 +21,8 @@ public static class Bootstrap
         if (_selectedAssembly is not null) return;
 
         var version = ReleaseInfoManager.Instance.SemVer;
-        var isStable = version.CompareTo(new SemanticVersion(0, 107, 1)) == 0;
-        var isBeta = version.CompareTo(new SemanticVersion(0, 111, 0)) == 0;
-        var variant = isBeta ? "Beta" : "Stable";
-        _usesStableApi = !isBeta;
-        if (!isStable && !isBeta)
-            Log.Warn($"[KarenLoader] Unknown game version {version}; falling back to Stable implementation built for v0.107.1.");
+        var variant = SelectVariant(version);
+        _usesStableApi = variant == "Stable";
 
         var loaderAssembly = typeof(Bootstrap).Assembly;
         var loaderDir = Path.GetDirectoryName(loaderAssembly.Location)
@@ -55,6 +51,20 @@ public static class Bootstrap
         var entry = implementation.GetType("ShoujoKagekiAijoKaren.MainFile", throwOnError: true)!;
         entry.GetMethod("Initialize", BindingFlags.Public | BindingFlags.Static)!.Invoke(null, null);
         Log.Info($"[KarenLoader] Loaded {variant} implementation for game {version}.");
+    }
+
+    // Android launchers can import a different PC game version. Reject it before
+    // loading an incompatible implementation; desktop keeps its existing fallback.
+    internal static string SelectVariant(SemanticVersion version)
+    {
+        if (version.CompareTo(new SemanticVersion(0, 111, 0)) == 0) return "Beta";
+        if (version.CompareTo(new SemanticVersion(0, 107, 1)) == 0) return "Stable";
+#if KAREN_ANDROID
+        throw new NotSupportedException($"Karen Android supports game v0.107.1 and v0.111.0; found {version}. Select a matching game and Android compatibility pack.");
+#else
+        Log.Warn($"[KarenLoader] Unknown game version {version}; falling back to Stable implementation built for v0.107.1.");
+        return "Stable";
+#endif
     }
 
     internal static Type[] SelectedTypes => _selectedAssembly?.GetTypes() ?? [];

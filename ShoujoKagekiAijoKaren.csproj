@@ -1,9 +1,10 @@
-﻿<Project Sdk="Godot.NET.Sdk/4.5.1">
+<Project Sdk="Godot.NET.Sdk/4.5.1">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <Nullable>enable</Nullable>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget Condition="'$(KarenAndroidBuild)' != 'true'">x64</PlatformTarget>
+    <PlatformTarget Condition="'$(KarenAndroidBuild)' == 'true'">AnyCPU</PlatformTarget>
     <Sts2Api Condition="'$(Sts2Api)' == ''">stable</Sts2Api>
     <DefineConstants Condition="'$(Sts2Api)' == 'beta'">$(DefineConstants);STS2_BETA</DefineConstants>
     <Sts2GameDir Condition="'$(Sts2GameDir)' == ''">D:\App\Stream\steamapps\common\Slay the Spire 2</Sts2GameDir>

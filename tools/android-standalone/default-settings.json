@@ -1,0 +1,25 @@
+{
+  "schema_version": 5,
+  "language": "zhs",
+  "fullscreen": true,
+  "fps_limit": 60,
+  "msaa": 0,
+  "resize_windows": true,
+  "volume_master": 0.5,
+  "volume_bgm": 0.5,
+  "volume_sfx": 0.5,
+  "volume_ambience": 0.5,
+  "shader_compatibility_mode": true,
+  "global_scale": 1.0,
+  "ui_font_scale_percent": 100,
+  "touch_lift_preview": true,
+  "mobile_selection_confirmation": true,
+  "mobile_two_finger_inspect": true,
+  "audio_compatibility_mode": false,
+  "android_screen_rotation_mode": "auto",
+  "android_flip_screen_180": false,
+  "mod_settings": {
+    "mods_enabled": true,
+    "mod_list": []
+  }
+}

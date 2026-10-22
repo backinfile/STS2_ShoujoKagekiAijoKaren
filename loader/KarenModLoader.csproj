@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
+    <DefineConstants Condition="'$(KarenAndroidBuild)' == 'true'">$(DefineConstants);KAREN_ANDROID</DefineConstants>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>ShoujoKagekiAijoKaren</AssemblyName>
