@@ -193,13 +193,17 @@
   "flower_runtime_synchronized_main": "5c7aa359d1f9a1fa9b432c7b43e2a6f265d8c548",
   "integration": {
     "authorization": "合并并清理分支",
-    "status": "ready_for_fast_forward",
+    "status": "fast_forwarded_and_verified",
     "target_branch": "main",
     "target_before": "2172f99f57cb6f39fbaab9b8c8163fa78bec1f58",
     "approved_task_commit": "ccd38dda385276259066953777c7552213ee561b",
     "synchronization": "documentation only; runtime sources unchanged",
     "original_uncommitted_files_preserved": 13,
     "retained_artifacts": "artifacts/flower-relic-20261022-final-ccd38dd",
-    "cleanup_authorized": true
+    "cleanup_authorized": true,
+    "first_merged_commit": "f7b0e43512244e257c83012212361f8f6b3798af",
+    "committed_trees_match": true,
+    "original_status_and_hashes_preserved": true,
+    "cleanup_result_audit": "artifacts/flower-relic-20261022-final-ccd38dd/integration-audit.json"
   }
 }
