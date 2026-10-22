@@ -1,0 +1,74 @@
+{
+  "originalCheckout": "<original-checkout>",
+  "branch": "main",
+  "revision": "dc919b95c4ae7fe7a83a8ca02c44820437d88454",
+  "status": [
+    " M docs/21.特效总览与兼容约定.md",
+    " M src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBenefitVfx.cs",
+    " M src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenExchangeFateVfx.cs",
+    " M src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.cs",
+    " M src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs",
+    " M src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWaitingStageVfx.cs",
+    " M tools/vfx/catalog/WaitingStageProbe.cs",
+    " M tools/vfx/catalog/latest_scenes.py",
+    " M tools/vfx/catalog/record.py",
+    " M tools/vfx/catalog/verify_waiting_stage.py",
+    " M tools/vfx/catalog/waiting_audio_scenes.py",
+    "?? tools/vfx/catalog/RelicDetailsShowcase.cs",
+    "?? tools/vfx/catalog/SfxAudit.cs"
+  ],
+  "files": [
+    {
+      "path": "tools/vfx/catalog/RelicDetailsShowcase.cs",
+      "sha256": "BD0DFAA160018C5E3E4AB0F82F206ECB84731D3048367A9ADDA520F4EC7A2464"
+    },
+    {
+      "path": "tools/vfx/catalog/SfxAudit.cs",
+      "sha256": "C139C2734470B3EC42C4B153C35CB6BC53EFC5BCE99BC0AB68DCAAFEE3A9575A"
+    },
+    {
+      "path": "docs/21.特效总览与兼容约定.md",
+      "sha256": "2ED3C5D28C6A5079F75142B1E70D66A421B67E29B45CF61F53F8529625A45A3C"
+    },
+    {
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBenefitVfx.cs",
+      "sha256": "B646279E3B1A684A877E5A232D1B4829761AB0CA5A264279DCC9DC8CBD0184DC"
+    },
+    {
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenExchangeFateVfx.cs",
+      "sha256": "B6D4DC6DE861844DB27FDEBCDE640D2E4DC7E680AAD9844A474CFFF03EE9C090"
+    },
+    {
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.cs",
+      "sha256": "FD2790C1FBD449FDFF12599177E208FEF4A53BDB50304C5F89007FF5F0D20487"
+    },
+    {
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs",
+      "sha256": "3B47E1959D332CDADC1824E0D69BF1645B4E7BCE74EB5B5EA3D16EF907A81773"
+    },
+    {
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWaitingStageVfx.cs",
+      "sha256": "D9B3FDD8A01DED8B1651B4E4ABBF831BD138446C9B0F78032F12A8B376194444"
+    },
+    {
+      "path": "tools/vfx/catalog/WaitingStageProbe.cs",
+      "sha256": "4D2DBDE50960051C5BF469122A54253933EB900EF11043130A56EB7E7D7B3255"
+    },
+    {
+      "path": "tools/vfx/catalog/latest_scenes.py",
+      "sha256": "831388F576DDC7B8306ECA2CDA924EB3C0BFDA6A698939EEB39BE73452533A32"
+    },
+    {
+      "path": "tools/vfx/catalog/record.py",
+      "sha256": "CAD96F21D758231A9E6222659CE33DD6964FC0D0ECC7794450735BDF878E882B"
+    },
+    {
+      "path": "tools/vfx/catalog/verify_waiting_stage.py",
+      "sha256": "B87515C789F3CD58BB2096EF6AB131AA5FC4E08F320B30FB0D50DA9EBB9F9BB4"
+    },
+    {
+      "path": "tools/vfx/catalog/waiting_audio_scenes.py",
+      "sha256": "FD851B79D794D1B21714A190888A4673306A87E4CF68611393D7ECA84F18EDE1"
+    }
+  ]
+}

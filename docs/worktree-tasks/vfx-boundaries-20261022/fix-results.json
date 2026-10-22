@@ -1,0 +1,2593 @@
+{
+  "sourceHashes": {
+    "run_boundaries.py": "5e25200911e66c920a29a07bf4b8cc736af641d67aa215a331741a4551c84b41",
+    "fix_scenes.py": "ec91c2cb06474576932358a34a6cedececfd04d31ffeeb39768ba64a32d10dde",
+    "VfxFixProbe.cs": "49d7cf6799178692eece18c7b9d6d513f43197bf7008a7277dd87fe9d16a48f7",
+    "adaptation_scenes.py": "297e03c4b0c283746ad313587acb9070acdf6531e86924bfbb3cfed7236d505b",
+    "boundary_scenes.py": "39c7eb5bd3d4a49e0cb91615ad12354e8b08fc23eeb61a0d08a853379cdd9815",
+    "review_fixes.py": "3fb60b8d9d6d5b9cda1aee26702947a9dfbe769053b56a11e5c6901729ac3b57"
+  },
+  "scope": "Only VFX-01/VFX-02 and targeted regressions; ENV-01 remains unresolved.",
+  "branches": {
+    "stable": {
+      "boundaries": [
+        {
+          "name": "boundary-empty",
+          "title": "空约定，X=0",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 57300341,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 57300341,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 1,
+          "spots": 0,
+          "maxStages": 0,
+          "seconds": 26.31
+        },
+        {
+          "name": "boundary-chain2",
+          "title": "塔桥打出塔桥再打出塔桥",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 61363237,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 62273463,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 49360872,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 29485986,
+              "auto": true,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 29485986,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 49360872,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 62273463,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 61363237,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 3,
+          "seconds": 35.56
+        },
+        {
+          "name": "boundary-void-chain",
+          "title": "空虚从抽牌堆预留的三层塔桥",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 1,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 54285379,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 11557597,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 63490779,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 18285259,
+              "auto": true,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 18285259,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 63490779,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 11557597,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 54285379,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 3,
+          "seconds": 39.36
+        },
+        {
+          "name": "boundary-replay",
+          "title": "同一张塔桥真实额外重播两次",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 41827880,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 41519359,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 41827880,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 64351987,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 41827880,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 37131212,
+              "auto": true,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 41519359,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 41827880,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 64351987,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 41827880,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 37131212,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 41827880,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 1,
+          "seconds": 36.87
+        },
+        {
+          "name": "boundary-fast",
+          "title": "Fast 深层塔桥",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 36801595,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 45445306,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 44677065,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 43909594,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 39336870,
+              "auto": true,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 39336870,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 43909594,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 44677065,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 45445306,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 36801595,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 4,
+          "spots": 4,
+          "maxStages": 4,
+          "seconds": 35.63
+        },
+        {
+          "name": "boundary-instant",
+          "title": "Instant 深层塔桥，规则继续而表现跳过",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 18933183,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 26086344,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 36598153,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 2365184,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 45870983,
+              "auto": true,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 45870983,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 2365184,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 36598153,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 26086344,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 18933183,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 0,
+          "spots": 0,
+          "maxStages": 0,
+          "seconds": 33.3
+        },
+        {
+          "name": "boundary-lethal",
+          "title": "塔桥首张攻击致命，后续预留牌与追光清理",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [],
+          "finished": [],
+          "casts": 1,
+          "spots": 1,
+          "maxStages": 1,
+          "seconds": 32.66
+        },
+        {
+          "name": "boundary-next-clean",
+          "title": "致命结束后的下一场无旧舞台与耗尽票据",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 51275131,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 51275131,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 1,
+          "spots": 0,
+          "maxStages": 0,
+          "seconds": 25.45
+        }
+      ],
+      "fixes": [
+        {
+          "name": "entrance-native-entry",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "casts": 1,
+            "frames": 76,
+            "concurrentFrames": 76,
+            "beforeStartCalls": 1,
+            "beforeStartVisible": 1,
+            "beforeStartAge": 0,
+            "actors": [
+              {
+                "Local": true,
+                "PoseFrames": 76,
+                "TowerFrames": 76,
+                "PartialTowerFrames": 42,
+                "Material": 9223373465451505070,
+                "X": 489.62097,
+                "Y": 567,
+                "TowerLeft": 157.214,
+                "TowerTop": 153.06598,
+                "TowerRight": 365.714,
+                "TowerBottom": 464.77347
+              }
+            ],
+            "soundCues": 0,
+            "peerInterrupted": false,
+            "peerIndependent": false,
+            "beforeStartMilliseconds": 4,
+            "colorsPreserved": true,
+            "colorMarked": false,
+            "poseFrames": 76,
+            "maxCape": 1,
+            "maxParticles": 47,
+            "nativeTriggered": false,
+            "towerEntranceFrames": 76,
+            "towerRevealMax": 1,
+            "towerInterrupted": false,
+            "towerPartialFrames": 42,
+            "towerRestarted": false,
+            "towerEntrancesLive": 0,
+            "nativeInterrupted": false,
+            "nativeMotionFrames": 0,
+            "posesLive": 0,
+            "materialPreserved": true,
+            "visibleMilliseconds": 1296,
+            "maxAge": 1.4967546,
+            "live": 0,
+            "backLive": 0
+          }
+        },
+        {
+          "name": "entrance-native-interrupt",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "connected": true,
+            "began": true,
+            "cancelled": true
+          }
+        },
+        {
+          "name": "bridge-budget-1",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 1,
+            "frames": 476,
+            "peakLight": 0.9599969,
+            "peakAtmosphere": 1,
+            "minHeldLight": 0.88320374,
+            "count": 1,
+            "ages": [
+              2.8011358
+            ],
+            "light": 0.8832471,
+            "atmosphere": 1,
+            "materialIds": [
+              9223373518937276825
+            ],
+            "character": "KAREN"
+          },
+          "whiteFraction": 0.0
+        },
+        {
+          "name": "bridge-lifetime-budget-1",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 0,
+            "frames": 1204,
+            "peakLight": 0.9599969,
+            "peakAtmosphere": 1,
+            "minHeldLight": 0.88320374,
+            "count": 0,
+            "ages": [],
+            "light": 0,
+            "atmosphere": 0,
+            "materialIds": [],
+            "character": "KAREN"
+          }
+        },
+        {
+          "name": "bridge-cleanup-1",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          }
+        },
+        {
+          "name": "bridge-budget-8",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 1,
+            "frames": 1344,
+            "peakLight": 0.95999515,
+            "peakAtmosphere": 1.0000001,
+            "minHeldLight": 0.90938205,
+            "count": 8,
+            "ages": [
+              12.297752,
+              10.948839,
+              9.595813,
+              8.228584,
+              6.873207,
+              5.528233,
+              4.1625166,
+              2.8681355
+            ],
+            "light": 0.92184436,
+            "atmosphere": 1,
+            "materialIds": [
+              9223373565057836564,
+              9223373566769112398,
+              9223373568413287149,
+              9223373569990345495,
+              9223373571550626600,
+              9223373573228348226,
+              9223373574805406576,
+              9223373576365687724
+            ],
+            "character": "KAREN"
+          },
+          "whiteFraction": 0.0
+        },
+        {
+          "name": "bridge-lifetime-budget-8",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 0,
+            "frames": 2028,
+            "peakLight": 0.95999515,
+            "peakAtmosphere": 1.0000001,
+            "minHeldLight": 0.90938205,
+            "count": 0,
+            "ages": [],
+            "light": 0,
+            "atmosphere": 0,
+            "materialIds": [],
+            "character": "KAREN"
+          }
+        },
+        {
+          "name": "bridge-cleanup-8",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          }
+        },
+        {
+          "name": "bridge-original-eight-stage",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 0,
+            "frames": 1824,
+            "peakLight": 0.9599953,
+            "peakAtmosphere": 1,
+            "minHeldLight": 0.90661895,
+            "count": 0,
+            "ages": [],
+            "light": 0,
+            "atmosphere": 0,
+            "materialIds": [],
+            "character": "KAREN"
+          },
+          "whiteFraction": 0.0
+        },
+        {
+          "name": "entrance-exit-native",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "errors": []
+        },
+        {
+          "name": "entrance-reentry-native",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "casts": 1,
+            "frames": 79,
+            "concurrentFrames": 79,
+            "beforeStartCalls": 1,
+            "beforeStartVisible": 1,
+            "beforeStartAge": 0,
+            "actors": [
+              {
+                "Local": true,
+                "PoseFrames": 79,
+                "TowerFrames": 79,
+                "PartialTowerFrames": 45,
+                "Material": 9223373966620510759,
+                "X": 489.62097,
+                "Y": 567,
+                "TowerLeft": 157.214,
+                "TowerTop": 153.06598,
+                "TowerRight": 365.714,
+                "TowerBottom": 464.77347
+              }
+            ],
+            "soundCues": 0,
+            "peerInterrupted": false,
+            "peerIndependent": false,
+            "beforeStartMilliseconds": 3,
+            "colorsPreserved": true,
+            "colorMarked": false,
+            "poseFrames": 79,
+            "maxCape": 1,
+            "maxParticles": 47,
+            "nativeTriggered": false,
+            "towerEntranceFrames": 79,
+            "towerRevealMax": 1,
+            "towerInterrupted": false,
+            "towerPartialFrames": 45,
+            "towerRestarted": false,
+            "towerEntrancesLive": 0,
+            "nativeInterrupted": false,
+            "nativeMotionFrames": 0,
+            "posesLive": 0,
+            "materialPreserved": true,
+            "visibleMilliseconds": 1301,
+            "maxAge": 1.487578,
+            "live": 0,
+            "backLive": 0
+          }
+        },
+        {
+          "name": "entrance-exit-detached",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "errors": []
+        },
+        {
+          "name": "entrance-reentry-detached",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "casts": 1,
+            "frames": 74,
+            "concurrentFrames": 74,
+            "beforeStartCalls": 1,
+            "beforeStartVisible": 1,
+            "beforeStartAge": 0,
+            "actors": [
+              {
+                "Local": true,
+                "PoseFrames": 74,
+                "TowerFrames": 74,
+                "PartialTowerFrames": 43,
+                "Material": 9223374307986520481,
+                "X": 489.62097,
+                "Y": 567,
+                "TowerLeft": 157.214,
+                "TowerTop": 153.06598,
+                "TowerRight": 365.714,
+                "TowerBottom": 464.77347
+              }
+            ],
+            "soundCues": 0,
+            "peerInterrupted": false,
+            "peerIndependent": false,
+            "beforeStartMilliseconds": 3,
+            "colorsPreserved": true,
+            "colorMarked": false,
+            "poseFrames": 74,
+            "maxCape": 1,
+            "maxParticles": 47,
+            "nativeTriggered": false,
+            "towerEntranceFrames": 74,
+            "towerRevealMax": 1,
+            "towerInterrupted": false,
+            "towerPartialFrames": 43,
+            "towerRestarted": false,
+            "towerEntrancesLive": 0,
+            "nativeInterrupted": false,
+            "nativeMotionFrames": 0,
+            "posesLive": 0,
+            "materialPreserved": true,
+            "visibleMilliseconds": 1301,
+            "maxAge": 1.4846042,
+            "live": 0,
+            "backLive": 0
+          }
+        },
+        {
+          "name": "bridge-foreign-surrounded-stack",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 0,
+            "frames": 3748,
+            "peakLight": 0.95999867,
+            "peakAtmosphere": 1.0000001,
+            "minHeldLight": 0.9063162,
+            "count": 0,
+            "ages": [],
+            "light": 0,
+            "atmosphere": 0,
+            "materialIds": [],
+            "character": "IRONCLAD"
+          }
+        }
+      ],
+      "build": {
+        "assemblySha256": "61ea0a536e2a37adda4baff5d3f7dda311a92c38a021b6d16c73e918e5347ea9",
+        "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+      },
+      "handChecks": 49,
+      "handFiles": [
+        "stable\\boundary-chain2\\after-hand.json",
+        "stable\\boundary-chain2\\before-hand.json",
+        "stable\\boundary-chain2\\initial-hand.json",
+        "stable\\boundary-chain2\\settled-hand.json",
+        "stable\\boundary-empty\\after-hand.json",
+        "stable\\boundary-empty\\before-hand.json",
+        "stable\\boundary-empty\\initial-hand.json",
+        "stable\\boundary-empty\\settled-hand.json",
+        "stable\\boundary-fast\\after-hand.json",
+        "stable\\boundary-fast\\before-hand.json",
+        "stable\\boundary-fast\\initial-hand.json",
+        "stable\\boundary-fast\\settled-hand.json",
+        "stable\\boundary-instant\\after-hand.json",
+        "stable\\boundary-instant\\before-hand.json",
+        "stable\\boundary-instant\\initial-hand.json",
+        "stable\\boundary-instant\\settled-hand.json",
+        "stable\\boundary-lethal\\after-hand.json",
+        "stable\\boundary-lethal\\before-hand.json",
+        "stable\\boundary-lethal\\initial-hand.json",
+        "stable\\boundary-next-clean\\after-hand.json",
+        "stable\\boundary-next-clean\\before-hand.json",
+        "stable\\boundary-next-clean\\initial-hand.json",
+        "stable\\boundary-next-clean\\settled-hand.json",
+        "stable\\boundary-replay\\after-hand.json",
+        "stable\\boundary-replay\\before-hand.json",
+        "stable\\boundary-replay\\initial-hand.json",
+        "stable\\boundary-replay\\settled-hand.json",
+        "stable\\boundary-void-chain\\after-hand.json",
+        "stable\\boundary-void-chain\\after-void-hand.json",
+        "stable\\boundary-void-chain\\before-hand.json",
+        "stable\\boundary-void-chain\\initial-hand.json",
+        "stable\\boundary-void-chain\\settled-hand.json",
+        "stable\\fix-bridge-1\\after-hand.json",
+        "stable\\fix-bridge-1\\before-hand.json",
+        "stable\\fix-bridge-1\\initial-hand.json",
+        "stable\\fix-bridge-8\\after-hand.json",
+        "stable\\fix-bridge-8\\before-hand.json",
+        "stable\\fix-bridge-8\\initial-hand.json",
+        "stable\\fix-bridge-8-open\\after-hand.json",
+        "stable\\fix-bridge-8-open\\before-hand.json",
+        "stable\\fix-bridge-8-open\\initial-hand.json",
+        "stable\\fix-exit-detached\\reentry-hand.json",
+        "stable\\fix-exit-native\\reentry-hand.json",
+        "stable\\fix-foreign-pincer\\after-hand.json",
+        "stable\\fix-foreign-pincer\\before-hand.json",
+        "stable\\fix-foreign-pincer\\burn-after-hand.json",
+        "stable\\fix-foreign-pincer\\burn-before-hand.json",
+        "stable\\fix-foreign-pincer\\form-after-hand.json",
+        "stable\\fix-foreign-pincer\\form-before-hand.json"
+      ],
+      "monitor": {
+        "samples": 16786,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 64,
+        "desktopIsolation": "KarenVfxTest_a2e241676664447e822466ed3f5af9dc"
+      },
+      "logAudit": {
+        "knownStartupWorkerPoolErrors": [],
+        "unexpectedErrors": []
+      },
+      "logSha256": "79a518ffe76abb476417db5fd4da8836de5c297888e350307873b5428e4cc952"
+    },
+    "beta": {
+      "boundaries": [
+        {
+          "name": "boundary-empty",
+          "title": "空约定，X=0",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 47065575,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 47065575,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 1,
+          "spots": 0,
+          "maxStages": 0,
+          "seconds": 26.48
+        },
+        {
+          "name": "boundary-chain2",
+          "title": "塔桥打出塔桥再打出塔桥",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 28836706,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 13608211,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 23493412,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 53828542,
+              "auto": true,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 53828542,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 23493412,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 13608211,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 28836706,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 3,
+          "seconds": 36.24
+        },
+        {
+          "name": "boundary-void-chain",
+          "title": "空虚从抽牌堆预留的三层塔桥",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 1,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 61100751,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 58468691,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 18815859,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 37656166,
+              "auto": true,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 37656166,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 18815859,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 58468691,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 61100751,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 3,
+          "seconds": 39.56
+        },
+        {
+          "name": "boundary-replay",
+          "title": "同一张塔桥真实额外重播两次",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 35231066,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 22174664,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 35231066,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 37010522,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 35231066,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 52688225,
+              "auto": true,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 22174664,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 35231066,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 37010522,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 35231066,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 52688225,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 35231066,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 1,
+          "seconds": 37.27
+        },
+        {
+          "name": "boundary-fast",
+          "title": "Fast 深层塔桥",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 58737862,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 35663445,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 52370374,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 51071986,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 35348634,
+              "auto": true,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 35348634,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 51071986,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 52370374,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 35663445,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 58737862,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 4,
+          "spots": 4,
+          "maxStages": 4,
+          "seconds": 35.63
+        },
+        {
+          "name": "boundary-instant",
+          "title": "Instant 深层塔桥，规则继续而表现跳过",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 53324951,
+              "auto": false,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 35107824,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 16356539,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 18148405,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 6827200,
+              "auto": true,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_DEFEND",
+              "identity": 6827200,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 18148405,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 16356539,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 35107824,
+              "auto": true,
+              "target": null
+            },
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 53324951,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 0,
+          "spots": 0,
+          "maxStages": 0,
+          "seconds": 33.53
+        },
+        {
+          "name": "boundary-lethal",
+          "title": "塔桥首张攻击致命，后续预留牌与追光清理",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [],
+          "finished": [],
+          "casts": 1,
+          "spots": 1,
+          "maxStages": 1,
+          "seconds": 32.67
+        },
+        {
+          "name": "boundary-next-clean",
+          "title": "致命结束后的下一场无旧舞台与耗尽票据",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "baseline_finished": 0,
+          "shine_before": 0,
+          "started": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 20939278,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "finished": [
+            {
+              "id": "KAREN_BRIDGE",
+              "identity": 20939278,
+              "auto": false,
+              "target": null
+            }
+          ],
+          "casts": 1,
+          "spots": 0,
+          "maxStages": 0,
+          "seconds": 25.75
+        }
+      ],
+      "fixes": [
+        {
+          "name": "entrance-native-entry",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "casts": 1,
+            "frames": 77,
+            "concurrentFrames": 77,
+            "beforeStartCalls": 1,
+            "beforeStartVisible": 1,
+            "beforeStartAge": 0,
+            "actors": [
+              {
+                "Local": true,
+                "PoseFrames": 77,
+                "TowerFrames": 77,
+                "PartialTowerFrames": 44,
+                "Material": 9223373535362176785,
+                "X": 489.62097,
+                "Y": 567,
+                "TowerLeft": 157.214,
+                "TowerTop": 153.06598,
+                "TowerRight": 365.714,
+                "TowerBottom": 464.77347
+              }
+            ],
+            "soundCues": 0,
+            "peerInterrupted": false,
+            "peerIndependent": false,
+            "beforeStartMilliseconds": 4,
+            "colorsPreserved": true,
+            "colorMarked": false,
+            "poseFrames": 77,
+            "maxCape": 1,
+            "maxParticles": 47,
+            "nativeTriggered": false,
+            "towerEntranceFrames": 77,
+            "towerRevealMax": 1,
+            "towerInterrupted": false,
+            "towerPartialFrames": 44,
+            "towerRestarted": false,
+            "towerEntrancesLive": 0,
+            "nativeInterrupted": false,
+            "nativeMotionFrames": 0,
+            "posesLive": 0,
+            "materialPreserved": true,
+            "visibleMilliseconds": 1330,
+            "maxAge": 1.4948769,
+            "live": 0,
+            "backLive": 0
+          }
+        },
+        {
+          "name": "entrance-native-interrupt",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "connected": true,
+            "began": true,
+            "cancelled": true
+          }
+        },
+        {
+          "name": "bridge-budget-1",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 1,
+            "frames": 524,
+            "peakLight": 0.9599998,
+            "peakAtmosphere": 1,
+            "minHeldLight": 0.88320273,
+            "count": 1,
+            "ages": [
+              2.8885202
+            ],
+            "light": 0.88395095,
+            "atmosphere": 1,
+            "materialIds": [
+              9223373597957964419
+            ],
+            "character": "KAREN"
+          },
+          "whiteFraction": 0.0
+        },
+        {
+          "name": "bridge-lifetime-budget-1",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 0,
+            "frames": 1240,
+            "peakLight": 0.9599998,
+            "peakAtmosphere": 1,
+            "minHeldLight": 0.88320273,
+            "count": 0,
+            "ages": [],
+            "light": 0,
+            "atmosphere": 0,
+            "materialIds": [],
+            "character": "KAREN"
+          }
+        },
+        {
+          "name": "bridge-cleanup-1",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          }
+        },
+        {
+          "name": "bridge-budget-8",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 1,
+            "frames": 1348,
+            "peakLight": 0.95999956,
+            "peakAtmosphere": 1.0000001,
+            "minHeldLight": 0.90884995,
+            "count": 8,
+            "ages": [
+              12.344185,
+              10.990557,
+              9.6005,
+              8.244023,
+              6.8828597,
+              5.551254,
+              4.1828566,
+              2.7851963
+            ],
+            "light": 0.9218879,
+            "atmosphere": 1,
+            "materialIds": [
+              9223373652299367831,
+              9223373654681731605,
+              9223373656762107259,
+              9223373658859258800,
+              9223373661090628678,
+              9223373663187780716,
+              9223373665301709960,
+              9223373667549856958
+            ],
+            "character": "KAREN"
+          },
+          "whiteFraction": 0.0
+        },
+        {
+          "name": "bridge-lifetime-budget-8",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 0,
+            "frames": 2068,
+            "peakLight": 0.95999956,
+            "peakAtmosphere": 1.0000001,
+            "minHeldLight": 0.90884995,
+            "count": 0,
+            "ages": [],
+            "light": 0,
+            "atmosphere": 0,
+            "materialIds": [],
+            "character": "KAREN"
+          }
+        },
+        {
+          "name": "bridge-cleanup-8",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          }
+        },
+        {
+          "name": "bridge-original-eight-stage",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 0,
+            "frames": 1820,
+            "peakLight": 0.96,
+            "peakAtmosphere": 1.0000001,
+            "minHeldLight": 0.9068034,
+            "count": 0,
+            "ages": [],
+            "light": 0,
+            "atmosphere": 0,
+            "materialIds": [],
+            "character": "KAREN"
+          },
+          "whiteFraction": 0.0
+        },
+        {
+          "name": "entrance-exit-native",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "errors": []
+        },
+        {
+          "name": "entrance-reentry-native",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "casts": 1,
+            "frames": 77,
+            "concurrentFrames": 77,
+            "beforeStartCalls": 1,
+            "beforeStartVisible": 1,
+            "beforeStartAge": 0,
+            "actors": [
+              {
+                "Local": true,
+                "PoseFrames": 77,
+                "TowerFrames": 77,
+                "PartialTowerFrames": 43,
+                "Material": 9223374077987668005,
+                "X": 489.62097,
+                "Y": 567,
+                "TowerLeft": 157.214,
+                "TowerTop": 153.06598,
+                "TowerRight": 365.714,
+                "TowerBottom": 464.77347
+              }
+            ],
+            "soundCues": 0,
+            "peerInterrupted": false,
+            "peerIndependent": false,
+            "beforeStartMilliseconds": 3,
+            "colorsPreserved": true,
+            "colorMarked": false,
+            "poseFrames": 77,
+            "maxCape": 1,
+            "maxParticles": 47,
+            "nativeTriggered": false,
+            "towerEntranceFrames": 77,
+            "towerRevealMax": 1,
+            "towerInterrupted": false,
+            "towerPartialFrames": 43,
+            "towerRestarted": false,
+            "towerEntrancesLive": 0,
+            "nativeInterrupted": false,
+            "nativeMotionFrames": 0,
+            "posesLive": 0,
+            "materialPreserved": true,
+            "visibleMilliseconds": 1339,
+            "maxAge": 1.4973025,
+            "live": 0,
+            "backLive": 0
+          }
+        },
+        {
+          "name": "entrance-exit-detached",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "errors": []
+        },
+        {
+          "name": "entrance-reentry-detached",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "casts": 1,
+            "frames": 71,
+            "concurrentFrames": 71,
+            "beforeStartCalls": 1,
+            "beforeStartVisible": 1,
+            "beforeStartAge": 0,
+            "actors": [
+              {
+                "Local": true,
+                "PoseFrames": 71,
+                "TowerFrames": 71,
+                "PartialTowerFrames": 43,
+                "Material": 9223374434788718609,
+                "X": 489.62097,
+                "Y": 567,
+                "TowerLeft": 157.214,
+                "TowerTop": 153.06598,
+                "TowerRight": 365.714,
+                "TowerBottom": 464.77347
+              }
+            ],
+            "soundCues": 0,
+            "peerInterrupted": false,
+            "peerIndependent": false,
+            "beforeStartMilliseconds": 3,
+            "colorsPreserved": true,
+            "colorMarked": false,
+            "poseFrames": 71,
+            "maxCape": 1,
+            "maxParticles": 47,
+            "nativeTriggered": false,
+            "towerEntranceFrames": 71,
+            "towerRevealMax": 1,
+            "towerInterrupted": false,
+            "towerPartialFrames": 43,
+            "towerRestarted": false,
+            "towerEntrancesLive": 0,
+            "nativeInterrupted": false,
+            "nativeMotionFrames": 0,
+            "posesLive": 0,
+            "materialPreserved": true,
+            "visibleMilliseconds": 1369,
+            "maxAge": 1.4935876,
+            "live": 0,
+            "backLive": 0
+          }
+        },
+        {
+          "name": "bridge-foreign-surrounded-stack",
+          "result": "passed",
+          "build": {
+            "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+            "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+          },
+          "observed": {
+            "coordinators": 0,
+            "frames": 2968,
+            "peakLight": 0.9599913,
+            "peakAtmosphere": 1.0000001,
+            "minHeldLight": 0.9056425,
+            "count": 0,
+            "ages": [],
+            "light": 0,
+            "atmosphere": 0,
+            "materialIds": [],
+            "character": "IRONCLAD"
+          }
+        }
+      ],
+      "build": {
+        "assemblySha256": "4a5301c96480fa6cdbde8eaebef6154654159a32b1f497131148b98deee5cc61",
+        "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+      },
+      "handChecks": 49,
+      "handFiles": [
+        "beta\\boundary-chain2\\after-hand.json",
+        "beta\\boundary-chain2\\before-hand.json",
+        "beta\\boundary-chain2\\initial-hand.json",
+        "beta\\boundary-chain2\\settled-hand.json",
+        "beta\\boundary-empty\\after-hand.json",
+        "beta\\boundary-empty\\before-hand.json",
+        "beta\\boundary-empty\\initial-hand.json",
+        "beta\\boundary-empty\\settled-hand.json",
+        "beta\\boundary-fast\\after-hand.json",
+        "beta\\boundary-fast\\before-hand.json",
+        "beta\\boundary-fast\\initial-hand.json",
+        "beta\\boundary-fast\\settled-hand.json",
+        "beta\\boundary-instant\\after-hand.json",
+        "beta\\boundary-instant\\before-hand.json",
+        "beta\\boundary-instant\\initial-hand.json",
+        "beta\\boundary-instant\\settled-hand.json",
+        "beta\\boundary-lethal\\after-hand.json",
+        "beta\\boundary-lethal\\before-hand.json",
+        "beta\\boundary-lethal\\initial-hand.json",
+        "beta\\boundary-next-clean\\after-hand.json",
+        "beta\\boundary-next-clean\\before-hand.json",
+        "beta\\boundary-next-clean\\initial-hand.json",
+        "beta\\boundary-next-clean\\settled-hand.json",
+        "beta\\boundary-replay\\after-hand.json",
+        "beta\\boundary-replay\\before-hand.json",
+        "beta\\boundary-replay\\initial-hand.json",
+        "beta\\boundary-replay\\settled-hand.json",
+        "beta\\boundary-void-chain\\after-hand.json",
+        "beta\\boundary-void-chain\\after-void-hand.json",
+        "beta\\boundary-void-chain\\before-hand.json",
+        "beta\\boundary-void-chain\\initial-hand.json",
+        "beta\\boundary-void-chain\\settled-hand.json",
+        "beta\\fix-bridge-1\\after-hand.json",
+        "beta\\fix-bridge-1\\before-hand.json",
+        "beta\\fix-bridge-1\\initial-hand.json",
+        "beta\\fix-bridge-8\\after-hand.json",
+        "beta\\fix-bridge-8\\before-hand.json",
+        "beta\\fix-bridge-8\\initial-hand.json",
+        "beta\\fix-bridge-8-open\\after-hand.json",
+        "beta\\fix-bridge-8-open\\before-hand.json",
+        "beta\\fix-bridge-8-open\\initial-hand.json",
+        "beta\\fix-exit-detached\\reentry-hand.json",
+        "beta\\fix-exit-native\\reentry-hand.json",
+        "beta\\fix-foreign-pincer\\after-hand.json",
+        "beta\\fix-foreign-pincer\\before-hand.json",
+        "beta\\fix-foreign-pincer\\burn-after-hand.json",
+        "beta\\fix-foreign-pincer\\burn-before-hand.json",
+        "beta\\fix-foreign-pincer\\form-after-hand.json",
+        "beta\\fix-foreign-pincer\\form-before-hand.json"
+      ],
+      "monitor": {
+        "samples": 16808,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 68,
+        "desktopIsolation": "KarenVfxTest_21268a25c9b947d1bb40125b551b1ac0"
+      },
+      "logAudit": {
+        "knownStartupWorkerPoolErrors": [],
+        "unexpectedErrors": [
+          {
+            "line": 1762,
+            "message": "ERROR: Invalid Task ID"
+          },
+          {
+            "line": 1764,
+            "message": "ERROR: Invalid Task ID"
+          }
+        ]
+      },
+      "logSha256": "328f4506e96e0fe93bf6d310eb2de1c6ab0259673e6e08a3d931387ef7543304"
+    }
+  },
+  "images": [
+    {
+      "file": "stable\\boundary-chain2\\after.png",
+      "sha256": "46c412386f7680ef13e8880323edec022dd7056009075e5252102f91b243e1b3"
+    },
+    {
+      "file": "stable\\boundary-chain2\\before.png",
+      "sha256": "221673c613690f7e63e60498da2091563da5634b2188f8083680197c653c0b2f"
+    },
+    {
+      "file": "stable\\boundary-chain2\\during-0.png",
+      "sha256": "33482450e2180202624a5520a7a327afcea570ec7a1812e5e8d5140fa7f771f2"
+    },
+    {
+      "file": "stable\\boundary-chain2\\during-1.png",
+      "sha256": "55a4f832affd6899649e1da6f934d6e4f3741a17f3a7faa76e01c5d00497ae8f"
+    },
+    {
+      "file": "stable\\boundary-chain2\\during-2.png",
+      "sha256": "e6240c64073d519a8e89bfaa94507501e17db1ed53abfd79510d778f6940dec7"
+    },
+    {
+      "file": "stable\\boundary-chain2\\initial.png",
+      "sha256": "6c265411ba4f3f3ee1551cfaa65fc0810c9dccdc3f23a985d1e93ded2195d105"
+    },
+    {
+      "file": "stable\\boundary-chain2\\settled.png",
+      "sha256": "ca1a84e38d3d344f1887fda28a292ca4fe269a98ecc4c5b0ffcd889bb486f02f"
+    },
+    {
+      "file": "stable\\boundary-empty\\after.png",
+      "sha256": "880933ee69ca38640d266ae67fe650ba1588d2fa6a58d46739bdb1c376bb8b73"
+    },
+    {
+      "file": "stable\\boundary-empty\\before.png",
+      "sha256": "73f4e8aaf45801fcf9121a2bcf47aae691a7cb7b6c62bb9d7ddbf6850da8240e"
+    },
+    {
+      "file": "stable\\boundary-empty\\initial.png",
+      "sha256": "8a920272cfdf420dbcb485ad07f62a54c0a17558267b212bdf554a1015e9a239"
+    },
+    {
+      "file": "stable\\boundary-empty\\settled.png",
+      "sha256": "66ac5ac9719eee5af68139eb009bdb3684243cf8f3f2be77c0b9d30f17bd416b"
+    },
+    {
+      "file": "stable\\boundary-fast\\after.png",
+      "sha256": "568f297a7793d62a86ee883b273b0abaf9a164d3ced0b8a33064a7891b0e08ce"
+    },
+    {
+      "file": "stable\\boundary-fast\\before.png",
+      "sha256": "ad2870ecf3e0ab03f76877aab77c1a00764d53720dbf8fe0f8d8a296fa5cc00a"
+    },
+    {
+      "file": "stable\\boundary-fast\\during-0.png",
+      "sha256": "aa37fe7f7fa4a3f08219561ef081026be2aad2dca2191672ab49c5516f7e6908"
+    },
+    {
+      "file": "stable\\boundary-fast\\during-1.png",
+      "sha256": "00fc4733e5e760c04194a5728799a2e787195022d9151585eadee9f19d29b304"
+    },
+    {
+      "file": "stable\\boundary-fast\\during-2.png",
+      "sha256": "49e68602f97de3c824a1f9759170bd04235f8421ad392deeacc2a2e1cff62149"
+    },
+    {
+      "file": "stable\\boundary-fast\\initial.png",
+      "sha256": "da55116849f1268a03233baacc6f1200289b429565d70b58960c7097f012ba11"
+    },
+    {
+      "file": "stable\\boundary-fast\\settled.png",
+      "sha256": "58b09a88d18d232f023477471035608ee176ed0c4e771550299156e4c1066de1"
+    },
+    {
+      "file": "stable\\boundary-instant\\after.png",
+      "sha256": "2f0b3a1d50d1d9ad569d5a8d58f4a2145512ad85214e2ae6f5c9fdd00880465c"
+    },
+    {
+      "file": "stable\\boundary-instant\\before.png",
+      "sha256": "dc5a6ad5f67eb6408819297b0089a24b8fd028d0d3d53c65aa709164f52a68ee"
+    },
+    {
+      "file": "stable\\boundary-instant\\during-0.png",
+      "sha256": "35f7cc3beb72a7e105712cb40baf22f7f99f5e5b6c144804b3aaf16d04fc6956"
+    },
+    {
+      "file": "stable\\boundary-instant\\during-1.png",
+      "sha256": "cf149070a2f8343927024261dad79518e864c4b76998ec7842a011174069342b"
+    },
+    {
+      "file": "stable\\boundary-instant\\during-2.png",
+      "sha256": "c72b33be62b106cccdc752c811ef22b72471c9a58a1e6d16c1393cf9d6ce06a1"
+    },
+    {
+      "file": "stable\\boundary-instant\\initial.png",
+      "sha256": "d822692d4267248519bd80c972988e3788d19e363f7805ac05ccd0803905d405"
+    },
+    {
+      "file": "stable\\boundary-instant\\settled.png",
+      "sha256": "477df8523c77fb01967add677c75ff6855556e11391f649ab179d16a337cde69"
+    },
+    {
+      "file": "stable\\boundary-lethal\\after.png",
+      "sha256": "aa14e0d33b7f2c8a3f5c823b07b350f4ac9aed5b4fda0c0a46b485240e1d45b3"
+    },
+    {
+      "file": "stable\\boundary-lethal\\before.png",
+      "sha256": "8677ca25ce770f9663c0cc340c377c232e45250d763326f80eb4117535ebaf2e"
+    },
+    {
+      "file": "stable\\boundary-lethal\\during-0.png",
+      "sha256": "7961735899055ab512f046c326f5d02e418179b2afbd981ff395f033333b81d1"
+    },
+    {
+      "file": "stable\\boundary-lethal\\initial.png",
+      "sha256": "f2b798814d2dfae57edf2b04850e3affafc1f5cc4b0454dc87aa3d4d68554b57"
+    },
+    {
+      "file": "stable\\boundary-next-clean\\after.png",
+      "sha256": "3dbbc57055f8a5b4598e3e48c2902ef3ed43678ed0b3499a1864bedef417d997"
+    },
+    {
+      "file": "stable\\boundary-next-clean\\before.png",
+      "sha256": "478b7c987e082a826a370afc84f94681e383f680e172b00dcad3c149b938ae6b"
+    },
+    {
+      "file": "stable\\boundary-next-clean\\initial.png",
+      "sha256": "86b087fc26c3308ef9b9362a4f16e346fc5dfdb4288f102006f87cc55fe8c228"
+    },
+    {
+      "file": "stable\\boundary-next-clean\\settled.png",
+      "sha256": "70e8254260a5a7991739b3cbb17790fc2315a12e8acf4dec456c1a5618e10c71"
+    },
+    {
+      "file": "stable\\boundary-replay\\after.png",
+      "sha256": "82dd912df4f879d5dc0596dae06d257e7bc3a2a7ef22a37cc948189438566807"
+    },
+    {
+      "file": "stable\\boundary-replay\\before.png",
+      "sha256": "b31b4e15c8cc16a7a478316b778f4d0dc7f00af5da8d408c6bfd765eb8631a0f"
+    },
+    {
+      "file": "stable\\boundary-replay\\during-0.png",
+      "sha256": "d1f417f36a364255fb1b1bdafbc1df39c79333b669a110744bbba7025a357fe5"
+    },
+    {
+      "file": "stable\\boundary-replay\\during-1.png",
+      "sha256": "a5cd84c3c1828065786556863faead51f16952a2652f63a04b4f9c045c4d47f6"
+    },
+    {
+      "file": "stable\\boundary-replay\\during-2.png",
+      "sha256": "a873d294d9ce8979bdaab349f649e683bffdd81639e53e8f2d6d91baf8aec3de"
+    },
+    {
+      "file": "stable\\boundary-replay\\initial.png",
+      "sha256": "f9a3d32f8512fa44133490eb3309214a91709ceec48a521c7bc87c4576c08c39"
+    },
+    {
+      "file": "stable\\boundary-replay\\settled.png",
+      "sha256": "77300da6e91deaf8fd9556a75e0a2e7180c4880170b689e6100c01d27771d6d1"
+    },
+    {
+      "file": "stable\\boundary-void-chain\\after-void.png",
+      "sha256": "6b1c567079cda3ff6d3860cd5b3c1b0d8c3260b9b5da90ce9f0b26eb63797b6b"
+    },
+    {
+      "file": "stable\\boundary-void-chain\\after.png",
+      "sha256": "84d80afb64648b8096a7dafacd8d8b36f6b3f0063e70e68b42dd4c964b1136cb"
+    },
+    {
+      "file": "stable\\boundary-void-chain\\before-void.png",
+      "sha256": "8988990650581f073154ca1991722ec03cc61c957f869ce8c05292ec6810e115"
+    },
+    {
+      "file": "stable\\boundary-void-chain\\before.png",
+      "sha256": "5778e8f7383be86ad20ee21f13f9c59eee7a2a7d724fc3ce8fcc2f8345ec7e81"
+    },
+    {
+      "file": "stable\\boundary-void-chain\\during-0.png",
+      "sha256": "a28a180660c1f845bee5979e7e72586099c1439404ab5110098f06a0e8896055"
+    },
+    {
+      "file": "stable\\boundary-void-chain\\during-1.png",
+      "sha256": "bb986248ecc9f71a92ec6829e8fe16c33153c3114d0965ce6128156a09fa60e3"
+    },
+    {
+      "file": "stable\\boundary-void-chain\\during-2.png",
+      "sha256": "22905d7acbcb4098133c0dd9919a11313ae906ea2eeb57eb241e1bb160714947"
+    },
+    {
+      "file": "stable\\boundary-void-chain\\initial.png",
+      "sha256": "093128e2a3a5a95bf177401641135277c3126f4ab4e9b804a8a1972e54bf6cf4"
+    },
+    {
+      "file": "stable\\boundary-void-chain\\settled.png",
+      "sha256": "65b8473aa097f6513ca6a7a6ff071bba480e84886b22d4629dc604dae50e58f2"
+    },
+    {
+      "file": "stable\\fix-bridge-1\\after.png",
+      "sha256": "63b86a5430fc2acf20a8a3f833d01c6cfb6c5334302f1247a5f1b3b0218ea14d"
+    },
+    {
+      "file": "stable\\fix-bridge-1\\before.png",
+      "sha256": "9eba5261f3c372173f054b2d3aaa2eaf5b37178ef9b9e4a6fb4bb651e5968ebb"
+    },
+    {
+      "file": "stable\\fix-bridge-1\\during-0.png",
+      "sha256": "9152baf0eaaf200479c8c9e41b9d21699922c2820d7c21bc735359d7bb23dc44"
+    },
+    {
+      "file": "stable\\fix-bridge-1\\during-1.png",
+      "sha256": "7df9b26002067cc30b91a9c62c95c6d3a2056d22d21afa25197ce27b987bf498"
+    },
+    {
+      "file": "stable\\fix-bridge-1\\during-2.png",
+      "sha256": "f37249103c17387189b4fc42e2f191fcc6607ff2af1f9896ebd9084a675b8f52"
+    },
+    {
+      "file": "stable\\fix-bridge-1\\held.png",
+      "sha256": "f2f9b4d7d824f9b8adb46595face245e1815523475f4c1dc889b73ff31d7315b"
+    },
+    {
+      "file": "stable\\fix-bridge-1\\initial.png",
+      "sha256": "fb8636079383cccde399dc7569d0daf4755e3d747c4a1be1611f334345a29c42"
+    },
+    {
+      "file": "stable\\fix-bridge-8\\after.png",
+      "sha256": "3363cba9e4aa53018623f6b631bf939af15261bba11841674cb1b476c0e353de"
+    },
+    {
+      "file": "stable\\fix-bridge-8\\before.png",
+      "sha256": "7ee742259b9a29922d515576a666a047bd5cac7ed79bfc784c27be184d51d41e"
+    },
+    {
+      "file": "stable\\fix-bridge-8\\during-0.png",
+      "sha256": "7b1a3ce4287554035688d4a6ce77cba68ab805b85c5c0b4e7bdbc1d09fed3b63"
+    },
+    {
+      "file": "stable\\fix-bridge-8\\during-1.png",
+      "sha256": "b8600836c3a9c07cc8673f9d1ce484d707b9d7b3f67cd952a9b2d5d370b18d9a"
+    },
+    {
+      "file": "stable\\fix-bridge-8\\during-2.png",
+      "sha256": "569654dc22df4302cd52609bbb6244f20eeb6d5812dc48bdfa51915ddd815794"
+    },
+    {
+      "file": "stable\\fix-bridge-8\\held.png",
+      "sha256": "35ea504edf728e5fd6a13b2588f5c8224acb011732ca5494c96db9b62d2fcf13"
+    },
+    {
+      "file": "stable\\fix-bridge-8\\initial.png",
+      "sha256": "3a58c30606d74593c2c9d2da5b960be76fbd9cfb9ff51f6f857aa68802a169d8"
+    },
+    {
+      "file": "stable\\fix-bridge-8\\peak-depth.png",
+      "sha256": "0e5d54e986f3983e63b345d85a1185c596a02a929ff319c3974aa7b7d0b83af2"
+    },
+    {
+      "file": "stable\\fix-bridge-8-open\\after.png",
+      "sha256": "219f3c72332d6a689e3b7ea1fc264467caec942b7c10179466f9c0a1993d98f1"
+    },
+    {
+      "file": "stable\\fix-bridge-8-open\\before.png",
+      "sha256": "9eb44cba03bdfef8ed3049c38b8020803dd64ce77f6e5318fe0e37f229d1e5ff"
+    },
+    {
+      "file": "stable\\fix-bridge-8-open\\during-0.png",
+      "sha256": "93845d099d9790144787de92dec6c3be1ea16d09a6777c506d57b7eb934a774b"
+    },
+    {
+      "file": "stable\\fix-bridge-8-open\\during-1.png",
+      "sha256": "772f3e374bceefcd0314ff94de4a707317dbb7926a82a1c758663e6fb37e77d7"
+    },
+    {
+      "file": "stable\\fix-bridge-8-open\\during-2.png",
+      "sha256": "da2b643793c45beb060413e0e49ab3b5d52abfe476addd2a7a3453842c974ff3"
+    },
+    {
+      "file": "stable\\fix-bridge-8-open\\initial.png",
+      "sha256": "4bb553ce9bc4ddc8560cf0f9d5f87f868bac9a50a9f58fdfae3d812c062d2bd2"
+    },
+    {
+      "file": "stable\\fix-bridge-8-open\\peak-depth.png",
+      "sha256": "09d56a12d90f55ed5bb9c58032646e66aee11c753406c311f781748a8e83edc0"
+    },
+    {
+      "file": "stable\\fix-exit-detached\\before.png",
+      "sha256": "b573731fe9326a84e6537fa0eda16aea7e7790ad55bde3e4ed63ce362d4f38a2"
+    },
+    {
+      "file": "stable\\fix-exit-detached\\game-over.png",
+      "sha256": "d920831f1663d230a3d38e7fe421ab808da3c897fc8db20c0bd4f1d34ed61773"
+    },
+    {
+      "file": "stable\\fix-exit-detached\\menu.png",
+      "sha256": "1c324507670f90461d27ab7fc593cf57e9a0358554c4d1ecd877973e44d8c54a"
+    },
+    {
+      "file": "stable\\fix-exit-detached\\reentry.png",
+      "sha256": "f7f3ca96cd1fef3400caf0c8d3bd4965026c29cfbc689106e434cbeb0d4a25a0"
+    },
+    {
+      "file": "stable\\fix-exit-native\\before.png",
+      "sha256": "c83827fa143aa4e1b6c1afdceb19ef306922b21d71354fde3893505aa41299ca"
+    },
+    {
+      "file": "stable\\fix-exit-native\\game-over.png",
+      "sha256": "0671f220ec55e80449eb109b26043924ccd251649ce4d7552d0bcaf152662b82"
+    },
+    {
+      "file": "stable\\fix-exit-native\\menu.png",
+      "sha256": "210e5c4382d3a3e32124cdfd88d7c3c2c6367b77a39c0b793d3c487d880477a0"
+    },
+    {
+      "file": "stable\\fix-exit-native\\reentry.png",
+      "sha256": "5e02e6e8f41798d7772b017b987e8ae43f513ba762809ec28cfee49b4ee3c125"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\after.png",
+      "sha256": "8ae10a47bed984981fcd764f40cbd9846b3835c70e35c28cd1001fe6ef598359"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\before.png",
+      "sha256": "381e71fef0524c466e5d2d02b846f6fe3a135aefbb6d6d1797318e80b9f8e7ee"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\burn-after.png",
+      "sha256": "c9326d74b3ac179845db4d1006831dbd4633c3e3da50ffd7939580d9c9b27348"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\burn-before.png",
+      "sha256": "36978c4fc80d8a984905f07cca810651a72e0ac12ea74d3451015da7a5eb341b"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\burn-during.png",
+      "sha256": "a57d691c5a247606d3f76db42f0e13ce657bc4d912b2bf80e10108d9f8c3d8eb"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\during-0.png",
+      "sha256": "6d3e705b7e8a0732418b78176df6088b04e41532dc003b4bfc0e71a45fcac551"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\during-1.png",
+      "sha256": "effeb2746a1dfd34efa7d9597ec15c0f6b22df887e9cca9389857a1f50ca8509"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\during-2.png",
+      "sha256": "473f28496302ed92037b6f42cbf9f035aba49ebd05e2d42a19e177154f1180ae"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\form-after.png",
+      "sha256": "7dd731e4feb950caf4f0495cfd3ae42a3e3ae678605858c24d67d766e46e8fea"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\form-before.png",
+      "sha256": "ee52eba2f89c755beebc76ff4606ef4c612cf9c640ecfea0ec73c869429b5a75"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\form-during.png",
+      "sha256": "fcd21b0928f1bead938a847e1af9832ad768e09dbcb3b0fd218522deda884a32"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\peak-depth.png",
+      "sha256": "08224f9bc22de89b664a6f45f5827560c5f3758fd159f37e5b19ee2bdfd76160"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\previous-run-before-death.png",
+      "sha256": "649948cd9b1d7135920992707b22ce2b15225c69c2df279d09564922ac0dc92b"
+    },
+    {
+      "file": "stable\\fix-foreign-pincer\\previous-run-ended.png",
+      "sha256": "684dfb43844154372f5b5256e2a332ab5e6edc1603f8c8d4bd764a0573c1ecd7"
+    },
+    {
+      "file": "stable\\fix-native-start\\previous-run-before-death.png",
+      "sha256": "862cc977cf4782e4bb29e40ec414019836b11c8e940c8eafe1d44b7439844ea5"
+    },
+    {
+      "file": "stable\\fix-native-start\\previous-run-ended.png",
+      "sha256": "fbdbd362c4e496fc6663eab1e3892ea3ef4eb7ac61fc6de3d52f54d4f1bf52eb"
+    },
+    {
+      "file": "beta\\boundary-chain2\\after.png",
+      "sha256": "65330eb99589147c09d6e5e76928041cd15cff2257210648b117491ae21c002d"
+    },
+    {
+      "file": "beta\\boundary-chain2\\before.png",
+      "sha256": "c53829b39310a00c88ee74353cac8c9f68199be401e06fbdfdac494de1b9e49e"
+    },
+    {
+      "file": "beta\\boundary-chain2\\during-0.png",
+      "sha256": "357924292d27ef6935dff4d40cca702648b86d8c427a812118bb7966d3b0f296"
+    },
+    {
+      "file": "beta\\boundary-chain2\\during-1.png",
+      "sha256": "85c26e829aabf2e055e4df43bd03f1d7134f4c93086ed3421246fa71b7389469"
+    },
+    {
+      "file": "beta\\boundary-chain2\\during-2.png",
+      "sha256": "0f004f137d7ef2a6f1b2f7ed6328ec49898acba5e5ea57f85aa5d02d8131609a"
+    },
+    {
+      "file": "beta\\boundary-chain2\\initial.png",
+      "sha256": "ddb4b687b4ac248f63b53f1993f9405708f8d291c72e103cb5ecc4e2685ccb2d"
+    },
+    {
+      "file": "beta\\boundary-chain2\\settled.png",
+      "sha256": "3fbf0358e4d288c0495a834f129122a542deca67d904df0e6e85794cfd6c5c30"
+    },
+    {
+      "file": "beta\\boundary-empty\\after.png",
+      "sha256": "b046797daabe747552b4ccdf8e0c99fe15d0159ba530147bb769f15962e26245"
+    },
+    {
+      "file": "beta\\boundary-empty\\before.png",
+      "sha256": "0789103bd327035a0311dedce2d29baec334901c9cbb87a8527dade5cbf343c7"
+    },
+    {
+      "file": "beta\\boundary-empty\\initial.png",
+      "sha256": "43769ca7bce24fcba5e683099a6958489178e355086c5419f15d08b425a0b43e"
+    },
+    {
+      "file": "beta\\boundary-empty\\settled.png",
+      "sha256": "63e0640ae0ca45b46b95d235d5c313c482f4e45befca07f2d921b8fe29d5ef39"
+    },
+    {
+      "file": "beta\\boundary-fast\\after.png",
+      "sha256": "c744ceebb5237e58d490f1d9375d0e24ec8d0ade92f3f976da8c6466db3c7e20"
+    },
+    {
+      "file": "beta\\boundary-fast\\before.png",
+      "sha256": "b12b860a046b8b0b7067b51386735f5d3057ae1bb99c22d92318d275be76985d"
+    },
+    {
+      "file": "beta\\boundary-fast\\during-0.png",
+      "sha256": "bf2051cb42dfd32389b09543633174101738593fe07b2e28fa5599c26693c4c9"
+    },
+    {
+      "file": "beta\\boundary-fast\\during-1.png",
+      "sha256": "014d8c2a26650cae80d727f6c912cd7d38d04205819546d4d4f5ab6398678233"
+    },
+    {
+      "file": "beta\\boundary-fast\\during-2.png",
+      "sha256": "7144319441a02bff924c185aab9ae5c222d3ff4a7a2e2d981c4002a18f040dba"
+    },
+    {
+      "file": "beta\\boundary-fast\\initial.png",
+      "sha256": "d4099e00e06a23b560e806a98cacf45911ffe908f0a4f91182b0048dfe9f4665"
+    },
+    {
+      "file": "beta\\boundary-fast\\settled.png",
+      "sha256": "36f669168e24d458784dda67c815d9c5e4ff66f2666810c0cb6ae527b4b88276"
+    },
+    {
+      "file": "beta\\boundary-instant\\after.png",
+      "sha256": "6013aeb4a0a8f31e507eb52695170cf17d5e649af0b2b574524faaed88b01e77"
+    },
+    {
+      "file": "beta\\boundary-instant\\before.png",
+      "sha256": "2675aa1d6287c23718fb29a25a0d22ab6ab42cae44e11ab8be2e354b115ec188"
+    },
+    {
+      "file": "beta\\boundary-instant\\during-0.png",
+      "sha256": "2950611bfc5c1faf078143770c4890275690c91319fa63394586ec2e19b1e18d"
+    },
+    {
+      "file": "beta\\boundary-instant\\during-1.png",
+      "sha256": "079415ddf92a58f3d7cd7938b326a1b4988ce06a166a6ffe6db10157cdd2e4a4"
+    },
+    {
+      "file": "beta\\boundary-instant\\during-2.png",
+      "sha256": "74970cebf6115b9badc9378790904e8b52b69044639262df1f7e2ec9c2a40846"
+    },
+    {
+      "file": "beta\\boundary-instant\\initial.png",
+      "sha256": "bfbdb16235b5b39256d7337d27c4e371347d64631b9b40b4873d591f933e76a6"
+    },
+    {
+      "file": "beta\\boundary-instant\\settled.png",
+      "sha256": "ed75effdf12df31b7ffaa5243e853f8a85c4695c3654f6dd5935c5a783bb6e04"
+    },
+    {
+      "file": "beta\\boundary-lethal\\after.png",
+      "sha256": "0bd0273d099f10593dd05ee2132e870be7ddb27f225178d216a1944f016cf81c"
+    },
+    {
+      "file": "beta\\boundary-lethal\\before.png",
+      "sha256": "127471f5880906cf71a7ea4a6327a38498381322446cee2a0c021da074cf2439"
+    },
+    {
+      "file": "beta\\boundary-lethal\\during-0.png",
+      "sha256": "51bb00003523ee50c691129e0a8361d4a96ff1f63f07bdba476949253b977a11"
+    },
+    {
+      "file": "beta\\boundary-lethal\\initial.png",
+      "sha256": "da55334118e2c92b99765ee742709822557e5781c3f7032eb71dc4d3bb5ee956"
+    },
+    {
+      "file": "beta\\boundary-next-clean\\after.png",
+      "sha256": "6413736f4471927c34a773171f590ad3272f9654617613dc5651e7c88fe15efb"
+    },
+    {
+      "file": "beta\\boundary-next-clean\\before.png",
+      "sha256": "3f6917751321aaa0a0a0e271fe6cbd1b09e8ca0cc741d0d0c61f155decb11c40"
+    },
+    {
+      "file": "beta\\boundary-next-clean\\initial.png",
+      "sha256": "a833ae7703b2af8542ec99d46d1d233b51eb2f2457c4190536b76ed18a6257e4"
+    },
+    {
+      "file": "beta\\boundary-next-clean\\settled.png",
+      "sha256": "705ae659bf8317a3dfb7026aee136cb93844de98fe0e0d12992470d4fe31ef3d"
+    },
+    {
+      "file": "beta\\boundary-replay\\after.png",
+      "sha256": "4941c43eb5fd10ebd9a4b0538f7da44ed45b834b8bc2ece974fc94d2e89f38d1"
+    },
+    {
+      "file": "beta\\boundary-replay\\before.png",
+      "sha256": "796ba506cc864f3e4adf777d1f39db53cd67e4bf119c69f1230cfa77749a6a3c"
+    },
+    {
+      "file": "beta\\boundary-replay\\during-0.png",
+      "sha256": "e6cf34c92a73bbffeb1fae4abd0eadc63938ba72f557ac2d9b112991eb18efdd"
+    },
+    {
+      "file": "beta\\boundary-replay\\during-1.png",
+      "sha256": "a0287a2f319a5367a4add4f547e439c2f97c260758bba07e2b0d141b0f417513"
+    },
+    {
+      "file": "beta\\boundary-replay\\during-2.png",
+      "sha256": "4d78243b172d04cb496187524a979c2c8c2008a3fde94963575ed5d0c04659c3"
+    },
+    {
+      "file": "beta\\boundary-replay\\initial.png",
+      "sha256": "86c3d427bd2dac2928fd09519e736b4212f4eea5e6f804e5127d3671d77aa85c"
+    },
+    {
+      "file": "beta\\boundary-replay\\settled.png",
+      "sha256": "973852bf03284e5a50e4c0ab9af606f184164464c9339876903e88deb645bc4e"
+    },
+    {
+      "file": "beta\\boundary-void-chain\\after-void.png",
+      "sha256": "4cd591ab51df79df0530712921152fc9bad47aff909d6d848ec277e643a9001b"
+    },
+    {
+      "file": "beta\\boundary-void-chain\\after.png",
+      "sha256": "63cf1d4c8406f2b63aa494f11b70478a5a6a9da08ad9b3ae2912095bfbf18831"
+    },
+    {
+      "file": "beta\\boundary-void-chain\\before-void.png",
+      "sha256": "52ea2ac87e63a761c090f9165510deb7970628dddf05018baa6e37872428d4bc"
+    },
+    {
+      "file": "beta\\boundary-void-chain\\before.png",
+      "sha256": "5033ce63b7219d6a324f762c2f4d56a40b3928d232c5089baffff059e34312e2"
+    },
+    {
+      "file": "beta\\boundary-void-chain\\during-0.png",
+      "sha256": "902fc7128f0ef1e3c9612b6e7fa4499eabe1ccc9a62c79dfd1f9a0835ad7161a"
+    },
+    {
+      "file": "beta\\boundary-void-chain\\during-1.png",
+      "sha256": "699b661daa11c0dc16861fdd1271e92df237354e1bb7d973ef3e4e0f7b7c9116"
+    },
+    {
+      "file": "beta\\boundary-void-chain\\during-2.png",
+      "sha256": "07246299f557acddbfbd59271b3644977ae95faf2c9921f9727c2bf4d8372c34"
+    },
+    {
+      "file": "beta\\boundary-void-chain\\initial.png",
+      "sha256": "5f9e053df320087f980b4261819c38ea069b307645de3b4c786f66ef6978d626"
+    },
+    {
+      "file": "beta\\boundary-void-chain\\settled.png",
+      "sha256": "5343a7e10bb5e91b65c12de466dfa9f5e03b1ebb73bce27fc3c3f5e569b751c2"
+    },
+    {
+      "file": "beta\\fix-bridge-1\\after.png",
+      "sha256": "03071ad1bd4e44f0513047e0f4414248e5f69ab351d68c67cad04f4958f3dd5b"
+    },
+    {
+      "file": "beta\\fix-bridge-1\\before.png",
+      "sha256": "46b634e3653e315441cb755f189ad7ea528c3a7afae020179dac0eb131dbce1c"
+    },
+    {
+      "file": "beta\\fix-bridge-1\\during-0.png",
+      "sha256": "8f0a4653f81aa767bc90f258b145b57386838dce14ee8ef300034dcc45c92a39"
+    },
+    {
+      "file": "beta\\fix-bridge-1\\during-1.png",
+      "sha256": "c4ecb03370f007dee108addb3353d4c4396969aa1b9fa5199955abb49bc19151"
+    },
+    {
+      "file": "beta\\fix-bridge-1\\during-2.png",
+      "sha256": "491b20d31f5295d1f3bdce020bf25418f1853f70fe3fd276bfbaeea213193390"
+    },
+    {
+      "file": "beta\\fix-bridge-1\\held.png",
+      "sha256": "d9bdfb1a0bfad9a71a8179ace39186e22e36a59c83fb0ae2507405db87834b25"
+    },
+    {
+      "file": "beta\\fix-bridge-1\\initial.png",
+      "sha256": "f6b9b9598b7b5995c652e652f48b4c74ab7fb1f2bd06b5bb045fb741535840e9"
+    },
+    {
+      "file": "beta\\fix-bridge-8\\after.png",
+      "sha256": "39bce0f5f7d36c4a3eda8184083b1028c7ba5736b9f336e252f0a94ea61870de"
+    },
+    {
+      "file": "beta\\fix-bridge-8\\before.png",
+      "sha256": "88e51107b6ff333df1d745b59031e427cde6a0f0d3c32075791fbeac6a986156"
+    },
+    {
+      "file": "beta\\fix-bridge-8\\during-0.png",
+      "sha256": "a04d33deb027fa19e03460af8b8fba4d65ff49627c7124e941581c8f3620dde8"
+    },
+    {
+      "file": "beta\\fix-bridge-8\\during-1.png",
+      "sha256": "295463c19fbb44d2f182a9ae577f50e1a0cd0aa5397f10b005764aa5cb464e7b"
+    },
+    {
+      "file": "beta\\fix-bridge-8\\during-2.png",
+      "sha256": "3f51c23a2cd79feb10466158f3212a08a026282079564042880e3f5e262c7176"
+    },
+    {
+      "file": "beta\\fix-bridge-8\\held.png",
+      "sha256": "a3cf53edcb869db116d79f4ff082b070d2b93bf98fce4b47222772bf7771c677"
+    },
+    {
+      "file": "beta\\fix-bridge-8\\initial.png",
+      "sha256": "fbb1a2afcd637e1c37fe031d9619fcee2eb7a5bcfa54e4a4aaedcde1c5d0b518"
+    },
+    {
+      "file": "beta\\fix-bridge-8\\peak-depth.png",
+      "sha256": "fb83d277528cfbf5ec51543496c4fd5a1110834c2249887fd6d998b2f1736584"
+    },
+    {
+      "file": "beta\\fix-bridge-8-open\\after.png",
+      "sha256": "67ad519126bd80a541fd475ceea8b7284b0a10b38087b13c67d41a9b92d66ea9"
+    },
+    {
+      "file": "beta\\fix-bridge-8-open\\before.png",
+      "sha256": "2d2a64aaf64f389e454146133440e13645474bbaa1e0f10a514a26cc6527711e"
+    },
+    {
+      "file": "beta\\fix-bridge-8-open\\during-0.png",
+      "sha256": "7140032cae48146117c800a81bb1d38bf82d0d97a447d5a372016d25274e7d18"
+    },
+    {
+      "file": "beta\\fix-bridge-8-open\\during-1.png",
+      "sha256": "08258a669b77ff44b1d48e2aaf6927a2c16a1038803a3c4e28b81a5af5b8964b"
+    },
+    {
+      "file": "beta\\fix-bridge-8-open\\during-2.png",
+      "sha256": "37955b840a51bc7f2f51055c7f4765dfdee25d0de530e7ac335a1445107781a1"
+    },
+    {
+      "file": "beta\\fix-bridge-8-open\\initial.png",
+      "sha256": "aa08a020b01f190e9b0bd51054197331b7483aa9db46bc168f44574d54c9aea4"
+    },
+    {
+      "file": "beta\\fix-bridge-8-open\\peak-depth.png",
+      "sha256": "5369cfced85858c70ce8c4c7c9c1f69212fb35e9ff3ffbf2c2a12625702924cc"
+    },
+    {
+      "file": "beta\\fix-exit-detached\\before.png",
+      "sha256": "59891973664b11b7c1dcc03ef758e723c4981d6c0f124a7f8ddf9ec0c2344977"
+    },
+    {
+      "file": "beta\\fix-exit-detached\\game-over.png",
+      "sha256": "11145c868a309bc3b8f1be57f9b5f5a8595fc8c21dc9c213dd83126b2e523b07"
+    },
+    {
+      "file": "beta\\fix-exit-detached\\menu.png",
+      "sha256": "7c578ce02349e61ade6b5aeee0d388a77f8fc4b1ad07da9efafd58babaacb8a1"
+    },
+    {
+      "file": "beta\\fix-exit-detached\\reentry.png",
+      "sha256": "d63f218fcc839b3eb6d3856e899141586098309fd24d787a136159116b1dfcd1"
+    },
+    {
+      "file": "beta\\fix-exit-native\\before.png",
+      "sha256": "b24281cdf868702b6f474bc9077573c716067b30fbb45ff84a1d97fb25da780f"
+    },
+    {
+      "file": "beta\\fix-exit-native\\game-over.png",
+      "sha256": "5450b96b6cc534d7628cb654d1f7f9ef236a130f9528d2e47a3ebea7ab281cff"
+    },
+    {
+      "file": "beta\\fix-exit-native\\menu.png",
+      "sha256": "166efd2175fdd691aee7cb9cfee73474a52e27a46e7ce30f3ce60fd766f65a65"
+    },
+    {
+      "file": "beta\\fix-exit-native\\reentry.png",
+      "sha256": "c8fa605fad057a740608a82ca714963d636cb8e52e711f21afaa87bccb684015"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\after.png",
+      "sha256": "8fec4c7157101ec904f0e897a950ed1555a70328dd295e358cddaf7693f32beb"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\before.png",
+      "sha256": "1079f41b184611a0a12b8d8f04a5c50646bfd953fd169ad55843fe89951fa3d6"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\burn-after.png",
+      "sha256": "cad79b45a42121f74ebd2dc8537b469a5c41df068fab405ed7f41d62a0d4c2ae"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\burn-before.png",
+      "sha256": "fcf035ba6e225fd3ff476d5619bb1a77b9dd70d525e4856523fe9424a529aae7"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\burn-during.png",
+      "sha256": "9afad2b1f7bb8596c4fa5fd3c693ff8a033092fd6c3d71f52b7e2cf182b22234"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\during-0.png",
+      "sha256": "9e26c29c7f8d6c4b8d3b3659108d7c78170366133292a3758189a522a26d08ae"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\during-1.png",
+      "sha256": "3623e1a8333bab0e33ed7b53a666cf23ac4c32d4dcad09a63de7fd5aaf0ebf38"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\during-2.png",
+      "sha256": "707267a6c7521b2c1e7ffbc4f9087616c30d1b3773ccf1037ba20ca7dc10e338"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\form-after.png",
+      "sha256": "7bdb18585834a283696274147097a41959ba15f2ab6745fb8f527d6b0d5e7461"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\form-before.png",
+      "sha256": "4c0efa3d29d002a805acea4a9a88e2ac6730880f5f94229414d8b469e25714a5"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\form-during.png",
+      "sha256": "b02613cc0ec5d5676c941c1a0c61b2770d90eba0d0059894cc462bf3fdbb0599"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\peak-depth.png",
+      "sha256": "f38b398b7bff0d32bc2e37a6302fb340b883a65d61a4b4d2be242bf40e8989a0"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\previous-run-before-death.png",
+      "sha256": "e1005253d49634d631bebcda4a490537044808a5f868386bb80d1e8ae1e8c2d0"
+    },
+    {
+      "file": "beta\\fix-foreign-pincer\\previous-run-ended.png",
+      "sha256": "2c0cb27a496e32dd30c8ae2bbc36cf3159d162b9fbf3a27e0f55ca8f48e8325f"
+    },
+    {
+      "file": "beta\\fix-native-start\\previous-run-before-death.png",
+      "sha256": "b63e388194ad39b937e8197cee312f5dba460a9eb67f4b34e7763ee70963c1a9"
+    },
+    {
+      "file": "beta\\fix-native-start\\previous-run-ended.png",
+      "sha256": "ae3f138909648ab0f8ca0778c04a75fce521415d422ba33eb90106ef519c8d38"
+    }
+  ],
+  "visualReview": {
+    "complete": true,
+    "imagesReviewed": 190,
+    "method": "Four contact sheets; full-resolution original symptom and surrounded peak/cleanup images.",
+    "contacts": [
+      "review/stable-1.jpg",
+      "review/stable-2.jpg",
+      "review/beta-1.jpg",
+      "review/beta-2.jpg"
+    ]
+  }
+}

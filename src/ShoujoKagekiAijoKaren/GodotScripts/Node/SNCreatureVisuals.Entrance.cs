@@ -8,6 +8,7 @@ public partial class SNCreatureVisuals
     private static readonly StringName EntranceLean = new("entrance_lean");
     private static readonly StringName EntranceCape = new("entrance_cape");
     private AnimationPlayer? _entranceAnimationPlayer;
+    private Callable _entranceAnimationCallback;
     private Vector2 _entranceOffset;
     private float _entranceLean, _entranceCape;
     public bool IsEntrancePoseActive { get; private set; }
@@ -16,7 +17,11 @@ public partial class SNCreatureVisuals
     private void InitializeEntranceAnimation()
     {
         _entranceAnimationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
-        if (_entranceAnimationPlayer != null) _entranceAnimationPlayer.AnimationStarted += OnEntranceNativeAnimation;
+        if (_entranceAnimationPlayer == null) return;
+        // Keep the exact callable: generated C# event trampolines are not
+        // interchangeable with a fresh Callable.From during teardown.
+        _entranceAnimationCallback = Callable.From<StringName>(OnEntranceNativeAnimation);
+        _entranceAnimationPlayer.Connect(AnimationMixer.SignalName.AnimationStarted, _entranceAnimationCallback);
     }
 
     private void OnEntranceNativeAnimation(StringName animation)
@@ -77,8 +82,13 @@ public partial class SNCreatureVisuals
     public override void _ExitTree()
     {
         CancelKarenEntrance();
-        if (GodotObject.IsInstanceValid(_entranceAnimationPlayer))
-            _entranceAnimationPlayer!.AnimationStarted -= OnEntranceNativeAnimation;
+        // Native scene teardown may already have removed this connection while
+        // the AnimationPlayer instance is still valid.
+        if (GodotObject.IsInstanceValid(_entranceAnimationPlayer)
+            && _entranceAnimationPlayer!.IsConnected(AnimationMixer.SignalName.AnimationStarted, _entranceAnimationCallback))
+            _entranceAnimationPlayer.Disconnect(AnimationMixer.SignalName.AnimationStarted, _entranceAnimationCallback);
+        _entranceAnimationPlayer = null;
+        _entranceAnimationCallback = default;
         base._ExitTree();
     }
 }

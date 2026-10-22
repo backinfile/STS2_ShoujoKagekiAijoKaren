@@ -1,0 +1,28 @@
+[
+  {
+    "file": "artifacts/vfx-boundaries-20261022/round2-stable/boundary-deep/peak-depth.png",
+    "sha256": "d9ab6a57deff34af3bc1a7a5ac2e9261ba26ed731829e006cc536f790319545f",
+    "roi": [
+      540,
+      420,
+      760,
+      525
+    ],
+    "whitePixels": 19604,
+    "total": 23100,
+    "fraction": 0.8486580086580087
+  },
+  {
+    "file": "artifacts/vfx-fixes-20261022/final/stable/fix-bridge-8-open/peak-depth.png",
+    "sha256": "09d56a12d90f55ed5bb9c58032646e66aee11c753406c311f781748a8e83edc0",
+    "roi": [
+      540,
+      420,
+      760,
+      525
+    ],
+    "whitePixels": 0,
+    "total": 23100,
+    "fraction": 0.0
+  }
+]

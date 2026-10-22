@@ -37,6 +37,8 @@ public partial class NKarenBridgeVfx : Node2D
     private bool _locked;
     private bool _fromDraw;
     private float _speed;
+    private float _lightWeight = 1;
+    private float _atmosphereWeight = 1;
     private Playback? _playback;
     private float _releaseAge = -1;
     private Vector2 _source;
@@ -58,6 +60,7 @@ public partial class NKarenBridgeVfx : Node2D
     public bool FromDraw => _fromDraw;
     public bool IsHolding => !IsSpotlight && _hasCards && _releaseAge < 0;
     public float MainLightStrength => _mainLightMaterial == null ? 0 : Mathf.SmoothStep(0.34f, 0.52f, Age) * StageFade;
+    private float AtmosphereStrength => _atmosphereMaterial == null ? 0 : Mathf.SmoothStep(0, 0.24f, Age) * StageFade;
     private float ExitProgress => Mathf.Clamp(_releaseAge / 0.45f, 0, 1);
     private float StageFade => 1 - Mathf.SmoothStep(0, 1, ExitProgress);
 
@@ -93,6 +96,9 @@ public partial class NKarenBridgeVfx : Node2D
                 _fromDraw = PromisePileManager.IsVoidMode(player),
                 _speed = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1.6f : 1f
             });
+            if (card == null && hasCards && !room.BackCombatVfxContainer.GetChildren()
+                .OfType<StageLighting>().Any(n => !n.IsQueuedForDeletion()))
+                room.BackCombatVfxContainer.AddChild(new StageLighting { ProcessPriority = 100 });
         }).CallDeferred();
     }
 
@@ -209,25 +215,48 @@ public partial class NKarenBridgeVfx : Node2D
         }
         _bridgeMaterial?.SetShaderParameter("age", Age);
         _bridgeMaterial?.SetShaderParameter("exit_progress", ExitProgress);
+        if (_bridge != null)
+            _bridge.Position = SceneryOffset + new Vector2(0, 6 * (1 - Mathf.SmoothStep(0.1f, 0.6f, Age)));
+        _glints?.QueueRedraw();
+        QueueRedraw();
+    }
+
+    // A single late process pass uses the same envelopes for every stage. Per-node
+    // normalization in _Process would mix this frame's ages with last frame's,
+    // briefly exceeding the budget as a nested stage lights up.
+    private partial class StageLighting : Node
+    {
+        public override void _Process(double delta)
+        {
+            var stages = GetParent().GetChildren().OfType<NKarenBridgeVfx>()
+                .Where(n => !n.IsSpotlight && n._hasCards && n.Visible && !n.IsQueuedForDeletion()).ToArray();
+            if (stages.Length == 0) { QueueFree(); return; }
+            float lightWeight = 1 / Mathf.Max(1, stages.Sum(n => n.MainLightStrength));
+            float atmosphereWeight = 1 / Mathf.Max(1, stages.Sum(n => n.AtmosphereStrength));
+            foreach (var stage in stages) stage.UpdateStageLighting(lightWeight, atmosphereWeight);
+        }
+    }
+
+    private void UpdateStageLighting(float lightWeight, float atmosphereWeight)
+    {
+        _lightWeight = lightWeight;
+        _atmosphereWeight = atmosphereWeight;
         _atmosphereMaterial?.SetShaderParameter("age", Age);
-        _atmosphereMaterial?.SetShaderParameter("strength", Mathf.SmoothStep(0, 0.24f, Age) * StageFade);
+        _atmosphereMaterial?.SetShaderParameter("strength", AtmosphereStrength * _atmosphereWeight);
+        float lightStrength = MainLightStrength * _lightWeight;
         float breath = 0.96f + 0.04f * Mathf.Sin(Age * 1.7f);
-        UpdateLight(_mainLightMaterial, MainLightStrength * 0.96f * breath);
-        UpdateLight(_floorLightMaterial, MainLightStrength * 0.46f * breath);
-        UpdateLight(_lampMaterial, MainLightStrength * 1.45f);
-        UpdateLight(_leftLightMaterial, MainLightStrength * 0.26f);
-        UpdateLight(_rightLightMaterial, MainLightStrength * 0.21f);
+        UpdateLight(_mainLightMaterial, lightStrength * 0.96f * breath);
+        UpdateLight(_floorLightMaterial, lightStrength * 0.46f * breath);
+        UpdateLight(_lampMaterial, lightStrength * 1.45f);
+        UpdateLight(_leftLightMaterial, lightStrength * 0.26f);
+        UpdateLight(_rightLightMaterial, lightStrength * 0.21f);
         for (int i = 0; i < _jointLightMaterials.Length; i++)
         {
             float travel = Mathf.PosMod((Age - 0.50f) * 0.24f - i * 0.31f, 1);
             float glint = Mathf.Exp(-Mathf.Pow((travel - 0.16f) / 0.11f, 2));
             float lockFlash = Mathf.Exp(-Mathf.Pow((Age - 0.50f - i * 0.065f) / 0.13f, 2));
-            UpdateLight(_jointLightMaterials[i], MainLightStrength * (0.12f + glint * 0.30f + lockFlash * 0.52f));
+            UpdateLight(_jointLightMaterials[i], lightStrength * (0.12f + glint * 0.30f + lockFlash * 0.52f));
         }
-        if (_bridge != null)
-            _bridge.Position = SceneryOffset + new Vector2(0, 6 * (1 - Mathf.SmoothStep(0.1f, 0.6f, Age)));
-        _glints?.QueueRedraw();
-        QueueRedraw();
     }
 
     private void UpdateLight(ShaderMaterial? material, float intensity)
@@ -272,7 +301,7 @@ public partial class NKarenBridgeVfx : Node2D
     private void DrawGlints()
     {
         if (_glints == null) return;
-        float strength = MainLightStrength;
+        float strength = MainLightStrength * _lightWeight;
         // Deterministic, bounded populations; wrapping happens only while particles are invisible.
         DrawMotes(new Vector2(616, 205), new Vector2(63, 304), 126, 60, 0.092f, strength, WarmLight);
         DrawMotes(new Vector2(493, 190), new Vector2(-20, 252), 64, 16, 0.13f, strength * 0.65f, WarmLight);
