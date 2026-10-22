@@ -17,12 +17,24 @@ internal sealed class ShineCardBorder(NCard card)
     public Vector2 TopCenter { get; private set; }
     private float Length => _distance.Length == 0 ? 0 : _distance[^1];
 
+    internal static void Prepare(NCard card)
+    {
+        if (card.GetNodeOrNull<TextureRect>("%Frame")?.Texture is { } texture)
+            GetContour(texture);
+    }
+
+    private static Vector2[] GetContour(Texture2D texture)
+    {
+        if (!Contours.TryGetValue(texture, out var contour))
+            Contours[texture] = contour = ReadContour(texture);
+        return contour;
+    }
+
     public void Update(Node2D overlay)
     {
         _frame ??= card.GetNode<TextureRect>("%Frame");
         if (_frame.Texture is not {} texture) return;
-        if (!Contours.TryGetValue(texture, out var contour))
-            Contours[texture] = contour = ReadContour(texture);
+        var contour = GetContour(texture);
         if (_outline.Length != contour.Length)
         {
             _outline = new Vector2[contour.Length];
@@ -47,12 +59,19 @@ internal sealed class ShineCardBorder(NCard card)
         using var image = ReadImage(texture);
         if (image == null || image.IsEmpty()) return Array.Empty<Vector2>();
         int width = image.GetWidth(), height = image.GetHeight();
+        // Imported card atlases decompress to RGBA8. Read their pixels once:
+        // GetPixel crosses the managed/native boundary for every transparent pixel.
+        // Keep the native path for other formats so their alpha semantics are unchanged.
+        byte[]? rgba = image.GetFormat() == Image.Format.Rgba8 ? image.GetData() : null;
+        bool Transparent(int x, int y) => rgba != null
+            ? rgba[(y * width + x) * 4 + 3] < 128
+            : image.GetPixel(x, y).A < .5f;
         var left = new List<Vector2>(); var right = new List<Vector2>();
         for (int y = 0; y < height; y += 2)
         {
             int a = 0, b = width - 1;
-            while (a < width && image.GetPixel(a, y).A < .5f) a++;
-            while (b > a && image.GetPixel(b, y).A < .5f) b--;
+            while (a < width && Transparent(a, y)) a++;
+            while (b > a && Transparent(b, y)) b--;
             if (a == width) continue;
             AddEdge(left, new Vector2(a / (float)width, (y + .5f) / height));
             AddEdge(right, new Vector2((b + 1f) / width, (y + .5f) / height));

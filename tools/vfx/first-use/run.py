@@ -1,6 +1,7 @@
 """Desktop-hosted smoke for the AnyCPU Android Mod; this is not an ARM64 device test."""
 from pathlib import Path
 import argparse
+import hashlib
 import json
 import os
 import shutil
@@ -15,7 +16,10 @@ parser.add_argument("--branch", choices=["stable", "beta"], default="stable")
 parser.add_argument("--port", type=int, default=15847)
 parser.add_argument("--mode",choices=["cold","preload","draw"],default="cold")
 parser.add_argument("--renderer",choices=["opengl3","vulkan"],default="opengl3")
+parser.add_argument("--effect",choices=["bridge","shine","promise"],default="bridge")
+parser.add_argument("--passes",type=int,default=4)
 args = parser.parse_args()
+assert args.passes>=2
 project = Path(__file__).resolve().parents[3]
 run = project / "artifacts/vfx-first-use-20261022/runs" / (args.branch + "-" + time.strftime("%Y%m%d-%H%M%S"))
 run.mkdir(parents=True, exist_ok=False)
@@ -67,6 +71,8 @@ profile = run / "user/AppData/Roaming/SlayTheSpire2/default/8622"
 profile.mkdir(parents=True)
 shutil.copy2(args.source_env / "user/AppData/Roaming/SlayTheSpire2/default/1/settings.save", profile / "settings.save")
 env = os.environ.copy()
+env["KAREN_VFX_PROBE_EFFECT"]=args.effect
+env["KAREN_VFX_PROBE_MODE"]=args.mode
 env["APPDATA"] = str(run / "user/AppData/Roaming")
 env["LOCALAPPDATA"] = str(run / "user/AppData/Local")
 Path(env["LOCALAPPDATA"]).mkdir(parents=True)
@@ -162,27 +168,66 @@ try:
     action(action="choose_map_node", index=0)
     wait_for(lambda s: s.get("state_type") == "monster" and s.get("battle", {}).get("is_play_phase"), "combat")
     time.sleep(4)
-    action(action="run_command",command="karen_first_use "+args.mode)
-    time.sleep(12)
-    for _ in range(150):
-        value=action(action="run_command",command="karen_first_use_status")["message"]
-        if value.startswith("{"):
-            measured=json.loads(value)
-            (run/"measurements.json").write_text(json.dumps(measured,indent=2),encoding="utf-8")
-            assert measured["status"]=="done",measured
-            assert all(x["drawn"]>30 for x in measured["samples"]),"Rendering did not advance"
-            first_hitch=False
-            for effect in ["bridge"]:
-                group=[x for x in measured["samples"] if x["effect"]==effect]
-                warm=sorted(x["maxMs"] for x in group[1:])[1]
-                cold=group[0]
-                hit=cold["maxMs"]>33.3 and cold["maxMs"]>warm*1.5
-                first_hitch|=hit
-                print(json.dumps(dict(effect=effect,firstMaxMs=round(cold["maxMs"],2),warmMedianMaxMs=round(warm,2),firstBuildMs=round(cold["buildMs"],2),firstReadyMs=round(cold["readyMs"],2),warmReadyMs=[round(x["readyMs"],2) for x in group[1:]],mode=args.mode,warmBuildMs=[round(x["buildMs"],2) for x in group[1:]],firstUseHitch=hit)),flush=True)
-            results.append(dict(case="first_use_hitch",passed=not first_hitch))
-            break
-        time.sleep(.25)
-    else:raise RuntimeError("Measurement timed out")
+    if args.effect!="bridge":
+        def common(operation):return action(action="run_command",command="karen_common_first_use "+operation+" "+args.effect)
+        def common_result():
+            for _ in range(120):
+                raw=action(action="run_command",command="karen_common_first_use_status")["message"]
+                if raw.startswith("{"):
+                    value=json.loads(raw);assert value["status"]!="error",value
+                    return value
+                time.sleep(.1)
+            raise RuntimeError("Common VFX timed out")
+        def hand(name):
+            check=json.loads(action(action="run_command",command="karen_check_hand")["message"])
+            (run/(name+"-hand.json")).write_text(json.dumps(check,indent=2),encoding="utf-8")
+            assert check["modelCount"]==check["visualCount"] and not check["missing"] and not check["unexpected"] and not check["unexpectedPileIcons"],check
+        common("prepare");time.sleep(4);prepared=common_result()
+        (run/"prepared.json").write_text(json.dumps(prepared,indent=2),encoding="utf-8")
+        measured=[]
+        for number in range(args.passes):
+            screenshot(str(number)+"-before");hand(str(number)+"-before")
+            common("run");time.sleep(2.5);result=common_result()
+            assert result["status"]=="done" and result["drawn"]>20,result
+            result["pass"]=number;measured.append(result)
+            screenshot(str(number)+"-after");hand(str(number)+"-after")
+            common("reset");time.sleep(1.2);common_result()
+            screenshot(str(number)+"-reset");hand(str(number)+"-reset")
+        (run/"measurements.json").write_text(json.dumps(dict(effect=args.effect,mode=args.mode,renderer=args.renderer,samples=measured),indent=2),encoding="utf-8")
+        common("dump");time.sleep(.5);contours=common_result()
+        (run/"contours.json").write_text(json.dumps(contours,indent=2),encoding="utf-8")
+        if args.branch=="stable":
+            reference=json.loads((Path(__file__).parent/"contour-reference.json").read_text(encoding="utf-8"))["frames"]
+            actual={x["path"]:{"points":len(x["points"]),"sha256":hashlib.sha256(json.dumps(x["points"],separators=(",",":")).encode()).hexdigest()} for x in contours["frames"]}
+            assert actual==reference,{"contour_regression":actual,"expected":reference}
+            print("PASS: five native card frame contours unchanged",flush=True)
+        warm=sorted(x["maxMs"] for x in measured[1:])[len(measured[1:])//2]
+        hit=measured[0]["maxMs"]>33.3 and measured[0]["maxMs"]>warm*1.5
+        print(json.dumps(dict(effect=args.effect,firstMaxMs=measured[0]["maxMs"],warmMaxMs=warm,samples=[dict(syncMs=x["syncMs"],maxMs=x["maxMs"],cpu=x["cpu"]) for x in measured],firstUseHitch=hit)),flush=True)
+        results.append(dict(case="first_use_"+args.effect,passed=not hit))
+    else:
+        time.sleep(4)
+        action(action="run_command",command="karen_first_use "+args.mode)
+        time.sleep(12)
+        for _ in range(150):
+            value=action(action="run_command",command="karen_first_use_status")["message"]
+            if value.startswith("{"):
+                measured=json.loads(value)
+                (run/"measurements.json").write_text(json.dumps(measured,indent=2),encoding="utf-8")
+                assert measured["status"]=="done",measured
+                assert all(x["drawn"]>30 for x in measured["samples"]),"Rendering did not advance"
+                first_hitch=False
+                for effect in ["bridge"]:
+                    group=[x for x in measured["samples"] if x["effect"]==effect]
+                    warm=sorted(x["maxMs"] for x in group[1:])[1]
+                    cold=group[0]
+                    hit=cold["maxMs"]>33.3 and cold["maxMs"]>warm*1.5
+                    first_hitch|=hit
+                    print(json.dumps(dict(effect=effect,firstMaxMs=round(cold["maxMs"],2),warmMedianMaxMs=round(warm,2),firstBuildMs=round(cold["buildMs"],2),firstReadyMs=round(cold["readyMs"],2),warmReadyMs=[round(x["readyMs"],2) for x in group[1:]],mode=args.mode,warmBuildMs=[round(x["buildMs"],2) for x in group[1:]],firstUseHitch=hit)),flush=True)
+                results.append(dict(case="first_use_hitch",passed=not first_hitch))
+                break
+            time.sleep(.25)
+        else:raise RuntimeError("Measurement timed out")
 except Exception as error:
     results.append(dict(case="runner", passed=False, error=str(error)))
     print("FAIL", error, flush=True)

@@ -56,6 +56,14 @@ public static class ShineVfx
         old.QueueFree();
     }
 
+    // The native card pool builds 30 nodes at startup. Prepare shared geometry there,
+    // before a model's first visible Shine overlay needs the atlas pixels.
+    [HarmonyPatch(typeof(NCard), nameof(NCard.OnInstantiated))]
+    private static class PoolWarmupPatch
+    {
+        private static void Postfix(NCard __instance) => ShineCardBorder.Prepare(__instance);
+    }
+
     [HarmonyPatch(typeof(NCard), nameof(NCard.UpdateVisuals))]
     private static class VisualPatch { private static void Postfix(NCard __instance) => Refresh(__instance); }
 
