@@ -1,0 +1,91 @@
+{
+  "environment": "stable v0.107.1",
+  "damage": 4,
+  "rendering": "Both candidates loaded into the real CardModel.Portrait in the task-only probe process. Native hover and NInspectCardScreen; no compositing inside cards. Comparison crops native screenshots and adds labels outside. Production portrait unchanged.",
+  "results": [
+    {
+      "case": "a",
+      "passed": true,
+      "damage": 4,
+      "portrait": "(500, 380)",
+      "artPreview": "a"
+    },
+    {
+      "case": "wide",
+      "passed": true,
+      "damage": 4,
+      "portrait": "(500, 380)",
+      "artPreview": "wide"
+    }
+  ],
+  "candidates": [
+    {
+      "choice": "a",
+      "label": "原 A 裁切",
+      "texture_sha256": "1ba0e161c4be34214b378f90f15d407c61e241c173d4bed3939983218dcf7b58",
+      "inspect_sha256": "a4a77cea4a6714efd020165e22f60c7e6902b599114ecb91905b1616035321f1",
+      "probe": {
+        "state": "ready",
+        "attacks": [],
+        "artPreview": "a",
+        "locks": 0,
+        "eligible": 2,
+        "relics": [
+          "STRAWBERRY",
+          "PEAR"
+        ],
+        "playable": true,
+        "costX": true,
+        "capturedX": 0,
+        "upgraded": false,
+        "pile": "Hand",
+        "disableCost": 2,
+        "damage": 4,
+        "repeat": 2,
+        "pool": true,
+        "hasPortrait": true,
+        "portrait": "(500, 380)",
+        "title": "拿走我的全部",
+        "description": "[gold]禁用[/gold]2个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]2[/blue]个遗物）",
+        "energy": 3,
+        "targetHp": 100
+      }
+    },
+    {
+      "choice": "wide",
+      "label": "A 放宽裁切",
+      "texture_sha256": "bc6b262be4e6c0b423e599ed54cf6bf8e88d00a78bc348b20471d4ccc4ba41c4",
+      "inspect_sha256": "56fa4f9751db6ef0728bfaddcd4f1370b67d0529f01f4bd59d119dc0e6cac3e5",
+      "probe": {
+        "state": "ready",
+        "attacks": [],
+        "artPreview": "wide",
+        "locks": 0,
+        "eligible": 2,
+        "relics": [
+          "STRAWBERRY",
+          "PEAR"
+        ],
+        "playable": true,
+        "costX": true,
+        "capturedX": 0,
+        "upgraded": false,
+        "pile": "Hand",
+        "disableCost": 2,
+        "damage": 4,
+        "repeat": 2,
+        "pool": true,
+        "hasPortrait": true,
+        "portrait": "(500, 380)",
+        "title": "拿走我的全部",
+        "description": "[gold]禁用[/gold]2个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]2[/blue]个遗物）",
+        "energy": 3,
+        "targetHp": 100
+      }
+    }
+  ],
+  "hand_checks": 8,
+  "unchanged_production_portrait_sha256": "a31faf89c4189a57a20599d570be788c6f60e7f61b1aa6199333eb6e6fab2519",
+  "errors": [],
+  "owned_game_exited": true
+}

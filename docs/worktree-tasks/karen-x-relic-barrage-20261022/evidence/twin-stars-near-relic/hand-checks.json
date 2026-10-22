@@ -1,0 +1,259 @@
+[
+  {
+    "source": "artifacts/twin-stars-near-relic/capture/normal/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/capture/normal/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/capture/normal/inspect-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/capture/upgrade/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/capture/upgrade/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/capture/upgrade/inspect-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/fast/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/fast/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/instant/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/instant/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/lethal/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/lethal/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/one/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/one/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/replay/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/replay/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/three/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/three/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/zero/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-near-relic/beta/zero/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  }
+]

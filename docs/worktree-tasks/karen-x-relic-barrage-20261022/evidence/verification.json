@@ -1,0 +1,227 @@
+{
+  "scope": "Targeted singleplayer checks for this card only; no full suite or multiplayer tests.",
+  "variants": {
+    "stable": [
+      {
+        "case": "zero",
+        "passed": true,
+        "energy": 0,
+        "hits": 0,
+        "relics_disabled": 2,
+        "damage": 0
+      },
+      {
+        "case": "one",
+        "passed": true,
+        "energy": 1,
+        "hits": 2,
+        "relics_disabled": 2,
+        "damage": 10
+      },
+      {
+        "case": "two",
+        "passed": true,
+        "energy": 2,
+        "hits": 4,
+        "relics_disabled": 2,
+        "damage": 20
+      },
+      {
+        "case": "strength",
+        "passed": true,
+        "energy": 2,
+        "hits": 4,
+        "relics_disabled": 2,
+        "damage": 28
+      },
+      {
+        "case": "chemical",
+        "passed": true,
+        "energy": 1,
+        "hits": 6,
+        "relics_disabled": 2,
+        "damage": 30
+      },
+      {
+        "case": "lock-chemical",
+        "passed": true,
+        "energy": 1,
+        "hits": 6,
+        "relics_disabled": 2,
+        "damage": 30
+      },
+      {
+        "case": "replay",
+        "passed": true,
+        "energy": 2,
+        "hits": 8,
+        "relics_disabled": 4,
+        "damage": 40
+      },
+      {
+        "case": "blocked",
+        "passed": true,
+        "energy": 3,
+        "hits": 0,
+        "relics_disabled": 0,
+        "damage": 0
+      },
+      {
+        "case": "blocked-upgrade",
+        "passed": true,
+        "energy": 3,
+        "hits": 0,
+        "relics_disabled": 0,
+        "damage": 0
+      },
+      {
+        "case": "three",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 2,
+        "damage": 30
+      },
+      {
+        "case": "upgrade",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 1,
+        "damage": 30
+      },
+      {
+        "case": "combat-end-restoration",
+        "passed": true,
+        "restored": 1
+      }
+    ],
+    "stable_package": {
+      "ShoujoKagekiAijoKaren.pck": "8d95444d0667e40d6f4c48994c4dc5932f371ea1d5ec96c335c78c8b0fb43bde",
+      "lib/ShoujoKagekiAijoKaren.Stable.dll": "aa4dd4a3bd9fc5f371854cb8672dff31bcc4f2d8e4b932a4fdfe224e35e29d4b"
+    },
+    "beta": [
+      {
+        "case": "zero",
+        "passed": true,
+        "energy": 0,
+        "hits": 0,
+        "relics_disabled": 2,
+        "damage": 0
+      },
+      {
+        "case": "one",
+        "passed": true,
+        "energy": 1,
+        "hits": 2,
+        "relics_disabled": 2,
+        "damage": 10
+      },
+      {
+        "case": "two",
+        "passed": true,
+        "energy": 2,
+        "hits": 4,
+        "relics_disabled": 2,
+        "damage": 20
+      },
+      {
+        "case": "strength",
+        "passed": true,
+        "energy": 2,
+        "hits": 4,
+        "relics_disabled": 2,
+        "damage": 28
+      },
+      {
+        "case": "chemical",
+        "passed": true,
+        "energy": 1,
+        "hits": 6,
+        "relics_disabled": 2,
+        "damage": 30
+      },
+      {
+        "case": "lock-chemical",
+        "passed": true,
+        "energy": 1,
+        "hits": 6,
+        "relics_disabled": 2,
+        "damage": 30
+      },
+      {
+        "case": "replay",
+        "passed": true,
+        "energy": 2,
+        "hits": 8,
+        "relics_disabled": 4,
+        "damage": 40
+      },
+      {
+        "case": "blocked",
+        "passed": true,
+        "energy": 3,
+        "hits": 0,
+        "relics_disabled": 0,
+        "damage": 0
+      },
+      {
+        "case": "blocked-upgrade",
+        "passed": true,
+        "energy": 3,
+        "hits": 0,
+        "relics_disabled": 0,
+        "damage": 0
+      },
+      {
+        "case": "three",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 2,
+        "damage": 30
+      },
+      {
+        "case": "upgrade",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 1,
+        "damage": 30
+      },
+      {
+        "case": "combat-end-restoration",
+        "passed": true,
+        "restored": 1
+      }
+    ],
+    "beta_package": {
+      "ShoujoKagekiAijoKaren.pck": "8d95444d0667e40d6f4c48994c4dc5932f371ea1d5ec96c335c78c8b0fb43bde",
+      "lib/ShoujoKagekiAijoKaren.Beta.dll": "bb754421084e1c91c48f4dd99bcb1a131ff1fec967147f2d902f2876e9820bc9"
+    }
+  },
+  "hand_checks": {
+    "stable": {
+      "passed": 22,
+      "failed": 0
+    },
+    "beta": {
+      "passed": 22,
+      "failed": 0
+    }
+  },
+  "logs": {
+    "stable": {
+      "mcp_loaded": true,
+      "errors": [],
+      "note": "No error or exception lines in this final targeted run."
+    },
+    "beta": {
+      "mcp_loaded": true,
+      "errors": [
+        "ERROR: Invalid Task ID"
+      ],
+      "note": "The beta engine reported Invalid Task ID during Common asset preloading, before card tests. No new-card exception occurred during the passed cases."
+    }
+  }
+}
