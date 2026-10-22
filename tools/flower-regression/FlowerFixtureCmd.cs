@@ -115,12 +115,13 @@ public sealed class FlowerFixtureCmd : AbstractConsoleCmd
                 var group = Descendants(NGame.Instance!).OfType<MegaCrit.Sts2.Core.Nodes.Rewards.NLinkedRewardSet>()
                     .Single(node => node.LinkedRewardSet == _reward!.ParentRewardSet);
                 var connector = group.GetNode<Control>("%ChainContainer").GetChildren().OfType<TextureRect>().Single();
-                // Native TextureRect defaults to KeepSize, so its 128px texture overrides
-                // the requested 50px size before our patch preserves the resulting center.
-                var nativeSize = ResourceLoader.Load<Texture2D>("res://images/ui/reward_screen/reward_chain.png").GetSize();
-                var nativeCenter = group.GetNode<Control>("%ChainContainer").GlobalPosition + nativeSize * 0.5f;
-                Check(connector.GetGlobalRect().GetCenter().DistanceTo(nativeCenter) < 0.1f,
-                    "floral chain keeps native connector center: " + connector.GetGlobalRect().GetCenter());
+                var rows = Descendants(group).OfType<MegaCrit.Sts2.Core.Nodes.Rewards.NRewardButton>()
+                    .OrderBy(button => button.GlobalPosition.Y).Select(button => button.GetGlobalRect()).ToList();
+                var gapCenter = new Vector2((rows[0].GetCenter().X + rows[1].GetCenter().X) * 0.5f,
+                    (rows[0].End.Y + rows[1].Position.Y) * 0.5f);
+                Check(connector.GetGlobalRect().GetCenter().DistanceTo(gapCenter) < 0.1f,
+                    "floral chain centers in actual button gap: actual=" +
+                    connector.GetGlobalRect().GetCenter() + " expected=" + gapCenter);
                 // Compare painted content with opaque sprite pixels, not full row Controls
                 // or the transparent corners of the diagonal chain image.
                 var textBounds = Descendants(group).OfType<MegaCrit.Sts2.Core.Nodes.Rewards.NRewardButton>()

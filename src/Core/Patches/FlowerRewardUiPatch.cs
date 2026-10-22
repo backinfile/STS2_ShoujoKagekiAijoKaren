@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Rewards;
@@ -13,9 +14,9 @@ public static class FlowerRewardUiPatch
         Control ____chainsContainer)
     {
         if (__instance.LinkedRewardSet is not KarenFlowerRewardSet) return;
-        foreach (var child in ____rewardContainer.GetChildren())
+        var buttons = ____rewardContainer.GetChildren().OfType<NRewardButton>().ToList();
+        foreach (var button in buttons)
         {
-            if (child is not NRewardButton button) continue;
             // Native Reload binds a zero-argument callback to a one-argument signal.
             foreach (var connection in button.GetSignalConnectionList(NRewardButton.SignalName.RewardClaimed))
             {
@@ -32,15 +33,35 @@ public static class FlowerRewardUiPatch
             }));
         }
         var texture = ResourceLoader.Load<Texture2D>("res://images/ui/flower/chain.tres");
-        foreach (var child in ____chainsContainer.GetChildren())
+        var chains = ____chainsContainer.GetChildren().OfType<TextureRect>().ToList();
+        foreach (var chain in chains)
         {
-            if (child is not TextureRect chain) continue;
-            var center = chain.Position + chain.Size * 0.5f;
             chain.Texture = texture;
             chain.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
             chain.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
             chain.Size = new Vector2(60, 60);
-            chain.Position = center - chain.Size * 0.5f;
         }
+
+        void AlignChains()
+        {
+            if (!GodotObject.IsInstanceValid(__instance) || __instance.IsQueuedForDeletion()) return;
+            for (var i = 0; i < chains.Count && i + 1 < buttons.Count; i++)
+            {
+                var upper = buttons[i].GetGlobalRect();
+                var lower = buttons[i + 1].GetGlobalRect();
+                var center = new Vector2(
+                    (upper.GetCenter().X + lower.GetCenter().X) * 0.5f,
+                    (upper.End.Y + lower.Position.Y) * 0.5f);
+                chains[i].GlobalPosition = center - chains[i].Size * 0.5f;
+            }
+        }
+
+        // Native chain offsets target the old artwork. Measure the real button gap after
+        // the VBox has laid out its children, including subsequent container resizes.
+        var align = Callable.From(AlignChains);
+        if (____rewardContainer is Container container)
+            container.SortChildren += () => align.CallDeferred();
+        __instance.Resized += () => align.CallDeferred();
+        align.CallDeferred();
     }
 }

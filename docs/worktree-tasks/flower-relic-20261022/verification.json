@@ -1,14 +1,14 @@
 {
   "date": "2026-10-22",
-  "revision": 3,
+  "revision": 4,
   "scope": "Targeted singleplayer regression; full multiplayer matrix not run",
   "baseline_commit": "7c78e66e2db2d142f231ddf1b57c92fece4fb334",
   "synchronized_main": "b5b94a8d43551dc5c5d643f9b0e962edc6a4b227",
   "previous_revision": {
-    "revision": 2,
-    "assertions_per_variant": 49,
-    "total_assertions": 98,
-    "result": "pass before shared-arc revision"
+    "revision": 3,
+    "assertions_per_variant": 56,
+    "total_assertions": 112,
+    "result": "pass before correcting the alignment criterion"
   },
   "variants": {
     "stable": {
@@ -17,15 +17,14 @@
       "fixture_invocations": 12,
       "assertions": 56,
       "log_errors": 0,
-      "native_connector_center": "preserved",
       "opaque_connector_and_painted_text": "non-overlapping",
       "shared_arc": "exactly one, centered, mouse filter Ignore",
       "rarity_glow": "both UncommonGlow and RareGlow hidden and emission stopped",
       "ordinary_and_empty_chest": "no floral arc",
       "empty_chest_open_and_proceed": "pass",
       "tested_package_sha256": {
-        "lib/ShoujoKagekiAijoKaren.Stable.dll": "a98d399684d55140e1497ae617c3695fc4de4511139571e8661c429008ffb45d",
-        "ShoujoKagekiAijoKaren.pck": "e3c0c7ae13b5f555ef15c4d977cb0043acd992750605916706299512650be3aa"
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "dc2f7d46c606baa603629a437eb185de4c2546b3177659c276197f73cca5df3e",
+        "ShoujoKagekiAijoKaren.pck": "fd436459c08d86f24e2ffae5374666f4177724b0be94e0ccbac7dfc65654a072"
       },
       "cases": [
         {
@@ -76,7 +75,8 @@
           "case": "empty",
           "result": "pass"
         }
-      ]
+      ],
+      "button_gap_alignment": "floral chain centers in actual button gap: actual=(959, 669) expected=(959, 669)"
     },
     "beta": {
       "version": "v0.111.0",
@@ -84,15 +84,14 @@
       "fixture_invocations": 12,
       "assertions": 56,
       "log_errors": 0,
-      "native_connector_center": "preserved",
       "opaque_connector_and_painted_text": "non-overlapping",
       "shared_arc": "exactly one, centered, mouse filter Ignore",
       "rarity_glow": "both UncommonGlow and RareGlow hidden and emission stopped",
       "ordinary_and_empty_chest": "no floral arc",
       "empty_chest_open_and_proceed": "pass",
       "tested_package_sha256": {
-        "lib/ShoujoKagekiAijoKaren.Beta.dll": "f8fd6a1f79b0076b634d9eb705872805570cf00f8b0eb8a1c440e9f823dc7012",
-        "ShoujoKagekiAijoKaren.pck": "e3c0c7ae13b5f555ef15c4d977cb0043acd992750605916706299512650be3aa"
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "216a4a76a7ea2b364f06e212e6ef1123d4663a9e5be0278641050f2f535171b4",
+        "ShoujoKagekiAijoKaren.pck": "fd436459c08d86f24e2ffae5374666f4177724b0be94e0ccbac7dfc65654a072"
       },
       "cases": [
         {
@@ -143,7 +142,8 @@
           "case": "empty",
           "result": "pass"
         }
-      ]
+      ],
+      "button_gap_alignment": "floral chain centers in actual button gap: actual=(959, 573) expected=(959, 573)"
     }
   },
   "localization": {

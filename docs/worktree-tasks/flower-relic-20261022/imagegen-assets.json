@@ -1,7 +1,7 @@
 {
   "tool": "imagegen built-in",
   "date": "2026-10-22",
-  "revision": 3,
+  "revision": 4,
   "mode": "edit / transparent extraction of approved full-screen previews",
   "user_feedback": [
     "1 锁链不要更换位置 2 你需要换一个花朵的设计方向",
@@ -39,13 +39,24 @@
       ],
       "atlas_region": [
         394,
+        265,
+        604,
+        604
+      ],
+      "previous_atlas_region": [
+        394,
         272,
         581,
         578
-      ]
+      ],
+      "petal_center_in_original_png": [
+        696,
+        566.5
+      ],
+      "alignment_note": "Virtual square atlas region centers the coral flower silhouette; PNG bytes unchanged."
     }
   ],
-  "processing": "Generated PNGs copied unchanged; AtlasTexture regions crop transparent margins without modifying raster pixels.",
+  "processing": "Generated PNGs unchanged. Chain atlas includes transparent padding to center its flower; UI aligns the connector to the actual gap between laid-out reward buttons.",
   "previous_revisions": [
     {
       "revision": 2,
