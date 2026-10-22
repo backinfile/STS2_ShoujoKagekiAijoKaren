@@ -1,0 +1,17 @@
+{
+  "tool": "imagegen built-in",
+  "date": "2026-10-22",
+  "assets": [
+    {
+      "file": "images/ui/flower/chain.png",
+      "prompt_summary": "Two antique-gold interlocking chain links with one small ivory flower and two sage leaves; simple hand-painted game UI on transparent alpha.",
+      "sha256": "a63d363f29efa05e0d20454ce68f4dfc48886ef59f7adac227d61dd11c188ef3"
+    },
+    {
+      "file": "images/ui/flower/chest_cradle.png",
+      "prompt_summary": "A symmetric shallow golden botanical underline with one ivory flower and two sage leaves; minimal transparent decoration below a relic.",
+      "sha256": "01cb296326ff9c50ae0c2431dc6970ab79be88e3a76fe5144b8dc8781ccdcee7"
+    }
+  ],
+  "processing": "Original generated PNGs copied unchanged; AtlasTexture resource regions trim transparent margins at runtime."
+}

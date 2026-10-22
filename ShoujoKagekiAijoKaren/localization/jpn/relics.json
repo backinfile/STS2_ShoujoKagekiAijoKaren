@@ -35,5 +35,9 @@
 
   "KAREN_STAR_TIARA_RELIC.title": "星の王冠",
   "KAREN_STAR_TIARA_RELIC.description": "各ターン開始時、レリックを[blue]1[/blue]個[gold]無効化[/gold]し、[blue]{Energy}[/blue]エナジーを得る。",
-  "KAREN_STAR_TIARA_RELIC.flavor": "星を摘む者も、次の舞台へ進む代償を払う。"
+  "KAREN_STAR_TIARA_RELIC.flavor": "星を摘む者も、次の舞台へ進む代償を払う。",
+
+  "KAREN_FLOWER_RELIC.title": "花",
+  "KAREN_FLOWER_RELIC.description": "戦闘後のレリック報酬に、同じレアリティの選択肢が[blue]1[/blue]個追加される。獲得できるのは一方のみ。シングルプレイの宝箱にも選択肢が[blue]1[/blue]個追加される。",
+  "KAREN_FLOWER_RELIC.flavor": "幕が下りても、新たな可能性が花開く。"
 }

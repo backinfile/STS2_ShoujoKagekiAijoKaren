@@ -1,0 +1,137 @@
+{
+  "date": "2026-10-22",
+  "scope": "Targeted singleplayer regression; full multiplayer matrix not run",
+  "baseline_commit": "7c78e66e2db2d142f231ddf1b57c92fece4fb334",
+  "variants": {
+    "stable": {
+      "version": "v0.107.1",
+      "result": "pass",
+      "fixture_invocations": 12,
+      "assertions": 48,
+      "log_errors": 0,
+      "empty_chest_open_and_proceed": "pass",
+      "tested_package_sha256": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "b3d05bc8ea02dbae6ae777bf04445333411796864300eacee144312ff61d5672",
+        "ShoujoKagekiAijoKaren.pck": "e8cd5290a1f3c79c1bc37261ae7732c456a78293fb164a4394dcc40b35df84db"
+      },
+      "cases": [
+        {
+          "case": "chest-one",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "audit",
+          "result": "pass"
+        },
+        {
+          "case": "prepare",
+          "result": "pass"
+        },
+        {
+          "case": "reward-check",
+          "result": "pass"
+        },
+        {
+          "case": "claim-check",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-skip",
+          "result": "pass"
+        },
+        {
+          "case": "empty-setup",
+          "result": "pass"
+        },
+        {
+          "case": "empty",
+          "result": "pass"
+        }
+      ]
+    },
+    "beta": {
+      "version": "v0.111.0",
+      "result": "pass",
+      "fixture_invocations": 12,
+      "assertions": 48,
+      "log_errors": 0,
+      "empty_chest_open_and_proceed": "pass",
+      "tested_package_sha256": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "80b25b834f67f9f74aa1f92d8ea06f9c670e41bf5bab2c9f4fab86bc45b0a2bf",
+        "ShoujoKagekiAijoKaren.pck": "e8cd5290a1f3c79c1bc37261ae7732c456a78293fb164a4394dcc40b35df84db"
+      },
+      "cases": [
+        {
+          "case": "chest-one",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "audit",
+          "result": "pass"
+        },
+        {
+          "case": "prepare",
+          "result": "pass"
+        },
+        {
+          "case": "reward-check",
+          "result": "pass"
+        },
+        {
+          "case": "claim-check",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-skip",
+          "result": "pass"
+        },
+        {
+          "case": "empty-setup",
+          "result": "pass"
+        },
+        {
+          "case": "empty",
+          "result": "pass"
+        }
+      ]
+    }
+  },
+  "localization": {
+    "source_entries": 431,
+    "translations": 862,
+    "smartformat_renders": 10344,
+    "result": "pass"
+  }
+}

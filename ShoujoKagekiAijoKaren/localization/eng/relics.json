@@ -37,5 +37,9 @@
 
   "KAREN_STAR_TIARA_RELIC.title": "Star Crown",
   "KAREN_STAR_TIARA_RELIC.description": "At the start of each turn, [gold]disable[/gold] [blue]1[/blue] relic and gain [blue]{Energy}[/blue] Energy.",
-  "KAREN_STAR_TIARA_RELIC.flavor": "Those who reach for the stars still pay a price for their next performance."
+  "KAREN_STAR_TIARA_RELIC.flavor": "Those who reach for the stars still pay a price for their next performance.",
+
+  "KAREN_FLOWER_RELIC.title": "Flower",
+  "KAREN_FLOWER_RELIC.description": "Relic rewards after combat offer [blue]1[/blue] additional option of the same rarity. Choose only one. Singleplayer Treasure Rooms also offer [blue]1[/blue] additional option.",
+  "KAREN_FLOWER_RELIC.flavor": "When the curtain falls, new possibilities still bloom."
 }
