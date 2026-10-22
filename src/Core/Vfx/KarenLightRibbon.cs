@@ -6,10 +6,17 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>A short, tapered strip on an existing draw layer. Head may pass 1 to retract its tail.</summary>
 internal static class KarenLightRibbon
 {
-    private static GradientTexture2D? _glow;
-    private static GradientTexture2D Glow => _glow ??= new GradientTexture2D {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _glow ??= new GradientTexture2D {
         Width=96,Height=96,Fill=GradientTexture2D.FillEnum.Radial,FillFrom=new(.5f,.5f),FillTo=new(1,.5f),
         Gradient=new Gradient { Offsets=[0,.18f,.55f,1],Colors=[Colors.White,new(1,1,1,.65f),new(1,1,1,.12f),Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_glow];
+
+    private static GradientTexture2D? _glow;
+    private static GradientTexture2D Glow { get { PrepareResources(); return _glow!; } }
 
     public static Vector2 Curve(Vector2 a, Vector2 b, Vector2 c, Vector2 d, float t)
     {

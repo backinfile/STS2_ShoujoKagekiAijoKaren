@@ -11,6 +11,13 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>One-shot full-screen engagement or a brief gear pulse on its owner.</summary>
 public partial class NKarenGeerVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _gearTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/geer/steel-gear.png", nameof(NKarenGeerVfx));
+    }
+    internal static Godot.Resource?[] PreparedResources => [_gearTexture];
+
     private static Texture2D? _gearTexture;
     private NCreature _creature = null!;
     private NCombatRoom _room = null!;
@@ -43,7 +50,7 @@ public partial class NKarenGeerVfx : Node2D
             GodotTreeExtensions.QueueFreeSafely(this);
             return;
         }
-        _gearTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/geer/steel-gear.png", nameof(NKarenGeerVfx));
+        PrepareResources();
         TextureFilter = TextureFilterEnum.LinearWithMipmaps;
         UpdatePlacement();
     }

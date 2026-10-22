@@ -14,6 +14,14 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>One local, screen-space fan of stage lights while Last Word is actually playable.</summary>
 public partial class NKarenLastWordStageLightsVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _shader ??= KarenResourceLoader.Load<Shader>(
+            "res://materials/vfx/karen_last_word_stage_lights.gdshader", nameof(NKarenLastWordStageLightsVfx));
+    }
+    internal static Godot.Resource?[] PreparedResources => [_shader];
+
     private const float FadeInSeconds = .48f;
     private const float FadeOutSeconds = .24f;
     private static NKarenLastWordStageLightsVfx? _active;
@@ -48,8 +56,7 @@ public partial class NKarenLastWordStageLightsVfx : Node2D
             _active.QueueFree();
         }
 
-        _shader ??= KarenResourceLoader.Load<Shader>(
-            "res://materials/vfx/karen_last_word_stage_lights.gdshader", nameof(NKarenLastWordStageLightsVfx));
+        PrepareResources();
         if (_shader == null) return;
         var parent = (Node?)NRun.Instance?.GlobalUi ?? room.Ui;
         var effect = new NKarenLastWordStageLightsVfx

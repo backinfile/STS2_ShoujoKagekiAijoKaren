@@ -19,6 +19,15 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>One light per power stack follows a soft contour directly on the native energy icon rim.</summary>
 public partial class NKarenWaitingStageVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _soft ??= new GradientTexture2D { Width = 32, Height = 32, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
+                Offsets = [0, .2f, .6f, 1], Colors = [Colors.White, new(1, 1, 1, .8f), new(1, 1, 1, .12f), Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_soft];
+
     private sealed class Delivery(int gain, float angle)
     {
         public readonly int Gain = gain;
@@ -141,9 +150,7 @@ public partial class NKarenWaitingStageVfx : Node2D
 
     public override void _Ready()
     {
-        _soft ??= new GradientTexture2D { Width = 32, Height = 32, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
-                Offsets = [0, .2f, .6f, 1], Colors = [Colors.White, new(1, 1, 1, .8f), new(1, 1, 1, .12f), Colors.Transparent] } };
+        PrepareResources();
         AddChild(_hud); _hud.Hide();
         _hud.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _ringMaterial = new ShaderMaterial { Shader = KarenResourceLoader.Load<Shader>(
@@ -414,6 +421,11 @@ public partial class NKarenWaitingStageVfx : Node2D
         return true;
     }
 
+    internal static void PrepareIcon(Texture2D texture)
+    {
+        if (!IconContours.ContainsKey(texture)) IconContours[texture] = ReadIconContour(texture);
+    }
+
     private static Vector2[] ReadIconContour(Texture2D texture)
     {
         var atlas = texture as AtlasTexture;
@@ -423,6 +435,9 @@ public partial class NKarenWaitingStageVfx : Node2D
         if (source == null || source.IsEmpty() || (source.IsCompressed() && source.Decompress() != Error.Ok)) return [];
         using var image = atlas == null ? source.GetRegion(new Rect2I(0, 0, source.GetWidth(), source.GetHeight()))
             : source.GetRegion(new Rect2I((Vector2I)atlas.Region.Position, (Vector2I)atlas.Region.Size));
+        byte[]? rgba = image.GetFormat() == Image.Format.Rgba8 ? image.GetData() : null;
+        int width = image.GetWidth(), height = image.GetHeight();
+        bool Transparent(int x, int y) => rgba != null ? rgba[(y * width + x) * 4 + 3] < 128 : image.GetPixel(x, y).A < .5f;
         Vector2 margin = atlas?.Margin.Position ?? Vector2.Zero, size = texture.GetSize();
         Vector2 center = size * .5f - margin;
         var points = new Vector2[OutlineSamples];
@@ -433,8 +448,8 @@ public partial class NKarenWaitingStageVfx : Node2D
             for (float radius = size.Length() * .5f; radius >= 0; radius -= .5f)
             {
                 Vector2 at = center + direction * radius;
-                if (at.X < 0 || at.Y < 0 || at.X >= image.GetWidth() || at.Y >= image.GetHeight()
-                    || image.GetPixel((int)at.X, (int)at.Y).A < .5f) continue;
+                if (at.X < 0 || at.Y < 0 || at.X >= width || at.Y >= height
+                    || Transparent((int)at.X, (int)at.Y)) continue;
                 points[i] = (at + direction * .5f + margin) / size;
                 found = true;
                 break;

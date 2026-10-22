@@ -6,6 +6,25 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 public partial class NKarenNononVfx
 {
+    internal static void PrepareResources()
+    {
+        _atmosphere ??= new GradientTexture2D
+        {
+            Width = 256,
+            Height = 128,
+            Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new Vector2(.5f, .5f),
+            FillTo = new Vector2(1, .5f),
+            Gradient = new Gradient
+            {
+                Offsets = [0, .52f, 1],
+                Colors = [new Color(.31f, .34f, .46f, .30f), new Color(.31f, .34f, .46f, .13f),
+                    new Color(.31f, .34f, .46f, 0)]
+            }
+        };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_atmosphere];
+
     private enum ParticleKind { Dust, Streak, Glint, Shard }
     private static readonly Color WindGray = new("#939bac");
     private static readonly Color DustGray = new("#6b758a");
@@ -32,7 +51,7 @@ public partial class NKarenNononVfx
     private Color[] _particleColors = [];
     private readonly Vector2[] _shardPolygon = new Vector2[5];
     private Node2D _debrisLayer = null!;
-    private GradientTexture2D _atmosphere = null!;
+    private static GradientTexture2D _atmosphere = null!;
     private Rect2 _fieldBounds;
 
     private void CreateParticles()
@@ -213,20 +232,7 @@ public partial class NKarenNononVfx
 
         _particleLines = new Vector2[_particles.Count * 4];
         _particleColors = new Color[_particles.Count * 2];
-        _atmosphere = new GradientTexture2D
-        {
-            Width = 256,
-            Height = 128,
-            Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new Vector2(.5f, .5f),
-            FillTo = new Vector2(1, .5f),
-            Gradient = new Gradient
-            {
-                Offsets = [0, .52f, 1],
-                Colors = [new Color(.31f, .34f, .46f, .30f), new Color(.31f, .34f, .46f, .13f),
-                    new Color(.31f, .34f, .46f, 0)]
-            }
-        };
+        PrepareResources();
         int mistCount = random.Next(6, 10);
         for (int i = 0; i < mistCount; i++)
         {

@@ -18,6 +18,15 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>Card-origin burst, screen-wide scatter, then a subtle irregular planar curl into its owner.</summary>
 public partial class NKarenDropFuelVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _flowShader ??= KarenResourceLoader.Load<Shader>("res://shaders/fuel_particles.gdshader", nameof(NKarenDropFuelVfx));
+        _softTexture ??= MakeTexture(false);
+        _starTexture ??= MakeTexture(true);
+    }
+    internal static Godot.Resource?[] PreparedResources => [_softTexture, _starTexture, _flowShader];
+
     public const string BurstSfxPath = "res://ShoujoKagekiAijoKaren/audio/karen_fuel_ignite.wav";
     // Allow card travel, charge, and burst before drawing. Use native waits, not GPU completion.
     public const float NormalResourceTime = 0.8f;
@@ -60,7 +69,7 @@ public partial class NKarenDropFuelVfx : Node2D
         var cardNode = NCard.FindOnTable(card);
         if (cardNode == null || room.GetCreatureNode(card.Owner.Creature) == null) return null;
         KarenFuelCardVisuals.Restore(cardNode);
-        _flowShader ??= KarenResourceLoader.Load<Shader>("res://shaders/fuel_particles.gdshader", nameof(NKarenDropFuelVfx));
+        PrepareResources();
         if (_flowShader == null) return null;
         var effect = new NKarenDropFuelVfx
         {
@@ -93,8 +102,7 @@ public partial class NKarenDropFuelVfx : Node2D
     {
         ZIndex = 100;
         TopLevel = true;
-        _softTexture ??= MakeTexture(false);
-        _starTexture ??= MakeTexture(true);
+        PrepareResources();
         AddChild(_stage);
         _cardGlow = AddGlow(new Vector2(140, 195));
         _bodyGlow = AddGlow(new Vector2(125, 185));

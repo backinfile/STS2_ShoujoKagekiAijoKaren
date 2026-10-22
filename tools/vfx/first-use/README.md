@@ -1,27 +1,21 @@
-# 首次特效诊断（仅开发测试）
+# 首次特效准备与发布门禁
 
-不进入 Mod 或 APK。复制本体静态文件为只读硬链接，Mod 和用户数据使用副本；使用 KarenSTS2MCP 与私有 Windows desktop，保留真实绘制，不使用 Computer Use。一次仅运行一个探针，避免并发负载污染计时。
+`catalog.py --check` 核对全部视觉类型、共用资源准备入口及资源路径。新增文件后先更新 `resource-owners.json`（若有新的共用资源入口），再运行不带参数的 `catalog.py` 重生成 `KarenVfxCatalog.g.cs`。清单包含辅助节点/partial 合并后的类型，不把类型数量当成独立演出数量。
 
-```powershell
-python tools/vfx/first-use/run.py --source-env "<正式版独立环境>" --port 15849 --mode cold --renderer opengl3
-python tools/vfx/first-use/run.py --source-env "<正式版独立环境>" --port 15849 --mode preload --renderer opengl3
-python tools/vfx/first-use/run.py --source-env "<正式版独立环境>" --port 15849 --mode draw --renderer opengl3
-```
+`run.py --source-env <dev-game/stable> --effect all` 在隔离后台游戏里检查：实际预热绘制、临时视口清理、原生普通缓存及漏载缓存清理后的资源有效性、重复准备幂等，以及 29 组真实视觉工厂的首次/两次重复帧。此项不等于逐张卡牌规则测试。`--branch beta --source-env <dev-game/beta>` 覆盖测试版。不同版本使用不同端口；用于帧耗时结论时顺序运行，避免互相争用 CPU/GPU。
 
-`cold` 在首次塔桥播放时采样；`preload` 预载并持有资源、准备音频，尚未实际绘制特效；`draw` 先完整播放一次。`--renderer vulkan` 补测 PC 默认渲染器。使用已构建的 `artifacts/android/ShoujoKagekiAijoKaren/`，支持的源版本必须与该包匹配。
+同一工具的 `--effect bridge|shine|promise` 覆盖塔桥、实际普通闪耀 overlay、真实约定移牌往返。移牌截图和 `karen_check_hand` 放在计时窗口外。保留日志、JSON 和截图并查看图像；不使用 Computer Use。
 
-每种状态采样四次，每次 1.5 秒，用墙钟帧间隔及真实 rendered frames 校验。首次最大帧间隔大于 33.3ms 且高于后三次最大值中位数的 1.5 倍时返回 1（复现首次停顿）；未复现返回 0。包含逐帧样本、`_Ready()` 耗时和分配字节。HTTP 轮询放在测量窗口之后，期间不截图或录屏。不是 Android 真机采样，不清空系统 GPU 驱动缓存，不把 warm driver 状态称为全设备冷启动。
-
-输出在 `artifacts/vfx-first-use-20261022/runs/`；相关分析见 `docs/testing/vfx-first-use-2026-10-22.md`。
-
-
-## 普通闪耀与真实约定入堆
+发布前执行：
 
 ```powershell
-python tools/vfx/first-use/run.py --source-env "<正式版独立环境>" --effect shine --port 15849
-python tools/vfx/first-use/run.py --source-env "<正式版独立环境>" --effect promise --port 15849
+python tools/vfx/first-use/release_check.py --source-dev <dev-game> --target apk --apk <最终签名APK> --output artifacts/vfx-release-check.json
 ```
 
-普通闪耀测试插件在准备场景时暂缓添加 Shine overlay，待卡牌已在真实手牌中显示后，再调用原生 `NCard.UpdateVisuals` 触发正式补丁。不会清理正式共享缓存，也不跳过正式对象池的几何准备。每次重新绑定光效，比较进程内首次与后续使用；`--mode preload` 仅提前生成同一轮廓缓存，`--mode draw` 提前实际显示光效，用于归因实验。
+工具会核对当前 Mod 的精确哈希，自动补跑缺失或过期的双版本专项，再完整检查 APK 解包。最终报告出现失败项返回 1；有日志待审/缺真机证据时返回 2；全部通过才返回 0。Android ARM64 真机证据用 `--device-report`，JSON 必须包含对应 `apk_sha256`、`platform: Android ARM64` 及 `checks` 中 `fresh_install / upgrade_keeps_save / cold_first_vfx / background_resume` 的真实布尔结论。不要编造设备报告。
 
-约定入堆使用真实 `PromisePileCmd.Add`，每次测试后实际取回手牌。测量期间不请求截图；测量前后与取回后分别保存 MCP 截图并执行 `karen_check_hand`。`contours.json` 导出五种原生卡框的归一化轮廓，正式版必须与优化前保存的 `contour-reference.json` 精确一致。基线同时覆盖 attack / skill / power / quest / ancient。
+创意工坊用 `--target workshop --matrix-report <完整矩阵报告>`；完整矩阵证据需包含相同的 `package_sha256` 映射及 `full_dual_version_matrix_passed: true`，原始逐项记录仍须附存。该摘要需由真实矩阵结果整理，不能用本专项替代联机矩阵。与已测包不同的哈希会要求重测。
+
+PC 帧时间不能替代 Android 驱动、Mono JIT、视频解码或生命周期实机结果。首次 GPU 驱动缓存没有在此工具中全局删除；“冷”指新进程首次播放。普通/临界闪耀、耗尽、空虚、选牌生命周期及常驻叠加仍使用项目现有 catalog/专项工具验证，发布记录须明确实际覆盖。
+
+协议 2 的 all 在游戏测完后原子写入 JSON，外部轮询文件；计时期间不再通过 MCP 查询进度。发布检查不会复用旧协议结果。`--package <最终Mod目录>` 可指定受测包；APK 默认 AnyCPU 包，工坊默认桌面包，发布检查同时核对分支/效果/渲染后端/协议与精确包哈希。

@@ -13,6 +13,19 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Contact-only cut and foil particles drifting toward the actual player. No flight path.</summary>
 public partial class NKarenJealousyVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _soft ??= new GradientTexture2D { Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
+                Offsets = [0, .2f, .55f, 1], Colors = [Colors.White, new(1, 1, 1, .5f), new(1, 1, 1, .06f), Colors.Transparent] } };
+        _particleQuad ??= new GradientTexture2D { Width = 32, Height = 32,
+            Gradient = new Gradient { Offsets = [0, 1], Colors = [Colors.White, Colors.White] } };
+        _foilShader ??= GD.Load<Shader>("res://materials/vfx/jealousy_foil.gdshader");
+        _glintShader ??= GD.Load<Shader>("res://materials/vfx/jealousy_glint.gdshader");
+    }
+    internal static Godot.Resource?[] PreparedResources => [_soft, _particleQuad, _foilShader, _glintShader];
+
     public const float HitTime = .5f;
     public const float FastHitTime = HitTime * .7f;
     private NCombatRoom _room = null!;
@@ -41,9 +54,7 @@ public partial class NKarenJealousyVfx : Node2D
         GlobalTransform = Transform2D.Identity;
         ZIndex = 20;
         _speed = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1 / .7f : 1;
-        _soft ??= new GradientTexture2D { Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
-                Offsets = [0, .2f, .55f, 1], Colors = [Colors.White, new(1, 1, 1, .5f), new(1, 1, 1, .06f), Colors.Transparent] } };
+        PrepareResources();
         _light.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         AddChild(_light);
         _light.Draw += DrawLight;

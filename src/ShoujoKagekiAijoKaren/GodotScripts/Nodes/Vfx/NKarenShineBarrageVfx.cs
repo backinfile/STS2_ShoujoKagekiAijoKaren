@@ -15,6 +15,16 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>One preparation and a thrust that travels through the full victim silhouette per native hit. Visuals never schedule damage.</summary>
 public partial class NKarenShineBarrageVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _shader ??= KarenResourceLoader.Load<Shader>("res://shaders/karen_shine_barrage.gdshader", nameof(NKarenShineBarrageVfx));
+        _sparkTexture ??= new GradientTexture2D { Width = 12, Height = 40,
+            Fill = GradientTexture2D.FillEnum.Radial, FillFrom = new(.5f, .5f), FillTo = new(1, .5f),
+            Gradient = new Gradient { Offsets = [0, .3f, 1], Colors = [Colors.White, new(1, 1, 1, .7f), Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_shader, _sparkTexture];
+
     public const float HitInterval = .12f;
     public const float FastHitInterval = HitInterval * .7f;
     private NCombatRoom _room = null!;
@@ -77,7 +87,7 @@ public partial class NKarenShineBarrageVfx : Node2D
         AddChild(_blade);
         if (_impact)
         {
-            _shader ??= KarenResourceLoader.Load<Shader>("res://shaders/karen_shine_barrage.gdshader", nameof(NKarenShineBarrageVfx));
+            PrepareResources();
             _material = new ShaderMaterial { Shader = _shader };
             _blade.Material = _material;
             _blade.Draw += DrawBlade;
@@ -207,9 +217,7 @@ public partial class NKarenShineBarrageVfx : Node2D
 
     private void CreateParticles()
     {
-        _sparkTexture ??= new GradientTexture2D { Width = 12, Height = 40,
-            Fill = GradientTexture2D.FillEnum.Radial, FillFrom = new(.5f, .5f), FillTo = new(1, .5f),
-            Gradient = new Gradient { Offsets = [0, .3f, 1], Colors = [Colors.White, new(1, 1, 1, .7f), Colors.Transparent] } };
+        PrepareResources();
         var scale = new Curve();
         scale.AddPoint(new(0, .35f)); scale.AddPoint(new(.12f, 1)); scale.AddPoint(new(1, 0));
         _sparks = new CpuParticles2D {

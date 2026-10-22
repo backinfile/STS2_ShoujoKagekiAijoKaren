@@ -15,6 +15,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenStageLightVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+    }
+    internal static Godot.Resource?[] PreparedResources => [StageLightTexture, StageLightFocusTexture];
+
     public const float HitTime = .28f;
     public const float FastHitTime = HitTime * .7f;
     internal static float PlaybackSpeed => SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1f / .7f : 1f;

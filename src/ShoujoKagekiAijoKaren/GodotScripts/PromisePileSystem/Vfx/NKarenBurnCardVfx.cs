@@ -9,6 +9,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>The character's Wrath sparks and rotating aura, fitted to a hand card.</summary>
 public partial class NKarenBurnCardVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+    }
+    internal static Godot.Resource?[] PreparedResources => [SparkTexture, AuraTexture];
+
     private static readonly Texture2D? SparkTexture = KarenResourceLoader.LoadTexture(
         "res://images/vfx/sts/glow_spark.png", nameof(NKarenBurnCardVfx));
     private static readonly Texture2D? AuraTexture = KarenResourceLoader.LoadTexture(

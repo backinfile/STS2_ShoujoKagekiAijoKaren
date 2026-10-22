@@ -11,6 +11,13 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Banana presentation with authoritative Strength observation and a scoped native potion-flight origin.</summary>
 public partial class NKarenBananaVfx : NKarenBenefitVfx
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _potion ??= ModelDb.Potion<FlexPotion>().Image;
+    }
+    internal static Godot.Resource?[] PreparedResources => [_potion];
+
     public enum CastKind { Cake, Snack, Dinner }
     public CastKind Kind { get; private set; }
     private static readonly ConditionalWeakTable<PotionModel, NKarenBananaVfx> PotionOrigins = new();
@@ -61,7 +68,7 @@ public partial class NKarenBananaVfx : NKarenBenefitVfx
     protected override void DrawAdditionalInk(Node2D layer)
     {
         if (Kind != CastKind.Cake || Age < .65f || PotionSucceeded == true) return;
-        _potion ??= ModelDb.Potion<FlexPotion>().Image;
+        PrepareResources();
         float alpha = P(Age,.65f,.82f);
         if (PotionSucceeded == false) alpha *= 1-Ease(P(Age,.95f,1.45f));
         Sprite(layer,_potion,Bottle,Vector2.One*42*Unit,Colors.White,alpha);

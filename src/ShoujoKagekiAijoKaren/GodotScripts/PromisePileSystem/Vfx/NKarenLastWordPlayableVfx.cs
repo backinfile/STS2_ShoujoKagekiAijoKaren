@@ -12,6 +12,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenLastWordPlayableVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+    }
+    internal static Godot.Resource?[] PreparedResources => [..Textures];
+
     private const float SpawnInterval = 0.03f;
     private const int ParticlesPerWave = 5;
     private const int PerimeterSlots = 48;

@@ -23,6 +23,15 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Fixed warm cast, cool block lights, and remaining-opportunity footlights with an owned card preview.</summary>
 public partial class NKarenPositionZeroVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _soft ??= new GradientTexture2D { Width = 96, Height = 96, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
+                Offsets = [0, .25f, .65f, 1], Colors = [Colors.White, new(1, 1, 1, .6f), new(1, 1, 1, .1f), Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_soft];
+
     private sealed class BlockLight(float strength)
     {
         public readonly float Strength = strength;
@@ -136,9 +145,7 @@ public partial class NKarenPositionZeroVfx : Node2D
 
     public override void _Ready()
     {
-        _soft ??= new GradientTexture2D { Width = 96, Height = 96, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
-                Offsets = [0, .25f, .65f, 1], Colors = [Colors.White, new(1, 1, 1, .6f), new(1, 1, 1, .1f), Colors.Transparent] } };
+        PrepareResources();
         TextureFilter = TextureFilterEnum.Linear;
         KarenVfxComposition.RegisterCue(this, _power.Owner);
         Place();

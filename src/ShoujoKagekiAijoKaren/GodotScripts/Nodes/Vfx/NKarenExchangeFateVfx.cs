@@ -21,6 +21,23 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Room-owned flowing silk and optical dust. Native commands own all cards.</summary>
 public partial class NKarenExchangeFateVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _soft ??= new GradientTexture2D
+        {
+            Width = 128,
+            Height = 128,
+            Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f),
+            FillTo = new(1, .5f),
+            Gradient = new Gradient { Offsets = [0, .12f, .40f, 1], Colors = [Colors.White, new(1, 1, 1, .72f), new(1, 1, 1, .16f), Colors.Transparent] }
+        };
+        _streak ??= GD.Load<Texture2D>("res://images/vfx/sts/horizontal_line.png");
+        _shader ??= GD.Load<Shader>("res://shaders/karen_fate_silk.gdshader");
+    }
+    internal static Godot.Resource?[] PreparedResources => [_soft, _streak, _shader];
+
     private const int Segments = 64;
     private const float LeadIn = .06f, SweepDuration = .46f, SwapAt = LeadIn + SweepDuration * .5f;
     private const float SweepEnd = LeadIn + SweepDuration, DrainDuration = .16f, EndAt = .76f;
@@ -111,17 +128,7 @@ public partial class NKarenExchangeFateVfx : Node2D
     public override void _Ready()
     {
         ZIndex = 45; TextureFilter = TextureFilterEnum.Linear;
-        _soft ??= new GradientTexture2D
-        {
-            Width = 128,
-            Height = 128,
-            Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f),
-            FillTo = new(1, .5f),
-            Gradient = new Gradient { Offsets = [0, .12f, .40f, 1], Colors = [Colors.White, new(1, 1, 1, .72f), new(1, 1, 1, .16f), Colors.Transparent] }
-        };
-        _streak ??= GD.Load<Texture2D>("res://images/vfx/sts/horizontal_line.png");
-        _shader ??= GD.Load<Shader>("res://shaders/karen_fate_silk.gdshader");
+        PrepareResources();
         _light.Material = _front.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _front.ZIndex = 6;
         AddChild(_light); AddChild(_front);

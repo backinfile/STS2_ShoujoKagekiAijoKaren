@@ -7,6 +7,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx;
 
 public partial class NDisableRelicStarBurstVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+    }
+    internal static Godot.Resource?[] PreparedResources => [StarTexture];
+
     private const float SpawnInterval = 0.08f;
     private static readonly Texture2D? StarTexture = KarenResourceLoader.LoadTexture("res://images/packed/vfx/star_guide/star.png", nameof(NDisableRelicStarBurstVfx));
 

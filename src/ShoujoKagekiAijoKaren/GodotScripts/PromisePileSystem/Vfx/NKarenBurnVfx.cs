@@ -10,6 +10,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenBurnVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+    }
+    internal static Godot.Resource?[] PreparedResources => [GlowSparkTexture, ExhaustLargeTexture];
+
     private static readonly Texture2D? GlowSparkTexture = LoadTexture("res://images/vfx/sts/glow_spark.png");
     private static readonly Texture2D? ExhaustLargeTexture = LoadTexture("res://images/vfx/sts/exhaust_l.png");
 

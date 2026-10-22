@@ -11,6 +11,21 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Encore's white-hot thrust uses the native Shiv scene and its playback clock.</summary>
 public partial class NKarenContinueVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        Palette(WarmWhite, Gold, Crimson);
+        Fade();
+        _extraProcess ??= new ParticleProcessMaterial { ParticleFlagDisableZ = true, ParticleFlagAlignY = true,
+            EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Sphere, EmissionSphereRadius = 24f,
+            Direction = Vector3.Right, Gravity = new Vector3(0f,70f,0f), DampingMin = 90f, DampingMax = 180f,
+            ColorInitialRamp = Palette(WarmWhite,Gold,Crimson), AlphaCurve = Fade(), LifetimeRandomness = .25f };
+    }
+    internal static Godot.Resource?[] PreparedResources => [SparkShader, _palette, _fade, _extraProcess];
+    private static ParticleProcessMaterial? _extraProcess;
+    private static GradientTexture1D? _palette;
+    private static CurveTexture? _fade;
+
     private static readonly Color Crimson = new(1f, 0.21f, 0.29f);
     private static readonly Color Gold = new(1f, 0.68f, 0.25f);
     private static readonly Color WarmWhite = new(1f, 0.92f, 0.78f);
@@ -33,6 +48,7 @@ public partial class NKarenContinueVfx : Node2D
 
     public static NShivThrowVfx? Create(Creature owner, Creature target)
     {
+        PrepareResources();
         var shiv = NShivThrowVfx.Create(owner, target, Crimson);
         if (shiv == null) return null;
 
@@ -100,7 +116,7 @@ public partial class NKarenContinueVfx : Node2D
         return material;
     }
 
-    private static GradientTexture1D Palette(params Color[] colors) => new()
+    private static GradientTexture1D Palette(params Color[] colors) => _palette ??= new()
     {
         Gradient = new Gradient { Colors = colors, Offsets = [0f, 0.45f, 1f] }
     };
@@ -117,35 +133,22 @@ public partial class NKarenContinueVfx : Node2D
         particles.Emitting = false;
         particles.OneShot = true;
         particles.Explosiveness = 1f;
-        particles.ProcessMaterial = new ParticleProcessMaterial
-        {
-            ParticleFlagDisableZ = true,
-            ParticleFlagAlignY = true,
-            EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Sphere,
-            EmissionSphereRadius = 24f,
-            Direction = Vector3.Right,
-            Spread = spread,
-            InitialVelocityMin = speedMin,
-            InitialVelocityMax = speedMax,
-            Gravity = new Vector3(0f, 70f, 0f),
-            DampingMin = 90f,
-            DampingMax = 180f,
-            ScaleMin = scaleMin,
-            ScaleMax = scaleMax,
-            ColorInitialRamp = Palette(WarmWhite, Gold, Crimson),
-            AlphaCurve = Fade(),
-            LifetimeRandomness = 0.25f
-        };
+        var process = (ParticleProcessMaterial)_extraProcess!.Duplicate();
+        process.Spread = spread;
+        process.InitialVelocityMin = speedMin; process.InitialVelocityMax = speedMax;
+        process.ScaleMin = scaleMin; process.ScaleMax = scaleMax;
+        particles.ProcessMaterial = process;
         return particles;
     }
 
     private static CurveTexture Fade()
     {
+        if (_fade != null) return _fade;
         var curve = new Curve();
         curve.AddPoint(new Vector2(0f, 1f));
         curve.AddPoint(new Vector2(0.25f, 0.9f));
         curve.AddPoint(new Vector2(1f, 0f));
-        return new CurveTexture { Curve = curve };
+        return _fade = new CurveTexture { Curve = curve };
     }
 
     public override void _Ready() => TaskHelper.RunSafely(PlayLayers());

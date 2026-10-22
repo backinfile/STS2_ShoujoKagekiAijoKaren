@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -12,6 +13,14 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>A red stage tower holds card lights and follows native card transfers.</summary>
 public partial class NKarenPromiseStarNode : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _towerTexture ??= KarenResourceLoader.LoadTexture(
+            "res://images/vfx/promise/painted_tower.png", nameof(NKarenPromiseStarNode));
+    }
+    internal static Godot.Resource?[] PreparedResources => [ContinuePortrait, _towerTexture];
+
     private sealed class Star
     {
         public required CardModel Card;

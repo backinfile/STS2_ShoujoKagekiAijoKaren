@@ -17,6 +17,19 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Independent stage cue, interruptible entrance pose and short-lived cloth/light particles.</summary>
 public partial class NKarenCombatEntranceVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _soft ??= new GradientTexture2D
+        {
+            Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f),
+            Gradient = new Gradient { Offsets = [0, .2f, .55f, 1],
+                Colors = [Colors.White, new(1, 1, 1, .68f), new(1, 1, 1, .13f), Colors.Transparent] }
+        };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_soft];
+
     public const float Duration = 1.5f;
     private static readonly StringName PlayedMeta = new("karen_combat_entrance_played");
     private readonly List<NCreature> _karens = new();
@@ -50,13 +63,7 @@ public partial class NKarenCombatEntranceVfx : Node2D
     public override void _Ready()
     {
         _speed = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? .7f : 1;
-        _soft ??= new GradientTexture2D
-        {
-            Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f),
-            Gradient = new Gradient { Offsets = [0, .2f, .55f, 1],
-                Colors = [Colors.White, new(1, 1, 1, .68f), new(1, 1, 1, .13f), Colors.Transparent] }
-        };
+        PrepareResources();
         Material = _back.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         TextureFilter = _back.TextureFilter = TextureFilterEnum.Linear;
         _room.BackCombatVfxContainer.AddChildSafely(_back);

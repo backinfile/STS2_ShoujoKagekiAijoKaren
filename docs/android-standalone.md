@@ -63,3 +63,10 @@ python tools/android-standalone/test.py --apk artifacts/android-direct/StS2-Kare
 ```
 
 证据：`validation.json`、`badging.txt`、`signature.txt`、`pck-patch.json`、`installer-checks/`、`inspect/`、`build.log`，均位于 `artifacts/android-direct/`。这些检查证明打包和程序安装路径通过，不能证明 Android ARM64/Mono 和实际游戏运行已经通过。
+
+
+## r4：全特效准备的测试候选包
+
+当前产物为 `artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r4.apk`（versionCode 10016，2046717577 字节，SHA-256 `1f75385f2ce044965e4d7d41e09471f1bfdc061cc1da75099637a8d2b1d97d66`）。与旧包同包名/签名，可覆盖安装；包含全目录预载、共用生成资源/轮廓缓存、实际离屏 Shader/粒子绘制准备和缓存保留。首轮主菜单加载本机增加约 1.5–4 秒。
+
+双版本 PC 全览各 29 组 × 3 次、闪耀/塔桥/真实移牌专项、最终签名/安装/完整解包及受测 Mod 哈希核查已完成；Android 真机仍未测，测试版原生预载错误待审，当前仅为测试候选包，不能据此宣称正式发布校验全部通过。完整记录见 `docs/testing/vfx-prewarm-2026-10-22.md`。旧导入器/r1/r2/r3 及重复构建/解包临时目录已按用户要求清理；保留密钥、最新包与测试证据。发布前主动执行 `tools/vfx/first-use/release_check.py`，流程要求见 `AGENTS.md`。

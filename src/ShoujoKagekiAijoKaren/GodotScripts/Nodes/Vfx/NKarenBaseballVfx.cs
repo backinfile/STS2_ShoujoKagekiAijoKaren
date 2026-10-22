@@ -13,6 +13,15 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Wind-up and flight belong to one attack; only its real hit creates the impact.</summary>
 public partial class NKarenBaseballVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _soft ??= new GradientTexture2D { Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
+                Offsets = [0, .2f, .5f, 1], Colors = [Colors.White, new(1, 1, 1, .6f), new(1, 1, 1, .12f), Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_soft];
+
     public const float HitTime = .35f;
     public const float FastHitTime = HitTime * .7f;
     private const float SwingTime = .15f;
@@ -55,9 +64,7 @@ public partial class NKarenBaseballVfx : Node2D
         GlobalTransform = Transform2D.Identity;
         ZIndex = 20;
         _speed = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1 / .7f : 1;
-        _soft ??= new GradientTexture2D { Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
-                Offsets = [0, .2f, .5f, 1], Colors = [Colors.White, new(1, 1, 1, .6f), new(1, 1, 1, .12f), Colors.Transparent] } };
+        PrepareResources();
         _light.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         AddChild(_light);
         _light.Draw += DrawLight;

@@ -16,6 +16,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// </summary>
 public partial class NKarenStarGuideVfx : Node2D
 {
+
     private const float BorderDuration = .95f;
 
     /// <summary>
@@ -113,6 +114,12 @@ public partial class NKarenStarGuideVfx : Node2D
 /// </summary>
 internal partial class NKarenGoldBorderFlash : Control
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+    }
+    internal static Godot.Resource?[] PreparedResources => [BorderGlowTexture];
+
     private const float FadeInDuration = .12f;
 
     private static readonly Texture2D? BorderGlowTexture =

@@ -1,4 +1,4 @@
-"""Desktop-hosted smoke for the AnyCPU Android Mod; this is not an ARM64 device test."""
+"""Desktop-hosted first-use checks for a selected Mod package; this is not an ARM64 device test."""
 from pathlib import Path
 import argparse
 import hashlib
@@ -16,8 +16,9 @@ parser.add_argument("--branch", choices=["stable", "beta"], default="stable")
 parser.add_argument("--port", type=int, default=15847)
 parser.add_argument("--mode",choices=["cold","preload","draw"],default="cold")
 parser.add_argument("--renderer",choices=["opengl3","vulkan"],default="opengl3")
-parser.add_argument("--effect",choices=["bridge","shine","promise"],default="bridge")
+parser.add_argument("--effect",choices=["bridge","shine","promise","all"],default="bridge")
 parser.add_argument("--passes",type=int,default=4)
+parser.add_argument("--package",type=Path,help="Final Mod folder; defaults to the AnyCPU Android package")
 args = parser.parse_args()
 assert args.passes>=2
 project = Path(__file__).resolve().parents[3]
@@ -26,7 +27,7 @@ run.mkdir(parents=True, exist_ok=False)
 game = run / "game"
 game.mkdir()
 source = args.source_env.resolve() / "game"
-package = project / "artifacts/android/ShoujoKagekiAijoKaren"
+package = args.package.resolve() if args.package else project / "artifacts/android/ShoujoKagekiAijoKaren"
 base = "http://127.0.0.1:" + str(args.port) + "/api/v1"
 results = []
 with socket.socket() as sock:
@@ -71,6 +72,7 @@ profile = run / "user/AppData/Roaming/SlayTheSpire2/default/8622"
 profile.mkdir(parents=True)
 shutil.copy2(args.source_env / "user/AppData/Roaming/SlayTheSpire2/default/1/settings.save", profile / "settings.save")
 env = os.environ.copy()
+env["KAREN_ALL_VFX_RESULT"]=str(run/"all-result.json")
 env["KAREN_VFX_PROBE_EFFECT"]=args.effect
 env["KAREN_VFX_PROBE_MODE"]=args.mode
 env["APPDATA"] = str(run / "user/AppData/Roaming")
@@ -168,7 +170,26 @@ try:
     action(action="choose_map_node", index=0)
     wait_for(lambda s: s.get("state_type") == "monster" and s.get("battle", {}).get("is_play_phase"), "combat")
     time.sleep(4)
-    if args.effect!="bridge":
+    if args.effect=="all":
+        action(action="run_command",command="karen_all_vfx_first_use run")
+        until=time.monotonic()+300
+        while time.monotonic()<until:
+            file=run/"all-result.json"
+            raw=file.read_text(encoding="utf-8") if file.exists() else "running"
+            if raw.startswith("{"):
+                measured=json.loads(raw)
+                (run/"measurements.json").write_text(json.dumps(measured,indent=2),encoding="utf-8")
+                assert measured["status"]=="done",measured
+                hitches=[]
+                for case in measured["samples"]:
+                    first=case["passes"][0];warm=sorted(x["maxMs"] for x in case["passes"][1:])[0]
+                    if first["maxMs"]>33.3 and first["maxMs"]>warm*1.5:hitches.append(dict(effect=case["effect"],firstMs=first["maxMs"],warmMs=warm))
+                print(json.dumps(dict(warmup={k:v for k,v in measured.items() if k!="samples"},cases=len(measured["samples"]),hitches=hitches)),flush=True)
+                results.append(dict(case="all_visual_families",passed=not hitches,hitches=hitches))
+                break
+            time.sleep(1)
+        else:raise RuntimeError("All visual measurement timed out")
+    elif args.effect!="bridge":
         def common(operation):return action(action="run_command",command="karen_common_first_use "+operation+" "+args.effect)
         def common_result():
             for _ in range(120):
@@ -232,7 +253,10 @@ except Exception as error:
     results.append(dict(case="runner", passed=False, error=str(error)))
     print("FAIL", error, flush=True)
 finally:
-    report = dict(platform="Windows x64 host / AnyCPU Android package", android_arm64_tested=False, results=results)
+    report = dict(platform="Windows x64 host / selected Mod package", android_arm64_tested=False,
+        branch=args.branch,effect=args.effect,renderer=args.renderer,measurement_protocol=2 if args.effect=="all" else 1,
+        package_sha256={str(f.relative_to(mods / "ShoujoKagekiAijoKaren")):hashlib.sha256(f.read_bytes()).hexdigest() for f in (mods / "ShoujoKagekiAijoKaren").rglob("*") if f.is_file()},
+        results=results)
     (run / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     if process.poll() is None:
         process.terminate()

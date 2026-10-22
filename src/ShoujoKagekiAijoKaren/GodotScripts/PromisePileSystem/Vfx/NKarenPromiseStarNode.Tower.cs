@@ -79,8 +79,7 @@ public partial class NKarenPromiseStarNode
 
     public override void _Ready()
     {
-        _towerTexture ??= KarenResourceLoader.LoadTexture(
-            "res://images/vfx/promise/painted_tower.png", nameof(NKarenPromiseStarNode));
+        PrepareResources();
         TextureFilter = TextureFilterEnum.LinearWithMipmaps;
     }
 

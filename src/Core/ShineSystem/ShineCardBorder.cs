@@ -23,6 +23,8 @@ internal sealed class ShineCardBorder(NCard card)
             GetContour(texture);
     }
 
+    internal static void Prepare(Texture2D texture) => GetContour(texture);
+
     private static Vector2[] GetContour(Texture2D texture)
     {
         if (!Contours.TryGetValue(texture, out var contour))

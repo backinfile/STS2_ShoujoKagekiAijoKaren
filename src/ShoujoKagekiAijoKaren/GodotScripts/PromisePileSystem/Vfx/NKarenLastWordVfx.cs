@@ -11,6 +11,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenLastWordVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+    }
+    internal static Godot.Resource?[] PreparedResources => [..Textures];
+
     private const float AfterglowSeconds = 1.8f;
     private const float SpawnInterval = 0.035f;
     private const float SpawnDuration = 5.5f;

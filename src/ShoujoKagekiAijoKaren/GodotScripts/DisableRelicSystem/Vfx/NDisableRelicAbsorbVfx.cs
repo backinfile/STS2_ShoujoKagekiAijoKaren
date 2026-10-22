@@ -16,6 +16,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx;
 
 public partial class NDisableRelicAbsorbVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+    }
+    internal static Godot.Resource?[] PreparedResources => [StarTexture];
+
     public enum TargetKind { Player, Energy, DrawPile }
     private const int StarCount = 6;
     private const float ScatterDuration = 0.22f;

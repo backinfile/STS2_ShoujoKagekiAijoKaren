@@ -25,6 +25,15 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Stage gestures driven by actual results; hover ownership belongs to the whole play task.</summary>
 public partial class NKarenStageCueVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _soft ??= new GradientTexture2D { Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
+                Offsets = [0, .28f, .6f, 1], Colors = [Colors.White, new(1,1,1,.65f), new(1,1,1,.15f), Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_soft];
+
     public enum CueKind { TicketCast, TicketReturn, Duet, Act1Cast, Act1Draw, Act2Cast, Act2Hover }
     public CueKind Kind { get; private set; }
     public bool Confirmed { get; private set; }
@@ -92,9 +101,7 @@ public partial class NKarenStageCueVfx : Node2D
     public override void _Ready()
     {
         KarenVfxComposition.RegisterCue(this, _owner.Creature, Kind is CueKind.Act2Hover or CueKind.Act2Cast);
-        _soft ??= new GradientTexture2D { Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
-                Offsets = [0, .28f, .6f, 1], Colors = [Colors.White, new(1,1,1,.65f), new(1,1,1,.15f), Colors.Transparent] } };
+        PrepareResources();
         Material = _back.Material = _hud.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         TextureFilter = _back.TextureFilter = _hud.TextureFilter = TextureFilterEnum.Linear;
         _back.Name = "KarenStageBackLight"; _shade.Name = "KarenStageBackShade"; _hud.Name = "KarenStageCardLight";

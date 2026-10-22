@@ -16,6 +16,16 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Successful relay / pending reward only. Never owns a card, rule task or network state.</summary>
 public partial class NKarenFightRelayVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _soft ??= new GradientTexture2D { Width = 96, Height = 96,
+            Fill = GradientTexture2D.FillEnum.Radial, FillFrom = new(.5f, .5f), FillTo = new(1, .5f),
+            Gradient = new Gradient { Offsets = [0, .18f, .55f, 1],
+                Colors = [Colors.White, new(1,1,1,.7f), new(1,1,1,.14f), Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_soft];
+
     private static readonly Color Gold = new("#ffc456"), Ivory = new("#fff1bb"), Red = new("#e62e52"), Cyan = new("#a0eeff");
     private static GradientTexture2D? _soft;
     private readonly Node2D _back = new(), _light = new();
@@ -52,10 +62,7 @@ public partial class NKarenFightRelayVfx : Node2D
 
     public override void _Ready()
     {
-        _soft ??= new GradientTexture2D { Width = 96, Height = 96,
-            Fill = GradientTexture2D.FillEnum.Radial, FillFrom = new(.5f, .5f), FillTo = new(1, .5f),
-            Gradient = new Gradient { Offsets = [0, .18f, .55f, 1],
-                Colors = [Colors.White, new(1,1,1,.7f), new(1,1,1,.14f), Colors.Transparent] } };
+        PrepareResources();
         _back.Name = "KarenRelayFootlights"; _light.Name = "KarenRelayGlints";
         _back.Material = _light.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _room.BackCombatVfxContainer.AddChild(_back);

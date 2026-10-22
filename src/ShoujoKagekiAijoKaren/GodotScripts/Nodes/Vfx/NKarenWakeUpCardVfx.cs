@@ -13,6 +13,13 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Selection-result light that only observes the native card and hand layout.</summary>
 public partial class NKarenWakeUpCardVfx(CardModel model, NCombatRoom room) : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _fan ??= GD.Load<Texture2D>("res://images/vfx/karen_wake_up_ribbon.png");
+    }
+    internal static Godot.Resource?[] PreparedResources => [_fan];
+
     private readonly record struct TrailPoint(Vector2 Position, float Time);
     private sealed class Spark(Vector2 position, Vector2 velocity, float radius, float life)
     {
@@ -209,7 +216,7 @@ public partial class NKarenWakeUpCardVfx(CardModel model, NCombatRoom room) : No
         var axis = (ArcPoint(1) - ArcPoint(0)).Normalized();
         var up = new Vector2(axis.Y, -axis.X);
         float width = ArcPoint(0).DistanceTo(ArcPoint(1));
-        _fan ??= GD.Load<Texture2D>("res://images/vfx/karen_wake_up_ribbon.png");
+        PrepareResources();
         // Independent silk strips continuously curl and twist around a pinned root.
         // Only this room-owned mesh changes; the native card keeps its own transform.
         const int segments = 28, strands = 3;

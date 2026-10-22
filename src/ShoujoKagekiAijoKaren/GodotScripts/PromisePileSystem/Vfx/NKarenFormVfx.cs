@@ -8,6 +8,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenFormVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+    }
+    internal static Godot.Resource?[] PreparedResources => [HorizontalLineTexture];
+
     private static readonly Texture2D? HorizontalLineTexture = LoadTexture("res://images/vfx/sts/horizontal_line.png");
 
     private NCreature? _creatureNode;

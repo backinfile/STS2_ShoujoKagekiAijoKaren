@@ -25,6 +25,19 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Abstract energy gestures, confirmed by actual card results and native destinations.</summary>
 public partial class NKarenBenefitVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _smoke??=Load("shared_use/smoke_vfx.png");
+        _ash??=Load("shared_use/ash_particle.png");
+        _sparkle??=Load("vfx_power_up/sparkle.png");
+        _shader??=KarenResourceLoader.Load<Shader>("res://shaders/karen_benefit_flow.gdshader",nameof(NKarenBenefitVfx));
+        _soft??=new GradientTexture2D {
+            Width=128,Height=128,Fill=GradientTexture2D.FillEnum.Radial,FillFrom=new(.5f,.5f),FillTo=new(1,.5f),
+            Gradient=new Gradient { Offsets=new float[]{0,.25f,.55f,1},Colors=new Color[]{Colors.White,new(1,1,1,.6f),new(1,1,1,.14f),Colors.Transparent} } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_shader, _smoke, _ash, _sparkle, _soft];
+
     public enum BenefitKind { Cake, Snack, Dinner, Ticket, Dream, Shine, TicketTrigger, DreamTrigger, Radiance, SnackTransform }
     public BenefitKind Design { get; protected set; }
     public bool Confirmed => ConfirmedAt >= 0;
@@ -178,12 +191,7 @@ public partial class NKarenBenefitVfx : Node2D
     public override void _Ready()
     {
         KarenVfxComposition.RegisterCue(this, Owner.Creature);
-        _smoke??=Load("shared_use/smoke_vfx.png");
-        _ash??=Load("shared_use/ash_particle.png"); _sparkle??=Load("vfx_power_up/sparkle.png");
-        _shader??=KarenResourceLoader.Load<Shader>("res://shaders/karen_benefit_flow.gdshader",nameof(NKarenBenefitVfx));
-        _soft??=new GradientTexture2D {
-            Width=128,Height=128,Fill=GradientTexture2D.FillEnum.Radial,FillFrom=new(.5f,.5f),FillTo=new(1,.5f),
-            Gradient=new Gradient { Offsets=new float[]{0,.25f,.55f,1},Colors=new Color[]{Colors.White,new(1,1,1,.6f),new(1,1,1,.14f),Colors.Transparent} } };
+        PrepareResources();
         TextureFilter=TextureFilterEnum.Linear;
         _back.Name="KarenBenefitBack";_hud.Name="KarenBenefitHud";
         _front.Material=_back.Material=_hud.Material=new CanvasItemMaterial { BlendMode=CanvasItemMaterial.BlendModeEnum.Add };

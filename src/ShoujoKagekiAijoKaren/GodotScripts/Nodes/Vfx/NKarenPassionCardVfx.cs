@@ -15,6 +15,15 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Viewport-wide rose/gold particles for playing Passion, independent of its buff confirmation.</summary>
 public partial class NKarenPassionCardVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _soft ??= new GradientTexture2D { Width = 64, Height = 64, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
+                Offsets = [0, .2f, .55f, 1], Colors = [Colors.White, new(1,1,1,.46f), new(1,1,1,.07f), Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_soft];
+
     private sealed record Particle(Vector2 Origin, Vector2 Velocity, float At, float Life, float Radius,
         float Phase, bool Star, bool Back, Color Tint);
     private static readonly Color Rose = new("#ff4f72"), Coral = new("#ff9a7a"), Gold = new("#ffd892"), Hot = new("#fff2d8");
@@ -51,9 +60,7 @@ public partial class NKarenPassionCardVfx : Node2D
 
     public override void _Ready()
     {
-        _soft ??= new GradientTexture2D { Width = 64, Height = 64, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
-                Offsets = [0, .2f, .55f, 1], Colors = [Colors.White, new(1,1,1,.46f), new(1,1,1,.07f), Colors.Transparent] } };
+        PrepareResources();
         Material = _back.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _room.BackCombatVfxContainer.AddChild(_back);
         _back.Draw += () => DrawParticles(_back, true);

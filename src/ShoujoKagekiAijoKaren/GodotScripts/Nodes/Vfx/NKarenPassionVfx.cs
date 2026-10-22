@@ -17,6 +17,17 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Silent confirmation of an actual Passion buff gain, using its existing icon and status location.</summary>
 public partial class NKarenPassionVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _sharedIcon ??= ResourceLoader.Load<Texture2D>("res://images/powers/karen_passion_power.png");
+        _soft ??= new GradientTexture2D { Width = 96, Height = 96, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
+                Offsets = [0, .2f, .6f, 1], Colors = [Colors.White, new(1, 1, 1, .45f), new(1, 1, 1, .06f), Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_soft, _sharedIcon];
+    private static Texture2D? _sharedIcon;
+
     private sealed record Pulse(float At, int Gain);
     private static readonly Color Gold = new("#ffd785"), Hot = new("#fff5d8"), Red = new("#f36b75");
     private Texture2D? _icon;
@@ -60,11 +71,9 @@ public partial class NKarenPassionVfx : Node2D
 
     public override void _Ready()
     {
-        // The game disposes cached power textures when changing rooms. Own this tiny copy for this cue only.
-        _icon = ResourceLoader.Load<Texture2D>("res://images/powers/karen_passion_power.png", null, ResourceLoader.CacheMode.Ignore);
-        _soft ??= new GradientTexture2D { Width = 96, Height = 96, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
-                Offsets = [0, .2f, .6f, 1], Colors = [Colors.White, new(1, 1, 1, .45f), new(1, 1, 1, .06f), Colors.Transparent] } };
+        // The shared visual catalog pins this texture across native room-cache eviction.
+        PrepareResources();
+        _icon = _sharedIcon;
         AddChild(_light);
         _light.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _light.Draw += DrawLight;
@@ -185,6 +194,6 @@ public partial class NKarenPassionVfx : Node2D
     {
         KarenVfxComposition.RemoveCue(this);
         _pulses.Clear(); _badge = null;
-        _icon?.Dispose(); _icon = null;
+        _icon = null;
     }
 }

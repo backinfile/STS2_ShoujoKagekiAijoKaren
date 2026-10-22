@@ -26,6 +26,15 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Double-star clasp and a finite constellation, spent by native replay events.</summary>
 public partial class NKarenStarVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _soft ??= new GradientTexture2D { Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
+                Offsets = [0, .18f, .5f, 1], Colors = [Colors.White, new(1,1,1,.55f), new(1,1,1,.1f), Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_soft];
+
     // Commands may resume off the scene thread. Only this node touches Godot objects;
     // the managed scope transports results and guarantees release even on failure.
     public sealed class Playback(CardModel card, int shine) : IDisposable
@@ -87,9 +96,7 @@ public partial class NKarenStarVfx : Node2D
 
     public override void _Ready()
     {
-        _soft ??= new GradientTexture2D { Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
-                Offsets = [0, .18f, .5f, 1], Colors = [Colors.White, new(1,1,1,.55f), new(1,1,1,.1f), Colors.Transparent] } };
+        PrepareResources();
         Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _back.Material = Material;
         TextureFilter = _back.TextureFilter = TextureFilterEnum.Linear;

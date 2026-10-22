@@ -21,6 +21,15 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Finite Aquarium cues. No ambient light or particles; native cards retain layout and input ownership.</summary>
 public partial class NKarenAquariumVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _bubble ??= new GradientTexture2D { Width = 24, Height = 24, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
+                Offsets = [0, .46f, .64f, .79f, 1], Colors = [new(1,1,1,.04f), new(1,1,1,.08f), Colors.White, new(1,1,1,.1f), Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_bubble];
+
     private sealed class CardLight(CardModel card, float born)
     {
         public readonly CardModel Card = card;
@@ -86,9 +95,7 @@ public partial class NKarenAquariumVfx : Node2D
 
     public override void _Ready()
     {
-        _bubble ??= new GradientTexture2D { Width = 24, Height = 24, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
-                Offsets = [0, .46f, .64f, .79f, 1], Colors = [new(1,1,1,.04f), new(1,1,1,.08f), Colors.White, new(1,1,1,.1f), Colors.Transparent] } };
+        PrepareResources();
         var waterShader = KarenResourceLoader.Load<Shader>("res://shaders/karen_aquarium_water.gdshader", nameof(NKarenAquariumVfx));
         var jellyShader = KarenResourceLoader.Load<Shader>("res://shaders/karen_aquarium_jelly.gdshader", nameof(NKarenAquariumVfx));
         _room.BackCombatVfxContainer.AddChildSafely(_back);

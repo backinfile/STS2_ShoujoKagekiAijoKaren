@@ -10,10 +10,7 @@ public partial class NKarenJealousyVfx
 
     private void InitializeParticles()
     {
-        _particleQuad ??= new GradientTexture2D { Width = 32, Height = 32,
-            Gradient = new Gradient { Offsets = [0, 1], Colors = [Colors.White, Colors.White] } };
-        _foilShader ??= GD.Load<Shader>("res://materials/vfx/jealousy_foil.gdshader");
-        _glintShader ??= GD.Load<Shader>("res://materials/vfx/jealousy_glint.gdshader");
+        PrepareResources();
         // Keep the long return drift, with a focused fan facing the player.
         _foils = Emitter("ContactFoils", 64, 1.05, false);
         _foils.EmissionRectExtents = new Vector2(40, 65) * _unit;

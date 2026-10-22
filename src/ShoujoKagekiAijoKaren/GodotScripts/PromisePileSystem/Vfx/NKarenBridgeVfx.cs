@@ -19,6 +19,16 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>A painted bridge revealed by stage lighting, behind the real actors and cards.</summary>
 public partial class NKarenBridgeVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _atmosphereShader ??= KarenResourceLoader.Load<Shader>("res://materials/vfx/bridge_atmosphere.gdshader", nameof(NKarenBridgeVfx));
+        _bridgeTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/bridge/stage-v12.png", nameof(NKarenBridgeVfx));
+        _revealShader ??= ResourceLoader.Load<Shader>("res://materials/vfx/bridge_reveal.gdshader");
+        _lightShader ??= KarenResourceLoader.Load<Shader>("res://materials/vfx/bridge_light.gdshader", nameof(NKarenBridgeVfx));
+    }
+    internal static Godot.Resource?[] PreparedResources => [_bridgeTexture, _revealShader, _lightShader, _atmosphereShader];
+
     private static readonly Vector2[] Beacons = [new(481, 81), new(834, 142), new(1124, 186)];
     private static readonly Vector2[] Stars = [new(810, 75), new(1014, 82), new(411, 308)];
     private static readonly Vector2[] JointCenters = [new(500, 146), new(854, 194), new(1132, 236)];
@@ -115,20 +125,19 @@ public partial class NKarenBridgeVfx : Node2D
             return;
         }
         if (!_hasCards) return;
-        _atmosphereShader ??= KarenResourceLoader.Load<Shader>("res://materials/vfx/bridge_atmosphere.gdshader", nameof(NKarenBridgeVfx));
+        PrepareResources();
         if (_atmosphereShader != null)
         {
             _atmosphereMaterial = new ShaderMaterial { Shader = _atmosphereShader };
             AddChild(new ColorRect { Position = new Vector2(0, 42), Size = new Vector2(1280, 420),
                 Material = _atmosphereMaterial, MouseFilter = Control.MouseFilterEnum.Ignore });
         }
-        _bridgeTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/bridge/stage-v12.png", nameof(NKarenBridgeVfx));
-        _revealShader ??= ResourceLoader.Load<Shader>("res://materials/vfx/bridge_reveal.gdshader");
+        PrepareResources();
         // Preserve the full-canvas aspect ratio, including the transparent space below the bridge.
         _bridge = AddLayer(_bridgeTexture, out _bridgeMaterial);
         // Slim edge supports keep the shallow overhead span clear of the combat area.
         if (_bridge != null) _bridge.Position = SceneryOffset;
-        _lightShader ??= KarenResourceLoader.Load<Shader>("res://materials/vfx/bridge_light.gdshader", nameof(NKarenBridgeVfx));
+        PrepareResources();
         _mainLightMaterial = AddLight(new Rect2(462, 200, 380, 341), false);
         _floorLightMaterial = AddLight(new Rect2(485, 495, 310, 44), true);
         _lampMaterial = AddLight(new Rect2(590, 181, 52, 38), true);

@@ -22,6 +22,16 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// All coordinates follow this owner; no rule state, shared materials or global time are changed.</summary>
 public partial class NKarenArrogantVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _clasp ??= KarenResourceLoader.LoadTexture("res://images/vfx/arrogant/gold-clasp.png", nameof(NKarenArrogantVfx));
+        _soft ??= new GradientTexture2D { Width = 96, Height = 96, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
+                Offsets = [0, .25f, .6f, 1], Colors = [Colors.White, new(1, 1, 1, .6f), new(1, 1, 1, .12f), Colors.Transparent] } };
+    }
+    internal static Godot.Resource?[] PreparedResources => [_clasp, _soft];
+
     private Player _owner = null!;
     private NCombatRoom _room = null!;
     private NCreature _creature = null!;
@@ -70,10 +80,7 @@ public partial class NKarenArrogantVfx : Node2D
 
     public override void _Ready()
     {
-        _clasp ??= KarenResourceLoader.LoadTexture("res://images/vfx/arrogant/gold-clasp.png", nameof(NKarenArrogantVfx));
-        _soft ??= new GradientTexture2D { Width = 96, Height = 96, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
-                Offsets = [0, .25f, .6f, 1], Colors = [Colors.White, new(1, 1, 1, .6f), new(1, 1, 1, .12f), Colors.Transparent] } };
+        PrepareResources();
         _back.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _light.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         TextureFilter = _back.TextureFilter = _light.TextureFilter = TextureFilterEnum.Linear;

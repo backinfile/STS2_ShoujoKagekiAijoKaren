@@ -17,6 +17,14 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// </summary>
 public partial class NKarenUnforgottenShineVfx : Node2D
 {
+    // Shared visual resources are prepared during the run loading screen as well as on demand.
+    internal static void PrepareResources()
+    {
+        _texture ??= KarenResourceLoader.LoadTexture(
+            "res://images/vfx/unforgettable/lingering-star.png", nameof(NKarenUnforgottenShineVfx));
+    }
+    internal static Godot.Resource?[] PreparedResources => [_texture];
+
     public const float HitTime = .20f;
     public const float FastHitTime = HitTime * .7f;
     private const float FadeTime = 1.2f;
@@ -54,8 +62,7 @@ public partial class NKarenUnforgottenShineVfx : Node2D
             || room.GetCreatureNode(target) is not { } victim)
             return null;
 
-        _texture ??= KarenResourceLoader.LoadTexture(
-            "res://images/vfx/unforgettable/lingering-star.png", nameof(NKarenUnforgottenShineVfx));
+        PrepareResources();
         if (_texture == null) return null;
 
         var bounds = ScreenBounds(victim);
