@@ -72,6 +72,8 @@
 
 > 合并到main
 
+> 清理分支
+
 ## Brief task plan
 
 - 起始分支 `main`，起始提交 `7c78e66e2db2d142f231ddf1b57c92fece4fb334`。
@@ -83,7 +85,7 @@
 
 ## Result and changes
 
-已实现、完成定向验证并合并到 main。最新“合并到main”已取代此前暂不合并的限制；原有未提交修改已保留，任务工作树和分支继续保留。
+已实现、完成定向验证并合并到 main。最新“合并到main”已取代此前暂不合并的限制；原有未提交修改已保留；后续清理授权及资料归档位置见末节。
 
 ### 新卡与资源
 
@@ -258,4 +260,6 @@
 
 ### 集成与清理
 
-任务改动汇总成单个任务提交，再单独提交与 main 的同步及验证，已按授权快进合并。集成完成后补充本文的结果记录。删除工作树／任务分支仍需要按 `$worktree-task` 另行取得确认，当前保留。临时工具缓存、视频、隔离游戏和构建输出均保留在本工作树 `artifacts/` 内，尚未删除。
+任务及同步验证已进入 main。用户随后明确授权“清理分支”，清理范围仅为 `codex/karen-x-relic-barrage-20261022` 及工作树 `../worktrees/STS2_ShoujoKagekiAijoKaren/karen-x-relic-barrage-20261022`，不涉及其他任务分支。清理前再次确认提交完整包含于 main、工作树无未提交或未跟踪内容、没有该测试游戏进程。
+
+代码、任务文档、卡图、交付视频及验证证据保留在 main。工作树中被忽略的 `artifacts/` 临时测试与构建资料，归档到主检出的 `artifacts/worktree-archive/20261022/karen-x-relic-barrage-20261022/artifacts/`；归档根目录保存清理结果与文件清单。`.godot/`、`bin/`、`obj/` 和 Python 缓存属于可重新生成的工作树缓存，随工作树清理。主检出的原有未提交内容按本轮清理前快照核对，保持原样；清理使用 `git worktree remove` 和仅允许删除已合并分支的 `git branch -d`。
