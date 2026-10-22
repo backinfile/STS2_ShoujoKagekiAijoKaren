@@ -3,7 +3,7 @@
   "revision": 5,
   "scope": "Targeted singleplayer regression; full multiplayer matrix not run",
   "baseline_commit": "7c78e66e2db2d142f231ddf1b57c92fece4fb334",
-  "synchronized_main": "aa82257822847bf827b58a149144058974e8d7a2",
+  "synchronized_main": "2172f99f57cb6f39fbaab9b8c8163fa78bec1f58",
   "previous_revision": {
     "revision": 3,
     "assertions_per_variant": 56,
@@ -190,5 +190,16 @@
       "ShoujoKagekiAijoKaren.Beta.dll": "8db75dd07591bd999b4cdb14132d956089183ead7c3887f2c4cff0fd08e68daa"
     }
   },
-  "flower_runtime_synchronized_main": "5c7aa359d1f9a1fa9b432c7b43e2a6f265d8c548"
+  "flower_runtime_synchronized_main": "5c7aa359d1f9a1fa9b432c7b43e2a6f265d8c548",
+  "integration": {
+    "authorization": "合并并清理分支",
+    "status": "ready_for_fast_forward",
+    "target_branch": "main",
+    "target_before": "2172f99f57cb6f39fbaab9b8c8163fa78bec1f58",
+    "approved_task_commit": "ccd38dda385276259066953777c7552213ee561b",
+    "synchronization": "documentation only; runtime sources unchanged",
+    "original_uncommitted_files_preserved": 13,
+    "retained_artifacts": "artifacts/flower-relic-20261022-final-ccd38dd",
+    "cleanup_authorized": true
+  }
 }
