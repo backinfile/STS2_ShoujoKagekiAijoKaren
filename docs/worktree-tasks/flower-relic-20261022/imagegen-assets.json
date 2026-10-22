@@ -1,7 +1,12 @@
 {
   "tool": "imagegen built-in",
   "date": "2026-10-22",
-  "assets": [
+  "revision": 2,
+  "user_feedback": [
+    "1 锁链的点缀少了 2 丑陋，重做",
+    "不一定是少了，有可能是小了"
+  ],
+  "previous_assets": [
     {
       "file": "images/ui/flower/chain.png",
       "prompt_summary": "Two antique-gold interlocking chain links with one small ivory flower and two sage leaves; simple hand-painted game UI on transparent alpha.",
@@ -13,5 +18,17 @@
       "sha256": "01cb296326ff9c50ae0c2431dc6970ab79be88e3a76fe5144b8dc8781ccdcee7"
     }
   ],
-  "processing": "Original generated PNGs copied unchanged; AtlasTexture resource regions trim transparent margins at runtime."
+  "assets": [
+    {
+      "file": "images/ui/flower/chain.png",
+      "prompt": "Use case: stylized-concept. Create ONE transparent-background game UI connector sprite for a hand-painted fantasy roguelike relic reward screen.\nComposition: two interlocking gold chain links, diagonal from upper-left to lower-right. A single clearly readable ivory-white five-petal blossom sits at their central junction, with a warm gold center and two compact sage leaves. The flower is prominent, approximately 38 percent of the complete sprite's height; it must remain legible when the entire sprite is only 64 pixels tall. The two chain links remain recognizable around it.\nArt direction: match chunky painted relic icons in Slay the Spire 2: bold simplified silhouette, warm ochre gold with only two or three flat shading planes, restrained brown contour, slightly irregular painted edges. Elegant and compact, not shiny jewelry or photorealistic metal. Petals have broad simple shapes, not tiny veins. Avoid fine linework, big bouquets, filigree, sparkles, bevel effects, strong cast shadows, glow, a frame, a pedestal, text or labels.\nThe artwork should fill the canvas with a small transparent margin. True transparent alpha background. One isolated sprite, no sample panels or mockup.",
+      "sha256": "42a10996cd0bd8ce0527509293687b5b1ddd5b538e6f63991bd2fb73722e5bc0"
+    },
+    {
+      "file": "images/ui/flower/chest_cradle.png",
+      "prompt": "Use case: stylized-concept. Create ONE transparent-background decorative sprite for the bottom of a floating relic choice in a hand-painted fantasy roguelike UI.\nA compact symmetrical floral accent: one ivory-white five-petal blossom at the center, warm muted gold center, two simple sage-green leaves, and two short, broad curved antique-gold strokes extending outwards on each side. The blossom occupies about one fifth of the complete ornament's width and most of its height, so it stays clearly visible at an on-screen width of 135 pixels. The whole silhouette is a low shallow arc with a 3:1 width-to-height ratio, no enclosing wreath or frame. Keep the upper area open for the relic.\nArt direction: bold restrained flat painted color blocks, soft hand-painted irregularity, only two levels of shading. Match Slay the Spire 2 relic icons rather than luxury jewelry. The outer gold strokes must be thick enough to read at small display size, not hairline wires. Warm ivory, muted sage, subdued ochre gold. Keep it elegant and simple.\nTrue transparent alpha background with small margins. No pedestal, no badge plate, no central gemstone, no glow, no sparkles, no delicate filigree, no large leaf clusters, no text, no full interface, only one standalone ornament.",
+      "sha256": "cd2aaac2e1e14371cf9a4638efb2215af5b55dd53ea3bf36767763aa88d06c8e"
+    }
+  ],
+  "processing": "Original generated PNGs copied unchanged; AtlasTexture regions use visible alpha bounds with four-pixel padding."
 }

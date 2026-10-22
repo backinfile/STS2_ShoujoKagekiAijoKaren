@@ -107,11 +107,14 @@ function Invoke-SevenRelicCase {
         Invoke-RelicFixture 'water2' $actor
     }
     foreach ($round in @(3,4)) {
-        End-RelicRound $false
+        End-RelicRound ($round -eq 3)
         foreach ($peer in @($hostPort, $clientPort)) {
             $null = Wait-State $peer 'multiplayer' { param($s) $s.battle.round -eq $round -and $s.battle.is_play_phase } "round $round"
         }
-        foreach ($actor in $relicActors) { Invoke-RelicFixture "water$round" $actor }
+        foreach ($actor in $relicActors) {
+            if ($round -eq 3) { Invoke-RelicFixture 'mp-white-second' $actor }
+            Invoke-RelicFixture "water$round" $actor
+        }
     }
     Save-RelicState '05-round4'
     $null = Post-Action $hostPort 'multiplayer' @{ action='run_command'; command='kill all' }
@@ -125,7 +128,7 @@ function Invoke-SevenRelicCase {
     $errors = @(Select-String -LiteralPath (Join-Path $hostRoot 'godot.log'),(Join-Path $clientRoot 'godot.log') -Pattern '^\[ERROR\]')
     if ($errors.Count) { throw 'Game logged an error during seven-relic multiplayer case' }
     [PSCustomObject]@{ case=$caseName; result='pass'; karenActors=$relicActors.Count; allSevenRelics=$true;
-        bothPeersValidated=$true; replayTempStrength=10; replayBlock=0; rounds=4; whiteCards=2; rewardsPerKaren=2;
+        bothPeersValidated=$true; replayTempStrength=10; replayBlock=0; rounds=4; whiteCards=4; whiteTriggerTurns=2; rewardsPerKaren=2;
         personalStateIsolated=$true; handVisualsMatched=$true; errorCount=0 }
 }
 

@@ -31,7 +31,7 @@ using ShoujoKagekiAijoKaren.src.Models.Relics;
 public sealed class RelicFixtureCmd : AbstractConsoleCmd
 {
     public override string CmdName => "relic_fixture";
-    public override string Args => "setup|start|mp-start|mp-white|mp-tower-prepare|mp-tower-check|mp-cat-prepare|mp-cat-check|buffer|tower|cat|finisher|tiara|reset|water2|water3|water4|video-cookie|video-finisher|balance-setup|balance-prepare|balance-upgrade|balance-replay|balance-check|balance-ordinary|balance-negative|balance-reset";
+    public override string Args => "setup|start|mp-start|mp-white|mp-white-second|mp-tower-prepare|mp-tower-check|mp-cat-prepare|mp-cat-check|buffer|tower|cat|finisher|tiara|reset|water2|water3|water4|video-cookie|video-finisher|balance-setup|balance-prepare|balance-upgrade|balance-replay|balance-check|balance-ordinary|balance-negative|balance-reset";
     public override string Description => "Targeted seven-relic regression fixtures.";
     public override bool IsNetworked => true;
     internal static string Status = "idle";
@@ -187,8 +187,15 @@ public sealed class RelicFixtureCmd : AbstractConsoleCmd
             else if (action == "mp-white")
             {
                 Check(p.PlayerCombatState!.TurnNumber == 2, "Mr. White ends the first shared turn");
+                Check(p.Relics.OfType<KarenMrWhiteRelic>().Single().Status == RelicStatus.Normal, "Mr. White remains active for the second turn");
                 Check(PromisePileManager.GetPromisePile(p).Cards.Count == 2, "Mr. White preserves two owner-selected cards");
                 Check(p.PlayerCombatState.Energy == 3, "disabled Tiara does not grant energy again");
+            }
+            else if (action == "mp-white-second")
+            {
+                Check(p.PlayerCombatState!.TurnNumber == 3, "Mr. White ends the second shared turn");
+                Check(PromisePileManager.GetPromisePile(p).Cards.Count == 4, "Mr. White preserves two cards on each of the first two turns");
+                Check(p.Relics.OfType<KarenMrWhiteRelic>().Single().Status == RelicStatus.Disabled, "Mr. White is spent after the second turn");
             }
             else if (action == "mp-tower-prepare")
             {

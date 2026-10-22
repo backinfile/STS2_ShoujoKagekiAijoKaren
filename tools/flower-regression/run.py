@@ -134,6 +134,7 @@ try:
     fixture("prepare")
     cmd("kill all")
     wait(lambda s:s.get("state_type")=="rewards","post combat rewards")
+    time.sleep(.6)  # Let the native containers finish layout before measuring text bounds.
     fixture("reward-check");snap("02-linked-rewards")
     current=state()
     reward_items=current["rewards"]["items"]

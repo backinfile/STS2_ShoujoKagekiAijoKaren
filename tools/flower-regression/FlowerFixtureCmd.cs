@@ -112,6 +112,14 @@ public sealed class FlowerFixtureCmd : AbstractConsoleCmd
             else if (action == "reward-check")
             {
                 Check(_reward?.ParentRewardSet?.Rewards.Count == 2, "real post-combat extra reward is linked");
+                var group = Descendants(NGame.Instance!).OfType<MegaCrit.Sts2.Core.Nodes.Rewards.NLinkedRewardSet>()
+                    .Single(node => node.LinkedRewardSet == _reward!.ParentRewardSet);
+                var connector = group.GetNode<Control>("%ChainContainer").GetChildren().OfType<TextureRect>().Single();
+                Check(Descendants(group).OfType<MegaCrit.Sts2.Core.Nodes.Rewards.NRewardButton>()
+                    .All(button => !button.GetNode<Control>("%Label").GetGlobalRect().Intersects(connector.GetGlobalRect())),
+                    "flower connector leaves reward text unobstructed: chain=" + connector.GetGlobalRect() +
+                    " labels=" + string.Join(";", Descendants(group).OfType<MegaCrit.Sts2.Core.Nodes.Rewards.NRewardButton>()
+                        .Select(button => button.GetNode<Control>("%Label").GetGlobalRect().ToString())));
                 _choices = _reward!.ParentRewardSet!.Rewards.Cast<RelicReward>().Select(r => r.Relic!.Id).ToHashSet();
                 _before = p.Relics.Select(r => r.Id).ToHashSet();
             }

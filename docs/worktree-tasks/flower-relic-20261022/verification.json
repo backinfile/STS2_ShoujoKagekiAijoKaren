@@ -1,18 +1,26 @@
 {
   "date": "2026-10-22",
+  "revision": 2,
   "scope": "Targeted singleplayer regression; full multiplayer matrix not run",
   "baseline_commit": "7c78e66e2db2d142f231ddf1b57c92fece4fb334",
+  "synchronized_main": "b5b94a8d43551dc5c5d643f9b0e962edc6a4b227",
+  "previous_revision": {
+    "assertions_per_variant": 48,
+    "total_assertions": 96,
+    "result": "pass before requested visual redesign"
+  },
   "variants": {
     "stable": {
       "version": "v0.107.1",
       "result": "pass",
       "fixture_invocations": 12,
-      "assertions": 48,
+      "assertions": 49,
       "log_errors": 0,
+      "connector_text_bounds": "non-overlapping",
       "empty_chest_open_and_proceed": "pass",
       "tested_package_sha256": {
-        "lib/ShoujoKagekiAijoKaren.Stable.dll": "b3d05bc8ea02dbae6ae777bf04445333411796864300eacee144312ff61d5672",
-        "ShoujoKagekiAijoKaren.pck": "e8cd5290a1f3c79c1bc37261ae7732c456a78293fb164a4394dcc40b35df84db"
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "a3293f065408ab8c6bc966291b5b54326466f46dd355712f35e5af2688ccb8af",
+        "ShoujoKagekiAijoKaren.pck": "c4b9ff50d08d96313e6f751beb1867d7b947373699fdc0b8b69304b029eb8c42"
       },
       "cases": [
         {
@@ -69,12 +77,13 @@
       "version": "v0.111.0",
       "result": "pass",
       "fixture_invocations": 12,
-      "assertions": 48,
+      "assertions": 49,
       "log_errors": 0,
+      "connector_text_bounds": "non-overlapping",
       "empty_chest_open_and_proceed": "pass",
       "tested_package_sha256": {
-        "lib/ShoujoKagekiAijoKaren.Beta.dll": "80b25b834f67f9f74aa1f92d8ea06f9c670e41bf5bab2c9f4fab86bc45b0a2bf",
-        "ShoujoKagekiAijoKaren.pck": "e8cd5290a1f3c79c1bc37261ae7732c456a78293fb164a4394dcc40b35df84db"
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a7371df745fdf16f376d6a4e231b6b8c6b030c372d80d90ca1251afd7a144fbd",
+        "ShoujoKagekiAijoKaren.pck": "c4b9ff50d08d96313e6f751beb1867d7b947373699fdc0b8b69304b029eb8c42"
       },
       "cases": [
         {

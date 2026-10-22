@@ -26,7 +26,7 @@
   "KAREN_BASEBALL_CAT_RELIC.flavor": "スズダルキャット、出番です！",
 
   "KAREN_MR_WHITE_RELIC.title": "ミスターホワイト",
-  "KAREN_MR_WHITE_RELIC.description": "各戦闘の最初のターン終了時、手札から好きな枚数のカードを[gold]約束の山札[/gold]に置いてもよい。",
+  "KAREN_MR_WHITE_RELIC.description": "各戦闘で、自分の最初の[blue]2[/blue]ターンの終了時、手札から好きな枚数のカードを[gold]約束の山札[/gold]に置いてもよい。",
   "KAREN_MR_WHITE_RELIC.flavor": "明日へ持っていきたいものを、大切にしまって。",
 
   "KAREN_LITTLE_STAR_RELIC.title": "小さな星",
@@ -34,7 +34,7 @@
   "KAREN_LITTLE_STAR_RELIC.flavor": "小さな星でも、帰り道を照らせる。",
 
   "KAREN_STAR_TIARA_RELIC.title": "星の王冠",
-  "KAREN_STAR_TIARA_RELIC.description": "各ターン開始時、レリックを[blue]1[/blue]個[gold]無効化[/gold]し、[blue]{Energy}[/blue]エナジーを得る。",
+  "KAREN_STAR_TIARA_RELIC.description": "各ターン開始時、レリックを[blue]1[/blue]個[gold]無効化[/gold]し、{Energy:energyIcons()}を得る。",
   "KAREN_STAR_TIARA_RELIC.flavor": "星を摘む者も、次の舞台へ進む代償を払う。",
 
   "KAREN_FLOWER_RELIC.title": "花",

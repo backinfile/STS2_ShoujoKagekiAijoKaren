@@ -43,9 +43,9 @@ public static class FlowerTreasureUiPatch
                     ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
                     StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
                     MouseFilter = Control.MouseFilterEnum.Ignore,
-                    Size = new Vector2(180, 48),
-                    Position = new Vector2((holder.Size.X - 180) * 0.5f, holder.Size.Y - 8),
-                    Modulate = new Color(1, 1, 1, 0.85f)
+                    Size = new Vector2(212, 78),
+                    Position = new Vector2((holder.Size.X - 212) * 0.5f, holder.Size.Y - 2),
+                    Modulate = new Color(1, 1, 1, 0.95f)
                 });
             }
         }
