@@ -3,7 +3,7 @@
   "revision": 5,
   "scope": "Targeted singleplayer regression; full multiplayer matrix not run",
   "baseline_commit": "7c78e66e2db2d142f231ddf1b57c92fece4fb334",
-  "synchronized_main": "5c7aa359d1f9a1fa9b432c7b43e2a6f265d8c548",
+  "synchronized_main": "aa82257822847bf827b58a149144058974e8d7a2",
   "previous_revision": {
     "revision": 3,
     "assertions_per_variant": 56,
@@ -166,7 +166,7 @@
   "integration_snapshot_check": {
     "preserved_uncommitted_files": 13,
     "exact_original_hashes": 12,
-    "document": "Original SHA-256 restored in memory after excluding the single committed Twin Stars insertion; no working-file mutation."
+    "document": "Original uncommitted changes preserved; committed main changes reversed only in memory to verify original hashes."
   },
   "flower_runtime_results_apply_to_commit": "7f241214d82506aea361634d59c739158e910b69",
   "followup_little_star": {
@@ -182,11 +182,13 @@
       "shared_variable_check": "pass",
       "existing_python_scripts_syntax": "pass",
       "runtime": "not run for this numeric adjustment",
-      "multiplayer": "not run"
+      "multiplayer": "not run",
+      "after_latest_main_sync": "Both builds passed; 28 existing warnings and 0 errors per variant"
     },
     "compiled_dll_sha256": {
-      "ShoujoKagekiAijoKaren.Stable.dll": "6a64529dd0d8b93bd275e509626a65d08c53369c27fd4557c432d5d4c07d4078",
-      "ShoujoKagekiAijoKaren.Beta.dll": "768330937c6d4e4db5596fa4673db0eaa89083e1a2c604b9691108b691e22687"
+      "ShoujoKagekiAijoKaren.Stable.dll": "75fbd7260065725b7e7370f03f9ef4a3b7ebca6c209f5efda360815134d3b08f",
+      "ShoujoKagekiAijoKaren.Beta.dll": "8db75dd07591bd999b4cdb14132d956089183ead7c3887f2c4cff0fd08e68daa"
     }
-  }
+  },
+  "flower_runtime_synchronized_main": "5c7aa359d1f9a1fa9b432c7b43e2a6f265d8c548"
 }
