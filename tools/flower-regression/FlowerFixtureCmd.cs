@@ -115,11 +115,33 @@ public sealed class FlowerFixtureCmd : AbstractConsoleCmd
                 var group = Descendants(NGame.Instance!).OfType<MegaCrit.Sts2.Core.Nodes.Rewards.NLinkedRewardSet>()
                     .Single(node => node.LinkedRewardSet == _reward!.ParentRewardSet);
                 var connector = group.GetNode<Control>("%ChainContainer").GetChildren().OfType<TextureRect>().Single();
-                Check(Descendants(group).OfType<MegaCrit.Sts2.Core.Nodes.Rewards.NRewardButton>()
-                    .All(button => !button.GetNode<Control>("%Label").GetGlobalRect().Intersects(connector.GetGlobalRect())),
-                    "flower connector leaves reward text unobstructed: chain=" + connector.GetGlobalRect() +
-                    " labels=" + string.Join(";", Descendants(group).OfType<MegaCrit.Sts2.Core.Nodes.Rewards.NRewardButton>()
-                        .Select(button => button.GetNode<Control>("%Label").GetGlobalRect().ToString())));
+                // Native TextureRect defaults to KeepSize, so its 128px texture overrides
+                // the requested 50px size before our patch preserves the resulting center.
+                var nativeSize = ResourceLoader.Load<Texture2D>("res://images/ui/reward_screen/reward_chain.png").GetSize();
+                var nativeCenter = group.GetNode<Control>("%ChainContainer").GlobalPosition + nativeSize * 0.5f;
+                Check(connector.GetGlobalRect().GetCenter().DistanceTo(nativeCenter) < 0.1f,
+                    "floral chain keeps native connector center: " + connector.GetGlobalRect().GetCenter());
+                // Compare painted content with opaque sprite pixels, not full row Controls
+                // or the transparent corners of the diagonal chain image.
+                var textBounds = Descendants(group).OfType<MegaCrit.Sts2.Core.Nodes.Rewards.NRewardButton>()
+                    .Select(button =>
+                    {
+                        var label = button.GetNode<RichTextLabel>("%Label");
+                        return label.GetGlobalTransform() * label.GetVisibleContentRect().Grow(6);
+                    }).ToList();
+                using var chainImage = ((TextureRect)connector).Texture.GetImage();
+                var rect = connector.GetGlobalRect();
+                var clear = true;
+                for (var y = 0; y < chainImage.GetHeight(); y += 4)
+                for (var x = 0; x < chainImage.GetWidth(); x += 4)
+                {
+                    if (chainImage.GetPixel(x, y).A < 0.1f) continue;
+                    var point = rect.Position + rect.Size * new Vector2(
+                        (x + 0.5f) / chainImage.GetWidth(), (y + 0.5f) / chainImage.GetHeight());
+                    if (textBounds.Any(bounds => bounds.HasPoint(point))) clear = false;
+                }
+                Check(clear, "floral chain opaque pixels leave painted reward text unobstructed: " +
+                    string.Join(";", textBounds));
                 _choices = _reward!.ParentRewardSet!.Rewards.Cast<RelicReward>().Select(r => r.Relic!.Id).ToHashSet();
                 _before = p.Relics.Select(r => r.Id).ToHashSet();
             }
@@ -155,9 +177,18 @@ public sealed class FlowerFixtureCmd : AbstractConsoleCmd
                         "relics share a row and are symmetric around screen center");
                     Check(visible[0].FocusNeighborRight == visible[1].GetPath() &&
                         visible[1].FocusNeighborRight == visible[0].GetPath(), "focus navigation only cycles visible choices");
-                    Check(visible.All(holder => holder.GetNodeOrNull<TextureRect>("FlowerCradle")?.Texture != null),
-                        "ImageGen flower cradles load");
+                    var arc = ui.GetNode<Control>("Container").GetNode<TextureRect>("FlowerSharedArc");
+                    Check(arc.Texture != null && Descendants(ui).Count(n => n.Name == "FlowerSharedArc") == 1,
+                        "exactly one ImageGen shared floral arc loads");
+                    Check(Math.Abs(arc.GetGlobalRect().GetCenter().X - (centers[0].X + centers[1].X) * 0.5f) < 1 &&
+                        arc.MouseFilter == Control.MouseFilterEnum.Ignore,
+                        "shared arc is centered and cannot intercept relic input");
+                    Check(visible.All(holder => new[] { "%UncommonGlow", "%RareGlow" }.All(name =>
+                        !holder.GetNode<GpuParticles2D>(name).Visible && !holder.GetNode<GpuParticles2D>(name).Emitting)),
+                        "both relic rarity backgrounds are hidden and stopped");
                 }
+                if (expected == 1)
+                    Check(!Descendants(ui).Any(n => n.Name == "FlowerSharedArc"), "ordinary chest has no Flower decoration");
                 _before = p.Relics.Select(r => r.Id).ToHashSet();
                 _choices = choices.Select(r => r.Id).ToHashSet();
             }
@@ -175,6 +206,7 @@ public sealed class FlowerFixtureCmd : AbstractConsoleCmd
                 Check(choices == null || choices.Count == 0, "Flower respects empty chest");
                 var ui = Descendants(NRun.Instance!).OfType<NTreasureRoomRelicCollection>().Single();
                 Check(!Descendants(ui).OfType<NTreasureRoomRelicHolder>().Any(h => h.IsVisibleInTree()), "empty chest has no visible relic");
+                Check(!Descendants(ui).Any(n => n.Name == "FlowerSharedArc"), "empty chest has no floral decoration");
             }
             else throw new Exception("Unknown fixture");
             Status = "pass:" + action;

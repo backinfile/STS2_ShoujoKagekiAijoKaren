@@ -8,7 +8,7 @@ using ShoujoKagekiAijoKaren.src.Models.Relics;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 
-/// <summary>A centered two-choice row with floral underlines, using native chest holders.</summary>
+/// <summary>A centered native two-choice row with one shared floral arc and no rarity glow.</summary>
 [HarmonyPatch(typeof(NTreasureRoomRelicCollection), nameof(NTreasureRoomRelicCollection.InitializeRelics))]
 public static class FlowerTreasureUiPatch
 {
@@ -25,7 +25,6 @@ public static class FlowerTreasureUiPatch
         var center = single.Position + single.Size * 0.5f;
         var totalWidth = holders.Sum(holder => holder.Size.X) + 128f;
         var x = center.X - totalWidth * 0.5f;
-        var texture = ResourceLoader.Load<Texture2D>("res://images/ui/flower/chest_cradle.tres");
         for (var i = 0; i < holders.Count; i++)
         {
             var holder = holders[i];
@@ -34,20 +33,30 @@ public static class FlowerTreasureUiPatch
             x += holder.Size.X + 128f;
             holder.FocusNeighborTop = holder.FocusNeighborBottom = holder.GetPath();
             holder.FocusNeighborLeft = holder.FocusNeighborRight = holders[1 - i].GetPath();
-            if (holder.GetNodeOrNull("FlowerCradle") == null)
+            // These native rarity particles belong to each choice, not the chest itself.
+            foreach (var name in new[] { "%UncommonGlow", "%RareGlow" })
             {
-                holder.AddChild(new TextureRect
-                {
-                    Name = "FlowerCradle",
-                    Texture = texture,
-                    ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
-                    StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
-                    MouseFilter = Control.MouseFilterEnum.Ignore,
-                    Size = new Vector2(212, 78),
-                    Position = new Vector2((holder.Size.X - 212) * 0.5f, holder.Size.Y - 2),
-                    Modulate = new Color(1, 1, 1, 0.95f)
-                });
+                var glow = holder.GetNode<GpuParticles2D>(name);
+                glow.Emitting = false;
+                glow.Hide();
             }
+        }
+        // Use one decoration for the pair, behind the icons and outside focus/hit testing.
+        var container = single.GetParent<Control>();
+        if (container.GetNodeOrNull("FlowerSharedArc") == null)
+        {
+            var arc = new TextureRect
+            {
+                Name = "FlowerSharedArc",
+                Texture = ResourceLoader.Load<Texture2D>("res://images/ui/flower/chest_cradle.tres"),
+                ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+                StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+                MouseFilter = Control.MouseFilterEnum.Ignore,
+                Size = new Vector2(480, 120),
+                Position = center + new Vector2(-240, 0)
+            };
+            container.AddChild(arc);
+            container.MoveChild(arc, 0);
         }
         // Native initialization also adds hidden multiplayer slots to this list.
         ____holdersInUse.Clear();

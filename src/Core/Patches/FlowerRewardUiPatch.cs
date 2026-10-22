@@ -16,9 +16,6 @@ public static class FlowerRewardUiPatch
         foreach (var child in ____rewardContainer.GetChildren())
         {
             if (child is not NRewardButton button) continue;
-            // Leave a clear strip for the larger connector at the right edge.
-            button.GetNode<MarginContainer>("LabelContainer")
-                .AddThemeConstantOverride("margin_right", 108);
             // Native Reload binds a zero-argument callback to a one-argument signal.
             foreach (var connection in button.GetSignalConnectionList(NRewardButton.SignalName.RewardClaimed))
             {
@@ -42,8 +39,8 @@ public static class FlowerRewardUiPatch
             chain.Texture = texture;
             chain.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
             chain.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
-            chain.Size = new Vector2(88, 88);
-            chain.Position = center - chain.Size * 0.5f + Vector2.Right * 112f;
+            chain.Size = new Vector2(60, 60);
+            chain.Position = center - chain.Size * 0.5f;
         }
     }
 }
