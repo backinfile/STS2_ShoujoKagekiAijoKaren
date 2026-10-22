@@ -1,0 +1,71 @@
+{
+  "branch": "main",
+  "head": "5c7aa359d1f9a1fa9b432c7b43e2a6f265d8c548",
+  "files": [
+    {
+      "path": "docs/21.特效总览与兼容约定.md",
+      "sha256": "36beb14a111e96c3743d95fd466221e44d530de5efe98ffe781ce9e130f46308",
+      "matchesOriginal": false
+    },
+    {
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBenefitVfx.cs",
+      "sha256": "b646279e3b1a684a877e5a232d1b4829761ab0ca5a264279dcc9dc8cbd0184dc",
+      "matchesOriginal": true
+    },
+    {
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenExchangeFateVfx.cs",
+      "sha256": "b6d4dc6de861844db27fdebcde640d2e4dc7e680aad9844a474cfff03ee9c090",
+      "matchesOriginal": true
+    },
+    {
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.cs",
+      "sha256": "fd2790c1fbd449fdff12599177e208fef4a53bdb50304c5f89007ff5f0d20487",
+      "matchesOriginal": true
+    },
+    {
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs",
+      "sha256": "3b47e1959d332cdadc1824e0d69bf1645b4e7bce74eb5b5ea3d16ef907a81773",
+      "matchesOriginal": true
+    },
+    {
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWaitingStageVfx.cs",
+      "sha256": "d9b3fdd8a01ded8b1651b4e4abbf831bd138446c9b0f78032f12a8b376194444",
+      "matchesOriginal": true
+    },
+    {
+      "path": "tools/vfx/catalog/WaitingStageProbe.cs",
+      "sha256": "4d2dbde50960051c5bf469122a54253933eb900ef11043130a56eb7e7d7b3255",
+      "matchesOriginal": true
+    },
+    {
+      "path": "tools/vfx/catalog/latest_scenes.py",
+      "sha256": "831388f576ddc7b8306eca2cda924eb3c0bfda6a698939eeb39be73452533a32",
+      "matchesOriginal": true
+    },
+    {
+      "path": "tools/vfx/catalog/record.py",
+      "sha256": "cad96f21d758231a9e6222659ce33dd6964fc0d0ecc7794450735bdf878e882b",
+      "matchesOriginal": true
+    },
+    {
+      "path": "tools/vfx/catalog/verify_waiting_stage.py",
+      "sha256": "b87515c789f3cd58bb2096ef6ab131aa5fc4e08f320b30fb0d50da9ebb9f9bb4",
+      "matchesOriginal": true
+    },
+    {
+      "path": "tools/vfx/catalog/waiting_audio_scenes.py",
+      "sha256": "fd851b79d794d1b21714a190888a4673306a87e4cf68611393d7eca84f18ede1",
+      "matchesOriginal": true
+    },
+    {
+      "path": "tools/vfx/catalog/RelicDetailsShowcase.cs",
+      "sha256": "bd0dfaa160018c5e3e4ab0f82f206ecb84731d3048367a9adda520f4ec7a2464",
+      "matchesOriginal": true
+    },
+    {
+      "path": "tools/vfx/catalog/SfxAudit.cs",
+      "sha256": "c139c2734470b3ec42c4b153c35cb6bc53efc5bce99bc0ab68dcaafee3a9575a",
+      "matchesOriginal": true
+    }
+  ]
+}

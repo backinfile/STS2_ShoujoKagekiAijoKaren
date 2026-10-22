@@ -96,6 +96,7 @@ public sealed class PastStreamProbe : IDisposable
     private int _visibleDepleteFlightFrames, _gatherIntermediateFrames;
     private float _maxGatherPositionError, _gatherMinAlpha = 1, _gatherMaxAlpha;
     private float _maxOriginError, _maxFrontError, _maxScaleError;
+    private float _minAmbientVisibility = 1f;
     private double _lastActive;
     private readonly List<object> _timeline = new();
     public PastStreamProbe(Player player)
@@ -144,6 +145,7 @@ public sealed class PastStreamProbe : IDisposable
         foreach (var node in nodes)
         {
             var count = Counts(node); active += count[0]; scheduled += count[1];
+            if (count[0] > 0) _minAmbientVisibility = Math.Min(_minAmbientVisibility, Number(node, "_ambientVisibility"));
             _maxOriginError = Math.Max(_maxOriginError, node.GlobalPosition.DistanceTo(creature.VfxSpawnPosition));
             if (Field(node, "_front") is Node2D front)
                 _maxFrontError = Math.Max(_maxFrontError, front.GlobalPosition.DistanceTo(node.GlobalPosition));
@@ -179,5 +181,5 @@ public sealed class PastStreamProbe : IDisposable
         visibleDepleteFrames = _visibleDepleteFrames, maxOriginError = _maxOriginError, maxFrontError = _maxFrontError,
         visibleDepleteFlightFrames = _visibleDepleteFlightFrames, gatherIntermediateFrames = _gatherIntermediateFrames,
         maxGatherPositionError = _maxGatherPositionError, gatherMinAlpha = _gatherMinAlpha, gatherMaxAlpha = _gatherMaxAlpha,
-        maxScaleError = _maxScaleError, lastActive = _lastActive, timeline = _timeline };
+        maxScaleError = _maxScaleError, minAmbientVisibility = _minAmbientVisibility, lastActive = _lastActive, timeline = _timeline };
 }

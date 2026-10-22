@@ -1,0 +1,19 @@
+Use case: precise-object-edit / stylized-concept.
+Asset type: subtle game VFX in-context art direction mockup.
+Image 1 is the exact edit-target game screenshot. Image 2 is the preceding VFX comparison board, used only to identify option B, horizontal pale-blue filament traces. This image is a refinement of B with dramatically LOWER brightness and shorter traces, not an edit to the character or tower.
+
+Create ONE refined wide landscape concept review image approximately 1536x1024. Upper ~75% is a faithful whole screenshot from Image 1 retaining the exact actual 1280x720 source layout, characters, entire red promise tower, enemy, top HUD, readable hand cards, health bars, dungeon and pose. Preserve original image pixels/appearance as faithfully as possible; do not repaint Karen or invent interface. Place a clean small header outside the gameplay area: "B · 横向光痕" and small "常驻特效概念图". Bottom strip outside the gameplay contains ONE modest 2x detail crop of Karen's waist region and no separate fantasy illustration; label this inset "局部放大 · 仅便于观察". Do not place the inset over game action or on top of her face.
+
+Only add the following effect to the gameplay:
+- three tiny translucent pale cool-blue-to-white filaments, to the sides of Karen's waist and upper thigh area, staying inside a zone roughly 1.15x the width of her silhouette, behind her body and sword, above health bar.
+- At the original 1280x720 screenshot scale, each core is only 5–10 pixels long, about 1 pixel wide, with a faint feathered tail 12–16 pixels long. They are interrupted horizontal traces, not star-shaped sparks.
+- Precisely three unevenly spaced filaments: one behind and just left of the waist, one right of hip, one at left upper thigh. They must not align into a single solid beam. The rest of the space is genuinely empty.
+- The cool light should barely register on first glance, approximately 8–12% opacity (an implementation target only, render perceptually understated), far below character white cloth, tower white railing, health-bar border and the original ambient green fireflies. Do not render crisp bright white streaks like the first comparison board. Reduce their visual emphasis by at least two thirds.
+- No continuous ellipse at idle, no complete body outline, no bubbles, no dense particles, no glow painted over face or clothing, no floating rune or icon.
+- Suggest slow right-to-left movement only through tiny tapered tails; do not draw arrows inside the actual screenshot.
+- The closeup must show the same sparse dim proposed filaments, not brighter or more numerous effects.
+
+Along the bottom in refined plain dark Chinese text on a warm off-white margin, write exactly:
+"三条短光痕，缓慢向左漂移；抽牌时沿用原有穿身环。"
+A smaller footer exactly: "设计意向，尚未接入游戏".
+Maintain screenshot-native hand-painted 2D style and low contrast; no cinematic lighting, no lens flare, no artwork-style bloom, no new title labels within the gameplay UI. Output should convincingly convey a passive that is present but easy to ignore.

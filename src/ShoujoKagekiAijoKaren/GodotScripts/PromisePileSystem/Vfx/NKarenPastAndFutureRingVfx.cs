@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
-// One draw keeps the original eight rings; consecutive draws continue a bounded stream.
+// Three quiet rear-layer traces idle beneath the existing bounded draw-ring stream.
 public partial class NKarenPastAndFutureRingVfx : Node2D
 {
     private static readonly (float Start, float Duration, float Y, float Alpha)[] Rings =
@@ -15,6 +15,17 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
         (0.88f, 1.36f, 2f, 1f), (1.09f, 0.83f, -6f, 0.85f),
         (1.24f, 1.22f, 7f, 0.65f), (1.46f, 1.24f, -2f, 0.88f)
     ];
+    private static readonly (float Phase, float X, float Y, float Length, float Period, float Travel, float Tilt)[] AmbientTraces =
+    [
+        (.10f, 150f, -8f, 72f, 3f, 96f, -.035f),
+        (.43f, -145f, 20f, 82f, 4.5f, 108f, .025f),
+        (.69f, 160f, 48f, 76f, 3.6f, 100f, -.055f)
+    ];
+    // Common multiple of the three periods: wrapping the clock cannot jump a trace.
+    private const float AmbientPeriod = 18f;
+    private float _ambientTime;
+    private float _ambientVisibility;
+    private readonly ColorRect[] _ambientTraces = new ColorRect[AmbientTraces.Length];
     private readonly Vector2[] _arc = new Vector2[49];
     private NCreature? _creatureNode;
     private Node2D? _front;
@@ -55,7 +66,9 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
             parent.AddChildSafely(_front);
             parent.MoveChild(_front, creatureNode.GetIndex() + 1);
         }
+        EnsureAmbientTraces();
         UpdatePlacement();
+        UpdateAmbient();
     }
 
     public void Restart()
@@ -151,7 +164,12 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
                 _nextRing = StreamInterval;
             }
         }
+        _ambientTime = Mathf.PosMod(_ambientTime + dt, AmbientPeriod);
+        // Let the existing card-draw accent lead; recover gently when its last ring leaves.
+        float ambientTarget = _travelling.Count > 0 || _streamRemaining > 0 ? .3f : 1f;
+        _ambientVisibility = Mathf.MoveToward(_ambientVisibility, ambientTarget, dt * 2.5f);
         UpdatePlacement();
+        UpdateAmbient();
         QueueRedraw();
         if (GodotObject.IsInstanceValid(_front))
         {
@@ -161,7 +179,53 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
         }
     }
 
-    public override void _Draw() => DrawRings(this, false);
+    public override void _Draw()
+    {
+        DrawRings(this, false);
+    }
+
+    private void EnsureAmbientTraces()
+    {
+        if (GodotObject.IsInstanceValid(_ambientTraces[0])) return;
+        var material = new ShaderMaterial
+        {
+            Shader = GD.Load<Shader>("res://materials/vfx/past_future_trace.gdshader")
+        };
+        for (int i = 0; i < _ambientTraces.Length; i++)
+        {
+            var trace = new ColorRect
+            {
+                Name = "PastAndFutureAmbientTrace" + i,
+                Material = material,
+                MouseFilter = Control.MouseFilterEnum.Ignore,
+                Color = Colors.White
+            };
+            _ambientTraces[i] = trace;
+            this.AddChildSafely(trace);
+        }
+    }
+
+    private void UpdateAmbient()
+    {
+        float unit = _radius / 150f;
+        float weight = .68f * _ambientVisibility * KarenVfxComposition.AmbientWeight(_creatureNode?.Entity);
+        for (int i = 0; i < _ambientTraces.Length; i++)
+        {
+            var trace = _ambientTraces[i];
+            if (!GodotObject.IsInstanceValid(trace)) continue;
+            var style = AmbientTraces[i];
+            float progress = Mathf.PosMod(_ambientTime / style.Period + style.Phase, 1f);
+            float fadeIn = Mathf.SmoothStep(0f, 1f, Mathf.Clamp(progress / .1f, 0f, 1f));
+            float fadeOut = Mathf.SmoothStep(0f, 1f, Mathf.Clamp((progress - .78f) / .22f, 0f, 1f));
+            float wave = Mathf.Sin(Mathf.Tau * progress);
+            // Different lifetimes and curved, short flank lanes keep motion readable without a beam.
+            var head = new Vector2(style.X - style.Travel * progress, style.Y + 5f * wave) * unit;
+            trace.Size = new Vector2(style.Length * (1f + .06f * wave), 18f) * unit;
+            trace.Rotation = style.Tilt + .025f * wave;
+            trace.Position = head - new Vector2(trace.Size.X * .2f, trace.Size.Y * .5f);
+            trace.Modulate = new Color(1f, 1f, 1f, weight * fadeIn * (1f - fadeOut) * (.9f + .1f * wave));
+        }
+    }
     private void DrawFront() { if (GodotObject.IsInstanceValid(_front)) DrawRings(_front!, true); }
 
     private void DrawRings(Node2D canvas, bool front)
