@@ -1,0 +1,406 @@
+{
+  "scope": "After merging main b5b94a8 into task branch. Targeted singleplayer only; no full matrix or multiplayer rerun.",
+  "build": {
+    "stable_warnings": 28,
+    "beta_warnings": 28,
+    "loader_warnings": 1,
+    "errors": 0
+  },
+  "localization": {
+    "tables": 10,
+    "source_entries": 430,
+    "translations": 860,
+    "smartformat_renders": 10320,
+    "passed": true
+  },
+  "stable_native_replay": [
+    {
+      "mode": "native-replay",
+      "native_replay_count": 1,
+      "mod_extra_replay_count": 0,
+      "native_keyword": "重放",
+      "caption": "双星 · 原生重放 1 · 完整执行两次",
+      "detail": "卡面原生重放关键字 · X = 2 · 4 个遗物 · 8 次命中，40 点伤害",
+      "plays": 2,
+      "native_blocked_attempts": 0,
+      "pairs": [
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 250,
+          "y": 116,
+          "centerX": 444.72,
+          "centerY": 176.352,
+          "distance": 203.85838
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 182,
+          "y": 116,
+          "centerX": 387.5047,
+          "centerY": 176.63626,
+          "distance": 214.26372
+        },
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 114,
+          "y": 116,
+          "centerX": 325.91864,
+          "centerY": 175.08035,
+          "distance": 220
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 46,
+          "y": 116,
+          "centerX": 258.66107,
+          "centerY": 172.3494,
+          "distance": 219.99997
+        }
+      ],
+      "relics_disabled": 4,
+      "hits": 8,
+      "damage": 40,
+      "per_hit": 5,
+      "visual_events": [
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact"
+      ],
+      "play_at": 3.125,
+      "resolved_at": 9.25,
+      "recording": {
+        "video_duration_seconds": 11.466666666666667,
+        "capture_fps": 29.668680853048922,
+        "frames_captured": 340,
+        "frames_repeated": 4,
+        "frames_dropped": 0,
+        "frames_written": 344,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      }
+    }
+  ],
+  "stable_probe_after": {
+    "state": "ready",
+    "attacks": [
+      {
+        "hits": 4,
+        "damage": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "hits": 4,
+        "damage": [
+          5,
+          5,
+          5,
+          5
+        ]
+      }
+    ],
+    "artPreview": "off",
+    "plays": 2,
+    "nativeBlockedAttempts": 0,
+    "visualEvents": [
+      "start",
+      "gold",
+      "contact",
+      "pink",
+      "contact",
+      "gold",
+      "contact",
+      "pink",
+      "contact",
+      "start",
+      "gold",
+      "contact",
+      "pink",
+      "contact",
+      "gold",
+      "contact",
+      "pink",
+      "contact"
+    ],
+    "pairs": [
+      {
+        "index": 0,
+        "fromRelic": true,
+        "x": 250,
+        "y": 116,
+        "centerX": 444.72,
+        "centerY": 176.352,
+        "distance": 203.85838
+      },
+      {
+        "index": 1,
+        "fromRelic": true,
+        "x": 182,
+        "y": 116,
+        "centerX": 387.5047,
+        "centerY": 176.63626,
+        "distance": 214.26372
+      },
+      {
+        "index": 0,
+        "fromRelic": true,
+        "x": 114,
+        "y": 116,
+        "centerX": 325.91864,
+        "centerY": 175.08035,
+        "distance": 220
+      },
+      {
+        "index": 1,
+        "fromRelic": true,
+        "x": 46,
+        "y": 116,
+        "centerX": 258.66107,
+        "centerY": 172.3494,
+        "distance": 219.99997
+      }
+    ],
+    "activeVfx": 0,
+    "locks": 4,
+    "eligible": 0,
+    "relics": [
+      "KAREN_LOCK_RELIC",
+      "KAREN_LOCK_RELIC",
+      "KAREN_LOCK_RELIC",
+      "KAREN_LOCK_RELIC"
+    ],
+    "playable": true,
+    "costX": true,
+    "nativeBaseReplayCount": 1,
+    "nativeReplayCount": 1,
+    "modExtraReplayCount": 0,
+    "nativeReplayKeyword": "重放",
+    "capturedX": 2,
+    "upgraded": false,
+    "pile": "Discard",
+    "disableCost": 0,
+    "damage": 5,
+    "repeat": 2,
+    "pool": true,
+    "hasPortrait": true,
+    "portrait": "(500, 380)",
+    "title": "双星",
+    "description": "[gold]禁用[/gold]X个遗物，然后造成5点伤害2X次。\n[gold]重放[/gold]1。\n（当前可禁用[blue]0[/blue]个遗物）",
+    "energy": 0,
+    "targetHp": 60
+  },
+  "beta_results": [
+    {
+      "case": "zero",
+      "passed": true,
+      "pairs": [],
+      "energy": 0,
+      "hits": 0,
+      "relics_disabled": 0,
+      "damage": 0,
+      "visual_events": [],
+      "active_vfx_after": 0
+    },
+    {
+      "case": "three",
+      "passed": true,
+      "pairs": [
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 182,
+          "y": 116,
+          "centerX": 387.59998,
+          "centerY": 176.352,
+          "distance": 214.27486
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 114,
+          "y": 116,
+          "centerX": 326.00848,
+          "centerY": 174.75714,
+          "distance": 220
+        },
+        {
+          "index": 2,
+          "fromRelic": true,
+          "x": 46,
+          "y": 116,
+          "centerX": 258.649,
+          "centerY": 172.3952,
+          "distance": 220.00002
+        }
+      ],
+      "energy": 3,
+      "hits": 6,
+      "relics_disabled": 3,
+      "damage": 30,
+      "visual_events": [
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact"
+      ],
+      "active_vfx_after": 0
+    },
+    {
+      "case": "fast",
+      "passed": true,
+      "pairs": [
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 182,
+          "y": 116,
+          "centerX": 387.59998,
+          "centerY": 176.352,
+          "distance": 214.27486
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 114,
+          "y": 116,
+          "centerX": 325.91782,
+          "centerY": 175.08336,
+          "distance": 220.00002
+        },
+        {
+          "index": 2,
+          "fromRelic": true,
+          "x": 46,
+          "y": 116,
+          "centerX": 258.63623,
+          "centerY": 172.44315,
+          "distance": 219.99998
+        }
+      ],
+      "energy": 3,
+      "hits": 6,
+      "relics_disabled": 3,
+      "damage": 30,
+      "visual_events": [
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact"
+      ],
+      "active_vfx_after": 0
+    },
+    {
+      "case": "instant",
+      "passed": true,
+      "pairs": [],
+      "energy": 3,
+      "hits": 6,
+      "relics_disabled": 3,
+      "damage": 30,
+      "visual_events": [],
+      "active_vfx_after": 0
+    },
+    {
+      "case": "combat-end-restoration",
+      "passed": true,
+      "restored": 3
+    },
+    {
+      "case": "lethal",
+      "passed": true,
+      "hits": 1,
+      "pairs": [
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 182,
+          "y": 116,
+          "centerX": 387.59998,
+          "centerY": 176.352,
+          "distance": 214.27486
+        }
+      ],
+      "visual_events": [
+        "start",
+        "gold",
+        "contact"
+      ],
+      "active_vfx_after": 0,
+      "relics_restored": true
+    }
+  ],
+  "mcp_screens_viewed": 13,
+  "hand_checks_passed": 13,
+  "logs": {
+    "stable-native-replay": {
+      "startup_errors": [],
+      "runtime_errors": []
+    },
+    "beta": {
+      "startup_errors": [],
+      "runtime_errors": []
+    }
+  },
+  "package_hashes": {
+    "ShoujoKagekiAijoKaren.pck": "1f98dd54ac11a0e0431deb71531a82e0abe0425eca3aa523f9d8e62985f01254",
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": "dc6c2d70882726e2340fc6165a2f549b37c3a85583964cd9acd1b6d9904d6172",
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": "4c027c0bf9206a98d42cfa7bf75f0f0b05ffaa990a0eaf65afd7f404675874d5"
+  },
+  "incoming_main": "b5b94a8d43551dc5c5d643f9b0e962edc6a4b227",
+  "raw_sources": [
+    "artifacts/twin-stars-integration/capture",
+    "artifacts/twin-stars-integration/beta"
+  ],
+  "main_integration": {
+    "main_head": "ebbabc08fc8cdc5ddf82845fd2d2f40414f73c8f",
+    "previous_main": "b5b94a8d43551dc5c5d643f9b0e962edc6a4b227",
+    "preexisting_user_files": 13,
+    "other_files_byte_identical": 12,
+    "shared_doc_original_text_preserved": true,
+    "shared_doc_change": "Only added the Twin Stars row; original line endings retained",
+    "temporary_stash_dropped": true,
+    "worktree_retained": true,
+    "task_branch_retained": true
+  }
+}

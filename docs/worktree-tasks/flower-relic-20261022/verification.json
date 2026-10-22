@@ -3,7 +3,7 @@
   "revision": 4,
   "scope": "Targeted singleplayer regression; full multiplayer matrix not run",
   "baseline_commit": "7c78e66e2db2d142f231ddf1b57c92fece4fb334",
-  "synchronized_main": "b5b94a8d43551dc5c5d643f9b0e962edc6a4b227",
+  "synchronized_main": "5c7aa359d1f9a1fa9b432c7b43e2a6f265d8c548",
   "previous_revision": {
     "revision": 3,
     "assertions_per_variant": 56,
@@ -23,75 +23,8 @@
       "ordinary_and_empty_chest": "no floral arc",
       "empty_chest_open_and_proceed": "pass",
       "tested_package_sha256": {
-        "lib/ShoujoKagekiAijoKaren.Stable.dll": "dc2f7d46c606baa603629a437eb185de4c2546b3177659c276197f73cca5df3e",
-        "ShoujoKagekiAijoKaren.pck": "fd436459c08d86f24e2ffae5374666f4177724b0be94e0ccbac7dfc65654a072"
-      },
-      "cases": [
-        {
-          "case": "chest-one",
-          "result": "pass"
-        },
-        {
-          "case": "chest-claim",
-          "result": "pass"
-        },
-        {
-          "case": "audit",
-          "result": "pass"
-        },
-        {
-          "case": "prepare",
-          "result": "pass"
-        },
-        {
-          "case": "reward-check",
-          "result": "pass"
-        },
-        {
-          "case": "claim-check",
-          "result": "pass"
-        },
-        {
-          "case": "chest-two",
-          "result": "pass"
-        },
-        {
-          "case": "chest-claim",
-          "result": "pass"
-        },
-        {
-          "case": "chest-two",
-          "result": "pass"
-        },
-        {
-          "case": "chest-skip",
-          "result": "pass"
-        },
-        {
-          "case": "empty-setup",
-          "result": "pass"
-        },
-        {
-          "case": "empty",
-          "result": "pass"
-        }
-      ],
-      "button_gap_alignment": "floral chain centers in actual button gap: actual=(959, 669) expected=(959, 669)"
-    },
-    "beta": {
-      "version": "v0.111.0",
-      "result": "pass",
-      "fixture_invocations": 12,
-      "assertions": 56,
-      "log_errors": 0,
-      "opaque_connector_and_painted_text": "non-overlapping",
-      "shared_arc": "exactly one, centered, mouse filter Ignore",
-      "rarity_glow": "both UncommonGlow and RareGlow hidden and emission stopped",
-      "ordinary_and_empty_chest": "no floral arc",
-      "empty_chest_open_and_proceed": "pass",
-      "tested_package_sha256": {
-        "lib/ShoujoKagekiAijoKaren.Beta.dll": "216a4a76a7ea2b364f06e212e6ef1123d4663a9e5be0278641050f2f535171b4",
-        "ShoujoKagekiAijoKaren.pck": "fd436459c08d86f24e2ffae5374666f4177724b0be94e0ccbac7dfc65654a072"
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "a6ab07f7dffa73e724caffb449e15a52716d0f3397e308fc6a93c0ef56f5a43a",
+        "ShoujoKagekiAijoKaren.pck": "bd7b21e206e1df594c5f066e76f4ca7f1bbed4b5a0a5e581c3b921096097b271"
       },
       "cases": [
         {
@@ -144,19 +77,95 @@
         }
       ],
       "button_gap_alignment": "floral chain centers in actual button gap: actual=(959, 573) expected=(959, 573)"
+    },
+    "beta": {
+      "version": "v0.111.0",
+      "result": "pass",
+      "fixture_invocations": 12,
+      "assertions": 56,
+      "log_errors": 0,
+      "opaque_connector_and_painted_text": "non-overlapping",
+      "shared_arc": "exactly one, centered, mouse filter Ignore",
+      "rarity_glow": "both UncommonGlow and RareGlow hidden and emission stopped",
+      "ordinary_and_empty_chest": "no floral arc",
+      "empty_chest_open_and_proceed": "pass",
+      "tested_package_sha256": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "2f1a8ebbde393c02a4a8fd2b3f9b2060b06150346e51aee4bff300efdd8dcc0d",
+        "ShoujoKagekiAijoKaren.pck": "bd7b21e206e1df594c5f066e76f4ca7f1bbed4b5a0a5e581c3b921096097b271"
+      },
+      "cases": [
+        {
+          "case": "chest-one",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "audit",
+          "result": "pass"
+        },
+        {
+          "case": "prepare",
+          "result": "pass"
+        },
+        {
+          "case": "reward-check",
+          "result": "pass"
+        },
+        {
+          "case": "claim-check",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-skip",
+          "result": "pass"
+        },
+        {
+          "case": "empty-setup",
+          "result": "pass"
+        },
+        {
+          "case": "empty",
+          "result": "pass"
+        }
+      ],
+      "button_gap_alignment": "floral chain centers in actual button gap: actual=(959, 669) expected=(959, 669)",
+      "startup_retry": {
+        "first_attempt": "56 Flower assertions passed, but log gate failed: two Invalid Task ID errors during Common preload before any run actions.",
+        "same_package_retry": "All 56 assertions passed; clean final log.",
+        "first_attempt_log": "artifacts/flower-regression/beta-startup-worker-pool-error.log"
+      }
     }
   },
   "localization": {
-    "source_entries": 431,
-    "translations": 862,
-    "smartformat_renders": 10344,
-    "result": "pass",
-    "note": "Carried forward from revision 2; no localization changes in revision 3"
+    "source_entries": 433,
+    "translations": 866,
+    "smartformat_renders": 10392,
+    "result": "pass after synchronization"
   },
   "total_assertions": 112,
   "build": {
     "stable": "28 existing warnings, 0 errors",
     "beta": "28 existing warnings, 0 errors",
     "loader": "1 existing warning, 0 errors"
+  },
+  "integration_snapshot_check": {
+    "preserved_uncommitted_files": 13,
+    "exact_original_hashes": 12,
+    "document": "Original SHA-256 restored in memory after excluding the single committed Twin Stars insertion; no working-file mutation."
   }
 }

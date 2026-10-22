@@ -178,6 +178,9 @@
   "KAREN_STAR_CRIME.title": "Star Crime",
   "KAREN_STAR_CRIME.description": "[gold]Disable[/gold] {DisableRelic:diff()} {DisableRelic:plural:relic|relics}, then draw {Cards:diff()} {Cards:plural:card|cards}.",
 
+  "KAREN_SHINE_PRICE.title": "Twin Stars",
+  "KAREN_SHINE_PRICE.description": "[gold]Disable[/gold] X relics, then deal {Damage:diff()} damage {Repeat:diff()}X times.",
+
   "KAREN_FORGIVE.title": "\"Forgiveness\"",
   "KAREN_FORGIVE.description": "[gold]Disable[/gold] {DisableRelic:diff()} {DisableRelic:plural:relic|relics}, then deal {Damage:diff()} damage to all enemies.",
 

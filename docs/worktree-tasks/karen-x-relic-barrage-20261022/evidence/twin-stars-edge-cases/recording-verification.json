@@ -1,0 +1,202 @@
+{
+  "clips": [
+    {
+      "mode": "blocked",
+      "caption": "双星 · 遗物不足无法打出",
+      "detail": "X = 3 · 可禁用 2 个遗物 · 尝试两次均拒绝，不耗能、不禁用、不攻击",
+      "plays": 0,
+      "native_blocked_attempts": 2,
+      "pairs": [],
+      "relics_disabled": 0,
+      "hits": 0,
+      "damage": 0,
+      "per_hit": 5,
+      "visual_events": [],
+      "play_at": 3.10999999998603,
+      "resolved_at": 5.765999999974156,
+      "recording": {
+        "video_duration_seconds": 7.966666666666667,
+        "capture_fps": 29.568689329846542,
+        "frames_captured": 235,
+        "frames_repeated": 4,
+        "frames_dropped": 0,
+        "frames_written": 239,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      },
+      "individual_output": "docs/worktree-tasks/karen-x-relic-barrage-20261022/Twin-Stars-edge-cases-showcase-blocked.mp4",
+      "individual_sha256": "9f015ce4ca78029ca08acab94cf2db521d92ed5fcc22af7722e8ac6f23c9be71",
+      "duration": 7.966667,
+      "audio_mean_db": -60.9,
+      "audio_peak_db": -46.8,
+      "longest_identical_frame_run": 1,
+      "unique_lowres_frames": 239,
+      "source_sha256": "40f7f855cef1fa117642d9e4ae6bfbeebb4c4239b8fac4b25d5b93bdd612ad14"
+    },
+    {
+      "mode": "replay",
+      "caption": "双星 · 多重 × 2 · 完整重播",
+      "detail": "X = 2 · 4 个遗物 → 两次各禁用 2 个 · 共 8 次命中，40 点伤害",
+      "plays": 2,
+      "native_blocked_attempts": 0,
+      "pairs": [
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 250,
+          "y": 116,
+          "centerX": 444.72,
+          "centerY": 176.352,
+          "distance": 203.85838
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 182,
+          "y": 116,
+          "centerX": 387.68658,
+          "centerY": 176.46413,
+          "distance": 214.38956
+        },
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 114,
+          "y": 116,
+          "centerX": 325.91864,
+          "centerY": 175.08035,
+          "distance": 220
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 46,
+          "y": 116,
+          "centerX": 258.5889,
+          "centerY": 172.62122,
+          "distance": 220
+        }
+      ],
+      "relics_disabled": 4,
+      "hits": 8,
+      "damage": 40,
+      "per_hit": 5,
+      "visual_events": [
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact"
+      ],
+      "play_at": 3.125,
+      "resolved_at": 9.25,
+      "recording": {
+        "video_duration_seconds": 11.433333333333334,
+        "capture_fps": 29.583551384383732,
+        "frames_captured": 338,
+        "frames_repeated": 5,
+        "frames_dropped": 0,
+        "frames_written": 343,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      },
+      "individual_output": "docs/worktree-tasks/karen-x-relic-barrage-20261022/Twin-Stars-edge-cases-showcase-replay.mp4",
+      "individual_sha256": "0dcee7ea7f7a3ff631a3820f5ceec84805d965df390878c53d2087f7fa68b925",
+      "duration": 11.433008,
+      "audio_mean_db": -41.5,
+      "audio_peak_db": -15.2,
+      "longest_identical_frame_run": 1,
+      "unique_lowres_frames": 343,
+      "source_sha256": "32610f58e55893ddc0ffb97bec6acf982b2e8a76e4b8fd894c212d07340e7e52"
+    },
+    {
+      "mode": "replay-short",
+      "caption": "双星 · 多重 × 2 · 第二次遗物不足",
+      "detail": "X = 2 · 3 个遗物 → 第一次禁用 2 个，剩 1 个 · 第二次跳过，共 20 点伤害",
+      "plays": 2,
+      "native_blocked_attempts": 0,
+      "pairs": [
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 182,
+          "y": 116,
+          "centerX": 387.59998,
+          "centerY": 176.352,
+          "distance": 214.27486
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 114,
+          "y": 116,
+          "centerX": 325.91245,
+          "centerY": 175.10255,
+          "distance": 219.99998
+        }
+      ],
+      "relics_disabled": 2,
+      "hits": 4,
+      "damage": 20,
+      "per_hit": 5,
+      "visual_events": [
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact"
+      ],
+      "play_at": 3.125,
+      "resolved_at": 6.421999999991385,
+      "recording": {
+        "video_duration_seconds": 8.6,
+        "capture_fps": 29.543903543388783,
+        "frames_captured": 254,
+        "frames_repeated": 4,
+        "frames_dropped": 0,
+        "frames_written": 258,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      },
+      "individual_output": "docs/worktree-tasks/karen-x-relic-barrage-20261022/Twin-Stars-edge-cases-showcase-replay-short.mp4",
+      "individual_sha256": "8f7c259cc756e3927c9bf4cd3d6a7de7ac03e94590834b4429024497caea3345",
+      "duration": 8.6,
+      "audio_mean_db": -43.1,
+      "audio_peak_db": -16.1,
+      "longest_identical_frame_run": 1,
+      "unique_lowres_frames": 258,
+      "source_sha256": "5a1db29f623403565e188dd2b7d199bdfeec75acf42bbf9456bde0c6dfea3bf1"
+    }
+  ],
+  "processing": "Native game speed; no gameplay compositing. Labels are added below the intact viewport.",
+  "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067",
+  "output": "docs/worktree-tasks/karen-x-relic-barrage-20261022/Twin-Stars-edge-cases-showcase.mp4",
+  "output_sha256": "5c72c52ef9f47f09b0ca42ab6a45ef60bd46c3252b23532880015b15e99c73e0",
+  "duration": 28.052,
+  "source_hashes": {
+    "mod_dll": "3d1cd19038b149ba398b73e382053447c1354782cb1af805f059285bdb609291",
+    "pck": "1f594212261299ecf352bf8088e2f216e74446a35ca9cf2ea3196955c2fe1639",
+    "mcp_dll": "776a7d77b8a4a44e4edba30a5ac169a43674469b107878387be2abda4829794f",
+    "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067"
+  }
+}

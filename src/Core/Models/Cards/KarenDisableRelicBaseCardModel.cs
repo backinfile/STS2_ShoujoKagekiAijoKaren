@@ -20,6 +20,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
         public DynamicVar DisableRelicVar => DynamicVars[ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.DisableRelicVar.VarName];
 
 
-        protected override bool IsPlayable => DisableRelicCmd.GetDisableableRelicCount(Owner) >= DisableRelicVar.IntValue;
+        public virtual int DisableRelicCount => DisableRelicVar.IntValue;
+
+        protected override bool IsPlayable => DisableRelicCmd.GetDisableableRelicCount(Owner) >= DisableRelicCount;
     }
 }
