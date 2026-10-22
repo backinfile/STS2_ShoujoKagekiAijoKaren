@@ -102,6 +102,9 @@ elif args.phase == 'continue':
     fixture('water2')
     for turn in (3, 4):
         act('end_turn')
+        if turn == 3:
+            wait(lambda s: s.get('state_type') == 'hand_select', 'Mr. White second-turn selection')
+            act('combat_confirm_selection')
         wait(lambda s: combat(s) and s['battle']['round'] == turn, 'turn ' + str(turn))
         fixture('water' + str(turn))
     fixture('tiara')
