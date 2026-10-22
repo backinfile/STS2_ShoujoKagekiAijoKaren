@@ -980,5 +980,10 @@
   },
   "originalStatePreserved": true,
   "scope": "targeted single-player only; no multiplayer/full matrix; no shared deployment",
-  "visualReview": "Inspected actual native stills, six sequential crops, real draw frame and MCP before/after hand screenshots against B reference; user approval pending"
+  "visualReview": "Inspected actual native stills, six sequential crops, real draw frame and MCP before/after hand screenshots against B reference; user explicitly approved the effect and main integration",
+  "userApproval": {
+    "answer": "认可效果并合并 main",
+    "approvedCommit": "54f6a091dee48737fccc6b16ebd7a91b103b0641",
+    "worktree": "preserved"
+  }
 }
