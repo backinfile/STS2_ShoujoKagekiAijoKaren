@@ -35,8 +35,8 @@
 - 首次设置使用正式版 schema 5 与正确的 `mod_list`，经真实 v0.107.1 `SettingsSave` 类型反序列化，确认 Mod、语言、音量和窗口默认值正确；FMOD plugin / Godot 版本 metadata 与 AndroidX lifecycle 均已注册。
 - 12 项 JVM 安装逻辑检查通过，并使用最终签名 APK 实际解包全部程序文件且逐项校验；默认/缺失/截断/更新/中断/失败重试与存档保护均覆盖。
 - 成品 v0.107.1 兼容程序集经 ILSpy 读取，归一化应用包名与 Java bridge 类名后，IL 输出与上游完全相同。
-- 当前产物：`artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct.apk`，2,046,684,809 字节，约 1.91 GiB；SHA-256：`863c0707e9662875b98ca9277dd400338d559ab68f05bec93fa91fdd227e1977`。
-- 证据：`artifacts/android-direct/validation.json`、`signature.txt`、`badging.txt`、`pck-patch.json`、`installer-checks/99a134ea/`、`inspect/` 与 `build.log`。[直装 APK 说明](../../android-standalone.md)。
+- 当前产物：`artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct.apk`，2,046,688,905 字节，约 1.91 GiB；SHA-256：`5289d4b31b243483119f02a80ece8cb5b69685ff1302492d8b75885e03a07512`。
+- 证据：`artifacts/android-direct/validation.json`、`signature.txt`、`badging.txt`、`pck-patch.json`、`installer-checks/95d54dfa/`、`inspect/` 与 `build.log`。[直装 APK 说明](../../android-standalone.md)。
 - Android 设备安装、游戏启动/战斗、真实触摸/影音、前后台与续档仍未测；静态/JVM 验证不代表 ARM64/Mono 游戏运行已经验收。
 
 ### 先前 Mod ZIP / importer 阶段（历史记录）
@@ -86,8 +86,14 @@
 - `artifacts/android-smoke/beta-20261022-102857/`：五项最终结果、日志及 MCP 前后截图。
 - 编译及导出日志：`artifacts/android-build.log`。Godot 导出时会提示来自本体的共享字体/脚本不在独立 Mod 工程内；本体加载后的资源与场景专项通过。
 
+### 本地同步补充
+
+- 同步时本地 `main` 已从原基线推进到 `7c78e66e2db2d142f231ddf1b57c92fece4fb334`；在隔离分支合入塔桥嵌套亮度预算与入场信号清理两处修复，以及其测试记录。
+- 两处修复的既有双版本 44 项定向验证见[特效修复报告](../vfx-boundaries-20261022/fix-report.md)，不计为本 APK 的 Android 实机结果。
+- 本任务重新生成 Stable/Beta/Loader AnyCPU、1020 项资源与包含 BaseLib 的 ZIP，再重新构建直装 APK。同步后 Mod ZIP SHA-256 为 `d43c36d044a00d194be3f1a6279d06155fab213a726605aec18933fd589b0198`；构建/验证记录为 `artifacts/android-sync-build.log`。
+
 ### 集成与后续
 
-原工作区保留在 `main`，其原有 13 个未提交文件内容经 SHA-256 复核未变；本任务未更新原开发游戏或 Steam 的 Mod 目录。任务改动整理为单个 commit，同步本地 `main` 后等待明确合并确认；分支、worktree 和 ignored 产物均保留，清理另行确认。
+原工作区保留在 `main`，其原有 13 个未提交文件内容经 SHA-256 复核未变；本任务未更新原开发游戏或 Steam 的 Mod 目录。任务改动先整理为单个 commit，随后同步本地 `main` 的最新修复并更新内嵌模组/直装 APK，等待明确合并确认；分支、worktree 和 ignored 产物均保留，清理另行确认。
 
 当前直装 APK 仅把固定上游 release 作为引擎/依赖的运行时载体，移除全部原启动器应用类，自己编译 Android 游戏入口。只读本体直接进入私有构建产物，无需导入、账号下载或启动配置。兼容程序集只修改元数据中的应用路径/Java bridge 字符串，原生库保留字节与声明。本地测试签名保留，Android ARM64 实机验证仍待进行。原工作区、分支和产物继续保留；合并与清理尚未获得授权。

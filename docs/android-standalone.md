@@ -4,7 +4,7 @@
 
 ## 安装与运行
 
-- 产物：`artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct.apk`，2,046,684,809 字节，约 1.91 GiB。
+- 产物：`artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct.apk`，2,046,688,905 字节，约 1.91 GiB。
 - Android 7.0/API 24 以上，仅 ARM64；建议预留至少 8 GB 可用存储空间，用于 APK、系统安装副本、首次解包和游戏缓存。
 - 应用名称为“塔2 · 华恋”，独立包名 `com.karenmod.sts2hd`，versionCode 为 10013，不使用此前 importer APK 的数据目录。
 - 第一次打开仅显示自动准备进度；准备完成后进入游戏。之后启动只检查安装标记和程序文件大小，避免反复解包整个本体。

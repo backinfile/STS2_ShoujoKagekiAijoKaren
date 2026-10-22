@@ -1,0 +1,18 @@
+[
+  {
+    "file": "stable/enemy-pincer/2-left-hit.png",
+    "sha256": "4e2ad8e007ca229edf88088fc2af19bdf06e452939c6be294f5af0b8a251160f"
+  },
+  {
+    "file": "stable/enemy-pincer/1-right-hit.png",
+    "sha256": "46b40a3e399ec17d107d55fb090179742cbb5b8f593162c6bb49fbd6c3709042"
+  },
+  {
+    "file": "stable/enemy-pincer/one-side-lethal-after.png",
+    "sha256": "ed5f86a8634f99609808d4ab9de88eb4db22c6e55eeb4283c5ad163591a02344"
+  },
+  {
+    "file": "stable/enemy-pincer-void/one-side-lethal-after.png",
+    "sha256": "3d4aac4e9646a6eb2b031b7bac944b1731b19488511ee4f502d654ec4d44b3e8"
+  }
+]
