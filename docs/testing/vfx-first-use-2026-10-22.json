@@ -1,0 +1,414 @@
+{
+  "stable-20261022-153026": {
+    "mode": "cold-multi-effect",
+    "rendering": "gl_compatibility",
+    "samples": [
+      {
+        "effect": "nonon",
+        "pass": 0,
+        "buildMs": 11.7306,
+        "allocated": 617808,
+        "drawn": 90,
+        "frames": 90,
+        "maxMs": 40.15,
+        "over33": 1
+      },
+      {
+        "effect": "nonon",
+        "pass": 1,
+        "buildMs": 3.3476,
+        "allocated": 593208,
+        "drawn": 90,
+        "frames": 90,
+        "maxMs": 50.1949,
+        "over33": 1
+      },
+      {
+        "effect": "nonon",
+        "pass": 2,
+        "buildMs": 1.6035,
+        "allocated": 593208,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 46.0814,
+        "over33": 1
+      },
+      {
+        "effect": "nonon",
+        "pass": 3,
+        "buildMs": 1.459,
+        "allocated": 593208,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 45.9984,
+        "over33": 1
+      },
+      {
+        "effect": "barrage",
+        "pass": 0,
+        "buildMs": 4.8249,
+        "allocated": 155816,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 44.6403,
+        "over33": 1
+      },
+      {
+        "effect": "barrage",
+        "pass": 1,
+        "buildMs": 0.8567,
+        "allocated": 131216,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 46.2517,
+        "over33": 1
+      },
+      {
+        "effect": "barrage",
+        "pass": 2,
+        "buildMs": 0.7862,
+        "allocated": 131216,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 47.136,
+        "over33": 1
+      },
+      {
+        "effect": "barrage",
+        "pass": 3,
+        "buildMs": 0.7897,
+        "allocated": 131216,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 46.9809,
+        "over33": 1
+      }
+    ]
+  },
+  "stable-20261022-153159": {
+    "mode": "cold-multi-effect",
+    "rendering": "gl_compatibility",
+    "samples": [
+      {
+        "effect": "bridge",
+        "pass": 0,
+        "buildMs": 0.1639,
+        "allocated": 0,
+        "drawn": 88,
+        "frames": 88,
+        "maxMs": 80.5275,
+        "over33": 1
+      },
+      {
+        "effect": "bridge",
+        "pass": 1,
+        "buildMs": 0.005,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.8067,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 2,
+        "buildMs": 0.0062,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 27.5009,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 3,
+        "buildMs": 0.007,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 17.3171,
+        "over33": 0
+      },
+      {
+        "effect": "nonon",
+        "pass": 0,
+        "buildMs": 20.0608,
+        "allocated": 626008,
+        "drawn": 89,
+        "frames": 89,
+        "maxMs": 55.0637,
+        "over33": 1
+      },
+      {
+        "effect": "nonon",
+        "pass": 1,
+        "buildMs": 3.3998,
+        "allocated": 519352,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 17.0141,
+        "over33": 0
+      },
+      {
+        "effect": "nonon",
+        "pass": 2,
+        "buildMs": 2.3124,
+        "allocated": 511192,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7298,
+        "over33": 0
+      },
+      {
+        "effect": "nonon",
+        "pass": 3,
+        "buildMs": 1.2999,
+        "allocated": 511192,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7393,
+        "over33": 0
+      },
+      {
+        "effect": "barrage",
+        "pass": 0,
+        "buildMs": 4.5418,
+        "allocated": 155816,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 29.6095,
+        "over33": 0
+      },
+      {
+        "effect": "barrage",
+        "pass": 1,
+        "buildMs": 0.8007,
+        "allocated": 57400,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7039,
+        "over33": 0
+      },
+      {
+        "effect": "barrage",
+        "pass": 2,
+        "buildMs": 0.6648,
+        "allocated": 49200,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 17.3962,
+        "over33": 0
+      },
+      {
+        "effect": "barrage",
+        "pass": 3,
+        "buildMs": 0.7515,
+        "allocated": 57400,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.8656,
+        "over33": 0
+      }
+    ]
+  },
+  "stable-20261022-153340": {
+    "mode": "cold",
+    "rendering": "gl_compatibility",
+    "samples": [
+      {
+        "effect": "bridge",
+        "pass": 0,
+        "buildMs": 0.3085,
+        "readyMs": 30.6043,
+        "allocated": 0,
+        "drawn": 85,
+        "frames": 85,
+        "maxMs": 135.0763,
+        "over33": 1
+      },
+      {
+        "effect": "bridge",
+        "pass": 1,
+        "buildMs": 0.0054,
+        "readyMs": 0.2302,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.8585,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 2,
+        "buildMs": 0.0058,
+        "readyMs": 0.2391,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.6883,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 3,
+        "buildMs": 0.005,
+        "readyMs": 0.2481,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.8856,
+        "over33": 0
+      }
+    ]
+  },
+  "stable-20261022-153443": {
+    "mode": "preload",
+    "rendering": "gl_compatibility",
+    "samples": [
+      {
+        "effect": "bridge",
+        "pass": 0,
+        "buildMs": 0.1735,
+        "readyMs": 2.3582,
+        "allocated": 8200,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7511,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 1,
+        "buildMs": 0.0059,
+        "readyMs": 0.2433,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.9524,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 2,
+        "buildMs": 0.0053,
+        "readyMs": 0.2406,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.6837,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 3,
+        "buildMs": 0.0055,
+        "readyMs": 0.2387,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7549,
+        "over33": 0
+      }
+    ]
+  },
+  "stable-20261022-153621": {
+    "mode": "draw",
+    "rendering": "gl_compatibility",
+    "samples": [
+      {
+        "effect": "bridge",
+        "pass": 0,
+        "buildMs": 0.0136,
+        "readyMs": 0.2469,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.6832,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 1,
+        "buildMs": 0.0077,
+        "readyMs": 0.3559,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7271,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 2,
+        "buildMs": 0.0077,
+        "readyMs": 0.2993,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 28.4483,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 3,
+        "buildMs": 0.0064,
+        "readyMs": 0.2703,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7044,
+        "over33": 0
+      }
+    ]
+  },
+  "stable-20261022-153714": {
+    "mode": "cold",
+    "rendering": "forward_plus",
+    "samples": [
+      {
+        "effect": "bridge",
+        "pass": 0,
+        "buildMs": 0.2854,
+        "readyMs": 23.7076,
+        "allocated": 8200,
+        "drawn": 89,
+        "frames": 89,
+        "maxMs": 42.2882,
+        "over33": 1
+      },
+      {
+        "effect": "bridge",
+        "pass": 1,
+        "buildMs": 0.0072,
+        "readyMs": 0.2794,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.6851,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 2,
+        "buildMs": 0.0061,
+        "readyMs": 0.2708,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.9501,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 3,
+        "buildMs": 0.0058,
+        "readyMs": 0.2904,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.959,
+        "over33": 0
+      }
+    ]
+  }
+}

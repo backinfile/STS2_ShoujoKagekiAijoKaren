@@ -17,5 +17,9 @@
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.htmlComplete": "Export complete.\nOutput directory: {OutputDirectory}\nKaren cards: {CardCount}\nReferenced cards: {ReferenceCardCount}\nImages: {SavedImages}",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.jsonComplete": "Export complete.\nOutput directory: {OutputDirectory}\nKaren cards: {CardCount}",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.failed": "Export failed: {Error}\nSee the log for details.",
-  "SHOUJOKAGEKIAIJOKAREN-EXPORT.unknownError": "Unknown error"
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.unknownError": "Unknown error",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL_BUTTON.title": "Unlock All",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.inRun": "Return to the main menu before unlocking this profile.",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.complete": "Unlocked all characters, cards, relics, potions, timeline entries and Ascension levels for this profile, including Karen. Reopen character selection or the compendium to refresh.\nProgress backup: {Backup}",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.failed": "Unlock failed: {Error}\nCheck the log. The pre-action progress backup remains in the save directory."
 }

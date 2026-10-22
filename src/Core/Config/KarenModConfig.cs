@@ -61,6 +61,42 @@ public class KarenModConfig : SimpleModConfig
         centerContainer.AddChild(buttonRow);
         optionContainer.AddChild(centerContainer);
         optionContainer.MoveChild(centerContainer, 0);
+
+        var unlockContainer = new CenterContainer { CustomMinimumSize = new Vector2(0, 88) };
+        unlockContainer.AddChild(new KarenConfigImageButton(
+            GetSettingsText("SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL_BUTTON.title", "Unlock All"), UnlockAll));
+        optionContainer.AddChild(unlockContainer);
+        optionContainer.MoveChild(unlockContainer, 1);
+    }
+
+    private static void UnlockAll(KarenConfigImageButton button)
+    {
+        string title = GetSettingsText("SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL_BUTTON.title", "Unlock All");
+        // A run captures unlock state at creation; apply the new progress to the next run.
+        if (GodotObject.IsInstanceValid(NRun.Instance))
+        {
+            ShowMessage(title, GetSettingsText("SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.inRun", "Return to the main menu before unlocking."));
+            return;
+        }
+        button.Disable();
+        try
+        {
+            string backup = KarenUnlockAll.Apply();
+            var message = new LocString("settings_ui", "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.complete");
+            message.AddObj("Backup", backup);
+            ShowMessage(title, message.GetFormattedText());
+        }
+        catch (Exception error)
+        {
+            MainFile.Logger.Error($"Unlock all failed: {error}");
+            var message = new LocString("settings_ui", "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.failed");
+            message.AddObj("Error", error.Message);
+            ShowMessage(title, message.GetFormattedText());
+        }
+        finally
+        {
+            if (GodotObject.IsInstanceValid(button)) button.Enable();
+        }
     }
 
     private static async void GenerateModInfoHtml(KarenConfigImageButton button)

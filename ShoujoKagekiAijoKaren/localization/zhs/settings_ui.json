@@ -17,5 +17,9 @@
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.htmlComplete": "生成完成。\n输出目录：{OutputDirectory}\nKaren 卡牌：{CardCount}\n引用卡牌：{ReferenceCardCount}\n图片：{SavedImages}",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.jsonComplete": "导出完成。\n输出目录：{OutputDirectory}\nKaren 卡牌：{CardCount}",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.failed": "导出失败：{Error}\n请查看日志获取详细信息。",
-  "SHOUJOKAGEKIAIJOKAREN-EXPORT.unknownError": "未知错误"
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.unknownError": "未知错误",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL_BUTTON.title": "一键解锁全部",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.inRun": "请先返回主菜单，再解锁当前存档。",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.complete": "已解锁当前存档的全部角色、卡牌、遗物、药水、时间线及进阶等级（包括华恋）。重新打开角色选择或图鉴即可查看。\n原进度已备份：{Backup}",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.failed": "解锁失败：{Error}\n请查看日志；原进度备份保留在存档目录。"
 }

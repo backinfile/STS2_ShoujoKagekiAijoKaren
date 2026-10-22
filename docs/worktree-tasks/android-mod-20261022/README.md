@@ -9,6 +9,10 @@
 - 「本体怎么下载」「我是说塔2本体」
 - 「不要使用这个启动器了，你根据这个启动器的实现原理，直接实现一个内嵌mod版本的塔2 apk」
 
+- 「安卓版上，第一次加载一个卡牌特效时感觉有些卡顿（第一次打出一类特效），你来分析分析。可能pc版也有这个问题」
+- 「要求添加一个mod选项，一键unlock all」；范围确认：「当前存档全部角色、卡牌、遗物、进阶等级」。
+- 「暂不合并，先试 APK」：继续保留分支与 worktree，不合并、不清理。
+
 ## Brief task plan
 
 - 从原工作区 `main` 的 `dc919b95c4ae7fe7a83a8ca02c44820437d88454` 创建 `codex/android-mod-20261022`，worktree 为 `../worktrees/STS2_ShoujoKagekiAijoKaren/android-mod-20261022`。
@@ -26,7 +30,7 @@
 
 最新交付已改为**完整本体 v0.107.1 + Karen/BaseLib 的直装 APK**，不再要求导入本体，也不使用原启动器应用入口。此前的 Mod ZIP/importer 产物只作为历史记录保留。尚未进行 Android ARM64/Mono 真机验证。
 
-### 直装 APK 最新结果
+### 直装 APK 初版结果（r1，历史）
 
 - `tools/android-standalone/` 自己编译 `DirectApplication`、后台解包 Activity 与直接继承 Godot 引擎的 `GameHost`，新包名 `com.karenmod.sts2hd`，启动器应用类和组件均为 0；剔除原应用 1,467 个类。
 - 使用正式版 v0.107.1 的只读 PC 本体与对应 Android 完整兼容层。游戏 DLL/PCK 精确哈希通过；PCK 只在私有副本禁用桌面 Sentry metadata 并更新 MD5，来源文件 SHA-256 前后相同。
@@ -97,3 +101,16 @@
 原工作区保留在 `main`，其原有 13 个未提交文件内容经 SHA-256 复核未变；本任务未更新原开发游戏或 Steam 的 Mod 目录。任务改动先整理为单个 commit，随后同步本地 `main` 的最新修复并更新内嵌模组/直装 APK，等待明确合并确认；分支、worktree 和 ignored 产物均保留，清理另行确认。
 
 当前直装 APK 仅把固定上游 release 作为引擎/依赖的运行时载体，移除全部原启动器应用类，自己编译 Android 游戏入口。只读本体直接进入私有构建产物，无需导入、账号下载或启动配置。兼容程序集只修改元数据中的应用路径/Java bridge 字符串，原生库保留字节与声明。本地测试签名保留，Android ARM64 实机验证仍待进行。原工作区、分支和产物继续保留；合并与清理尚未获得授权。
+
+### 手机试用反馈后续（已实现并定向验证）
+
+- 分析首次特效的创建和渲染帧耗时，以独立 PC OpenGL 进程对照首次/重复播放；不以 PC 结果替代 Android 真机结论。
+- 添加当前存档一键解锁按钮，保留解锁前进度备份，按原生进度 API 解锁角色/卡牌/遗物/药水/时间线与进阶；不伪造胜负统计或解锁平台成就。
+
+- 新增 `KarenUnlockAll` 与设置中的「一键解锁全部」按钮，使用当前 `SaveManager` profile 和原生模型/时间线 API，不改写正在进行的对局；进度先创建独立时间戳备份，再解锁内容并保存。进阶使用当前游戏允许上限，不降低已有值。中文、英文、日文设置文本完整。
+- `tools/unlock-smoke/` 仅用于隔离测试：正式版 691 张牌/307 件遗物/68 种药水/6 个角色，测试版 709/309/69/6。两版真实按钮、原始文件备份、二次操作幂等、统计与成就保留、重启持久化均通过。最终日志目录为 `artifacts/unlock-smoke/stable-20261022-154212/` 和 `beta-20261022-154231/`。Beta OpenGL 的 Common 预载在按钮执行前及只读重启验证前各出现一次 `Invalid Task ID`；未修复该单独问题，不能宣称 beta 日志零错误。
+- PC 特效诊断：OpenGL 塔桥首次最大帧约 80–135ms，对照重复约 17ms；Vulkan 首次约 42ms。只预载资源/音频后 OpenGL 首次约 16.8ms，实际播放预热后约 16.7ms。未单独量化 Shader 编译、纹理上传与 JIT 占比，未测 Android 真机，未把自动预热放入正式 Mod。报告：`docs/testing/vfx-first-use-2026-10-22.md` 与同名 JSON；可重复工具：`tools/vfx/first-use/`。
+- 新包 `artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r2.apk`，2,046,697,097 字节，SHA-256 `29f0f601ab2caa829c7febb1e00742b7852b22a4753293f6e1397f6773c273e7`。同包名/签名，versionCode 10014，支持覆盖 r1；r1 APK 保留。12 项安装回归及最终签名 APK 的全部程序解包/哈希验证通过，证据 `artifacts/android-direct/installer-checks/a06459c6/result.log`。
+- 原工作区仍是 `main` 的 `7c78e66`；13 个原有未提交文件与最初哈希逐项一致。继续遵守「暂不合并，先试 APK」，不合并、不清理。
+
+- 桌面默认 x64 构建在 stable/beta API 下均通过，0 错误，各 28 个原有警告；Android AnyCPU 双版包构建、资源包验证及 r2 v2/v3 签名验证通过。Android 真机安装与运行仍待玩家试用。

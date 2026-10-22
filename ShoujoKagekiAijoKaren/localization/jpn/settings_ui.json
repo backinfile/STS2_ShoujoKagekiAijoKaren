@@ -16,5 +16,9 @@
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.htmlComplete": "エクスポートが完了しました。\n出力先：{OutputDirectory}\n華恋のカード：{CardCount}\n参照カード：{ReferenceCardCount}\n画像：{SavedImages}",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.jsonComplete": "エクスポートが完了しました。\n出力先：{OutputDirectory}\n華恋のカード：{CardCount}",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.failed": "エクスポートに失敗しました：{Error}\n詳細はログを確認してください。",
-  "SHOUJOKAGEKIAIJOKAREN-EXPORT.unknownError": "不明なエラー"
+  "SHOUJOKAGEKIAIJOKAREN-EXPORT.unknownError": "不明なエラー",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL_BUTTON.title": "すべて解放",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.inRun": "メインメニューに戻ってから、このセーブを解放してください。",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.complete": "このセーブの全キャラクター、カード、レリック、ポーション、タイムライン、アセンションを解放しました（華恋を含む）。キャラクター選択や図鑑を開き直してください。\n進行状況のバックアップ：{Backup}",
+  "SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.failed": "解放に失敗しました：{Error}\nログを確認してください。元の進行状況のバックアップはセーブフォルダーにあります。"
 }
