@@ -83,7 +83,7 @@
 
 ## Result and changes
 
-已实现并完成定向验证。最新“合并到main”已取代此前暂不合并的限制，集成授权及核验见末节；保留任务工作树和分支。
+已实现、完成定向验证并合并到 main。最新“合并到main”已取代此前暂不合并的限制；原有未提交修改已保留，任务工作树和分支继续保留。
 
 ### 新卡与资源
 
@@ -247,14 +247,15 @@
 - [原生关键字三种情况合辑](Twin-Stars-native-replay-showcase.mp4)为 28.14 秒、原速、游戏声音；单段为[无法打出](Twin-Stars-native-replay-showcase-native-blocked.mp4)、[完整执行两次](Twin-Stars-native-replay-showcase-native-replay.mp4)、[第二次遗物不足](Twin-Stars-native-replay-showcase-native-replay-short.mp4)。字幕使用实际游戏名称“重放”，画面内的关键字与提示均由游戏渲染。采帧约 29.09／29.76／29.45 fps，重复帧 8／3／5，丢帧均为 0，音轨、解码和连续帧复核通过。[媒体报告](evidence/twin-stars-native-replay/recording-verification.json)、[关键帧](evidence/twin-stars-native-replay/recording-review.jpg)。
 - 9 张前后及原生查看截图、9 次手牌节点检查通过并已查看，结束双星节点均为 0，日志没有错误或异常。[验证](evidence/twin-stars-native-replay/verification.json)、[真实前后状态](evidence/twin-stars-native-replay/probes.json)、[截图审阅](evidence/twin-stars-native-replay/screens-review.jpg)。测试插件构建 2 条既有警告、0 错误；生产 DLL／PCK 与上一轮哈希相同。只验证正式版本轮相关演示，没有重跑测试版、完整矩阵或多人测试；继续暂不合并、同步或清理。
 
-### 合并到 main（进行中）
+### 已合并到 main
 
 - 用户已明确授权合并到 `main`，撤销先前暂不合并的限制；没有授权删除工作树或分支。
 - 同步 main 的 `b5b94a8`，自动合并本地化源哈希，无文本冲突；同步前原检出 13 个未提交文件哈希均与起始记录一致。
 - 同步后双版本重新构建通过：正式／测试各 28 条既有警告、0 错误，加载器 1 条既有警告、0 错误；三语本地化与源哈希通过，原生 SmartFormat 分支核查 10,320 次通过。
 - 当前同步包的正式版原生“重放 1”实测通过：Mod 额外重播为 0、两次播放、禁用 4 个遗物、8 次命中、40 伤害；测试版 X=0／X=3／快速／瞬间／战后恢复／真实提前击杀共 6 项通过。13 张 MCP 前后及原生查看截图、13 次手牌节点检查通过并已查看；专项运行日志无错误，包哈希与受测文件相同。[同步验证](evidence/integration/verification.json)、[截图审阅](evidence/integration/screens-review.jpg)。仅做相关单人定向复核，没有重跑完整矩阵或多人测试。
 - 共享特效文档同时带有用户未提交内容，合并策略为保留原有修改并仅接入本任务的《双星》条目；其余 12 个未提交文件保持字节一致。原有文件、哈希及共享文档预期合并内容备份在 `artifacts/twin-stars-integration/pre-main/`。
+- 已从 `main` 的 `b5b94a8` 快进到同步提交 `ebbabc0`，包含任务提交 `eeaa143`；合并后 main 与任务工作树的提交树一致。只临时暂存共享文档，原有文字和行尾保留并新增《双星》一行，其余 12 个原有未提交文件字节哈希不变，未提交文件仍为 13 个；恢复核验后已移除本次临时 stash。没有推送远程或更新游戏部署。
 
 ### 集成与清理
 
-任务改动汇总成单个任务提交，再单独提交与 main 的同步及验证。用户已明确授权合并；删除工作树／任务分支仍需要按 `$worktree-task` 另行取得确认，当前保留。临时工具缓存、视频、隔离游戏和构建输出均保留在本工作树 `artifacts/` 内，尚未删除。
+任务改动汇总成单个任务提交，再单独提交与 main 的同步及验证，已按授权快进合并。集成完成后补充本文的结果记录。删除工作树／任务分支仍需要按 `$worktree-task` 另行取得确认，当前保留。临时工具缓存、视频、隔离游戏和构建输出均保留在本工作树 `artifacts/` 内，尚未删除。

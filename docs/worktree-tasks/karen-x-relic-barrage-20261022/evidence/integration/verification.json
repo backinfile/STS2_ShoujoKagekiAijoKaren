@@ -391,5 +391,16 @@
   "raw_sources": [
     "artifacts/twin-stars-integration/capture",
     "artifacts/twin-stars-integration/beta"
-  ]
+  ],
+  "main_integration": {
+    "main_head": "ebbabc08fc8cdc5ddf82845fd2d2f40414f73c8f",
+    "previous_main": "b5b94a8d43551dc5c5d643f9b0e962edc6a4b227",
+    "preexisting_user_files": 13,
+    "other_files_byte_identical": 12,
+    "shared_doc_original_text_preserved": true,
+    "shared_doc_change": "Only added the Twin Stars row; original line endings retained",
+    "temporary_stash_dropped": true,
+    "worktree_retained": true,
+    "task_branch_retained": true
+  }
 }
