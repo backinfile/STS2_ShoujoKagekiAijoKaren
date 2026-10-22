@@ -119,6 +119,9 @@
   "KAREN_PICK_STAR.description": "レリックを{DisableRelic:diff()}個[gold]無効化[/gold]し、{Energy:energyIcons()}を得る。",
   "KAREN_STAR_CRIME.title": "星の罪",
   "KAREN_STAR_CRIME.description": "レリックを{DisableRelic:diff()}個[gold]無効化[/gold]し、カードを{Cards:diff()}枚引く。",
+
+  "KAREN_SHINE_PRICE.title": "双星",
+  "KAREN_SHINE_PRICE.description": "レリックをX個[gold]無効化[/gold]し、{Damage:diff()}ダメージを{Repeat:diff()}X回与える。",
   "KAREN_FORGIVE.title": "「赦し」",
   "KAREN_FORGIVE.description": "レリックを{DisableRelic:diff()}個[gold]無効化[/gold]し、敵全体に{Damage:diff()}ダメージを与える。",
   "KAREN_STAR_GUIDE.title": "星明かりの導き",

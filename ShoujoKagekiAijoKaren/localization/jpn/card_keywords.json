@@ -12,7 +12,7 @@
   "KAREN_SHINE_CARD_REWARD.title": "キラめきカード報酬",
   "KAREN_SHINE_CARD_REWARD.description": "戦闘終了後、キラめきカード1枚だけを含むカード報酬を得る。",
   "KAREN_DISABLE_RELIC.title": "レリック無効化",
-  "KAREN_DISABLE_RELIC.description": "この戦闘中、古代の存在から得たものを除き、最も右にあるレリックを無効化する。\n無効化できるレリックがない場合、このカードは[red]プレイ不可[/red]。",
+  "KAREN_DISABLE_RELIC.description": "この戦闘中、古代の存在から得たものを除き、最も右にあるレリックを無効化する。\n必要な数のレリックを無効化できない場合、このカードは[red]プレイ不可[/red]。",
   "KAREN_TOKEN_CARD.title": "生成カード",
   "KAREN_TOKEN_CARD.description": "戦闘中に生成されたカード。"
 }

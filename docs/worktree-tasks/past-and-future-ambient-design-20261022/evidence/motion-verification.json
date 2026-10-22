@@ -1,0 +1,984 @@
+{
+  "featureCommit": "f1babb3",
+  "synchronizedMain": "5c7aa359d1f9a1fa9b432c7b43e2a6f265d8c548",
+  "fullSuites": {
+    "stable": {
+      "source": "artifacts/past-ambient-motion-final/stable",
+      "passed": true,
+      "cases": {
+        "before-power": {
+          "capturing": false,
+          "nodes": 0,
+          "fronts": 0,
+          "traces": 0,
+          "ambientWeight": 1,
+          "owners": []
+        },
+        "idle-a": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 1.1792142,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "idle-b": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 1.8625469,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "transform-small": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.45,
+              "scaleY": 0.45,
+              "time": 13.200447,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "transform-small_flip": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.45,
+              "scaleY": 0.45,
+              "time": 14.483735,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "transform-large": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 4.3158372e-05,
+              "scaleError": 0,
+              "scaleX": 1.3499999,
+              "scaleY": 1.3499999,
+              "time": 15.767028,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "transform-normal": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 17.050303,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "during-draw": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 0.54882973,
+              "visibility": 0.3,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "after-draw": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 3.603958,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "stacked": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 0.86,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 6.3281326,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "fading": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 0.86,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 8.746773,
+              "visibility": 1,
+              "alpha": 0.5024056,
+              "visible": true
+            }
+          ]
+        },
+        "restart": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 0.86,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 9.304064,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "stopped": {
+          "capturing": false,
+          "nodes": 0,
+          "fronts": 0,
+          "traces": 0,
+          "ambientWeight": 0.86,
+          "owners": []
+        },
+        "started": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 0.86,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 0.84730226,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "new-room": {
+          "capturing": false,
+          "nodes": 0,
+          "fronts": 0,
+          "traces": 0,
+          "ambientWeight": 1,
+          "owners": []
+        }
+      },
+      "loadedAssemblySha256": "11cf565792a1e524f414837f3bd8a40d02ab54ea121d43637b64bdc784401db5",
+      "motion": {
+        "frameCount": 6,
+        "observedFeatures": [
+          [
+            {
+              "x": 373.45454545454544,
+              "y": 363.6363636363636,
+              "width": 7,
+              "pixels": 11
+            }
+          ],
+          [
+            {
+              "x": 403.9655172413793,
+              "y": 398.41379310344826,
+              "width": 17,
+              "pixels": 29
+            }
+          ],
+          [
+            {
+              "x": 396.2692307692308,
+              "y": 399.3076923076923,
+              "width": 18,
+              "pixels": 26
+            }
+          ],
+          [
+            {
+              "x": 396.5,
+              "y": 368.5833333333333,
+              "width": 14,
+              "pixels": 24
+            },
+            {
+              "x": 389.5,
+              "y": 398.0,
+              "width": 16,
+              "pixels": 16
+            }
+          ],
+          [
+            {
+              "x": 388.1,
+              "y": 368.8,
+              "width": 16,
+              "pixels": 20
+            },
+            {
+              "x": 381.625,
+              "y": 395.4583333333333,
+              "width": 15,
+              "pixels": 24
+            }
+          ],
+          [
+            {
+              "x": 379.6666666666667,
+              "y": 366.4166666666667,
+              "width": 14,
+              "pixels": 24
+            },
+            {
+              "x": 375.22222222222223,
+              "y": 393.3888888888889,
+              "width": 11,
+              "pixels": 18
+            }
+          ]
+        ],
+        "matchedPairs": 6,
+        "medianLeftwardPixelsPerSecond": 15.57,
+        "passed": true
+      },
+      "visibility": {
+        "width": 1280,
+        "height": 720,
+        "peakChannelDelta": 173,
+        "pixelsDeltaAtLeast30": 89,
+        "backgroundPixelsDeltaAtLeast10": 0,
+        "passed": true
+      },
+      "logs": {
+        "startupDiagnostics": [],
+        "runtimeErrors": []
+      },
+      "recording": {
+        "idle": {
+          "status": "completed",
+          "fps": 30,
+          "max_duration_seconds": 70,
+          "width": 1280,
+          "height": 720,
+          "frames_written": 380,
+          "video_duration_seconds": 12.666666666666666,
+          "frames_captured": 379,
+          "frames_repeated": 1,
+          "frames_dropped": 0,
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.92389193644121,
+          "capture_average_ms": 10.688131398416893,
+          "capture_max_ms": 50.4417,
+          "encode_write_average_ms": 0.788281052631578,
+          "encode_write_max_ms": 106.4122,
+          "elapsed_seconds": 12.7202863,
+          "audio": false
+        },
+        "draw": {
+          "status": "completed",
+          "fps": 30,
+          "max_duration_seconds": 20,
+          "width": 1280,
+          "height": 720,
+          "frames_written": 119,
+          "video_duration_seconds": 3.966666666666667,
+          "frames_captured": 115,
+          "frames_repeated": 4,
+          "frames_dropped": 0,
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.11819447343252,
+          "capture_average_ms": 12.963779130434784,
+          "capture_max_ms": 41.4121,
+          "encode_write_average_ms": 1.2170436974789918,
+          "encode_write_max_ms": 79.2925,
+          "elapsed_seconds": 4.003607,
+          "audio": false
+        }
+      },
+      "handChecks": {
+        "04-before-draw": {
+          "modelCount": 1,
+          "visualCount": 1,
+          "missing": [],
+          "unexpected": [],
+          "unexpectedPileIcons": [],
+          "burnOverlays": [
+            {
+              "card": "KAREN_PROMISE_DRAW",
+              "expected": 0,
+              "actual": 0,
+              "valid": true
+            }
+          ]
+        },
+        "05-after-draw": {
+          "modelCount": 2,
+          "visualCount": 2,
+          "missing": [],
+          "unexpected": [],
+          "unexpectedPileIcons": [],
+          "burnOverlays": [
+            {
+              "card": "KAREN_DEFEND",
+              "expected": 0,
+              "actual": 0,
+              "valid": true
+            },
+            {
+              "card": "KAREN_DEFEND",
+              "expected": 0,
+              "actual": 0,
+              "valid": true
+            }
+          ]
+        }
+      }
+    },
+    "beta": {
+      "source": "artifacts/past-ambient-motion-synchronized/beta",
+      "passed": true,
+      "cases": {
+        "before-power": {
+          "capturing": false,
+          "nodes": 0,
+          "fronts": 0,
+          "traces": 0,
+          "ambientWeight": 1,
+          "owners": []
+        },
+        "idle-a": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 0.6999726,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "idle-b": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 1.3987024,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "transform-small": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.45,
+              "scaleY": 0.45,
+              "time": 12.70148,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "transform-small_flip": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.45,
+              "scaleY": 0.45,
+              "time": 14.001438,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "transform-large": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 4.3158372e-05,
+              "scaleError": 0,
+              "scaleX": 1.3499999,
+              "scaleY": 1.3499999,
+              "time": 15.284727,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "transform-normal": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 16.584682,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "during-draw": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 0.06709179,
+              "visibility": 0.5427083,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "after-draw": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 1,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 3.1032429,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "stacked": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 0.86,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 5.8058825,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "fading": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 0.86,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 8.155759,
+              "visibility": 1,
+              "alpha": 0.5322534,
+              "visible": true
+            }
+          ]
+        },
+        "restart": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 0.86,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 8.755735,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "stopped": {
+          "capturing": false,
+          "nodes": 0,
+          "fronts": 0,
+          "traces": 0,
+          "ambientWeight": 0.86,
+          "owners": []
+        },
+        "started": {
+          "capturing": false,
+          "nodes": 1,
+          "fronts": 1,
+          "traces": 3,
+          "ambientWeight": 0.86,
+          "owners": [
+            {
+              "own": true,
+              "behind": true,
+              "frontAfter": true,
+              "originError": 6.1035156e-05,
+              "scaleError": 0,
+              "scaleX": 0.9,
+              "scaleY": 0.9,
+              "time": 0.87033397,
+              "visibility": 1,
+              "alpha": 1,
+              "visible": true
+            }
+          ]
+        },
+        "new-room": {
+          "capturing": false,
+          "nodes": 0,
+          "fronts": 0,
+          "traces": 0,
+          "ambientWeight": 1,
+          "owners": []
+        }
+      },
+      "loadedAssemblySha256": "3b85c661f00359c75af71790a42289fdfcff857623cc82e027a58b67624e9edd",
+      "motion": {
+        "frameCount": 6,
+        "observedFeatures": [
+          [
+            {
+              "x": 379.3478260869565,
+              "y": 366.4347826086956,
+              "width": 13,
+              "pixels": 23
+            }
+          ],
+          [
+            {
+              "x": 373.0,
+              "y": 363.5,
+              "width": 5,
+              "pixels": 10
+            }
+          ],
+          [
+            {
+              "x": 404.0740740740741,
+              "y": 398.4074074074074,
+              "width": 17,
+              "pixels": 27
+            }
+          ],
+          [
+            {
+              "x": 396.6666666666667,
+              "y": 399.2962962962963,
+              "width": 19,
+              "pixels": 27
+            }
+          ],
+          [
+            {
+              "x": 397.0,
+              "y": 368.5769230769231,
+              "width": 15,
+              "pixels": 26
+            },
+            {
+              "x": 388.42857142857144,
+              "y": 398.23809523809524,
+              "width": 16,
+              "pixels": 21
+            }
+          ],
+          [
+            {
+              "x": 388.5238095238095,
+              "y": 368.8095238095238,
+              "width": 17,
+              "pixels": 21
+            },
+            {
+              "x": 381.11538461538464,
+              "y": 395.46153846153845,
+              "width": 16,
+              "pixels": 26
+            }
+          ]
+        ],
+        "matchedPairs": 5,
+        "medianLeftwardPixelsPerSecond": 14.81,
+        "passed": true
+      },
+      "visibility": {
+        "width": 1280,
+        "height": 720,
+        "peakChannelDelta": 173,
+        "pixelsDeltaAtLeast30": 87,
+        "backgroundPixelsDeltaAtLeast10": 0,
+        "passed": true
+      },
+      "logs": {
+        "startupDiagnostics": [],
+        "runtimeErrors": []
+      },
+      "recording": {
+        "idle": {
+          "status": "completed",
+          "fps": 30,
+          "max_duration_seconds": 70,
+          "width": 1280,
+          "height": 720,
+          "frames_written": 381,
+          "video_duration_seconds": 12.7,
+          "frames_captured": 380,
+          "frames_repeated": 1,
+          "frames_dropped": 0,
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.9936475033201,
+          "capture_average_ms": 7.830410526315789,
+          "capture_max_ms": 30.5698,
+          "encode_write_average_ms": 0.7059020997375329,
+          "encode_write_max_ms": 83.602,
+          "elapsed_seconds": 12.7206708,
+          "audio": false
+        },
+        "draw": {
+          "status": "completed",
+          "fps": 30,
+          "max_duration_seconds": 20,
+          "width": 1280,
+          "height": 720,
+          "frames_written": 118,
+          "video_duration_seconds": 3.933333333333333,
+          "frames_captured": 116,
+          "frames_repeated": 2,
+          "frames_dropped": 0,
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.537580268692672,
+          "capture_average_ms": 13.488775862068973,
+          "capture_max_ms": 30.3187,
+          "encode_write_average_ms": 1.2990381355932203,
+          "encode_write_max_ms": 64.6517,
+          "elapsed_seconds": 3.9802067,
+          "audio": false
+        }
+      },
+      "handChecks": {
+        "04-before-draw": {
+          "modelCount": 1,
+          "visualCount": 1,
+          "missing": [],
+          "unexpected": [],
+          "unexpectedPileIcons": [],
+          "burnOverlays": [
+            {
+              "card": "KAREN_PROMISE_DRAW",
+              "expected": 0,
+              "actual": 0,
+              "valid": true
+            }
+          ]
+        },
+        "05-after-draw": {
+          "modelCount": 2,
+          "visualCount": 2,
+          "missing": [],
+          "unexpected": [],
+          "unexpectedPileIcons": [],
+          "burnOverlays": [
+            {
+              "card": "KAREN_DEFEND",
+              "expected": 0,
+              "actual": 0,
+              "valid": true
+            },
+            {
+              "card": "KAREN_DEFEND",
+              "expected": 0,
+              "actual": 0,
+              "valid": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "postSyncStable": {
+    "source": "artifacts/past-ambient-motion-synchronized/stable",
+    "scope": "post-sync startup, real combat and power play, idle owner/motion-clock, frozen render; full stable suite ran before sync",
+    "idleA": {
+      "capturing": false,
+      "nodes": 1,
+      "fronts": 1,
+      "traces": 3,
+      "ambientWeight": 1,
+      "owners": [
+        {
+          "own": true,
+          "behind": true,
+          "frontAfter": true,
+          "originError": 6.1035156e-05,
+          "scaleError": 0,
+          "scaleX": 0.9,
+          "scaleY": 0.9,
+          "time": 1.1791302,
+          "visibility": 1,
+          "alpha": 1,
+          "visible": true
+        }
+      ]
+    },
+    "idleB": {
+      "capturing": false,
+      "nodes": 1,
+      "fronts": 1,
+      "traces": 3,
+      "ambientWeight": 1,
+      "owners": [
+        {
+          "own": true,
+          "behind": true,
+          "frontAfter": true,
+          "originError": 6.1035156e-05,
+          "scaleError": 0,
+          "scaleX": 0.9,
+          "scaleY": 0.9,
+          "time": 1.8457702,
+          "visibility": 1,
+          "alpha": 1,
+          "visible": true
+        }
+      ]
+    },
+    "visibility": {
+      "width": 1280,
+      "height": 720,
+      "peakChannelDelta": 173,
+      "pixelsDeltaAtLeast30": 89,
+      "backgroundPixelsDeltaAtLeast10": 0,
+      "passed": true
+    },
+    "loadedAssemblySha256": "fa09f9d8bbf6459139666ec2cded676f2e604854fa7cd304edbc09c3e00b4d0f",
+    "wholePackageMatches": true,
+    "runtimeErrors": []
+  },
+  "originalStatePreserved": true,
+  "scope": "targeted single-player only; no multiplayer/full matrix; no shared deployment",
+  "visualReview": "Inspected actual native stills, six sequential crops, real draw frame and MCP before/after hand screenshots against B reference; user approval pending"
+}

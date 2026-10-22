@@ -1,0 +1,65 @@
+{
+  "clips": [
+    {
+      "mode": "normal",
+      "relics_disabled": 2,
+      "hits": 6,
+      "damage": 24,
+      "play_at": 3.125,
+      "resolved_at": 5.5,
+      "recording": {
+        "video_duration_seconds": 7.7,
+        "capture_fps": 29.622114966780163,
+        "frames_captured": 228,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "frames_written": 231,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      },
+      "duration": 7.7,
+      "audio_mean_db": -38.5,
+      "audio_peak_db": -14.5,
+      "longest_identical_frame_run": 1,
+      "unique_lowres_frames": 231,
+      "source_sha256": "a096117ad54d75ba20a5654e4f346c77189e049b985d95a816e8bb2173640b66"
+    },
+    {
+      "mode": "upgrade",
+      "relics_disabled": 1,
+      "hits": 6,
+      "damage": 24,
+      "play_at": 3.109000000025844,
+      "resolved_at": 5.5,
+      "recording": {
+        "video_duration_seconds": 7.7,
+        "capture_fps": 29.649762955346883,
+        "frames_captured": 228,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "frames_written": 231,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      },
+      "duration": 7.7,
+      "audio_mean_db": -38.6,
+      "audio_peak_db": -14.3,
+      "longest_identical_frame_run": 1,
+      "unique_lowres_frames": 231,
+      "source_sha256": "369d1f2b2e497d522d1b2c388beb706372e9ea45e8f6f0f6c70e1fd539ba0855"
+    }
+  ],
+  "processing": "Native game speed; no gameplay compositing. Labels are added below the intact viewport.",
+  "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067",
+  "output": "docs/worktree-tasks/karen-x-relic-barrage-20261022/Take-All-of-Me-showcase.mp4",
+  "output_sha256": "91871dce582c40142e680aa4a4f3f022ac5c7d5cf1ebe7fc647c201821a71d76",
+  "duration": 15.423667,
+  "source_hashes": {
+    "mod_dll": "046ca468997d4399cebb2701f98e1d5b197fec8fa5ec4e4e95993b00684ea082",
+    "pck": "8d803a5035d8ed467d70692610fc8ff469db11f897e2a69623773d41bc23e71e",
+    "mcp_dll": "776a7d77b8a4a44e4edba30a5ac169a43674469b107878387be2abda4829794f",
+    "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "state": "ready",
+  "attacks": [
+    {
+      "hits": 6,
+      "damage": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    }
+  ],
+  "locks": 2,
+  "eligible": 0,
+  "relics": [
+    "KAREN_LOCK_RELIC",
+    "KAREN_LOCK_RELIC"
+  ],
+  "playable": false,
+  "costX": true,
+  "capturedX": 3,
+  "upgraded": false,
+  "pile": "Discard",
+  "disableCost": 2,
+  "damage": 5,
+  "repeat": 2,
+  "pool": true,
+  "hasPortrait": true,
+  "portrait": "(500, 380)",
+  "title": "闪耀的代价",
+  "description": "[gold]禁用[/gold]2个遗物，然后造成5点伤害2X次。\n（当前可禁用[blue]0[/blue]个遗物）",
+  "energy": 0,
+  "targetHp": 969
+}

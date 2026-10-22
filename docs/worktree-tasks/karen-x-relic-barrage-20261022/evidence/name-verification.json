@@ -1,0 +1,80 @@
+{
+  "scope": "Name/localization and base/upgraded display follow-up only; the original 24-case report remains historical evidence.",
+  "title": "拿走我的全部",
+  "variants": {
+    "stable": [
+      {
+        "case": "three",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 2,
+        "damage": 30
+      },
+      {
+        "case": "upgrade",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 1,
+        "damage": 30
+      },
+      {
+        "case": "combat-end-restoration",
+        "passed": true,
+        "restored": 1
+      }
+    ],
+    "stable_package": {
+      "ShoujoKagekiAijoKaren.pck": "953e239b06e6d0323993e9b89bc63d4d798e7ae40040e1b426d385c2b498bdd7",
+      "lib/ShoujoKagekiAijoKaren.Stable.dll": "7381cceb61dfd958a3bec2f3cf504c1798f4f9d27636d1ed481c3828dfc08499"
+    },
+    "beta": [
+      {
+        "case": "three",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 2,
+        "damage": 30
+      },
+      {
+        "case": "upgrade",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 1,
+        "damage": 30
+      },
+      {
+        "case": "combat-end-restoration",
+        "passed": true,
+        "restored": 1
+      }
+    ],
+    "beta_package": {
+      "ShoujoKagekiAijoKaren.pck": "953e239b06e6d0323993e9b89bc63d4d798e7ae40040e1b426d385c2b498bdd7",
+      "lib/ShoujoKagekiAijoKaren.Beta.dll": "00ca7890d1a87b45e45e836e5b2f88a0b15492be266eb14e02ab862ffa8a719f"
+    }
+  },
+  "hand_checks": {
+    "stable": {
+      "passed": 4,
+      "failed": 0
+    },
+    "beta": {
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "logs": {
+    "stable": {
+      "mcp_loaded": true,
+      "error_lines": []
+    },
+    "beta": {
+      "mcp_loaded": true,
+      "error_lines": []
+    }
+  }
+}

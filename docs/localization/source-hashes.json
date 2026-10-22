@@ -9,7 +9,7 @@
   "ancients.json/THE_ARCHITECT.talk.KAREN.1-2.char": "eeb6c37b06cea3b4866134a62ecff78ea37bdf79c5c7b9d5840d1a69a7f2283f",
   "ancients.json/THE_ARCHITECT.talk.KAREN.1-2.next": "7c9691192f1b73408bbe4c0cb6d00db94375ca9d8fce0a0d5985e7a5178f083f",
   "ancients.json/THE_ARCHITECT.talk.KAREN.1-3.ancient": "7d866aaa26beb91300bf954d60c85e67d93369803abfbf0a6706f77b5ed4c5e6",
-  "card_keywords.json/KAREN_DISABLE_RELIC.description": "f5341e8459e641bcb6e2843c7f6e4709c576d1524ca3eff2fdc1147f0fa0a14c",
+  "card_keywords.json/KAREN_DISABLE_RELIC.description": "579a0c2c4e723ff5a156e54edf1926b978a46ae6accbc3154bd599e688df6bdb",
   "card_keywords.json/KAREN_DISABLE_RELIC.title": "614816a051653b57387df4e950385ba0729d36e2501921605d54b2134aa57221",
   "card_keywords.json/KAREN_ETERNAL_SHINE.description": "a8f11bdbc6adc004e37333711d5d6611782ac6ce6f5647c70cb974454e064279",
   "card_keywords.json/KAREN_ETERNAL_SHINE.title": "f81fffd3de83dc69264e0b58d45d1148c8502fa9044897ac0eba6e450b3e76af",
@@ -426,5 +426,7 @@
   "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.title": "5cc063d73433c33a330cb736db32a91ead5a5dc3370e4c2cfcc43c81ac41dbfb",
   "settings_ui.json/SHOUJOKAGEKIAIJOKAREN.mod_title": "e308b82e2145e44f2895a6663d691d0697d231e770136c1b6e9bbd253f1db32a",
   "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-ENABLE_COMBAT_ENTRANCE.hover.desc": "b0cfb6553cadd2e7e30ea7d34dfe88efeffd131ff1ddfe96d78ecb4878f281bf",
-  "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-ENABLE_COMBAT_ENTRANCE.title": "c6c45961e4c18bcedde3c1244efe749e9f4003b6ff26bffe2f9bece418e2c297"
+  "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-ENABLE_COMBAT_ENTRANCE.title": "c6c45961e4c18bcedde3c1244efe749e9f4003b6ff26bffe2f9bece418e2c297",
+  "cards.json/KAREN_SHINE_PRICE.title": "0ec84eb3f495ef9bc75bc3bc711538fcd765aaeacc922a71cfcff4e1d8ae7918",
+  "cards.json/KAREN_SHINE_PRICE.description": "22992f5f2bd69db222781e5fc041e65df9c73ab7cb518fc3f9e270d96732fe22"
 }

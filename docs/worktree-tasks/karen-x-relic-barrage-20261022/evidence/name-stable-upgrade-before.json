@@ -1,0 +1,24 @@
+{
+  "state": "ready",
+  "attacks": [],
+  "locks": 0,
+  "eligible": 1,
+  "relics": [
+    "STRAWBERRY"
+  ],
+  "playable": true,
+  "costX": true,
+  "capturedX": 0,
+  "upgraded": true,
+  "pile": "Hand",
+  "disableCost": 1,
+  "damage": 5,
+  "repeat": 2,
+  "pool": true,
+  "hasPortrait": true,
+  "portrait": "(500, 380)",
+  "title": "拿走我的全部+",
+  "description": "[gold]禁用[/gold]1个遗物，然后造成5点伤害2X次。\n（当前可禁用[blue]1[/blue]个遗物）",
+  "energy": 3,
+  "targetHp": 999
+}

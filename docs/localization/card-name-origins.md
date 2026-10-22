@@ -99,6 +99,8 @@ TV 第 12 话，华恋不接受既定的悲剧，让故事在终幕之后继续�
 
 **永无结束的命运舞台**的卡图是小光独自站在层叠的舞台上，更接近她在 TV 终盘反复赎罪的处境。这里的循环应优先联系小光的舞台。[终盘舞台分析](https://ameblo.jp/kesutora/entry-12419315180.html)
 
+**双星**由《スーパー スタァ スペクタクル》的歌词片段「星と星に」凝练为中文卡名，属于意译，并非日文歌词中独立出现的“双星”二字；[授权歌词页](https://www.uta-net.com/song/305228/)可核对原句。画面中一大一小两颗金色星饰与 2X 次攻击相呼应。卡图采用 TV 第 12 话掌心星饰的真实截图，来自[该话逐帧讨论](https://www.reddit.com/r/anime/comments/v3k3jh/revue_starlight_rewatch_episode_12_discussion/)；A 与最初交锋画面作为历史素材保留。图源与裁剪见[本次任务证据](../worktree-tasks/karen-x-relic-barrage-20261022/evidence/art-source.json)。
+
 ## 剧场版：华恋为什么站上舞台
 
 | 卡名 | 对应内容 |

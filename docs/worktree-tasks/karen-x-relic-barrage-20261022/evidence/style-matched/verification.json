@@ -1,0 +1,129 @@
+{
+  "scope": "Object close-up style comparison for Take All of Me with the existing Pick Star and Star Crime. Native stable v0.107.1 cards, not composited mockups. A kept as current task art. No new name selected.",
+  "cards": [
+    {
+      "choice": "clasp",
+      "probe": {
+        "state": "ready",
+        "attacks": [],
+        "artPreview": "clasp",
+        "locks": 0,
+        "eligible": 2,
+        "relics": [
+          "STRAWBERRY",
+          "PEAR"
+        ],
+        "playable": true,
+        "costX": true,
+        "capturedX": 0,
+        "upgraded": false,
+        "pile": "Hand",
+        "disableCost": 2,
+        "damage": 4,
+        "repeat": 2,
+        "pool": true,
+        "hasPortrait": true,
+        "portrait": "(500, 380)",
+        "title": "拿走我的全部",
+        "description": "[gold]禁用[/gold]2个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]2[/blue]个遗物）",
+        "energy": 3,
+        "targetHp": 100
+      },
+      "inspect_sha256": "507dba57377dd9b4a436d5f9634bcc475f7fb6d8cfce6846591fb5819994e5da"
+    },
+    {
+      "choice": "pieces",
+      "probe": {
+        "state": "ready",
+        "attacks": [],
+        "artPreview": "pieces",
+        "locks": 0,
+        "eligible": 2,
+        "relics": [
+          "STRAWBERRY",
+          "PEAR"
+        ],
+        "playable": true,
+        "costX": true,
+        "capturedX": 0,
+        "upgraded": false,
+        "pile": "Hand",
+        "disableCost": 2,
+        "damage": 4,
+        "repeat": 2,
+        "pool": true,
+        "hasPortrait": true,
+        "portrait": "(500, 380)",
+        "title": "拿走我的全部",
+        "description": "[gold]禁用[/gold]2个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]2[/blue]个遗物）",
+        "energy": 3,
+        "targetHp": 100
+      },
+      "inspect_sha256": "0e7527fc712f7073fc95d363c568f918057771ccb2876d079f8a22fb239e04b5"
+    },
+    {
+      "choice": "palm",
+      "probe": {
+        "state": "ready",
+        "attacks": [],
+        "artPreview": "palm",
+        "locks": 0,
+        "eligible": 2,
+        "relics": [
+          "STRAWBERRY",
+          "PEAR"
+        ],
+        "playable": true,
+        "costX": true,
+        "capturedX": 0,
+        "upgraded": false,
+        "pile": "Hand",
+        "disableCost": 2,
+        "damage": 4,
+        "repeat": 2,
+        "pool": true,
+        "hasPortrait": true,
+        "portrait": "(500, 380)",
+        "title": "拿走我的全部",
+        "description": "[gold]禁用[/gold]2个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]2[/blue]个遗物）",
+        "energy": 3,
+        "targetHp": 100
+      },
+      "inspect_sha256": "e782d62c2b18cabdd3055976a650458803defee12d74fac6b20c8558aa09d623"
+    }
+  ],
+  "hand_checks": 16,
+  "selected_A_probe": {
+    "state": "ready",
+    "attacks": [],
+    "artPreview": "off",
+    "locks": 0,
+    "eligible": 2,
+    "relics": [
+      "STRAWBERRY",
+      "PEAR"
+    ],
+    "playable": true,
+    "costX": true,
+    "capturedX": 0,
+    "upgraded": false,
+    "pile": "Hand",
+    "disableCost": 2,
+    "damage": 4,
+    "repeat": 2,
+    "pool": true,
+    "hasPortrait": true,
+    "portrait": "(500, 380)",
+    "title": "拿走我的全部",
+    "description": "[gold]禁用[/gold]2个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]2[/blue]个遗物）",
+    "energy": 3,
+    "targetHp": 100
+  },
+  "current_portrait_sha256": "1ba0e161c4be34214b378f90f15d407c61e241c173d4bed3939983218dcf7b58",
+  "package_hashes": {
+    "ShoujoKagekiAijoKaren.pck": "8d803a5035d8ed467d70692610fc8ff469db11f897e2a69623773d41bc23e71e",
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": "046ca468997d4399cebb2701f98e1d5b197fec8fa5ec4e4e95993b00684ea082"
+  },
+  "errors": [],
+  "recording_hand_checks": 4
+}

@@ -100,6 +100,7 @@ public sealed class KarenCardPool : CardPoolModel
             ModelDb.Card<KarenJealousy>(),
             ModelDb.Card<KarenPickStar>(),
             ModelDb.Card<KarenStarCrime>(),
+            ModelDb.Card<KarenShinePrice>(),
             // Temporarily removed from card pool.
             // ModelDb.Card<KarenForgive>(),
             ModelDb.Card<KarenBananaLunch>(),
