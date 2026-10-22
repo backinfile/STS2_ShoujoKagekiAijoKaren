@@ -15,7 +15,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Relics;
 public sealed class KarenLittleStarRelic : KarenBaseRelic
 {
     public override RelicRarity Rarity => RelicRarity.Rare;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(5)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(3)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromCard<KarenTowerOfPromise>(false), MechanicTip("KAREN_TMP_STRENGTH")];
 

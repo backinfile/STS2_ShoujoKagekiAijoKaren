@@ -126,7 +126,7 @@ public sealed class RelicFixtureCmd : AbstractConsoleCmd
                 var strength = Power(p, "KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER");
                 await CardCmd.AutoPlay(ctx, tower, null);
                 Check(p.Creature.Block == block, "Little Star no longer grants block");
-                Check(Power(p, "KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER") == strength + 10, "Little Star grants five temporary Strength on each replay");
+                Check(Power(p, "KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER") == strength + 6, "Little Star grants three temporary Strength on each replay");
                 Check(PromisePileManager.GetPromisePile(p).Cards.Count == 0, "Tower retrieves Radiance");
                 Check(PileType.Hand.GetPile(p).Cards.Any(c => c is KarenWeKownToken), "Radiance in hand");
             }
@@ -209,7 +209,7 @@ public sealed class RelicFixtureCmd : AbstractConsoleCmd
             else if (action == "mp-tower-check")
             {
                 Check(p.Creature.Block == TowerBlock[p.NetId], "native Tower no longer grants block");
-                Check(Power(p, "KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER") == TowerStrength[p.NetId] + 10, "native Tower replay grants ten temporary Strength");
+                Check(Power(p, "KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER") == TowerStrength[p.NetId] + 6, "native Tower replay grants six temporary Strength");
                 Check(PromisePileManager.GetPromisePile(p).Cards.Count == 0, "native Tower retrieves Radiance");
                 Check(PileType.Hand.GetPile(p).Cards.Any(c => c is KarenWeKownToken), "native Tower puts Radiance in hand");
                 foreach (var other in OtherBeforePlay[p.NetId]) Check(OwnerState(other.Key) == other.Value, "native Tower affected teammate");
@@ -242,7 +242,7 @@ public sealed class RelicFixtureCmd : AbstractConsoleCmd
             {
                 await RelicCmd.Obtain<KarenLittleStarRelic>(p);
                 await RelicCmd.Obtain<KarenStarHairclipRelic>(p);
-                Check(ModelDb.Relic<KarenLittleStarRelic>().DynamicDescription.GetFormattedText().Contains('5'), "Little Star formatted amount");
+                Check(ModelDb.Relic<KarenLittleStarRelic>().DynamicDescription.GetFormattedText().Contains('3'), "Little Star formatted amount");
                 Check(ModelDb.Relic<KarenWaterBottleRelic>().DynamicVars["Turns"].BaseValue == 1, "bottle duration");
                 var power = ModelDb.Power<KarenLittleStarTempStrengthPower>();
                 Check(power.OriginModel is KarenLittleStarRelic, "temporary Strength identifies relic origin");
@@ -252,7 +252,7 @@ public sealed class RelicFixtureCmd : AbstractConsoleCmd
             {
                 TowerBlock[p.NetId] = p.Creature.Block;
                 TowerStrength[p.NetId] = Power(p, "KAREN_LITTLE_STAR_TEMP_STRENGTH_POWER");
-                TowerExpected[p.NetId] = action == "balance-replay" ? 10 : 5;
+                TowerExpected[p.NetId] = action == "balance-replay" ? 6 : 3;
                 TowerPromiseCards[p.NetId] = PromisePileManager.GetPromisePile(p).Cards.ToList();
                 var tower = p.Creature.CombatState!.CreateCard<KarenTowerOfPromise>(p);
                 if (action == "balance-upgrade") CardCmd.Upgrade(tower);
