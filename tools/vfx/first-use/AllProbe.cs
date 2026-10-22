@@ -87,6 +87,13 @@ public sealed class AllVfxCmd : AbstractConsoleCmd
             };
             foreach(var kind in Enum.GetValues<NKarenBenefitVfx.BenefitKind>())cases.Add(("benefit-"+kind,()=>NKarenBenefitVfx.Play(p,kind,card)));
             foreach(var kind in Enum.GetValues<NKarenStageCueVfx.CueKind>())cases.Add(("stage-"+kind,()=>NKarenStageCueVfx.Play(p,kind,card)));
+            string? filter=System.Environment.GetEnvironmentVariable("KAREN_ALL_VFX_FILTER");
+            if(!string.IsNullOrEmpty(filter))
+            {
+                var names=filter.Split(',').ToHashSet(StringComparer.Ordinal);
+                cases=cases.Where(c=>names.Contains(c.Name)).ToList();
+                if(cases.Count!=names.Count)throw new Exception("Unknown VFX case filter: "+filter);
+            }
             var output=new List<object>();
             foreach(var test in cases)
             {
@@ -94,8 +101,14 @@ public sealed class AllVfxCmd : AbstractConsoleCmd
                 for(int pass=0;pass<3;pass++)
                 {
                     await room.ToSignal(tree.CreateTimer(.2),SceneTreeTimer.SignalName.Timeout);
-                    var samples=new List<double>();long last=Stopwatch.GetTimestamp();
-                    void Tick(){long now=Stopwatch.GetTimestamp();samples.Add(Stopwatch.GetElapsedTime(last,now).TotalMilliseconds);last=now;}
+                    long allocatedBefore=GC.GetTotalAllocatedBytes(false);
+                    int[] gcBefore=[GC.CollectionCount(0),GC.CollectionCount(1),GC.CollectionCount(2)];
+                    var samples=new List<double>();var gcFrames=new List<int>();
+                    int[] gcLast=(int[])gcBefore.Clone();long last=Stopwatch.GetTimestamp();
+                    void Tick(){long now=Stopwatch.GetTimestamp();samples.Add(Stopwatch.GetElapsedTime(last,now).TotalMilliseconds);last=now;
+                        bool collected=false;for(int i=0;i<3;i++){int count=GC.CollectionCount(i);if(count!=gcLast[i])collected=true;gcLast[i]=count;}
+                        if(collected)gcFrames.Add(samples.Count-1);
+                    }
                     tree.ProcessFrame+=Tick;long frames=Engine.GetFramesDrawn();long begin=Stopwatch.GetTimestamp();
                     Node? node=test.Create();
                     if(node==null)throw new Exception("Factory returned null: "+test.Name);
@@ -119,7 +132,7 @@ public sealed class AllVfxCmd : AbstractConsoleCmd
                     await room.ToSignal(tree.CreateTimer(1.4),SceneTreeTimer.SignalName.Timeout);
                     tree.ProcessFrame-=Tick;
                     if(Engine.GetFramesDrawn()-frames<20)throw new Exception("No rendering");
-                    passes.Add(new{pass,createMs,maxMs=samples.Max(),over33=samples.Count(x=>x>33.3),samples});
+                    passes.Add(new{pass,createMs,allocatedBytes=GC.GetTotalAllocatedBytes(false)-allocatedBefore,maxMs=samples.Max(),over33=samples.Count(x=>x>33.3),gcCollections=gcBefore.Select((before,i)=>GC.CollectionCount(i)-before).ToArray(),gcFrames,samples});
                     if(GodotObject.IsInstanceValid(node)&&!node.IsQueuedForDeletion())node.QueueFree();
                     await room.ToSignal(tree.CreateTimer(.3),SceneTreeTimer.SignalName.Timeout);
                     if(GodotObject.IsInstanceValid(node))throw new Exception("VFX did not exit: "+test.Name);

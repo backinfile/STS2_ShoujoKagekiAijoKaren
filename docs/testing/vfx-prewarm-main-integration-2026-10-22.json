@@ -1,0 +1,3628 @@
+{
+  "platform": "Windows x64 / OpenGL / AnyCPU Mod",
+  "android_device_tested": false,
+  "full_multiplayer_matrix_tested": false,
+  "catalog": {
+    "visual_types_including_helpers": 70,
+    "shared_owners": 37,
+    "asset_paths": 164
+  },
+  "cases": [
+    {
+      "branch": "stable",
+      "effect": "all",
+      "evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261022-225107",
+      "passed": true,
+      "log_errors": [],
+      "warmup": {
+        "status": "done",
+        "warmupStatus": "ready",
+        "resources": 304,
+        "batches": 29,
+        "drawCalls": 460,
+        "prepareMs": 1587.8432,
+        "repeatedPreparationMs": 0.0229,
+        "catalogEffects": 70,
+        "assetPaths": 164
+      },
+      "effects": [
+        {
+          "name": "twin-stars",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.8962,
+              "allocatedBytes": 1385280,
+              "maxMs": 16.7588,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.6356,
+              "allocatedBytes": 1266376,
+              "maxMs": 17.0987,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                133
+              ]
+            },
+            {
+              "pass": 2,
+              "createMs": 0.4873,
+              "allocatedBytes": 1279200,
+              "maxMs": 16.6823,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "past-future",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.9475,
+              "allocatedBytes": 992216,
+              "maxMs": 16.7858,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.7597,
+              "allocatedBytes": 918360,
+              "maxMs": 16.7012,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.494,
+              "allocatedBytes": 902000,
+              "maxMs": 16.689,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "nonon",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 7.0044,
+              "allocatedBytes": 1330880,
+              "maxMs": 16.8812,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 3.2186,
+              "allocatedBytes": 1199944,
+              "maxMs": 16.6932,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.4236,
+              "allocatedBytes": 1184176,
+              "maxMs": 16.6853,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "barrage-start",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.2765,
+              "allocatedBytes": 836344,
+              "maxMs": 16.6866,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.8144,
+              "allocatedBytes": 746200,
+              "maxMs": 17.1723,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.6207,
+              "allocatedBytes": 738000,
+              "maxMs": 16.6854,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "barrage-hit",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.7665,
+              "allocatedBytes": 737976,
+              "maxMs": 16.7409,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.6781,
+              "allocatedBytes": 729800,
+              "maxMs": 17.0072,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.6319,
+              "allocatedBytes": 729800,
+              "maxMs": 16.6781,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "baseball",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.0536,
+              "allocatedBytes": 820016,
+              "maxMs": 16.7753,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.6466,
+              "allocatedBytes": 737984,
+              "maxMs": 16.7789,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.5444,
+              "allocatedBytes": 729800,
+              "maxMs": 16.8366,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "baseball-impact",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.827,
+              "allocatedBytes": 737960,
+              "maxMs": 16.7495,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.58,
+              "allocatedBytes": 729800,
+              "maxMs": 16.9009,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.5901,
+              "allocatedBytes": 729784,
+              "maxMs": 16.914,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "jealousy",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.1777,
+              "allocatedBytes": 811816,
+              "maxMs": 16.826,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.8904,
+              "allocatedBytes": 729744,
+              "maxMs": 16.8742,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.6648,
+              "allocatedBytes": 721600,
+              "maxMs": 16.8632,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "memory",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 10.678,
+              "allocatedBytes": 776872,
+              "maxMs": 16.6942,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                0
+              ]
+            },
+            {
+              "pass": 1,
+              "createMs": 0.546,
+              "allocatedBytes": 697000,
+              "maxMs": 16.6907,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.5339,
+              "allocatedBytes": 697000,
+              "maxMs": 16.8788,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "back-to-back",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.8394,
+              "allocatedBytes": 803592,
+              "maxMs": 16.6855,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.542,
+              "allocatedBytes": 713224,
+              "maxMs": 16.6807,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.4115,
+              "allocatedBytes": 713400,
+              "maxMs": 16.6897,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "back-to-back-impact",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.6334,
+              "allocatedBytes": 713400,
+              "maxMs": 16.8376,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.5143,
+              "allocatedBytes": 705200,
+              "maxMs": 16.6838,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.4887,
+              "allocatedBytes": 705184,
+              "maxMs": 16.6882,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-light",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.13,
+              "allocatedBytes": 902024,
+              "maxMs": 16.8297,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.6525,
+              "allocatedBytes": 729800,
+              "maxMs": 16.6896,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.4552,
+              "allocatedBytes": 721600,
+              "maxMs": 16.6812,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-light-impact",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.6143,
+              "allocatedBytes": 747728,
+              "maxMs": 17.1255,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.4542,
+              "allocatedBytes": 680600,
+              "maxMs": 16.753,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.3154,
+              "allocatedBytes": 672400,
+              "maxMs": 16.8531,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "arrogant",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.4649,
+              "allocatedBytes": 967528,
+              "maxMs": 16.8997,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.828,
+              "allocatedBytes": 877368,
+              "maxMs": 16.699,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.676,
+              "allocatedBytes": 874888,
+              "maxMs": 16.762,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                6
+              ]
+            }
+          ]
+        },
+        {
+          "name": "benefit-Cake",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.819,
+              "allocatedBytes": 1065944,
+              "maxMs": 16.6864,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.1719,
+              "allocatedBytes": 959400,
+              "maxMs": 16.681,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0262,
+              "allocatedBytes": 959384,
+              "maxMs": 16.6794,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Snack",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.3323,
+              "allocatedBytes": 959400,
+              "maxMs": 16.6948,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.1503,
+              "allocatedBytes": 951200,
+              "maxMs": 17.2457,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.1795,
+              "allocatedBytes": 959400,
+              "maxMs": 16.7086,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Dinner",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.1129,
+              "allocatedBytes": 959400,
+              "maxMs": 16.6961,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.1506,
+              "allocatedBytes": 951200,
+              "maxMs": 16.8002,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.1862,
+              "allocatedBytes": 959400,
+              "maxMs": 16.6822,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Ticket",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.2039,
+              "allocatedBytes": 959384,
+              "maxMs": 16.8399,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.2266,
+              "allocatedBytes": 951200,
+              "maxMs": 17.4964,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.2823,
+              "allocatedBytes": 958200,
+              "maxMs": 16.6811,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Dream",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.2412,
+              "allocatedBytes": 967592,
+              "maxMs": 16.9651,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.1079,
+              "allocatedBytes": 964976,
+              "maxMs": 19.8234,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                25
+              ]
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0242,
+              "allocatedBytes": 959400,
+              "maxMs": 16.6804,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Shine",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.0244,
+              "allocatedBytes": 1148000,
+              "maxMs": 16.6776,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.0988,
+              "allocatedBytes": 1139736,
+              "maxMs": 16.6809,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0211,
+              "allocatedBytes": 1148000,
+              "maxMs": 16.6902,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-TicketTrigger",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.1455,
+              "allocatedBytes": 959400,
+              "maxMs": 16.7216,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.1798,
+              "allocatedBytes": 959384,
+              "maxMs": 16.7081,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.3968,
+              "allocatedBytes": 959400,
+              "maxMs": 16.873,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-DreamTrigger",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.0635,
+              "allocatedBytes": 992176,
+              "maxMs": 16.6904,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.0269,
+              "allocatedBytes": 975800,
+              "maxMs": 16.8065,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.1171,
+              "allocatedBytes": 975800,
+              "maxMs": 17.1618,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Radiance",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.8097,
+              "allocatedBytes": 975800,
+              "maxMs": 16.8871,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.2328,
+              "allocatedBytes": 975800,
+              "maxMs": 16.8477,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.192,
+              "allocatedBytes": 975800,
+              "maxMs": 17.0271,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-SnackTransform",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 15.812,
+              "allocatedBytes": 1046368,
+              "maxMs": 17.8024,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                0
+              ]
+            },
+            {
+              "pass": 1,
+              "createMs": 1.2063,
+              "allocatedBytes": 959400,
+              "maxMs": 16.7121,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.2302,
+              "allocatedBytes": 959400,
+              "maxMs": 16.7495,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-TicketCast",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.6825,
+              "allocatedBytes": 959208,
+              "maxMs": 16.6812,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.2151,
+              "allocatedBytes": 852800,
+              "maxMs": 16.696,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0382,
+              "allocatedBytes": 844600,
+              "maxMs": 16.7713,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-TicketReturn",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.9613,
+              "allocatedBytes": 820000,
+              "maxMs": 16.9498,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.0306,
+              "allocatedBytes": 828184,
+              "maxMs": 16.702,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.9846,
+              "allocatedBytes": 820000,
+              "maxMs": 16.985,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-Duet",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.9888,
+              "allocatedBytes": 836400,
+              "maxMs": 16.7804,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.1436,
+              "allocatedBytes": 836400,
+              "maxMs": 16.7032,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.9716,
+              "allocatedBytes": 828200,
+              "maxMs": 16.6777,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-Act1Cast",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.8653,
+              "allocatedBytes": 820000,
+              "maxMs": 17.0434,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.896,
+              "allocatedBytes": 820000,
+              "maxMs": 16.8867,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.8869,
+              "allocatedBytes": 819808,
+              "maxMs": 16.6988,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-Act1Draw",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.9496,
+              "allocatedBytes": 852168,
+              "maxMs": 18.5224,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                38
+              ]
+            },
+            {
+              "pass": 1,
+              "createMs": 0.857,
+              "allocatedBytes": 828200,
+              "maxMs": 16.68,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.8255,
+              "allocatedBytes": 836400,
+              "maxMs": 16.6936,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-Act2Cast",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.0065,
+              "allocatedBytes": 1246400,
+              "maxMs": 16.6771,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.0354,
+              "allocatedBytes": 1238200,
+              "maxMs": 16.6783,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0174,
+              "allocatedBytes": 1238200,
+              "maxMs": 16.6765,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-Act2Hover",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.8646,
+              "allocatedBytes": 803600,
+              "maxMs": 16.6804,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.8417,
+              "allocatedBytes": 809912,
+              "maxMs": 16.676,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.9097,
+              "allocatedBytes": 811800,
+              "maxMs": 16.8677,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "branch": "beta",
+      "effect": "all",
+      "evidence": "artifacts/vfx-first-use-20261022/runs/beta-20261022-225528",
+      "passed": true,
+      "log_errors": [],
+      "warmup": {
+        "status": "done",
+        "warmupStatus": "ready",
+        "resources": 304,
+        "batches": 29,
+        "drawCalls": 460,
+        "prepareMs": 1680.9222,
+        "repeatedPreparationMs": 0.0209,
+        "catalogEffects": 70,
+        "assetPaths": 164
+      },
+      "effects": [
+        {
+          "name": "twin-stars",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.6008,
+              "allocatedBytes": 1393984,
+              "maxMs": 16.7022,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.6682,
+              "allocatedBytes": 1279200,
+              "maxMs": 16.766,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.4643,
+              "allocatedBytes": 1279160,
+              "maxMs": 16.6885,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "past-future",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.9128,
+              "allocatedBytes": 992216,
+              "maxMs": 16.7048,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.6385,
+              "allocatedBytes": 918400,
+              "maxMs": 16.8806,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.4773,
+              "allocatedBytes": 910160,
+              "maxMs": 16.7872,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "nonon",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 6.9072,
+              "allocatedBytes": 1322912,
+              "maxMs": 16.9288,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 3.1369,
+              "allocatedBytes": 1191792,
+              "maxMs": 17.1252,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.5218,
+              "allocatedBytes": 1199944,
+              "maxMs": 17.018,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "barrage-start",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.217,
+              "allocatedBytes": 837048,
+              "maxMs": 16.8704,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.7888,
+              "allocatedBytes": 746200,
+              "maxMs": 16.6764,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.5604,
+              "allocatedBytes": 746120,
+              "maxMs": 17.3728,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "barrage-hit",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.7667,
+              "allocatedBytes": 729800,
+              "maxMs": 17.4862,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.6889,
+              "allocatedBytes": 725936,
+              "maxMs": 17.209,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                81
+              ]
+            },
+            {
+              "pass": 2,
+              "createMs": 0.6538,
+              "allocatedBytes": 738000,
+              "maxMs": 16.686,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "baseball",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.9682,
+              "allocatedBytes": 820016,
+              "maxMs": 16.7117,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.6492,
+              "allocatedBytes": 738000,
+              "maxMs": 16.6753,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.5016,
+              "allocatedBytes": 737968,
+              "maxMs": 16.6842,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "baseball-impact",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.6906,
+              "allocatedBytes": 729800,
+              "maxMs": 16.6787,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.5701,
+              "allocatedBytes": 729832,
+              "maxMs": 16.7064,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.5925,
+              "allocatedBytes": 721600,
+              "maxMs": 16.684,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "jealousy",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.1869,
+              "allocatedBytes": 820000,
+              "maxMs": 16.6834,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.9109,
+              "allocatedBytes": 729728,
+              "maxMs": 16.6779,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.6491,
+              "allocatedBytes": 729800,
+              "maxMs": 16.6827,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "memory",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.0638,
+              "allocatedBytes": 795248,
+              "maxMs": 16.7025,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.5711,
+              "allocatedBytes": 697000,
+              "maxMs": 16.9034,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.4371,
+              "allocatedBytes": 696952,
+              "maxMs": 16.8675,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "back-to-back",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.8154,
+              "allocatedBytes": 795416,
+              "maxMs": 16.6787,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.5532,
+              "allocatedBytes": 721600,
+              "maxMs": 17.4834,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.4357,
+              "allocatedBytes": 721600,
+              "maxMs": 16.7896,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "back-to-back-impact",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.6151,
+              "allocatedBytes": 720904,
+              "maxMs": 16.6848,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 12.2523,
+              "allocatedBytes": 702728,
+              "maxMs": 16.6807,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                0
+              ]
+            },
+            {
+              "pass": 2,
+              "createMs": 0.4876,
+              "allocatedBytes": 713400,
+              "maxMs": 16.6913,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-light",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.0728,
+              "allocatedBytes": 910184,
+              "maxMs": 16.7524,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.5919,
+              "allocatedBytes": 729800,
+              "maxMs": 16.678,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.4624,
+              "allocatedBytes": 713304,
+              "maxMs": 16.7363,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-light-impact",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.6269,
+              "allocatedBytes": 762552,
+              "maxMs": 16.6817,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.4567,
+              "allocatedBytes": 680600,
+              "maxMs": 16.714,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.2972,
+              "allocatedBytes": 680600,
+              "maxMs": 17.2858,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "arrogant",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.4574,
+              "allocatedBytes": 967544,
+              "maxMs": 16.6931,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.8442,
+              "allocatedBytes": 877400,
+              "maxMs": 16.7637,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.6605,
+              "allocatedBytes": 885504,
+              "maxMs": 16.6996,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Cake",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.8569,
+              "allocatedBytes": 1065992,
+              "maxMs": 16.7028,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.2656,
+              "allocatedBytes": 967600,
+              "maxMs": 16.6799,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0243,
+              "allocatedBytes": 959400,
+              "maxMs": 16.7814,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Snack",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.1282,
+              "allocatedBytes": 959400,
+              "maxMs": 16.6831,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.1443,
+              "allocatedBytes": 953592,
+              "maxMs": 16.7615,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                81
+              ]
+            },
+            {
+              "pass": 2,
+              "createMs": 1.08,
+              "allocatedBytes": 959400,
+              "maxMs": 16.7923,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Dinner",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.0883,
+              "allocatedBytes": 967264,
+              "maxMs": 16.6901,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.0988,
+              "allocatedBytes": 967600,
+              "maxMs": 16.8552,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0859,
+              "allocatedBytes": 959384,
+              "maxMs": 16.9901,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Ticket",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.0624,
+              "allocatedBytes": 959400,
+              "maxMs": 16.7778,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.079,
+              "allocatedBytes": 959400,
+              "maxMs": 16.7266,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.1973,
+              "allocatedBytes": 956584,
+              "maxMs": 16.8161,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Dream",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.0253,
+              "allocatedBytes": 967560,
+              "maxMs": 16.7092,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.9977,
+              "allocatedBytes": 959400,
+              "maxMs": 16.9085,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0178,
+              "allocatedBytes": 959400,
+              "maxMs": 17.0369,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Shine",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.0175,
+              "allocatedBytes": 1147976,
+              "maxMs": 17.1209,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.015,
+              "allocatedBytes": 1148000,
+              "maxMs": 16.7638,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0723,
+              "allocatedBytes": 1148000,
+              "maxMs": 16.7928,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-TicketTrigger",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.1576,
+              "allocatedBytes": 942952,
+              "maxMs": 17.2807,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                45
+              ]
+            },
+            {
+              "pass": 1,
+              "createMs": 1.1358,
+              "allocatedBytes": 1049616,
+              "maxMs": 16.7384,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.2751,
+              "allocatedBytes": 959400,
+              "maxMs": 16.7361,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-DreamTrigger",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.073,
+              "allocatedBytes": 992184,
+              "maxMs": 16.6901,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.0594,
+              "allocatedBytes": 983960,
+              "maxMs": 16.6807,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0426,
+              "allocatedBytes": 975800,
+              "maxMs": 16.7057,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-Radiance",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.6926,
+              "allocatedBytes": 975800,
+              "maxMs": 16.9215,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.1299,
+              "allocatedBytes": 975784,
+              "maxMs": 16.7439,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.179,
+              "allocatedBytes": 975800,
+              "maxMs": 16.8359,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "benefit-SnackTransform",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.1554,
+              "allocatedBytes": 959400,
+              "maxMs": 16.6828,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.1845,
+              "allocatedBytes": 959376,
+              "maxMs": 16.6784,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.1224,
+              "allocatedBytes": 959400,
+              "maxMs": 16.6801,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-TicketCast",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.6933,
+              "allocatedBytes": 951216,
+              "maxMs": 16.6856,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.286,
+              "allocatedBytes": 852800,
+              "maxMs": 16.7167,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0354,
+              "allocatedBytes": 848856,
+              "maxMs": 17.5498,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                72
+              ]
+            }
+          ]
+        },
+        {
+          "name": "stage-TicketReturn",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.9382,
+              "allocatedBytes": 828200,
+              "maxMs": 16.6841,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.939,
+              "allocatedBytes": 828200,
+              "maxMs": 17.598,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0213,
+              "allocatedBytes": 820000,
+              "maxMs": 16.6849,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-Duet",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.9644,
+              "allocatedBytes": 836336,
+              "maxMs": 16.6801,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.9517,
+              "allocatedBytes": 836400,
+              "maxMs": 16.6929,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.9378,
+              "allocatedBytes": 836400,
+              "maxMs": 16.6769,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-Act1Cast",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.8476,
+              "allocatedBytes": 828080,
+              "maxMs": 16.6783,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.8363,
+              "allocatedBytes": 828184,
+              "maxMs": 16.6846,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.8343,
+              "allocatedBytes": 820480,
+              "maxMs": 16.6822,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-Act1Draw",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.8435,
+              "allocatedBytes": 844592,
+              "maxMs": 16.935,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 0.8857,
+              "allocatedBytes": 836400,
+              "maxMs": 16.9767,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.8613,
+              "allocatedBytes": 836400,
+              "maxMs": 16.6778,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        },
+        {
+          "name": "stage-Act2Cast",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 1.0325,
+              "allocatedBytes": 1246400,
+              "maxMs": 16.678,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.1462,
+              "allocatedBytes": 1238200,
+              "maxMs": 16.7251,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 1.0206,
+              "allocatedBytes": 1227296,
+              "maxMs": 17.4689,
+              "over33": 0,
+              "gcCollections": [
+                1,
+                1,
+                0
+              ],
+              "gcFrames": [
+                57
+              ]
+            }
+          ]
+        },
+        {
+          "name": "stage-Act2Hover",
+          "passes": [
+            {
+              "pass": 0,
+              "createMs": 0.9251,
+              "allocatedBytes": 918376,
+              "maxMs": 16.7509,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 1,
+              "createMs": 1.0226,
+              "allocatedBytes": 811800,
+              "maxMs": 16.9184,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            },
+            {
+              "pass": 2,
+              "createMs": 0.8453,
+              "allocatedBytes": 811800,
+              "maxMs": 16.6966,
+              "over33": 0,
+              "gcCollections": [
+                0,
+                0,
+                0
+              ],
+              "gcFrames": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "branch": "stable",
+      "effect": "shine",
+      "evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261022-225939",
+      "passed": true,
+      "log_errors": [],
+      "passes": [
+        {
+          "status": "done",
+          "effect": "shine",
+          "syncMs": 5.3193,
+          "allocated": 729664,
+          "drawn": 71,
+          "frames": 71,
+          "maxMs": 16.7175,
+          "medianMs": 16.665,
+          "over33": 0,
+          "outlinePoints": 181,
+          "preparedContours": 5,
+          "cpu": {
+            "NKarenShineAmbientVfx._Ready": [
+              0.3496
+            ]
+          },
+          "samples": [
+            10.2201,
+            2.6122,
+            15.7936,
+            16.6733,
+            16.6651,
+            16.6702,
+            16.6649,
+            16.6689,
+            16.6651,
+            16.6687,
+            16.6638,
+            16.6686,
+            16.6699,
+            16.6702,
+            16.6585,
+            16.6618,
+            16.6655,
+            16.6655,
+            16.6648,
+            16.6723,
+            16.665,
+            16.6779,
+            16.6624,
+            16.6592,
+            16.6565,
+            16.6739,
+            16.6636,
+            16.6985,
+            16.6356,
+            16.6727,
+            16.6586,
+            16.6767,
+            16.6541,
+            16.6795,
+            16.6471,
+            16.7175,
+            16.6276,
+            16.6625,
+            16.6741,
+            16.6595,
+            16.6676,
+            16.6669,
+            16.6626,
+            16.6679,
+            16.6619,
+            16.6619,
+            16.6699,
+            16.6599,
+            16.6765,
+            16.6557,
+            16.6828,
+            16.6615,
+            16.6632,
+            16.6643,
+            16.6634,
+            16.6652,
+            16.666,
+            16.668,
+            16.6628,
+            16.6745,
+            16.6691,
+            16.662,
+            16.6531,
+            16.6755,
+            16.6591,
+            16.6909,
+            16.6473,
+            16.6675,
+            16.6612,
+            16.6808,
+            16.6584
+          ],
+          "pass": 0
+        },
+        {
+          "status": "done",
+          "effect": "shine",
+          "syncMs": 0.8146,
+          "allocated": 696888,
+          "drawn": 71,
+          "frames": 71,
+          "maxMs": 16.7458,
+          "medianMs": 16.6658,
+          "over33": 0,
+          "outlinePoints": 181,
+          "preparedContours": 5,
+          "cpu": {
+            "NKarenShineAmbientVfx._Ready": [
+              0.0279
+            ]
+          },
+          "samples": [
+            10.7553,
+            16.6782,
+            16.6635,
+            16.6623,
+            16.6663,
+            16.6658,
+            16.6665,
+            16.6639,
+            16.6647,
+            16.6644,
+            16.668,
+            16.6681,
+            16.6664,
+            16.666,
+            16.6642,
+            16.6699,
+            16.66,
+            16.7087,
+            16.6172,
+            16.6671,
+            16.6646,
+            16.674,
+            16.657,
+            16.6762,
+            16.6582,
+            16.6646,
+            16.6669,
+            16.6726,
+            16.6606,
+            16.6633,
+            16.6755,
+            16.6625,
+            16.6723,
+            16.6656,
+            16.6606,
+            16.6647,
+            16.6708,
+            16.6632,
+            16.6614,
+            16.6661,
+            16.6661,
+            16.6725,
+            16.6649,
+            16.7085,
+            16.6222,
+            16.7458,
+            16.586,
+            16.6727,
+            16.6585,
+            16.6638,
+            16.6718,
+            16.6681,
+            16.6612,
+            16.6753,
+            16.6602,
+            16.662,
+            16.6654,
+            16.6658,
+            16.6661,
+            16.6681,
+            16.6673,
+            16.6696,
+            16.6605,
+            16.6668,
+            16.6605,
+            16.6758,
+            16.6568,
+            16.6687,
+            16.663,
+            16.6653,
+            16.6693
+          ],
+          "pass": 1
+        }
+      ]
+    },
+    {
+      "branch": "stable",
+      "effect": "promise",
+      "evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261022-230022",
+      "passed": true,
+      "log_errors": [],
+      "passes": [
+        {
+          "status": "done",
+          "effect": "promise",
+          "syncMs": 3.0366,
+          "allocated": 1713384,
+          "drawn": 72,
+          "frames": 72,
+          "maxMs": 17.449,
+          "medianMs": 16.6659,
+          "over33": 0,
+          "outlinePoints": 0,
+          "preparedContours": 5,
+          "cpu": {
+            "NKarenPromiseCardEntryVfx._Ready": [
+              1.2272
+            ]
+          },
+          "samples": [
+            17.449,
+            9.543,
+            5.2946,
+            13.4379,
+            16.6634,
+            16.6647,
+            16.6659,
+            16.6684,
+            16.789,
+            16.5424,
+            16.6611,
+            16.6605,
+            16.676,
+            16.6587,
+            16.6692,
+            16.67,
+            16.6776,
+            16.6464,
+            16.6699,
+            16.6689,
+            16.7985,
+            16.538,
+            16.6689,
+            16.6556,
+            16.6643,
+            16.6658,
+            16.6807,
+            16.6531,
+            16.6683,
+            16.6613,
+            16.6746,
+            16.6574,
+            16.6682,
+            16.6721,
+            16.6605,
+            16.668,
+            16.6728,
+            16.6546,
+            16.6631,
+            16.6758,
+            16.6623,
+            16.6774,
+            16.6625,
+            16.6752,
+            16.6569,
+            16.6695,
+            16.6672,
+            16.656,
+            16.6683,
+            16.6679,
+            16.6701,
+            16.6628,
+            16.665,
+            16.6634,
+            16.6656,
+            16.6615,
+            16.673,
+            16.666,
+            16.6648,
+            16.6719,
+            16.6634,
+            16.6626,
+            16.6697,
+            16.6665,
+            16.6659,
+            16.6631,
+            16.672,
+            16.6618,
+            16.6637,
+            16.6742,
+            16.6626,
+            16.6659
+          ],
+          "pass": 0
+        },
+        {
+          "status": "done",
+          "effect": "promise",
+          "syncMs": 0.8191,
+          "allocated": 1541416,
+          "drawn": 72,
+          "frames": 72,
+          "maxMs": 17.1566,
+          "medianMs": 16.6652,
+          "over33": 0,
+          "outlinePoints": 0,
+          "preparedContours": 5,
+          "cpu": {
+            "NKarenPromiseCardEntryVfx._Ready": [
+              0.0764
+            ]
+          },
+          "samples": [
+            11.2618,
+            16.318,
+            16.6643,
+            16.6753,
+            16.6686,
+            16.6594,
+            16.6654,
+            16.6665,
+            16.6565,
+            16.6797,
+            16.6592,
+            16.6618,
+            16.6747,
+            16.6642,
+            16.6708,
+            16.6644,
+            16.6648,
+            17.1566,
+            16.1691,
+            16.6658,
+            16.6661,
+            16.6742,
+            16.6601,
+            16.6696,
+            16.6576,
+            16.6702,
+            16.6754,
+            16.6628,
+            16.6517,
+            16.6743,
+            16.6604,
+            16.6817,
+            16.6681,
+            16.6597,
+            16.6647,
+            16.6712,
+            16.6662,
+            16.6555,
+            16.6614,
+            16.6735,
+            16.6607,
+            16.6704,
+            16.6619,
+            16.6796,
+            16.6533,
+            16.6617,
+            16.6722,
+            16.6612,
+            16.6652,
+            16.6644,
+            16.6717,
+            16.668,
+            16.6587,
+            16.6722,
+            16.6678,
+            16.6588,
+            16.6654,
+            16.6684,
+            16.661,
+            16.6739,
+            16.666,
+            16.6645,
+            16.6592,
+            16.6734,
+            16.6629,
+            16.6655,
+            16.6634,
+            16.677,
+            16.6548,
+            16.6807,
+            16.6609,
+            16.6642
+          ],
+          "pass": 1
+        }
+      ],
+      "hand_checks": 6,
+      "screenshots_saved_and_viewed": 6,
+      "visual_result": "hand 5->4->5 / promise 0->1->0"
+    },
+    {
+      "branch": "beta",
+      "effect": "shine",
+      "evidence": "artifacts/vfx-first-use-20261022/runs/beta-20261022-230106",
+      "passed": true,
+      "log_errors": [
+        "ERROR: Invalid Task ID"
+      ],
+      "passes": [
+        {
+          "status": "done",
+          "effect": "shine",
+          "syncMs": 1.7733,
+          "allocated": 753608,
+          "drawn": 71,
+          "frames": 71,
+          "maxMs": 16.7628,
+          "medianMs": 16.6655,
+          "over33": 0,
+          "outlinePoints": 181,
+          "preparedContours": 5,
+          "cpu": {
+            "NKarenShineAmbientVfx._Ready": [
+              0.4084
+            ]
+          },
+          "samples": [
+            6.2589,
+            9.0928,
+            16.6836,
+            16.6607,
+            16.6714,
+            16.6614,
+            16.6724,
+            16.6632,
+            16.6675,
+            16.6641,
+            16.6633,
+            16.665,
+            16.6706,
+            16.6663,
+            16.6661,
+            16.6675,
+            16.6653,
+            16.6678,
+            16.6672,
+            16.6615,
+            16.6671,
+            16.6648,
+            16.6718,
+            16.6813,
+            16.643,
+            16.6638,
+            16.6677,
+            16.6655,
+            16.6725,
+            16.6636,
+            16.6755,
+            16.6499,
+            16.6752,
+            16.6579,
+            16.6707,
+            16.6609,
+            16.6805,
+            16.6615,
+            16.7628,
+            16.5667,
+            16.6645,
+            16.6624,
+            16.6714,
+            16.6585,
+            16.6718,
+            16.6582,
+            16.6747,
+            16.6633,
+            16.6652,
+            16.6798,
+            16.6641,
+            16.6547,
+            16.6663,
+            16.6629,
+            16.671,
+            16.6595,
+            16.6717,
+            16.6689,
+            16.6612,
+            16.6721,
+            16.6675,
+            16.6579,
+            16.6696,
+            16.6651,
+            16.6655,
+            16.6684,
+            16.6603,
+            16.6656,
+            16.6695,
+            16.6649,
+            16.6669
+          ],
+          "pass": 0
+        },
+        {
+          "status": "done",
+          "effect": "shine",
+          "syncMs": 0.8714,
+          "allocated": 696888,
+          "drawn": 71,
+          "frames": 71,
+          "maxMs": 16.6859,
+          "medianMs": 16.666,
+          "over33": 0,
+          "outlinePoints": 181,
+          "preparedContours": 5,
+          "cpu": {
+            "NKarenShineAmbientVfx._Ready": [
+              0.0286
+            ]
+          },
+          "samples": [
+            10.499,
+            16.668,
+            16.6709,
+            16.6617,
+            16.6643,
+            16.6786,
+            16.6525,
+            16.6672,
+            16.6686,
+            16.6661,
+            16.6719,
+            16.6587,
+            16.6655,
+            16.665,
+            16.665,
+            16.6713,
+            16.6698,
+            16.6621,
+            16.6742,
+            16.6687,
+            16.6573,
+            16.6672,
+            16.6618,
+            16.6655,
+            16.6727,
+            16.6569,
+            16.6697,
+            16.6664,
+            16.6859,
+            16.6443,
+            16.6645,
+            16.6654,
+            16.6698,
+            16.6639,
+            16.662,
+            16.6708,
+            16.6654,
+            16.6644,
+            16.6666,
+            16.6664,
+            16.6689,
+            16.662,
+            16.6702,
+            16.6638,
+            16.6671,
+            16.6703,
+            16.6604,
+            16.6677,
+            16.6685,
+            16.6653,
+            16.6597,
+            16.666,
+            16.6697,
+            16.6686,
+            16.6605,
+            16.6674,
+            16.6695,
+            16.6644,
+            16.6638,
+            16.6688,
+            16.6677,
+            16.6635,
+            16.6651,
+            16.6669,
+            16.6622,
+            16.6658,
+            16.6742,
+            16.6601,
+            16.6637,
+            16.6738,
+            16.6648
+          ],
+          "pass": 1
+        }
+      ]
+    },
+    {
+      "branch": "beta",
+      "effect": "promise",
+      "evidence": "artifacts/vfx-first-use-20261022/runs/beta-20261022-230150",
+      "passed": true,
+      "log_errors": [],
+      "passes": [
+        {
+          "status": "done",
+          "effect": "promise",
+          "syncMs": 3.009,
+          "allocated": 1366888,
+          "drawn": 73,
+          "frames": 73,
+          "maxMs": 16.6904,
+          "medianMs": 16.6644,
+          "over33": 0,
+          "outlinePoints": 0,
+          "preparedContours": 5,
+          "cpu": {
+            "NKarenPromiseCardEntryVfx._Ready": [
+              1.2744
+            ]
+          },
+          "samples": [
+            13.5843,
+            8.959,
+            6.067,
+            16.6904,
+            16.6617,
+            16.6589,
+            16.6625,
+            16.6737,
+            16.6583,
+            16.671,
+            16.6661,
+            16.6725,
+            16.6616,
+            16.6636,
+            16.6782,
+            16.6544,
+            16.6644,
+            16.6731,
+            16.6643,
+            16.6589,
+            16.6879,
+            16.6537,
+            16.6613,
+            16.6578,
+            16.677,
+            16.6657,
+            16.6706,
+            16.6598,
+            16.6808,
+            16.6464,
+            16.6763,
+            16.6581,
+            16.664,
+            16.6704,
+            16.6596,
+            16.6699,
+            16.6548,
+            16.6809,
+            16.6544,
+            16.6629,
+            16.6903,
+            16.667,
+            16.6611,
+            16.6519,
+            16.6657,
+            16.6634,
+            16.6652,
+            16.6695,
+            16.6621,
+            16.6657,
+            16.6809,
+            16.6553,
+            16.6745,
+            16.6535,
+            16.6709,
+            16.6654,
+            16.6609,
+            16.6678,
+            16.677,
+            16.6565,
+            16.6652,
+            16.6697,
+            16.6644,
+            16.6698,
+            16.6648,
+            16.6641,
+            16.6626,
+            16.6731,
+            16.6608,
+            16.6693,
+            16.6665,
+            16.6686,
+            16.6603
+          ],
+          "pass": 0
+        },
+        {
+          "status": "done",
+          "effect": "promise",
+          "syncMs": 0.859,
+          "allocated": 1197152,
+          "drawn": 72,
+          "frames": 72,
+          "maxMs": 16.8958,
+          "medianMs": 16.6653,
+          "over33": 0,
+          "outlinePoints": 0,
+          "preparedContours": 5,
+          "cpu": {
+            "NKarenPromiseCardEntryVfx._Ready": [
+              0.0783
+            ]
+          },
+          "samples": [
+            5.4219,
+            13.998,
+            16.6528,
+            16.8958,
+            16.5162,
+            16.5861,
+            16.6649,
+            16.6754,
+            16.663,
+            16.8934,
+            16.4403,
+            16.6646,
+            16.6607,
+            16.6732,
+            16.6716,
+            16.6566,
+            16.6689,
+            16.6681,
+            16.6604,
+            16.6641,
+            16.6726,
+            16.6581,
+            16.6689,
+            16.6672,
+            16.662,
+            16.6736,
+            16.664,
+            16.8926,
+            16.4324,
+            16.6673,
+            16.6779,
+            16.6605,
+            16.6719,
+            16.6595,
+            16.657,
+            16.6735,
+            16.6591,
+            16.6744,
+            16.6563,
+            16.6771,
+            16.6653,
+            16.6623,
+            16.6576,
+            16.6721,
+            16.6703,
+            16.6729,
+            16.657,
+            16.6663,
+            16.6587,
+            16.6657,
+            16.673,
+            16.6676,
+            16.8458,
+            16.484,
+            16.6741,
+            16.6641,
+            16.6568,
+            16.6787,
+            16.6608,
+            16.6662,
+            16.6656,
+            16.6606,
+            16.6622,
+            16.6757,
+            16.6652,
+            16.6608,
+            16.664,
+            16.6721,
+            16.6705,
+            16.6676,
+            16.6583,
+            16.6671
+          ],
+          "pass": 1
+        }
+      ],
+      "hand_checks": 6,
+      "screenshots_saved_and_viewed": 6,
+      "visual_result": "hand 5->4->5 / promise 0->1->0"
+    }
+  ],
+  "pending": [
+    {
+      "case": "beta/shine",
+      "reason": "Native preload Invalid Task ID; known earlier issue, not fixed by VFX work"
+    }
+  ],
+  "package_sha256": {
+    "ShoujoKagekiAijoKaren.dll": "47c7b9f8abcdd8cc81eb0181bafb1cfeb98665ecb302cc5a6d44055b6907cda0",
+    "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+    "ShoujoKagekiAijoKaren.pck": "9833450a85393589063b3664e3ce66134a3381b13f7d318558b77ace982b1851",
+    "lib\\ShoujoKagekiAijoKaren.Beta.dll": "eab5b3b05fc0f3bd003a5e43e28cc58d8bd93538437493e3daec4999567879da",
+    "lib\\ShoujoKagekiAijoKaren.Stable.dll": "c330895fb2ec00502c8a9b87fc2b02661af3bbe9103cd1eaa9a34c7f88cc3186"
+  },
+  "baseline_failures": [
+    {
+      "evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261022-223152",
+      "effect": "benefit-Dream",
+      "first_max_ms": 35.7792
+    },
+    {
+      "evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261022-224031",
+      "effect": "benefit-Dream",
+      "first_max_ms": 36.5547
+    }
+  ],
+  "allocation_comparison": {
+    "scope": "Approximate process-wide managed allocations during each 1.4 second playback, not effect-exclusive",
+    "baseline_evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261022-224742",
+    "baseline_bytes": [
+      7486232,
+      7341328,
+      7347192
+    ],
+    "after_bytes": [
+      967592,
+      964976,
+      959400
+    ]
+  }
+}

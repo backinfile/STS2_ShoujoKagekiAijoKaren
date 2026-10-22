@@ -19,3 +19,5 @@ python tools/vfx/first-use/release_check.py --source-dev <dev-game> --target apk
 PC 帧时间不能替代 Android 驱动、Mono JIT、视频解码或生命周期实机结果。首次 GPU 驱动缓存没有在此工具中全局删除；“冷”指新进程首次播放。普通/临界闪耀、耗尽、空虚、选牌生命周期及常驻叠加仍使用项目现有 catalog/专项工具验证，发布记录须明确实际覆盖。
 
 协议 3 的 all 在游戏测完后原子写入 JSON，外部轮询文件；计时期间不再通过 MCP 查询进度。发布检查不会复用缺少新增演出的旧协议结果。`--package <最终Mod目录>` 可指定受测包；APK 默认 AnyCPU 包，工坊默认桌面包，发布检查同时核对分支/效果/渲染后端/协议与精确包哈希。
+
+诊断单项长帧可加 `--effect all --only-effect benefit-Dream`（可重复参数）。记录每次播放的 GC 次数，用来区分分配/回收与创建耗时；过滤运行不会被发布门禁当作完整 all 结果复用。

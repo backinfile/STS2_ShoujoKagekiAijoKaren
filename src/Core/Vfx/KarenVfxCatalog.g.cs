@@ -218,6 +218,7 @@ internal static class KarenVfxCatalog
         "ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes.NKarenShineDepleteVfx",
         "ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes.NKarenShinePileArrivalVfx",
         "ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes.NKarenShineWarningVfx",
+        "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenLightRibbon",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenAquariumVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenArrogantVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBackToBackVfx",

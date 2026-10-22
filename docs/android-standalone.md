@@ -2,13 +2,15 @@
 
 当前交付为正式版 v0.107.1 + Karen v0.1.3 + BaseLib v3.4.7 的本地直装测试 APK。游戏本体、模组、Android 运行时与对应兼容层已经放入包内；安装后首次自动解包，随后进入游戏。没有启动器首页、账号下载、导入页面或版本/配置选择流程。
 
+本轮已把新增特效适配合入源码；现存 r4 APK 生成于这些 main 更新之前，不包含新增双子星/过去与未来/花朵整合。本轮未重打 APK。后续交付新包需重新构建并按 `AGENTS.md` 校验。
+
 ## 安装与运行
 
-- 产物：`artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r3.apk`，2,046,693,001 字节，约 1.91 GiB。
+- 产物：`artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r4.apk`，2,046,717,577 字节，约 1.91 GiB。
 - Android 7.0/API 24 以上，仅 ARM64；建议预留至少 8 GB 可用存储空间，用于 APK、系统安装副本、首次解包和游戏缓存。
-- 应用名称为“塔2 · 华恋”，独立包名 `com.karenmod.sts2hd`，versionCode 为 10015，不使用此前 importer APK 的数据目录。
+- 应用名称为“塔2 · 华恋”，独立包名 `com.karenmod.sts2hd`，versionCode 为 10016，不使用此前 importer APK 的数据目录。
 - 第一次打开仅显示自动准备进度；准备完成后进入游戏。之后启动只检查安装标记和程序文件大小，避免反复解包整个本体。
-- r3 与原测试包使用相同包名和测试签名，可以覆盖安装；原 r1/r2 APK 仍保留。
+- r4 与原测试包使用相同包名和测试签名，可以覆盖安装；旧 r1/r2/r3 APK 已清理。
 - 主菜单 → 设置 → Mods → 少女歌剧／爱城华恋 →「一键解锁全部」：解锁当前存档的全部角色、卡牌、遗物、药水、时间线和进阶（包括华恋），保留胜负、游玩时长和成就。解锁前自动保存独立备份；已有对局的解锁快照不改写，建议随后开新局。按钮仅在主菜单执行。
 - Karen/BaseLib 随本体安装并默认开启 Mod。存档/设置放在私有用户目录，程序文件更新不会覆盖它们。
 - 原版游戏设置保留；兼容层的 Android 设置按钮打开本项目自己的小型对话框，可设置画面兼容、声音兼容与横屏翻转，重启生效。退出游戏不会返回外部启动器。
@@ -59,7 +61,7 @@ Windows 环境需要 Python 3.11 以上与 .NET 9 SDK（用于真实游戏设置
 可复测安装逻辑与实际 APK 解包：
 
 ```powershell
-python tools/android-standalone/test.py --apk artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r3.apk
+python tools/android-standalone/test.py --apk artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r4.apk
 ```
 
 证据：`validation.json`、`badging.txt`、`signature.txt`、`pck-patch.json`、`installer-checks/`、`inspect/`、`build.log`，均位于 `artifacts/android-direct/`。这些检查证明打包和程序安装路径通过，不能证明 Android ARM64/Mono 和实际游戏运行已经通过。

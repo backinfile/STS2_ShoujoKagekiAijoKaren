@@ -7,8 +7,18 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 internal static class KarenLightRibbon
 {
     // Shared visual resources are prepared during the run loading screen as well as on demand.
+    // Each draw call copies these arrays synchronously. Reuse buffers on the calling
+    // thread; callers on other threads do not share mutable geometry.
+    private sealed class DrawBuffers
+    {
+        internal readonly Vector2[] Triangle = new Vector2[3], Outer = new Vector2[8], Core = new Vector2[8];
+        internal readonly Color[] Colors = new Color[3];
+    }
+    [ThreadStatic] private static DrawBuffers? _drawBuffers;
+    private static DrawBuffers Buffers => _drawBuffers ??= new DrawBuffers();
     internal static void PrepareResources()
     {
+        _ = Buffers;
         _glow ??= new GradientTexture2D {
         Width=96,Height=96,Fill=GradientTexture2D.FillEnum.Radial,FillFrom=new(.5f,.5f),FillTo=new(1,.5f),
         Gradient=new Gradient { Offsets=[0,.18f,.55f,1],Colors=[Colors.White,new(1,1,1,.65f),new(1,1,1,.12f),Colors.Transparent] } };
@@ -40,18 +50,24 @@ internal static class KarenLightRibbon
             var na=Normal(ta);var nb=Normal(tb);
             float wa = width * Mathf.Sin(u * Mathf.Pi), wb = width * Mathf.Sin(v * Mathf.Pi);
             var halo=new Color(color,alpha*.055f);
-            Strip(a-na*wa*2.3f,a+na*wa*2.3f,b+nb*wb*2.3f,b-nb*wb*2.3f,halo,halo);
+            Strip(layer,a-na*wa*2.3f,a+na*wa*2.3f,b+nb*wb*2.3f,b-nb*wb*2.3f,halo,halo);
             var ca = new Color(color, alpha * (.25f + .42f * u));
             var cb = new Color(color, alpha * (.25f + .42f * v));
-            Strip(a-na*wa,a+na*wa,b+nb*wb,b-nb*wb,ca,cb);
+            Strip(layer,a-na*wa,a+na*wa,b+nb*wb,b-nb*wb,ca,cb);
             layer.DrawLine(a,b,new Color(color.Lerp(Colors.White,.70f),alpha*(.12f+v*.42f)),Mathf.Max(.7f,width*.13f),true);
         }
-        void Strip(Vector2 a,Vector2 b,Vector2 c,Vector2 d,Color start,Color end)
-        {
-            // Explicit triangles also accept the zero-width tapered endpoints.
-            layer.DrawPrimitive([a,b,c],[start,start,end],[]);
-            layer.DrawPrimitive([a,c,d],[start,end,end],[]);
-        }
+    }
+
+    private static void Strip(Node2D layer, Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color start, Color end)
+    {
+        var buffers = Buffers;
+        var points = buffers.Triangle; var colors = buffers.Colors;
+        // Preserve the exact triangles, including the zero-width tapered endpoints.
+        points[0] = a; points[1] = b; points[2] = c;
+        colors[0] = start; colors[1] = start; colors[2] = end;
+        layer.DrawPrimitive(points, colors, Array.Empty<Vector2>());
+        points[1] = c; points[2] = d; colors[1] = end;
+        layer.DrawPrimitive(points, colors, Array.Empty<Vector2>());
     }
 
     /// <summary>Four sharp silk-light points with a white core, without an opaque sprite box.</summary>
@@ -59,7 +75,7 @@ internal static class KarenLightRibbon
     {
         if(alpha<=0 || radius<=0)return;
         layer.DrawTextureRect(Glow,new Rect2(point-Vector2.One*radius*2,Vector2.One*radius*4),false,new Color(color,alpha*.42f));
-        var outer=new Vector2[8];var core=new Vector2[8];
+        var buffers=Buffers;var outer=buffers.Outer;var core=buffers.Core;
         for(int i=0;i<8;i++){
             var direction=Vector2.FromAngle(-Mathf.Pi*.5f+i*Mathf.Pi*.25f+angle);
             float r=i%2==0?radius:radius*.15f;

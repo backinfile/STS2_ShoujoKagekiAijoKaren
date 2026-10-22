@@ -19,7 +19,9 @@ parser.add_argument("--renderer",choices=["opengl3","vulkan"],default="opengl3")
 parser.add_argument("--effect",choices=["bridge","shine","promise","all"],default="bridge")
 parser.add_argument("--passes",type=int,default=4)
 parser.add_argument("--package",type=Path,help="Final Mod folder; defaults to the AnyCPU Android package")
+parser.add_argument("--only-effect",action="append",help="Run only named all-suite cases for diagnosis; never counts as a release all-suite pass")
 args = parser.parse_args()
+if args.only_effect and args.effect!="all":parser.error("--only-effect requires --effect all")
 assert args.passes>=2
 project = Path(__file__).resolve().parents[3]
 run = project / "artifacts/vfx-first-use-20261022/runs" / (args.branch + "-" + time.strftime("%Y%m%d-%H%M%S"))
@@ -73,6 +75,7 @@ profile.mkdir(parents=True)
 shutil.copy2(args.source_env / "user/AppData/Roaming/SlayTheSpire2/default/1/settings.save", profile / "settings.save")
 env = os.environ.copy()
 env["KAREN_ALL_VFX_RESULT"]=str(run/"all-result.json")
+env["KAREN_ALL_VFX_FILTER"]=",".join(args.only_effect or [])
 env["KAREN_VFX_PROBE_EFFECT"]=args.effect
 env["KAREN_VFX_PROBE_MODE"]=args.mode
 env["APPDATA"] = str(run / "user/AppData/Roaming")
@@ -254,7 +257,7 @@ except Exception as error:
     print("FAIL", error, flush=True)
 finally:
     report = dict(platform="Windows x64 host / selected Mod package", android_arm64_tested=False,
-        branch=args.branch,effect=args.effect,renderer=args.renderer,measurement_protocol=3 if args.effect=="all" else 1,
+        branch=args.branch,effect=args.effect,effect_filter=args.only_effect,renderer=args.renderer,measurement_protocol=3 if args.effect=="all" else 1,
         package_sha256={str(f.relative_to(mods / "ShoujoKagekiAijoKaren")):hashlib.sha256(f.read_bytes()).hexdigest() for f in (mods / "ShoujoKagekiAijoKaren").rglob("*") if f.is_file()},
         results=results)
     (run / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

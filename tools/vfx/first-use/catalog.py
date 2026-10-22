@@ -23,7 +23,7 @@ def effects():
   s=p.read_text(encoding='utf-8-sig')
   ns=re.search(r'namespace ([\w.]+);',s)
   if not ns:continue
-  for match in re.finditer(r'(?:partial |sealed |abstract )*class ((?:NKaren|NDisableRelic|SN)\w+)',s):
+  for match in re.finditer(r'(?:partial |sealed |abstract )*class ((?:NKaren|NDisableRelic|SN)\w+|KarenLightRibbon)',s):
    cls=match[1]
    if s[s.rfind("\n",0,match.start())+1:match.start()].startswith("    "):
     parent=re.findall(r"^.*?class (\w+)",s[:match.start()],re.M)[0]

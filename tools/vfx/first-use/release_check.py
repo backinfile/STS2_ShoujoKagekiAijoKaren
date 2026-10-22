@@ -28,7 +28,7 @@ def main():
    evidence=None;invocation_succeeded=True
    for file in sorted((ROOT/'artifacts/vfx-first-use-20261022/runs').glob(branch+'-*/report.json'),reverse=True):
     r=json.loads(file.read_text(encoding='utf-8-sig'))
-    if r.get('effect')==effect and r.get('renderer')=='opengl3' and r.get('package_sha256')==hashes and r.get('measurement_protocol',1)==(3 if effect=='all' else 1):
+    if not r.get('effect_filter') and r.get('effect')==effect and r.get('renderer')=='opengl3' and r.get('package_sha256')==hashes and r.get('measurement_protocol',1)==(3 if effect=='all' else 1):
      evidence=file;break
    if evidence is None:
     completed=subprocess.run([sys.executable,str(HERE/'run.py'),'--source-env',str(a.source_dev/branch),'--branch',branch,'--port',str(15849 if branch=='stable' else 15850),'--effect',effect,'--package',str(package)],cwd=ROOT)
@@ -37,7 +37,7 @@ def main():
     assert latest,'Missing runtime report'
     evidence=latest[0]
    r=json.loads(evidence.read_text(encoding='utf-8-sig'))
-   passed=invocation_succeeded and bool(r.get('results')) and all(x['passed'] for x in r['results']) and r.get('package_sha256')==hashes and r.get('effect')==effect and r.get('branch')==branch and r.get('renderer')=='opengl3' and r.get('measurement_protocol',1)==(3 if effect=='all' else 1)
+   passed=invocation_succeeded and not r.get('effect_filter') and bool(r.get('results')) and all(x['passed'] for x in r['results']) and r.get('package_sha256')==hashes and r.get('effect')==effect and r.get('branch')==branch and r.get('renderer')=='opengl3' and r.get('measurement_protocol',1)==(3 if effect=='all' else 1)
    log=(evidence.parent/'godot.log').read_text(encoding='utf-8',errors='replace')
    # Never silently discard startup errors; publish the exact lines for review.
    errors=[line for line in log.splitlines() if line.startswith('ERROR:') or '[KarenVfxWarmup] failed' in line or '[EXCEPTION]' in line]
