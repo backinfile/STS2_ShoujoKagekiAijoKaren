@@ -36,7 +36,9 @@
   <ItemGroup>
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="mod_manifest.json" />
-    <EmbeddedResource Include="artifacts\telemetry-deploy\client-endpoint.json" LogicalName="KarenTelemetryEndpoint.json" Condition="Exists('artifacts\telemetry-deploy\client-endpoint.json')" />
+    <EmbeddedResource Include="artifacts\telemetry-deploy\client-endpoint.json"
+                      LogicalName="KarenTelemetryEndpoint.json"
+                      Condition="Exists('artifacts\telemetry-deploy\client-endpoint.json')" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Core\GlobalMoveSystem\GlobalMoveSystem.cs.uid" />

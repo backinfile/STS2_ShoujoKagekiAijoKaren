@@ -121,3 +121,13 @@ Release gate intentionally remains `pending`: beta bridge/shine/promise startup 
 
 
 Desktop stable/beta Mod package rebuilt with final 8443 endpoint and scoped-token upload client, zero build errors; original character selection remains enabled. All source changes are prepared in the isolated task branch; original main remains clean at the captured revision. Deployment and artifacts are retained; no remote Git push or worktree cleanup is implied by this package delivery.
+
+
+### Approved main integration
+
+User explicitly approved: 「合并到main吧」。 Coordinated the shared main update with the authorized data-service task: it first fast-forwarded main to `5d31a115a4b8f71900c5d54511d795b625134761`, then released the merge window. Synchronized that revision into this task branch. The sole conflict is formatting of the identical `KarenTelemetryEndpoint.json` EmbeddedResource; resolved to one multiline declaration while preserving `KAREN_ANDROID`. Upload client source and game runtime/resource sources are unchanged from the tested r6 task commit. No new APK build or expanded game matrix is required for this configuration-only integration.
+
+Main integration is authorized; retain the task worktree, branch, r6 APK, signing material and test evidence. No push or cleanup is part of this approval.
+
+
+Integration validation: XML parsed with exactly one endpoint EmbeddedResource and the Android define intact; all four Android/desktop × stable/beta ExportRelease compilation checks pass with zero errors. Git diff confirms no runtime or game-asset changes relative to tested r6; existing beta startup/device limitations remain unchanged. Target main will fast-forward to the synchronized task commit, preserving the already integrated observatory task.
