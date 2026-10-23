@@ -16,6 +16,9 @@ public class KarenModConfig : SimpleModConfig
 {
     private static bool _isGeneratingModInfoHtml;
 
+    [ConfigHideInUI]
+    public static bool UseRoomServer { get; set; } = src.Core.Multiplayer.AndroidPolicy.KarenOnly;
+
     /// <summary>
     /// 上传对局数据
     /// </summary>
@@ -38,6 +41,7 @@ public class KarenModConfig : SimpleModConfig
     public override void SetupConfigUI(Control optionContainer)
     {
         base.SetupConfigUI(optionContainer);
+        src.Core.Multiplayer.RoomConfigUi.Add(optionContainer);
 
         var button = new KarenConfigImageButton(
             GetSettingsText("SHOUJOKAGEKIAIJOKAREN-GENERATE_MOD_INFO_HTML_BUTTON.title", "Export Mod Info"),
