@@ -1,0 +1,144 @@
+'use strict';
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pct = value => value == null ? '—' : (value * 100).toFixed(1) + '%';
+const num = value => new Intl.NumberFormat('zh-CN').format(value ?? 0);
+const date = value => value ? new Date(value * 1000).toLocaleString('zh-CN', {hour12:false}) : '—';
+const OUTCOME = {win:'胜利',death:'死亡',abandon:'放弃'};
+const SERIES = [{key:'pick_rate',label:'选取率',color:'#375d4c'},{key:'win_rate',label:'曾持有胜率',color:'#71859b'},{key:'hold_rate',label:'持有覆盖率',color:'#ae884b'}];
+const state = {view:'cards',display:'table',sort:'held',order:-1,card:null,run:null,page:1,stats:null,runs:null,catalog:{},history:null,seat:0,floor:1};
+let requestVersion=0, toastTimer;
+function toast(text){$('toast').textContent=text;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),2600);}
+async function api(path){const response=await fetch(path,{cache:'no-store',credentials:'same-origin'});if(!response.ok)throw Error(response.status===401?'登录已失效，请刷新页面重新登录':'请求失败（'+response.status+'）');return response.json();}
+function params(){return new URLSearchParams(new FormData($('filters')));}
+function model(value){return (typeof value==='string'?value.split('.').at(-1):value?.Entry??value?.entry??'未知').toUpperCase();}
+function meta(value){const id=typeof value==='object'?model(value?.id??value):model(value);return {id,...state.catalog[id],name:state.catalog[id]?.name??id};}
+function tag(outcome){return '<span class="tag '+outcome+'">'+OUTCOME[outcome]+'</span>';}
+function image(card,cls=''){return card.image?'<img class="'+cls+'" src="'+esc(card.image)+'" alt="" loading="lazy">':'';}
+function title(card){return esc(card.name)+(card.current_upgrade_level>0?' +'+card.current_upgrade_level:'');}
+function identity(card){return '<span class="card-ident">'+image(card)+'<span><strong>'+title(card)+'</strong><small>'+esc([card.rarity,card.type,card.cost==null?'费用未知':card.cost<0?'特殊费用':card.cost+' 费'].filter(Boolean).join(' · '))+'</small></span></span>';}
+function metric(label,value,fraction){return '<div class="metric-row"><span>'+label+'</span><div><strong>'+value+'</strong>'+(fraction?'<small>'+fraction+'</small>':'')+'</div></div>';}
+function syncURL(){const p=params();p.set('view',state.view);p.set('display',state.display);history.replaceState(null,'','#'+p);}
+async function load(){
+ const version=++requestVersion;$('connection').textContent='更新中';$('connection').className='connection';$('refresh').disabled=true;
+ try{
+  const query=params(),runQuery=new URLSearchParams(query);runQuery.set('page',state.page);runQuery.set('outcome',$('outcome').value);
+  const [stats,runs]=await Promise.all([api('api/stats?'+query),api('api/runs?'+runQuery)]);
+  if(version!==requestVersion)return;
+  state.stats=stats;state.runs=runs;
+  const selected=$('build').value;$('build').innerHTML='<option value="all">全部版本</option>'+stats.builds.map(b=>'<option value="'+esc(b)+'">'+esc(b)+'</option>').join('');$('build').value=stats.builds.includes(selected)?selected:'all';
+  $('error').hidden=true;$('connection').textContent='已连接';$('connection').className='connection ok';$('updated').textContent='更新于 '+new Date().toLocaleTimeString('zh-CN',{hour12:false});
+  render();syncURL();
+ }catch(error){if(version!==requestVersion)return;$('connection').textContent='连接失败';$('error').hidden=false;$('error').textContent=error.message+'。点击刷新重试。';}
+ finally{if(version===requestVersion)$('refresh').disabled=false;}
+}
+function filteredCards(){
+ const q=$('search').value.trim().toLowerCase();
+ return (state.stats?.cards??[]).filter(c=>(!q||(c.name+' '+c.id).toLowerCase().includes(q))&&($('type').value==='all'||c.type===$('type').value)&&($('rarity').value==='all'||c.rarity===$('rarity').value)).sort((a,b)=>{
+  const av=a[state.sort],bv=b[state.sort];if(av==null&&bv!=null)return 1;if(av!=null&&bv==null)return -1;
+  return ((typeof av==='number'&&typeof bv==='number'?av-bv:String(av??'').localeCompare(String(bv??''),'zh-CN'))*state.order)||a.id.localeCompare(b.id);
+ });
+}
+function render(){
+ const s=state.stats;if(!s)return;
+ $('summary').innerHTML=[['已收对局',num(s.runs)],['统计华恋席位',num(s.seats)],['胜利 / 未胜',num(s.wins)+' / '+num(s.seats-s.wins)],['有记录卡牌',num(s.cards.length)]].map(([label,value])=>'<div><span>'+label+'</span><strong>'+value+'</strong></div>').join('')+'<div class="latest"><span>最近接收</span><strong>'+date(s.latest_received)+'</strong></div>';
+ $('cohort').innerHTML='<span>'+num(s.seats)+' 个华恋席位 · 排除 '+num(s.excluded)+' 个早期放弃席位</span><span>'+(s.card_limit_reached?'已达到 4,096 种卡牌显示上限 · ':'')+'选牌结果缺失 '+num(s.missing_picked)+' 项</span>';
+ document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===state.view));
+ $('cardsView').hidden=state.view!=='cards';$('runsView').hidden=state.view!=='runs';$('pageTitle').textContent=state.view==='cards'?'卡牌统计':'对局记录';
+ renderCards();renderRuns();
+}
+function empty(text='暂无收到的对局',sub='新对局上传后会出现在这里'){return '<div class="empty"><strong>'+text+'</strong><p>'+sub+'</p></div>';}
+function renderCards(){
+ const rows=filteredCards();if(!rows.some(c=>c.id===state.card))state.card=rows[0]?.id??null;
+ document.querySelectorAll('[data-display]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.display===state.display));
+ if(!rows.length){$('cards').innerHTML=empty(state.stats.cards.length?'没有匹配的卡牌':'暂无卡牌数据',state.stats.cards.length?'调整搜索或卡牌筛选':'等待华恋对局上传');$('cardDetail').innerHTML=empty('选择卡牌查看数据','');return;}
+ const head=(key,label)=>'<th aria-sort="'+(state.sort===key?(state.order<0?'descending':'ascending'):'none')+'"><button data-sort="'+key+'">'+label+(state.sort===key?(state.order<0?' ↓':' ↑'):'')+'</button></th>';
+ const rate=(c,key,numerator,denominator)=>'<td><span class="num">'+pct(c[key])+'</span><span class="fraction">'+numerator+' / '+denominator+'</span></td>';
+ if(state.display==='table')$('cards').innerHTML='<table><caption hidden>华恋卡牌统计</caption><thead><tr>'+head('name','卡牌')+head('pick_rate','选取率')+head('win_rate','曾持有胜率')+head('hold_rate','持有覆盖率')+head('recorded_offers','选牌记录')+head('held','持有席位')+'</tr></thead><tbody>'+rows.map(c=>'<tr data-card="'+esc(c.id)+'" class="'+(c.id===state.card?'selected':'')+'"><td><button class="card-name" data-card="'+esc(c.id)+'">'+identity(c)+'</button></td>'+rate(c,'pick_rate',c.picked,c.offered)+rate(c,'win_rate',c.wins,c.held)+rate(c,'hold_rate',c.held,state.stats.seats)+'<td>'+num(c.recorded_offers)+'</td><td>'+num(c.held)+'</td></tr>').join('')+'</tbody></table>';
+ else $('cards').innerHTML='<div class="legend">'+SERIES.map(m=>'<span><i style="--series:'+m.color+'"></i>'+m.label+'</span>').join('')+'</div><div class="chart-axis"><span>卡牌</span><span class="ticks"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></span></div>'+rows.map(c=>'<button class="chart-row" data-card="'+esc(c.id)+'" aria-pressed="'+(c.id===state.card)+'">'+identity(c)+'<span class="bars">'+SERIES.map(m=>'<span class="track" title="'+m.label+' '+pct(c[m.key])+'"><span class="fill" style="--value:'+(c[m.key]==null?0:c[m.key]*100)+'%;--series:'+m.color+';display:block"></span></span>').join('')+'</span><span class="chart-values">'+SERIES.map(m=>'<span>'+pct(c[m.key])+'</span>').join('')+'</span></button>').join('');
+ const c=rows.find(c=>c.id===state.card);
+ $('cardDetail').innerHTML=image(c,'hero')+'<h2>'+esc(c.name)+'</h2><span class="model-id">'+esc(c.id)+'</span><div class="metrics">'+metric('选取率',pct(c.pick_rate),c.offered?c.picked+' / '+c.offered+' 次奖励提供':'暂无来源明确的奖励记录')+metric('曾持有胜率',pct(c.win_rate),c.wins+' / '+c.held+' 席位')+metric('持有覆盖率',pct(c.hold_rate),c.held+' / '+state.stats.seats+' 席位')+metric('原生选牌记录',num(c.recorded_offers),c.recorded_picked+' 项已选 · '+c.unknown_picked+' 项结果缺失')+'</div>';
+}
+function renderRuns(){
+ const r=state.runs;if(!r)return;
+ if(!r.items.some(run=>run.id===state.run))state.run=r.items[0]?.id??null;
+ $('runs').innerHTML=r.items.length?'<table><caption hidden>已接收对局</caption><thead><tr><th>对局 / 接收时间</th><th>玩家</th><th>结果</th><th>进度</th><th>版本 / 进阶</th><th></th></tr></thead><tbody>'+r.items.map(run=>'<tr data-run="'+run.id+'" class="'+(run.id===state.run?'selected':'')+'"><td><button data-run="'+run.id+'">'+run.id.slice(0,12)+'</button><span class="fraction">'+date(run.received_at)+'</span></td><td>'+run.player_count+' 人<span class="fraction">'+run.players.map(p=>p.character==='KAREN'?'华恋':esc(p.character)).join(' / ')+'</span></td><td>'+tag(run.outcome)+'</td><td>'+run.floor+' 层</td><td>'+esc(run.build)+'<span class="fraction">进阶 '+run.ascension+'</span></td><td><button data-history="'+run.id+'" aria-label="查看对局详情 '+run.id.slice(0,12)+'">↗</button></td></tr>').join('')+'</tbody></table>':empty();
+ const run=r.items.find(r=>r.id===state.run);
+ $('runDetail').innerHTML=run?'<span class="tag">已接收</span><h2>'+OUTCOME[run.outcome]+' · 第 '+run.floor+' 层</h2><span class="model-id">'+run.id+'</span><div class="metrics">'+metric('游戏时间',date(run.start_time))+metric('游戏版本',esc(run.build))+metric('进阶 / 人数',run.ascension+' / '+run.player_count)+metric('时长',Math.floor(run.duration/60)+' 分 '+Math.floor(run.duration%60)+' 秒')+metric('选牌结果缺失',num(run.missing_picked)+' 项')+metric('重复上传',num(run.duplicates)+' 次')+'</div><button class="primary" data-history="'+run.id+'">查看对局详情 ↗</button><button class="secondary" data-raw="'+run.id+'">下载原始记录 ↓</button>':empty('选择对局查看数据','');
+ const pages=Math.max(1,Math.ceil(r.total/r.page_size));
+ $('pagination').innerHTML='<span>'+num(r.total)+' 局</span><div><button data-page="'+(state.page-1)+'" '+(state.page<=1?'disabled':'')+'>上一页</button><span>'+state.page+' / '+pages+'</span><button data-page="'+(state.page+1)+'" '+(state.page>=pages?'disabled':'')+'>下一页</button></div>';
+}
+function openModal(title,html){$('modalTitle').textContent=title;$('modalBody').innerHTML=html;if(!$('modal').open)$('modal').showModal();}
+function rules(){openModal('统计规则',[
+ ['统计样本','以华恋玩家席位计数，同席位同模型只计一次。默认排除前 5 层放弃；早期死亡保留，其他放弃计入未胜。'],
+ ['曾持有胜率','胜利且曾持有该模型的席位 ÷ 曾持有该模型的席位。依据终局牌组、耗尽牌堆、获取、移除、变牌与明确选中记录；华恋起始牌按当前角色定义补入。'],
+ ['持有覆盖率','曾持有该模型的席位 ÷ 筛选后的全部华恋席位。卡名、类型、稀有度筛选只影响卡牌行。'],
+ ['选取率','已选中的免费奖励提供项 ÷ 免费奖励提供项。原生 card_choices 混有商店与遗物记录，来源未明确时不进入奖励分母。无有效分母显示“—”。'],
+ ['原生选牌记录','保留 card_choices 的条目数、明确选中数和结果缺失数。未记录 was_picked 时不补 false，也不根据终局卡组推断。'],
+ ['时间与胜负','时间按服务器首次接收时间筛选。结果筛选只作用于对局列表，不改变卡牌胜率。']
+ ].map(([title,text])=>'<details><summary>'+title+'</summary><p>'+text+'</p></details>').join(''));}
+async function openHistory(id){
+ try{const data=await api('api/runs/'+id);state.history=data;state.seat=Math.max(0,data.history.players.findIndex(p=>model(p.character)==='KAREN'));state.floor=1;renderHistory();if(!$('history').open)$('history').showModal();}
+ catch(error){toast(error.message);}
+}
+function floors(){let floor=0;return (state.history?.history.map_point_history??[]).flatMap((entries,act)=>entries.map(entry=>({entry,act:act+1,floor:++floor})));}
+const ROOM={unassigned:'未知房间',unknown:'未知房间',monster:'普通战斗',elite:'精英战斗',boss:'首领战斗',shop:'商店',treasure:'宝箱',event:'事件',restsite:'休息处',map:'地图',ancient:'先古'};
+function roomName(entry){const value=entry.rooms?.[0]?.room_type??entry.map_point_type;const names=entry.rooms?.length?['unassigned','monster','elite','boss','treasure','shop','event','restsite','map']:['unassigned','unknown','shop','treasure','restsite','monster','elite','boss','ancient'];return typeof value==='number'?names[value]??'unknown':String(value??'unknown').toLowerCase().replaceAll('_','');}
+function roomIcon(entry){const room=roomName(entry);return ({restsite:'rest',unknown:'event',map:'event',unassigned:'event'}[room]??room);}
+function groupPile(cards){const map=new Map();for(const card of cards??[]){const id=model(card.id),level=card.current_upgrade_level??0,key=id+'+'+level;if(!map.has(key))map.set(key,{...meta(id),current_upgrade_level:level,count:0});map.get(key).count++;}return [...map.values()];}
+function pileHTML(cards){const groups=groupPile(cards);return groups.length?'<div class="pile">'+groups.map(c=>'<button class="history-card" data-inspect="'+esc(c.id)+'">'+image(c)+'<span>'+title(c)+'<small>'+c.count+' 张</small></span></button>').join('')+'</div>':'<div class="empty">无记录卡牌</div>';}
+function renderHistory(){
+ const {summary:r,history:h}=state.history,p=h.players[state.seat],all=floors();
+ $('historyTitle').innerHTML='<strong>对局历史</strong><small>'+date(r.start_time)+' · '+esc(r.id.slice(0,12))+'</small>';
+ const acts=[...new Set(all.map(f=>f.act))];
+ $('historyBody').innerHTML='<div class="history-meta"><img src="assets/character_icon_karen.webp" alt="华恋"><div><h2>'+(model(p.character)==='KAREN'?'爱城华恋':esc(model(p.character)))+' · '+OUTCOME[r.outcome]+'</h2><span>进阶 '+r.ascension+' · 第 '+r.floor+' 层 · '+Math.floor(r.duration/60)+' 分钟 · '+esc(r.build)+'</span></div><span class="spacer"></span><select id="historySeat" aria-label="查看玩家席位">'+h.players.map((p,i)=>'<option value="'+i+'" '+(i===state.seat?'selected':'')+'>'+esc(model(p.character))+' · '+esc(String(p.id))+'</option>').join('')+'</select><button class="raw-button" data-raw="'+r.id+'">原始记录 ↓</button></div><div class="history-grid"><div><h3>路线</h3>'+acts.map(act=>'<div class="route-act"><h4>第 '+act+' 幕</h4><div class="route">'+all.filter(f=>f.act===act).map(f=>'<button class="node '+(f.floor===state.floor?'selected':'')+'" data-floor="'+f.floor+'" aria-label="第 '+f.floor+' 层 '+(ROOM[roomName(f.entry)]??'未知房间')+'"><img src="assets/'+esc(roomIcon(f.entry))+'.png" alt=""><span>'+f.floor+'</span></button>').join('')+'</div></div>').join('')+(all.length?'':'<div class="empty">暂无路线记录</div>')+'<h3>遗物 · '+(p.relics?.length??0)+'</h3><div class="relic-list">'+(p.relics??[]).map(relic=>'<span>'+esc(model(relic.id??relic))+'</span>').join('')+'</div><h3>终局牌组 · '+(p.deck?.length??0)+'</h3>'+pileHTML(p.deck)+(model(p.character)==='KAREN'?'<h3>耗尽牌堆 · '+(p.karen_shine_exhaust_cards?.length??0)+'</h3>'+pileHTML(p.karen_shine_exhaust_cards):'')+'</div><aside id="floorDetail" class="history-side"></aside></div>';
+ renderFloor();
+}
+function renderFloor(){
+ const f=floors().find(f=>f.floor===state.floor),p=state.history.history.players[state.seat];
+ if(!f){$('floorDetail').innerHTML='<h3>对局信息</h3><p>种子 '+esc(state.history.history.seed)+'</p><p>暂无楼层记录</p>';return;}
+ const stat=f.entry.player_stats?.find(s=>String(s.player_id)===String(p.id));
+ const list=(label,items)=>items?.length?'<p>'+label+'</p><ul>'+items.map(item=>'<li>'+title({...meta(item.id??item),current_upgrade_level:item.current_upgrade_level})+'</li>').join('')+'</ul>':'';
+ $('floorDetail').innerHTML='<h3>第 '+f.floor+' 层 · '+(ROOM[roomName(f.entry)]??'未知房间')+'</h3><p>第 '+f.act+' 幕</p>'+(f.entry.rooms??[]).map(room=>'<p>'+esc(model(room.model_id??'UNKNOWN'))+(room.turns_taken?' · '+room.turns_taken+' 回合':'')+'</p>').join('')+(stat?metric('生命',esc(stat.current_hp??'—')+' / '+esc(stat.max_hp??'—'))+metric('金币',esc(stat.current_gold??'—'))+metric('承受伤害',esc(stat.damage_taken??'—'))+list('获得卡牌',stat.cards_gained)+list('移除卡牌',stat.cards_removed)+(stat.card_choices?.length?'<p>选牌记录</p><ul>'+stat.card_choices.map(c=>'<li>'+title({...meta(c.card.id),current_upgrade_level:c.card.current_upgrade_level})+' · '+(c.was_picked===true?'已选':c.was_picked===false?'未选':'结果缺失')+'</li>').join('')+'</ul>':'')+(stat.rest_site_choices?.length?'<p>'+stat.rest_site_choices.map(esc).join(' · ')+'</p>':''):'<p>该席位未记录楼层数据</p>');
+ document.querySelectorAll('[data-floor]').forEach(b=>b.classList.toggle('selected',Number(b.dataset.floor)===state.floor));
+}
+async function raw(id){
+ try{const response=await fetch('api/runs/'+id+'/raw',{credentials:'same-origin'});if(!response.ok)throw Error('下载失败');save('karen-'+id+'.json',await response.blob());}
+ catch(error){toast(error.message);}
+}
+function save(name,blob){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function csv(){
+ if(!state.stats)return;
+ const rows=state.view==='cards'?[['模型ID','卡名','类型','稀有度','基础费用','奖励选中次数','奖励提供次数','选取率','曾持有胜利席位','曾持有席位','曾持有胜率','统计席位','持有覆盖率','原生选牌条目','原生明确选中','选牌结果缺失'],...filteredCards().map(c=>[c.id,c.name,c.type,c.rarity,c.cost,c.picked,c.offered,pct(c.pick_rate),c.wins,c.held,pct(c.win_rate),state.stats.seats,pct(c.hold_rate),c.recorded_offers,c.recorded_picked,c.unknown_picked])]:[['对局ID','接收时间','开始时间','结果','楼层','进阶','人数','版本'],...(state.runs?.items??[]).map(r=>[r.id,date(r.received_at),date(r.start_time),OUTCOME[r.outcome],r.floor,r.ascension,r.player_count,r.build])];
+ const cell=v=>'"'+String(v??'').replace(/^[=+@\-\t\r]/,"'$&").replaceAll('"','""')+'"';
+ const filters=[...params()].map(([key,value])=>[key,value]);
+ if(state.view==='runs')filters.push(['page',state.page],['outcome',$('outcome').value]);
+ save('karen-'+state.view+'.csv',new Blob(['\ufeff'+[...filters,[],...rows].map(r=>r.map(cell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}));toast(state.view==='runs'?'已导出当前页对局':'已导出筛选后的卡牌');
+}
+document.addEventListener('click',event=>{
+ const b=event.target.closest('button');
+ if(b?.dataset.close){$(b.dataset.close).close();return;}
+ if(b?.dataset.view){state.view=b.dataset.view;render();syncURL();return;}
+ if(b?.dataset.display){state.display=b.dataset.display;renderCards();syncURL();return;}
+ if(b?.dataset.sort){state.order=state.sort===b.dataset.sort?-state.order:-1;state.sort=b.dataset.sort;renderCards();return;}
+ if(b?.dataset.history){openHistory(b.dataset.history);return;}
+ if(b?.dataset.raw){raw(b.dataset.raw);return;}
+ if(b?.dataset.page){state.page=Number(b.dataset.page);load();return;}
+ if(b?.dataset.floor){state.floor=Number(b.dataset.floor);renderFloor();return;}
+ if(b?.dataset.inspect){const c=meta(b.dataset.inspect);$('floorDetail').innerHTML=image(c,'hero')+'<h3>'+esc(c.name)+'</h3><p>'+esc(c.id)+'</p><p>'+esc([c.type,c.rarity].filter(Boolean).join(' · '))+'</p><button id="backFloor">返回楼层</button>';return;}
+ if(b?.id==='backFloor'){renderFloor();return;}
+ const card=event.target.closest('[data-card]');if(card){state.card=card.dataset.card;renderCards();return;}
+ const run=event.target.closest('[data-run]');if(run){state.run=run.dataset.run;renderRuns();}
+});
+$('filters').addEventListener('submit',e=>e.preventDefault());
+$('filters').addEventListener('change',()=>{state.page=1;load();});
+$('outcome').addEventListener('change',()=>{state.page=1;load();});
+document.addEventListener('change',event=>{if(event.target.id==='historySeat'){state.seat=Number(event.target.value);renderHistory();}});
+for(const id of ['search','type','rarity'])$(id).addEventListener(id==='search'?'input':'change',renderCards);
+$('refresh').addEventListener('click',load);$('rules').addEventListener('click',rules);$('export').addEventListener('click',csv);
+for(let i=0;i<=10;i++){const option=document.createElement('option');option.value=i;option.textContent='进阶 '+i;$('filters').elements.ascension.append(option);}
+const urlState=new URLSearchParams(location.hash.slice(1));
+for(const [key,value] of urlState){const control=$('filters').elements.namedItem(key);if(key==='build'&&value!=='all'&&value.length<=120){const option=document.createElement('option');option.value=value;option.textContent=value;control.append(option);}if(control&&[...control.options].some(o=>o.value===value))control.value=value;}
+if(['cards','runs'].includes(urlState.get('view')))state.view=urlState.get('view');
+if(['table','chart'].includes(urlState.get('display')))state.display=urlState.get('display');
+api('catalog.json').then(catalog=>{state.catalog=catalog;return load();}).catch(error=>{$('error').hidden=false;$('error').textContent=error.message;$('connection').textContent='连接失败';});

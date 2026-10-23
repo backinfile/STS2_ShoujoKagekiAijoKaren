@@ -1,0 +1,584 @@
+"""Karen history collector. Python 3.12+, SQLite; private HTTP behind nginx."""
+from __future__ import annotations
+
+import argparse
+from contextlib import contextmanager, closing
+import gzip
+import hashlib
+import hmac
+import json
+import logging
+import math
+import os
+from pathlib import Path
+import re
+import secrets
+import socket
+import sqlite3
+import threading
+import time
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from urllib.parse import parse_qs, urlsplit
+
+ROOT = Path(__file__).resolve().parent
+MAX_BODY = 8 * 1024 * 1024
+SHINE_VALUES = {"karen_shine_current", "karen_shine_max"}
+STARTERS = {"KAREN_STRIKE", "KAREN_DEFEND", "KAREN_SHINE_STRIKE", "KAREN_FALL"}
+MODEL = re.compile(r"[A-Za-z0-9_.:\-]{1,180}\Z")
+CATALOG = json.loads((ROOT / "web/catalog.json").read_text(encoding="utf-8"))
+LOG = logging.getLogger("karen-telemetry")
+
+
+class Invalid(ValueError):
+    pass
+
+
+def dumps(value):
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+
+
+def model(value):
+    if isinstance(value, dict):
+        value = value.get("Entry", value.get("entry"))
+    if not isinstance(value, str) or not MODEL.fullmatch(value):
+        raise Invalid("invalid_model_id")
+    return value.rsplit(".", 1)[-1].upper()
+
+
+def card_id(card):
+    if not isinstance(card, dict):
+        raise Invalid("invalid_card")
+    return model(card.get("id"))
+
+
+def integer(value, low, high, field):
+    if type(value) is not int or not low <= value <= high:
+        raise Invalid("invalid_" + field)
+    return value
+
+
+def player_id(value):
+    if type(value) is int and 0 <= value <= 2**64 - 1:
+        return str(value)
+    if isinstance(value, str) and re.fullmatch(r"[0-9]{1,20}", value) and int(value) <= 2**64 - 1:
+        return str(int(value))
+    raise Invalid("invalid_player_id")
+
+
+def enum_name(value, names):
+    if type(value) is int and 0 <= value < len(names):
+        return names[value]
+    if isinstance(value, str) and len(value) <= 80:
+        return value.lower().replace("_", "")
+    raise Invalid("invalid_enum")
+
+
+def sanitize(value, depth=0):
+    """Discard only the expressly unwanted Shine counters, including SavedProperty entries."""
+    if depth > 80:
+        raise Invalid("json_too_deep")
+    if isinstance(value, dict):
+        return {k: sanitize(v, depth + 1) for k, v in value.items() if k not in SHINE_VALUES}
+    if isinstance(value, list):
+        return [sanitize(v, depth + 1) for v in value
+                if not (isinstance(v, dict) and v.get("name") in SHINE_VALUES)]
+    if isinstance(value, float) and not math.isfinite(value):
+        raise Invalid("invalid_number")
+    return value
+
+
+def strict_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise Invalid("duplicate_json_key")
+        result[key] = value
+    return result
+
+
+def parse_history(body):
+    try:
+        data = json.loads(body.decode("utf-8-sig"), object_pairs_hook=strict_object,
+                          parse_constant=lambda _: (_ for _ in ()).throw(Invalid("invalid_number")))
+    except (UnicodeError, json.JSONDecodeError, RecursionError) as exc:
+        raise Invalid("invalid_json") from exc
+    if not isinstance(data, dict):
+        raise Invalid("expected_run_history")
+    return sanitize(data)
+
+
+def derive(data):
+    start = integer(data.get("start_time"), 1, int(time.time()) + 86400, "start_time")
+    seed = data.get("seed")
+    if not isinstance(seed, str) or not 1 <= len(seed) <= 256:
+        raise Invalid("invalid_seed")
+    for field in ("win", "was_abandoned"):
+        if type(data.get(field)) is not bool:
+            raise Invalid("invalid_" + field)
+    if data["win"] and data["was_abandoned"]:
+        raise Invalid("conflicting_outcome")
+    asc = integer(data.get("ascension"), 0, 100, "ascension")
+    duration = data.get("run_time", 0)
+    if type(duration) not in (int, float) or not math.isfinite(duration) or not 0 <= duration <= 31536000:
+        raise Invalid("invalid_run_time")
+    build = data.get("build_id")
+    if not isinstance(build, str) or not 1 <= len(build) <= 120:
+        raise Invalid("invalid_build_id")
+    mode = enum_name(data.get("game_mode", "standard"), ["none", "standard", "daily", "custom"])
+    platform = str(data.get("platform_type", "unknown"))[:80]
+    players = data.get("players")
+    if not isinstance(players, list) or not 1 <= len(players) <= 16:
+        raise Invalid("invalid_players")
+    seats = {}
+    for player in players:
+        if not isinstance(player, dict):
+            raise Invalid("invalid_player")
+        pid = player_id(player.get("id"))
+        if pid in seats:
+            raise Invalid("duplicate_player_id")
+        character = model(player.get("character"))
+        held = set(STARTERS) if character == "KAREN" else set()
+        for field in ("deck", "karen_shine_exhaust_cards"):
+            cards = player.get(field, [])
+            if not isinstance(cards, list) or len(cards) > 3000:
+                raise Invalid("invalid_" + field)
+            held.update(card_id(c) for c in cards)
+        seats[pid] = {"id": pid, "character": character, "held": held,
+                      "offers": [], "observed": [], "missing_picked": 0}
+    acts = data.get("map_point_history")
+    if not isinstance(acts, list) or len(acts) > 20:
+        raise Invalid("invalid_map_history")
+    floor = 0
+    for act_index, entries in enumerate(acts):
+        if not isinstance(entries, list) or len(entries) > 300:
+            raise Invalid("invalid_act_history")
+        for entry in entries:
+            floor += 1
+            if floor > 1000 or not isinstance(entry, dict):
+                raise Invalid("invalid_map_entry")
+            stats = entry.get("player_stats", [])
+            if not isinstance(stats, list) or len(stats) > len(seats):
+                raise Invalid("invalid_player_stats")
+            seen = set()
+            for stat in stats:
+                if not isinstance(stat, dict):
+                    raise Invalid("invalid_player_stats")
+                pid = player_id(stat.get("player_id"))
+                if pid not in seats or pid in seen:
+                    raise Invalid("unmatched_player_stats")
+                seen.add(pid)
+                seat = seats[pid]
+                for field in ("cards_gained", "cards_removed"):
+                    cards = stat.get(field, [])
+                    if not isinstance(cards, list) or len(cards) > 3000:
+                        raise Invalid("invalid_" + field)
+                    seat["held"].update(card_id(c) for c in cards)
+                transformations = stat.get("cards_transformed", [])
+                if not isinstance(transformations, list) or len(transformations) > 3000:
+                    raise Invalid("invalid_transformations")
+                for change in transformations:
+                    if not isinstance(change, dict):
+                        raise Invalid("invalid_transformation")
+                    for field in ("original_card", "final_card"):
+                        seat["held"].add(card_id(change.get(field)))
+                choices = stat.get("card_choices", [])
+                if not isinstance(choices, list) or len(choices) > 3000:
+                    raise Invalid("invalid_card_choices")
+                for choice in choices:
+                    if not isinstance(choice, dict):
+                        raise Invalid("invalid_card_choice")
+                    cid = card_id(choice.get("card"))
+                    picked = choice.get("was_picked")
+                    if picked is not None and type(picked) is not bool:
+                        raise Invalid("invalid_was_picked")
+                    if picked is None:
+                        seat["missing_picked"] += 1
+                    if picked is True:
+                        seat["held"].add(cid)
+                    seat["observed"].append({"card": cid, "picked": picked, "act": act_index + 1})
+                    # Native card_choices mixes reward, shop and relic selections.
+                    # Only explicitly identified free rewards have a defensible Pick% denominator.
+                    if choice.get("choice_kind") == "free_reward" and type(picked) is bool:
+                        seat["offers"].append({"card": cid, "picked": picked, "act": act_index + 1})
+    for seat in seats.values():
+        seat["held"] = sorted(seat["held"])
+    identity = dumps([platform, seed, start, sorted(seats)])
+    rid = hashlib.sha256(identity.encode()).hexdigest()[:32]
+    return {"id": rid, "start_time": start, "seed": seed, "floor": floor, "ascension": asc,
+            "build": build, "mode": mode, "player_count": len(seats), "duration": duration,
+            "outcome": "win" if data["win"] else "abandon" if data["was_abandoned"] else "death",
+            "seats": list(seats.values()), "verification": "unverified_client",
+            "missing_picked": sum(s["missing_picked"] for s in seats.values())}
+
+
+class Store:
+    def __init__(self, path):
+        self.path = Path(path)
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        with self.connect() as db:
+            db.execute("PRAGMA journal_mode=WAL")
+            db.execute("""CREATE TABLE IF NOT EXISTS runs (
+                id TEXT PRIMARY KEY, digest TEXT NOT NULL, payload BLOB NOT NULL,
+                facts TEXT NOT NULL, received INTEGER NOT NULL, start_time INTEGER NOT NULL,
+                build TEXT NOT NULL, ascension INTEGER NOT NULL, mode TEXT NOT NULL,
+                player_count INTEGER NOT NULL, outcome TEXT NOT NULL, floor INTEGER NOT NULL,
+                duplicates INTEGER NOT NULL DEFAULT 0)""")
+            db.execute("CREATE INDEX IF NOT EXISTS runs_received ON runs(received DESC, id)")
+            db.execute("""CREATE TABLE IF NOT EXISTS upload_sessions (
+                token_hash TEXT PRIMARY KEY, digest TEXT NOT NULL, size INTEGER NOT NULL,
+                ip TEXT NOT NULL, expires INTEGER NOT NULL, created INTEGER NOT NULL,
+                used INTEGER NOT NULL DEFAULT 0)""")
+
+    def session(self, manifest, ip):
+        if not isinstance(manifest, dict) or not re.fullmatch(r"[0-9a-f]{64}", str(manifest.get("sha256", ""))):
+            raise Invalid("invalid_payload_sha256")
+        size = integer(manifest.get("bytes"), 1, MAX_BODY, "payload_size")
+        now = int(time.time())
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            db.execute("DELETE FROM upload_sessions WHERE created<?", (now - 86400,))
+            count = db.execute("SELECT COUNT(*) FROM upload_sessions").fetchone()[0]
+            if count >= 4000:
+                return 429, {"error": "daily_session_budget_reached"}
+            active = db.execute("SELECT COUNT(*) FROM upload_sessions WHERE ip=? AND used=0 AND expires>=?", (ip, now)).fetchone()[0]
+            if active >= 4:
+                return 429, {"error": "too_many_pending_uploads"}
+            token = secrets.token_urlsafe(32)
+            db.execute("INSERT INTO upload_sessions VALUES (?,?,?,?,?,?,0)",
+                       (hashlib.sha256(token.encode()).hexdigest(), manifest["sha256"], size, ip, now + 120, now))
+        return 201, {"upload_token": token, "expires_in": 120, "scope": "single_run_upload"}
+
+    def authorize(self, token, body, ip):
+        if not re.fullmatch(r"[A-Za-z0-9_-]{40,80}", token):
+            return False
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            row = db.execute("SELECT * FROM upload_sessions WHERE token_hash=?", (hashlib.sha256(token.encode()).hexdigest(),)).fetchone()
+            if not row or row["used"] or row["expires"] < int(time.time()) or row["ip"] != ip:
+                return False
+            if row["size"] != len(body) or not hmac.compare_digest(row["digest"], hashlib.sha256(body).hexdigest()):
+                return False
+            db.execute("UPDATE upload_sessions SET used=1 WHERE token_hash=?", (row["token_hash"],))
+        return True
+
+    @contextmanager
+    def connect(self):
+        db = sqlite3.connect(self.path, timeout=15)
+        db.row_factory = sqlite3.Row
+        db.execute("PRAGMA busy_timeout=15000")
+        try:
+            with db:
+                yield db
+        finally:
+            db.close()
+
+    def upload(self, data):
+        facts = derive(data)
+        raw = dumps(data).encode()
+        digest = hashlib.sha256(json.dumps(data, sort_keys=True, ensure_ascii=False,
+                                         separators=(",", ":"), allow_nan=False).encode()).hexdigest()
+        rid = facts["id"]
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            old = db.execute("SELECT digest FROM runs WHERE id=?", (rid,)).fetchone()
+            if old:
+                if not hmac.compare_digest(old["digest"], digest):
+                    return 409, {"error": "run_identity_conflict", "run_id": rid}
+                db.execute("UPDATE runs SET duplicates=duplicates+1 WHERE id=?", (rid,))
+                return 200, {"status": "duplicate", "run_id": rid}
+            if db.execute("SELECT COUNT(*) FROM runs WHERE received>=?", (int(time.time()) - 86400,)).fetchone()[0] >= 2000:
+                return 429, {"error": "daily_collection_budget_reached"}
+            if self.path.stat().st_size > 1024**3:
+                return 507, {"error": "storage_capacity_reached"}
+            db.execute("INSERT INTO runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,0)",
+                       (rid, digest, gzip.compress(raw), dumps(facts), int(time.time()),
+                        facts["start_time"], facts["build"], facts["ascension"], facts["mode"],
+                        facts["player_count"], facts["outcome"], facts["floor"]))
+        return 201, {"status": "ok", "run_id": rid,
+                     "quality": {"missing_was_picked": facts["missing_picked"]}}
+
+    def where(self, query, include_outcome=False):
+        clauses, values = [], []
+        try:
+            days = int(query.get("days", ["7"])[0])
+        except ValueError as exc:
+            raise Invalid("invalid_days") from exc
+        if days not in (0, 1, 7, 14, 30, 90):
+            raise Invalid("invalid_days")
+        if days:
+            clauses.append("received>=?")
+            values.append(int(time.time()) - days * 86400)
+        for key, column in [("build", "build"), ("ascension", "ascension"),
+                            ("mode", "mode"), ("players", "player_count")]:
+            value = query.get(key, ["all"])[0]
+            if value != "all":
+                if len(value) > 120:
+                    raise Invalid("invalid_filter")
+                clauses.append(column + "=?")
+                values.append(value)
+        if include_outcome and query.get("outcome", ["all"])[0] != "all":
+            clauses.append("outcome=?")
+            values.append(query["outcome"][0])
+        return (" WHERE " + " AND ".join(clauses) if clauses else ""), values
+
+    @staticmethod
+    def summary(row):
+        facts = json.loads(row["facts"])
+        return {k: v for k, v in facts.items() if k != "seats"} | {
+            "received_at": row["received"], "duplicates": row["duplicates"],
+            "players": [{"id": s["id"], "character": s["character"]} for s in facts["seats"]]}
+
+    def runs(self, query):
+        where, values = self.where(query, include_outcome=True)
+        try:
+            page = max(1, min(1000000, int(query.get("page", ["1"])[0])))
+        except ValueError as exc:
+            raise Invalid("invalid_page") from exc
+        with self.connect() as db:
+            count = db.execute("SELECT COUNT(*) FROM runs" + where, values).fetchone()[0]
+            rows = db.execute("SELECT facts,received,duplicates FROM runs" + where +
+                              " ORDER BY received DESC,id LIMIT 20 OFFSET ?", values + [(page - 1) * 20]).fetchall()
+        return {"items": [self.summary(r) for r in rows], "total": count, "page": page, "page_size": 20}
+
+    def stats(self, query):
+        where, values = self.where(query)
+        with self.connect() as db:
+            builds = [r[0] for r in db.execute("SELECT DISTINCT build FROM runs ORDER BY build DESC")]
+            count, latest = db.execute("SELECT COUNT(*),MAX(received) FROM runs" + where, values).fetchone()
+        def rows():
+            with self.connect() as db:
+                yield from db.execute("SELECT facts FROM runs" + where, values)
+        cards, total, wins, excluded, missing = {}, 0, 0, 0, 0
+        raw_seats = 0
+        limited = False
+        for row in rows():
+            run = json.loads(row["facts"])
+            seats = [s for s in run["seats"] if s["character"] == "KAREN"]
+            raw_seats += len(seats)
+            if query.get("sample", ["codex"])[0] != "all" and run["outcome"] == "abandon" and run["floor"] <= 5:
+                excluded += len(seats)
+                continue
+            for seat in seats:
+                total += 1
+                won = run["outcome"] == "win"
+                wins += won
+                missing += seat["missing_picked"]
+                ids = set(seat["held"]) | {x["card"] for x in seat["observed"]}
+                for cid in ids:
+                    if cid not in cards and len(cards) >= 4096:
+                        limited = True
+                        continue
+                    cards.setdefault(cid, {"id": cid, "held": 0, "wins": 0, "offered": 0, "picked": 0,
+                                           "recorded_offers": 0, "recorded_picked": 0, "unknown_picked": 0})
+                for cid in seat["held"]:
+                    if cid not in cards:
+                        continue
+                    cards[cid]["held"] += 1
+                    cards[cid]["wins"] += won
+                for choice in seat["observed"]:
+                    if choice["card"] not in cards:
+                        continue
+                    item = cards[choice["card"]]
+                    item["recorded_offers"] += 1
+                    item["recorded_picked"] += choice["picked"] is True
+                    item["unknown_picked"] += choice["picked"] is None
+                for choice in seat["offers"]:
+                    if choice["card"] not in cards:
+                        continue
+                    cards[choice["card"]]["offered"] += 1
+                    cards[choice["card"]]["picked"] += choice["picked"]
+        result = []
+        for cid, item in cards.items():
+            item.update(CATALOG.get(cid, {"name": cid, "type": "未知", "rarity": "未知", "cost": None}))
+            item.update({"pick_rate": item["picked"] / item["offered"] if item["offered"] else None,
+                         "win_rate": item["wins"] / item["held"] if item["held"] else None,
+                         "hold_rate": item["held"] / total if total else None})
+            result.append(item)
+        return {"runs": count, "raw_seats": raw_seats, "seats": total, "wins": wins,
+                "excluded": excluded, "missing_picked": missing,
+                "latest_received": latest, "builds": builds, "card_limit_reached": limited,
+                "cards": result, "pick_policy": "explicit_free_reward_only"}
+
+    def detail(self, rid):
+        with self.connect() as db:
+            row = db.execute("SELECT * FROM runs WHERE id=?", (rid,)).fetchone()
+        if not row:
+            return None
+        return row
+
+    def backup(self, destination):
+        target = Path(destination)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with self.connect() as db, closing(sqlite3.connect(target)) as out:
+            db.backup(out)
+
+
+def safe_display(value):
+    # JavaScript must not round 64-bit Steam/player identifiers.
+    if type(value) is int and abs(value) > 2**53 - 1:
+        return str(value)
+    if isinstance(value, dict):
+        return {k: safe_display(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [safe_display(v) for v in value]
+    return value
+
+
+class Server(ThreadingHTTPServer):
+    daemon_threads = True
+    request_queue_size = 32
+
+    def __init__(self, address, store, read_key):
+        self.slots = threading.BoundedSemaphore(8)
+        self.store, self.read_key = store, read_key
+        super().__init__(address, Handler)
+
+    def process_request(self, request, address):
+        if not self.slots.acquire(blocking=False):
+            request.close()
+            return
+        try:
+            super().process_request(request, address)
+        except Exception:
+            self.slots.release()
+            raise
+
+    def process_request_thread(self, request, address):
+        try:
+            super().process_request_thread(request, address)
+        finally:
+            self.slots.release()
+
+
+class Handler(BaseHTTPRequestHandler):
+    server_version = "KarenHistory"
+    sys_version = ""
+
+    def setup(self):
+        self.request.settimeout(20)
+        super().setup()
+
+    def log_message(self, fmt, *args):
+        # Request URLs and headers can contain access secrets; never log them.
+        pass
+
+    def respond(self, status, value, content_type="application/json; charset=utf-8", download=False):
+        raw = value if isinstance(value, bytes) else dumps(value).encode()
+        self.send_response(status)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Length", str(len(raw)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Connection", "close")
+        if download:
+            self.send_header("Content-Disposition", 'attachment; filename="run-history.json"')
+        self.end_headers()
+        self.close_connection = True
+        if self.command != "HEAD":
+            self.wfile.write(raw)
+
+    def do_HEAD(self):
+        self.do_GET()
+
+    def do_GET(self):
+        try:
+            self.get()
+        except Invalid as exc:
+            self.respond(400, {"error": str(exc)})
+        except (BrokenPipeError, ConnectionResetError, socket.timeout):
+            pass
+        except Exception:
+            LOG.exception("read_failed")
+            self.respond(500, {"error": "internal_error"})
+
+    def get(self):
+        parts = urlsplit(self.path)
+        path, query = parts.path, parse_qs(parts.query)
+        if path == "/healthz":
+            with self.server.store.connect() as db:
+                db.execute("SELECT 1").fetchone()
+            return self.respond(200, {"status": "ok"})
+        if not hmac.compare_digest(self.headers.get("X-Observatory-Access", ""), self.server.read_key):
+            return self.respond(404, {"error": "not_found"})
+        if path == "/api/runs":
+            return self.respond(200, self.server.store.runs(query))
+        if path == "/api/stats":
+            return self.respond(200, self.server.store.stats(query))
+        match = re.fullmatch(r"/api/runs/([0-9a-f]{32})(/raw)?", path)
+        if match:
+            row = self.server.store.detail(match[1])
+            if not row:
+                return self.respond(404, {"error": "not_found"})
+            raw = gzip.decompress(row["payload"])
+            if match[2]:
+                return self.respond(200, raw, download=True)
+            return self.respond(200, {"summary": self.server.store.summary(row),
+                                      "history": safe_display(json.loads(raw))})
+        if path in ("/", "/index.html", "/app.js", "/style.css", "/catalog.json") or re.fullmatch(r"/assets/[a-z0-9_]+\.(?:webp|png)", path):
+            file = ROOT / "web" / ("index.html" if path == "/" else path.lstrip("/"))
+            if file.is_file():
+                mime = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
+                        ".css": "text/css; charset=utf-8", ".json": "application/json; charset=utf-8",
+                        ".webp": "image/webp", ".png": "image/png"}[file.suffix]
+                return self.respond(200, file.read_bytes(), mime)
+        self.respond(404, {"error": "not_found"})
+
+    def do_POST(self):
+        try:
+            path = urlsplit(self.path).path
+            if path not in ("/api/upload", "/api/upload-session"):
+                return self.respond(404, {"error": "not_found"})
+            session = path == "/api/upload-session"
+            auth = self.headers.get("Authorization", "")
+            if not session and not auth.startswith("Bearer "):
+                return self.respond(401, {"error": "upload_token_required"})
+            if self.headers.get("Content-Type", "").split(";", 1)[0].strip().lower() != "application/json":
+                return self.respond(415, {"error": "application_json_required"})
+            if self.headers.get("Transfer-Encoding"):
+                return self.respond(400, {"error": "content_length_required"})
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+            except ValueError:
+                return self.respond(400, {"error": "invalid_content_length"})
+            if not 0 < length <= (1024 if session else MAX_BODY):
+                return self.respond(413, {"error": "invalid_body_size"})
+            body = self.rfile.read(length)
+            if len(body) != length:
+                return self.respond(400, {"error": "incomplete_body"})
+            ip = self.headers.get("X-Karen-Client-IP", self.client_address[0])
+            if session:
+                status, result = self.server.store.session(parse_history(body), ip)
+                return self.respond(status, result)
+            if not self.server.store.authorize(auth[7:], body, ip):
+                return self.respond(401, {"error": "invalid_or_expired_upload_token"})
+            status, result = self.server.store.upload(parse_history(body))
+            self.respond(status, result)
+        except Invalid as exc:
+            self.respond(400, {"error": str(exc)})
+        except (BrokenPipeError, ConnectionResetError, socket.timeout):
+            pass
+        except Exception:
+            LOG.exception("upload_failed")
+            self.respond(500, {"error": "internal_error"})
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--backup")
+    args = parser.parse_args()
+    store = Store(os.environ.get("DATABASE_PATH", str(ROOT / "data/history.sqlite3")))
+    if args.backup:
+        store.backup(args.backup)
+        return
+    read_key = os.environ.get("READ_KEY", "")
+    if len(read_key) < 24:
+        raise SystemExit("READ_KEY must contain at least 24 characters")
+    logging.basicConfig(level=logging.INFO)
+    port = int(os.environ.get("PORT", "42767"))
+    with Server(("127.0.0.1", port), store, read_key) as server:
+        LOG.info("collector_started port=%s", port)
+        server.serve_forever()
+
+
+if __name__ == "__main__":
+    main()

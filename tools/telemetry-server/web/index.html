@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer"><title>华恋 · 对局观察</title>
+  <link rel="icon" href="assets/character_icon_karen.webp"><link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./"><img src="assets/character_icon_karen.webp" alt="">华恋<span>对局观察</span></a><nav aria-label="主导航"><button data-view="cards" aria-pressed="true">卡牌统计</button><button data-view="runs" aria-pressed="false">对局记录</button></nav><span class="connection" id="connection" role="status">连接中</span><button id="refresh">刷新</button></header>
+<main>
+  <div class="page-heading"><div><span class="eyebrow">KAREN / RUN OBSERVATORY</span><h1 id="pageTitle">卡牌统计</h1></div><button id="export">导出 CSV ↓</button></div>
+  <form id="filters" class="filters">
+    <label>接收时间<select name="days"><option value="7">近 7 天</option><option value="1">近 24 小时</option><option value="14">近 14 天</option><option value="30">近 30 天</option><option value="90">近 90 天</option><option value="0">全部时间</option></select></label>
+    <label>游戏版本<select name="build" id="build"><option value="all">全部版本</option></select></label>
+    <label>进阶<select name="ascension"><option value="all">全部进阶</option></select></label>
+    <label>人数<select name="players"><option value="all">全部人数</option><option value="1">单人</option><option value="2">2 人</option><option value="3">3 人</option><option value="4">4 人</option></select></label>
+    <label>游戏模式<select name="mode"><option value="all">全部模式</option><option value="standard">标准</option><option value="daily">每日挑战</option><option value="custom">自定义</option></select></label>
+    <label>统计样本<select name="sample"><option value="codex">排除前 5 层放弃</option><option value="all">全部记录</option></select></label>
+  </form>
+  <section class="summary" id="summary" aria-label="样本概况"></section>
+  <div id="error" class="error" role="alert" hidden></div>
+  <section id="cardsView">
+    <div class="section-tools"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="搜索卡名或模型 ID" aria-label="搜索卡牌"></label><select id="type" aria-label="卡牌类型"><option value="all">全部类型</option><option>攻击</option><option>技能</option><option>能力</option><option>诅咒</option></select><select id="rarity" aria-label="卡牌稀有度"><option value="all">全部稀有度</option><option>基础</option><option>普通</option><option>罕见</option><option>稀有</option><option>先古</option><option>衍生</option></select><span class="spacer"></span><div class="segments"><button data-display="table" aria-pressed="true">统计表</button><button data-display="chart" aria-pressed="false">对比图</button></div><button id="rules">统计规则 ↗</button></div>
+    <div class="workbench"><div id="cards" class="data-panel"></div><aside id="cardDetail" class="inspector"><div class="empty">选择卡牌查看数据</div></aside></div>
+    <div id="cohort" class="footnote"></div>
+  </section>
+  <section id="runsView" hidden><div class="section-tools"><h2>收到的对局</h2><span class="spacer"></span><label>结果<select id="outcome"><option value="all">全部结果</option><option value="win">胜利</option><option value="death">死亡</option><option value="abandon">放弃</option></select></label></div><div class="workbench"><div id="runs" class="data-panel"></div><aside id="runDetail" class="inspector"><div class="empty">选择对局查看数据</div></aside></div><div id="pagination" class="pagination"></div></section>
+  <footer><span>华恋 · 对局观察</span><span id="updated">等待数据</span></footer>
+</main>
+<dialog id="history" class="history"><div class="history-top"><div id="historyTitle"></div><button data-close="history" aria-label="关闭对局详情">×</button></div><div id="historyBody"></div></dialog>
+<dialog id="modal" class="modal"><div class="modal-top"><h2 id="modalTitle"></h2><button data-close="modal" aria-label="关闭">×</button></div><div id="modalBody"></div></dialog>
+<div id="toast" class="toast" role="status"></div>
+</body></html>

@@ -1,0 +1,800 @@
+{
+  "KAREN_WHY": {
+    "name": "为什么要离开？我的朋友",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "先古",
+    "image": "assets/karen_why.webp"
+  },
+  "KAREN_DEFEND": {
+    "name": "防御",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "基础",
+    "image": "assets/karen_defend.webp"
+  },
+  "KAREN_FALL": {
+    "name": "坠落",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "基础",
+    "image": "assets/karen_fall.webp"
+  },
+  "KAREN_PROMISE_DRAW": {
+    "name": "不再遥不可及",
+    "cost": 0,
+    "type": "攻击",
+    "rarity": "普通",
+    "image": "assets/karen_promise_draw.webp"
+  },
+  "KAREN_SHINE_STRIKE": {
+    "name": "闪耀打击",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "基础",
+    "image": "assets/karen_shine_strike.webp"
+  },
+  "KAREN_STRIKE": {
+    "name": "打击",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "基础",
+    "image": "assets/karen_strike.webp"
+  },
+  "KAREN_SLEEPY": {
+    "name": "困意",
+    "cost": -2,
+    "type": "诅咒",
+    "rarity": "诅咒",
+    "image": "assets/karen_sleepy.webp"
+  },
+  "KAREN_STAGE_REASON": {
+    "name": "存在于舞台的理由",
+    "cost": 1,
+    "type": "诅咒",
+    "rarity": "诅咒",
+    "image": "assets/karen_stage_reason.webp"
+  },
+  "KAREN_NEXT_STAGE": {
+    "name": "下一个舞台",
+    "cost": 3,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_next_stage.webp"
+  },
+  "KAREN_SPIN": {
+    "name": "旋转",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "罕见",
+    "image": "assets/karen_spin.webp"
+  },
+  "KAREN_WAKE_UP": {
+    "name": "唤醒",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "稀有",
+    "image": "assets/karen_wake_up.webp"
+  },
+  "KAREN_BANANA_CAKE": {
+    "name": "Banana蛋糕",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "稀有",
+    "image": "assets/karen_banana_cake.webp"
+  },
+  "KAREN_BURN": {
+    "name": "燃烧吧燃烧吧",
+    "cost": 1,
+    "type": "能力",
+    "rarity": "稀有",
+    "image": "assets/karen_burn.webp"
+  },
+  "KAREN_CONSCIOUSNESS": {
+    "name": "以觉悟的名义",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "罕见",
+    "image": "assets/karen_consciousness.webp"
+  },
+  "KAREN_CRY": {
+    "name": "添麻烦了",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_cry.webp"
+  },
+  "KAREN_FORM": {
+    "name": "觉醒形态",
+    "cost": 3,
+    "type": "能力",
+    "rarity": "稀有",
+    "image": "assets/karen_form.webp"
+  },
+  "KAREN_GEER": {
+    "name": "命运的齿轮",
+    "cost": 3,
+    "type": "能力",
+    "rarity": "稀有",
+    "image": "assets/karen_geer.webp"
+  },
+  "KAREN_LAST_WORD": {
+    "name": "最后的台词",
+    "cost": 0,
+    "type": "攻击",
+    "rarity": "稀有",
+    "image": "assets/karen_last_word.webp"
+  },
+  "KAREN_OLD_PLACE": {
+    "name": "约定的那天",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_old_place.webp"
+  },
+  "KAREN_PARRY": {
+    "name": "招架",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_parry.webp"
+  },
+  "KAREN_PIZZA": {
+    "name": "披萨",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_pizza.webp"
+  },
+  "KAREN_POSITION0": {
+    "name": "Position 0",
+    "cost": 3,
+    "type": "能力",
+    "rarity": "先古",
+    "image": "assets/karen_position0.webp"
+  },
+  "KAREN_AQUARIUM_CARD": {
+    "name": "水族馆",
+    "cost": 1,
+    "type": "能力",
+    "rarity": "罕见",
+    "image": "assets/karen_aquarium_card.webp"
+  },
+  "KAREN_BACK_TO_BACK_CARD": {
+    "name": "背靠背",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "罕见",
+    "image": "assets/karen_back_to_back_card.webp"
+  },
+  "KAREN_BANANA_LUNCH": {
+    "name": "Banana午餐",
+    "cost": 1,
+    "type": "能力",
+    "rarity": "罕见",
+    "image": "assets/karen_banana_lunch.webp"
+  },
+  "KAREN_BASEBALL": {
+    "name": "棒球",
+    "cost": 3,
+    "type": "攻击",
+    "rarity": "稀有",
+    "image": "assets/karen_baseball.webp"
+  },
+  "KAREN_BRIDGE": {
+    "name": "约定之塔桥",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "稀有",
+    "image": "assets/karen_bridge.webp"
+  },
+  "KAREN_COURAGE_STRIKE": {
+    "name": "勇气打击",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "普通",
+    "image": "assets/karen_courage_strike.webp"
+  },
+  "KAREN_DANCE": {
+    "name": "舞动",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "普通",
+    "image": "assets/karen_dance.webp"
+  },
+  "KAREN_DODGE": {
+    "name": "闪避",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_dodge.webp"
+  },
+  "KAREN_EXCHANGE_FATE": {
+    "name": "命运交换之日",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_exchange_fate.webp"
+  },
+  "KAREN_HOLY_STAR": {
+    "name": "神圣星辰",
+    "cost": 2,
+    "type": "攻击",
+    "rarity": "罕见",
+    "image": "assets/karen_holy_star.webp"
+  },
+  "KAREN_LANDING": {
+    "name": "落地",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "罕见",
+    "image": "assets/karen_landing.webp"
+  },
+  "KAREN_LETTER_CARD": {
+    "name": "信封",
+    "cost": 1,
+    "type": "能力",
+    "rarity": "罕见",
+    "image": "assets/karen_letter_card.webp"
+  },
+  "KAREN_MEET_AGAIN": {
+    "name": "重逢",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "普通",
+    "image": "assets/karen_meet_again.webp"
+  },
+  "KAREN_NEW_DAY": {
+    "name": "新的一天",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_new_day.webp"
+  },
+  "KAREN_NEW_SITUATION": {
+    "name": "观察情况",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "普通",
+    "image": "assets/karen_new_situation.webp"
+  },
+  "KAREN_NO_HESITATE": {
+    "name": "不再犹豫",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_no_hesitate.webp"
+  },
+  "KAREN_ON_STAGE": {
+    "name": "命运与本能",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_on_stage.webp"
+  },
+  "KAREN_OPEN_UP_STARS": {
+    "name": "开拓星辰",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_open_up_stars.webp"
+  },
+  "KAREN_OUR_PROMISE": {
+    "name": "我们的约定",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "普通",
+    "image": "assets/karen_our_promise.webp"
+  },
+  "KAREN_PAST_AND_FUTURE": {
+    "name": "过去与未来",
+    "cost": 1,
+    "type": "能力",
+    "rarity": "稀有",
+    "image": "assets/karen_past_and_future.webp"
+  },
+  "KAREN_RAPID": {
+    "name": "极速下降",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_rapid.webp"
+  },
+  "KAREN_REVUE_DUET": {
+    "name": "RevueDuet",
+    "cost": 0,
+    "type": "攻击",
+    "rarity": "普通",
+    "image": "assets/karen_revue_duet.webp"
+  },
+  "KAREN_RUN": {
+    "name": "行动",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_run.webp"
+  },
+  "KAREN_SMALL_SNACK": {
+    "name": "Banana什锦",
+    "cost": 2,
+    "type": "能力",
+    "rarity": "稀有",
+    "image": "assets/karen_small_snack.webp"
+  },
+  "KAREN_STAGE_IS_WAITING": {
+    "name": "舞台正在等待着",
+    "cost": 2,
+    "type": "能力",
+    "rarity": "罕见",
+    "image": "assets/karen_stage_is_waiting.webp"
+  },
+  "KAREN_STAGE_REPRODUCE": {
+    "name": "命运舞台的再生产",
+    "cost": 3,
+    "type": "能力",
+    "rarity": "稀有",
+    "image": "assets/karen_stage_reproduce.webp"
+  },
+  "KAREN_STRETCHING": {
+    "name": "拉伸",
+    "cost": 2,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_stretching.webp"
+  },
+  "KAREN_TICKET": {
+    "name": "门票",
+    "cost": 1,
+    "type": "能力",
+    "rarity": "稀有",
+    "image": "assets/karen_ticket.webp"
+  },
+  "KAREN_UNDER_TOWER": {
+    "name": "东京塔下",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "普通",
+    "image": "assets/karen_under_tower.webp"
+  },
+  "KAREN_VOID": {
+    "name": "世界上最空虚的人",
+    "cost": 2,
+    "type": "能力",
+    "rarity": "稀有",
+    "image": "assets/karen_void.webp"
+  },
+  "KAREN_WHOS_PROMISE": {
+    "name": "双人舞",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "普通",
+    "image": "assets/karen_whos_promise.webp"
+  },
+  "KAREN_YESTERGLOW": {
+    "name": "昨日夜空",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "普通",
+    "image": "assets/karen_yesterglow.webp"
+  },
+  "KAREN_ARROGANT": {
+    "name": "骄傲",
+    "cost": 3,
+    "type": "能力",
+    "rarity": "稀有",
+    "image": "assets/karen_arrogant.webp"
+  },
+  "KAREN_FINANCIER": {
+    "name": "Banana费南雪",
+    "cost": 1,
+    "type": "能力",
+    "rarity": "罕见",
+    "image": "assets/karen_financier.webp"
+  },
+  "KAREN_FORGIVE": {
+    "name": "\"宽恕\"",
+    "cost": 2,
+    "type": "攻击",
+    "rarity": "稀有",
+    "image": "assets/karen_forgive.webp"
+  },
+  "KAREN_JEALOUSY": {
+    "name": "嫉妒",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "稀有",
+    "image": "assets/karen_jealousy.webp"
+  },
+  "KAREN_PASSION": {
+    "name": "激情",
+    "cost": 2,
+    "type": "技能",
+    "rarity": "稀有",
+    "image": "assets/karen_passion.webp"
+  },
+  "KAREN_PICK_STAR": {
+    "name": "摘星",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_pick_star.webp"
+  },
+  "KAREN_SHINE_PRICE": {
+    "name": "双星",
+    "cost": 0,
+    "type": "攻击",
+    "rarity": "罕见",
+    "image": "assets/karen_shine_price.webp"
+  },
+  "KAREN_STAR_CRIME": {
+    "name": "星罪",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_star_crime.webp"
+  },
+  "KAREN_CARRYING_GUILT": {
+    "name": "我们犯下的罪过",
+    "cost": 2,
+    "type": "攻击",
+    "rarity": "稀有",
+    "image": "assets/karen_carrying_guilt.webp"
+  },
+  "KAREN_CHARGE_STRIKE": {
+    "name": "蓄力打击",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "普通",
+    "image": "assets/karen_charge_strike.webp"
+  },
+  "KAREN_CONTINUE02": {
+    "name": "永无结束的命运舞台",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "罕见",
+    "image": "assets/karen_continue02.webp"
+  },
+  "KAREN_DEBUT": {
+    "name": "出场",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "普通",
+    "image": "assets/karen_debut.webp"
+  },
+  "KAREN_DRINK_WATER": {
+    "name": "水分补充",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_drink_water.webp"
+  },
+  "KAREN_DROP_FUEL": {
+    "name": "投下燃料",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "稀有",
+    "image": "assets/karen_drop_fuel.webp"
+  },
+  "KAREN_FIGHT_RELAY": {
+    "name": "歌唱吧舞蹈吧互相争斗吧",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_fight_relay.webp"
+  },
+  "KAREN_NONON": {
+    "name": "NONNON哒哟",
+    "cost": 3,
+    "type": "攻击",
+    "rarity": "稀有",
+    "image": "assets/karen_nonon.webp"
+  },
+  "KAREN_POTATO": {
+    "name": "土豆",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_potato.webp"
+  },
+  "KAREN_PRACTICE": {
+    "name": "武术练习",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "普通",
+    "image": "assets/karen_practice.webp"
+  },
+  "KAREN_PRACTICE2": {
+    "name": "舞蹈练习",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_practice2.webp"
+  },
+  "KAREN_PRACTICE3": {
+    "name": "体操练习",
+    "cost": 2,
+    "type": "技能",
+    "rarity": "普通",
+    "image": "assets/karen_practice3.webp"
+  },
+  "KAREN_READY": {
+    "name": "准备完成",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "罕见",
+    "image": "assets/karen_ready.webp"
+  },
+  "KAREN_REWRITE": {
+    "name": "续写",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "罕见",
+    "image": "assets/karen_rewrite.webp"
+  },
+  "KAREN_SHINE_STRIKE_BARRAGE": {
+    "name": "用你的闪耀贯穿我吧",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "普通",
+    "image": "assets/karen_shine_strike_barrage.webp"
+  },
+  "KAREN_SHINE_TOGETHER": {
+    "name": "永不遗忘的闪耀",
+    "cost": 2,
+    "type": "攻击",
+    "rarity": "稀有",
+    "image": "assets/karen_shine_together.webp"
+  },
+  "KAREN_SHINE_TOGETHER_ALL": {
+    "name": "一起闪耀吧",
+    "cost": 2,
+    "type": "能力",
+    "rarity": "稀有",
+    "image": "assets/karen_shine_together_all.webp"
+  },
+  "KAREN_STAR": {
+    "name": "星光闪耀之时",
+    "cost": 2,
+    "type": "技能",
+    "rarity": "稀有",
+    "image": "assets/karen_star.webp"
+  },
+  "KAREN_STAR_FRIEND": {
+    "name": "星星串起了我们的友谊",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "普通",
+    "image": "assets/karen_star_friend.webp"
+  },
+  "KAREN_STAR_GUIDE": {
+    "name": "星光指引",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "稀有",
+    "image": "assets/karen_star_guide.webp"
+  },
+  "KAREN_STARLIGHT02_CARD": {
+    "name": "Starlight第二幕",
+    "cost": 2,
+    "type": "能力",
+    "rarity": "稀有",
+    "image": "assets/karen_starlight02_card.webp"
+  },
+  "KAREN_STARLIGHT03_CARD": {
+    "name": "Starlight第三幕",
+    "cost": 1,
+    "type": "能力",
+    "rarity": "罕见",
+    "image": "assets/karen_starlight03_card.webp"
+  },
+  "KAREN_STARLIGHT_CARD": {
+    "name": "Starlight第一幕",
+    "cost": 1,
+    "type": "能力",
+    "rarity": "罕见",
+    "image": "assets/karen_starlight_card.webp"
+  },
+  "KAREN_SUNLIGHT": {
+    "name": "耀眼的阳光",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "罕见",
+    "image": "assets/karen_sunlight.webp"
+  },
+  "KAREN_SWORD_UP": {
+    "name": "上挑",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "普通",
+    "image": "assets/karen_sword_up.webp"
+  },
+  "KAREN_TO_THE_STAGE": {
+    "name": "迈向那个舞台",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "普通",
+    "image": "assets/karen_to_the_stage.webp"
+  },
+  "KAREN_BANANA_MUFFIN": {
+    "name": "Banana松饼",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "普通",
+    "image": "assets/karen_banana_muffin.webp"
+  },
+  "KAREN_EAT_TOGETHER": {
+    "name": "一起吃饭吧",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "普通",
+    "image": "assets/karen_eat_together.webp"
+  },
+  "KAREN_BANANA": {
+    "name": "banana晚餐",
+    "cost": 2,
+    "type": "能力",
+    "rarity": "衍生",
+    "image": "assets/karen_banana.webp"
+  },
+  "KAREN_CONFRONT": {
+    "name": "对峙",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "衍生",
+    "image": "assets/karen_confront.webp"
+  },
+  "KAREN_CONTINUE": {
+    "name": "续演",
+    "cost": 0,
+    "type": "攻击",
+    "rarity": "衍生",
+    "image": "assets/karen_continue.webp"
+  },
+  "KAREN_COUNTER": {
+    "name": "回击",
+    "cost": 1,
+    "type": "攻击",
+    "rarity": "衍生",
+    "image": "assets/karen_counter.webp"
+  },
+  "KAREN_EMPTY_SHELL": {
+    "name": "空壳",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_empty_shell.webp"
+  },
+  "KAREN_SANDWITCH": {
+    "name": "三明治",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_sandwitch.webp"
+  },
+  "KAREN_SHINE_REPRODUCE": {
+    "name": "闪耀的再生产",
+    "cost": 1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_shine_reproduce.webp"
+  },
+  "KAREN_SIDEWAYS": {
+    "name": "侧身",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_sideways.webp"
+  },
+  "KAREN_TOWER_OF_PROMISE": {
+    "name": "约定之塔",
+    "cost": 0,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_tower_of_promise.webp"
+  },
+  "KAREN_AWAKE_POTION_DISCARD_PILE_OPTION": {
+    "name": "弃牌堆",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_awake_potion_discard_pile_option.webp"
+  },
+  "KAREN_AWAKE_POTION_DRAW_PILE_OPTION": {
+    "name": "抽牌堆",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_awake_potion_draw_pile_option.webp"
+  },
+  "KAREN_AWAKE_POTION_PROMISE_PILE_OPTION": {
+    "name": "约定牌堆",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_awake_potion_promise_pile_option.webp"
+  },
+  "KAREN_NO_HESITATE_DISCARD_PILE_OPTION": {
+    "name": "弃牌堆",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_no_hesitate_discard_pile_option.webp"
+  },
+  "KAREN_NO_HESITATE_DRAW_PILE_OPTION": {
+    "name": "抽牌堆",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_no_hesitate_draw_pile_option.webp"
+  },
+  "KAREN_NO_HESITATE_HAND_OPTION": {
+    "name": "手牌",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_no_hesitate_hand_option.webp"
+  },
+  "KAREN_OLD_PLACE_RETAIN_BLOCK_OPTION": {
+    "name": "保留格挡",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_old_place_retain_block_option.webp"
+  },
+  "KAREN_OLD_PLACE_RETAIN_ENERGY_OPTION": {
+    "name": "保留能量",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_old_place_retain_energy_option.webp"
+  },
+  "KAREN_OLD_PLACE_RETAIN_HAND_OPTION": {
+    "name": "保留手牌",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_old_place_retain_hand_option.webp"
+  },
+  "KAREN_OLD_PLACE_RETAIN_STRENGTH_OPTION": {
+    "name": "保留力量",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_old_place_retain_strength_option.webp"
+  },
+  "KAREN_RAPID_PUT_OPTION": {
+    "name": "放入",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_rapid_put_option.webp"
+  },
+  "KAREN_RAPID_TAKE_OPTION": {
+    "name": "取回",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_rapid_take_option.webp"
+  },
+  "KAREN_WAKE_UP_DISCARD_PILE_OPTION": {
+    "name": "弃牌堆",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_wake_up_discard_pile_option.webp"
+  },
+  "KAREN_WAKE_UP_DRAW_PILE_OPTION": {
+    "name": "抽牌堆",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_wake_up_draw_pile_option.webp"
+  },
+  "KAREN_WAKE_UP_PROMISE_PILE_OPTION": {
+    "name": "约定牌堆",
+    "cost": -1,
+    "type": "技能",
+    "rarity": "衍生",
+    "image": "assets/karen_wake_up_promise_pile_option.webp"
+  }
+}
