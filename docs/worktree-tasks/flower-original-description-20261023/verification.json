@@ -1,0 +1,213 @@
+{
+  "source_revision": "bf041ea57a4b06011e8c6821f43d86398c8e4d3f",
+  "character": "IRONCLAD",
+  "scope": "targeted singleplayer Flower checks, not the full multiplayer matrix",
+  "runtime": {
+    "stable": {
+      "version": "v0.107.1",
+      "result": "pass",
+      "fixture_calls": 13,
+      "assertions": [
+        "Flower belongs to the shared pool exactly once",
+        "Flower is absent from Karen's character pool",
+        "Flower is naturally obtainable by IRONCLAD",
+        "original Flower description and empty flavor load from the shipped pack",
+        "treasure candidate count 1",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 1",
+        "native layout switches with candidate count",
+        "ordinary chest has no Flower decoration",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "shared pool contains exactly one Flower",
+        "native textures load",
+        "localized title and description",
+        "relic save identity",
+        "combat relic becomes two linked choices: Common",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "combat relic becomes two linked choices: Uncommon",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "combat relic becomes two linked choices: Rare",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "each drop gets its own distinct linked pair",
+        "existing chain and Ancient reward stay unchanged",
+        "non-combat custom reward stays unchanged",
+        "exhausted rarity keeps original reward",
+        "exhausted rarity does not consume higher rarity relics",
+        "real post-combat extra reward is linked",
+        "floral chain centers in actual button gap: actual=(959, 573) expected=(959, 573)",
+        "floral chain opaque pixels leave painted reward text unobstructed: (844, 502), (84, 50);(844, 592), (108, 50)",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "claim removes both linked reward buttons",
+        "unchosen reward is recorded as skipped",
+        "treasure candidate count 2",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 2",
+        "native layout switches with candidate count",
+        "relics share a row and are symmetric around screen center",
+        "focus navigation only cycles visible choices",
+        "exactly one ImageGen shared floral arc loads",
+        "shared arc is centered and cannot intercept relic input",
+        "both relic rarity backgrounds are hidden and stopped",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "treasure candidate count 2",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 2",
+        "native layout switches with candidate count",
+        "relics share a row and are symmetric around screen center",
+        "focus navigation only cycles visible choices",
+        "exactly one ImageGen shared floral arc loads",
+        "shared arc is centered and cannot intercept relic input",
+        "both relic rarity backgrounds are hidden and stopped",
+        "skipping treasure grants no relic",
+        "Flower respects empty chest",
+        "empty chest has no visible relic",
+        "empty chest has no floral decoration"
+      ],
+      "errors": [],
+      "flower": {
+        "id": "KAREN_FLOWER_RELIC",
+        "name": "花朵",
+        "description": "遗物奖励拥有额外一个选项。",
+        "counter": null,
+        "keywords": []
+      }
+    },
+    "beta": {
+      "version": "v0.111.0",
+      "result": "pass",
+      "fixture_calls": 13,
+      "assertions": [
+        "Flower belongs to the shared pool exactly once",
+        "Flower is absent from Karen's character pool",
+        "Flower is naturally obtainable by IRONCLAD",
+        "original Flower description and empty flavor load from the shipped pack",
+        "treasure candidate count 1",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 1",
+        "native layout switches with candidate count",
+        "ordinary chest has no Flower decoration",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "shared pool contains exactly one Flower",
+        "native textures load",
+        "localized title and description",
+        "relic save identity",
+        "combat relic becomes two linked choices: Common",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "combat relic becomes two linked choices: Uncommon",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "combat relic becomes two linked choices: Rare",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "each drop gets its own distinct linked pair",
+        "existing chain and Ancient reward stay unchanged",
+        "non-combat custom reward stays unchanged",
+        "exhausted rarity keeps original reward",
+        "exhausted rarity does not consume higher rarity relics",
+        "real post-combat extra reward is linked",
+        "floral chain centers in actual button gap: actual=(959, 573) expected=(959, 573)",
+        "floral chain opaque pixels leave painted reward text unobstructed: (844, 502), (84, 50);(844, 592), (60, 50)",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "claim removes both linked reward buttons",
+        "unchosen reward is recorded as skipped",
+        "treasure candidate count 2",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 2",
+        "native layout switches with candidate count",
+        "relics share a row and are symmetric around screen center",
+        "focus navigation only cycles visible choices",
+        "exactly one ImageGen shared floral arc loads",
+        "shared arc is centered and cannot intercept relic input",
+        "both relic rarity backgrounds are hidden and stopped",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "treasure candidate count 2",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 2",
+        "native layout switches with candidate count",
+        "relics share a row and are symmetric around screen center",
+        "focus navigation only cycles visible choices",
+        "exactly one ImageGen shared floral arc loads",
+        "shared arc is centered and cannot intercept relic input",
+        "both relic rarity backgrounds are hidden and stopped",
+        "skipping treasure grants no relic",
+        "Flower respects empty chest",
+        "empty chest has no visible relic",
+        "empty chest has no floral decoration"
+      ],
+      "errors": [],
+      "flower": {
+        "id": "KAREN_FLOWER_RELIC",
+        "name": "花朵",
+        "description": "遗物奖励拥有额外一个选项。",
+        "counter": null,
+        "keywords": []
+      }
+    }
+  },
+  "package": {
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": "f99efe5bd7c105b6e1708ed5859314ed96d772362bfcbfc69dc36fe943a806ea",
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": "a2e7fc4a03033ee894b2910127b19370813a5b5667aa8f50ef1a582e7f80cbc1",
+    "ShoujoKagekiAijoKaren.dll": "98460ffbb603026e14771deb055996c440069141cb695c5aabbb348f883b23a3",
+    "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+    "ShoujoKagekiAijoKaren.pck": "20b8edffcf89e0bb4eb436dca8e57546325daf615a2b99f6bbd2c15fc1646ba5"
+  },
+  "localization": {
+    "zhs": {
+      "title": "花朵",
+      "description": "遗物奖励拥有额外一个选项。",
+      "flavor": ""
+    },
+    "eng": {
+      "title": "Flower",
+      "description": "Relic rewards have an additional option.",
+      "flavor": ""
+    },
+    "jpn": {
+      "title": "花",
+      "description": "レリック報酬の選択肢が1つ増える。",
+      "flavor": ""
+    },
+    "full_validator": {
+      "result": "baseline_failures_only",
+      "preexisting_failures": [
+        "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL_BUTTON.title",
+        "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.inRun",
+        "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.complete",
+        "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.failed"
+      ],
+      "new_failures": []
+    }
+  },
+  "vfx_catalog": {
+    "result": "pass",
+    "types": 70,
+    "shared_owners": 37,
+    "assets": 164
+  },
+  "earlier_attempts": [
+    {
+      "result": "startup timeout before assertions",
+      "versions": [
+        "stable",
+        "beta"
+      ],
+      "change": "Keep private-desktop game windows windowed rather than minimized so native rendering advances."
+    },
+    {
+      "result": "beta reward text-margin assertion failed with Amethyst Aubergine",
+      "measurement_delay_seconds": 0.6,
+      "assertion_bounds": "(844, 502), (84, 50);(844, 592), (132, 50)",
+      "followup": "Retained screenshot, increased entrance-animation wait to 2 seconds, rerun passed with Lantern; no production chain/UI change. The failed candidate was not separately repeated."
+    }
+  ]
+}

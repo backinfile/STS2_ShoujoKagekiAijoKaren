@@ -3,6 +3,7 @@ import argparse, json, os, pathlib, shutil, socket, sys, time, urllib.request
 parser=argparse.ArgumentParser()
 parser.add_argument("branch",choices=["stable","beta"])
 parser.add_argument("--source-root",type=pathlib.Path,required=True,help="Development game snapshots to read")
+parser.add_argument("--character",default="KAREN",help="Character menu ID, e.g. KAREN or IRONCLAD")
 args=parser.parse_args()
 project=pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(project/"tools/vfx/six-card"))
@@ -41,7 +42,9 @@ shutil.copy2(project/f"tools/flower-regression/bin/{variant}/KarenFlowerRegressi
 manifest=dict(id="KarenFlowerRegression",name="Flower Regression",min_game_version="v0.107.1",author="Codex",version="0.1.0",has_dll=True,has_pck=False,affects_gameplay=True,dependencies=[dict(id="ShoujoKagekiAijoKaren",min_version="v0.1.3")])
 (fixture/"KarenFlowerRegression.json").write_text(json.dumps(manifest),encoding="utf-8")
 (mods/"KarenSTS2MCP.conf").write_text(json.dumps(dict(port=port,fullscreen=False,muted=True,silent_test=True,skip_tutorial=True,skip_first_prompt=True,window_width=1280,window_height=720)),encoding="utf-8")
-(game/"override.cfg").write_text("[display]\nwindow/size/mode=1\nwindow/size/no_focus=true\nwindow/size/window_width_override=1280\nwindow/size/window_height_override=720\n",encoding="utf-8")
+# The private desktop isolates these windows; keep them windowed so native
+# frame-dependent startup and MCP screenshots continue rendering.
+(game/"override.cfg").write_text("[display]\nwindow/size/mode=0\nwindow/size/no_focus=true\nwindow/size/window_width_override=1280\nwindow/size/window_height_override=720\n",encoding="utf-8")
 profile_id=int(time.time()) % 1000000000
 settings_target=dev/f"user/AppData/Roaming/SlayTheSpire2/default/{profile_id}/settings.save"
 if not settings_target.exists():
@@ -118,11 +121,12 @@ try:
     act("menu_select",option="singleplayer")
     current=wait(lambda s:s.get("menu_screen") in ("singleplayer","character_select"),"singleplayer")
     if current.get("menu_screen")=="singleplayer":act("menu_select",option="standard")
-    act("menu_select",option="KAREN")
+    act("menu_select",option=args.character)
     act("menu_select",option="embark")
     current=wait(lambda s:s.get("menu_screen")=="tutorial_prompt" or s.get("state_type")=="map","map")
     if current.get("menu_screen")=="tutorial_prompt":act("menu_select",option="no")
     wait(lambda s:s.get("state_type")=="map","map")
+    fixture("shared-pool")
     cmd("room treasure");treasure()
     fixture("chest-one");snap("01-baseline-chest")
     act("claim_treasure_relic",index=0);time.sleep(2)
@@ -134,7 +138,7 @@ try:
     fixture("prepare")
     cmd("kill all")
     wait(lambda s:s.get("state_type")=="rewards","post combat rewards")
-    time.sleep(.6)  # Let the native containers finish layout before measuring text bounds.
+    time.sleep(2)  # Let reward entrance tweens finish before measuring text bounds.
     fixture("reward-check");snap("02-linked-rewards")
     current=state()
     reward_items=current["rewards"]["items"]

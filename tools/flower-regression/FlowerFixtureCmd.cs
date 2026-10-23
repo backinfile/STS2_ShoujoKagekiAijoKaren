@@ -16,12 +16,13 @@ using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using ShoujoKagekiAijoKaren.src.Models.Relics;
+using ShoujoKagekiAijoKaren.src.Models.RelicPools;
 
 // Test-only console commands, excluded from the release assembly.
 public sealed class FlowerFixtureCmd : AbstractConsoleCmd
 {
     public override string CmdName => "flower_fixture";
-    public override string Args => "audit|prepare|reward-check|claim-check|chest-one|chest-two|chest-claim|chest-skip|empty|empty-setup";
+    public override string Args => "shared-pool|audit|prepare|reward-check|claim-check|chest-one|chest-two|chest-claim|chest-skip|empty|empty-setup";
     public override string Description => "Targeted Flower reward and treasure regression.";
     public override bool IsNetworked => true;
     internal static string Status = "idle";
@@ -51,7 +52,21 @@ public sealed class FlowerFixtureCmd : AbstractConsoleCmd
     {
         try
         {
-            if (action == "audit")
+            if (action == "shared-pool")
+            {
+                var flower = ModelDb.Relic<KarenFlowerRelic>();
+                Check(flower.Pool is SharedRelicPool &&
+                    ModelDb.RelicPool<SharedRelicPool>().AllRelics.Count(r => r.Id == flower.Id) == 1,
+                    "Flower belongs to the shared pool exactly once");
+                Check(ModelDb.RelicPool<KarenRelicPool>().AllRelics.All(r => r.Id != flower.Id),
+                    "Flower is absent from Karen's character pool");
+                Check(p.RelicGrabBag.ToSerializable().RelicIdLists[flower.Rarity].Contains(flower.Id),
+                    "Flower is naturally obtainable by " + p.Character.Id.Entry);
+                Check(flower.DynamicDescription.GetFormattedText() == "遗物奖励拥有额外一个选项。" &&
+                    flower.Flavor.GetFormattedText() == "我在世界上最闪耀的样子，会第一个让你看到。",
+                    "original Flower description and TV6 Kaoruko flavor load from the shipped pack");
+            }
+            else if (action == "audit")
             {
                 var flower = p.Relics.OfType<KarenFlowerRelic>().Single();
                 Check(ModelDb.RelicPool<SharedRelicPool>().AllRelics.Count(r => r is KarenFlowerRelic) == 1, "shared pool contains exactly one Flower");

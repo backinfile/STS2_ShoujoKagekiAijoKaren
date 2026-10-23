@@ -28,3 +28,7 @@ python tools/flower-regression/run.py beta --source-root <development-game-snaps
 - 最终日志无错误。
 
 这不是完整联机矩阵；多人同步及其他 Mod 组合未在此脚本中验证。
+
+## 通用遗物核验
+
+运行器支持 `--character IRONCLAD`（默认 `KAREN`）。开局获取任何遗物前先检查花朵属于 SharedRelicPool、未列入 KarenRelicPool、存在于当前角色的自然遗物候选袋，并从实际 PCK 核对 STS1 原版中文机制描述及 TV 第 6 话幼年香子的花枝场景风味文本。后续链式奖励和宝箱互斥选择沿用相同专项。

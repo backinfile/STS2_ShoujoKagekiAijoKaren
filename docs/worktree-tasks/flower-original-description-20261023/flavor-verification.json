@@ -1,0 +1,365 @@
+{
+  "stage": "final-original-flavor-follow-up",
+  "date": "2026-10-23",
+  "original_branch": "main",
+  "synchronized_base": "bf041ea57a4b06011e8c6821f43d86398c8e4d3f",
+  "source_ledger": "docs/localization/relic-flavor-sources-20261023.md",
+  "collectible_relics": 10,
+  "flavor_values_updated": 30,
+  "lock_placeholder_flavor": "",
+  "package_files": {
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": {
+      "sha256": "662da3d6a35ee3fb678fda71b72e4679ce6dbd98d87facbe2742c8959127ad2f",
+      "bytes": 1374208
+    },
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": {
+      "sha256": "bd88e3844c311cd65f46b393cdfdf22a68cc56400e389828e55583fc02ecb939",
+      "bytes": 1373696
+    },
+    "ShoujoKagekiAijoKaren.dll": {
+      "sha256": "3c012d8e3b0db2cc94f8a97387f6b76d7daa400e46a79b43617d40298a593b38",
+      "bytes": 8704
+    },
+    "ShoujoKagekiAijoKaren.json": {
+      "sha256": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+      "bytes": 412
+    },
+    "ShoujoKagekiAijoKaren.pck": {
+      "sha256": "1f6b1c156e1dc9445b2e60ea2a30d9d89c48fbed96c8e673100fcd95c76ced18",
+      "bytes": 49595480
+    }
+  },
+  "tests_plugin_in_package": false,
+  "runtime": {
+    "stable": {
+      "game_version": "v0.107.1",
+      "character": "IRONCLAD",
+      "fixture_calls": [
+        {
+          "case": "shared-pool",
+          "result": "pass"
+        },
+        {
+          "case": "chest-one",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "audit",
+          "result": "pass"
+        },
+        {
+          "case": "prepare",
+          "result": "pass"
+        },
+        {
+          "case": "reward-check",
+          "result": "pass"
+        },
+        {
+          "case": "claim-check",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-skip",
+          "result": "pass"
+        },
+        {
+          "case": "empty-setup",
+          "result": "pass"
+        },
+        {
+          "case": "empty",
+          "result": "pass"
+        }
+      ],
+      "assertions": [
+        "Flower belongs to the shared pool exactly once",
+        "Flower is absent from Karen's character pool",
+        "Flower is naturally obtainable by IRONCLAD",
+        "original Flower description and TV6 Kaoruko flavor load from the shipped pack",
+        "treasure candidate count 1",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 1",
+        "native layout switches with candidate count",
+        "ordinary chest has no Flower decoration",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "shared pool contains exactly one Flower",
+        "native textures load",
+        "localized title and description",
+        "relic save identity",
+        "combat relic becomes two linked choices: Common",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "combat relic becomes two linked choices: Uncommon",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "combat relic becomes two linked choices: Rare",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "each drop gets its own distinct linked pair",
+        "existing chain and Ancient reward stay unchanged",
+        "non-combat custom reward stays unchanged",
+        "exhausted rarity keeps original reward",
+        "exhausted rarity does not consume higher rarity relics",
+        "real post-combat extra reward is linked",
+        "floral chain centers in actual button gap: actual=(959, 573) expected=(959, 573)",
+        "floral chain opaque pixels leave painted reward text unobstructed: (844, 502), (84, 50);(844, 592), (108, 50)",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "claim removes both linked reward buttons",
+        "unchosen reward is recorded as skipped",
+        "treasure candidate count 2",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 2",
+        "native layout switches with candidate count",
+        "relics share a row and are symmetric around screen center",
+        "focus navigation only cycles visible choices",
+        "exactly one ImageGen shared floral arc loads",
+        "shared arc is centered and cannot intercept relic input",
+        "both relic rarity backgrounds are hidden and stopped",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "treasure candidate count 2",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 2",
+        "native layout switches with candidate count",
+        "relics share a row and are symmetric around screen center",
+        "focus navigation only cycles visible choices",
+        "exactly one ImageGen shared floral arc loads",
+        "shared arc is centered and cannot intercept relic input",
+        "both relic rarity backgrounds are hidden and stopped",
+        "skipping treasure grants no relic",
+        "Flower respects empty chest",
+        "empty chest has no visible relic",
+        "empty chest has no floral decoration"
+      ],
+      "log_errors": [],
+      "mcp_loaded": true,
+      "package_copy_hashes_match": true,
+      "game_log_sha256": "c07a2344d71eae0140d2a64f63a21518ad6f610573b01fc2a2a8e29297b31a94",
+      "runner_log_sha256": "593bc1dd8c13a8b1f6c4bb06e355dba777c4af55d39ef0a81328f2f935312bb3",
+      "evidence": [
+        "evidence/flavor-stable-rewards.png",
+        "evidence/flavor-stable-chest.png"
+      ]
+    },
+    "beta": {
+      "game_version": "v0.111.0",
+      "character": "IRONCLAD",
+      "fixture_calls": [
+        {
+          "case": "shared-pool",
+          "result": "pass"
+        },
+        {
+          "case": "chest-one",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "audit",
+          "result": "pass"
+        },
+        {
+          "case": "prepare",
+          "result": "pass"
+        },
+        {
+          "case": "reward-check",
+          "result": "pass"
+        },
+        {
+          "case": "claim-check",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-skip",
+          "result": "pass"
+        },
+        {
+          "case": "empty-setup",
+          "result": "pass"
+        },
+        {
+          "case": "empty",
+          "result": "pass"
+        }
+      ],
+      "assertions": [
+        "Flower belongs to the shared pool exactly once",
+        "Flower is absent from Karen's character pool",
+        "Flower is naturally obtainable by IRONCLAD",
+        "original Flower description and TV6 Kaoruko flavor load from the shipped pack",
+        "treasure candidate count 1",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 1",
+        "native layout switches with candidate count",
+        "ordinary chest has no Flower decoration",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "shared pool contains exactly one Flower",
+        "native textures load",
+        "localized title and description",
+        "relic save identity",
+        "combat relic becomes two linked choices: Common",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "combat relic becomes two linked choices: Uncommon",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "combat relic becomes two linked choices: Rare",
+        "preserve original, match rarity, distinct candidates",
+        "generation is idempotent",
+        "each drop gets its own distinct linked pair",
+        "existing chain and Ancient reward stay unchanged",
+        "non-combat custom reward stays unchanged",
+        "exhausted rarity keeps original reward",
+        "exhausted rarity does not consume higher rarity relics",
+        "real post-combat extra reward is linked",
+        "floral chain centers in actual button gap: actual=(959, 573) expected=(959, 573)",
+        "floral chain opaque pixels leave painted reward text unobstructed: (844, 502), (84, 50);(844, 592), (36, 48)",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "claim removes both linked reward buttons",
+        "unchosen reward is recorded as skipped",
+        "treasure candidate count 2",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 2",
+        "native layout switches with candidate count",
+        "relics share a row and are symmetric around screen center",
+        "focus navigation only cycles visible choices",
+        "exactly one ImageGen shared floral arc loads",
+        "shared arc is centered and cannot intercept relic input",
+        "both relic rarity backgrounds are hidden and stopped",
+        "exactly one offered relic obtained",
+        "unchosen relic is not obtained",
+        "treasure candidate count 2",
+        "treasure candidates are distinct and match rarity",
+        "native visible holder count 2",
+        "native layout switches with candidate count",
+        "relics share a row and are symmetric around screen center",
+        "focus navigation only cycles visible choices",
+        "exactly one ImageGen shared floral arc loads",
+        "shared arc is centered and cannot intercept relic input",
+        "both relic rarity backgrounds are hidden and stopped",
+        "skipping treasure grants no relic",
+        "Flower respects empty chest",
+        "empty chest has no visible relic",
+        "empty chest has no floral decoration"
+      ],
+      "log_errors": [],
+      "mcp_loaded": true,
+      "package_copy_hashes_match": true,
+      "game_log_sha256": "f795ece2577079d7cb5ffa69e4264cf1a88afd8a117ff30b32b4669ab6f834fa",
+      "runner_log_sha256": "74b799b571cdf3074eed37739aba101a61a53f3f24f0bc2719fbc0761f9c74ea",
+      "evidence": [
+        "evidence/flavor-beta-rewards.png",
+        "evidence/flavor-beta-chest.png"
+      ]
+    }
+  },
+  "first_stage_evidence": "verification.json",
+  "pack_text_audit": {
+    "all_three_tables_equal_source": true,
+    "values_per_language": 33,
+    "flavor": {
+      "eng": {
+        "KAREN_BASEBALL_CAT_RELIC.flavor": "I was the one always by your side.",
+        "KAREN_COOKIE_RELIC.flavor": "Always done right—Chantory Ma'am!",
+        "KAREN_FLOWER_RELIC.flavor": "You'll be the first to see me shine the brightest in the world.",
+        "KAREN_HAIRPIN2_RELIC.flavor": "No. It's destiny.",
+        "KAREN_HAIRPIN_RELIC.flavor": "Let's meet on stage.",
+        "KAREN_LITTLE_STAR_RELIC.flavor": "You will find a little happiness.",
+        "KAREN_LOCK_RELIC.flavor": "",
+        "KAREN_MR_WHITE_RELIC.flavor": "So fluffy… so cute…!",
+        "KAREN_STAR_HAIRCLIP_RELIC.flavor": "Do you remember? That promise.",
+        "KAREN_STAR_TIARA_RELIC.flavor": "I don't need any fuel.",
+        "KAREN_WATER_BOTTLE_RELIC.flavor": "All right! One more push!"
+      },
+      "jpn": {
+        "KAREN_BASEBALL_CAT_RELIC.flavor": "ずっと傍にいたのは私なんだよ。",
+        "KAREN_COOKIE_RELIC.flavor": "ちゃんとちゃんとのチャントリーマァム。",
+        "KAREN_FLOWER_RELIC.flavor": "うちが世界で一番キラめくとこを、一番初めに見せたるから。",
+        "KAREN_HAIRPIN2_RELIC.flavor": "違うよ。運命、だよ。",
+        "KAREN_HAIRPIN_RELIC.flavor": "舞台で会おうね。",
+        "KAREN_LITTLE_STAR_RELIC.flavor": "あなたは小さな幸せを手に入れる。",
+        "KAREN_LOCK_RELIC.flavor": "",
+        "KAREN_MR_WHITE_RELIC.flavor": "ふわふわ…かわいい…！",
+        "KAREN_STAR_HAIRCLIP_RELIC.flavor": "覚えてる？ あの約束のこと。",
+        "KAREN_STAR_TIARA_RELIC.flavor": "燃料なんて、必要ない。",
+        "KAREN_WATER_BOTTLE_RELIC.flavor": "ようし！もうひと踏ん張り。"
+      },
+      "zhs": {
+        "KAREN_BASEBALL_CAT_RELIC.flavor": "一直陪在你身边的，是我啊。",
+        "KAREN_COOKIE_RELIC.flavor": "认认真真的 Chantory Ma'am！",
+        "KAREN_FLOWER_RELIC.flavor": "我在世界上最闪耀的样子，会第一个让你看到。",
+        "KAREN_HAIRPIN2_RELIC.flavor": "不对哦，是命运。",
+        "KAREN_HAIRPIN_RELIC.flavor": "在舞台上再会吧。",
+        "KAREN_LITTLE_STAR_RELIC.flavor": "你将获得小小的幸福。",
+        "KAREN_LOCK_RELIC.flavor": "",
+        "KAREN_MR_WHITE_RELIC.flavor": "软乎乎的……好可爱……！",
+        "KAREN_STAR_HAIRCLIP_RELIC.flavor": "还记得吗？那个约定。",
+        "KAREN_STAR_TIARA_RELIC.flavor": "燃料什么的，根本不需要。",
+        "KAREN_WATER_BOTTLE_RELIC.flavor": "好！再加把劲！"
+      }
+    },
+    "standalone_headless_pack_read_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime_assertions_total": 120,
+  "localization": {
+    "full_validation_pass": false,
+    "failures": [
+      "FAIL: Chinese source changed; review both translations and refresh hash: settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL_BUTTON.title",
+      "FAIL: Chinese source changed; review both translations and refresh hash: settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.inRun",
+      "FAIL: Chinese source changed; review both translations and refresh hash: settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.complete",
+      "FAIL: Chinese source changed; review both translations and refresh hash: settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.failed"
+    ],
+    "same_preexisting_settings_hash_failures_as_first_stage": true,
+    "new_relic_failures": 0,
+    "smartformat_checked": true
+  },
+  "vfx_catalog": {
+    "result": "pass",
+    "types": 70,
+    "shared_owners": 37,
+    "assets": 164
+  },
+  "limitations": [
+    "TV dialogue is checked against publicly quoted scene descriptions, not an authorized-video audio transcription.",
+    "Cookie CM quote is a secondary citation; the original Overture volume 2 chapter 7 advertisement page is not in the free preview and awaits primary-page review.",
+    "Chinese and English are mod translations, not official subtitles.",
+    "No complete multiplayer matrix or release/performance certification."
+  ]
+}
