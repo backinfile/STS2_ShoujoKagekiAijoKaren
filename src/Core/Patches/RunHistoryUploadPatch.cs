@@ -1,17 +1,67 @@
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Saves;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 
 [HarmonyPatch(typeof(RunHistoryUtilities), nameof(RunHistoryUtilities.CreateRunHistoryEntry))]
 public class RunHistoryUploadPatch
 {
-    private const string UploadUrl = "https://sts2-karen-server.karen.fan/api/upload?key=KarenModDataUploadKey2025";
-    private static readonly HttpClient HttpClient = new();
+    private static readonly HttpClient HttpClient = new() { Timeout = System.TimeSpan.FromSeconds(30) };
+    private static readonly System.Lazy<UploadEndpoint?> Endpoint = new(LoadEndpoint);
+
+    private sealed class UploadEndpoint
+    {
+        public string Url { get; set; } = "";
+    }
+
+    private static UploadEndpoint? LoadEndpoint()
+    {
+        try
+        {
+            using var stream = typeof(RunHistoryUploadPatch).Assembly.GetManifestResourceStream("KarenTelemetryEndpoint.json");
+            if (stream == null)
+                return null;
+            var endpoint = JsonSerializer.Deserialize<UploadEndpoint>(stream);
+            return endpoint != null &&
+                System.Uri.TryCreate(endpoint.Url, System.UriKind.Absolute, out var uri) && uri.Scheme == "https"
+                ? endpoint : null;
+        }
+        catch (System.Exception)
+        {
+            MainFile.Logger.Warn("[RunHistoryUploadPatch] 数据上传配置无效，跳过上传");
+            return null;
+        }
+    }
+
+    private static void RemoveShineValues(JsonNode? node)
+    {
+        if (node is JsonObject obj)
+        {
+            obj.Remove("karen_shine_current");
+            obj.Remove("karen_shine_max");
+            foreach (var property in obj)
+                RemoveShineValues(property.Value);
+        }
+        else if (node is JsonArray array)
+        {
+            for (int i = array.Count - 1; i >= 0; i--)
+            {
+                if (array[i] is JsonObject saved && saved["name"] is JsonValue name &&
+                    name.TryGetValue<string>(out var text) && text is "karen_shine_current" or "karen_shine_max")
+                    array.RemoveAt(i);
+                else
+                    RemoveShineValues(array[i]);
+            }
+        }
+    }
 
     private static readonly System.Collections.Generic.HashSet<string> AllowedCharacterIds = new(System.StringComparer.OrdinalIgnoreCase)
     {
@@ -85,10 +135,39 @@ public class RunHistoryUploadPatch
     {
         try
         {
-            var json = JsonSerializer.Serialize(history);
+            var endpoint = Endpoint.Value;
+            if (endpoint == null)
+            {
+                MainFile.Logger.Info("[RunHistoryUploadPatch] 未配置数据上传服务，跳过上传");
+                return;
+            }
+
+            // The native contract includes public fields such as was_picked.
+            var json = JsonSerializationUtility.ToJson(history);
             json = RunHistoryShineCache.InjectIntoHistoryJson(json);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await HttpClient.PostAsync(UploadUrl, content);
+            var payload = JsonNode.Parse(json);
+            RemoveShineValues(payload);
+            var body = payload!.ToJsonString();
+            var bytes = Encoding.UTF8.GetBytes(body);
+            var manifest = JsonSerializer.Serialize(new
+            {
+                sha256 = System.Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant(),
+                bytes = bytes.Length
+            });
+            using var sessionRequest = new HttpRequestMessage(HttpMethod.Post, endpoint.Url.TrimEnd('/') + "/session");
+            sessionRequest.Content = new StringContent(manifest, Encoding.UTF8, "application/json");
+            using var sessionResponse = await HttpClient.SendAsync(sessionRequest);
+            if (!sessionResponse.IsSuccessStatusCode)
+            {
+                MainFile.Logger.Warn($"[RunHistoryUploadPatch] 申请上传令牌失败: {sessionResponse.StatusCode}");
+                return;
+            }
+            using var session = JsonDocument.Parse(await sessionResponse.Content.ReadAsStringAsync());
+            var token = session.RootElement.GetProperty("upload_token").GetString();
+            using var request = new HttpRequestMessage(HttpMethod.Post, endpoint.Url);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            request.Content = new StringContent(body, Encoding.UTF8, "application/json");
+            using var response = await HttpClient.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
             {
