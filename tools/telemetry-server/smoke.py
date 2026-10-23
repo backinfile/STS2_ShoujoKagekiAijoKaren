@@ -25,7 +25,7 @@ def request(url, payload=None, headers=None):
     except HTTPError as error:
         return error.code, error.read(), dict(error.headers)
 
-read = {"Authorization": auth}
+read = {"Authorization": auth} if access.get("page_access", "password") == "password" else {}
 upload = {"Content-Type": "application/json"}
 def scoped_upload(payload):
     body = json.dumps(payload, ensure_ascii=False).encode()
@@ -37,8 +37,9 @@ def scoped_upload(payload):
     return request(access["upload_url"], body, headers)
 checks = {}
 checks["root_hidden"] = request("https://47.95.213.214:8443/")[0] == 404
-checks["portal_password_required"] = request(access["page_url"])[0] == 401
-checks["read_api_password_required"] = request(access["page_url"] + "api/runs")[0] == 401
+gate_status = 401 if access.get("page_access", "password") == "password" else 200
+checks["portal_access_matches_policy"] = request(access["page_url"])[0] == gate_status
+checks["read_api_access_matches_policy"] = request(access["page_url"] + "api/runs")[0] == gate_status
 checks["portal_loaded"] = request(access["page_url"], headers=read)[0] == 200
 checks["upload_requires_scoped_token"] = request(access["upload_url"], {}, upload)[0] == 401
 checks["invalid_payload_rejected"] = scoped_upload({})[0] == 400
