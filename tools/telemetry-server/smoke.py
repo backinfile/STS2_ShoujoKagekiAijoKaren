@@ -27,22 +27,16 @@ def request(url, payload=None, headers=None):
 
 read = {"Authorization": auth} if access.get("page_access", "password") == "password" else {}
 upload = {"Content-Type": "application/json"}
-def scoped_upload(payload):
+def direct_upload(payload):
     body = json.dumps(payload, ensure_ascii=False).encode()
-    status, raw, _ = request(access["upload_url"] + "/session",
-                             {"sha256": hashlib.sha256(body).hexdigest(), "bytes": len(body)}, upload)
-    if status != 201:
-        raise RuntimeError("session_failed_" + str(status))
-    headers = upload | {"Authorization": "Bearer " + json.loads(raw)["upload_token"]}
-    return request(access["upload_url"], body, headers)
+    return request(access["upload_url"], body, upload)
 checks = {}
 checks["root_hidden"] = request("https://47.95.213.214:8443/")[0] == 404
 gate_status = 401 if access.get("page_access", "password") == "password" else 200
 checks["portal_access_matches_policy"] = request(access["page_url"])[0] == gate_status
 checks["read_api_access_matches_policy"] = request(access["page_url"] + "api/runs")[0] == gate_status
 checks["portal_loaded"] = request(access["page_url"], headers=read)[0] == 200
-checks["upload_requires_scoped_token"] = request(access["upload_url"], {}, upload)[0] == 401
-checks["invalid_payload_rejected"] = scoped_upload({})[0] == 400
+checks["invalid_payload_rejected_without_token"] = direct_upload({})[0] == 400
 data = fixture()
 data["seed"] = "COLLECTOR-SELFTEST-" + uuid.uuid4().hex
 template = data["map_point_history"][0][0]
@@ -62,15 +56,22 @@ for act in range(3):
         entries.append(entry)
     acts.append(entries)
 data["map_point_history"] = acts
-status, raw, _ = scoped_upload(data)
+status, raw, _ = direct_upload(data)
 checks["new_run_201"] = status == 201
 if status != 201:
     raise SystemExit(f"Upload failed: {status} {raw[:200]}")
 rid = json.loads(raw)["run_id"]
-checks["duplicate_200"] = scoped_upload(data)[0] == 200
+checks["duplicate_200"] = direct_upload(data)[0] == 200
 conflict = copy.deepcopy(data)
 conflict["run_time"] += 1
-checks["conflict_409"] = scoped_upload(conflict)[0] == 409
+checks["conflict_409"] = direct_upload(conflict)[0] == 409
+body = json.dumps(data, ensure_ascii=False).encode()
+status, raw, _ = request(access["upload_url"] + "/session",
+                         {"sha256": hashlib.sha256(body).hexdigest(), "bytes": len(body)}, upload)
+checks["r6_session_compatible"] = status == 201 and "upload_token" in json.loads(raw)
+if checks["r6_session_compatible"]:
+    headers = upload | {"Authorization": "Bearer " + json.loads(raw)["upload_token"]}
+    checks["r6_upload_compatible"] = request(access["upload_url"], body, headers)[0] == 200
 status, raw, _ = request(access["page_url"] + "api/runs/" + rid, headers=read)
 checks["detail_64_bit_id"] = status == 200 and json.loads(raw)["history"]["players"][0]["id"] == "76561199000000001"
 status, raw, _ = request(access["page_url"] + "api/runs/" + rid + "/raw", headers=read)

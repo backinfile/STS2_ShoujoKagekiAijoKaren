@@ -1,7 +1,5 @@
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -148,24 +146,7 @@ public class RunHistoryUploadPatch
             var payload = JsonNode.Parse(json);
             RemoveShineValues(payload);
             var body = payload!.ToJsonString();
-            var bytes = Encoding.UTF8.GetBytes(body);
-            var manifest = JsonSerializer.Serialize(new
-            {
-                sha256 = System.Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant(),
-                bytes = bytes.Length
-            });
-            using var sessionRequest = new HttpRequestMessage(HttpMethod.Post, endpoint.Url.TrimEnd('/') + "/session");
-            sessionRequest.Content = new StringContent(manifest, Encoding.UTF8, "application/json");
-            using var sessionResponse = await HttpClient.SendAsync(sessionRequest);
-            if (!sessionResponse.IsSuccessStatusCode)
-            {
-                MainFile.Logger.Warn($"[RunHistoryUploadPatch] 申请上传令牌失败: {sessionResponse.StatusCode}");
-                return;
-            }
-            using var session = JsonDocument.Parse(await sessionResponse.Content.ReadAsStringAsync());
-            var token = session.RootElement.GetProperty("upload_token").GetString();
             using var request = new HttpRequestMessage(HttpMethod.Post, endpoint.Url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             request.Content = new StringContent(body, Encoding.UTF8, "application/json");
             using var response = await HttpClient.SendAsync(request);
 

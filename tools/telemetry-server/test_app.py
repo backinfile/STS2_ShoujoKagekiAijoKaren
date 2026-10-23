@@ -106,25 +106,7 @@ class CollectorTests(unittest.TestCase):
         self.store.backup(backup)
         self.assertEqual(Store(backup).runs({})["total"], 1)
 
-    def test_scoped_token_binding_expiry_replay_and_pending_budget(self):
-        body = json.dumps(self.data).encode()
-        manifest = {"sha256": hashlib.sha256(body).hexdigest(), "bytes": len(body)}
-        status, result = self.store.session(manifest, "ip-one")
-        self.assertEqual(status, 201)
-        token = result["upload_token"]
-        self.assertFalse(self.store.authorize(token, body, "ip-two"))
-        self.assertFalse(self.store.authorize(token, body + b" ", "ip-one"))
-        self.assertTrue(self.store.authorize(token, body, "ip-one"))
-        self.assertFalse(self.store.authorize(token, body, "ip-one"))
-        token = self.store.session(manifest, "ip-one")[1]["upload_token"]
-        with self.store.connect() as db:
-            db.execute("UPDATE upload_sessions SET expires=0")
-        self.assertFalse(self.store.authorize(token, body, "ip-one"))
-        for _ in range(4):
-            self.assertEqual(self.store.session(manifest, "ip-three")[0], 201)
-        self.assertEqual(self.store.session(manifest, "ip-three")[0], 429)
-
-    def test_http_auth_validation_upload_read_and_raw(self):
+    def test_http_direct_and_r6_upload_read_guard_validation_and_raw(self):
         with Server(("127.0.0.1", 0), self.store, "r" * 32) as server:
             thread = threading.Thread(target=server.serve_forever, daemon=True)
             thread.start()
@@ -137,17 +119,23 @@ class CollectorTests(unittest.TestCase):
                     return error.code, error.read()
             try:
                 self.assertEqual(request("/api/runs")[0], 404)
-                self.assertEqual(request("/api/upload", b"{}")[0], 401)
+                self.assertEqual(request("/api/upload", b"{}")[0], 415)
                 def upload(body):
-                    manifest = json.dumps({"sha256": hashlib.sha256(body).hexdigest(), "bytes": len(body)}).encode()
-                    status, response = request("/api/upload-session", manifest, {"Content-Type": "application/json"})
-                    self.assertEqual(status, 201)
-                    token = json.loads(response)["upload_token"]
-                    return request("/api/upload", body, {"Content-Type": "application/json", "Authorization": "Bearer " + token})
+                    return request("/api/upload", body, {"Content-Type": "application/json"})
                 self.assertEqual(upload(b"{}")[0], 400)
-                status, raw = upload(json.dumps(self.data).encode())
+                body = json.dumps(self.data).encode()
+                status, raw = upload(body)
                 self.assertEqual(status, 201)
                 rid = json.loads(raw)["run_id"]
+                manifest = json.dumps({"sha256": hashlib.sha256(body).hexdigest(), "bytes": len(body)}).encode()
+                status, response = request("/api/upload-session", manifest, {"Content-Type": "application/json"})
+                self.assertEqual(status, 201)
+                session = json.loads(response)
+                self.assertTrue(session["deprecated"])
+                status, _ = request("/api/upload", body, {"Content-Type": "application/json", "Authorization": "Bearer " + session["upload_token"]})
+                self.assertEqual(status, 200)
+                self.assertEqual(request("/api/upload", b"{}", {"Content-Type": "application/json", "Content-Length": str(8 * 1024 * 1024 + 1)})[0], 413)
+                self.assertEqual(request("/api/upload-session", b"{}", {"Content-Type": "application/json"})[0], 400)
                 read = {"X-Observatory-Access": "r" * 32}
                 status, raw = request("/api/runs/" + rid, headers=read)
                 self.assertEqual(status, 200)

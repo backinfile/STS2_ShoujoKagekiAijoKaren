@@ -12,7 +12,6 @@ import math
 import os
 from pathlib import Path
 import re
-import secrets
 import socket
 import sqlite3
 import threading
@@ -105,6 +104,15 @@ def parse_history(body):
     if not isinstance(data, dict):
         raise Invalid("expected_run_history")
     return sanitize(data)
+
+
+def legacy_session(manifest):
+    """r6 expects a token-shaped response; it grants no permission or identity."""
+    if not isinstance(manifest, dict) or not re.fullmatch(r"[0-9a-f]{64}", str(manifest.get("sha256", ""))):
+        raise Invalid("invalid_payload_sha256")
+    integer(manifest.get("bytes"), 1, MAX_BODY, "payload_size")
+    return 201, {"upload_token": "legacy-client-compatibility", "deprecated": True,
+                 "scope": "compatibility_only"}
 
 
 def derive(data):
@@ -224,42 +232,6 @@ class Store:
                 player_count INTEGER NOT NULL, outcome TEXT NOT NULL, floor INTEGER NOT NULL,
                 duplicates INTEGER NOT NULL DEFAULT 0)""")
             db.execute("CREATE INDEX IF NOT EXISTS runs_received ON runs(received DESC, id)")
-            db.execute("""CREATE TABLE IF NOT EXISTS upload_sessions (
-                token_hash TEXT PRIMARY KEY, digest TEXT NOT NULL, size INTEGER NOT NULL,
-                ip TEXT NOT NULL, expires INTEGER NOT NULL, created INTEGER NOT NULL,
-                used INTEGER NOT NULL DEFAULT 0)""")
-
-    def session(self, manifest, ip):
-        if not isinstance(manifest, dict) or not re.fullmatch(r"[0-9a-f]{64}", str(manifest.get("sha256", ""))):
-            raise Invalid("invalid_payload_sha256")
-        size = integer(manifest.get("bytes"), 1, MAX_BODY, "payload_size")
-        now = int(time.time())
-        with self.connect() as db:
-            db.execute("BEGIN IMMEDIATE")
-            db.execute("DELETE FROM upload_sessions WHERE created<?", (now - 86400,))
-            count = db.execute("SELECT COUNT(*) FROM upload_sessions").fetchone()[0]
-            if count >= 4000:
-                return 429, {"error": "daily_session_budget_reached"}
-            active = db.execute("SELECT COUNT(*) FROM upload_sessions WHERE ip=? AND used=0 AND expires>=?", (ip, now)).fetchone()[0]
-            if active >= 4:
-                return 429, {"error": "too_many_pending_uploads"}
-            token = secrets.token_urlsafe(32)
-            db.execute("INSERT INTO upload_sessions VALUES (?,?,?,?,?,?,0)",
-                       (hashlib.sha256(token.encode()).hexdigest(), manifest["sha256"], size, ip, now + 120, now))
-        return 201, {"upload_token": token, "expires_in": 120, "scope": "single_run_upload"}
-
-    def authorize(self, token, body, ip):
-        if not re.fullmatch(r"[A-Za-z0-9_-]{40,80}", token):
-            return False
-        with self.connect() as db:
-            db.execute("BEGIN IMMEDIATE")
-            row = db.execute("SELECT * FROM upload_sessions WHERE token_hash=?", (hashlib.sha256(token.encode()).hexdigest(),)).fetchone()
-            if not row or row["used"] or row["expires"] < int(time.time()) or row["ip"] != ip:
-                return False
-            if row["size"] != len(body) or not hmac.compare_digest(row["digest"], hashlib.sha256(body).hexdigest()):
-                return False
-            db.execute("UPDATE upload_sessions SET used=1 WHERE token_hash=?", (row["token_hash"],))
-        return True
 
     @contextmanager
     def connect(self):
@@ -529,9 +501,6 @@ class Handler(BaseHTTPRequestHandler):
             if path not in ("/api/upload", "/api/upload-session"):
                 return self.respond(404, {"error": "not_found"})
             session = path == "/api/upload-session"
-            auth = self.headers.get("Authorization", "")
-            if not session and not auth.startswith("Bearer "):
-                return self.respond(401, {"error": "upload_token_required"})
             if self.headers.get("Content-Type", "").split(";", 1)[0].strip().lower() != "application/json":
                 return self.respond(415, {"error": "application_json_required"})
             if self.headers.get("Transfer-Encoding"):
@@ -545,12 +514,9 @@ class Handler(BaseHTTPRequestHandler):
             body = self.rfile.read(length)
             if len(body) != length:
                 return self.respond(400, {"error": "incomplete_body"})
-            ip = self.headers.get("X-Karen-Client-IP", self.client_address[0])
             if session:
-                status, result = self.server.store.session(parse_history(body), ip)
+                status, result = legacy_session(parse_history(body))
                 return self.respond(status, result)
-            if not self.server.store.authorize(auth[7:], body, ip):
-                return self.respond(401, {"error": "invalid_or_expired_upload_token"})
             status, result = self.server.store.upload(parse_history(body))
             self.respond(status, result)
         except Invalid as exc:
