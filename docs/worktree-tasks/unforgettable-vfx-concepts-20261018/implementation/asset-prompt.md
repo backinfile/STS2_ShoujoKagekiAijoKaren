@@ -2,7 +2,7 @@
 
 - 内置 image_gen 生成；输入为 ../persistent-v2/C-lingering-star.png，角色、场景、文字均不进入生产图。
 - 生成原图原样复制到 images/vfx/unforgettable/lingering-star.png，不通过程序改写像素。
-- 生成源：C:/Users/17575/.codex/generated_images/01a14eee-aa2d-7c62-8922-3895df012aaf/exec-b9cdf83e-fa68-4149-91b2-18fdf3b7b3c8.png。
+- 生成源：<user-home>/.codex/generated_images/01a14eee-aa2d-7c62-8922-3895df012aaf/exec-b9cdf83e-fa68-4149-91b2-18fdf3b7b3c8.png。
 
 ```text
 Use case: background-extraction

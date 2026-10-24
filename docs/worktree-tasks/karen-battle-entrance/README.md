@@ -4,7 +4,7 @@
 
 ## Original user input
 
-看看华恋的选角色的视频，你来设计下华恋在战斗开始时的入场特效（在所有效果之前） [$worktree-task](C:\Users\17575\\.codex\skills\worktree-task\SKILL.md)
+看看华恋的选角色的视频，你来设计下华恋在战斗开始时的入场特效（在所有效果之前） $worktree-task（本机参考：`<user-home>\\.codex\skills\worktree-task\SKILL.md`）
 
 追加要求（2026-10-15）：
 

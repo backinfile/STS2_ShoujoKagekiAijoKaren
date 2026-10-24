@@ -2,7 +2,7 @@
 
 ## Original user input
 
-> [$worktree-task](C:\Users\17575\\.codex\skills\worktree-task\SKILL.md) 为命运交换之日这张牌制作特效，读取 D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/19.创意工坊特效Mod解包与制作流程.md 你先搜搜相关官方和周边参考资料，然后用imagegen生成特效表现预览图，然后参考这个预览图开始实现，最后录制效果成视频给我看看
+> $worktree-task（本机参考：`<user-home>\\.codex\skills\worktree-task\SKILL.md`） 为命运交换之日这张牌制作特效，读取 docs/19.创意工坊特效Mod解包与制作流程.md 你先搜搜相关官方和周边参考资料，然后用imagegen生成特效表现预览图，然后参考这个预览图开始实现，最后录制效果成视频给我看看
 
 ## Brief task plan
 

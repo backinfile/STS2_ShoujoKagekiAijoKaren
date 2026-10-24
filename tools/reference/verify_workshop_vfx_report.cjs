@@ -1,6 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const { chromium } = require('C:/Users/17575/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const playwrightPath = require.resolve('playwright', { paths: [
+  __dirname, process.cwd(),
+  path.join(require('os').homedir(), '.cache', 'codex-runtimes', 'codex-primary-runtime', 'dependencies', 'node'),
+] });
+const { chromium } = require(playwrightPath);
 
 (async () => {
   const root = path.resolve(process.argv[2]);

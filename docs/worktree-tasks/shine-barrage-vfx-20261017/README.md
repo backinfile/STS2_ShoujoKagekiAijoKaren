@@ -3,7 +3,7 @@
 ## Original user input
 
 ```text
-你来一次制作吧 [$worktree-task](C:\Users\17575\\.codex\skills\worktree-task\SKILL.md)
+你来一次制作吧 $worktree-task（本机参考：`<user-home>\\.codex\skills\worktree-task\SKILL.md`）
 ```
 
 补充原始输入：

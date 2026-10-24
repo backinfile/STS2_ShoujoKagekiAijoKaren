@@ -26,7 +26,7 @@
   "recordings": {
     "stable": {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261016-055113-9705f074fd8e41fb83de95f33cd002b7.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261016-055113-9705f074fd8e41fb83de95f33cd002b7.mp4",
       "fps": 30,
       "max_duration_seconds": 20,
       "width": 1280,
@@ -48,7 +48,7 @@
     },
     "beta": {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261016-055237-2ac777caac7c47f78292a28f0796abd5.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261016-055237-2ac777caac7c47f78292a28f0796abd5.mp4",
       "fps": 30,
       "max_duration_seconds": 20,
       "width": 1280,
@@ -258,7 +258,7 @@
   "qaViewed": "Both native-move before/after MCP screenshot pairs, both showcase motion sheets, actual-clock video decode.",
   "withPngReference": {
     "status": "completed",
-    "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261016-054821-5358cc40cee84e5c8d9c88e776813959.mp4",
+    "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261016-054821-5358cc40cee84e5c8d9c88e776813959.mp4",
     "fps": 30,
     "max_duration_seconds": 20,
     "width": 1280,

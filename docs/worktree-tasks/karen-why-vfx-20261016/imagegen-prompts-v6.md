@@ -4,7 +4,7 @@
 
 输入：第五版测试证据中的原生选牌截图 without-border.png，已关闭全部旧特效，仅作为 UI 布局编辑目标。
 
-输出原件：C:/Users/17575/.codex/generated_images/01a1422e-05e3-7e82-9aa7-edf3d827d914/exec-fc34688d-57ab-4bf5-b807-5f5309f70a9b.png
+输出原件：<user-home>/.codex/generated_images/01a1422e-05e3-7e82-9aa7-edf3d827d914/exec-fc34688d-57ab-4bf5-b807-5f5309f70a9b.png
 
 项目副本：[preview-v6.png](preview-v6.png)，未加工。
 
@@ -26,7 +26,7 @@ Avoid: all ribbons, cloth, silk scraps, confetti, petals, stars, floating dots, 
 
 模式：内置 imagegen，stylized-concept，transparent_background=true。
 
-输出原件：C:/Users/17575/.codex/generated_images/01a1422e-05e3-7e82-9aa7-edf3d827d914/exec-d9054b79-a4de-4029-8614-e158bba1f815.png
+输出原件：<user-home>/.codex/generated_images/01a1422e-05e3-7e82-9aa7-edf3d827d914/exec-d9054b79-a4de-4029-8614-e158bba1f815.png
 
 项目副本：images/vfx/why/edge_light.png。PNG 原样复制，保留 alpha，没有图像后期处理。
 

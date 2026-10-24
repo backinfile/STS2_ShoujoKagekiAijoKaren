@@ -1,5 +1,5 @@
 {
-  "Root": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren",
+  "Root": ".",
   "Branch": "main",
   "Head": "b895ffa089a448f852673e8fceb22ed363a5b4ed",
   "Status": [
@@ -349,5 +349,5 @@
       "Hash": "418C3758B0C266C83DC1071F1D910BFA8E5AF933F996321C1FB0D97C6AABF205"
     }
   ],
-  "OriginalUserInput": "永不遗忘的特效太复杂了，你看看能不能完全重新设计下，你先用imagegen设计几种 [$worktree-task](C:\\Users\\17575\\\\.codex\\skills\\worktree-task\\SKILL.md) "
+  "OriginalUserInput": "永不遗忘的特效太复杂了，你看看能不能完全重新设计下，你先用imagegen设计几种 [$worktree-task](<user-home>\\\\.codex\\skills\\worktree-task\\SKILL.md) "
 }

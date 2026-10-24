@@ -23,11 +23,11 @@ Karen 的核心体验可以概括为：**经营牌的位置、剩余寿命和兑
 | 独立开发环境 beta v0.111.0 的 `sts2.dll` | 复核 Backflip、Acrobatics、Stardust、Corruption | 没有逐张验证两版全部效果相同 |
 | [原版卡池结构与等量补齐方案](vanilla-pool-parity-2026-09-28.md) | 五职业当前双版本规模、类型与费用统计 | 本次校验两份 DLL SHA256 与该文记录一致；未重新执行全部原版统计 |
 | [Karen 风格分析](karen-card-design-style-2026-09-28.md)、[实装盘点](karen-content-audit-2026-09-28.md) | 既有风格归纳、全卡名单与历史方案 | 建议不等于事实，历史方案不等于已经实施 |
-| `D:/Github/STS2_Card_Reserch/docs/` | 五职业体系研究、卡牌分析方法与设计审查视角 | 作为研究资料，不自动继承其中的流程命令和固定配额 |
+| `<local-files>/Github/STS2_Card_Reserch/docs/` | 五职业体系研究、卡牌分析方法与设计审查视角 | 作为研究资料，不自动继承其中的流程命令和固定配额 |
 
-用户提供的 `D:\Github\STS2\_Card\_Reserch` 在本机不存在，实际找到并采用的是 `D:\Github\STS2_Card_Reserch`。重点阅读《职业卡池设计要求_按五职业规律》《体系驱动卡池设计流程》《卡牌分析流程》及 `mods/sts2_five_classes_card_analysis_summary_zh.md`。
+用户提供的 `<local-files>/Github\STS2\_Card\_Reserch` 在本机不存在，实际找到并采用的是 `<local-files>/Github\STS2_Card_Reserch`。重点阅读《职业卡池设计要求_按五职业规律》《体系驱动卡池设计流程》《卡牌分析流程》及 `mods/sts2_five_classes_card_analysis_summary_zh.md`。
 
-通用反编译目录 `D:/Github/spire-codex/extraction/raw/release_info.json` 标记 **v0.99.1**，因此不把它当作当前正式版或测试版的数值快照。
+通用反编译目录 `<decompiled-game-source>/release_info.json` 标记 **v0.99.1**，因此不把它当作当前正式版或测试版的数值快照。
 
 本次工作区基线提交：`9f6dc0494cd8084ae8553fc9817e7c47c906f687`。分析对象包含工作区现状，不假设既有未跟踪设计文档已经提交。
 
@@ -300,7 +300,7 @@ Karen 更适合以“约定＋闪耀”为双主轴，临时力量、移牌和�
 - [进入消耗堆恢复闪耀](../../src/Core/ShineSystem/Patches/ShineExhaustRestorePatch.cs)、[升级恢复闪耀](../../src/Core/ShineSystem/Patches/ShineUpgradePatch.cs)。
 - [摘星](../../src/Core/Models/Cards/relic/KarenPickStar.cs)、[星罪](../../src/Core/Models/Cards/relic/KarenStarCrime.cs)、[中文卡面文本](../../ShoujoKagekiAijoKaren/localization/zhs/cards.json)。
 
-原版复核方法：使用本机 `C:/Users/17575/.dotnet/tools/ilspycmd.exe`，传入 `-t MegaCrit.Sts2.Core.Models.Cards.<类名>` 及对应开发环境 `data_sts2_windows_x86_64/sts2.dll`。持续效果还应读取对应 Power，本次另读 `CorruptionPower` 核对费用与消耗规则。
+原版复核方法：使用本机 `<user-home>/.dotnet/tools/ilspycmd.exe`，传入 `-t MegaCrit.Sts2.Core.Models.Cards.<类名>` 及对应开发环境 `data_sts2_windows_x86_64/sts2.dll`。持续效果还应读取对应 Power，本次另读 `CorruptionPower` 核对费用与消耗规则。
 
 本次校验的 stable DLL SHA256：`A1F9E653F1E28E4076558FEE1E60D218619CB7E057B887C6417F62C62C6D7A52`。
 

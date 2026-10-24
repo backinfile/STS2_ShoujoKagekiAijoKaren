@@ -2,7 +2,7 @@
 
 ## Original user input
 
-> [$worktree-task](C:\Users\17575\\.codex\skills\worktree-task\SKILL.md) 实现吧
+> $worktree-task（本机参考：`<user-home>\\.codex\skills\worktree-task\SKILL.md`） 实现吧
 
 后续反馈：
 

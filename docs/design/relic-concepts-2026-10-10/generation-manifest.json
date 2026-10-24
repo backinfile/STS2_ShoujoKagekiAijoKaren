@@ -5,44 +5,44 @@
     {
       "key": "01-tomato",
       "name": "番茄",
-      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-eaaebb4d-3f0e-43fa-b1a7-261477068e4c.png",
-      "destination": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\assets\\01-tomato.png"
+      "source": "<user-home>\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-eaaebb4d-3f0e-43fa-b1a7-261477068e4c.png",
+      "destination": "docs\\design\\relic-concepts-2026-10-10\\assets\\01-tomato.png"
     },
     {
       "key": "02-cookies",
       "name": "饼干",
-      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-f86ca29a-27c4-41a7-9d6e-dbb8163d2f32.png",
-      "destination": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\assets\\02-cookies.png"
+      "source": "<user-home>\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-f86ca29a-27c4-41a7-9d6e-dbb8163d2f32.png",
+      "destination": "docs\\design\\relic-concepts-2026-10-10\\assets\\02-cookies.png"
     },
     {
       "key": "03-little-star",
       "name": "小小星",
-      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-e984becd-f8ae-4455-8667-561daf1f47fe.png",
-      "destination": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\assets\\03-little-star.png"
+      "source": "<user-home>\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-e984becd-f8ae-4455-8667-561daf1f47fe.png",
+      "destination": "docs\\design\\relic-concepts-2026-10-10\\assets\\03-little-star.png"
     },
     {
       "key": "04-suzdal-cat",
       "name": "棒球猫",
-      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-e6cfffa6-1103-49f1-b0cb-54a752979c78.png",
-      "destination": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\assets\\04-suzdal-cat.png"
+      "source": "<user-home>\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-e6cfffa6-1103-49f1-b0cb-54a752979c78.png",
+      "destination": "docs\\design\\relic-concepts-2026-10-10\\assets\\04-suzdal-cat.png"
     },
     {
       "key": "05-mr-white",
       "name": "Mr. White",
-      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-a22173cb-4b78-4523-9570-f25b01ad082d.png",
-      "destination": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\assets\\05-mr-white.png"
+      "source": "<user-home>\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-a22173cb-4b78-4523-9570-f25b01ad082d.png",
+      "destination": "docs\\design\\relic-concepts-2026-10-10\\assets\\05-mr-white.png"
     },
     {
       "key": "06-warm-home",
       "name": "温暖的归处",
-      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-39c82908-9ba7-4dea-a739-4cba0b611495.png",
-      "destination": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\assets\\06-warm-home.png"
+      "source": "<user-home>\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-39c82908-9ba7-4dea-a739-4cba0b611495.png",
+      "destination": "docs\\design\\relic-concepts-2026-10-10\\assets\\06-warm-home.png"
     },
     {
       "key": "07-star-tiara",
       "name": "星之王冠",
-      "source": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-42fa2aec-195a-43a9-9678-2d1a4de456c0.png",
-      "destination": "D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\docs\\design\\relic-concepts-2026-10-10\\assets\\07-star-tiara.png"
+      "source": "<user-home>\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-42fa2aec-195a-43a9-9678-2d1a4de456c0.png",
+      "destination": "docs\\design\\relic-concepts-2026-10-10\\assets\\07-star-tiara.png"
     }
   ],
   "corrections": [

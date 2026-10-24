@@ -15,8 +15,8 @@
 以下两个根目录均为真实本地路径：
 
 ```text
-素材根目录：D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\output\imagegen\starlight-nine
-工具根目录：D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\output\imagegen\starlight-nine\texture-review
+素材根目录：output\imagegen\starlight-nine
+工具根目录：output\imagegen\starlight-nine\texture-review
 ```
 
 下表中路径相对于“工具根目录”。这些文件已经存在，正常复用不需要重新安装或重新下载模型。
@@ -47,7 +47,7 @@
 | GPU | NVIDIA GeForce RTX 4060，8 GB 显存 |
 | CUDA | `torch.cuda.is_available()` 返回 `True` |
 
-本机另有 `C:\Users\17575\.local\bin\uv.exe`；依赖下载缓存位于 `C:\Users\17575\AppData\Local\uv\cache`。首次安装 GPU 依赖下载约耗时 12 分钟，已完成；后续直接使用现有虚拟环境即可。
+本机另有 `<user-home>\.local\bin\uv.exe`；依赖下载缓存位于 `<user-home>\AppData\Local\uv\cache`。首次安装 GPU 依赖下载约耗时 12 分钟，已完成；后续直接使用现有虚拟环境即可。
 
 ## 3. 实际处理步骤
 
@@ -105,7 +105,7 @@ RGB → FLUX.2-VAE 编码 → 潜变量 + strength × 残差网络输出 → VAE
 这些命令使用现有虚拟环境，不需要激活环境或重新安装依赖。
 
 ```powershell
-$reviewDir = 'D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\output\imagegen\starlight-nine\texture-review'
+$reviewDir = 'output\imagegen\starlight-nine\texture-review'
 $pythonExe = Join-Path $reviewDir 'artifact-cleaner\.venv\Scripts\python.exe'
 
 # 可选：确认 GPU 可用
@@ -131,7 +131,7 @@ $pythonExe = Join-Path $reviewDir 'artifact-cleaner\.venv\Scripts\python.exe'
 - 脚本按所在位置推导素材根目录，未提供 `--input`／`--output` 参数。
 - 重跑会覆盖同名试样、清理结果、JSON 记录和当前九宫格，源图不覆盖。比较多套参数时，先把已有输出另存。
 - `--grid` 需要 `characters-cleaned/` 内九张文件齐全；华恋和奈奈已在该目录准备好，清理脚本本身不复制这两张。
-- `make_comparisons.py` 使用 Windows 字体 `C:\Windows\Fonts\msyh.ttc`。
+- `make_comparisons.py` 使用 Windows 字体 `<windows-directory>\Fonts\msyh.ttc`。
 - 当前环境、模型已经就绪；若以后用于其他素材，先复制并调整包装脚本的根目录、样本名称、批处理名单和对比裁切坐标，再重复试样选档，不要直接覆盖本批输入。
 
 ## 5. 输出文件与检查记录
@@ -168,7 +168,7 @@ $pythonExe = Join-Path $reviewDir 'artifact-cleaner\.venv\Scripts\python.exe'
 完整原画导出位于：
 
 ```text
-D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\output\imagegen\hikari\references\karen-complete-original.png
+output\imagegen\hikari\references\karen-complete-original.png
 ```
 
 `psd-tools 1.20.0` 安装在系统 Python 3.14 环境，用于 PSD 检查与导出；它不是清理器的依赖，也不在上述清理虚拟环境的依赖清单中。

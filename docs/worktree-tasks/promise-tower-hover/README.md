@@ -2,7 +2,7 @@
 
 ## Original user input
 
-[$worktree-task](C:\Users\17575\\.codex\skills\worktree-task\SKILL.md)  鼠标移动到约定牌堆的塔上时，鼠标不要变，同时需要展示约定牌堆tips
+$worktree-task（本机参考：`<user-home>\\.codex\skills\worktree-task\SKILL.md`）  鼠标移动到约定牌堆的塔上时，鼠标不要变，同时需要展示约定牌堆tips
 
 后续用户输入（原文）：
 
