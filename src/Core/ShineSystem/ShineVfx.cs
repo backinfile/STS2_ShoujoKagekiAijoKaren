@@ -13,7 +13,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 
 public static class ShineVfx
 {
-    public static bool WillDeplete(CardModel card, bool shineAlreadyDecreased = false) => card.IsShineCard() && !card.IsDupe
+    // Canonical preview cards have no combat depletion state; their Owner getter requires mutability.
+    public static bool WillDeplete(CardModel card, bool shineAlreadyDecreased = false) => card.IsMutable && card.IsShineCard() && !card.IsDupe
         && !card.Keywords.Contains(CardKeyword.Eternal)
         && (card.GetShineValue() <= (shineAlreadyDecreased ? 0 : 1) || card.ShouldEnterShinePileAfterPlay()
             || card.Owner?.Creature.Powers.Any(p => p is KarenStarlight02Power) == true);
