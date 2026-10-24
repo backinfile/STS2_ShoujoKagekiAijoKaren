@@ -49,7 +49,7 @@ pwsh -File tools/test_tower_recall.ps1 -Environment beta -ResolutionOnly
 
 ## 本次结果
 
-环境：正式版 v0.107.1、测试版 v0.111.0；均从独立用户目录以 Karen 进入战斗。MCP 来自当前本地 `D:\Github\STS2_Mcp` 源码，未使用 Computer Use。所有输出保存在工作树的 `artifacts/`，未改动 Steam 或其他 Mod 项目的游戏目录。
+环境：正式版 v0.107.1、测试版 v0.111.0；均从独立用户目录以 Karen 进入战斗。MCP 来自当前本地 `<karen-sts2-mcp-source>` 源码，未使用 Computer Use。所有输出保存在工作树的 `artifacts/`，未改动 Steam 或其他 Mod 项目的游戏目录。
 
 | 项目 | 正式版 | 测试版 |
 | --- | --- | --- |

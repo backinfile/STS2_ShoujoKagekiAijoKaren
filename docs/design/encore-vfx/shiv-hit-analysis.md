@@ -89,13 +89,13 @@ Shiv 调用传入 Colors.Green，仅对飞行刀芒、命中尖核、命中火�
 
 ## 源码入口
 
-- [Shiv 卡牌](D:/Github/spire-codex/extraction/raw/src/Core/Models/Cards/Shiv.cs:57)
-- [NShivThrowVfx 时序与调色](D:/Github/spire-codex/extraction/raw/src/Core/Nodes/Vfx/NShivThrowVfx.cs)
-- [主场景与父级覆盖](D:/Github/spire-codex/extraction/raw/scenes/vfx/vfx_shiv_throw.tscn)
-- [飞行粒子子场景](D:/Github/spire-codex/extraction/raw/scenes/vfx/dagger/vfx_dagger_spray_dagger.tscn)
-- [命中核心子场景](D:/Github/spire-codex/extraction/raw/scenes/vfx/dagger/vfx_dagger_impact_core.tscn)
-- [飞行材质](D:/Github/spire-codex/extraction/raw/materials/vfx/dagger/vfx_dagger_spray_single.tres)
-- [飞行 Shader](D:/Github/spire-codex/extraction/raw/shaders/vfx/dagger/vfx_dagger_spray_single_shader.gdshader)
-- [命中核心材质](D:/Github/spire-codex/extraction/raw/materials/vfx/dagger/vfx_dagger_impact_core.tres)
-- [Cmd.Wait 的计时与跳过条件](D:/Github/spire-codex/extraction/raw/src/Core/Commands/Cmd.cs:35)
-- [调试场景资源归属](D:/Github/spire-codex/extraction/raw/scenes/debug/combat_vfx_playground.tscn)
+- [Shiv 卡牌](<decompiled-game-source>/src/Core/Models/Cards/Shiv.cs:57)
+- [NShivThrowVfx 时序与调色](<decompiled-game-source>/src/Core/Nodes/Vfx/NShivThrowVfx.cs)
+- [主场景与父级覆盖](<decompiled-game-source>/scenes/vfx/vfx_shiv_throw.tscn)
+- [飞行粒子子场景](<decompiled-game-source>/scenes/vfx/dagger/vfx_dagger_spray_dagger.tscn)
+- [命中核心子场景](<decompiled-game-source>/scenes/vfx/dagger/vfx_dagger_impact_core.tscn)
+- [飞行材质](<decompiled-game-source>/materials/vfx/dagger/vfx_dagger_spray_single.tres)
+- [飞行 Shader](<decompiled-game-source>/shaders/vfx/dagger/vfx_dagger_spray_single_shader.gdshader)
+- [命中核心材质](<decompiled-game-source>/materials/vfx/dagger/vfx_dagger_impact_core.tres)
+- [Cmd.Wait 的计时与跳过条件](<decompiled-game-source>/src/Core/Commands/Cmd.cs:35)
+- [调试场景资源归属](<decompiled-game-source>/scenes/debug/combat_vfx_playground.tscn)

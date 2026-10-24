@@ -63,6 +63,7 @@ password_file.chmod(0o640)
 os.chown(password_file, 0, grp.getgrnam("www-data").gr_gid)
 environment = CONFIG / "service.env"
 environment.write_text(f"DATABASE_PATH={DATA}/history.sqlite3\nPORT=42767\n"
+                       f"RAW_SUBMISSIONS_PATH={DATA}/raw-submissions\n"
                        f"READ_KEY={access['read_key']}\n")
 environment.chmod(0o640)
 os.chown(environment, 0, account.pw_gid)
@@ -251,6 +252,36 @@ WantedBy=timers.target
 """)
 subprocess.run(["systemctl", "daemon-reload"], check=True)
 subprocess.run(["systemctl", "enable", "--now", "karen-observatory-backup.timer"], check=True)
+Path("/etc/systemd/system/karen-observatory-raw-archive.service").write_text(f"""[Unit]
+Description=Verify and compress closed UTC days of original Karen JSON submissions
+[Service]
+Type=oneshot
+User={USER}
+Group={USER}
+WorkingDirectory={ROOT}/current
+EnvironmentFile={CONFIG}/service.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+UMask=0077
+ExecStart=/usr/bin/python3 {ROOT}/current/app.py --archive-raw
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths={DATA}
+MemoryMax=128M
+CPUQuota=25%
+""")
+Path("/etc/systemd/system/karen-observatory-raw-archive.timer").write_text("""[Unit]
+Description=Daily compression of original Karen JSON submissions
+[Timer]
+OnCalendar=*-*-* 00:15:00 UTC
+Persistent=true
+RandomizedDelaySec=10m
+[Install]
+WantedBy=timers.target
+""")
+subprocess.run(["systemctl", "daemon-reload"], check=True)
+subprocess.run(["systemctl", "enable", "--now", "karen-observatory-raw-archive.timer"], check=True)
 Path("/etc/logrotate.d/karen-observatory").write_text(f"""{LOGS}/service.log {{
     daily
     rotate 7
@@ -273,6 +304,8 @@ if shutil.disk_usage(data).free<2*1024**3: raise SystemExit('disk free below 2Gi
 if (data/'history.sqlite3').stat().st_size>900*1024**2: raise SystemExit('database above 900MiB warning threshold')
 backups=list((data/'backups').glob('history-????????.sqlite3'))
 if not backups or time.time()-max(p.stat().st_mtime for p in backups)>48*3600: raise SystemExit('backup missing or older than 48 hours')
+pending=list((data/'raw-submissions'/'pending').glob('*/*.json'))
+if pending and time.time()-min(p.stat().st_mtime for p in pending)>48*3600: raise SystemExit('raw JSON archive backlog older than 48 hours')
 ''')
 Path("/etc/systemd/system/karen-observatory-monitor.service").write_text(f"""[Unit]
 Description=Karen collector health, disk and backup monitor

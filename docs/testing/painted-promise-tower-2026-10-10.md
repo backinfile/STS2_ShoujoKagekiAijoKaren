@@ -14,7 +14,7 @@
 
 ## 环境与证据
 
-所有构建与测试位于独立工作树 `D:/Godot/Proj/worktrees/karen-painted-promise-tower`。正式版 v0.107.1、测试版 v0.111.0 使用工作树内独立游戏副本及用户数据，端口 15627 / 15628。未部署到 Steam 或其他 Mod 的游戏目录。
+所有构建与测试位于独立工作树 `../worktrees/karen-painted-promise-tower`。正式版 v0.107.1、测试版 v0.111.0 使用工作树内独立游戏副本及用户数据，端口 15627 / 15628。未部署到 Steam 或其他 Mod 的游戏目录。
 
 最终位置双版本构建通过，日志 `artifacts/painted-tower-position-build.log`。C# 编译无错误；Godot 打包存在原版资源引用缺失的导出诊断，实际游戏运行检查另行记录，不能仅凭导出完成判断兼容性。
 

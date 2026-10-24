@@ -88,7 +88,7 @@
 
 ## 依据与可复查资料
 
-- 游戏旧完整反编译树：`D:\Github\spire-codex\extraction\raw\`。关键结论再以独立环境的实际程序集核对。
+- 游戏旧完整反编译树：`<decompiled-game-source>\`。关键结论再以独立环境的实际程序集核对。
 - 既有两版核心类型反编译：`artifacts/debug-tower/decompiled/{stable,beta}/`，包含 CardModel、CardPileCmd、Hook、AttackCommand 等。
 - 本次新增实际程序集反编译：`artifacts/review-20260924/{stable,beta}/`，包含 Player、PlayerCombatState、CardPile、RunState、RunManager、RunSaveManager、CombatState、CombatManager、CardCmd、EnchantmentModel、Steady、CentennialPuzzle 等。个别探索性类型查询结果为空的文件不作为证据。
 - 正式版 sts2.dll SHA-256：`A1F9E653F1E28E4076558FEE1E60D218619CB7E057B887C6417F62C62C6D7A52`。

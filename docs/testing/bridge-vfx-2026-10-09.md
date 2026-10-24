@@ -16,7 +16,7 @@
 
 ## 环境和检查方法
 
-- 工作树：`D:/Godot/Proj/worktrees/STS2_ShoujoKagekiAijoKaren/bridge-stage-vfx`。
+- 工作树：`../worktrees/STS2_ShoujoKagekiAijoKaren/bridge-stage-vfx`。
 - 原分支：`main`，起点 `e5a9115e217f62b3a94d9a22224fcd200cd0737e`；本次分支 `codex/bridge-stage-vfx`。
 - 正式版、测试版均使用项目的独立开发环境和端口 15627、15628。日志确认实际 Release Version 为 v0.107.1、v0.111.0。
 - 使用 KarenSTS2MCP 和原生出牌操作；辅助插件仅布置牌源、设置测试能量、观察实际节点和战斗历史。临时插件不进入发布包。

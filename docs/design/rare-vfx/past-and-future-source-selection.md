@@ -30,7 +30,7 @@
 
 ### 定位路径
 
-根目录：`D:/Github/spire-codex/extraction/raw/`
+根目录：`<decompiled-game-source>/`
 
 - `src/Core/Models/Cards/Inflame.cs`（普通强化的真实卡牌调用）
 - `src/Core/Nodes/Vfx/NPowerUpVfx.cs`

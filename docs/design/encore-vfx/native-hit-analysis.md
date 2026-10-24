@@ -4,7 +4,7 @@
 
 ## 分析依据与范围
 
-读取本地游戏提取目录 `D:/Github/spire-codex/extraction/raw/` 的卡牌 C#、VFX 脚本、Godot 场景、材质、Shader 和原始贴图。本轮没有启动游戏；图片是原始资源整理，网页四帧回放也是资源序列回放，不是游戏实录。该提取快照尚未确认对应的游戏版本，不能据此声称已经验证正式版与测试版的运行表现。
+读取本地游戏提取目录 `<decompiled-game-source>/` 的卡牌 C#、VFX 脚本、Godot 场景、材质、Shader 和原始贴图。本轮没有启动游戏；图片是原始资源整理，网页四帧回放也是资源序列回放，不是游戏实录。该提取快照尚未确认对应的游戏版本，不能据此声称已经验证正式版与测试版的运行表现。
 
 时间均相对于相应特效节点启动。粒子 lifetime、可见峰值、节点清理时间、卡牌结算等待是不同概念；表中不会把两秒清理时间描述成两秒持续亮剑。
 
@@ -20,10 +20,10 @@
 
 源码：
 
-- [AttackCommand 执行顺序](D:/Github/spire-codex/extraction/raw/src/Core/Commands/Builders/AttackCommand.cs:550)
-- [VfxCmd 定位](D:/Github/spire-codex/extraction/raw/src/Core/Commands/VfxCmd.cs:209)
-- [伤害、火花与震屏](D:/Github/spire-codex/extraction/raw/src/Core/Commands/CreatureCmd.cs:294)
-- [通用火花场景](D:/Github/spire-codex/extraction/raw/scenes/vfx/hit_spark_vfx.tscn)
+- [AttackCommand 执行顺序](<decompiled-game-source>/src/Core/Commands/Builders/AttackCommand.cs:550)
+- [VfxCmd 定位](<decompiled-game-source>/src/Core/Commands/VfxCmd.cs:209)
+- [伤害、火花与震屏](<decompiled-game-source>/src/Core/Commands/CreatureCmd.cs:294)
+- [通用火花场景](<decompiled-game-source>/scenes/vfx/hit_spark_vfx.tscn)
 - [Karen 动画等待](../../../src/Core/Models/Characters/Karen.cs)
 
 ## 基础类型对照
@@ -81,10 +81,10 @@
 
 ## 可复查入口
 
-基础斩击：[场景](D:/Github/spire-codex/extraction/raw/scenes/vfx/vfx_attack_slash.tscn)、[序列脚本](D:/Github/spire-codex/extraction/raw/src/Core/Nodes/Vfx/Utilities/NSpriteAnimator.cs)。
+基础斩击：[场景](<decompiled-game-source>/scenes/vfx/vfx_attack_slash.tscn)、[序列脚本](<decompiled-game-source>/src/Core/Nodes/Vfx/Utilities/NSpriteAnimator.cs)。
 
-普通钝击：[场景](D:/Github/spire-codex/extraction/raw/scenes/vfx/vfx_attack_blunt.tscn)、[核心](D:/Github/spire-codex/extraction/raw/scenes/vfx/common/vfx_common_blunt_impact_core.tscn)、[材质](D:/Github/spire-codex/extraction/raw/materials/vfx/common/vfx_blunt_impact_core_flipbook.tres)、[Shader](D:/Github/spire-codex/extraction/raw/shaders/vfx/common/vfx_row_flipbook_shader.gdshader)。
+普通钝击：[场景](<decompiled-game-source>/scenes/vfx/vfx_attack_blunt.tscn)、[核心](<decompiled-game-source>/scenes/vfx/common/vfx_common_blunt_impact_core.tscn)、[材质](<decompiled-game-source>/materials/vfx/common/vfx_blunt_impact_core_flipbook.tres)、[Shader](<decompiled-game-source>/shaders/vfx/common/vfx_row_flipbook_shader.gdshader)。
 
-其余：[ThinSlice](D:/Github/spire-codex/extraction/raw/src/Core/Nodes/Vfx/NThinSliceVfx.cs)、[强刺](D:/Github/spire-codex/extraction/raw/scenes/vfx/vfx_dramatic_stab.tscn)、[横斩](D:/Github/spire-codex/extraction/raw/scenes/vfx/vfx_giant_horizontal_slash.tscn)、[重击](D:/Github/spire-codex/extraction/raw/src/Core/Nodes/Vfx/NHeavyBluntVfx.cs)、[爪击](D:/Github/spire-codex/extraction/raw/src/Core/Nodes/Vfx/NScratchVfx.cs)、[Shiv](D:/Github/spire-codex/extraction/raw/src/Core/Models/Cards/Shiv.cs)、[Shiv VFX](D:/Github/spire-codex/extraction/raw/src/Core/Nodes/Vfx/NShivThrowVfx.cs)、[星形核心](D:/Github/spire-codex/extraction/raw/scenes/vfx/starry_impact/vfx_starry_impact_core.tscn)、[雷击](D:/Github/spire-codex/extraction/raw/scenes/vfx/vfx_attack_lightning.tscn)。
+其余：[ThinSlice](<decompiled-game-source>/src/Core/Nodes/Vfx/NThinSliceVfx.cs)、[强刺](<decompiled-game-source>/scenes/vfx/vfx_dramatic_stab.tscn)、[横斩](<decompiled-game-source>/scenes/vfx/vfx_giant_horizontal_slash.tscn)、[重击](<decompiled-game-source>/src/Core/Nodes/Vfx/NHeavyBluntVfx.cs)、[爪击](<decompiled-game-source>/src/Core/Nodes/Vfx/NScratchVfx.cs)、[Shiv](<decompiled-game-source>/src/Core/Models/Cards/Shiv.cs)、[Shiv VFX](<decompiled-game-source>/src/Core/Nodes/Vfx/NShivThrowVfx.cs)、[星形核心](<decompiled-game-source>/scenes/vfx/starry_impact/vfx_starry_impact_core.tscn)、[雷击](<decompiled-game-source>/scenes/vfx/vfx_attack_lightning.tscn)。
 
 补充扫描只统计模型文件中直接写出的 `.WithHitFx("vfx/…")` 字面量，未统计所有常量、分支、自定义节点与其他系统：普通斩击 89 处、钝击 49 处、重钝击 10 处、星形 10 处、强刺 4 处、大横斩 4 处。它们是本快照的静态调用数量，不是运行频率、独立卡牌总数或完整特效目录。

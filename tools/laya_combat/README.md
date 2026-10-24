@@ -7,7 +7,7 @@
 需要 Python 3.11+，只用标准库。先启动安装 STS2 MCP 的游戏，保持英文界面。
 
 ```powershell
-cd D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\tools\laya_combat
+cd tools\laya_combat
 # 创建Python环境（无第三方依赖）
 .\run.ps1 --install
 # 密钥已配置；需要替换时交互输入

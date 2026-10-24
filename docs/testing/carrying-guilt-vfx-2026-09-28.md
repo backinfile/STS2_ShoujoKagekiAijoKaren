@@ -40,6 +40,6 @@
 
 ## MCP 更新与有声补录
 
-从 D:/Github/STS2_Mcp 的 2d2a4c5 分别构建 stable/beta（均零警告、零错误），部署到本工作区两套隔离开发游戏，保留原端口配置。正式版瀑布巨兽补录悬停→移开→出牌，使用新版 hover_card 显示手牌预览，guilt_hover 触发卡牌专有聚光回调；录音时取消静音，完成后恢复静音。
+从 <karen-sts2-mcp-source> 的 2d2a4c5 分别构建 stable/beta（均零警告、零错误），部署到本工作区两套隔离开发游戏，保留原端口配置。正式版瀑布巨兽补录悬停→移开→出牌，使用新版 hover_card 显示手牌预览，guilt_hover 触发卡牌专有聚光回调；录音时取消静音，完成后恢复静音。
 
 成片 `artifacts/carrying-guilt-audio/stable/actual.mp4` 为 7.7 秒、231 帧，补帧 16。MCP 状态 completed，audio=true，audio_source=game_process。ffprobe 确认 H.264 视频和 44.1 kHz 双声道 AAC，二者均 7.7 秒；音频平均 -54.0 dB、峰值 -22.8 dB，确认非静音，未调整后期增益。日志未检出 error/exception。测试版仅完成 MCP 构建部署，本轮未补有声实录。

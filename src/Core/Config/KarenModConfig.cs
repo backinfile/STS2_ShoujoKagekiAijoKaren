@@ -22,7 +22,16 @@ public class KarenModConfig : SimpleModConfig
     /// <summary>
     /// 上传对局数据
     /// </summary>
-    public static bool EnableDataUpload { get; set; } = true;
+    private static bool _enableDataUpload = true;
+    public static bool EnableDataUpload
+    {
+        get => _enableDataUpload;
+        set
+        {
+            _enableDataUpload = value;
+            if (value) src.Core.Patches.RunHistoryUploadPatch.ResumePendingUploads();
+        }
+    }
 
     /// <summary>
     /// 显示长颈鹿启动画面

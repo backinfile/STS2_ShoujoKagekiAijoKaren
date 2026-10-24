@@ -46,7 +46,7 @@
 
 ## 已核对的本地依据
 
-- `D:/Github/spire-codex/extraction/raw/src/Core/Localization/LocManager.cs`：`ja` 映射为 `jpn`，加载 `PluralLocalizationFormatter` 等格式化器。
+- `<decompiled-game-source>/src/Core/Localization/LocManager.cs`：`ja` 映射为 `jpn`，加载 `PluralLocalizationFormatter` 等格式化器。
 - 同目录项目的 `src/Core/Modding/ModManager.cs`：按 `res://{mod.manifest.id}/localization/{language}/{file}` 加载表，不需要增加语言注册补丁。
 - 本体 `localization/jpn/{cards,powers,potions,card_keywords,gameplay_ui}.json`：原版日语术语。
 - 本项目 `KarenCarryingGuilt.cs`：耗尽牌按不同 ID 计数。
@@ -59,7 +59,7 @@
 
 ```powershell
 ./tools/validate_localization.ps1
-./tools/validate_localization.ps1 -SmartFormatPath 'D:/App/Stream/steamapps/common/Slay the Spire 2/data_sts2_windows_x86_64/SmartFormat.dll'
+./tools/validate_localization.ps1 -SmartFormatPath '<steam-sts2-install>/data_sts2_windows_x86_64/SmartFormat.dll'
 ```
 
 另使用隔离副本验证校验器能够拒绝缺键、未知变量、括号损坏、条件分支缺失、BBCode 错配、中文源文变更、JSON 重复键共 7 类故障。

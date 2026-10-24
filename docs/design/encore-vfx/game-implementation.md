@@ -53,8 +53,8 @@
 先在任务 worktree 构建 tools/build_dual_branch.ps1，随后执行（Python、ffmpeg、ffprobe 需可用）：
 
 ```powershell
-python tools/vfx/encore/record.py stable --source-dev D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/artifacts/dev-game --output artifacts/encore-vfx-recording
-python tools/vfx/encore/record.py beta --source-dev D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/artifacts/dev-game --output artifacts/encore-vfx-recording
+python tools/vfx/encore/record.py stable --source-dev artifacts/dev-game --output artifacts/encore-vfx-recording
+python tools/vfx/encore/record.py beta --source-dev artifacts/dev-game --output artifacts/encore-vfx-recording
 python tools/vfx/encore/assemble.py --output artifacts/encore-vfx-recording
 ```
 

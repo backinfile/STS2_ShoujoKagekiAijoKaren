@@ -6,7 +6,7 @@
 pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite full -UpdateMcp
 ```
 
-`-UpdateMcp` 先从 `D:\Github\STS2_Mcp` 的**当前工作区源码**复制一份，分别针对 `artifacts/dev-game/stable/game` 和 `artifacts/dev-game/beta/game` 编译并安装到本项目的两套独立游戏副本。源码仓库本身不被修改；为自动化联机 CMD 添加的 `run_command` 动作只存在于构建副本中。MCP 安装包写入 `artifacts/mcp-stable/`、`artifacts/mcp-beta/`，`source-info.json` 记录 Git 提交、是否含未提交修改以及实际构建源码的 SHA-256。只需更新 MCP 时可运行 `tools/update_dev_mcp.ps1`，用 `-McpRepository` 指定其他本地源码路径。
+`-UpdateMcp` 先从 `<karen-sts2-mcp-source>` 的**当前工作区源码**复制一份，分别针对 `artifacts/dev-game/stable/game` 和 `artifacts/dev-game/beta/game` 编译并安装到本项目的两套独立游戏副本。源码仓库本身不被修改；为自动化联机 CMD 添加的 `run_command` 动作只存在于构建副本中。MCP 安装包写入 `artifacts/mcp-stable/`、`artifacts/mcp-beta/`，`source-info.json` 记录 Git 提交、是否含未提交修改以及实际构建源码的 SHA-256。只需更新 MCP 时可运行 `tools/update_dev_mcp.ps1`，用 `-McpRepository` 指定其他本地源码路径。
 
 批量脚本支持以下 `-Suite`：
 

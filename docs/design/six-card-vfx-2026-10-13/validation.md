@@ -71,8 +71,8 @@
 
 ```powershell
 ./tools/build_dual_branch.ps1
-python tools/vfx/six-card/verify.py stable --source-repo D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren --output artifacts/six-card-vfx/new-stable --focused
-python tools/vfx/six-card/verify_multiplayer.py stable --source-repo D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren --output artifacts/six-card-vfx/new-stable-mp
+python tools/vfx/six-card/verify.py stable --source-repo . --output artifacts/six-card-vfx/new-stable --focused
+python tools/vfx/six-card/verify_multiplayer.py stable --source-repo . --output artifacts/six-card-vfx/new-stable-mp
 ```
 
 依赖 .NET 9、已准备好的独立开发游戏、KarenSTS2MCP 录像接口和 PATH 中的 FFmpeg。游戏进程、测试插件和证据写入忽略目录；测试插件不打包进正式 Mod。

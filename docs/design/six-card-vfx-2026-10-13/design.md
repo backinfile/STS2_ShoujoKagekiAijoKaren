@@ -95,7 +95,7 @@
 
 旧 Banana 的 2675 个测试／构建文件已保留在主工作区 `artifacts/worktree-archive/20261013/`，附清单。Git 清理遇到 Windows 长路径残留后，残留目录也移入该档案目录。两组旧路径已退出工作树列表。其他工作树和 main 原有未提交文档保留。
 
-新实现从 main 的 `8176b48dd3ba2255d0411b103e777e2970edfdcc` 建立在 `D:/Godot/Proj/worktrees/karen-six-card-vfx-20261013`。
+新实现从 main 的 `8176b48dd3ba2255d0411b103e777e2970edfdcc` 建立在 `../worktrees/karen-six-card-vfx-20261013`。
 
 ## 验证与录像
 

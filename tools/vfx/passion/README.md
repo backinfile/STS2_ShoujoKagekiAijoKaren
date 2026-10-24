@@ -7,9 +7,9 @@
 每个版本分别准备（示例 stable，beta 使用 18778、Variant=Beta）：
 
 ```powershell
-python tools/vfx/catalog/prepare.py stable --output artifacts/passion-dual-review --source-dev D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/artifacts/dev-game --port 18777 --skip-build
-dotnet build tools/vfx/passion/PassionProbe.csproj -p:Game=D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/artifacts/dev-game/stable/game -p:Variant=Stable -o artifacts/passion-dual-review/probes/stable
-dotnet build tools/vfx/catalog/guard/Guard.csproj -p:Game=D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/artifacts/dev-game/stable/game -o artifacts/passion-dual-review/guard/stable
+python tools/vfx/catalog/prepare.py stable --output artifacts/passion-dual-review --source-dev artifacts/dev-game --port 18777 --skip-build
+dotnet build tools/vfx/passion/PassionProbe.csproj -p:Game=artifacts/dev-game/stable/game -p:Variant=Stable -o artifacts/passion-dual-review/probes/stable
+dotnet build tools/vfx/catalog/guard/Guard.csproj -p:Game=artifacts/dev-game/stable/game -o artifacts/passion-dual-review/guard/stable
 python -u tools/vfx/passion/verify_record.py stable --output artifacts/passion-dual-review --record
 ```
 

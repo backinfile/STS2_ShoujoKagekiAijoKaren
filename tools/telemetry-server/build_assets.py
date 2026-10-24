@@ -10,7 +10,8 @@ WEB = Path(__file__).resolve().parent / "web"
 ASSETS = WEB / "assets"
 ASSETS.mkdir(exist_ok=True)
 titles = json.loads((ROOT / "ShoujoKagekiAijoKaren/localization/zhs/cards.json").read_text(encoding="utf-8"))
-catalog = {}
+native = WEB / "native_catalog.json"
+catalog = json.loads(native.read_text(encoding="utf-8")) if native.exists() else {}
 types = {"Attack": "攻击", "Skill": "技能", "Power": "能力", "Curse": "诅咒", "Status": "状态"}
 rarities = {"Basic": "基础", "Common": "普通", "Uncommon": "罕见", "Rare": "稀有", "Ancient": "先古", "Token": "衍生", "Curse": "诅咒", "Special": "特殊", "Event": "事件"}
 for source in (ROOT / "src/Core/Models/Cards").rglob("*.cs"):
@@ -20,7 +21,8 @@ for source in (ROOT / "src/Core/Models/Cards").rglob("*.cs"):
         continue
     cid = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "_", source.stem).upper()
     catalog[cid] = {"name": titles.get(cid + ".title", cid), "cost": int(match[1]),
-                    "type": types.get(match[2], match[2]), "rarity": rarities.get(match[3], match[3])}
+                    "type": types.get(match[2], match[2]), "rarity": rarities.get(match[3], match[3]),
+                    "owner": "karen", "owner_name": "华恋"}
     portraits = list((ROOT / "images/packed/card_portraits").rglob(cid.lower() + ".png"))
     if portraits:
         with Image.open(portraits[0]) as image:
@@ -40,4 +42,11 @@ for name in ["monster", "elite", "boss", "shop", "rest", "treasure", "event", "a
     if value:
         (ASSETS / (name + ".png")).write_bytes(base64.b64decode(value.split(",", 1)[1]))
 (WEB / "catalog.json").write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding="utf-8")
+native_relics = WEB / "native_relics.json"
+relics = json.loads(native_relics.read_text(encoding="utf-8")) if native_relics.exists() else {}
+local_relics = json.loads((ROOT / "ShoujoKagekiAijoKaren/localization/zhs/relics.json").read_text(encoding="utf-8"))
+for key, value in local_relics.items():
+    if key.endswith(".title"):
+        relics[key.removesuffix(".title")] = {"name": value}
+(WEB / "relics.json").write_text(json.dumps(relics, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print(f"Built {len(catalog)} card definitions and {len(list(ASSETS.iterdir()))} images")

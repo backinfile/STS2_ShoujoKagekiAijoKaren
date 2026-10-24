@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using HarmonyLib;
@@ -14,6 +13,22 @@ public class RunHistoryUploadPatch
 {
     private static readonly HttpClient HttpClient = new() { Timeout = System.TimeSpan.FromSeconds(30) };
     private static readonly System.Lazy<UploadEndpoint?> Endpoint = new(LoadEndpoint);
+    private static RunHistoryUploadQueue? _queue;
+
+    private static RunHistoryUploadQueue? Queue()
+    {
+        var endpoint = Endpoint.Value;
+        if (endpoint == null) return null;
+        return _queue ??= new RunHistoryUploadQueue(Godot.ProjectSettings.GlobalizePath("user://karen-telemetry/pending"),
+            new System.Uri(endpoint.Url), HttpClient, () => KarenModConfig.EnableDataUpload, message => MainFile.Logger.Warn(message));
+    }
+
+    internal static void ResumePendingUploads()
+    {
+        if (!KarenModConfig.EnableDataUpload) return;
+        try { var queue = Queue(); if (queue != null) _ = queue.FlushAsync(); }
+        catch (System.Exception error) { MainFile.Logger.Warn($"[RunHistoryUploadPatch] 暂无法恢复待上传队列：{error.GetType().Name}"); }
+    }
 
     private sealed class UploadEndpoint
     {
@@ -61,11 +76,6 @@ public class RunHistoryUploadPatch
         }
     }
 
-    private static readonly System.Collections.Generic.HashSet<string> AllowedCharacterIds = new(System.StringComparer.OrdinalIgnoreCase)
-    {
-        "ironclad", "silent", "defect", "watcher", "karen"
-    };
-
     private static void Postfix()
     {
         if (!KarenModConfig.EnableDataUpload)
@@ -81,60 +91,20 @@ public class RunHistoryUploadPatch
             return;
         }
 
-        if (!ShouldUploadForCurrentCharacter())
+        if (!RunHistoryUploadQueue.ShouldUploadCharacters(history.Players.Select(player => player.Character.Entry)))
         {
             return;
         }
 
-        _ = UploadAsync(history);
+        Enqueue(history);
     }
 
-    private static bool ShouldUploadForCurrentCharacter()
+    private static void Enqueue(RunHistory history)
     {
         try
         {
-            var state = RunManager.Instance?.DebugOnlyGetState();
-            if (state == null)
-            {
-                MainFile.Logger.Info("[RunHistoryUploadPatch] 无法获取 RunState，跳过上传");
-                return false;
-            }
-
-            var player = state.Players?.FirstOrDefault();
-            if (player == null)
-            {
-                MainFile.Logger.Info("[RunHistoryUploadPatch] 无法获取玩家，跳过上传");
-                return false;
-            }
-
-            var charId = player.Character?.Id?.Entry;
-            if (string.IsNullOrEmpty(charId))
-            {
-                MainFile.Logger.Info("[RunHistoryUploadPatch] 无法获取角色 ID，跳过上传");
-                return false;
-            }
-
-            if (!AllowedCharacterIds.Contains(charId))
-            {
-                MainFile.Logger.Info($"[RunHistoryUploadPatch] 角色 {charId} 不在上传白名单中，跳过上传");
-                return false;
-            }
-
-            return true;
-        }
-        catch (System.Exception ex)
-        {
-            MainFile.Logger.Warn($"[RunHistoryUploadPatch] 检查角色时异常，默认允许上传: {ex.Message}");
-            return true;
-        }
-    }
-
-    private static async System.Threading.Tasks.Task UploadAsync(RunHistory history)
-    {
-        try
-        {
-            var endpoint = Endpoint.Value;
-            if (endpoint == null)
+            var queue = Queue();
+            if (queue == null)
             {
                 MainFile.Logger.Info("[RunHistoryUploadPatch] 未配置数据上传服务，跳过上传");
                 return;
@@ -146,18 +116,7 @@ public class RunHistoryUploadPatch
             var payload = JsonNode.Parse(json);
             RemoveShineValues(payload);
             var body = payload!.ToJsonString();
-            using var request = new HttpRequestMessage(HttpMethod.Post, endpoint.Url);
-            request.Content = new StringContent(body, Encoding.UTF8, "application/json");
-            using var response = await HttpClient.SendAsync(request);
-
-            if (response.IsSuccessStatusCode)
-            {
-                MainFile.Logger.Info($"[RunHistoryUploadPatch] 对局数据上传成功: {response.StatusCode}");
-            }
-            else
-            {
-                MainFile.Logger.Warn($"[RunHistoryUploadPatch] 对局数据上传失败: {response.StatusCode}");
-            }
+            if (queue.Enqueue(body)) _ = queue.FlushAsync();
         }
         catch (System.Exception ex)
         {

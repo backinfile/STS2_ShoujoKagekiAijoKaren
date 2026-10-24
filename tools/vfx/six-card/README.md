@@ -3,10 +3,10 @@
 从新工作树打包：`./tools/build_dual_branch.ps1`。脚本不会更新 Steam 或主工作区的开发 Mod。
 
 ```powershell
-python tools/vfx/six-card/verify.py stable --source-repo D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren --output artifacts/six-card-vfx/solo-stable
-python tools/vfx/six-card/verify.py beta --source-repo D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren --output artifacts/six-card-vfx/solo-beta
-python tools/vfx/six-card/verify_multiplayer.py stable --source-repo D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren --output artifacts/six-card-vfx/mp-stable
-python tools/vfx/six-card/verify_multiplayer.py beta --source-repo D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren --output artifacts/six-card-vfx/mp-beta
+python tools/vfx/six-card/verify.py stable --source-repo . --output artifacts/six-card-vfx/solo-stable
+python tools/vfx/six-card/verify.py beta --source-repo . --output artifacts/six-card-vfx/solo-beta
+python tools/vfx/six-card/verify_multiplayer.py stable --source-repo . --output artifacts/six-card-vfx/mp-stable
+python tools/vfx/six-card/verify_multiplayer.py beta --source-repo . --output artifacts/six-card-vfx/mp-beta
 ```
 
 每次运行使用新的 output。游戏只读文件可硬链接；Mod、配置、存档分别复制。单人端口 18937/18938，多人端口 19037/19038 或 19047/19048，联机仅绑定 127.0.0.1:33771。游戏通过独立 Windows 桌面运行，不切换用户桌面。
@@ -22,7 +22,7 @@ python tools/vfx/six-card/verify_multiplayer.py beta --source-repo D:/Godot/Proj
 `--ambient-stack` 让每位 Karen 先真实打出燃烧、过去与未来、觉醒和再生产，再执行交替施放。观察器逐帧记录每位玩家的最低事件权重：局部 cue 不得把权重叠乘到 `.84` 以下，也不能压暗无关玩家；演出结束后事件权重回到 `1`，四种常驻的基础权重恢复 `.58`。
 
 ```powershell
-python tools/vfx/six-card/verify_multiplayer.py beta --source-repo D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren --output artifacts/shared-repeated-beta --host-character KAREN --client-character KAREN --casts-per-actor 3 --ambient-stack
+python tools/vfx/six-card/verify_multiplayer.py beta --source-repo . --output artifacts/shared-repeated-beta --host-character KAREN --client-character KAREN --casts-per-actor 3 --ambient-stack
 ```
 
 录制来源为 KarenSTS2MCP 游戏视口和 `game_process` 音频。视频导出与章节位于 output，不入正式 PCK。录制期间依赖隔离测试 Guard 强制后台渲染，必须复核连续帧，不能用帧计数单独判定画面成功。

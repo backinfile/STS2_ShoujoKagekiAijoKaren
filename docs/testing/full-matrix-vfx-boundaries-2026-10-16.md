@@ -6,7 +6,7 @@
 
 - main `782a71e` 工作区及本次特效共存修正，正式版 v0.107.1、测试版 v0.111.0。
 - 独立开发游戏和独立用户数据；同版本真实双进程联机，仅绑定本机 loopback。未连接 Steam 游戏或其他 Mod 项目的开发目录。
-- MCP 从 `D:\Github\STS2_Mcp` 当前工作区构建，提交 `70c9dc231f3b0389fb5fb3e69894b5aa912163ce`；网络控制接线仅修改构建副本。完整构建来源见报告内 `mcp_stable` / `mcp_beta`。
+- MCP 从 `<karen-sts2-mcp-source>` 当前工作区构建，提交 `70c9dc231f3b0389fb5fb3e69894b5aa912163ce`；网络控制接线仅修改构建副本。完整构建来源见报告内 `mcp_stable` / `mcp_beta`。
 - 全程使用 KarenSTS2MCP；未使用 Computer Use。
 
 | 安装包文件 | SHA-256 |

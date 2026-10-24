@@ -52,7 +52,7 @@
 
 **代码事实，高置信度的归属缺陷。** [KarenPastAndFutureRingVfxManager.StartInternal](../../src/Core/PromisePileSystem/Vfx/KarenPastAndFutureRingVfxManager.cs) 遍历角色父节点的所有子节点，找到任意 `NKarenPastAndFutureRingVfx` 就重新 `Init(creatureNode)`，再存入当前玩家的缓存，没有 owner 过滤。
 
-本体 `NCombatRoom.AddCreature` 的盟友节点挂在共享 `_allyContainer` 下（本机参考：`D:/Github/spire-codex/extraction/raw/src/Core/Nodes/Rooms/NCombatRoom.cs`）。第二个玩家进入该模式时，存在把第一个光环重新绑定给自己的明确路径；两份缓存还会指向同一个节点，停止其中一个会影响另一个。
+本体 `NCombatRoom.AddCreature` 的盟友节点挂在共享 `_allyContainer` 下（本机参考：`<decompiled-game-source>/src/Core/Nodes/Rooms/NCombatRoom.cs`）。第二个玩家进入该模式时，存在把第一个光环重新绑定给自己的明确路径；两份缓存还会指向同一个节点，停止其中一个会影响另一个。
 
 建议实例显式绑定玩家或 Creature，复用时验证归属。最小验证：双 Karen 依次进入模式，分别脉冲、退出，另一人的光环不迁移、不消失。此次未进行双人复现。
 

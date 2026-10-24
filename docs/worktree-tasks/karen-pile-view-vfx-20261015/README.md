@@ -2,7 +2,7 @@
 
 ## Original user input
 
-> $worktree-task 为查看约定牌堆和闪耀耗尽牌堆制作特效，不要太华丽，读取 D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/19.创意工坊特效Mod解包与制作流程.md 你先搜搜相关官方和周边参考资料，然后用imagegen生成特效表现预览图，然后参考这个预览图开始实现，最后录制效果成视频给我看看
+> $worktree-task 为查看约定牌堆和闪耀耗尽牌堆制作特效，不要太华丽，读取 docs/19.创意工坊特效Mod解包与制作流程.md 你先搜搜相关官方和周边参考资料，然后用imagegen生成特效表现预览图，然后参考这个预览图开始实现，最后录制效果成视频给我看看
 
 > 确认，合并回 main，保留预览图、视频和测试记录后清理工作树。
 

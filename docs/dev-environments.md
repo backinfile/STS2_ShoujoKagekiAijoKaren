@@ -32,4 +32,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/dev_env.ps1 -Branch be
 
 `Install` 使用 `artifacts/ShoujoKagekiAijoKaren/` 中现有的完整安装包，不自动构建；MCP 分别从 `artifacts/mcp-stable/` 和 `artifacts/mcp-beta/` 复制针对相应版本构建的 DLL 与清单（可用 `-McpSource` 改来源），并为各环境单独写入端口配置。不能把测试版 MCP DLL 安装到正式版：它引用了正式版不存在的多人类型。更新前先关闭对应环境的游戏进程。`Smoke` 会无窗口启动游戏，同时验证 Mod 初始化和对应端口的 HTTP 状态接口，然后自动退出。`artifacts/` 已被 Git 忽略，删除它也会删除这两份游戏快照及独立存档。
 
-2026-09-23 验证：正式版和测试版独立进程同时启动，两者都选中了对应的 Karen 实现并注册角色；同一时刻 `D:\App\STS2-EventRemix-dev\stable\SlayTheSpire2.exe` 也在运行。两套 Karen 环境的日志确认 Steam 初始化已跳过，用户数据路径彼此独立。
+2026-09-23 验证：正式版和测试版独立进程同时启动，两者都选中了对应的 Karen 实现并注册角色；同一时刻 `<other-mod-dev-game>\stable\SlayTheSpire2.exe` 也在运行。两套 Karen 环境的日志确认 Steam 初始化已跳过，用户数据路径彼此独立。

@@ -6,7 +6,7 @@
 
 ## 本体对照
 
-直接检查本地反编译资源 `D:/Github/spire-codex/extraction/raw/images/relics/`，以及 `atlases/relic_atlas.png`、`relic_atlas.tpsheet`；对照血瓶、草莓、金刚杵、灯笼、黑星、白星、白兽雕像、玩具盒、天鹅绒项圈、准备背包及双节棍。
+直接检查本地反编译资源 `<decompiled-game-source>/images/relics/`，以及 `atlases/relic_atlas.png`、`relic_atlas.tpsheet`；对照血瓶、草莓、金刚杵、灯笼、黑星、白星、白兽雕像、玩具盒、天鹅绒项圈、准备背包及双节棍。
 
 共同特征是深色粗外轮廓、少量清晰的手绘明暗分面、略不规则的笔触，减少细线和镜面高光。V6 据此处理；棒球猫保留SCC球衣及竖瞳，小白仍仅为头像，发饰继续保持二维，冠饰仍为镂空卷环。
 

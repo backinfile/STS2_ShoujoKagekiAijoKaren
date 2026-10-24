@@ -1,15 +1,17 @@
 import copy
 import hashlib
 import json
+import gzip
 from pathlib import Path
 import tempfile
 import threading
 import time
 import unittest
+from unittest.mock import patch
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-from app import Invalid, Server, Store, parse_history
+from app import CapacityError, FACTS_VERSION, Invalid, Server, Store, derive, parse_history
 
 
 def fixture():
@@ -50,7 +52,7 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(json.loads(detail["facts"])["seats"][0]["id"], "76561199000000001")
         self.assertEqual(self.store.runs({})["total"], 1)
 
-    def test_missing_results_are_unknown_and_native_choices_not_reward(self):
+    def test_native_selection_rate_excludes_only_unknown_results(self):
         self.store.upload(self.data)
         stats = self.store.stats({})
         cards = {c["id"]: c for c in stats["cards"]}
@@ -59,16 +61,21 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(cards["KAREN_NEW_DAY"]["recorded_picked"], 1)
         self.assertEqual(cards["KAREN_BASEBALL"]["recorded_picked"], 0)
         self.assertEqual(cards["KAREN_WAKE_UP"]["unknown_picked"], 1)
-        self.assertIsNone(cards["KAREN_NEW_DAY"]["pick_rate"])
+        self.assertEqual(cards["KAREN_NEW_DAY"]["pick_rate"], 1)
+        self.assertEqual(cards["KAREN_BASEBALL"]["pick_rate"], 0)
+        self.assertIsNone(cards["KAREN_WAKE_UP"]["pick_rate"])
+        self.assertEqual(stats["pick_policy"], "native_known_choices_all_sources")
         self.assertEqual(cards["KAREN_DROP_FUEL"]["win_rate"], 1)
 
-    def test_explicit_free_reward_denominator(self):
+    def test_repeated_native_choices_count_each_known_record(self):
         choices = self.data["map_point_history"][0][0]["player_stats"][0]["card_choices"]
-        for choice in choices[:2]:
-            choice["choice_kind"] = "free_reward"
+        choices.extend([{"card": {"id": "CARD.KAREN_NEW_DAY"}, "was_picked": False},
+                        {"card": {"id": "CARD.KAREN_NEW_DAY"}}])
         self.store.upload(self.data)
         cards = {c["id"]: c for c in self.store.stats({})["cards"]}
-        self.assertEqual(cards["KAREN_NEW_DAY"]["pick_rate"], 1)
+        self.assertEqual(cards["KAREN_NEW_DAY"]["pick_rate"], .5)
+        self.assertEqual(cards["KAREN_NEW_DAY"]["offered"], 2)
+        self.assertEqual(cards["KAREN_NEW_DAY"]["recorded_offers"], 3)
         self.assertEqual(cards["KAREN_BASEBALL"]["pick_rate"], 0)
         self.assertIsNone(cards["KAREN_WAKE_UP"]["pick_rate"])
 
@@ -106,6 +113,148 @@ class CollectorTests(unittest.TestCase):
         self.store.backup(backup)
         self.assertEqual(Store(backup).runs({})["total"], 1)
 
+    def test_modified_and_nonstandard_decks_do_not_invent_starters(self):
+        for mode, modifiers in [("custom", []), ("daily", []), ("standard", ["MODIFIER.DRAFT"])]:
+            data = copy.deepcopy(self.data)
+            data["seed"] += mode + str(modifiers)
+            data["game_mode"], data["modifiers"] = mode, modifiers
+            data["players"][0]["deck"] = [{"id": "CARD.KAREN_NEW_DAY"}]
+            facts = derive(data)
+            self.assertNotIn("KAREN_STRIKE", facts["seats"][0]["held"])
+            self.assertNotIn("KAREN_DEFEND", facts["seats"][0]["held"])
+        self.store.upload(self.data)
+        self.assertIn("KAREN_DEFEND", {c["id"] for c in self.store.stats({})["cards"]})
+
+    def test_invalid_display_structures_are_rejected_before_storing(self):
+        mutations = [lambda d: d["players"][0].update(relics=[None]),
+                     lambda d: d["map_point_history"][0][0].update(rooms=[None]),
+                     lambda d: d["map_point_history"][0][0]["player_stats"][0].update(rest_site_choices="rest")]
+        for mutate in mutations:
+            data = copy.deepcopy(self.data)
+            mutate(data)
+            with self.assertRaises(Invalid):
+                self.store.upload(data)
+        self.assertEqual(self.store.runs({})["total"], 0)
+
+    def test_exact_raw_duplicate_conflict_and_verified_archive(self):
+        self.data["players"][0]["deck"][0]["karen_shine_current"] = 7
+        original = ("\ufeff" + json.dumps(self.data, indent=2) + "\n").encode("utf-8")
+        status, result = self.store.upload(parse_history(original), original_body=original)
+        self.assertEqual(status, 201)
+        rid = result["run_id"]
+        self.assertEqual(self.store.original(rid), original)
+        saved = json.loads(gzip.decompress(self.store.detail(rid)["payload"]))
+        self.assertNotIn("karen_shine_current", saved["players"][0]["deck"][0])
+        self.assertEqual(self.store.upload(parse_history(original), original_body=original)[0], 200)
+        changed = copy.deepcopy(self.data)
+        changed["run_time"] += 1
+        conflict = json.dumps(changed).encode()
+        self.assertEqual(self.store.upload(parse_history(conflict), original_body=conflict)[0], 409)
+        self.assertEqual(self.store.archive_submissions(before=int(time.time()) + 86400), 2)
+        self.assertEqual(self.store.original(rid), original)
+        self.assertEqual(self.store.archive_submissions(before=int(time.time()) + 86400), 0)
+        self.assertEqual(len(list(self.store.raw.root.glob("bundles/*.tar.gz"))), 1)
+        self.assertEqual(list(self.store.raw.root.glob("pending/*/*.json")), [])
+        with self.store.connect() as db:
+            row = db.execute("SELECT * FROM submissions WHERE status=409").fetchone()
+        self.assertEqual(self.store.raw.read(row), conflict)
+
+    def test_archive_keeps_today_loose_and_failure_preserves_originals(self):
+        status, result = self.store.upload(self.data)
+        self.assertEqual(self.store.archive_submissions(), 0)
+        with self.store.connect() as db:
+            row = db.execute("SELECT * FROM submissions").fetchone()
+        path = self.store.raw.loose_path(row)
+        body = path.read_bytes()
+        path.write_bytes(b'corrupt')
+        with self.assertRaises(OSError):
+            self.store.archive_submissions(before=int(time.time()) + 86400)
+        self.assertTrue(path.exists())
+        self.assertEqual(list(self.store.raw.root.glob("bundles/*.tar.gz")), [])
+        path.write_bytes(body)
+        self.assertEqual(self.store.original(result["run_id"]), body)
+
+    def test_raw_budget_never_acknowledges_an_unpreserved_submission(self):
+        self.store.raw_limit = 1
+        with self.assertRaises(CapacityError):
+            self.store.upload(self.data)
+        self.assertEqual(self.store.runs({})["total"], 0)
+
+    def test_archive_recovers_index_published_before_loose_cleanup(self):
+        self.store.upload(self.data)
+        with self.store.connect() as db:
+            row = db.execute("SELECT * FROM submissions").fetchone()
+        archive = self.store.raw.pack("fixture", [row])
+        with self.store.connect() as db:
+            db.execute("UPDATE submissions SET archive=?", (archive,))
+        self.assertTrue(self.store.raw.loose_path(row).exists())
+        self.assertEqual(self.store.archive_submissions(), 0)
+        self.assertFalse(self.store.raw.loose_path(row).exists())
+
+    def test_raw_download_survives_archive_publication_after_location_lookup(self):
+        body = json.dumps(self.data).encode()
+        _, result = self.store.upload(self.data, original_body=body)
+        read = self.store.raw.read
+        def read_after_archive(row):
+            if not row["archive"]:
+                with patch.object(self.store.raw, "read", side_effect=read):
+                    self.store.archive_submissions(before=int(time.time()) + 86400)
+            return read(row)
+        with patch.object(self.store.raw, "read", side_effect=read_after_archive):
+            self.assertEqual(self.store.original(result["run_id"]), body)
+
+    def test_archive_drains_multiple_bounded_batches(self):
+        body = json.dumps(self.data).encode()
+        for suffix in range(257):
+            self.store.upload(self.data, original_body=body + b" " * suffix)
+        self.assertEqual(self.store.archive_submissions(before=int(time.time()) + 86400), 257)
+        self.assertEqual(len(list(self.store.raw.root.glob("bundles/*.tar.gz"))), 2)
+        self.assertEqual(list(self.store.raw.root.glob("pending/*/*.json")), [])
+
+    def test_legacy_rebuild_retains_available_json_and_degrades_old_display_fields(self):
+        status, result = self.store.upload(self.data)
+        legacy = copy.deepcopy(self.data)
+        legacy["players"][0]["relics"] = [None]
+        body = json.dumps(legacy).encode()
+        with self.store.connect() as db:
+            db.execute("UPDATE runs SET payload=?", (gzip.compress(body),))
+            db.execute("DELETE FROM submissions")
+        backup = Path(self.tmp.name) / "legacy-before.sqlite3"
+        self.assertEqual(self.store.rebuild(backup), 1)
+        with self.store.connect() as db:
+            row = db.execute("SELECT * FROM submissions").fetchone()
+        self.assertEqual(row["source"], "legacy_saved_history")
+        self.assertEqual(self.store.original(result["run_id"]), body)
+        self.assertTrue(json.loads(self.store.detail(result["run_id"])["facts"])["legacy_display_warning"])
+        with self.assertRaises(ValueError):
+            self.store.rebuild(backup)
+
+    def test_native_catalog_covers_professions_and_colorless_images(self):
+        from app import CATALOG, ROOT
+        for cid, owner in [("COORDINATE", "colorless"), ("TAG_TEAM", "colorless"), ("STRIKE_IRONCLAD", "ironclad"),
+                           ("STRIKE_SILENT", "silent"), ("STRIKE_DEFECT", "defect"),
+                           ("STRIKE_REGENT", "regent"), ("STRIKE_NECROBINDER", "necrobinder")]:
+            self.assertEqual(CATALOG[cid]["owner"], owner)
+            self.assertTrue((ROOT / "web" / CATALOG[cid]["image"]).is_file())
+
+    def test_rebuild_backs_up_and_changes_only_derived_facts(self):
+        status, result = self.store.upload(self.data)
+        rid = result["run_id"]
+        before = dict(self.store.detail(rid))
+        legacy = json.loads(before["facts"])
+        legacy.pop("facts_version")
+        with self.store.connect() as db:
+            db.execute("UPDATE runs SET facts=? WHERE id=?", (json.dumps(legacy), rid))
+        self.assertTrue(self.store.needs_rebuild())
+        backup = Path(self.tmp.name) / "before-rebuild.sqlite3"
+        self.assertEqual(self.store.rebuild(backup), 1)
+        self.assertTrue(backup.exists())
+        after = self.store.detail(rid)
+        self.assertEqual(json.loads(after["facts"])["facts_version"], FACTS_VERSION)
+        for key in ("id", "digest", "payload", "received", "duplicates"):
+            self.assertEqual(after[key], before[key])
+        self.assertFalse(self.store.needs_rebuild())
+
     def test_http_direct_and_r6_upload_read_guard_validation_and_raw(self):
         with Server(("127.0.0.1", 0), self.store, "r" * 32) as server:
             thread = threading.Thread(target=server.serve_forever, daemon=True)
@@ -141,6 +290,7 @@ class CollectorTests(unittest.TestCase):
                 self.assertEqual(status, 200)
                 self.assertEqual(json.loads(raw)["history"]["players"][0]["id"], "76561199000000001")
                 status, raw = request("/api/runs/" + rid + "/raw", headers=read)
+                self.assertEqual(raw, body)
                 self.assertEqual(json.loads(raw)["players"][0]["id"], 76561199000000001)
                 self.assertEqual(request("/../app.py", headers=read)[0], 404)
             finally:

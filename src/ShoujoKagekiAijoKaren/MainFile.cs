@@ -30,6 +30,7 @@ public static class MainFile
         Harmony harmony = new(ModId);
         harmony.PatchAll();
         Logger.Info("[KarenDiagnostics] Harmony PatchAll completed.");
+        src.Core.Patches.RunHistoryUploadPatch.ResumePendingUploads();
     }
 }
 
