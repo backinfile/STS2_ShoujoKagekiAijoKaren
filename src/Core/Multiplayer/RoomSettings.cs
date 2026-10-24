@@ -24,7 +24,7 @@ internal static class AndroidPolicy
 
 internal static class RoomSettings
 {
-    public const string DefaultEndpoint = "wss://47.95.213.214:8443/rooms";
+    public const string DefaultEndpoint = "wss://karen-multiplayer-relay-c7a91e5d.17181718.xyz/rooms";
     // Environment override is for isolated tests; public endpoints must use TLS.
     public static Uri Endpoint => new(System.Environment.GetEnvironmentVariable("KAREN_ROOM_ENDPOINT") ?? DefaultEndpoint);
     public static bool Enabled => KarenModConfig.UseRoomServer;

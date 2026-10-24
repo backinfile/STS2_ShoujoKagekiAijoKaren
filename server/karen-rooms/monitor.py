@@ -71,7 +71,7 @@ async def observe(endpoint, status_url, state_path, summary_path):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--endpoint", default="wss://47.95.213.214:8443/rooms")
+    parser.add_argument("--endpoint", default="wss://karen-multiplayer-relay-c7a91e5d.17181718.xyz/rooms")
     parser.add_argument("--status-url", default="http://127.0.0.1:42766/status")
     parser.add_argument("--state", type=Path, default=Path(os.getenv("STATE_DIRECTORY", "/var/lib/karen-roomwatch")) / "health.json")
     parser.add_argument("--summary", type=Path, default=Path(os.getenv("RUNTIME_DIRECTORY", "/run/karen-rooms-health")) / "summary.json")

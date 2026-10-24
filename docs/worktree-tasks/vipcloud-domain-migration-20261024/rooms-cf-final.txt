@@ -1,0 +1,12 @@
+PASS availability probe performs protocol handshake
+PASS host receives room code and identity
+PASS peer connection identity
+PASS native packet bytes copied before asynchronous send
+PASS native transfer mode and channel preserved
+PASS large native packet survives TLS socket framing
+PASS version mismatch rejected
+PASS new player rejected after run starts
+PASS host loss delivered to client
+PASS probe can be cancelled
+PASS public cleartext endpoint rejected
+RESULT 11 passed; probe 8526 ms

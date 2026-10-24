@@ -6,7 +6,6 @@ import pwd
 import re
 import secrets
 from pathlib import Path
-import shutil
 import socket
 import subprocess
 import sys
@@ -22,7 +21,8 @@ assert hashlib.sha256(ARCHIVE.read_bytes()).hexdigest() == EXPECTED
 RELEASE = ROOT / "releases" / EXPECTED[:16]
 ALLOWED = {"server.py", "security.py", "monitor.py", "requirements.txt", "web/index.html", "web/app.js", "web/style.css",
            "deploy/karen-rooms.service", "deploy/nginx.conf", "deploy/logrotate.conf",
-           "deploy/karen-rooms-monitor.service", "deploy/karen-rooms-monitor.timer"}
+           "deploy/karen-rooms-monitor.service", "deploy/karen-rooms-monitor.timer",
+           "deploy/protect_cloudflare_origin.py"}
 SERVICE = Path("/etc/systemd/system/karen-rooms.service")
 NGINX = Path("/etc/nginx/conf.d/karen-rooms.conf")
 CURRENT = ROOT / "current"
@@ -37,11 +37,11 @@ def available(port):
         return probe.connect_ex(("127.0.0.1", port)) != 0
 
 
-if not Path("/etc/letsencrypt-karen-rooms/live/karen-rooms-ip/fullchain.pem").exists():
-    raise SystemExit("Run IP certificate setup before installing the TLS relay.")
+if not Path("/etc/letsencrypt/live/karen-services/fullchain.pem").exists():
+    raise SystemExit("Run setup_domain_certificate.py before installing the TLS relay.")
 
 existing = subprocess.run(["systemctl", "is-active", "--quiet", "karen-rooms"]).returncode == 0
-if not existing and (not available(8443) or not available(42766)):
+if not existing and not available(42766):
     raise SystemExit("Chosen ports are occupied; refusing deployment.")
 if NGINX.exists() and not any(marker in NGINX.read_text() for marker in ("karen_rooms_connections", "karen_direct_connections")):
     raise SystemExit("Refusing to overwrite an unrelated nginx configuration.")
@@ -117,16 +117,12 @@ try:
             time.sleep(.3)
     else:
         raise RuntimeError("New relay did not become ready")
-    if shutil.which("ufw"):
-        status = subprocess.check_output(["ufw", "status"], text=True)
-        if "Status: active" in status:
-            run("ufw", "allow", "8443/tcp", "comment", "Karen shared HTTPS gateway")
     run("systemctl", "reload", "nginx")
     run("systemctl", "start", "karen-rooms-monitor.service")
     run("systemctl", "enable", "--now", "karen-rooms-monitor.timer")
     run("logrotate", "--debug", "/etc/logrotate.d/karen-rooms")
-    print(json.dumps({"release": EXPECTED[:16], "health": health, "public_port": 8443,
-                      "backend": "127.0.0.1:42766", "status_url": "https://47.95.213.214:8443/" + status_path + "/"}))
+    print(json.dumps({"release": EXPECTED[:16], "health": health, "public_port": 443,
+                      "backend": "127.0.0.1:42766", "status_url": "https://karen-multiplayer-relay-c7a91e5d.17181718.xyz/" + status_path + "/"}))
 except Exception:
     subprocess.run(["systemctl", "stop", "karen-rooms-monitor.timer", "karen-rooms-monitor.service"])
     if not monitor_enabled: subprocess.run(["systemctl", "disable", "karen-rooms-monitor.timer"])

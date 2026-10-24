@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-24 Asia/Shanghai",
+  "original_branch": "main",
+  "original_revision": "5d878a0ba46c068a8996a1a82aeab5bc3c340dc9",
+  "task_branch": "codex/vipcloud-domain-migration-20261024",
+  "hosts": [
+    "karen-multiplayer-relay-c7a91e5d.17181718.xyz",
+    "karen-run-observatory-b4d82f6a.17181718.xyz"
+  ],
+  "deployed_archives": {
+    "rooms": "2da187cf01734803377d979036ca0aef70f3a074e07fd86af2ab052f3292e456",
+    "observatory": "0dc76fe9e2d8956ba005ecb581cbeb81128cfc29b3f6e56e796cf762b3da0e30"
+  },
+  "cloudflare": {
+    "dns": "proxied",
+    "ssl": "hostname-scoped Full (strict)",
+    "cache": "hostname-scoped bypass",
+    "origin_https": "15 IPv4 plus 7 IPv6 CF networks only",
+    "weekly_allowlist_refresh": "active",
+    "real_ip_checks": {
+      "cf_source_networks_verified": true,
+      "new_client_matches_cf": true,
+      "untrusted_forwarded_headers_ignored": true,
+      "legacy_original_client_preserved": true
+    }
+  },
+  "certificate": {
+    "name": "karen-services",
+    "expiry": "2027-01-22",
+    "authenticator": "nginx",
+    "timer": "certbot.timer active",
+    "renewal_dry_run_with_cf_and_firewall": "passed; deploy hook validated and reloaded Nginx"
+  },
+  "data": {
+    "runs": 4,
+    "legacy_session_rows": 6,
+    "snapshot_sha256": "63b7821c4343ca76cb8a1b565b718e3c1599efcaff4322aec3cf1ae79242883d",
+    "runs_row_sha256": "cb1cd1b0dd3a110aff175e0bff8c308c402ab88fbd693c68af8ceb6748e28048",
+    "legacy_rows_sha256": "8da9dd85762b7d87b0cbe1dd29567e15f6340efc3e718f2a8cd669e33d98529c",
+    "history_preservation": "every original row matched; synthetic record removed; fresh backup passed"
+  },
+  "native_httpclient_uploads": {
+    "new_cf": "200 duplicate",
+    "legacy_cf": "200 duplicate"
+  },
+  "origin_bypass_check": "correct SNI plus forced source IP timed out (curl 28)",
+  "limitations": [
+    "No full game matrix or Android device tests",
+    "No APK or Workshop package built/published",
+    "No slow authenticated PanStack upload/download test",
+    "Local Python direct TLS path intermittent; independent external probe and native HttpClient used",
+    "One final legacy connection timed out; retry passed 11 checks, and no new legacy server error appeared. Local-to-CF .NET probe was about 8.5 seconds; earlier packet RTT median was about 600 ms."
+  ],
+  "integration": "pending explicit merge approval; original main clean and unchanged; worktree retained",
+  "protocol_checks": {
+    "new_cf_room_transport": 11,
+    "legacy_cf_room_transport": 11,
+    "telemetry_from_independent_external_host": {
+      "root_hidden": true,
+      "portal_access_matches_policy": true,
+      "read_api_access_matches_policy": true,
+      "portal_loaded": true,
+      "invalid_payload_rejected_without_token": true,
+      "new_run_201": true,
+      "duplicate_200": true,
+      "conflict_409": true,
+      "r6_session_compatible": true,
+      "r6_upload_compatible": true,
+      "detail_64_bit_id": true,
+      "raw_64_bit_id": true,
+      "stats_reads_uploaded_data": true
+    }
+  }
+}

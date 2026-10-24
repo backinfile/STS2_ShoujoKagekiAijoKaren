@@ -10,7 +10,7 @@ from websockets.asyncio.client import connect
 
 async def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("--endpoint",default="wss://47.95.213.214:8443/rooms")
+    parser.add_argument("--endpoint",default="wss://karen-multiplayer-relay-c7a91e5d.17181718.xyz/rooms")
     parser.add_argument("--hold",type=float,default=0)
     args=parser.parse_args()
     async with connect(args.endpoint,subprotocols=["karen-rooms-v1"],proxy=None) as host:

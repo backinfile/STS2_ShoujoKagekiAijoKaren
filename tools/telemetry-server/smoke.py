@@ -7,6 +7,7 @@ from pathlib import Path
 import ssl
 import sys
 import time
+from urllib.parse import urlsplit
 from urllib.error import HTTPError
 from urllib.request import build_opener, HTTPSHandler, ProxyHandler, Request
 import uuid
@@ -16,6 +17,7 @@ from test_app import fixture
 access_file = Path(sys.argv[1])
 access = json.loads(access_file.read_text())
 opener = build_opener(ProxyHandler({}), HTTPSHandler(context=ssl.create_default_context()))
+opener.addheaders = []  # Match the game HttpClient, which sends no browser User-Agent.
 auth = "Basic " + base64.b64encode((access["username"] + ":" + access["password"]).encode()).decode()
 def request(url, payload=None, headers=None):
     data = payload if isinstance(payload, bytes) else json.dumps(payload, ensure_ascii=False).encode() if payload is not None else None
@@ -31,7 +33,7 @@ def direct_upload(payload):
     body = json.dumps(payload, ensure_ascii=False).encode()
     return request(access["upload_url"], body, upload)
 checks = {}
-checks["root_hidden"] = request("https://47.95.213.214:8443/")[0] == 404
+checks["root_hidden"] = request(urlsplit(access["page_url"])._replace(path="/", query="", fragment="").geturl())[0] == 404
 gate_status = 401 if access.get("page_access", "password") == "password" else 200
 checks["portal_access_matches_policy"] = request(access["page_url"])[0] == gate_status
 checks["read_api_access_matches_policy"] = request(access["page_url"] + "api/runs")[0] == gate_status
