@@ -2,11 +2,11 @@
 
 ## Original user input
 
-> 读取 /D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/19.创意工坊特效Mod解包与制作流程.md 你先用imagegen设计下棒球这张牌的特效
+> 读取 /docs/19.创意工坊特效Mod解包与制作流程.md 你先用imagegen设计下棒球这张牌的特效
 >
 > 实现前三张图的特效
 >
-> [$worktree-task](C:\Users\17575\\.codex\skills\worktree-task\SKILL.md)
+> $worktree-task（本机参考：`<user-home>\\.codex\skills\worktree-task\SKILL.md`）
 >
 > 合并
 

@@ -6,7 +6,7 @@
 
 > 先用imagegen多设计几种我看看
 
-> [$worktree-task](C:\Users\17575\\.codex\skills\worktree-task\SKILL.md)
+> $worktree-task（本机参考：`<user-home>\\.codex\skills\worktree-task\SKILL.md`）
 
 
 > 几种设计放在一个图片中对比下，每个设计都展示下在卡牌上的和在游戏场景中的效果

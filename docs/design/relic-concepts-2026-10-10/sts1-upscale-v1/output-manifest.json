@@ -7,9 +7,9 @@
     {
       "id": "CookieRelic",
       "name": "饼干",
-      "reference": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/relics/CookieRelic.png",
-      "file": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/CookieRelic-hd.png",
-      "generatedSource": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-c53f3b1f-8bcf-4ff1-95fb-555751b7475a.png",
+      "reference": "docs/design/relic-concepts-2026-10-10/sts1-sources/relics/CookieRelic.png",
+      "file": "docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/CookieRelic-hd.png",
+      "generatedSource": "<user-home>\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-c53f3b1f-8bcf-4ff1-95fb-555751b7475a.png",
       "dimensions": [
         1254,
         1254
@@ -20,9 +20,9 @@
     {
       "id": "CatRelic",
       "name": "棒球猫",
-      "reference": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/relics/CatRelic.png",
-      "file": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/CatRelic-hd.png",
-      "generatedSource": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-e3f1b148-dd10-4259-b603-e9d3d30e5d11.png",
+      "reference": "docs/design/relic-concepts-2026-10-10/sts1-sources/relics/CatRelic.png",
+      "file": "docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/CatRelic-hd.png",
+      "generatedSource": "<user-home>\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-e3f1b148-dd10-4259-b603-e9d3d30e5d11.png",
       "dimensions": [
         1254,
         1254
@@ -33,9 +33,9 @@
     {
       "id": "MrWhiteRelic",
       "name": "Mr.White",
-      "reference": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/relics/MrWhiteRelic.png",
-      "file": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/MrWhiteRelic-hd.png",
-      "generatedSource": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-95216a8f-f9eb-4319-ba3c-4955cd9b72aa.png",
+      "reference": "docs/design/relic-concepts-2026-10-10/sts1-sources/relics/MrWhiteRelic.png",
+      "file": "docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/MrWhiteRelic-hd.png",
+      "generatedSource": "<user-home>\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-95216a8f-f9eb-4319-ba3c-4955cd9b72aa.png",
       "dimensions": [
         1254,
         1254
@@ -46,9 +46,9 @@
     {
       "id": "StarCrownRelic",
       "name": "星之皇冠",
-      "reference": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-sources/relics/StarCrownRelic.png",
-      "file": "D:/Godot/Proj/STS2_ShoujoKagekiAijoKaren/docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/StarCrownRelic-hd.png",
-      "generatedSource": "C:\\Users\\17575\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-3c295f69-5769-4397-93f2-35a5a5647f36.png",
+      "reference": "docs/design/relic-concepts-2026-10-10/sts1-sources/relics/StarCrownRelic.png",
+      "file": "docs/design/relic-concepts-2026-10-10/sts1-upscale-v1/edits/StarCrownRelic-hd.png",
+      "generatedSource": "<user-home>\\.codex\\generated_images\\01a125e0-d8e8-7430-ac85-c018baa111be\\exec-3c295f69-5769-4397-93f2-35a5a5647f36.png",
       "dimensions": [
         1254,
         1254

@@ -6,7 +6,7 @@
   "clips": [
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-130957-b287e16583b348aa943cf5dfb4659575.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-130957-b287e16583b348aa943cf5dfb4659575.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -35,7 +35,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131006-30ab7d9c70c9471cb986a3e1d6f94b9e.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131006-30ab7d9c70c9471cb986a3e1d6f94b9e.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -64,7 +64,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131016-57df254060b04d74a32073417e75561c.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131016-57df254060b04d74a32073417e75561c.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -93,7 +93,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131106-1136484c07c44a0da2189c8cc547d9db.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131106-1136484c07c44a0da2189c8cc547d9db.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -122,7 +122,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131117-e236ba5345a84b76b5e6a280bd72090a.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131117-e236ba5345a84b76b5e6a280bd72090a.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -151,7 +151,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131126-749fb566f8a347d9a4c843da93704f37.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131126-749fb566f8a347d9a4c843da93704f37.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -180,7 +180,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131132-104528c2106d49f7ae7b8188e671574c.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131132-104528c2106d49f7ae7b8188e671574c.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -209,7 +209,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131403-ba888edd63a843c1b4a244bc480a82c8.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131403-ba888edd63a843c1b4a244bc480a82c8.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -238,7 +238,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131412-f8f3a6d5c896473aa51e74c8aaa443e7.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131412-f8f3a6d5c896473aa51e74c8aaa443e7.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -267,7 +267,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131422-09a20de826014efa94b71015bbd4caf3.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131422-09a20de826014efa94b71015bbd4caf3.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -296,7 +296,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131433-f6acbaee6d144474b83b065353f2c2f1.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131433-f6acbaee6d144474b83b065353f2c2f1.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -325,7 +325,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131444-6a1268eec5514e87a5e0b948896607da.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131444-6a1268eec5514e87a5e0b948896607da.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -354,7 +354,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131452-7a4f15bd05c04fa7a01bbc6ad8364156.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131452-7a4f15bd05c04fa7a01bbc6ad8364156.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,
@@ -383,7 +383,7 @@
     },
     {
       "status": "completed",
-      "output_path": "C:\\Users\\17575\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131459-720f6ceb227d410e9cb561bc2a32eeab.mp4",
+      "output_path": "<user-home>\\AppData\\Local\\KarenSTS2MCP\\recordings\\sts2-20261017-131459-720f6ceb227d410e9cb561bc2a32eeab.mp4",
       "fps": 30,
       "max_duration_seconds": 90,
       "width": 1280,

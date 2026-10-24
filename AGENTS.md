@@ -2,14 +2,14 @@
 
 ## 重要参考路径
 
-- 反编译游戏本体路径：`D:\Github\spire-codex\extraction\raw\`
-- STS1 爱城华恋 Mod（老 Mod）路径：`D:\Github\STS_ShoujoKageki\`
-- BaseLib 代码路径：`D:\Github\BaseLib-StS2-master`
-- RitsuLib 代码路径：D:\Github\STS2-RitsuLib
-- STS2 Godot 日志路径：`C:\Users\17575\AppData\Roaming\SlayTheSpire2\logs\godot.log`
-- STS1 游戏本体代码路径：`D:\App\Stream\steamapps\common\SlayTheSpire\desktop-1.0`
-- Karen 正式版开发游戏：`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\stable\game`（v0.107.1）
-- Karen 测试版开发游戏：`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\beta\game`（v0.111.0）
+- 反编译游戏本体路径：`<decompiled-game-source>\`
+- STS1 爱城华恋 Mod（老 Mod）路径：`<sts1-karen-mod-source>\`
+- BaseLib 代码路径：`<baselib-source>`
+- RitsuLib 代码路径：<ritsulib-source>
+- STS2 Godot 日志路径：`<user-home>\AppData\Roaming\SlayTheSpire2\logs\godot.log`
+- STS1 游戏本体代码路径：`<steam-sts1-install>\desktop-1.0`
+- Karen 正式版开发游戏：`artifacts\dev-game\stable\game`（v0.107.1）
+- Karen 测试版开发游戏：`artifacts\dev-game\beta\game`（v0.111.0）
 
 ## 项目基本信息
 
@@ -17,7 +17,7 @@
 
 项目位于：
 
-- `D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren`
+- `.`
 
 当前项目主要依赖：
 
@@ -120,16 +120,16 @@ Karen 当前的核心机制包括：
 
 ## STS2 MCP 连接与使用
 
-- 使用 MCP 操作 STS2 时，使用 `D:\Github\STS2_Mcp` 中的 `KarenSTS2MCP`，不要连接旧 `STS2_MCP` 服务。先在游戏日志中确认 `[Karen STS2 MCP]` 已加载，再访问 `http://127.0.0.1:15527/api/v1/singleplayer?format=json` 验证接口。
+- 使用 MCP 操作 STS2 时，使用 `<karen-sts2-mcp-source>` 中的 `KarenSTS2MCP`，不要连接旧 `STS2_MCP` 服务。先在游戏日志中确认 `[Karen STS2 MCP]` 已加载，再访问 `http://127.0.0.1:15527/api/v1/singleplayer?format=json` 验证接口。
 - 游戏内开发者命令通过 `POST /api/v1/singleplayer` 的 `{"action":"run_command","command":"..."}` 执行；关闭设置界面使用 `{"action":"close_settings"}`，也可用 `menu_select` 的 `back` 选项。测试时不要使用 Computer Use。
 - 先读 `docs/external/KarenSTS2MCP.md`；普通状态和动作字段可参考 `docs/external/STS2MCP/raw-simplified.md`，完整字段和动作说明见 `docs/external/STS2MCP/raw-full.md`。后两份是上游参考，端口及新增动作以本项目文档为准。
 
 ## Karen 独立双版本开发环境
 
-- 正式版游戏及 Mod 目录：`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\stable\game`、`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\stable\game\mods`；启动 `run_stable_dev.bat`（`run.bat` 也默认启动这里）。
-- 测试版游戏及 Mod 目录：`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\beta\game`、`D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\beta\game\mods`；启动 `run_beta_dev.bat`。
-- 两套环境各自的用户数据目录分别是 `D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\stable\user\AppData\Roaming\SlayTheSpire2` 和 `D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\artifacts\dev-game\beta\user\AppData\Roaming\SlayTheSpire2`；日志分别写入各自环境根目录的 `godot.log`。
-- 启动器使用 `--force-steam=off`，不读取 Steam 创意工坊 Mod 或云存档。两个 `game\mods` 目前只部署 BaseLib、Karen 与 KarenSTS2MCP，和 Steam 安装目录 `D:\App\Stream\steamapps\common\Slay the Spire 2\mods` 相互独立，可同时启动。
+- 正式版游戏及 Mod 目录：`artifacts\dev-game\stable\game`、`artifacts\dev-game\stable\game\mods`；启动 `run_stable_dev.bat`（`run.bat` 也默认启动这里）。
+- 测试版游戏及 Mod 目录：`artifacts\dev-game\beta\game`、`artifacts\dev-game\beta\game\mods`；启动 `run_beta_dev.bat`。
+- 两套环境各自的用户数据目录分别是 `artifacts\dev-game\stable\user\AppData\Roaming\SlayTheSpire2` 和 `artifacts\dev-game\beta\user\AppData\Roaming\SlayTheSpire2`；日志分别写入各自环境根目录的 `godot.log`。
+- 启动器使用 `--force-steam=off`，不读取 Steam 创意工坊 Mod 或云存档。两个 `game\mods` 目前只部署 BaseLib、Karen 与 KarenSTS2MCP，和 Steam 安装目录 `<steam-sts2-install>\mods` 相互独立，可同时启动。
 - `update_dev_mods.bat` 会构建并更新两套环境中的 Mod；`tools/dev_env.ps1` 支持 `Capture`、`Install`、`Launch`、`Smoke`、`Status`。开发环境完整说明见 `docs/dev-environments.md`。不要用 `build_local_mod.bat` 更新这些环境，因为它默认写入 Steam 安装目录。
 - 上述独立环境会安装 KarenSTS2MCP，并使用各自的 `game\mods\KarenSTS2MCP.conf`：正式版端口 `15627`，测试版端口 `15628`。分别访问 `http://127.0.0.1:15627/api/v1/singleplayer?format=json` 和 `http://127.0.0.1:15628/api/v1/singleplayer?format=json`；本节前面的 `15527` 只适用于 Steam 安装目录中的 MCP。启动脚本会检查对应端口是否已被占用。
 
@@ -159,3 +159,10 @@ Karen 当前的核心机制包括：
 - 校验必须针对最终源码/资源与最终产物，记录版本、包哈希、逐项通过/失败/未测及原因。缺设备或失败项时明确标为待真机验证的测试候选包，不得宣称正式发布校验通过。日常修改仍只执行相关定向验证，不自动上传工坊或扩大为完整联机矩阵。
 
 - 统一执行入口：`python tools/vfx/first-use/release_check.py --source-dev <dev-game> --target apk --apk <最终签名APK>`；工坊使用 `--target workshop` 并提供真实完整矩阵摘要。工具说明及证据格式见 `tools/vfx/first-use/README.md`。
+
+## Git 提交隐私
+
+- 文档和证据清单使用仓库相对路径；仓库外资源以用途占位符表示，个人目录由运行时环境解析。
+- 本地凭证、签名材料、日志、存档和抓包保存在已忽略目录中；保留进 Git 的证据先做脱敏。
+- 提交前运行 `python tools/check_git_privacy.py --staged`，检查完整暂存索引、压缩包内文本及即将使用的提交邮箱；输出仅包含位置和风险类型。
+- 该检查覆盖当前文件和提交身份；历史提交与图片、视频、音频的可见或可听内容分别复核。

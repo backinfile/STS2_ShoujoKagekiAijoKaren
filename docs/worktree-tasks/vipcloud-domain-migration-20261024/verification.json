@@ -51,7 +51,7 @@
     "Local Python direct TLS path intermittent; independent external probe and native HttpClient used",
     "One final legacy connection timed out; retry passed 11 checks, and no new legacy server error appeared. Local-to-CF .NET probe was about 8.5 seconds; earlier packet RTT median was about 600 ms."
   ],
-  "integration": "pending explicit merge approval; original main clean and unchanged; worktree retained",
+  "integration": "pending explicit merge approval; original checkout clean; main independently advanced through privacy cleanup and is synchronized; worktree retained",
   "protocol_checks": {
     "new_cf_room_transport": 11,
     "legacy_cf_room_transport": 11,
@@ -70,5 +70,7 @@
       "raw_64_bit_id": true,
       "stats_reads_uploaded_data": true
     }
-  }
+  },
+  "synchronized_main_revision": "134aa7bbdc44da3e59cead6d9886f84249efc36f",
+  "consolidated_task_commit": "3c0e7f1"
 }

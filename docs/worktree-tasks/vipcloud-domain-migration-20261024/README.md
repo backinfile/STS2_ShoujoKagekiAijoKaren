@@ -35,7 +35,7 @@ Follow-up:
 
 ## Result and changes
 
-Server migration and CF protection are deployed and targeted verification is complete. The consolidated task commit is ready for synchronization and merge approval. Original main remains unchanged.
+Server migration and CF protection are deployed and targeted verification is complete. The consolidated task commit is ready for synchronization and merge approval. The original checkout remains clean. While this task ran, main independently advanced to 134aa7bbdc44da3e59cead6d9886f84249efc36f (privacy cleanup); that revision is synchronized into the task branch.
 
 - Relay: `wss://karen-multiplayer-relay-c7a91e5d.17181718.xyz/rooms`; room status retains its private random path.
 - Observatory: `https://karen-run-observatory-b4d82f6a.17181718.xyz`; existing random read/upload routes and access policy preserved. Access credentials, private routes and client endpoint JSON stay in ignored artifacts, outside Git.
@@ -55,6 +55,8 @@ Final active configuration passed 11 native .NET room checks at each new/legacy 
 The local Python direct-network probe intermittently ended TLS early. An independent botyun probe passed 13 checks after matching the native game's absent User-Agent; Python's default User-Agent triggered CF error 1010. Actual .NET HttpClient uploads to both new and legacy endpoints returned 200. No CF protection was disabled to make the test pass. One final old-entry probe timed out before handshake; its focused retry passed all 11 checks with a 1.239 s probe and no new legacy server error. The final new-entry probe was 8.526 s, while the earlier packet RTT median was about 600 ms. These measurements do not establish carrier-wide reachability or stable latency.
 
 ### Integration / cleanup
+
+The consolidated task commit is 3c0e7f1. Synchronization retained the independent privacy-cleanup changes, including its updated AGENTS.md rules. No deployment code changed during synchronization; run the newly required staged privacy check before finalizing the synchronization commit.
 
 Pending: obtain explicit merge approval under $worktree-task, then separately obtain cleanup approval. Preserve worktree, branch, private ignored deployment snapshots and remote rollback material until approved. Do not restore the old database snapshot over newer accepted uploads; reverse migration must first copy current vipcloud data.
 

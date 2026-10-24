@@ -3,7 +3,7 @@
 ## Original user input
 
 ```text
-[$worktree-task](C:\Users\17575\\.codex\skills\worktree-task\SKILL.md)  你看看main上已经实现好的特效，逐个分析下是否合适，你来整理一个md来整理最终结果
+$worktree-task（本机参考：`<user-home>\\.codex\skills\worktree-task\SKILL.md`）  你看看main上已经实现好的特效，逐个分析下是否合适，你来整理一个md来整理最终结果
 ```
 
 ## Brief task plan

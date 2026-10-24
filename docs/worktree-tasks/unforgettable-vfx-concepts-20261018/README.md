@@ -4,7 +4,7 @@
 
 ## Original user input
 
-> 永不遗忘的特效太复杂了，你看看能不能完全重新设计下，你先用imagegen设计几种 [$worktree-task](C:\Users\17575\\.codex\skills\worktree-task\SKILL.md)
+> 永不遗忘的特效太复杂了，你看看能不能完全重新设计下，你先用imagegen设计几种 $worktree-task（本机参考：`<user-home>\\.codex\skills\worktree-task\SKILL.md`）
 
 ## Brief task plan
 

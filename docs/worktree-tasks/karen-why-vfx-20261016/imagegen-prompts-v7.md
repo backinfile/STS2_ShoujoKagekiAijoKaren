@@ -4,7 +4,7 @@
 
 唯一输入：[preview-v6.png](preview-v6.png)，不是重新设计的概念图。保持参考的左下/右上斜向曝光和宽幅红色柔光。
 
-原件：C:/Users/17575/.codex/generated_images/01a1422e-05e3-7e82-9aa7-edf3d827d914/exec-b8c62e4f-386b-4200-b192-8c9a9dd06c5a.png
+原件：<user-home>/.codex/generated_images/01a1422e-05e3-7e82-9aa7-edf3d827d914/exec-b8c62e4f-386b-4200-b192-8c9a9dd06c5a.png
 
 项目副本：images/vfx/why/reference_border.png。原 PNG 原样复制，保留透明度；不使用图像后期移除背景，不将 UI 或战场带进素材。
 
