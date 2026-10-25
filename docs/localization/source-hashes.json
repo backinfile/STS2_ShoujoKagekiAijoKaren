@@ -431,5 +431,6 @@
   "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-ENABLE_COMBAT_ENTRANCE.hover.desc": "b0cfb6553cadd2e7e30ea7d34dfe88efeffd131ff1ddfe96d78ecb4878f281bf",
   "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-ENABLE_COMBAT_ENTRANCE.title": "c6c45961e4c18bcedde3c1244efe749e9f4003b6ff26bffe2f9bece418e2c297",
   "cards.json/KAREN_SHINE_PRICE.title": "0ec84eb3f495ef9bc75bc3bc711538fcd765aaeacc922a71cfcff4e1d8ae7918",
-  "cards.json/KAREN_SHINE_PRICE.description": "22992f5f2bd69db222781e5fc041e65df9c73ab7cb518fc3f9e270d96732fe22"
+  "cards.json/KAREN_SHINE_PRICE.description": "22992f5f2bd69db222781e5fc041e65df9c73ab7cb518fc3f9e270d96732fe22",
+  "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-ANDROID.karen_only_save": "09f7f2dfd84a575e37ab25b0be3dc3b31df923b844a08eb02acfbca9ec91af78"
 }

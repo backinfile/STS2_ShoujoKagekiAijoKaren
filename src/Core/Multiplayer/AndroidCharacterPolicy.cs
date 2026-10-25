@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game.Lobby;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
@@ -13,6 +14,15 @@ using MegaCrit.Sts2.Core.Saves;
 using ShoujoKagekiAijoKaren.src.Models.Characters;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Multiplayer;
+
+internal static class AndroidPolicy
+{
+#if KAREN_ANDROID
+    public const bool KarenOnly = true;
+#else
+    public const bool KarenOnly = false;
+#endif
+}
 
 internal static class KarenCharacterPolicy
 {
@@ -98,11 +108,13 @@ internal static class AndroidSavedCharacterPatch
 {
     private static bool Prefix()
     {
-        if (!AndroidPolicy.KarenOnly) { RoomSession.ResetForSingleplayer(); return true; }
+        if (!AndroidPolicy.KarenOnly) return true;
         var save = SaveManager.Instance.LoadRunSave();
         if (save.SaveData?.Players.Any(p => p.CharacterId != ModelDb.Character<Karen>().Id) != true)
-        { RoomSession.ResetForSingleplayer(); return true; }
-        RoomUi.Message(RoomText.Get("karen_only_save"));
+            return true;
+        KarenModConfig.ShowMessage(
+            new LocString("characters", "KAREN.title").GetFormattedText(),
+            new LocString("settings_ui", "SHOUJOKAGEKIAIJOKAREN-ANDROID.karen_only_save").GetFormattedText());
         return false;
     }
 }
