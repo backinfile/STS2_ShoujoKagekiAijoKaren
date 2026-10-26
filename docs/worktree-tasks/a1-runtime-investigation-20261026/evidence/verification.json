@@ -1,0 +1,189 @@
+{
+  "scope": "Targeted Windows OpenGL checks only; no release or multiplayer matrix",
+  "base_commit": "fc379e11bf0b084fc1f5f60186984dabea3f9d73",
+  "fixture_upload_enabled": false,
+  "cache": {
+    "karen-cache-before2": {
+      "observed": {
+        "cachedBefore": false,
+        "missedBefore": false,
+        "retained": false,
+        "sameInstance": false,
+        "missedAfter": true,
+        "width": 24,
+        "status": "done"
+      },
+      "energy_icon_misses": 2
+    },
+    "beta-before": {
+      "observed": {
+        "cachedBefore": false,
+        "missedBefore": false,
+        "retained": false,
+        "sameInstance": false,
+        "missedAfter": true,
+        "width": 24,
+        "status": "done"
+      },
+      "energy_icon_misses": 2
+    },
+    "stable-after": {
+      "observed": {
+        "cachedBefore": true,
+        "missedBefore": false,
+        "retained": true,
+        "sameInstance": true,
+        "missedAfter": false,
+        "width": 24,
+        "status": "done"
+      },
+      "energy_icon_misses": 0
+    },
+    "beta-after": {
+      "observed": {
+        "cachedBefore": true,
+        "missedBefore": false,
+        "retained": true,
+        "sameInstance": true,
+        "missedAfter": false,
+        "width": 24,
+        "status": "done"
+      },
+      "energy_icon_misses": 0
+    }
+  },
+  "hand_wait": {
+    "stable-after": {
+      "passed": true,
+      "numeric_audits": 8,
+      "busy_responses": 9,
+      "after_combat_check": {
+        "status": "error",
+        "message": "Combat is not in progress.",
+        "command": "karen_check_hand",
+        "async": false
+      }
+    },
+    "beta-after": {
+      "passed": true,
+      "numeric_audits": 8,
+      "busy_responses": 9,
+      "after_combat_check": {
+        "status": "error",
+        "message": "Combat is not in progress.",
+        "command": "karen_check_hand",
+        "async": false
+      }
+    }
+  },
+  "exit_controls": {
+    "vanilla-menu": {
+      "mods": "vanilla",
+      "native_quit": true,
+      "leak_reports": [
+        "WARNING: 1080 RIDs of type \"CanvasItem\" were leaked.",
+        "ERROR: 1 RID allocations of type 'N26RendererEnvironmentStorage11EnvironmentE' were leaked at exit.",
+        "ERROR: 30 RID allocations of type 'N5GLES316ParticlesStorage9ParticlesE' were leaked at exit.",
+        "ERROR: 30 RID allocations of type 'N5GLES34MeshE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderGLES3 were never freed",
+        "ERROR: 5 shaders of type CanvasShaderGLES3 were never freed",
+        "ERROR: 97 RID allocations of type 'N5GLES38MaterialE' were leaked at exit.",
+        "ERROR: 6 RID allocations of type 'N5GLES36ShaderE' were leaked at exit.",
+        "ERROR: 27 RID allocations of type 'N5GLES37TextureE' were leaked at exit.",
+        "ERROR: 360 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.",
+        "ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.",
+        "ERROR: 4 RID allocations of type 'PN18TextServerAdvanced27FontAdvancedLinkedVariationE' were leaked at exit.",
+        "ERROR: 66 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    "mcp-menu": {
+      "mods": "mcp",
+      "native_quit": true,
+      "leak_reports": [
+        "WARNING: 1080 RIDs of type \"CanvasItem\" were leaked.",
+        "ERROR: 1 RID allocations of type 'N26RendererEnvironmentStorage11EnvironmentE' were leaked at exit.",
+        "ERROR: 30 RID allocations of type 'N5GLES316ParticlesStorage9ParticlesE' were leaked at exit.",
+        "ERROR: 30 RID allocations of type 'N5GLES34MeshE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderGLES3 were never freed",
+        "ERROR: 5 shaders of type CanvasShaderGLES3 were never freed",
+        "ERROR: 97 RID allocations of type 'N5GLES38MaterialE' were leaked at exit.",
+        "ERROR: 6 RID allocations of type 'N5GLES36ShaderE' were leaked at exit.",
+        "ERROR: 27 RID allocations of type 'N5GLES37TextureE' were leaked at exit.",
+        "ERROR: 360 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.",
+        "ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.",
+        "ERROR: 4 RID allocations of type 'PN18TextServerAdvanced27FontAdvancedLinkedVariationE' were leaked at exit.",
+        "ERROR: 66 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    "karen-menu": {
+      "mods": "karen",
+      "native_quit": true,
+      "leak_reports": [
+        "WARNING: 1080 RIDs of type \"CanvasItem\" were leaked.",
+        "ERROR: 1 RID allocations of type 'N26RendererEnvironmentStorage11EnvironmentE' were leaked at exit.",
+        "ERROR: 30 RID allocations of type 'N5GLES316ParticlesStorage9ParticlesE' were leaked at exit.",
+        "ERROR: 30 RID allocations of type 'N5GLES34MeshE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderGLES3 were never freed",
+        "ERROR: 5 shaders of type CanvasShaderGLES3 were never freed",
+        "ERROR: 97 RID allocations of type 'N5GLES38MaterialE' were leaked at exit.",
+        "ERROR: 6 RID allocations of type 'N5GLES36ShaderE' were leaked at exit.",
+        "ERROR: 28 RID allocations of type 'N5GLES37TextureE' were leaked at exit.",
+        "ERROR: 360 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.",
+        "ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.",
+        "ERROR: 4 RID allocations of type 'PN18TextServerAdvanced27FontAdvancedLinkedVariationE' were leaked at exit.",
+        "ERROR: 67 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    "baselib-combat": {
+      "mods": "baselib",
+      "native_quit": true,
+      "leak_reports": [
+        "WARNING: 910 RIDs of type \"CanvasItem\" were leaked.",
+        "ERROR: 1 RID allocations of type 'N26RendererEnvironmentStorage11EnvironmentE' were leaked at exit.",
+        "ERROR: 25 RID allocations of type 'N5GLES316ParticlesStorage9ParticlesE' were leaked at exit.",
+        "ERROR: 25 RID allocations of type 'N5GLES34MeshE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderGLES3 were never freed",
+        "ERROR: 5 shaders of type CanvasShaderGLES3 were never freed",
+        "ERROR: 82 RID allocations of type 'N5GLES38MaterialE' were leaked at exit.",
+        "ERROR: 6 RID allocations of type 'N5GLES36ShaderE' were leaked at exit.",
+        "ERROR: 27 RID allocations of type 'N5GLES37TextureE' were leaked at exit.",
+        "ERROR: 300 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.",
+        "ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.",
+        "ERROR: 4 RID allocations of type 'PN18TextServerAdvanced27FontAdvancedLinkedVariationE' were leaked at exit.",
+        "ERROR: 66 resources still in use at exit (run with --verbose for details)."
+      ]
+    }
+  },
+  "beta_preexisting_startup_error": {
+    "beta-before": {
+      "invalid_task_id_count": 1,
+      "location": "Godot worker_thread_pool.cpp:418 during background Common loading"
+    },
+    "beta-after": {
+      "invalid_task_id_count": 1,
+      "location": "Godot worker_thread_pool.cpp:418 during background Common loading"
+    }
+  },
+  "source_files": {
+    "src/Core/Commands/KarenCheckHandConsoleCmd.cs": "9da27a64228de9de953dc494a389419584bbffe086fe7478543823a823c8fc4c",
+    "src/Core/Vfx/KarenVfxCatalog.g.cs": "7c3f899aa3d9e37ac566ad5c241adc38fd98c03bb7e0e0e73128d83a5a537e22",
+    "tools/mcp_hand_audit.py": "2f4b9621af6a2f79eca56d3f44017ddb2859043d6147e1ab0eca3513c2ebd042",
+    "tools/test_mcp_hand_audit.py": "533b32238a873228d9692c2075397ff3eba9e32424e72a99b60dfca1c689d554",
+    "tools/vfx/first-use/catalog.py": "da358549923fe0283ee05370d2bcc9c5992a2f3bdcb5fee829bf86ad4e90a272"
+  },
+  "measured_dll_sha256": {
+    "ShoujoKagekiAijoKaren.Beta.dll": "760569a57c3b5d06a1fb2e9f7cb32feec685d775b6312bab8dbe208cc79d4a6e",
+    "ShoujoKagekiAijoKaren.Stable.dll": "81c6ef550defc2252f95f160a0bc40fffebfc5152b16254466088aff71672760"
+  },
+  "measured_pck_sha256": "07f7ac295b76bda5f5d81f56add6818137383ef0352af0200442738a298d2645",
+  "screenshot_review": {
+    "stable": 6,
+    "beta": 6,
+    "model_and_visible_hand_consistent": true
+  },
+  "replay_regressions": {
+    "passed": 8,
+    "persistent_mismatch_negative_case_rejected": true,
+    "unknown_overlay_negative_case_rejected": true
+  }
+}

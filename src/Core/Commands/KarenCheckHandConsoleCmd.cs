@@ -1,4 +1,6 @@
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.DevConsole;
 using MegaCrit.Sts2.Core.DevConsole.ConsoleCommands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -21,11 +23,18 @@ public sealed class KarenCheckHandConsoleCmd : AbstractConsoleCmd
 
     public override CmdResult Process(Player? issuingPlayer, string[] args)
     {
+        if (!CombatManager.Instance.IsInProgress)
+            return new(false, "Combat is not in progress.");
+
         var hand = NCombatRoom.Instance?.Ui.Hand;
         if (issuingPlayer?.PlayerCombatState == null || hand == null)
             return new(false, "A local combat hand is required.");
         if (hand.IsInCardSelection)
             return new(false, "Finish card selection before checking the hand.");
+
+        var run = RunManager.Instance;
+        if (run.ActionExecutor?.CurrentlyRunningAction != null || run.ActionQueueSet?.IsEmpty == false)
+            return new(false, "Wait for queued actions to finish before checking the hand.");
 
         var models = PileType.Hand.GetPile(issuingPlayer).Cards;
         var visible = hand.ActiveHolders.Where(h => h.CardNode != null)

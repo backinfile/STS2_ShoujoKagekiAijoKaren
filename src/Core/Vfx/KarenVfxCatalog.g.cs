@@ -49,6 +49,7 @@ internal static class KarenVfxCatalog
         "res://images/atlases/ui_atlas.sprites/card/card_frame_quest_s.tres",
         "res://images/atlases/ui_atlas.sprites/card/card_frame_skill_s.tres",
         "res://images/packed/card_portraits/token/karen_continue.png",
+        "res://images/packed/sprite_fonts/karen_energy_icon.png",
         "res://images/packed/vfx/last_word/t01.png",
         "res://images/packed/vfx/last_word/t02.png",
         "res://images/packed/vfx/last_word/t03.png",

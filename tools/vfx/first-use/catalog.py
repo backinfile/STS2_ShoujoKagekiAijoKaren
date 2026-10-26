@@ -6,7 +6,7 @@ GENERATED=ROOT/'src/Core/Vfx/KarenVfxCatalog.g.cs'
 OWNER_FILE=Path(__file__).with_name('resource-owners.json')
 # Include complete directories, so dynamically assembled resource paths are covered too.
 DIRS=['images/vfx','images/packed/vfx','materials','shaders','themes','scenes',
-      'images/ui/combat','images/ui/flower','images/ui/top_bar','images/powers','ShoujoKagekiAijoKaren/audio','ShoujoKagekiAijoKaren/video']
+      'images/packed/sprite_fonts','images/ui/combat','images/ui/flower','images/ui/top_bar','images/powers','ShoujoKagekiAijoKaren/audio','ShoujoKagekiAijoKaren/video']
 EXTS={'.png','.jpg','.tres','.tscn','.gdshader','.wav','.ogg','.mp3','.ogv'}
 def assets():
  result={p.relative_to(ROOT).as_posix() for d in DIRS for p in (ROOT/d).rglob('*') if p.suffix.lower() in EXTS}

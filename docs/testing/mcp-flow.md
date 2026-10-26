@@ -43,3 +43,20 @@ python tools/mcp_flow.py tools/mcp_flows/menu_roundtrip.json --only stable
 多人测试给主机和客户端各定义一个目标，使用各自端口，步骤按顺序切换 `target`。进入联机战局前的菜单动作使用 `singleplayer` 端点，进入战局后可逐步指定 `"endpoint":"multiplayer"`。相同版本与跨版本的联机结果仍需按 [双版本矩阵](dual-version-matrix-2026-09-23.md) 记录；流程可自动检查可观察状态，游戏窗口或平台级连接错误仍需结合两端日志判定。
 
 2026-09-23 实测：`menu_roundtrip.json` 在正式版和测试版各运行三步，均通过。记录位于本机 `artifacts/test-logs/mcp-flow-stable-live-v2.jsonl` 与 `mcp-flow-beta-live.jsonl`。该示例只验证菜单与 MCP 操作编排，不替代战斗机制和联机矩阵测试。
+
+
+## 移牌后的只读手牌核对
+
+选牌出现和自动出牌链完成都可能晚于首次 `is_play_phase=true`。需要核对真实手牌时，可使用：
+
+```powershell
+python tools/mcp_hand_audit.py --port <isolated-mcp-port> --timeout 20
+```
+
+Python 驱动可导入 `tools/mcp_hand_audit.py` 的 `wait_for_hand(request)`；`request(None)` 读取单人状态，`request(body)` 发送单人动作。检查器仅发送只读 `karen_check_hand`，返回三种结果：
+
+- `hand`：真实动作队列已结束，两次核对均确认模型与可见节点一致。
+- `selection`：原生选牌界面已展开，由驱动完成选择，再次调用检查器。
+- `left_combat`：已经进入奖励、地图等后续阶段；不把战斗结束时的旧节点当成幽灵牌。
+
+持续的模型／节点差异会超时失败；未知错误和未知覆盖界面会直接失败。移牌前截图仍由调用者保存，完成选择并获得 `hand` 或进入结算后再保存对应的操作后截图。
