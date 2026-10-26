@@ -39,13 +39,13 @@ Server migration and CF protection are deployed and targeted verification is com
 
 - Relay: `wss://karen-multiplayer-relay-c7a91e5d.17181718.xyz/rooms`; room status retains its private random path.
 - Observatory: `https://karen-run-observatory-b4d82f6a.17181718.xyz`; existing random read/upload routes and access policy preserved. Access credentials, private routes and client endpoint JSON stay in ignored artifacts, outside Git.
-- Both apps now run only on vipcloud, with loopback backends, independent limits, monitors and daily observatory backups. Old botyun apps/timers are disabled; old IP TLS gateway remains for existing clients and uses certificate-verified CF hostnames. Its local system resolver is used because public UDP DNS timed out.
+- Both apps now run only on vipcloud, with loopback backends, independent limits, monitors and daily observatory backups. Old botyun apps/timers are disabled. The old IP TLS gateway initially remained for existing clients using certificate-verified CF hostnames and the local system resolver; it was subsequently retired at the user's request (see below).
 - Cloudflare UI: Karen hostname Configuration Rule `29c51affb2484040915aab475e4829dd` selects strict TLS; Cache Rule `9e44713b314e40feacdce29dc8134abb` bypasses all Karen content. Existing PanStack strict/cache rules and proxied DNS were preserved. Other domain hosts are outside these Karen rules.
 - Origin UFW: 443 restricted to 15 official CF IPv4 and 7 IPv6 networks; existing SSH and port-80 ACME preserved. Weekly allowlist refresh is enabled. Ordinary service installation no longer reopens 443.
 - Certbot production SAN certificate expires 2027-01-22. Standard certbot.timer, nginx authenticator, and deploy validation/reload hook remain active. Staging renewal passed with CF proxy and the final firewall enabled.
 - Root cause fixed: changing a shared limit zone's IP key under its old name caused the Nginx master to reject reload despite successful syntax checks. New CF zone names allow graceful reload. The temporary ACME proxy workaround was withdrawn after the real cause was proved.
 - Four historical runs and six legacy session rows were migrated; initial snapshot SHA-256 `63b7821c4343ca76cb8a1b565b718e3c1599efcaff4322aec3cf1ae79242883d`. A scoped synthetic test record was removed; every historical row was compared with the migration snapshot and matched. Fresh backup and monitor passed.
-- Client room default, monitor, retained legacy Worker source, fixture and deployment instructions use the new hostname. The previously retired live Worker was not republished; its old IP hint remains compatible through the old gateway.
+- Client room default, monitor, retained legacy Worker source, fixture and deployment instructions use the new hostname. The previously retired live Worker was not republished; its old IP hint stopped working when the old gateway was retired.
 - The updated ignored `artifacts/telemetry-deploy/client-endpoint.json` is prepared in this worktree. Integrating the code should also synchronize that build input into the original checkout after merge approval. No APK or Workshop package was built or published.
 
 ### Verification and limits
@@ -59,3 +59,11 @@ The local Python direct-network probe intermittently ended TLS early. An indepen
 The consolidated task commit is 3c0e7f1. Synchronization retained the independent privacy-cleanup changes, including its updated AGENTS.md rules. No deployment code changed during synchronization; run the newly required staged privacy check before finalizing the synchronization commit.
 
 Integration is complete; the task worktree and branch have been removed. Private deployment snapshots and remote rollback material remain outside Git. Do not restore the old database snapshot over newer accepted uploads; reverse migration must first copy current vipcloud data.
+
+### Legacy gateway retirement — 2026-10-24
+
+Follow-up user instruction: 「不要转发了，全部停止吧」, in response to the explanation that botyun only retained the old IP HTTPS compatibility gateway.
+
+- Disabled the old TCP 8443 Nginx configuration, removed its IPv4/IPv6 UFW allowances and dedicated HTTP-01 challenge location, and stopped/disabled all old Karen app and timer units, including IP certificate renewal. Configuration backups, certificates and historical data remain private on botyun.
+- Targeted checks passed: no old listener or established connection remains, old loopback backends are stopped, Nginx syntax/reload succeeded, other listening ports and unrelated Nginx files are preserved, and shared Nginx/certificate renewal remain active. Vipcloud's apps, monitoring, backups, certificate renewal and room health check remain active.
+- Evidence: `artifacts/legacy-gateway-stop-20261024/verification.json` (ignored). Old raw-IP APK/Mod clients can no longer use room relay or telemetry upload through botyun; domain clients use vipcloud. No full game matrix, APK build or publication was performed.

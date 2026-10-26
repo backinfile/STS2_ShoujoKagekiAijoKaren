@@ -165,7 +165,7 @@ def main():
         files,manifest,pck=stage_payload(game,mod_zip,carrier)
         run(["dotnet","run","--project",HERE/"settings-tests/SettingsTests.csproj","--configuration","Release",
              "-p:GameDirectory="+str(game),"--",HERE/"default-settings.json"],log)
-        unsigned=OUT/"StS2-Karen-v0.107.1-v0.1.3-direct-r7-unsigned.apk"
+        unsigned=OUT/"StS2-Karen-v0.107.1-v0.1.3-direct-r8-unsigned.apk"
         print("Assembling full game APK",flush=True)
         with zipfile.ZipFile(carrier) as source,zipfile.ZipFile(skeleton) as base,zipfile.ZipFile(unsigned,"w",allowZip64=False) as target:
             target.writestr("AndroidManifest.xml",base.read("AndroidManifest.xml"),compress_type=zipfile.ZIP_DEFLATED)
@@ -196,11 +196,11 @@ def main():
         signed=OUT/("signed-"+uuid.uuid4().hex[:8])
         run([java,"-Xmx3g","-jar",signer,"--apks",unsigned,"--out",signed,"--ks",key,"--ksAlias","karen-test","--ksPass",password,"--ksKeyPass",password],log)
         choices=list(signed.glob("*-aligned-signed.apk"));assert len(choices)==1
-        final=OUT/"StS2-Karen-v0.107.1-v0.1.3-direct-r7.apk";shutil.copyfile(choices[0],final)
+        final=OUT/"StS2-Karen-v0.107.1-v0.1.3-direct-r8.apk";shutil.copyfile(choices[0],final)
         signature=run([java,"-Xmx3g","-cp",signer,"com.android.apksigner.ApkSignerTool","verify","--verbose","--print-certs",final],log)
         (OUT/"signature.txt").write_text(signature,encoding="utf-8")
         badging=run([aapt,"dump","badging",final],log);(OUT/"badging.txt").write_text(badging,encoding="utf-8")
-        assert "package: name='"+APP_ID+"'" in badging and "versionCode='10019'" in badging
+        assert "package: name='"+APP_ID+"'" in badging and "versionCode='10020'" in badging
         assert "launchable-activity: name='com.karen.sts2.PrepareGameActivity'" in badging and "native-code: 'arm64-v8a'" in badging
         with zipfile.ZipFile(final) as package:
             assert json.loads(package.read("assets/direct/default-settings.json"))==defaults
@@ -219,7 +219,7 @@ def main():
             for name,path in files.items():
                 with package.open("assets/direct/files/"+name) as stream:assert hashlib.file_digest(stream,"sha256").hexdigest()==sha(path),name
             assert package.testzip() is None
-        record={"apk":final.name,"bytes":final.stat().st_size,"sha256":sha(final),"application_id":APP_ID,"game_version":"v0.107.1","mod_version":"v0.1.3","version_code":10019,
+        record={"apk":final.name,"bytes":final.stat().st_size,"sha256":sha(final),"application_id":APP_ID,"game_version":"v0.107.1","mod_version":"v0.1.3","version_code":10020,
                 "embedded_program_files":len(files),"payload_manifest_sha256":hashlib.sha256(manifest).hexdigest(),"engine_dependency_classes":sum(len(list(dex_classes(path.read_bytes()))) for path in engine),"game_host_classes":len(list(dex_classes(host))),
                 "launcher_application_classes":0,"launcher_activities":0,"native_architectures":["arm64-v8a"],"pck":pck,
                 "default_game_settings_schema":5,"game_settings_deserialization":"passed against v0.107.1 SettingsSave","fmod_plugin_registered":True,"installer_jvm_regressions":12,"signature":"verified v2/v3; local test key","android_device_tested":False}
