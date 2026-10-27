@@ -14,6 +14,9 @@ namespace ShoujoKagekiAijoKaren.src.Models.Relics;
 public sealed class KarenMrWhiteRelic : KarenBaseRelic
 {
     private int _lastTriggeredTurn;
+    internal bool WillTriggerAtTurnEnd =>
+        Owner.PlayerCombatState is { TurnNumber: >= 1 and <= 2 } state
+        && state.TurnNumber > _lastTriggeredTurn;
     public override RelicRarity Rarity => RelicRarity.Rare;
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [MechanicTip("KAREN_PROMISE_PILE")];
 
@@ -29,8 +32,8 @@ public sealed class KarenMrWhiteRelic : KarenBaseRelic
     {
         if (side != CombatSide.Player || !participants.Contains(Owner.Creature)) return;
 
+        if (!WillTriggerAtTurnEnd) return;
         var turnNumber = Owner.PlayerCombatState!.TurnNumber;
-        if (turnNumber is < 1 or > 2 || turnNumber <= _lastTriggeredTurn) return;
 
         // Consume only this turn's opportunity, even if the hand is empty.
         _lastTriggeredTurn = turnNumber;
