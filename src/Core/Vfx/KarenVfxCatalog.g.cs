@@ -91,6 +91,8 @@ internal static class KarenVfxCatalog
         "res://images/powers/karen_temp_strength_power.png",
         "res://images/powers/karen_ticket_power.png",
         "res://images/powers/karen_we_kown_power.png",
+        "res://images/relics/karen_little_star_relic.png",
+        "res://images/relics/karen_little_star_relic_big.png",
         "res://images/ui/combat/combat_reticle.png",
         "res://images/ui/combat/energy_counters/energy_burst/energy_orb_burst.png",
         "res://images/ui/combat/energy_counters/energy_burst/energy_orb_shine.png",
