@@ -1079,7 +1079,7 @@
     "test_plugin_in_final_package": false
   },
   "document_review": {
-    "tracked_documents": 478,
+    "tracked_documents": 479,
     "local_absolute_path_findings": 0,
     "server_deployment_path_false_positives_reviewed": 6,
     "tracked_file_privacy_scan": {
@@ -1087,11 +1087,19 @@
       "findings": 0
     },
     "staged_privacy_check": {
-      "files": 6132,
+      "files": 6133,
       "command": "python tools/check_git_privacy.py --staged",
       "findings": 0
     }
   },
   "iteration_note": "An earlier superseded candidate recorded one 72.3815 ms Shine-draw frame without per-frame GC counters. The current final package was rechecked with per-frame counters; no >33.3 ms draw/recall frame was recorded in the three final comparisons. The isolated earlier spike remains unattributed.",
-  "original_uncommitted_entries_preserved": 21
+  "original_uncommitted_entries_preserved": 21,
+  "local_main_synchronization": {
+    "target_branch": "main",
+    "synchronized_main": "171f1523906114e38d4bcfe2f35b69bfa5c05fe3",
+    "consolidated_task_commit": "2a2a809f1326b05fd2a8118809deeb2401225d50",
+    "changes": "Telemetry page/server and its task documentation only. VFX source and measured package unchanged.",
+    "original_dirty_entries_preserved": 21,
+    "integration_into_main": "awaiting explicit user approval"
+  }
 }

@@ -5,7 +5,9 @@ const pct = value => value == null ? '—' : (value * 100).toFixed(1) + '%';
 const num = value => new Intl.NumberFormat('zh-CN').format(value ?? 0);
 const date = value => value ? new Date(value * 1000).toLocaleString('zh-CN', {hour12:false}) : '—';
 const OUTCOME = {win:'胜利',death:'死亡',abandon:'放弃'};
-const CHARACTERS={KAREN:'爱城华恋',IRONCLAD:'铁甲战士',SILENT:'静默猎手',DEFECT:'故障机器人',REGENT:'储君',NECROBINDER:'亡灵契约师'};
+const CHARACTERS={KAREN:'爱城华恋',IRONCLAD:'铁甲战士',SILENT:'静默猎手',DEFECT:'故障机器人',REGENT:'储君',NECROBINDER:'亡灵契约师',WATCHER:'观者'};
+const RARITIES=['基础','普通','罕见','稀有','先古','衍生','诅咒','状态','特殊','事件','任务','未知'];
+const CARD_SORTS={name:'卡牌名称',cost:'基础费用',type:'卡牌类型',pick_rate:'记录选中率',win_rate:'曾持有胜率',hold_rate:'持有覆盖率',recorded_offers:'选牌记录',picked:'记录选中次数',offered:'已知结果记录数',held:'持有席位',wins:'胜利席位',unknown_picked:'结果缺失数'};
 const characterName=value=>CHARACTERS[model(value)]??model(value);
 const SERIES = [{key:'pick_rate',label:'记录选中率',color:'#375d4c'},{key:'win_rate',label:'曾持有胜率',color:'#71859b'},{key:'hold_rate',label:'持有覆盖率',color:'#ae884b'}];
 const state = {view:'cards',display:'table',sort:'held',order:-1,card:null,run:null,page:1,stats:null,runs:null,catalog:{},relics:{},history:null,seat:0,floor:1,loading:false,fresh:false,loadedQuery:null,catalogReady:false,historyId:null};
@@ -22,15 +24,19 @@ function image(card,cls=''){return card.image?'<img class="'+cls+'" src="'+esc(c
 function title(card){return esc(card.name)+(card.current_upgrade_level>0?' +'+card.current_upgrade_level:'');}
 function identity(card){return '<span class="card-ident">'+image(card)+'<span><strong>'+title(card)+'</strong><small>'+esc([card.owner_name,card.rarity,card.type,card.cost==null?'费用未知':card.cost<0?'特殊费用':card.cost+' 费'].filter(Boolean).join(' · '))+'</small></span></span>';}
 function metric(label,value,fraction){return '<div class="metric-row"><span>'+label+'</span><div><strong>'+value+'</strong>'+(fraction?'<small>'+fraction+'</small>':'')+'</div></div>';}
-function syncURL(){const p=params();for(const key of ['search','owner','type','rarity','outcome'])p.set(key,$(key).value);for(const key of ['view','display','sort','order','page','card','run'])if(state[key]!=null)p.set(key,state[key]);if(state.historyId){p.set('history',state.historyId);p.set('seat',state.seat);p.set('floor',state.floor);}history.replaceState(null,'','#'+p);}
+function syncURL(){const p=params();for(const key of ['search','owner','type','rarity','starters','group','character','outcome'])p.set(key,$(key).value);for(const key of ['view','display','sort','order','page','card','run'])if(state[key]!=null)p.set(key,state[key]);if(state.historyId){p.set('history',state.historyId);p.set('seat',state.seat);p.set('floor',state.floor);}history.replaceState(null,'','#'+p);}
+function updateCharacters(characters=[],selected=$('character').value){
+ const choices=[...new Set([...Object.keys(CHARACTERS),...characters,selected])].filter(c=>c&&c!=='all');
+ $('character').innerHTML='<option value="all">全部职业</option>'+choices.map(c=>'<option value="'+esc(c)+'">'+esc(characterName(c))+'</option>').join('');$('character').value=selected;
+}
 function exportState(){$('export').disabled=state.loading||!state.fresh;$('export').textContent=state.view==='cards'?'导出筛选卡牌 CSV ↓':'导出当前页 CSV ↓';}
 async function load(){
  const version=++requestVersion;state.loading=true;state.fresh=false;exportState();$('connection').textContent='更新中…';$('connection').className='connection';$('refresh').disabled=true;
  try{
-  const query=params(),runQuery=new URLSearchParams(query);runQuery.set('page',state.page);runQuery.set('outcome',$('outcome').value);
+  const query=params(),runQuery=new URLSearchParams(query);runQuery.set('page',state.page);runQuery.set('outcome',$('outcome').value);runQuery.set('character',$('character').value);
   const [stats,runs]=await Promise.all([api('api/stats?'+query),api('api/runs?'+runQuery)]);
   if(version!==requestVersion)return;
-  state.stats=stats;state.runs=runs;state.page=runs.page;runQuery.set('page',state.page);state.loadedQuery=new URLSearchParams(runQuery);state.fresh=true;
+  updateCharacters(stats.characters??[]);state.stats=stats;state.runs=runs;state.page=runs.page;runQuery.set('page',state.page);state.loadedQuery=new URLSearchParams(runQuery);state.fresh=true;
   const selected=$('build').value;$('build').innerHTML='<option value="all">全部版本</option>'+stats.builds.map(b=>'<option value="'+esc(b)+'">'+esc(b)+'</option>').join('');$('build').value=stats.builds.includes(selected)?selected:'all';
   $('error').hidden=true;$('connection').textContent='已更新';$('connection').className='connection ok';$('updated').textContent='更新于 '+new Date().toLocaleTimeString('zh-CN',{hour12:false});
   render();syncURL();
@@ -39,10 +45,16 @@ async function load(){
 }
 function filteredCards(){
  const q=$('search').value.trim().toLowerCase();
- return (state.stats?.cards??[]).filter(c=>(!q||(c.name+' '+c.id).toLowerCase().includes(q))&&($('owner').value==='all'||(c.owner??'unknown')===$('owner').value)&&($('type').value==='all'||c.type===$('type').value)&&($('rarity').value==='all'||c.rarity===$('rarity').value)).sort((a,b)=>{
+ return (state.stats?.cards??[]).filter(c=>(!q||(c.name+' '+c.id).toLowerCase().includes(q))&&($('owner').value==='all'||(c.owner??'unknown')===$('owner').value)&&($('type').value==='all'||c.type===$('type').value)&&($('rarity').value==='all'||c.rarity===$('rarity').value)&&($('starters').value!=='hide'||c.rarity!=='基础')).sort((a,b)=>{
+  if($('group').value==='rarity'){const rarity=c=>c.rarity??'未知',rank=c=>{const index=RARITIES.indexOf(rarity(c));return index<0?RARITIES.length:index;},diff=rank(a)-rank(b)||rarity(a).localeCompare(rarity(b),'zh-CN');if(diff)return diff;}
   const av=a[state.sort],bv=b[state.sort];if(av==null&&bv!=null)return 1;if(av!=null&&bv==null)return -1;
   return ((typeof av==='number'&&typeof bv==='number'?av-bv:String(av??'').localeCompare(String(bv??''),'zh-CN'))*state.order)||a.id.localeCompare(b.id);
  });
+}
+function cardGroups(rows){
+ const groups=[];
+ for(const card of rows){const name=$('group').value==='rarity'?(card.rarity??'未知'):null;let group=groups.at(-1);if(!group||group.name!==name){group={name,cards:[]};groups.push(group);}group.cards.push(card);}
+ return groups;
 }
 function render(){
  const s=state.stats;if(!s)return;
@@ -56,13 +68,13 @@ function empty(text='暂无收到的对局',sub='新对局上传后会出现在�
 function renderCards(){
  if(!state.stats)return;
  const focused=document.activeElement,focusSort=focused?.dataset.sort,focusCard=focused?.dataset.card;
- const rows=filteredCards();if(!rows.some(c=>c.id===state.card))state.card=rows[0]?.id??null;
+ const rows=filteredCards(),groups=cardGroups(rows);$('sort').value=state.sort;$('sortOrder').textContent=state.order<0?'↓ 降序':'↑ 升序';$('sortLabel').textContent=$('group').value==='rarity'?'组内排序':'排序';if(!rows.some(c=>c.id===state.card))state.card=rows[0]?.id??null;
  document.querySelectorAll('[data-display]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.display===state.display));
  if(!rows.length){$('cards').innerHTML=empty(state.stats.cards.length?'没有匹配的卡牌':'暂无卡牌数据',state.stats.cards.length?'调整搜索或卡牌筛选':'等待华恋对局上传');$('cardDetail').innerHTML=empty('选择卡牌查看数据','');return;}
  const head=(key,label)=>'<th aria-sort="'+(state.sort===key?(state.order<0?'descending':'ascending'):'none')+'"><button data-sort="'+key+'">'+label+(state.sort===key?(state.order<0?' ↓':' ↑'):'')+'</button></th>';
  const rate=(c,key,numerator,denominator)=>'<td><span class="num">'+pct(c[key])+'</span><span class="fraction">'+numerator+' / '+denominator+'</span></td>';
- if(state.display==='table')$('cards').innerHTML='<table><caption hidden>华恋卡牌统计</caption><thead><tr>'+head('name','卡牌')+head('pick_rate','记录选中率')+head('win_rate','曾持有胜率')+head('hold_rate','持有覆盖率')+head('recorded_offers','选牌记录')+head('held','持有席位')+'</tr></thead><tbody>'+rows.map(c=>'<tr data-card="'+esc(c.id)+'" class="'+(c.id===state.card?'selected':'')+'"><td><button class="card-name" data-card="'+esc(c.id)+'" aria-pressed="'+(c.id===state.card)+'">'+identity(c)+'</button></td>'+rate(c,'pick_rate',c.picked,c.offered)+rate(c,'win_rate',c.wins,c.held)+rate(c,'hold_rate',c.held,state.stats.seats)+'<td>'+num(c.recorded_offers)+'</td><td>'+num(c.held)+'</td></tr>').join('')+'</tbody></table>';
- else $('cards').innerHTML='<div class="legend">'+SERIES.map(m=>'<span><i aria-hidden="true" style="--series:'+m.color+'"></i>'+m.label+'</span>').join('')+'</div><div class="chart-axis"><span>卡牌</span><span class="ticks"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></span></div>'+rows.map(c=>'<button class="chart-row" data-card="'+esc(c.id)+'" aria-pressed="'+(c.id===state.card)+'">'+identity(c)+'<span class="bars">'+SERIES.map(m=>'<span class="track '+(c[m.key]==null?'no-data':'')+'" title="'+m.label+' '+(c[m.key]==null?'暂无有效样本':pct(c[m.key]))+'"><span class="fill" style="--value:'+(c[m.key]==null?0:c[m.key]*100)+'%;--series:'+m.color+';display:block"></span></span>').join('')+'</span><span class="chart-values">'+SERIES.map(m=>'<span>'+pct(c[m.key])+'<small>n='+num(m.key==='pick_rate'?c.offered:m.key==='win_rate'?c.held:state.stats.seats)+'</small></span>').join('')+'</span></button>').join('');
+ if(state.display==='table')$('cards').innerHTML='<table><caption hidden>华恋卡牌统计</caption><thead><tr>'+head('name','卡牌')+head('pick_rate','记录选中率')+head('win_rate','曾持有胜率')+head('hold_rate','持有覆盖率')+head('recorded_offers','选牌记录')+head('held','持有席位')+'</tr></thead>'+groups.map(g=>'<tbody>'+(g.name?'<tr class="rarity-group"><th colspan="6" scope="rowgroup">'+esc(g.name)+'<span>'+g.cards.length+' 张</span></th></tr>':'')+g.cards.map(c=>'<tr data-card="'+esc(c.id)+'" class="'+(c.id===state.card?'selected':'')+'"><td><button class="card-name" data-card="'+esc(c.id)+'" aria-pressed="'+(c.id===state.card)+'">'+identity(c)+'</button></td>'+rate(c,'pick_rate',c.picked,c.offered)+rate(c,'win_rate',c.wins,c.held)+rate(c,'hold_rate',c.held,state.stats.seats)+'<td>'+num(c.recorded_offers)+'</td><td>'+num(c.held)+'</td></tr>').join('')+'</tbody>').join('')+'</table>';
+ else $('cards').innerHTML='<div class="legend">'+SERIES.map(m=>'<span><i aria-hidden="true" style="--series:'+m.color+'"></i>'+m.label+'</span>').join('')+'</div><div class="chart-axis"><span>卡牌</span><span class="ticks"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></span></div>'+groups.map(g=>'<section class="chart-group"'+(g.name?' aria-label="'+esc(g.name)+'"':'')+'>'+(g.name?'<h3>'+esc(g.name)+'<span>'+g.cards.length+' 张</span></h3>':'')+g.cards.map(c=>'<button class="chart-row" data-card="'+esc(c.id)+'" aria-pressed="'+(c.id===state.card)+'">'+identity(c)+'<span class="bars">'+SERIES.map(m=>'<span class="track '+(c[m.key]==null?'no-data':'')+'" title="'+m.label+' '+(c[m.key]==null?'暂无有效样本':pct(c[m.key]))+'"><span class="fill" style="--value:'+(c[m.key]==null?0:c[m.key]*100)+'%;--series:'+m.color+';display:block"></span></span>').join('')+'</span><span class="chart-values">'+SERIES.map(m=>'<span>'+pct(c[m.key])+'<small>n='+num(m.key==='pick_rate'?c.offered:m.key==='win_rate'?c.held:state.stats.seats)+'</small></span>').join('')+'</span></button>').join('')+'</section>').join('');
  renderCardDetail(rows.find(c=>c.id===state.card));
  if(focusSort||focusCard){const target=[...$('cards').querySelectorAll('button')].find(b=>(focusSort&&b.dataset.sort===focusSort)||(focusCard&&b.dataset.card===focusCard));target?.focus({preventScroll:true});}
 }
@@ -82,7 +94,7 @@ function selectCard(id){
 function renderRuns(){
  const r=state.runs;if(!r)return;
  if(!r.items.some(run=>run.id===state.run))state.run=r.items[0]?.id??null;
- $('runs').innerHTML=r.items.length?'<table><caption hidden>已接收对局</caption><thead><tr><th>对局 / 接收时间</th><th>玩家</th><th>结果</th><th>进度</th><th>版本 / 进阶</th><th></th></tr></thead><tbody>'+r.items.map(run=>'<tr data-run="'+run.id+'" class="'+(run.id===state.run?'selected':'')+'"><td><button data-run="'+run.id+'">'+run.id.slice(0,12)+'</button><span class="fraction">'+date(run.received_at)+'</span></td><td>'+run.player_count+' 人<span class="fraction">'+run.players.map(p=>p.character==='KAREN'?'华恋':esc(p.character)).join(' / ')+'</span></td><td>'+tag(run.outcome)+'</td><td>'+run.floor+' 层</td><td>'+esc(run.build)+'<span class="fraction">进阶 '+run.ascension+'</span></td><td><button data-history="'+run.id+'" aria-label="查看对局详情 '+run.id.slice(0,12)+'">↗</button></td></tr>').join('')+'</tbody></table>':empty();
+ $('runs').innerHTML=r.items.length?'<table><caption hidden>已接收对局</caption><thead><tr><th>职业 / 人数</th><th>结果</th><th>进度</th><th>版本 / 进阶</th><th>对局 ID / 接收时间</th><th></th></tr></thead><tbody>'+r.items.map(run=>'<tr data-run="'+run.id+'" class="'+(run.id===state.run?'selected':'')+'"><td><button class="run-players" data-run="'+run.id+'">'+run.players.map(p=>esc(characterName(p.character))).join(' / ')+'</button><span class="fraction">'+run.player_count+' 人</span></td><td>'+tag(run.outcome)+'</td><td>'+run.floor+' 层</td><td>'+esc(run.build)+'<span class="fraction">进阶 '+run.ascension+'</span></td><td><button data-run="'+run.id+'">'+run.id.slice(0,12)+'</button><span class="fraction">'+date(run.received_at)+'</span></td><td><button data-history="'+run.id+'" aria-label="查看对局详情 '+run.id.slice(0,12)+'">↗</button></td></tr>').join('')+'</tbody></table>':($('character').value!=='all'||$('outcome').value!=='all'?empty('没有匹配的对局','调整职业、结果或上方筛选'):empty());
  renderRunDetail();
  const pages=Math.max(1,Math.ceil(r.total/r.page_size));
  $('pagination').innerHTML='<span>'+num(r.total)+' 局</span><div><button data-page="'+(state.page-1)+'" '+(state.page<=1?'disabled':'')+'>上一页</button><span>'+state.page+' / '+pages+'</span><button data-page="'+(state.page+1)+'" '+(state.page>=pages?'disabled':'')+'>下一页</button></div>';
@@ -95,7 +107,9 @@ function openModal(title,html){$('modalTitle').textContent=title;$('modalBody').
 function rules(){openModal('统计规则',[
  ['统计样本','以华恋玩家席位计数，同席位同模型只计一次。默认排除前 5 层放弃；早期死亡保留，其他放弃计入未胜。'],
  ['曾持有胜率','胜利且曾持有该模型的席位 ÷ 曾持有该模型的席位。依据终局牌组、耗尽、获取、移除、变牌和明确选中记录。仅无修正器的标准模式补入默认华恋起始牌，其他开局以实际记录为准。'],
- ['持有覆盖率','曾持有该模型的席位 ÷ 筛选后的全部华恋席位。卡名、归属、类型、稀有度筛选只影响卡牌行。'],
+ ['持有覆盖率','曾持有该模型的席位 ÷ 筛选后的全部华恋席位。卡名、归属、类型、稀有度及初始牌筛选只影响卡牌行。'],
+ ['初始牌与分组','隐藏初始牌会筛去基础稀有度的卡牌。按稀有度分组时，排序字段与升降序仅调整各组内部；统计表、对比图和卡牌 CSV 使用同一顺序。'],
+ ['对局职业','仅筛选对局列表；多人对局中任一席位属于所选职业就会列出，同局计一次，卡牌统计样本保持原口径。'],
  ['记录选中率','已选记录 ÷ 结果明确的选牌记录。包含奖励、商店及遗物等来源，不等同于免费奖励选取率；结果缺失不计入分母，无有效分母显示“—”。'],
  ['选牌记录','展示记录总数、明确选中数和结果缺失数。缺失结果保留未知，不根据终局牌组推断。'],
  ['时间与胜负','时间按服务器首次接收时间筛选。结果筛选只作用于对局列表，不改变卡牌胜率。']
@@ -135,10 +149,10 @@ async function raw(id){
 function save(name,blob){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function csv(){
  if(!state.stats||state.loading||!state.fresh||!state.loadedQuery){toast('请先刷新并成功加载当前筛选结果');return;}
- const rows=state.view==='cards'?[['模型ID','卡名','归属','类型','稀有度','基础费用','记录选中次数','已知结果记录数','记录选中率','曾持有胜利席位','曾持有席位','曾持有胜率','统计席位','持有覆盖率','选牌条目','明确选中','选牌结果缺失'],...filteredCards().map(c=>[c.id,c.name,c.owner_name??'其他',c.type,c.rarity,c.cost,c.picked,c.offered,pct(c.pick_rate),c.wins,c.held,pct(c.win_rate),state.stats.seats,pct(c.hold_rate),c.recorded_offers,c.recorded_picked,c.unknown_picked])]:[['对局ID','接收时间','开始时间','结果','楼层','进阶','人数','版本'],...(state.runs?.items??[]).map(r=>[r.id,date(r.received_at),date(r.start_time),OUTCOME[r.outcome],r.floor,r.ascension,r.player_count,r.build])];
+ const rows=state.view==='cards'?[['模型ID','卡名','归属','类型','稀有度','基础费用','记录选中次数','已知结果记录数','记录选中率','曾持有胜利席位','曾持有席位','曾持有胜率','统计席位','持有覆盖率','选牌条目','明确选中','选牌结果缺失'],...filteredCards().map(c=>[c.id,c.name,c.owner_name??'其他',c.type,c.rarity,c.cost,c.picked,c.offered,pct(c.pick_rate),c.wins,c.held,pct(c.win_rate),state.stats.seats,pct(c.hold_rate),c.recorded_offers,c.recorded_picked,c.unknown_picked])]:[['接收时间','开始时间','结果','楼层','进阶','人数','版本','对局ID'],...(state.runs?.items??[]).map(r=>[date(r.received_at),date(r.start_time),OUTCOME[r.outcome],r.floor,r.ascension,r.player_count,r.build,r.id])];
  const cell=v=>{const text=String(v??'');return '"'+(/^[\u0000-\u0020]*[=+@\-]|^[\t\r\n]/.test(text)?"'"+text:text).replaceAll('"','""')+'"';};
- const filters=[...state.loadedQuery].map(([key,value])=>[key,value]);
- if(state.view==='cards')for(const key of ['search','owner','type','rarity'])filters.push([key,$(key).value]);
+ const filters=[...state.loadedQuery].filter(([key])=>state.view==='runs'||!['page','outcome','character'].includes(key));
+ if(state.view==='cards')for(const key of ['search','owner','type','rarity','starters','group'])filters.push([key,$(key).value]);
  filters.push(['sort',state.sort],['order',state.order],['pick_policy','native_known_choices_all_sources']);
  save('karen-'+state.view+'.csv',new Blob(['\ufeff'+[...filters,[],...rows].map(r=>r.map(cell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}));toast(state.view==='runs'?'已导出当前页对局':'已导出筛选后的卡牌');
 }
@@ -147,6 +161,7 @@ document.addEventListener('click',event=>{
  if(b?.dataset.close){$(b.dataset.close).close();return;}
  if(b?.dataset.view){state.view=b.dataset.view;render();syncURL();return;}
  if(b?.dataset.display){state.display=b.dataset.display;renderCards();syncURL();return;}
+ if(b?.id==='sortOrder'){state.order=-state.order;renderCards();syncURL();return;}
  if(b?.dataset.sort){state.order=state.sort===b.dataset.sort?-state.order:-1;state.sort=b.dataset.sort;renderCards();syncURL();return;}
  if(b?.dataset.history){openHistory(b.dataset.history);return;}
  if(b?.dataset.raw){raw(b.dataset.raw);return;}
@@ -159,9 +174,11 @@ document.addEventListener('click',event=>{
 });
 $('filters').addEventListener('submit',e=>e.preventDefault());
 $('filters').addEventListener('change',()=>{state.page=1;syncURL();load();});
-$('outcome').addEventListener('change',()=>{state.page=1;syncURL();load();});
+for(const id of ['character','outcome'])$(id).addEventListener('change',()=>{state.page=1;syncURL();load();});
 document.addEventListener('change',event=>{if(event.target.id==='historySeat'){state.seat=Number(event.target.value);renderHistory();syncURL();}});
-for(const id of ['search','owner','type','rarity'])$(id).addEventListener(id==='search'?'input':'change',()=>{renderCards();syncURL();});
+for(const id of ['search','owner','type','rarity','starters','group'])$(id).addEventListener(id==='search'?'input':'change',()=>{renderCards();syncURL();});
+$('sort').innerHTML=Object.entries(CARD_SORTS).map(([key,label])=>'<option value="'+key+'">'+label+'</option>').join('');
+$('sort').addEventListener('change',()=>{state.sort=$('sort').value;renderCards();syncURL();});
 $('refresh').addEventListener('click',()=>state.catalogReady?load():boot());$('rules').addEventListener('click',rules);$('export').addEventListener('click',csv);
 $('history').addEventListener('close',()=>{historyVersion++;state.historyId=null;syncURL();});
 for(let i=0;i<=10;i++){const option=document.createElement('option');option.value=i;option.textContent='进阶 '+i;$('filters').elements.ascension.append(option);}
@@ -169,9 +186,10 @@ const urlState=new URLSearchParams(location.hash.slice(1));
 for(const [key,value] of urlState){const control=$('filters').elements.namedItem(key);if(key==='build'&&value!=='all'&&value.length<=120){const option=document.createElement('option');option.value=value;option.textContent=value;control.append(option);}if(control&&[...control.options].some(o=>o.value===value))control.value=value;}
 if(['cards','runs'].includes(urlState.get('view')))state.view=urlState.get('view');
 if(['table','chart'].includes(urlState.get('display')))state.display=urlState.get('display');
-for(const key of ['owner','type','rarity','outcome']){const control=$(key),value=urlState.get(key);if([...control.options].some(option=>option.value===value))control.value=value;}
+if(/^[A-Z0-9_:-]{1,180}$/.test(urlState.get('character')??''))updateCharacters([],urlState.get('character'));
+for(const key of ['owner','type','rarity','starters','group','character','outcome']){const control=$(key),value=urlState.get(key);if([...control.options].some(option=>option.value===value))control.value=value;}
 $('search').value=(urlState.get('search')??'').slice(0,180);
-if(['name','pick_rate','win_rate','hold_rate','recorded_offers','held'].includes(urlState.get('sort')))state.sort=urlState.get('sort');
+if(Object.hasOwn(CARD_SORTS,urlState.get('sort')))state.sort=urlState.get('sort');
 state.order=urlState.get('order')==='1'?1:-1;state.page=Math.min(1000000,Math.max(1,parseInt(urlState.get('page'),10)||1));
 state.card=urlState.get('card');state.run=urlState.get('run');state.seat=Math.min(15,Math.max(0,parseInt(urlState.get('seat'),10)||0));state.floor=Math.max(1,parseInt(urlState.get('floor'),10)||1);
 async function boot(){try{const [catalog,relics]=await Promise.all([api('catalog.json'),api('relics.json')]);state.catalog=catalog;state.relics=relics;state.catalogReady=true;await load();const historyId=urlState.get('history');if(/^[0-9a-f]{32}$/.test(historyId??''))await openHistory(historyId,true);}catch(error){$('error').hidden=false;$('error').textContent=error.message+'。点击刷新重新加载。';$('connection').textContent='连接失败';}}
