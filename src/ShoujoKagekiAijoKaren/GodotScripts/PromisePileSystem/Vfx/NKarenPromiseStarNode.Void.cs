@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
@@ -99,7 +100,7 @@ public partial class NKarenPromiseStarNode
         }
         // These brief lights rebuild the icon, even with an empty inventory.
         // They never enter _stars, which remains one live star per actual card.
-        for (int i = 0; i < 24; i++)
+        for (int i = 0; i < 24; i += KarenVfxQuality.ParticleStride)
         {
             float seed = ((i * 13) % 23) / 22f;
             float birth = 0.89f + (i % 6) * 0.028f;

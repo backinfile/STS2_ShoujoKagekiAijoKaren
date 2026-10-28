@@ -58,7 +58,7 @@ public partial class NKarenContinueVfx : Node2D
         bladeProcess.ScaleMax *= 1.08f;
 
         var flight = shiv.GetNode<GpuParticles2D>("throw_container/vfx_common_specks_spray");
-        flight.Amount = 15;
+        flight.Amount = KarenVfxQuality.ParticleCount(15);
         flight.Lifetime = 0.55;
         flight.Material = new ShaderMaterial { Shader = SparkShader };
         var flightProcess = CopyProcess(flight);
@@ -75,7 +75,7 @@ public partial class NKarenContinueVfx : Node2D
         coreProcess.ScaleMax *= 1.2f;
 
         var impact = shiv.GetNode<GpuParticles2D>("impact_container/vfx_common_specks_impact");
-        impact.Amount = 34;
+        impact.Amount = KarenVfxQuality.ParticleCount(34);
         impact.SelfModulate = Colors.White;
         impact.Lifetime = 0.55;
         impact.Material = new ShaderMaterial { Shader = SparkShader };
@@ -128,7 +128,7 @@ public partial class NKarenContinueVfx : Node2D
         particles.Name = amount == 16 ? "EncoreChips" : "EncoreEmbers";
         particles.Position = new Vector2(35f, 0f);
         particles.Rotation = 0f;
-        particles.Amount = amount;
+        particles.Amount = KarenVfxQuality.ParticleCount(amount);
         particles.Lifetime = lifetime;
         particles.Emitting = false;
         particles.OneShot = true;

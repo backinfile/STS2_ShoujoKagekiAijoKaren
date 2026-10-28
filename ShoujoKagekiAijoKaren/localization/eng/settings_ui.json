@@ -1,4 +1,9 @@
 {
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.title": "Effect quality",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Full": "Full (original)",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Balanced": "Balanced (fewer particles)",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Low": "Low (fewer ambient effects)",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.hover.desc": "Full: original effects. Balanced: about half the particles and up to 30 decoration redraws per second. Low: about a quarter of the particles, up to 20 decoration redraws per second, and no ambient card shimmer, wind, or ring traces; text replaces the Last Word video. Depletion warnings, pile counts, and card transfers remain visible. New effects use this setting; ambient decoration updates immediately.",
   "SHOUJOKAGEKIAIJOKAREN.mod_title": "Revue Starlight - Karen Aijo",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.title": "Upload Run Data",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "Whether to upload the JSON data generated after each run to the statistics server.",

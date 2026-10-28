@@ -82,12 +82,12 @@ public partial class NKarenNononVfx : Node2D
         Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         CaptureGeometry();
         var shader = KarenResourceLoader.Load<Shader>("res://shaders/nonon_edge.gdshader", nameof(NKarenNononVfx));
-        if (shader != null) _edgeLayer.Material = _edgeMaterial = new ShaderMaterial { Shader = shader };
+        if (shader != null && KarenVfxQuality.Level != KarenVfxLevel.Low) _edgeLayer.Material = _edgeMaterial = new ShaderMaterial { Shader = shader };
         else _edgeLayer.Material = Material;
         _edgeLayer.Draw += DrawSwordEdges;
         AddChild(_edgeLayer);
         CreateParticles();
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     private void CaptureGeometry()
@@ -168,10 +168,10 @@ public partial class NKarenNononVfx : Node2D
             QueueFree();
             return;
         }
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
         _edgeMaterial?.SetShaderParameter("age", _age);
-        _edgeLayer.QueueRedraw();
-        _debrisLayer.QueueRedraw();
+        KarenVfxQuality.Redraw(_edgeLayer);
+        KarenVfxQuality.Redraw(_debrisLayer);
     }
 
     public override void _Draw()

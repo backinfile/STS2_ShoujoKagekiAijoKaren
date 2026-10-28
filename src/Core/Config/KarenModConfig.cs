@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Multiplayer;
 using MegaCrit.Sts2.Core.Nodes.Screens.Settings;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System;
 
 namespace ShoujoKagekiAijoKaren;
@@ -40,6 +41,14 @@ public class KarenModConfig : SimpleModConfig
     /// </summary>
     [ConfigHoverTip]
     public static bool EnableCombatEntrance { get; set; } = true;
+
+    private static KarenVfxLevel _vfxLevel = KarenVfxLevel.Full;
+    [ConfigHoverTip]
+    public static KarenVfxLevel VfxLevel
+    {
+        get => _vfxLevel;
+        set => _vfxLevel = Enum.IsDefined(value) ? value : KarenVfxLevel.Full;
+    }
 
     /// <summary>
     /// 生成卡牌截图与卡牌信息索引，供 mod 信息 HTML 使用。

@@ -74,6 +74,7 @@ internal sealed class KarenVfxCanvasBatch(int initialPointCapacity = 4096)
     {
         if (radius <= 0 || color.A <= 0) return;
         int segments = radius / _pixelSize < 8 ? 16 : radius / _pixelSize < 24 ? 32 : 64;
+        segments = Math.Max(8, segments / KarenVfxQuality.ParticleStride);
         int stride = CirclePoints.Length / segments;
         Reserve(segments + 1, segments * 3);
         int first = _pointCount;

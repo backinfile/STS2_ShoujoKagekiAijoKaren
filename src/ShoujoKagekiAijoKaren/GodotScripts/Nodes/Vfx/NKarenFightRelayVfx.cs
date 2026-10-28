@@ -89,7 +89,7 @@ public partial class NKarenFightRelayVfx : Node2D
             Sound("karen_star_resolve.wav", .20f, _finale ? .92f : 1.16f);
         }
         KarenVfxComposition.SetCueStrength(this, Alpha);
-        QueueRedraw(); _back.QueueRedraw(); _light.QueueRedraw();
+        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_back); KarenVfxQuality.Redraw(_light);
     }
 
     private void Place()
@@ -217,7 +217,7 @@ public partial class NKarenFightRelayVfx : Node2D
         float open = Mathf.SmoothStep(0, 1, Mathf.Clamp(_age / .25f, 0, 1));
         var center = _from + Vector2.Up * 80 * _unit;
         for (int side = -1; side <= 1; side += 2)
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 16; i += KarenVfxQuality.ParticleStride)
             {
                 float u = i / 16f, v = (i + 1) / 16f;
                 Vector2 Point(float t) => center + new Vector2(side * (12 + t * 48 * open),
@@ -250,7 +250,7 @@ public partial class NKarenFightRelayVfx : Node2D
             var star = Path(t);
             Glow(_light, star, new(55,55), Gold, flyA * .5f);
             Star(_light, star, 18, Ivory, flyA);
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 16; i += KarenVfxQuality.ParticleStride)
             {
                 float u = i / 16f;
                 float a = flyA * Mathf.Clamp((t - u) * 8, 0, 1);
@@ -262,7 +262,7 @@ public partial class NKarenFightRelayVfx : Node2D
             {
                 float a = Mathf.Sin(impact * Mathf.Pi) * Alpha;
                 Glow(_light, _to, new(100,85), Gold, a * .65f);
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 10; i += KarenVfxQuality.ParticleStride)
                 {
                     var dir = Vector2.Right.Rotated(i * Mathf.Tau / 10);
                     _light.DrawLine(_to + dir * 22 * _unit, _to + dir * (35 + impact * 40) * _unit,
@@ -296,7 +296,7 @@ public partial class NKarenFightRelayVfx : Node2D
     {
         if (alpha <= .001f || radius < .8f) return;
         var points = new Vector2[10];
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i += KarenVfxQuality.ParticleStride)
             points[i] = p + Vector2.Up.Rotated(i * Mathf.Pi / 5) * radius * (i % 2 == 0 ? 1 : .43f) * _unit;
         layer.DrawColoredPolygon(points, new Color(color, alpha));
     }

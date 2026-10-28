@@ -27,7 +27,7 @@ public partial class NKarenBenefitVfx
         bool temporary=Design==BenefitKind.Snack;
         float alpha=FoodAlpha;
         int count=temporary?58:44;
-        for(int i=0;i<count;i++) {
+        for(int i=0;i<count;i += KarenVfxQuality.ParticleStride) {
             float delay=Random(i+41)*(temporary?.3f:.55f);
             float u=(Age-delay)/(temporary?1.15f:1.85f);
             if(u<=0||u>=1)continue;
@@ -61,7 +61,7 @@ public partial class NKarenBenefitVfx
     private void DrawCakeAssembly()
     {
         float alpha=FoodAlpha;
-        for(int i=0;i<78;i++) {
+        for(int i=0;i<78;i += KarenVfxQuality.ParticleStride) {
             float delay=Random(i+20)*.27f;
             float u=P(Age-delay,0,.78f);
             if(Age<delay||u>=1)continue;
@@ -78,7 +78,7 @@ public partial class NKarenBenefitVfx
         if(Confirmed) {
             float a=Window(ResultAge,0,.45f,.025f,.32f);
             Star(_front,Bottle,23,0,Cream,a*.7f);
-            for(int i=0;i<14;i++) {
+            for(int i=0;i<14;i += KarenVfxQuality.ParticleStride) {
                 float u=P(ResultAge,0,.62f),angle=Random(i)*Mathf.Tau;
                 var point=Bottle+Polar(angle,8+Ease(u)*55,.65f);
                 Grain(_front,point,3,Gold,Mathf.Sin(u*Mathf.Pi)*.5f,angle);
@@ -89,7 +89,7 @@ public partial class NKarenBenefitVfx
     {
         float phase=Confirmed?ResultAge:Age;
         float a=Confirmed?Window(ResultAge,0,.9f,.04f,.45f):P(Age,0,.2f)*.45f;
-        for(int i=0;i<20;i++) {
+        for(int i=0;i<20;i += KarenVfxQuality.ParticleStride) {
             float angle=Random(i+10)*Mathf.Tau+phase*.3f;
             float radius=Confirmed?20+Ease(P(phase,0,.7f))*42:70*(1-Ease(P(Age,0,.6f)))+14;
             var point=StoryPoint+Polar(angle,radius,.6f);

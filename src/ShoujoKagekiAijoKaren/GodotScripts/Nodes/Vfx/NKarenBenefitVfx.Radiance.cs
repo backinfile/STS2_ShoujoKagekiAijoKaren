@@ -42,7 +42,7 @@ public partial class NKarenBenefitVfx
         Glow(_hud,center,185,Blue,StoryAlpha*.12f);
         float a=Confirmed?1-P(ResultAge,0,.3f):P(Age,.1f,.48f);
         Star(_hud,center,17,0,Ivory,a*.7f);
-        for(int j=0;j<18;j++){
+        for(int j=0;j<18;j += KarenVfxQuality.ParticleStride){
             float u=P(Age,0,.6f),angle=Random(j)*Mathf.Tau;
             var point=center+Polar(angle,130*(1-Ease(u))+12,.7f);
             Grain(_hud,point,3+Random(j+5)*3,Blue,Mathf.Sin(u*Mathf.Pi)*.7f,angle);

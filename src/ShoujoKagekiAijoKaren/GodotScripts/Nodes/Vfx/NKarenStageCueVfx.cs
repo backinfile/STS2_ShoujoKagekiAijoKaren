@@ -117,7 +117,7 @@ public partial class NKarenStageCueVfx : Node2D
         _promisePoint = anchor is {} point ? ToLocal(point) : _body + new Vector2(-80, -160) * _unit;
         if (Kind == CueKind.Act2Cast) Sound(KarenSfx.Act2LightsOn, .55f, 1 / Speed);
         if (Kind is CueKind.TicketCast or CueKind.TicketReturn or CueKind.Duet) Sound("karen_benefit_gather.wav", Kind==CueKind.TicketReturn?.12f:.18f);
-        QueueRedraw(); _back.QueueRedraw(); _shade.QueueRedraw(); _hud.QueueRedraw(); _frontShade.QueueRedraw();
+        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_back); KarenVfxQuality.Redraw(_shade); KarenVfxQuality.Redraw(_hud); KarenVfxQuality.Redraw(_frontShade);
     }
     public override void _Process(double delta)
     {
@@ -134,7 +134,7 @@ public partial class NKarenStageCueVfx : Node2D
         float backgroundWeight = KarenVfxComposition.EventWeight(_owner.Creature, this);
         _back.Modulate = _shade.Modulate = _frontShade.Modulate = new Color(1, 1, 1, backgroundWeight);
         var oldScreen = _screen; Place();
-        if (Kind != CueKind.Act2Hover || opening || _releaseAt >= 0 || oldScreen != _screen) { QueueRedraw(); _back.QueueRedraw(); _shade.QueueRedraw(); _hud.QueueRedraw(); _frontShade.QueueRedraw(); }
+        if (Kind != CueKind.Act2Hover || opening || _releaseAt >= 0 || oldScreen != _screen) { KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_back); KarenVfxQuality.Redraw(_shade); KarenVfxQuality.Redraw(_hud); KarenVfxQuality.Redraw(_frontShade); }
     }
     private void Place()
     {

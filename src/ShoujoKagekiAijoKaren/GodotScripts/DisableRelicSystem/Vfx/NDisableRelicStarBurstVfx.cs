@@ -1,4 +1,5 @@
 using Godot;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Relics;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
@@ -63,7 +64,7 @@ public partial class NDisableRelicStarBurstVfx : Node2D
         _spawnTimer -= (float)delta;
         while (_spawnTimer <= 0f)
         {
-            _spawnTimer += SpawnInterval;
+            _spawnTimer += KarenVfxQuality.SpawnInterval(SpawnInterval);
             float angle = (float)GD.RandRange(0.0, Mathf.Tau);
             float distance = (float)GD.RandRange(20.0, 46.0);
             AddChild(new NDisableRelicBurstStar(StarTexture, angle, distance));

@@ -103,7 +103,7 @@ public partial class NKarenBackToBackVfx : Node2D
             return;
         }
         // Contact is frozen at the real hit position, so death/recoil cannot drag the cut away.
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _Draw()

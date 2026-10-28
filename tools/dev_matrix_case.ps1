@@ -119,7 +119,25 @@ function Start-Game([string]$game, [string]$targetRoot, [string]$mode, [int]$pro
         $log = Join-Path $targetRoot 'godot.log'
         $arguments = "--rendering-driver vulkan --force-steam=off --fastmp=$mode --clientId=$profileId --log-file `"$log`""
         if ($Headless) { $arguments += ' --headless' }
-        Start-Process -FilePath (Join-Path $game 'SlayTheSpire2.exe') -WorkingDirectory $game -ArgumentList $arguments -WindowStyle Hidden -PassThru
+        $configPath = Join-Path $game 'mods/KarenSTS2MCP.conf'
+        $config = Get-Content -LiteralPath $configPath -Raw -Encoding UTF8 | ConvertFrom-Json -AsHashtable
+        $config.muted = $true
+        [IO.File]::WriteAllText($configPath, ($config | ConvertTo-Json -Compress -Depth 16), [Text.UTF8Encoding]::new($false))
+        if ($Headless) {
+            return Start-Process -FilePath (Join-Path $game 'SlayTheSpire2.exe') -WorkingDirectory $game -ArgumentList $arguments -WindowStyle Hidden -PassThru
+        }
+        $python = Join-Path $env:USERPROFILE '.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
+        if (-not (Test-Path -LiteralPath $python)) { $python = (Get-Command python -CommandType Application).Source }
+        $pidFile = Join-Path $targetRoot ("isolated-desktop-" + [guid]::NewGuid().ToString('N') + '.json')
+        $helper = Join-Path $PSScriptRoot 'vfx/six-card/launch_isolated_game.py'
+        $launcher = Start-Process -FilePath $python -ArgumentList "`"$helper`" --game `"$game`" --pid-file `"$pidFile`" -- $arguments" -WindowStyle Hidden -PassThru
+        $deadline = [DateTime]::UtcNow.AddSeconds(15)
+        while (-not (Test-Path -LiteralPath $pidFile)) {
+            if ($launcher.HasExited -or [DateTime]::UtcNow -ge $deadline) { throw 'The isolated test desktop did not start' }
+            Start-Sleep -Milliseconds 100
+        }
+        $started = Get-Content -LiteralPath $pidFile -Raw -Encoding UTF8 | ConvertFrom-Json
+        return Get-Process -Id $started.pid -ErrorAction Stop
     }
     finally {
         $env:APPDATA = $oldRoaming

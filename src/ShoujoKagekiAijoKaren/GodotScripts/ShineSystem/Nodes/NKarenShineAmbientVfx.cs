@@ -32,7 +32,7 @@ public partial class NKarenShineAmbientVfx(NCard card, CardModel model, NKarenSh
     {
         if (!GodotObject.IsInstanceValid(card) || !BelongsTo(card.Model)) { Hide(); QueueFree(); return; }
         bool playing = model.Pile?.Type == PileType.Play;
-        Visible = card.IsVisibleInTree() && model.HasShine()
+        Visible = KarenVfxQuality.AmbientEffects && card.IsVisibleInTree() && model.HasShine()
             && !ShineVfx.WillDeplete(model, shineAlreadyDecreased: playing)
             && !(GodotObject.IsInstanceValid(warning) && warning.Visible);
         if (!Visible) { _sparks.Clear(); _hasPose = false; _spawnClock = 0; return; }
@@ -53,7 +53,7 @@ public partial class NKarenShineAmbientVfx(NCard card, CardModel model, NKarenSh
             if (spark.Age >= spark.Life) _sparks.RemoveAt(i);
         }
         _spawnClock += dt;
-        if (_spawnClock >= .065f && _sparks.Count < 14)
+        if (_spawnClock >= KarenVfxQuality.SpawnInterval(.065f) && _sparks.Count < KarenVfxQuality.ParticleCount(14))
         {
             _spawnClock = 0;
             int i = _sparkIndex++; float side = i%2==0 ? -1 : 1;
@@ -61,7 +61,7 @@ public partial class NKarenShineAmbientVfx(NCard card, CardModel model, NKarenSh
             var velocity = pose.BasisXform(new Vector2(side*(5+i%4),-18-i%5*4))+inherited;
             _sparks.Add(new Spark(pose*origin,velocity,.75f+i%4*.07f,(2.3f+i%3*.5f)*unit));
         }
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _Draw()

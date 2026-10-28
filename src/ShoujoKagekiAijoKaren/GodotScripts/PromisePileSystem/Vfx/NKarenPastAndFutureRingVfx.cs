@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System.Collections.Generic;
 using Godot;
 using MegaCrit.Sts2.Core.Helpers;
@@ -84,7 +85,7 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
         _stopping = false;
         Visible = true;
         Modulate = Colors.White;
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public void Pulse()
@@ -177,12 +178,12 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
         _ambientVisibility = Mathf.MoveToward(_ambientVisibility, ambientTarget, dt * 2.5f);
         UpdatePlacement();
         UpdateAmbient();
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
         if (GodotObject.IsInstanceValid(_front))
         {
             _front!.Modulate = Modulate;
             _front.Visible = Visible;
-            _front.QueueRedraw();
+            KarenVfxQuality.Redraw(_front);
         }
     }
 
@@ -219,6 +220,8 @@ public partial class NKarenPastAndFutureRingVfx : Node2D
         {
             var trace = _ambientTraces[i];
             if (!GodotObject.IsInstanceValid(trace)) continue;
+            trace.Visible = KarenVfxQuality.AmbientEffects;
+            if (!trace.Visible) continue;
             var style = AmbientTraces[i];
             float progress = Mathf.PosMod(_ambientTime / style.Period + style.Phase, 1f);
             float fadeIn = Mathf.SmoothStep(0f, 1f, Mathf.Clamp(progress / .1f, 0f, 1f));

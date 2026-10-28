@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -45,6 +46,12 @@ public partial class NKarenLastWordVideoVfx : Control
     {
         var room = NCombatRoom.Instance;
         if (room == null || !HasVideo()) return false;
+        if (KarenVfxQuality.Level == KarenVfxLevel.Low)
+        {
+            NKarenLastWordVfx.Play(owner);
+            // Report the same sequence ownership so every peer retains the original wait.
+            return true;
+        }
         var stream = ResourceLoader.Load<VideoStream>(VideoPath);
         if (stream == null)
             return false;

@@ -18,7 +18,7 @@ public partial class NKarenPositionZeroCardHoverVfx(NKarenPositionZeroVfx owner,
         { Hide(); QueueFree(); return; }
         _age += (float)delta;
         _border.Update(this);
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
     public override void _Draw()
     {

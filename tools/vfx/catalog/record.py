@@ -18,6 +18,8 @@ root=args.output.resolve()
 main=pathlib.Path(__file__).resolve().parents[3]
 sys.path.insert(0,str(main/'tools/vfx/six-card'))
 from isolated_desktop import TestDesktop
+sys.path.insert(0,str(main/'tools'))
+from mcp_hand_audit import wait_for_hand
 branch=args.branch; dev=root/'isolated'/branch; game=dev/'game'; mods=game/'mods'
 port=args.port or (18637 if branch=='stable' else 18638)
 with socket.socket() as check:
@@ -121,7 +123,10 @@ try:
     def save(name,value):
         (case/(name+'.json')).write_text(json.dumps(value,ensure_ascii=False,indent=2),encoding='utf-8')
     def check_hand(name):
-        r=cmd('karen_check_hand');save(name,r)
+        settled=wait_for_hand(lambda body: state() if body is None else api('/singleplayer',body))
+        assert settled['kind']=='hand',settled
+        r=dict(status='ok',message=json.dumps(settled['audit']),command='karen_check_hand')
+        save(name,r)
         h=json.loads(r['message']);assert h['modelCount']==h['visualCount'] and not h['missing'] and not h['unexpected'] and not h['unexpectedPileIcons'],h
     def record_start():
         global recording
@@ -172,11 +177,12 @@ try:
         time.sleep(.5)
     def settle(name):
         time.sleep(2.2)
+        check_hand(name+'-hand')
         s=integration()
         for _ in range(100):
             if s['entryCount']==0 and s['flightCount']==0 and s['identitiesMatch']:break
             time.sleep(.1);s=integration()
-        save(name+'-state',s); snap(case/name); check_hand(name+'-hand')
+        save(name+'-state',s); snap(case/name)
         assert s['identitiesMatch'] and s['anchorError']<.1 and s['flightModelMismatchFrames']==0,s
         assert s['entryCount']==0 and s['flightCount']==0,s
         if s['voidMode']:

@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Nodes.Screens;
 using MegaCrit.Sts2.Core.Saves;
@@ -35,13 +36,13 @@ public partial class NKarenPileViewVfx : Control
         };
         Resized += QueueRedraw;
         SetProcess(_duration > 0);
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _Process(double delta)
     {
         _age = Mathf.Min(_age + (float)delta, _duration);
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
         // Idle is a cached drawing, with no continuing particles, timers or per-frame work.
         if (_age >= _duration) SetProcess(false);
     }

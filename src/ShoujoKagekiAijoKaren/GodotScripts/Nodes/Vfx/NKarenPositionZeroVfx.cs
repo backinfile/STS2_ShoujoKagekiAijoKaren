@@ -172,7 +172,7 @@ public partial class NKarenPositionZeroVfx : Node2D
         _sounds.RemoveAll(s => !GodotObject.IsInstanceValid(s));
         Place();
         KarenVfxComposition.SetCueStrength(this, Mathf.Max(Claim, Pulse) * .7f);
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     private void Place()

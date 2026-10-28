@@ -56,7 +56,7 @@ public partial class NKarenBenefitVfx
     }
     private void DrawCurtainDust()
     {
-        for(int i=0;i<54;i++) {
+        for(int i=0;i<54;i += KarenVfxQuality.ParticleStride) {
             float delay=Random(i+9)*.22f;
             float u=(Age-delay)/1.16f;
             if(u<=0||u>=1)continue;

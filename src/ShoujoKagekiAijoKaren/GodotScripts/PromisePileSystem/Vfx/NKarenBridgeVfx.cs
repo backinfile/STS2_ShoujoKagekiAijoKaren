@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System;
 using System.Linq;
 using System.Threading;
@@ -226,8 +227,8 @@ public partial class NKarenBridgeVfx : Node2D
         _bridgeMaterial?.SetShaderParameter("exit_progress", ExitProgress);
         if (_bridge != null)
             _bridge.Position = SceneryOffset + new Vector2(0, 6 * (1 - Mathf.SmoothStep(0.1f, 0.6f, Age)));
-        _glints?.QueueRedraw();
-        QueueRedraw();
+        KarenVfxQuality.Redraw(_glints);
+        KarenVfxQuality.Redraw(this);
     }
 
     // A single late process pass uses the same envelopes for every stage. Per-node
@@ -343,7 +344,7 @@ public partial class NKarenBridgeVfx : Node2D
     private void DrawMotes(Vector2 emitter, Vector2 drift, float spread, int count, float speed, float strength, Color tint)
     {
         if (_glints == null) return;
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < count; i += KarenVfxQuality.ParticleStride)
         {
             float phase = i * 2.39996f;
             float travel = Mathf.PosMod(i * 0.754877666f + Age * speed * (0.85f + i % 5 * 0.06f), 1);

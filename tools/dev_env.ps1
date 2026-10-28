@@ -92,7 +92,7 @@ function Start-IsolatedGame([bool]$headless, [int]$quitAfter = 0) {
             WorkingDirectory = $game
             PassThru = $true
         }
-        if ($headless -or $ExtraArguments -match '(?:^|\s)--headless(?:\s|$)') {
+        if ($headless -or $Action -eq 'Smoke' -or $ExtraArguments -match '(?:^|\s)--headless(?:\s|$)') {
             $startArgs.WindowStyle = 'Hidden'
         }
         return Start-Process @startArgs
@@ -177,38 +177,51 @@ switch ($Action) {
     }
     'Smoke' {
         if ((Get-RunningGame).Count -gt 0) { throw "$Branch game is already running" }
-        $process = Start-IsolatedGame $true 900
-        $mcpResponded = $false
-        for ($attempt = 0; $attempt -lt 30; $attempt++) {
-            if ($process.HasExited) { break }
-            try {
-                $state = Invoke-RestMethod -Uri "http://127.0.0.1:$mcpPort/api/v1/singleplayer?format=json" -TimeoutSec 2
-                if ($state.state_type) { $mcpResponded = $true; break }
+        # Use the game's real renderer: dummy texture initialization can stall headless startup.
+        $process = Start-IsolatedGame $false
+        try {
+            $mcpResponded = $false
+            $deadline = [DateTime]::UtcNow.AddSeconds(45)
+            for ($attempt = 0; $attempt -lt 30; $attempt++) {
+                if ($process.HasExited -or [DateTime]::UtcNow -ge $deadline) { break }
+                try {
+                    $state = Invoke-RestMethod -Uri "http://127.0.0.1:$mcpPort/api/v1/singleplayer?format=json" -TimeoutSec 2
+                    $startupLog = Get-Content -LiteralPath $log -Raw -Encoding UTF8
+                    if ($state.state_type -eq 'menu' -and $state.menu_screen -eq 'main' -and
+                        $startupLog.Contains('[Startup] Time to main menu:')) { $mcpResponded = $true; break }
+                }
+                catch { }
+                Start-Sleep -Milliseconds 500
             }
-            catch { Start-Sleep -Milliseconds 500 }
+            if ($process.HasExited) { throw "$Branch game exited before startup verification: $($process.ExitCode)" }
+            $contents = Get-Content -LiteralPath $log -Raw -Encoding UTF8
+            if (-not $mcpResponded -or -not $contents.Contains("server started on http://localhost:$mcpPort/")) {
+                throw "KarenSTS2MCP did not respond on port $mcpPort; inspect $log"
+            }
+            if (-not $contents.Contains("[KarenLoader] Loaded $variantName implementation")) {
+                throw "Karen $variantName did not initialize; inspect $log"
+            }
+            if (-not $contents.Contains('ModelDb.AllCharacters patched. containsKaren=True')) {
+                throw "Karen is missing from the character list; inspect $log"
+            }
+            $expectedUserData = (Join-Path $roaming 'SlayTheSpire2').Replace('\', '/')
+            if (-not $contents.Contains('Steam initialization skipped') -or
+                -not $contents.Contains("User Data Directory: $expectedUserData")) {
+                throw "Steam or user data was not isolated; inspect $log"
+            }
+            if ($contents.Contains('Encountered error on game startup') -or
+                $contents.Contains('Exception thrown when calling mod initializer')) {
+                throw "Game startup reported an error; inspect $log"
+            }
+            Write-Output "$Branch $expectedVersion smoke and MCP port $mcpPort check passed; log: $log"
         }
-        $process.WaitForExit()
-        if ($process.ExitCode -ne 0) { throw "$Branch game exited with $($process.ExitCode)" }
-        $contents = Get-Content -LiteralPath $log -Raw -Encoding UTF8
-        if (-not $mcpResponded -or -not $contents.Contains("server started on http://localhost:$mcpPort/")) {
-            throw "KarenSTS2MCP did not respond on port $mcpPort; inspect $log"
+        finally {
+            if (-not $process.HasExited) {
+                if (-not $process.Path.Equals($exe, [StringComparison]::OrdinalIgnoreCase)) { throw 'Unexpected smoke process path' }
+                Stop-Process -Id $process.Id
+                $process.WaitForExit(5000) | Out-Null
+            }
         }
-        if (-not $contents.Contains("[KarenLoader] Loaded $variantName implementation")) {
-            throw "Karen $variantName did not initialize; inspect $log"
-        }
-        if (-not $contents.Contains('ModelDb.AllCharacters patched. containsKaren=True')) {
-            throw "Karen is missing from the character list; inspect $log"
-        }
-        $expectedUserData = (Join-Path $roaming 'SlayTheSpire2').Replace('\', '/')
-        if (-not $contents.Contains('Steam initialization skipped') -or
-            -not $contents.Contains("User Data Directory: $expectedUserData")) {
-            throw "Steam or user data was not isolated; inspect $log"
-        }
-        if ($contents.Contains('Encountered error on game startup') -or
-            $contents.Contains('Exception thrown when calling mod initializer')) {
-            throw "Game startup reported an error; inspect $log"
-        }
-        Write-Output "$Branch $expectedVersion smoke and MCP port $mcpPort check passed; log: $log"
     }
     'Status' {
         if (Test-Path -LiteralPath $game) { Assert-GameVersion $game }

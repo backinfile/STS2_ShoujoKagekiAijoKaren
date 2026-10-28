@@ -59,7 +59,7 @@ public partial class NKarenBenefitVfx
     {
         if(_smoke==null)return;
         var cell=_smoke.GetSize()/2;
-        for(int i=0;i<count;i++) {
+        for(int i=0;i<count;i += KarenVfxQuality.ParticleStride) {
             float u=(elapsed-Random(i+42)*.4f)/(.65f+Random(i+21)*.5f);
             if(u<=0||u>=1)continue;
             var point=origin+new Vector2((Random(i+8)-.5f)*width,-Ease(u)*height)*Unit;

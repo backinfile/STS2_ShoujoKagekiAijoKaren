@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -40,7 +41,7 @@ public partial class NKarenBurnVfx : Node2D
         ShowBehindParent = true;
         UpdatePlacement();
         if (UpdateTowerFireVisibility() > 0)
-            for (int i = 0; i < NKarenPromiseStarNode.BurnSiteCount; i++) EmitTowerFire(.5f);
+            for (int i = 0; i < NKarenPromiseStarNode.BurnSiteCount; i += KarenVfxQuality.ParticleStride) EmitTowerFire(.5f);
     }
 
     public void Restart()
@@ -113,7 +114,7 @@ public partial class NKarenBurnVfx : Node2D
         _particleTimer -= d;
         if (_particleTimer <= 0f)
         {
-            _particleTimer = 0.05f;
+            _particleTimer = KarenVfxQuality.SpawnInterval(0.05f);
             if (towerAlpha > 0) EmitTowerFire();
             if (GodotObject.IsInstanceValid(_drawFire))
             {
@@ -131,7 +132,7 @@ public partial class NKarenBurnVfx : Node2D
         _auraTimer -= d;
         if (_auraTimer <= 0f && towerAlpha > 0)
         {
-            _auraTimer = .45f;
+            _auraTimer = KarenVfxQuality.SpawnInterval(.45f);
             var aura = new NKarenStanceAura(ExhaustLargeTexture)
             {
                 Position = NKarenPromiseStarNode.BurnSite(_emitter % 11) / _towerSmoke.Scale,

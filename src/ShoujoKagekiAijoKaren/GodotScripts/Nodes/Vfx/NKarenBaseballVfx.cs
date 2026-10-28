@@ -69,7 +69,7 @@ public partial class NKarenBaseballVfx : Node2D
         AddChild(_light);
         _light.Draw += DrawLight;
         Place();
-        QueueRedraw(); _light.QueueRedraw();
+        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_light);
     }
 
     private static bool Present(NCreature? view) => GodotObject.IsInstanceValid(view)
@@ -108,7 +108,7 @@ public partial class NKarenBaseballVfx : Node2D
         if (roomGone || flightCancelled || expired) { Hide(); QueueFree(); return; }
         // A removed target leaves a short fading impact at its last valid position.
         Place();
-        QueueRedraw(); _light.QueueRedraw();
+        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_light);
     }
 
     private Vector2 SwingPoint(float t)

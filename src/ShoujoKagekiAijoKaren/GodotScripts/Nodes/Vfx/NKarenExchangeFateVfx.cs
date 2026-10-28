@@ -194,7 +194,7 @@ public partial class NKarenExchangeFateVfx : Node2D
         }
         foreach (var silk in _silks) UpdateSilk(silk);
         KarenVfxComposition.SetCueStrength(this, Alpha);
-        QueueRedraw(); _light.QueueRedraw(); _front.QueueRedraw();
+        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_light); KarenVfxQuality.Redraw(_front);
         if (_age >= SwapAt) _exchangeReady.TrySetResult();
     }
     private Vector2 Path(float t, bool blue)

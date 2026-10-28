@@ -1,4 +1,9 @@
 {
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.title": "特效等级",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Full": "完整（原有效果）",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Balanced": "适中（减少粒子）",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Low": "低（减少常驻装饰）",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.hover.desc": "完整：保留原有效果。适中：约一半粒子，装饰重绘最高30帧。低：约四分之一粒子，装饰重绘最高20帧，关闭普通卡面微光、常驻风场及环形流光，以文字代替台词视频。保留耗尽提示、牌堆数量与移牌反馈。新特效使用当前等级，常驻装饰即时切换。",
   "SHOUJOKAGEKIAIJOKAREN.mod_title": "少女歌剧-爱城华恋ShoujoKageki Aijo Karen",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.title": "上传对局数据",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "是否将每次对局结束后生成的JSON数据上传到统计服务器。",

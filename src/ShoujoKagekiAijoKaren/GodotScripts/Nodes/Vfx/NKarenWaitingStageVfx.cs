@@ -275,7 +275,7 @@ public partial class NKarenWaitingStageVfx : Node2D
         _ringMaterial.SetShaderParameter("phase", _formationFinalized ? _orbitPhase : Mathf.Pi * BuildProgress);
         _ringMaterial.SetShaderParameter("light_color", CurrentTint.Lerp(SpotlightWhite, eventLight * .55f));
         if (!UiVisible) foreach (var sound in _sounds) if (GodotObject.IsInstanceValid(sound)) sound.Stop();
-        _hud.QueueRedraw();
+        KarenVfxQuality.Redraw(_hud);
     }
 
     private void BeforeDraw()
@@ -510,7 +510,7 @@ public partial class NKarenWaitingStageVfx : Node2D
     }
     private CpuParticles2D Particles(int amount, float life, bool oneShot)
     {
-        return new CpuParticles2D { Amount = amount, Lifetime = life, OneShot = oneShot,
+        return new CpuParticles2D { Amount = KarenVfxQuality.ParticleCount(amount), Lifetime = life, OneShot = oneShot,
             Explosiveness = oneShot ? 1 : 0, Emitting = !oneShot, Texture = _soft,
             Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
             Direction = Vector2.Up, Spread = 22, Gravity = Vector2.Zero, LocalCoords = true,

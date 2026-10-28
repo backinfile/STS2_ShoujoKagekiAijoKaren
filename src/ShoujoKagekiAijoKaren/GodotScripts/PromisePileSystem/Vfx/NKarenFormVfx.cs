@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
@@ -28,7 +29,7 @@ public partial class NKarenFormVfx : Node2D
 
     public void PulseDraw()
     {
-        if (_stopping) return;
+        if (_stopping || !KarenVfxQuality.AmbientEffects) return;
         // Key audio to the combat round, not the spacing between card animations:
         // even a slow draw sequence must produce only one wind sound.
         if (_creatureNode?.Entity.CombatState is { } combat && _drawSfxRound != combat.RoundNumber)
@@ -96,6 +97,8 @@ public partial class NKarenFormVfx : Node2D
             GodotTreeExtensions.QueueFreeSafely(this);
             return;
         }
+        Visible = KarenVfxQuality.AmbientEffects;
+        if (!Visible) { _timer = 0; return; }
         // This is a battlefield-wide wind, not an actor-local emitter. Cancel the canvas
         // transform so character scaling/flipping and camera motion cannot bend its path.
         GlobalTransform = GetCanvasTransform().AffineInverse();
@@ -110,7 +113,7 @@ public partial class NKarenFormVfx : Node2D
         _timer -= d * SpeedMultiplier;
         if (_timer <= 0f)
         {
-            _timer += (float)GD.RandRange(0.2, 0.4);
+            _timer += KarenVfxQuality.SpawnInterval((float)GD.RandRange(0.2, 0.4));
             AddChild(new NKarenWindyParticle(HorizontalLineTexture, GetViewportRect().Size, this));
         }
     }

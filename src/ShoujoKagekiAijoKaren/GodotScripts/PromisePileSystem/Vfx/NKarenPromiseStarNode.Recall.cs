@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System;
 using System.Collections.Generic;
 using Godot;
@@ -127,7 +128,7 @@ public partial class NKarenPromiseStarNode
         _recallCards.RemoveAll(effect => !GodotObject.IsInstanceValid(effect) || effect.IsQueuedForDeletion());
         if (GodotObject.IsInstanceValid(_recallCrest))
         {
-            if (_recallDepth > 0 || _time < _recallTailUntil) _recallCrest!.QueueRedraw();
+            if (_recallDepth > 0 || _time < _recallTailUntil) KarenVfxQuality.Redraw(_recallCrest);
             else ClearRecallCrest();
         }
     }

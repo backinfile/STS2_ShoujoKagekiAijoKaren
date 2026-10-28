@@ -38,7 +38,7 @@ public partial class NKarenJealousyVfx
     {
         Name = name, Position = _target, Direction = _towardSource,
         Emitting = false, OneShot = true, Explosiveness = 1, LocalCoords = true,
-        Amount = amount, Lifetime = lifetime, LifetimeRandomness = .18f,
+        Amount = KarenVfxQuality.ParticleCount(amount), Lifetime = lifetime, LifetimeRandomness = .18f,
         SpeedScale = _speed, FixedFps = 60, FractDelta = true, Texture = _particleQuad,
         EmissionShape = CpuParticles2D.EmissionShapeEnum.Rectangle,
         Material = new ShaderMaterial { Shader = glint ? _glintShader : _foilShader },

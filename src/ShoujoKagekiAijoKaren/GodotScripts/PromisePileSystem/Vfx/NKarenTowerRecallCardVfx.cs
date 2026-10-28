@@ -63,7 +63,7 @@ public partial class NKarenTowerRecallCardVfx : Node2D
             && holder.Position.DistanceTo(holder.TargetPosition) < 8)
             _landedAt = _age;
         if (_landedAt >= 0 && _age - _landedAt > _arrivalDuration) { QueueFree(); return; }
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _Draw()

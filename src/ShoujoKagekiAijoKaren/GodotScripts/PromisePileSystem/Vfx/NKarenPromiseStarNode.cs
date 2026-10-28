@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Models;
@@ -328,7 +329,7 @@ public partial class NKarenPromiseStarNode : Node2D
         _voidPending = false;
         ClearReproduction();
         ClearTowerRecall();
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
     public override void _Process(double delta)
     {
@@ -386,10 +387,10 @@ public partial class NKarenPromiseStarNode : Node2D
         foreach (var card in _expired) _stars.Remove(card);
         if (UsingVoidIconOrbit)
         {
-            _voidOrbitBack!.QueueRedraw();
-            _voidOrbitFront!.QueueRedraw();
+            KarenVfxQuality.Redraw(_voidOrbitBack);
+            KarenVfxQuality.Redraw(_voidOrbitFront);
         }
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
     public override void _ExitTree()
     {

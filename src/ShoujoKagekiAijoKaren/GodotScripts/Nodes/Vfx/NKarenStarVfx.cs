@@ -131,7 +131,7 @@ public partial class NKarenStarVfx : Node2D
         if (_releaseAt >= 0 && _age - _releaseAt > .72f) { QueueFree(); return; }
         KarenVfxComposition.SetCueStrength(this, Fade * .8f);
         _back.Modulate = new Color(1, 1, 1, KarenVfxComposition.EventWeight(creature, this));
-        QueueRedraw(); _back.QueueRedraw();
+        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_back);
     }
 
     private void Place()
@@ -241,7 +241,7 @@ public partial class NKarenStarVfx : Node2D
             var end = _rewardPoint;
             Ribbon(this, q => Curve(_clasp, end, q * t, 50 * _unit), Gold, alpha * (1 - t) * .7f);
             Star(this, Curve(_clasp, end, t, 50 * _unit), 7, Hot, alpha * (1 - t));
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 20; i += KarenVfxQuality.ParticleStride) {
                 float q = Mathf.Clamp((_age - _rewardAt - i * .008f) / .8f, 0, 1);
                 var v = new Vector2(Mathf.Sin(i * 2.4f) * (18 + i * 1.4f), -30 - i * 3) * q * _unit;
                 Star(this, _clasp + v, 1.4f + i % 3, Gold, alpha * Mathf.Sin(q * Mathf.Pi) * .55f);

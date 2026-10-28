@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
@@ -112,7 +113,7 @@ public partial class NKarenShineDepleteVfx : Node2D
             return;
         }
         GlobalTransform = GetCanvasTransform().AffineInverse();
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _Draw()
@@ -122,7 +123,7 @@ public partial class NKarenShineDepleteVfx : Node2D
         {
             // A loose, card-sized outer cloud curls inward as the actual face shrinks.
             // The whole silhouette participates into a compact light at the original card position.
-            for (int i = 0; i < 40; i++)
+            for (int i = 0; i < 40; i += KarenVfxQuality.ParticleStride)
             {
                 float u = Mathf.Clamp((gather - i % 5 * .022f) / (1 - i % 5 * .022f), 0, 1);
                 float angle = i * 2.399963f;

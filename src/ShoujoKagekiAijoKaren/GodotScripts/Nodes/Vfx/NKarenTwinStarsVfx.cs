@@ -159,7 +159,7 @@ public partial class NKarenTwinStarsVfx : Node2D
         }
         _pairs.RemoveAll(p => p.PinkLaunched);
         _shots.RemoveAll(s => s.ContactAt >= 0 && s.Age - s.ContactAt >= ImpactTime);
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     private void PlaceCanvas()

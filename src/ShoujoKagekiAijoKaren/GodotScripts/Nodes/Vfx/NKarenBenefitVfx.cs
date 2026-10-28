@@ -261,7 +261,7 @@ public partial class NKarenBenefitVfx : Node2D
         float backgroundWeight = KarenVfxComposition.EventWeight(Owner.Creature, this);
         _back.Modulate = new Color(1, 1, 1, backgroundWeight);
         UpdateFlowMaterial(_veil);UpdateFlowMaterial(_edge);
-        _back.QueueRedraw();_front.QueueRedraw();_ink.QueueRedraw();_hud.QueueRedraw();_atmosphere.QueueRedraw();_accent.QueueRedraw();
+        KarenVfxQuality.Redraw(_back);KarenVfxQuality.Redraw(_front);KarenVfxQuality.Redraw(_ink);KarenVfxQuality.Redraw(_hud);KarenVfxQuality.Redraw(_atmosphere);KarenVfxQuality.Redraw(_accent);
     }
     private void Sound(string file,float volume,float pitch)
     {
@@ -297,7 +297,7 @@ public partial class NKarenBenefitVfx : Node2D
     private void Trail(Node2D layer,Vector2 from,Vector2 to,float u,Color color,float alpha,float height=65)
     {
         if(alpha<=0)return;
-        for(int j=0;j<22;j++){
+        for(int j=0;j<22;j += KarenVfxQuality.ParticleStride){
             float q=u-j*.014f;if(q<0||q>1)continue;
             var p=Arc(from,to,q,height);
             Glow(layer,p,9-j*.28f,color,alpha*(1-j/22f)*.7f);

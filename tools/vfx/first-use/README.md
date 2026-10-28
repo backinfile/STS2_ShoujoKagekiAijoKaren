@@ -1,12 +1,14 @@
 # 首次特效准备与发布门禁
 
+本目录提供独立特效专项，仅在用户明确要求时运行，已移出默认开发和创意工坊发布流程。默认流程只执行与当前改动直接相关的最小必要验证；已有专项工具和历史证据继续保留。
+
 `catalog.py --check` 核对全部视觉类型、共用资源准备入口及资源路径。新增文件后先更新 `resource-owners.json`（若有新的共用资源入口），再运行不带参数的 `catalog.py` 重生成 `KarenVfxCatalog.g.cs`。清单包含辅助节点/partial 合并后的类型，不把类型数量当成独立演出数量。
 
 `run.py --source-env <dev-game/stable> --effect all` 在隔离后台游戏里检查：实际预热绘制、临时视口清理、原生普通缓存及漏载缓存清理后的资源有效性、重复准备幂等，以及 31 组（包括双子星完整双发、过去与未来的常驻光痕/抽牌环及退出清理）真实视觉工厂的首次/两次重复帧。此项不等于逐张卡牌规则测试。`--branch beta --source-env <dev-game/beta>` 覆盖测试版。不同版本使用不同端口；用于帧耗时结论时顺序运行，避免互相争用 CPU/GPU。
 
 同一工具的 `--effect bridge|shine|promise` 覆盖塔桥、实际普通闪耀 overlay、真实约定移牌往返。移牌截图和 `karen_check_hand` 放在计时窗口外。保留日志、JSON 和截图并查看图像；不使用 Computer Use。
 
-发布前执行：
+用户明确要求完整特效发布校验时执行：
 
 ```powershell
 python tools/vfx/first-use/release_check.py --source-dev <dev-game> --target apk --apk <最终签名APK> --output artifacts/vfx-release-check.json

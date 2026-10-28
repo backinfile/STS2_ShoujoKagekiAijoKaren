@@ -65,7 +65,7 @@ public partial class NKarenContinueExhaustVfx : Node2D
             this.QueueFreeSafely();
             return;
         }
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _Draw()

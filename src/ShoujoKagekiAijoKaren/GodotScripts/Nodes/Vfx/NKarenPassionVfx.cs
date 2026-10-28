@@ -93,7 +93,7 @@ public partial class NKarenPassionVfx : Node2D
         if (_pulses.Count == 0) { QueueFree(); return; }
         Place();
         KarenVfxComposition.SetCueStrength(this, .35f * Window(_age - _pulses[^1].At, 0, Lifetime, .08f, .3f));
-        QueueRedraw(); _light.QueueRedraw();
+        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_light);
     }
 
     private void Place()

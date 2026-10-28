@@ -1,6 +1,6 @@
 param(
     [ValidateSet('smoke', 'solo', 'multiplayer', 'regression', 'promise', 'turn-end', 'cross', 'full')]
-    [string]$Suite = 'full',
+    [string]$Suite = 'smoke',
     [switch]$UpdateMcp,
     [switch]$LoopbackOnly,
     [switch]$KeepClientGames

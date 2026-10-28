@@ -38,7 +38,7 @@ internal static class KarenLightRibbon
     {
         float first = Mathf.Clamp(head - length, 0, 1), last = Mathf.Clamp(head, 0, 1);
         if (alpha <= 0 || last - first < .001f) return;
-        const int segments = 48;
+        int segments = 48 / KarenVfxQuality.ParticleStride;
         for (int i = 0; i < segments; i++)
         {
             float u = i / (float)segments, v = (i + 1f) / segments;

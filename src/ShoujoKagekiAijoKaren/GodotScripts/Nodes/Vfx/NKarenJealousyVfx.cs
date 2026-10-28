@@ -58,7 +58,7 @@ public partial class NKarenJealousyVfx : Node2D
         _light.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         AddChild(_light);
         _light.Draw += DrawLight;
-        Place(); InitializeParticles(); UpdateParticles(); _light.QueueRedraw();
+        Place(); InitializeParticles(); UpdateParticles(); KarenVfxQuality.Redraw(_light);
     }
 
     private static bool Present(Node? node) => GodotObject.IsInstanceValid(node)
@@ -90,6 +90,6 @@ public partial class NKarenJealousyVfx : Node2D
         if (!Present(_room) || NCombatRoom.Instance != _room || cancelled || _age >= 1.22f) {
             Hide(); QueueFree(); return;
         }
-        Place(); UpdateParticles(); _light.QueueRedraw();
+        Place(); UpdateParticles(); KarenVfxQuality.Redraw(_light);
     }
 }

@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using BaseLib.Utils;
 using Godot;
 using HarmonyLib;
@@ -149,7 +150,7 @@ public partial class NKarenDrawPileDestroyVfx : Node2D
                 _originalCountModulate.A * Mathf.Max(remaining, reveal));
         }
         if (_age >= 2.6f) QueueFree();
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _ExitTree()

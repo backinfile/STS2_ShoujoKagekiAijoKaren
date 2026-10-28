@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
@@ -160,7 +161,7 @@ internal partial class NKarenGoldBorderFlash : Control
 
         Modulate = new Color(1f, 0.84f, 0.35f, alpha);
 
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _Draw()

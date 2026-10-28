@@ -75,7 +75,7 @@ public partial class NKarenCombatEntranceVfx : Node2D
         }
         SeedParticles();
         Place();
-        QueueRedraw(); _back.QueueRedraw();
+        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_back);
         MainFile.Logger.Info($"[Karen Entrance] Started ({_karens.Count} Karen, {_speed * Duration:0.00}s); native opening continues in parallel.");
     }
 
@@ -92,7 +92,7 @@ public partial class NKarenCombatEntranceVfx : Node2D
         }
         AdvanceParticles();
         Place();
-        QueueRedraw(); _back.QueueRedraw();
+        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_back);
     }
 
     private void Place()

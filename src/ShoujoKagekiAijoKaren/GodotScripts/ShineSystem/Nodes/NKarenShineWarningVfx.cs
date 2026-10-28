@@ -60,15 +60,16 @@ public partial class NKarenShineWarningVfx(NCard card, CardModel model) : Node2D
             if (spark.Age >= spark.Life) _sparks.RemoveAt(i);
         }
         _spawnClock += dt;
-        while (_spawnClock >= .025f) {
-            _spawnClock -= .025f;
-            if (_sparks.Count >= 40) break;
+        float interval = KarenVfxQuality.SpawnInterval(.025f);
+        while (_spawnClock >= interval) {
+            _spawnClock -= interval;
+            if (_sparks.Count >= KarenVfxQuality.ParticleCount(40)) break;
             int i = _sparkIndex++; float side = i % 2 == 0 ? -1 : 1;
             var origin = _border.At(i * .381966f);
             var velocity = pose.BasisXform(new Vector2(side * (7 + i * 13 % 20), -32 - i * 19 % 42)) + inherited;
             _sparks.Add(new Spark(pose * origin, velocity, .48f + i % 7 * .045f, (1.5f + i % 3 * .65f) * unit, i * 2.39996f));
         }
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _Draw()
@@ -81,7 +82,7 @@ public partial class NKarenShineWarningVfx(NCard card, CardModel model) : Node2D
         {
             _drawBatch.Polyline(_border.Outline, new Color(gold, .08f + pulse * .10f), 20);
             _drawBatch.Polyline(_border.Outline, new Color(gold, .25f + pulse * .25f), 7);
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < 10; j += KarenVfxQuality.ParticleStride)
             {
                 float t = Mathf.PosMod(_age * (.065f + j * .003f) + j * .101f, 1);
                 float ember = Mathf.Sin(t * Mathf.Pi) * (.65f + .35f * Mathf.Sin(_age * 3.6f - j * .7f));

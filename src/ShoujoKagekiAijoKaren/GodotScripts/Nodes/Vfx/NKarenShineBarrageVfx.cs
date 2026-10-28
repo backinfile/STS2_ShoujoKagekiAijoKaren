@@ -93,8 +93,8 @@ public partial class NKarenShineBarrageVfx : Node2D
             _blade.Draw += DrawBlade;
         }
         CreateParticles();
-        QueueRedraw();
-        _blade.QueueRedraw();
+        KarenVfxQuality.Redraw(this);
+        KarenVfxQuality.Redraw(_blade);
     }
 
     private static Rect2 Bounds(NCreature view)
@@ -162,8 +162,8 @@ public partial class NKarenShineBarrageVfx : Node2D
             _sparks.Position = _source;
             _sparks.Emitting = _finishedAt < 0;
         }
-        QueueRedraw();
-        _blade.QueueRedraw();
+        KarenVfxQuality.Redraw(this);
+        KarenVfxQuality.Redraw(_blade);
     }
 
     private Vector2 Contact => _target + new Vector2(0, ((_index % 4) switch { 0 => -10, 1 => 9, 2 => -3, _ => 3 }) * _unit);
@@ -222,7 +222,7 @@ public partial class NKarenShineBarrageVfx : Node2D
         scale.AddPoint(new(0, .35f)); scale.AddPoint(new(.12f, 1)); scale.AddPoint(new(1, 0));
         _sparks = new CpuParticles2D {
             Name = _impact ? "ExitSparks" : "PreparationDust", Emitting = false,
-            Amount = _impact ? 10 : 5, Lifetime = _impact ? .25f : .20f, OneShot = _impact,
+            Amount = KarenVfxQuality.ParticleCount(_impact ? 10 : 5), Lifetime = _impact ? .25f : .20f, OneShot = _impact,
             Explosiveness = _impact ? 1 : 0, LocalCoords = true, SpeedScale = _speed,
             Position = _impact ? _exit : _source, Direction = _impact ? (Contact - _source).Normalized() : Vector2.Up,
             Spread = _impact ? 23 : 25, InitialVelocityMin = (_impact ? 180 : 20) * _unit,

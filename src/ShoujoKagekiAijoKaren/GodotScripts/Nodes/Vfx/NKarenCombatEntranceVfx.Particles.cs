@@ -25,7 +25,7 @@ public partial class NKarenCombatEntranceVfx
     private void SeedParticles()
     {
         for (int owner = 0; owner < _karens.Count; owner++)
-        for (int i = 0; i < 48; i++)
+        for (int i = 0; i < 48; i += KarenVfxQuality.ParticleStride)
         {
             var kind = i < 12 ? ParticleKind.Floor : i < 30 ? ParticleKind.Cloth : ParticleKind.Sword;
             float u = Variety(i + owner * 53), v = Variety(i + 83 + owner * 17);

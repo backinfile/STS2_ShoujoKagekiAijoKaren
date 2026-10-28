@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
@@ -32,7 +33,7 @@ public partial class NKarenShinePileArrivalVfx(TextureRect icon, Control visual)
         if (_impacts.Count == 3) _impacts.RemoveAt(0);
         _impacts.Add(_time);
         UpdatePose();
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _Process(double delta)
@@ -41,7 +42,7 @@ public partial class NKarenShinePileArrivalVfx(TextureRect icon, Control visual)
             || !GodotObject.IsInstanceValid(visual)) { QueueFree(); return; }
         _time += (float)delta; _age += (float)delta;
         if (_age >= _duration) { Restore(); QueueFree(); return; }
-        UpdatePose(); QueueRedraw();
+        UpdatePose(); KarenVfxQuality.Redraw(this);
     }
 
     private void UpdatePose()
@@ -82,7 +83,7 @@ public partial class NKarenShinePileArrivalVfx(TextureRect icon, Control visual)
         {
             float t = Mathf.Clamp((_time-impact)/_duration,0,1), light = Mathf.Pow(1-t,2);
             DrawArc(centre,radius*(.48f+1.03f*Ease(t)),0,Mathf.Tau,40,new Color(Gold,light*.70f),1.8f,true);
-            for (int i=0;i<10;i++)
+            for (int i=0;i<10;i += KarenVfxQuality.ParticleStride)
             {
                 float angle = i*Mathf.Tau/10+.18f;
                 var direction = new Vector2(Mathf.Cos(angle),Mathf.Sin(angle));

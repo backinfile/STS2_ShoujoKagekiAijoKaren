@@ -1,4 +1,5 @@
 using Godot;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -49,7 +50,7 @@ public partial class NKarenBurnCardVfx : Node2D
         AddChild(_smoke);
         AddChild(_sparks);
         // Start with a few live wisps so the effect is readable as the card arrives.
-        for (int i = 0; i < 8; i++) EmitSpark((float)GD.RandRange(0.2, 0.8));
+        for (int i = 0; i < 8; i += KarenVfxQuality.ParticleStride) EmitSpark((float)GD.RandRange(0.2, 0.8));
         EmitAura(0.6f);
     }
 
@@ -82,12 +83,12 @@ public partial class NKarenBurnCardVfx : Node2D
         _auraTimer -= (float)delta;
         if (_sparkTimer <= 0f)
         {
-            _sparkTimer = 0.07f;
+            _sparkTimer = KarenVfxQuality.SpawnInterval(0.07f);
             EmitSpark();
         }
         if (_auraTimer <= 0f)
         {
-            _auraTimer = (float)GD.RandRange(0.60, 0.75);
+            _auraTimer = KarenVfxQuality.SpawnInterval((float)GD.RandRange(0.60, 0.75));
             EmitAura();
         }
     }

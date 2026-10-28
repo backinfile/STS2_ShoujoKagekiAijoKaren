@@ -198,7 +198,7 @@ public partial class NKarenAquariumVfx : Node2D
         _hud.Visible = Pulse(_selectionAge, .75f) > 0 || _drawn.Count > 0 || _ripples.Count > 0 || _bursts.Any(b => b.Node.GetParent() == _hud);
         if (!_turnOwned && _castAge >= 1.65f && _turnAge >= 1.4f && _moveAge >= 1.2f
             && _selectionAge >= .75f && _drawn.Count == 0 && _ripples.Count == 0 && _bursts.Count == 0 && _sounds.Count == 0) { Stop(); return; }
-        QueueRedraw(); _hud.QueueRedraw();
+        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_hud);
     }
     private void Place()
     {
@@ -253,7 +253,7 @@ public partial class NKarenAquariumVfx : Node2D
         canvas.DrawPolyline(points, new Color(.48f, .88f, 1, light * .64f), 1.25f, true);
     }
     private static CpuParticles2D Bubbles(int count, float life) => new() {
-        Amount = count, Lifetime = life, OneShot = true, Explosiveness = 1, Emitting = false,
+        Amount = KarenVfxQuality.ParticleCount(count), Lifetime = life, OneShot = true, Explosiveness = 1, Emitting = false,
         Texture = _bubble, Direction = Vector2.Up, Spread = 18, Gravity = new(0, -4), InitialVelocityMin = 18,
         InitialVelocityMax = 42, ScaleAmountMin = .10f, ScaleAmountMax = .28f,
         EmissionShape = CpuParticles2D.EmissionShapeEnum.Rectangle, EmissionRectExtents = new(30, 10),

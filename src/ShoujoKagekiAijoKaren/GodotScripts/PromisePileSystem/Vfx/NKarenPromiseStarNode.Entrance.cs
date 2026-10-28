@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
@@ -15,7 +16,7 @@ public partial class NKarenPromiseStarNode
         if (IsVoidPresentation || _recallDepth > 0 || _reproductionActive) return;
         IsCombatEntranceActive = true;
         _combatEntranceAge = age;
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public void AdvanceCombatEntrance(float age)
@@ -24,14 +25,14 @@ public partial class NKarenPromiseStarNode
         if (IsVoidPresentation || _recallDepth > 0 || _reproductionActive)
         { EndCombatEntrance(); return; }
         _combatEntranceAge = age;
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public void EndCombatEntrance()
     {
         IsCombatEntranceActive = false;
         _combatEntranceAge = 0;
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     private static float EntranceEase(float age, float start, float end)

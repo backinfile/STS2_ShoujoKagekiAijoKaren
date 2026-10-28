@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Helpers;
@@ -92,7 +93,7 @@ public partial class NKarenGeerVfx : Node2D
         }
         Modulate = new Color(1, 1, 1, IsCast ? 1 : Envelope(0, 0.08f, 0.42f, duration));
         UpdatePlacement();
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
     public override void _ExitTree()
     {

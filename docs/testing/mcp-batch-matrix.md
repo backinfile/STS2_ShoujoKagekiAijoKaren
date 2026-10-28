@@ -1,25 +1,27 @@
 # MCP 双版本批量测试
 
-在项目根目录使用 PowerShell 7 运行：
+默认只检查双版本启动、Mod 加载和 MCP 接口。在项目根目录使用 PowerShell 7 运行：
 
 ```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite full -UpdateMcp
+pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite smoke -UpdateMcp
 ```
 
 `-UpdateMcp` 先从 `<karen-sts2-mcp-source>` 的**当前工作区源码**复制一份，分别针对 `artifacts/dev-game/stable/game` 和 `artifacts/dev-game/beta/game` 编译并安装到本项目的两套独立游戏副本。源码仓库本身不被修改；为自动化联机 CMD 添加的 `run_command` 动作只存在于构建副本中。MCP 安装包写入 `artifacts/mcp-stable/`、`artifacts/mcp-beta/`，`source-info.json` 记录 Git 提交、是否含未提交修改以及实际构建源码的 SHA-256。只需更新 MCP 时可运行 `tools/update_dev_mcp.ps1`，用 `-McpRepository` 指定其他本地源码路径。
+
+日常开发和创意工坊发布按改动选择最小必要验证；运行行为变化另选对应定向用例。完整矩阵仅在用户明确要求全面测试时指定 `-Suite full`。特效覆盖、生命周期、首播/重复播放和帧耗时专项独立按需执行。
 
 批量脚本支持以下 `-Suite`：
 
 | 套件 | 检查 |
 | --- | --- |
-| `smoke` | 正式版、测试版启动，Karen 加载与独立 MCP HTTP 端口 |
+| `smoke` | 默认套件：正式版、测试版启动，Karen 加载与独立 MCP HTTP 端口 |
 | `solo` | 两版 Karen 开局、MCP 设置读写并恢复、CMD、闪耀打击中途清场后耗尽 |
 | `multiplayer` | 两版各四种主客角色组合：双方出牌、敌人生命同步、共同进入第 2 回合 |
 | `regression` | 两版 Karen 主机／客户端的清场耗尽、混合角色清场耗尽、《旋转》全局移牌同步及 `promise` 用例 |
 | `promise` | 两版各跑 Karen/Karen、Karen/原版、原版/Karen 的约定牌堆移入及抽回；保存前后截图并检查双端手牌节点与模型一致，并附带 `turn-end` 六组转化检查 |
 | `turn-end` | 两版各覆盖 Karen/Karen、Karen/原版、原版/Karen，双方各将《小零食》放入约定牌堆，结束回合后逐人检查它变为《香蕉》 |
 | `cross` | 可选的跨版本连接调查；不属于日常验收 |
-| `full` | `smoke`、`solo`、`multiplayer`、`regression`、`turn-end` 的全部用例；默认套件，不含 `cross` |
+| `full` | 显式指定时执行 `smoke`、`solo`、`multiplayer`、`regression`、`turn-end` 的全部用例，不含 `cross` |
 
 测试通过 `--force-steam=off` 启动隔离游戏，每个用例使用独立 `--clientId`、用户数据目录和日志。正式版与测试版主机 MCP 端口分别是 `15627`、`15628`；对应客户端是 `15629`、`15630`；联机使用 `33771`。脚本在使用端口前检查占用情况，不会停止其他项目的游戏进程。客户端游戏从本项目快照复制到本次运行目录；结束后默认尝试清理游戏副本，`-KeepClientGames` 可保留。清理遇到 Windows 文件占用时会延后并写进报告，不改变测试结论。
 

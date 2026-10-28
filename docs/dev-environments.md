@@ -11,7 +11,7 @@
 
 日常开发先运行 `update_dev_mods.bat` 构建安装包并更新两套环境，然后分别运行 `run_stable_dev.bat` 和 `run_beta_dev.bat`。`buildAndRun.bat` 只更新并启动正式版。`build_local_mod.bat` 仍会写入 Steam 安装目录，请勿用它更新独立环境。`run_as_host.bat` 与 `run_as_client01.bat` 仍是旧的 Steam 安装目录联机脚本，不属于这两套独立环境。
 
-更新独立环境的 MCP 并批量验证两版游戏时，运行 `tools/test_dev_matrix.ps1 -Suite full -UpdateMcp`；套件、隔离端口、日志与报告路径见[批量测试说明](testing/mcp-batch-matrix.md)。单独更新 MCP 可运行 `tools/update_dev_mcp.ps1`。安装时会保留 `KarenSTS2MCP.conf` 中除端口外的设置字段。
+更新独立环境的 MCP 并检查两版启动时，运行 `tools/test_dev_matrix.ps1 -Suite smoke -UpdateMcp`（默认套件为 `smoke`）；其他验证按改动选择定向用例，用户明确要求全面测试时再指定 `-Suite full`。特效专项独立按需执行。套件、隔离端口、日志与报告路径见[批量测试说明](testing/mcp-batch-matrix.md)。单独更新 MCP 可运行 `tools/update_dev_mcp.ps1`。安装时会保留 `KarenSTS2MCP.conf` 中除端口外的设置字段。
 
 更新游戏本体快照时，先让 Steam 切到目标分支并完成更新，再在项目根目录执行：
 
@@ -30,6 +30,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/dev_env.ps1 -Branch be
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/dev_env.ps1 -Branch beta -Action Status
 ```
 
-`Install` 使用 `artifacts/ShoujoKagekiAijoKaren/` 中现有的完整安装包，不自动构建；MCP 分别从 `artifacts/mcp-stable/` 和 `artifacts/mcp-beta/` 复制针对相应版本构建的 DLL 与清单（可用 `-McpSource` 改来源），并为各环境单独写入端口配置。不能把测试版 MCP DLL 安装到正式版：它引用了正式版不存在的多人类型。更新前先关闭对应环境的游戏进程。`Smoke` 会无窗口启动游戏，同时验证 Mod 初始化和对应端口的 HTTP 状态接口，然后自动退出。`artifacts/` 已被 Git 忽略，删除它也会删除这两份游戏快照及独立存档。
+`Install` 使用 `artifacts/ShoujoKagekiAijoKaren/` 中现有的完整安装包，不自动构建；MCP 分别从 `artifacts/mcp-stable/` 和 `artifacts/mcp-beta/` 复制针对相应版本构建的 DLL 与清单（可用 `-McpSource` 改来源），并为各环境单独写入端口配置。不能把测试版 MCP DLL 安装到正式版：它引用了正式版不存在的多人类型。更新前先关闭对应环境的游戏进程。`Smoke` 在隐藏窗口中使用真实 Vulkan 渲染器启动游戏，验证 Mod 初始化和对应端口的 HTTP 状态接口后结束该隔离进程；检查有超时和进程清理，避免 dummy 渲染器的纹理初始化阻塞。`artifacts/` 已被 Git 忽略，删除它也会删除这两份游戏快照及独立存档。
 
 2026-09-23 验证：正式版和测试版独立进程同时启动，两者都选中了对应的 Karen 实现并注册角色；同一时刻 `<other-mod-dev-game>\stable\SlayTheSpire2.exe` 也在运行。两套 Karen 环境的日志确认 Steam 初始化已跳过，用户数据路径彼此独立。

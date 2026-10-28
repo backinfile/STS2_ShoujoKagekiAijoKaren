@@ -91,7 +91,7 @@ public partial class NKarenWakeUpSelectionVfx : Node2D
         for (int i = 0; i < _targets.Count; i++)
             _material.SetShaderParameter(i == 0 ? "gather_a" : "gather_b", _targets[i] / GetViewportRect().Size);
         if (_closingAt >= 0 && close >= 1) { QueueFree(); return; }
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     private void Attach(NSimpleCardSelectScreen screen)

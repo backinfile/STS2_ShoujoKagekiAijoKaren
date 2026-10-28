@@ -104,7 +104,7 @@ public partial class NKarenArrogantVfx : Node2D
         Place();
 
         KarenVfxComposition.SetCueStrength(this, Alpha);
-        QueueRedraw(); _back.QueueRedraw(); _light.QueueRedraw();
+        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_back); KarenVfxQuality.Redraw(_light);
     }
 
     private void Place()

@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System.Collections.Generic;
 using Godot;
 using MegaCrit.Sts2.Core.Assets;
@@ -207,7 +208,7 @@ public partial class NKarenDropFuelVfx : Node2D
         var particles = new GpuParticles2D
         {
             Emitting = false,
-            Amount = amount,
+            Amount = KarenVfxQuality.ParticleCount(amount),
             Texture = star ? _starTexture : _softTexture,
             Lifetime = 2.3,
             OneShot = true,

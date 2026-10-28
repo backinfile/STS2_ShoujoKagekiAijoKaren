@@ -69,7 +69,7 @@ public partial class NKarenPassionCardVfx : Node2D
 
     private void Emit(int count)
     {
-        count = Math.Min(count, Limit - _particles.Count);
+        count = Math.Min(KarenVfxQuality.ParticleCount(count), KarenVfxQuality.ParticleCount(Limit) - _particles.Count);
         for (int i = 0; i < count; i++)
         {
             // Presentation RNG is separate from all gameplay/card/reward RNG streams.
@@ -92,7 +92,7 @@ public partial class NKarenPassionCardVfx : Node2D
         _age += (float)delta * _speed;
         _particles.RemoveAll(p => _age - p.At >= p.Life);
         if (_particles.Count == 0) { QueueFree(); return; }
-        Place(); QueueRedraw(); _back.QueueRedraw();
+        Place(); KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_back);
     }
 
     private void Place()

@@ -135,7 +135,7 @@ public partial class NKarenWakeUpCardVfx(CardModel model, NCombatRoom room) : No
             QueueFree();
             return;
         }
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     private Vector2 CardCenter() => _card!.Body.GetGlobalTransformWithCanvas() * (_card.Body.Size * .5f);

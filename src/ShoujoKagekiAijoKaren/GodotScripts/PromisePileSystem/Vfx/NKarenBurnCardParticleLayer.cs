@@ -44,7 +44,7 @@ internal partial class NKarenBurnCardParticleLayer(Texture2D? texture, bool aura
             particle.Rotation = Mathf.DegToRad((float)GD.RandRange(-8, 8));
         }
         _particles.Add(particle);
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _Process(double delta)
@@ -57,7 +57,7 @@ internal partial class NKarenBurnCardParticleLayer(Texture2D? texture, bool aura
             if (particle.Age >= particle.Duration) _particles.RemoveAt(i);
             else _particles[i] = particle;
         }
-        QueueRedraw();
+        KarenVfxQuality.Redraw(this);
     }
 
     public override void _Draw()
