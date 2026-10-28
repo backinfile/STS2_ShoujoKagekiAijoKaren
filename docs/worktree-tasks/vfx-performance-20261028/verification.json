@@ -1127,6 +1127,8 @@
     },
     "task_worktree": "../worktrees/STS2_ShoujoKagekiAijoKaren/vfx-performance-20261028",
     "task_branch": "codex/vfx-performance-20261028",
-    "cleanup": "retained pending separate confirmation"
+    "cleanup": "Explicit cleanup approval received; execution outcome is recorded at artifacts/vfx-performance-20261028/cleanup-result.json.",
+    "cleanup_approval": "清理工作树和分支",
+    "archived_file_hashes_verified_before_cleanup": 994
   }
 }
