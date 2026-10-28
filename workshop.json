@@ -2,7 +2,7 @@
   "title": null,
   "description": null,
   "visibility": "public",
-  "changeNote": "1 Added many new visual effects\n2 Added new relics\n3 Added one new card\n4 Fixed several bugs",
+  "changeNote": "v0.1.5\n1 新增华恋特效等级设置：完整、低、关闭\n2 优化特效绘制，降低粒子和常驻装饰的资源占用\n3 关闭档使用游戏原生特效替代华恋专属特效",
   "tags": [
     "Characters",
     "Cards",

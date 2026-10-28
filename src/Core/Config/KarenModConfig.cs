@@ -43,7 +43,6 @@ public class KarenModConfig : SimpleModConfig
     public static bool EnableCombatEntrance { get; set; } = true;
 
     private static KarenVfxLevel _vfxLevel = KarenVfxLevel.Full;
-    [ConfigHoverTip]
     public static KarenVfxLevel VfxLevel
     {
         get => _vfxLevel;
