@@ -121,6 +121,7 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.store.runs({"character": ["SILENT"], "players": ["1"]})["total"], 0)
         self.assertEqual(self.store.runs({"character": ["SILENT"], "outcome": ["death"]})["total"], 0)
         self.assertEqual(self.store.stats({"character": ["SILENT"]}), self.store.stats({}))
+        self.assertEqual(self.store.stats({})["characters"], ["IRONCLAD", "KAREN", "SILENT"])
 
     def test_run_character_filter_applies_before_pagination(self):
         self.store.upload(self.data)
@@ -144,6 +145,7 @@ class CollectorTests(unittest.TestCase):
         self.data["players"][0]["character"] = "CHARACTER.CUSTOM_CLASS"
         self.store.upload(self.data)
         self.assertEqual(self.store.runs({"character": ["CUSTOM_CLASS"]})["total"], 1)
+        self.assertEqual(self.store.stats({})["characters"], ["CUSTOM_CLASS"])
         self.assertEqual(self.store.runs({"character": ["WATCHER"]})["total"], 0)
         for value in ("SILENT' OR 1=1 --", "x" * 181, "", "[]"):
             with self.assertRaises(Invalid):

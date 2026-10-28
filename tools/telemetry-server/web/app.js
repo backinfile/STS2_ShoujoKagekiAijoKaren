@@ -25,6 +25,10 @@ function title(card){return esc(card.name)+(card.current_upgrade_level>0?' +'+ca
 function identity(card){return '<span class="card-ident">'+image(card)+'<span><strong>'+title(card)+'</strong><small>'+esc([card.owner_name,card.rarity,card.type,card.cost==null?'费用未知':card.cost<0?'特殊费用':card.cost+' 费'].filter(Boolean).join(' · '))+'</small></span></span>';}
 function metric(label,value,fraction){return '<div class="metric-row"><span>'+label+'</span><div><strong>'+value+'</strong>'+(fraction?'<small>'+fraction+'</small>':'')+'</div></div>';}
 function syncURL(){const p=params();for(const key of ['search','owner','type','rarity','starters','group','character','outcome'])p.set(key,$(key).value);for(const key of ['view','display','sort','order','page','card','run'])if(state[key]!=null)p.set(key,state[key]);if(state.historyId){p.set('history',state.historyId);p.set('seat',state.seat);p.set('floor',state.floor);}history.replaceState(null,'','#'+p);}
+function updateCharacters(characters=[],selected=$('character').value){
+ const choices=[...new Set([...Object.keys(CHARACTERS),...characters,selected])].filter(c=>c&&c!=='all');
+ $('character').innerHTML='<option value="all">全部职业</option>'+choices.map(c=>'<option value="'+esc(c)+'">'+esc(characterName(c))+'</option>').join('');$('character').value=selected;
+}
 function exportState(){$('export').disabled=state.loading||!state.fresh;$('export').textContent=state.view==='cards'?'导出筛选卡牌 CSV ↓':'导出当前页 CSV ↓';}
 async function load(){
  const version=++requestVersion;state.loading=true;state.fresh=false;exportState();$('connection').textContent='更新中…';$('connection').className='connection';$('refresh').disabled=true;
@@ -32,7 +36,7 @@ async function load(){
   const query=params(),runQuery=new URLSearchParams(query);runQuery.set('page',state.page);runQuery.set('outcome',$('outcome').value);runQuery.set('character',$('character').value);
   const [stats,runs]=await Promise.all([api('api/stats?'+query),api('api/runs?'+runQuery)]);
   if(version!==requestVersion)return;
-  state.stats=stats;state.runs=runs;state.page=runs.page;runQuery.set('page',state.page);state.loadedQuery=new URLSearchParams(runQuery);state.fresh=true;
+  updateCharacters(stats.characters??[]);state.stats=stats;state.runs=runs;state.page=runs.page;runQuery.set('page',state.page);state.loadedQuery=new URLSearchParams(runQuery);state.fresh=true;
   const selected=$('build').value;$('build').innerHTML='<option value="all">全部版本</option>'+stats.builds.map(b=>'<option value="'+esc(b)+'">'+esc(b)+'</option>').join('');$('build').value=stats.builds.includes(selected)?selected:'all';
   $('error').hidden=true;$('connection').textContent='已更新';$('connection').className='connection ok';$('updated').textContent='更新于 '+new Date().toLocaleTimeString('zh-CN',{hour12:false});
   render();syncURL();
@@ -182,6 +186,7 @@ const urlState=new URLSearchParams(location.hash.slice(1));
 for(const [key,value] of urlState){const control=$('filters').elements.namedItem(key);if(key==='build'&&value!=='all'&&value.length<=120){const option=document.createElement('option');option.value=value;option.textContent=value;control.append(option);}if(control&&[...control.options].some(o=>o.value===value))control.value=value;}
 if(['cards','runs'].includes(urlState.get('view')))state.view=urlState.get('view');
 if(['table','chart'].includes(urlState.get('display')))state.display=urlState.get('display');
+if(/^[A-Z0-9_:-]{1,180}$/.test(urlState.get('character')??''))updateCharacters([],urlState.get('character'));
 for(const key of ['owner','type','rarity','starters','group','character','outcome']){const control=$(key),value=urlState.get(key);if([...control.options].some(option=>option.value===value))control.value=value;}
 $('search').value=(urlState.get('search')??'').slice(0,180);
 if(Object.hasOwn(CARD_SORTS,urlState.get('sort')))state.sort=urlState.get('sort');

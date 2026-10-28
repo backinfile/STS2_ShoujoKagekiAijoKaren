@@ -406,10 +406,12 @@ class Store:
             with self.connect() as db:
                 yield from db.execute("SELECT facts FROM runs" + where, values)
         cards, total, wins, excluded, missing = {}, 0, 0, 0, 0
+        characters = set()
         raw_seats = 0
         limited = False
         for row in rows():
             run = json.loads(row["facts"])
+            characters.update(s["character"] for s in run["seats"])
             seats = [s for s in run["seats"] if s["character"] == "KAREN"]
             raw_seats += len(seats)
             if query.get("sample", ["codex"])[0] != "all" and run["outcome"] == "abandon" and run["floor"] <= 5:
@@ -456,7 +458,7 @@ class Store:
         return {"runs": count, "raw_seats": raw_seats, "seats": total, "wins": wins,
                 "excluded": excluded, "missing_picked": missing,
                 "latest_received": latest, "builds": builds, "card_limit_reached": limited,
-                "cards": result, "pick_policy": "native_known_choices_all_sources"}
+                "cards": result, "characters": sorted(characters), "pick_policy": "native_known_choices_all_sources"}
 
     def original(self, rid):
         with self.connect() as db:

@@ -61,7 +61,13 @@ context.sample = {cards,seats:1,runs:1,wins:1,excluded:0,missing_picked:1,builds
   assert.ok(!context.requests.find(path=>path.startsWith('api/stats?')).includes('character='));
   run('syncURL()');
   assert.ok(context.savedHash.includes('character=SILENT'));
-  console.log('PASS run character query stays separate from card statistics');
+  run("updateCharacters(['CUSTOM_CLASS'],'CUSTOM_CLASS')");
+  assert.equal(node('character').value,'CUSTOM_CLASS');
+  assert.ok(node('character').innerHTML.includes('value="CUSTOM_CLASS"'));
+  run("updateCharacters([],'CUSTOM_CLASS')");
+  assert.ok(node('character').innerHTML.includes('value="CUSTOM_CLASS"'),'selected profession stays available with no matching samples');
+  node('character').value='all';
+  console.log('PASS run character query, custom professions and card statistics stay in sync');
 
   context.groupSample={...context.sample,seats:10,cards:[cards[0],
     {...cards[1],id:'COMMON_LOW',name:'普通低',cost:0,pick_rate:0,held:1},
