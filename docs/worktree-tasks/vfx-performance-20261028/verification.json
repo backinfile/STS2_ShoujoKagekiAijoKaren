@@ -1100,6 +1100,33 @@
     "consolidated_task_commit": "2a2a809f1326b05fd2a8118809deeb2401225d50",
     "changes": "Telemetry page/server and its task documentation only. VFX source and measured package unchanged.",
     "original_dirty_entries_preserved": 21,
-    "integration_into_main": "awaiting explicit user approval"
+    "integration_into_main": "Fast-forward merged after explicit user approval."
+  },
+  "integration": {
+    "date": "2026-10-28",
+    "approval": "合并回 main",
+    "target_branch": "main",
+    "merged_commit": "5cad095710f78c7356a0ead24c0a744b86598ac2",
+    "consolidated_task_commit": "2a2a809f1326b05fd2a8118809deeb2401225d50",
+    "committed_trees_match": true,
+    "preserved_original_entries": 21,
+    "preservation_checks": {
+      "dirty_diff": true,
+      "staged_diff": true,
+      "file_contents": true
+    },
+    "evidence_archive": {
+      "files": 993,
+      "bytes": 739790049,
+      "video": "artifacts/vfx-performance-20261028/comparison-video/vfx-before-after.mp4",
+      "video_sha256": "4b277190f430a8e94fe7bb5f480775522cb351be4990bd0dc40001224f7f51b9",
+      "candidate_package_verified": true,
+      "excluded_disposable_directories": ["baseline-build", "obj", "probe-final-check", "game", "user", "fixture", "seed-profile", "__pycache__"],
+      "original_artifact_location": "artifacts/vfx-performance-20261028",
+      "first_use_and_promise_evidence": "Final cases copied into their existing artifact-relative locations."
+    },
+    "task_worktree": "../worktrees/STS2_ShoujoKagekiAijoKaren/vfx-performance-20261028",
+    "task_branch": "codex/vfx-performance-20261028",
+    "cleanup": "retained pending separate confirmation"
   }
 }
