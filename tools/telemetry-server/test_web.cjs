@@ -6,7 +6,7 @@ const source = fs.readFileSync(__dirname + '/web/app.js', 'utf8').split("documen
 const nodes = new Map();
 const node = id => {
   if (!nodes.has(id)) nodes.set(id, {
-    value: ['type', 'rarity', 'owner', 'outcome'].includes(id) ? 'all' : '',
+    value: id === 'group' ? 'none' : ['type', 'rarity', 'owner', 'outcome', 'character', 'starters'].includes(id) ? 'all' : '',
     disabled: false, innerHTML: '', textContent: '', hidden: true, dataset: {},
     classList: {add(){}, remove(){}, toggle(){}}, querySelectorAll(){return []},
     focus(){}, setAttribute(){},
@@ -20,8 +20,8 @@ const context = vm.createContext({document, URLSearchParams, Blob, setTimeout:()
 vm.runInContext(source, context);
 const run = code => vm.runInContext(code, context);
 const cards = [
-  {id:'KAREN_STRIKE',name:'打击',owner:'karen',owner_name:'华恋',held:1,wins:1,picked:0,offered:0,pick_rate:null,win_rate:1,hold_rate:1,recorded_offers:0,recorded_picked:0,unknown_picked:0},
-  {id:'COORDINATE',name:'协作',owner:'colorless',owner_name:'无色',held:1,wins:0,picked:1,offered:2,pick_rate:.5,win_rate:0,hold_rate:1,recorded_offers:3,recorded_picked:1,unknown_picked:1},
+  {id:'KAREN_STRIKE',name:'打击',owner:'karen',owner_name:'华恋',rarity:'基础',type:'攻击',cost:1,held:1,wins:1,picked:0,offered:0,pick_rate:null,win_rate:1,hold_rate:1,recorded_offers:0,recorded_picked:0,unknown_picked:0},
+  {id:'COORDINATE',name:'协作',owner:'colorless',owner_name:'无色',rarity:'普通',type:'技能',cost:1,held:1,wins:0,picked:1,offered:2,pick_rate:.5,win_rate:0,hold_rate:1,recorded_offers:3,recorded_picked:1,unknown_picked:1},
 ];
 context.sample = {cards,seats:1,runs:1,wins:1,excluded:0,missing_picked:1,builds:[],latest_received:null};
 (async()=>{
@@ -52,6 +52,55 @@ context.sample = {cards,seats:1,runs:1,wins:1,excluded:0,missing_picked:1,builds
   assert.ok(node('cards').innerHTML.includes('no-data'));
   assert.ok(node('cards').innerHTML.includes('n=2'));
   console.log('PASS chart distinguishes missing data and includes denominators');
+
+  context.requests=[];
+  run(`api=async path=>{requests.push(path);return path.startsWith('api/stats')?sample:{items:[],page:1,total:0,page_size:20}}`);
+  node('character').value='SILENT';
+  await run('load()');
+  assert.ok(context.requests.find(path=>path.startsWith('api/runs?')).includes('character=SILENT'));
+  assert.ok(!context.requests.find(path=>path.startsWith('api/stats?')).includes('character='));
+  run('syncURL()');
+  assert.ok(context.savedHash.includes('character=SILENT'));
+  console.log('PASS run character query stays separate from card statistics');
+
+  context.groupSample={...context.sample,seats:10,cards:[cards[0],
+    {...cards[1],id:'COMMON_LOW',name:'普通低',cost:0,pick_rate:0,held:1},
+    {...cards[1],id:'COMMON_HIGH',name:'普通高',cost:2,pick_rate:.8,held:4},
+    {...cards[1],id:'RARE_LOW',name:'稀有低',rarity:'稀有',cost:1,pick_rate:.2,held:2},
+    {...cards[0],id:'RARE_MISSING',name:'稀有未知',rarity:'稀有',cost:3,held:3}]};
+  node('group').value='rarity';node('starters').value='hide';
+  run(`state.stats=groupSample;state.sort='pick_rate';state.order=-1;state.display='table';renderCards()`);
+  assert.deepEqual(Array.from(run('filteredCards().map(c=>c.id)')),['COMMON_HIGH','COMMON_LOW','RARE_LOW','RARE_MISSING']);
+  assert.equal(node('sortLabel').textContent,'组内排序');
+  assert.ok(node('cards').innerHTML.includes('scope="rowgroup"'));
+  assert.equal((node('cards').innerHTML.match(/class="rarity-group"/g)||[]).length,2);
+  assert.ok(!node('cards').innerHTML.includes('KAREN_STRIKE'));
+  run('state.order=1;renderCards()');
+  assert.deepEqual(Array.from(run('filteredCards().map(c=>c.id)')),['COMMON_LOW','COMMON_HIGH','RARE_LOW','RARE_MISSING']);
+  assert.equal(run('state.stats.seats'),10,'card filters must keep the cohort denominator');
+  run(`state.sort='cost';state.order=-1;state.display='chart';renderCards()`);
+  assert.deepEqual(Array.from(run('filteredCards().map(c=>c.id)')),['COMMON_HIGH','COMMON_LOW','RARE_MISSING','RARE_LOW']);
+  assert.equal((node('cards').innerHTML.match(/<h3>/g)||[]).length,2);
+  assert.ok(node('cards').innerHTML.includes('no-data'));
+  run('csv();syncURL()');
+  const groupedCSV=await context.saved.text();
+  assert.ok(groupedCSV.includes('"starters","hide"')&&groupedCSV.includes('"group","rarity"'));
+  assert.ok(!groupedCSV.includes('KAREN_STRIKE')&&!groupedCSV.includes('"character"'));
+  assert.ok(groupedCSV.indexOf('"COMMON_HIGH"')<groupedCSV.indexOf('"COMMON_LOW"'));
+  assert.ok(groupedCSV.indexOf('"RARE_MISSING"')<groupedCSV.indexOf('"RARE_LOW"'));
+  assert.ok(context.savedHash.includes('group=rarity')&&context.savedHash.includes('starters=hide'));
+  console.log('PASS starter filter, rarity groups, in-group sort, chart and CSV agree');
+
+  node('rarity').value='基础';run('renderCards()');
+  assert.deepEqual(Array.from(run('filteredCards()')),[]);
+  assert.ok(node('cards').innerHTML.includes('没有匹配的卡牌'));
+  node('rarity').value='all';node('starters').value='all';node('group').value='none';
+  run('renderCards()');
+  assert.equal(run('filteredCards().length'),5);
+  assert.equal(node('sortLabel').textContent,'排序');
+  assert.ok(!node('cards').innerHTML.includes('<h3>'));
+  run('state.stats=sample');
+  console.log('PASS empty combined filters and ungrouped reset');
 
   run(`state.view='runs';state.runs.items=[{id:'fixture',received_at:0,start_time:0,outcome:'win',floor:1,ascension:0,player_count:1,build:' \t=1+1'}];csv()`);
   assert.ok((await context.saved.text()).includes("' \t=1+1"));

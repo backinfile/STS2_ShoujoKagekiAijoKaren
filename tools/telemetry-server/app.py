@@ -370,6 +370,11 @@ class Store:
         if include_outcome and query.get("outcome", ["all"])[0] != "all":
             clauses.append("outcome=?")
             values.append(query["outcome"][0])
+        if include_outcome and query.get("character", ["all"])[0] != "all":
+            character = model(query["character"][0])
+            clauses.append("EXISTS (SELECT 1 FROM json_each(runs.facts, '$.seats') AS seat "
+                           "WHERE json_extract(seat.value, '$.character')=?)")
+            values.append(character)
         return (" WHERE " + " AND ".join(clauses) if clauses else ""), values
 
     @staticmethod

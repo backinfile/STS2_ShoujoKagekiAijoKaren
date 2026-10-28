@@ -98,6 +98,57 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.store.stats({})["seats"], 2)
         self.assertEqual(self.store.runs({})["total"], 1)
 
+    def test_run_character_filter_matches_any_seat_once_and_leaves_stats_unchanged(self):
+        self.store.upload(self.data)
+        other = copy.deepcopy(self.data)
+        other["seed"] += "-ironclad"
+        other["players"][0]["character"] = "CHARACTER.IRONCLAD"
+        self.store.upload(other)
+        coop = copy.deepcopy(self.data)
+        coop["seed"] += "-coop"
+        for offset in (1, 2):
+            seat = copy.deepcopy(coop["players"][0])
+            seat["id"] += offset
+            seat["character"] = "CHARACTER.SILENT"
+            coop["players"].append(seat)
+        _, result = self.store.upload(coop)
+        for character in ("SILENT", "silent", "CHARACTER.SILENT"):
+            runs = self.store.runs({"character": [character]})
+            self.assertEqual(runs["total"], 1)
+            self.assertEqual([r["id"] for r in runs["items"]], [result["run_id"]])
+        self.assertEqual(self.store.runs({"character": ["KAREN"]})["total"], 2)
+        self.assertEqual(self.store.runs({"character": ["all"]})["total"], 3)
+        self.assertEqual(self.store.runs({"character": ["SILENT"], "players": ["1"]})["total"], 0)
+        self.assertEqual(self.store.runs({"character": ["SILENT"], "outcome": ["death"]})["total"], 0)
+        self.assertEqual(self.store.stats({"character": ["SILENT"]}), self.store.stats({}))
+
+    def test_run_character_filter_applies_before_pagination(self):
+        self.store.upload(self.data)
+        for index in range(22):
+            data = copy.deepcopy(self.data)
+            data["seed"] += f"-silent-{index}"
+            data["players"][0]["character"] = "CHARACTER.SILENT"
+            self.assertEqual(self.store.upload(data)[0], 201)
+        first = self.store.runs({"character": ["SILENT"]})
+        second = self.store.runs({"character": ["SILENT"], "page": ["2"]})
+        self.assertEqual(first["total"], 22)
+        self.assertEqual(len(first["items"]), 20)
+        self.assertEqual(len(second["items"]), 2)
+        self.assertEqual(second["page"], 2)
+        self.assertFalse({r["id"] for r in first["items"]} & {r["id"] for r in second["items"]})
+        self.assertTrue(all(r["players"][0]["character"] == "SILENT" for r in first["items"] + second["items"]))
+        self.assertEqual(self.store.runs({"character": ["SILENT"], "page": ["99"]}), second)
+        self.assertEqual(self.store.runs({})["total"], 23)
+
+    def test_run_character_filter_supports_models_and_validates_input(self):
+        self.data["players"][0]["character"] = "CHARACTER.CUSTOM_CLASS"
+        self.store.upload(self.data)
+        self.assertEqual(self.store.runs({"character": ["CUSTOM_CLASS"]})["total"], 1)
+        self.assertEqual(self.store.runs({"character": ["WATCHER"]})["total"], 0)
+        for value in ("SILENT' OR 1=1 --", "x" * 181, "", "[]"):
+            with self.assertRaises(Invalid):
+                self.store.runs({"character": [value]})
+
     def test_parser_strips_shine_only_and_rejects_duplicate_keys(self):
         self.data["players"][0]["deck"][0]["props"] = {"ints": [
             {"name": "karen_shine_current", "value": 3}, {"name": "other", "value": 9}]}
@@ -286,6 +337,11 @@ class CollectorTests(unittest.TestCase):
                 self.assertEqual(request("/api/upload", b"{}", {"Content-Type": "application/json", "Content-Length": str(8 * 1024 * 1024 + 1)})[0], 413)
                 self.assertEqual(request("/api/upload-session", b"{}", {"Content-Type": "application/json"})[0], 400)
                 read = {"X-Observatory-Access": "r" * 32}
+                status, filtered = request("/api/runs?character=KAREN", headers=read)
+                self.assertEqual(status, 200)
+                self.assertEqual(json.loads(filtered)["total"], 1)
+                self.assertEqual(json.loads(request("/api/runs?character=SILENT", headers=read)[1])["total"], 0)
+                self.assertEqual(request("/api/runs?character=%27", headers=read)[0], 400)
                 status, raw = request("/api/runs/" + rid, headers=read)
                 self.assertEqual(status, 200)
                 self.assertEqual(json.loads(raw)["history"]["players"][0]["id"], "76561199000000001")
