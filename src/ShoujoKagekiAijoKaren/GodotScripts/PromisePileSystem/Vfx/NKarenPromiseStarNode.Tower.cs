@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
@@ -7,6 +8,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 public partial class NKarenPromiseStarNode
 {
     private static Texture2D? _towerTexture;
+    private readonly KarenVfxCanvasBatch _towerLights = new();
     private const float PaintedScale = 0.3475f;
     private static readonly Vector2 PaintedTipPixel = new(516, 19);
     private static readonly Vector2 PaintedSourcePixel = new(516, 718);
@@ -153,9 +155,9 @@ public partial class NKarenPromiseStarNode
                 // below a platform while the head has already emerged above it.
                 var from = PaintedPoint(start.Lerp(end, (fromDistance - travelled) / segment));
                 var to = PaintedPoint(start.Lerp(end, (toDistance - travelled) / segment));
-                DrawLine(from, to, new Color(LampAmber, glow * .14f), 22, true);
-                DrawLine(from, to, new Color(LampAmber, glow * .55f), 8, true);
-                DrawLine(from, to, new Color(White, glow * (.85f + _arrival * .15f)), 3.5f, true);
+                _towerLights.Line(from, to, new Color(LampAmber, glow * .14f), 22);
+                _towerLights.Line(from, to, new Color(LampAmber, glow * .55f), 8);
+                _towerLights.Line(from, to, new Color(White, glow * (.85f + _arrival * .15f)), 3.5f);
             }
             if (headDistance <= travelled + segment)
             {
@@ -170,6 +172,7 @@ public partial class NKarenPromiseStarNode
 
     private void DrawTower(float alpha)
     {
+        _towerLights.Clear(1f / Mathf.Max(.1f, GetGlobalTransformWithCanvas().X.Length()));
         float weight = KarenVfxComposition.AmbientWeight(_creature?.Entity);
         float ambientAlpha = alpha * Mathf.Lerp(weight, 1f, Mathf.Clamp(_arrival, 0f, 1f));
         // Recess the painted prop behind Karen without baking lights or count into it.
@@ -189,8 +192,8 @@ public partial class NKarenPromiseStarNode
         {
             var point = PaintedPoint(pixel);
             float light = alpha * (0.28f * weight + _pulse * 0.45f) * EntranceLampVisibility(point);
-            DrawCircle(point, 7, new Color(TowerRed, light * 0.18f));
-            DrawCircle(point, 2, new Color(White, light));
+            _towerLights.Circle(point, 7, new Color(TowerRed, light * 0.18f));
+            _towerLights.Circle(point, 2, new Color(White, light));
         }
         for (int i = 0; i < PaintedLegLamps.Length; i++)
         {
@@ -199,6 +202,7 @@ public partial class NKarenPromiseStarNode
             float light = ambientAlpha * (.22f + breath * .78f);
             DrawTowerLamp(point, 3.5f + breath * 1.3f, light);
         }
+        _towerLights.Flush(this);
         if (!UsingVoidIconOrbit && (_arrival > 0 || _departure > 0))
             DrawStar(PaintedSource, 8 + 8 * Mathf.Max(_arrival, _departure), White,
                 alpha * Mathf.Max(_arrival, _departure));
@@ -227,9 +231,9 @@ public partial class NKarenPromiseStarNode
                 var from = PaintedPoint(left.Lerp(right, local));
                 var to = PaintedPoint(left.Lerp(right, (i + 1f) / segments));
                 light *= EntranceLampVisibility(from.Lerp(to, .5f));
-                DrawLine(from, to, new Color(LampAmber, light * .13f), 20, true);
-                DrawLine(from, to, new Color(LampAmber, light * .7f), 7, true);
-                DrawLine(from, to, new Color(White, light), 3, true);
+                _towerLights.Line(from, to, new Color(LampAmber, light * .13f), 20);
+                _towerLights.Line(from, to, new Color(LampAmber, light * .7f), 7);
+                _towerLights.Line(from, to, new Color(White, light), 3);
                 if (i % 3 == 1) DrawTowerLamp(from, 2.5f, light);
             }
             travelled += length;
@@ -240,8 +244,8 @@ public partial class NKarenPromiseStarNode
     {
         light *= EntranceLampVisibility(point);
         for (int layer = 5; layer > 0; layer--)
-            DrawCircle(point, radius * layer, new Color(LampAmber, light * .055f * (6 - layer)));
-        DrawCircle(point, radius, new Color(LampAmber, light * .8f));
-        DrawCircle(point, radius * .5f, new Color(White, light));
+            _towerLights.Circle(point, radius * layer, new Color(LampAmber, light * .055f * (6 - layer)));
+        _towerLights.Circle(point, radius, new Color(LampAmber, light * .8f));
+        _towerLights.Circle(point, radius * .5f, new Color(White, light));
     }
 }

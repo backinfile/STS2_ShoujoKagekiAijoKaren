@@ -6,14 +6,14 @@ using ShoujoKagekiAijoKaren.src.Core.Utils;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
-/// <summary>The character's Wrath sparks and rotating aura, fitted to a hand card.</summary>
+/// <summary>The character's Wrath sparks and rotating aura, fitted to a hand or played card.</summary>
 public partial class NKarenBurnCardVfx : Node2D
 {
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
     }
-    internal static Godot.Resource?[] PreparedResources => [SparkTexture, AuraTexture];
+    internal static Godot.Resource?[] PreparedResources => [SparkTexture, AuraTexture, NKarenBurnCardParticleLayer.SharedMaterial];
 
     private static readonly Texture2D? SparkTexture = KarenResourceLoader.LoadTexture(
         "res://images/vfx/sts/glow_spark.png", nameof(NKarenBurnCardVfx));
@@ -21,12 +21,12 @@ public partial class NKarenBurnCardVfx : Node2D
         "res://images/vfx/sts/exhaust_l.png", nameof(NKarenBurnCardVfx));
     private readonly NCard _card;
     private readonly CardModel _model;
-    private readonly Node2D _sparks = new()
+    private readonly NKarenBurnCardParticleLayer _sparks = new(SparkTexture, aura: false)
     {
         Scale = Vector2.One * 0.72f,
         Modulate = new Color(1.15f, 1.03f, 0.98f, 0.72f)
     };
-    private readonly Node2D _smoke = new()
+    private readonly NKarenBurnCardParticleLayer _smoke = new(AuraTexture, aura: true)
     {
         Scale = Vector2.One * 0.60f,
         Modulate = new Color(1f, 1f, 1f, 0.30f)
@@ -60,25 +60,12 @@ public partial class NKarenBurnCardVfx : Node2D
         Vector2 anchor = GD.Randf() < 0.82f
             ? new Vector2(_left ? -142f : 142f, (float)GD.RandRange(-178, 192))
             : new Vector2((float)GD.RandRange(-125, 125), GD.Randf() < 0.25f ? -195f : 196f);
-        var spark = new NKarenWrathParticle(SparkTexture)
-        {
-            Position = anchor / _sparks.Scale,
-            // Keep card effects in the card's draw order, behind the next hand card.
-            ZIndex = 0
-        };
-        _sparks.AddChild(spark);
-        if (warmup > 0f) spark._Process(warmup);
+        _sparks.Emit(anchor / _sparks.Scale, warmup);
     }
 
     private void EmitAura(float warmup = 0f)
     {
-        var aura = new NKarenStanceAura(AuraTexture)
-        {
-            Position = new Vector2((float)GD.RandRange(-85, 85), (float)GD.RandRange(-115, 125)) / _smoke.Scale,
-            ZIndex = 0
-        };
-        _smoke.AddChild(aura);
-        if (warmup > 0f) aura._Process(warmup);
+        _smoke.Emit(new Vector2((float)GD.RandRange(-85, 85), (float)GD.RandRange(-115, 125)) / _smoke.Scale, warmup);
     }
 
     public override void _Process(double delta)
@@ -89,7 +76,7 @@ public partial class NKarenBurnCardVfx : Node2D
             QueueFree();
             return;
         }
-        Visible = _model.Pile?.Type == PileType.Hand;
+        Visible = _card.IsVisibleInTree() && _model.Pile?.Type is PileType.Hand or PileType.Play;
         if (!Visible) return;
         _sparkTimer -= (float)delta;
         _auraTimer -= (float)delta;

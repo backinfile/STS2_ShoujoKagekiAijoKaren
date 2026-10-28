@@ -15,9 +15,9 @@ public static class ShineVfx
 {
     // Canonical preview cards have no combat depletion state; their Owner getter requires mutability.
     public static bool WillDeplete(CardModel card, bool shineAlreadyDecreased = false) => card.IsMutable && card.IsShineCard() && !card.IsDupe
-        && !card.Keywords.Contains(CardKeyword.Eternal)
         && (card.GetShineValue() <= (shineAlreadyDecreased ? 0 : 1) || card.ShouldEnterShinePileAfterPlay()
-            || card.Owner?.Creature.Powers.Any(p => p is KarenStarlight02Power) == true);
+            || card.Owner?.Creature.Powers.Any(p => p is KarenStarlight02Power) == true)
+        && !card.Keywords.Contains(CardKeyword.Eternal);
 
     private static readonly SpireField<NCard, NKarenShineWarningVfx?> Warnings = new(() => null);
     private static readonly SpireField<NCard, NKarenShineAmbientVfx?> Ambients = new(() => null);

@@ -192,6 +192,7 @@ internal static class KarenVfxCatalog
         "ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx.NDisableRelicStarBurstVfx",
         "ShoujoKagekiAijoKaren.src.Core.Nodes.NKarenPileViewVfx",
         "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenBridgeVfx",
+        "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenBurnCardParticleLayer",
         "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenBurnCardVfx",
         "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenBurnVfx",
         "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenDrawPileDestroyVfx",
@@ -222,6 +223,7 @@ internal static class KarenVfxCatalog
         "ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes.NKarenShinePileArrivalVfx",
         "ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes.NKarenShineWarningVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenLightRibbon",
+        "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenAquariumVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenArrogantVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBackToBackVfx",
@@ -325,5 +327,7 @@ internal static class KarenVfxCatalog
         foreach (var r in ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenPastAndFutureRingVfx.PreparedResources) if (r != null) yield return r;
         ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx.PrepareResources();
         foreach (var r in ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx.PreparedResources) if (r != null) yield return r;
+        ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch.PrepareResources();
+        foreach (var r in ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch.PreparedResources) if (r != null) yield return r;
     }
 }

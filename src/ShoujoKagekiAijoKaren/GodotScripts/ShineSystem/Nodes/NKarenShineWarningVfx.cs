@@ -1,4 +1,5 @@
 using Godot;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
@@ -24,7 +25,7 @@ public partial class NKarenShineWarningVfx(NCard card, CardModel model) : Node2D
         public readonly float Life = life, Radius = radius, Phase = phase;
     }
     private readonly List<Spark> _sparks = new(40);
-    private readonly Vector2[] _star = new Vector2[8];
+    private readonly KarenVfxCanvasBatch _drawBatch = new();
     public bool BelongsTo(CardModel? candidate) => ReferenceEquals(candidate, model);
     public override void _Ready() => Visible = false;
 
@@ -72,41 +73,38 @@ public partial class NKarenShineWarningVfx(NCard card, CardModel model) : Node2D
 
     public override void _Draw()
     {
+        var canvas = GetGlobalTransformWithCanvas();
+        _drawBatch.Clear(1f / Mathf.Max(.1f, canvas.X.Length()));
         float pulse = .5f + .5f * Mathf.Sin(_age * 3.6f);
-        var gold = new Color("#ffcb62");
-        var hot = new Color("#fff4ce");
-        // Share the native frame contour with the ordinary light, at warning strength.
+        var gold = new Color("#ffcb62"); var hot = new Color("#fff4ce");
         if (_border.Outline.Length > 1)
         {
-            DrawPolyline(_border.Outline, new Color(gold, .08f + pulse * .10f), 20, true);
-            DrawPolyline(_border.Outline, new Color(gold, .25f + pulse * .25f), 7, true);
+            _drawBatch.Polyline(_border.Outline, new Color(gold, .08f + pulse * .10f), 20);
+            _drawBatch.Polyline(_border.Outline, new Color(gold, .25f + pulse * .25f), 7);
             for (int j = 0; j < 10; j++)
             {
                 float t = Mathf.PosMod(_age * (.065f + j * .003f) + j * .101f, 1);
                 float ember = Mathf.Sin(t * Mathf.Pi) * (.65f + .35f * Mathf.Sin(_age * 3.6f - j * .7f));
-                DrawPolyline(_border.Segment(t,18 + j % 3 * 6), new Color(hot, ember * .9f), 3.5f, true);
+                _drawBatch.Polyline(_border.Segment(t, 18 + j % 3 * 6), new Color(hot, ember * .9f), 3.5f);
             }
         }
-        var lastLight = GetGlobalTransformWithCanvas().AffineInverse() * _lightWorld;
+        var lastLight = canvas.AffineInverse() * _lightWorld;
         float radius = 13 + pulse * 5;
         for (int layer = 8; layer > 0; layer--)
-            DrawCircle(lastLight, radius * 2 * layer / 8f,
+            _drawBatch.Circle(lastLight, radius * 2 * layer / 8f,
                 new Color(gold, (.12f + pulse * .12f) * Mathf.Pow(1 - layer / 9f, 2)));
-        for (int i = 0; i < _star.Length; i++)
+        _drawBatch.Star(lastLight, radius, .23f, new Color(hot, .75f + pulse * .25f),
+            Mathf.Sin(_age * 1.5f) * .12f);
+        _drawBatch.SetTransform(canvas.AffineInverse());
+        foreach (var spark in _sparks)
         {
-            float angle = i * Mathf.Pi / 4 - Mathf.Pi / 2 + Mathf.Sin(_age * 1.5f) * .12f;
-            _star[i] = lastLight + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius * (i % 2 == 0 ? 1 : .23f);
+            float t = spark.Age / spark.Life;
+            float a = Mathf.Sin(Mathf.Min(1, t * 5) * Mathf.Pi / 2) * Mathf.Pow(1 - t, 1.2f);
+            _drawBatch.Circle(spark.Position, spark.Radius * 2.4f, new Color(gold, a * .16f));
+            _drawBatch.Line(spark.Position - spark.Velocity * .055f, spark.Position,
+                new Color(gold, a * .7f), spark.Radius * .7f);
+            _drawBatch.Circle(spark.Position, spark.Radius, new Color(hot, a));
         }
-        DrawColoredPolygon(_star, new Color(hot, .75f + pulse * .25f));
-        // Emit in viewport space: old embers keep drifting when the card translates,
-        // rotates or scales, instead of being rigidly carried by its next transform.
-        DrawSetTransformMatrix(GetGlobalTransformWithCanvas().AffineInverse());
-        foreach (var spark in _sparks) {
-            float t = spark.Age / spark.Life, a = Mathf.Sin(Mathf.Min(1, t * 5) * Mathf.Pi / 2) * Mathf.Pow(1 - t, 1.2f);
-            DrawCircle(spark.Position, spark.Radius * 2.4f, new Color(gold, a * .16f));
-            DrawLine(spark.Position - spark.Velocity * .055f, spark.Position, new Color(gold, a * .7f), spark.Radius * .7f, true);
-            DrawCircle(spark.Position, spark.Radius, new Color(hot, a));
-        }
-        DrawSetTransform(Vector2.Zero);
+        _drawBatch.Flush(this);
     }
 }

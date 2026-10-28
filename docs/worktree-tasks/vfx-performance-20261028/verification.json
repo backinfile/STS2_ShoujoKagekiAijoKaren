@@ -1,0 +1,1097 @@
+{
+  "date": "2026-10-28",
+  "base_commit": "f8b9c38c3f09f7073b0df5c4e36fe1a001a1596d",
+  "host": {
+    "platform": "Windows x64",
+    "gpu": "RTX 4060",
+    "resolution": [1920, 1080],
+    "vsync": false,
+    "max_fps": 0,
+    "fast_mode": "Normal",
+    "measurement": "Main-thread ProcessFrame wall-clock interval, milliseconds; isolated live-rendering desktop; HTTP responses settled before sampling.",
+    "limitations": ["New process per run; driver caches retained.", "The first combat uses random normal-run content; hand counts and effect operations are fixed.", "Allocation includes native-game managed code and the test probe.", "Instrumented WillDeplete calls may exclude inlined callers."]
+  },
+  "not_tested": ["Full multiplayer matrix", "Full VFX/release suite", "Android ARM64 device", "Player-reported hardware"],
+  "source_hash_format": "SHA-256 of UTF-8 source text normalized to LF",
+  "package_sha256": {
+    "baseline": {
+      "lib/ShoujoKagekiAijoKaren.Beta.dll": "8cee1b601b4862739ccd1a528e52a33a8cbe2a788b962a5975520eb24f64000b",
+      "lib/ShoujoKagekiAijoKaren.Stable.dll": "2f112fc4e9833898dffc631809a1f929ad67636b48f4145803a259a80d231b53",
+      "ShoujoKagekiAijoKaren.dll": "b69a114cffcedde9f15a8571e7280a43cd86e287824954bbd5093be6adc6feb2",
+      "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+      "ShoujoKagekiAijoKaren.pck": "3bf38039f05745c018360cc7995f6eb4531fa213c46fcfc331fee370b3120241"
+    },
+    "pre-burn": {
+      "lib/ShoujoKagekiAijoKaren.Beta.dll": "9e11d7d3c639807cbf973dd1d68896b4cf00dfb4f95e2e21f400e6559763dfba",
+      "lib/ShoujoKagekiAijoKaren.Stable.dll": "65fc7884089e3f38add4980b11d0589c9fbf798332a11ce53350928ff66344ac",
+      "ShoujoKagekiAijoKaren.dll": "5417fc6ed2fe5643da3467ea80d36aa493587468acc691d9694a0bc5a85f0e49",
+      "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+      "ShoujoKagekiAijoKaren.pck": "4bced0d9ffc312adc78f0c88ffca2528d89ab7a7b32faa0111e791ab595c46c2"
+    },
+    "candidate": {
+      "lib/ShoujoKagekiAijoKaren.Beta.dll": "c508bafeace7ed138a36700eac063f82ca2b7677b252466c2f89354b0faabebe",
+      "lib/ShoujoKagekiAijoKaren.Stable.dll": "ce2face88eeb130fa333a72a78e281a5710acdc3add46e7d172edc748a0b35f7",
+      "ShoujoKagekiAijoKaren.dll": "5417fc6ed2fe5643da3467ea80d36aa493587468acc691d9694a0bc5a85f0e49",
+      "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+      "ShoujoKagekiAijoKaren.pck": "20a0da00bbba6cabe7c7db852101dd4074e15778b75696b102dc0a077b30c553"
+    }
+  },
+  "case_columns": ["name", "frames", "median_ms", "p95_ms", "max_ms", "over_33_3_ms", "median_draw_calls", "managed_bytes_per_frame", "gc_0_1_2", "native_burn_sprites", "card_burn_layers"],
+  "runs": [
+    {
+      "id": "20261028-084148-stable-opengl3-baseline",
+      "branch": "stable",
+      "renderer": "opengl3",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-084148-stable-opengl3-baseline",
+      "package": "baseline",
+      "warmup": {
+        "resources": 307,
+        "rendered_batches": 30,
+        "elapsed_ms": 1677.7
+      },
+      "hand_checks_passed": 15,
+      "shine_regression": null,
+      "cases": [
+        ["tower-idle", 1980, 1.7018, 3.0291, 7.4007, 0, 357.0, 3319.5, [0, 0, 0], null, null],
+        ["tower-preview", 981, 4.0224, 6.0863, 10.552, 0, 697, 4521.4, [0, 0, 0], null, null],
+        ["form-applied", 520, 1.7481, 3.3859, 22.3919, 0, 366.0, 3989.6, [0, 0, 0], null, null],
+        ["form-idle", 2003, 1.6877, 3.0758, 4.9499, 0, 360, 3311.3, [0, 0, 0], null, null],
+        ["plain-draw", 1312, 2.3095, 3.8606, 45.8275, 1, 513.0, 12606.7, [1, 1, 1], null, null],
+        ["plain-idle", 1439, 2.3952, 3.796, 18.7768, 0, 609, 3305.4, [1, 1, 0], null, null],
+        ["shine-draw", 668, 4.3851, 8.8219, 26.4885, 0, 881.5, 42993.2, [2, 2, 0], null, null],
+        ["shine-idle", 479, 7.7863, 9.3838, 12.621, 0, 1504, 48604.0, [1, 1, 0], null, null],
+        ["warning-draw", 543, 5.3507, 11.7304, 22.0465, 0, 962, 43167.5, [1, 1, 0], null, null],
+        ["warning-idle", 345, 10.947, 12.2265, 18.8528, 0, 1965, 48740.1, [2, 2, 0], null, null],
+        ["recall", 590, 6.2246, 10.7078, 16.8815, 0, 805.0, 27533.1, [2, 2, 0], null, null]
+      ],
+      "long_frames": [
+        {
+          "case": "plain-draw",
+          "index": 730,
+          "elapsed_ms": 1784.639,
+          "frame_ms": 45.8275
+        }
+      ]
+    },
+    {
+      "id": "20261028-093813-stable-opengl3-all-final",
+      "branch": "stable",
+      "renderer": "opengl3",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-093813-stable-opengl3-all-final",
+      "package": "candidate",
+      "warmup": {
+        "resources": 308,
+        "rendered_batches": 30,
+        "elapsed_ms": 1626.4
+      },
+      "hand_checks_passed": 15,
+      "shine_regression": {
+        "checks": 58,
+        "templates": 25,
+        "failures": []
+      },
+      "cases": [
+        ["tower-idle", 4165, 0.8252, 1.595, 2.9082, 0, 225, 3912.3, [0, 0, 0], 0, 0],
+        ["tower-preview", 1665, 2.9277, 3.8638, 5.5213, 0, 571, 5701.3, [1, 1, 0], 0, 0],
+        ["form-applied", 1038, 0.8857, 1.7059, 20.9904, 0, 235.0, 5859.3, [1, 1, 0], 0, 0],
+        ["form-idle", 3917, 0.8542, 1.661, 22.859, 0, 227, 3925.2, [1, 1, 0], 0, 0],
+        ["plain-draw", 2368, 1.3525, 2.1428, 15.2117, 0, 385.0, 10951.3, [1, 1, 0], 0, 0],
+        ["plain-idle", 2358, 1.4697, 2.4941, 4.0094, 0, 477.0, 4433.9, [0, 0, 0], 0, 0],
+        ["shine-draw", 1796, 1.7994, 2.9201, 20.6204, 0, 497.0, 16180.9, [2, 2, 0], 0, 0],
+        ["shine-idle", 1717, 2.0639, 3.0035, 16.5431, 0, 652, 9425.8, [1, 1, 0], 0, 0],
+        ["warning-draw", 1734, 1.8243, 3.013, 18.0739, 0, 475.0, 40111.7, [4, 3, 0], 0, 0],
+        ["warning-idle", 1508, 2.3909, 3.4452, 6.4007, 0, 652.0, 50321.3, [4, 2, 0], 0, 0],
+        ["recall", 979, 3.7686, 5.97, 20.3395, 0, 692, 25651.4, [1, 1, 0], 0, 0]
+      ],
+      "long_frames": []
+    },
+    {
+      "id": "20261028-085435-beta-opengl3-baseline-final",
+      "branch": "beta",
+      "renderer": "opengl3",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-085435-beta-opengl3-baseline-final",
+      "package": "baseline",
+      "warmup": {
+        "resources": 307,
+        "rendered_batches": 30,
+        "elapsed_ms": 1657.5
+      },
+      "hand_checks_passed": 15,
+      "shine_regression": {
+        "checks": 58,
+        "templates": 25,
+        "failures": []
+      },
+      "cases": [
+        ["tower-idle", 2151, 1.5977, 2.7176, 33.2999, 0, 309, 6919.8, [1, 1, 0], null, null],
+        ["tower-preview", 1161, 3.7145, 4.8771, 7.6963, 0, 648, 4555.8, [0, 0, 0], null, null],
+        ["form-applied", 566, 1.6594, 2.9041, 7.2286, 0, 317.0, 3984.1, [0, 0, 0], null, null],
+        ["form-idle", 2149, 1.6149, 2.7225, 4.6285, 0, 312, 3380.9, [0, 0, 0], null, null],
+        ["plain-draw", 1346, 2.3778, 3.5589, 20.518, 0, 538.0, 12411.6, [1, 1, 0], null, null],
+        ["plain-idle", 1278, 2.8191, 4.0918, 14.1064, 0, 673.0, 3428.0, [1, 1, 1], null, null],
+        ["shine-draw", 682, 4.3606, 8.3229, 19.5187, 0, 874.5, 42681.7, [1, 1, 0], null, null],
+        ["shine-idle", 469, 7.972, 9.7053, 16.5152, 0, 1566, 48638.8, [1, 0, 0], null, null],
+        ["warning-draw", 532, 5.5137, 11.6848, 23.3368, 0, 969.0, 44067.5, [1, 1, 0], null, null],
+        ["warning-idle", 337, 11.2629, 12.1947, 18.7973, 0, 2025, 48842.2, [1, 1, 0], null, null],
+        ["recall", 578, 6.5672, 10.3726, 26.7115, 0, 810.0, 28148.4, [1, 1, 0], null, null]
+      ],
+      "long_frames": []
+    },
+    {
+      "id": "20261028-094007-beta-opengl3-all-final",
+      "branch": "beta",
+      "renderer": "opengl3",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-094007-beta-opengl3-all-final",
+      "package": "candidate",
+      "warmup": {
+        "resources": 308,
+        "rendered_batches": 30,
+        "elapsed_ms": 1660.5
+      },
+      "hand_checks_passed": 15,
+      "shine_regression": {
+        "checks": 58,
+        "templates": 25,
+        "failures": []
+      },
+      "cases": [
+        ["tower-idle", 4510, 0.7429, 1.4912, 34.4701, 1, 169.0, 4047.8, [1, 1, 0], 0, 0],
+        ["tower-preview", 1798, 2.7789, 3.6961, 5.0101, 0, 515.0, 5792.4, [1, 1, 0], 0, 0],
+        ["form-applied", 1098, 0.8409, 1.7864, 6.6101, 0, 183.0, 6023.9, [1, 1, 0], 0, 0],
+        ["form-idle", 4392, 0.7627, 1.5136, 23.5382, 0, 170.0, 3962.0, [1, 1, 0], 0, 0],
+        ["plain-draw", 2341, 1.3577, 2.2729, 21.932, 0, 399, 11137.5, [1, 1, 0], 0, 0],
+        ["plain-idle", 2298, 1.5117, 2.462, 3.5239, 0, 533.0, 4623.2, [0, 0, 0], 0, 0],
+        ["shine-draw", 1764, 1.828, 2.9844, 18.2794, 0, 506.0, 16509.2, [2, 2, 0], 0, 0],
+        ["shine-idle", 1645, 2.1505, 3.1515, 15.5825, 0, 705, 9703.6, [1, 1, 0], 0, 0],
+        ["warning-draw", 1698, 1.8476, 3.1467, 24.1061, 0, 475.0, 40076.4, [4, 3, 0], 0, 0],
+        ["warning-idle", 1474, 2.4039, 3.3745, 8.601, 0, 705.0, 50578.6, [4, 3, 0], 0, 0],
+        ["recall", 973, 3.7767, 5.989, 20.2675, 0, 711, 26186.4, [1, 1, 0], 0, 0]
+      ],
+      "long_frames": [
+        {
+          "case": "tower-idle",
+          "index": 1302,
+          "elapsed_ms": 1160.713,
+          "frame_ms": 34.4701,
+          "same_frame_gc_change": [1, 1, 0]
+        }
+      ]
+    },
+    {
+      "id": "20261028-085840-stable-vulkan-baseline-final",
+      "branch": "stable",
+      "renderer": "vulkan",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-085840-stable-vulkan-baseline-final",
+      "package": "baseline",
+      "warmup": {
+        "resources": 307,
+        "rendered_batches": 30,
+        "elapsed_ms": 1675.7
+      },
+      "hand_checks_passed": 15,
+      "shine_regression": {
+        "checks": 58,
+        "templates": 25,
+        "failures": []
+      },
+      "cases": [
+        ["tower-idle", 2695, 1.2477, 2.3257, 37.3359, 1, 353, 3350.1, [1, 1, 0], null, null],
+        ["tower-preview", 1360, 3.2811, 4.278, 25.5154, 0, 686.0, 4455.3, [1, 1, 0], null, null],
+        ["form-applied", 715, 1.2826, 2.4071, 22.3216, 0, 362, 3806.5, [0, 0, 0], null, null],
+        ["form-idle", 2706, 1.2648, 2.2831, 4.2272, 0, 355.0, 3344.0, [0, 0, 0], null, null],
+        ["plain-draw", 1895, 1.5427, 2.8582, 22.8359, 0, 508, 10727.9, [1, 1, 0], null, null],
+        ["plain-idle", 2168, 1.5575, 2.7643, 4.9312, 0, 605.0, 3344.3, [0, 0, 0], null, null],
+        ["shine-draw", 909, 3.3323, 6.2489, 18.8817, 0, 874, 39465.5, [2, 2, 0], null, null],
+        ["shine-idle", 633, 5.8788, 6.895, 12.7019, 0, 1503, 48582.2, [2, 2, 0], null, null],
+        ["warning-draw", 732, 3.914, 8.8074, 22.8196, 0, 963.0, 39195.2, [2, 2, 0], null, null],
+        ["warning-idle", 434, 8.655, 9.6001, 17.0626, 0, 1961.0, 48701.0, [2, 1, 0], null, null],
+        ["recall", 736, 4.8326, 8.6161, 21.1386, 0, 800.5, 24120.1, [1, 1, 0], null, null]
+      ],
+      "long_frames": [
+        {
+          "case": "tower-idle",
+          "index": 779,
+          "elapsed_ms": 1126.567,
+          "frame_ms": 37.3359,
+          "same_frame_gc_change": [1, 1, 0]
+        }
+      ]
+    },
+    {
+      "id": "20261028-094150-stable-vulkan-all-final",
+      "branch": "stable",
+      "renderer": "vulkan",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-094150-stable-vulkan-all-final",
+      "package": "candidate",
+      "warmup": {
+        "resources": 308,
+        "rendered_batches": 30,
+        "elapsed_ms": 1659.3
+      },
+      "hand_checks_passed": 15,
+      "shine_regression": {
+        "checks": 58,
+        "templates": 25,
+        "failures": []
+      },
+      "cases": [
+        ["tower-idle", 5293, 0.6212, 1.3729, 25.8871, 0, 207, 3805.6, [2, 2, 1], 0, 0],
+        ["tower-preview", 2162, 2.2964, 3.1509, 4.5029, 0, 554.0, 5434.7, [1, 1, 0], 0, 0],
+        ["form-applied", 1371, 0.6435, 1.4363, 22.2503, 0, 218, 5307.2, [1, 1, 0], 0, 0],
+        ["form-idle", 5297, 0.6231, 1.3747, 23.2061, 0, 209, 3791.0, [1, 1, 0], 0, 0],
+        ["plain-draw", 2917, 1.0729, 1.8916, 23.3542, 0, 366, 10121.7, [2, 2, 0], 0, 0],
+        ["plain-idle", 2782, 1.264, 2.0749, 19.0149, 0, 459.0, 4295.7, [1, 1, 0], 0, 0],
+        ["shine-draw", 2756, 1.1353, 2.0635, 22.1943, 0, 479.0, 13815.9, [2, 2, 0], 0, 0],
+        ["shine-idle", 2626, 1.2986, 2.1893, 14.8615, 0, 634.0, 8963.7, [2, 2, 1], 0, 0],
+        ["warning-draw", 2630, 1.1963, 2.1677, 19.1465, 0, 478.0, 38321.3, [6, 5, 0], 0, 0],
+        ["warning-idle", 2475, 1.3645, 2.3769, 9.7355, 0, 634, 49672.5, [8, 5, 0], 0, 0],
+        ["recall", 1212, 2.927, 5.1442, 22.6439, 0, 670.0, 22809.3, [2, 2, 0], 0, 0]
+      ],
+      "long_frames": []
+    },
+    {
+      "id": "20261028-092906-stable-opengl3-burn-baseline",
+      "branch": "stable",
+      "renderer": "opengl3",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-092906-stable-opengl3-burn-baseline",
+      "package": "pre-burn",
+      "warmup": {
+        "resources": 307,
+        "rendered_batches": 30,
+        "elapsed_ms": 1643.2
+      },
+      "hand_checks_passed": 6,
+      "shine_regression": {
+        "checks": 58,
+        "templates": 25,
+        "failures": []
+      },
+      "cases": [
+        ["tower-burn-idle", 2874, 1.1992, 2.1538, 4.1555, 0, 300.0, 4179.9, [0, 0, 0], 35, 0],
+        ["burn-recall", 869, 4.1228, 6.7728, 42.8558, 1, 814, 27178.7, [1, 1, 0], 271, 0],
+        ["burn-hand-idle", 1743, 2.0095, 3.0359, 4.1658, 0, 762, 6562.0, [0, 0, 0], 288, 0],
+        ["burn-hand-without-fire", 2059, 1.6909, 2.6595, 3.8247, 0, 605, 4744.4, [1, 1, 0], 269, 0],
+        ["burn-hand-restored", 1706, 2.0492, 3.0729, 22.4577, 0, 767.0, 6598.2, [1, 1, 0], 285, 0]
+      ],
+      "long_frames": [
+        {
+          "case": "burn-recall",
+          "index": 176,
+          "elapsed_ms": 530.193,
+          "frame_ms": 42.8558,
+          "same_frame_gc_change": [0, 0, 0]
+        }
+      ]
+    },
+    {
+      "id": "20261028-093500-stable-opengl3-burn-candidate",
+      "branch": "stable",
+      "renderer": "opengl3",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-093500-stable-opengl3-burn-candidate",
+      "package": "candidate",
+      "warmup": {
+        "resources": 308,
+        "rendered_batches": 30,
+        "elapsed_ms": 1648.9
+      },
+      "hand_checks_passed": 6,
+      "shine_regression": {
+        "checks": 58,
+        "templates": 25,
+        "failures": []
+      },
+      "cases": [
+        ["tower-burn-idle", 2845, 1.2014, 2.0902, 32.9563, 0, 305, 6687.2, [1, 1, 0], 37, 0],
+        ["burn-recall", 880, 4.1162, 6.8067, 24.5033, 0, 785.5, 27173.5, [2, 2, 1], 34, 20],
+        ["burn-hand-idle", 1869, 1.8897, 2.9046, 4.202, 0, 639, 6394.5, [0, 0, 0], 36, 20],
+        ["burn-hand-without-fire", 2086, 1.6797, 2.6394, 3.9558, 0, 610.0, 4710.1, [1, 1, 0], 37, 20],
+        ["burn-hand-restored", 1848, 1.8926, 2.9002, 22.1496, 0, 640.0, 6409.9, [1, 1, 0], 32, 20]
+      ],
+      "long_frames": []
+    },
+    {
+      "id": "20261028-094341-beta-opengl3-burn-candidate",
+      "branch": "beta",
+      "renderer": "opengl3",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-094341-beta-opengl3-burn-candidate",
+      "package": "candidate",
+      "warmup": {
+        "resources": 308,
+        "rendered_batches": 30,
+        "elapsed_ms": 1628.5
+      },
+      "hand_checks_passed": 6,
+      "shine_regression": {
+        "checks": 58,
+        "templates": 25,
+        "failures": []
+      },
+      "cases": [
+        ["tower-burn-idle", 3133, 1.0777, 2.0859, 33.1754, 0, 228, 6348.2, [1, 1, 0], 36, 0],
+        ["burn-recall", 924, 3.929, 6.5549, 22.745, 0, 723.0, 26503.1, [1, 1, 0], 34, 20],
+        ["burn-hand-idle", 1859, 1.9003, 2.8145, 3.5175, 0, 664, 6434.4, [0, 0, 0], 35, 20],
+        ["burn-hand-without-fire", 2065, 1.6856, 2.6312, 3.4739, 0, 634, 4757.1, [1, 1, 0], 37, 20],
+        ["burn-hand-restored", 1843, 1.8999, 2.8166, 21.8296, 0, 663, 6441.9, [1, 1, 0], 35, 20]
+      ],
+      "long_frames": []
+    }
+  ],
+  "log_audit": [
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-084148-stable-opengl3-baseline/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 266,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-093813-stable-opengl3-all-final/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 266,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-085435-beta-opengl3-baseline-final/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 265,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-094007-beta-opengl3-all-final/godot.log",
+      "known_preload_worker_pool_error_lines": [261, 263, 265],
+      "common_preload_complete_line": 271,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-085840-stable-vulkan-baseline-final/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 264,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-094150-stable-vulkan-all-final/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 264,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-092906-stable-opengl3-burn-baseline/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 266,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-093500-stable-opengl3-burn-candidate/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 266,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-094341-beta-opengl3-burn-candidate/godot.log",
+      "known_preload_worker_pool_error_lines": [261],
+      "common_preload_complete_line": 267,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-092402-stable-opengl3-burn-before/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 266,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-093414-stable-opengl3-burn-after/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 266,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-093731-beta-opengl3-burn-after/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 265,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261028-100343/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 266,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-first-use-20261022/runs/beta-20261028-100428/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 265,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/test-promise-visuals/20261028-020513-stable-a42a1c/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 265,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/test-promise-visuals/20261028-020547-beta-3674ec/godot.log",
+      "known_preload_worker_pool_error_lines": [262],
+      "common_preload_complete_line": 266,
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-095528-stable-opengl3-video-before/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 270,
+      "post_recording_probe_cleanup_error_lines": [468, 473, 476],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-095719-stable-opengl3-video-after/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "common_preload_complete_line": 270,
+      "post_recording_probe_cleanup_error_lines": [488, 493, 496],
+      "unexpected_error_lines": []
+    },
+    {
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-101507-stable-opengl3-clock-cleanup-check/godot.log",
+      "known_preload_worker_pool_error_lines": [],
+      "post_recording_probe_cleanup_error_lines": [],
+      "unexpected_error_lines": []
+    }
+  ],
+  "burn_regression": [
+    {
+      "branch": "stable",
+      "package": "pre-burn",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-092402-stable-opengl3-burn-before",
+      "expected_pass": false,
+      "checks": [
+        {
+          "case": "drag",
+          "passed": true,
+          "marked": true,
+          "pile": "Hand",
+          "PlayFrames": 0,
+          "PlayVisible": 0,
+          "FireVisible": 0,
+          "DragFrames": 63,
+          "DragFire": 63
+        },
+        {
+          "case": "play",
+          "passed": false,
+          "marked": true,
+          "pile": "Play",
+          "PlayFrames": 80,
+          "PlayVisible": 80,
+          "FireVisible": 1,
+          "DragFrames": 0,
+          "DragFire": 0
+        },
+        {
+          "case": "cleanup",
+          "passed": true,
+          "marked": true,
+          "pile": "Exhaust",
+          "PlayFrames": 89,
+          "PlayVisible": 89,
+          "FireVisible": 1,
+          "DragFrames": 0,
+          "DragFire": 0
+        }
+      ]
+    },
+    {
+      "branch": "stable",
+      "package": "candidate",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-093414-stable-opengl3-burn-after",
+      "expected_pass": true,
+      "checks": [
+        {
+          "case": "drag",
+          "passed": true,
+          "marked": true,
+          "pile": "Hand",
+          "PlayFrames": 0,
+          "PlayVisible": 0,
+          "FireVisible": 0,
+          "DragFrames": 63,
+          "DragFire": 63
+        },
+        {
+          "case": "play",
+          "passed": true,
+          "marked": true,
+          "pile": "Play",
+          "PlayFrames": 80,
+          "PlayVisible": 80,
+          "FireVisible": 80,
+          "DragFrames": 0,
+          "DragFire": 0
+        },
+        {
+          "case": "cleanup",
+          "passed": true,
+          "marked": true,
+          "pile": "Exhaust",
+          "PlayFrames": 87,
+          "PlayVisible": 87,
+          "FireVisible": 87,
+          "DragFrames": 0,
+          "DragFire": 0
+        }
+      ]
+    },
+    {
+      "branch": "beta",
+      "package": "candidate",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-093731-beta-opengl3-burn-after",
+      "expected_pass": true,
+      "checks": [
+        {
+          "case": "drag",
+          "passed": true,
+          "marked": true,
+          "pile": "Hand",
+          "PlayFrames": 0,
+          "PlayVisible": 0,
+          "FireVisible": 0,
+          "DragFrames": 62,
+          "DragFire": 62
+        },
+        {
+          "case": "play",
+          "passed": true,
+          "marked": true,
+          "pile": "Play",
+          "PlayFrames": 83,
+          "PlayVisible": 83,
+          "FireVisible": 83,
+          "DragFrames": 0,
+          "DragFire": 0
+        },
+        {
+          "case": "cleanup",
+          "passed": true,
+          "marked": true,
+          "pile": "Exhaust",
+          "PlayFrames": 90,
+          "PlayVisible": 90,
+          "FireVisible": 90,
+          "DragFrames": 0,
+          "DragFire": 0
+        }
+      ]
+    }
+  ],
+  "burn_regression_notes": ["Play test uses real Burn, Tower draw and upgraded Fall waiting for a two-of-three selection.", "Drag checks observe native node/effect visibility in the tree; pointer position was outside the viewport. On-screen Play visibility is separately verified with screenshots and video.", "Card leaves Play for Exhaust; overlays become hidden and hand model/node checks pass."],
+  "first_use": [
+    {
+      "branch": "stable",
+      "evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261028-100343",
+      "package": "candidate",
+      "display_settings": "Native saved display settings; roughly 60 Hz pacing; explicit VSync state not sampled.",
+      "resolution": [1280, 720],
+      "passes": [
+        {
+          "status": "done",
+          "effect": "shine",
+          "syncMs": 5.1093,
+          "allocated": 586184,
+          "drawn": 71,
+          "frames": 71,
+          "maxMs": 16.6888,
+          "medianMs": 16.6652,
+          "over33": 0,
+          "outlinePoints": 181,
+          "preparedContours": 5,
+          "pass": 0
+        },
+        {
+          "status": "done",
+          "effect": "shine",
+          "syncMs": 1.1068,
+          "allocated": 559352,
+          "drawn": 71,
+          "frames": 71,
+          "maxMs": 16.6844,
+          "medianMs": 16.6656,
+          "over33": 0,
+          "outlinePoints": 181,
+          "preparedContours": 5,
+          "pass": 1
+        }
+      ]
+    },
+    {
+      "branch": "beta",
+      "evidence": "artifacts/vfx-first-use-20261022/runs/beta-20261028-100428",
+      "package": "candidate",
+      "display_settings": "Native saved display settings; roughly 60 Hz pacing; explicit VSync state not sampled.",
+      "resolution": [1280, 720],
+      "passes": [
+        {
+          "status": "done",
+          "effect": "shine",
+          "syncMs": 1.6418,
+          "allocated": 577824,
+          "drawn": 71,
+          "frames": 71,
+          "maxMs": 16.7642,
+          "medianMs": 16.6658,
+          "over33": 0,
+          "outlinePoints": 181,
+          "preparedContours": 5,
+          "pass": 0
+        },
+        {
+          "status": "done",
+          "effect": "shine",
+          "syncMs": 0.9551,
+          "allocated": 545240,
+          "drawn": 71,
+          "frames": 71,
+          "maxMs": 16.9011,
+          "medianMs": 16.6663,
+          "over33": 0,
+          "outlinePoints": 181,
+          "preparedContours": 5,
+          "pass": 1
+        }
+      ]
+    }
+  ],
+  "promise_flow": [
+    {
+      "video": null,
+      "result": "pass",
+      "placementFailures": [],
+      "selected": "KAREN_DEFEND",
+      "countBefore": 4,
+      "countAfterFall": 3,
+      "countAfterTower": 4,
+      "branch": "stable",
+      "package": "candidate",
+      "evidence": "artifacts/test-promise-visuals/20261028-020513-stable-a42a1c",
+      "hand_checks_passed": 4
+    },
+    {
+      "video": null,
+      "result": "pass",
+      "placementFailures": [],
+      "selected": "KAREN_DEFEND",
+      "countBefore": 3,
+      "countAfterFall": 2,
+      "countAfterTower": 3,
+      "branch": "beta",
+      "package": "candidate",
+      "evidence": "artifacts/test-promise-visuals/20261028-020547-beta-3674ec",
+      "hand_checks_passed": 4
+    }
+  ],
+  "comparison_video": {
+    "video": "artifacts/vfx-performance-20261028/comparison-video/vfx-before-after.mp4",
+    "sha256": "4b277190f430a8e94fe7bb5f480775522cb351be4990bd0dc40001224f7f51b9",
+    "width": 1920,
+    "height": 1080,
+    "duration_seconds": 38.0,
+    "fps": "30/1",
+    "audio": false,
+    "segments": [
+      {
+        "id": "01-rim",
+        "title": "普通闪耀牌：去掉四段游走线",
+        "seconds": 5,
+        "view": "portrait"
+      },
+      {
+        "id": "02-form-shine",
+        "title": "觉醒形态：十张普通闪耀牌",
+        "seconds": 5,
+        "view": "battle"
+      },
+      {
+        "id": "03-form-warning",
+        "title": "觉醒形态：十张临界闪耀牌",
+        "seconds": 5,
+        "view": "battle"
+      },
+      {
+        "id": "04-tower",
+        "title": "约定之塔：灯光与持续预览",
+        "seconds": 5,
+        "view": "battle"
+      },
+      {
+        "id": "05-recall",
+        "title": "约定之塔：十张牌回手",
+        "seconds": 5,
+        "view": "battle"
+      },
+      {
+        "id": "06-burn-hand",
+        "title": "燃烧卡面：手牌中的火花与烟雾",
+        "seconds": 4,
+        "view": "hand"
+      },
+      {
+        "id": "07-burn-play",
+        "title": "燃烧卡面：进入打出区",
+        "seconds": 5,
+        "view": "play"
+      },
+      {
+        "id": "08-burn-ten",
+        "title": "十张燃烧牌：减少粒子节点",
+        "seconds": 4,
+        "view": "battle"
+      }
+    ],
+    "before_evidence": "artifacts/vfx-performance-20261028/runs/20261028-095528-stable-opengl3-video-before",
+    "after_evidence": "artifacts/vfx-performance-20261028/runs/20261028-095719-stable-opengl3-video-after",
+    "same_initial_save_and_enemy": true,
+    "timing_separate_from_capture": true,
+    "capture_probe_cleanup_note": "Both recordings logged a test-only clock-off callback exception after all clips stopped; clip clock continuity checks passed. Temporary observer now guards a late callback; dedicated cleanup check saved separately.",
+    "visual_review": "Eight sections checked from exported video frames; labels, framing and final burn Play difference visible. Clock pixels cropped out.",
+    "clip_checks": [
+      {
+        "side": "before",
+        "scene": "01-rim",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.964023130082733,
+        "frames_written": 152,
+        "frames_dropped": 0,
+        "frames_repeated": 1,
+        "decoded_frames": 152,
+        "clock_seconds": 5.0,
+        "video_seconds": 5.033333,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.040000000000000036,
+        "drift_seconds": 0.033332999999999835,
+        "passed": true
+      },
+      {
+        "side": "before",
+        "scene": "02-form-shine",
+        "encoder": "h264_nvenc",
+        "capture_fps": 30.094910553919696,
+        "frames_written": 154,
+        "frames_dropped": 0,
+        "frames_repeated": 0,
+        "decoded_frames": 154,
+        "clock_seconds": 5.100000000000001,
+        "video_seconds": 5.1,
+        "longest_unchanged_seconds": 0.03333333333333333,
+        "max_clock_jump_seconds": 0.0400000000000027,
+        "drift_seconds": 1.7763568394002505e-15,
+        "passed": true
+      },
+      {
+        "side": "before",
+        "scene": "03-form-warning",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.69858549201132,
+        "frames_written": 152,
+        "frames_dropped": 0,
+        "frames_repeated": 2,
+        "decoded_frames": 152,
+        "clock_seconds": 4.9999999999999964,
+        "video_seconds": 5.033333,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.060000000000002274,
+        "drift_seconds": 0.03333300000000339,
+        "passed": true
+      },
+      {
+        "side": "before",
+        "scene": "04-tower",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.668686807551396,
+        "frames_written": 152,
+        "frames_dropped": 0,
+        "frames_repeated": 2,
+        "decoded_frames": 152,
+        "clock_seconds": 5.019999999999996,
+        "video_seconds": 5.033333,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.05000000000000426,
+        "drift_seconds": 0.013333000000003814,
+        "passed": true
+      },
+      {
+        "side": "before",
+        "scene": "05-recall",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.915986598034245,
+        "frames_written": 152,
+        "frames_dropped": 0,
+        "frames_repeated": 1,
+        "decoded_frames": 152,
+        "clock_seconds": 5.0,
+        "video_seconds": 5.033333,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.04000000000000625,
+        "drift_seconds": 0.033332999999999835,
+        "passed": true
+      },
+      {
+        "side": "before",
+        "scene": "06-burn-hand",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.915611052781212,
+        "frames_written": 121,
+        "frames_dropped": 0,
+        "frames_repeated": 1,
+        "decoded_frames": 121,
+        "clock_seconds": 3.969999999999999,
+        "video_seconds": 4.0,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.04000000000000625,
+        "drift_seconds": 0.030000000000001137,
+        "passed": true
+      },
+      {
+        "side": "before",
+        "scene": "07-burn-play",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.972940153562806,
+        "frames_written": 153,
+        "frames_dropped": 0,
+        "frames_repeated": 1,
+        "decoded_frames": 153,
+        "clock_seconds": 5.039999999999992,
+        "video_seconds": 5.066667,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.04999999999999716,
+        "drift_seconds": 0.026667000000007768,
+        "passed": true
+      },
+      {
+        "side": "before",
+        "scene": "08-burn-ten",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.27833373529012,
+        "frames_written": 121,
+        "frames_dropped": 0,
+        "frames_repeated": 3,
+        "decoded_frames": 121,
+        "clock_seconds": 4.0,
+        "video_seconds": 4.0,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.07000000000000739,
+        "drift_seconds": 0.0,
+        "passed": true
+      },
+      {
+        "side": "after",
+        "scene": "01-rim",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.90013653399013,
+        "frames_written": 151,
+        "frames_dropped": 0,
+        "frames_repeated": 1,
+        "decoded_frames": 151,
+        "clock_seconds": 5.0,
+        "video_seconds": 5.0,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.06999999999999984,
+        "drift_seconds": 0.0,
+        "passed": true
+      },
+      {
+        "side": "after",
+        "scene": "02-form-shine",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.880509820071243,
+        "frames_written": 152,
+        "frames_dropped": 0,
+        "frames_repeated": 1,
+        "decoded_frames": 152,
+        "clock_seconds": 5.0,
+        "video_seconds": 5.033333,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.0400000000000027,
+        "drift_seconds": 0.033332999999999835,
+        "passed": true
+      },
+      {
+        "side": "after",
+        "scene": "03-form-warning",
+        "encoder": "h264_nvenc",
+        "capture_fps": 30.030526029709197,
+        "frames_written": 152,
+        "frames_dropped": 0,
+        "frames_repeated": 0,
+        "decoded_frames": 152,
+        "clock_seconds": 5.029999999999998,
+        "video_seconds": 5.033333,
+        "longest_unchanged_seconds": 0.03333333333333333,
+        "max_clock_jump_seconds": 0.04000000000000625,
+        "drift_seconds": 0.003333000000002251,
+        "passed": true
+      },
+      {
+        "side": "after",
+        "scene": "04-tower",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.94870520640588,
+        "frames_written": 152,
+        "frames_dropped": 0,
+        "frames_repeated": 1,
+        "decoded_frames": 152,
+        "clock_seconds": 5.0,
+        "video_seconds": 5.033333,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.04000000000000625,
+        "drift_seconds": 0.033332999999999835,
+        "passed": true
+      },
+      {
+        "side": "after",
+        "scene": "05-recall",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.89881015011935,
+        "frames_written": 152,
+        "frames_dropped": 0,
+        "frames_repeated": 1,
+        "decoded_frames": 152,
+        "clock_seconds": 5.0,
+        "video_seconds": 5.033333,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.04000000000000625,
+        "drift_seconds": 0.033332999999999835,
+        "passed": true
+      },
+      {
+        "side": "after",
+        "scene": "06-burn-hand",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.914376827067304,
+        "frames_written": 121,
+        "frames_dropped": 0,
+        "frames_repeated": 1,
+        "decoded_frames": 121,
+        "clock_seconds": 3.9599999999999937,
+        "video_seconds": 4.0,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.04000000000000625,
+        "drift_seconds": 0.04000000000000625,
+        "passed": true
+      },
+      {
+        "side": "after",
+        "scene": "07-burn-play",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.449432840244462,
+        "frames_written": 153,
+        "frames_dropped": 0,
+        "frames_repeated": 3,
+        "decoded_frames": 153,
+        "clock_seconds": 5.060000000000002,
+        "video_seconds": 5.066667,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.0799999999999983,
+        "drift_seconds": 0.006666999999997536,
+        "passed": true
+      },
+      {
+        "side": "after",
+        "scene": "08-burn-ten",
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.646893293332116,
+        "frames_written": 121,
+        "frames_dropped": 0,
+        "frames_repeated": 2,
+        "decoded_frames": 121,
+        "clock_seconds": 3.9599999999999937,
+        "video_seconds": 4.0,
+        "longest_unchanged_seconds": 0.06666666666666667,
+        "max_clock_jump_seconds": 0.05999999999998806,
+        "drift_seconds": 0.04000000000000625,
+        "passed": true
+      }
+    ],
+    "clock_cleanup_regression": {
+      "passed": true,
+      "clock_on_off_cycles": 8,
+      "errors": 0,
+      "log": "godot.log",
+      "evidence": "artifacts/vfx-performance-20261028/runs/20261028-101507-stable-opengl3-clock-cleanup-check"
+    }
+  },
+  "visual_review": {
+    "passed": true,
+    "checks": ["ordinary Shine has no four moving rim segments; soft gold rim and top star remain", "last-Shine warning and hover remain distinct", "tower lights remain attached; gold/blue recall trails follow native cards", "final Fall/Tower/replay screenshots inspected on stable and beta", "final burn Play screenshots inspected; video displays before/after difference"],
+    "evidence": ["artifacts/test-promise-visuals/20261028-020513-stable-a42a1c", "artifacts/test-promise-visuals/20261028-020547-beta-3674ec", "artifacts/vfx-performance-20261028/runs/20261028-093414-stable-opengl3-burn-after", "artifacts/vfx-performance-20261028/runs/20261028-093731-beta-opengl3-burn-after", "artifacts/vfx-performance-20261028/comparison-video/vfx-before-after.mp4"]
+  },
+  "source_sha256": {
+    "src/Core/ShineSystem/ShineCardBorder.cs": "842deae805b27edf6576bb99f22f8106a9e018dcc8f044b2bc7c21b330fc98f5",
+    "src/Core/ShineSystem/ShineVfx.cs": "e8487b37d0bd5fac1fd5c4831cf13fe8d498caaac944ae23f9082801a1b4e686",
+    "src/Core/Vfx/KarenVfxCanvasBatch.cs": "d9bcb758caeb297845a0d25f1d338fbcdc4cf674a889646695fb8d1898361ab1",
+    "src/Core/Vfx/KarenVfxCanvasBatch.cs.uid": "e276fb221d08fa14b095acd24fc9849b9e9548775ad974c11148f4bae859f6ca",
+    "src/Core/Vfx/KarenVfxCatalog.g.cs": "072b2a1660b0f41c169446e248717cdb1466698039cde876db72d3e31d57b996",
+    "src/Core/Vfx/KarenVfxWarmup.cs": "8582f24e26396ab579bda44612dab10c7254e270716f8186a388f918c008cded",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenPromiseStarNode.Tower.cs": "73d7aa7428822c794d87f6e4cda3e8ea6009f8cfe94d3a1d3ef4f476f7ff54a7",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenTowerRecallCardVfx.cs": "d3b1a6f56d04a9ae7d0088abe776b4fd4577d48701830b94f3cf24dfa4360477",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/ShineSystem/Nodes/NKarenShineAmbientVfx.cs": "5818e92ae90d8e227e4bc1a8c6b893339c302878d3d3adc7e84707f7db386d81",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/ShineSystem/Nodes/NKarenShineWarningVfx.cs": "3e3b2097a3dd70acccb7aa6421852a807a2810276144ed2be1e274fc17d47420",
+    "tools/vfx/first-use/catalog.py": "2d249480f2a22243e8caa9d71804353966fc8157e64a88fb12d97ea1553a572c",
+    "tools/vfx/first-use/resource-owners.json": "9975f1bb712d5e6ed17a55a775eb6ed730847eea2d079befee2a1baf2640d0c6",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBurnCardVfx.cs": "4331406742874fdc7faf6a57c239e6374c42399c92cb837e37cc50de13aaa295",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBurnCardParticleLayer.cs": "0c2f8d043cf151914b4c0cd8ce6cdc846518835f66d21e6e7661b99a1c0bb9a3",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBurnCardParticleLayer.cs.uid": "ba809c10e5138c72ff0a82ce62a73264b9cc563e4f08a7c8c6449c89543cfa1f",
+    "tools/promise-transform/BurnCardVfxCmd.cs": "7d28463bd4dd212242f0d4de081ee982a3e6088d225f9d5a495a0cf06059ed11"
+  },
+  "build": {
+    "desktop_dual_export": "passed",
+    "stable": {
+      "warnings": 34,
+      "errors": 0
+    },
+    "beta": {
+      "warnings": 34,
+      "errors": 0
+    },
+    "loader": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "burn_test_command_compile": {
+      "stable": "passed",
+      "beta": "passed"
+    },
+    "catalog": {
+      "types": 72,
+      "shared_owners": 38,
+      "assets": 167
+    },
+    "test_plugin_in_final_package": false
+  },
+  "document_review": {
+    "tracked_documents": 478,
+    "local_absolute_path_findings": 0,
+    "server_deployment_path_false_positives_reviewed": 6,
+    "tracked_file_privacy_scan": {
+      "files": 6125,
+      "findings": 0
+    },
+    "staged_privacy_check": {
+      "files": 6132,
+      "command": "python tools/check_git_privacy.py --staged",
+      "findings": 0
+    }
+  },
+  "iteration_note": "An earlier superseded candidate recorded one 72.3815 ms Shine-draw frame without per-frame GC counters. The current final package was rechecked with per-frame counters; no >33.3 ms draw/recall frame was recorded in the three final comparisons. The isolated earlier spike remains unattributed.",
+  "original_uncommitted_entries_preserved": 21
+}

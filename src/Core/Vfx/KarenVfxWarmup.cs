@@ -19,6 +19,7 @@ internal static class KarenVfxWarmup
 {
     private static Task? _pending;
     private static readonly Texture2D WhiteTexture = new GradientTexture2D { Width=2, Height=2, Gradient=new Gradient { Colors=[Colors.White,Colors.White] } };
+    internal static Texture2D PrimitiveTexture => WhiteTexture;
     private static readonly ParticleProcessMaterial CanvasParticles = new() { ParticleFlagDisableZ=true, Gravity=Vector3.Zero };
     // Strong references also keep procedural textures and shader variants alive across rooms.
     private static readonly Dictionary<ulong, Resource> Resources = new();
@@ -210,10 +211,20 @@ internal static class KarenVfxWarmup
 // Render only primitives; constructing gameplay VFX would fire hooks, sounds and ownership cleanup.
 internal partial class KarenVfxWarmupCanvas : Node2D
 {
+    private readonly KarenVfxCanvasBatch _batch = new();
+
     public override void _Draw()
     {
         DrawRect(new Rect2(8,8,48,48), Colors.White);
         DrawLine(new Vector2(8,64),new Vector2(96,72),Colors.White,2,true);
         DrawColoredPolygon([new(64,8),new(112,32),new(64,56)],Colors.White);
+        _batch.Clear();
+        _batch.Line(new Vector2(8, 88), new Vector2(96, 96), Colors.White, 3);
+        _batch.Circle(new Vector2(96, 96), 6, Colors.White);
+        _batch.Star(new Vector2(48, 96), 8, .22f, Colors.White);
+        _batch.Flush(this);
+        _batch.Clear();
+        _batch.Quad(new Vector2(112, 112), new Vector2(8, 8), 0, Colors.White);
+        _batch.Flush(this, KarenVfxWarmup.PrimitiveTexture);
     }
 }

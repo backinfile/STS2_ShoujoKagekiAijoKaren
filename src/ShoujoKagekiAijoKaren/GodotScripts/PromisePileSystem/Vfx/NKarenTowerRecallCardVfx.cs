@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -18,6 +19,8 @@ public partial class NKarenTowerRecallCardVfx : Node2D
     private readonly record struct TrailPoint(Vector2 Position, float Age, float Distance);
     private readonly List<TrailPoint> _trail = new();
     private readonly Vector2[] _outline = new Vector2[5];
+    private readonly Vector2[] _ribbonPoints = new Vector2[48];
+    private readonly KarenVfxCanvasBatch _ribbonBatch = new();
     private static readonly Color Gold = new("#ffc774");
     private static readonly Color Blue = new("#a4d2ff");
     private static readonly Color White = new("#fff5db");
@@ -69,22 +72,29 @@ public partial class NKarenTowerRecallCardVfx : Node2D
         var inverse = GetGlobalTransformWithCanvas().AffineInverse();
         float after = _landedAt < 0 ? 0 : _age - _landedAt;
         float tail = 1 - Mathf.Clamp(after / (_arrivalDuration * 0.55f), 0, 1);
+        _ribbonBatch.Clear();
+        float viewportScale = GetViewport().GetVisibleRect().Size.Y / 1080f;
         // Both ribbons follow observations of the native NCard; the card itself
         // remains owned, positioned and pooled entirely by the native hand.
         for (int ribbon = 0; ribbon < 2; ribbon++)
-        for (int i = 1; i < _trail.Count; i++)
         {
-            float alpha = Mathf.Sin(i / (float)_trail.Count * Mathf.Pi * 0.7f) * tail;
-            var from = RibbonPoint(i - 1, ribbon, inverse);
-            var to = RibbonPoint(i, ribbon, inverse);
-            Color tint = ribbon == 0 ? Gold : Blue;
-            DrawLine(from, to, new Color(tint, alpha * 0.085f), 20, true);
-            DrawLine(from, to, new Color(tint, alpha * 0.20f), 9, true);
-            DrawLine(from, to, new Color(tint, alpha * 0.95f), 4.2f, true);
-            DrawLine(from, to, new Color(White, alpha * 0.45f), 0.75f, true);
+            for (int i = 0; i < _trail.Count; i++)
+                _ribbonPoints[i] = RibbonPoint(i, ribbon, inverse, viewportScale);
+            for (int i = 1; i < _trail.Count; i++)
+            {
+                float alpha = Mathf.Sin(i / (float)_trail.Count * Mathf.Pi * 0.7f) * tail;
+                var from = _ribbonPoints[i - 1];
+                var to = _ribbonPoints[i];
+                Color tint = ribbon == 0 ? Gold : Blue;
+                _ribbonBatch.Line(from, to, new Color(tint, alpha * 0.085f), 20);
+                _ribbonBatch.Line(from, to, new Color(tint, alpha * 0.20f), 9);
+                _ribbonBatch.Line(from, to, new Color(tint, alpha * 0.95f), 4.2f);
+                _ribbonBatch.Line(from, to, new Color(White, alpha * 0.45f), 0.75f);
+            }
         }
+        _ribbonBatch.Flush(this);
         for (int i = 3; i < _trail.Count - 2; i += 7)
-            NKarenPromiseStarNode.DrawPromiseStar(this, RibbonPoint(i, i % 2, inverse), 4.5f,
+            NKarenPromiseStarNode.DrawPromiseStar(this, RibbonPoint(i, i % 2, inverse, viewportScale), 4.5f,
                 i % 2 == 0 ? Gold : Blue, tail * i / _trail.Count * 0.65f);
         if (_landedAt < 0) return;
         float progress = Mathf.Clamp(after / _arrivalDuration, 0, 1);
@@ -105,7 +115,7 @@ public partial class NKarenTowerRecallCardVfx : Node2D
         DrawCircle(upperEdge, 3, new Color(White, light));
     }
 
-    private Vector2 RibbonPoint(int index, int ribbon, Transform2D inverse)
+    private Vector2 RibbonPoint(int index, int ribbon, Transform2D inverse, float scale)
     {
         var sample = _trail[index];
         var before = _trail[System.Math.Max(0, index - 1)].Position;
@@ -115,7 +125,6 @@ public partial class NKarenTowerRecallCardVfx : Node2D
         float twist = Mathf.Sin(sample.Distance * 0.035f - _age * 7 + ribbon * Mathf.Pi);
         // Canvas-space widths survive resolution changes without changing the
         // actual trajectory; the head converges exactly on the observed card.
-        float scale = GetViewport().GetVisibleRect().Size.Y / 1080f;
         return inverse * (sample.Position + normal * twist * 13 * taper * scale);
     }
 }

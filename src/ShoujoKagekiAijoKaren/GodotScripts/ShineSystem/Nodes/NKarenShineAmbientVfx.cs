@@ -1,4 +1,5 @@
 using Godot;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -16,7 +17,7 @@ public partial class NKarenShineAmbientVfx(NCard card, CardModel model, NKarenSh
     private Transform2D _previousPose;
     private Vector2 _lightWorld;
     private readonly ShineCardBorder _border = new(card);
-    private readonly Vector2[] _star = new Vector2[8];
+    private readonly KarenVfxCanvasBatch _drawBatch = new();
     private sealed class Spark(Vector2 position, Vector2 velocity, float life, float radius)
     {
         public Vector2 Position = position, Velocity = velocity;
@@ -65,43 +66,32 @@ public partial class NKarenShineAmbientVfx(NCard card, CardModel model, NKarenSh
 
     public override void _Draw()
     {
-        float pulse = .5f+.5f*Mathf.Sin(_age*1.7f+_phase);
+        var canvas = GetGlobalTransformWithCanvas();
+        _drawBatch.Clear(1f / Mathf.Max(.1f, canvas.X.Length()));
+        float pulse = .5f + .5f * Mathf.Sin(_age * 1.7f + _phase);
         var gold = new Color("#ffd48b"); var hot = new Color("#fff1cc");
-        // Trace the native frame, rather than drawing a smaller rectangle over it.
         if (_border.Outline.Length > 1)
         {
-            DrawPolyline(_border.Outline,new Color(gold,.10f+pulse*.06f),12,true);
-            DrawPolyline(_border.Outline,new Color(gold,.36f+pulse*.12f),3,true);
-            for (int j=0; j<4; j++)
-            {
-                float t = Mathf.PosMod(_age*.055f+_phase*.1f+j*.25f,1);
-                float light = (.58f+pulse*.12f);
-                var glint = _border.Segment(t,28);
-                DrawPolyline(glint,new Color(gold,light*.20f),12,true);
-                DrawPolyline(glint,new Color(hot,light),3,true);
-            }
+            _drawBatch.Polyline(_border.Outline, new Color(gold, .10f + pulse * .06f), 12);
+            _drawBatch.Polyline(_border.Outline, new Color(gold, .36f + pulse * .12f), 3);
         }
-        var lightPoint = GetGlobalTransformWithCanvas().AffineInverse()*_lightWorld;
-        float radius = 7+pulse*2;
-        for (int layer=5; layer>0; layer--)
-            DrawCircle(lightPoint,radius*2*layer/5f,new Color(gold,.14f*Mathf.Pow(1-layer/6f,2)));
-        for (int i=0; i<_star.Length; i++)
-        {
-            float angle = i*Mathf.Pi/4-Mathf.Pi/2;
-            _star[i] = new Vector2(Mathf.Cos(angle),Mathf.Sin(angle))*(i%2==0 ? 1 : .22f);
-        }
-        DrawSetTransform(lightPoint,0,Vector2.One*radius);
-        DrawColoredPolygon(_star,new Color(hot,.55f+pulse*.15f));
-        DrawSetTransform(Vector2.Zero);
-        DrawSetTransformMatrix(GetGlobalTransformWithCanvas().AffineInverse());
+        var lightPoint = canvas.AffineInverse() * _lightWorld;
+        float radius = 7 + pulse * 2;
+        for (int layer = 5; layer > 0; layer--)
+            _drawBatch.Circle(lightPoint, radius * 2 * layer / 5f,
+                new Color(gold, .14f * Mathf.Pow(1 - layer / 6f, 2)));
+        _drawBatch.Star(lightPoint, radius, .22f, new Color(hot, .55f + pulse * .15f));
+        // Old sparks keep their viewport-space motion while all geometry shares one submission.
+        _drawBatch.SetTransform(canvas.AffineInverse());
         foreach (var spark in _sparks)
         {
-            float t = spark.Age/spark.Life;
-            float a = Mathf.Sin(Mathf.Min(1,t*4)*Mathf.Pi/2)*Mathf.Pow(1-t,1.2f)*.68f;
-            DrawCircle(spark.Position,spark.Radius*2.2f,new Color(gold,a*.15f));
-            DrawLine(spark.Position-spark.Velocity*.05f,spark.Position,new Color(gold,a*.65f),spark.Radius*.7f,true);
-            DrawCircle(spark.Position,spark.Radius,new Color(hot,a));
+            float t = spark.Age / spark.Life;
+            float a = Mathf.Sin(Mathf.Min(1, t * 4) * Mathf.Pi / 2) * Mathf.Pow(1 - t, 1.2f) * .68f;
+            _drawBatch.Circle(spark.Position, spark.Radius * 2.2f, new Color(gold, a * .15f));
+            _drawBatch.Line(spark.Position - spark.Velocity * .05f, spark.Position,
+                new Color(gold, a * .65f), spark.Radius * .7f);
+            _drawBatch.Circle(spark.Position, spark.Radius, new Color(hot, a));
         }
-        DrawSetTransform(Vector2.Zero);
+        _drawBatch.Flush(this);
     }
 }

@@ -13,6 +13,9 @@ internal sealed class ShineCardBorder(NCard card)
     private Vector2[] _outline = Array.Empty<Vector2>();
     private float[] _distance = Array.Empty<float>();
     private readonly Vector2[] _segment = new Vector2[12];
+    private Vector2[]? _previousContour;
+    private Transform2D _previousTransform;
+    private Vector2 _previousSize, _previousOffset;
     public Vector2[] Outline => _outline;
     public Vector2 TopCenter { get; private set; }
     private float Length => _distance.Length == 0 ? 0 : _distance[^1];
@@ -48,6 +51,12 @@ internal sealed class ShineCardBorder(NCard card)
         float fit = Mathf.Min(_frame.Size.X / textureSize.X, _frame.Size.Y / textureSize.Y);
         Vector2 size = textureSize * fit, offset = (_frame.Size - size) * .5f;
         var transform = overlay.GetGlobalTransformWithCanvas().AffineInverse() * _frame.GetGlobalTransformWithCanvas();
+        if (ReferenceEquals(contour, _previousContour) && transform.IsEqualApprox(_previousTransform)
+            && size.IsEqualApprox(_previousSize) && offset.IsEqualApprox(_previousOffset)) return;
+        _previousContour = contour;
+        _previousTransform = transform;
+        _previousSize = size;
+        _previousOffset = offset;
         TopCenter = transform * (offset + new Vector2(size.X * .5f, 0));
         for (int i = 0; i < contour.Length; i++)
         {
