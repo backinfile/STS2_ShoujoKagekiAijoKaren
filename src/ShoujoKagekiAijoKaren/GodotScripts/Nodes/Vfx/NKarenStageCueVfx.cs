@@ -56,7 +56,7 @@ public partial class NKarenStageCueVfx : Node2D
     private float _age, _unit, _drawAt = -1, _energyAt = -1, _confirmedAt = -1, _releaseAt = -1;
     private bool _sourceCaptured, _waitingForDepletion;
     private float Speed => SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? .7f : 1f;
-    public static bool Enabled => !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
+    public static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
 
     public static NKarenStageCueVfx? Play(Player owner, CueKind kind, CardModel? source = null)
     {

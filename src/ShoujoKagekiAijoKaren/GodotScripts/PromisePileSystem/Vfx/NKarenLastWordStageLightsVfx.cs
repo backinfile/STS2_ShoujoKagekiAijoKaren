@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
@@ -74,7 +75,7 @@ public partial class NKarenLastWordStageLightsVfx : Node2D
     }
 
     private static bool CanShow(NCard card, KarenLastWord model) =>
-        !NonInteractiveMode.IsActive && CombatManager.Instance.IsInProgress
+        KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive && CombatManager.Instance.IsInProgress
         && LocalContext.IsMe(model.Owner) && !model.Owner.Creature.IsDead
         && GodotObject.IsInstanceValid(card) && card.IsInsideTree() && !card.IsQueuedForDeletion()
         && ReferenceEquals(card.Model, model) && model.Pile?.Type == PileType.Hand && model.CanPlay();

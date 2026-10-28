@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -55,7 +56,7 @@ public partial class NKarenStageLightVfx : Node2D
 
     public static NKarenStageLightVfx? Create(Creature target)
     {
-        if (NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
             || NCombatRoom.Instance?.CombatVfxContainer == null) return null;
         return new NKarenStageLightVfx(target, persistent: false);
     }

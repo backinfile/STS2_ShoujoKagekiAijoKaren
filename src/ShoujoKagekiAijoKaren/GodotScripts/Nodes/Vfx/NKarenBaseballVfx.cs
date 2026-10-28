@@ -34,7 +34,7 @@ public partial class NKarenBaseballVfx : Node2D
     private Vector2 _source, _target, _launch;
     private static GradientTexture2D? _soft;
 
-    private static bool Enabled => !NonInteractiveMode.IsActive
+    private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
         && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
 
     public static NKarenBaseballVfx? Create(Creature source, Creature target)

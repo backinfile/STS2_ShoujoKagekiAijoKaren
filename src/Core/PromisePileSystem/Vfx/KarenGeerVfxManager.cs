@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -12,7 +13,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 public static class KarenGeerVfxManager
 {
     public const float CastDuration = 1f;
-    internal static bool Enabled => !NonInteractiveMode.IsActive
+    internal static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
         && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     public static void PlayCast(Player player) => Play(player, true);
     public static void PlayTrigger(Player player) => Play(player, false);

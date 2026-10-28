@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Audio.Debug;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
@@ -68,6 +69,26 @@ public partial class NKarenDrawPileDestroyVfx : Node2D
         if (!LocalContext.IsMe(player) || icon?.Texture == null || model == null) return;
         var carrier = NCard.Create(model);
         if (carrier == null) return;
+        if (!KarenVfxQuality.Enabled)
+        {
+            // A single native exhaust at the pile, with no card-rule callbacks.
+            room!.Ui.AddChild(carrier);
+            carrier.UpdateVisuals(MegaCrit.Sts2.Core.Entities.Cards.PileType.None, CardPreviewMode.Normal);
+            carrier.GlobalPosition = icon.GetGlobalTransform() * (icon.Size * .5f);
+#if STS2_BETA
+            var native = NCardExhaustVfx.Create(carrier);
+            if (native == null) { carrier.QueueFree(); return; }
+            room.Ui.AddChild(native);
+            native.Scale = Vector2.One * .28f;
+            await native.PlayAnimation();
+#else
+            carrier.Hide();
+            var native = NExhaustVfx.Create(carrier);
+            if (native != null) room.Ui.AddChild(native);
+            carrier.QueueFree();
+#endif
+            return;
+        }
         var effect = new NKarenDrawPileDestroyVfx
         {
             _icon = icon, _texture = icon.Texture, _carrier = carrier,

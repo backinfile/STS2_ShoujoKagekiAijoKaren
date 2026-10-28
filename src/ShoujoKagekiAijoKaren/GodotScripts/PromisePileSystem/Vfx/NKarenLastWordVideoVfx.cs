@@ -46,6 +46,7 @@ public partial class NKarenLastWordVideoVfx : Control
     {
         var room = NCombatRoom.Instance;
         if (room == null || !HasVideo()) return false;
+        if (!KarenVfxQuality.Enabled) return false;
         if (KarenVfxQuality.Level == KarenVfxLevel.Low)
         {
             NKarenLastWordVfx.Play(owner);
@@ -113,6 +114,7 @@ public partial class NKarenLastWordVideoVfx : Control
 
     public override void _Process(double delta)
     {
+        if (!KarenVfxQuality.Enabled) { _player?.Stop(); _letters?.QueueFree(); QueueFree(); return; }
         if (!GodotObject.IsInstanceValid(_room) || !_room.IsInsideTree()
             || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress)
         {

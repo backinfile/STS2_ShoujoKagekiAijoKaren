@@ -36,7 +36,7 @@ public partial class NKarenBackToBackVfx : Node2D
     private readonly Vector2[] _edge = new Vector2[Samples];
     private readonly Vector2[] _quad = new Vector2[4];
 
-    private static bool CanPlay => !NonInteractiveMode.IsActive
+    private static bool CanPlay => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
         && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant
         && NCombatRoom.Instance?.CombatVfxContainer != null;
 

@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models;
@@ -32,7 +33,7 @@ internal static class KarenCharSelectVideoController
 
     public static void HandleCharacterSelected(NCharacterSelectScreen screen, CharacterModel characterModel)
     {
-        if (characterModel is not Karen)
+        if (!KarenVfxQuality.Enabled || characterModel is not Karen)
         {
             Stop(immediatelyRestoreMusic: true);
             return;

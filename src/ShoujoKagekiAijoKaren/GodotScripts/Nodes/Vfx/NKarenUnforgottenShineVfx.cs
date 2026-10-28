@@ -57,7 +57,7 @@ public partial class NKarenUnforgottenShineVfx : Node2D
     public static NKarenUnforgottenShineVfx? Create(Creature owner, Creature target)
     {
         var room = NCombatRoom.Instance;
-        if (NonInteractiveMode.IsActive || room == null || !CombatManager.Instance.IsInProgress
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || room == null || !CombatManager.Instance.IsInProgress
             || room.GetCreatureNode(owner) is not { } attacker
             || room.GetCreatureNode(target) is not { } victim)
             return null;

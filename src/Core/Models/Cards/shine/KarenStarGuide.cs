@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
@@ -35,13 +36,13 @@ public sealed class KarenStarGuide : KarenBaseCardModel
             .Where(c => c.IsShineCard())
             .ToList();
 
-        if (LocalContext.IsMe(Owner))
+        if (KarenVfxQuality.Enabled && LocalContext.IsMe(Owner))
         {
             NKarenStarGuideVfx.Play(cards);
             NKarenStarGuideVfx.RemoveHandCards(cards);
         }
 
-        await PromisePileCmd.Add(Owner, cards, true);
+        await PromisePileCmd.Add(Owner, cards, skipVisuals: KarenVfxQuality.Enabled);
         CombatPileCountCmd.RefreshDrawAndDiscard(Owner);
     }
 

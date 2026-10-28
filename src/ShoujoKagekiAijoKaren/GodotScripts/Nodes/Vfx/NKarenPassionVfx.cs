@@ -45,7 +45,7 @@ public partial class NKarenPassionVfx : Node2D
 
     public static void Play(KarenPassionPower power, int gain)
     {
-        if (gain <= 0 || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
+        if (!KarenVfxQuality.Enabled || gain <= 0 || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
             || NCombatRoom.Instance is not { } room) return;
         var owner = power.Owner;
         Callable.From(() =>

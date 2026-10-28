@@ -333,6 +333,7 @@ public partial class NKarenPromiseStarNode : Node2D
     }
     public override void _Process(double delta)
     {
+        if (!KarenVfxQuality.Enabled) { Hide(); return; }
         if (!GodotObject.IsInstanceValid(_creature)) { QueueFree(); return; }
         UpdatePlacement();
         float dt = (float)delta;

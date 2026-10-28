@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Helpers;
@@ -39,6 +40,13 @@ public partial class NKarenPromiseCardEntryVfx : Node
         if (_finished) return;
         if (!GodotObject.IsInstanceValid(_card) || !_card.IsInsideTree() || _card.Model != _model)
         {
+            Finish();
+            return;
+        }
+        if (!KarenVfxQuality.Enabled)
+        {
+            _model.Pile?.InvokeCardAddFinished();
+            GodotTreeExtensions.QueueFreeSafely(_card);
             Finish();
             return;
         }

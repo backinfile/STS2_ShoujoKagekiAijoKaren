@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -69,7 +70,7 @@ public sealed class KarenVoid : KarenBaseCardModel
         try
         {
             await CardPileCmd.Add(PromisePileManager.GetPromisePile(Owner).Cards.ToList(),
-                PileType.Draw, skipVisuals: true);
+                PileType.Draw, skipVisuals: KarenVfxQuality.Enabled);
             await PromisePileCmd.EnterMode(Owner, PromisePileMode.Void);
             PromisePileManager.SetPileCountLabel(Owner, combatState.DrawPile.Cards.Count);
         }

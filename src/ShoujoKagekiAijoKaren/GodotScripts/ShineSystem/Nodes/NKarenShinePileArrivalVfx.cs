@@ -40,6 +40,7 @@ public partial class NKarenShinePileArrivalVfx(TextureRect icon, Control visual)
     {
         if (!GodotObject.IsInstanceValid(icon) || !icon.IsInsideTree()
             || !GodotObject.IsInstanceValid(visual)) { QueueFree(); return; }
+        if (!KarenVfxQuality.Enabled) { Restore(); QueueFree(); return; }
         _time += (float)delta; _age += (float)delta;
         if (_age >= _duration) { Restore(); QueueFree(); return; }
         UpdatePose(); KarenVfxQuality.Redraw(this);

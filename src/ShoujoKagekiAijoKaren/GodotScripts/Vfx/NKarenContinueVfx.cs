@@ -48,6 +48,7 @@ public partial class NKarenContinueVfx : Node2D
 
     public static NShivThrowVfx? Create(Creature owner, Creature target)
     {
+        if (!KarenVfxQuality.Enabled) return null;
         PrepareResources();
         var shiv = NShivThrowVfx.Create(owner, target, Crimson);
         if (shiv == null) return null;

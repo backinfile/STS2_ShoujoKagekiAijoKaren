@@ -15,13 +15,22 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("branch", choices=["stable", "beta"])
 parser.add_argument("--output", type=Path, required=True)
 parser.add_argument("--record", action="store_true")
+parser.add_argument("--levels", nargs="+", choices=["Full", "Low", "Off"], default=["Full", "Low", "Off"])
+parser.add_argument("--source-dev", type=Path)
+parser.add_argument("--performance", action="store_true")
+parser.add_argument("--performance-only", action="store_true")
+parser.add_argument("--ribbon-preview", action="store_true")
+parser.add_argument("--comparison-baseline", action="store_true")
+parser.add_argument("--package-source", type=Path)
+parser.add_argument("--port", type=int)
+parser.add_argument("--performance-levels", nargs="+", choices=["Full", "Low"], default=["Full", "Low"])
 args = parser.parse_args()
 repo = Path(__file__).resolve().parents[3]
 out = args.output.resolve()
 out.mkdir(parents=True, exist_ok=False)
-source = repo / "artifacts/dev-game" / args.branch
+source = (args.source_dev or repo / "artifacts/dev-game") / args.branch
 game = out / "game"
-port = 18747 if args.branch == "stable" else 18748
+port = args.port or (18747 if args.branch == "stable" else 18748)
 with socket.socket() as check:
     assert check.connect_ex(("127.0.0.1", port)) != 0, "Fixture port occupied"
 
@@ -39,7 +48,7 @@ shutil.copytree(source / "game", game, copy_function=link,
 mods = game / "mods"
 mods.mkdir()
 shutil.copytree(source / "game/mods/BaseLib", mods / "BaseLib")
-shutil.copytree(repo / "artifacts/ShoujoKagekiAijoKaren", mods / "ShoujoKagekiAijoKaren")
+shutil.copytree(args.package_source or repo / "artifacts/ShoujoKagekiAijoKaren", mods / "ShoujoKagekiAijoKaren")
 for ext in ["dll", "json"]:
     shutil.copy2(source / ("game/mods/KarenSTS2MCP." + ext), mods)
 (mods / "KarenSTS2MCP.conf").write_text(json.dumps(dict(port=port, fullscreen=False, muted=False,
@@ -197,7 +206,7 @@ try:
     time.sleep(2)
     report["budgets"] = quality("check")
     print("PASS", args.branch, "budget geometry, labels and invalid-level fallback", flush=True)
-    for level in ["Full", "Balanced", "Low"]:
+    for level in ([] if args.performance_only or args.ribbon_preview else args.levels):
         quality("set " + level)
         snap(level + "-before-fixture")
         cmd("fight WATERFALL_GIANT_BOSS")
@@ -215,8 +224,8 @@ try:
         hand(level + "-prepared")
         snap(level + "-prepared")
         item = dict(level=level, idle=quality(), markers=[])
-        assert item["idle"]["warningVisible"] >= 1, item
-        assert (item["idle"]["ambientVisible"] == 0) == (level == "Low"), item
+        assert (item["idle"]["warningVisible"] == 0) == (level == "Off"), item
+        assert (item["idle"]["ambientVisible"] == 0) == (level != "Full"), item
         if args.record:
             record_start()
         started = time.monotonic()
@@ -232,11 +241,11 @@ try:
         play("KAREN_NONON")
         for _ in range(50):
             q = quality()
-            if q["nononParticles"] > 0:
+            if q["nononParticles"] > 0 or level == "Off":
                 break
             time.sleep(.04)
         item["nonon"] = q
-        expected = {"Full": 1280, "Balanced": 640, "Low": 321}[level]
+        expected = {"Full": 1280, "Low": 321, "Off": 0}[level]
         assert q["nononParticles"] == expected, q
         time.sleep(.7)
         snap(level + "-nonon")
@@ -262,27 +271,142 @@ try:
         time.sleep(1.5)
         snap(level + "-ambient")
         # Toggle both ways in a living scene; models and hand stay in place.
-        quality("set " + ("Full" if level == "Low" else "Low"))
+        quality("set " + ("Full" if level == "Off" else "Off"))
         time.sleep(.25)
         quality("set " + level)
         time.sleep(.4)
         hand(level + "-toggle")
         mark("最后的台词 · 演出预览")
         item["video"] = quality("video")
-        assert item["video"]["played"] and item["video"]["waitSeconds"] == 6.7, item
-        if level == "Low":
+        assert item["video"]["played"] == (level != "Off"), item
+        assert item["video"]["waitSeconds"] == (0 if level == "Off" else 6.7), item
+        if level != "Full":
             assert item["video"]["players"] == 0, item
         time.sleep(2.4)
         snap(level + "-video")
         time.sleep(4.6)
+        if level == "Off":
+            assert quality()["visibleEffects"] == 0, quality()
         if args.record:
             record_stop(level)
+        if level == "Off":
+            assert quality()["nativeEnergyVisible"] == 2, quality()
+            assert quality()["trailPath"].endswith("card_trail_ironclad.tscn"), quality()
+            snap("Off-before-recall")
+            cmd("quality_probe recall")
+            time.sleep(1)
+            hand("Off-recall")
+            snap("Off-after-recall")
+            add("KAREN_STAR_GUIDE")
+            add("KAREN_SHINE_STRIKE")
+            snap("Off-before-guide")
+            play("KAREN_STAR_GUIDE")
+            time.sleep(2.5)
+            hand("Off-guide")
+            snap("Off-after-guide")
+            cmd("energy 100")
+            time.sleep(.4)
+            item["native"] = quality()
+            events = item["native"]["nativeEvents"]
+            assert any("slash" in k for k in events), events
+            assert any("card_trail_ironclad" in k for k in events), events
+            assert any("ExhaustVfx" in k for k in events), events
+            assert events.get("NParticlesContainer:Restart", 0) >= 2, events
         item["final"] = quality()
         assert "NKarenNononVfx" not in item["final"]["effects"], item
         assert "NKarenLastWordVideoVfx" not in item["final"]["effects"], item
         report["cases"].append(item)
         (out / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
         print("PASS", args.branch, level, "particles", expected, "damage", item["damage"], "hand/toggle/cleanup", flush=True)
+    if args.ribbon_preview:
+        report["ribbonPreviews"] = []
+        for level in ["Full", "Low"]:
+            quality("set " + level)
+            quality("reset")
+            cmd("quality_probe ribbon")
+            time.sleep(.3)
+            snap(level + "-ribbon-preview")
+            time.sleep(1.2)
+            measured = quality()
+            assert measured["ribbonDraws"] > 0, measured
+            report["ribbonPreviews"].append(measured)
+            print("PASS", args.branch, level, "ribbon preview", measured["ribbonDraws"], flush=True)
+    if args.performance or args.performance_only:
+        report["performance"] = []
+        for level in args.performance_levels:
+            quality("set " + level)
+            cmd("fight WATERFALL_GIANT_BOSS")
+            wait(lambda s: s.get("battle", {}).get("is_play_phase"), "performance combat")
+            time.sleep(1)
+            cmd("energy 99")
+            for card in list(state()["player"]["hand"]):
+                cmd("remove_card " + card["id"] + " Hand")
+            cmd("quality_probe prepare")
+            for card in ["KAREN_STAGE_IS_WAITING", "KAREN_STAGE_IS_WAITING", "KAREN_POSITION0"]:
+                add(card)
+                play(card)
+                time.sleep(.8)
+            time.sleep(1)
+            quality("reset")
+            time.sleep(1.5)
+            measured = quality()
+            assert measured["waiting"] and all(w["PowerLayers"] == w["heads"] == 2 and w["uiVisible"] for w in measured["waiting"]), measured
+            if not args.comparison_baseline:
+                assert measured["maxPlacesPerFrame"] == 1, measured
+            snap(level + "-performance-waiting-position")
+            add("KAREN_WE_KOWN")
+            play("KAREN_WE_KOWN")
+            time.sleep(.55)
+            snap(level + "-performance-ribbons")
+            time.sleep(1.8)
+            cmd("quality_probe relay")
+            time.sleep(.65)
+            snap(level + "-performance-relay")
+            time.sleep(1.2)
+            cmd("quality_probe relay finale")
+            time.sleep(.32)
+            snap(level + "-performance-relay-finale")
+            time.sleep(.8)
+            add("KAREN_WAKE_UP")
+            snap(level + "-before-wakeup")
+            play("KAREN_WAKE_UP")
+            wait(lambda s: s.get("state_type") == "card_select", "wake up selection")
+            action(action="select_card", index=0)
+            action(action="select_card", index=1)
+            wait(lambda s: s.get("state_type") != "card_select", "wake up selection completed")
+            time.sleep(.6)
+            snap(level + "-performance-wakeup")
+            time.sleep(3)
+            hand(level + "-performance-wakeup")
+            snap(level + "-after-wakeup")
+            measured["after"] = quality()
+            for effect in ["NKarenWakeUpCardVfx", "NKarenFightRelayVfx", "NKarenPositionZeroVfx"]:
+                assert measured["after"]["draws"].get(effect, 0) > 0, (effect, measured)
+            report["performance"].append(dict(level=level, measured=measured))
+            print("PASS", args.branch, level, "waiting/ribbon/relay/position/wake-up", flush=True)
+        quality("set Off")
+        add("KAREN_VOID")
+        snap("Off-before-void")
+        play("KAREN_VOID")
+        time.sleep(3.5)
+        hand("Off-void")
+        snap("Off-after-void")
+        report["void"] = quality()
+        assert report["void"]["visibleEffects"] == 0, report["void"]
+        # Verify the real Last Word card skips the movie and resolves normally.
+        for pile in ["Hand", "Draw", "Discard"]:
+            s = state()
+            # Console removal uses the pile's model list through the test fixture.
+            cmd("quality_probe clear " + pile)
+            time.sleep(.2)
+        add("KAREN_LAST_WORD")
+        snap("Off-before-last-word")
+        started = time.monotonic()
+        play("KAREN_LAST_WORD")
+        wait(lambda s: s.get("state_type") == "rewards", "native Last Word", seconds=5)
+        report["lastWordSeconds"] = time.monotonic() - started
+        snap("Off-after-last-word")
+        assert report["lastWordSeconds"] < 5, report["lastWordSeconds"]
     log_text = log.read_text(encoding="utf-8", errors="replace")
     errors = [line for line in log_text.splitlines() if line.startswith("ERROR:") or "[EXCEPTION]" in line or "[KarenVfxWarmup] failed" in line]
     assert not errors, errors

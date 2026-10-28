@@ -33,7 +33,7 @@ public partial class NKarenTwinStarsVfx : Node2D
     private float _age, _unit = 1, _speed = 1, _finishedAt = -1;
     private StarShot? _current;
     private static readonly Color Gold = new("#ffc968"), Pink = new("#ffacd9"), Ivory = new("#fff9e6");
-    private static bool Enabled => !NonInteractiveMode.IsActive
+    private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
         && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     private static bool Present(Node? node) => GodotObject.IsInstanceValid(node)
         && node!.IsInsideTree() && !node.IsQueuedForDeletion();

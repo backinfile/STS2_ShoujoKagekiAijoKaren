@@ -90,7 +90,7 @@ public partial class NKarenExchangeFateVfx : Node2D
 
     public static NKarenExchangeFateVfx? Play(Player owner, CardModel[] outgoing, CardModel[] incoming)
     {
-        if (NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
             || NCombatRoom.Instance is not { } room || CombatManager.Instance.IsOverOrEnding
             || room.GetCreatureNode(owner.Creature) == null || outgoing.Length + incoming.Length == 0) return null;
         foreach (var old in room.Ui.GetChildren().OfType<NKarenExchangeFateVfx>().Where(n => n._owner == owner)) { old.Hide(); old.QueueFree(); }

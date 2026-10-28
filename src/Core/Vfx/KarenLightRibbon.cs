@@ -11,8 +11,8 @@ internal static class KarenLightRibbon
     // thread; callers on other threads do not share mutable geometry.
     private sealed class DrawBuffers
     {
-        internal readonly Vector2[] Triangle = new Vector2[3], Outer = new Vector2[8], Core = new Vector2[8];
-        internal readonly Color[] Colors = new Color[3];
+        internal readonly Vector2[] Samples = new Vector2[49], Normals = new Vector2[49], Outer = new Vector2[8], Core = new Vector2[8];
+        internal readonly KarenVfxCanvasBatch Batch = new(1536);
     }
     [ThreadStatic] private static DrawBuffers? _drawBuffers;
     private static DrawBuffers Buffers => _drawBuffers ??= new DrawBuffers();
@@ -39,35 +39,29 @@ internal static class KarenLightRibbon
         float first = Mathf.Clamp(head - length, 0, 1), last = Mathf.Clamp(head, 0, 1);
         if (alpha <= 0 || last - first < .001f) return;
         int segments = 48 / KarenVfxQuality.ParticleStride;
+        var buffers = Buffers;
+        var points = buffers.Samples; var normals = buffers.Normals; var batch = buffers.Batch;
+        batch.Clear();
+        for (int i = 0; i <= segments; i++)
+        {
+            float t = Mathf.Lerp(first, last, i / (float)segments);
+            points[i] = path(t);
+            normals[i] = (path(Mathf.Min(1, t + .001f)) - path(Mathf.Max(0, t - .001f))).Orthogonal().Normalized();
+        }
         for (int i = 0; i < segments; i++)
         {
             float u = i / (float)segments, v = (i + 1f) / segments;
-            float ta=Mathf.Lerp(first,last,u),tb=Mathf.Lerp(first,last,v);
-            var a=path(ta);var b=path(tb);
-            // Shared tangents keep adjacent translucent segments from overlapping
-            // into bright crossbars on a curved silk strip.
-            Vector2 Normal(float t)=>(path(Mathf.Min(1,t+.001f))-path(Mathf.Max(0,t-.001f))).Orthogonal().Normalized();
-            var na=Normal(ta);var nb=Normal(tb);
+            var a = points[i]; var b = points[i + 1];
+            var na = normals[i]; var nb = normals[i + 1];
             float wa = width * Mathf.Sin(u * Mathf.Pi), wb = width * Mathf.Sin(v * Mathf.Pi);
-            var halo=new Color(color,alpha*.055f);
-            Strip(layer,a-na*wa*2.3f,a+na*wa*2.3f,b+nb*wb*2.3f,b-nb*wb*2.3f,halo,halo);
-            var ca = new Color(color, alpha * (.25f + .42f * u));
-            var cb = new Color(color, alpha * (.25f + .42f * v));
-            Strip(layer,a-na*wa,a+na*wa,b+nb*wb,b-nb*wb,ca,cb);
-            layer.DrawLine(a,b,new Color(color.Lerp(Colors.White,.70f),alpha*(.12f+v*.42f)),Mathf.Max(.7f,width*.13f),true);
+            var halo = new Color(color, alpha * .055f);
+            // Ordered triangles retain halo/core/line layering at every segment.
+            batch.Strip(a-na*wa*2.3f, a+na*wa*2.3f, b+nb*wb*2.3f, b-nb*wb*2.3f, halo, halo);
+            batch.Strip(a-na*wa, a+na*wa, b+nb*wb, b-nb*wb,
+                new Color(color, alpha * (.25f + .42f * u)), new Color(color, alpha * (.25f + .42f * v)));
+            batch.Line(a, b, new Color(color.Lerp(Colors.White, .70f), alpha * (.12f + v * .42f)), Mathf.Max(.7f, width * .13f));
         }
-    }
-
-    private static void Strip(Node2D layer, Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color start, Color end)
-    {
-        var buffers = Buffers;
-        var points = buffers.Triangle; var colors = buffers.Colors;
-        // Preserve the exact triangles, including the zero-width tapered endpoints.
-        points[0] = a; points[1] = b; points[2] = c;
-        colors[0] = start; colors[1] = start; colors[2] = end;
-        layer.DrawPrimitive(points, colors, Array.Empty<Vector2>());
-        points[1] = c; points[2] = d; colors[1] = end;
-        layer.DrawPrimitive(points, colors, Array.Empty<Vector2>());
+        batch.Flush(layer);
     }
 
     /// <summary>Four sharp silk-light points with a white core, without an opaque sprite box.</summary>

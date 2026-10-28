@@ -49,7 +49,7 @@ public partial class NKarenArrogantVfx : Node2D
     public float Age => _age;
     public Vector2 RewardPoint => _destination;
 
-    private static bool Enabled => !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
+    private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     private bool Alive => GodotObject.IsInstanceValid(this) && IsInsideTree() && !IsQueuedForDeletion();
     private float ArrivalAt => Mathf.Max(.45f, _rewardAt);
     private float Flight => RewardConfirmed ? P(_age, ArrivalAt, ArrivalAt + .40f) : 0;

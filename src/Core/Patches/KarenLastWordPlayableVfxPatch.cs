@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using BaseLib.Utils;
 using Godot;
 using HarmonyLib;
@@ -23,7 +24,7 @@ public static class KarenLastWordPlayableVfxPatch
     {
         var cardNode = __instance.CardNode;
         NKarenLastWordStageLightsVfx.Refresh(cardNode);
-        if (cardNode?.Model is not KarenLastWord lastWord)
+        if (!KarenVfxQuality.Enabled || cardNode?.Model is not KarenLastWord lastWord)
         {
             Clear(cardNode);
             return;

@@ -28,7 +28,7 @@ public partial class NKarenWhyVfx : Node2D
 
     public static NKarenWhyVfx? Begin(Player owner)
     {
-        if (NonInteractiveMode.IsActive || !LocalContext.IsMe(owner)
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || !LocalContext.IsMe(owner)
             || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
             || NCombatRoom.Instance is not { } room || !CombatManager.Instance.IsInProgress) return null;
         var hand = room.Ui.Hand;

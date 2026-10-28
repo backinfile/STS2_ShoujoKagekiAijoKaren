@@ -63,7 +63,7 @@ public partial class NKarenPositionZeroVfx : Node2D
     public CardModel? HoverModel => HoverActive ? _hoverModel : null;
     public Creature StageOwner => _power.Owner;
     public Vector2 FootPoint => _foot;
-    private static bool Enabled => !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
+    private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     private float Speed => SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? .65f : 1;
     private float Claim => Window(_claimAge, .22f, 1.65f, .25f, .6f);
     private float Pulse => _blockLights.Count == 0 ? 0 : _blockLights.Max(r => Window(r.Age, 0, .72f, .07f, .4f));
@@ -260,17 +260,21 @@ public partial class NKarenPositionZeroVfx : Node2D
         }
     }
 
+    private readonly KarenVfxCanvasBatch _coneBatch = new(128);
     private void Cone(Vector2 source, Vector2 target, float spread, Color color, float alpha)
     {
+        if (alpha <= .001f) return;
+        _coneBatch.Clear();
         Vector2 normal = (target - source).Normalized().Orthogonal();
         for (int i = 0; i < 12; i++)
         {
             float x0 = i / 6f - 1, x1 = (i + 1) / 6f - 1;
             float a = Mathf.Pow(1 - Mathf.Abs((x0 + x1) * .5f), 1.5f) * alpha;
-            DrawPolygon([source + normal * x0 * 3 * _unit, source + normal * x1 * 3 * _unit,
-                target + normal * x1 * spread, target + normal * x0 * spread],
-                [new(color, a), new(color, a), new(color, a * .35f), new(color, a * .35f)]);
+            _coneBatch.Strip(source + normal * x0 * 3 * _unit, source + normal * x1 * 3 * _unit,
+                target + normal * x1 * spread, target + normal * x0 * spread,
+                new(color, a), new(color, a * .35f));
         }
+        _coneBatch.Flush(this);
     }
     private static void Soft(Node2D node, Vector2 center, Vector2 size, Color color, float alpha)
     {

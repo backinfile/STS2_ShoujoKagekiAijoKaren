@@ -73,7 +73,7 @@ public partial class NKarenStarVfx : Node2D
     public bool Holding => _releaseAt < 0;
     public Node2D BackgroundLight => _back;
     private float Fade => Smooth(_age / .24f) * (_releaseAt < 0 ? 1 : 1 - Smooth((_age - _releaseAt) / .7f));
-    private static bool Enabled => !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
+    private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     public static Task WaitForGather() => Enabled ? Cmd.CustomScaledWait(.38f, .62f) : Task.CompletedTask;
 
     public static Playback Play(CardModel card, int shine)

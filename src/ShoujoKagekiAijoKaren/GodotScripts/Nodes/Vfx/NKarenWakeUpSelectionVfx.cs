@@ -41,6 +41,7 @@ public partial class NKarenWakeUpSelectionVfx : Node2D
 
     public static IDisposable? Begin(Player player)
     {
+        if (!KarenVfxQuality.Enabled) return null;
         if (!LocalContext.IsMe(player) || NCombatRoom.Instance is not { } room || CombatManager.Instance.IsOverOrEnding) return null;
         var node = new NKarenWakeUpSelectionVfx { _room = room, _owner = player, Name = "KarenWakeUpSelectionVfx", ZIndex = 40 };
         room.Ui.AddChild(node);

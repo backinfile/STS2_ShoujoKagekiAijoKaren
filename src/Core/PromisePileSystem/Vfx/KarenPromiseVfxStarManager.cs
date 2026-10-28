@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -63,10 +64,18 @@ public static class KarenPromiseVfxStarManager
     }
 
     public static Vector2? TrackOutgoingCard(NCard card)
-        => card.Model.Owner is { } player ? GetOrCreateNode(player)?.TrackOutgoingCard(card) : null;
+        => card.Model.Owner is { } player
+            ? KarenVfxQuality.Enabled ? GetOrCreateNode(player)?.TrackOutgoingCard(card) : GetTowerPosition(player)
+            : null;
 
     public static Vector2? GetTowerPosition(Player player)
-        => GetOrCreateNode(player)?.TransferGlobalPosition;
+    {
+        if (KarenVfxQuality.Enabled) return GetOrCreateNode(player)?.TransferGlobalPosition;
+        var room = NCombatRoom.Instance;
+        if (IsTowerPile(player, PileType.Draw) && room?.Ui.DrawPile is { } draw)
+            return draw.GlobalPosition + draw.Size * .5f;
+        return room?.GetCreatureNode(player.Creature)?.VfxSpawnPosition;
+    }
 
     internal static float GetTowerVisualAlpha(Player player)
     {
@@ -80,7 +89,7 @@ public static class KarenPromiseVfxStarManager
     // All effects share the active entrance: the painted deck, or the local
     // Draw icon in Void. Convert between canvases only at the drawing boundary.
     public static Vector2? GetPileCanvasPosition(Player player)
-        => GetOrCreateNode(player)?.TransferCanvasPosition;
+        => KarenVfxQuality.Enabled ? GetOrCreateNode(player)?.TransferCanvasPosition : null;
 
     public static Vector2? GetPilePosition(Player player, CanvasItem surface)
         => GetPileCanvasPosition(player) is { } point
@@ -109,7 +118,7 @@ public static class KarenPromiseVfxStarManager
         => GetOrCreateNode(card.Owner)?.GuideIntoOrbit(card, sourceCanvas, fromCard);
 
     public static Vector2? GetStarPosition(CardModel card, CanvasItem surface)
-        => GetOrCreateNode(card.Owner) is { } node
+        => KarenVfxQuality.Enabled && GetOrCreateNode(card.Owner) is { } node
             ? surface.GetCanvasTransform().AffineInverse() * node.GetStarCanvasPosition(card) : null;
 
     public static void BeginPileTransition(Player player)

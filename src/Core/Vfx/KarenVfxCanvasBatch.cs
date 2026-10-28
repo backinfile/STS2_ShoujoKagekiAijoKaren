@@ -70,6 +70,15 @@ internal sealed class KarenVfxCanvasBatch(int initialPointCapacity = 4096)
         _indices[_indexCount++] = c;
     }
 
+    public void Strip(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color start, Color end)
+    {
+        Reserve(4, 6);
+        int first = _pointCount;
+        Point(a, start); Point(b, start); Point(c, end); Point(d, end);
+        Triangle(first, first + 1, first + 2);
+        Triangle(first, first + 2, first + 3);
+    }
+
     public void Circle(Vector2 center, float radius, Color color)
     {
         if (radius <= 0 || color.A <= 0) return;

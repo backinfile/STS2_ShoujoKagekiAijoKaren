@@ -1,9 +1,9 @@
 {
   "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.title": "エフェクト品質",
-  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Full": "フル（従来の演出）",
-  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Balanced": "中（粒子を削減）",
-  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Low": "低（常時装飾を削減）",
-  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.hover.desc": "フル：従来の演出。中：粒子を約半分、装飾の再描画を最大30fpsに制限。低：粒子を約4分の1、再描画を最大20fpsに制限し、カードの微光・風・リングの常時装飾を省略。最後の台詞の動画は文字演出に置換。閃耀の消耗予告、山札の枚数、カード移動の表示は維持。新しい演出に適用され、常時装飾は即座に切り替わります。",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Full": "フル",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Low": "低",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Off": "オフ",
+  "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.hover.desc": "完全：華恋の全エフェクトを表示。低：粒子を約4分の1、装飾の再描画を最大20fpsに抑え、常時発光・風・リングの軌跡を簡略化し、台詞動画を文字に変更。オフ：華恋専用エフェクトを停止し、攻撃・強化・カード移動・消耗・エナジー回復に本体の演出を使用。台詞ムービーはスキップ。カード・数値・操作は維持され、変更は即時反映。",
   "SHOUJOKAGEKIAIJOKAREN.mod_title": "少女☆歌劇 レヴュースタァライト - 愛城華恋",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.title": "ランデータを送信",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "各ランの終了後に生成されるJSONデータを統計サーバーへ送信する。",

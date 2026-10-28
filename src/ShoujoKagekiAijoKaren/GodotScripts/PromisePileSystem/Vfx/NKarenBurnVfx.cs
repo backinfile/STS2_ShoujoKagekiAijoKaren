@@ -40,7 +40,7 @@ public partial class NKarenBurnVfx : Node2D
         ZIndex = 0;
         ShowBehindParent = true;
         UpdatePlacement();
-        if (UpdateTowerFireVisibility() > 0)
+        if (KarenVfxQuality.Enabled && UpdateTowerFireVisibility() > 0)
             for (int i = 0; i < NKarenPromiseStarNode.BurnSiteCount; i += KarenVfxQuality.ParticleStride) EmitTowerFire(.5f);
     }
 
@@ -105,6 +105,7 @@ public partial class NKarenBurnVfx : Node2D
     public override void _Process(double delta)
     {
         if (!UpdatePlacement()) return;
+        if (!KarenVfxQuality.Enabled) { Hide(); ClearDrawFire(); return; }
         UpdateDrawFire();
         float towerAlpha = UpdateTowerFireVisibility();
 

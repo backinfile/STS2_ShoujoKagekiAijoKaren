@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -49,6 +50,7 @@ public partial class NTopBarShinePileButton : MegaCrit.Sts2.Core.Nodes.TopBar.NT
 
     public void PlayDepletionArrival()
     {
+        if (!KarenVfxQuality.Enabled) return;
         if (GodotObject.IsInstanceValid(_arrivalVfx) && !_arrivalVfx!.IsQueuedForDeletion())
             _arrivalVfx.Restart();
         else
@@ -110,6 +112,7 @@ public partial class NTopBarShinePileButton : MegaCrit.Sts2.Core.Nodes.TopBar.NT
 
     private void ShowCount(int count, bool animate)
     {
+        animate &= KarenVfxQuality.Enabled;
         _count = count;
         if (_countLabel is MegaLabel megaLabel) megaLabel.SetTextAutoSize(count.ToString());
         else _countLabel.Text = count.ToString();

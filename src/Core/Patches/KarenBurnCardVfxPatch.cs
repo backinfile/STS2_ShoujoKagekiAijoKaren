@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using BaseLib.Utils;
 using Godot;
 using HarmonyLib;
@@ -37,7 +38,7 @@ public static class KarenBurnCardVfxPatch
     private static void Refresh(NCard __instance)
     {
         var existing = Effects.Get(__instance);
-        if (__instance.Model is not { } model || !KarenPromisePilePower.HasBurnDrawEffect(model))
+        if (!KarenVfxQuality.Enabled || __instance.Model is not { } model || !KarenPromisePilePower.HasBurnDrawEffect(model))
         {
             Clear(__instance);
             return;

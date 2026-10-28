@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
@@ -50,6 +51,7 @@ public partial class NKarenLastWordVfx : Node2D
 
     public static void Play(Player owner)
     {
+        if (!KarenVfxQuality.Enabled) return;
         if (NCombatRoom.Instance == null) return;
         PlayOn(NCombatRoom.Instance.CombatVfxContainer, owner);
     }
@@ -98,7 +100,7 @@ public partial class NKarenLastWordVfx : Node2D
             _spawnTimer -= d;
             while (_spawnTimer <= 0f)
             {
-                _spawnTimer += SpawnInterval;
+                _spawnTimer += KarenVfxQuality.SpawnInterval(SpawnInterval);
                 var source = GetSourcePosition();
                 var viewportSize = GetViewportSize();
                 for (int i = 0; i < ParticlesPerWave; i++)

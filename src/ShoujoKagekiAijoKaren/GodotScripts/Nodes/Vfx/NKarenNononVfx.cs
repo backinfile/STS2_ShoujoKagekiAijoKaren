@@ -56,7 +56,7 @@ public partial class NKarenNononVfx : Node2D
     /// <summary>AttackCommand adds this node to the attacker's own combat VFX container.</summary>
     public static NKarenNononVfx? Create(Player owner)
     {
-        if (NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant)
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant)
             return null;
 
         var room = NCombatRoom.Instance;

@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 
@@ -11,6 +12,7 @@ public partial class SNCreatureVisuals : NCreatureVisuals
     private Sprite2D? _idleSprite;
     private ShaderMaterial? _idleMaterial;
     private double _idlePhase;
+    private bool _idleSuppressed;
     private Tween? _deathTransitionTween;
     private Sprite2D? _corpseSprite;
     private ColorRect? _deathCurtain;
@@ -32,10 +34,12 @@ public partial class SNCreatureVisuals : NCreatureVisuals
         }
         ApplyCapeSwayRegions();
         InitializeEntranceAnimation();
+        RefreshEffectQuality();
     }
 
     public override void _Process(double delta)
     {
+        RefreshEffectQuality();
         // Deformation is independent of the attack/hurt position tracks. Do not
         // advance a hidden/dead body or overwrite a temporary replacement material.
         if (_idleSprite == null || _idleMaterial == null ||
@@ -45,10 +49,26 @@ public partial class SNCreatureVisuals : NCreatureVisuals
         _idleMaterial.SetShaderParameter(IdlePhaseParameter, (float)_idlePhase);
     }
 
+    internal void RefreshEffectQuality()
+    {
+        if (_idleSprite == null) return;
+        if (!KarenVfxQuality.Enabled && _idleSprite.Material == _idleMaterial && _idleMaterial != null)
+        {
+            CancelKarenEntrance();
+            _idleSprite.Material = null;
+            _idleSuppressed = true;
+        }
+        else if (KarenVfxQuality.Enabled && _idleSuppressed)
+        {
+            if (_idleSprite.Material == null) _idleSprite.Material = _idleMaterial;
+            _idleSuppressed = false;
+        }
+    }
+
     public void PlayKarenDeathTransition()
     {
         if (GetNodeOrNull<Sprite2D>("%Visuals") is not { } visuals) return;
-        if (CorpseTexture == null) return;
+        if (CorpseTexture == null || !KarenVfxQuality.Enabled) return;
 
         _deathTransitionTween?.Kill();
         PrepareDeathOverlay(visuals);

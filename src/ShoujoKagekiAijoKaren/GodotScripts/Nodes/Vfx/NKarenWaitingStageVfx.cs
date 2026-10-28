@@ -41,6 +41,11 @@ public partial class NKarenWaitingStageVfx : Node2D
     private NCombatRoom _room = null!;
     private NCreature _view = null!;
     private NEnergyCounter? _counter;
+    private TextureRect? _energyIcon;
+    private ulong _presentedFrame = ulong.MaxValue;
+    private bool _presentationDirty = true;
+    private Transform2D _presentedIconTransform;
+    private bool _presentedIconVisible;
     private Texture2D? _iconTexture;
     private Vector2 _iconSize;
     private const int OutlineSamples = 72;
@@ -116,7 +121,7 @@ public partial class NKarenWaitingStageVfx : Node2D
     public float StageStrength { get; private set; }
     public bool UiVisible => GodotObject.IsInstanceValid(_hud) && _hud.IsVisibleInTree();
     private const float FeedbackDelay = .16f;
-    private static bool Enabled => !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
+    private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     private float Speed => SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1.6f : 1f;
     private float Cast => Window(_castAge, 0, 1.35f, .10f, .35f);
     private float Pulse => _deliveries.Count == 0 ? 0 : _deliveries.Max(d => Window(d.Age, FeedbackDelay, .58f, .07f, .25f));
@@ -131,9 +136,10 @@ public partial class NKarenWaitingStageVfx : Node2D
             .FirstOrDefault(n => n._power == power && !n.IsQueuedForDeletion());
         if (existing != null)
         {
+            existing._presentationDirty = true;
             existing.SyncLights(); existing.RefreshPileState();
             if (cast) existing.BeginCast();
-            existing.Place(); return existing;
+            return existing;
         }
         var node = new NKarenWaitingStageVfx { _power = power, _room = room, _view = view,
             _castAge = cast ? 0 : 4, _buildAge = cast ? 0 : 4, _formationFinalized = !cast,
@@ -194,6 +200,7 @@ public partial class NKarenWaitingStageVfx : Node2D
             _stateAge = 1; _pileKnown = true; return;
         }
         if (empty == PileIsEmpty) return;
+        _presentationDirty = true;
         PileIsEmpty = empty; StateChanges++; _openingFrom = _opening; _stateAge = 0;
     }
 
@@ -208,6 +215,7 @@ public partial class NKarenWaitingStageVfx : Node2D
     public void ConfirmEnergy(int actual)
     {
         if (actual <= 0 || !Enabled || !IsInsideTree() || IsQueuedForDeletion()) return;
+        _presentationDirty = true;
         Confirmations++; DeliveredEnergy += actual;
         if (_deliveries.Count >= 8) { RetireTrail(_deliveries[0]); _deliveries.RemoveAt(0); }
         var delivery = new Delivery(actual, _orbitPhase + Confirmations * 2.39996f) { Trail = Particles(8, .18f, false) };
@@ -236,12 +244,6 @@ public partial class NKarenWaitingStageVfx : Node2D
         }
         if (_formationFinalized) _orbitPhase += dt * (.40f + 1.6f * Cast + 1.8f * Pulse);
         _opening = Mathf.Lerp(_openingFrom, PileIsEmpty ? 1 : 0, Ease(P(_stateAge, 0, .60f)));
-        Place();
-        if (UiVisible && _buildAge < 1.10f && _buildAge - _lastBuildBurst >= .10f)
-        {
-            _lastBuildBurst = _buildAge;
-            foreach (var light in _lights) Burst(light.Head.Position, 2, 3);
-        }
         for (int i = _deliveries.Count - 1; i >= 0; i--)
         {
             var delivery = _deliveries[i]; delivery.Age += dt;
@@ -282,8 +284,26 @@ public partial class NKarenWaitingStageVfx : Node2D
     {
         if (IsInsideTree() && !IsQueuedForDeletion() && GodotObject.IsInstanceValid(_hud) && !_hud.IsQueuedForDeletion())
         {
-            // Amount hooks can resume after _Process; reconcile before drawing the next frame.
+            // Capture can request another draw without a process tick. Reuse that pose,
+            // while late hooks and icon transforms still invalidate it in the same frame.
+            ulong frame = Engine.GetProcessFrames();
+            bool validIcon = GodotObject.IsInstanceValid(_energyIcon) && _energyIcon!.IsInsideTree() && !_energyIcon.IsQueuedForDeletion();
+            if (_presentedFrame == frame && !_presentationDirty && _lights.Count == PowerLayers && validIcon
+                && _presentedIconTransform == _energyIcon!.GetGlobalTransformWithCanvas()
+                && _iconSize == _energyIcon.Size && _iconTexture == _energyIcon.Texture
+                && _presentedIconVisible == _energyIcon.IsVisibleInTree()) return;
+            _presentedFrame = frame; _presentationDirty = false;
             SyncLights(); Place();
+            if (GodotObject.IsInstanceValid(_energyIcon))
+            {
+                _presentedIconTransform = _energyIcon!.GetGlobalTransformWithCanvas();
+                _presentedIconVisible = _energyIcon.IsVisibleInTree();
+            }
+            if (UiVisible && _buildAge < 1.10f && _buildAge - _lastBuildBurst >= .10f)
+            {
+                _lastBuildBurst = _buildAge;
+                foreach (var light in _lights) Burst(light.Head.Position, 2, 3);
+            }
         }
     }
 
@@ -291,20 +311,35 @@ public partial class NKarenWaitingStageVfx : Node2D
     {
         // Sit directly on the icon outline above its face, while Label stays in front.
         // Follow the visible face, including its own transform and texture margins.
-        var counter = _room.Ui.EnergyCounterContainer.GetChildren().OfType<NEnergyCounter>()
-            .FirstOrDefault(c => c.IsInsideTree() && !c.IsQueuedForDeletion());
-        var icon = counter?.GetNodeOrNull<TextureRect>("Layers/Layer1");
+        var container = _room.Ui.EnergyCounterContainer;
+        if (!GodotObject.IsInstanceValid(_counter) || !_counter!.IsInsideTree() || _counter.IsQueuedForDeletion()
+            || _counter.GetParent() != container || !GodotObject.IsInstanceValid(_energyIcon))
+        {
+            _counter = null; _energyIcon = null;
+            foreach (var child in container.GetChildren())
+            {
+                if (child is not NEnergyCounter candidate || !candidate.IsInsideTree() || candidate.IsQueuedForDeletion()) continue;
+                _counter = candidate;
+                _energyIcon = candidate.GetNodeOrNull<TextureRect>("Layers/Layer1");
+                break;
+            }
+        }
+        var counter = _counter;
+        var icon = _energyIcon;
         if (counter == null || icon?.Texture is not { } texture || icon.Size.X <= 0 || icon.Size.Y <= 0)
         { _counter = null; _hud.Hide(); return; }
         _counter = counter;
         if (_hud.GetParent() != counter) { _hud.Reparent(counter, false); counter.MoveChild(_hud, counter.GetNode("Label").GetIndex()); }
-        _hud.Transform = counter.GetGlobalTransformWithCanvas().AffineInverse() * icon.GetGlobalTransformWithCanvas();
+        var transform = counter.GetGlobalTransformWithCanvas().AffineInverse() * icon.GetGlobalTransformWithCanvas();
+        if (_hud.Transform != transform) _hud.Transform = transform;
         _center = icon.Size * .5f; _unit = Mathf.Clamp(Mathf.Min(icon.Size.X, icon.Size.Y) / 128f, .4f, 2.5f);
         if (!UpdateOutline(texture, icon.Size)) { _hud.Hide(); return; }
         _hud.Visible = icon.IsVisibleInTree();
         EnergyPointCanvas = icon.GetGlobalTransformWithCanvas() * _center;
-        _ring.Position = _center - new Vector2(120, 120) * _unit;
-        _ring.Size = new Vector2(240, 240) * _unit;
+        var ringPosition = _center - new Vector2(120, 120) * _unit;
+        var ringSize = new Vector2(240, 240) * _unit;
+        if (_ring.Position != ringPosition) _ring.Position = ringPosition;
+        if (_ring.Size != ringSize) _ring.Size = ringSize;
         for (int i = 0; i < _lights.Count; i++)
         {
             var light = _lights[i];
@@ -315,8 +350,6 @@ public partial class NKarenWaitingStageVfx : Node2D
             if (onRim && light.HasPreviousPhase) PassRimGlints(light.PreviousPhase, phase);
             light.PreviousPhase = phase; light.HasPreviousPhase = onRim;
             light.Head.Scale = Vector2.One * (PatrolScale + .12f * Cast) * _unit;
-            light.Head.Modulate = Colors.White;
-            light.Head.Visible = true;
             light.Material.SetShaderParameter("light_color", CurrentTint.Lerp(SpotlightWhite, Mathf.Max(Cast * .35f, Pulse * .70f)));
             light.Material.SetShaderParameter("strength", PatrolBrightness + .18f * Cast + .45f * Pulse);
             float trail = Mathf.Min(.42f, Mathf.Tau / Math.Max(1, _lights.Count) * .62f);
@@ -327,8 +360,8 @@ public partial class NKarenWaitingStageVfx : Node2D
                 light.Points[j] = OrbitPoint(at, RingRadius);
             }
             light.Tail.Points = light.Glow.Points = light.Points;
-            light.Tail.Width = 1.7f * _unit;
-            light.Glow.Width = 5f * _unit;
+            if (light.Tail.Width != 1.7f * _unit) light.Tail.Width = 1.7f * _unit;
+            if (light.Glow.Width != 5f * _unit) light.Glow.Width = 5f * _unit;
             light.Tail.Modulate = new Color(CurrentTint.Lerp(SpotlightWhite, Pulse * .7f), PatrolBrightness * .72f + Pulse * .25f);
             light.Glow.Modulate = new Color(CurrentTint, PatrolBrightness * .12f + Pulse * .06f);
             light.Tail.Visible = light.Glow.Visible = _buildAge >= .20f;

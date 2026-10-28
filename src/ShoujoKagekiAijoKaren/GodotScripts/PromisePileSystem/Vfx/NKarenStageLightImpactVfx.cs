@@ -21,7 +21,7 @@ public partial class NKarenStageLightImpactVfx : Node2D
 
     public static Node2D? Create(Creature target)
     {
-        if (NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
             || NCombatRoom.Instance == null) return null;
         return new NKarenStageLightImpactVfx { _target = target, _room = NCombatRoom.Instance, _seed = GD.Randf() * 20 };
     }

@@ -35,7 +35,7 @@ public partial class NKarenJealousyVfx : Node2D
     private Vector2 _source, _target, _towardSource;
     private float _age, _unit = 1, _side = 1, _speed = 1;
     private static GradientTexture2D? _soft;
-    private static bool Enabled => !NonInteractiveMode.IsActive
+    private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
         && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
 
     public static NKarenJealousyVfx? CreateImpact(Creature source, Creature target)

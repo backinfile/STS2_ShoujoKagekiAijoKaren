@@ -20,18 +20,31 @@ public partial class SNParticlesContainer : Node2D
 				p.Amount = KarenVfxQuality.ParticleCount(_fullAmounts[p]);
 			}
 		}
+        RefreshEffectQuality();
 	}
+
+    internal void RefreshEffectQuality()
+    {
+        Visible = KarenVfxQuality.Enabled;
+        foreach (var particle in _particles)
+        {
+            particle.Amount = KarenVfxQuality.ParticleCount(_fullAmounts[particle]);
+            if (!Visible) particle.Emitting = false;
+        }
+    }
 
 	public void SetEmitting(bool emitting)
 	{
 		for (int i = 0; i < _particles.Count; i++)
 		{
-			_particles[i].Emitting = emitting;
+			_particles[i].Emitting = emitting && KarenVfxQuality.Enabled;
 		}
 	}
 
 	public void Restart()
 	{
+        RefreshEffectQuality();
+        if (!KarenVfxQuality.Enabled) return;
 		for (int i = 0; i < _particles.Count; i++)
 		{
 			_particles[i].Amount = KarenVfxQuality.ParticleCount(_fullAmounts[_particles[i]]);

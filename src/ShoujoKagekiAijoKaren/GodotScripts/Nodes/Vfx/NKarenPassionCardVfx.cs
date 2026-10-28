@@ -41,7 +41,7 @@ public partial class NKarenPassionCardVfx : Node2D
 
     public static void Play(Player owner)
     {
-        if (NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
             || NCombatRoom.Instance is not { } room) return;
         Callable.From(() =>
         {

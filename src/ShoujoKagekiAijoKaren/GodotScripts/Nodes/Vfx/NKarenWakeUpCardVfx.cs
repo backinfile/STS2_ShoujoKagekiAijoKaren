@@ -31,7 +31,12 @@ public partial class NKarenWakeUpCardVfx(CardModel model, NCombatRoom room) : No
 
     private static readonly Color Coral = new("#ef6746"), Gold = new("#ffb53e"), Hot = new("#ffe7a4");
     private static Texture2D? _fan;
-    private readonly ArrayMesh _silkMesh = new();
+    private const int SilkSegments = 28, SilkStrands = 3;
+    private readonly Vector2[] _silkPoints = new Vector2[(SilkSegments + 1) * 2 * SilkStrands];
+    private readonly Vector2[] _silkUvs = new Vector2[(SilkSegments + 1) * 2 * SilkStrands];
+    private readonly Color[] _silkColors = new Color[(SilkSegments + 1) * 2 * SilkStrands];
+    private readonly int[] _silkIndices = new int[SilkSegments * 6 * SilkStrands];
+    private bool _silkPrepared;
     private readonly List<TrailPoint> _trail = new(40);
     private readonly List<Spark> _sparks = new(5);
     private readonly Vector2[] _star = new Vector2[8];
@@ -62,7 +67,6 @@ public partial class NKarenWakeUpCardVfx(CardModel model, NCombatRoom room) : No
         Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
     }
 
-    public override void _ExitTree() => _silkMesh.Dispose();
 
     public override void _Process(double delta)
     {
@@ -219,11 +223,9 @@ public partial class NKarenWakeUpCardVfx(CardModel model, NCombatRoom room) : No
         PrepareResources();
         // Independent silk strips continuously curl and twist around a pinned root.
         // Only this room-owned mesh changes; the native card keeps its own transform.
-        const int segments = 28, strands = 3;
-        var vertices = new Vector3[(segments + 1) * 2 * strands];
-        var uvs = new Vector2[vertices.Length];
-        var colors = new Color[vertices.Length];
-        var indices = new int[segments * 6 * strands];
+        const int segments = SilkSegments, strands = SilkStrands;
+        var vertices = _silkPoints; var uvs = _silkUvs; var colors = _silkColors; var indices = _silkIndices;
+        var transform = new Transform2D(axis, -up, root);
         for (int strand = 0; strand < strands; strand++)
         {
             int offset = strand * (segments + 1) * 2;
@@ -243,25 +245,19 @@ public partial class NKarenWakeUpCardVfx(CardModel model, NCombatRoom room) : No
                 for (int edge = 0; edge < 2; edge++)
                 {
                     int v = offset + j * 2 + edge;
-                    vertices[v] = new Vector3(x, -rise + (edge == 0 ? -half : half), 0);
-                    uvs[v] = new Vector2(1 - t, edge == 0 ? .15f : .75f);
+                    vertices[v] = transform * new Vector2(x, -rise + (edge == 0 ? -half : half));
+                    if (!_silkPrepared) uvs[v] = new Vector2(1 - t, edge == 0 ? .15f : .75f);
                     colors[v] = new Color(Colors.White, fade * (1 - strand * .12f));
                 }
-                if (j == segments) continue;
+                if (_silkPrepared || j == segments) continue;
                 int a = offset + j * 2, k = (strand * segments + j) * 6;
                 indices[k] = a; indices[k + 1] = a + 1; indices[k + 2] = a + 2;
                 indices[k + 3] = a + 1; indices[k + 4] = a + 3; indices[k + 5] = a + 2;
             }
         }
-        var arrays = new Godot.Collections.Array();
-        arrays.Resize((int)Mesh.ArrayType.Max);
-        arrays[(int)Mesh.ArrayType.Vertex] = vertices;
-        arrays[(int)Mesh.ArrayType.TexUV] = uvs;
-        arrays[(int)Mesh.ArrayType.Color] = colors;
-        arrays[(int)Mesh.ArrayType.Index] = indices;
-        _silkMesh.ClearSurfaces();
-        _silkMesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
-        DrawMesh(_silkMesh, _fan, new Transform2D(axis, -up, root));
+        _silkPrepared = true;
+        RenderingServer.CanvasItemAddTriangleArray(GetCanvasItem(), indices, vertices, colors, uvs,
+            texture: _fan!.GetRid());
     }
 
     private void DrawGlint(Vector2 center, float radius, float alpha)

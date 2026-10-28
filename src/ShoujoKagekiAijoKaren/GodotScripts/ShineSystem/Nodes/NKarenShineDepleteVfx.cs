@@ -40,6 +40,7 @@ public partial class NKarenShineDepleteVfx : Node2D
 
     public static bool Play(CardModel model, NCard? card)
     {
+        if (!KarenVfxQuality.Enabled) return false;
         var room = NCombatRoom.Instance;
         var ui = NRun.Instance?.GlobalUi;
         var target = ui?.TopBar.GetNodeOrNull<Control>("RightAlignedStuff/ShinePile/Control/Icon");

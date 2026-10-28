@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using System.Linq;
 using ShoujoKagekiAijoKaren.src.Core;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
@@ -59,6 +60,8 @@ internal static class PileTypeExtensionsGetTargetPositionPatch
     [HarmonyPrefix]
     private static bool Prefix(PileType pileType, NCard? node, ref Vector2 __result)
     {
+        // Off uses the native Draw icon even when Void redirects the promise pile.
+        if (!KarenVfxQuality.Enabled && pileType != KarenCustomEnum.PromisePile) return true;
         // 原生移牌动画共用塔内固定汇聚点，与运动星点解耦。
         if (pileType == KarenCustomEnum.PromisePile ||
             (node?.Model?.Owner is { } player && KarenPromiseVfxStarManager.IsTowerPile(player, pileType)))
@@ -144,6 +147,7 @@ internal static class PromiseCardEntryVfxPatch
     [HarmonyPrefix]
     private static bool Prefix(NCardFlyVfx __instance)
     {
+        if (!KarenVfxQuality.Enabled) return true;
         var card = Card(__instance);
         if (!Adding(__instance) || card.Model?.Pile is not { } pile ||
             !KarenPromiseVfxStarManager.IsTowerPile(card.Model.Owner, pile.Type)) return true;

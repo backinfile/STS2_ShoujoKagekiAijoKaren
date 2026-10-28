@@ -81,7 +81,7 @@ public partial class NKarenBenefitVfx : Node2D
     private static readonly Color Gold = new("#ffd68b"), Cream = new("#fff1d6"), Red = new("#f85269"), Blue = new("#74b7ff");
     private static readonly Color Ivory = new("#f7fbff");
 
-    public static bool Enabled => !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
+    public static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     public static NKarenBenefitVfx? Play(Player owner, BenefitKind kind, CardModel? sourceCard = null)
     {
         if (!Enabled) return null;

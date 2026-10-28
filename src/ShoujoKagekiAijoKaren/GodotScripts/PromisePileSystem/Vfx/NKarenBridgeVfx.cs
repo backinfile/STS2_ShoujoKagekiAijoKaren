@@ -92,7 +92,7 @@ public partial class NKarenBridgeVfx : Node2D
     public static void PlaySpotlight(CardModel card) => Spawn(card.Owner, card, true, null);
     private static void Spawn(Player player, CardModel? card, bool hasCards, Playback? playback)
     {
-        if (NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant) return;
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant) return;
         var room = NCombatRoom.Instance;
         if (room == null) return;
         Callable.From(() =>

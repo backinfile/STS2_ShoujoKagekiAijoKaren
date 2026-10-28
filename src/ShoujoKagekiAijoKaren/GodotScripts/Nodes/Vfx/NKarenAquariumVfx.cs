@@ -65,7 +65,7 @@ public partial class NKarenAquariumVfx : Node2D
     public Node2D BackLayer => _back;
     public Node2D HandLayer => _hud;
     public Vector2 FootCanvas => _foot;
-    private static bool Enabled => !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
+    private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     private bool Alive => GodotObject.IsInstanceValid(this) && IsInsideTree() && !IsQueuedForDeletion();
     private float Speed => SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1.65f : 1f;
     private static float Pulse(float age, float duration) => age <= 0 || age >= duration ? 0 : Mathf.Sin(Mathf.Pi * age / duration);

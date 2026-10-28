@@ -41,7 +41,7 @@ public partial class NKarenShineBarrageVfx : Node2D
     private bool _impact, _final, _burstStarted;
     private int _index;
     private static readonly Color Coral = new("#ff526e"), Gold = new("#ffd18b"), Ivory = new("#fff4db");
-    private static bool Enabled => !NonInteractiveMode.IsActive
+    private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
         && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     private static bool Present(Node? node) => GodotObject.IsInstanceValid(node)
         && node!.IsInsideTree() && !node.IsQueuedForDeletion();

@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using BaseLib.Utils;
 using Godot;
 using HarmonyLib;
@@ -25,6 +26,7 @@ public static class ShineVfx
     private static void Refresh(NCard card)
     {
         if (!card.IsNodeReady()) return;
+        if (!KarenVfxQuality.Enabled) { Clear(card); return; }
         var old = Warnings.Get(card);
         var ambient = Ambients.Get(card);
         if (GodotObject.IsInstanceValid(old) && old!.BelongsTo(card.Model)
@@ -40,6 +42,8 @@ public static class ShineVfx
         card.OverlayContainer.AddChild(ambient);
         Ambients.Set(card, ambient);
     }
+
+    internal static void RefreshQuality(NCard card) { Clear(card); if (KarenVfxQuality.Enabled) Refresh(card); }
 
     private static void Clear(NCard card)
     {

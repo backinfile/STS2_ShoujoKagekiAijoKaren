@@ -64,7 +64,7 @@ public partial class NKarenDropFuelVfx : Node2D
     public static NKarenDropFuelVfx? Play(CardModel card, int playIndex = 0)
     {
         var room = NCombatRoom.Instance;
-        if (NonInteractiveMode.IsActive || !LocalContext.IsMe(card.Owner)
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || !LocalContext.IsMe(card.Owner)
             || NRun.Instance?.GlobalUi == null || room == null || !CombatManager.Instance.IsInProgress)
             return null;
         var cardNode = NCard.FindOnTable(card);

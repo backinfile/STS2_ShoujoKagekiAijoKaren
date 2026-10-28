@@ -47,7 +47,13 @@ public class KarenModConfig : SimpleModConfig
     public static KarenVfxLevel VfxLevel
     {
         get => _vfxLevel;
-        set => _vfxLevel = Enum.IsDefined(value) ? value : KarenVfxLevel.Full;
+        set
+        {
+            var level = Enum.IsDefined(value) ? value : KarenVfxLevel.Full;
+            if (_vfxLevel == level) return;
+            _vfxLevel = level;
+            KarenVfxQuality.ApplyLevel();
+        }
     }
 
     /// <summary>

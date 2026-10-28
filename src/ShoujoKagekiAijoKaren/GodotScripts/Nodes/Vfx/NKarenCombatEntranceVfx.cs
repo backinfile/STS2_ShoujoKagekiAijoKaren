@@ -48,7 +48,7 @@ public partial class NKarenCombatEntranceVfx : Node2D
     {
         // Each peer owns its room node. Repeated presentation requests must not
         // stack poses or lights, including after the first cue is freed.
-        if (!KarenModConfig.EnableCombatEntrance || room.HasMeta(PlayedMeta)) return;
+        if (!KarenVfxQuality.Enabled || !KarenModConfig.EnableCombatEntrance || room.HasMeta(PlayedMeta)) return;
         var node = new NKarenCombatEntranceVfx { _room = room, Name = "KarenCombatEntrance" };
         // Entrance presentation belongs to the player controlling this peer.
         // Keep this check here too, so direct presentation requests cannot

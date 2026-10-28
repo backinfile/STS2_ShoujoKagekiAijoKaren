@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
@@ -54,7 +55,7 @@ public partial class NDisableRelicAbsorbVfx : Node2D
     public static void Play(Player player, Vector2 source, TargetKind destination = TargetKind.Player)
     {
         if (player == null || destination == TargetKind.None) return;
-        if (NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant) return;
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant) return;
         if (NRun.Instance?.GlobalUi == null || NCombatRoom.Instance is not {} room) return;
         // Remote players must never consume the local player's HUD icons.
         if (!LocalContext.IsMe(player)) destination = TargetKind.Player;

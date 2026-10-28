@@ -26,6 +26,7 @@ public partial class NKarenStarGuideVfx : Node2D
     /// </summary>
     public static void Play(IReadOnlyList<CardModel> cards)
     {
+        if (!KarenVfxQuality.Enabled) return;
         if (cards.Count == 0) return;
         if (NRun.Instance?.GlobalUi == null || NGame.Instance == null || NCombatRoom.Instance == null) return;
 

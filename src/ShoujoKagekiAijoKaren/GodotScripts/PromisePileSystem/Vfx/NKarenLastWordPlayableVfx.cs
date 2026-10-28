@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
@@ -47,7 +48,7 @@ public partial class NKarenLastWordPlayableVfx : Node2D
 
     public override void _Process(double delta)
     {
-        if (NonInteractiveMode.IsActive || !CombatManager.Instance.IsInProgress || NCombatRoom.Instance != _room ||
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || !CombatManager.Instance.IsInProgress || NCombatRoom.Instance != _room ||
             !GodotObject.IsInstanceValid(_card) ||
             !GodotObject.IsInstanceValid(_card.Body) ||
             _card.Model is not KarenLastWord model || model.Pile?.Type != PileType.Hand ||
@@ -66,7 +67,7 @@ public partial class NKarenLastWordPlayableVfx : Node2D
         _timer -= d;
         while (_timer <= 0f)
         {
-            _timer += SpawnInterval;
+            _timer += KarenVfxQuality.SpawnInterval(SpawnInterval);
             var cardSize = GetCardSize();
             for (int i = 0; i < ParticlesPerWave; i++)
                 AddParticle(cardSize);

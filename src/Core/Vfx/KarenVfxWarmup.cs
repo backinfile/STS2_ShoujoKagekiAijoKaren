@@ -10,6 +10,7 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Nodes;
 using ShoujoKagekiAijoKaren.src.Core.Audio;
+using ShoujoKagekiAijoKaren.Core;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
@@ -29,10 +30,11 @@ internal static class KarenVfxWarmup
     internal static int DrawCalls { get; private set; }
     private static readonly HashSet<string> PinnedPaths = new(StringComparer.Ordinal);
     internal static double ElapsedMs { get; private set; }
-    internal static IEnumerable<string> AssetPaths => KarenVfxCatalog.AssetPaths;
+    internal static IEnumerable<string> AssetPaths => KarenVfxQuality.Enabled ? KarenVfxCatalog.AssetPaths : [SNEnergyCounter.NativeBackPath, SNEnergyCounter.NativeFrontPath];
 
     private static Task EnsureReady()
     {
+        if (!KarenVfxQuality.Enabled) return Task.CompletedTask;
         if (_pending == null || Status == "failed") _pending = Prepare();
         return _pending;
     }

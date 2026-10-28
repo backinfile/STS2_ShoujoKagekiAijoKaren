@@ -104,7 +104,7 @@ internal static class KarenContinueExhaustPatch
 {
     private static void Prefix(NCard __0, out Transform2D? __state)
     {
-        __state = __0.Model is KarenContinue && !NonInteractiveMode.IsActive
+        __state = __0.Model is KarenContinue && KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
             && !NCombatUi.IsDebugHidingPlayContainer
             && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant
             ? __0.GetGlobalTransform() : null;
