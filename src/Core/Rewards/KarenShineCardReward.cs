@@ -21,6 +21,10 @@ public sealed class KarenShineCardReward(CardModel card, Player player) : Specia
         }
     }
 
+    // Shine reward choices stay outside ordinary card-choice statistics.
+    // Native acquisition still records CardsGained for ownership and win-rate data.
+    public override void OnSkipped() { }
+
     public override Control CreateIcon()
     {
         var icon = base.CreateIcon();

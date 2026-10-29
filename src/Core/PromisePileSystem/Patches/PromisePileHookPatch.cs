@@ -103,8 +103,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches
                             if ((cardPile.Type == KarenCustomEnum.PromisePile && !inVoid)
                                 || (cardPile.Type == PileType.Draw && inVoid))
                             {
-                                await PromisePileHooks.TriggerPromisePileEmpty(player);
                                 cardPileMarked[cardPile] = true;
+                                await PromisePileHooks.TriggerPromisePileEmpty(player);
                             }
                         }
                     }
@@ -113,19 +113,15 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches
         }
 
         /// <summary>
-        /// 重置标记
+        /// 实际补入卡牌后，允许下一次清空触发；覆盖原生命令与直接补牌。
         /// </summary>
-        [HarmonyPatch(typeof(CardModel), nameof(CardModel.OnPlayWrapper))]
-        public static class CardModel_OnPlayWrapper_Hook_Patch
+        [HarmonyPatch(typeof(CardPile), nameof(CardPile.AddInternal))]
+        public static class CardPile_AddInternal_Hook_Patch
         {
-
-            public static void Prefix(CardModel __instance)
+            public static void Postfix(CardPile __instance)
             {
-                if (__instance.Owner is Player player)
-                {
-                    AfterCardChangedPiles_Hook_Patch.cardPileMarked[PileType.Draw.GetPile(player)] = false;
-                    AfterCardChangedPiles_Hook_Patch.cardPileMarked[KarenCustomEnum.PromisePile.GetPile(player)] = false;
-                }
+                if (__instance.Type == PileType.Draw || __instance.Type == KarenCustomEnum.PromisePile)
+                    AfterCardChangedPiles_Hook_Patch.cardPileMarked[__instance] = false;
             }
         }
     }

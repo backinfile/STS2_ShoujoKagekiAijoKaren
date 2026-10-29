@@ -124,11 +124,13 @@ public static class PromisePileManager
 
     /// <summary>
     /// 从约定牌堆取出第一张牌（FIFO），并通过 CardPileCmd.Add 移入手牌顶部。
-    /// 返回 null 表示约定牌堆为空。
+    /// 返回 null 表示牌堆为空、移牌失败或战斗已经结束。
     /// </summary>
     public static async Task<CardModel?> DrawFromPromisePileAsync(
         PlayerChoiceContext choiceContext, Player player)
     {
+        if (player.PlayerCombatState == null || CombatManager.Instance.IsOverOrEnding) return null;
+
         var pile = GetPromisePile(player);
         if (pile.Cards.Count == 0) return null;
 
@@ -136,12 +138,13 @@ public static class PromisePileManager
         //pile.RemoveInternal(card); 这里不能删除，要给后续动作提供一个oldPile
         MainFile.Logger.Info($"DrawFromPromisePileAsync {card.Title} pile = {card.Pile?.Type}");
 
-        await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
-        //await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
+        var result = await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
+        if (!result.success) return null;
 
-        // 更新 Power
-        await UpdatePowerAsync(player);
-        return card;
+        // A move hook can finish combat; refill only while the combat remains active.
+        if (player.PlayerCombatState != null && !CombatManager.Instance.IsOverOrEnding)
+            await UpdatePowerAsync(player);
+        return result.cardAdded;
     }
 
     /// <summary>

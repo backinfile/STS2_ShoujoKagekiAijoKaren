@@ -125,11 +125,10 @@ public static class PromisePileCmd
     /// <returns></returns>
     public static async Task DrawToFullHand(PlayerChoiceContext choiceContext, Player player)
     {
-        while (true)
+        while (player.PlayerCombatState != null && !CombatManager.Instance.IsOverOrEnding
+               && !PlayerUtils.IsHandFull(player))
         {
-            if (PlayerUtils.IsHandFull(player)) break;
-            var drawn = await Draw(choiceContext, player);
-            if (drawn == null) break; // 抽不到更多的牌了
+            if (await Draw(choiceContext, player) == null) break;
         }
     }
 
