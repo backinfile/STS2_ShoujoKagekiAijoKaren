@@ -19,8 +19,9 @@ public static class CombatBgmReplacementManager
     private static AudioStreamPlayer? _fadingPlayer;
     private static Tween? _fadeTween;
     private static int _restoreRequestId;
-    private static bool _needsGameMusicRestore;
+    private static bool _needsGameMusicRestore, _cutscenePriority;
     private static NCombatRoom? _owningRoom;
+    internal static bool CutscenePriority => _cutscenePriority;
 
     public static void PlayLoop(string fileName, Player? ownerPlayer = null, float volume = 1f)
     {
@@ -28,7 +29,15 @@ public static class CombatBgmReplacementManager
             return;
 
         _restoreRequestId++;
+        _cutscenePriority = false;
         StopImmediate();
+        if (KarenModConfig.EnableMusicPlayer && MusicPlayer.KarenMusicPlayback.Current is { } music)
+        {
+            RestoreGameMusicIfNeeded();
+            music.SetFormPriority(false);
+            _ = music.ForceTrack(fileName);
+            return;
+        }
         StopGameMusicEventOnly();
         _currentPlayer = KarenAudioManager.PlayMusicLoop(fileName, volume);
         // A debug fight/room replacement can skip AfterCombatEnd and Power.AfterRemoved.
@@ -39,6 +48,14 @@ public static class CombatBgmReplacementManager
             _owningRoom = room;
             room.TreeExiting += OnCombatRoomExiting;
         }
+    }
+
+    internal static void YieldToMusicPlayer()
+    {
+        if (!GodotObject.IsInstanceValid(_currentPlayer) && !GodotObject.IsInstanceValid(_fadingPlayer)) return;
+        _restoreRequestId++;
+        StopImmediate();
+        RestoreGameMusicIfNeeded();
     }
 
     public static void Stop(Player? ownerPlayer = null)
@@ -55,9 +72,26 @@ public static class CombatBgmReplacementManager
             return;
 
         _restoreRequestId++;
+        _cutscenePriority = true;
         StopImmediate();
+        MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(true);
         StopGameMusicEventOnly();
         _needsGameMusicRestore = true;
+    }
+
+    public static void EndCutscene()
+    {
+        if (!_cutscenePriority) return;
+        _cutscenePriority = false;
+        var state = RunManager.Instance.DebugOnlyGetState();
+        var player = state == null ? null : LocalContext.GetMe(state);
+        if (KarenModConfig.EnableMusicPlayer && MusicPlayer.KarenMusicPlayback.Current is { HasStream: true })
+            RestoreGameMusicIfNeeded();
+        else if (GodotObject.IsInstanceValid(NCombatRoom.Instance)
+            && player?.Creature.GetPower<Models.Powers.KarenFormPower>() != null)
+            PlayLoop(KarenFormMusicManager.FileName, player, 0.5f);
+        else
+            RestoreGameMusicIfNeeded();
     }
 
     public static void StopForCombatEnd()
@@ -70,6 +104,9 @@ public static class CombatBgmReplacementManager
         _restoreRequestId++;
         StopImmediate();
         _needsGameMusicRestore = false;
+        _cutscenePriority = false;
+        MusicPlayer.KarenMusicPlayback.Current?.Stop();
+        MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(false);
     }
 
     public static void RestoreGameMusicIfNeeded()
@@ -78,16 +115,20 @@ public static class CombatBgmReplacementManager
             || GodotObject.IsInstanceValid(_fadingPlayer))
             return;
 
+        _cutscenePriority = false;
+        MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(false);
         RequestRestoreGameMusic();
     }
 
     private static void StopAndRestoreGameMusic()
     {
+        _cutscenePriority = false;
         // Repeated combat-end hooks must not restore the native track halfway through a fade.
         if (GodotObject.IsInstanceValid(_fadingPlayer)) return;
         if (!GodotObject.IsInstanceValid(_currentPlayer))
         {
             _currentPlayer = null;
+            MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(false);
             RestoreGameMusicIfNeeded();
             return;
         }
@@ -113,6 +154,7 @@ public static class CombatBgmReplacementManager
                 audioPlayer.QueueFree();
             }
 
+            MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(false);
             RequestRestoreGameMusic();
         };
     }
@@ -146,6 +188,8 @@ public static class CombatBgmReplacementManager
         _restoreRequestId++;
         StopImmediate();
         _needsGameMusicRestore = true;
+        _cutscenePriority = false;
+        MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(false);
     }
 
     private static void ReleaseCombatRoom()

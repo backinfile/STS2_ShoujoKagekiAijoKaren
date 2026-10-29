@@ -128,15 +128,15 @@ try:
     for speed in args.cases.split(','):
         case = out / speed
         case.mkdir(exist_ok=True)
-        config_mode = 'off' if speed == 'config-off' else 'on' if speed == 'config-on' else 'status'
+        config_mode = speed.removeprefix('config-') if speed.startswith('config-') else 'status'
         config = json.loads(cmd('entrance_probe config ' + config_mode)['message'])
-        assert config['defaultEnabled'] and config['enabled'] == (speed != 'config-off'), config
+        assert config['defaultEnabled'] and config['enabled'] == (speed not in ['config-off', 'config-low']), config
         if speed.startswith('config-'):
             # Reload the value written by the real BaseLib save path.
             config = json.loads(cmd('entrance_probe config reload')['message'])
             saved = json.loads(Path(config['path']).read_text(encoding='utf-8-sig'))
-            assert config['enabled'] == (speed != 'config-off'), config
-            assert saved['EnableCombatEntrance'].lower() == str(config['enabled']).lower(), saved
+            assert config['enabled'] == (speed not in ['config-off', 'config-low']), config
+            assert saved['VfxLevel'] == config['level'], saved
         save(case / 'config.json', config)
         cmd('entrance_probe speed ' + ('normal' if speed in ['cancel', 'overlay', 'attack', 'material', 'tower'] else speed))
         fixture = 'mark' if speed == 'overlay' else speed if speed in ['attack', 'material', 'tower'] else ''
@@ -169,7 +169,7 @@ try:
             time.sleep(.03)
         time.sleep(.4)
         result = json.loads(cmd('entrance_probe status')['message'])
-        expected_casts = 0 if speed in ['instant', 'config-off'] else 1
+        expected_casts = 0 if speed in ['instant', 'config-off', 'config-low'] else 1
         assert result['casts'] == expected_casts and result['soundCues'] == 0, result
         assert result['live'] == result['backLive'] == 0, result
         assert result['posesLive'] == result['towerEntrancesLive'] == 0 and result['materialPreserved'], result

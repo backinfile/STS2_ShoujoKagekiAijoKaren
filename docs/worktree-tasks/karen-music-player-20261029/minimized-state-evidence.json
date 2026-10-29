@@ -1,0 +1,125 @@
+{
+  "checks": {
+    "stable": [
+      {
+        "name": "initial_minimized_stopped",
+        "passed": true
+      },
+      {
+        "name": "playing_icon",
+        "passed": true
+      },
+      {
+        "name": "paused_icon",
+        "passed": true
+      },
+      {
+        "name": "paused_frozen",
+        "passed": true
+      },
+      {
+        "name": "resume_icon",
+        "passed": true
+      },
+      {
+        "name": "restore_opens",
+        "passed": true
+      },
+      {
+        "name": "minimize_keeps_state",
+        "passed": true
+      },
+      {
+        "name": "priority_music_playing_icon",
+        "passed": true
+      },
+      {
+        "name": "priority_end_resumes",
+        "passed": true
+      },
+      {
+        "name": "re_enable_stopped_icon",
+        "passed": true
+      }
+    ],
+    "beta": [
+      {
+        "name": "initial_minimized_stopped",
+        "passed": true
+      },
+      {
+        "name": "playing_icon",
+        "passed": true
+      },
+      {
+        "name": "paused_icon",
+        "passed": true
+      },
+      {
+        "name": "paused_frozen",
+        "passed": true
+      },
+      {
+        "name": "resume_icon",
+        "passed": true
+      },
+      {
+        "name": "restore_opens",
+        "passed": true
+      },
+      {
+        "name": "minimize_keeps_state",
+        "passed": true
+      },
+      {
+        "name": "priority_music_playing_icon",
+        "passed": true
+      },
+      {
+        "name": "priority_end_resumes",
+        "passed": true
+      },
+      {
+        "name": "re_enable_stopped_icon",
+        "passed": true
+      }
+    ]
+  },
+  "packages": [
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Beta.dll",
+      "bytes": 1468416,
+      "sha256": "9417d52507c114edda0ffc837959dbe19fde813a46dc1ab407735c2f79bb7b2c"
+    },
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Stable.dll",
+      "bytes": 1467392,
+      "sha256": "9ed9ad29aa7403d8773dac9ae712352935b375fc4e5edea4d43a7a935c7043fb"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.dll",
+      "bytes": 8704,
+      "sha256": "1b303b3fef2cae35e09ff9651c4934eb19d7f82ebf9a07deb9a5dd96be04f288"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.json",
+      "bytes": 412,
+      "sha256": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.pck",
+      "bytes": 83655620,
+      "sha256": "2419a519447fb07023a0b5205d6dafa506d2d72b328d37e1de6e7d4502903358"
+    }
+  ],
+  "review": "独立只读审查及实际截图复核通过。",
+  "not_run": [
+    "full singleplayer/multiplayer matrix",
+    "VFX专项",
+    "Android"
+  ],
+  "screenshots": [
+    "artifacts/karen-music-player-20261029/min-state-playing-detail.png",
+    "artifacts/karen-music-player-20261029/min-state-paused-detail.png"
+  ]
+}

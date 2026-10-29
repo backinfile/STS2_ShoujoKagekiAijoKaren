@@ -1,0 +1,356 @@
+{
+  "scope": "播放器 UI 回调、布局及曲目节点；未测整机/音频解码独占 CPU。",
+  "method": "隔离桌面、静默引擎、正式版前后同场景；每状态约2秒实际Harmony计数。预热后直接调用60000次_Process，取3轮中位数；手动压测不含引擎调度及音频解码。",
+  "baseline": {
+    "benchmark": [
+      {
+        "frames": 60000,
+        "milliseconds": 7.3581,
+        "allocatedBytes": 3040152,
+        "processing": true
+      },
+      {
+        "frames": 60000,
+        "milliseconds": 7.0523,
+        "allocatedBytes": 3040152,
+        "processing": true
+      },
+      {
+        "frames": 60000,
+        "milliseconds": 7.4152,
+        "allocatedBytes": 3040152,
+        "processing": true
+      }
+    ],
+    "states": {
+      "minimized_idle": {
+        "seconds": 2.011381,
+        "calls": {
+          "_Process": 122,
+          "UpdateClock": 12,
+          "Place": 12
+        },
+        "processing": true,
+        "rows": 20
+      },
+      "minimized_playing": {
+        "seconds": 2.0182443,
+        "calls": {
+          "_Process": 121,
+          "UpdateClock": 12,
+          "Place": 12
+        },
+        "processing": true,
+        "rows": 20
+      },
+      "expanded_playing": {
+        "seconds": 2.0192747,
+        "calls": {
+          "_Process": 122,
+          "UpdateClock": 12,
+          "Place": 12
+        },
+        "processing": true,
+        "rows": 20
+      },
+      "expanded_paused": {
+        "seconds": 2.0328912,
+        "calls": {
+          "_Process": 123,
+          "UpdateClock": 12,
+          "Place": 12
+        },
+        "processing": true,
+        "rows": 20
+      },
+      "disabled": {
+        "seconds": 2.0158962,
+        "calls": {
+          "_Process": 122
+        },
+        "processing": true,
+        "rows": 20
+      }
+    }
+  },
+  "optimized": {
+    "stable": {
+      "benchmark": [
+        {
+          "frames": 60000,
+          "milliseconds": 0.9278,
+          "allocatedBytes": 0,
+          "processing": false
+        },
+        {
+          "frames": 60000,
+          "milliseconds": 0.8045,
+          "allocatedBytes": 0,
+          "processing": false
+        },
+        {
+          "frames": 60000,
+          "milliseconds": 0.8216,
+          "allocatedBytes": 0,
+          "processing": false
+        }
+      ],
+      "states": {
+        "minimized_idle": {
+          "seconds": 2.0433003,
+          "calls": {},
+          "processing": false,
+          "rows": 0
+        },
+        "minimized_playing": {
+          "seconds": 2.0158199,
+          "calls": {},
+          "processing": false,
+          "rows": 0
+        },
+        "expanded_playing": {
+          "seconds": 2.0184441,
+          "calls": {
+            "_Process": 121,
+            "UpdateClock": 12
+          },
+          "processing": true,
+          "rows": 0
+        },
+        "expanded_paused": {
+          "seconds": 2.0118896,
+          "calls": {},
+          "processing": false,
+          "rows": 0
+        },
+        "disabled": {
+          "seconds": 2.0271951,
+          "calls": {},
+          "processing": false,
+          "rows": 0
+        }
+      }
+    },
+    "beta": {
+      "benchmark": [
+        {
+          "frames": 60000,
+          "milliseconds": 0.7723,
+          "allocatedBytes": 0,
+          "processing": false
+        },
+        {
+          "frames": 60000,
+          "milliseconds": 0.8045,
+          "allocatedBytes": 0,
+          "processing": false
+        },
+        {
+          "frames": 60000,
+          "milliseconds": 0.7865,
+          "allocatedBytes": 0,
+          "processing": false
+        }
+      ],
+      "states": {
+        "minimized_idle": {
+          "seconds": 2.0419564,
+          "calls": {},
+          "processing": false,
+          "rows": 0
+        },
+        "minimized_playing": {
+          "seconds": 2.0172225,
+          "calls": {},
+          "processing": false,
+          "rows": 0
+        },
+        "expanded_playing": {
+          "seconds": 2.0184962,
+          "calls": {
+            "_Process": 122,
+            "UpdateClock": 12
+          },
+          "processing": true,
+          "rows": 0
+        },
+        "expanded_paused": {
+          "seconds": 2.0122426,
+          "calls": {},
+          "processing": false,
+          "rows": 0
+        },
+        "disabled": {
+          "seconds": 2.0137036,
+          "calls": {},
+          "processing": false,
+          "rows": 0
+        }
+      }
+    }
+  },
+  "functional": {
+    "stable": [
+      {
+        "name": "idle_sleeps_and_lazy_rows",
+        "passed": true
+      },
+      {
+        "name": "play_notice_wakes",
+        "passed": true
+      },
+      {
+        "name": "notice_expires_audio_continues",
+        "passed": true
+      },
+      {
+        "name": "next_notice_wakes",
+        "passed": true
+      },
+      {
+        "name": "restore_progress_wakes",
+        "passed": true
+      },
+      {
+        "name": "pause_sleeps",
+        "passed": true
+      },
+      {
+        "name": "paused_seek_clock_updates",
+        "passed": true
+      },
+      {
+        "name": "paused_seek_resumes_at_target",
+        "passed": true
+      },
+      {
+        "name": "first_expand_builds_rows",
+        "passed": true
+      },
+      {
+        "name": "lazy_row_selects_and_resumes",
+        "passed": true
+      },
+      {
+        "name": "reopen_reuses_rows",
+        "passed": true
+      },
+      {
+        "name": "resize_keeps_paused_asleep",
+        "passed": true
+      },
+      {
+        "name": "form_state_notice",
+        "passed": true
+      },
+      {
+        "name": "form_resume_notice",
+        "passed": true
+      },
+      {
+        "name": "confirm_close_sleeps",
+        "passed": true
+      }
+    ],
+    "beta": [
+      {
+        "name": "idle_sleeps_and_lazy_rows",
+        "passed": true
+      },
+      {
+        "name": "play_notice_wakes",
+        "passed": true
+      },
+      {
+        "name": "notice_expires_audio_continues",
+        "passed": true
+      },
+      {
+        "name": "next_notice_wakes",
+        "passed": true
+      },
+      {
+        "name": "restore_progress_wakes",
+        "passed": true
+      },
+      {
+        "name": "pause_sleeps",
+        "passed": true
+      },
+      {
+        "name": "paused_seek_clock_updates",
+        "passed": true
+      },
+      {
+        "name": "paused_seek_resumes_at_target",
+        "passed": true
+      },
+      {
+        "name": "first_expand_builds_rows",
+        "passed": true
+      },
+      {
+        "name": "lazy_row_selects_and_resumes",
+        "passed": true
+      },
+      {
+        "name": "reopen_reuses_rows",
+        "passed": true
+      },
+      {
+        "name": "resize_keeps_paused_asleep",
+        "passed": true
+      },
+      {
+        "name": "form_state_notice",
+        "passed": true
+      },
+      {
+        "name": "form_resume_notice",
+        "passed": true
+      },
+      {
+        "name": "confirm_close_sleeps",
+        "passed": true
+      }
+    ]
+  },
+  "packages": [
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Beta.dll",
+      "sha256": "8498dd3283bad695d28c2eda74c8744df3162127d1e965805020dfd21d56abfa",
+      "bytes": 1469440
+    },
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Stable.dll",
+      "sha256": "232a18ca72105b19b611859e7edd073b01378d443c8fe698a29bed7e86132ca5",
+      "bytes": 1467904
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.dll",
+      "sha256": "ba0346d9cc21d3c10bb6eb681b564729ed0a37e3a1fe9c72d0b9a1e57d171aa4",
+      "bytes": 8704
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.json",
+      "sha256": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+      "bytes": 412
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.pck",
+      "sha256": "2419a519447fb07023a0b5205d6dafa506d2d72b328d37e1de6e7d4502903358",
+      "bytes": 83655620
+    }
+  ],
+  "screenshots": [
+    "artifacts/karen-music-player-20261029/stable-perf-resized.png",
+    "artifacts/karen-music-player-20261029/beta-perf-resized.png"
+  ],
+  "not_run": [
+    "full singleplayer/multiplayer matrix",
+    "VFX专项",
+    "Android",
+    "whole-game FPS benchmark",
+    "audio decode CPU isolation"
+  ]
+}

@@ -1,0 +1,309 @@
+{
+  "selection_source": "https://www.joysound.com/web/search/artist/412101/ranking",
+  "reference_source": "https://music.apple.com/us/artist/starlight-kuku-gumi/1279667986",
+  "retrieval_date": "2026-10-29",
+  "audio": {
+    "count": 10,
+    "bytes": 17363633,
+    "mib": 16.56,
+    "minutes": 52.9,
+    "old_bytes": 33095810,
+    "decoded_all": true,
+    "parts": [
+      10,
+      1,
+      155,
+      12,
+      104,
+      195,
+      11,
+      19,
+      18,
+      17
+    ]
+  },
+  "pack_audio_imports": [
+    "res://.godot/imported/p001.ogg-c0324bce5949d5fe1ab137b431b90b28.oggvorbisstr",
+    "res://.godot/imported/p010.ogg-a6935364d65d2a94c362601a276f290e.oggvorbisstr",
+    "res://.godot/imported/p011.ogg-6c0eb78bbd5c9548fe9079b2ae5c01d7.oggvorbisstr",
+    "res://.godot/imported/p012.ogg-523bc2268cc4960b5e4e0ca142f79bde.oggvorbisstr",
+    "res://.godot/imported/p017.ogg-14c8addc59bf319b60d630a01cee6f78.oggvorbisstr",
+    "res://.godot/imported/p018.ogg-b8c52fff4b4f4a2773d9ef413ffcbe8a.oggvorbisstr",
+    "res://.godot/imported/p019.ogg-4b673952ca4de0ae81c67d960e23984e.oggvorbisstr",
+    "res://.godot/imported/p104.ogg-a4aa3b07d6366214609be810dd677639.oggvorbisstr",
+    "res://.godot/imported/p155.ogg-a06e14439bb2d08a50c7215bfb96cc78.oggvorbisstr",
+    "res://.godot/imported/p195.ogg-00e322cf425f840274fcc9097fa82b9e.oggvorbisstr"
+  ],
+  "checks": {
+    "stable": [
+      {
+        "name": "mod_visible_in_registry",
+        "passed": true
+      },
+      {
+        "name": "final_default_states",
+        "passed": true
+      },
+      {
+        "name": "upload_and_actions_in_other",
+        "passed": true
+      },
+      {
+        "name": "only_grouped_root_rows",
+        "passed": true
+      },
+      {
+        "name": "actions_still_equal_row",
+        "passed": true
+      },
+      {
+        "name": "other_collapses_all_children",
+        "passed": true
+      },
+      {
+        "name": "other_reopens",
+        "passed": true
+      },
+      {
+        "name": "music_expands",
+        "passed": true
+      },
+      {
+        "name": "collapse_cancels_capture",
+        "passed": true
+      },
+      {
+        "name": "reopen_restores_final_defaults",
+        "passed": true
+      },
+      {
+        "name": "final_group_defaults",
+        "passed": true
+      },
+      {
+        "name": "other_group_contains_actions_and_upload",
+        "passed": true
+      },
+      {
+        "name": "exact_ten_rows",
+        "passed": true
+      },
+      {
+        "name": "play_p010.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p001.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p155.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p012.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p104.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p195.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p011.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p019.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p018.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p017.ogg",
+        "passed": true
+      },
+      {
+        "name": "ten_track_next_wrap",
+        "passed": true
+      },
+      {
+        "name": "ten_track_previous_wrap",
+        "passed": true
+      },
+      {
+        "name": "ten_track_end_auto_next",
+        "passed": true
+      },
+      {
+        "name": "user_local_samples_preserved",
+        "passed": true
+      },
+      {
+        "name": "clear_returns_ten_builtin",
+        "passed": true
+      }
+    ],
+    "beta": [
+      {
+        "name": "mod_visible_in_registry",
+        "passed": true
+      },
+      {
+        "name": "final_default_states",
+        "passed": true
+      },
+      {
+        "name": "upload_and_actions_in_other",
+        "passed": true
+      },
+      {
+        "name": "only_grouped_root_rows",
+        "passed": true
+      },
+      {
+        "name": "actions_still_equal_row",
+        "passed": true
+      },
+      {
+        "name": "other_collapses_all_children",
+        "passed": true
+      },
+      {
+        "name": "other_reopens",
+        "passed": true
+      },
+      {
+        "name": "music_expands",
+        "passed": true
+      },
+      {
+        "name": "collapse_cancels_capture",
+        "passed": true
+      },
+      {
+        "name": "reopen_restores_final_defaults",
+        "passed": true
+      },
+      {
+        "name": "final_group_defaults",
+        "passed": true
+      },
+      {
+        "name": "other_group_contains_actions_and_upload",
+        "passed": true
+      },
+      {
+        "name": "exact_ten_rows",
+        "passed": true
+      },
+      {
+        "name": "play_p010.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p001.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p155.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p012.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p104.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p195.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p011.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p019.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p018.ogg",
+        "passed": true
+      },
+      {
+        "name": "play_p017.ogg",
+        "passed": true
+      },
+      {
+        "name": "ten_track_next_wrap",
+        "passed": true
+      },
+      {
+        "name": "ten_track_previous_wrap",
+        "passed": true
+      },
+      {
+        "name": "ten_track_end_auto_next",
+        "passed": true
+      },
+      {
+        "name": "user_local_samples_preserved",
+        "passed": true
+      },
+      {
+        "name": "clear_returns_ten_builtin",
+        "passed": true
+      }
+    ]
+  },
+  "packages": [
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Beta.dll",
+      "sha256": "d1545a3b9b0a42ee3eedcf21db51282bb9191a00253e021f0fbfc824c95c8c73",
+      "bytes": 1483264
+    },
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Stable.dll",
+      "sha256": "039526befeb80306267404a7b4439939322ccf71d207d83d702d9fb73aa7e4fd",
+      "bytes": 1481728
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.dll",
+      "sha256": "da66126f9e8b11d6c5dbc06267968a7ac4ce7b50a0b0a43bf350ef20fe906bb2",
+      "bytes": 8704
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.json",
+      "sha256": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+      "bytes": 412
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.pck",
+      "sha256": "29bb0873d5cc49d183bd0dc675d44fac3d691135855c670873c9bed6b36d1e44",
+      "bytes": 67496440
+    }
+  ],
+  "screenshots": [
+    "artifacts/karen-music-player-20261029/stable-top10-groups.png",
+    "artifacts/karen-music-player-20261029/stable-top10-library.png",
+    "artifacts/karen-music-player-20261029/beta-top10-groups.png",
+    "artifacts/karen-music-player-20261029/beta-top10-library.png"
+  ],
+  "localization": {
+    "existing_failures": 13,
+    "new_failures": 0
+  },
+  "not_run": [
+    "full singleplayer/multiplayer matrix",
+    "VFX专项",
+    "Android"
+  ]
+}

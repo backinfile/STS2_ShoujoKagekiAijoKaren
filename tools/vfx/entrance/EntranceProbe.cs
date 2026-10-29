@@ -89,16 +89,17 @@ public static class EntranceProbe
     public static string Config(string mode)
     {
         var config = ModConfigRegistry.Get<KarenModConfig>()!;
-        if (mode is "on" or "off")
+        if (mode == "on") mode = "Full";
+        if (Enum.TryParse<KarenVfxLevel>(mode, true, out var level))
         {
-            KarenModConfig.EnableCombatEntrance = mode == "on";
+            KarenModConfig.VfxLevel = level;
             config.Save();
         }
         if (mode == "reload") config.Load();
-        return JsonSerializer.Serialize(new { enabled = KarenModConfig.EnableCombatEntrance,
-            defaultEnabled = config.GetDefaultValue<bool>(nameof(KarenModConfig.EnableCombatEntrance)),
+        return JsonSerializer.Serialize(new { enabled = KarenModConfig.VfxLevel == KarenVfxLevel.Full, level = KarenModConfig.VfxLevel.ToString(),
+            defaultEnabled = config.GetDefaultValue<KarenVfxLevel>(nameof(KarenModConfig.VfxLevel)) == KarenVfxLevel.Full,
             path = typeof(ModConfig).GetField("_path", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(config),
-            title = new LocString("settings_ui", "SHOUJOKAGEKIAIJOKAREN-ENABLE_COMBAT_ENTRANCE.title").GetFormattedText() });
+            title = new LocString("settings_ui", "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.title").GetFormattedText() });
     }
     public static void Initialize()
     {

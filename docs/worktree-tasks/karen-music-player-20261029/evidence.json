@@ -1,0 +1,271 @@
+{
+  "built_packages": {
+    "stable": [
+      {
+        "path": "ShoujoKagekiAijoKaren.dll",
+        "sha256": "0a4b56e6dae35dd294a83726779162cdf2a92631bdd7f47f846c5e021e6342e8",
+        "bytes": 8704
+      },
+      {
+        "path": "ShoujoKagekiAijoKaren.pck",
+        "sha256": "af56671ce25832dc3fe587b67eb6bbedd85b94946f629df220d7533b9c66b565",
+        "bytes": 83653396
+      },
+      {
+        "path": "lib/ShoujoKagekiAijoKaren.Stable.dll",
+        "sha256": "9ce51fef5236eced15c20b4908fb1149ebca1277eace5e2fc9c6d8402cee5ac3",
+        "bytes": 1457152
+      }
+    ],
+    "beta": [
+      {
+        "path": "ShoujoKagekiAijoKaren.dll",
+        "sha256": "0a4b56e6dae35dd294a83726779162cdf2a92631bdd7f47f846c5e021e6342e8",
+        "bytes": 8704
+      },
+      {
+        "path": "ShoujoKagekiAijoKaren.pck",
+        "sha256": "af56671ce25832dc3fe587b67eb6bbedd85b94946f629df220d7533b9c66b565",
+        "bytes": 83653396
+      },
+      {
+        "path": "lib/ShoujoKagekiAijoKaren.Beta.dll",
+        "sha256": "016b53e5a681766bb00d3e13bbbe9325dec6521806b67d3a7c3ad70cc0d06d7f",
+        "bytes": 1458688
+      }
+    ]
+  },
+  "functional_checks": {
+    "stable": [
+      {
+        "name": "silent_audio",
+        "passed": true
+      },
+      {
+        "name": "builtin_default",
+        "passed": true
+      },
+      {
+        "name": "builtin_ogg_and_bgm_priority",
+        "passed": true
+      },
+      {
+        "name": "pause_and_restore_bgm",
+        "passed": true
+      },
+      {
+        "name": "seek",
+        "passed": true
+      },
+      {
+        "name": "volume",
+        "passed": true
+      },
+      {
+        "name": "minimized_keeps_playing",
+        "passed": true
+      },
+      {
+        "name": "restore",
+        "passed": true
+      },
+      {
+        "name": "next",
+        "passed": true
+      },
+      {
+        "name": "previous",
+        "passed": true
+      },
+      {
+        "name": "config_disable_stops_and_restores",
+        "passed": true
+      },
+      {
+        "name": "empty_directory",
+        "passed": true
+      },
+      {
+        "name": "missing_directory",
+        "passed": true
+      },
+      {
+        "name": "bad_file",
+        "passed": true
+      },
+      {
+        "name": "local_directory_filters_formats",
+        "passed": true
+      },
+      {
+        "name": "local_mp3",
+        "passed": true
+      },
+      {
+        "name": "local_ogg",
+        "passed": true
+      },
+      {
+        "name": "local_wav",
+        "passed": true
+      },
+      {
+        "name": "clear_directory_returns_builtin",
+        "passed": true
+      },
+      {
+        "name": "natural_auto_next",
+        "passed": true
+      },
+      {
+        "name": "completed",
+        "passed": true
+      }
+    ],
+    "beta": [
+      {
+        "name": "silent_audio",
+        "passed": true
+      },
+      {
+        "name": "builtin_default",
+        "passed": true
+      },
+      {
+        "name": "builtin_ogg_and_bgm_priority",
+        "passed": true
+      },
+      {
+        "name": "pause_and_restore_bgm",
+        "passed": true
+      },
+      {
+        "name": "seek",
+        "passed": true
+      },
+      {
+        "name": "volume",
+        "passed": true
+      },
+      {
+        "name": "minimized_keeps_playing",
+        "passed": true
+      },
+      {
+        "name": "restore",
+        "passed": true
+      },
+      {
+        "name": "next",
+        "passed": true
+      },
+      {
+        "name": "previous",
+        "passed": true
+      },
+      {
+        "name": "config_disable_stops_and_restores",
+        "passed": true
+      },
+      {
+        "name": "empty_directory",
+        "passed": true
+      },
+      {
+        "name": "missing_directory",
+        "passed": true
+      },
+      {
+        "name": "bad_file",
+        "passed": true
+      },
+      {
+        "name": "local_directory_filters_formats",
+        "passed": true
+      },
+      {
+        "name": "local_mp3",
+        "passed": true
+      },
+      {
+        "name": "local_ogg",
+        "passed": true
+      },
+      {
+        "name": "local_wav",
+        "passed": true
+      },
+      {
+        "name": "clear_directory_returns_builtin",
+        "passed": true
+      },
+      {
+        "name": "natural_auto_next",
+        "passed": true
+      },
+      {
+        "name": "completed",
+        "passed": true
+      }
+    ]
+  },
+  "final_compact_checks": {
+    "stable": "passed",
+    "beta": "passed",
+    "panel": [
+      300,
+      74
+    ],
+    "minimized": [
+      40,
+      40
+    ],
+    "library": [
+      300,
+      246
+    ],
+    "localization_new_failures": 0,
+    "localization_preexisting_hash_mismatches": 13
+  },
+  "audio": {
+    "tracks": 20,
+    "seconds": 6244.821,
+    "bytes": 33095810,
+    "encoding": "Vorbis OGG, target 48 kbps, 32000 Hz stereo",
+    "all_files_decode": "passed"
+  },
+  "recording": {
+    "status": "completed",
+    "fps": 30,
+    "max_duration_seconds": 65,
+    "width": 1280,
+    "height": 720,
+    "frames_written": 1260,
+    "video_duration_seconds": 42,
+    "frames_captured": 1259,
+    "frames_repeated": 1,
+    "frames_dropped": 0,
+    "encoder": "h264_nvenc",
+    "capture_fps": 29.98691022541682,
+    "capture_average_ms": 7.783230182684672,
+    "capture_max_ms": 53.7891,
+    "encode_write_average_ms": 0.5186229365079358,
+    "encode_write_max_ms": 85.7877,
+    "elapsed_seconds": 42.8825544,
+    "audio": true,
+    "audio_source": "engine_mix"
+  },
+  "video": {
+    "path": "artifacts/karen-music-player-20261029/karen-music-player-demo.mp4",
+    "bytes": 1488902,
+    "sha256": "d01a0b802a77d168ec710b3f6ceca04cda67488432a7b9481ce75ed52cf30d58",
+    "duration_seconds": 42,
+    "decode": "passed",
+    "audio": "engine_mix; demonstration gain +10 dB"
+  },
+  "unmeasured": [
+    "full singleplayer/multiplayer matrix",
+    "VFX-specific performance suite",
+    "Android"
+  ]
+}

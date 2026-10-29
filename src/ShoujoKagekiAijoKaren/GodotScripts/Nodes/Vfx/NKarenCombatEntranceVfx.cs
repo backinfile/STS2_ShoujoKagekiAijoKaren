@@ -48,7 +48,7 @@ public partial class NKarenCombatEntranceVfx : Node2D
     {
         // Each peer owns its room node. Repeated presentation requests must not
         // stack poses or lights, including after the first cue is freed.
-        if (!KarenVfxQuality.Enabled || !KarenModConfig.EnableCombatEntrance || room.HasMeta(PlayedMeta)) return;
+        if (KarenVfxQuality.Level != KarenVfxLevel.Full || room.HasMeta(PlayedMeta)) return;
         var node = new NKarenCombatEntranceVfx { _room = room, Name = "KarenCombatEntrance" };
         // Entrance presentation belongs to the player controlling this peer.
         // Keep this check here too, so direct presentation requests cannot
@@ -81,7 +81,8 @@ public partial class NKarenCombatEntranceVfx : Node2D
 
     public override void _Process(double delta)
     {
-        if (!GodotObject.IsInstanceValid(_room) || !_room.IsInsideTree() || NCombatRoom.Instance != _room)
+        if (KarenVfxQuality.Level != KarenVfxLevel.Full
+            || !GodotObject.IsInstanceValid(_room) || !_room.IsInsideTree() || NCombatRoom.Instance != _room)
         { Finish(); return; }
         _age += (float)delta / _speed;
         if (_age >= Duration) { Finish(); return; }

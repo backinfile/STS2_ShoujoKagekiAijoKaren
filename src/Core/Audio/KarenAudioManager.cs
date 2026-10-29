@@ -140,7 +140,7 @@ public static class KarenAudioManager
     {
         int index = AudioServer.GetBusIndex(MusicBus);
         if (index >= 0)
-            AudioServer.SetBusVolumeDb(index, Mathf.LinearToDb(Math.Clamp(volume, 0f, 1f)));
+            AudioServer.SetBusVolumeDb(index, Mathf.LinearToDb(MusicPlayer.KarenMusicPlayback.OverridesBgm ? .00001f : Math.Max(.00001f, Math.Clamp(volume, 0f, 1f))));
     }
 
     private static void SetLoop(AudioStream stream, bool loop)
@@ -165,5 +165,9 @@ public static class KarenAudioManager
 [HarmonyPatch(typeof(NAudioManager), nameof(NAudioManager.SetBgmVol))]
 internal static class KarenMusicVolumePatch
 {
-    private static void Postfix(float volume) => KarenAudioManager.UpdateMusicVolume(volume);
+    private static void Postfix(float volume)
+    {
+        KarenAudioManager.UpdateMusicVolume(volume);
+        MusicPlayer.KarenMusicPlayback.RefreshVolumes();
+    }
 }
