@@ -15,7 +15,7 @@
   "KAREN_RETAIN_TMP_STRENGTH.description": "Extends how long Temporary Strength lasts.",
 
   "KAREN_SHINE_CARD_REWARD.title": "Shine Card Reward",
-  "KAREN_SHINE_CARD_REWARD.description": "After combat, gain a card reward containing only 1 Shine card.",
+  "KAREN_SHINE_CARD_REWARD.description": "After combat, gain 1 Shine Card Reward.",
 
   "KAREN_DISABLE_RELIC.title": "Disable Relic",
   "KAREN_DISABLE_RELIC.description": "Disable the rightmost non-Ancient relic for the rest of combat.\nIf there are not enough relics to disable, this card [red]cannot be played[/red].",

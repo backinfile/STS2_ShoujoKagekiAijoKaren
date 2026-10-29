@@ -1,0 +1,30 @@
+using Godot;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Rewards;
+
+namespace ShoujoKagekiAijoKaren.src.Core.Rewards;
+
+/// <summary>Shine presentation with native single-card claiming, history and serialization.</summary>
+public sealed class KarenShineCardReward(CardModel card, Player player) : SpecialCardReward(card, player)
+{
+    public CardModel Card { get; } = card;
+    protected override string IconPath => "res://images/powers/karen_shine_reward_power.png";
+    public override LocString Description
+    {
+        get
+        {
+            var description = new LocString("gameplay_ui", "KAREN_SHINE_CARD_REWARD");
+            description.Add("Count", 1);
+            return description;
+        }
+    }
+
+    public override Control CreateIcon()
+    {
+        var icon = base.CreateIcon();
+        if (icon != null) icon.MouseFilter = Control.MouseFilterEnum.Ignore;
+        return icon!;
+    }
+}

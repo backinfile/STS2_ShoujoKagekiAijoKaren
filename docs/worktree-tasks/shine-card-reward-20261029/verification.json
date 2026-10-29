@@ -1,0 +1,127 @@
+{
+  "stable": {
+    "branch": "stable",
+    "checks": {
+      "3-take-1_group_and_save": true,
+      "3-take-1_stars_animate": true,
+      "3-take-1_inspect_without_claim": true,
+      "3-take-1_disabled_guard": true,
+      "3-take-1_plain_multiselect": true,
+      "3-take-1_selected_count": true,
+      "3-take-0_group_and_save": true,
+      "3-take-0_stars_animate": true,
+      "3-take-0_inspect_without_claim": true,
+      "3-take-0_disabled_guard": true,
+      "3-take-0_plain_multiselect": true,
+      "3-take-0_selected_count": true,
+      "3-take-3_group_and_save": true,
+      "3-take-3_stars_animate": true,
+      "3-take-3_inspect_without_claim": true,
+      "3-take-3_disabled_guard": true,
+      "3-take-3_plain_multiselect": true,
+      "3-take-3_selected_count": true,
+      "1-take-0_group_and_save": true,
+      "1-take-0_stars_animate": true,
+      "1-take-0_inspect_without_claim": true,
+      "1-take-0_disabled_guard": true,
+      "1-take-0_plain_multiselect": true,
+      "1-take-0_selected_count": true,
+      "logs_no_new_errors": true
+    },
+    "package": {
+      "ShoujoKagekiAijoKaren.dll": "d1f56c6ad1f5267b26cec248bd42475be6d4bed95f970b1f82841886b8c12100",
+      "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+      "ShoujoKagekiAijoKaren.pck": "aec0b66bad4ac6e69723b3e976ebea1da053ac0c88ce7ffb646a4b6d5b468ab3",
+      "lib\\ShoujoKagekiAijoKaren.Beta.dll": "9679d5aa6fb32235aa3e2c1a042a573c29debd8efe42160e38e38ecb1afdce90",
+      "lib\\ShoujoKagekiAijoKaren.Stable.dll": "20cdad5467fd204c17e35dc66b25c2b98eeeca969496814760feaf1e35bb67ea"
+    },
+    "only_reward_completion": {
+      "branch": "stable",
+      "checks": {
+        "only_reward_choose_zero": true,
+        "only_reward_returns_to_previous_screen": true,
+        "logs_no_new_errors": true
+      },
+      "package": {
+        "ShoujoKagekiAijoKaren.dll": "d1f56c6ad1f5267b26cec248bd42475be6d4bed95f970b1f82841886b8c12100",
+        "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+        "ShoujoKagekiAijoKaren.pck": "aec0b66bad4ac6e69723b3e976ebea1da053ac0c88ce7ffb646a4b6d5b468ab3",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "9679d5aa6fb32235aa3e2c1a042a573c29debd8efe42160e38e38ecb1afdce90",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "20cdad5467fd204c17e35dc66b25c2b98eeeca969496814760feaf1e35bb67ea"
+      }
+    }
+  },
+  "beta": {
+    "branch": "beta",
+    "checks": {
+      "3-take-1_group_and_save": true,
+      "3-take-1_stars_animate": true,
+      "3-take-1_inspect_without_claim": true,
+      "3-take-1_disabled_guard": true,
+      "3-take-1_plain_multiselect": true,
+      "3-take-1_selected_count": true,
+      "3-take-0_group_and_save": true,
+      "3-take-0_stars_animate": true,
+      "3-take-0_inspect_without_claim": true,
+      "3-take-0_disabled_guard": true,
+      "3-take-0_plain_multiselect": true,
+      "3-take-0_selected_count": true,
+      "3-take-3_group_and_save": true,
+      "3-take-3_stars_animate": true,
+      "3-take-3_inspect_without_claim": true,
+      "3-take-3_disabled_guard": true,
+      "3-take-3_plain_multiselect": true,
+      "3-take-3_selected_count": true,
+      "1-take-0_group_and_save": true,
+      "1-take-0_stars_animate": true,
+      "1-take-0_inspect_without_claim": true,
+      "1-take-0_disabled_guard": true,
+      "1-take-0_plain_multiselect": true,
+      "1-take-0_selected_count": true,
+      "logs_no_new_errors": false
+    },
+    "package": {
+      "ShoujoKagekiAijoKaren.dll": "d1f56c6ad1f5267b26cec248bd42475be6d4bed95f970b1f82841886b8c12100",
+      "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+      "ShoujoKagekiAijoKaren.pck": "aec0b66bad4ac6e69723b3e976ebea1da053ac0c88ce7ffb646a4b6d5b468ab3",
+      "lib\\ShoujoKagekiAijoKaren.Beta.dll": "9679d5aa6fb32235aa3e2c1a042a573c29debd8efe42160e38e38ecb1afdce90",
+      "lib\\ShoujoKagekiAijoKaren.Stable.dll": "20cdad5467fd204c17e35dc66b25c2b98eeeca969496814760feaf1e35bb67ea"
+    },
+    "log_review": {
+      "startup_errors": [
+        {
+          "message": "Invalid Task ID",
+          "count": 2,
+          "location": "Godot worker_thread_pool.cpp:418 / script class preloading"
+        }
+      ],
+      "errors_during_reward_cases": 0,
+      "existing_reference": "docs/worktree-tasks/a1-runtime-investigation-20261026/README.md"
+    },
+    "only_reward_completion": {
+      "branch": "beta",
+      "checks": {
+        "only_reward_choose_zero": true,
+        "only_reward_returns_to_previous_screen": true,
+        "logs_no_new_errors": false
+      },
+      "package": {
+        "ShoujoKagekiAijoKaren.dll": "d1f56c6ad1f5267b26cec248bd42475be6d4bed95f970b1f82841886b8c12100",
+        "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+        "ShoujoKagekiAijoKaren.pck": "aec0b66bad4ac6e69723b3e976ebea1da053ac0c88ce7ffb646a4b6d5b468ab3",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "9679d5aa6fb32235aa3e2c1a042a573c29debd8efe42160e38e38ecb1afdce90",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "20cdad5467fd204c17e35dc66b25c2b98eeeca969496814760feaf1e35bb67ea"
+      },
+      "log_review": {
+        "startup_errors": [
+          {
+            "message": "Invalid Task ID",
+            "count": 1,
+            "location": "Godot worker_thread_pool.cpp:418 / script class preloading"
+          }
+        ],
+        "errors_after_only_reward_opened": 0
+      }
+    }
+  }
+}

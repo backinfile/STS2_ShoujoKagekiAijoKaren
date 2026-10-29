@@ -1,4 +1,6 @@
 {
+  "KAREN_SHINE_CARD_REWARD": "キラめきカード報酬×{Count}",
+  "KAREN_SHINE_CARD_REWARD_SELECT": "キラめきカード報酬×{MaxCount}",
   "KAREN_SHINE_LABEL": "[gold]キラめき[/gold]",
   "KAREN_SHINE_SUFFIX": "。",
   "KAREN_PROMISE_PILE_SELECT": "約束の山札に置く",

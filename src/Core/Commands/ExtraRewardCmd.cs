@@ -1,4 +1,5 @@
-﻿using System;
+using ShoujoKagekiAijoKaren.src.Core.Rewards;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,14 +32,14 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
             if (player.RunState.CurrentRoom is CombatRoom combatRoom)
             {
                 // 随机取一张闪耀牌作为奖励，排除自己
-                combatRoom.AddExtraReward(player, new SpecialCardReward(clone, player));
+                combatRoom.AddExtraReward(player, new KarenShineCardReward(clone, player));
                 MainFile.Logger.Info($"Added shine card reward: {shineCard?.Title} for player: {player.NetId}");
                 // 标记Power
                 await PowerCmd.Apply<KarenShineCardRewardPower>(new ThrowingPlayerChoiceContext(), player.Creature, 1m, player.Creature, null);
             }
             else
             {
-                await RewardsCmd.OfferCustom(player, [new SpecialCardReward(clone, player)]);
+                await RewardsCmd.OfferCustom(player, [new KarenShineCardReward(clone, player)]);
             }
         }
 

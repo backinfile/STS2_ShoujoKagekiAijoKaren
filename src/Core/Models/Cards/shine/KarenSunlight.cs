@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Rewards;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.CardSelection;
@@ -87,7 +88,7 @@ public sealed class KarenSunlight : KarenBaseCardModel
             }
 
             var player = Owner;
-            var reward = new SpecialCardReward(this.CloneSafeForDeck(), player);
+            var reward = new KarenShineCardReward(this.CloneSafeForDeck(), player);
             if (Owner.RunState.CurrentRoom is CombatRoom combatRoom)
             {
                 // 战斗房间，加入最后的奖励里
