@@ -2,8 +2,8 @@
   "date": "2026-10-12",
   "kind": "Canvas concept preview, no gameplay code changes",
   "source_previews": [
-    "D:\\Godot\\Proj\\worktrees\\banana-vfx-20261012\\docs\\design\\banana-vfx-2026-10-12\\index.html",
-    "D:\\Godot\\Proj\\worktrees\\ticket-dream-shine-vfx-20261012\\docs\\design\\ticket-dream-shine-vfx\\preview.html"
+    "../worktrees/banana-vfx-20261012/docs/design/banana-vfx-2026-10-12/index.html",
+    "../worktrees/ticket-dream-shine-vfx-20261012/docs/design/ticket-dream-shine-vfx/preview.html"
   ],
   "textures": {
     "karen": "0761f052b45267e96a652349916e06e5fa643d1252effdf047e95eaee8f36327",

@@ -1,0 +1,2591 @@
+{
+  "date": "2026-10-30",
+  "batch": "B02 reference redesign",
+  "baseline": "28163aab2fc08444e62a581cf1b5d7797ef856e4",
+  "status": "targeted verified; merge pending",
+  "counts": {
+    "before_stable": 7,
+    "before_beta": 7,
+    "after_stable": 23,
+    "after_beta": 7
+  },
+  "cases": [
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_SHINE_TOGETHER",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 30,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/stable/full-karen_shine_together/game.mp4",
+      "sha256": "c244442fd677bff644f52dcc0f552d3fb43316e2d3529b56bd9028611b9a27d2",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "a7f38e8057fcdb1a7f6cb42504e8e070945f217054586e877d7b5a60bb782000",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenUnforgottenShineVfx": 1
+        },
+        "exited": {},
+        "draws": 1,
+        "reuseStable": false,
+        "maxScars": 1,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [
+          {
+            "type": "NKarenUnforgottenShineVfx",
+            "id": 824113633291,
+            "children": 2
+          }
+        ],
+        "scars": 1,
+        "hand": 0,
+        "promise": 0,
+        "shine": 2,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 129,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "capture_fps": 29.36992963169767,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.7
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_NONON",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/stable/full-karen_nonon/game.mp4",
+      "sha256": "d11d4453687e02c90264d57b97e5f3d53aa27b62bdf5bc21d244c95d147fa529",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "a7f38e8057fcdb1a7f6cb42504e8e070945f217054586e877d7b5a60bb782000",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenNononVfx": 1
+        },
+        "exited": {
+          "NKarenNononVfx": 1
+        },
+        "draws": 77,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 130,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.786911310388092,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -51.5
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/stable/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "2c1b1ecbf5c7dc0680eeed244ae44cb2f598ad4247d2e5dd68dbd6f8840ff9ac",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "a7f38e8057fcdb1a7f6cb42504e8e070945f217054586e877d7b5a60bb782000",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenShineBarrageVfx": 5
+        },
+        "exited": {
+          "NKarenShineBarrageVfx": 5
+        },
+        "draws": 181,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 4,
+        "maxEffects": 2,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.58872334605125,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.1
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_BACK_TO_BACK_CARD",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 32,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/stable/full-karen_back_to_back_card/game.mp4",
+      "sha256": "12d7d93a2a94529bf1e9dad220eb252f2ae74e6476d9af1e77687edc0e3b9a2c",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "a7f38e8057fcdb1a7f6cb42504e8e070945f217054586e877d7b5a60bb782000",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenBackToBackVfx": 2
+        },
+        "exited": {
+          "NKarenBackToBackVfx": 2
+        },
+        "draws": 47,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 8,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 128,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "capture_fps": 29.41865159058835,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.2
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_BASEBALL",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 24,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/stable/full-karen_baseball/game.mp4",
+      "sha256": "bb907ef07ae4fc346834a5a53400c8f20e7abd1b6697633e9eba3833f518c24e",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "a7f38e8057fcdb1a7f6cb42504e8e070945f217054586e877d7b5a60bb782000",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenBaseballVfx": 2
+        },
+        "exited": {
+          "NKarenBaseballVfx": 2
+        },
+        "draws": 60,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "RETAIN_HAND_POWER",
+            "amount": 2
+          },
+          {
+            "id": "KAREN_RETAIN_ENERGY_POWER",
+            "amount": 2
+          },
+          {
+            "id": "BLUR_POWER",
+            "amount": 2
+          },
+          {
+            "id": "KAREN_RETAIN_TMP_STRENGTH_POWER",
+            "amount": 2
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 129,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "capture_fps": 29.529137303964585,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -46.5
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_JEALOUSY",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 15,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/stable/full-karen_jealousy/game.mp4",
+      "sha256": "63f970ed8d8915535fb11736d615f58b879094191b9d481dba184c32ee10b734",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "a7f38e8057fcdb1a7f6cb42504e8e070945f217054586e877d7b5a60bb782000",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenJealousyVfx": 1
+        },
+        "exited": {
+          "NKarenJealousyVfx": 1
+        },
+        "draws": 2,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 32,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 129,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.59560157052157,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -47.4
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_CARRYING_GUILT",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/stable/full-karen_carrying_guilt/game.mp4",
+      "sha256": "1f947019509834ffb94805b37a134daf07eb8af68be6894f251c26685892656c",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "a7f38e8057fcdb1a7f6cb42504e8e070945f217054586e877d7b5a60bb782000",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenStageLightVfx": 1,
+          "NKarenStageLightImpactVfx": 1
+        },
+        "exited": {
+          "NKarenStageLightImpactVfx": 1,
+          "NKarenStageLightVfx": 1
+        },
+        "draws": 21,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 128,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "capture_fps": 29.44056057771396,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -51.5
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_SHINE_TOGETHER",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 30,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/beta/full-karen_shine_together/game.mp4",
+      "sha256": "2f6d9a3f19375e596f05ec899883c1a37dcef3a8cdb4996de74c7ad3943e167d",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "7b8d0d4deed18e3e63b2af3d6f92f5e6067b0295132b1d38eba65f3341e54628",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenUnforgottenShineVfx": 1
+        },
+        "exited": {},
+        "draws": 1,
+        "reuseStable": false,
+        "maxScars": 1,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [
+          {
+            "type": "NKarenUnforgottenShineVfx",
+            "id": 856023898035,
+            "children": 2
+          }
+        ],
+        "scars": 1,
+        "hand": 0,
+        "promise": 0,
+        "shine": 2,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 128,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "capture_fps": 29.357784024920537,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.3
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_NONON",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/beta/full-karen_nonon/game.mp4",
+      "sha256": "815b9e40ee52f780d56cb11ebd9eab043898388187819f1290df04436db1dafa",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "7b8d0d4deed18e3e63b2af3d6f92f5e6067b0295132b1d38eba65f3341e54628",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenNononVfx": 1
+        },
+        "exited": {
+          "NKarenNononVfx": 1
+        },
+        "draws": 77,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.763244380459067,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -51.5
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/beta/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "bdadbec6eae28343085383c43b0981f4b5c2c1b1653290c75d466e1cfd2ba815",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "7b8d0d4deed18e3e63b2af3d6f92f5e6067b0295132b1d38eba65f3341e54628",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenShineBarrageVfx": 5
+        },
+        "exited": {
+          "NKarenShineBarrageVfx": 5
+        },
+        "draws": 181,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 4,
+        "maxEffects": 2,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.65310813272759,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_BACK_TO_BACK_CARD",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 32,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/beta/full-karen_back_to_back_card/game.mp4",
+      "sha256": "c89b138119a259985a81ba00a4d27c7363ae19335c9c70ce81f1e67be8f225f6",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "7b8d0d4deed18e3e63b2af3d6f92f5e6067b0295132b1d38eba65f3341e54628",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenBackToBackVfx": 2
+        },
+        "exited": {
+          "NKarenBackToBackVfx": 2
+        },
+        "draws": 47,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 8,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 130,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.853347040153167,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.3
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_BASEBALL",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 24,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/beta/full-karen_baseball/game.mp4",
+      "sha256": "d6daa5d2edd18739eb9eb6cbaf402a93e21a0ba9ea277102f19d3c38e0d96864",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "7b8d0d4deed18e3e63b2af3d6f92f5e6067b0295132b1d38eba65f3341e54628",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenBaseballVfx": 2
+        },
+        "exited": {
+          "NKarenBaseballVfx": 2
+        },
+        "draws": 60,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "RETAIN_HAND_POWER",
+            "amount": 2
+          },
+          {
+            "id": "KAREN_RETAIN_ENERGY_POWER",
+            "amount": 2
+          },
+          {
+            "id": "BLUR_POWER",
+            "amount": 2
+          },
+          {
+            "id": "KAREN_RETAIN_TMP_STRENGTH_POWER",
+            "amount": 2
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 130,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.81597351791103,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -46.7
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_JEALOUSY",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 15,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/beta/full-karen_jealousy/game.mp4",
+      "sha256": "cf1b60ccb292243127cbdad480fcb8adc5db0e1d16c964a4d3a492f18c0624b2",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "7b8d0d4deed18e3e63b2af3d6f92f5e6067b0295132b1d38eba65f3341e54628",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenJealousyVfx": 1
+        },
+        "exited": {
+          "NKarenJealousyVfx": 1
+        },
+        "draws": 2,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 32,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 130,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.806723346673216,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -47.5
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_CARRYING_GUILT",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/before/beta/full-karen_carrying_guilt/game.mp4",
+      "sha256": "6a1db6cb4c9e7b3d3e4cf9b791a405203a847c4632bead24cfbe3e6549b7914e",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "7b8d0d4deed18e3e63b2af3d6f92f5e6067b0295132b1d38eba65f3341e54628",
+        "ShoujoKagekiAijoKaren.pck": "f83ca1e11044acd0fa619368b86c49637575334e4d0ee1e438d986f241351002"
+      },
+      "status": {
+        "spawned": {
+          "NKarenStageLightVfx": 1,
+          "NKarenStageLightImpactVfx": 1
+        },
+        "exited": {
+          "NKarenStageLightImpactVfx": 1,
+          "NKarenStageLightVfx": 1
+        },
+        "draws": 21,
+        "reuseStable": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 133,
+        "frames_captured": 132,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.8989598627529,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.2
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_SHINE_TOGETHER",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 30,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/full-karen_shine_together/game.mp4",
+      "sha256": "05c88fff0d8cbd2aef8a7d6a10ed40f18cf1da60042db2aca1e5ee0a7d4ddf45",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1,
+          "NKarenUnforgottenShineVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 43,
+        "reuseStable": false,
+        "poseFrames": 40,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 1,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "effects": [
+          {
+            "type": "NKarenUnforgottenShineVfx",
+            "id": 823358659801,
+            "children": 2
+          }
+        ],
+        "scars": 1,
+        "hand": 0,
+        "promise": 0,
+        "shine": 2,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 132,
+        "frames_repeated": 0,
+        "frames_dropped": 0,
+        "capture_fps": 30.118242852427592,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.7
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_NONON",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/full-karen_nonon/game.mp4",
+      "sha256": "721c10f0b80ae358e4052985ac9d690f5e112b5dc73e930ec535ecb2a3c42b3c",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 70,
+        "reuseStable": false,
+        "poseFrames": 68,
+        "maxAttackOffset": 322.2375,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 129,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.561184835203843,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -51.5
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "7ce80fb2e899454da429296879668ae7bf9df05481da681664f56b843db77204",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 124,
+        "reuseStable": false,
+        "poseFrames": 119,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 129,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.56917641202158,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_BACK_TO_BACK_CARD",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 32,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/full-karen_back_to_back_card/game.mp4",
+      "sha256": "7c39ac43aced971aa8e18cce8b89493b302d87ec5a6b7fe72f2297b57b50e63b",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 51,
+        "reuseStable": false,
+        "poseFrames": 49,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 8,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 129,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.599756226503757,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.5
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_BASEBALL",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 24,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/full-karen_baseball/game.mp4",
+      "sha256": "13e661c4854d89a96d0f394411c24e07d8960f43bffade539ec48b94a3489730",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 52,
+        "reuseStable": false,
+        "poseFrames": 50,
+        "maxAttackOffset": 35.100002,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "RETAIN_HAND_POWER",
+            "amount": 2
+          },
+          {
+            "id": "KAREN_RETAIN_ENERGY_POWER",
+            "amount": 2
+          },
+          {
+            "id": "BLUR_POWER",
+            "amount": 2
+          },
+          {
+            "id": "KAREN_RETAIN_TMP_STRENGTH_POWER",
+            "amount": 2
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 128,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "capture_fps": 29.43957130096272,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.6
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_JEALOUSY",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 15,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/full-karen_jealousy/game.mp4",
+      "sha256": "fdcebd2556768eae81f3e7fef970aa19c8c6b30b115fa005851b6da707b60c66",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 61,
+        "reuseStable": false,
+        "poseFrames": 59,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 128,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "capture_fps": 29.442374085834413,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -55.1
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_CARRYING_GUILT",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/full-karen_carrying_guilt/game.mp4",
+      "sha256": "f6d4813045cec4e57e70305b3803984903a604b11d0c622c0c837da425618165",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 47,
+        "reuseStable": false,
+        "poseFrames": 45,
+        "maxAttackOffset": 20.10014,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 128,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "capture_fps": 29.43731199073019,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.3
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_SHINE_TOGETHER",
+      "quality": "Low",
+      "speed": "normal",
+      "damage": 30,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/low-karen_shine_together/game.mp4",
+      "sha256": "e7b64e4fc676e7f377d4f27f8ab58b01a41899358a72490544fb914ce40c0110",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1,
+          "NKarenUnforgottenShineVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 12,
+        "reuseStable": false,
+        "poseFrames": 40,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 1,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "effects": [
+          {
+            "type": "NKarenUnforgottenShineVfx",
+            "id": 823761312993,
+            "children": 2
+          }
+        ],
+        "scars": 1,
+        "hand": 0,
+        "promise": 0,
+        "shine": 2,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 131,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.80782937907447,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.6
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_NONON",
+      "quality": "Low",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/low-karen_nonon/game.mp4",
+      "sha256": "48c1526c99283b0664869b7cbf217b821ce4369627f7b7daf9f10d8e790a3a43",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 19,
+        "reuseStable": false,
+        "poseFrames": 68,
+        "maxAttackOffset": 322.2375,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.6443555265801,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -51.6
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "quality": "Low",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/low-karen_shine_strike_barrage/game.mp4",
+      "sha256": "0b4c66ba462b1d97082176ea68782edffc1d0043a4123d1d4ccf6470d6f0e7c0",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 31,
+        "reuseStable": false,
+        "poseFrames": 118,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.615759666561175,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_BACK_TO_BACK_CARD",
+      "quality": "Low",
+      "speed": "normal",
+      "damage": 32,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/low-karen_back_to_back_card/game.mp4",
+      "sha256": "3849605a93c6c8b8f37257d62503e00d8ddb5e81bee578ccf4a6f4367c80e077",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 14,
+        "reuseStable": false,
+        "poseFrames": 49,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 8,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.745910206203913,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.5
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_BASEBALL",
+      "quality": "Low",
+      "speed": "normal",
+      "damage": 24,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/low-karen_baseball/game.mp4",
+      "sha256": "e9d4b806f363795a32733b6df68b01468f63b908b324b112b50380846648b56e",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 14,
+        "reuseStable": false,
+        "poseFrames": 50,
+        "maxAttackOffset": 35.100002,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "RETAIN_HAND_POWER",
+            "amount": 2
+          },
+          {
+            "id": "KAREN_RETAIN_ENERGY_POWER",
+            "amount": 2
+          },
+          {
+            "id": "BLUR_POWER",
+            "amount": 2
+          },
+          {
+            "id": "KAREN_RETAIN_TMP_STRENGTH_POWER",
+            "amount": 2
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 129,
+        "frames_repeated": 3,
+        "frames_dropped": 0,
+        "capture_fps": 29.486837144472748,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.7
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_JEALOUSY",
+      "quality": "Low",
+      "speed": "normal",
+      "damage": 15,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/low-karen_jealousy/game.mp4",
+      "sha256": "dbe1e67c561b10d782013d9e9c697a0c875b001a4979a5fd9c65e3dcfe57bd03",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 16,
+        "reuseStable": false,
+        "poseFrames": 59,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.726514013090142,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -54.6
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_CARRYING_GUILT",
+      "quality": "Low",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/low-karen_carrying_guilt/game.mp4",
+      "sha256": "f723084c4c91ad8fc7d66298084527fcf799c1ed55e0fe459c837fc009a5d3a8",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 13,
+        "reuseStable": false,
+        "poseFrames": 45,
+        "maxAttackOffset": 20.10014,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.66939507184501,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.3
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "upgrade",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 15,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/upgrade-karen_shine_strike_barrage/game.mp4",
+      "sha256": "cb7c5dfe14bb1ea8fcd3df97820715ae26d6c0d9d083634aab4065f801221ac1",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 146,
+        "reuseStable": false,
+        "poseFrames": 140,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 129,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.638181219235737,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -48.6
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "fast",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "quality": "Full",
+      "speed": "fast",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/fast-karen_shine_strike_barrage/game.mp4",
+      "sha256": "496892c351a49b536a6cca895ee5d810305670bd97ea071d00788260b958621e",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 79,
+        "reuseStable": false,
+        "poseFrames": 74,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 130,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.826188118173558,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.1
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "instant",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "quality": "Full",
+      "speed": "instant",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/instant-karen_shine_strike_barrage/game.mp4",
+      "sha256": "07410e76f8824fab98cb1e808802e64003ae3cdf453546dbb8de682e55605381",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {},
+        "exited": {},
+        "draws": 0,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.696817197929406,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -48.4
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "off",
+      "card": "KAREN_NONON",
+      "quality": "Off",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/off-karen_nonon/game.mp4",
+      "sha256": "a2ce9bb90548a84b7bcebaf8ae497b6f3b822ed679245c78ced5b99906e29de3",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {},
+        "exited": {},
+        "draws": 0,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 130,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.83478003711722,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -51.3
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "off",
+      "card": "KAREN_CARRYING_GUILT",
+      "quality": "Off",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/off-karen_carrying_guilt/game.mp4",
+      "sha256": "abc41d71d89b34c780d776cad7142273f95bc2956a3f566379f6db4f71fc0d45",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {},
+        "exited": {},
+        "draws": 0,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 131,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.83173919882105,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.5
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "area",
+      "card": "KAREN_NONON",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 36,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/area-karen_nonon/game.mp4",
+      "sha256": "a668a4a96924908572122c10838453be490db1d2a24bbba57603c1540bded06a",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 70,
+        "reuseStable": false,
+        "poseFrames": 68,
+        "maxAttackOffset": 188.42873,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 130,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.82543745026465,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -47.4
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "replay",
+      "card": "KAREN_CARRYING_GUILT",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 36,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/replay-karen_carrying_guilt/game.mp4",
+      "sha256": "46b9a36162ccd1fde15c100d02e94b341e4a2d146934574cf542977645042c4f",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 3
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 3
+        },
+        "draws": 141,
+        "reuseStable": false,
+        "poseFrames": 135,
+        "maxAttackOffset": 20.10014,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 173,
+        "frames_captured": 172,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.861036458519965,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.2
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "mirror",
+      "card": "KAREN_JEALOUSY",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 15,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/mirror-karen_jealousy/game.mp4",
+      "sha256": "2039c9269dee757988033d692619c3423fee53538c4c0f001809de6c92524b46",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 61,
+        "reuseStable": false,
+        "poseFrames": 59,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 129,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.660846158641057,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -54.8
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "cancel",
+      "card": "KAREN_NONON",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/cancel-karen_nonon/game.mp4",
+      "sha256": "64e7a5168cb4234c1d93e94b176a7ff37e416a2ed7ae639eaedf5f05caaa901e",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "32900e36cebbea43e9af0ce00e358dc0de647b978239fe3e1216bbce6a936c20",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 14,
+        "reuseStable": false,
+        "poseFrames": 12,
+        "maxAttackOffset": 17.974697,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 136,
+        "frames_captured": 135,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.822681625046314,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -51.7
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_SHINE_TOGETHER",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 30,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/beta/full-karen_shine_together/game.mp4",
+      "sha256": "6199d987112933f1660ddebb9d4eea4cc7645b0b0da276e416faefddee7cfc4c",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "25a09b452f95ec57269cc75937d8812d8920fad54c3edebb844b064740ef59a2",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1,
+          "NKarenUnforgottenShineVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 43,
+        "reuseStable": false,
+        "poseFrames": 40,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 1,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "effects": [
+          {
+            "type": "NKarenUnforgottenShineVfx",
+            "id": 856661432602,
+            "children": 2
+          }
+        ],
+        "scars": 1,
+        "hand": 0,
+        "promise": 0,
+        "shine": 2,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 132,
+        "frames_repeated": 0,
+        "frames_dropped": 0,
+        "capture_fps": 30.175909780247824,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.5
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_NONON",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/beta/full-karen_nonon/game.mp4",
+      "sha256": "fa661bcf30135d021b1d5272f9b8c735cd3efb9e8d514d948d8de80c92a0ffe1",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "25a09b452f95ec57269cc75937d8812d8920fad54c3edebb844b064740ef59a2",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 71,
+        "reuseStable": false,
+        "poseFrames": 69,
+        "maxAttackOffset": 322.2375,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.76385767436114,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -51.4
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/beta/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "6f5be97cfca3e3e9c1b1041bb04b25aa07747c38a34e0965974b9f6baafd2838",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "25a09b452f95ec57269cc75937d8812d8920fad54c3edebb844b064740ef59a2",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 124,
+        "reuseStable": false,
+        "poseFrames": 119,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.648454624477004,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.1
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_BACK_TO_BACK_CARD",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 32,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/beta/full-karen_back_to_back_card/game.mp4",
+      "sha256": "556456e5a6f23dfde375cca6dded40f8f079752339fc8390ce703cdaf55f88ac",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "25a09b452f95ec57269cc75937d8812d8920fad54c3edebb844b064740ef59a2",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 51,
+        "reuseStable": false,
+        "poseFrames": 49,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 8,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 130,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.86798740149911,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.4
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_BASEBALL",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 24,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/beta/full-karen_baseball/game.mp4",
+      "sha256": "13412f85ec699dafc8406ab3ca2425cb1664192e8e49abe129f22c0ef0425980",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "25a09b452f95ec57269cc75937d8812d8920fad54c3edebb844b064740ef59a2",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 51,
+        "reuseStable": false,
+        "poseFrames": 49,
+        "maxAttackOffset": 35.100002,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "RETAIN_HAND_POWER",
+            "amount": 2
+          },
+          {
+            "id": "KAREN_RETAIN_ENERGY_POWER",
+            "amount": 2
+          },
+          {
+            "id": "BLUR_POWER",
+            "amount": 2
+          },
+          {
+            "id": "KAREN_RETAIN_TMP_STRENGTH_POWER",
+            "amount": 2
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 130,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "capture_fps": 29.662613103258543,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -49.7
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_JEALOUSY",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 15,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/beta/full-karen_jealousy/game.mp4",
+      "sha256": "244e05a8e4728333583b88dc800e054bba7a495a6157214a5cd1e515defd5e9c",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "25a09b452f95ec57269cc75937d8812d8920fad54c3edebb844b064740ef59a2",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 61,
+        "reuseStable": false,
+        "poseFrames": 59,
+        "maxAttackOffset": 427.05,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 8,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 132,
+        "frames_captured": 131,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.873998770650747,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -55.2
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_CARRYING_GUILT",
+      "quality": "Full",
+      "speed": "normal",
+      "damage": 12,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/beta/full-karen_carrying_guilt/game.mp4",
+      "sha256": "a05fb1300ab55c3961accfea4a6d8a991f2ac29df21f981ee9257dd168096192",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "25a09b452f95ec57269cc75937d8812d8920fad54c3edebb844b064740ef59a2",
+        "ShoujoKagekiAijoKaren.pck": "410939837f57595af9acbf6a2621fbbc018ccefa80ea660cb415df27859d61ac"
+      },
+      "status": {
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 47,
+        "reuseStable": false,
+        "poseFrames": 45,
+        "maxAttackOffset": 20.10014,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      },
+      "recording": {
+        "frames_written": 131,
+        "frames_captured": 130,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "capture_fps": 29.826266813898297,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix"
+      },
+      "audio_mean_db": -52.5
+    }
+  ],
+  "source_sha256": {
+    "src/Core/Models/Cards/promisePile/KarenBackToBackCard.cs": "ee36a3ca00c1a12fbd54207f1f4fd62062eaf49bc428794231f7a03cfd760cb8",
+    "src/Core/Models/Cards/promisePile/KarenBaseball.cs": "2f7f3a326f6b7b410372132a7de499ab4153f20b07b635b70db28055240512e5",
+    "src/Core/Models/Cards/relic/KarenJealousy.cs": "9f414d004ec41413f506f904895fd871222a2088711363a31c7f121f5bc55e06",
+    "src/Core/Models/Cards/shine/KarenCarryingGuilt.cs": "594ae19207691cc4e33841b531adefc4296c0189aa18d96abdaa485264db892f",
+    "src/Core/Models/Cards/shine/KarenNonon.cs": "432f0647c931137d3c5d6c9babb08ebc5a7e3caf36fd5a32a312677e3965751a",
+    "src/Core/Models/Cards/shine/KarenShineStrikeBarrage.cs": "d40eee157b625e90da311bddb43a1c566a7c2ad82c038ab53ce69f913c828c52",
+    "src/Core/Models/Cards/shine/KarenShineTogether.cs": "131c54573561b7a276ea4ae9d1d224e5f4243462199bbd1a360be45dc9e9a018",
+    "src/Core/Vfx/KarenVfxCatalog.g.cs": "3182151f04dfeb1de0a069b66e65d63070c141fa4ff8a0799dcd11db49432454",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCreatureVisuals.Attack.cs": "aee8440874c7d2d4f00527fddcf1bfa173d9d6125002f43590002ed9a023d51a",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCreatureVisuals.Attack.cs.uid": "c25999fb5c5c685eca8246f1fbbc814e8ba4ee8a0ba9655b5e2bbdf27f1f3f8b",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCreatureVisuals.Entrance.cs": "b614039ed05f0e915bcab3c215d21f9a1e394fcf5c9d7e0f6b1ab207a3d4dac6",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCreatureVisuals.Guard.cs": "c54b1fa35e2cd024564f15a083b691d6bd59e017caf812b0e8195a27260e573b",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCreatureVisuals.cs": "e0e96be180c0b7c634e5ee03664b93a33f52d1b9fc1a29e97f1bd5eac305bb01",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenStageAttackVfx.cs": "09342778943a34c0bf4327d397c0213d4a46de2c12a25e6f4b3e089284424b9d",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenStageAttackVfx.cs.uid": "6f15c775a6f371018d94d13e873ba889786024099b7f1b988c43b6d73808a788",
+    "materials/characters/karen_idle.gdshader": "9ca7aff855b3fe29b8ee53bea8c16e587f6a3412306584c73a785f8e6ace6ccf"
+  },
+  "engine_baseline_issue": {
+    "message": "Invalid Task ID at worker_thread_pool.cpp:418 during beta Common preloading, present before and after; gameplay cases passed",
+    "logs": [
+      "artifacts/heavy-batch02-20261030/after/beta/godot.log",
+      "artifacts/heavy-redesign-20261030/after/beta/godot.log"
+    ]
+  },
+  "untested": [
+    "full multiplayer matrix",
+    "full first-use/frame-time suite",
+    "Android"
+  ],
+  "basic_regression": [
+    {
+      "card": "KAREN_STRIKE",
+      "mode": "regression",
+      "damage": 6,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/regression-karen_strike/game.mp4",
+      "sha256": "7a3326145f5822ee46db83d49a5976791497a18791c44d3a6de9a858cac47f3f",
+      "audio_mean_db": -51.9
+    },
+    {
+      "card": "KAREN_SHINE_STRIKE",
+      "mode": "regression",
+      "damage": 9,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/regression-karen_shine_strike/game.mp4",
+      "sha256": "82da60db2dd6b174d0d40aa6e95c9e832662fe4db27d5b2e8266eeb098ed26e9",
+      "audio_mean_db": -51.6
+    },
+    {
+      "card": "KAREN_STRIKE",
+      "mode": "full",
+      "damage": 6,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/full-karen_strike/game.mp4",
+      "sha256": "df20cb3783a58c8fb9a2897e1312585f12c2de0aad080a55434dece6eb04cb7b",
+      "audio_mean_db": -51.9
+    },
+    {
+      "card": "KAREN_DEFEND",
+      "mode": "full",
+      "damage": 0,
+      "block": 5,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/full-karen_defend/game.mp4",
+      "sha256": "f5b15c6765d8f961df20517b9bc0be60449ae7fa27d3f5e800d420813ec23cea",
+      "audio_mean_db": -50.6
+    },
+    {
+      "card": "KAREN_SHINE_STRIKE",
+      "mode": "full",
+      "damage": 9,
+      "block": 0,
+      "passed": true,
+      "video": "artifacts/heavy-redesign-20261030/after/stable/full-karen_shine_strike/game.mp4",
+      "sha256": "52186f1f780dd59e3d7f5ec3e9927267011dd355581bec824e36dd021c865ea8",
+      "audio_mean_db": -51.6
+    }
+  ]
+}

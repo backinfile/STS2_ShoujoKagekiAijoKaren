@@ -40,7 +40,7 @@ public partial class NKarenStageLightImpactVfx : Node2D
     public override void _Process(double delta)
     {
         _age += (float)delta * NKarenStageLightVfx.PlaybackSpeed;
-        if (!GodotObject.IsInstanceValid(_room) || NCombatRoom.Instance != _room || _age > .46f)
+        if (!GodotObject.IsInstanceValid(_room) || NCombatRoom.Instance != _room || _age > .30f)
         { Hide(); QueueFree(); return; }
         KarenVfxQuality.Redraw(this);
     }
@@ -48,10 +48,10 @@ public partial class NKarenStageLightImpactVfx : Node2D
     public override void _Draw()
     {
         float core = Mathf.Exp(-_age * 28);
-        for (int i = 7; i >= 1; i--)
-            DrawCircle(Vector2.Zero, _radius * i / 7f, new Color(1f, .91f, .80f, core * .13f));
+        for (int i = 3; i >= 1; i--)
+            DrawCircle(Vector2.Zero, _radius * i / 3f, new Color(1f, .91f, .80f, core * .13f));
         DrawLine(Vector2.Left * _radius, Vector2.Right * _radius, new Color(1f, .97f, .90f, core), 4, true);
-        for (int i = 0; i < 24; i += KarenVfxQuality.ParticleStride)
+        for (int i = 0; i < 8; i += KarenVfxQuality.ParticleStride)
         {
             float angle = i * 2.399963f + _seed;
             var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle) * .65f);

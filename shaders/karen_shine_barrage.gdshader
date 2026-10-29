@@ -1,7 +1,7 @@
 shader_type canvas_item;
 render_mode unshaded;
-uniform float age = 0.0;
 void fragment() {
+    float age = COLOR.a;
     vec2 uv = UV;
     float y = abs(uv.y * 2.0 - 1.0);
     float grain = sin(uv.x * 81.0 + uv.y * 29.0) * sin(uv.x * 143.0 - age * 33.0);

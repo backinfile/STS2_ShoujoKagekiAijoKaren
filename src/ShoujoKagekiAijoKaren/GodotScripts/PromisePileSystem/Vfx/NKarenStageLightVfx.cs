@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
@@ -17,17 +18,17 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 public partial class NKarenStageLightVfx : Node2D
 {
     // Shared visual resources are prepared during the run loading screen as well as on demand.
-    internal static void PrepareResources()
-    {
-    }
-    internal static Godot.Resource?[] PreparedResources => [StageLightTexture, StageLightFocusTexture];
+    internal static void PrepareResources() => _additive ??= new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
+    private static CanvasItemMaterial? _additive;
+    internal static CanvasItemMaterial Additive { get { PrepareResources(); return _additive!; } }
+    internal static Godot.Resource?[] PreparedResources => [StageLightTexture, StageLightFocusTexture, _additive];
 
     public const float HitTime = .28f;
     public const float FastHitTime = HitTime * .7f;
     internal static float PlaybackSpeed => SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1f / .7f : 1f;
-    private const float Duration = 0.6f;
+    private const float Duration = 0.45f;
     private const float SpawnInterval = 0.06f;
-    private const float FocusOverlayAlpha = 0.2f;
+    private const float FocusOverlayAlpha = 0.1f;
     private const float FocusOverlayFadeInDuration = 0.35f;
     private const float FocusOverlayFadeOutDuration = 0.35f;
     private static readonly Texture2D? StageLightTexture = LoadTexture("res://images/packed/vfx/stage_light/stage_light.png");
@@ -35,6 +36,9 @@ public partial class NKarenStageLightVfx : Node2D
     private static readonly float[] BeamDegrees = [70f, 35f, 350f, 310f];
 
     private readonly Creature _target;
+    private readonly NCombatRoom _room;
+    private NCreature? _view;
+    private readonly NKarenStageLightBeam?[] _beams = new NKarenStageLightBeam?[4];
     private readonly bool _persistent;
     private float _duration = Duration;
     private float _spawnTimer;
@@ -48,6 +52,8 @@ public partial class NKarenStageLightVfx : Node2D
     private NKarenStageLightVfx(Creature target, bool persistent)
     {
         _target = target;
+        _room = NCombatRoom.Instance!;
+        _view = _room.GetCreatureNode(target);
         _persistent = persistent;
         ZAsRelative = true;
         ZIndex = 20;
@@ -58,18 +64,29 @@ public partial class NKarenStageLightVfx : Node2D
     {
         if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
             || NCombatRoom.Instance?.CombatVfxContainer == null) return null;
+        foreach (var child in NCombatRoom.Instance.CombatVfxContainer.GetChildren())
+        {
+            if (child is not NKarenStageLightVfx cast || cast._persistent || cast._stopping
+                || cast.IsQueuedForDeletion() || !ReferenceEquals(cast._target, target)) continue;
+            cast._age = 0; cast._duration = Duration; cast._spawnTimer = 0; cast._nextBeam = 0;
+            foreach (var beam in cast._beams)
+                if (GodotObject.IsInstanceValid(beam) && !beam!.IsQueuedForDeletion()) beam.PauseForReplay();
+            return null; // AttackCommand only attaches a newly created group.
+        }
         return new NKarenStageLightVfx(target, persistent: false);
     }
 
     public override void _Ready()
     {
-        GlobalPosition = Vector2.Zero;
+        GlobalTransform = Transform2D.Identity;
+        UpdateTargetArea();
         if (!_persistent) KarenAudioManager.PlaySfx(KarenSfx.StageLight, volume: .85f);
     }
 
     public static NKarenStageLightVfx? StartFocus(Creature target)
     {
-        if (NCombatRoom.Instance?.CombatVfxContainer == null) return null;
+        if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
+            || NCombatRoom.Instance?.CombatVfxContainer == null) return null;
 
         var vfx = new NKarenStageLightVfx(target, persistent: true);
         NCombatRoom.Instance.CombatVfxContainer.AddChildSafely(vfx);
@@ -105,7 +122,11 @@ public partial class NKarenStageLightVfx : Node2D
 
     public override void _Process(double delta)
     {
-        if (!_stopping && !(NCombatRoom.Instance?.CreatureNodes.Any(creature => creature.Entity == _target) ?? false)) Stop();
+        if (!KarenVfxQuality.Enabled || !GodotObject.IsInstanceValid(_room) || !_room.IsInsideTree()
+            || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress)
+        { Hide(); QueueFree(); return; }
+        if (!_stopping && (!GodotObject.IsInstanceValid(_view) || !_view!.IsInsideTree())) Stop();
+        UpdateTargetArea();
         float d = (float)delta * (_persistent ? 1f : PlaybackSpeed);
         _age += d;
         if (!_persistent)
@@ -124,7 +145,13 @@ public partial class NKarenStageLightVfx : Node2D
                     break;
                 }
 
-                AddChild(new NKarenStageLightBeam(StageLightTexture, GetTargetArea, BeamDegrees[_nextBeam], persistent: false, () => _age));
+                var beam = _beams[_nextBeam];
+                if (!GodotObject.IsInstanceValid(beam) || beam!.IsQueuedForDeletion())
+                {
+                    beam = new NKarenStageLightBeam(StageLightTexture, GetTargetArea, BeamDegrees[_nextBeam], persistent: false, () => _age);
+                    _beams[_nextBeam] = beam; AddChild(beam);
+                }
+                else beam.Restart();
                 _nextBeam++;
             }
         }
@@ -133,20 +160,17 @@ public partial class NKarenStageLightVfx : Node2D
             GodotTreeExtensions.QueueFreeSafely(this);
     }
 
-    private StageLightTargetArea GetTargetArea()
+    private StageLightTargetArea GetTargetArea() => _lastTargetArea;
+    private void UpdateTargetArea()
     {
-        var creatureNode = NCombatRoom.Instance?.CreatureNodes.FirstOrDefault(creature => creature.Entity == _target);
-        if (creatureNode != null)
-        {
-            // Convert both corners through the complete canvas transform (including scale/flip).
-            var hitbox = creatureNode.Hitbox;
-            var first = ToLocal(hitbox.GetGlobalTransform() * Vector2.Zero);
-            var last = ToLocal(hitbox.GetGlobalTransform() * hitbox.Size);
-            _lastTargetArea = new StageLightTargetArea((first + last) * 0.5f, (last - first).Abs());
-        }
-
-        // A removed target leaves its fading lights at the last valid position.
-        return _lastTargetArea;
+        if (!GodotObject.IsInstanceValid(_view) || !_view!.IsInsideTree()) return;
+        // All beams consume one captured area per frame, including animated visual scale/flip.
+        var bounds = _view.Visuals.GetNodeOrNull<Control>("%Bounds") ?? _view.Hitbox;
+        var transform = GetGlobalTransformWithCanvas().AffineInverse() * bounds.GetGlobalTransformWithCanvas();
+        var area = new Rect2(transform * Vector2.Zero, Vector2.Zero)
+            .Expand(transform * new Vector2(bounds.Size.X, 0)).Expand(transform * bounds.Size)
+            .Expand(transform * new Vector2(0, bounds.Size.Y));
+        _lastTargetArea = new StageLightTargetArea(area.GetCenter(), area.Size);
     }
 
     private static Texture2D? LoadTexture(string path)
@@ -186,8 +210,8 @@ internal readonly record struct StageLightTargetArea(Vector2 Center, Vector2 Siz
 
 internal partial class NKarenStageLightBeam : Sprite2D
 {
-    private const float Duration = 0.6f;
-    private const float TargetWidth = 130f;
+    private const float Duration = 0.42f;
+    private const float TargetWidth = 94f;
     private const float TargetHeight = 760f;
     private const float OffscreenTopMargin = 80f;
 
@@ -206,7 +230,7 @@ internal partial class NKarenStageLightBeam : Sprite2D
         Centered = false;
         ZAsRelative = true;
         ZIndex = 20;
-        Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
+        Material = NKarenStageLightVfx.Additive;
 
         RotationDegrees = degrees;
         Modulate = Colors.White;
@@ -242,9 +266,13 @@ internal partial class NKarenStageLightBeam : Sprite2D
         return Mathf.Max(TargetHeight, heightToOffscreenTop);
     }
 
+    internal void PauseForReplay() { Hide(); SetProcess(false); }
+    internal void Restart() { _duration = Duration; _stopping = false; Show(); SetProcess(true); }
+
     public void Stop()
     {
         _stopping = true;
+        SetProcess(true); // A replay may have paused a beam before an interrupted cast.
     }
 
     public override void _Process(double delta)
@@ -268,7 +296,7 @@ internal partial class NKarenStageLightBeam : Sprite2D
 
 internal partial class NKarenStageLightFocusBeam : Sprite2D
 {
-    private const float TargetWidth = 170f;
+    private const float TargetWidth = 125f;
     private const float TargetHeight = 610f;
     private const float OffscreenTopMargin = 80f;
 
@@ -283,7 +311,7 @@ internal partial class NKarenStageLightFocusBeam : Sprite2D
         Centered = false;
         ZAsRelative = true;
         ZIndex = 20;
-        Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
+        Material = NKarenStageLightVfx.Additive;
         if (texture != null)
             Offset = new Vector2(-texture.GetWidth() * 0.5f, -texture.GetHeight());
 
@@ -293,6 +321,7 @@ internal partial class NKarenStageLightFocusBeam : Sprite2D
     public void Stop()
     {
         _stopping = true;
+        SetProcess(true); // A replay may have paused a beam before an interrupted cast.
     }
 
     public override void _Process(double delta)

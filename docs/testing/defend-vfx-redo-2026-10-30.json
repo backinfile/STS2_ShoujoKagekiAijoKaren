@@ -1,0 +1,638 @@
+{
+  "date": "2026-10-30",
+  "revision_baseline": "dd6faacacb9a43086c949ed1d52659ccee9c07cd",
+  "status": "simple visual direction accepted by user; shared cue regression documented in basic-transfer-simple-2026-10-30.json",
+  "visual": "single slight guard stance and one small sword-hilt glint",
+  "recordings": [
+    {
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_DEFEND",
+      "block": 5,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/full-karen_defend/game.mp4",
+      "sha256": "ef92e3be71dfbe158e44b247137c3b29f176534512f499b175c4ef560fb97dd4",
+      "status": {
+        "block": 5,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 26,
+        "maxPoseOffset": 10.440307,
+        "poseActive": false,
+        "cueDeltaMs": -0.419,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 27,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 1054,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.508341291451945,
+      "frames_dropped": 0,
+      "frames_repeated": 2,
+      "audio_rms_db": -50.630233
+    },
+    {
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_DEFEND",
+      "block": 5,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/low-karen_defend/game.mp4",
+      "sha256": "384300e4e887a2a15e0f18c65ddd799dd29f336800d6d624fe3d12df40626c88",
+      "status": {
+        "block": 5,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 26,
+        "maxPoseOffset": 10.440307,
+        "poseActive": false,
+        "cueDeltaMs": -0.092,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 8,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 1724,
+        "quality": "Low",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.908979076186125,
+      "frames_dropped": 0,
+      "frames_repeated": 1,
+      "audio_rms_db": -51.366166
+    },
+    {
+      "environment": "stable",
+      "mode": "fast",
+      "card": "KAREN_DEFEND",
+      "block": 5,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/fast-karen_defend/game.mp4",
+      "sha256": "7e10fce31f48865cee843009235df853d9d194fc939b0fee3f93969b60e7ab82",
+      "status": {
+        "block": 5,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 16,
+        "maxPoseOffset": 10.440307,
+        "poseActive": false,
+        "cueDeltaMs": -0.091,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 17,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 2399,
+        "quality": "Full",
+        "speed": "Fast"
+      },
+      "capture_fps": 29.90897570053734,
+      "frames_dropped": 0,
+      "frames_repeated": 1,
+      "audio_rms_db": -50.861841
+    },
+    {
+      "environment": "stable",
+      "mode": "instant",
+      "card": "KAREN_DEFEND",
+      "block": 5,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/instant-karen_defend/game.mp4",
+      "sha256": "be680a01e275639c93224d40de85be47df000234b148d5fb62e5e654b9a8a8b6",
+      "status": {
+        "block": 5,
+        "effects": [],
+        "nativeBlocks": 1,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 0,
+        "exited": 0,
+        "draws": 0,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 3070,
+        "quality": "Full",
+        "speed": "Instant"
+      },
+      "capture_fps": 29.366845723478505,
+      "frames_dropped": 0,
+      "frames_repeated": 3,
+      "audio_rms_db": -50.86802
+    },
+    {
+      "environment": "stable",
+      "mode": "off",
+      "card": "KAREN_DEFEND",
+      "block": 5,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/off-karen_defend/game.mp4",
+      "sha256": "fba6f0bd4605c5d58b82e6b669badd0b4722b84bb18366a6ec532f8e414e124f",
+      "status": {
+        "block": 5,
+        "effects": [],
+        "nativeBlocks": 1,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 0,
+        "exited": 0,
+        "draws": 0,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 3737,
+        "quality": "Off",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.915463415928233,
+      "frames_dropped": 0,
+      "frames_repeated": 1,
+      "audio_rms_db": -50.304025
+    },
+    {
+      "environment": "stable",
+      "mode": "upgrade",
+      "card": "KAREN_DEFEND",
+      "block": 8,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/upgrade-karen_defend/game.mp4",
+      "sha256": "5bfeb5c144476f8c947d2b4d722375426afe12ed24fd07b8d123d80835735c86",
+      "status": {
+        "block": 8,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 26,
+        "maxPoseOffset": 10.440307,
+        "poseActive": false,
+        "cueDeltaMs": -0.074,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 27,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 4410,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.747858554096354,
+      "frames_dropped": 0,
+      "frames_repeated": 1,
+      "audio_rms_db": -50.402612
+    },
+    {
+      "environment": "stable",
+      "mode": "replay",
+      "card": "KAREN_DEFEND",
+      "block": 15,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/replay-karen_defend/game.mp4",
+      "sha256": "913c48a6190bc8ca5e16d0a12e7c1ac78baf3aad1d4088d7b66b5cb5450e2dba",
+      "status": {
+        "block": 15,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 78,
+        "maxPoseOffset": 10.440307,
+        "poseActive": false,
+        "cueDeltaMs": -0.106,
+        "spawned": 3,
+        "exited": 3,
+        "draws": 81,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 5187,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.879073868987607,
+      "frames_dropped": 0,
+      "frames_repeated": 1,
+      "audio_rms_db": -48.164842
+    },
+    {
+      "environment": "stable",
+      "mode": "cancel",
+      "card": "KAREN_DEFEND",
+      "block": 5,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/cancel-karen_defend/game.mp4",
+      "sha256": "69307b5eea73a6d7d69a4c7910e6faf14a9b9ea5dd45d34de7a985d68a2d31ff",
+      "status": {
+        "block": 5,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 6,
+        "maxPoseOffset": 10.440307,
+        "poseActive": false,
+        "cueDeltaMs": -0.074,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 8,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 5861,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.842823650603535,
+      "frames_dropped": 0,
+      "frames_repeated": 1,
+      "audio_rms_db": -51.104857
+    },
+    {
+      "environment": "stable",
+      "mode": "zero",
+      "card": "KAREN_DEFEND",
+      "block": 0,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/zero-karen_defend/game.mp4",
+      "sha256": "1c3026f7000556bd62f18aeee7932688ccefd54e31b57bdb426403689255df35",
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 0,
+        "exited": 0,
+        "draws": 0,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 6535,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.905122894256163,
+      "frames_dropped": 0,
+      "frames_repeated": 1,
+      "audio_rms_db": -59.582558
+    },
+    {
+      "environment": "stable",
+      "mode": "nested",
+      "card": "KAREN_DEFEND",
+      "block": 6,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/nested-karen_defend/game.mp4",
+      "sha256": "30c7baea36380822fe085e1148371ed6eab5e27ffdcead794913042829bd3b47",
+      "status": {
+        "block": 6,
+        "effects": [],
+        "nativeBlocks": 1,
+        "poseFrames": 26,
+        "maxPoseOffset": 10.440307,
+        "poseActive": false,
+        "cueDeltaMs": -0.088,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 27,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 7200,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.29940529813821,
+      "frames_dropped": 0,
+      "frames_repeated": 3,
+      "audio_rms_db": -47.910264
+    },
+    {
+      "environment": "stable",
+      "mode": "mirror",
+      "card": "KAREN_DEFEND",
+      "block": 5,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/mirror-karen_defend/game.mp4",
+      "sha256": "30d0e32e4b0e5c434d9d535a380e692a27a684e1f4680b740aac16fd10859e44",
+      "status": {
+        "block": 5,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 26,
+        "maxPoseOffset": 10.440307,
+        "poseActive": false,
+        "cueDeltaMs": -0.084,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 27,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 7868,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.91136078631888,
+      "frames_dropped": 0,
+      "frames_repeated": 1,
+      "audio_rms_db": -50.389624
+    },
+    {
+      "environment": "stable",
+      "mode": "foreign",
+      "card": "DEFEND_IRONCLAD",
+      "block": 5,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/foreign-defend_ironclad/game.mp4",
+      "sha256": "e5f73c4cc50c0349c643d0dc0ef6aba7ea361825949ddb59e14f82924c0a662f",
+      "status": {
+        "block": 5,
+        "effects": [],
+        "nativeBlocks": 1,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 0,
+        "exited": 0,
+        "draws": 0,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 8536,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.57580771037927,
+      "frames_dropped": 0,
+      "frames_repeated": 2,
+      "audio_rms_db": -51.214101
+    },
+    {
+      "environment": "stable",
+      "mode": "regression",
+      "card": "KAREN_STRIKE",
+      "block": 0,
+      "damage": 6,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/regression-karen_strike/game.mp4",
+      "sha256": "c0ab38ee26db4c0df7991c44d8bc121509c801076b4c48427ceb633d54f5634b",
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 23,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 9214,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.28318123020165,
+      "frames_dropped": 0,
+      "frames_repeated": 3,
+      "audio_rms_db": -51.075977
+    },
+    {
+      "environment": "stable",
+      "mode": "regression",
+      "card": "KAREN_SHINE_STRIKE",
+      "block": 0,
+      "damage": 9,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/stable/regression-karen_shine_strike/game.mp4",
+      "sha256": "e9c2b56b66eea117a7eac09d21a6cf62ad87f3f304549fe6f2dfdb88c9f492cc",
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 25,
+        "shine": 8,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 9889,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "capture_fps": 29.831920487012294,
+      "frames_dropped": 0,
+      "frames_repeated": 1,
+      "audio_rms_db": -52.42641
+    },
+    {
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_DEFEND",
+      "block": 5,
+      "damage": 0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "3a2fb6ffdb7bc69876ab2559e31ea31093b703a45b67e3ab6752240af798cfb3",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "passed": true,
+      "clip": "artifacts/defend-redo-20261030/after/beta/full-karen_defend/game.mp4",
+      "sha256": "704628ffeb70bbb667873f3668824a27bcf707d48224f39f475b51cad6d76fe8",
+      "status": {
+        "block": 5,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 26,
+        "maxPoseOffset": 10.440307,
+        "poseActive": false,
+        "cueDeltaMs": -0.383,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 27,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 1092,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "capture_fps": 28.87829937694236,
+      "frames_dropped": 0,
+      "frames_repeated": 5,
+      "audio_rms_db": -50.82986
+    }
+  ],
+  "videos": {
+    "stable": [
+      {
+        "card": "KAREN_DEFEND",
+        "title": "防御",
+        "environment": "stable",
+        "before": {
+          "path": "before/stable/full-karen_defend/game.mp4",
+          "sha256": "c9681d777a83281a638ef77e85ca05783c6a12f2d55ba5b8d66fa1fc7ff01ff0"
+        },
+        "after": {
+          "path": "after/stable/full-karen_defend/game.mp4",
+          "sha256": "ef92e3be71dfbe158e44b247137c3b29f176534512f499b175c4ef560fb97dd4"
+        },
+        "comparison": {
+          "path": "comparison/stable-karen_defend.mp4",
+          "sha256": "bf0058f130459b6afb1fead68d20861ce291cd4d8c8d925a14949fbe7e09b21c"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "combined": "comparison/defend-simple-stable.mp4",
+        "sha256": "33536ffafe2fd89ae892b8e13d6edbfda26a5a5e61c97795a1f4a3f988fc4802",
+        "repository_path": "artifacts/defend-redo-20261030/comparison/defend-simple-stable.mp4"
+      }
+    ],
+    "beta": [
+      {
+        "card": "KAREN_DEFEND",
+        "title": "防御",
+        "environment": "beta",
+        "before": {
+          "path": "before/beta/full-karen_defend/game.mp4",
+          "sha256": "fc85ea035cbdb8b1349fbfb04e9bd907c5c1552e71fb5b8dc9749c61e0214eb0"
+        },
+        "after": {
+          "path": "after/beta/full-karen_defend/game.mp4",
+          "sha256": "704628ffeb70bbb667873f3668824a27bcf707d48224f39f475b51cad6d76fe8"
+        },
+        "comparison": {
+          "path": "comparison/beta-karen_defend.mp4",
+          "sha256": "ac1320fee7dc73ba717cfc46501eeac05c68c4d1106aa1cff166d209b38dacd9"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "combined": "comparison/defend-simple-beta.mp4",
+        "sha256": "cc8333bb96ec688b11a8df8d23d3f6139c9568ad9803f11ace4b5d106fb5f531",
+        "repository_path": "artifacts/defend-redo-20261030/comparison/defend-simple-beta.mp4"
+      }
+    ]
+  },
+  "before": [
+    {
+      "environment": "stable",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "clip": "artifacts/defend-redo-20261030/before/stable/full-karen_defend/game.mp4",
+      "sha256": "c9681d777a83281a638ef77e85ca05783c6a12f2d55ba5b8d66fa1fc7ff01ff0",
+      "provenance": "previous final 1A recording at the revision baseline"
+    },
+    {
+      "environment": "beta",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "5882e60318d316eb3a059809482537feae8a8a08cfbae15328187cee4ac4bfa8",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "clip": "artifacts/defend-redo-20261030/before/beta/full-karen_defend/game.mp4",
+      "sha256": "fc85ea035cbdb8b1349fbfb04e9bd907c5c1552e71fb5b8dc9749c61e0214eb0",
+      "provenance": "previous final 1A recording at the revision baseline"
+    }
+  ],
+  "source_hash_format": "SHA256 of UTF8 without BOM, universal newlines and one terminal newline",
+  "source_sha256": {
+    "src/Core/Models/Cards/basic/KarenDefend.cs": "fb3f62f77d28e54601316f14a031f0df4936fec7b671ac3513d93f64447a022f",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenDefendVfx.cs": "215fb7f8e825031462439e840368e7a963ed1c70cd1b50f81864dda6bb442fad",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCreatureVisuals.Guard.cs": "42cebe17c74a73eaff8895d8821ab7cdfbaf4c3c89ab0a824a88e517dc6d5fff",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCreatureVisuals.Entrance.cs": "a79e33e9487d805454d1f3f57649802ab55364cd87a304202df8e99889a7c32e",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCreatureVisuals.cs": "1f350d320d6cf243d371d666bed7276e546e198b54d0852e7086dd247cf8c6e2",
+    "materials/characters/karen_idle.gdshader": "0757ec8981aad52e5749151b4693801452208c655703cab96e0e782a5d49c85c"
+  },
+  "total_new_recordings": 15,
+  "total_before_recordings": 2,
+  "untested": [
+    "complete multiplayer matrix",
+    "complete first-use and frame-time suite",
+    "Android"
+  ]
+}

@@ -33,21 +33,21 @@ public sealed class KarenBaseball : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
-        NKarenBaseballVfx? flight = null;
+        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.Baseball);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithAttackerFx(() => flight = NKarenBaseballVfx.Create(Owner.Creature, cardPlay.Target))
+            .WithAttackerFx(show.Start)
             .WithAttackerAnim("Attack", 0f)
             .WithWaitBeforeHit(NKarenBaseballVfx.FastHitTime, NKarenBaseballVfx.HitTime)
-            .WithHitVfxNode(target => NKarenBaseballVfx.CreateImpact(target, flight))
+            .WithHitVfxNode(show.Hit)
             .Execute(choiceContext);
 
         // 同时应用4种保留效果，各2回合
         await PowerCmd.Apply<RetainHandPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
-        await PowerCmd.Apply<KarenRetainEnergyPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
-        await PowerCmd.Apply<BlurPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
-        await PowerCmd.Apply<KarenRetainTmpStrengthPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
+        await PowerCmd.Apply<KarenRetainEnergyPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this, silent: true);
+        await PowerCmd.Apply<BlurPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this, silent: true);
+        await PowerCmd.Apply<KarenRetainTmpStrengthPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this, silent: true);
     }
 
     protected override void OnUpgrade()

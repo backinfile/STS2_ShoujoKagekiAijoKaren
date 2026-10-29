@@ -31,10 +31,16 @@ public partial class NKarenBackToBackVfx : Node2D
     private float _facing = 1;
     private Vector2 _start;
     private Vector2 _end;
-    private readonly Vector2[] _ribbon = new Vector2[Samples * 2];
-    private readonly Color[] _colors = new Color[Samples * 2];
-    private readonly Vector2[] _edge = new Vector2[Samples];
-    private readonly Vector2[] _quad = new Vector2[4];
+    private sealed class DrawBuffers
+    {
+        public readonly Vector2[] Ribbon = new Vector2[Samples * 2], Edge = new Vector2[Samples], Quad = new Vector2[4];
+        public readonly Color[] Colors = new Color[Samples * 2];
+    }
+    private DrawBuffers _buffers = null!;
+    private Vector2[] _ribbon => _buffers.Ribbon;
+    private Vector2[] _edge => _buffers.Edge;
+    private Vector2[] _quad => _buffers.Quad;
+    private Color[] _colors => _buffers.Colors;
 
     private static bool CanPlay => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
         && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant
@@ -45,20 +51,22 @@ public partial class NKarenBackToBackVfx : Node2D
 
     public static NKarenBackToBackVfx? CreateImpact(Creature attacker, Creature target, int stock, NKarenBackToBackVfx? approach)
     {
+        DrawBuffers? buffers = null;
         if (GodotObject.IsInstanceValid(approach))
         {
-            approach!.Hide();
+            buffers = approach!._buffers;
+            approach.Hide();
             approach.QueueFree();
         }
-        return CanPlay ? Create(attacker, target, stock, true) : null;
+        return CanPlay ? Create(attacker, target, stock, true, buffers) : null;
     }
 
-    private static NKarenBackToBackVfx Create(Creature attacker, Creature target, int stock, bool impact)
+    private static NKarenBackToBackVfx Create(Creature attacker, Creature target, int stock, bool impact, DrawBuffers? buffers = null)
         => new()
         {
             Name = impact ? "KarenBackToBackImpact" : "KarenBackToBackApproach",
             _attacker = attacker, _target = target, _stock = stock, _impact = impact,
-            _room = NCombatRoom.Instance!,
+            _room = NCombatRoom.Instance!, _buffers = buffers ?? new DrawBuffers(),
             // Only presentation saturates. The card retains its full calculated damage.
             _strength = Mathf.Sqrt(Mathf.Clamp(stock / 10f, 0, 1)),
             _speed = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1f / .7f : 1f
@@ -96,7 +104,7 @@ public partial class NKarenBackToBackVfx : Node2D
         if (!GodotObject.IsInstanceValid(_room) || NCombatRoom.Instance != _room
             || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant
             || (!_impact && (!UpdateAnchors() || _target.IsDead))
-            || _age > (_impact ? .52f : HitTime + .16f))
+            || _age > (_impact ? .38f : HitTime + .16f))
         {
             Hide();
             QueueFree();
@@ -134,7 +142,7 @@ public partial class NKarenBackToBackVfx : Node2D
             float width = (side == 0 ? 10f : 4.8f) * (.65f + _strength * .8f);
             DrawBlade(side, false, tail, tip, width, .82f, 1);
         }
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 7; i += KarenVfxQuality.ParticleStride)
         {
             float phase = Mathf.PosMod(head * 1.9f + i * .137f, 1);
             var at = _start.Lerp(_end, phase) + new Vector2(0, (i - 3) * (12 + _strength * 5));
@@ -147,8 +155,8 @@ public partial class NKarenBackToBackVfx : Node2D
     private void DrawContact()
     {
         float reveal = Mathf.Lerp(.68f, 1, Mathf.SmoothStep(0, .065f, _age));
-        float fade = 1 - Mathf.SmoothStep(.065f, .38f, _age);
-        float body = (.55f + _strength * .7f) * fade;
+        float fade = 1 - Mathf.SmoothStep(.065f, .29f, _age);
+        float body = (.55f + _strength * .45f) * fade;
         for (int side = 0; side < 2; side++)
         {
             float width = (side == 0 ? 25f : 8f) * (.65f + _strength * .85f);
@@ -185,7 +193,7 @@ public partial class NKarenBackToBackVfx : Node2D
         var color = side == 0 ? Red : Blue;
         for (int layer = 0; layer < 3; layer++)
         {
-            float thickness = layer == 0 ? 3.5f : layer == 1 ? 1 : .16f;
+            float thickness = layer == 0 ? 2.2f : layer == 1 ? 1 : .16f;
             float opacity = alpha * (layer == 0 ? .065f : layer == 1 ? .74f : .95f);
             for (int i = 0; i < Samples; i++)
             {
@@ -209,7 +217,7 @@ public partial class NKarenBackToBackVfx : Node2D
 
     private void DrawFragments()
     {
-        int count = 10 + Mathf.RoundToInt(_strength * 16);
+        int count = KarenVfxQuality.ParticleCount(6 + Mathf.RoundToInt(_strength * 6));
         for (int i = 0; i < count; i++)
         {
             float age = Mathf.Max(0, _age - i % 4 * .008f);

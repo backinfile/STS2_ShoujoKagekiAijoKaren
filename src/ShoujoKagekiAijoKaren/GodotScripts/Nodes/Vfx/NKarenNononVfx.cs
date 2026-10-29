@@ -22,11 +22,11 @@ public partial class NKarenNononVfx : Node2D
     public const float HitTime = .66f;
     public const float FastHitTime = HitTime * FastDurationScale;
     private const float FastDurationScale = .7f;
-    private const float Lifetime = 2.35f;
-    private const float LiftStart = .16f;
-    private const float LiftDrawTime = .23f;
+    private const float Lifetime = 1.28f;
+    private const float LiftStart = .12f;
+    private const float LiftDrawTime = .18f;
     private const float SweepStart = .53f;
-    private const float SweepDrawTime = .20f;
+    private const float SweepDrawTime = .13f;
     private const float DebrisStart = SweepStart + SweepDrawTime + .06f;
     private const int Segments = 48;
     private static readonly Color Ice = new("#87b6d7");
@@ -42,7 +42,8 @@ public partial class NKarenNononVfx : Node2D
     private readonly Vector2[] _ribbon = new Vector2[Segments * 2];
     private readonly Vector2[] _ribbonUvs = new Vector2[Segments * 2];
     private readonly Color[] _ribbonColors = new Color[1];
-    private readonly Node2D _edgeLayer = new();
+    private Node2D? _edgeLayer;
+    private bool _particlesOnly;
     private ShaderMaterial? _edgeMaterial;
     private Transform2D _portraitToEffect;
     private Rect2 _portraitRect;
@@ -52,23 +53,35 @@ public partial class NKarenNononVfx : Node2D
     private float _timeScale = 1f;
     private float _age;
     private bool _usePortrait;
+    private float[] _hitAges = [];
+    private readonly Vector2[] _starPoints = new Vector2[8];
+
+    public void ConfirmHit(MegaCrit.Sts2.Core.Entities.Creatures.Creature target)
+    {
+        if (!GodotObject.IsInstanceValid(this) || !IsInsideTree() || IsQueuedForDeletion()) return;
+        for (int i = 0; i < _targets.Length; i++)
+            if (ReferenceEquals(_targets[i].Entity, target)) _hitAges[i] = _age;
+    }
 
     /// <summary>AttackCommand adds this node to the attacker's own combat VFX container.</summary>
-    public static NKarenNononVfx? Create(Player owner)
+    public static NKarenNononVfx? Create(Player owner) => Create(owner.Creature, false);
+    internal static NKarenNononVfx? CreateParticleLayer(MegaCrit.Sts2.Core.Entities.Creatures.Creature owner) => Create(owner, true);
+    private static NKarenNononVfx? Create(MegaCrit.Sts2.Core.Entities.Creatures.Creature owner, bool particlesOnly)
     {
         if (!KarenVfxQuality.Enabled || NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant)
             return null;
 
         var room = NCombatRoom.Instance;
-        var creature = room?.GetCreatureNode(owner.Creature);
-        if (room == null || creature == null || owner.Creature.CombatState == null)
+        var creature = room?.GetCreatureNode(owner);
+        if (room == null || creature == null || owner.CombatState == null)
             return null;
 
         return new NKarenNononVfx
         {
+            _particlesOnly = particlesOnly,
             _room = room,
             _ownerNode = creature,
-            _targets = owner.Creature.CombatState.GetOpponentsOf(owner.Creature)
+            _targets = owner.CombatState.GetOpponentsOf(owner)
                 .Where(target => target.IsAlive)
                 .Select(target => room.GetCreatureNode(target))
                 .OfType<NCreature>().ToArray(),
@@ -81,11 +94,16 @@ public partial class NKarenNononVfx : Node2D
         ZIndex = 10;
         Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         CaptureGeometry();
-        var shader = KarenResourceLoader.Load<Shader>("res://shaders/nonon_edge.gdshader", nameof(NKarenNononVfx));
-        if (shader != null && KarenVfxQuality.Level != KarenVfxLevel.Low) _edgeLayer.Material = _edgeMaterial = new ShaderMaterial { Shader = shader };
-        else _edgeLayer.Material = Material;
-        _edgeLayer.Draw += DrawSwordEdges;
-        AddChild(_edgeLayer);
+        _hitAges = new float[_targets.Length]; Array.Fill(_hitAges, -1);
+        if (!_particlesOnly)
+        {
+            _edgeLayer = new Node2D();
+            var shader = KarenResourceLoader.Load<Shader>("res://shaders/nonon_edge.gdshader", nameof(NKarenNononVfx));
+            if (shader != null && KarenVfxQuality.Level != KarenVfxLevel.Low) _edgeLayer.Material = _edgeMaterial = new ShaderMaterial { Shader = shader };
+            else _edgeLayer.Material = Material;
+            _edgeLayer.Draw += DrawSwordEdges;
+            AddChild(_edgeLayer);
+        }
         CreateParticles();
         KarenVfxQuality.Redraw(this);
     }
@@ -176,11 +194,13 @@ public partial class NKarenNononVfx : Node2D
 
     public override void _Draw()
     {
-        // The standing portrait's sword hand is left of her waist.
-        HiltGlint(Source(169, 271));
-
-        foreach (var point in _hitPoints)
-            HitGlint(point);
+        if (!_particlesOnly)
+        {
+            // The stage attack owns the sword and contact; this mode adds only their wake.
+            HiltGlint(Source(169, 271));
+            for (int i = 0; i < _hitPoints.Count; i++)
+                if (_hitAges[i] >= 0) HitGlint(_hitPoints[i], _age - _hitAges[i]);
+        }
         DrawParticles(this, luminous: true);
     }
 
@@ -240,13 +260,13 @@ public partial class NKarenNononVfx : Node2D
         float alpha = Envelope(.19f, .83f, .32f);
         if (alpha <= 0) return;
         float pulse = 1 + .18f * Mathf.Sin((_age - .19f) * 19);
-        Halo(center, 88 * _unit, Red, alpha * .85f);
-        Halo(center, 38 * _unit, Red, alpha * 1.1f);
+        Halo(center, 38 * _unit, Red, alpha * .45f);
+        Halo(center, 18 * _unit, Red, alpha * .8f);
         Halo(center, 13 * _unit, Warm, alpha);
         for (int i = 0; i < 16; i++)
         {
             float near = i / 16f, far = (i + 1) / 16f;
-            var offset = new Vector2(260 * _unit, -3 * _unit);
+            var offset = new Vector2(90 * _unit, -3 * _unit);
             var tint = new Color(Red.Lerp(Warm, Mathf.Pow(1 - near, 5)), alpha * Mathf.Pow(1 - near, 1.6f));
             DrawLine(center + offset * near, center + offset * far, new Color(Red, tint.A * .2f), 13 * _unit, true);
             DrawLine(center - offset * near, center - offset * far, new Color(Red, tint.A * .2f), 13 * _unit, true);
@@ -258,14 +278,13 @@ public partial class NKarenNononVfx : Node2D
         DrawCircle(center, 4 * _unit, new Color(Warm, alpha));
     }
 
-    private void HitGlint(Vector2 center)
+    private void HitGlint(Vector2 center, float age)
     {
-        float age = _age - HitTime;
         if (age < 0 || age > .5f) return;
         float alpha = 1 - Smooth(age / .5f);
         Halo(center, 72 * _unit, Silver, alpha * .4f);
         Star(center, (1 - Ease(age / .32f)) * 32 * _unit, White, alpha);
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 3; i++)
         {
             float angle = i * Mathf.Tau / 6 + .3f;
             var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle) * .65f);
@@ -287,7 +306,7 @@ public partial class NKarenNononVfx : Node2D
     {
         // Subpixel stars collapse at world-space coordinates and cannot be triangulated.
         if (radius <= .75f * _unit) return;
-        Vector2[] points = new Vector2[8];
+        var points = _starPoints;
         for (int i = 0; i < 8; i++)
         {
             float angle = i * Mathf.Pi / 4;

@@ -27,18 +27,23 @@ public partial class NKarenUnforgottenShineVfx : Node2D
 
     public const float HitTime = .20f;
     public const float FastHitTime = HitTime * .7f;
-    private const float FadeTime = 1.2f;
-    private const float RetainedOpacity = .20f;
+    private const float FadeTime = .45f;
+    private const float RetainedOpacity = .14f;
     private const string GroupName = "KarenUnforgottenScars";
     private static readonly Vector2 TexturePivot = new(.5f, .5f);
     private static Texture2D? _texture;
 
-    private sealed class FadingCut(Sprite2D sprite, float speed)
+    // A slot owns both copies for its whole combat lifetime. New hits reuse the
+    // oldest slot once a target or the battle reaches its budget.
+    private sealed class CutSlot(Sprite2D retained, Sprite2D flash)
     {
-        public readonly Sprite2D Sprite = sprite;
-        public readonly float Speed = speed;
-        public float Age;
+        public readonly Sprite2D Retained = retained, Flash = flash;
+        public ulong Target;
+        public long Order;
+        public float Age, Speed;
     }
+    private static int TargetBudget => KarenVfxQuality.Level == KarenVfxLevel.Low ? 2 : 4;
+    private static int BattleBudget => KarenVfxQuality.Level == KarenVfxLevel.Low ? 6 : 12;
 
     // SelfModulate applies after CanvasGroup compositing: overlapping old cuts
     // remain inside one opacity budget instead of accumulating toward opaque white.
@@ -50,9 +55,9 @@ public partial class NKarenUnforgottenShineVfx : Node2D
         ClearMargin = 2
     };
     private readonly Node2D _flashes = new() { Name = "FreshHits", ZIndex = 1 };
-    private readonly List<FadingCut> _fading = new();
+    private readonly List<CutSlot> _cuts = new(12);
     private NCombatRoom _room = null!;
-    private int _nextScar;
+    private long _nextScar;
 
     public static NKarenUnforgottenShineVfx? Create(Creature owner, Creature target)
     {
@@ -86,7 +91,7 @@ public partial class NKarenUnforgottenShineVfx : Node2D
         var placement = room.CombatVfxContainer.GetGlobalTransformWithCanvas().AffineInverse()
             * screenPlacement;
 
-        group.AddCut(placement);
+        group.AddCut(placement, victim.GetInstanceId());
         // AttackCommand attaches a newly returned node. An existing battle group
         // receives the next cut in place and must not be attached a second time.
         return existing ? null : group;
@@ -94,15 +99,6 @@ public partial class NKarenUnforgottenShineVfx : Node2D
 
     private Vector2 PickHitPoint(Vector2 center, Vector2 spread, float size)
     {
-        var neighbors = new List<Vector2>();
-        foreach (var node in _retained.GetChildren())
-        {
-            if (node is not Sprite2D sprite) continue;
-            var anchor = sprite.GetGlobalTransformWithCanvas().Origin;
-            if (anchor.DistanceSquaredTo(center) < size * size * 2.25f)
-                neighbors.Add(anchor);
-        }
-
         // Best of eight bounded samples keeps successive scars distinct without
         // pushing a hit away from the target or retrying forever in a crowded area.
         Vector2 best = center;
@@ -111,10 +107,14 @@ public partial class NKarenUnforgottenShineVfx : Node2D
         {
             float direction = GD.Randf() * Mathf.Tau;
             var candidate = center + Vector2.FromAngle(direction) * spread * Mathf.Sqrt(GD.Randf());
-            if (neighbors.Count == 0) return candidate;
             float nearest = float.MaxValue;
-            foreach (var anchor in neighbors)
-                nearest = Mathf.Min(nearest, candidate.DistanceSquaredTo(anchor));
+            foreach (var cut in _cuts)
+            {
+                var anchor = cut.Retained.GetGlobalTransformWithCanvas().Origin;
+                if (anchor.DistanceSquaredTo(center) < size * size * 2.25f)
+                    nearest = Mathf.Min(nearest, candidate.DistanceSquaredTo(anchor));
+            }
+            if (nearest == float.MaxValue) return candidate;
             if (nearest > bestDistance) { bestDistance = nearest; best = candidate; }
         }
         return best;
@@ -139,16 +139,48 @@ public partial class NKarenUnforgottenShineVfx : Node2D
         AddChild(_flashes);
     }
 
-    private void AddCut(Transform2D placement)
+    private void AddCut(Transform2D placement, ulong target)
     {
-        int id = ++_nextScar;
-        _retained.AddChild(MakeSprite(placement, $"Scar{id}"));
+        TrimBudget();
+        CutSlot? slot = null;
+        int sameTarget = 0;
+        foreach (var cut in _cuts) if (cut.Target == target) sameTarget++;
+        if (sameTarget >= TargetBudget) slot = Oldest(target);
+        else if (_cuts.Count >= BattleBudget) slot = Oldest();
+        if (slot == null)
+        {
+            string id = (_cuts.Count + 1).ToString();
+            slot = new CutSlot(MakeSprite(placement, "Scar" + id), MakeSprite(placement, "Hit" + id));
+            _retained.AddChild(slot.Retained); _flashes.AddChild(slot.Flash);
+            _cuts.Add(slot);
+        }
+        slot.Target = target; slot.Order = ++_nextScar; slot.Age = 0;
         var mode = SaveManager.Instance.PrefsSave.FastMode;
-        if (mode == FastModeType.Instant) return;
+        slot.Speed = mode == FastModeType.Fast ? 1 / .7f : 1;
+        slot.Retained.Transform = slot.Flash.Transform = placement;
+        slot.Flash.SelfModulate = Colors.White;
+        slot.Flash.Visible = mode != FastModeType.Instant;
+    }
 
-        var flash = MakeSprite(placement, $"Hit{id}");
-        _flashes.AddChild(flash);
-        _fading.Add(new FadingCut(flash, mode == FastModeType.Fast ? 1 / .7f : 1));
+    private CutSlot? Oldest(ulong? target = null)
+    {
+        CutSlot? oldest = null;
+        foreach (var cut in _cuts)
+            if ((!target.HasValue || cut.Target == target) && (oldest == null || cut.Order < oldest.Order)) oldest = cut;
+        return oldest;
+    }
+    private void TrimBudget()
+    {
+        for (int i = _cuts.Count - 1; i >= 0; i--)
+        {
+            var cut = _cuts[i]; int sameTarget = 0;
+            foreach (var other in _cuts) if (other.Target == cut.Target) sameTarget++;
+            if (_cuts.Count <= BattleBudget && sameTarget <= TargetBudget) continue;
+            var retired = sameTarget > TargetBudget ? Oldest(cut.Target)! : Oldest()!;
+            _cuts.Remove(retired);
+            _retained.RemoveChild(retired.Retained); _flashes.RemoveChild(retired.Flash);
+            retired.Retained.QueueFree(); retired.Flash.QueueFree();
+        }
     }
 
     private static Sprite2D MakeSprite(Transform2D placement, string name) => new()
@@ -162,29 +194,27 @@ public partial class NKarenUnforgottenShineVfx : Node2D
 
     public override void _Process(double delta)
     {
-        if (!Present(_room) || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress)
+        if (!KarenVfxQuality.Enabled || !Present(_room) || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress)
         {
             Hide();
             QueueFree();
             return;
         }
 
-        for (int i = _fading.Count - 1; i >= 0; i--)
+        TrimBudget();
+        foreach (var cut in _cuts)
         {
-            var cut = _fading[i];
             cut.Age += (float)delta * cut.Speed;
             if (cut.Age >= FadeTime || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant)
             {
-                cut.Sprite.Hide();
-                cut.Sprite.QueueFree();
-                _fading.RemoveAt(i);
+                cut.Flash.Hide();
                 continue;
             }
             // A short held contact and a smooth, strictly decreasing tail;
             // the static copy underneath never fades to zero or pulses again.
             float progress = Mathf.Clamp((cut.Age - .08f) / (FadeTime - .08f), 0, 1);
             float alpha = 1 - progress * progress * (3 - 2 * progress);
-            cut.Sprite.SelfModulate = new Color(1, 1, 1, alpha);
+            cut.Flash.SelfModulate = new Color(1, 1, 1, alpha);
         }
     }
 }

@@ -8,13 +8,13 @@
     {
       "case": "smoke-stable",
       "result": "pass",
-      "detail": "stable v0.107.1 smoke and MCP port 15627 check passed; log: D:\\Godot\\Proj\\worktrees\\STS2_ShoujoKagekiAijoKaren\\karen-energy-concepts\\artifacts\\dev-game\\stable\\godot.log",
+      "detail": "stable v0.107.1 smoke and MCP port 15627 check passed; log: ../worktrees/STS2_ShoujoKagekiAijoKaren/karen-energy-concepts/artifacts/dev-game/stable/godot.log",
       "error": null
     },
     {
       "case": "smoke-beta",
       "result": "pass",
-      "detail": "beta v0.111.0 smoke and MCP port 15628 check passed; log: D:\\Godot\\Proj\\worktrees\\STS2_ShoujoKagekiAijoKaren\\karen-energy-concepts\\artifacts\\dev-game\\beta\\godot.log",
+      "detail": "beta v0.111.0 smoke and MCP port 15628 check passed; log: ../worktrees/STS2_ShoujoKagekiAijoKaren/karen-energy-concepts/artifacts/dev-game/beta/godot.log",
       "error": null
     },
     {
@@ -495,7 +495,7 @@
     }
   ],
   "mcp_stable": {
-    "repository": "D:\\Github\\STS2_Mcp",
+    "repository": "<karen-sts2-mcp-source>",
     "revision": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
     "source_has_uncommitted_changes": true,
     "build_source_sha256": "EED0904BCBD99337B6D4734936340067F32CC9F886114AE9194D888A6CBE1D5F",
@@ -505,7 +505,7 @@
     "loopback_only": true
   },
   "mcp_beta": {
-    "repository": "D:\\Github\\STS2_Mcp",
+    "repository": "<karen-sts2-mcp-source>",
     "revision": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
     "source_has_uncommitted_changes": true,
     "build_source_sha256": "EED0904BCBD99337B6D4734936340067F32CC9F886114AE9194D888A6CBE1D5F",

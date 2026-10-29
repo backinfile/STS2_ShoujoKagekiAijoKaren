@@ -1,0 +1,1555 @@
+{
+  "schema": 1,
+  "date": "2026-10-29",
+  "baseline": "6a7a9bdc36bb1b33c6eb1b54212d3f0100d5e781",
+  "status": "B01 implemented; B02 restrained movement targeted verified; visual review and merge pending",
+  "active_cards": 114,
+  "deferred_cards": 2,
+  "preparation": {
+    "id": "B00",
+    "status": "completed for B01"
+  },
+  "batches": [
+    {
+      "id": "B01",
+      "title": "基础牌专属表现",
+      "depends_on": [
+        "B00"
+      ],
+      "cards": [
+        {
+          "class": "KarenStrike",
+          "title": "打击",
+          "path": "src/Core/Models/Cards/basic/KarenStrike.cs"
+        },
+        {
+          "class": "KarenDefend",
+          "title": "防御",
+          "path": "src/Core/Models/Cards/basic/KarenDefend.cs"
+        },
+        {
+          "class": "KarenShineStrike",
+          "title": "闪耀打击",
+          "path": "src/Core/Models/Cards/basic/KarenShineStrike.cs"
+        },
+        {
+          "class": "KarenFall",
+          "title": "坠落",
+          "path": "src/Core/Models/Cards/basic/KarenFall.cs"
+        },
+        {
+          "class": "KarenPromiseDraw",
+          "title": "不再遥不可及",
+          "path": "src/Core/Models/Cards/basic/KarenPromiseDraw.cs"
+        }
+      ],
+      "outcome": "五张入门牌均有明确的专属表现与调用入口；打击、防御、闪耀打击采用独立演出节点。",
+      "steps": [
+        {
+          "id": "1A",
+          "cards": [
+            "KarenStrike",
+            "KarenDefend",
+            "KarenShineStrike"
+          ],
+          "status": "completed",
+          "completed": "2026-10-30",
+          "evidence": "docs/testing/basic-card-vfx-stage-1a-2026-10-30.json",
+          "revision_evidence": "docs/testing/defend-vfx-redo-2026-10-30.json",
+          "current_evidence": [
+            "docs/testing/defend-vfx-redo-2026-10-30.json",
+            "docs/testing/basic-attacks-simple-2026-10-30.json"
+          ]
+        },
+        {
+          "id": "1B",
+          "cards": [
+            "KarenFall",
+            "KarenPromiseDraw"
+          ],
+          "status": "completed",
+          "completed": "2026-10-30",
+          "evidence": "docs/testing/basic-transfer-simple-2026-10-30.json"
+        }
+      ],
+      "status": "completed; merge pending",
+      "completion_criteria": "五张牌的设计、入口、质量档、释放和实录逐项完成；前三张具有独立轮廓与节拍。",
+      "targeted_validation": "正式版和测试版各在普通/完整档逐牌核对；升级只覆盖影响形态或次数的分支。Fast/Instant与低/关闭按共享路径选代表定向核对，前三牌低档各看主形。连续打出与异常退场选一条当前小组路径。1B涉及移牌时保存并查看MCP截图，动画后karen_check_hand。"
+    },
+    {
+      "id": "B02",
+      "title": "重击与常驻伤痕",
+      "depends_on": [
+        "B01"
+      ],
+      "cards": [
+        {
+          "class": "KarenShineTogether",
+          "title": "永不遗忘的闪耀",
+          "path": "src/Core/Models/Cards/shine/KarenShineTogether.cs"
+        },
+        {
+          "class": "KarenNonon",
+          "title": "NONNON哒哟",
+          "path": "src/Core/Models/Cards/shine/KarenNonon.cs"
+        },
+        {
+          "class": "KarenShineStrikeBarrage",
+          "title": "用你的闪耀贯穿我吧",
+          "path": "src/Core/Models/Cards/shine/KarenShineStrikeBarrage.cs"
+        },
+        {
+          "class": "KarenBackToBackCard",
+          "title": "背靠背",
+          "path": "src/Core/Models/Cards/promisePile/KarenBackToBackCard.cs"
+        },
+        {
+          "class": "KarenBaseball",
+          "title": "棒球",
+          "path": "src/Core/Models/Cards/promisePile/KarenBaseball.cs"
+        },
+        {
+          "class": "KarenJealousy",
+          "title": "嫉妒",
+          "path": "src/Core/Models/Cards/relic/KarenJealousy.cs"
+        },
+        {
+          "class": "KarenCarryingGuilt",
+          "title": "我们犯下的罪过",
+          "path": "src/Core/Models/Cards/shine/KarenCarryingGuilt.cs"
+        }
+      ],
+      "outcome": "先限制常驻伤痕与查询规模，再保留重点招式主形，统一优化逐击接触和尾部预算。",
+      "steps": [
+        {
+          "id": "2A",
+          "cards": [
+            "KarenShineTogether"
+          ],
+          "status": "completed",
+          "evidence": "docs/testing/heavy-attack-stationary-2026-10-30.md"
+        },
+        {
+          "id": "2B",
+          "cards": [
+            "KarenNonon",
+            "KarenShineStrikeBarrage",
+            "KarenBackToBackCard"
+          ],
+          "status": "completed",
+          "evidence": "docs/testing/heavy-attack-stationary-2026-10-30.md",
+          "followup_evidence": "docs/testing/nonon-particle-restore-2026-10-30.md"
+        },
+        {
+          "id": "2C",
+          "cards": [
+            "KarenBaseball",
+            "KarenJealousy",
+            "KarenCarryingGuilt"
+          ],
+          "status": "completed",
+          "evidence": "docs/testing/heavy-attack-stationary-2026-10-30.md"
+        }
+      ],
+      "status": "completed; visual review and merge pending",
+      "completion_criteria": "有界伤痕落地；六张已有重招的专属主形保持清晰，逐击和尾部预算可说明。",
+      "targeted_validation": "每个小组只验证所改牌；伤痕达到预算后节点与查询规模保持稳定，低档预算更小，目标死亡/换场释放。重击接触与真实扣血对齐，完整目标边界与当前专属主形保留。",
+      "implementation": {
+        "report": "docs/testing/heavy-card-vfx-batch02-2026-10-30.md",
+        "records": "docs/testing/heavy-card-vfx-batch02-2026-10-30.json",
+        "cards_completed": 7,
+        "recordings": 52,
+        "videos": {
+          "stable": {
+            "combined": {
+              "path": "artifacts/heavy-batch02-20261030/comparison/b02-stable.mp4",
+              "sha256": "058f5725846959005b785d1a854b7c95289dfa3e237dc59e255ffd86c7116802"
+            },
+            "stages": {
+              "2A": {
+                "video": {
+                  "path": "artifacts/heavy-batch02-20261030/comparison/b02-2a-stable.mp4",
+                  "sha256": "66dbde93c9bbf900c3ef54e7a65fcad012c8e8fd812b7823225d089f9ec4244f"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/stable-full-karen_shine_together.mp4",
+                    "sha256": "39d90c9d867300f5032b8942dccec034dc70f8f66810c5fca4761861d4413584"
+                  },
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/stable-stress-karen_shine_together.mp4",
+                    "sha256": "d9c5c7ecccb90c39afdcced051ae4fa2193569d939e36c2ba9bafe59f7431728"
+                  }
+                ]
+              },
+              "2B": {
+                "video": {
+                  "path": "artifacts/heavy-batch02-20261030/comparison/b02-2b-stable.mp4",
+                  "sha256": "a24fe96b2bda17db964a142c5684cdec934a5d8368270f988e05718d3e1deeba"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/stable-full-karen_nonon.mp4",
+                    "sha256": "38004c153a8dbfedaebb1aa4d8c709e7a3f69d3df29edf847a94410dac83e87d"
+                  },
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/stable-full-karen_shine_strike_barrage.mp4",
+                    "sha256": "20bbc6a702c2cd00d4ecdbd2ce00440e166ceb215519d097890fe11fc1a94ce9"
+                  },
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/stable-full-karen_back_to_back_card.mp4",
+                    "sha256": "f6ffdd03150b19bb13a103ebf7022f0534293caf341e2e7611b0092818556a0c"
+                  }
+                ]
+              },
+              "2C": {
+                "video": {
+                  "path": "artifacts/heavy-batch02-20261030/comparison/b02-2c-stable.mp4",
+                  "sha256": "09aee2a5ac4836dbf7c970c88d7e705f7231d4526487cf585ca3f4ef7c81e1db"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/stable-full-karen_baseball.mp4",
+                    "sha256": "4b13e03a51674134b31219bed1987b90121df551cfd6c6183630ee7cd183fe8a"
+                  },
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/stable-full-karen_jealousy.mp4",
+                    "sha256": "3a0966780f6c71dfc5b1e1b9346eeddfb873d46513fa57be1ed7fb878ac5f997"
+                  },
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/stable-full-karen_carrying_guilt.mp4",
+                    "sha256": "424b012f38e086bb42f804b6151029f04f7f858f6568d849b439ab17426dfb91"
+                  }
+                ]
+              }
+            }
+          },
+          "beta": {
+            "combined": {
+              "path": "artifacts/heavy-batch02-20261030/comparison/b02-beta.mp4",
+              "sha256": "4674daf5f74302ca3927f1a7098a9f0eec797ea92e8a765a6794e28e628f58ff"
+            },
+            "stages": {
+              "2A": {
+                "video": {
+                  "path": "artifacts/heavy-batch02-20261030/comparison/b02-2a-beta.mp4",
+                  "sha256": "d27a5718f6f4f4ecf5d1c4ea50bcfbba9cf2a59d12374bc2b6864e7a32da4ea7"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/beta-full-karen_shine_together.mp4",
+                    "sha256": "bea327134dc00dc843310e2dc4d93f6e9bd8be5b7fd347c4114f0ce49d3deda1"
+                  }
+                ]
+              },
+              "2B": {
+                "video": {
+                  "path": "artifacts/heavy-batch02-20261030/comparison/b02-2b-beta.mp4",
+                  "sha256": "d28c0f2523f09a56dc3ce7d68fee199cfe78d2db9614bffa480d97439d64870d"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/beta-full-karen_nonon.mp4",
+                    "sha256": "b0350d91bc23b6632445503b00176065f0bab3e50c89fb7fab1d3505d8ea8571"
+                  },
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/beta-full-karen_shine_strike_barrage.mp4",
+                    "sha256": "ec5ba7301bc7d397174866e94a8ca60de61192e7a92ef33a66e91f2dae322c93"
+                  },
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/beta-full-karen_back_to_back_card.mp4",
+                    "sha256": "7c4343e0a0c15be34c2820feec98befcf45fc8231a37d723707552274b03307a"
+                  }
+                ]
+              },
+              "2C": {
+                "video": {
+                  "path": "artifacts/heavy-batch02-20261030/comparison/b02-2c-beta.mp4",
+                  "sha256": "007e14fe40511ab3427d08eafcbaecb5cc5c6c5b288392557466d4d4a2dbad8e"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/beta-full-karen_baseball.mp4",
+                    "sha256": "f451607fb70f15f7e5a74df6047a02cf7148cc0ae443a21c423455c131f5a663"
+                  },
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/beta-full-karen_jealousy.mp4",
+                    "sha256": "9a25a2a169884bf3a1c92e8470fec8a01e5b9c44037eba648ab6e425a3b17ed4"
+                  },
+                  {
+                    "path": "artifacts/heavy-batch02-20261030/comparison/beta-full-karen_carrying_guilt.mp4",
+                    "sha256": "746ed12073059d51b3669a29bc7a002fe06b3aa00329b6af7e18b3705ae8999e"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "style": "simple, real contacts, bounded retained marks, shorter tails",
+        "rules_waits": "unchanged",
+        "full_frame_time_suite": "not run"
+      },
+      "visual_review": "pending",
+      "visual_redesign": {
+        "report": "docs/testing/heavy-attack-redesign-2026-10-30.md",
+        "reference": "docs/research/heavy-attack-reference-redesign-2026-10-30.md",
+        "data": "docs/testing/heavy-attack-redesign-2026-10-30.json",
+        "baseline": "28163aab2fc08444e62a581cf1b5d7797ef856e4",
+        "new_recordings": 35,
+        "reused_before": 14,
+        "videos": {
+          "stable": {
+            "combined": {
+              "path": "artifacts/heavy-redesign-20261030/comparison/b02-redesign-stable.mp4",
+              "sha256": "6f5449886dbe6947f2e347cfdd783f4cf43d0093cd97b2ddea840e9fa99ebeaa"
+            },
+            "stages": {
+              "2A": {
+                "video": {
+                  "path": "artifacts/heavy-redesign-20261030/comparison/b02-redesign-2a-stable.mp4",
+                  "sha256": "0a1a206091f04dd15b92e41b0710868e6a100b289769a2b627b99df4403f5b73"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/stable-full-karen_shine_together.mp4",
+                    "sha256": "95a08cfad8d030bffbbaef8f32b621749dbd46b55150cd5254e85203e5adf125"
+                  }
+                ]
+              },
+              "2B": {
+                "video": {
+                  "path": "artifacts/heavy-redesign-20261030/comparison/b02-redesign-2b-stable.mp4",
+                  "sha256": "ba0aabeef1a34e7b5310ae9d4633197cc6e0534c55883a5076a5d58f6c61f133"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/stable-full-karen_nonon.mp4",
+                    "sha256": "ea1ee49c25960f224324f4cb9126616bac927d9ee13239a8e0a38f4d68a0e19f"
+                  },
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/stable-full-karen_shine_strike_barrage.mp4",
+                    "sha256": "ea4f67ed258cfc62adf3e3b4e59aa0b3764bc50827c572c6e56aabbc04c04e37"
+                  },
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/stable-full-karen_back_to_back_card.mp4",
+                    "sha256": "8d319715d93835830bf9447a3c9bee6c37f978a84273ff7d269647f417463c1c"
+                  }
+                ]
+              },
+              "2C": {
+                "video": {
+                  "path": "artifacts/heavy-redesign-20261030/comparison/b02-redesign-2c-stable.mp4",
+                  "sha256": "7a4b6cc6a4d691b9cc25b7a0df21bb077771af3a5b237a018f4498f993a84d1b"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/stable-full-karen_baseball.mp4",
+                    "sha256": "08fe2a6c242fe5ff8b9cd62d493000461f3be5fda4398410ee0f09e9d268473a"
+                  },
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/stable-full-karen_jealousy.mp4",
+                    "sha256": "bf620b1ff88ce11d232403676eee1c8895860ddafa29fd43b35de484070d633c"
+                  },
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/stable-full-karen_carrying_guilt.mp4",
+                    "sha256": "4a5b5a31a0c9af74e4d76d05e7679b51ae76af1db0f82c7b43ed8b019ab48ea4"
+                  }
+                ]
+              }
+            }
+          },
+          "beta": {
+            "combined": {
+              "path": "artifacts/heavy-redesign-20261030/comparison/b02-redesign-beta.mp4",
+              "sha256": "0af6c084d8f6a211e2335b6e8a28099eab0f59f3a35e4001905dcb1d5020cc5d"
+            },
+            "stages": {
+              "2A": {
+                "video": {
+                  "path": "artifacts/heavy-redesign-20261030/comparison/b02-redesign-2a-beta.mp4",
+                  "sha256": "4663e9a38a2f19f675dc36f4711d6c4e5301d08e6b6141e63d2acdc4cf5a278a"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/beta-full-karen_shine_together.mp4",
+                    "sha256": "d5d4ed3afb0ffe4084832ec73f88de2cf73714d1990b29174bc9fd92a818a08c"
+                  }
+                ]
+              },
+              "2B": {
+                "video": {
+                  "path": "artifacts/heavy-redesign-20261030/comparison/b02-redesign-2b-beta.mp4",
+                  "sha256": "a8e95cc4b82e63a4e7fba1b39d30f99e4fd66cdd3795c8546c0210c2f5e5a709"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/beta-full-karen_nonon.mp4",
+                    "sha256": "a5eade61c221c052d028df685800374a62f2dd36241b62d4e39a22eb1b61ee27"
+                  },
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/beta-full-karen_shine_strike_barrage.mp4",
+                    "sha256": "f16d6af5d69f601395495f132f0edb637b82a5e40f7f6a504d3a16b2198b7c30"
+                  },
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/beta-full-karen_back_to_back_card.mp4",
+                    "sha256": "23eaef0deaf09dfa51a73cb129bb6a21620484cd7cc4b913276a439ebab398f9"
+                  }
+                ]
+              },
+              "2C": {
+                "video": {
+                  "path": "artifacts/heavy-redesign-20261030/comparison/b02-redesign-2c-beta.mp4",
+                  "sha256": "fab26c4445a90aa45f8fe0d481f0b482a7b5cc2064c840a0f90dd5914536527a"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/beta-full-karen_baseball.mp4",
+                    "sha256": "1c0d1f51df42fcec8f54eaf80f7fe9c53d736ac201f39090d8fc4057ab86ce12"
+                  },
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/beta-full-karen_jealousy.mp4",
+                    "sha256": "427c2fa57ea43af9b585c94d288518936084341d77a48963a680fa13e3cb8eb3"
+                  },
+                  {
+                    "path": "artifacts/heavy-redesign-20261030/comparison/beta-full-karen_carrying_guilt.mp4",
+                    "sha256": "c9832503dc4744e886eda06cc09eb3ccce3221d5550c61ecc341be9dba745143"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "movement_revision": {
+        "report": "docs/testing/heavy-attack-stationary-2026-10-30.md",
+        "records": "docs/testing/heavy-attack-stationary-2026-10-30.json",
+        "baseline": "221c92764c51dff65735683259d1fc0495f44a1a",
+        "cards_completed": 7,
+        "new_recordings": 16,
+        "reused_recordings": 14,
+        "verified_recordings": 30,
+        "max_observed_translation_px": 9.75,
+        "videos": {
+          "stable": {
+            "combined": {
+              "path": "artifacts/heavy-stationary-20261030/comparison/b02-stationary-stable.mp4",
+              "sha256": "493484739ff915f033038322151a676ae55f9f09cd903afc15df4e540ba3a84c"
+            },
+            "stages": {
+              "2A": {
+                "video": {
+                  "path": "artifacts/heavy-stationary-20261030/comparison/b02-stationary-2a-stable.mp4",
+                  "sha256": "5f7ad9f6c85a0fd10d51300f01db8ce18894fecb2922686b2970ecc83e91562f"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/stable-full-karen_shine_together.mp4",
+                    "sha256": "1718b91de91a3517b1ac3a319bc0d1bf1a84500934c7b9a266fbee01654abc6a"
+                  }
+                ]
+              },
+              "2B": {
+                "video": {
+                  "path": "artifacts/heavy-stationary-20261030/comparison/b02-stationary-2b-stable.mp4",
+                  "sha256": "a0cd5aaa75ef5a39d77391a908479759433f28f69b34c67a98f48817f787220f"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/stable-full-karen_nonon.mp4",
+                    "sha256": "e0972697ab428047d01cb9e033e817f334deb45f9310f62f9f3623888780e004"
+                  },
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/stable-full-karen_shine_strike_barrage.mp4",
+                    "sha256": "bb309d292e6bfc1965342d90ca5149207bd0eba01800a5ced3a63ca5f6e95c41"
+                  },
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/stable-full-karen_back_to_back_card.mp4",
+                    "sha256": "93b06f58e8898e57687cdca494bbb6082b6b765ec71f2b86265c31aa72986a5f"
+                  }
+                ]
+              },
+              "2C": {
+                "video": {
+                  "path": "artifacts/heavy-stationary-20261030/comparison/b02-stationary-2c-stable.mp4",
+                  "sha256": "c4fede52c81a51573ddc4d874644e52db00819443661f3153d813155df03df97"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/stable-full-karen_baseball.mp4",
+                    "sha256": "45c738196fdef004199908426e75644c9375cef7d39431ff67c168e28740e9b4"
+                  },
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/stable-full-karen_jealousy.mp4",
+                    "sha256": "7ae6564771fff60367e49362589cad2e20b60b41091815b59c694d2a6abd0561"
+                  },
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/stable-full-karen_carrying_guilt.mp4",
+                    "sha256": "ceaec60e305a6c682263e31c3f1ecf36761c5ad03aea39b4cfa7dcb314adfeaa"
+                  }
+                ]
+              }
+            }
+          },
+          "beta": {
+            "combined": {
+              "path": "artifacts/heavy-stationary-20261030/comparison/b02-stationary-beta.mp4",
+              "sha256": "9ea13be09557fdc8861cf095f8b85c134765f86160b509e283d5d4f24ecd0189"
+            },
+            "stages": {
+              "2A": {
+                "video": {
+                  "path": "artifacts/heavy-stationary-20261030/comparison/b02-stationary-2a-beta.mp4",
+                  "sha256": "76bc1f08c8fa12757181d8a3a684c065b2ee9f5a5493b34c3ce1eff6d597830a"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/beta-full-karen_shine_together.mp4",
+                    "sha256": "654e1c8fe502d3c91e013fe2c9b05334d81766c6673d995a1726c08b5b51fe97"
+                  }
+                ]
+              },
+              "2B": {
+                "video": {
+                  "path": "artifacts/heavy-stationary-20261030/comparison/b02-stationary-2b-beta.mp4",
+                  "sha256": "47ed332dafbe3fd54c14b6b1ea13f0094825262afe38c259c6b1fada67edaa51"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/beta-full-karen_nonon.mp4",
+                    "sha256": "f81a1f45bcec717b902328cecf9d3efd2aefc275f4bff547befac459c4fd1187"
+                  },
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/beta-full-karen_shine_strike_barrage.mp4",
+                    "sha256": "333a43a67b2ee934eba4bd7a00c5ee23ffac5a2cbdb90c2bb49ab72c69fdc5cb"
+                  },
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/beta-full-karen_back_to_back_card.mp4",
+                    "sha256": "b59dc5ac1da7729d4abf9f5235bf06259c91472e3fd290904bd8e813916e65df"
+                  }
+                ]
+              },
+              "2C": {
+                "video": {
+                  "path": "artifacts/heavy-stationary-20261030/comparison/b02-stationary-2c-beta.mp4",
+                  "sha256": "d9a4e73ca4c890d71116cbf83ab2e89dd963d60062cc63bfa854695957838835"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/beta-full-karen_baseball.mp4",
+                    "sha256": "b840bd9f7d66cc755ae5428bc70b8391a70d627bb7f2ef1c38b3d544508b19de"
+                  },
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/beta-full-karen_jealousy.mp4",
+                    "sha256": "03ff119639b37da2b443ad2757a1e41e6b930d3093d5a2cd0da5107fbb5cdcea"
+                  },
+                  {
+                    "path": "artifacts/heavy-stationary-20261030/comparison/beta-full-karen_carrying_guilt.mp4",
+                    "sha256": "4d8633867674ceb8fd8e62329e06c1f09a17f8d871fd9d829d48c370a481578b"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "nonon_particle_fix": {
+        "report": "docs/testing/nonon-particle-restore-2026-10-30.md",
+        "records": "docs/testing/nonon-particle-restore-2026-10-30.json",
+        "baseline": "064432f2cc39536032c1ada8e9b035a520ab4c1a",
+        "new_after_recordings": 9,
+        "verified_recordings": 11,
+        "manual_particles": {
+          "Full": 220,
+          "Low": 56,
+          "Off": 0
+        },
+        "videos": {
+          "stable": {
+            "path": "artifacts/nonon-particles-20261030/comparison/nonon-particles-stable.mp4",
+            "sha256": "c72aef6c9a810f4ab371e2ed9ee5d8228c43335478ced03e2505d7d065303928"
+          },
+          "beta": {
+            "path": "artifacts/nonon-particles-20261030/comparison/nonon-particles-beta.mp4",
+            "sha256": "e89b867143d3a761291e22ce941fa39e81c0e9f65bf825b31c229b9d5d9b3177"
+          }
+        }
+      }
+    },
+    {
+      "id": "B03",
+      "title": "普通攻击差异化",
+      "depends_on": [
+        "B01",
+        "B02"
+      ],
+      "cards": [
+        {
+          "class": "KarenChargeStrike",
+          "title": "蓄力打击",
+          "path": "src/Core/Models/Cards/shine/KarenChargeStrike.cs"
+        },
+        {
+          "class": "KarenSwordUp",
+          "title": "上挑",
+          "path": "src/Core/Models/Cards/shine/KarenSwordUp.cs"
+        },
+        {
+          "class": "KarenDebut",
+          "title": "出场",
+          "path": "src/Core/Models/Cards/shine/KarenDebut.cs"
+        },
+        {
+          "class": "KarenHolyStar",
+          "title": "神圣星辰",
+          "path": "src/Core/Models/Cards/promisePile/KarenHolyStar.cs"
+        },
+        {
+          "class": "KarenConfront",
+          "title": "对峙",
+          "path": "src/Core/Models/Cards/token/KarenConfront.cs"
+        },
+        {
+          "class": "KarenCounter",
+          "title": "回击",
+          "path": "src/Core/Models/Cards/token/KarenCounter.cs"
+        },
+        {
+          "class": "KarenContinue02",
+          "title": "永无结束的命运舞台",
+          "path": "src/Core/Models/Cards/shine/KarenContinue02.cs"
+        },
+        {
+          "class": "KarenSpin",
+          "title": "旋转",
+          "path": "src/Core/Models/Cards/globalMove/KarenSpin.cs"
+        },
+        {
+          "class": "KarenStarFriend",
+          "title": "星星串起了我们的友谊",
+          "path": "src/Core/Models/Cards/shine/KarenStarFriend.cs"
+        },
+        {
+          "class": "KarenConsciousness",
+          "title": "以觉悟的名义",
+          "path": "src/Core/Models/Cards/neutral/KarenConsciousness.cs"
+        },
+        {
+          "class": "KarenCourageStrike",
+          "title": "勇气打击",
+          "path": "src/Core/Models/Cards/promisePile/KarenCourageStrike.cs"
+        },
+        {
+          "class": "KarenLanding",
+          "title": "落地",
+          "path": "src/Core/Models/Cards/promisePile/KarenLanding.cs"
+        }
+      ],
+      "outcome": "每张牌有独立的形状、节拍或结果交接配置；轻击、挑击、多段和群攻共用底层绘制工具。",
+      "steps": [
+        {
+          "id": "3A",
+          "cards": [
+            "KarenChargeStrike",
+            "KarenSwordUp",
+            "KarenContinue02",
+            "KarenSpin"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "3B",
+          "cards": [
+            "KarenDebut",
+            "KarenHolyStar",
+            "KarenConfront",
+            "KarenCounter"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "3C",
+          "cards": [
+            "KarenStarFriend",
+            "KarenConsciousness",
+            "KarenCourageStrike",
+            "KarenLanding"
+          ],
+          "status": "planned"
+        }
+      ],
+      "status": "planned",
+      "completion_criteria": "12张攻击各有独立配置与短实录；多段/群攻的起势与每击责任明确。",
+      "targeted_validation": "按当前小组检查目标方向/大小、升级、多段与群攻；确认轻重/挑击/群攻各牌配置可辨认，完整/低/关闭有相应反馈。成长牌尺寸和亮度在上限处稳定。"
+    },
+    {
+      "id": "B04",
+      "title": "自动出牌连锁与规则节拍",
+      "depends_on": [
+        "B02",
+        "B03"
+      ],
+      "cards": [
+        {
+          "class": "KarenContinue",
+          "title": "续演",
+          "path": "src/Core/Models/Cards/token/KarenContinue.cs"
+        },
+        {
+          "class": "KarenRewrite",
+          "title": "续写",
+          "path": "src/Core/Models/Cards/shine/KarenRewrite.cs"
+        },
+        {
+          "class": "KarenStar",
+          "title": "星光闪耀之时",
+          "path": "src/Core/Models/Cards/shine/KarenStar.cs"
+        },
+        {
+          "class": "KarenBridge",
+          "title": "约定之塔桥",
+          "path": "src/Core/Models/Cards/promisePile/KarenBridge.cs"
+        },
+        {
+          "class": "KarenGeer",
+          "title": "命运的齿轮",
+          "path": "src/Core/Models/Cards/neutral/KarenGeer.cs"
+        },
+        {
+          "class": "KarenDropFuel",
+          "title": "投下燃料",
+          "path": "src/Core/Models/Cards/shine/KarenDropFuel.cs"
+        },
+        {
+          "class": "KarenStarlight02Card",
+          "title": "Starlight第二幕",
+          "path": "src/Core/Models/Cards/shine/KarenStarlight02Card.cs"
+        }
+      ],
+      "outcome": "按整串播放持有准备和舞台，每次真实命中保留接触；等待策略与本地显示质量分开。",
+      "steps": [
+        {
+          "id": "4A",
+          "cards": [
+            "KarenContinue",
+            "KarenRewrite",
+            "KarenStar"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "4B",
+          "cards": [
+            "KarenBridge",
+            "KarenGeer",
+            "KarenDropFuel",
+            "KarenStarlight02Card"
+          ],
+          "status": "planned"
+        }
+      ],
+      "status": "planned",
+      "completion_criteria": "7张牌的连锁持有、接触、奖励、等待和异常释放清单完成。",
+      "targeted_validation": "验证当前连锁及重播次数、奖励点和异常释放。若调整规则等待，补双方不同质量配置的同版本定向双端验证；两版分别进行。局部表现预算稳定，真实每击仍完成。"
+    },
+    {
+      "id": "B05",
+      "title": "约定牌堆与真实移牌",
+      "depends_on": [
+        "B01",
+        "B04"
+      ],
+      "cards": [
+        {
+          "class": "KarenStarGuide",
+          "title": "星光指引",
+          "path": "src/Core/Models/Cards/shine/KarenStarGuide.cs"
+        },
+        {
+          "class": "KarenVoid",
+          "title": "世界上最空虚的人",
+          "path": "src/Core/Models/Cards/promisePile/KarenVoid.cs"
+        },
+        {
+          "class": "KarenTowerOfPromise",
+          "title": "约定之塔",
+          "path": "src/Core/Models/Cards/token/KarenTowerOfPromise.cs"
+        },
+        {
+          "class": "KarenExchangeFate",
+          "title": "命运交换之日",
+          "path": "src/Core/Models/Cards/promisePile/KarenExchangeFate.cs"
+        },
+        {
+          "class": "KarenStageReproduce",
+          "title": "命运舞台的再生产",
+          "path": "src/Core/Models/Cards/promisePile/KarenStageReproduce.cs"
+        },
+        {
+          "class": "KarenOnStage",
+          "title": "命运与本能",
+          "path": "src/Core/Models/Cards/promisePile/KarenOnStage.cs"
+        },
+        {
+          "class": "KarenMeetAgain",
+          "title": "重逢",
+          "path": "src/Core/Models/Cards/promisePile/KarenMeetAgain.cs"
+        },
+        {
+          "class": "KarenOurPromise",
+          "title": "我们的约定",
+          "path": "src/Core/Models/Cards/promisePile/KarenOurPromise.cs"
+        },
+        {
+          "class": "KarenDance",
+          "title": "舞动",
+          "path": "src/Core/Models/Cards/promisePile/KarenDance.cs"
+        },
+        {
+          "class": "KarenWhosPromise",
+          "title": "双人舞",
+          "path": "src/Core/Models/Cards/promisePile/KarenWhosPromise.cs"
+        },
+        {
+          "class": "KarenYesterglow",
+          "title": "昨日夜空",
+          "path": "src/Core/Models/Cards/promisePile/KarenYesterglow.cs"
+        },
+        {
+          "class": "KarenRevueDuet",
+          "title": "RevueDuet",
+          "path": "src/Core/Models/Cards/promisePile/KarenRevueDuet.cs"
+        },
+        {
+          "class": "KarenRun",
+          "title": "行动",
+          "path": "src/Core/Models/Cards/promisePile/KarenRun.cs"
+        },
+        {
+          "class": "KarenStretching",
+          "title": "拉伸",
+          "path": "src/Core/Models/Cards/promisePile/KarenStretching.cs"
+        },
+        {
+          "class": "KarenNewDay",
+          "title": "新的一天",
+          "path": "src/Core/Models/Cards/promisePile/KarenNewDay.cs"
+        },
+        {
+          "class": "KarenUnderTower",
+          "title": "东京塔下",
+          "path": "src/Core/Models/Cards/promisePile/KarenUnderTower.cs"
+        },
+        {
+          "class": "KarenDodge",
+          "title": "闪避",
+          "path": "src/Core/Models/Cards/promisePile/KarenDodge.cs"
+        },
+        {
+          "class": "KarenNewSituation",
+          "title": "观察情况",
+          "path": "src/Core/Models/Cards/promisePile/KarenNewSituation.cs"
+        },
+        {
+          "class": "KarenOpenUpStars",
+          "title": "开拓星辰",
+          "path": "src/Core/Models/Cards/promisePile/KarenOpenUpStars.cs"
+        }
+      ],
+      "outcome": "卡牌、库存星与图标交接连续；每张牌用独立阶段配置表达抽取、生成、交换或自动入塔。",
+      "steps": [
+        {
+          "id": "5A",
+          "cards": [
+            "KarenStarGuide",
+            "KarenVoid",
+            "KarenTowerOfPromise",
+            "KarenExchangeFate"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "5B",
+          "cards": [
+            "KarenStageReproduce",
+            "KarenOnStage",
+            "KarenMeetAgain",
+            "KarenOurPromise"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "5C",
+          "cards": [
+            "KarenDance",
+            "KarenWhosPromise",
+            "KarenYesterglow",
+            "KarenRevueDuet",
+            "KarenRun",
+            "KarenStretching"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "5D",
+          "cards": [
+            "KarenNewDay",
+            "KarenUnderTower",
+            "KarenDodge",
+            "KarenNewSituation",
+            "KarenOpenUpStars"
+          ],
+          "status": "planned"
+        }
+      ],
+      "status": "planned",
+      "completion_criteria": "19张牌的阶段配置与实际模型交接记录完成，相关手牌检查通过。",
+      "targeted_validation": "正式版和测试版各覆盖本组普通/空虚及相关满手/空塔条件；保存并查看操作前后截图，动画后karen_check_hand。对照真实卡牌模型、可见节点与库存星身份；完成与取消均释放。"
+    },
+    {
+      "id": "B06",
+      "title": "选牌与来源选项",
+      "depends_on": [
+        "B05"
+      ],
+      "cards": [
+        {
+          "class": "KarenWakeUp",
+          "title": "唤醒",
+          "path": "src/Core/Models/Cards/globalMove/KarenWakeUp.cs"
+        },
+        {
+          "class": "KarenWhy",
+          "title": "为什么要离开？我的朋友",
+          "path": "src/Core/Models/Cards/ancient/KarenWhy.cs"
+        },
+        {
+          "class": "KarenNoHesitate",
+          "title": "不再犹豫",
+          "path": "src/Core/Models/Cards/promisePile/KarenNoHesitate.cs"
+        },
+        {
+          "class": "KarenRapid",
+          "title": "极速下降",
+          "path": "src/Core/Models/Cards/promisePile/KarenRapid.cs"
+        },
+        {
+          "class": "KarenOldPlace",
+          "title": "约定的那天",
+          "path": "src/Core/Models/Cards/neutral/KarenOldPlace.cs"
+        },
+        {
+          "class": "KarenWakeUpDrawPileOption",
+          "title": "抽牌堆",
+          "path": "src/Core/Models/Cards/token/options/KarenWakeUpDrawPileOption.cs"
+        },
+        {
+          "class": "KarenWakeUpDiscardPileOption",
+          "title": "弃牌堆",
+          "path": "src/Core/Models/Cards/token/options/KarenWakeUpDiscardPileOption.cs"
+        },
+        {
+          "class": "KarenWakeUpPromisePileOption",
+          "title": "约定牌堆",
+          "path": "src/Core/Models/Cards/token/options/KarenWakeUpPromisePileOption.cs"
+        },
+        {
+          "class": "KarenNoHesitateDrawPileOption",
+          "title": "抽牌堆",
+          "path": "src/Core/Models/Cards/token/options/KarenNoHesitateDrawPileOption.cs"
+        },
+        {
+          "class": "KarenNoHesitateDiscardPileOption",
+          "title": "弃牌堆",
+          "path": "src/Core/Models/Cards/token/options/KarenNoHesitateDiscardPileOption.cs"
+        },
+        {
+          "class": "KarenNoHesitateHandOption",
+          "title": "手牌",
+          "path": "src/Core/Models/Cards/token/options/KarenNoHesitateHandOption.cs"
+        },
+        {
+          "class": "KarenRapidPutOption",
+          "title": "放入",
+          "path": "src/Core/Models/Cards/token/options/KarenRapidPutOption.cs"
+        },
+        {
+          "class": "KarenRapidTakeOption",
+          "title": "取回",
+          "path": "src/Core/Models/Cards/token/options/KarenRapidTakeOption.cs"
+        },
+        {
+          "class": "KarenOldPlaceRetainBlockOption",
+          "title": "保留格挡",
+          "path": "src/Core/Models/Cards/token/options/KarenOldPlaceRetainBlockOption.cs"
+        },
+        {
+          "class": "KarenOldPlaceRetainEnergyOption",
+          "title": "保留能量",
+          "path": "src/Core/Models/Cards/token/options/KarenOldPlaceRetainEnergyOption.cs"
+        },
+        {
+          "class": "KarenOldPlaceRetainHandOption",
+          "title": "保留手牌",
+          "path": "src/Core/Models/Cards/token/options/KarenOldPlaceRetainHandOption.cs"
+        },
+        {
+          "class": "KarenOldPlaceRetainStrengthOption",
+          "title": "保留力量",
+          "path": "src/Core/Models/Cards/token/options/KarenOldPlaceRetainStrengthOption.cs"
+        },
+        {
+          "class": "KarenAwakePotionDrawPileOption",
+          "title": "抽牌堆",
+          "path": "src/Core/Models/Cards/token/options/KarenAwakePotionDrawPileOption.cs"
+        },
+        {
+          "class": "KarenAwakePotionDiscardPileOption",
+          "title": "弃牌堆",
+          "path": "src/Core/Models/Cards/token/options/KarenAwakePotionDiscardPileOption.cs"
+        },
+        {
+          "class": "KarenAwakePotionPromisePileOption",
+          "title": "约定牌堆",
+          "path": "src/Core/Models/Cards/token/options/KarenAwakePotionPromisePileOption.cs"
+        }
+      ],
+      "outcome": "父卡负责独立选牌氛围；选项按来源和结果配置图标与短确认，装饰始终让出原生输入。",
+      "steps": [
+        {
+          "id": "6A",
+          "cards": [
+            "KarenWakeUp",
+            "KarenWhy",
+            "KarenWakeUpDrawPileOption",
+            "KarenWakeUpDiscardPileOption",
+            "KarenWakeUpPromisePileOption"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "6B",
+          "cards": [
+            "KarenNoHesitate",
+            "KarenRapid",
+            "KarenNoHesitateDrawPileOption",
+            "KarenNoHesitateDiscardPileOption",
+            "KarenNoHesitateHandOption",
+            "KarenRapidPutOption",
+            "KarenRapidTakeOption"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "6C",
+          "cards": [
+            "KarenOldPlace",
+            "KarenOldPlaceRetainBlockOption",
+            "KarenOldPlaceRetainEnergyOption",
+            "KarenOldPlaceRetainHandOption",
+            "KarenOldPlaceRetainStrengthOption"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "6D",
+          "cards": [
+            "KarenAwakePotionDrawPileOption",
+            "KarenAwakePotionDiscardPileOption",
+            "KarenAwakePotionPromisePileOption"
+          ],
+          "status": "planned"
+        }
+      ],
+      "status": "planned",
+      "completion_criteria": "5张父卡与15个选项逐项完成；每个选项来源/收益清楚，装饰层生命周期明确。",
+      "targeted_validation": "只覆盖当前来源/选项：未升级/升级、空来源、选中/取消、Peek与换场。卡牌和按钮保持原生输入；返回手牌/入塔的分支按移牌要求保存截图并核对手牌节点。"
+    },
+    {
+      "id": "B07",
+      "title": "防御成长、食物与即时收益",
+      "depends_on": [
+        "B01",
+        "B05",
+        "B06"
+      ],
+      "cards": [
+        {
+          "class": "KarenPractice",
+          "title": "武术练习",
+          "path": "src/Core/Models/Cards/shine/KarenPractice.cs"
+        },
+        {
+          "class": "KarenPractice2",
+          "title": "舞蹈练习",
+          "path": "src/Core/Models/Cards/shine/KarenPractice2.cs"
+        },
+        {
+          "class": "KarenPractice3",
+          "title": "体操练习",
+          "path": "src/Core/Models/Cards/shine/KarenPractice3.cs"
+        },
+        {
+          "class": "KarenParry",
+          "title": "招架",
+          "path": "src/Core/Models/Cards/neutral/KarenParry.cs"
+        },
+        {
+          "class": "KarenCry",
+          "title": "添麻烦了",
+          "path": "src/Core/Models/Cards/neutral/KarenCry.cs"
+        },
+        {
+          "class": "KarenSideways",
+          "title": "侧身",
+          "path": "src/Core/Models/Cards/token/KarenSideways.cs"
+        },
+        {
+          "class": "KarenDrinkWater",
+          "title": "水分补充",
+          "path": "src/Core/Models/Cards/shine/KarenDrinkWater.cs"
+        },
+        {
+          "class": "KarenLetterCard",
+          "title": "信封",
+          "path": "src/Core/Models/Cards/promisePile/KarenLetterCard.cs"
+        },
+        {
+          "class": "KarenNextStage",
+          "title": "下一个舞台",
+          "path": "src/Core/Models/Cards/globalMove/KarenNextStage.cs"
+        },
+        {
+          "class": "KarenBananaCake",
+          "title": "Banana蛋糕",
+          "path": "src/Core/Models/Cards/neutral/KarenBananaCake.cs"
+        },
+        {
+          "class": "KarenSmallSnack",
+          "title": "Banana什锦",
+          "path": "src/Core/Models/Cards/promisePile/KarenSmallSnack.cs"
+        },
+        {
+          "class": "KarenBanana",
+          "title": "banana晚餐",
+          "path": "src/Core/Models/Cards/token/KarenBanana.cs"
+        },
+        {
+          "class": "KarenBananaLunch",
+          "title": "Banana午餐",
+          "path": "src/Core/Models/Cards/promisePile/KarenBananaLunch.cs"
+        },
+        {
+          "class": "KarenSandwitch",
+          "title": "三明治",
+          "path": "src/Core/Models/Cards/token/KarenSandwitch.cs"
+        },
+        {
+          "class": "KarenBananaMuffin",
+          "title": "Banana松饼",
+          "path": "src/Core/Models/Cards/strength/KarenBananaMuffin.cs"
+        },
+        {
+          "class": "KarenEatTogether",
+          "title": "一起吃饭吧",
+          "path": "src/Core/Models/Cards/strength/KarenEatTogether.cs"
+        },
+        {
+          "class": "KarenFinancier",
+          "title": "Banana费南雪",
+          "path": "src/Core/Models/Cards/relic/KarenFinancier.cs"
+        },
+        {
+          "class": "KarenPotato",
+          "title": "土豆",
+          "path": "src/Core/Models/Cards/shine/KarenPotato.cs"
+        },
+        {
+          "class": "KarenReady",
+          "title": "准备完成",
+          "path": "src/Core/Models/Cards/shine/KarenReady.cs"
+        },
+        {
+          "class": "KarenToTheStage",
+          "title": "迈向那个舞台",
+          "path": "src/Core/Models/Cards/shine/KarenToTheStage.cs"
+        }
+      ],
+      "outcome": "使用基础护幕/收益工具形成每张牌的专属包络，区分临时与永久、即时与耗尽、主动与移牌触发。",
+      "steps": [
+        {
+          "id": "7A",
+          "cards": [
+            "KarenPractice",
+            "KarenPractice2",
+            "KarenPractice3",
+            "KarenParry",
+            "KarenCry"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "7B",
+          "cards": [
+            "KarenSideways",
+            "KarenDrinkWater",
+            "KarenLetterCard",
+            "KarenNextStage"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "7C",
+          "cards": [
+            "KarenBananaCake",
+            "KarenSmallSnack",
+            "KarenBanana",
+            "KarenBananaLunch",
+            "KarenSandwitch"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "7D",
+          "cards": [
+            "KarenBananaMuffin",
+            "KarenEatTogether",
+            "KarenFinancier",
+            "KarenPotato",
+            "KarenReady",
+            "KarenToTheStage"
+          ],
+          "status": "planned"
+        }
+      ],
+      "status": "planned",
+      "completion_criteria": "20张牌各有专属短反馈配置；即时牌节奏紧凑，高频收益展示有上限。",
+      "targeted_validation": "核对所改收益的真实增量、临时/永久、耗尽/回合/移牌触发。高频事件合并视觉脉冲，规则收益次数保持当前逻辑；涉及卡牌生成和转换的路径按移牌要求核对。"
+    },
+    {
+      "id": "B08",
+      "title": "能力、舞台与奖励交付",
+      "depends_on": [
+        "B04",
+        "B05",
+        "B07"
+      ],
+      "cards": [
+        {
+          "class": "KarenBurn",
+          "title": "燃烧吧燃烧吧",
+          "path": "src/Core/Models/Cards/neutral/KarenBurn.cs"
+        },
+        {
+          "class": "KarenForm",
+          "title": "觉醒形态",
+          "path": "src/Core/Models/Cards/neutral/KarenForm.cs"
+        },
+        {
+          "class": "KarenPastAndFuture",
+          "title": "过去与未来",
+          "path": "src/Core/Models/Cards/promisePile/KarenPastAndFuture.cs"
+        },
+        {
+          "class": "KarenAquariumCard",
+          "title": "水族馆",
+          "path": "src/Core/Models/Cards/promisePile/KarenAquariumCard.cs"
+        },
+        {
+          "class": "KarenStageIsWaiting",
+          "title": "舞台正在等待着",
+          "path": "src/Core/Models/Cards/promisePile/KarenStageIsWaiting.cs"
+        },
+        {
+          "class": "KarenTicket",
+          "title": "门票",
+          "path": "src/Core/Models/Cards/promisePile/KarenTicket.cs"
+        },
+        {
+          "class": "KarenPosition0",
+          "title": "Position 0",
+          "path": "src/Core/Models/Cards/neutral/KarenPosition0.cs"
+        },
+        {
+          "class": "KarenPassion",
+          "title": "激情",
+          "path": "src/Core/Models/Cards/relic/KarenPassion.cs"
+        },
+        {
+          "class": "KarenArrogant",
+          "title": "骄傲",
+          "path": "src/Core/Models/Cards/relic/KarenArrogant.cs"
+        },
+        {
+          "class": "KarenPickStar",
+          "title": "摘星",
+          "path": "src/Core/Models/Cards/relic/KarenPickStar.cs"
+        },
+        {
+          "class": "KarenStarCrime",
+          "title": "星罪",
+          "path": "src/Core/Models/Cards/relic/KarenStarCrime.cs"
+        },
+        {
+          "class": "KarenShinePrice",
+          "title": "双星",
+          "path": "src/Core/Models/Cards/relic/KarenShinePrice.cs"
+        },
+        {
+          "class": "KarenSunlight",
+          "title": "耀眼的阳光",
+          "path": "src/Core/Models/Cards/shine/KarenSunlight.cs"
+        },
+        {
+          "class": "KarenStarlightCard",
+          "title": "Starlight第一幕",
+          "path": "src/Core/Models/Cards/shine/KarenStarlightCard.cs"
+        },
+        {
+          "class": "KarenStarlight03Card",
+          "title": "Starlight第三幕",
+          "path": "src/Core/Models/Cards/shine/KarenStarlight03Card.cs"
+        },
+        {
+          "class": "KarenWeKown",
+          "title": "两人的梦想",
+          "path": "src/Core/Models/Cards/promisePile/KarenWeKnow.cs"
+        },
+        {
+          "class": "KarenWeKownToken",
+          "title": "光辉",
+          "path": "src/Core/Models/Cards/token/KarenWeKonwToken.cs"
+        },
+        {
+          "class": "KarenShineReproduce",
+          "title": "闪耀的再生产",
+          "path": "src/Core/Models/Cards/token/KarenShineReproduce.cs"
+        }
+      ],
+      "outcome": "保留各模式和重点舞台的主形，合成亮度与事件预算统一，奖励按真实收益确认。",
+      "steps": [
+        {
+          "id": "8A",
+          "cards": [
+            "KarenBurn",
+            "KarenForm",
+            "KarenPastAndFuture",
+            "KarenAquariumCard"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "8B",
+          "cards": [
+            "KarenStageIsWaiting",
+            "KarenTicket",
+            "KarenPosition0"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "8C",
+          "cards": [
+            "KarenPassion",
+            "KarenArrogant",
+            "KarenPickStar",
+            "KarenStarCrime",
+            "KarenShinePrice"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "8D",
+          "cards": [
+            "KarenSunlight",
+            "KarenStarlightCard",
+            "KarenStarlight03Card",
+            "KarenWeKown",
+            "KarenWeKownToken",
+            "KarenShineReproduce"
+          ],
+          "status": "planned"
+        }
+      ],
+      "status": "planned",
+      "completion_criteria": "18张能力/奖励牌各自完成施放/触发/退出记录，既有重点演出与静音要求保留。",
+      "targeted_validation": "每组单独验证施放、触发和移除，选择一个直接相关的叠加组合核对亮度。收益确认落到真实Power/图标/卡面；当前静音约定保持。规则等待变更时补相关同版本双端验证。"
+    },
+    {
+      "id": "B09",
+      "title": "联机演出、长演出与特殊卡",
+      "depends_on": [
+        "B04",
+        "B06",
+        "B08"
+      ],
+      "cards": [
+        {
+          "class": "KarenFightRelay",
+          "title": "歌唱吧舞蹈吧互相争斗吧",
+          "path": "src/Core/Models/Cards/shine/KarenFightRelay.cs"
+        },
+        {
+          "class": "KarenShineTogetherAll",
+          "title": "一起闪耀吧",
+          "path": "src/Core/Models/Cards/shine/KarenShineTogetherAll.cs"
+        },
+        {
+          "class": "KarenLastWord",
+          "title": "最后的台词",
+          "path": "src/Core/Models/Cards/neutral/KarenLastWord.cs"
+        },
+        {
+          "class": "KarenSleepy",
+          "title": "困意",
+          "path": "src/Core/Models/Cards/curses/KarenSleepy.cs"
+        },
+        {
+          "class": "KarenStageReason",
+          "title": "存在于舞台的理由",
+          "path": "src/Core/Models/Cards/curses/KarenStageReason.cs"
+        },
+        {
+          "class": "KarenEmptyShell",
+          "title": "空壳",
+          "path": "src/Core/Models/Cards/token/KarenEmptyShell.cs"
+        }
+      ],
+      "outcome": "处理真实参与者锚点、视频/文字的共同结算点，以及诅咒/占位卡的专属静态或消耗反馈。",
+      "steps": [
+        {
+          "id": "9A",
+          "cards": [
+            "KarenFightRelay",
+            "KarenShineTogetherAll"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "9B",
+          "cards": [
+            "KarenLastWord"
+          ],
+          "status": "planned"
+        },
+        {
+          "id": "9C",
+          "cards": [
+            "KarenSleepy",
+            "KarenStageReason",
+            "KarenEmptyShell"
+          ],
+          "status": "planned"
+        }
+      ],
+      "status": "planned",
+      "completion_criteria": "2张联机牌、1张长演出与3张特殊卡分别交付，专项范围和未测项目记录清楚。",
+      "targeted_validation": "联机小组验证传出/接收角色与实际奖励，稳定/测试各自同版本双端；长演出检查完整/低/关闭、视频缺失回退和退出音乐恢复。特殊卡只核对自身状态/消耗反馈。"
+    }
+  ],
+  "base_designs": [
+    {
+      "card": "KarenStrike",
+      "entry": "NKarenStrikeVfx",
+      "visual": "一次珊瑚红短斜切",
+      "timeline": "原生命中后0.14秒收尾",
+      "cap": "单节点、单条局部刀光",
+      "status": "implemented and recorded"
+    },
+    {
+      "card": "KarenDefend",
+      "entry": "NKarenDefendVfx",
+      "visual": "轻微收身，剑柄处短亮一下",
+      "timeline": "真实格挡同帧起势，0.42秒复位",
+      "cap": "单节点、最多一个小亮点",
+      "status": "implemented and recorded"
+    },
+    {
+      "card": "KarenShineStrike",
+      "entry": "NKarenShineStrikeVfx",
+      "visual": "白金直切与一个小接触星",
+      "timeline": "原生命中后0.16秒收尾",
+      "cap": "单节点、单条刀光、一个小星点",
+      "status": "implemented and recorded"
+    },
+    {
+      "card": "KarenFall",
+      "entry": "NKarenFallVfx",
+      "visual": "获得格挡时轻微下沉，选牌与送塔沿用真实动画",
+      "timeline": "正格挡同帧起势，0.26秒复位；真实1/2张送塔",
+      "cap": "单节点、最多一个小亮点、真实卡牌交接",
+      "status": "implemented and recorded"
+    },
+    {
+      "card": "KarenPromiseDraw",
+      "entry": "NKarenPromiseDrawVfx",
+      "visual": "轻短斜切，以真实归手卡面确认取牌",
+      "timeline": "原生命中后0.10秒收尾；真实取2/4张",
+      "cap": "单节点、轻短刀光、真实卡牌交接",
+      "status": "implemented and recorded"
+    }
+  ],
+  "deferred": [
+    {
+      "class": "KarenPizza",
+      "title": "披萨",
+      "status": "deferred"
+    },
+    {
+      "class": "KarenForgive",
+      "title": "\"宽恕\"",
+      "status": "deferred"
+    }
+  ],
+  "updated": "2026-10-30",
+  "recording_contract": {
+    "stage_unit": "implementation subgroup",
+    "required": [
+      "before game recording",
+      "after final-package recording",
+      "same-version scenario and playback settings",
+      "original clips and package hashes",
+      "side-by-side comparison",
+      "contact and exit frame review"
+    ]
+  },
+  "videos": {
+    "stable": {
+      "environment": "stable",
+      "video": "artifacts/basic-batch01-simple-20261030/b01-stable.mp4",
+      "sha256": "00993021e59baa38c98a3f6e2dcb3e1535cba16dee1b3e97263d5c48ce909dd4",
+      "segments": [
+        {
+          "path": "artifacts/defend-redo-20261030/comparison/defend-simple-stable.mp4",
+          "sha256": "33536ffafe2fd89ae892b8e13d6edbfda26a5a5e61c97795a1f4a3f988fc4802"
+        },
+        {
+          "path": "artifacts/basic-attacks-simple-20261030/comparison/basic-attacks-simple-stable.mp4",
+          "sha256": "c23b87a124f0c6390b57dbd20756e098518b888e201244c804ec3c9dd7129cb3"
+        },
+        {
+          "path": "artifacts/basic-transfer-simple-20261030/comparison/basic-transfer-simple-stable.mp4",
+          "sha256": "d3adc34cbf721c815387bef6159db57110052d9b0d8453f293c3a417e56c379a"
+        }
+      ]
+    },
+    "beta": {
+      "environment": "beta",
+      "video": "artifacts/basic-batch01-simple-20261030/b01-beta.mp4",
+      "sha256": "f20f533fc675cf6c2b5a991c1e015a4cdbaf9e73b03f6ee9e5d134ede2408de3",
+      "segments": [
+        {
+          "path": "artifacts/defend-redo-20261030/comparison/defend-simple-beta.mp4",
+          "sha256": "cc8333bb96ec688b11a8df8d23d3f6139c9568ad9803f11ace4b5d106fb5f531"
+        },
+        {
+          "path": "artifacts/basic-attacks-simple-20261030/comparison/basic-attacks-simple-beta.mp4",
+          "sha256": "022d573d68d024cee91854c816edb58258525447b0c32bc253837916f6ed6a95"
+        },
+        {
+          "path": "artifacts/basic-transfer-simple-20261030/comparison/basic-transfer-simple-beta.mp4",
+          "sha256": "c65f88722cebf5d50509347dcdc1334e7d541feb593a9ae3bc2d93c24c4a2985"
+        }
+      ]
+    }
+  }
+}

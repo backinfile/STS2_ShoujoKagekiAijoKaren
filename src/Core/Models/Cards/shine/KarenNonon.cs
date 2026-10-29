@@ -40,12 +40,14 @@ public sealed class KarenNonon : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (CombatState == null) return;
+        using var show = new KarenAttackCue(Owner.Creature, null, KarenAttackStyle.Sweep);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .TargetingAllOpponents(CombatState)
-            .WithAttackerFx(() => NKarenNononVfx.Create(Owner))
+            .WithAttackerFx(show.Start)
             .WithAttackerAnim("Attack", 0f)
             .WithWaitBeforeHit(NKarenNononVfx.FastHitTime, NKarenNononVfx.HitTime)
+            .WithHitVfxNode(show.Hit)
             .Execute(choiceContext);
 
         await PowerCmd.Apply<KarenNononStrengthDownPower>(choiceContext, CombatState.HittableEnemies, DynamicVars.Strength.BaseValue, Owner.Creature, this);

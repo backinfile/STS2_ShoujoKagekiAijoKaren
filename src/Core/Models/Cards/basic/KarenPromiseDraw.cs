@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -32,9 +33,12 @@ public sealed class KarenPromiseDraw : KarenBaseCardModel
         // 造成伤害
         if (cardPlay.Target != null)
         {
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromPlayedCard(this, cardPlay).Targeting(cardPlay.Target)
-                .WithHitFx(VfxCmd.slashPath)
-                .Execute(choiceContext);
+            var attack = DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromPlayedCard(this, cardPlay).Targeting(cardPlay.Target);
+            if (NKarenBasicAttackVfx.Enabled)
+                attack.WithHitVfxNode(target => NKarenPromiseDrawVfx.Create(Owner.Creature,target));
+            else
+                attack.WithHitFx(VfxCmd.slashPath);
+            await attack.Execute(choiceContext);
         }
 
         // 从约定牌堆抽牌

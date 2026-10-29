@@ -23,8 +23,14 @@ public partial class NKarenJealousyVfx : Node2D
             Gradient = new Gradient { Offsets = [0, 1], Colors = [Colors.White, Colors.White] } };
         _foilShader ??= GD.Load<Shader>("res://materials/vfx/jealousy_foil.gdshader");
         _glintShader ??= GD.Load<Shader>("res://materials/vfx/jealousy_glint.gdshader");
+        _foilMaterial ??= new ShaderMaterial { Shader = _foilShader };
+        _glintMaterial ??= new ShaderMaterial { Shader = _glintShader };
+        _foilColors ??= new Gradient { Offsets = [0, .27f, .45f, .65f, .85f, 1],
+            Colors = [new("#9beac5"), new("#cbfff0"), new("#ffe18c"), new("#ffa7d6"), new("#d0b4ff"), new("#fff1bc")] };
+        _foilFade ??= new Gradient { Offsets = [0, .035f, .40f, .82f, 1],
+            Colors = [new(1, 1, 1, .2f), Colors.White, new(1, 1, 1, .95f), new(1, 1, 1, .55f), Colors.Transparent] };
     }
-    internal static Godot.Resource?[] PreparedResources => [_soft, _particleQuad, _foilShader, _glintShader];
+    internal static Godot.Resource?[] PreparedResources => [_soft, _particleQuad, _foilShader, _glintShader, _foilMaterial, _glintMaterial, _foilColors, _foilFade];
 
     public const float HitTime = .5f;
     public const float FastHitTime = HitTime * .7f;
@@ -87,7 +93,7 @@ public partial class NKarenJealousyVfx : Node2D
     {
         _age += (float)delta * _speed;
         bool cancelled = !Present(_targetView) || !Present(_sourceView);
-        if (!Present(_room) || NCombatRoom.Instance != _room || cancelled || _age >= 1.22f) {
+        if (!Present(_room) || NCombatRoom.Instance != _room || cancelled || _age >= .78f) {
             Hide(); QueueFree(); return;
         }
         Place(); UpdateParticles(); KarenVfxQuality.Redraw(_light);
