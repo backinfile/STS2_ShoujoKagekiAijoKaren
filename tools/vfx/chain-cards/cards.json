@@ -1,0 +1,37 @@
+[
+  {
+    "id": "KAREN_CONTINUE",
+    "title": "续演",
+    "group": "4A"
+  },
+  {
+    "id": "KAREN_REWRITE",
+    "title": "续写",
+    "group": "4A"
+  },
+  {
+    "id": "KAREN_STAR",
+    "title": "星光闪耀之时",
+    "group": "4A"
+  },
+  {
+    "id": "KAREN_BRIDGE",
+    "title": "约定之塔桥",
+    "group": "4B"
+  },
+  {
+    "id": "KAREN_GEER",
+    "title": "命运的齿轮",
+    "group": "4B"
+  },
+  {
+    "id": "KAREN_DROP_FUEL",
+    "title": "投下燃料",
+    "group": "4B"
+  },
+  {
+    "id": "KAREN_STARLIGHT02_CARD",
+    "title": "Starlight第二幕",
+    "group": "4B"
+  }
+]

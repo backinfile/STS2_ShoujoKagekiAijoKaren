@@ -43,14 +43,12 @@ public sealed class KarenShineTogether : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.Unforgotten);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithAttackerFx(show.Start)
             .WithAttackerAnim("Attack", 0f)
             .WithWaitBeforeHit(NKarenUnforgottenShineVfx.FastHitTime, NKarenUnforgottenShineVfx.HitTime)
-            .WithHitVfxNode(show.Hit)
+            .WithHitVfxNode(target => NKarenUnforgottenShineVfx.Create(Owner.Creature, target))
             .Execute(choiceContext);
     }
 

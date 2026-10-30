@@ -1,0 +1,5704 @@
+{
+  "date": "2026-10-31",
+  "batch": "B04",
+  "baseline": "2a49355df4f9cbf2e4e7128b377ec05acbf42672",
+  "status": "targeted verified; agent visual review complete; user visual acceptance and merge pending",
+  "counts": {
+    "before_stable": 7,
+    "before_beta": 7,
+    "after_stable": 31,
+    "after_beta": 14
+  },
+  "cases": [
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_CONTINUE",
+      "damage": 4,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/stable/full-karen_continue/game.mp4",
+      "sha256": "ec3cb3dabda77e9243fe46e246c6329f10e1c815a07036483e03de4af7181406",
+      "audio_mean_db": -50.7,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "1ae39128408d742a82c92dd9524b1fac5fd90118f5d9f7d91e20cf4144e03065",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenContinueVfx": 1
+        },
+        "exited": {
+          "NKarenContinueVfx": 1
+        },
+        "draws": 1,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_REWRITE",
+      "damage": 70,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/stable/full-karen_rewrite/game.mp4",
+      "sha256": "22b014448169b946419b2da779488a3b781ba61c1c90c7999a582483db2aad8b",
+      "audio_mean_db": -46.8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "1ae39128408d742a82c92dd9524b1fac5fd90118f5d9f7d91e20cf4144e03065",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {},
+        "exited": {},
+        "draws": 0,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_STAR",
+      "damage": 45,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/stable/full-karen_star/game.mp4",
+      "sha256": "ea9791874a0b813b0f421c558ac73560c0671ee96a69d14912fd37810233afea",
+      "audio_mean_db": -48.8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "1ae39128408d742a82c92dd9524b1fac5fd90118f5d9f7d91e20cf4144e03065",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 12777,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 5,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "draws": 393,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_SHINE_CARD_REWARD_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_BRIDGE",
+      "damage": 18,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/stable/full-karen_bridge/game.mp4",
+      "sha256": "97722995360961cc7a9b7c8c5a761b4992daed8cbafe2cec28e5a7e43bbb3531",
+      "audio_mean_db": -49.8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "1ae39128408d742a82c92dd9524b1fac5fd90118f5d9f7d91e20cf4144e03065",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_BRIDGE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12795,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenBridgeVfx": 4
+        },
+        "exited": {
+          "NKarenBridgeVfx": 4
+        },
+        "draws": 351,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_GEER",
+      "damage": 6,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/stable/full-karen_geer/game.mp4",
+      "sha256": "d5e82817686cb89332f0cbcc22f7c14c6d4f968a95c8b063fcce482236278f16",
+      "audio_mean_db": -50.2,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "1ae39128408d742a82c92dd9524b1fac5fd90118f5d9f7d91e20cf4144e03065",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_GEER",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12786,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": [
+            "KAREN_TOWER_OF_PROMISE",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenGeerVfx": 3
+        },
+        "exited": {
+          "NKarenGeerVfx": 3
+        },
+        "draws": 160,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 6,
+        "promise": 1,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_GEER_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_DROP_FUEL",
+      "damage": 0,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/stable/full-karen_drop_fuel/game.mp4",
+      "sha256": "ea74e9fb47b1a3a49bca7f2d4359a8da02b28c30b455726272d51276807b54ab",
+      "audio_mean_db": -50.5,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "1ae39128408d742a82c92dd9524b1fac5fd90118f5d9f7d91e20cf4144e03065",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "draws": 2,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 2,
+        "promise": 0,
+        "shine": 9,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "damage": 27,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/stable/full-karen_starlight02_card/game.mp4",
+      "sha256": "5d9cd51f8813b25d6808d8503d6a9511ce9ba7ea3b02cc9bcb75f66e1399daed",
+      "audio_mean_db": -49.9,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "1ae39128408d742a82c92dd9524b1fac5fd90118f5d9f7d91e20cf4144e03065",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12702,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageCueVfx": 2
+        },
+        "exited": {
+          "NKarenStageCueVfx": 2
+        },
+        "draws": 119,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_STARLIGHT02_POWER",
+            "amount": 2
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_CONTINUE",
+      "damage": 4,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/beta/full-karen_continue/game.mp4",
+      "sha256": "c7ab6d5af401bb8a8ea917a50d9d45c09eb356107d2f936290304903ec9c11df",
+      "audio_mean_db": -50.5,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "98a14dd62c906d986a21e3a9ab80e91f3f8cace6f2a6dfb9f98a7bc6308cd2fa",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenContinueVfx": 1
+        },
+        "exited": {
+          "NKarenContinueVfx": 1
+        },
+        "draws": 1,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_REWRITE",
+      "damage": 70,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/beta/full-karen_rewrite/game.mp4",
+      "sha256": "4d3509d71ec1b1ec73ffb360b4cd7f0b8cf62bec28ad4dd93e9085ec4754de3b",
+      "audio_mean_db": -46.1,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "98a14dd62c906d986a21e3a9ab80e91f3f8cace6f2a6dfb9f98a7bc6308cd2fa",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {},
+        "exited": {},
+        "draws": 0,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_STAR",
+      "damage": 45,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/beta/full-karen_star/game.mp4",
+      "sha256": "556a867c3be9673bc3dc8c58f29c54923a6d0935bc409b0bf143873b6de6d9f6",
+      "audio_mean_db": -48.7,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "98a14dd62c906d986a21e3a9ab80e91f3f8cace6f2a6dfb9f98a7bc6308cd2fa",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 14455,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 5,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "draws": 396,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_SHINE_CARD_REWARD_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_BRIDGE",
+      "damage": 18,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/beta/full-karen_bridge/game.mp4",
+      "sha256": "8c477bc07aaf60212d9582bc28e708eb2147f6315acb9a02051be7fda3351f5d",
+      "audio_mean_db": -49.8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "98a14dd62c906d986a21e3a9ab80e91f3f8cace6f2a6dfb9f98a7bc6308cd2fa",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_BRIDGE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14473,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenBridgeVfx": 4
+        },
+        "exited": {
+          "NKarenBridgeVfx": 4
+        },
+        "draws": 350,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_GEER",
+      "damage": 6,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/beta/full-karen_geer/game.mp4",
+      "sha256": "8e2d327aca4bcdcc63f46953c7d78a908c9946e477c948993867c444079b403a",
+      "audio_mean_db": -50.2,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "98a14dd62c906d986a21e3a9ab80e91f3f8cace6f2a6dfb9f98a7bc6308cd2fa",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_GEER",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14464,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": [
+            "KAREN_TOWER_OF_PROMISE",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenGeerVfx": 3
+        },
+        "exited": {
+          "NKarenGeerVfx": 3
+        },
+        "draws": 160,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 6,
+        "promise": 1,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_GEER_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_DROP_FUEL",
+      "damage": 0,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/beta/full-karen_drop_fuel/game.mp4",
+      "sha256": "7fe8c3f580381ba83451b75802870edb22674b907bd072d6fd6ab39c186412d1",
+      "audio_mean_db": -50.5,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "98a14dd62c906d986a21e3a9ab80e91f3f8cace6f2a6dfb9f98a7bc6308cd2fa",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "draws": 2,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 2,
+        "promise": 0,
+        "shine": 9,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "damage": 27,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/before/beta/full-karen_starlight02_card/game.mp4",
+      "sha256": "26249b4fc080510f9e24732ca2516c879afe95098a1f07bc4472299efb56edee",
+      "audio_mean_db": -49.8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "98a14dd62c906d986a21e3a9ab80e91f3f8cace6f2a6dfb9f98a7bc6308cd2fa",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14454,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageCueVfx": 2
+        },
+        "exited": {
+          "NKarenStageCueVfx": 2
+        },
+        "draws": 119,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_STARLIGHT02_POWER",
+            "amount": 2
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_CONTINUE",
+      "damage": 4,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/full-karen_continue/game.mp4",
+      "sha256": "a2e169af9b6334b27216ed0b040b80b9d23b3268f72a4e3db7e86b62ccde2ce3",
+      "audio_mean_db": -50.6,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenContinueVfx": 1
+        },
+        "exited": {
+          "NKarenContinueVfx": 1
+        },
+        "draws": 1,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_REWRITE",
+      "damage": 70,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/full-karen_rewrite/game.mp4",
+      "sha256": "c75ddee24af866f7121888c3c7475373ace9a9eb1922bda1c9f90c1bc13e82fd",
+      "audio_mean_db": -46.6,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 526,
+        "reuseStable": false,
+        "poseFrames": 518,
+        "maxAttackOffset": 9.75,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 7,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 656.25,
+        "maxTargetWidth": 549,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_STAR",
+      "damage": 45,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/full-karen_star/game.mp4",
+      "sha256": "368e0781c5d032a01aea59c4e3cd9cd63ce9573c40c92ef4df180caeca9fa32f",
+      "audio_mean_db": -49.0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 12777,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 5,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "draws": 396,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_SHINE_CARD_REWARD_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_BRIDGE",
+      "damage": 18,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/full-karen_bridge/game.mp4",
+      "sha256": "c4f0c35328c2f6d66ed404045f4b073a7388a0e4444d7f7cd720d167bfaadd29",
+      "audio_mean_db": -50.0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_BRIDGE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12795,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenBridgeVfx": 4
+        },
+        "exited": {
+          "NKarenBridgeVfx": 4
+        },
+        "draws": 353,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_GEER",
+      "damage": 6,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/full-karen_geer/game.mp4",
+      "sha256": "7fdec8a78d82556599e0b002a7a51b21d35ee2be693879b90ffd7c53b7d6c1d5",
+      "audio_mean_db": -50.3,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_GEER",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12786,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": [
+            "KAREN_TOWER_OF_PROMISE",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenGeerVfx": 3
+        },
+        "exited": {
+          "NKarenGeerVfx": 3
+        },
+        "draws": 160,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 6,
+        "promise": 1,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_GEER_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_DROP_FUEL",
+      "damage": 0,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/full-karen_drop_fuel/game.mp4",
+      "sha256": "9b021bbd154308266fb2f9d3442a2db13db000e722b363916ed569cfaeabdca1",
+      "audio_mean_db": -50.6,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "draws": 2,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 2,
+        "promise": 0,
+        "shine": 9,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "damage": 27,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/full-karen_starlight02_card/game.mp4",
+      "sha256": "a3fd62837420387b232fe6bd679be83eece3c772718dc4ae24bd7284a476b87e",
+      "audio_mean_db": -49.8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12702,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageCueVfx": 2
+        },
+        "exited": {
+          "NKarenStageCueVfx": 2
+        },
+        "draws": 120,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_STARLIGHT02_POWER",
+            "amount": 2
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_CONTINUE",
+      "damage": 4,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/low-karen_continue/game.mp4",
+      "sha256": "dbcaa5c5f7a8bc829719400d8c37cba6d7bc49e4b16c9ff1ab829c9f5ca32742",
+      "audio_mean_db": -51.2,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12759,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenContinueVfx": 1
+        },
+        "exited": {
+          "NKarenContinueVfx": 1
+        },
+        "draws": 1,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_REWRITE",
+      "damage": 70,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/low-karen_rewrite/game.mp4",
+      "sha256": "c0163475a38ee5fb97cafb0cd342b43edcd3e014ad526c70010ebc0baf7384d5",
+      "audio_mean_db": -46.6,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12759,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 143,
+        "reuseStable": false,
+        "poseFrames": 516,
+        "maxAttackOffset": 9.75,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 7,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 656.25,
+        "maxTargetWidth": 549,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_STAR",
+      "damage": 45,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/low-karen_star/game.mp4",
+      "sha256": "bdee8e852915bab753a63986258db0f1d91176c8b2e59fa83f0ca1adf88c5f23",
+      "audio_mean_db": -48.9,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 12768,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 5,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "draws": 105,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_SHINE_CARD_REWARD_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_BRIDGE",
+      "damage": 18,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/low-karen_bridge/game.mp4",
+      "sha256": "d758737d29cc1ee23e28bf1ef9daa502ea6e7d49e787d28b031249545ce7371a",
+      "audio_mean_db": -49.9,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_BRIDGE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12786,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenBridgeVfx": 4
+        },
+        "exited": {
+          "NKarenBridgeVfx": 4
+        },
+        "draws": 96,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_GEER",
+      "damage": 6,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/low-karen_geer/game.mp4",
+      "sha256": "5b79a3c3b10ec399a490fc81f74f5866b3dd3bce3fc531fb5a348b066f249957",
+      "audio_mean_db": -50.2,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_GEER",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12777,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": [
+            "KAREN_TOWER_OF_PROMISE",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenGeerVfx": 3
+        },
+        "exited": {
+          "NKarenGeerVfx": 3
+        },
+        "draws": 47,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 6,
+        "promise": 1,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_GEER_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_DROP_FUEL",
+      "damage": 0,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/low-karen_drop_fuel/game.mp4",
+      "sha256": "6cdf1de9e307e868919b54eba1727dae0a7e3e502510329f6d78f6c65c11b683",
+      "audio_mean_db": -50.5,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12759,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "draws": 2,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 2,
+        "promise": 0,
+        "shine": 9,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "damage": 27,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/low-karen_starlight02_card/game.mp4",
+      "sha256": "421de5be60e05d230e72af3972fd768467118c3178ed765412a50c92bf996cea",
+      "audio_mean_db": -49.5,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12693,
+          "stars": [],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageCueVfx": 2
+        },
+        "exited": {
+          "NKarenStageCueVfx": 2
+        },
+        "draws": 34,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_STARLIGHT02_POWER",
+            "amount": 2
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "off",
+      "card": "KAREN_CONTINUE",
+      "damage": 4,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/off-karen_continue/game.mp4",
+      "sha256": "8d7c00c43562e33102f77586e8e8f9958db6cc63a00c74acc56fc95c083a03b3",
+      "audio_mean_db": -50.8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12766,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {},
+        "exited": {},
+        "draws": 0,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "off",
+      "card": "KAREN_REWRITE",
+      "damage": 70,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/off-karen_rewrite/game.mp4",
+      "sha256": "e81e19877be1dadaf1cf6be019fcd8e3a65833bae15876595be78c589a4a0681",
+      "audio_mean_db": -46.5,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12766,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {},
+        "exited": {},
+        "draws": 0,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "off",
+      "card": "KAREN_DROP_FUEL",
+      "damage": 0,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/off-karen_drop_fuel/game.mp4",
+      "sha256": "c95b33699ea47541aaf35219cb5ad517961628826cc9c3b43da36d79f3c820ce",
+      "audio_mean_db": -53.5,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12766,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {},
+        "exited": {},
+        "draws": 0,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 2,
+        "promise": 0,
+        "shine": 9,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "fast",
+      "card": "KAREN_REWRITE",
+      "damage": 70,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/fast-karen_rewrite/game.mp4",
+      "sha256": "9c353a853e09824e074e9fd28623f418ea4504636bc6e5c2d07dbf83f44d911e",
+      "audio_mean_db": -45.7,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 371,
+        "reuseStable": false,
+        "poseFrames": 363,
+        "maxAttackOffset": 9.75,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 7,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 656.25,
+        "maxTargetWidth": 549,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "fast",
+      "card": "KAREN_STAR",
+      "damage": 45,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/fast-karen_star/game.mp4",
+      "sha256": "95f27620296e48119807ed07d18b27c9e2414ac1507472c018cf23e8c4adf4df",
+      "audio_mean_db": -48.1,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 12777,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 5,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "draws": 273,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_SHINE_CARD_REWARD_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "fast",
+      "card": "KAREN_DROP_FUEL",
+      "damage": 0,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/fast-karen_drop_fuel/game.mp4",
+      "sha256": "d0cd70d197eeaaba39441d7a2ddc06181314775a021f62f08f5b551fe829f308",
+      "audio_mean_db": -50.2,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "draws": 2,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 2,
+        "promise": 0,
+        "shine": 9,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "instant",
+      "card": "KAREN_STAR",
+      "damage": 45,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/instant-karen_star/game.mp4",
+      "sha256": "eb9e89dd075b86787e81c621bc6f9f4f7dee7fc5b3080b99c83adb40e487d48c",
+      "audio_mean_db": -45.2,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12777,
+          "stars": [],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {},
+        "exited": {},
+        "draws": 0,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_SHINE_CARD_REWARD_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "instant",
+      "card": "KAREN_BRIDGE",
+      "damage": 18,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/instant-karen_bridge/game.mp4",
+      "sha256": "75e93ed3046f86795d0388a57bfb0dee3fedbf09b7f90db9082423645453b913",
+      "audio_mean_db": -49.8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_BRIDGE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12795,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {},
+        "exited": {},
+        "draws": 0,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "instant",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "damage": 27,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/instant-karen_starlight02_card/game.mp4",
+      "sha256": "46ed64dc9878ddde8479a010d622b656a1194f6510caa72942842df71429fd75",
+      "audio_mean_db": -49.4,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12734,
+          "stars": [],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {},
+        "exited": {},
+        "draws": 0,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_STARLIGHT02_POWER",
+            "amount": 2
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "stress",
+      "card": "KAREN_REWRITE",
+      "damage": 110,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/stress-karen_rewrite/game.mp4",
+      "sha256": "dc4d937e4f350104dbdcb8732fb0af86e32b5026f316b291b517e911f85f1653",
+      "audio_mean_db": -45.9,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 845,
+        "reuseStable": false,
+        "poseFrames": 833,
+        "maxAttackOffset": 9.75,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 11,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 656.25,
+        "maxTargetWidth": 549,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "stress",
+      "card": "KAREN_STAR",
+      "damage": 81,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/stress-karen_star/game.mp4",
+      "sha256": "2298f472b72a9cd31726200afe3e4e57b40cac3c0919f11a332a30e39a5a993b",
+      "audio_mean_db": -48.0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 9
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 9
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 9
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 9
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 9
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 5,
+              "count": 9
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 6,
+              "count": 9
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 7,
+              "count": 9
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 8,
+              "count": 9
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 12777,
+          "stars": [
+            {
+              "planned": 9,
+              "played": 9,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "draws": 610,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_SHINE_CARD_REWARD_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "upgrade",
+      "card": "KAREN_CONTINUE",
+      "damage": 6,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/upgrade-karen_continue/game.mp4",
+      "sha256": "b9c6f5f21654303df503f1cc3242c5ea46e1dfb5a863e6f2f7918657c8af1197",
+      "audio_mean_db": -50.9,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenContinueVfx": 1
+        },
+        "exited": {
+          "NKarenContinueVfx": 1
+        },
+        "draws": 1,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "upgrade",
+      "card": "KAREN_DROP_FUEL",
+      "damage": 0,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/upgrade-karen_drop_fuel/game.mp4",
+      "sha256": "a2799b88e42d029ec3510baf924448db44f8fe330e2ccbab177210581cfc6a01",
+      "audio_mean_db": -50.7,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 2,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "draws": 2,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 3,
+        "promise": 0,
+        "shine": 9,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "replay",
+      "card": "KAREN_CONTINUE",
+      "damage": 12,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/replay-karen_continue/game.mp4",
+      "sha256": "a74a3c18c2d510f59699ba026a3e5547c3e59075ca16707df389db1d6d2ce25f",
+      "audio_mean_db": -49.2,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenContinueVfx": 3
+        },
+        "exited": {
+          "NKarenContinueVfx": 3
+        },
+        "draws": 3,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 3,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "replay",
+      "card": "KAREN_DROP_FUEL",
+      "damage": 0,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/replay-karen_drop_fuel/game.mp4",
+      "sha256": "a76cbc849181a527acaffbc8e9e9da07daba5cb7ffe16e54772cf93a67b43d83",
+      "audio_mean_db": -50.0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 2,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenDropFuelVfx": 3
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 3
+        },
+        "draws": 6,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 6,
+        "promise": 0,
+        "shine": 9,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "cancel",
+      "card": "KAREN_REWRITE",
+      "damage": 70,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/cancel-karen_rewrite/game.mp4",
+      "sha256": "56afad95aee4dd5135f177932a71ee719c9d9eb15c0eb640fed9397fcdc8b0c5",
+      "audio_mean_db": -46.5,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 14,
+        "reuseStable": false,
+        "poseFrames": 11,
+        "maxAttackOffset": 9.75,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 1,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 656.25,
+        "maxTargetWidth": 549,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "cancel",
+      "card": "KAREN_STAR",
+      "damage": 45,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/stable/cancel-karen_star/game.mp4",
+      "sha256": "442e06a0ccd4db532d5d644d1bc0bec56efce6d9e21378f5ce215439b0c5d3aa",
+      "audio_mean_db": -48.9,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12777,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 0,
+              "reward": false,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "draws": 12,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_SHINE_CARD_REWARD_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_CONTINUE",
+      "damage": 4,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/full-karen_continue/game.mp4",
+      "sha256": "cb0c6656c44222e6b2b3a2d4c497e2cbb910b07c648fa3148215c8fdf3a3b3bf",
+      "audio_mean_db": -50.4,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenContinueVfx": 1
+        },
+        "exited": {
+          "NKarenContinueVfx": 1
+        },
+        "draws": 1,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_REWRITE",
+      "damage": 70,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/full-karen_rewrite/game.mp4",
+      "sha256": "5b6c3d3226e1ff65c34830c187d7396db49ef5d6ba0f1df145ea0c94690a8e46",
+      "audio_mean_db": -45.9,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 417,
+        "reuseStable": false,
+        "poseFrames": 409,
+        "maxAttackOffset": 9.75,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 7,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 656.25,
+        "maxTargetWidth": 549,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_STAR",
+      "damage": 45,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/full-karen_star/game.mp4",
+      "sha256": "3afb7c487304018466940538b79bec882c5799b9ebe68bea549c1c97d837fbad",
+      "audio_mean_db": -48.8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 14455,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 5,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "draws": 394,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_SHINE_CARD_REWARD_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_BRIDGE",
+      "damage": 18,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/full-karen_bridge/game.mp4",
+      "sha256": "55362b3ab1f0b2c2e926d57c6855218c2a8ee73a2005a9b8374e247bf65c0106",
+      "audio_mean_db": -49.8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_BRIDGE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14473,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenBridgeVfx": 4
+        },
+        "exited": {
+          "NKarenBridgeVfx": 4
+        },
+        "draws": 350,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_GEER",
+      "damage": 6,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/full-karen_geer/game.mp4",
+      "sha256": "1c14818f9ee2b263db6d76bca262b6143b0c5e2dc0d76a6e8729b288d194cd46",
+      "audio_mean_db": -50.3,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_GEER",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14464,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": [
+            "KAREN_TOWER_OF_PROMISE",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenGeerVfx": 3
+        },
+        "exited": {
+          "NKarenGeerVfx": 3
+        },
+        "draws": 158,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 2,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 6,
+        "promise": 1,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_GEER_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_DROP_FUEL",
+      "damage": 0,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/full-karen_drop_fuel/game.mp4",
+      "sha256": "e65207e9baab2efe11be4907d716741cbfe14b5a4bffe6368a0b03fe4c52e613",
+      "audio_mean_db": -50.5,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "draws": 2,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 2,
+        "promise": 0,
+        "shine": 9,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "damage": 27,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/full-karen_starlight02_card/game.mp4",
+      "sha256": "b2de86a88a898a8789a76b63c15a6f2a3821329a6fb685d3b9a1d3b7875c711d",
+      "audio_mean_db": -49.7,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14454,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageCueVfx": 2
+        },
+        "exited": {
+          "NKarenStageCueVfx": 2
+        },
+        "draws": 118,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_STARLIGHT02_POWER",
+            "amount": 2
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "replay",
+      "card": "KAREN_CONTINUE",
+      "damage": 12,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/replay-karen_continue/game.mp4",
+      "sha256": "3ed4a23a3adc6c58fbdcbd640587f45cd10e82de889b0634345f005cef769b09",
+      "audio_mean_db": -48.9,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenContinueVfx": 3
+        },
+        "exited": {
+          "NKarenContinueVfx": 3
+        },
+        "draws": 3,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 3,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "replay",
+      "card": "KAREN_DROP_FUEL",
+      "damage": 0,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/replay-karen_drop_fuel/game.mp4",
+      "sha256": "ec0bad32cfa40dfd87f0bd07c1500305f177d1fff3b4cb80804acafafaea6cfa",
+      "audio_mean_db": -50.0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 2,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenDropFuelVfx": 3
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 3
+        },
+        "draws": 6,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 6,
+        "promise": 0,
+        "shine": 9,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "cancel",
+      "card": "KAREN_REWRITE",
+      "damage": 70,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/cancel-karen_rewrite/game.mp4",
+      "sha256": "b82ed036f07d0cffc745363928317a9b3dfefd420cde8041f79c117530f4a4b7",
+      "audio_mean_db": -46.1,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 14,
+        "reuseStable": false,
+        "poseFrames": 11,
+        "maxAttackOffset": 9.75,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 1,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 656.25,
+        "maxTargetWidth": 549,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "cancel",
+      "card": "KAREN_STAR",
+      "damage": 45,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/cancel-karen_star/game.mp4",
+      "sha256": "028983b78812dd89fb4987ae4b7c9fac2cf1e07837b831ddc5daf5e5c31125e3",
+      "audio_mean_db": -48.9,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14455,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 0,
+              "reward": false,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "draws": 12,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_SHINE_CARD_REWARD_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "low",
+      "card": "KAREN_REWRITE",
+      "damage": 70,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/low-karen_rewrite/game.mp4",
+      "sha256": "88b7123948dbd4b3b84d65bf0e4b46911942c3a49e277789751237b09e00fc76",
+      "audio_mean_db": -46.0,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14437,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "draws": 106,
+        "reuseStable": false,
+        "poseFrames": 404,
+        "maxAttackOffset": 9.75,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 7,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 656.25,
+        "maxTargetWidth": 549,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": 5,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "low",
+      "card": "KAREN_DROP_FUEL",
+      "damage": 0,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/low-karen_drop_fuel/game.mp4",
+      "sha256": "8f5530850076dd926346da998c8fb81224eb30c97eb1398c73ff1ae62c20ede0",
+      "audio_mean_db": -50.3,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14437,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "draws": 2,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 0,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 2,
+        "promise": 0,
+        "shine": 9,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "low",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "damage": 27,
+      "passed": true,
+      "video": "artifacts/chain-batch04-20261030/after/beta/low-karen_starlight02_card/game.mp4",
+      "sha256": "4b9989bf537983852a4bbe4cfefaff9a412ed9fcb5d7555dd0e590432efdb130",
+      "audio_mean_db": -49.8,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+        "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54"
+      },
+      "status": {
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14445,
+          "stars": [],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "bodyZ": 0,
+        "bodyRelative": true,
+        "spawned": {
+          "NKarenStageCueVfx": 2
+        },
+        "exited": {
+          "NKarenStageCueVfx": 2
+        },
+        "draws": 31,
+        "reuseStable": false,
+        "poseFrames": 0,
+        "maxAttackOffset": 0,
+        "poseActive": false,
+        "maxScars": 0,
+        "maxParticles": 0,
+        "maxEffects": 1,
+        "maxManualParticles": 0,
+        "fatalCueFrames": 0,
+        "returnCueFrames": 0,
+        "totalContacts": 0,
+        "maxProfileGrowth": 0,
+        "totalGroupWaves": 0,
+        "groupDirections": [],
+        "maxGroupSpan": 0,
+        "maxTargetWidth": 0,
+        "effects": [],
+        "scars": 0,
+        "hand": 0,
+        "promise": 0,
+        "shine": -1,
+        "powers": [
+          {
+            "id": "KAREN_PROMISE_PILE_POWER",
+            "amount": 1
+          },
+          {
+            "id": "KAREN_STARLIGHT02_POWER",
+            "amount": 2
+          }
+        ]
+      }
+    }
+  ],
+  "source_sha256": {
+    "src/Core/Models/Cards/neutral/KarenGeer.cs": "e1cc44c30ecb9e7307fb24b0fbb13decedd54392bf89d202e59ec2fa1e1cd47c",
+    "src/Core/Models/Cards/neutral/KarenGeer.cs.uid": "eb6f3a38be378b4b702823018f1a84f5a2439731344f1cb9c9a9454e5a17ad71",
+    "src/Core/Models/Cards/promisePile/KarenBridge.cs": "9faf2da5efa76452a00ee24d02eba04ee566b35af1eb78e59c397956ba349799",
+    "src/Core/Models/Cards/promisePile/KarenBridge.cs.uid": "36faa55053c7d07156994bb573d59f1e8c511433927f4ae3a6026950b0e7ff77",
+    "src/Core/Models/Cards/shine/KarenDropFuel.cs": "a9e33a5dd0d2bd25e98443ee4980cac92b30f3a05d4ae5e4c39929daa57e991b",
+    "src/Core/Models/Cards/shine/KarenDropFuel.cs.uid": "7443a68dd51f1a35b39b4f23f41721133f883dd3f25c642847a2292f0f1940d0",
+    "src/Core/Models/Cards/shine/KarenRewrite.cs": "7b4cbec2e5e5a07efc3cccd93b0c64efade7e2f38663db73a94e2362c6b6f47a",
+    "src/Core/Models/Cards/shine/KarenRewrite.cs.uid": "c482b268ab4412d2a1262f9a0518b2070dba55e61df8e7585a264f42968f1c35",
+    "src/Core/Models/Cards/shine/KarenStar.cs": "7812ea620b742a9244de7fe6d3fc906a81fe1ed261f8c8212d0020b63cbae1e3",
+    "src/Core/Models/Cards/shine/KarenStar.cs.uid": "d2f7c4437ee6d106ab8830e0d94a25fb85d068336601f55c8a94f2d736777ba3",
+    "src/Core/Models/Cards/shine/KarenStarlight02Card.cs": "1b971fa5c9dc731713aa742a726a2312b273c72c1edc4952aa60ec9c2deb370e",
+    "src/Core/Models/Cards/shine/KarenStarlight02Card.cs.uid": "b65662cbc194a59467466457d290c480bffcb282bf226fc43ae54427ab248c5f",
+    "src/Core/Models/Cards/token/KarenContinue.cs": "0c39714d8592a6e2bc324e2c340c4ece95b6d935c3590c95fdc384acc467e5eb",
+    "src/Core/Models/Cards/token/KarenContinue.cs.uid": "41c18d97fa0ac3bb4c3000d382349afda27a39bee36b3f2343a716a313f3008c",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.Drawing.cs": "0ac5b77d7e68ebac47a6b6fc550dd7b5ec518f5883d229337e30afec8ad163f7",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.Drawing.cs.uid": "c659de7b2f5f88f3cdbdfc2e965f3112aa9f096db0c4aee12bd528fba540a5b8",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.cs": "78f93caeb5a9d5f3ce06eaaefbfe54c2a9fe6b37f6e15ef49021f63c5a438bd5",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.cs.uid": "a91882587de707271280b52f8550a69a2251821d82d42a3613ac7a8d01e23855",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs": "9fe10c6edd10bec2dd6ba81415c5ce411a869163ad4f8f7dde4fa29636d68ae9",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs.uid": "a5aa5e9a07f253a9ffc34cbbd8109e08c2c4778abad7ceaf318fbc4a0a3c58e3",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBridgeVfx.cs": "a162651a078062e57b6ced72e9a41e09aa1e716d7a4b3fb18f58466d431a41cc",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBridgeVfx.cs.uid": "c42e1cbe4f4718e8fa05d65343be37cff080ba50486eea9d75c8220f7cbe7372",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenDropFuelVfx.cs": "007e1b23021bf6d597ad488789c49915e6ca618c50f211c0091a79c5b3f5aea9",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenDropFuelVfx.cs.uid": "9b2cb1cd806ce9457af5db0488ffbc2ac1b5052a55beaae70e4b5e3a6682928b",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenGeerVfx.cs": "ba9aa36b06742e9b08cddc08f04bafd18fca741949d381072894efbc78fd831a",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenGeerVfx.cs.uid": "1b6c034547496a30d1fb1a0e47a3b6d8054d62c5113bb40fe64ccd89c7247a22",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenStageAttackVfx.Ordinary.cs": "59dd6a9cf66bfb97b86439c969d0080c4e58f937725ba12f9ce79a7adf69a272",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenStageAttackVfx.Ordinary.cs.uid": "e43ae17c3e340a6dfc07ddefe0375e470c190c31823b6eff9cda79e8d70e7f40",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenStageAttackVfx.cs": "e094043e53f7a8cad823746ad3094de3c2a0a3e2229668961041ebc64e5875c2",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenStageAttackVfx.cs.uid": "6f15c775a6f371018d94d13e873ba889786024099b7f1b988c43b6d73808a788",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/NKarenContinueVfx.cs": "aa6774fb808c80c01112d5730e59d3aa027b005ee139d32548c5940ccc9533a4",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/NKarenContinueVfx.cs.uid": "bccf3a075786afb40be77cf3c386d4bfc9f699d91a13b45affce0d09038c2537"
+  },
+  "engine_observations": [
+    {
+      "phase": "before",
+      "environment": "beta",
+      "log": "artifacts/chain-batch04-20261030/before/beta/godot.log",
+      "line": 276,
+      "message": "Invalid Task ID during native Combat Room preloading; preloading subsequently completed",
+      "historical_reference": "docs/testing/heavy-attack-redesign-2026-10-30.md"
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "log": "artifacts/chain-batch04-20261030/after/beta/godot-1793375485470327800.log",
+      "line": 242,
+      "message": "Invalid Task ID during native Common preloading; preloading subsequently completed",
+      "historical_reference": "docs/testing/heavy-attack-redesign-2026-10-30.md"
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "log": "artifacts/chain-batch04-20261030/after/beta/godot-1793375617492946000.log",
+      "line": 276,
+      "message": "Invalid Task ID during native Combat Room preloading; preloading subsequently completed",
+      "historical_reference": "docs/testing/heavy-attack-redesign-2026-10-30.md"
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "log": "artifacts/chain-batch04-20261030/after/beta/godot.log",
+      "line": 242,
+      "message": "Invalid Task ID during native Common preloading; preloading subsequently completed",
+      "historical_reference": "docs/testing/heavy-attack-redesign-2026-10-30.md"
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "log": "artifacts/chain-batch04-20261030/after/beta/godot.log",
+      "line": 244,
+      "message": "Invalid Task ID during native Common preloading; preloading subsequently completed",
+      "historical_reference": "docs/testing/heavy-attack-redesign-2026-10-30.md"
+    }
+  ],
+  "untested": [
+    "full singleplayer/multiplayer matrix",
+    "full first-use/frame-time suite",
+    "Android"
+  ],
+  "videos": {
+    "stable": {
+      "combined": {
+        "path": "artifacts/chain-batch04-20261030/comparison/b04-stable.mp4",
+        "sha256": "3fffb60524e4874f9343af917afddc6eeb185b9abd78db08a782493d57583a08"
+      },
+      "groups": {
+        "4A": {
+          "video": {
+            "path": "artifacts/chain-batch04-20261030/comparison/b04-4a-stable.mp4",
+            "sha256": "63b5c7c85b589eb90a162e083cbdcbc6ba224df89ea857564d2e61136a20457a"
+          },
+          "segments": [
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_continue.mp4",
+              "sha256": "06edf26eaae874165a6d3eeba39b21a2b7432900de62ff713098303c1940ca50"
+            },
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_rewrite.mp4",
+              "sha256": "48b3049b0ea78d8e9c484124bd95430d35408df78811f6fa145a147f7b02669d"
+            },
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_star.mp4",
+              "sha256": "35c3933c6f5635bd555d8b1e12943ba77dfa0ce9676f838e5d98cc2ee221bee1"
+            }
+          ]
+        },
+        "4B": {
+          "video": {
+            "path": "artifacts/chain-batch04-20261030/comparison/b04-4b-stable.mp4",
+            "sha256": "15baf34b0522efd7176f2347425c08d70c7ce2d8a39cf9b69ba9f63495e8cb07"
+          },
+          "segments": [
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_bridge.mp4",
+              "sha256": "7c8ad720f5875ad5ed15ebbce8f6a0fdfd16793261ca1cbd1165448a57265429"
+            },
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_geer.mp4",
+              "sha256": "64c645ca0d3b47e40c5a8cb41b03a8927b52917102d739a947d189226e8cc178"
+            },
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_drop_fuel.mp4",
+              "sha256": "894b477da37d0363df341c1df91a62e606c4342184530de184ced6198acd8797"
+            },
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_starlight02_card.mp4",
+              "sha256": "98e19c504518d70de22d980989e9ea5656f53865b6b7e065c08bba934d78cadd"
+            }
+          ]
+        }
+      }
+    },
+    "beta": {
+      "combined": {
+        "path": "artifacts/chain-batch04-20261030/comparison/b04-beta.mp4",
+        "sha256": "2143e40739a74262ac791be9f207d64340f342335b1878f24314fad09078c1ec"
+      },
+      "groups": {
+        "4A": {
+          "video": {
+            "path": "artifacts/chain-batch04-20261030/comparison/b04-4a-beta.mp4",
+            "sha256": "9cf44fe44b3b02a589ced9a85181c32f1e047c0e24e65ebbe2025c65a6b830ca"
+          },
+          "segments": [
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_continue.mp4",
+              "sha256": "3b0a907b695c208bbc0d75c3c6ee6c3624bb1f6c317c1ad341be021b01308ee6"
+            },
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_rewrite.mp4",
+              "sha256": "c266809e8d0ebb65a3f76fe049c6f4db53a486cf4007d3acd72f56f6fc24b63e"
+            },
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_star.mp4",
+              "sha256": "7ebd08e8f2525f449e7dcba16247fc25cb0ed97b36e5121ed3f1c27e09d93220"
+            }
+          ]
+        },
+        "4B": {
+          "video": {
+            "path": "artifacts/chain-batch04-20261030/comparison/b04-4b-beta.mp4",
+            "sha256": "2c47429b314c449d72128c9faebb8119f621805ecbae99c9c390294af963fce3"
+          },
+          "segments": [
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_bridge.mp4",
+              "sha256": "39a7b72a548db28dc1030aedeb488c08ad66a6671756e4ab0e447f7a3f7d5c78"
+            },
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_geer.mp4",
+              "sha256": "de1d88d99b266717b41543e91849fdf2b14ffab4363441016d507120592b7ef8"
+            },
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_drop_fuel.mp4",
+              "sha256": "6fecc484db567055094d3cffb5f35c252b85e6e5577634372a58da8fb53f8632"
+            },
+            {
+              "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_starlight02_card.mp4",
+              "sha256": "c04469a271272fb19069d8117b2ab9ef949c026fe41c375384ebb6b2982dba70"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "static_checks": {
+    "B03 ordinary styles unchanged": true,
+    "shared attack implementation unchanged; enum appended only": true,
+    "rewrite native clone/count/order tail unchanged": true,
+    "star model only bounded candidate query": true,
+    "other five card models unchanged": true,
+    "explicit command waits unchanged": true,
+    "main and nine original files preserved": true
+  },
+  "package_sha256": {
+    "ShoujoKagekiAijoKaren.dll": "fe27de01a0e2a5ba857bc33cc30cff6c53b8746c3dd91217fd6923dc783bdfad",
+    "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+    "ShoujoKagekiAijoKaren.pck": "6d125cfebc201cf1875e4e914753c3948f938b52249179576d154062d7cdba54",
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": "a22628287c9718cc8d8a4412218f170a68370f2520cc910d47ef0071f0066e34",
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": "510da26b28160c51d9b62d175e6c14d4757903678ee70d42881652d7d9a86971"
+  },
+  "resource_catalog": {
+    "types": 80,
+    "shared_owners": 39,
+    "assets": 167,
+    "status": "passed"
+  },
+  "wait_strategy": "explicit native waits unchanged",
+  "fixture_preparation_issues": [
+    {
+      "path": "artifacts/chain-batch04-20261030/fixture-attempt-01",
+      "reason": "Depletion fixture must enter a combat pile before native removal"
+    },
+    {
+      "path": "artifacts/chain-batch04-20261030/fixture-attempt-02",
+      "reason": "Debug fights retain depleted inventory; isolate each fixture"
+    },
+    {
+      "path": "artifacts/chain-batch04-20261030/fixture-attempt-03",
+      "reason": "Remove inherited B02 stress replay modifier from B04 high-inventory fixture"
+    }
+  ]
+}

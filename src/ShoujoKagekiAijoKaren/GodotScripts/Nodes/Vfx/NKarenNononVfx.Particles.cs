@@ -45,7 +45,7 @@ public partial class NKarenNononVfx
     private readonly record struct DustCluster(Vector2 Center, Vector2 Spread, float Rotation);
     private readonly record struct MistPatch(Rect2 Bounds, Vector2 Drift, float Birth, float Life, float Opacity);
 
-    private readonly List<WindParticle> _particles = new(256);
+    private readonly List<WindParticle> _particles = new(1600);
     private readonly List<MistPatch> _mistPatches = new(9);
     private Vector2[] _particleLines = [];
     private Color[] _particleColors = [];
@@ -167,9 +167,9 @@ public partial class NKarenNononVfx
                 affectedBySword ? Gust(sweepSamples, origin, birth, kind == ParticleKind.Shard, rising: false) : default));
         }
 
-        for (int i = 0; i < 72; i += KarenVfxQuality.ParticleStride)
+        for (int i = 0; i < 460; i += KarenVfxQuality.ParticleStride)
         {
-            bool ambient = i < 24;
+            bool ambient = i < 160;
             float depth = Rand(.3f, 1.1f), direction = Rand(0, Mathf.Tau);
             bool glint = !ambient && random.NextSingle() < .022f;
             var velocity = new Vector2(Mathf.Cos(direction), Mathf.Sin(direction))
@@ -186,7 +186,7 @@ public partial class NKarenNononVfx
         }
 
         // Most of the field is actual irregular debris, with a few larger near-camera pieces.
-        for (int i = 0; i < 112; i += KarenVfxQuality.ParticleStride)
+        for (int i = 0; i < 660; i += KarenVfxQuality.ParticleStride)
         {
             float depth = Rand(.35f, 1.35f), angle = Rand(0, Mathf.Tau), roll = random.NextSingle();
             float size = roll < .68f ? Rand(1.2f, 3.4f) : roll < .94f ? Rand(3.4f, 6.8f) : Rand(7, 12);
@@ -200,7 +200,7 @@ public partial class NKarenNononVfx
         }
 
         // Flecks trail the completed cut, rather than preceding the rising blade.
-        for (int i = 0; i < 24; i += KarenVfxQuality.ParticleStride)
+        for (int i = 0; i < 120; i += KarenVfxQuality.ParticleStride)
         {
             float u = Rand(0, 1), angle = Rand(-Mathf.Pi, Mathf.Pi);
             var origin = SweepPoint(u)
@@ -210,7 +210,7 @@ public partial class NKarenNononVfx
                 Rand(1.3f, 5), DustGray.Lerp(PaleShard, Rand(.1f, .9f)), Rand(3, 17), Rand(.4f, 1.1f));
         }
 
-        for (int i = 0; i < 6; i += KarenVfxQuality.ParticleStride)
+        for (int i = 0; i < 18; i += KarenVfxQuality.ParticleStride)
         {
             float angle = Rand(0, Mathf.Tau);
             Add(ParticleKind.Dust, hilt, new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * Rand(12, 45),
@@ -219,7 +219,7 @@ public partial class NKarenNononVfx
 
         foreach (var target in _hitPoints)
         {
-            for (int i = 0; i < 6; i += KarenVfxQuality.ParticleStride)
+            for (int i = 0; i < 22; i += KarenVfxQuality.ParticleStride)
             {
                 float angle = Rand(0, Mathf.Tau);
                 bool glint = random.NextSingle() < .09f;
@@ -233,7 +233,7 @@ public partial class NKarenNononVfx
         _particleLines = new Vector2[_particles.Count * 4];
         _particleColors = new Color[_particles.Count * 2];
         PrepareResources();
-        int mistCount = KarenVfxQuality.Level == KarenVfxLevel.Full ? 2 : 0;
+        int mistCount = random.Next(6, 10);
         for (int i = 0; i < mistCount; i++)
         {
             var size = _fieldBounds.Size * new Vector2(Rand(.18f, .46f), Rand(.3f, .72f));

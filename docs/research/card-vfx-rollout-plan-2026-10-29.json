@@ -2,7 +2,7 @@
   "schema": 1,
   "date": "2026-10-29",
   "baseline": "6a7a9bdc36bb1b33c6eb1b54212d3f0100d5e781",
-  "status": "B01/B02 merged; B03 targeted verified and visually accepted; merge pending; B04-B09 planned",
+  "status": "worktree visual rollback targeted verified; main at 2a49355 awaiting explicit rollback merge confirmation",
   "active_cards": 114,
   "deferred_cards": 2,
   "preparation": {
@@ -59,7 +59,8 @@
           "current_evidence": [
             "docs/testing/defend-vfx-redo-2026-10-30.json",
             "docs/testing/basic-attacks-simple-2026-10-30.json"
-          ]
+          ],
+          "visual_rework": "planned; previous completion records retained as history"
         },
         {
           "id": "1B",
@@ -69,12 +70,18 @@
           ],
           "status": "completed",
           "completed": "2026-10-30",
-          "evidence": "docs/testing/basic-transfer-simple-2026-10-30.json"
+          "evidence": "docs/testing/basic-transfer-simple-2026-10-30.json",
+          "visual_rework": "planned; previous completion records retained as history"
         }
       ],
       "status": "completed; merged 2026-10-30",
       "completion_criteria": "五张牌的设计、入口、质量档、释放和实录逐项完成；前三张具有独立轮廓与节拍。",
-      "targeted_validation": "正式版和测试版各在普通/完整档逐牌核对；升级只覆盖影响形态或次数的分支。Fast/Instant与低/关闭按共享路径选代表定向核对，前三牌低档各看主形。连续打出与异常退场选一条当前小组路径。1B涉及移牌时保存并查看MCP截图，动画后karen_check_hand。"
+      "targeted_validation": "正式版和测试版各在普通/完整档逐牌核对；升级只覆盖影响形态或次数的分支。Fast/Instant与低/关闭按共享路径选代表定向核对，前三牌低档各看主形。连续打出与异常退场选一条当前小组路径。1B涉及移牌时保存并查看MCP截图，动画后karen_check_hand。",
+      "visual_rework": {
+        "status": "planned; visual acceptance reopened",
+        "plan": "docs/research/card-vfx-content-preservation-plan-2026-10-31.md"
+      },
+      "current_state": "visual redesign withdrawn; original presentation restored"
     },
     {
       "id": "B02",
@@ -127,7 +134,8 @@
             "KarenShineTogether"
           ],
           "status": "completed",
-          "evidence": "docs/testing/heavy-attack-stationary-2026-10-30.md"
+          "evidence": "docs/testing/heavy-attack-stationary-2026-10-30.md",
+          "visual_rework": "planned; previous completion records retained as history"
         },
         {
           "id": "2B",
@@ -138,7 +146,8 @@
           ],
           "status": "completed",
           "evidence": "docs/testing/heavy-attack-stationary-2026-10-30.md",
-          "followup_evidence": "docs/testing/nonon-particle-restore-2026-10-30.md"
+          "followup_evidence": "docs/testing/nonon-particle-restore-2026-10-30.md",
+          "visual_rework": "planned; previous completion records retained as history"
         },
         {
           "id": "2C",
@@ -148,7 +157,8 @@
             "KarenCarryingGuilt"
           ],
           "status": "completed",
-          "evidence": "docs/testing/heavy-attack-stationary-2026-10-30.md"
+          "evidence": "docs/testing/heavy-attack-stationary-2026-10-30.md",
+          "visual_rework": "planned; previous completion records retained as history"
         }
       ],
       "status": "completed; merged 2026-10-30",
@@ -573,7 +583,12 @@
             "sha256": "e89b867143d3a761291e22ce941fa39e81c0e9f65bf825b31c229b9d5d9b3177"
           }
         }
-      }
+      },
+      "visual_rework": {
+        "status": "planned; visual acceptance reopened",
+        "plan": "docs/research/card-vfx-content-preservation-plan-2026-10-31.md"
+      },
+      "current_state": "visual redesign withdrawn; original presentation restored"
     },
     {
       "id": "B03",
@@ -660,7 +675,8 @@
           "previous_evidence": "docs/testing/ordinary-attack-batch03-2026-10-30.md",
           "revision_evidence": "docs/testing/ordinary-attack-semantics-redo-2026-10-30.md",
           "direction_evidence": "docs/testing/ordinary-attack-direction-2026-10-30.md",
-          "spin_revision_evidence": "docs/testing/spin-flat-redo-2026-10-30.md"
+          "spin_revision_evidence": "docs/testing/spin-flat-redo-2026-10-30.md",
+          "visual_rework": "planned; previous completion records retained as history"
         },
         {
           "id": "3B",
@@ -675,7 +691,8 @@
           "evidence": "docs/testing/ordinary-attack-ten-card-refinement-2026-10-30.md",
           "previous_evidence": "docs/testing/ordinary-attack-batch03-2026-10-30.md",
           "revision_evidence": "docs/testing/ordinary-attack-semantics-redo-2026-10-30.md",
-          "direction_evidence": "docs/testing/ordinary-attack-direction-2026-10-30.md"
+          "direction_evidence": "docs/testing/ordinary-attack-direction-2026-10-30.md",
+          "visual_rework": "planned; previous completion records retained as history"
         },
         {
           "id": "3C",
@@ -690,10 +707,11 @@
           "evidence": "docs/testing/ordinary-attack-ten-card-refinement-2026-10-30.md",
           "previous_evidence": "docs/testing/ordinary-attack-batch03-2026-10-30.md",
           "revision_evidence": "docs/testing/ordinary-attack-semantics-redo-2026-10-30.md",
-          "direction_evidence": "docs/testing/ordinary-attack-direction-2026-10-30.md"
+          "direction_evidence": "docs/testing/ordinary-attack-direction-2026-10-30.md",
+          "visual_rework": "planned; previous completion records retained as history"
         }
       ],
-      "status": "completed; visually accepted; merge pending",
+      "status": "completed; visually accepted; merged main",
       "completion_criteria": "12张攻击各有独立配置与短实录；多段/群攻的起势与每击责任明确。",
       "targeted_validation": "按当前小组检查目标方向/大小、升级、多段与群攻；确认轻重/挑击/群攻各牌配置可辨认，完整/低/关闭有相应反馈。成长牌尺寸和亮度在上限处稳定。",
       "implementation": {
@@ -1022,7 +1040,7 @@
           "sha256": "a40f98b78235b39a43f2429408153420c3ad91d130e5c446021dba40bc772ef1"
         },
         "previous_evidence": "docs/testing/ordinary-attack-direction-2026-10-30.md",
-        "integration": "main remains fc16623; visually accepted; merge confirmation pending; worktree retained",
+        "integration": "merged main at 2a49355 with explicit user approval; worktree and recordings retained",
         "spin_followup": {
           "report": "docs/testing/spin-flat-redo-2026-10-30.md",
           "records": "docs/testing/spin-flat-redo-2026-10-30.json",
@@ -1051,9 +1069,14 @@
               "sha256": "48ae1f0d8d830242c37ac320ede1684a8633bf5877a667bfc78c3f2c50068397"
             }
           },
-          "status": "visually accepted 2026-10-30; merge pending"
+          "status": "visually accepted; merged main at 2a49355"
         }
-      }
+      },
+      "visual_rework": {
+        "status": "planned; visual acceptance reopened",
+        "plan": "docs/research/card-vfx-content-preservation-plan-2026-10-31.md"
+      },
+      "current_state": "visual redesign withdrawn; original presentation restored"
     },
     {
       "id": "B04",
@@ -1108,7 +1131,10 @@
             "KarenRewrite",
             "KarenStar"
           ],
-          "status": "planned"
+          "status": "completed",
+          "completed": "2026-10-31",
+          "evidence": "docs/testing/chain-card-vfx-b04-2026-10-31.json",
+          "visual_rework": "planned; previous completion records retained as history"
         },
         {
           "id": "4B",
@@ -1118,12 +1144,136 @@
             "KarenDropFuel",
             "KarenStarlight02Card"
           ],
-          "status": "planned"
+          "status": "completed",
+          "completed": "2026-10-31",
+          "evidence": "docs/testing/chain-card-vfx-b04-2026-10-31.json",
+          "visual_rework": "planned; previous completion records retained as history"
         }
       ],
-      "status": "planned",
+      "status": "completed; targeted verified; user visual review and merge pending",
       "completion_criteria": "7张牌的连锁持有、接触、奖励、等待和异常释放清单完成。",
-      "targeted_validation": "验证当前连锁及重播次数、奖励点和异常释放。若调整规则等待，补双方不同质量配置的同版本定向双端验证；两版分别进行。局部表现预算稳定，真实每击仍完成。"
+      "targeted_validation": "验证当前连锁及重播次数、奖励点和异常释放。若调整规则等待，补双方不同质量配置的同版本定向双端验证；两版分别进行。局部表现预算稳定，真实每击仍完成。",
+      "implementation": {
+        "report": "docs/testing/chain-card-vfx-b04-2026-10-31.md",
+        "records": "docs/testing/chain-card-vfx-b04-2026-10-31.json",
+        "baseline": "2a49355df4f9cbf2e4e7128b377ec05acbf42672",
+        "cards_completed": 7,
+        "before_recordings": 14,
+        "new_after_recordings": 45,
+        "verified_recordings": 59,
+        "videos": {
+          "stable": {
+            "combined": {
+              "path": "artifacts/chain-batch04-20261030/comparison/b04-stable.mp4",
+              "sha256": "3fffb60524e4874f9343af917afddc6eeb185b9abd78db08a782493d57583a08"
+            },
+            "groups": {
+              "4A": {
+                "video": {
+                  "path": "artifacts/chain-batch04-20261030/comparison/b04-4a-stable.mp4",
+                  "sha256": "63b5c7c85b589eb90a162e083cbdcbc6ba224df89ea857564d2e61136a20457a"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_continue.mp4",
+                    "sha256": "06edf26eaae874165a6d3eeba39b21a2b7432900de62ff713098303c1940ca50"
+                  },
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_rewrite.mp4",
+                    "sha256": "48b3049b0ea78d8e9c484124bd95430d35408df78811f6fa145a147f7b02669d"
+                  },
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_star.mp4",
+                    "sha256": "35c3933c6f5635bd555d8b1e12943ba77dfa0ce9676f838e5d98cc2ee221bee1"
+                  }
+                ]
+              },
+              "4B": {
+                "video": {
+                  "path": "artifacts/chain-batch04-20261030/comparison/b04-4b-stable.mp4",
+                  "sha256": "15baf34b0522efd7176f2347425c08d70c7ce2d8a39cf9b69ba9f63495e8cb07"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_bridge.mp4",
+                    "sha256": "7c8ad720f5875ad5ed15ebbce8f6a0fdfd16793261ca1cbd1165448a57265429"
+                  },
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_geer.mp4",
+                    "sha256": "64c645ca0d3b47e40c5a8cb41b03a8927b52917102d739a947d189226e8cc178"
+                  },
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_drop_fuel.mp4",
+                    "sha256": "894b477da37d0363df341c1df91a62e606c4342184530de184ced6198acd8797"
+                  },
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/stable-full-karen_starlight02_card.mp4",
+                    "sha256": "98e19c504518d70de22d980989e9ea5656f53865b6b7e065c08bba934d78cadd"
+                  }
+                ]
+              }
+            }
+          },
+          "beta": {
+            "combined": {
+              "path": "artifacts/chain-batch04-20261030/comparison/b04-beta.mp4",
+              "sha256": "2143e40739a74262ac791be9f207d64340f342335b1878f24314fad09078c1ec"
+            },
+            "groups": {
+              "4A": {
+                "video": {
+                  "path": "artifacts/chain-batch04-20261030/comparison/b04-4a-beta.mp4",
+                  "sha256": "9cf44fe44b3b02a589ced9a85181c32f1e047c0e24e65ebbe2025c65a6b830ca"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_continue.mp4",
+                    "sha256": "3b0a907b695c208bbc0d75c3c6ee6c3624bb1f6c317c1ad341be021b01308ee6"
+                  },
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_rewrite.mp4",
+                    "sha256": "c266809e8d0ebb65a3f76fe049c6f4db53a486cf4007d3acd72f56f6fc24b63e"
+                  },
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_star.mp4",
+                    "sha256": "7ebd08e8f2525f449e7dcba16247fc25cb0ed97b36e5121ed3f1c27e09d93220"
+                  }
+                ]
+              },
+              "4B": {
+                "video": {
+                  "path": "artifacts/chain-batch04-20261030/comparison/b04-4b-beta.mp4",
+                  "sha256": "2c47429b314c449d72128c9faebb8119f621805ecbae99c9c390294af963fce3"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_bridge.mp4",
+                    "sha256": "39a7b72a548db28dc1030aedeb488c08ad66a6671756e4ab0e447f7a3f7d5c78"
+                  },
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_geer.mp4",
+                    "sha256": "de1d88d99b266717b41543e91849fdf2b14ffab4363441016d507120592b7ef8"
+                  },
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_drop_fuel.mp4",
+                    "sha256": "6fecc484db567055094d3cffb5f35c252b85e6e5577634372a58da8fb53f8632"
+                  },
+                  {
+                    "path": "artifacts/chain-batch04-20261030/comparison/beta-full-karen_starlight02_card.mp4",
+                    "sha256": "c04469a271272fb19069d8117b2ab9ef949c026fe41c375384ebb6b2982dba70"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "integration": "main at 2a49355; B04 merge pending; worktree and recordings retained"
+      },
+      "visual_rework": {
+        "status": "planned; visual acceptance reopened",
+        "plan": "docs/research/card-vfx-content-preservation-plan-2026-10-31.md"
+      },
+      "current_state": "visual redesign withdrawn; original presentation restored"
     },
     {
       "id": "B05",
@@ -1874,7 +2024,7 @@
       "status": "deferred"
     }
   ],
-  "updated": "2026-10-30",
+  "updated": "2026-10-31",
   "recording_contract": {
     "stage_unit": "implementation subgroup",
     "required": [
@@ -1925,5 +2075,20 @@
         }
       ]
     }
+  },
+  "visual_rework": {
+    "status": "planned",
+    "plan": "docs/research/card-vfx-content-preservation-plan-2026-10-31.md",
+    "data": "docs/research/card-vfx-content-preservation-plan-2026-10-31.json",
+    "cards": 31,
+    "previous_b04_merge_request": "superseded by user rework request",
+    "code_changes_this_turn": false
+  },
+  "rollback": {
+    "status": "worktree implemented and targeted verified; main integration pending",
+    "baseline": "6a7a9bd",
+    "report": "docs/testing/card-vfx-rollback-review-2026-10-31.md",
+    "records": "docs/testing/card-vfx-rollback-review-2026-10-31.json",
+    "retained_production_files": 5
   }
 }

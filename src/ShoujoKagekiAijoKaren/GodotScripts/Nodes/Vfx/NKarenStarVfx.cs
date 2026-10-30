@@ -62,7 +62,7 @@ public partial class NKarenStarVfx : Node2D
     private NCombatRoom _room = null!;
     private Playback _playback = null!;
     private readonly Node2D _back = new() { Name = "KarenStarBackLight" };
-    private readonly List<Pulse> _pulses = new();
+    private readonly List<Pulse> _pulses = new(4);
     private Vector2 _screen, _body, _foot, _clasp, _cardPoint, _rewardPoint;
     private float _unit, _age, _releaseAt = -1, _rewardAt = -1;
     private int _count, _played;
@@ -119,7 +119,8 @@ public partial class NKarenStarVfx : Node2D
             _played = Math.Max(_played, play.Index + 1);
             _pulses.Add(new(play.Index, _count, _age));
         }
-        _pulses.RemoveAll(p => _age - p.At > .55f);
+        for (int i = _pulses.Count - 1; i >= 0; i--)
+            if (_age - _pulses[i].At > .55f) _pulses.RemoveAt(i);
         if (_rewardAt < 0 && _playback.Reward)
         {
             _rewardAt = _age;

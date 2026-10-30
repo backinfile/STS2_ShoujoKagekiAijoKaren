@@ -1,4 +1,3 @@
-using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -31,12 +30,10 @@ public sealed class KarenLanding : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (CombatState == null) return;
-        using var show = new KarenAttackCue(Owner.Creature, null, KarenAttackStyle.Landing, count: 1, potency: (float)DynamicVars.Damage.BaseValue);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .TargetingAllOpponents(CombatState)
-            .WithAttackerFx(show.Start)
-            .WithHitVfxNode(show.Hit)
+            .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
 
         // 创建回击并放入约定牌堆

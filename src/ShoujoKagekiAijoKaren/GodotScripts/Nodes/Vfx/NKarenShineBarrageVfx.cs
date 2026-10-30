@@ -18,23 +18,12 @@ public partial class NKarenShineBarrageVfx : Node2D
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
-        _scaleCurve ??= MakeScaleCurve();
-        _particleRamp ??= new Gradient { Offsets = [0, .15f, .65f, 1],
-            Colors = [Colors.Transparent, Colors.White, new(1, 1, 1, .8f), Colors.Transparent] };
-        _additive ??= new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _shader ??= KarenResourceLoader.Load<Shader>("res://shaders/karen_shine_barrage.gdshader", nameof(NKarenShineBarrageVfx));
-        _sharedBladeMaterial ??= new ShaderMaterial { Shader = _shader };
         _sparkTexture ??= new GradientTexture2D { Width = 12, Height = 40,
             Fill = GradientTexture2D.FillEnum.Radial, FillFrom = new(.5f, .5f), FillTo = new(1, .5f),
             Gradient = new Gradient { Offsets = [0, .3f, 1], Colors = [Colors.White, new(1, 1, 1, .7f), Colors.Transparent] } };
     }
-    internal static Godot.Resource?[] PreparedResources => [_shader, _sparkTexture, _scaleCurve, _particleRamp, _additive, _sharedBladeMaterial];
-    private static Curve MakeScaleCurve()
-    {
-        var curve = new Curve();
-        curve.AddPoint(new(0, .35f)); curve.AddPoint(new(.12f, 1)); curve.AddPoint(new(1, 0));
-        return curve;
-    }
+    internal static Godot.Resource?[] PreparedResources => [_shader, _sparkTexture];
 
     public const float HitInterval = .12f;
     public const float FastHitInterval = HitInterval * .7f;
@@ -43,13 +32,7 @@ public partial class NKarenShineBarrageVfx : Node2D
     private NCreature? _victim;
     private readonly Node2D _blade = new();
     private CpuParticles2D? _sparks;
-    private static ShaderMaterial? _sharedBladeMaterial;
-    private static CanvasItemMaterial? _additive;
-    private static Curve? _scaleCurve;
-    private static Gradient? _particleRamp;
-    private readonly Vector2[] _bladePoints = new Vector2[4], _starPoints = new Vector2[8];
-    private readonly Color[] _bladeColors = new Color[4];
-    private static readonly Vector2[] BladeUvs = [new(0, 0), new(1, 0), new(1, 1), new(0, 1)];
+    private ShaderMaterial? _material;
     private static Shader? _shader;
     private static GradientTexture2D? _sparkTexture;
     private Vector2 _source, _target, _exit, _tip, _tail;
@@ -105,7 +88,8 @@ public partial class NKarenShineBarrageVfx : Node2D
         if (_impact)
         {
             PrepareResources();
-            _blade.Material = _sharedBladeMaterial;
+            _material = new ShaderMaterial { Shader = _shader };
+            _blade.Material = _material;
             _blade.Draw += DrawBlade;
         }
         CreateParticles();
@@ -160,11 +144,12 @@ public partial class NKarenShineBarrageVfx : Node2D
     {
         _age += (float)delta * _speed;
         bool preparationCancelled = !_impact && (!CombatManager.Instance.IsInProgress || !Present(_owner) || !Present(_victim));
-        float life = _impact ? .29f : _finishedAt >= 0 ? _finishedAt + .16f : 3f;
+        float life = _impact ? .36f : _finishedAt >= 0 ? _finishedAt + .16f : 3f;
         if (!Present(_room) || NCombatRoom.Instance != _room || preparationCancelled || _age >= life)
         { Hide(); QueueFree(); return; }
         // Retain the last sampled position if a lethal hit removes the victim's visual.
         Place();
+        if (_material != null) _material.SetShaderParameter("age", _age);
         if (_impact && _sparks != null && !_burstStarted && _age >= .04f)
         {
             _sparks.Position = _exit;
@@ -193,11 +178,8 @@ public partial class NKarenShineBarrageVfx : Node2D
         float progress = P(_age, 0, .24f);
         var tail = _tail + normal * ((_index % 2 == 0 ? -1 : 1) * 5 * _unit * (1 - progress));
         float width = (23 + 5 * (1 - progress)) * _unit;
-        _bladePoints[0] = tail - normal * width; _bladePoints[1] = _tip - normal * width;
-        _bladePoints[2] = _tip + normal * width; _bladePoints[3] = tail + normal * width;
-        // Age travels with each blade's vertices; simultaneous hits share one immutable material.
-        Array.Fill(_bladeColors, new Color(1, 1, 1, _age));
-        _blade.DrawPolygon(_bladePoints, _bladeColors, BladeUvs);
+        _blade.DrawPolygon([tail - normal * width, _tip - normal * width, _tip + normal * width, tail + normal * width],
+            [Colors.White, Colors.White, Colors.White, Colors.White], [new(0, 0), new(1, 0), new(1, 1), new(0, 1)]);
     }
 
     public override void _Draw()
@@ -212,9 +194,11 @@ public partial class NKarenShineBarrageVfx : Node2D
         float fade = 1 - P(_age, .035f, .31f);
         float bloom = 1 + .40f * Mathf.Sin(P(_age, 0, .16f) * Mathf.Pi);
         float finalScale = _final ? 1.18f : 1;
-        float size = 24 * _unit * bloom * finalScale;
+        float size = 39 * _unit * bloom * finalScale;
         // Bright contact is compact, leaving damage numbers and the target silhouette readable.
+        Star(Contact, size, size * .72f, Alpha(Coral, fade * .75f), .12f);
         Star(Contact, size * .78f, size * .55f, Alpha(Ivory, fade), .12f);
+        Star(Contact, size * .40f, size * .30f, Alpha(Colors.White, fade), .12f);
         if (_final)
         {
             float tail = P(_age, .07f, .12f) * (1 - P(_age, .16f, .36f));
@@ -225,22 +209,20 @@ public partial class NKarenShineBarrageVfx : Node2D
     private void Star(Vector2 center, float width, float height, Color color, float rotation)
     {
         DrawSetTransform(center, rotation);
-        for (int i = 0; i < 8; i++)
-        {
-            float angle = Mathf.Pi + i * Mathf.Pi / 4;
-            _starPoints[i] = new Vector2(Mathf.Cos(angle) * width, Mathf.Sin(angle) * height) * (i % 2 == 0 ? 1 : .17f);
-        }
-        DrawColoredPolygon(_starPoints, color);
+        DrawColoredPolygon([new(-width, 0), new(-width * .12f, -height * .12f), new(0, -height),
+            new(width * .12f, -height * .12f), new(width, 0), new(width * .12f, height * .12f),
+            new(0, height), new(-width * .12f, height * .12f)], color);
         DrawSetTransform(Vector2.Zero);
     }
 
     private void CreateParticles()
     {
         PrepareResources();
-        if (!_impact) return; // The single source star is the whole preparation.
+        var scale = new Curve();
+        scale.AddPoint(new(0, .35f)); scale.AddPoint(new(.12f, 1)); scale.AddPoint(new(1, 0));
         _sparks = new CpuParticles2D {
             Name = _impact ? "ExitSparks" : "PreparationDust", Emitting = false,
-            Amount = KarenVfxQuality.ParticleCount(4), Lifetime = _impact ? .25f : .20f, OneShot = _impact,
+            Amount = KarenVfxQuality.ParticleCount(_impact ? 10 : 5), Lifetime = _impact ? .25f : .20f, OneShot = _impact,
             Explosiveness = _impact ? 1 : 0, LocalCoords = true, SpeedScale = _speed,
             Position = _impact ? _exit : _source, Direction = _impact ? (Contact - _source).Normalized() : Vector2.Up,
             Spread = _impact ? 23 : 25, InitialVelocityMin = (_impact ? 180 : 20) * _unit,
@@ -248,9 +230,10 @@ public partial class NKarenShineBarrageVfx : Node2D
             DampingMin = 90 * _unit, DampingMax = 160 * _unit,
             ParticleFlagAlignY = true, Texture = _sparkTexture,
             ScaleAmountMin = .07f * _unit, ScaleAmountMax = (_impact ? .25f : .12f) * _unit,
-            ScaleAmountCurve = _scaleCurve, Color = _index % 2 == 0 ? Gold : Coral,
-            ColorRamp = _particleRamp,
-            Material = _additive
+            ScaleAmountCurve = scale, Color = _index % 2 == 0 ? Gold : Coral,
+            ColorRamp = new Gradient { Offsets = [0, .15f, .65f, 1],
+                Colors = [Colors.Transparent, Colors.White, new(1, 1, 1, .8f), Colors.Transparent] },
+            Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add }
         };
         AddChild(_sparks);
         _sparks.Emitting = !_impact;

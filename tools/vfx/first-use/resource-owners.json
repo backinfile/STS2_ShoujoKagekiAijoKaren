@@ -36,6 +36,5 @@
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenNononVfx",
   "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenPastAndFutureRingVfx",
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx",
-  "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch",
-  "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStageAttackVfx"
+  "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch"
 ]

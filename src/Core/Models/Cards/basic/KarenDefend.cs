@@ -1,5 +1,4 @@
 using MegaCrit.Sts2.Core.Commands;
-using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -21,7 +20,6 @@ public sealed class KarenDefend() : KarenBaseCardModel(1, CardType.Skill, CardRa
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        using var presentation = NKarenDefendVfx.Bind(cardPlay);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
     }
 

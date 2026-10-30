@@ -34,17 +34,26 @@ public sealed class KarenShineStrikeBarrage : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.Barrage, DynamicVars.Repeat.IntValue);
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(DynamicVars.Repeat.IntValue)
-            .FromPlayedCard(this, cardPlay)
-            .Targeting(cardPlay.Target)
-            .WithAttackerFx(show.Start)
-            .WithAttackerAnim("Attack", .15f)
-            .OnlyPlayAnimOnce()
-            .WithWaitBeforeHit(NKarenShineBarrageVfx.FastHitInterval, NKarenShineBarrageVfx.HitInterval)
-            .WithHitVfxNode(show.Hit)
-            .Execute(choiceContext);
+        NKarenShineBarrageVfx? preparation = null;
+        NKarenShineBarrageVfx? lastHit = null;
+        int hitIndex = 0;
+        try
+        {
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .WithHitCount(DynamicVars.Repeat.IntValue)
+                .FromPlayedCard(this, cardPlay)
+                .Targeting(cardPlay.Target)
+                .WithAttackerFx(() => preparation = NKarenShineBarrageVfx.Create(Owner.Creature, cardPlay.Target))
+                .WithAttackerAnim("Attack", .15f)
+                .OnlyPlayAnimOnce()
+                .WithWaitBeforeHit(NKarenShineBarrageVfx.FastHitInterval, NKarenShineBarrageVfx.HitInterval)
+                .WithHitVfxNode(target => lastHit = NKarenShineBarrageVfx.Hit(Owner.Creature, target, hitIndex++))
+                .Execute(choiceContext);
+        }
+        finally
+        {
+            NKarenShineBarrageVfx.Complete(preparation, lastHit);
+        }
     }
 
     protected override void OnUpgrade()

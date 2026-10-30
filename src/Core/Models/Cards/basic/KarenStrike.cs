@@ -1,5 +1,4 @@
 using MegaCrit.Sts2.Core.Commands;
-using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -20,14 +19,9 @@ public sealed class KarenStrike() : KarenBaseCardModel(1, CardType.Attack, CardR
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        var attack = DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromPlayedCard(this, cardPlay)
-            .Targeting(cardPlay.Target);
-        if (NKarenBasicAttackVfx.Enabled)
-            attack.WithHitVfxNode(target => NKarenStrikeVfx.Create(Owner.Creature, target));
-        else
-            attack.WithHitFx(VfxCmd.slashPath);
-        await attack.Execute(choiceContext);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromPlayedCard(this, cardPlay).Targeting(cardPlay.Target)
+            .WithHitFx(VfxCmd.slashPath)
+            .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

@@ -10,6 +10,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 public partial class NKarenStageCueVfx
 {
+    private readonly Vector2[] _castBeamQuad = new Vector2[4];
     private static readonly Color White = new("#f4f9ff"), Blue = new("#96c2f5"), Gold = new("#fada8e"), Pink = new("#f79fdb");
     private static float P(float t, float a, float b) => Mathf.Clamp((t-a)/(b-a), 0, 1);
     private static float Ease(float t) => 1-Mathf.Pow(1-Mathf.Clamp(t,0,1),3);
@@ -86,7 +87,9 @@ public partial class NKarenStageCueVfx
             // A radial texture along the shaft would leak past that plane.
             for(int band=0;band<7;band++){
                 float w=width*(1-band*.13f);
-                layer.DrawColoredPolygon([from-Vector2.Right*2,from+Vector2.Right*2,end+Vector2.Right*w,end-Vector2.Right*w],
+                _castBeamQuad[0]=from-Vector2.Right*2; _castBeamQuad[1]=from+Vector2.Right*2;
+                _castBeamQuad[2]=end+Vector2.Right*w; _castBeamQuad[3]=end-Vector2.Right*w;
+                layer.DrawColoredPolygon(_castBeamQuad,
                     new Color(Blue.R,Blue.G,Blue.B,a*(front?.022f:.035f)));
             }
             var c=White;c.A=a*(front?.75f:.33f);layer.DrawLine(from,end,c,(front?2.5f:3.5f)*_screen.X/1280,true);

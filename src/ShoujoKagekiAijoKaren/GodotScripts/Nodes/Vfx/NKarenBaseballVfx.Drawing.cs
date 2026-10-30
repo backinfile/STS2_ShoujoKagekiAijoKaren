@@ -33,8 +33,8 @@ public partial class NKarenBaseballVfx
         float t = Mathf.Clamp((_age - SwingTime) / (HitTime - SwingTime), 0, 1);
         float tail = _confirmedAt < 0 ? 1 : 1 - Mathf.Clamp((_age - _confirmedAt) / .16f, 0, 1);
         float first = Mathf.Max(0, t - .72f);
-        Ribbon(false, first, t, 22, Gold, .10f * tail);
-        Ribbon(false, first, t, 8, Gold, .65f * tail);
+        Ribbon(false, first, t, 32, Gold, .16f * tail);
+        Ribbon(false, first, t, 12, Gold, .8f * tail);
         Ribbon(false, first, t, 3.2f, Warm, tail);
         for (int i = 0; i < 14; i += KarenVfxQuality.ParticleStride)
         {
@@ -125,7 +125,7 @@ public partial class NKarenBaseballVfx
         Halo(_target, (62 + _age * 60) * _unit, Gold, flash * 1.4f);
         Halo(_target, 28 * _unit, Warm, flash * 1.5f);
         _light.DrawCircle(_target, Mathf.Max(.1f, 10 * _unit * flash), new Color(Warm, flash));
-        for (int i = 0; i < 8; i += KarenVfxQuality.ParticleStride)
+        for (int i = 0; i < 22; i += KarenVfxQuality.ParticleStride)
         {
             float angle = i * 2.399963f + .18f;
             var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle) * .8f);

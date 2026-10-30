@@ -1,4 +1,3 @@
-using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -34,13 +33,11 @@ public sealed class KarenConfront : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
-        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.Confront, count: DynamicVars.Repeat.IntValue, potency: (float)DynamicVars.Damage.BaseValue);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.Repeat.IntValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithAttackerFx(show.Start)
-            .WithHitVfxNode(show.Hit)
+            .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
     }
 

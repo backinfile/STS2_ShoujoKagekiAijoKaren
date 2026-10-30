@@ -16,13 +16,17 @@ public partial class NKarenContinueVfx : Node2D
     {
         Palette(WarmWhite, Gold, Crimson);
         Fade();
+        _sparkMaterial ??= new ShaderMaterial { Shader = SparkShader };
         _extraProcess ??= new ParticleProcessMaterial { ParticleFlagDisableZ = true, ParticleFlagAlignY = true,
             EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Sphere, EmissionSphereRadius = 24f,
             Direction = Vector3.Right, Gravity = new Vector3(0f,70f,0f), DampingMin = 90f, DampingMax = 180f,
             ColorInitialRamp = Palette(WarmWhite,Gold,Crimson), AlphaCurve = Fade(), LifetimeRandomness = .25f };
+        _chipsProcess ??= ExtraProcess(120, 520, .07f, .13f, 85);
+        _embersProcess ??= ExtraProcess(30, 100, .04f, .08f, 150);
     }
-    internal static Godot.Resource?[] PreparedResources => [SparkShader, _palette, _fade, _extraProcess];
-    private static ParticleProcessMaterial? _extraProcess;
+    internal static Godot.Resource?[] PreparedResources => [SparkShader, _palette, _fade, _extraProcess, _sparkMaterial, _chipsProcess, _embersProcess];
+    private static ShaderMaterial? _sparkMaterial;
+    private static ParticleProcessMaterial? _extraProcess, _chipsProcess, _embersProcess;
     private static GradientTexture1D? _palette;
     private static CurveTexture? _fade;
 
@@ -61,7 +65,7 @@ public partial class NKarenContinueVfx : Node2D
         var flight = shiv.GetNode<GpuParticles2D>("throw_container/vfx_common_specks_spray");
         flight.Amount = KarenVfxQuality.ParticleCount(15);
         flight.Lifetime = 0.55;
-        flight.Material = new ShaderMaterial { Shader = SparkShader };
+        flight.Material = _sparkMaterial;
         var flightProcess = CopyProcess(flight);
         flightProcess.Color = Colors.White;
         flightProcess.ColorInitialRamp = Palette(WarmWhite, Gold, Crimson);
@@ -79,7 +83,7 @@ public partial class NKarenContinueVfx : Node2D
         impact.Amount = KarenVfxQuality.ParticleCount(34);
         impact.SelfModulate = Colors.White;
         impact.Lifetime = 0.55;
-        impact.Material = new ShaderMaterial { Shader = SparkShader };
+        impact.Material = _sparkMaterial;
         var impactProcess = CopyProcess(impact);
         impactProcess.Color = Colors.White;
         impactProcess.ColorInitialRamp = Palette(WarmWhite, Gold, Crimson);
@@ -99,10 +103,10 @@ public partial class NKarenContinueVfx : Node2D
         var poof = shiv.GetNode<GpuParticles2D>("impact_container/vfx_poof");
         CopyProcess(poof).Color = new Color(1f, 0.42f, 0.30f, 0.7f);
 
-        // Only materials owned by this cast are edited. Native Shiv and simultaneous casts stay independent.
+        // Per-cast native materials stay independent; prepared extra-layer materials remain immutable.
         var layers = new NKarenContinueVfx { Name = "EncoreParticleLayers" };
-        layers._chips = ExtraSpecks(impact, 16, 0.48, 120f, 520f, 0.07f, 0.13f, 85f);
-        layers._embers = ExtraSpecks(impact, 8, 0.65, 30f, 100f, 0.04f, 0.08f, 150f);
+        layers._chips = ExtraSpecks(impact, "EncoreChips", 16, 0.48, _chipsProcess!);
+        layers._embers = ExtraSpecks(impact, "EncoreEmbers", 8, 0.65, _embersProcess!);
         layers._embers.Modulate = new Color(1f, 0.82f, 0.58f, 0.65f);
         layers.AddChild(layers._chips);
         layers.AddChild(layers._embers);
@@ -122,11 +126,11 @@ public partial class NKarenContinueVfx : Node2D
         Gradient = new Gradient { Colors = colors, Offsets = [0f, 0.45f, 1f] }
     };
 
-    private static GpuParticles2D ExtraSpecks(GpuParticles2D template, int amount, double lifetime,
-        float speedMin, float speedMax, float scaleMin, float scaleMax, float spread)
+    private static GpuParticles2D ExtraSpecks(GpuParticles2D template, string name, int amount, double lifetime,
+        ParticleProcessMaterial process)
     {
         var particles = (GpuParticles2D)template.Duplicate();
-        particles.Name = amount == 16 ? "EncoreChips" : "EncoreEmbers";
+        particles.Name = name;
         particles.Position = new Vector2(35f, 0f);
         particles.Rotation = 0f;
         particles.Amount = KarenVfxQuality.ParticleCount(amount);
@@ -134,12 +138,17 @@ public partial class NKarenContinueVfx : Node2D
         particles.Emitting = false;
         particles.OneShot = true;
         particles.Explosiveness = 1f;
+        particles.ProcessMaterial = process;
+        return particles;
+    }
+
+    private static ParticleProcessMaterial ExtraProcess(float speedMin, float speedMax, float scaleMin, float scaleMax, float spread)
+    {
         var process = (ParticleProcessMaterial)_extraProcess!.Duplicate();
         process.Spread = spread;
         process.InitialVelocityMin = speedMin; process.InitialVelocityMax = speedMax;
         process.ScaleMin = scaleMin; process.ScaleMax = scaleMax;
-        particles.ProcessMaterial = process;
-        return particles;
+        return process;
     }
 
     private static CurveTexture Fade()

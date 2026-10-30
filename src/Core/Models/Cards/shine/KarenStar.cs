@@ -95,9 +95,9 @@ public sealed class KarenStar : KarenBaseCardModel
             .Concat(PileType.Hand.GetPile(player).Cards)
             .Concat(PileType.Draw.GetPile(player).Cards)
             .ConcatIf(() => !PromisePileManager.IsVoidMode(player), KarenCustomEnum.PromisePile.GetPile(player).Cards) // 空虚模式下，抽牌堆算约定牌堆
-            .Where(c => c.HasShine() && !c.HasBeenRemovedFromState).ToList();
+            .Where(c => c.HasShine() && !c.HasBeenRemovedFromState).Take(2).ToArray();
 
-        if (allCard.Count == 1)
+        if (allCard.Length == 1)
         {
             return allCard[0];
         }

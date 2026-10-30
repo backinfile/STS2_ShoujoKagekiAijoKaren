@@ -1,4 +1,3 @@
-using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -34,12 +33,10 @@ public sealed class KarenSpin : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
-        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.Spin, count: 1, potency: (float)DynamicVars.Damage.BaseValue);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithAttackerFx(show.Start)
-            .WithHitVfxNode(show.Hit)
+            .WithHitFx(VfxCmd.slashPath)
             .Execute(choiceContext);
     }
 
@@ -60,6 +57,7 @@ public sealed class KarenSpin : KarenBaseCardModel
         // 增加伤害
         decimal increase = DynamicVars[IncreaseVarName].BaseValue;
         BuffDamage(increase);
+        MainFile.Logger.Info($"[KarenSpin] 牌堆移动: {from} -> {to}，伤害+{increase}，当前总伤害: {DynamicVars.Damage.BaseValue}");
     }
 
     /// <summary>增加本张卡牌的伤害值</summary>

@@ -33,14 +33,14 @@ public sealed class KarenBackToBackCard : KarenBaseCardModel
     {
         if (cardPlay.Target == null) return;
         int promiseCount = PromisePileManager.GetCount(Owner);
-        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.Twin, stock: promiseCount);
+        NKarenBackToBackVfx? approach = null;
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithAttackerFx(show.Start)
+            .WithAttackerFx(() => approach = NKarenBackToBackVfx.CreateApproach(Owner.Creature, cardPlay.Target, promiseCount))
             .WithAttackerAnim("Attack", 0f)
             .WithWaitBeforeHit(NKarenBackToBackVfx.FastHitTime, NKarenBackToBackVfx.HitTime)
-            .WithHitVfxNode(show.Hit)
+            .WithHitVfxNode(target => NKarenBackToBackVfx.CreateImpact(Owner.Creature, target, promiseCount, approach))
             .Execute(choiceContext);
     }
 

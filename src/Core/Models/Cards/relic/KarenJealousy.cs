@@ -39,14 +39,12 @@ public sealed class KarenJealousy : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
-        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.Jealousy);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithAttackerFx(show.Start)
             .WithNoAttackerAnim()
             .WithWaitBeforeHit(NKarenJealousyVfx.FastHitTime, NKarenJealousyVfx.HitTime)
-            .WithHitVfxNode(show.Hit)
+            .WithHitVfxNode(target => NKarenJealousyVfx.CreateImpact(Owner.Creature, target))
             .Execute(choiceContext);
     }
 

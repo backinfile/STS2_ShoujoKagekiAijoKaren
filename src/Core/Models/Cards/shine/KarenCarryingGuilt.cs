@@ -12,7 +12,6 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core;
-using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
@@ -44,14 +43,13 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
     {
         if (cardPlay.Target == null) return;
         ClearAllFocus();
-        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.Guilt);
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithAttackerFx(show.Start)
+            .WithAttackerFx(() => NKarenStageLightVfx.Create(cardPlay.Target))
             .WithAttackerAnim("Attack", 0f)
             .WithWaitBeforeHit(NKarenStageLightVfx.FastHitTime, NKarenStageLightVfx.HitTime)
-            .WithHitVfxNode(show.Hit)
+            .WithHitVfxNode(NKarenStageLightImpactVfx.Create)
             .Execute(choiceContext);
     }
 

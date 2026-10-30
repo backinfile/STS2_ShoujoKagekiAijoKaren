@@ -229,14 +229,11 @@ internal static class KarenVfxCatalog
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBackToBackVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBananaVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBaseballVfx",
-        "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBasicAttackVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBenefitVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenCombatEntranceVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenContinueExhaustVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenContinueVfx",
-        "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenDefendVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenExchangeFateVfx",
-        "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenFallVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenFightRelayVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenJealousyVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenNononVfx",
@@ -244,14 +241,10 @@ internal static class KarenVfxCatalog
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenPassionVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenPositionZeroCardHoverVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenPositionZeroVfx",
-        "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenPromiseDrawVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenShineBarrageVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenShineRewardVfx",
-        "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenShineStrikeVfx",
-        "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStageAttackVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStageCueVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStarVfx",
-        "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStrikeVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenUnforgottenShineVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenWaitingStageVfx",
@@ -337,7 +330,5 @@ internal static class KarenVfxCatalog
         foreach (var r in ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx.PreparedResources) if (r != null) yield return r;
         ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch.PrepareResources();
         foreach (var r in ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch.PreparedResources) if (r != null) yield return r;
-        ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStageAttackVfx.PrepareResources();
-        foreach (var r in ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStageAttackVfx.PreparedResources) if (r != null) yield return r;
     }
 }

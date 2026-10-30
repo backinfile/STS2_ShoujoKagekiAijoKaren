@@ -139,7 +139,9 @@ public partial class NKarenStageCueVfx : Node2D
     private void Place()
     {
         GlobalTransform = GetCanvasTransform().AffineInverse();
-        foreach (var layer in new[] { _back, _shade, _hud }) layer.GlobalTransform = layer.GetCanvasTransform().AffineInverse();
+        _back.GlobalTransform = _back.GetCanvasTransform().AffineInverse();
+        _shade.GlobalTransform = _shade.GetCanvasTransform().AffineInverse();
+        _hud.GlobalTransform = _hud.GetCanvasTransform().AffineInverse();
         if (_frontShade.IsInsideTree()) _frontShade.GlobalTransform = _frontShade.GetCanvasTransform().AffineInverse();
         _screen = GetViewport().GetVisibleRect().Size;
         var hit = _room.GetCreatureNode(_owner.Creature)!.Hitbox;

@@ -10,14 +10,6 @@ uniform vec2 entrance_offset = vec2(0.0);
 uniform vec2 entrance_pivot = vec2(0.0, 128.8);
 uniform float entrance_lean = 0.0;
 uniform float entrance_cape = 0.0;
-// Short guard stance. The scene-local controller owns and resets these uniforms.
-uniform vec2 guard_offset = vec2(0.0);
-uniform vec2 guard_pivot = vec2(0.0, 128.8);
-uniform float guard_lean = 0.0;
-uniform float guard_compression = 0.0;
-uniform vec2 attack_offset = vec2(0.0);
-uniform vec2 attack_pivot = vec2(0.0, 128.8);
-uniform float attack_lean = 0.0;
 uniform vec4 cape_region_1 = vec4(0.16, 0.20, 0.49, 0.44);
 uniform vec4 cape_region_2 = vec4(0.60, 0.02, 0.74, 0.38);
 uniform vec4 cape_region_3 = vec4(0.46, 0.18, 0.60, 0.36);
@@ -29,15 +21,7 @@ void vertex() {
 	vec2 point = VERTEX - entrance_pivot;
 	float c = cos(entrance_lean);
 	float s = sin(entrance_lean);
-	point = vec2(c * point.x - s * point.y, s * point.x + c * point.y) + entrance_pivot + entrance_offset;
-	point -= guard_pivot;
-	point.y *= 1.0 - guard_compression;
-	c = cos(guard_lean);
-	s = sin(guard_lean);
-	point = vec2(c * point.x - s * point.y, s * point.x + c * point.y) + guard_pivot + guard_offset;
-	point -= attack_pivot;
-	c = cos(attack_lean); s = sin(attack_lean);
-	VERTEX = vec2(c * point.x - s * point.y, s * point.x + c * point.y) + attack_pivot + attack_offset;
+	VERTEX = vec2(c * point.x - s * point.y, s * point.x + c * point.y) + entrance_pivot + entrance_offset;
 }
 
 float rect_mask(vec2 uv, vec4 rect) {
