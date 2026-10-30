@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -50,14 +51,17 @@ public sealed class KarenStarFriend : KarenBaseCardModel
 
         bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
 
+        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.StarFriend, count: 1, potency: (float)DynamicVars.Damage.BaseValue);
         var attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(show.Start)
+            .WithHitVfxNode(show.Hit)
             .Execute(choiceContext);
 
         if (shouldTriggerFatal && attackCommand.Results.SelectMany(r => r).Any((DamageResult r) => r.WasTargetKilled))
         {
+            show.ConfirmFatal();
             await ExtraRewardCmd.AddShineCardReward(Owner);
         }
     }

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "KAREN_CHARGE_STRIKE",
+    "class": "KarenChargeStrike",
+    "title": "蓄力打击",
+    "group": "3A",
+    "base_damage": 10,
+    "target_type": "AnyEnemy"
+  },
+  {
+    "id": "KAREN_SWORD_UP",
+    "class": "KarenSwordUp",
+    "title": "上挑",
+    "group": "3A",
+    "base_damage": 5,
+    "target_type": "AnyEnemy"
+  },
+  {
+    "id": "KAREN_CONTINUE02",
+    "class": "KarenContinue02",
+    "title": "永无结束的命运舞台",
+    "group": "3A",
+    "base_damage": 12,
+    "target_type": "AnyEnemy"
+  },
+  {
+    "id": "KAREN_SPIN",
+    "class": "KarenSpin",
+    "title": "旋转",
+    "group": "3A",
+    "base_damage": null,
+    "target_type": "AnyEnemy"
+  },
+  {
+    "id": "KAREN_DEBUT",
+    "class": "KarenDebut",
+    "title": "出场",
+    "group": "3B",
+    "base_damage": 9,
+    "target_type": "AllEnemies"
+  },
+  {
+    "id": "KAREN_HOLY_STAR",
+    "class": "KarenHolyStar",
+    "title": "神圣星辰",
+    "group": "3B",
+    "base_damage": 18,
+    "target_type": "AnyEnemy"
+  },
+  {
+    "id": "KAREN_CONFRONT",
+    "class": "KarenConfront",
+    "title": "对峙",
+    "group": "3B",
+    "base_damage": 12,
+    "target_type": "AnyEnemy"
+  },
+  {
+    "id": "KAREN_COUNTER",
+    "class": "KarenCounter",
+    "title": "回击",
+    "group": "3B",
+    "base_damage": 12,
+    "target_type": "AllEnemies"
+  },
+  {
+    "id": "KAREN_STAR_FRIEND",
+    "class": "KarenStarFriend",
+    "title": "星星串起了我们的友谊",
+    "group": "3C",
+    "base_damage": 8,
+    "target_type": "AnyEnemy"
+  },
+  {
+    "id": "KAREN_CONSCIOUSNESS",
+    "class": "KarenConsciousness",
+    "title": "以觉悟的名义",
+    "group": "3C",
+    "base_damage": 6,
+    "target_type": "AnyEnemy"
+  },
+  {
+    "id": "KAREN_COURAGE_STRIKE",
+    "class": "KarenCourageStrike",
+    "title": "勇气打击",
+    "group": "3C",
+    "base_damage": 6,
+    "target_type": "AllEnemies"
+  },
+  {
+    "id": "KAREN_LANDING",
+    "class": "KarenLanding",
+    "title": "落地",
+    "group": "3C",
+    "base_damage": 6,
+    "target_type": "AllEnemies"
+  }
+]

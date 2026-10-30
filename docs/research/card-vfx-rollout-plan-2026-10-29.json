@@ -2,7 +2,7 @@
   "schema": 1,
   "date": "2026-10-29",
   "baseline": "6a7a9bdc36bb1b33c6eb1b54212d3f0100d5e781",
-  "status": "B01 implemented; B02 restrained movement targeted verified; visual review and merge pending",
+  "status": "B01/B02 merged; B03 targeted verified and visually accepted; merge pending; B04-B09 planned",
   "active_cards": 114,
   "deferred_cards": 2,
   "preparation": {
@@ -72,7 +72,7 @@
           "evidence": "docs/testing/basic-transfer-simple-2026-10-30.json"
         }
       ],
-      "status": "completed; merge pending",
+      "status": "completed; merged 2026-10-30",
       "completion_criteria": "五张牌的设计、入口、质量档、释放和实录逐项完成；前三张具有独立轮廓与节拍。",
       "targeted_validation": "正式版和测试版各在普通/完整档逐牌核对；升级只覆盖影响形态或次数的分支。Fast/Instant与低/关闭按共享路径选代表定向核对，前三牌低档各看主形。连续打出与异常退场选一条当前小组路径。1B涉及移牌时保存并查看MCP截图，动画后karen_check_hand。"
     },
@@ -151,7 +151,7 @@
           "evidence": "docs/testing/heavy-attack-stationary-2026-10-30.md"
         }
       ],
-      "status": "completed; visual review and merge pending",
+      "status": "completed; merged 2026-10-30",
       "completion_criteria": "有界伤痕落地；六张已有重招的专属主形保持清晰，逐击和尾部预算可说明。",
       "targeted_validation": "每个小组只验证所改牌；伤痕达到预算后节点与查询规模保持稳定，低档预算更小，目标死亡/换场释放。重击接触与真实扣血对齐，完整目标边界与当前专属主形保留。",
       "implementation": {
@@ -644,7 +644,7 @@
           "path": "src/Core/Models/Cards/promisePile/KarenLanding.cs"
         }
       ],
-      "outcome": "每张牌有独立的形状、节拍或结果交接配置；轻击、挑击、多段和群攻共用底层绘制工具。",
+      "outcome": "8张单体使用局部剑路；4张群攻每轮覆盖敌方阵列，逐目标只确认真实接触；移除亮芯与跨场直射线。",
       "steps": [
         {
           "id": "3A",
@@ -654,7 +654,13 @@
             "KarenContinue02",
             "KarenSpin"
           ],
-          "status": "planned"
+          "status": "completed",
+          "completed": "2026-10-30",
+          "evidence": "docs/testing/ordinary-attack-ten-card-refinement-2026-10-30.md",
+          "previous_evidence": "docs/testing/ordinary-attack-batch03-2026-10-30.md",
+          "revision_evidence": "docs/testing/ordinary-attack-semantics-redo-2026-10-30.md",
+          "direction_evidence": "docs/testing/ordinary-attack-direction-2026-10-30.md",
+          "spin_revision_evidence": "docs/testing/spin-flat-redo-2026-10-30.md"
         },
         {
           "id": "3B",
@@ -664,7 +670,12 @@
             "KarenConfront",
             "KarenCounter"
           ],
-          "status": "planned"
+          "status": "completed",
+          "completed": "2026-10-30",
+          "evidence": "docs/testing/ordinary-attack-ten-card-refinement-2026-10-30.md",
+          "previous_evidence": "docs/testing/ordinary-attack-batch03-2026-10-30.md",
+          "revision_evidence": "docs/testing/ordinary-attack-semantics-redo-2026-10-30.md",
+          "direction_evidence": "docs/testing/ordinary-attack-direction-2026-10-30.md"
         },
         {
           "id": "3C",
@@ -674,12 +685,375 @@
             "KarenCourageStrike",
             "KarenLanding"
           ],
-          "status": "planned"
+          "status": "completed",
+          "completed": "2026-10-30",
+          "evidence": "docs/testing/ordinary-attack-ten-card-refinement-2026-10-30.md",
+          "previous_evidence": "docs/testing/ordinary-attack-batch03-2026-10-30.md",
+          "revision_evidence": "docs/testing/ordinary-attack-semantics-redo-2026-10-30.md",
+          "direction_evidence": "docs/testing/ordinary-attack-direction-2026-10-30.md"
         }
       ],
-      "status": "planned",
+      "status": "completed; visually accepted; merge pending",
       "completion_criteria": "12张攻击各有独立配置与短实录；多段/群攻的起势与每击责任明确。",
-      "targeted_validation": "按当前小组检查目标方向/大小、升级、多段与群攻；确认轻重/挑击/群攻各牌配置可辨认，完整/低/关闭有相应反馈。成长牌尺寸和亮度在上限处稳定。"
+      "targeted_validation": "按当前小组检查目标方向/大小、升级、多段与群攻；确认轻重/挑击/群攻各牌配置可辨认，完整/低/关闭有相应反馈。成长牌尺寸和亮度在上限处稳定。",
+      "implementation": {
+        "report": "docs/testing/ordinary-attack-ten-card-refinement-2026-10-30.md",
+        "records": "docs/testing/ordinary-attack-ten-card-refinement-2026-10-30.json",
+        "baseline": "b727ef1b48d561fd4b76a8bd10d96f65a58abe5c",
+        "cards_completed": 12,
+        "cards_changed_this_revision": 10,
+        "protected_cards": [
+          "KarenChargeStrike",
+          "KarenDebut"
+        ],
+        "new_after_recordings": 35,
+        "before_recordings": 25,
+        "verified_recordings": 60,
+        "videos": {
+          "stable": {
+            "combined": {
+              "path": "artifacts/ordinary-ten-polish-20261030/comparison/b03-stable.mp4",
+              "sha256": "b124145f665b7d1c0fe684c3c7188ddf8c92b65d5a6dfd5364f5b7fc9e12d1a6"
+            },
+            "groups": {
+              "3A": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/b03-3a-stable.mp4",
+                  "sha256": "870b43628662a41726d4de37a7453aa463603f21b2ae93594c9a0344f447c448"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_charge_strike.mp4",
+                    "sha256": "8199241394b91e724d5af24c0486ee4e2ebb7214125295fb973d4ad0226b3c9c"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_sword_up.mp4",
+                    "sha256": "edb8fe6dc6d28740e9ee29ac03c0065702032f79982b8df0732a7152c3e19312"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_continue02.mp4",
+                    "sha256": "8468e6780479c0938d1ff0d37dd71e17b456a3fff7eb0a17a176b6b2b73d653a"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_spin.mp4",
+                    "sha256": "d119dd1373f73fd00c32ed8fa1bb95180e28b4c14e7fd7c59336b58e8e8e76bd"
+                  }
+                ]
+              },
+              "3B": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/b03-3b-stable.mp4",
+                  "sha256": "855db64497e3cd1ecadfbc70075273cbca902e18003c54733e1c10c2a8ef7907"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_debut.mp4",
+                    "sha256": "de206ec1356efe1adb9cfeece40dd5c181494db59bfc1bbe8c66e5c387f45b65"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_holy_star.mp4",
+                    "sha256": "6e85bb2d8cb2730199e3d1aa67f3d9148a8af1a51bd1d5ecca4b8a25704b96bd"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_confront.mp4",
+                    "sha256": "ad55bf40eddc3229fe0a0d65d88a7d8b126d89194b9f744f2e0f7ff29d809dbf"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_counter.mp4",
+                    "sha256": "60826a04840d3bcd41a72165d916d125f4d1913545ad45f4151351221b854990"
+                  }
+                ]
+              },
+              "3C": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/b03-3c-stable.mp4",
+                  "sha256": "f04c855159fdc1d3e53d90fba0d7a39f15f3cb8f9b596fffc9467058a4f46394"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_star_friend.mp4",
+                    "sha256": "44f4dd71cc3bd6bfc5433f71db0147bfb26e73cfc00594e9cf46204087791535"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_consciousness.mp4",
+                    "sha256": "1321ef06020c110f76ccff23571303aed1f58a7dc7ffcb404cd16c9f525fddb9"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_courage_strike.mp4",
+                    "sha256": "ab6be8c41ab16443d723c33e8bfbb389bef3ff83528a7a65d8e006733e050e3c"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_landing.mp4",
+                    "sha256": "54872ea5f1f5aac5f15a6f04572d182fe2aaf78656b83a226c9828da0bc96435"
+                  }
+                ]
+              }
+            }
+          },
+          "beta": {
+            "combined": {
+              "path": "artifacts/ordinary-ten-polish-20261030/comparison/b03-beta.mp4",
+              "sha256": "5f13f2f246fa5304572c97e49168f02b5a4bf19fbe09de796c084e714531688b"
+            },
+            "groups": {
+              "3A": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/b03-3a-beta.mp4",
+                  "sha256": "0c4f0d4abedda559055b576017d3759b61a4a89dbc00e8dcf5985bc58df77535"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_charge_strike.mp4",
+                    "sha256": "2b2d9eaa78f1dcad973f7a0a10db59ff80697fc7d4ea0e3dd5d2fd658f667ccb"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_sword_up.mp4",
+                    "sha256": "0fcf9f34e10278050a645c73d7f48911cc4223bf211b9a2d94ea97b2aac7a939"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_continue02.mp4",
+                    "sha256": "c468df6b10c568ceb99dfa51596dcb093c993d4629a475365d416f820bf0e6e3"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_spin.mp4",
+                    "sha256": "bba3e442ad6f093017e66457c5c25b1c0b3281cbf1e6d1fc5fa359fda2a11c6d"
+                  }
+                ]
+              },
+              "3B": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/b03-3b-beta.mp4",
+                  "sha256": "d101f52f921877acda756ffe1abc260f707043160c083ccc997d3bfa5d22ca03"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_debut.mp4",
+                    "sha256": "a470063383f968f1667c8e28225f04577c39ab9f4771e542069614247b6873bf"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_holy_star.mp4",
+                    "sha256": "a8a3e5c3a0c69457acbad63f73d00a1082c09cc4a2910c5511ade1350d10b416"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_confront.mp4",
+                    "sha256": "2976c5d07c99137af07949ef5c9c78c4c351964d5e09d8b55a73f32532684038"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_counter.mp4",
+                    "sha256": "b50e33052c9d02a2444d02d727d348c3f34c3967ab74c39bff6a44706039e1e8"
+                  }
+                ]
+              },
+              "3C": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/b03-3c-beta.mp4",
+                  "sha256": "5ee65214c9cfa90acf4951400923c0522c15051f93006bf42f43da6ab088a1ba"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_star_friend.mp4",
+                    "sha256": "82c7074d3bea13c4c21cbb83495fecbe310c9ba31dcd756a0af56c301161043a"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_consciousness.mp4",
+                    "sha256": "cea6c55c2c0be9a6d9e3820e7fe51c27b000aa890c6b4c484423aa3e1006464a"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_courage_strike.mp4",
+                    "sha256": "8f07972fa5715d0c9a68861b1cc7b425f5fc62c2df0764aace7423d3f6596ecd"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_landing.mp4",
+                    "sha256": "217891ace29e71c3a5200994f928f7400b1e647fb6cd43c23b69486f02d138e0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "presentation_videos": {
+          "stable": {
+            "combined": {
+              "path": "artifacts/ordinary-ten-polish-20261030/comparison/remaining-ten-stable.mp4",
+              "sha256": "d00b9b46f5dca8cc87af125a52e957ed6b44e93b6efa5f0cec05922a4f102196"
+            },
+            "groups": {
+              "3A": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/remaining-ten-3a-stable.mp4",
+                  "sha256": "9c5421ebffea5eb94ec826e1d4769b91a622bd26f1129517812984e21696f016"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_sword_up.mp4",
+                    "sha256": "edb8fe6dc6d28740e9ee29ac03c0065702032f79982b8df0732a7152c3e19312"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_continue02.mp4",
+                    "sha256": "8468e6780479c0938d1ff0d37dd71e17b456a3fff7eb0a17a176b6b2b73d653a"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_spin.mp4",
+                    "sha256": "d119dd1373f73fd00c32ed8fa1bb95180e28b4c14e7fd7c59336b58e8e8e76bd"
+                  }
+                ]
+              },
+              "3B": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/remaining-ten-3b-stable.mp4",
+                  "sha256": "87d3d12d49f342b5bbde284c887b868211df80acf5fe643b8940204d166a75bc"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_holy_star.mp4",
+                    "sha256": "6e85bb2d8cb2730199e3d1aa67f3d9148a8af1a51bd1d5ecca4b8a25704b96bd"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_confront.mp4",
+                    "sha256": "ad55bf40eddc3229fe0a0d65d88a7d8b126d89194b9f744f2e0f7ff29d809dbf"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_counter.mp4",
+                    "sha256": "60826a04840d3bcd41a72165d916d125f4d1913545ad45f4151351221b854990"
+                  }
+                ]
+              },
+              "3C": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/remaining-ten-3c-stable.mp4",
+                  "sha256": "f04c855159fdc1d3e53d90fba0d7a39f15f3cb8f9b596fffc9467058a4f46394"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_star_friend.mp4",
+                    "sha256": "44f4dd71cc3bd6bfc5433f71db0147bfb26e73cfc00594e9cf46204087791535"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_consciousness.mp4",
+                    "sha256": "1321ef06020c110f76ccff23571303aed1f58a7dc7ffcb404cd16c9f525fddb9"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_courage_strike.mp4",
+                    "sha256": "ab6be8c41ab16443d723c33e8bfbb389bef3ff83528a7a65d8e006733e050e3c"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/stable-full-karen_landing.mp4",
+                    "sha256": "54872ea5f1f5aac5f15a6f04572d182fe2aaf78656b83a226c9828da0bc96435"
+                  }
+                ]
+              }
+            }
+          },
+          "beta": {
+            "combined": {
+              "path": "artifacts/ordinary-ten-polish-20261030/comparison/remaining-ten-beta.mp4",
+              "sha256": "93cb98cfb475b046c23fd986f2f3d119ba90d875357a9e8cf9797897976aaab4"
+            },
+            "groups": {
+              "3A": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/remaining-ten-3a-beta.mp4",
+                  "sha256": "31836e1ba5447b1fbbc2642288b28aeb1d9bf0ad6fa6702268a59c7dc9dfa413"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_sword_up.mp4",
+                    "sha256": "0fcf9f34e10278050a645c73d7f48911cc4223bf211b9a2d94ea97b2aac7a939"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_continue02.mp4",
+                    "sha256": "c468df6b10c568ceb99dfa51596dcb093c993d4629a475365d416f820bf0e6e3"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_spin.mp4",
+                    "sha256": "bba3e442ad6f093017e66457c5c25b1c0b3281cbf1e6d1fc5fa359fda2a11c6d"
+                  }
+                ]
+              },
+              "3B": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/remaining-ten-3b-beta.mp4",
+                  "sha256": "6b36a9244703ed64b1168ff6511abb0a9c4910a8c123fd3faa9967c3cbd15902"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_holy_star.mp4",
+                    "sha256": "a8a3e5c3a0c69457acbad63f73d00a1082c09cc4a2910c5511ade1350d10b416"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_confront.mp4",
+                    "sha256": "2976c5d07c99137af07949ef5c9c78c4c351964d5e09d8b55a73f32532684038"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_counter.mp4",
+                    "sha256": "b50e33052c9d02a2444d02d727d348c3f34c3967ab74c39bff6a44706039e1e8"
+                  }
+                ]
+              },
+              "3C": {
+                "video": {
+                  "path": "artifacts/ordinary-ten-polish-20261030/comparison/remaining-ten-3c-beta.mp4",
+                  "sha256": "5ee65214c9cfa90acf4951400923c0522c15051f93006bf42f43da6ab088a1ba"
+                },
+                "segments": [
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_star_friend.mp4",
+                    "sha256": "82c7074d3bea13c4c21cbb83495fecbe310c9ba31dcd756a0af56c301161043a"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_consciousness.mp4",
+                    "sha256": "cea6c55c2c0be9a6d9e3820e7fe51c27b000aa890c6b4c484423aa3e1006464a"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_courage_strike.mp4",
+                    "sha256": "8f07972fa5715d0c9a68861b1cc7b425f5fc62c2df0764aace7423d3f6596ecd"
+                  },
+                  {
+                    "path": "artifacts/ordinary-ten-polish-20261030/comparison/beta-full-karen_landing.mp4",
+                    "sha256": "217891ace29e71c3a5200994f928f7400b1e647fb6cd43c23b69486f02d138e0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "fatal_video": {
+          "path": "artifacts/ordinary-ten-polish-20261030/comparison/friend-fatal-stable.mp4",
+          "sha256": "a40f98b78235b39a43f2429408153420c3ad91d130e5c446021dba40bc772ef1"
+        },
+        "previous_evidence": "docs/testing/ordinary-attack-direction-2026-10-30.md",
+        "integration": "main remains fc16623; visually accepted; merge confirmation pending; worktree retained",
+        "spin_followup": {
+          "report": "docs/testing/spin-flat-redo-2026-10-30.md",
+          "records": "docs/testing/spin-flat-redo-2026-10-30.json",
+          "baseline": "6c0b1f30a25f176de092692dcb33e86ced0b7951",
+          "changed_cards": [
+            "KarenSpin"
+          ],
+          "new_after_recordings": 5,
+          "before_recordings": 4,
+          "verified_recordings": 9,
+          "videos": {
+            "stable": {
+              "path": "artifacts/spin-flat-20261030/comparison/spin-flat-stable.mp4",
+              "sha256": "b2a7fbed028ffff2763f183eb463e7cba3b6f3d2ea7502ddf14f6049b2b8011e"
+            },
+            "beta": {
+              "path": "artifacts/spin-flat-20261030/comparison/spin-flat-beta.mp4",
+              "sha256": "47575b531740649442f34d0a3ee3add063c5562aaf2fb367db43e2363a63671f"
+            },
+            "low": {
+              "path": "artifacts/spin-flat-20261030/comparison/spin-low-stable.mp4",
+              "sha256": "1174c34370c6dda4e610677bb6447d81af4f55128bfd28163e4eb035574ac152"
+            },
+            "growth": {
+              "path": "artifacts/spin-flat-20261030/comparison/spin-growth-stable.mp4",
+              "sha256": "48ae1f0d8d830242c37ac320ede1684a8633bf5877a667bfc78c3f2c50068397"
+            }
+          },
+          "status": "visually accepted 2026-10-30; merge pending"
+        }
+      }
     },
     {
       "id": "B04",

@@ -9,6 +9,10 @@ p.add_argument('--cases', default='full')
 p.add_argument('--cards', default='')
 p.add_argument('--port', type=int, required=True)
 p.add_argument('--max-body-offset', type=float)
+p.add_argument('--ordinary', action='store_true')
+p.add_argument('--semantics', action='store_true')
+p.add_argument('--directions', action='store_true')
+p.add_argument('--case-plan', type=pathlib.Path)
 a = p.parse_args()
 project = pathlib.Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(project/'tools/vfx/six-card'))
@@ -85,7 +89,7 @@ else:
 build={name:hashlib.sha256((package/name).read_bytes()).hexdigest() for name in
     ['lib/ShoujoKagekiAijoKaren.'+a.environment.title()+'.dll','ShoujoKagekiAijoKaren.pck']}
 save(out/'build.json',build)
-results=[r for r in json.loads((out/'results.json').read_text(encoding='utf-8')) if r['mode'] not in a.cases.split(',')] if (out/'results.json').exists() else []
+results=json.loads((out/'results.json').read_text(encoding='utf-8')) if (out/'results.json').exists() else []
 try:
     desktop=TestDesktop();env=os.environ.copy()
     env.update(APPDATA=str(dev/'user/AppData/Roaming'),LOCALAPPDATA=str(dev/'user/AppData/Local'),STS2_MCP_FFMPEG=shutil.which('ffmpeg'))
@@ -103,14 +107,23 @@ try:
     wait(lambda s: s.get('player') and (s.get('battle',{}).get('is_play_phase') or s.get('state_type') in ('map','rewards')))
     time.sleep(1)
     cards=['KAREN_SHINE_TOGETHER','KAREN_NONON','KAREN_SHINE_STRIKE_BARRAGE','KAREN_BACK_TO_BACK_CARD','KAREN_BASEBALL','KAREN_JEALOUSY','KAREN_CARRYING_GUILT']
+    definitions=json.loads((project/'tools/vfx/ordinary-cards/cards.json').read_text(encoding='utf-8'))
+    if a.ordinary:cards=[r['id'] for r in definitions]
+    area_cards={r['id'] for r in definitions if r.get('target_type')=='AllEnemies'}
+    ordinary_modes={'low':['KAREN_SWORD_UP','KAREN_SPIN','KAREN_HOLY_STAR','KAREN_CONSCIOUSNESS'],'upgrade':['KAREN_SWORD_UP','KAREN_DEBUT','KAREN_CONFRONT'],'growth':['KAREN_CONTINUE02','KAREN_SPIN'],'area':['KAREN_DEBUT','KAREN_COUNTER','KAREN_COURAGE_STRIKE','KAREN_LANDING'],'lethal':['KAREN_STAR_FRIEND'],'fast':['KAREN_DEBUT'],'instant':['KAREN_CONFRONT'],'off':['KAREN_SWORD_UP','KAREN_CONSCIOUSNESS'],'replay':['KAREN_CHARGE_STRIKE'],'mirror':['KAREN_SWORD_UP'],'cancel':['KAREN_DEBUT'],'bounds':['KAREN_SWORD_UP','KAREN_LANDING'],'regression':['KAREN_NONON']}
+    if a.semantics:
+        ordinary_modes.update(low=['KAREN_CHARGE_STRIKE','KAREN_DEBUT','KAREN_SWORD_UP','KAREN_CONSCIOUSNESS'],upgrade=['KAREN_DEBUT'],replay=['KAREN_CONFRONT'],off=['KAREN_CHARGE_STRIKE','KAREN_DEBUT'],instant=['KAREN_DEBUT'],bounds=['KAREN_LANDING'])
+    if a.directions:ordinary_modes.update(low=['KAREN_SWORD_UP','KAREN_DEBUT'],mirror=['KAREN_SWORD_UP','KAREN_DEBUT'])
+    if a.case_plan:ordinary_modes.update(json.loads(a.case_plan.read_text(encoding='utf-8')))
     for mode in a.cases.split(','):
         quality='Low' if mode in ('low','budget_low') else 'Off' if mode=='off' else 'Full'
         speed=mode if mode in ('fast','instant') else 'normal'
         chosen=a.cards.split(',') if a.cards else {'upgrade':['KAREN_SHINE_STRIKE_BARRAGE'],'stock':['KAREN_BACK_TO_BACK_CARD'],'stress':['KAREN_SHINE_TOGETHER'],'area':['KAREN_NONON'],'replay':['KAREN_CARRYING_GUILT'],'hover':['KAREN_CARRYING_GUILT'],'mirror':['KAREN_JEALOUSY'],'cancel':['KAREN_NONON'],'budget':['KAREN_SHINE_TOGETHER'],'budget_low':['KAREN_SHINE_TOGETHER'],'fast':['KAREN_SHINE_STRIKE_BARRAGE'],'instant':['KAREN_SHINE_STRIKE_BARRAGE'],'off':['KAREN_NONON','KAREN_CARRYING_GUILT']}.get(mode,cards)
+        if a.ordinary and not a.cards:chosen=ordinary_modes.get(mode,cards)
         for cardid in chosen:
             folder=out/(mode+'-'+cardid.lower()); folder.mkdir(exist_ok=True)
             cmd('heavy_probe speed normal'); cmd('heavy_probe quality '+quality)
-            cmd('fight '+('KNIGHTS_ELITE' if mode in ('area','budget','budget_low') else 'WATERFALL_GIANT_BOSS'))
+            cmd('fight '+('KNIGHTS_ELITE' if mode in ('area','lethal','budget','budget_low') or (a.semantics and cardid in area_cards) else 'WATERFALL_GIANT_BOSS'))
             wait(lambda s:s.get('battle',{}).get('is_play_phase'))
             time.sleep(1)
             cleanup=json.loads(cmd('heavy_probe status')['message'])
@@ -118,10 +131,11 @@ try:
             assert not cleanup['effects'],cleanup
             assert all(cleanup['exited'].get(k,0)>=v for k,v in cleanup['spawned'].items()),cleanup
             snapshot(folder,'fixture-before')
-            seedmode=mode if mode in ('upgrade','last','stress','stock','replay') else ''
+            seedmode=mode if mode in ('upgrade','last','stress','stock','replay','growth') else ''
             cmd('heavy_probe seed '+cardid+' '+seedmode)
             wait(lambda s:len(s['player']['hand'])==1 and any(c['id']==cardid for c in s['player']['hand']))
-            if mode=='mirror':cmd('heavy_probe mirror')
+            if mode=='mirror':cmd('heavy_probe '+('left' if a.ordinary else 'mirror'))
+            if mode=='bounds':cmd('heavy_probe size 0.65')
             if mode=='lethal':cmd('heavy_probe lethal')
             if mode=='hover':
                 cmd('heavy_probe focus');time.sleep(.5)
@@ -164,6 +178,24 @@ try:
             if 'bodyZ' in status:assert status['bodyZ']==before_status['bodyZ'] and status['bodyRelative']==before_status['bodyRelative'],status
             if a.phase=='after' and 'NKarenStageAttackVfx' in status['spawned'] and mode!='cancel':assert status['poseFrames']>0 and status['maxAttackOffset']>(1 if a.max_body_offset is not None else 5),status
             if a.phase=='after' and a.max_body_offset is not None:assert status['maxAttackOffset']<=a.max_body_offset,status
+            if a.ordinary and a.phase=='after' and quality!='Off' and speed!='instant':
+                rounds={'KAREN_DEBUT':3,'KAREN_HOLY_STAR':2,'KAREN_CONFRONT':3,'KAREN_COUNTER':3}.get(cardid,1)
+                if mode=='upgrade' and cardid in ('KAREN_DEBUT','KAREN_CONFRONT'):rounds+=1
+                enemies=len(before['battle']['enemies']) if selected['target_type']=='AllEnemies' else 1
+                expected_contacts=rounds*enemies*(3 if mode=='replay' else 1)
+                if mode!='cancel':assert status['totalContacts']==expected_contacts,(cardid,mode,status,expected_contacts)
+                assert status['spawned'].get('NKarenStageAttackVfx')==(3 if mode=='replay' else 1),(cardid,mode,status)
+                if cardid=='KAREN_CONSCIOUSNESS':assert status['returnCueFrames']>0,status
+                if mode=='lethal':assert status['fatalCueFrames']>0,status
+                if mode=='growth':assert status['maxProfileGrowth']==1,status
+                if a.semantics and cardid in area_cards and mode!='cancel':
+                    assert status['totalGroupWaves']==rounds*(3 if mode=='replay' else 1),(cardid,mode,status)
+                    assert status['maxGroupSpan']>status['maxTargetWidth']*1.15,(cardid,mode,status)
+                    if a.directions:
+                        assert len(status['groupDirections'])==rounds
+                        for path in status['groupDirections']:
+                            assert path['dx']*path['side']>0,(cardid,mode,path)
+                            if cardid!='KAREN_LANDING':assert path['dy']*(-1 if path['round']%2==0 else 1)>0,(cardid,mode,path)
             if cardid=='KAREN_BASEBALL':
                 powers={p['id']:p['amount'] for p in status['powers']}
                 assert sum(1 for amount in powers.values() if amount==2)>=4,powers
@@ -173,6 +205,7 @@ try:
             if quality=='Off' or speed=='instant':assert not status['spawned'],status
             result=dict(mode=mode,card=cardid,quality=quality,speed=speed,damage=damage,block=block,passed=True,
                 elapsed=time.monotonic()-begin,recording=rec,build=build,status=status,before_status=before_status)
+            results=[r for r in results if (r['mode'],r['card'])!=(mode,cardid)]
             results.append(result);save(out/'results.json',results)
             print(a.phase,a.environment,mode,cardid,'passed',flush=True)
 finally:

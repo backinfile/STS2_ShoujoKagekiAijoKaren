@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -29,11 +30,13 @@ public sealed class KarenHolyStar : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (cardPlay.Target == null) return;
+        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.HolyStar, count: DynamicVars.Repeat.IntValue, potency: (float)DynamicVars.Damage.BaseValue);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.Repeat.IntValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(show.Start)
+            .WithHitVfxNode(show.Hit)
             .Execute(choiceContext);
     }
 

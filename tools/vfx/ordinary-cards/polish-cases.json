@@ -1,0 +1,23 @@
+{
+  "low": [
+    "KAREN_SPIN",
+    "KAREN_CONFRONT",
+    "KAREN_COUNTER",
+    "KAREN_LANDING"
+  ],
+  "lethal": [
+    "KAREN_STAR_FRIEND"
+  ],
+  "mirror": [
+    "KAREN_SWORD_UP",
+    "KAREN_COURAGE_STRIKE",
+    "KAREN_CONSCIOUSNESS"
+  ],
+  "fast": [
+    "KAREN_CONFRONT"
+  ],
+  "growth": [
+    "KAREN_CONTINUE02",
+    "KAREN_SPIN"
+  ]
+}

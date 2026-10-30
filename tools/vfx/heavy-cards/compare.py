@@ -1,9 +1,10 @@
 """Pair B02 real recordings; preserve originals and publish relative evidence paths."""
 import argparse, hashlib, json, os, pathlib, subprocess
-p=argparse.ArgumentParser();p.add_argument('--root',type=pathlib.Path,required=True);p.add_argument('--environment',choices=['stable','beta'],required=True);p.add_argument('--cards',default='');p.add_argument('--mode',default='full');p.add_argument('--label',default='B02');p.add_argument('--name',default='batch02');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--root',type=pathlib.Path,required=True);p.add_argument('--environment',choices=['stable','beta'],required=True);p.add_argument('--cards',default='');p.add_argument('--mode',default='full');p.add_argument('--label',default='B02');p.add_argument('--name',default='batch02');p.add_argument('--ordinary',action='store_true');a=p.parse_args()
 root=a.root.resolve();out=root/'comparison';out.mkdir(exist_ok=True)
 font=(pathlib.Path(os.environ['WINDIR'])/'Fonts/msyh.ttc').as_posix().replace(':',r'\:')
 entries=[('KAREN_SHINE_TOGETHER','永不遗忘的闪耀'),('KAREN_NONON','NONNON哒哟'),('KAREN_SHINE_STRIKE_BARRAGE','用你的闪耀贯穿我吧'),('KAREN_BACK_TO_BACK_CARD','背靠背'),('KAREN_BASEBALL','棒球'),('KAREN_JEALOUSY','嫉妒'),('KAREN_CARRYING_GUILT','我们犯下的罪过')]
+if a.ordinary:entries=[(r['id'],r['title']) for r in json.loads((pathlib.Path(__file__).resolve().parents[1]/'ordinary-cards/cards.json').read_text(encoding='utf-8'))]
 if a.cards: entries=[entry for entry in entries if entry[0] in a.cards.split(',')]
 else: entries=entries
 def run(args): subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y',*args],check=True)

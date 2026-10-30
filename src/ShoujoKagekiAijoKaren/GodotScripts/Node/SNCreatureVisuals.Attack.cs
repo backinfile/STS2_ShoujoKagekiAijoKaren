@@ -56,6 +56,10 @@ public partial class SNCreatureVisuals
         _attackOffset = _attackCanvasOffset = Vector2.Zero; _attackLean = 0;
         ApplyKarenAttack();
     }
+    internal void ExpectKarenAttackAnimation(uint ticket)
+    {
+        if (OwnsKarenAttack(ticket)) _attackAwaitingNativeStart = true;
+    }
     private void OnKarenAttackNativeAnimation(StringName animation)
     {
         if (animation == "idle") return;

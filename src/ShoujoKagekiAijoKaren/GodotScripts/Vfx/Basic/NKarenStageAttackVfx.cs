@@ -13,13 +13,25 @@ using ShoujoKagekiAijoKaren.Core;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
-internal enum KarenAttackStyle { Unforgotten, Sweep, Barrage, Twin, Baseball, Jealousy, Guilt }
+internal enum KarenAttackStyle { Unforgotten, Sweep, Barrage, Twin, Baseball, Jealousy, Guilt, Charge, Upcut, Destiny, Spin, Debut, HolyStar, Confront, Counter, StarFriend, Consciousness, Courage, Landing }
 
 /// <summary>A per-native-play handle. It never schedules, delays or repeats a game command.</summary>
-internal sealed class KarenAttackCue(Creature owner, Creature? target, KarenAttackStyle style, int count = 1, int stock = 0) : IDisposable
+internal sealed class KarenAttackCue(Creature owner, Creature? target, KarenAttackStyle style, int count = 1, int stock = 0, float potency = 0) : IDisposable
 {
     private NKarenStageAttackVfx? _node;
-    internal Node2D? Start() => _node = NKarenStageAttackVfx.Create(owner, target, style, count, stock);
+    private bool _started;
+    internal Node2D? Start()
+    {
+        if (_started)
+        {
+            if (GodotObject.IsInstanceValid(_node) && _node!.IsInsideTree() && !_node.IsQueuedForDeletion()) _node.ExpectNextNativeAnimation();
+            return null;
+        }
+        _started = true;
+        return _node = NKarenStageAttackVfx.Create(owner, target, style, count, stock, potency);
+    }
+    internal void ConfirmFatal() { if (GodotObject.IsInstanceValid(_node) && _node!.IsInsideTree() && !_node.IsQueuedForDeletion()) _node.MarkFatal(); }
+    internal void ConfirmBlock() { if (GodotObject.IsInstanceValid(_node) && _node!.IsInsideTree() && !_node.IsQueuedForDeletion()) _node.MarkBlock(); }
     internal Node2D? Hit(Creature victim)
     {
         if (GodotObject.IsInstanceValid(_node) && _node!.IsInsideTree() && !_node.IsQueuedForDeletion()) _node.Contact(victim);
@@ -34,7 +46,7 @@ internal sealed class KarenAttackCue(Creature owner, Creature? target, KarenAtta
 /// <summary>Actor-led, bounded attack choreography. Native callbacks own every real contact.</summary>
 public partial class NKarenStageAttackVfx : Node2D
 {
-    private struct ContactCue { public Vector2 Point, Hilt; public float At; public int Index; public bool Active; }
+    private struct ContactCue { public Vector2 Point, Hilt, Floor, Size; public float At; public int Index, Round; public bool Active; }
     private static readonly Vector2[] Circle = new Vector2[33];
     private static bool _prepared;
     internal static void PrepareResources()
@@ -58,23 +70,23 @@ public partial class NKarenStageAttackVfx : Node2D
     private Vector2 _baseHilt, _hilt, _aim;
     private float _age, _speed = 1, _unit = 1, _side = 1, _firstHit = -1, _lastHit = -1, _finish = -1;
     private int _hits, _expected, _stock;
-    private float Wind => _style switch { KarenAttackStyle.Sweep => .66f, KarenAttackStyle.Barrage => .27f, KarenAttackStyle.Twin => .34f, KarenAttackStyle.Baseball => .35f, KarenAttackStyle.Jealousy => .5f, KarenAttackStyle.Guilt => .28f, _ => .2f };
+    private float Wind => IsOrdinary ? .15f : _style switch { KarenAttackStyle.Sweep => .66f, KarenAttackStyle.Barrage => .27f, KarenAttackStyle.Twin => .34f, KarenAttackStyle.Baseball => .35f, KarenAttackStyle.Jealousy => .5f, KarenAttackStyle.Guilt => .28f, _ => .2f };
     private static bool Present(Node? n) => GodotObject.IsInstanceValid(n) && n!.IsInsideTree() && !n.IsQueuedForDeletion();
     private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     private static float E(float age, float start, float end) => Mathf.SmoothStep(0, 1, Mathf.Clamp((age - start) / (end - start), 0, 1));
     private static Color Tint(Color color, float alpha) => new(color, Mathf.Clamp(alpha, 0, 1));
 
-    internal static NKarenStageAttackVfx? Create(Creature owner, Creature? target, KarenAttackStyle style, int count, int stock)
+    internal static NKarenStageAttackVfx? Create(Creature owner, Creature? target, KarenAttackStyle style, int count, int stock, float potency)
     {
         var room = NCombatRoom.Instance;
         if (!Enabled || !Present(room) || !CombatManager.Instance.IsInProgress || room!.GetCreatureNode(owner) is not {} view) return null;
         var targets = target != null ? new[] { target } : owner.CombatState!.GetOpponentsOf(owner).Where(c => c.IsAlive).ToArray();
-        return new NKarenStageAttackVfx { _room = room, _sourceView = view, _style = style, _expected = count, _stock = stock,
+        return new NKarenStageAttackVfx { _room = room, _sourceView = view, _style = style, _expected = count, _stock = stock, _power = potency,
             _targets = targets.Select(room.GetCreatureNode).OfType<NCreature>().Take(8).ToArray() };
     }
     public override void _Ready()
     {
-        Name = "KarenAttack" + _style; TopLevel = true; GlobalTransform = Transform2D.Identity; ZIndex = 18;
+        Name = "KarenAttack" + _style; TopLevel = true; GlobalTransform = Transform2D.Identity; ZIndex = IsOrdinary ? 26 : 18;
         PrepareResources();
         _speed = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1 / .7f : 1;
         _sourceBounds = Bounds(_sourceView); _unit = Mathf.Clamp(_sourceBounds.Size.Y / 240, .4f, 1.8f);
@@ -87,6 +99,7 @@ public partial class NKarenStageAttackVfx : Node2D
                 foreach (var target in _targets)
                 { var at = Bounds(target).GetCenter(); if ((at.X - _aim.X) * _side > 0) _aim = at; }
         }
+        if (IsOrdinary) UpdateOrdinaryArea();
         _actor = _sourceView.Visuals as SNCreatureVisuals;
         if (_actor != null) _pose = _actor.BeginKarenAttack(_style != KarenAttackStyle.Jealousy);
         AdvanceBody();
@@ -103,9 +116,13 @@ public partial class NKarenStageAttackVfx : Node2D
         if (_firstHit < 0) _firstHit = _age;
         _lastHit = _age;
         var bounds = Bounds(view!);
+        int targetIndex = Array.IndexOf(_targets, view);
+        int round = targetIndex >= 0 ? _targetHits[targetIndex]++ : 0;
         var cue = new ContactCue { Point = bounds.GetCenter() - new Vector2(_style == KarenAttackStyle.Guilt ? 0 : _side * bounds.Size.X * .12f, 0),
-            Hilt = _hilt, At = _age, Index = _hits++, Active = true };
+            Hilt = _hilt, Size = bounds.Size, Floor = new Vector2(bounds.GetCenter().X, bounds.End.Y - 12 * _unit), At = _age, Index = _hits++, Round = round, Active = true };
         _contacts[cue.Index % _contacts.Length] = cue;
+        _outcomePoint = cue.Point;
+        if (IsOrdinaryAoe) ConfirmGroupWave(cue.Round);
         if (_style is KarenAttackStyle.Baseball or KarenAttackStyle.Jealousy or KarenAttackStyle.Barrage)
             NDebugAudioManager.Instance?.Play(_style == KarenAttackStyle.Baseball ? "blunt_attack.mp3" : "slash_attack.mp3", .45f);
         AdvanceBody(); KarenVfxQuality.Redraw(this);
@@ -143,7 +160,7 @@ public partial class NKarenStageAttackVfx : Node2D
             || !CombatManager.Instance.IsInProgress || _sourceView.Entity.IsDead || _age > 30
             || (GodotObject.IsInstanceValid(_actor) && !_actor!.OwnsKarenAttack(_pose))
             || (_finish >= 0 && _age - _finish > tail)
-            || (_style != KarenAttackStyle.Barrage && _firstHit >= 0 && _age - _firstHit > Mathf.Max(.46f, tail)))
+            || (!IsOrdinary && _style != KarenAttackStyle.Barrage && _firstHit >= 0 && _age - _firstHit > Mathf.Max(.46f, tail)))
         { Hide(); QueueFree(); return; }
         AdvanceBody(); KarenVfxQuality.Redraw(this);
     }
@@ -151,6 +168,14 @@ public partial class NKarenStageAttackVfx : Node2D
     public override void _Draw()
     {
         _geometry.Clear();
+        if (IsOrdinary)
+        {
+            DrawOrdinaryGroups();
+            foreach (var cue in _contacts) if (cue.Active) DrawOrdinaryContact(cue);
+            DrawOrdinaryOutcome();
+            _geometry.Flush(this);
+            return;
+        }
         if (_firstHit < 0) DrawPreparation();
         if (_style == KarenAttackStyle.Baseball) DrawBallFlight();
         if (_style == KarenAttackStyle.Sweep && _firstHit >= 0)

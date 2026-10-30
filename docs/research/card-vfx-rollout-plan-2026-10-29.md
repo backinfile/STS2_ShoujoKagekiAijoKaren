@@ -96,9 +96,9 @@
 | 批次 | 范围 | 数量 | 前置批次 | 状态 |
 | --- | --- | ---: | --- | --- |
 | B00 | 入口、锚点、预算与预览准备 | — | — | 1A所需准备完成 |
-| B01 | 基础牌专属表现 | 5 | B00 | 完成5/5，待合并 |
-| B02 | 重击与常驻伤痕 | 7 | B01 | 原地动作版7/7，待观感复核 |
-| B03 | 普通攻击差异化 | 12 | B01、B02 | 待实施 |
+| B01 | 基础牌专属表现 | 5 | B00 | 5/5，已合并main |
+| B02 | 重击与常驻伤痕 | 7 | B01 | 7/7，已合并main |
+| B03 | 普通攻击差异化 | 12 | B01、B02 | 12/12，观感已确认，待合并 |
 | B04 | 自动出牌连锁与规则节拍 | 7 | B02、B03 | 待实施 |
 | B05 | 约定牌堆与真实移牌 | 19 | B01、B04 | 待实施 |
 | B06 | 选牌与来源选项 | 20 | B05 | 待实施 |
@@ -176,38 +176,42 @@ NONNON随后[恢复旧版粒子专层](../testing/nonon-particle-restore-2026-10
 
 ### B03 普通攻击差异化
 
+3A/3B/3C共12张已完成，逐牌设计、双版本前后录像与定向结果见[第三批逐卡细化](../testing/ordinary-attack-ten-card-refinement-2026-10-30.md)。人物采用原地小幅动作，NONNON粒子保留，当前观感已确认，待main合并。
+
 **目标**：每张牌有独立的形状、节拍或结果交接配置；轻击、挑击、多段和群攻共用底层绘制工具。
 
 **完成标准**：12张攻击各有独立配置与短实录；多段/群攻的起势与每击责任明确。
 
 **必要验证**：按当前小组检查目标方向/大小、升级、多段与群攻；确认轻重/挑击/群攻各牌配置可辨认，完整/低/关闭有相应反馈。成长牌尺寸和亮度在上限处稳定。
 
+旋转后续按“不要那么圆”改为目标正面的开放扁弧，当前对比见[旋转重做](../testing/spin-flat-redo-2026-10-30.md)。
+
 #### 小组3A（4张）
 
 | 卡牌 / 源码 | 本组设计或优化目标 |
 | --- | --- |
-| [蓄力打击](../../src/Core/Models/Cards/shine/KarenChargeStrike.cs)<br>`KarenChargeStrike` | 轻型蓄力亮芯与末端图标确认共用攻击家族；前摇保持短，别把每次重播都做满起势。 |
+| [蓄力打击](../../src/Core/Models/Cards/shine/KarenChargeStrike.cs)<br>`KarenChargeStrike` | 短收剑后低起高收向敌方厚斩，移除亮芯与跨场直射线；减力量保留真实图标。 |
 | [上挑](../../src/Core/Models/Cards/shine/KarenSwordUp.cs)<br>`KarenSwordUp` | 一条向上挑击主形，两个减益只脉冲真实图标；复用小刀光材质。 |
-| [永无结束的命运舞台](../../src/Core/Models/Cards/shine/KarenContinue02.cs)<br>`KarenContinue02` | 根据伤害/升级做封顶的宽度与亮度映射；高数值仍保持单个短接触。 |
-| [旋转](../../src/Core/Models/Cards/globalMove/KarenSpin.cs)<br>`KarenSpin` | 数字成长用同帧一次短脉冲；逐移牌日志可改调试级，重击大小用封顶映射。 |
+| [永无结束的命运舞台](../../src/Core/Models/Cards/shine/KarenContinue02.cs)<br>`KarenContinue02` | 根据伤害/升级做封顶的刀路宽度映射；高数值保持单道重斩。 |
+| [旋转](../../src/Core/Models/Cards/globalMove/KarenSpin.cs)<br>`KarenSpin` | 横向开放扁弧与短刀尾表达回旋，成长弧宽封顶，沿用卡面原生数值刷新；移除逐移牌Info日志。 |
 
 #### 小组3B（4张）
 
 | 卡牌 / 源码 | 本组设计或优化目标 |
 | --- | --- |
-| [出场](../../src/Core/Models/Cards/shine/KarenDebut.cs)<br>`KarenDebut` | 核对多段是否重复起势；一份群攻准备配逐击局部刀光，末击收束更清楚。 |
-| [神圣星辰](../../src/Core/Models/Cards/promisePile/KarenHolyStar.cs)<br>`KarenHolyStar` | 第二击仅加短收束，入塔后用费用角标短亮表达降费；两段共用一份准备。 |
-| [对峙](../../src/Core/Models/Cards/token/KarenConfront.cs)<br>`KarenConfront` | 一份短准备配三拍接触，与勇气打击生成链共用主题资源。 |
-| [回击](../../src/Core/Models/Cards/token/KarenCounter.cs)<br>`KarenCounter` | 共用群攻起势与逐击局部反馈；敌人多时限制同时散点，原生击数保留。 |
+| [出场](../../src/Core/Models/Cards/shine/KarenDebut.cs)<br>`KarenDebut` | 全体三轮、升级四轮；每轮近向远覆盖敌方阵列，上下斜斩交替，各目标短命中确认。 |
+| [神圣星辰](../../src/Core/Models/Cards/promisePile/KarenHolyStar.cs)<br>`KarenHolyStar` | 两拍星芒的第二拍转向收束，两段共用一份准备；入塔降费与原生费用角标刷新保留。 |
+| [对峙](../../src/Core/Models/Cards/token/KarenConfront.cs)<br>`KarenConfront` | 三次短刺分别伸出、收回，末刺稍厚，共用一次起势。 |
+| [回击](../../src/Core/Models/Cards/token/KarenCounter.cs)<br>`KarenCounter` | 全体三轮迎向敌方的斜斩，每轮近向远覆盖全阵列，逐目标短命中确认。 |
 
 #### 小组3C（4张）
 
 | 卡牌 / 源码 | 本组设计或优化目标 |
 | --- | --- |
 | [星星串起了我们的友谊](../../src/Core/Models/Cards/shine/KarenStarFriend.cs)<br>`KarenStarFriend` | 加入短小致命星光确认，挂实际WasTargetKilled结果；普通击保持轻量。 |
-| [以觉悟的名义](../../src/Core/Models/Cards/neutral/KarenConsciousness.cs)<br>`KarenConsciousness` | 用目标接触后到角色盾形的短局部回流表达转换；确认格挡后收尾，长度固定上限。 |
-| [勇气打击](../../src/Core/Models/Cards/promisePile/KarenCourageStrike.cs)<br>`KarenCourageStrike` | 共享一次横向起势，每个实际命中保留局部反馈；生成侧身的出生点落在塔边。 |
-| [落地](../../src/Core/Models/Cards/promisePile/KarenLanding.cs)<br>`KarenLanding` | 可共用一次低位冲击起势，命中各敌人局部确认；落地与勇气打击用方向区分。 |
+| [以觉悟的名义](../../src/Core/Models/Cards/neutral/KarenConsciousness.cs)<br>`KarenConsciousness` | 单体斩击后，真实给予格挡才在剑柄附近收回一段短剑痕，沿用原生格挡反馈。 |
+| [勇气打击](../../src/Core/Models/Cards/promisePile/KarenCourageStrike.cs)<br>`KarenCourageStrike` | 全体一轮近向远上斜扫，主刀路覆盖敌方阵列；生成侧身沿用真实入塔演出。 |
+| [落地](../../src/Core/Models/Cards/promisePile/KarenLanding.cs)<br>`KarenLanding` | 全体一轮整排弧刃下压，按真实目标脚部形成落点与少量短碎光；生成回击沿用真实入塔演出。 |
 
 
 ### B04 自动出牌连锁与规则节拍
@@ -479,7 +483,7 @@ NONNON随后[恢复旧版粒子专层](../testing/nonon-particle-restore-2026-10
 
 ## 7. 计划校验与状态维护
 
-- 当前状态：B01/B02共12张已实现，5个小组均已完成相关定向验证和两版前后录制；B02原地动作版待观感复核，main合并待确认；B03–B09待实施。
+- 当前状态：B01–B03共24张已实现，8个小组已完成相关定向验证和两版前后录制；B01/B02已合并main，B03观感已确认，待合并确认；B04–B09待实施。
 - 覆盖：114张活跃卡与2张停用候选全部有唯一批次；中文名、类名与[逐卡数据](card-vfx-review-2026-10-29.json)逐项对应。
 - 机器清单：[批次与基础牌设计数据](card-vfx-rollout-plan-2026-10-29.json)，保存批次依赖、全部卡牌归属、小组顺序、基础设计与验收范围。
 - 视觉资料：[基础牌分镜](basic-card-vfx-storyboard-2026-10-29.svg)是设计示意；实际实现后用对应游戏实录补齐观感依据。
