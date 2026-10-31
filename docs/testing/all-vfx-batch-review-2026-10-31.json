@@ -1,0 +1,2490 @@
+{
+  "date": "2026-10-31",
+  "baseline": "0ef1ab4",
+  "branch": "codex/card-vfx-audit-20261029",
+  "status": "historical first candidate 0eca53e; guard cues superseded",
+  "counts": {
+    "before_stable": 21,
+    "before_beta": 21,
+    "after_stable": 31,
+    "after_beta": 31
+  },
+  "recordings": 104,
+  "cases": [
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_STRIKE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_strike/game.mp4",
+      "sha256": "5a4099a59a899a475f78969bc1cc789ff718a406819c2e11b871bb8af2bb2407",
+      "audio_mean_db": -54.0,
+      "capture_fps": 30.015952212868214,
+      "frames_repeated": 0,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_DEFEND",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_defend/game.mp4",
+      "sha256": "c4ca9f4ab72c8610a64b9576ae27f6eecfa2042820dd8c4db857a29ab078ad82",
+      "audio_mean_db": -52.2,
+      "capture_fps": 29.026538782993427,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_NONON",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_nonon/game.mp4",
+      "sha256": "365eb0fa7f4bc1c6b245b3172b7a5b5937933cc68f6c787b9b6ed4155740e8c0",
+      "audio_mean_db": -53.4,
+      "capture_fps": 29.765988087037833,
+      "frames_repeated": 3,
+      "frames_dropped": 1
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "f6e9f3737808a27dc97ef9aa98c752f2835f0f73f0085b24039c67b33ee4d723",
+      "audio_mean_db": -50.7,
+      "capture_fps": 29.12944085117615,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_SHINE_TOGETHER",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 30,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_shine_together/game.mp4",
+      "sha256": "9962c9789bc2bdbc7f30b3bbe658ee7a610a4e2c90d81fdbe81ef8d77891582e",
+      "audio_mean_db": -52.9,
+      "capture_fps": 29.366375315364508,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_CONTINUE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 4,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_continue/game.mp4",
+      "sha256": "7f626b62dbb3e844444f6f6b006269dfe86eb96bfcd98a71434cad70c3dcaab7",
+      "audio_mean_db": -50.6,
+      "capture_fps": 28.988040523892003,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_REWRITE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 70,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_rewrite/game.mp4",
+      "sha256": "fcd503ed2f7472fdaa4c5afac0b490dca4c6a13db3eb90088b0e1082959a1fd5",
+      "audio_mean_db": -46.6,
+      "capture_fps": 28.85622024197615,
+      "frames_repeated": 16,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_star/game.mp4",
+      "sha256": "6036efbc062f2e53bec63b2e53b2a6afb847389f6c7a5417d7caf3e21b9c91c4",
+      "audio_mean_db": -48.9,
+      "capture_fps": 29.491474233089583,
+      "frames_repeated": 7,
+      "frames_dropped": 1
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_BRIDGE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 18,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_bridge/game.mp4",
+      "sha256": "c348940034628c0569cde7b8316e9c2f0aa4a047db81813b69896c9890b55dcd",
+      "audio_mean_db": -50.2,
+      "capture_fps": 29.314655197820912,
+      "frames_repeated": 7,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_GEER",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_geer/game.mp4",
+      "sha256": "fb1f18593e62cd615f165c87da12eda1cc5b131553405ccfd8adf44fb2b73952",
+      "audio_mean_db": -50.2,
+      "capture_fps": 29.5705666518837,
+      "frames_repeated": 7,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_DROP_FUEL",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_drop_fuel/game.mp4",
+      "sha256": "d004083eb94a444ddb4f3d5d449bc7211cd3b3eacc8e2405c62d1343f33a16b6",
+      "audio_mean_db": -50.6,
+      "capture_fps": 29.26253006326588,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 27,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_starlight02_card/game.mp4",
+      "sha256": "df6af3e7071ffbe1bef4d18970e9f4be70c74aefa1fd1841762cc6bf8bb0c09b",
+      "audio_mean_db": -49.8,
+      "capture_fps": 29.455162812473443,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_SHINE_STRIKE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 9,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_shine_strike/game.mp4",
+      "sha256": "73f5aeceb9ade5963750f0017814bce08940234b729a39dbb15d7132ef51684c",
+      "audio_mean_db": -53.0,
+      "capture_fps": 29.233130007290058,
+      "frames_repeated": 5,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_FALL",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 8,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_fall/game.mp4",
+      "sha256": "dea3e92b0566c005de2791e2311cde302eaab738016a59de6fa9c4718e4fc8fd",
+      "audio_mean_db": -51.6,
+      "capture_fps": 29.99563104097705,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_PROMISE_DRAW",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 3,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_promise_draw/game.mp4",
+      "sha256": "b56942c1d556e071accc65f732b47360f82b4399dd96d0ada161a013ad43d04c",
+      "audio_mean_db": -54.1,
+      "capture_fps": 29.958166416416116,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_BACK_TO_BACK_CARD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_back_to_back_card/game.mp4",
+      "sha256": "6af63f0890ef84ae9fc3258602501f709b2f845393f89362eab8951c714f4486",
+      "audio_mean_db": -52.8,
+      "capture_fps": 29.881188053104914,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_CARRYING_GUILT",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_carrying_guilt/game.mp4",
+      "sha256": "9743d278625805c1a4fbbc1e2d59ea9106f8ab3380ec3b027562fc7eea80dd2e",
+      "audio_mean_db": -52.7,
+      "capture_fps": 29.821035470613303,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_EXCHANGE_FATE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_exchange_fate/game.mp4",
+      "sha256": "733a074b26cec56f10fc91c5245ab4ac168d1c05a118a91ca5af2b570e315419",
+      "audio_mean_db": -52.4,
+      "capture_fps": 29.91049893101715,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_WE_KOWN",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_we_kown/game.mp4",
+      "sha256": "aaa9cb08f3d7d20bb4bfeac05624a1033875c451a8ce4ddbcfb7dbb65f46a9b2",
+      "audio_mean_db": -50.2,
+      "capture_fps": 29.76297894405097,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_PICK_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_pick_star/game.mp4",
+      "sha256": "6e4b2c7050839621ddaa80ae9b362d0ffb04674516b1391ed5f9f1c03f0db1a1",
+      "audio_mean_db": -58.4,
+      "capture_fps": 29.840716038449028,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_LAST_WORD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 240,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/stable/full-karen_last_word/game.mp4",
+      "sha256": "c17f60591f56435dffdc56da4561827674a81c756745cc15e2a8aec0b093c21a",
+      "audio_mean_db": -36.3,
+      "capture_fps": 29.328997334367422,
+      "frames_repeated": 11,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_STRIKE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_strike/game.mp4",
+      "sha256": "9f1fa3642703c0e2cad3c89015e45467cc7de36cb02fa2a0167a0412e927efc7",
+      "audio_mean_db": -53.0,
+      "capture_fps": 28.934812047498387,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_DEFEND",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_defend/game.mp4",
+      "sha256": "3f408c9ff11066cbc6126b29684ef4884d1c046cdbad2401ce987cd275ad9405",
+      "audio_mean_db": -52.1,
+      "capture_fps": 29.179741533010173,
+      "frames_repeated": 5,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_NONON",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_nonon/game.mp4",
+      "sha256": "8eae481d4acf9bee4aebf7c0909ff3450835eeb931f0bde4e768d83316de3d82",
+      "audio_mean_db": -53.6,
+      "capture_fps": 29.108087883736026,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "8056add515a93f1563ada689becdf1ed6920868a4d02c4404c2127ba4afbf487",
+      "audio_mean_db": -50.6,
+      "capture_fps": 29.379255208459828,
+      "frames_repeated": 5,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_SHINE_TOGETHER",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 30,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_shine_together/game.mp4",
+      "sha256": "e82d5385d459da9e161ba69a6d9c2eda01784571bafe449ee9f6bfe1261f1610",
+      "audio_mean_db": -53.5,
+      "capture_fps": 29.29199406045152,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_CONTINUE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 4,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_continue/game.mp4",
+      "sha256": "2c320e2854d8d203769992b7cb0a1edbbd54971bccc559807195cabc84a30085",
+      "audio_mean_db": -50.4,
+      "capture_fps": 28.463303020035717,
+      "frames_repeated": 10,
+      "frames_dropped": 1
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_REWRITE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 70,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_rewrite/game.mp4",
+      "sha256": "7f4132c68b61274ce204025ad9104b8504f3207c324e3ed5da36d5f21c74bdab",
+      "audio_mean_db": -46.1,
+      "capture_fps": 29.59730694017356,
+      "frames_repeated": 5,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_star/game.mp4",
+      "sha256": "97f70a49bfc24bd79b9e040f8c82937f7b253af61ba29bec4eb9f2b4477ef84d",
+      "audio_mean_db": -48.7,
+      "capture_fps": 29.767842812625535,
+      "frames_repeated": 3,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_BRIDGE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 18,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_bridge/game.mp4",
+      "sha256": "9e08edd28dffabba9ad8b5e63da99565fcc74a2bb61432613e6778686d8dcc21",
+      "audio_mean_db": -49.7,
+      "capture_fps": 29.538410408629428,
+      "frames_repeated": 5,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_GEER",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_geer/game.mp4",
+      "sha256": "7f770678d4abf1a4a96f9a09827fdea13d8fb143e622734b5b014c18c2c6b926",
+      "audio_mean_db": -50.1,
+      "capture_fps": 29.436659767775645,
+      "frames_repeated": 9,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_DROP_FUEL",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_drop_fuel/game.mp4",
+      "sha256": "9fa0b40972cd35a89820e6e3ddaf381d3fcfdab7be1ec9e237f6992f5a8aff1c",
+      "audio_mean_db": -50.4,
+      "capture_fps": 29.768931691651172,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 27,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_starlight02_card/game.mp4",
+      "sha256": "74a0e9e26ffbe8f4ec9fa82f3f846b3036203d360a539a1ef0dde5319efc492a",
+      "audio_mean_db": -50.0,
+      "capture_fps": 29.405557807387694,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_SHINE_STRIKE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 9,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_shine_strike/game.mp4",
+      "sha256": "ae6154359bd1f8b8bdd12ab3d314bd8c32afc964d816330727bfd56efd19ba15",
+      "audio_mean_db": -53.6,
+      "capture_fps": 30.06328122676621,
+      "frames_repeated": 0,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_FALL",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 8,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_fall/game.mp4",
+      "sha256": "d860b8ba13ab69a1c8e5331b36436afc08c6274d94a1e53efefc6cd2d4f11f48",
+      "audio_mean_db": -51.3,
+      "capture_fps": 29.12409694496544,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_PROMISE_DRAW",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 3,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_promise_draw/game.mp4",
+      "sha256": "59a6e34015e1572934f5d4e4a328efeebd9ffd519f1047af6aa9ff16ff042282",
+      "audio_mean_db": -53.8,
+      "capture_fps": 28.985384865259512,
+      "frames_repeated": 7,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_BACK_TO_BACK_CARD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_back_to_back_card/game.mp4",
+      "sha256": "745d4fafc3087613c1162adb49264aad9d78a6694cdd336e14a2c627ec95ca91",
+      "audio_mean_db": -53.0,
+      "capture_fps": 29.698658136471032,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_CARRYING_GUILT",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_carrying_guilt/game.mp4",
+      "sha256": "2eeba0278f7d14058a5ed59408f397be419bca8679257645792245c6c47b5212",
+      "audio_mean_db": -53.1,
+      "capture_fps": 29.813113034303417,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_EXCHANGE_FATE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_exchange_fate/game.mp4",
+      "sha256": "cacb182dac5ad8c69d82e0485813a433829ff9a1778c68fb33454e1eda108b3b",
+      "audio_mean_db": -52.0,
+      "capture_fps": 29.451642127414075,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_WE_KOWN",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_we_kown/game.mp4",
+      "sha256": "6f8b701ba8d87ec56e779e0dd1aa4dfcd250cc0a3b070d61d434ac1ce0622d37",
+      "audio_mean_db": -50.2,
+      "capture_fps": 29.7359712271579,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_PICK_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_pick_star/game.mp4",
+      "sha256": "33c19600dc01bd1e437b87b93d91011c1a40dcfe0aa0029ba4bbc623bd023859",
+      "audio_mean_db": -58.7,
+      "capture_fps": 29.723455628301366,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_LAST_WORD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 240,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/before/beta/full-karen_last_word/game.mp4",
+      "sha256": "9e25f34797a2a63e6752a989d61068bd61837bf698d81d5c7ef5f9927a0d2b06",
+      "audio_mean_db": -36.4,
+      "capture_fps": 29.650057091616084,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STRIKE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_strike/game.mp4",
+      "sha256": "bd001fd2aafa2260da17428d9c52fa44dc2fefd98e43e1bf1f196d4e4b45b2e2",
+      "audio_mean_db": -53.1,
+      "capture_fps": 29.749417392126166,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_DEFEND",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_defend/game.mp4",
+      "sha256": "68e3d46883da1961481d7d90ee832e6f13b20ed75dbacfcfa7d574b2f4bd32c8",
+      "audio_mean_db": -52.4,
+      "capture_fps": 29.731109146054976,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_SHINE_STRIKE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 9,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_shine_strike/game.mp4",
+      "sha256": "8b00931f44f3df5b3348d6a431b3ff87e6fdf52b7dce5e47c730aa076c2a4eb2",
+      "audio_mean_db": -52.6,
+      "capture_fps": 29.784733814826723,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_FALL",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 8,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_fall/game.mp4",
+      "sha256": "12b59595d1ba2a6ae4a366ab58a5147fc1d934fd342974e4f5f5b2f1dbf6c885",
+      "audio_mean_db": -51.3,
+      "capture_fps": 29.802492607282566,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_PROMISE_DRAW",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 3,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_promise_draw/game.mp4",
+      "sha256": "b8c252de84cb79ae9997c4d3d3a1d39488adaf372e88740ede0e2b4b5f89ceab",
+      "audio_mean_db": -53.1,
+      "capture_fps": 29.83516218039365,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "ddf035d14a9e3713d3db000c26e822683306591849b429556785c6760f6403c8",
+      "audio_mean_db": -50.7,
+      "capture_fps": 29.857109666307583,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_BACK_TO_BACK_CARD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_back_to_back_card/game.mp4",
+      "sha256": "9330dd2b1185dbd0cb2081f67bd35315e3d6640f1a460390ccfc72621e881768",
+      "audio_mean_db": -52.8,
+      "capture_fps": 29.904750760854228,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_SHINE_TOGETHER",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 30,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_shine_together/game.mp4",
+      "sha256": "91bd17b2b0c0b844304a7a8a11fc5ce5db95cf8fc17fcc840b7242dd348fae8a",
+      "audio_mean_db": -53.1,
+      "capture_fps": 29.933848372104805,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_CARRYING_GUILT",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_carrying_guilt/game.mp4",
+      "sha256": "232fd876c092798e4194faa251128747b02cbb715e59177fdebd822c551b156e",
+      "audio_mean_db": -53.0,
+      "capture_fps": 29.82063619763799,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_NONON",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_nonon/game.mp4",
+      "sha256": "222c9e33528e9f952b730fb1b773b21bf33f4378be01c3999a40c74b26fb041d",
+      "audio_mean_db": -52.6,
+      "capture_fps": 29.917309308761773,
+      "frames_repeated": 2,
+      "frames_dropped": 1
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_DROP_FUEL",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_drop_fuel/game.mp4",
+      "sha256": "876b4280bd6e29ae73c65094d87f5501119c3524307f25fe0f82df848a5c8001",
+      "audio_mean_db": -50.5,
+      "capture_fps": 29.886325602551544,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_BRIDGE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 18,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_bridge/game.mp4",
+      "sha256": "2b27fd311f0a17a76e1ccef3c44cfdf8925c1d511cd48e8ccb33906b0bb8292c",
+      "audio_mean_db": -49.7,
+      "capture_fps": 30.068078608193424,
+      "frames_repeated": 0,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_EXCHANGE_FATE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_exchange_fate/game.mp4",
+      "sha256": "e4128523aea675bde164936ef5c26f1d11f9e77bce0fd60e5a4bbe3e07b8bee8",
+      "audio_mean_db": -52.0,
+      "capture_fps": 29.75121913559638,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_WE_KOWN",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_we_kown/game.mp4",
+      "sha256": "237e5d518a6453518c6f0781eb3a7b5ccf9fdbffd6ec565adfa6ef161e795970",
+      "audio_mean_db": -50.1,
+      "capture_fps": 29.568837331747336,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_star/game.mp4",
+      "sha256": "018f697b0d47b666a6b31eb387f0248cd5173b9ef606f2a2904b12cebb5346ee",
+      "audio_mean_db": -48.5,
+      "capture_fps": 29.488097813228396,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 27,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_starlight02_card/game.mp4",
+      "sha256": "d6c082857bdc3377a7529daeaf49d816e390bae622ba000ccda5f391aaa9b4ff",
+      "audio_mean_db": -49.7,
+      "capture_fps": 29.673464673635046,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_CONTINUE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 4,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_continue/game.mp4",
+      "sha256": "d0fa46b9eabaf6b466f2e79c21926df30af47d7240e6625eddec403c2d2e3a99",
+      "audio_mean_db": -50.6,
+      "capture_fps": 29.804188053132396,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_REWRITE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 70,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_rewrite/game.mp4",
+      "sha256": "9d7353cfe4a6e5139304c76491ead075a4b9e5a4d30328a770b0545e3f0a3a4c",
+      "audio_mean_db": -46.6,
+      "capture_fps": 29.54550981018982,
+      "frames_repeated": 7,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_GEER",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_geer/game.mp4",
+      "sha256": "48442220a3570c0c6e1b94a0f900af75c07f016319e338f7782786f8e33ccdf5",
+      "audio_mean_db": -50.1,
+      "capture_fps": 29.804648606613135,
+      "frames_repeated": 3,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_PICK_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_pick_star/game.mp4",
+      "sha256": "d852fec56f5e8b2b9c71242a49a96b8bf9f425b187bc74bc79df3c4eea7c9a2f",
+      "audio_mean_db": -58.6,
+      "capture_fps": 29.933655851672995,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_LAST_WORD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 240,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/full-karen_last_word/game.mp4",
+      "sha256": "63841443c3a292d568265ea9e276e66b761c5c8123c2c2b4fadcfb3617d3bf52",
+      "audio_mean_db": -36.3,
+      "capture_fps": 29.74045821476599,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STRIKE",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/low-karen_strike/game.mp4",
+      "sha256": "7aa8f8e0225decef90840a2714e8466b22df408697fbcc8cc7b75d6b589b413a",
+      "audio_mean_db": -52.9,
+      "capture_fps": 29.91405851243263,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_DEFEND",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/low-karen_defend/game.mp4",
+      "sha256": "edfcb9b2b0e0bf7879cf77dad9387c26aaedaa1613f64e4949a0503b0cf001f6",
+      "audio_mean_db": -52.8,
+      "capture_fps": 29.902442832617226,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_SHINE_STRIKE",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 9,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/low-karen_shine_strike/game.mp4",
+      "sha256": "7f20c483a9de8f495c3ad9431bd6f12fb4c3e215d26c332dd0e0591b031c1692",
+      "audio_mean_db": -53.4,
+      "capture_fps": 29.828643498226604,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_FALL",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 0,
+      "block": 8,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/low-karen_fall/game.mp4",
+      "sha256": "65899ae58f0bd377a02deeff9499686df2f2cbcc52f588fa7f78d0e9870050ea",
+      "audio_mean_db": -51.0,
+      "capture_fps": 29.821938739594867,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_PROMISE_DRAW",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 3,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/low-karen_promise_draw/game.mp4",
+      "sha256": "a992de3c54bdc1bb4e13e776b1b445eb26d53b4f354c51b5e471a0af1ee96bb4",
+      "audio_mean_db": -53.7,
+      "capture_fps": 29.72017152131516,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STRIKE",
+      "mode": "off",
+      "quality": "Off",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/off-karen_strike/game.mp4",
+      "sha256": "f5ba55d01b1479ca8dd8aeda89feae5f50c53d964a73365519f628006deac66d",
+      "audio_mean_db": -54.0,
+      "capture_fps": 29.70114899517367,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_DEFEND",
+      "mode": "off",
+      "quality": "Off",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/off-karen_defend/game.mp4",
+      "sha256": "54504feb331be05b9ad8f5208ea31af2a4fb9ee0c9791b5509be25f014987703",
+      "audio_mean_db": -52.2,
+      "capture_fps": 29.659889146887725,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_SHINE_STRIKE",
+      "mode": "off",
+      "quality": "Off",
+      "passed": true,
+      "damage": 9,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/off-karen_shine_strike/game.mp4",
+      "sha256": "62b3bb36b2c5697983da944f778d09df1bd31f63c36bd46a84333fe7c363e9bc",
+      "audio_mean_db": -53.0,
+      "capture_fps": 29.653938537270058,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_FALL",
+      "mode": "off",
+      "quality": "Off",
+      "passed": true,
+      "damage": 0,
+      "block": 8,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/off-karen_fall/game.mp4",
+      "sha256": "bbb4bff2a5311b9c03115ad1e258e1f70b003c7fd2b07f55816325506f873ba6",
+      "audio_mean_db": -51.2,
+      "capture_fps": 29.918251981070398,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_PROMISE_DRAW",
+      "mode": "off",
+      "quality": "Off",
+      "passed": true,
+      "damage": 3,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/stable/off-karen_promise_draw/game.mp4",
+      "sha256": "43eb114f62131d3bcacaf06229c9bc401836545d603bdc1647ecc59cd90fa7a0",
+      "audio_mean_db": -53.8,
+      "capture_fps": 29.894937715674807,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STRIKE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_strike/game.mp4",
+      "sha256": "1b6b2a72611d950547b60f8dcd566c1ab7514c52070ebd85a414f909e304f52e",
+      "audio_mean_db": -52.8,
+      "capture_fps": 30.020444646188263,
+      "frames_repeated": 0,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_DEFEND",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_defend/game.mp4",
+      "sha256": "ae04dd5c705d609948e6659d43a83f2b05a6a2fc5c3c35cb5d6d070720ee042d",
+      "audio_mean_db": -51.9,
+      "capture_fps": 30.084503045533506,
+      "frames_repeated": 0,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_SHINE_STRIKE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 9,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_shine_strike/game.mp4",
+      "sha256": "03ec965110cb8666f81874417aaae00bb14081261d879dd0e32d53b6af29a9aa",
+      "audio_mean_db": -53.0,
+      "capture_fps": 30.064822638069728,
+      "frames_repeated": 0,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_FALL",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 8,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_fall/game.mp4",
+      "sha256": "cc0c2f88839087988bcb84222a543da38d4fcb41328742e33c1583400594d69f",
+      "audio_mean_db": -51.6,
+      "capture_fps": 29.807729165090215,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_PROMISE_DRAW",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 3,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_promise_draw/game.mp4",
+      "sha256": "21a99da2f465e310c36b9a09e677463d3cb041d9549058104ea902c5b4b15856",
+      "audio_mean_db": -53.6,
+      "capture_fps": 29.761759953983635,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "9f09bf97088ce166a7f8028d797a7917aba78c1766e107ff0b848bf56c994a01",
+      "audio_mean_db": -50.8,
+      "capture_fps": 30.011020831056744,
+      "frames_repeated": 0,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_BACK_TO_BACK_CARD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_back_to_back_card/game.mp4",
+      "sha256": "20143bd74b4b25a84d45e9711fa13365a334ef5fbce6aa3f8e17d14d297b2645",
+      "audio_mean_db": -52.8,
+      "capture_fps": 29.783872026330755,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_SHINE_TOGETHER",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 30,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_shine_together/game.mp4",
+      "sha256": "24722fd18df1f8822d30befea9d16e83f674bd78da2120af91c2dc62a116e2ba",
+      "audio_mean_db": -53.1,
+      "capture_fps": 29.931205288346323,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_CARRYING_GUILT",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_carrying_guilt/game.mp4",
+      "sha256": "a5f3e9f1933ef9c91f93c1f26862754f989a92b35c00942502347b94cbd8acf7",
+      "audio_mean_db": -52.7,
+      "capture_fps": 29.93768036690925,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_NONON",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_nonon/game.mp4",
+      "sha256": "80d31e512196b2b9e1991191419cb7f1d737fcb9a761ec8c9fcd1ad783351561",
+      "audio_mean_db": -53.1,
+      "capture_fps": 29.511032155354776,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_DROP_FUEL",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_drop_fuel/game.mp4",
+      "sha256": "8436546bc0b401c261e3e5b29f1bda416dab15a91b07bba757b02f0393ceadb0",
+      "audio_mean_db": -50.5,
+      "capture_fps": 29.911054294470603,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_BRIDGE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 18,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_bridge/game.mp4",
+      "sha256": "34700eee861bf91aa09a805f234c26440a68395d41dd51328cdf42681bac12f8",
+      "audio_mean_db": -50.0,
+      "capture_fps": 29.900639853403142,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_EXCHANGE_FATE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_exchange_fate/game.mp4",
+      "sha256": "ba38d437110c5f62b185e800282d7d5e391b8adca2311fd21dd1622073ca0e97",
+      "audio_mean_db": -51.8,
+      "capture_fps": 29.908420416684113,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_WE_KOWN",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_we_kown/game.mp4",
+      "sha256": "c1eb076da60224cd9756d87a0556fe686de83617def2c6d36aa6366a36f910e3",
+      "audio_mean_db": -50.2,
+      "capture_fps": 29.874464917637702,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_star/game.mp4",
+      "sha256": "0b322994ae4664701295508c5c407c5d745556aebfc66a53455752a88ddd6ecb",
+      "audio_mean_db": -48.6,
+      "capture_fps": 29.802930174878945,
+      "frames_repeated": 3,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 27,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_starlight02_card/game.mp4",
+      "sha256": "db55f5078c1aa75131ac55a06a08b0a16ead2a8f6346b742141ad1eaed56ad01",
+      "audio_mean_db": -49.7,
+      "capture_fps": 29.858261310179895,
+      "frames_repeated": 3,
+      "frames_dropped": 1
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_CONTINUE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 4,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_continue/game.mp4",
+      "sha256": "41b8a00191050bc91cd7ef2da159404ae15becd440a6c7eccf5b8969d18b4e02",
+      "audio_mean_db": -50.7,
+      "capture_fps": 29.752322195794946,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_REWRITE",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 70,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_rewrite/game.mp4",
+      "sha256": "2991ca7028406e1b70366c5d7ebd97f18d8d7144ef8c043e8362ca1b96eb9fcb",
+      "audio_mean_db": -46.1,
+      "capture_fps": 29.860286316870003,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_GEER",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_geer/game.mp4",
+      "sha256": "55ed28acf1d2e16c7f9b3b7f0df674f8cff9b12e88e5a7d1b0fc9fd64ee2cd5b",
+      "audio_mean_db": -50.0,
+      "capture_fps": 29.74026268452675,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_PICK_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_pick_star/game.mp4",
+      "sha256": "dde2079110941eb0074ec29e2c10322bb8a7e670204f10451c53ffd7cb3d487e",
+      "audio_mean_db": -58.5,
+      "capture_fps": 29.716116956101907,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_LAST_WORD",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 240,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/full-karen_last_word/game.mp4",
+      "sha256": "619f93e6b17130697d87bf496e036044c0198079b9b928232141f25a933eb02e",
+      "audio_mean_db": -36.4,
+      "capture_fps": 29.75721466320486,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STRIKE",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/low-karen_strike/game.mp4",
+      "sha256": "68a4d1bebb2ba5f1203f2a72d2c38b6591bcd82b39dd5f54a5d0baacd82b734a",
+      "audio_mean_db": -52.7,
+      "capture_fps": 28.980976727833905,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_DEFEND",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/low-karen_defend/game.mp4",
+      "sha256": "e603b490673752127f6376aedfabcea9e120b330662bd913016bd4a652041a58",
+      "audio_mean_db": -51.9,
+      "capture_fps": 28.146937351219538,
+      "frames_repeated": 11,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_SHINE_STRIKE",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 9,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/low-karen_shine_strike/game.mp4",
+      "sha256": "cf1aae2ba7a3015312626a91b1f10543101058235015d3c4d53cd206e5295a01",
+      "audio_mean_db": -53.1,
+      "capture_fps": 29.914105918299306,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_FALL",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 0,
+      "block": 8,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/low-karen_fall/game.mp4",
+      "sha256": "ffc8c37561b93b4905afac8832e049eb87b5ca1a731ff2908766eb7b45853f72",
+      "audio_mean_db": -51.9,
+      "capture_fps": 29.604041130615506,
+      "frames_repeated": 3,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_PROMISE_DRAW",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 3,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/low-karen_promise_draw/game.mp4",
+      "sha256": "c6d1b31a727170e45f92fcac7745c5edfded3cb6753bffff3b6b38ca4cc6fada",
+      "audio_mean_db": -53.1,
+      "capture_fps": 29.672358776734075,
+      "frames_repeated": 3,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STRIKE",
+      "mode": "off",
+      "quality": "Off",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/off-karen_strike/game.mp4",
+      "sha256": "fbab272c257e4dd1ea4ed2ae0b6f0e7445f35e029fcff5c90172f33fff71ee8f",
+      "audio_mean_db": -52.7,
+      "capture_fps": 29.722433541719415,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_DEFEND",
+      "mode": "off",
+      "quality": "Off",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/off-karen_defend/game.mp4",
+      "sha256": "848c8d1cdc4f614fe7e6d82294c7103714f8cf10c23b0263ed65a32b09a8adce",
+      "audio_mean_db": -51.9,
+      "capture_fps": 29.927389164855057,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_SHINE_STRIKE",
+      "mode": "off",
+      "quality": "Off",
+      "passed": true,
+      "damage": 9,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/off-karen_shine_strike/game.mp4",
+      "sha256": "8170668d15c6c717df8c5a9fd136b760509b4baf1781e5fe8462e09ade57f1c6",
+      "audio_mean_db": -53.1,
+      "capture_fps": 29.899094673316945,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_FALL",
+      "mode": "off",
+      "quality": "Off",
+      "passed": true,
+      "damage": 0,
+      "block": 8,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/off-karen_fall/game.mp4",
+      "sha256": "4178cf2ba90ddaf6b7d337cc04ff3362b32db663e393c8e37c82f4435391ec5d",
+      "audio_mean_db": -51.7,
+      "capture_fps": 29.802391368000908,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_PROMISE_DRAW",
+      "mode": "off",
+      "quality": "Off",
+      "passed": true,
+      "damage": 3,
+      "block": 0,
+      "video": "artifacts/all-vfx-batch-20261031/after/beta/off-karen_promise_draw/game.mp4",
+      "sha256": "150d58ffaa14a42130fa3b94d72b3e58442ae58078a3709b9a0c246437be2721",
+      "audio_mean_db": -54.0,
+      "capture_fps": 29.969482966479863,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    }
+  ],
+  "static_checks": {
+    "checks": {
+      "nonon_spawn_and_rng_order_unchanged": true,
+      "nonon_particle_position_formula_unchanged": true,
+      "fuel_all_counts_and_timing_literals_unchanged": true,
+      "barrage_mutable_shader_stays_per_hit": true,
+      "scars_full_history_kept": true,
+      "KarenStrike_rule_and_waits_equivalent": true,
+      "KarenShineStrike_rule_and_waits_equivalent": true,
+      "KarenPromiseDraw_rule_and_waits_equivalent": true,
+      "KarenDefend_rule_and_waits_equivalent": true,
+      "KarenFall_rule_and_waits_equivalent": true,
+      "only_five_card_models_changed": true,
+      "actor_motion_implementation_unchanged": true
+    },
+    "changed_sources": [
+      "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBackToBackVfx.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBridgeVfx.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenDropFuelVfx.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVideoVfx.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenStageLightVfx.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBenefitVfx.Stage.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenExchangeFateVfx.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenNononVfx.Particles.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenShineBarrageVfx.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenUnforgottenShineVfx.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/DisableRelicSystem/Vfx/NDisableRelicAbsorbVfx.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/DisableRelicSystem/Vfx/NDisableRelicStarBurstVfx.cs",
+      "src/Core/Vfx/KarenVfxCatalog.g.cs",
+      "src/Core/Models/Cards/basic/KarenDefend.cs",
+      "src/Core/Models/Cards/basic/KarenFall.cs",
+      "src/Core/Models/Cards/basic/KarenPromiseDraw.cs",
+      "src/Core/Models/Cards/basic/KarenShineStrike.cs",
+      "src/Core/Models/Cards/basic/KarenStrike.cs"
+    ]
+  },
+  "coverage": {
+    "baseline": "0ef1ab4",
+    "reviewed_catalog_types": 73,
+    "new_types": [
+      "NKarenBasicCardVfx"
+    ],
+    "effects": [
+      {
+        "type": "ShoujoKagekiAijoKaren.Core.SNCardTrail",
+        "family": "角色与基础界面",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCardTrail.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.Core.SNCardTrailVfx",
+        "family": "角色与基础界面",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCardTrailVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.Core.SNCreatureVisuals",
+        "family": "角色与基础界面",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCreatureVisuals.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNCreatureVisuals.Entrance.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.Core.SNEnergyCounter",
+        "family": "角色与基础界面",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNEnergyCounter.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.Core.SNMerchantCharacter",
+        "family": "角色与基础界面",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNMerchantCharacter.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.Core.SNParticlesContainer",
+        "family": "角色与基础界面",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNParticlesContainer.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.Core.SNRestSiteCharacter",
+        "family": "角色与基础界面",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNRestSiteCharacter.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.Core.SNSelectionReticle",
+        "family": "角色与基础界面",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Node/SNSelectionReticle.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx.NDisableRelicAbsorbStar",
+        "family": "禁用遗物与双星",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/DisableRelicSystem/Vfx/NDisableRelicAbsorbVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/DisableRelicSystem/Vfx/NDisableRelicAbsorbVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx.NDisableRelicAbsorbVfx",
+        "family": "禁用遗物与双星",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/DisableRelicSystem/Vfx/NDisableRelicAbsorbVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/DisableRelicSystem/Vfx/NDisableRelicAbsorbVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx.NDisableRelicBurstStar",
+        "family": "禁用遗物与双星",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/DisableRelicSystem/Vfx/NDisableRelicStarBurstVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/DisableRelicSystem/Vfx/NDisableRelicStarBurstVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx.NDisableRelicStarBurstVfx",
+        "family": "禁用遗物与双星",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/DisableRelicSystem/Vfx/NDisableRelicStarBurstVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/DisableRelicSystem/Vfx/NDisableRelicStarBurstVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Nodes.NKarenPileViewVfx",
+        "family": "角色与基础界面",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Node/NKarenPileViewVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenBridgeVfx",
+        "family": "连锁与舞台",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBridgeVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBridgeVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenBurnCardParticleLayer",
+        "family": "常驻与卡面状态",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBurnCardParticleLayer.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenBurnCardVfx",
+        "family": "常驻与卡面状态",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBurnCardVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenBurnVfx",
+        "family": "常驻与卡面状态",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBurnVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenDrawPileDestroyVfx",
+        "family": "约定塔与移牌",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenDrawPileDestroyVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenDropFuelVfx",
+        "family": "连锁与舞台",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenDropFuelVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenDropFuelVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenFormVfx",
+        "family": "常驻与卡面状态",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenFormVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenGeerVfx",
+        "family": "连锁与舞台",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenGeerVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenGoldBorderFlash",
+        "family": "约定塔与移牌",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenStarGuideVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenLastWordPlayableVfx",
+        "family": "最后的台词",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordPlayableVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenLastWordPlayableVfx+NKarenLastWordPlayableTParticle",
+        "family": "最后的台词",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordPlayableVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenLastWordStageLightsVfx",
+        "family": "最后的台词",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordStageLightsVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenLastWordTParticle",
+        "family": "最后的台词",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenLastWordVfx",
+        "family": "最后的台词",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenLastWordVideoVfx",
+        "family": "最后的台词",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVideoVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenLastWordVideoVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenPastAndFutureRingVfx",
+        "family": "常驻与卡面状态",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenPastAndFutureRingVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenPromiseCardEntryVfx",
+        "family": "约定塔与移牌",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenPromiseCardEntryVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenPromiseStarNode",
+        "family": "约定塔与移牌",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenPromiseStarNode.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenPromiseStarNode.Entrance.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenPromiseStarNode.Interaction.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenPromiseStarNode.Recall.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenPromiseStarNode.Reproduction.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenPromiseStarNode.Tower.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenPromiseStarNode.Void.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenPromiseStarNode.VoidOrbit.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenStageLightBeam",
+        "family": "连锁与舞台",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenStageLightVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenStageLightVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenStageLightFocusBeam",
+        "family": "连锁与舞台",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenStageLightVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenStageLightVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenStageLightImpactVfx",
+        "family": "连锁与舞台",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenStageLightImpactVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenStageLightVfx",
+        "family": "连锁与舞台",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenStageLightVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenStageLightVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenStanceAura",
+        "family": "常驻与卡面状态",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBurnVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenStarGuideVfx",
+        "family": "约定塔与移牌",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenStarGuideVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenTowerRecallCardVfx",
+        "family": "约定塔与移牌",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenTowerRecallCardVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenWindyParticle",
+        "family": "常驻与卡面状态",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenFormVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenWrathParticle",
+        "family": "常驻与卡面状态",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBurnVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes.NKarenShineAmbientVfx",
+        "family": "闪耀与奖励",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/ShineSystem/Nodes/NKarenShineAmbientVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes.NKarenShineDepleteVfx",
+        "family": "闪耀与奖励",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/ShineSystem/Nodes/NKarenShineDepleteVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes.NKarenShinePileArrivalVfx",
+        "family": "闪耀与奖励",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/ShineSystem/Nodes/NKarenShinePileArrivalVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes.NKarenShineWarningVfx",
+        "family": "闪耀与奖励",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/ShineSystem/Nodes/NKarenShineWarningVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenLightRibbon",
+        "family": "共享绘制工具",
+        "files": [
+          "src/Core/Vfx/KarenLightRibbon.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch",
+        "family": "共享绘制工具",
+        "files": [
+          "src/Core/Vfx/KarenVfxCanvasBatch.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenAquariumVfx",
+        "family": "食物与收益确认",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenAquariumVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenArrogantVfx",
+        "family": "食物与收益确认",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenArrogantVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBackToBackVfx",
+        "family": "专属攻击",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBackToBackVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/PromisePileSystem/Vfx/NKarenBackToBackVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBananaVfx",
+        "family": "食物与收益确认",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBananaVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBaseballVfx",
+        "family": "专属攻击",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBaseballVfx.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBaseballVfx.Drawing.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBenefitVfx",
+        "family": "食物与收益确认",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBenefitVfx.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBenefitVfx.Flow.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBenefitVfx.Food.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBenefitVfx.Radiance.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBenefitVfx.Stage.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBenefitVfx.Stage.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenCombatEntranceVfx",
+        "family": "角色与基础界面",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenCombatEntranceVfx.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenCombatEntranceVfx.Particles.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenContinueExhaustVfx",
+        "family": "专属攻击",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/NKarenContinueExhaustVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenContinueVfx",
+        "family": "专属攻击",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/NKarenContinueVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenExchangeFateVfx",
+        "family": "交换与接棒",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenExchangeFateVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenExchangeFateVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenFightRelayVfx",
+        "family": "交换与接棒",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenFightRelayVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenJealousyVfx",
+        "family": "专属攻击",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenJealousyVfx.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenJealousyVfx.Drawing.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenJealousyVfx.Particles.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenNononVfx",
+        "family": "专属攻击",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenNononVfx.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenNononVfx.Particles.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenNononVfx.Particles.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenPassionCardVfx",
+        "family": "食物与收益确认",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenPassionCardVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenPassionVfx",
+        "family": "食物与收益确认",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenPassionVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenPositionZeroCardHoverVfx",
+        "family": "能力与HUD提示",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenPositionZeroCardHoverVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenPositionZeroVfx",
+        "family": "能力与HUD提示",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenPositionZeroVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenShineBarrageVfx",
+        "family": "专属攻击",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenShineBarrageVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenShineBarrageVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenShineRewardVfx",
+        "family": "闪耀与奖励",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenShineRewardVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStageCueVfx",
+        "family": "连锁与舞台",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.Drawing.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.ShortCues.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStarVfx",
+        "family": "连锁与舞台",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx",
+        "family": "禁用遗物与双星",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenTwinStarsVfx.cs",
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenTwinStarsVfx.Drawing.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenUnforgottenShineVfx",
+        "family": "专属攻击",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenUnforgottenShineVfx.cs"
+        ],
+        "disposition": "optimized",
+        "changed": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenUnforgottenShineVfx.cs"
+        ]
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenWaitingStageVfx",
+        "family": "能力与HUD提示",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWaitingStageVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenWakeUpCardVfx",
+        "family": "选牌反馈",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWakeUpCardVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenWakeUpSelectionVfx",
+        "family": "选牌反馈",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWakeUpSelectionVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      },
+      {
+        "type": "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenWhyVfx",
+        "family": "选牌反馈",
+        "files": [
+          "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWhyVfx.cs"
+        ],
+        "disposition": "reviewed-retained",
+        "changed": []
+      }
+    ],
+    "extra_entries": [
+      {
+        "path": "src/Core/Patches/KarenCharSelectVideoController.cs",
+        "status": "reviewed-retained"
+      },
+      {
+        "path": "src/Core/Patches/FlowerTreasureUiPatch.cs",
+        "status": "reviewed-retained"
+      },
+      {
+        "path": "src/Core/MusicPlayer/NKarenMusicPlayer.cs",
+        "status": "reviewed-retained"
+      },
+      {
+        "path": "src/Core/Vfx/KarenVfxWarmup.cs",
+        "status": "reviewed-retained"
+      }
+    ],
+    "notes": [
+      "Reviewed-retained entries keep current shapes, timing, ownership and cleanup.",
+      "No unchanged entry is counted as rewritten.",
+      "Native ArrayMesh submission kept for exchange; shared path/normal evaluation optimized without changing tessellation or upload format."
+    ]
+  },
+  "engine_observations": [
+    {
+      "log": "artifacts/all-vfx-batch-20261031/before/beta/godot-1793427000686131000.log",
+      "line": 257,
+      "message": "Historical native Invalid Task ID during Common preloading; preloading subsequently completed"
+    },
+    {
+      "log": "artifacts/all-vfx-batch-20261031/before/beta/godot-1793427000686131000.log",
+      "line": 259,
+      "message": "Historical native Invalid Task ID during Common preloading; preloading subsequently completed"
+    }
+  ],
+  "untested": [
+    "full frame-time/first-use suite",
+    "complete singleplayer/multiplayer matrix",
+    "Android"
+  ],
+  "packages": {
+    "before": {
+      "ShoujoKagekiAijoKaren.dll": "d04dbe0c050bdc27252d67d7d87c8c5e3db1edf7aef40d761ee4b87abb22c341",
+      "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+      "ShoujoKagekiAijoKaren.pck": "4dcf0ea5f46cd51f5161cc635d56c38ffe22eb12ee20c5f420e2f9015f411de7",
+      "lib/ShoujoKagekiAijoKaren.Beta.dll": "014723bd667664a7798c82ac66dbcbb37fe4a2dc497b50410c4c84281632eb85",
+      "lib/ShoujoKagekiAijoKaren.Stable.dll": "79b11a01b867fa4272fc56d380c3113de1187421c4a4c141159f9cf7fd5b8205"
+    },
+    "after": {
+      "ShoujoKagekiAijoKaren.dll": "79866340b276279219d9a101705fc0bd816c8b9fc1abaa832d1e0c54c75dd25a",
+      "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+      "ShoujoKagekiAijoKaren.pck": "c1f71a87e5f8f36d8713f0cb7d62cc670871b00d2aae1729a7eb53e828bf925f",
+      "lib/ShoujoKagekiAijoKaren.Beta.dll": "cdaaea9f71d29f9eeed9c89e9cdf0e3825b0554692afb5797ba7d599f9b50466",
+      "lib/ShoujoKagekiAijoKaren.Stable.dll": "e6e9098c12ca1b06cd16008dec59d0f15d4c9939f74c8d4feec303164d5c3229"
+    }
+  },
+  "guard_revision": "docs/testing/guard-plain-restore-2026-10-31.json"
+}

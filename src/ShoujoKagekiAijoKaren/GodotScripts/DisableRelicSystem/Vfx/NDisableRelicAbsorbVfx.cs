@@ -20,8 +20,11 @@ public partial class NDisableRelicAbsorbVfx : Node2D
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
+        _starBlend ??= new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
     }
-    internal static Godot.Resource?[] PreparedResources => [StarTexture];
+    private static CanvasItemMaterial? _starBlend;
+    internal static CanvasItemMaterial StarBlend { get { PrepareResources(); return _starBlend!; } }
+    internal static Godot.Resource?[] PreparedResources => [StarTexture, StarBlend];
 
     public enum TargetKind { Player, Energy, DrawPile, None }
     private const int StarCount = 6;
@@ -132,7 +135,7 @@ internal partial class NDisableRelicAbsorbStar : Node2D
                 Centered = true,
                 Scale = Vector2.One * _scale,
                 Modulate = _color,
-                Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add }
+                Material = NDisableRelicAbsorbVfx.StarBlend
             });
         }
         else
@@ -186,7 +189,7 @@ internal partial class NDisableRelicAbsorbStar : Node2D
         {
             Polygon = vertices,
             Color = _color,
-            Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add }
+            Material = NDisableRelicAbsorbVfx.StarBlend
         };
     }
 

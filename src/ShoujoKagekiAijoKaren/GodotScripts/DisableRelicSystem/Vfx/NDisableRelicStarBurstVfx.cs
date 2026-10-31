@@ -11,8 +11,11 @@ public partial class NDisableRelicStarBurstVfx : Node2D
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
+        _starBlend ??= new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
     }
-    internal static Godot.Resource?[] PreparedResources => [StarTexture];
+    private static CanvasItemMaterial? _starBlend;
+    internal static CanvasItemMaterial StarBlend { get { PrepareResources(); return _starBlend!; } }
+    internal static Godot.Resource?[] PreparedResources => [StarTexture, StarBlend];
 
     private const float SpawnInterval = 0.08f;
     private static readonly Texture2D? StarTexture = KarenResourceLoader.LoadTexture("res://images/packed/vfx/star_guide/star.png", nameof(NDisableRelicStarBurstVfx));
@@ -100,7 +103,7 @@ internal partial class NDisableRelicBurstStar : Node2D
                 Centered = true,
                 Scale = Vector2.One * (float)GD.RandRange(0.18, 0.27),
                 Modulate = _color,
-                Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add }
+                Material = NDisableRelicStarBurstVfx.StarBlend
             });
         }
         else
@@ -139,7 +142,7 @@ internal partial class NDisableRelicBurstStar : Node2D
         {
             Polygon = vertices,
             Color = _color,
-            Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add }
+            Material = NDisableRelicStarBurstVfx.StarBlend
         };
     }
 }

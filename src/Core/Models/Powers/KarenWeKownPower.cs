@@ -30,15 +30,11 @@ public sealed class KarenWeKownPower : KarenBasePower
         if (side == CombatSide.Player && participants.Contains(Owner) && Owner.Player is Player player)
         {
             Flash();
-            var effect = NKarenBenefitVfx.Play(player, NKarenBenefitVfx.BenefitKind.DreamTrigger);
-            if (effect != null) await NKarenBenefitVfx.WaitForCue(NKarenBenefitVfx.BenefitKind.DreamTrigger);
             // Retain actual model identities from the same native generation command.
             var cards = new List<CardModel>();
             for (int i = 0; i < Amount; i++) cards.Add(CombatState.CreateCard<KarenWeKownToken>(player));
             await CardPileCmd.AddGeneratedCardsToCombat(cards, KarenCustomEnum.PromisePile, player);
-            effect?.ConfirmCards(cards);
-            // Finish the short card handoff before the native enemy-turn banner.
-            if(effect!=null)await effect.WaitForDreamDelivery();
+            await NKarenDreamVfx.PresentGenerated(player, cards);
         }
     }
 }

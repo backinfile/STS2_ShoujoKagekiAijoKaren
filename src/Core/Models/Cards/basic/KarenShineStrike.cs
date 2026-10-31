@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -40,7 +41,7 @@ public sealed class KarenShineStrike : KarenBaseCardModel
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithHitVfxNode(target => NKarenBasicCardVfx.Hit(Owner.Creature, target, NKarenBasicCardVfx.Shape.ShineStrike))
             .Execute(choiceContext);
     }
 

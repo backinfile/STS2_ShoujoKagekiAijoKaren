@@ -23,10 +23,11 @@ public partial class NKarenDropFuelVfx : Node2D
     internal static void PrepareResources()
     {
         _flowShader ??= KarenResourceLoader.Load<Shader>("res://shaders/fuel_particles.gdshader", nameof(NKarenDropFuelVfx));
+        _blend ??= new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _softTexture ??= MakeTexture(false);
         _starTexture ??= MakeTexture(true);
     }
-    internal static Godot.Resource?[] PreparedResources => [_softTexture, _starTexture, _flowShader];
+    internal static Godot.Resource?[] PreparedResources => [_softTexture, _starTexture, _flowShader, _blend];
 
     public const string BurstSfxPath = "res://ShoujoKagekiAijoKaren/audio/karen_fuel_ignite.wav";
     // Allow card travel, charge, and burst before drawing. Use native waits, not GPU completion.
@@ -35,6 +36,7 @@ public partial class NKarenDropFuelVfx : Node2D
     private const float ChargeTime = 0.20f;
     private const float BurstSoundLeadTime = 0.12f;
     private static readonly Vector2 DesignSize = new(1280, 720);
+    private static CanvasItemMaterial? _blend;
     private static Texture2D? _softTexture;
     private static Texture2D? _starTexture;
     private static Shader? _flowShader;
@@ -141,7 +143,7 @@ public partial class NKarenDropFuelVfx : Node2D
             Texture = _softTexture,
             Scale = size / 48f,
             Modulate = Colors.Transparent,
-            Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add }
+            Material = _blend
         };
         _stage.AddChild(glow);
         return glow;
@@ -219,7 +221,7 @@ public partial class NKarenDropFuelVfx : Node2D
             VisibilityRect = new Rect2(-100, -100, 1480, 920),
             SpeedScale = _speed,
             ProcessMaterial = material,
-            Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add }
+            Material = _blend
         };
         _stage.AddChild(particles);
         particles.Restart();

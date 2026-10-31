@@ -26,7 +26,6 @@
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenPositionZeroVfx",
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenShineBarrageVfx",
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStageCueVfx",
-  "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStarVfx",
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenUnforgottenShineVfx",
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenWaitingStageVfx",
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenWakeUpCardVfx",
@@ -36,5 +35,6 @@
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenNononVfx",
   "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenPastAndFutureRingVfx",
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx",
-  "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch"
+  "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch",
+  "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBasicCardVfx"
 ]

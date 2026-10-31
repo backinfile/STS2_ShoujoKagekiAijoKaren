@@ -1,41 +1,26 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
-using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
-using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
-/// <summary>Double-star clasp and a finite constellation, spent by native replay events.</summary>
+/// <summary>Gather, spend a visible constellation on actual replays, and deliver the confirmed reward.</summary>
 public partial class NKarenStarVfx : Node2D
 {
-    // Shared visual resources are prepared during the run loading screen as well as on demand.
-    internal static void PrepareResources()
-    {
-        _soft ??= new GradientTexture2D { Width = 128, Height = 128, Fill = GradientTexture2D.FillEnum.Radial,
-            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
-                Offsets = [0, .18f, .5f, 1], Colors = [Colors.White, new(1,1,1,.55f), new(1,1,1,.1f), Colors.Transparent] } };
-    }
-    internal static Godot.Resource?[] PreparedResources => [_soft];
-
-    // Commands may resume off the scene thread. Only this node touches Godot objects;
-    // the managed scope transports results and guarantees release even on failure.
     public sealed class Playback(CardModel card, int shine) : IDisposable
     {
         internal readonly CardModel Card = card;
@@ -52,30 +37,32 @@ public partial class NKarenStarVfx : Node2D
         public void Dispose() => Interlocked.Exchange(ref _completed, 1);
     }
 
-    private sealed record Pulse(int Index, int Count, float At);
-    private static readonly Color Gold = new("#ffd58a"), Hot = new("#fff5d9"), Rose = new("#fa8c9f"), Blue = new("#8fcff6");
-    // Triangulate in stable local coordinates, then scale the draw transform.
-    // Tiny world-space stars during the first frame can fall below triangulation epsilon.
-    private static readonly Vector2[] StarShape = [new(0, -1.35f), new(.1273f, -.1718f), new(1, 0), new(.1273f, .1718f),
-        new(0, 1.35f), new(-.1273f, .1718f), new(-1, 0), new(-.1273f, -.1718f)];
-    private static GradientTexture2D? _soft;
+    private sealed record Pulse(int Index, int Count, float At) { public bool Shown; }
+    private static readonly Color Gold = new("#ffd58a"), Hot = new("#fff1d6"), Rose = new("#fa8c9f"), Blue = new("#8fcff6");
+    private readonly Vector2[] _border = new Vector2[5];
+    private readonly List<Pulse> _pulses = new(4);
+    private readonly Func<float, Vector2> _streamPath;
+    private Vector2 _streamFrom, _streamTo, _body, _crest, _stageBodyNormalized, _stageCrestNormalized;
+    private float _streamLift, _unit, _timeScale;
     private NCombatRoom _room = null!;
     private Playback _playback = null!;
-    private readonly Node2D _back = new() { Name = "KarenStarBackLight" };
-    private readonly List<Pulse> _pulses = new(4);
-    private Vector2 _screen, _body, _foot, _clasp, _cardPoint, _rewardPoint;
-    private float _unit, _age, _releaseAt = -1, _rewardAt = -1;
+    private float _age, _pulseAt = -1, _completedAt = -1, _releaseAt = -1, _rewardAt = -1;
     private int _count, _played;
-    private float _speed;
+    private bool _hasStage;
     public int PlannedCount => _count;
     public int PlayedCount => _played;
-    public bool RewardConfirmed => _rewardAt >= 0;
-    public bool Holding => _releaseAt < 0;
-    public Node2D BackgroundLight => _back;
-    private float Fade => Smooth(_age / .24f) * (_releaseAt < 0 ? 1 : 1 - Smooth((_age - _releaseAt) / .7f));
-    private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
-    public static Task WaitForGather() => Enabled ? Cmd.CustomScaledWait(.38f, .62f) : Task.CompletedTask;
-
+    public bool RewardConfirmed => _playback.Reward;
+    public int CardFrameDraws { get; private set; }
+    public int RewardFrameDraws { get; private set; }
+    public int GatherFrames { get; private set; }
+    public int ConstellationFrames { get; private set; }
+    public int ReplayPulseFrames { get; private set; }
+    public int ReplayPulseCount { get; private set; }
+    public int RewardStoryFrames { get; private set; }
+    public NKarenStarVfx() => _streamPath = t => Flight(_streamFrom, _streamTo, t, _streamLift);
+    private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
+        && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
+    public static Task WaitForGather() => Enabled ? Cmd.CustomScaledWait(.294f, .42f) : Task.CompletedTask;
     public static Playback Play(CardModel card, int shine)
     {
         var playback = new Playback(card, shine);
@@ -85,175 +72,162 @@ public partial class NKarenStarVfx : Node2D
             if (!GodotObject.IsInstanceValid(room) || NCombatRoom.Instance != room || playback.Completed
                 || !CombatManager.Instance.IsInProgress || room.GetCreatureNode(card.Owner.Creature) == null) return;
             room.CombatVfxContainer.AddChild(new NKarenStarVfx {
-                Name = "KarenStarConstellation", _room = room, _playback = playback,
-                _count = playback.Shine, _speed = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1.6f : 1f
+                Name = "KarenStarConstellation", _room = room, _playback = playback, _count = playback.Shine
             });
         }).CallDeferred();
         return playback;
     }
-
     public override void _Ready()
     {
-        PrepareResources();
-        Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
-        _back.Material = Material;
-        TextureFilter = _back.TextureFilter = TextureFilterEnum.Linear;
-        _room.BackCombatVfxContainer.AddChild(_back);
-        _back.Draw += DrawLights;
-        KarenVfxComposition.RegisterCue(this, _playback.Card.Owner.Creature);
-        Place();
+        TopLevel = true; ZIndex = 30;
+        _timeScale = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? .7f : 1;
+        KarenLightRibbon.PrepareResources();
+        Place(); KarenVfxQuality.Redraw(this);
     }
-
-    public override void _Process(double delta)
-    {
-        var creature = _playback.Card.Owner.Creature;
-        if (!GodotObject.IsInstanceValid(_room) || NCombatRoom.Instance != _room || !_room.IsInsideTree()
-            || creature.IsDead || _room.GetCreatureNode(creature) == null
-            || (!CombatManager.Instance.IsInProgress && _releaseAt < 0))
-        { QueueFree(); return; }
-        _age += (float)delta * _speed;
-        Place();
-        while (_playback.Events.TryDequeue(out var play))
-        {
-            _count = Math.Max(1, play.Count);
-            _played = Math.Max(_played, play.Index + 1);
-            _pulses.Add(new(play.Index, _count, _age));
-        }
-        for (int i = _pulses.Count - 1; i >= 0; i--)
-            if (_age - _pulses[i].At > .55f) _pulses.RemoveAt(i);
-        if (_rewardAt < 0 && _playback.Reward)
-        {
-            _rewardAt = _age;
-            var badge = KarenPowerVfxAnchor.Find(_room, creature.GetPower<KarenShineCardRewardPower>());
-            // Confirm the real reward marker; no invented reward slot in the HUD.
-            _rewardPoint = badge != null ? badge.GetGlobalTransformWithCanvas() * (badge.Size * .5f) : _foot + new Vector2(28, 26) * _unit;
-        }
-        if (_releaseAt < 0 && _playback.Completed && !NKarenShineDepleteVfx.IsAnimating(_playback.Card)) _releaseAt = _age;
-        if (_releaseAt >= 0 && _age - _releaseAt > .72f) { QueueFree(); return; }
-        KarenVfxComposition.SetCueStrength(this, Fade * .8f);
-        _back.Modulate = new Color(1, 1, 1, KarenVfxComposition.EventWeight(creature, this));
-        KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_back);
-    }
-
     private void Place()
     {
         GlobalTransform = GetCanvasTransform().AffineInverse();
-        _back.GlobalTransform = _back.GetCanvasTransform().AffineInverse();
-        _screen = GetViewport().GetVisibleRect().Size;
-        float screenUnit = Math.Min(_screen.X / 1280, _screen.Y / 720);
-        var hit = _room.GetCreatureNode(_playback.Card.Owner.Creature)!.Hitbox;
-        _body = hit.GetGlobalTransformWithCanvas() * (hit.Size * .5f);
-        _foot = hit.GetGlobalTransformWithCanvas() * new Vector2(hit.Size.X * .5f, hit.Size.Y);
-        _unit = Mathf.Clamp((_foot.Y - _body.Y) / 95, .65f, 1.25f) * screenUnit;
-        _clasp = new Vector2(Mathf.Clamp(_body.X + 85 * _unit, 100 * screenUnit, _screen.X - 260 * screenUnit),
-            Mathf.Max(110 * screenUnit, _body.Y - 175 * _unit));
-        var card = NCard.FindOnTable(_playback.Card);
-        if (card != null && card.IsInsideTree() && card.Model == _playback.Card)
+        var screen = GetViewportRect().Size; _unit = screen.Y / 720f;
+        var card = _playback.Card.Pile?.Type is PileType.Hand or PileType.Play ? NCard.FindOnTable(_playback.Card) : null;
+        if (GodotObject.IsInstanceValid(card) && card!.Model == _playback.Card && card.IsInsideTree()
+            && card.IsVisibleInTree() && !card.IsQueuedForDeletion())
         {
-            var portrait = card.GetNode<TextureRect>("%Portrait");
-            _cardPoint = portrait.GetGlobalTransformWithCanvas() * (portrait.Size * .5f);
-        }
-        else if (_cardPoint == Vector2.Zero) _cardPoint = _body + new Vector2(150, -25) * _unit;
-    }
-
-    private static float Smooth(float t) { t = Mathf.Clamp(t, 0, 1); return t * t * (3 - 2 * t); }
-    private Vector2 Arc(float t) => _clasp + new Vector2(-140 + 405 * t, 72 - 128 * Mathf.Sin(t * Mathf.Pi)) * _unit;
-    private static Vector2 Curve(Vector2 a, Vector2 b, float t, float lift) => a.Lerp(b, t) + Vector2.Up * Mathf.Sin(t * Mathf.Pi) * lift;
-    private void Glow(Node2D node, Vector2 point, Vector2 size, Color color, float alpha)
-    {
-        color.A *= Mathf.Clamp(alpha, 0, 1);
-        node.DrawTextureRect(_soft, new Rect2(point - size * _unit / 2, size * _unit), false, color);
-    }
-    private void Star(Node2D node, Vector2 point, float size, Color color, float alpha)
-    {
-        if (alpha <= 0 || size < .05f) return;
-        color.A *= Mathf.Clamp(alpha, 0, 1);
-        Glow(node, point, Vector2.One * size * 6, color, alpha * .2f);
-        node.DrawSetTransform(point, 0, Vector2.One * size * _unit);
-        node.DrawColoredPolygon(StarShape, color);
-        node.DrawSetTransform(Vector2.Zero);
-    }
-    private void Ribbon(Node2D node, Func<float, Vector2> path, Color color, float alpha, float progress = 1)
-    {
-        Vector2 prev = path(0);
-        for (int i = 1; i <= 40; i++) {
-            float t = i / 40f * progress; var point = path(t);
-            var c = color; c.A = alpha * Mathf.Sin((i - .5f) / 40 * Mathf.Pi);
-            var haze = c; haze.A *= .12f;
-            node.DrawLine(prev, point, haze, 6 * _unit, true);
-            node.DrawLine(prev, point, c, 1.1f * _unit, true); prev = point;
-        }
-    }
-    private void DrawLights()
-    {
-        float alpha = Fade;
-        // Two narrow, feathered followspots behind the real actor.
-        for (int side = -1; side <= 1; side += 2) {
-            var top = _clasp + new Vector2(side * 165, -190) * _unit;
-            var bottom = _foot + new Vector2(side * 12, 0) * _unit;
-            for (int band = 9; band >= 0; band--) {
-                float width = (10 + band * 5) * _unit;
-                var c = side < 0 ? Gold : Blue; c.A = alpha * .009f;
-                _back.DrawPolygon([top + new Vector2(-2 * _unit, 0), top + new Vector2(2 * _unit, 0),
-                    bottom + new Vector2(width, 0), bottom - new Vector2(width, 0)], [c, c, new(c, 0), new(c, 0)]);
+            if (!_hasStage && _room.GetCreatureNode(_playback.Card.Owner.Creature) is {} actor)
+            {
+                _stageBodyNormalized = (actor.Hitbox.GetGlobalTransformWithCanvas() * (actor.Hitbox.Size * .5f)) / screen;
+                // Leave clear space above the full play-card frame, including the
+                // lowest stars and their glow. Resolve the
+                // native destination once, so entrance/replay tweens never move the stars.
+                var frame = card.GetNode<Control>("%Frame");
+                var localTop = card.GetGlobalTransformWithCanvas().AffineInverse()
+                    * (frame.GetGlobalTransformWithCanvas() * new Vector2(frame.Size.X * .5f, 0));
+                var restingTop = PileType.Play.GetTargetPosition(card) + card.PivotOffset + (localTop - card.PivotOffset) * .8f;
+                var top = _room.Ui.PlayContainer.GetGlobalTransformWithCanvas() * restingTop;
+                _stageCrestNormalized = new Vector2(Mathf.Clamp(top.X, 175 * _unit, screen.X - 175 * _unit),
+                    MathF.Max(85 * _unit, top.Y - 70 * _unit)) / screen;
+                _hasStage = true;
             }
         }
-        Glow(_back, _foot, new Vector2(240, 32), Gold, alpha * .35f);
-        Glow(_back, _clasp, new Vector2(200, 260), Gold, alpha * .12f);
-        float rise = Smooth(_age / .6f);
-        for (int side = -1; side <= 1; side += 2) {
-            var from = _body + new Vector2(side * 22, 12) * _unit;
-            Ribbon(_back, t => from.Lerp(_clasp + new Vector2(side * 13, 8) * _unit, t)
-                + new Vector2(Mathf.Sin(t * Mathf.Tau + _age * .65f) * side * 24, 0) * _unit,
-                side < 0 ? Rose : Blue, alpha * .55f, rise);
-        }
+        _body = _stageBodyNormalized * screen;
+        _crest = _stageCrestNormalized * screen;
     }
-
+    public override void _Process(double delta)
+    {
+        var owner = _playback.Card.Owner.Creature;
+        if (!Enabled || !GodotObject.IsInstanceValid(_room) || NCombatRoom.Instance != _room
+            || !_room.IsInsideTree() || !CombatManager.Instance.IsInProgress || owner.IsDead)
+        { Hide(); QueueFree(); return; }
+        _age += (float)delta / _timeScale; Place();
+        while (_playback.Events.TryDequeue(out var play))
+        {
+            _count = Math.Max(1, play.Count); _played = Math.Max(_played, play.Index + 1); _pulseAt = _age;
+            _pulses.Add(new Pulse(play.Index, _count, _age));
+        }
+        for (int i = _pulses.Count - 1; i >= 0; i--) if (_age - _pulses[i].At > .34f) _pulses.RemoveAt(i);
+        if (_playback.Completed && _completedAt < 0) _completedAt = _age;
+        if (_playback.Reward && _rewardAt < 0 && KarenPowerVfxAnchor.Find(_room, owner.GetPower<KarenShineCardRewardPower>()) != null) _rewardAt = _age;
+        if (_completedAt >= 0 && _releaseAt < 0 && !NKarenShineDepleteVfx.IsAnimating(_playback.Card)) _releaseAt = _age;
+        if ((_releaseAt >= 0 && _age - _releaseAt >= .52f && (_rewardAt < 0 || _age - _rewardAt >= .44f))
+            || (_completedAt >= 0 && _age - _completedAt > 1.6f)) { Hide(); QueueFree(); return; }
+        KarenVfxQuality.Redraw(this);
+    }
+    private static float Smooth(float t) => Mathf.SmoothStep(0, 1, t);
+    private static Vector2 Flight(Vector2 from, Vector2 to, float t, float lift)
+        => from.Lerp(to, t) + Vector2.Up * MathF.Sin(t * MathF.PI) * lift;
+    private Vector2 Slot(float t) => _crest + new Vector2(-160 + 320 * t, 24 - 35 * MathF.Sin(t * MathF.PI)) * _unit;
+    private float PulseAtSlot(int slot, int slots)
+    {
+        float strength = 0;
+        foreach (var pulse in _pulses)
+        {
+            int target = Math.Min(slots - 1, pulse.Index * slots / Math.Max(1, pulse.Count));
+            if (target != slot) continue;
+            float value = 1 - Smooth((_age - pulse.At) / .30f);
+            strength = MathF.Max(strength, value);
+            if (value > 0 && !pulse.Shown) { pulse.Shown = true; ReplayPulseCount++; }
+        }
+        return strength;
+    }
+    private void Stream(Vector2 from, Vector2 to, float lift, float head, float length, Color color, float alpha, float width = 3)
+    {
+        _streamFrom = from; _streamTo = to; _streamLift = lift;
+        KarenLightRibbon.Draw(this, _streamPath, head, length, width * _unit, color, alpha);
+    }
     public override void _Draw()
     {
-        float alpha = Fade, open = Smooth((_age - .14f) / .55f);
-        Ribbon(this, Arc, Gold, alpha * .45f, open);
-        int slots = Math.Min(12, _count);
-        for (int i = 0; i < slots; i++) {
-            float t = slots == 1 ? .5f : i / (float)(slots - 1);
-            float reveal = Smooth((_age - .18f - t * .3f) / .25f);
-            float perSlot = _count / (float)slots;
-            float spent = Mathf.Clamp((_played - i * perSlot) / perSlot, 0, 1);
-            Star(this, Arc(t), 6.5f + Mathf.Sin(t * Mathf.Pi) * 2, spent >= 1 ? Gold : Hot, alpha * reveal * (1 - spent * .88f));
-        }
-        foreach (var pulse in _pulses) {
-            float t = Mathf.Clamp((_age - pulse.At) / .36f, 0, 1);
-            var start = Arc(pulse.Count <= 1 ? .5f : pulse.Index / (float)(pulse.Count - 1));
-            for (int i = 14; i >= 0; i--) {
-                float q = t - i * .016f; if (q < 0) continue;
-                var point = Curve(start, _cardPoint, Smooth(q), 40 * _unit);
-                Glow(this, point, Vector2.One * (13 - i * .55f), Gold, alpha * (1 - i / 15f) * (1 - t) * .7f);
+        float alpha = Smooth(_age / .10f) * (_releaseAt < 0 ? 1 : 1 - Smooth((_age - _releaseAt) / .52f));
+        if (_hasStage && alpha > 0)
+        {
+            if (_age < .55f)
+            {
+                float t = Smooth(_age / .36f), fade = 1 - Smooth((_age - .36f) / .19f);
+                for (int side = -1; side <= 1; side += 2)
+                {
+                    var from = _body + new Vector2(side * 28, -4) * _unit;
+                    var to = Slot(.5f) + new Vector2(side * 3, 0) * _unit;
+                    var tint = side < 0 ? Rose : Blue;
+                    Stream(from, to, 26 * _unit, t + Smooth((_age - .36f) / .19f), .42f, tint, alpha * fade * .8f, 3.4f);
+                    KarenLightRibbon.Star(this, Flight(from, to, t, 26 * _unit), 11 * _unit * (1 - Smooth((t - .7f) / .3f) * .8f), tint, alpha * fade);
+                }
+                GatherFrames++;
             }
-            Star(this, Curve(start, _cardPoint, Smooth(t), 40 * _unit), 8, Hot, alpha * (1 - Smooth((t - .78f) / .22f)));
-            Glow(this, _cardPoint, new Vector2(110, 150), Gold, alpha * (1 - t) * .13f);
-        }
-        float flare = _rewardAt < 0 ? 0 : Mathf.Sin(Mathf.Clamp((_age - _rewardAt) / .65f, 0, 1) * Mathf.Pi);
-        float gather = Smooth(_age / .5f);
-        Star(this, _clasp, (21 + 12 * flare) * gather, Gold, alpha);
-        Star(this, _clasp, (14 + 8 * flare) * gather, Hot, alpha * .9f);
-        Star(this, _clasp + new Vector2(36, 31) * _unit, (11 + 7 * flare) * gather, Hot, alpha);
-        if (_rewardAt >= 0) {
-            float t = Smooth((_age - _rewardAt) / .56f);
-            var end = _rewardPoint;
-            Ribbon(this, q => Curve(_clasp, end, q * t, 50 * _unit), Gold, alpha * (1 - t) * .7f);
-            Star(this, Curve(_clasp, end, t, 50 * _unit), 7, Hot, alpha * (1 - t));
-            for (int i = 0; i < 20; i += KarenVfxQuality.ParticleStride) {
-                float q = Mathf.Clamp((_age - _rewardAt - i * .008f) / .8f, 0, 1);
-                var v = new Vector2(Mathf.Sin(i * 2.4f) * (18 + i * 1.4f), -30 - i * 3) * q * _unit;
-                Star(this, _clasp + v, 1.4f + i % 3, Gold, alpha * Mathf.Sin(q * Mathf.Pi) * .55f);
+            // Keep the finite constellation, with one shallow open arc and clear star silhouettes.
+            Stream(Slot(0), Slot(1), 35 * _unit, Smooth((_age - .08f) / .30f), 1, Gold, alpha * .28f, 1.8f);
+            int slots = Math.Min(12, _count);
+            for (int i = 0; i < slots; i++)
+            {
+                float t = slots == 1 ? .5f : i / (float)(slots - 1);
+                float reveal = Smooth((_age - .08f - t * .12f) / .18f);
+                float spent = Mathf.Clamp((_played - i * (_count / (float)slots)) / (_count / (float)slots), 0, 1);
+                float pulse = PulseAtSlot(i, slots);
+                float radius = (9 + 2 * MathF.Sin(t * MathF.PI)) * _unit * Mathf.Lerp(1 - spent * .22f, 1, pulse);
+                KarenLightRibbon.Star(this, Slot(t), radius, Gold.Lerp(Hot, pulse),
+                    alpha * reveal * Mathf.Lerp(1 - spent * .78f, 1, pulse));
+                if (pulse > 0)
+                {
+                    // A local glint contracts into the spent star; it never leaves its slot.
+                    var span = Vector2.Right * (15 * _unit * pulse);
+                    DrawLine(Slot(t) - span, Slot(t) + span, new Color(Hot, alpha * pulse * .85f), 1.8f * _unit, true);
+                    ReplayPulseFrames++;
+                }
             }
+            ConstellationFrames++;
+            // The gathering meets the constellation itself; no second core is stacked over its middle star.
         }
+        var card = _playback.Card.Pile?.Type is PileType.Hand or PileType.Play ? NCard.FindOnTable(_playback.Card) : null;
+        if (GodotObject.IsInstanceValid(card) && card!.Model == _playback.Card && card.IsInsideTree() && card.IsVisibleInTree()
+            && !card.IsQueuedForDeletion() && card.GetNodeOrNull<Control>("%Frame") is {} frame)
+        {
+            float pulse = _pulseAt < 0 ? 0 : MathF.Max(0, 1 - (_age - _pulseAt) / .13f);
+            Outline(frame, new Color(Gold, pulse * .4f), 1.5f * _unit); CardFrameDraws++;
+        }
+        if (_rewardAt < 0) return;
+        var badge = KarenPowerVfxAnchor.Find(_room, _playback.Card.Owner.Creature.GetPower<KarenShineCardRewardPower>());
+        if (badge == null) return;
+        float elapsed = _age - _rewardAt, rewardAlpha = 1 - Smooth(elapsed / .44f);
+        var target = badge.GetGlobalTransformWithCanvas() * (badge.Size * .5f);
+        if (_hasStage && rewardAlpha > 0)
+        {
+            float t = Smooth(elapsed / .32f);
+            Stream(_crest, target, 24 * _unit, t, .45f, Gold, alpha * rewardAlpha, 3.3f);
+            KarenLightRibbon.Star(this, Flight(_crest, target, t, 24 * _unit), 10 * _unit, Hot, alpha * rewardAlpha);
+            for (int i = 0; i < 20; i += KarenVfxQuality.ParticleStride)
+            {
+                float q = Mathf.Clamp((elapsed - i * .004f) / .42f, 0, 1);
+                var v = new Vector2(MathF.Sin(i * 2.4f) * (18 + i), -20 - i * 2) * q * _unit;
+                KarenLightRibbon.Star(this, _crest + v, (1.4f + i % 3) * _unit, Gold, alpha * MathF.Sin(q * MathF.PI) * .5f);
+            }
+            RewardStoryFrames++;
+        }
+        Outline(badge, new Color(Gold, rewardAlpha), 1.8f * _unit); RewardFrameDraws++;
     }
-
-    public override void _ExitTree()
+    private void Outline(Control target, Color color, float width)
     {
-        KarenVfxComposition.RemoveCue(this);
-        if (GodotObject.IsInstanceValid(_back)) { _back.Hide(); _back.QueueFree(); }
-        _pulses.Clear();
+        if (color.A <= 0) return;
+        var t = target.GetGlobalTransformWithCanvas(); var size = target.Size;
+        _border[0] = t * Vector2.Zero; _border[1] = t * new Vector2(size.X, 0);
+        _border[2] = t * size; _border[3] = t * new Vector2(0, size.Y); _border[4] = _border[0];
+        DrawPolyline(_border, color, width, true);
     }
+    public override void _ExitTree() => _pulses.Clear();
 }

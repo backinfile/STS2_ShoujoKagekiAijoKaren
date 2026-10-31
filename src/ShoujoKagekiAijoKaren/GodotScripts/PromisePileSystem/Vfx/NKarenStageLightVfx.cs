@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core.Audio;
@@ -19,8 +20,11 @@ public partial class NKarenStageLightVfx : Node2D
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
+        _beamBlend ??= new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
     }
-    internal static Godot.Resource?[] PreparedResources => [StageLightTexture, StageLightFocusTexture];
+    private static CanvasItemMaterial? _beamBlend;
+    internal static CanvasItemMaterial BeamBlend { get { PrepareResources(); return _beamBlend!; } }
+    internal static Godot.Resource?[] PreparedResources => [StageLightTexture, StageLightFocusTexture, BeamBlend];
 
     public const float HitTime = .28f;
     public const float FastHitTime = HitTime * .7f;
@@ -44,6 +48,9 @@ public partial class NKarenStageLightVfx : Node2D
     private Tween? _overlayTween;
     private StageLightTargetArea _lastTargetArea;
     private float _age;
+    private ulong _sampleFrame = ulong.MaxValue;
+    private bool _targetPresent;
+    private NCreature? _targetNode;
 
     private NKarenStageLightVfx(Creature target, bool persistent)
     {
@@ -105,7 +112,8 @@ public partial class NKarenStageLightVfx : Node2D
 
     public override void _Process(double delta)
     {
-        if (!_stopping && !(NCombatRoom.Instance?.CreatureNodes.Any(creature => creature.Entity == _target) ?? false)) Stop();
+        GetTargetArea();
+        if (!_stopping && !_targetPresent) Stop();
         float d = (float)delta * (_persistent ? 1f : PlaybackSpeed);
         _age += d;
         if (!_persistent)
@@ -135,11 +143,18 @@ public partial class NKarenStageLightVfx : Node2D
 
     private StageLightTargetArea GetTargetArea()
     {
-        var creatureNode = NCombatRoom.Instance?.CreatureNodes.FirstOrDefault(creature => creature.Entity == _target);
-        if (creatureNode != null)
+        ulong frame = Engine.GetProcessFrames();
+        if (_sampleFrame != frame)
+        {
+            _sampleFrame = frame;
+            _targetNode = NCombatRoom.Instance?.GetCreatureNode(_target);
+        }
+        var creatureNode = _targetNode;
+        _targetPresent = GodotObject.IsInstanceValid(creatureNode) && creatureNode!.IsInsideTree() && !creatureNode.IsQueuedForDeletion();
+        if (_targetPresent)
         {
             // Convert both corners through the complete canvas transform (including scale/flip).
-            var hitbox = creatureNode.Hitbox;
+            var hitbox = creatureNode!.Hitbox;
             var first = ToLocal(hitbox.GetGlobalTransform() * Vector2.Zero);
             var last = ToLocal(hitbox.GetGlobalTransform() * hitbox.Size);
             _lastTargetArea = new StageLightTargetArea((first + last) * 0.5f, (last - first).Abs());
@@ -206,7 +221,7 @@ internal partial class NKarenStageLightBeam : Sprite2D
         Centered = false;
         ZAsRelative = true;
         ZIndex = 20;
-        Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
+        Material = NKarenStageLightVfx.BeamBlend;
 
         RotationDegrees = degrees;
         Modulate = Colors.White;
@@ -283,7 +298,7 @@ internal partial class NKarenStageLightFocusBeam : Sprite2D
         Centered = false;
         ZAsRelative = true;
         ZIndex = 20;
-        Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
+        Material = NKarenStageLightVfx.BeamBlend;
         if (texture != null)
             Offset = new Vector2(-texture.GetWidth() * 0.5f, -texture.GetHeight());
 

@@ -35,6 +35,8 @@ public partial class NKarenBackToBackVfx : Node2D
     private readonly Color[] _colors = new Color[Samples * 2];
     private readonly Vector2[] _edge = new Vector2[Samples];
     private readonly Vector2[] _quad = new Vector2[4];
+    private readonly Vector2[] _points = new Vector2[Samples], _normals = new Vector2[Samples];
+    private readonly float[] _envelopes = new float[Samples];
 
     private static bool CanPlay => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
         && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant
@@ -183,17 +185,22 @@ public partial class NKarenBackToBackVfx : Node2D
     {
         if (to - from < .008f || alpha < .005f) return;
         var color = side == 0 ? Red : Blue;
+        for (int i = 0; i < Samples; i++)
+        {
+            float s = i / (float)(Samples - 1), t = Mathf.Lerp(from, to, s);
+            _points[i] = BladePoint(side, contact, t);
+            _normals[i] = (BladePoint(side, contact, t + .001f) - BladePoint(side, contact, t - .001f)).Normalized().Orthogonal();
+            _envelopes[i] = Mathf.Pow(Mathf.Max(.001f, Mathf.Sin(s * Mathf.Pi)), .65f);
+        }
         for (int layer = 0; layer < 3; layer++)
         {
             float thickness = layer == 0 ? 3.5f : layer == 1 ? 1 : .16f;
             float opacity = alpha * (layer == 0 ? .065f : layer == 1 ? .74f : .95f);
             for (int i = 0; i < Samples; i++)
             {
-                float s = i / (float)(Samples - 1);
-                float t = Mathf.Lerp(from, to, s);
-                var at = BladePoint(side, contact, t);
-                var normal = (BladePoint(side, contact, t + .001f) - BladePoint(side, contact, t - .001f)).Normalized().Orthogonal();
-                float envelope = Mathf.Pow(Mathf.Max(.001f, Mathf.Sin(s * Mathf.Pi)), .65f);
+                var at = _points[i];
+                var normal = _normals[i];
+                float envelope = _envelopes[i];
                 float w = Mathf.Max(.035f, width * thickness * envelope * taper);
                 _ribbon[i] = at + normal * w;
                 _ribbon[Samples * 2 - 1 - i] = at - normal * w * .22f;

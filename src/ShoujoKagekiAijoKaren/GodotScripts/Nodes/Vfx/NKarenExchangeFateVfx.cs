@@ -65,6 +65,8 @@ public partial class NKarenExchangeFateVfx : Node2D
     }
     private readonly Node2D _light = new(), _front = new();
     private readonly List<Silk> _silks = new();
+    private readonly Vector2[][] _flowPoints = [new Vector2[Segments + 1], new Vector2[Segments + 1]];
+    private readonly Vector2[][] _flowNormals = [new Vector2[Segments + 1], new Vector2[Segments + 1]];
     private readonly List<Dust> _dust = new(180);
     private readonly TaskCompletionSource _exchangeReady = new();
     private readonly RandomNumberGenerator _random = new() { Seed = 29617 };
@@ -192,6 +194,17 @@ public partial class NKarenExchangeFateVfx : Node2D
                 Emit(p, new Vector2(_random.RandfRange(-16, 16), _random.RandfRange(-28, -8)) * _unit, _random.Randf() < .10f);
             }
         }
+        for (int b = 0; b < 2; b++)
+        {
+            for (int j = 0; j <= Segments; j++)
+            {
+                float u = j / (float)Segments;
+                _flowPoints[b][j] = Flow(u, b == 1);
+                var tangent = (Flow(Mathf.Min(1, u + .003f), b == 1) - Flow(Mathf.Max(0, u - .003f), b == 1)).Normalized();
+                if (tangent.LengthSquared() < .1f) tangent = Vector2.Up;
+                _flowNormals[b][j] = tangent.Orthogonal();
+            }
+        }
         foreach (var silk in _silks) UpdateSilk(silk);
         KarenVfxComposition.SetCueStrength(this, Alpha);
         KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_light); KarenVfxQuality.Redraw(_front);
@@ -217,10 +230,8 @@ public partial class NKarenExchangeFateVfx : Node2D
         s.Node.Visible = active > .001f; if (!s.Node.Visible) return;
         for (int j = 0; j <= Segments; j++)
         {
-            float u = j / (float)Segments; var p = Flow(u, s.Blue);
-            var tangent = (Flow(Mathf.Min(1, u + .003f), s.Blue) - Flow(Mathf.Max(0, u - .003f), s.Blue)).Normalized();
-            if (tangent.LengthSquared() < .1f) tangent = Vector2.Up;
-            var normal = tangent.Orthogonal();
+            float u = j / (float)Segments; int b = s.Blue ? 1 : 0;
+            var p = _flowPoints[b][j]; var normal = _flowNormals[b][j];
             p += normal * Mathf.Sin(u * 9 - _age * 12 + s.Strand * 2.2f) * s.Strand * 4 * _unit * Mathf.Sin(u * Mathf.Pi);
             float half = (2 + 34 * Mathf.Pow(Mathf.Max(0, Mathf.Sin(u * Mathf.Pi)), .8f)) * (s.Strand == 0 ? 1 : .45f) * _unit
                 * (.80f + .20f * Mathf.Sin(u * 12 - _age * 9 + s.Strand)) * Mathf.Sqrt(Mathf.Clamp(Travel / .22f, 0, 1));

@@ -1,6 +1,7 @@
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -34,6 +35,8 @@ public partial class NKarenBridgeVfx : Node2D
     private static readonly Vector2[] Stars = [new(810, 75), new(1014, 82), new(411, 308)];
     private static readonly Vector2[] JointCenters = [new(500, 146), new(854, 194), new(1132, 236)];
     private static readonly Vector2[] JointEmitters = [new(493, 183), new(852, 231), new(1129, 268)];
+    private readonly Vector2[] _beamPoints = new Vector2[4], _starPoints = new Vector2[8];
+    private readonly Color[] _beamColors = new Color[4];
     private static readonly Color WarmLight = new(1, 0.85f, 0.55f);
     private static readonly Vector2 SceneryOffset = new(-12, -34);
     private const float SceneryScale = 1.02f;
@@ -236,14 +239,21 @@ public partial class NKarenBridgeVfx : Node2D
     // briefly exceeding the budget as a nested stage lights up.
     private partial class StageLighting : Node
     {
+        private readonly List<NKarenBridgeVfx> _stages = new();
         public override void _Process(double delta)
         {
-            var stages = GetParent().GetChildren().OfType<NKarenBridgeVfx>()
-                .Where(n => !n.IsSpotlight && n._hasCards && n.Visible && !n.IsQueuedForDeletion()).ToArray();
-            if (stages.Length == 0) { QueueFree(); return; }
-            float lightWeight = 1 / Mathf.Max(1, stages.Sum(n => n.MainLightStrength));
-            float atmosphereWeight = 1 / Mathf.Max(1, stages.Sum(n => n.AtmosphereStrength));
-            foreach (var stage in stages) stage.UpdateStageLighting(lightWeight, atmosphereWeight);
+            _stages.Clear();
+            var parent = GetParent();
+            double light = 0, atmosphere = 0; // Enumerable.Sum(float) accumulates in double.
+            for (int i = 0; i < parent.GetChildCount(); i++)
+            {
+                if (parent.GetChild(i) is not NKarenBridgeVfx n || n.IsSpotlight || !n._hasCards || !n.Visible || n.IsQueuedForDeletion()) continue;
+                _stages.Add(n); light += n.MainLightStrength; atmosphere += n.AtmosphereStrength;
+            }
+            if (_stages.Count == 0) { QueueFree(); return; }
+            float lightWeight = 1 / Mathf.Max(1, (float)light);
+            float atmosphereWeight = 1 / Mathf.Max(1, (float)atmosphere);
+            foreach (var stage in _stages) stage.UpdateStageLighting(lightWeight, atmosphereWeight);
         }
     }
 
@@ -294,9 +304,11 @@ public partial class NKarenBridgeVfx : Node2D
         for (int i = 0; i < 4; i++)
         {
             var spread = normal * (1 - i * 0.17f);
-            DrawPolygon(new[] { start - spread * 0.04f, start + spread * 0.04f, end + spread, end - spread },
-                new[] { new Color(1, 0.91f, 0.70f, alpha * 0.25f), new Color(1, 0.91f, 0.70f, alpha * 0.25f),
-                    new Color(1, 0.96f, 0.85f, 0), new Color(1, 0.96f, 0.85f, 0) });
+            _beamPoints[0] = start - spread * 0.04f; _beamPoints[1] = start + spread * 0.04f;
+            _beamPoints[2] = end + spread; _beamPoints[3] = end - spread;
+            _beamColors[0] = _beamColors[1] = new Color(1, 0.91f, 0.70f, alpha * 0.25f);
+            _beamColors[2] = _beamColors[3] = new Color(1, 0.96f, 0.85f, 0);
+            DrawPolygon(_beamPoints, _beamColors);
         }
     }
     private void SourceLight(float alpha)
@@ -333,11 +345,11 @@ public partial class NKarenBridgeVfx : Node2D
             float pulse = 0.7f + 0.3f * Mathf.Sin(Age * 1.6f + i * 2.2f);
             float size = (i == 2 ? 6 : 9) * pulse;
             _glints.DrawCircle(point, size * 1.5f, new Color(1, 0.06f, 0.3f, strength * 0.035f), antialiased: true);
-            _glints.DrawColoredPolygon(new[] { point + new Vector2(0, -size), point + new Vector2(size * 0.2f, -size * 0.18f),
-                point + new Vector2(size * 0.7f, 0), point + new Vector2(size * 0.2f, size * 0.18f),
-                point + new Vector2(0, size), point + new Vector2(-size * 0.2f, size * 0.18f),
-                point + new Vector2(-size * 0.7f, 0), point + new Vector2(-size * 0.2f, -size * 0.18f) },
-                new Color(1, 0.09f, 0.33f, strength * pulse * 0.74f));
+            _starPoints[0] = point + new Vector2(0, -size); _starPoints[1] = point + new Vector2(size * 0.2f, -size * 0.18f);
+            _starPoints[2] = point + new Vector2(size * 0.7f, 0); _starPoints[3] = point + new Vector2(size * 0.2f, size * 0.18f);
+            _starPoints[4] = point + new Vector2(0, size); _starPoints[5] = point + new Vector2(-size * 0.2f, size * 0.18f);
+            _starPoints[6] = point + new Vector2(-size * 0.7f, 0); _starPoints[7] = point + new Vector2(-size * 0.2f, -size * 0.18f);
+            _glints.DrawColoredPolygon(_starPoints, new Color(1, 0.09f, 0.33f, strength * pulse * 0.74f));
         }
     }
 

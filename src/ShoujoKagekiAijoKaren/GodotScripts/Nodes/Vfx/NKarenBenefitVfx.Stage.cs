@@ -147,9 +147,12 @@ public partial class NKarenBenefitVfx
         }
         UpdateDreamCards();
     }
+    private readonly System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<MegaCrit.Sts2.Core.Models.CardModel, NCard>> _dreamSnapshot = new();
     private void UpdateDreamCards()
     {
-        foreach(var pair in _dreamCards.ToArray()){
+        _dreamSnapshot.Clear();
+        foreach(var pair in _dreamCards)_dreamSnapshot.Add(pair);
+        foreach(var pair in _dreamSnapshot){
             var card=pair.Value;
             if(!GodotObject.IsInstanceValid(card)||card.IsQueuedForDeletion()||!card.IsInsideTree()
                 ||card.GetParent()!=_hud||card.Model!=pair.Key){ReleaseDreamCard(pair.Key);continue;}
@@ -173,10 +176,12 @@ public partial class NKarenBenefitVfx
             card.GlobalPosition+=canvas*destination-canvas*current;
             card.Show();
         }
+        _dreamSnapshot.Clear();
     }
     private void ClearDreamCards()
     {
         foreach(var model in _dreamCards.Keys.ToArray())ReleaseDreamCard(model);
+        _dreamSnapshot.Clear();
     }
     private void ReleaseDreamCard(MegaCrit.Sts2.Core.Models.CardModel model)
     {

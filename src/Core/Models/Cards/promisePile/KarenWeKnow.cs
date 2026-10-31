@@ -1,4 +1,4 @@
-﻿using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -24,11 +24,9 @@ public sealed class KarenWeKown : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var effect = NKarenBenefitVfx.Play(Owner, NKarenBenefitVfx.BenefitKind.Dream, this);
-        effect?.WatchPower<KarenWeKownPower>();
-        if (effect != null) await NKarenBenefitVfx.WaitForCue(NKarenBenefitVfx.BenefitKind.Dream);
+        int before = Owner.Creature.GetPowerAmount<KarenWeKownPower>();
         await PowerCmd.Apply<KarenWeKownPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
-        effect?.CheckPower();
+        if (Owner.Creature.GetPowerAmount<KarenWeKownPower>() > before) NKarenDreamVfx.ConfirmApplied(Owner);
     }
 
     protected override void OnUpgrade()

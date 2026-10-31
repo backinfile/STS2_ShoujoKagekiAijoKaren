@@ -1,0 +1,329 @@
+{
+  "baseline": "670440c",
+  "status": "targeted recordings verified",
+  "counts": {
+    "before_stable": 2,
+    "before_beta": 2,
+    "after_stable": 4,
+    "after_beta": 4
+  },
+  "recordings": 12,
+  "cases": [
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-fixed-stage-20261031/before/stable/full-karen_star/game.mp4",
+      "sha256": "a469e90f04980bfd98960f3d44bc049ad697e3e062eb6373a272bc489b911ed7",
+      "audio_mean_db": -48.7,
+      "capture_fps": 29.07507788555062,
+      "frames_repeated": 11,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-fixed-stage-20261031/before/stable/low-karen_star/game.mp4",
+      "sha256": "e1e01e5ed93ff3298d34710d4b925d7ca68fe4ad1ddbfe5516364a7e2141c275",
+      "audio_mean_db": -48.5,
+      "capture_fps": 29.9757752527633,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-fixed-stage-20261031/before/beta/full-karen_star/game.mp4",
+      "sha256": "42e332cbb70fd8b6763613c1950af2adbe8ea0448b16948328134d9ba0101455",
+      "audio_mean_db": -48.3,
+      "capture_fps": 29.750864488775925,
+      "frames_repeated": 3,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-fixed-stage-20261031/before/beta/low-karen_star/game.mp4",
+      "sha256": "efcb00913a74a2b33f7269febcbae9a982273269a37bdcf54c25cc94418bd188",
+      "audio_mean_db": -48.6,
+      "capture_fps": 29.415098988339565,
+      "frames_repeated": 7,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-fixed-stage-20261031/after/stable/full-karen_star/game.mp4",
+      "sha256": "5214979f11ea5d12a42b0e64fff41b28019d66be470a4fdffb529fef3f77065d",
+      "audio_mean_db": -48.8,
+      "capture_fps": 29.814533603433617,
+      "frames_repeated": 3,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-fixed-stage-20261031/after/stable/low-karen_star/game.mp4",
+      "sha256": "194ba79d530c19e9dd22a53bdc912a352835d4ad9b552bf92fa803ce4312979b",
+      "audio_mean_db": -48.6,
+      "capture_fps": 29.885430342203254,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "fast",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-fixed-stage-20261031/after/stable/fast-karen_star/game.mp4",
+      "sha256": "cfecf1aaffdce20dfcd6d6048855babb4a952a41a4c3d9af29ab691ac5b7530b",
+      "audio_mean_db": -48.0,
+      "capture_fps": 29.815639384894038,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "skill",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 15,
+      "video": "artifacts/star-fixed-stage-20261031/after/stable/skill-karen_star/game.mp4",
+      "sha256": "2511642cc05f29c174f722042bcc2cf8a521d4aceab60422685905bc8aafa7d1",
+      "audio_mean_db": -48.6,
+      "capture_fps": 29.389078930102336,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-fixed-stage-20261031/after/beta/full-karen_star/game.mp4",
+      "sha256": "56f68863bfab2593425e4e1274ac66a25aaee7ceb7cedf5ac70b0dff74353c70",
+      "audio_mean_db": -48.6,
+      "capture_fps": 29.48115975502471,
+      "frames_repeated": 6,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-fixed-stage-20261031/after/beta/low-karen_star/game.mp4",
+      "sha256": "1497fff8fb18ccda1a6c944bc7b7fadd40e4528d5eed240bead21a309a54fc47",
+      "audio_mean_db": -48.8,
+      "capture_fps": 29.70412653120529,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "fast",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-fixed-stage-20261031/after/beta/fast-karen_star/game.mp4",
+      "sha256": "1a210553fba8de1543d2ed4668045c30f689bd48f4994509fbab49fa6eb3fac8",
+      "audio_mean_db": -47.6,
+      "capture_fps": 29.163007603097768,
+      "frames_repeated": 8,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "skill",
+      "quality": "Full",
+      "passed": true,
+      "damage": 0,
+      "block": 15,
+      "video": "artifacts/star-fixed-stage-20261031/after/beta/skill-karen_star/game.mp4",
+      "sha256": "31a052e84ece6a327fd0bbccacace07934b25690c62b552282c5fc6279035efd",
+      "audio_mean_db": -48.6,
+      "capture_fps": 29.252768664711702,
+      "frames_repeated": 7,
+      "frames_dropped": 0
+    }
+  ],
+  "engine_observations": [
+    {
+      "log": "artifacts/star-fixed-stage-20261031/after/beta/godot-1793454620242559100.log",
+      "line": 257,
+      "message": "Historical native Invalid Task ID during Common preloading; preloading subsequently completed"
+    },
+    {
+      "log": "artifacts/star-fixed-stage-20261031/after/beta/godot-1793454620242559100.log",
+      "line": 259,
+      "message": "Historical native Invalid Task ID during Common preloading; preloading subsequently completed"
+    }
+  ],
+  "static_checks": {
+    "baseline": "670440c",
+    "changed_production_sources": [
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs"
+    ],
+    "unchanged_sources": 408,
+    "catalog": {
+      "types": 77,
+      "owners": 38,
+      "assets": 167
+    },
+    "anchor": "Actor position captured once at cast; viewport-relative stage anchor; card frame never sets the constellation",
+    "card": "Real card portrait remains replay flight destination; frame is only used for the short outline",
+    "preserved": [
+      "shape",
+      "star/reward speck counts",
+      "colors",
+      "brightness",
+      "timing parameters",
+      "game rules",
+      "Dream and all other card effects"
+    ]
+  },
+  "untested": [
+    "full frame-time/first-use suite",
+    "complete singleplayer/multiplayer matrix",
+    "Android",
+    "Off/Instant, mirror and resize not repeated; existing quality/factory branches retained"
+  ],
+  "anchor_measurements": [
+    {
+      "environment": "stable",
+      "mode": "full",
+      "samples": 365,
+      "stage_drift": 0,
+      "card_top_movement": 558.96906
+    },
+    {
+      "environment": "stable",
+      "mode": "low",
+      "samples": 360,
+      "stage_drift": 0,
+      "card_top_movement": 577.47845
+    },
+    {
+      "environment": "stable",
+      "mode": "fast",
+      "samples": 257,
+      "stage_drift": 0,
+      "card_top_movement": 479.4881
+    },
+    {
+      "environment": "stable",
+      "mode": "skill",
+      "samples": 235,
+      "stage_drift": 0,
+      "card_top_movement": 574.0389
+    },
+    {
+      "environment": "beta",
+      "mode": "full",
+      "samples": 363,
+      "stage_drift": 0,
+      "card_top_movement": 587.7537
+    },
+    {
+      "environment": "beta",
+      "mode": "low",
+      "samples": 365,
+      "stage_drift": 0,
+      "card_top_movement": 560.6543
+    },
+    {
+      "environment": "beta",
+      "mode": "fast",
+      "samples": 255,
+      "stage_drift": 0,
+      "card_top_movement": 476.37396
+    },
+    {
+      "environment": "beta",
+      "mode": "skill",
+      "samples": 235,
+      "stage_drift": 0,
+      "card_top_movement": 574.80774
+    }
+  ],
+  "final_package": {
+    "ShoujoKagekiAijoKaren.dll": "0ecd6fea1fa1cb74890f66259c7892de418a8285c440dfd784ccc968ff78c894",
+    "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+    "ShoujoKagekiAijoKaren.pck": "1996cf304676671864e9cb9f6f80bd3c186cbf3db6dc0ccdf042a5a6c96c82e7",
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": "ba361b75ac2f3e31009a0e766a2b28cbc818d64bf30410fa9efe71f46671b63c",
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": "6f175375e0ab09f51c18d79470ce8ad6b7b6b4657c3e1997b2e8f4616621249f"
+  },
+  "video_continuity": [
+    {
+      "video": "artifacts/star-fixed-stage-20261031/before/stable/full-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-fixed-stage-20261031/before/beta/full-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-fixed-stage-20261031/after/stable/full-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-fixed-stage-20261031/after/beta/full-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    }
+  ]
+}

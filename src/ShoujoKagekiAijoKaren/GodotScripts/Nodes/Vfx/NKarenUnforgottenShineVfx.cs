@@ -51,6 +51,8 @@ public partial class NKarenUnforgottenShineVfx : Node2D
     };
     private readonly Node2D _flashes = new() { Name = "FreshHits", ZIndex = 1 };
     private readonly List<FadingCut> _fading = new();
+    private readonly List<Sprite2D> _scars = new();
+    private readonly List<Vector2> _neighbors = new();
     private NCombatRoom _room = null!;
     private int _nextScar;
 
@@ -94,10 +96,11 @@ public partial class NKarenUnforgottenShineVfx : Node2D
 
     private Vector2 PickHitPoint(Vector2 center, Vector2 spread, float size)
     {
-        var neighbors = new List<Vector2>();
-        foreach (var node in _retained.GetChildren())
+        var neighbors = _neighbors;
+        neighbors.Clear();
+        foreach (var sprite in _scars)
         {
-            if (node is not Sprite2D sprite) continue;
+            if (!GodotObject.IsInstanceValid(sprite) || sprite.GetParent() != _retained) continue;
             var anchor = sprite.GetGlobalTransformWithCanvas().Origin;
             if (anchor.DistanceSquaredTo(center) < size * size * 2.25f)
                 neighbors.Add(anchor);
@@ -142,7 +145,9 @@ public partial class NKarenUnforgottenShineVfx : Node2D
     private void AddCut(Transform2D placement)
     {
         int id = ++_nextScar;
-        _retained.AddChild(MakeSprite(placement, $"Scar{id}"));
+        var scar = MakeSprite(placement, $"Scar{id}");
+        _retained.AddChild(scar);
+        _scars.Add(scar);
         var mode = SaveManager.Instance.PrefsSave.FastMode;
         if (mode == FastModeType.Instant) return;
 

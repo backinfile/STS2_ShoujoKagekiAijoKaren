@@ -281,9 +281,8 @@ public partial class NKarenNononVfx
         return gust.Velocity * GustTravel(gust, time) + gust.CurlDirection * (curl * gust.Curl);
     }
 
-    private float ParticleAlpha(in WindParticle particle, float age)
+    private float ParticleAlpha(in WindParticle particle, float age, Vector2 position)
     {
-        var position = ParticlePosition(particle, age);
         float edge = Mathf.Min(Mathf.Min(position.X - _fieldBounds.Position.X, _fieldBounds.End.X - position.X),
             Mathf.Min(position.Y - _fieldBounds.Position.Y, _fieldBounds.End.Y - position.Y));
         return Smooth(age / particle.FadeIn)
@@ -306,8 +305,8 @@ public partial class NKarenNononVfx
             float age = _age - particle.Birth;
             if (particle.Kind == ParticleKind.Shard || (particle.Kind == ParticleKind.Glint) != luminous
                 || age <= 0 || age >= particle.Life) continue;
-            float alpha = ParticleAlpha(particle, age);
             var position = ParticlePosition(particle, age);
+            float alpha = ParticleAlpha(particle, age, position);
             var color = new Color(particle.Tint, alpha * (particle.Kind == ParticleKind.Dust ? .62f : .75f));
             if (particle.Kind == ParticleKind.Glint)
             {
@@ -333,9 +332,9 @@ public partial class NKarenNononVfx
         {
             float age = _age - particle.Birth;
             if (particle.Kind != ParticleKind.Shard || age <= 0 || age >= particle.Life) continue;
-            float alpha = ParticleAlpha(particle, age);
-            if (alpha <= .012f) continue;
             var position = ParticlePosition(particle, age);
+            float alpha = ParticleAlpha(particle, age, position);
+            if (alpha <= .012f) continue;
             float kickSpin = particle.LiftGust.Spin * GustTravel(particle.LiftGust, _age)
                 + particle.SweepGust.Spin * GustTravel(particle.SweepGust, _age);
             float angle = particle.Phase + age * particle.Spin + kickSpin;

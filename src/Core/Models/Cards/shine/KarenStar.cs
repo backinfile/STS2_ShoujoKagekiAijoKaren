@@ -47,10 +47,10 @@ public sealed class KarenStar : KarenBaseCardModel
             _presentation = presentation;
             try
             {
-                await NKarenStarVfx.WaitForGather();
                 // 先将这张卡移动到打出区
                 var move = await CardPileCmd.Add(toPlay, PileType.Play);
                 if (!move.success) return;
+                await NKarenStarVfx.WaitForGather();
                 // 增加打出次数
                 toPlay.AddExtraReplayCountForNextPlay(Math.Max(0, toPlay.GetShineValueRounded() - 1));
                 // 耗尽

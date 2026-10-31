@@ -55,6 +55,7 @@ public partial class SNCreatureVisuals : NCreatureVisuals
         if (!KarenVfxQuality.Enabled && _idleSprite.Material == _idleMaterial && _idleMaterial != null)
         {
             CancelKarenEntrance();
+            CancelKarenGuard();
             _idleSprite.Material = null;
             _idleSuppressed = true;
         }
@@ -67,6 +68,7 @@ public partial class SNCreatureVisuals : NCreatureVisuals
 
     public void PlayKarenDeathTransition()
     {
+        CancelKarenGuard();
         if (GetNodeOrNull<Sprite2D>("%Visuals") is not { } visuals) return;
         if (CorpseTexture == null || !KarenVfxQuality.Enabled) return;
 
@@ -120,6 +122,7 @@ public partial class SNCreatureVisuals : NCreatureVisuals
 
     public void ResetKarenDeathTransition()
     {
+        CancelKarenGuard();
         _deathTransitionTween?.Kill();
         _deathTransitionTween = null;
 

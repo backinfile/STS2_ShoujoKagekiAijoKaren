@@ -18,12 +18,20 @@ public partial class NKarenShineBarrageVfx : Node2D
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
+        if (_sparkScale == null)
+        {
+            _sparkScale = new Curve();
+            _sparkScale.AddPoint(new(0, .35f)); _sparkScale.AddPoint(new(.12f, 1)); _sparkScale.AddPoint(new(1, 0));
+        }
+        _sparkRamp ??= new Gradient { Offsets = [0, .15f, .65f, 1],
+            Colors = [Colors.Transparent, Colors.White, new(1, 1, 1, .8f), Colors.Transparent] };
+        _sparkBlend ??= new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _shader ??= KarenResourceLoader.Load<Shader>("res://shaders/karen_shine_barrage.gdshader", nameof(NKarenShineBarrageVfx));
         _sparkTexture ??= new GradientTexture2D { Width = 12, Height = 40,
             Fill = GradientTexture2D.FillEnum.Radial, FillFrom = new(.5f, .5f), FillTo = new(1, .5f),
             Gradient = new Gradient { Offsets = [0, .3f, 1], Colors = [Colors.White, new(1, 1, 1, .7f), Colors.Transparent] } };
     }
-    internal static Godot.Resource?[] PreparedResources => [_shader, _sparkTexture];
+    internal static Godot.Resource?[] PreparedResources => [_shader, _sparkTexture, _sparkScale, _sparkRamp, _sparkBlend];
 
     public const float HitInterval = .12f;
     public const float FastHitInterval = HitInterval * .7f;
@@ -34,6 +42,12 @@ public partial class NKarenShineBarrageVfx : Node2D
     private CpuParticles2D? _sparks;
     private ShaderMaterial? _material;
     private static Shader? _shader;
+    private static Curve? _sparkScale;
+    private static Gradient? _sparkRamp;
+    private static CanvasItemMaterial? _sparkBlend;
+    private readonly Vector2[] _bladeQuad = new Vector2[4], _star = new Vector2[8];
+    private static readonly Color[] BladeColors = [Colors.White, Colors.White, Colors.White, Colors.White];
+    private static readonly Vector2[] BladeUvs = [new(0, 0), new(1, 0), new(1, 1), new(0, 1)];
     private static GradientTexture2D? _sparkTexture;
     private Vector2 _source, _target, _exit, _tip, _tail;
     private Rect2 _targetBounds;
@@ -178,8 +192,9 @@ public partial class NKarenShineBarrageVfx : Node2D
         float progress = P(_age, 0, .24f);
         var tail = _tail + normal * ((_index % 2 == 0 ? -1 : 1) * 5 * _unit * (1 - progress));
         float width = (23 + 5 * (1 - progress)) * _unit;
-        _blade.DrawPolygon([tail - normal * width, _tip - normal * width, _tip + normal * width, tail + normal * width],
-            [Colors.White, Colors.White, Colors.White, Colors.White], [new(0, 0), new(1, 0), new(1, 1), new(0, 1)]);
+        _bladeQuad[0] = tail - normal * width; _bladeQuad[1] = _tip - normal * width;
+        _bladeQuad[2] = _tip + normal * width; _bladeQuad[3] = tail + normal * width;
+        _blade.DrawPolygon(_bladeQuad, BladeColors, BladeUvs);
     }
 
     public override void _Draw()
@@ -209,17 +224,16 @@ public partial class NKarenShineBarrageVfx : Node2D
     private void Star(Vector2 center, float width, float height, Color color, float rotation)
     {
         DrawSetTransform(center, rotation);
-        DrawColoredPolygon([new(-width, 0), new(-width * .12f, -height * .12f), new(0, -height),
-            new(width * .12f, -height * .12f), new(width, 0), new(width * .12f, height * .12f),
-            new(0, height), new(-width * .12f, height * .12f)], color);
+        _star[0] = new(-width, 0); _star[1] = new(-width * .12f, -height * .12f); _star[2] = new(0, -height);
+        _star[3] = new(width * .12f, -height * .12f); _star[4] = new(width, 0); _star[5] = new(width * .12f, height * .12f);
+        _star[6] = new(0, height); _star[7] = new(-width * .12f, height * .12f);
+        DrawColoredPolygon(_star, color);
         DrawSetTransform(Vector2.Zero);
     }
 
     private void CreateParticles()
     {
         PrepareResources();
-        var scale = new Curve();
-        scale.AddPoint(new(0, .35f)); scale.AddPoint(new(.12f, 1)); scale.AddPoint(new(1, 0));
         _sparks = new CpuParticles2D {
             Name = _impact ? "ExitSparks" : "PreparationDust", Emitting = false,
             Amount = KarenVfxQuality.ParticleCount(_impact ? 10 : 5), Lifetime = _impact ? .25f : .20f, OneShot = _impact,
@@ -230,10 +244,9 @@ public partial class NKarenShineBarrageVfx : Node2D
             DampingMin = 90 * _unit, DampingMax = 160 * _unit,
             ParticleFlagAlignY = true, Texture = _sparkTexture,
             ScaleAmountMin = .07f * _unit, ScaleAmountMax = (_impact ? .25f : .12f) * _unit,
-            ScaleAmountCurve = scale, Color = _index % 2 == 0 ? Gold : Coral,
-            ColorRamp = new Gradient { Offsets = [0, .15f, .65f, 1],
-                Colors = [Colors.Transparent, Colors.White, new(1, 1, 1, .8f), Colors.Transparent] },
-            Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add }
+            ScaleAmountCurve = _sparkScale, Color = _index % 2 == 0 ? Gold : Coral,
+            ColorRamp = _sparkRamp,
+            Material = _sparkBlend
         };
         AddChild(_sparks);
         _sparks.Emitting = !_impact;

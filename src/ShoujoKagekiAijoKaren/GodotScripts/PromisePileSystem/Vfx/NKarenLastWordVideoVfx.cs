@@ -34,6 +34,7 @@ public partial class NKarenLastWordVideoVfx : Control
     private float _timer;
     private float _videoFadeInTimer;
     private float _fadeTimer;
+    private Vector2 _layoutSize = new(-1, -1);
 
     private NKarenLastWordVideoVfx(VideoStream stream, Player owner, NCombatRoom room)
     {
@@ -169,6 +170,8 @@ public partial class NKarenLastWordVideoVfx : Control
     private void LayoutChildren()
     {
         var viewportSize = GetViewportRect().Size;
+        if (viewportSize == _layoutSize) return;
+        _layoutSize = viewportSize;
         Size = viewportSize;
 
         if (_black != null)
