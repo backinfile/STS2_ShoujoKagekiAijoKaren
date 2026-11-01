@@ -8,6 +8,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Audio;
 public static class KarenFormMusicManager
 {
     public const string FileName = "Karen_form.MP3";
+    public const string TrackTitle = "スーパー スタァ スペクタクル";
 
     public static void PlayLoop(Player? player, float volume = 1f)
     {

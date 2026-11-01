@@ -186,9 +186,20 @@ def main():
             command("upgrade 0")
             snap("batch-shuffle-before")
             play("KAREN_NEXT_STAGE")
-            audit("batch-shuffle-after", 3)
+            wait(lambda s: len(s["player"]["hand"]) >= 2)
+            time.sleep(2)
+            shuffled = api()["player"]
+            expected = len(shuffled["hand"])
+            # If Next Stage+ shuffles last, the two draws leave it in the draw
+            # pile. Drawing it earlier triggers another draw and returns all three.
+            expected_ids = {"KAREN_STRIKE", "KAREN_DEFEND"}
+            if expected == 3:
+                expected_ids.add("KAREN_NEXT_STAGE")
+            assert expected in (2, 3) and shuffled["draw_pile_count"] == 3 - expected, shuffled
+            assert {card["id"] for card in shuffled["hand"]} == expected_ids, shuffled
+            audit("batch-shuffle-after", expected)
             play("KAREN_DEFEND")
-            audit("batch-drawn-card-played", 2)
+            audit("batch-drawn-card-played", expected - 1)
     finally:
         desktop.close()
         variant = game / f"mods/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.{args.branch.title()}.dll"

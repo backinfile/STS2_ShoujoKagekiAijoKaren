@@ -37,7 +37,7 @@ internal sealed class KarenMusicPlayback : IDisposable
     internal string Status { get; private set; } = "unset";
     internal double Position => _pausedSeek ?? (_player.Stream == null ? 0 : _player.GetPlaybackPosition());
     internal double Duration => _player.Stream?.GetLength() ?? 0;
-    internal string Title => FormPriority || _forcedPath != null ? Text("awakening") : Index >= 0 && Index < Tracks.Count ? TrackTitle(Tracks[Index]) : Text(Status);
+    internal string Title => _forcedPath != null ? Audio.KarenFormMusicManager.TrackTitle : FormPriority ? Text("awakening") : Index >= 0 && Index < Tracks.Count ? TrackTitle(Tracks[Index]) : Text(Status);
     internal string TrackTitle(string path) => _titles.TryGetValue(path, out var title) ? title : Path.GetFileNameWithoutExtension(path);
     internal event Action? Changed;
     internal event Action<string>? TrackStarted;

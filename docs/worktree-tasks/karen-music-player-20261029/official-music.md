@@ -1,5 +1,11 @@
 # 内置曲库与来源
 
+## 觉醒形态 BGM 原名（2026-11-01）
+
+`Karen_form.MP3` 为《スーパー スタァ スペクタクル》的节选，播放器按原曲名显示。该曲收录于《劇場版 少女☆歌劇 レヴュースタァライト》劇中歌アルバム Vol.2 的 M3，由爱城华恋（小山百代）、神乐光（三森铃子）演唱；曲名和发行信息见 [Pony Canyon 官方资料](https://news.ponycanyon.co.jp/2021/07/56180)。
+
+取觉醒音频第 5、42、80 秒起的三段，与本地现有完整音源 P205 比对，互相关峰值分别为 0.981、0.975、0.967。识别记录位于已忽略的 `artifacts/pool-double-free-20261101/local-music-matches.json`；音频资源及播放逻辑保持原样。
+
 ## 热度筛选（2026-10-29）
 
 采用 [JOYSOUND 歌手人気曲ランキング](https://www.joysound.com/web/search/artist/412101/ranking) 的可访问前十榜单快照；数据范围为该服务点唱热度。参考 [Apple Music Top Songs](https://music.apple.com/us/artist/starlight-kuku-gumi/1279667986) 交叉核对 Star Divine、Fly Me to the Star、Star Diamond、再生讃美曲等热门曲。
