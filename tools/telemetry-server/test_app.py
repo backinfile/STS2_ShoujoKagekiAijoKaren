@@ -98,7 +98,7 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.store.stats({})["seats"], 2)
         self.assertEqual(self.store.runs({})["total"], 1)
 
-    def test_run_character_filter_matches_any_seat_once_and_leaves_stats_unchanged(self):
+    def test_character_filter_matches_runs_once_and_stats_by_seat(self):
         self.store.upload(self.data)
         other = copy.deepcopy(self.data)
         other["seed"] += "-ironclad"
@@ -120,8 +120,44 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.store.runs({"character": ["all"]})["total"], 3)
         self.assertEqual(self.store.runs({"character": ["SILENT"], "players": ["1"]})["total"], 0)
         self.assertEqual(self.store.runs({"character": ["SILENT"], "outcome": ["death"]})["total"], 0)
-        self.assertEqual(self.store.stats({"character": ["SILENT"]}), self.store.stats({}))
-        self.assertEqual(self.store.stats({})["characters"], ["IRONCLAD", "KAREN", "SILENT"])
+        for character in ("SILENT", "silent", "CHARACTER.SILENT"):
+            stats = self.store.stats({"character": [character]})
+            self.assertEqual((stats["runs"], stats["seats"], stats["character"]), (1, 2, "SILENT"))
+            self.assertEqual(stats["characters"], ["IRONCLAD", "KAREN", "SILENT"])
+        self.assertEqual(self.store.stats({"character": ["KAREN"]})["seats"], 2)
+        self.assertEqual(self.store.stats({})["seats"], 5)
+        empty = self.store.stats({"character": ["WATCHER"]})
+        self.assertEqual((empty["runs"], empty["seats"], empty["cards"], empty["latest_received"]), (0, 0, [], None))
+
+    def test_character_stats_isolate_cards_choices_and_denominators(self):
+        self.data["players"].append({"id": 42, "character": "CHARACTER.SILENT",
+                                     "deck": [{"id": "CARD.NEUTRALIZE"}, {"id": "CARD.COORDINATE"}]})
+        self.data["map_point_history"][0][0]["player_stats"].append({"player_id": 42, "card_choices": [
+            {"card": {"id": "CARD.COORDINATE"}, "was_picked": True},
+            {"card": {"id": "CARD.COORDINATE"}, "was_picked": False}]})
+        self.store.upload(self.data)
+        lost = copy.deepcopy(self.data)
+        lost["seed"] += "-lost"
+        lost["win"] = False
+        lost["players"] = [{"id": 42, "character": "CHARACTER.SILENT", "deck": [{"id": "CARD.NEUTRALIZE"}]}]
+        lost["map_point_history"] = []
+        self.store.upload(lost)
+        stats = self.store.stats({"character": ["SILENT"], "outcome": ["win"]})
+        self.assertEqual((stats["runs"], stats["raw_seats"], stats["seats"], stats["wins"]), (2, 2, 2, 1))
+        cards = {c["id"]: c for c in stats["cards"]}
+        self.assertEqual(set(cards), {"NEUTRALIZE", "COORDINATE"})
+        self.assertEqual(cards["NEUTRALIZE"]["win_rate"], .5)
+        self.assertEqual(cards["COORDINATE"]["pick_rate"], .5)
+        self.assertEqual(cards["COORDINATE"]["hold_rate"], .5)
+        self.assertEqual(stats["missing_picked"], 0)
+        self.assertNotIn("COORDINATE", {c["id"] for c in self.store.stats({"character": ["KAREN"]})["cards"]})
+        self.assertEqual(self.store.stats({"players": ["2"], "character": ["SILENT"]})["seats"], 1)
+        lost["seed"] += "-abandon"
+        lost["was_abandoned"] = True
+        self.store.upload(lost)
+        stats = self.store.stats({"character": ["SILENT"]})
+        self.assertEqual((stats["runs"], stats["raw_seats"], stats["seats"], stats["excluded"]), (3, 3, 2, 1))
+        self.assertEqual(self.store.stats({"character": ["SILENT"], "sample": ["all"]})["seats"], 3)
 
     def test_run_character_filter_applies_before_pagination(self):
         self.store.upload(self.data)
@@ -150,6 +186,8 @@ class CollectorTests(unittest.TestCase):
         for value in ("SILENT' OR 1=1 --", "x" * 181, "", "[]"):
             with self.assertRaises(Invalid):
                 self.store.runs({"character": [value]})
+            with self.assertRaises(Invalid):
+                self.store.stats({"character": [value]})
 
     def test_parser_strips_shine_only_and_rejects_duplicate_keys(self):
         self.data["players"][0]["deck"][0]["props"] = {"ints": [
@@ -344,6 +382,10 @@ class CollectorTests(unittest.TestCase):
                 self.assertEqual(json.loads(filtered)["total"], 1)
                 self.assertEqual(json.loads(request("/api/runs?character=SILENT", headers=read)[1])["total"], 0)
                 self.assertEqual(request("/api/runs?character=%27", headers=read)[0], 400)
+                stats = json.loads(request("/api/stats?character=KAREN", headers=read)[1])
+                self.assertEqual((stats["character"], stats["seats"]), ("KAREN", 1))
+                self.assertEqual(json.loads(request("/api/stats?character=SILENT", headers=read)[1])["seats"], 0)
+                self.assertEqual(request("/api/stats?character=%27", headers=read)[0], 400)
                 status, raw = request("/api/runs/" + rid, headers=read)
                 self.assertEqual(status, 200)
                 self.assertEqual(json.loads(raw)["history"]["players"][0]["id"], "76561199000000001")

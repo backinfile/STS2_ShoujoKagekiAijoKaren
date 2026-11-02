@@ -58,7 +58,9 @@ context.sample = {cards,seats:1,runs:1,wins:1,excluded:0,missing_picked:1,builds
   node('character').value='SILENT';
   await run('load()');
   assert.ok(context.requests.find(path=>path.startsWith('api/runs?')).includes('character=SILENT'));
-  assert.ok(!context.requests.find(path=>path.startsWith('api/stats?')).includes('character='));
+  assert.ok(context.requests.find(path=>path.startsWith('api/stats?')).includes('character=SILENT'));
+  run('csv()');
+  assert.ok((await context.saved.text()).includes('"character","SILENT"'));
   run('syncURL()');
   assert.ok(context.savedHash.includes('character=SILENT'));
   run("updateCharacters(['CUSTOM_CLASS'],'CUSTOM_CLASS')");
@@ -67,7 +69,7 @@ context.sample = {cards,seats:1,runs:1,wins:1,excluded:0,missing_picked:1,builds
   run("updateCharacters([],'CUSTOM_CLASS')");
   assert.ok(node('character').innerHTML.includes('value="CUSTOM_CLASS"'),'selected profession stays available with no matching samples');
   node('character').value='all';
-  console.log('PASS run character query, custom professions and card statistics stay in sync');
+  console.log('PASS shared character query, custom professions and card CSV stay in sync');
 
   context.groupSample={...context.sample,seats:10,cards:[cards[0],
     {...cards[1],id:'COMMON_LOW',name:'普通低',cost:0,pick_rate:0,held:1},
@@ -91,11 +93,28 @@ context.sample = {cards,seats:1,runs:1,wins:1,excluded:0,missing_picked:1,builds
   run('csv();syncURL()');
   const groupedCSV=await context.saved.text();
   assert.ok(groupedCSV.includes('"starters","hide"')&&groupedCSV.includes('"group","rarity"'));
-  assert.ok(!groupedCSV.includes('KAREN_STRIKE')&&!groupedCSV.includes('"character"'));
+  assert.ok(!groupedCSV.includes('KAREN_STRIKE')&&groupedCSV.includes('"character","SILENT"'));
   assert.ok(groupedCSV.indexOf('"COMMON_HIGH"')<groupedCSV.indexOf('"COMMON_LOW"'));
   assert.ok(groupedCSV.indexOf('"RARE_MISSING"')<groupedCSV.indexOf('"RARE_LOW"'));
   assert.ok(context.savedHash.includes('group=rarity')&&context.savedHash.includes('starters=hide'));
   console.log('PASS starter filter, rarity groups, in-group sort, chart and CSV agree');
+
+  node('group').value='owner';node('starters').value='all';
+  run("state.sort='cost';state.order=1;state.display='table';renderCards()");
+  const ownerIds=Array.from(run('filteredCards().map(c=>c.id)'));
+  assert.deepEqual(ownerIds,['KAREN_STRIKE','RARE_MISSING','COMMON_LOW','RARE_LOW','COMMON_HIGH']);
+  assert.equal(node('sortLabel').textContent,'组内排序');
+  assert.ok(node('cards').innerHTML.includes('华恋<span>2 张</span>'));
+  assert.ok(node('cards').innerHTML.includes('无色<span>3 张</span>'));
+  run("state.display='chart';renderCards();csv();syncURL()");
+  assert.equal((node('cards').innerHTML.match(/<h3>/g)||[]).length,2);
+  assert.deepEqual(Array.from(run('filteredCards().map(c=>c.id)')),ownerIds);
+  const ownerCSV=await context.saved.text();
+  assert.ok(ownerCSV.includes('"group","owner"')&&context.savedHash.includes('group=owner'));
+  for(let i=1;i<ownerIds.length;i++)assert.ok(ownerCSV.indexOf('"'+ownerIds[i-1]+'"')<ownerCSV.indexOf('"'+ownerIds[i]+'"'));
+  assert.equal(run('state.stats.seats'),10);
+  node('starters').value='hide';
+  console.log('PASS owner groups, in-group sort, chart, URL and CSV agree');
 
   node('rarity').value='基础';run('renderCards()');
   assert.deepEqual(Array.from(run('filteredCards()')),[]);
