@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
@@ -32,11 +33,13 @@ public sealed class KarenDebut : KarenBaseCardModel
     {
         if (CombatState == null) return;
 
+        using var show = new KarenAttackCue(Owner.Creature, null, KarenAttackStyle.Debut);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.Repeat.IntValue)
             .FromPlayedCard(this, cardPlay)
             .TargetingAllOpponents(CombatState)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(show.Start)
+            .WithHitVfxNode(show.Hit)
             .Execute(choiceContext);
     }
 

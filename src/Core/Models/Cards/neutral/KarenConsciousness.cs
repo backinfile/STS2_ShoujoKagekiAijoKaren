@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -35,14 +36,17 @@ public sealed class KarenConsciousness : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
+        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.Consciousness, potency: (float)DynamicVars.Damage.BaseValue);
         var result = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(show.Start)
+            .WithHitVfxNode(show.Hit)
             .Execute(choiceContext);
 
         var blockAmount = result.Results.SelectMany(r => r).Sum((DamageResult r) => r.TotalDamage + r.OverkillDamage);
         await CreatureCmd.GainBlock(Owner.Creature, blockAmount, ValueProp.Move, cardPlay);
+        if (blockAmount > 0) show.ConfirmBlock();
     }
 
     protected override void OnUpgrade()

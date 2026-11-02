@@ -39,6 +39,8 @@ public static class HeavyCardsProbe
     internal static float MaxProfileGrowth,MaxGroupSpan,MaxTargetWidth;
     internal static int TotalGroupWaves;
     internal static readonly List<object> GroupDirections=new();
+    internal static readonly List<object> AttackDirections=new();
+    internal static readonly HashSet<ulong> SeenAttacks=new();
     internal static readonly HashSet<(ulong,int)> SeenDirections=new();
     internal static readonly Dictionary<ulong,int> GroupCounts=new();
     internal static readonly Dictionary<ulong,int> ContactCounts=new();
@@ -79,6 +81,13 @@ public static class HeavyCardsProbe
             var type=effect.GetType();
             int contacts=StageHits?.GetValue(effect) is int value ? value : 0;
             ulong identity=effect.GetInstanceId();
+            if((float)type.GetField("_age",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(effect)!>0 && SeenAttacks.Add(identity))
+            {
+                var aim=(Vector2)type.GetField("_aim",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(effect)!;
+                var origin=(Vector2)type.GetField("_baseHilt",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(effect)!;
+                var side=(float)type.GetField("_side",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(effect)!;
+                AttackDirections.Add(new{side,dx=aim.X-origin.X});
+            }
             int waves=type.GetField("_groupWaveCount",BindingFlags.Instance|BindingFlags.NonPublic)?.GetValue(effect) is int waveCount ? waveCount : 0;
             TotalGroupWaves+=Math.Max(0,waves-GroupCounts.GetValueOrDefault(identity));GroupCounts[identity]=waves;
             if(type.GetField("_groupSpan",BindingFlags.Instance|BindingFlags.NonPublic)?.GetValue(effect) is float span)MaxGroupSpan=Math.Max(MaxGroupSpan,span);
@@ -150,7 +159,17 @@ public sealed class HeavyCardsCmd:AbstractConsoleCmd
             case "size":
                 room!.CreatureNodes.First(n=>n.Entity.IsMonster).Visuals.Scale*=float.Parse(args[1],System.Globalization.CultureInfo.InvariantCulture);
                 return new(true,"Scaled target visuals");
-            case "lethal":room!.CreatureNodes.First(n=>n.Entity.IsMonster).Entity.SetCurrentHpInternal(1);return new(true,"HP1");
+            case "lethal":room!.CreatureNodes.First(n=>n.Entity.IsMonster && (args.Length<2 || n.Entity.CombatId==int.Parse(args[1]))).Entity.SetCurrentHpInternal(1);return new(true,"HP1");
+            case "layout":
+                var actorView=room!.GetCreatureNode(player.Creature)!;
+                return new(true,JsonSerializer.Serialize(new{
+                    facing=player.Creature.Powers.OfType<MegaCrit.Sts2.Core.Models.Powers.SurroundedPower>().FirstOrDefault()?.Facing.ToString(),
+                    bodyScaleX=actorView.Body.Scale.X,
+                    geometry=room.CreatureNodes.Select(n=>new{
+                        id=n.Entity.IsPlayer?"PLAYER":n.Entity.Monster?.Id.Entry??"PET",
+                        combatId=n.Entity.CombatId,
+                        x=(n.Hitbox.GetGlobalTransformWithCanvas()*(n.Hitbox.Size*.5f)).X,
+                        hp=n.Entity.CurrentHp,dead=n.Entity.IsDead})}));
             case "focus":((KarenCarryingGuilt)HeavyCardsProbe.Card!).OnCreatureHover(room!.CreatureNodes.First(n=>n.Entity.IsMonster));return new(true,"Focused");
             case "unfocus":((KarenCarryingGuilt)HeavyCardsProbe.Card!).OnCreatureUnhover(room!.CreatureNodes.First(n=>n.Entity.IsMonster));return new(true,"Unfocused");
             case "status":
@@ -159,6 +178,8 @@ public sealed class HeavyCardsCmd:AbstractConsoleCmd
                 var nodes=room==null?Array.Empty<Node>():HeavyCardsProbe.Walk(room).ToArray();
                 return new(true,JsonSerializer.Serialize(new {bodyZ=sprite?.ZIndex,bodyRelative=sprite?.ZAsRelative,spawned=HeavyCardsProbe.Spawned,exited=HeavyCardsProbe.Exited,draws=HeavyCardsProbe.Draws,
                     reuseStable=HeavyCardsProbe.ReuseStable,poseFrames=HeavyCardsProbe.PoseFrames,maxAttackOffset=HeavyCardsProbe.MaxAttackOffset,poseActive=room?.GetCreatureNode(player.Creature)?.Visuals is SNCreatureVisuals actor && typeof(SNCreatureVisuals).GetProperty("IsAttackPoseActive")?.GetValue(actor) is true,maxScars=HeavyCardsProbe.MaxScars,maxParticles=HeavyCardsProbe.MaxParticles,maxEffects=HeavyCardsProbe.MaxEffects,maxManualParticles=HeavyCardsProbe.MaxManualParticles,fatalCueFrames=HeavyCardsProbe.FatalCueFrames,returnCueFrames=HeavyCardsProbe.ReturnCueFrames,totalContacts=HeavyCardsProbe.TotalContacts,maxProfileGrowth=HeavyCardsProbe.MaxProfileGrowth,totalGroupWaves=HeavyCardsProbe.TotalGroupWaves,groupDirections=HeavyCardsProbe.GroupDirections,maxGroupSpan=HeavyCardsProbe.MaxGroupSpan,maxTargetWidth=HeavyCardsProbe.MaxTargetWidth,
+                    attackDirections=HeavyCardsProbe.AttackDirections,
+                    guardPoseActive=room?.GetCreatureNode(player.Creature)?.Visuals is SNCreatureVisuals guarded && guarded.IsGuardPoseActive,
                     effects=nodes.Where(n=>HeavyCardsProbe.Types.Contains(n.GetType().Name)).Select(n=>new{type=n.GetType().Name,id=n.GetInstanceId(),children=n.GetChildCount()}),
                     scars=nodes.OfType<CanvasGroup>().Where(n=>n.Name=="RetainedCuts").Sum(n=>n.GetChildCount()),
                     hand=PileType.Hand.GetPile(player).Cards.Count,promise=PromisePileManager.GetCount(player),shine=HeavyCardsProbe.Card?.GetShineValue(),
@@ -190,5 +211,6 @@ public sealed class HeavyCardsCmd:AbstractConsoleCmd
         await CardPileCmd.AddGeneratedCardToCombat(card,PileType.Hand,player);
         HeavyCardsProbe.TotalGroupWaves=0;HeavyCardsProbe.MaxGroupSpan=HeavyCardsProbe.MaxTargetWidth=0;HeavyCardsProbe.GroupDirections.Clear();HeavyCardsProbe.SeenDirections.Clear();HeavyCardsProbe.GroupCounts.Clear();HeavyCardsProbe.TotalContacts=0;HeavyCardsProbe.MaxProfileGrowth=0;HeavyCardsProbe.ContactCounts.Clear();HeavyCardsProbe.FatalCueFrames=HeavyCardsProbe.ReturnCueFrames=0;HeavyCardsProbe.MaxManualParticles=0;HeavyCardsProbe.ReuseStable=false;HeavyCardsProbe.PoseFrames=0;HeavyCardsProbe.MaxAttackOffset=0;HeavyCardsProbe.Card=card;HeavyCardsProbe.Spawned.Clear();HeavyCardsProbe.Exited.Clear();
         HeavyCardsProbe.Draws=HeavyCardsProbe.MaxScars=HeavyCardsProbe.MaxParticles=HeavyCardsProbe.MaxEffects=0;HeavyCardsProbe.Watching=true;
+        HeavyCardsProbe.AttackDirections.Clear();HeavyCardsProbe.SeenAttacks.Clear();
     }
 }

@@ -15,6 +15,7 @@ public partial class SNCreatureVisuals
     public uint BeginKarenGuard(float side,bool settle=false)
     {
         CancelKarenEntrance();
+        CancelKarenAttack();
         ++_guardGeneration;
         _guardSettle=settle;
         IsGuardPoseActive=_idleSprite?.Material==_idleMaterial && _idleMaterial!=null;

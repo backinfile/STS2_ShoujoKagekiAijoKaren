@@ -247,6 +247,7 @@ internal static class KarenVfxCatalog
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenPositionZeroVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenShineBarrageVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenShineRewardVfx",
+        "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStageAttackVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStageCueVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenStarVfx",
         "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx",

@@ -29,6 +29,7 @@ public partial class SNCreatureVisuals
         // This is emitted by the existing AnimationPlayer before its first key.
         // No native track, queue, playback speed or completion is changed here.
         if (animation != "idle") { CancelKarenEntrance(); CancelKarenGuard(); }
+        OnKarenAttackNativeAnimation(animation);
     }
 
     public void BeginKarenEntrance()
@@ -83,6 +84,7 @@ public partial class SNCreatureVisuals
     {
         CancelKarenEntrance();
         CancelKarenGuard();
+        CancelKarenAttack();
         // Native scene teardown may already have removed this connection while
         // the AnimationPlayer instance is still valid.
         if (GodotObject.IsInstanceValid(_entranceAnimationPlayer)

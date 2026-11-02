@@ -85,13 +85,10 @@ public sealed class KarenPromisePilePower : FakeAmountPower
         _pastAndFutureAmount = 0m;
     }
 
-    // ===== Normal Mode Data =====
-    private IReadOnlyList<string> _cardNames = Array.Empty<string>();
-
     /// <summary>当约定牌堆数量为0时不显示数字</summary>
     public override bool ShowFakeAmount => FakeAmount > 0 && !IsVoidMode && !IsInfiniteReinforcement;
 
-    /// <summary>更新约定牌堆卡牌名列表（升级牌名带 +）</summary>
+    /// <summary>更新约定牌堆数量。</summary>
     public void UpdateCount()
     {
         if (Owner.Player is Player player)
@@ -99,7 +96,6 @@ public sealed class KarenPromisePilePower : FakeAmountPower
             var pile = PromisePileManager.GetPromisePile(player);
             var count = pile.Cards.Count;
             SetFakeAmount(count);
-            _cardNames = pile.Cards.Select(c => c.Title).ToArray();
         }
     }
 
@@ -120,16 +116,19 @@ public sealed class KarenPromisePilePower : FakeAmountPower
             if (IsVoidMode || IsInfiniteReinforcement)
                 yield break;
 
-            if (_cardNames.Count == 0) yield break;
+            if (Owner?.Player is not Player player) yield break;
+            // Titles may change in place through upgrades or transformations.
+            var cards = PromisePileManager.GetPromisePile(player).Cards;
+            if (cards.Count == 0) yield break;
 
             var sb = new StringBuilder();
-            int shown = Math.Min(_cardNames.Count, 10);
+            int shown = Math.Min(cards.Count, 10);
             for (int i = 0; i < shown; i++)
             {
                 if (i > 0) sb.Append('\n');
-                sb.Append(_cardNames[i]);
+                sb.Append(cards[i].Title);
             }
-            if (_cardNames.Count > 10)
+            if (cards.Count > 10)
                 sb.Append("\n...");
 
             yield return new HoverTip(
