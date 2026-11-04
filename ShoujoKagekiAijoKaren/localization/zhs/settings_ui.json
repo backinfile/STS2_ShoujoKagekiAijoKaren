@@ -5,6 +5,7 @@
   "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Off": "关闭",
   "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.hover.desc": "完整：保留全部华恋特效。低：约四分之一粒子，装饰重绘最高20帧，精简常驻微光、风场与环形流光，以文字代替台词视频。关闭：关闭华恋专属特效，攻击、增益、移牌、消耗和回能使用本体表现，跳过台词影片。卡牌、数值与操作保留。切换即时生效。",
   "SHOUJOKAGEKIAIJOKAREN.mod_title": "少女歌剧-爱城华恋ShoujoKageki Aijo Karen",
+  "SHOUJOKAGEKIAIJOKAREN-ENABLE_ERROR_UPLOAD.title": "上传报错",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.title": "上传对局数据",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "是否将每次对局结束后生成的JSON数据上传到统计服务器。",
   "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.title": "显示长颈鹿启动画面",

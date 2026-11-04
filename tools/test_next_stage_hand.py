@@ -37,6 +37,11 @@ def main():
     profile = Path(env["APPDATA"]) / f"SlayTheSpire2/default/{profile_id}"
     profile.mkdir(parents=True)
     Path(env["LOCALAPPDATA"]).mkdir(parents=True)
+    mod_configs = Path(env["APPDATA"]) / "SlayTheSpire2/mod_configs"
+    mod_configs.mkdir(parents=True)
+    (mod_configs / "ShoujoKagekiAijoKaren.cfg").write_text(json.dumps({
+        "EnableDataUpload": "False", "EnableErrorUpload": "False", "ShowSplashScreen": "False"
+    }), encoding="utf-8")
     settings = json.loads((dev / "user/AppData/Roaming/SlayTheSpire2/default/1/settings.save").read_text(encoding="utf-8-sig"))
     settings.update(language="zhs", fullscreen=False, limit_fps_in_background=False)
     (profile / "settings.save").write_text(json.dumps(settings), encoding="utf-8")
@@ -228,7 +233,17 @@ def main():
         act("end_turn")
         wait(lambda s: s.get("battle", {}).get("round", 0) > old_round
              and s["battle"]["is_play_phase"])
-        audit("end-turn-chain-full-after", 10)
+        # Shuffle order changes how many cards the nested draws leave in hand
+        # before the next turn's five draws. Check conservation and visual sync,
+        # then explicitly fill the hand to exercise the ten-card boundary.
+        player = api()["player"]
+        hand_count = len(player["hand"])
+        assert 5 <= hand_count <= 10, player
+        assert hand_count + player["draw_pile_count"] + player["discard_pile_count"] == 10, player
+        assert player["exhaust_pile_count"] == 0, player
+        audit("end-turn-chain-full-after", hand_count)
+        command("draw 10")
+        audit("end-turn-chain-filled", 10)
     finally:
         desktop.close()
         variant = game / f"mods/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.{args.branch.title()}.dll"

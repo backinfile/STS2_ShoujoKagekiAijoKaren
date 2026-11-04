@@ -31,6 +31,10 @@ internal sealed class RunHistoryUploadQueue
     private readonly Func<TimeSpan, Task> _delay;
     private readonly SemaphoreSlim _worker = new(1, 1);
     private readonly object _files = new();
+    private readonly int _maxItems, _maxPayloadBytes;
+    private readonly long _maxBytes;
+    private readonly TimeSpan _requestInterval;
+    private DateTimeOffset _nextRequest;
 
     private sealed class Pending
     {
@@ -43,8 +47,12 @@ internal sealed class RunHistoryUploadQueue
         characters.Any(AllowedCharacters.Contains);
 
     internal RunHistoryUploadQueue(string root, Uri endpoint, HttpClient client, Func<bool> enabled,
-        Action<string> log, Func<DateTimeOffset>? clock = null, Func<TimeSpan, Task>? delay = null)
+        Action<string> log, Func<DateTimeOffset>? clock = null, Func<TimeSpan, Task>? delay = null,
+        int maxItems = MaxItems, long maxBytes = MaxBytes, int maxPayloadBytes = 8 * 1024 * 1024,
+        TimeSpan requestInterval = default)
     {
+        _maxItems = maxItems; _maxBytes = maxBytes; _maxPayloadBytes = maxPayloadBytes;
+        _requestInterval = requestInterval;
         _endpoint = endpoint;
         _directory = Path.Combine(root, Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(endpoint.AbsoluteUri)))[..16]);
         _client = client;
@@ -68,7 +76,7 @@ internal sealed class RunHistoryUploadQueue
     internal bool Enqueue(string payload)
     {
         byte[] bytes = Encoding.UTF8.GetBytes(payload);
-        if (bytes.Length > 8 * 1024 * 1024)
+        if (bytes.Length > _maxPayloadBytes)
         {
             _log("[RunHistoryUploadPatch] 对局超过上传大小限制，保留游戏本地历史");
             return false;
@@ -78,7 +86,7 @@ internal sealed class RunHistoryUploadQueue
         {
             if (File.Exists(path)) return true;
             var files = Directory.GetFiles(_directory);
-            if (files.Length >= MaxItems || files.Sum(file => new FileInfo(file).Length) + bytes.Length * 2L + 1024 > MaxBytes)
+            if (files.Length >= _maxItems || files.Sum(file => new FileInfo(file).Length) + bytes.Length * 2L + 1024 > _maxBytes)
             {
                 _log("[RunHistoryUploadPatch] 待上传队列已满，保留现有队列和游戏本地历史");
                 return false;
@@ -100,13 +108,14 @@ internal sealed class RunHistoryUploadQueue
                     .OrderBy(entry => entry.Item!.NextAttempt).ToArray();
                 if (items.Length == 0) return;
                 var (path, pending) = items[0];
-                TimeSpan wait = pending!.NextAttempt - _clock();
+                TimeSpan wait = (pending!.NextAttempt > _nextRequest ? pending.NextAttempt : _nextRequest) - _clock();
                 if (wait > TimeSpan.Zero)
                 {
                     await _delay(wait < TimeSpan.FromSeconds(30) ? wait : TimeSpan.FromSeconds(30)).ConfigureAwait(false);
                     continue;
                 }
                 if (!_enabled()) return;
+                _nextRequest = _clock() + _requestInterval;
                 pending.Attempts++;
                 // Persist before sending so a process exit cannot lose the original JSON.
                 Write(path, pending);
@@ -141,6 +150,8 @@ internal sealed class RunHistoryUploadQueue
                     _log("[RunHistoryUploadPatch] 上传连接暂不可用，已保留并安排重试");
                 }
                 pending.NextAttempt = _clock() + (backoff > TimeSpan.FromHours(6) ? TimeSpan.FromHours(6) : backoff);
+                if (_requestInterval > TimeSpan.Zero && pending.NextAttempt > _nextRequest)
+                    _nextRequest = pending.NextAttempt;
                 Write(path, pending);
             }
         }

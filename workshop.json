@@ -2,7 +2,7 @@
   "title": null,
   "description": null,
   "visibility": "public",
-  "changeNote": "继续优化特效的性能表现；新增音乐播放器功能；修了一些bug",
+  "changeNote": "Attempted to fix some compatibility issues.",
   "tags": [
     "Characters",
     "Cards",

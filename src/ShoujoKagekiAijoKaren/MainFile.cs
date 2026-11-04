@@ -26,6 +26,7 @@ public static class MainFile
         ScriptManagerBridge.LookupScriptsInAssembly(assembly);
 
         ModConfigRegistry.Register(ModId, new KarenModConfig());
+        src.Core.Telemetry.KarenErrorReporter.Initialize();
 
         Harmony harmony = new(ModId);
         harmony.PatchAll();

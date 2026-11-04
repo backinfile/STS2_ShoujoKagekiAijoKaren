@@ -15,6 +15,17 @@ public class KarenModConfig : SimpleModConfig
 {
     private static bool _isGeneratingModInfoHtml;
 
+    private static volatile bool _enableErrorUpload = true;
+    public static bool EnableErrorUpload
+    {
+        get => _enableErrorUpload;
+        set
+        {
+            _enableErrorUpload = value;
+            src.Core.Telemetry.KarenErrorReporter.ConfigurationChanged();
+        }
+    }
+
     /// <summary>
     /// 上传对局数据
     /// </summary>
@@ -137,6 +148,8 @@ public class KarenModConfig : SimpleModConfig
         other.ContentContainer.AddChild(CreateDividerControl());
         // The property stays visible to BaseLib; create its control directly in this group.
         other.ContentContainer.AddChild(GenerateOptionFromProperty(type.GetProperty(nameof(EnableDataUpload))!));
+        other.ContentContainer.AddChild(CreateDividerControl());
+        other.ContentContainer.AddChild(GenerateOptionFromProperty(type.GetProperty(nameof(EnableErrorUpload))!));
 
         SetupFocusNeighbors(optionContainer);
     }

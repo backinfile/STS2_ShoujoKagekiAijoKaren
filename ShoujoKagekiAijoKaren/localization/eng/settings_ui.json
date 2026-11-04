@@ -5,6 +5,7 @@
   "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.Off": "Off",
   "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL.hover.desc": "Full: all Karen effects. Low: about one quarter of the particles, decorative redraws capped at 20 fps, reduced ambient glow, wind and ring trails, and text instead of the Last Word video. Off: use base-game attack, buff, card movement, exhaust and energy effects instead of Karen effects; skip the cutscene. Cards, values and controls remain available. Changes apply immediately.",
   "SHOUJOKAGEKIAIJOKAREN.mod_title": "Revue Starlight - Karen Aijo",
+  "SHOUJOKAGEKIAIJOKAREN-ENABLE_ERROR_UPLOAD.title": "Upload Errors",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.title": "Upload Run Data",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_DATA_UPLOAD.description": "Whether to upload the JSON data generated after each run to the statistics server.",
   "SHOUJOKAGEKIAIJOKAREN-SHOW_SPLASH_SCREEN.title": "Show Giraffe Splash Screen",

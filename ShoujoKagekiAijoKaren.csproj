@@ -36,6 +36,7 @@
   <ItemGroup>
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="mod_manifest.json" />
+    <EmbeddedResource Include="ShoujoKagekiAijoKaren.json" LogicalName="KarenErrorManifest.json" />
     <EmbeddedResource Include="artifacts\telemetry-deploy\client-endpoint.json"
                       LogicalName="KarenTelemetryEndpoint.json"
                       Condition="Exists('artifacts\telemetry-deploy\client-endpoint.json')" />

@@ -15,6 +15,9 @@ public class RunHistoryUploadPatch
     private static readonly System.Lazy<UploadEndpoint?> Endpoint = new(LoadEndpoint);
     private static RunHistoryUploadQueue? _queue;
 
+    internal static System.Uri? ErrorEndpoint => Endpoint.Value is { } endpoint
+        ? new System.Uri(endpoint.Url.TrimEnd('/') + "/errors") : null;
+
     private static RunHistoryUploadQueue? Queue()
     {
         var endpoint = Endpoint.Value;

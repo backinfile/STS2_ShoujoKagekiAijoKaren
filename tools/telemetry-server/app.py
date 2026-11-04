@@ -21,6 +21,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlsplit
 
 from raw_archive import RawArchive, utc_day
+from error_reports import ErrorStore, ErrorLimiter, InvalidError, MAX_BODY as MAX_ERROR_BODY
 
 ROOT = Path(__file__).resolve().parent
 MAX_BODY = 8 * 1024 * 1024
@@ -292,6 +293,7 @@ class Store:
             if "source" not in {row[1] for row in db.execute("PRAGMA table_info(submissions)")}:
                 db.execute("ALTER TABLE submissions ADD COLUMN source TEXT NOT NULL DEFAULT 'request'")
             db.execute("CREATE INDEX IF NOT EXISTS submissions_run ON submissions(run_id,status,received)")
+        self.errors = ErrorStore(self)
 
     @contextmanager
     def connect(self):
@@ -585,6 +587,7 @@ class Server(ThreadingHTTPServer):
     def __init__(self, address, store, read_key):
         self.slots = threading.BoundedSemaphore(8)
         self.store, self.read_key = store, read_key
+        self.error_limiter = ErrorLimiter()
         super().__init__(address, Handler)
 
     def process_request(self, request, address):
@@ -624,6 +627,8 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Connection", "close")
+        if status == 429:
+            self.send_header("Retry-After", "60")
         if download:
             self.send_header("Content-Disposition", 'attachment; filename="run-history.json"')
         self.end_headers()
@@ -637,7 +642,7 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         try:
             self.get()
-        except Invalid as exc:
+        except (Invalid, InvalidError) as exc:
             self.respond(400, {"error": str(exc)})
         except (BrokenPipeError, ConnectionResetError, socket.timeout):
             pass
@@ -658,6 +663,12 @@ class Handler(BaseHTTPRequestHandler):
             return self.respond(200, self.server.store.runs(query))
         if path == "/api/stats":
             return self.respond(200, self.server.store.stats(query))
+        if path == "/api/errors":
+            return self.respond(200, self.server.store.errors.listing(query))
+        error_match = re.fullmatch(r"/api/errors/([0-9a-f]{64})", path)
+        if error_match:
+            detail = self.server.store.errors.detail(error_match[1])
+            return self.respond(200 if detail else 404, detail or {"error": "not_found"})
         match = re.fullmatch(r"/api/runs/([0-9a-f]{32})(/raw)?", path)
         if match:
             row = self.server.store.detail(match[1])
@@ -668,7 +679,7 @@ class Handler(BaseHTTPRequestHandler):
             raw = gzip.decompress(row["payload"])
             return self.respond(200, {"summary": self.server.store.summary(row),
                                       "history": safe_display(json.loads(raw))})
-        if path in ("/", "/index.html", "/app.js", "/style.css", "/catalog.json", "/relics.json") or re.fullmatch(r"/assets/[a-z0-9_]+\.(?:webp|png)", path):
+        if path in ("/", "/index.html", "/app.js", "/style.css", "/catalog.json", "/relics.json", "/errors.html", "/errors.js", "/errors.css") or re.fullmatch(r"/assets/[a-z0-9_]+\.(?:webp|png)", path):
             file = ROOT / "web" / ("index.html" if path == "/" else path.lstrip("/"))
             if file.is_file():
                 mime = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
@@ -680,9 +691,14 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
             path = urlsplit(self.path).path
-            if path not in ("/api/upload", "/api/upload-session"):
+            if path not in ("/api/upload", "/api/upload-session", "/api/errors"):
                 return self.respond(404, {"error": "not_found"})
             session = path == "/api/upload-session"
+            errors = path == "/api/errors"
+            if errors:
+                source = self.headers.get("X-Karen-Client-IP", self.client_address[0])[:80]
+                if not self.server.error_limiter.accept(source):
+                    return self.respond(429, {"error": "error_rate_limit"})
             if self.headers.get("Content-Type", "").split(";", 1)[0].strip().lower() != "application/json":
                 return self.respond(415, {"error": "application_json_required"})
             if self.headers.get("Transfer-Encoding"):
@@ -691,17 +707,20 @@ class Handler(BaseHTTPRequestHandler):
                 length = int(self.headers.get("Content-Length", "0"))
             except ValueError:
                 return self.respond(400, {"error": "invalid_content_length"})
-            if not 0 < length <= (1024 if session else MAX_BODY):
+            if not 0 < length <= (MAX_ERROR_BODY if errors else 1024 if session else MAX_BODY):
                 return self.respond(413, {"error": "invalid_body_size"})
             body = self.rfile.read(length)
             if len(body) != length:
                 return self.respond(400, {"error": "incomplete_body"})
+            if errors:
+                status, result = self.server.store.errors.upload(parse_history(body))
+                return self.respond(status, result)
             if session:
                 status, result = legacy_session(parse_history(body))
                 return self.respond(status, result)
             status, result = self.server.store.upload(parse_history(body), original_body=body)
             self.respond(status, result)
-        except Invalid as exc:
+        except (Invalid, InvalidError) as exc:
             self.respond(400, {"error": str(exc)})
         except CapacityError as exc:
             self.respond(507, {"error": str(exc)})

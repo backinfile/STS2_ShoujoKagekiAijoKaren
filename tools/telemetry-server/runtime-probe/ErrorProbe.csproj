@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net9.0</TargetFramework><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><AssemblyName>KarenErrorProbe</AssemblyName><Variant Condition="'$(Variant)' == ''">stable</Variant><Game>$(MSBuildThisFileDirectory)../../../artifacts/dev-game/$(Variant)/game</Game></PropertyGroup>
+  <ItemGroup>
+    <Reference Include="sts2"><HintPath>$(Game)/data_sts2_windows_x86_64/sts2.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="GodotSharp"><HintPath>$(Game)/data_sts2_windows_x86_64/GodotSharp.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+</Project>

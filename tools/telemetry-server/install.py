@@ -154,6 +154,26 @@ location = {access['upload_path']} {{
     access_log off;
     {headers}
 }}
+location = {access['upload_path']}/errors {{
+    if ($request_method != POST) {{ return 405; }}
+    auth_basic off;
+    limit_req zone=karen_observatory_errors burst=5 nodelay;
+    limit_req zone=karen_observatory_errors_global burst=10 nodelay;
+    limit_conn karen_observatory_error_concurrency 2;
+    limit_req_status 429;
+    limit_conn_status 429;
+    client_max_body_size 64k;
+    client_body_timeout 10s;
+    proxy_pass http://127.0.0.1:42767/api/errors;
+    proxy_set_header X-Observatory-Access "";
+    proxy_set_header Authorization "";
+    proxy_set_header X-Forwarded-For "";
+    proxy_set_header Forwarded "";
+    proxy_set_header X-Karen-Client-IP $karen_client_ip;
+    proxy_read_timeout 20s;
+    access_log off;
+    {headers}
+}}
 location = {access['upload_path']}/session {{
     if ($request_method != POST) {{ return 405; }}
     auth_basic off;
@@ -180,6 +200,9 @@ limit_req_zone $server_name zone=karen_observatory_cf_reads_global:1m rate=40r/s
 limit_req_zone $karen_client_ip zone=karen_observatory_cf_uploads:1m rate=30r/m;
 limit_req_zone $server_name zone=karen_observatory_cf_uploads_global:1m rate=30r/m;
 limit_conn_zone $server_name zone=karen_observatory_upload_concurrency:1m;
+limit_req_zone $karen_client_ip zone=karen_observatory_errors:1m rate=6r/m;
+limit_req_zone $server_name zone=karen_observatory_errors_global:1m rate=60r/m;
+limit_conn_zone $server_name zone=karen_observatory_error_concurrency:1m;
 """
 files = {Path("/etc/nginx/karen-services.d/karen-observatory.conf"): locations,
          Path("/etc/nginx/karen-services-http.d/karen-observatory.conf"): zones}
