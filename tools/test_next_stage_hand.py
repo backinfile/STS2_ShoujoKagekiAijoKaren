@@ -20,10 +20,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("branch", choices=["stable", "beta"])
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--dev-root", type=Path, default=ROOT / "artifacts/dev-game")
     args = parser.parse_args()
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
-    dev = ROOT / "artifacts/dev-game" / args.branch
+    dev = args.dev_root.resolve() / args.branch
     game = dev / "game"
     config = json.loads((game / "mods/KarenSTS2MCP.conf").read_text(encoding="utf-8-sig"))
     port = config["port"]
@@ -177,8 +178,8 @@ def main():
         play("KAREN_NEXT_STAGE")
         audit("full-hand-replayed", 10)
         if args.branch == "beta":
-            # Beta moves the complete shuffle batch before hooks. All three
-            # cards can be drawn before the deferred animations are constructed.
+            # A shuffle hook can draw any member of the complete moved batch.
+            # Its visuals must be established before that nested draw starts.
             clear()
             command("card KAREN_STRIKE Discard")
             command("card KAREN_DEFEND Discard")
@@ -200,6 +201,34 @@ def main():
             audit("batch-shuffle-after", expected)
             play("KAREN_DEFEND")
             audit("batch-drawn-card-played", expected - 1)
+
+        # End-turn discard is the reported entry point. Empty all three piles
+        # through normal commands, then let the game's turn flow do the moves.
+        command("relic remove KAREN_HAIRPIN_RELIC")
+        clear()
+        command("draw 10")
+        time.sleep(2)
+        clear()
+        add("KAREN_NEXT_STAGE")
+        command("upgrade 0")
+        snap("end-turn-single-before")
+        old_round = api()["battle"]["round"]
+        act("end_turn")
+        wait(lambda s: s.get("battle", {}).get("round", 0) > old_round
+             and s["battle"]["is_play_phase"])
+        audit("end-turn-single-after", 1)
+
+        add("KAREN_NEXT_STAGE")
+        command("upgrade 1")
+        for _ in range(8):
+            add("KAREN_DEFEND")
+        command("heal 999")
+        snap("end-turn-chain-full-before")
+        old_round = api()["battle"]["round"]
+        act("end_turn")
+        wait(lambda s: s.get("battle", {}).get("round", 0) > old_round
+             and s["battle"]["is_play_phase"])
+        audit("end-turn-chain-full-after", 10)
     finally:
         desktop.close()
         variant = game / f"mods/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.{args.branch.title()}.dll"
