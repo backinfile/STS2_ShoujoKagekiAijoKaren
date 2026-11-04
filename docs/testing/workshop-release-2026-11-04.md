@@ -1,6 +1,6 @@
 # v0.1.8 创意工坊发布记录
 
-2026-11-04。以 `0877175` 的洗牌时序修复为基础，加入报错收集。按用户要求从 v0.1.7 候选递增至 v0.1.8，三个源码 manifest、内嵌 manifest 和最终包已统一版本。发布前检查通过，工坊上传待执行。
+2026-11-04。以 `0877175` 的洗牌时序修复为基础，加入报错收集。按用户要求从 v0.1.7 候选递增至 v0.1.8，三个源码 manifest、内嵌 manifest 和最终包已统一版本。发布前检查通过，已于 2026-11-04 23:37:34（Asia/Shanghai，Steam 更新时间）上传工坊。源码提交为 `90140df`。
 
 用户指定的英文更新说明如下。
 
@@ -53,3 +53,22 @@
 - `runtime/stable-30ffdd98/`、`runtime/beta-1c59c98b/` 保存最终包报错专项。
 - `ready-to-upload.json` 保存结果和待上传文件指纹。
 - 服务端部署、真实投递和浏览器证据位于 `artifacts/error-service-deploy-20261104/`。
+
+
+## 发布结果
+
+官方上传器返回成功，Steam API 已确认新的内容版本和公开状态。在线最新更新说明与用户指定英文逐字一致，更新日志时间戳与 API 一致。工坊下载回读的 5 个文件与最终实测包 SHA-256 全部一致，下载 manifest 为 v0.1.8。
+
+首次上传因上传器副本缺少运行时依赖目录，在初始化前退出。补齐完整上传器的 33 个依赖与程序文件后重试成功。初次错误、成功日志及实际回读结果均保留在证据目录。
+
+`publication-state.json` 保存发布状态，`workshop-after.json`、`changelog-verification.json` 和 `published-download/download-provenance.json` 保存在线核验结果。
+
+## 已发布包 SHA-256
+
+| 文件 | SHA-256 |
+| --- | --- |
+| `lib/ShoujoKagekiAijoKaren.Beta.dll` | `ef6b9b4b83f024832d873fca38e9b9b16f51e85205a93b0aca6cf05f489fb9e8` |
+| `lib/ShoujoKagekiAijoKaren.Stable.dll` | `3caece8d9acd9f240be477c616c8a345e8c47bf47ceba39a7247fc2dafc2049b` |
+| `ShoujoKagekiAijoKaren.dll` | `1623bc9473d74b7b9f1e7fae7911ec54d8b4411a6dfd6ba8a51b94df6f6a0254` |
+| `ShoujoKagekiAijoKaren.json` | `5fdcbacc7fd0c38343b48e251e2631e7e3cf2181adea881b6e16a6b7766ef7e4` |
+| `ShoujoKagekiAijoKaren.pck` | `a43e2661424bfcb003994d27195f1a0ee3053984a8d9c995a6524a8a36e644de` |
