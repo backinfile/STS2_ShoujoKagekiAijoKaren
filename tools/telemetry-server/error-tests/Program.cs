@@ -42,6 +42,32 @@ foreach (string secret in new[] { "PRIVATE_TOKEN", "PRIVATE_PASSWORD", "PRIVATE_
 Check(ClientErrorBuffer.Clean(new string('x', 1000000), 2048).Length == 2048, "Text bound");
 Console.WriteLine("PASS sanitization and text bounds");
 
+buffer = Buffer();
+var resourceUris = new[] { "res://images/example.tres", "res://audio/example.ogg", "event:/sfx/example" };
+foreach (var uri in resourceUris)
+    buffer.Capture("engine", "Failed loading resource: " + uri, "", () => $"at Load('{uri}')");
+var resourceBodies = new List<string>();
+buffer.Persist(payload => { resourceBodies.Add(payload); return true; });
+Check(resourceBodies.Count == resourceUris.Length, "Different resource paths must remain distinct");
+foreach (var payload in resourceBodies)
+{
+    using var report = JsonDocument.Parse(payload);
+    string message = report.RootElement.GetProperty("message").GetString()!;
+    Check(resourceUris.Any(uri => message == "Failed loading resource: " + uri &&
+        report.RootElement.GetProperty("stack").GetString() == $"at Load('{uri}')"), "Resource URI must survive capture and persistence");
+}
+var diskPaths = new[] { windowsTestPath, windowsTestPath.Replace('\\', '/').Replace("C:", "d:"),
+    "\\\\" + string.Join("\\", new[] { "server", "private", "file.cs" }), unixTestPath };
+foreach (var path in diskPaths)
+    foreach (var prefix in new[] { "", "path=", "路径：", "路径" })
+    {
+        string mixed = $"res://images/example.tres\n{prefix}{path}\nevent:/sfx/example";
+        string expected = $"res://images/example.tres\n{prefix}<path>\nevent:/sfx/example";
+        Check(ClientErrorBuffer.Clean(mixed, 2048) == expected, "Disk paths must stay private beside resource URIs");
+        Check(ClientErrorBuffer.Clean(expected, 2048) == expected, "Repeated sanitization must preserve resource URIs");
+    }
+Console.WriteLine("PASS resource URIs, distinct reports and disk-path privacy");
+
 Check(first.RootElement.GetProperty("platform").GetString()=="pc" && first.RootElement.GetProperty("os").GetString()=="Windows", "PC and OS are distinct");
 Check(first.RootElement.GetProperty("game_commit").GetString()=="test-build" && first.RootElement.GetProperty("mods")[0].GetProperty("version").GetString()=="v3.2.1", "Build and mod versions preserved");
 var android = new ClientErrorBuffer("0.111.0", "v0.1.6", "android", os:"Android", mods:Enumerable.Range(0,200).Select(i=>new ClientErrorBuffer.ModInfo("Mod"+i,new string('名',80),new string('v',40))));

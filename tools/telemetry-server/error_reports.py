@@ -19,7 +19,8 @@ class InvalidError(ValueError):
 
 def clean(text, limit):
     text = re.sub(r"(?:https?|wss?)://[^\s<>\"']+", "<url>", text, flags=re.I)
-    text = re.sub(r"(?:[a-z]:[\\/]|\\\\)[^\r\n\"<>|]+", "<path>", text, flags=re.I)
+    # A drive letter must not be the tail of a resource URI scheme (res://, event:/).
+    text = re.sub(r"(?:(^|[^a-z])[a-z]:[\\/]|\\\\)[^\r\n\"<>|]+", r"\1<path>", text, flags=re.I)
     text = re.sub(r"/(?:home|Users|data|storage|sdcard|tmp|var)/[^\r\n\"<>|]+", "<path>", text, flags=re.I)
     text = re.sub(r"[\w.+-]{1,128}@[\w.-]{1,128}\.[a-z]{2,24}", "<email>", text, flags=re.I)
     text = re.sub(r"\b(?:\d{1,3}\.){3}\d{1,3}\b|\b\d{15,20}\b", "<id>", text)

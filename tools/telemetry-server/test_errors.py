@@ -103,6 +103,30 @@ class ErrorTests(unittest.TestCase):
         for secret in ("PRIVATE_TOKEN", "PRIVATE_PASSWORD", "PRIVATE_BASIC", "SPACE", "PrivateName", unix_test_path, "host.invalid", "example.invalid", "76561199000000001", "192.168.3.9"):
             self.assertNotIn(secret, message)
 
+    def test_resource_uris_survive_upload_and_remain_distinct(self):
+        uris = ("res://images/example.tres", "res://audio/example.ogg", "event:/sfx/example")
+        for i, uri in enumerate(uris):
+            with self.subTest(uri=uri):
+                message, stack = f"Failed loading resource: {uri}", f"at Load('{uri}')"
+                _, result = self.errors.upload(fixture(report_id=format(i, "032x"), message=message, stack=stack))
+                detail = self.errors.detail(result["id"])
+                self.assertEqual(detail["message"], message)
+                self.assertEqual(detail["stack"], stack)
+        self.assertEqual(self.errors.listing({})["total"], len(uris))
+
+    def test_disk_paths_still_redacted_beside_resource_uris(self):
+        paths = ("\\".join(("C:", "Users", "PrivateName", "file.cs")),
+                 "/".join(("d:", "Users", "PrivateName", "file.cs")),
+                 "\\\\" + "\\".join(("server", "private", "file.cs")),
+                 "/".join(("", "home", "private", "file.cs")))
+        for path in paths:
+            for prefix in ("", "path=", "路径：", "路径"):
+                with self.subTest(path=path, prefix=prefix):
+                    text = f"res://images/example.tres\n{prefix}{path}\nevent:/sfx/example"
+                    expected = f"res://images/example.tres\n{prefix}<path>\nevent:/sfx/example"
+                    self.assertEqual(clean(text, 2048), expected)
+                    self.assertEqual(clean(expected, 2048), expected)
+
     def test_persistent_capacity_and_daily_limits_preserve_received_errors(self):
         data = fixture()
         with patch("error_reports.MAX_GROUPS", 1):

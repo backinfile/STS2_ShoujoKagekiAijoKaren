@@ -62,7 +62,8 @@ internal sealed class ClientErrorBuffer
         text ??= "";
         if (text.Length > 16384) text = text[..16384];
         text = Replace(text, @"(?:https?|wss?)://[^\s<>""']+", "<url>");
-        text = Replace(text, @"(?:[a-z]:[\\/]|\\\\)[^\r\n""<>|]+", "<path>");
+        // A drive letter must not be the tail of a resource URI scheme (res://, event:/).
+        text = Replace(text, @"(?:(^|[^a-z])[a-z]:[\\/]|\\\\)[^\r\n""<>|]+", "$1<path>");
         text = Replace(text, @"/(?:home|Users|data|storage|sdcard|tmp|var)/[^\r\n""<>|]+", "<path>");
         text = Replace(text, @"[\w.+-]{1,128}@[\w.-]{1,128}\.[a-z]{2,24}", "<email>");
         text = Replace(text, @"\b(?:\d{1,3}\.){3}\d{1,3}\b|\b\d{15,20}\b", "<id>");
