@@ -98,6 +98,10 @@ function Prepare-Profile([string]$branch, [string]$userRoot, [int]$profileId) {
     if (-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw "Missing settings: $source" }
     New-Item -ItemType Directory -Path (Split-Path $destination -Parent) -Force | Out-Null
     Copy-Item -LiteralPath $source -Destination $destination -Force
+    $configDir = Join-Path $userRoot 'user/AppData/Roaming/SlayTheSpire2/mod_configs'
+    New-Item -ItemType Directory -Path $configDir -Force | Out-Null
+    @{ EnableDataUpload='False'; EnableErrorUpload='False' } | ConvertTo-Json |
+        Set-Content (Join-Path $configDir 'ShoujoKagekiAijoCore.cfg') -Encoding UTF8
 }
 
 function Test-Solo([string]$branch, [int]$caseId) {
@@ -161,13 +165,15 @@ function Test-Solo([string]$branch, [int]$caseId) {
         $shineCount = @($save.players[0].deck | Where-Object id -match 'KAREN_SHINE_STRIKE').Count
         if ($shineCount -ne 0) { throw "Shine Strike remains in deck: $shineCount" }
         $contents = Get-Content -LiteralPath $log -Raw -Encoding UTF8
-        if (-not $contents.Contains("Card '闪耀打击' added to shine pile")) { throw 'Shine depletion was not logged' }
+        $archivedShine = @($save.players[0].extra_fields.core_player_disposed_pile |
+            Where-Object { $_.id.Entry -eq 'KAREN_SHINE_STRIKE' }).Count
+        if ($archivedShine -ne 1) { throw "Expected one depleted Shine Strike in the Core archive, found $archivedShine" }
         if ($contents -match '(?m)^\[ERROR\]') { throw 'Game logged an error' }
         Copy-Item -LiteralPath $log -Destination (Join-Path $logDir "solo-$branch.log") -Force
         return [PSCustomObject]@{ case="solo-$branch"; result='pass'; game_version=$branch;
             settings_api=$true; settings_write_restored=$true;
             original_hp=$originalHp; damaged_hp=$damaged.battle.enemies[0].hp;
-            shine_count_in_deck=$shineCount }
+            shine_count_in_deck=$shineCount; shine_archive_count=$archivedShine }
     }
     finally { Stop-Verified $process $game }
 }

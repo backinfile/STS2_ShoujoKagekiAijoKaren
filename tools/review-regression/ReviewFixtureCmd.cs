@@ -92,6 +92,10 @@ public sealed class ReviewFixtureCmd : AbstractConsoleCmd
                     Check(CardModel.FromSerializable(copy.ToSerializable()).EnergyCost.GetWithModifiers(CostModifiers.None) == 0, "cost enchantment reload");
                     copy.RemoveFromState();
                 }
+                var reacquired = freeCard.CloneSafeForDeck();
+                var added = await CardPileCmd.Add(reacquired, PileType.Deck);
+                Check(added.success, "reacquired copy was not added to the deck");
+                await CardPileCmd.RemoveFromDeck(reacquired, showPreview: false);
                 freeCard.RemoveFromState();
             } else if (action == "prepare") {
                 _target = p.RunState.Players.Single(x => x != p);
@@ -103,6 +107,7 @@ public sealed class ReviewFixtureCmd : AbstractConsoleCmd
                 _targetCount = _target.Deck.Cards.Count(c => c is KarenFightRelay);
                 var deck = p.RunState.CreateCard(ModelDb.Card<KarenFightRelay>(), p);
                 await CardPileCmd.Add(deck, PileType.Deck);
+                deck.AddShineMax(1); // Three actual replays must leave one shine for transfer.
                 _relay = p.Creature.CombatState!.CloneCard(deck);
                 _relay.DeckVersion = deck;
                 _relay.SetExtraReplayCountForNextPlay(2);
@@ -113,6 +118,7 @@ public sealed class ReviewFixtureCmd : AbstractConsoleCmd
             } else if (action == "prepare_rejection") {
                 var deck = p.RunState.CreateCard(ModelDb.Card<KarenFightRelay>(), p);
                 await CardPileCmd.Add(deck, PileType.Deck);
+                deck.AddShineMax(1); // Three actual replays must leave one shine for transfer.
                 _relay = p.Creature.CombatState!.CloneCard(deck);
                 _relay.DeckVersion = deck;
                 _relay.SetExtraReplayCountForNextPlay(2);
@@ -121,10 +127,13 @@ public sealed class ReviewFixtureCmd : AbstractConsoleCmd
                 RejectRelayAdd.Enabled = true;
             } else if (action == "rejection") {
                 Check(!RejectRelayAdd.Enabled, "rejection fixture not exercised");
+                Check(_relay!.GetShineValue() == 1, "rejected relay did not resolve three times");
                 Check(_target!.Deck.Cards.Count(c => c is KarenFightRelay) == _targetCount, "rejected transfer added a copy");
                 Check(_relay!.DeckVersion?.Pile?.Type == PileType.Deck && _relay.Pile?.Type == PileType.Discard, "rejected transfer lost source");
             } else if (action == "relay") {
-                Check(_target!.Deck.Cards.Count(c => c is KarenFightRelay) == _targetCount + 1, "replay transferred more than once");
+                Check(_target!.Deck.Cards.Count(c => c is KarenFightRelay) == _targetCount + 1, "relay transfer count must be exactly one");
+                Check(_relay!.GetShineValue() == 1, "relay did not resolve three times");
+                Check(_target.Deck.Cards.Last(c => c is KarenFightRelay).GetShineValue() == 1, "transfer changed the remaining shine");
                 Check(_relay!.DeckVersion?.Pile?.Type != PileType.Deck && _relay.Pile == null, "source relay survived transfer");
             } else if (action == "energy") {
                 foreach (var owner in p.RunState.Players)
@@ -163,13 +172,14 @@ public sealed class ReviewFixtureCmd : AbstractConsoleCmd
                 for (int i = 0; i < initial; i++) { card.UpgradeInternal(); card.FinalizeUpgradeInternal(); }
                 // Mirror/Wongo downgrade permanent deck cards through CardCmd.Downgrade.
                 if (initial == 3) p.Deck.AddInternal(card, silent: true);
-                card.SetShineCurrent(4);
                 int expected = initial;
                 do {
+                    card.SetShineCurrent(4);
+                    Check(card.GetShineValue() == 4, "partial shine fixture setup");
                     CardCmd.Downgrade(card);
                     expected = Math.Max(0, expected - 1);
                     CheckUpgrade(card, expected, "single downgrade");
-                    Check(card.GetShineValue() == 4, "downgrade restored shine");
+                    Check(card.GetShineValue() == 4, $"downgrade restored shine to {card.GetShineValue()} at level {expected}");
                     var loaded = CardModel.FromSerializable(card.ToSerializable());
                     CheckUpgrade(loaded, expected, "downgrade reload");
                     var copy = card.CloneSafeForDeck();
@@ -177,8 +187,10 @@ public sealed class ReviewFixtureCmd : AbstractConsoleCmd
                     copy.RemoveFromState();
                     card.UpgradeInternal(); card.FinalizeUpgradeInternal();
                     CheckUpgrade(card, expected + 1, "upgrade after downgrade");
+                    card.SetShineCurrent(4);
                     card.DowngradeInternal();
                     CheckUpgrade(card, expected, "internal downgrade");
+                    Check(card.GetShineValue() == 4, "internal downgrade restored shine");
                 } while (expected > 0);
             } finally { card.RemoveFromState(); }
         }

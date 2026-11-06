@@ -45,6 +45,10 @@ $local = Join-Path $run 'user\AppData\Local'
 $settings = Join-Path $roaming "SlayTheSpire2\default\$ClientId\settings.save"
 New-Item -ItemType Directory -Path (Split-Path $settings -Parent),$local -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $project "artifacts\dev-game\$branch\user\AppData\Roaming\SlayTheSpire2\default\1\settings.save") -Destination $settings
+$configDir = Join-Path $roaming 'SlayTheSpire2/mod_configs'
+New-Item -ItemType Directory -Path $configDir -Force | Out-Null
+@{ EnableDataUpload='False'; EnableErrorUpload='False' } | ConvertTo-Json |
+    Set-Content (Join-Path $configDir 'ShoujoKagekiAijoCore.cfg') -Encoding UTF8
 
 function Get-State {
     Invoke-RestMethod -Uri "$url`?format=json" -TimeoutSec 5

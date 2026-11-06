@@ -39,7 +39,7 @@ def main():
     Path(env["LOCALAPPDATA"]).mkdir(parents=True)
     mod_configs = Path(env["APPDATA"]) / "SlayTheSpire2/mod_configs"
     mod_configs.mkdir(parents=True)
-    (mod_configs / "ShoujoKagekiAijoKaren.cfg").write_text(json.dumps({
+    (mod_configs / "ShoujoKagekiAijoCore.cfg").write_text(json.dumps({
         "EnableDataUpload": "False", "EnableErrorUpload": "False", "ShowSplashScreen": "False"
     }), encoding="utf-8")
     settings = json.loads((dev / "user/AppData/Roaming/SlayTheSpire2/default/1/settings.save").read_text(encoding="utf-8-sig"))
