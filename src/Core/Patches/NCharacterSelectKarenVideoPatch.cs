@@ -11,9 +11,15 @@ public static class NCharacterSelectKarenVideoPatch
 {
     [HarmonyPatch(nameof(NCharacterSelectScreen.SelectCharacter))]
     [HarmonyPostfix]
-    private static void SelectCharacterPostfix(NCharacterSelectScreen __instance, CharacterModel characterModel)
+    private static void SelectCharacterPostfix(NCharacterSelectScreen __instance, NCharacterSelectButton charSelectButton, CharacterModel characterModel)
     {
-        SetInfoPanelBackgroundVisible(__instance, characterModel is not Karen);
+        SetInfoPanelBackgroundVisible(__instance, characterModel is not Karen || charSelectButton.IsLocked);
+        // Native selection leaves AnimatedBg empty while a character is locked.
+        if (charSelectButton.IsLocked)
+        {
+            KarenCharSelectVideoController.Stop(immediatelyRestoreMusic: true);
+            return;
+        }
         KarenCharSelectVideoController.HandleCharacterSelected(__instance, characterModel);
     }
 

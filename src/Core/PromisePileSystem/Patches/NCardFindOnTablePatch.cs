@@ -62,18 +62,21 @@ internal static class PileTypeExtensionsGetTargetPositionPatch
     {
         // Off uses the native Draw icon even when Void redirects the promise pile.
         if (!KarenVfxQuality.Enabled && pileType != KarenCustomEnum.PromisePile) return true;
+        // Only Draw can be redirected by Void. Queue previews may use canonical cards.
+        if (pileType != KarenCustomEnum.PromisePile && pileType != PileType.Draw) return true;
+        var owner = node?.Model is { IsMutable: true } model ? model.Owner : null;
         // 原生移牌动画共用塔内固定汇聚点，与运动星点解耦。
         if (pileType == KarenCustomEnum.PromisePile ||
-            (node?.Model?.Owner is { } player && KarenPromiseVfxStarManager.IsTowerPile(player, pileType)))
+            (owner is { } player && KarenPromiseVfxStarManager.IsTowerPile(player, pileType)))
         {
             // 优先从 node 获取玩家角色位置
-            if (node?.Model?.Owner?.Creature is { } creature)
+            if (owner?.Creature is { } creature)
             {
                 var creatureNode = NCombatRoom.Instance?.GetCreatureNode(creature);
                 if (creatureNode != null)
                 {
                     __result = node != null
-                        ? KarenPromiseVfxStarManager.GetPilePosition(node.Model.Owner, node) ?? creatureNode.VfxSpawnPosition
+                        ? KarenPromiseVfxStarManager.GetPilePosition(owner, node) ?? creatureNode.VfxSpawnPosition
                         : creatureNode.VfxSpawnPosition;
                     return false;
                 }

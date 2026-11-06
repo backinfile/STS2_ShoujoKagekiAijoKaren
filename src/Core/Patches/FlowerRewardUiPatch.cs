@@ -27,7 +27,6 @@ public static class FlowerRewardUiPatch
             }
             button.Connect(NRewardButton.SignalName.RewardClaimed, Callable.From<NRewardButton>(_ =>
             {
-                __instance.LinkedRewardSet.OnSkipped();
                 // NRewardsScreen removes and frees the complete pair from this signal.
                 __instance.EmitSignal(NLinkedRewardSet.SignalName.RewardClaimed, __instance);
             }));

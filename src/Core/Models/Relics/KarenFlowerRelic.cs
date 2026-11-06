@@ -1,4 +1,10 @@
+using System;
 using System.Collections.Generic;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
+using MegaCrit.Sts2.Core.Multiplayer.Game;
+using MegaCrit.Sts2.Core.GameActions;
+using MegaCrit.Sts2.Core.Runs;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -54,4 +60,50 @@ public sealed class KarenFlowerRelic : KarenBaseRelic
 }
 
 /// <summary>Identifies Flower choices for their local UI decoration and signal adapter.</summary>
-internal sealed class KarenFlowerRewardSet(List<Reward> rewards, Player player) : LinkedRewardSet(rewards, player);
+internal sealed class KarenFlowerRewardSet(List<Reward> rewards, Player player) : LinkedRewardSet(rewards, player)
+{
+    private int _localChoice;
+    private Task<bool>? _localSelection;
+
+    internal Task<bool> SelectLocalReward(RewardsSetSynchronizer synchronizer, Reward reward)
+    {
+        if (SuccessfullySelected) return Task.FromResult(false);
+        if (_localSelection is { IsCompleted: false }) return _localSelection;
+        _localChoice = Rewards.ToList().IndexOf(reward);
+        return _localSelection = synchronizer.SelectLocalReward(this);
+    }
+
+    protected override async Task<bool> OnSelect()
+    {
+        var synchronizer = RunManager.Instance.PlayerChoiceSynchronizer;
+        uint choiceId = synchronizer.ReserveChoiceId(Player);
+        int index;
+        if (LocalContext.IsMe(Player) && RunManager.Instance.NetService.Type != NetGameType.Replay)
+        {
+            index = _localChoice;
+            synchronizer.SyncLocalChoice(Player, choiceId, PlayerChoiceResult.FromIndex(index));
+        }
+        else
+        {
+            index = (await synchronizer.WaitForRemoteChoice(Player, choiceId)).AsIndex();
+        }
+
+        if (index < 0 || index >= Rewards.Count)
+            throw new InvalidOperationException("Flower reward choice is outside the offered options.");
+        var selected = Rewards[index];
+        // The parent is already being selected by the rewards synchronizer. Detach the
+        // child for its native grant to avoid recursively selecting the parent again.
+        selected.ParentRewardSet = null;
+        try
+        {
+            if (!await selected.SelectUnsynchronized()) return false;
+            RemoveReward(selected);
+            OnSkipped();
+            return true;
+        }
+        finally
+        {
+            selected.ParentRewardSet = this;
+        }
+    }
+}
