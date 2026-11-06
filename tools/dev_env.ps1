@@ -134,6 +134,7 @@ function Install-Mods {
     }
     Copy-Tree $BaseLibSource (Join-Path $mods 'BaseLib')
     Copy-Tree $package (Join-Path $mods 'ShoujoKagekiAijoKaren')
+    Copy-Tree (Join-Path $project 'artifacts/ShoujoKagekiAijoCore') (Join-Path $mods 'ShoujoKagekiAijoCore')
     foreach ($file in @('KarenSTS2MCP.dll', 'KarenSTS2MCP.json')) {
         $source = Join-Path $McpSource $file
         Copy-Item -LiteralPath $source -Destination (Join-Path $mods $file) -Force

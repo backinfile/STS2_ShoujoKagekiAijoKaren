@@ -18,7 +18,6 @@ using ShoujoKagekiAijoKaren.src.Core.Audio;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
-using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
@@ -127,7 +126,7 @@ public partial class NKarenStageCueVfx : Node2D
         if (Kind == CueKind.Act2Hover && !PlaybackOwned && !_waitingForDepletion && _owner.Creature.GetPowerAmount<KarenStarlight02Power>() <= 0) Finish();
         bool opening = _age < .3f; _age += (float)delta / Speed;
         UpdateCardVisualTimes();
-        if (_waitingForDepletion && !_depletionWait.Any(NKarenShineDepleteVfx.IsAnimating)) { _waitingForDepletion = false; Finish(); }
+        if (_waitingForDepletion && !_depletionWait.Any(ShoujoKageki.Core.V1.Shine.IsDepletionAnimating)) { _waitingForDepletion = false; Finish(); }
         float tail = Kind switch { CueKind.Act2Hover => .18f, CueKind.Act1Draw => .88f, CueKind.Act1Cast => .65f, CueKind.Act2Cast => .56f, CueKind.TicketReturn => .80f, CueKind.TicketCast => .80f, _ => .9f };
         if ((_releaseAt >= 0 && _age >= _releaseAt + tail) || (Kind != CueKind.Act2Hover && _age > 8)) { HideAll(); QueueFree(); return; }
         KarenVfxComposition.SetCueStrength(this, Alpha);

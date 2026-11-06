@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Threading.Tasks;
+using ShoujoKageki.Core.V1;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 
@@ -22,7 +23,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 ///   <item><description><see cref="OnShineNotExhausted"/> — 此牌打出后闪耀未耗尽</description></item>
 /// </list>
 /// </summary>
-public abstract class KarenBaseCardModel : CardModel
+public abstract class KarenBaseCardModel : CardModel, IShineDepletionHandler, IShineResolutionHandler
 {
     protected KarenBaseCardModel(int energyCost, CardType type, CardRarity rarity,
         TargetType targetType = TargetType.None)
@@ -55,7 +56,7 @@ public abstract class KarenBaseCardModel : CardModel
     public virtual Task OnTurnEndInPromisePile() => Task.CompletedTask;
 
     /// <summary>
-    /// 此牌闪耀耗尽（Shine 归零从卡组移除）时触发（由 <see cref="ShinePileManager"/> 直接调用）。
+    /// 此牌闪耀耗尽（Shine 归零从卡组移除）时触发（由 Core 耗尽回调调用）。
     /// <para>
     /// 调用时机保证：<c>CombatManager.IsInProgress == true</c>，因此：
     /// <list type="bullet">
@@ -63,22 +64,28 @@ public abstract class KarenBaseCardModel : CardModel
     ///   <item><description>存档恢复时调用 AddToShinePile — 不触发。</description></item>
     /// </list>
     /// </para>
-    /// <para>传入的 <paramref name="ctx"/> 由 <see cref="ShinePileManager"/> 创建，支持 CardSelectCmd 等需要联机同步的选择命令。</para>
+    /// <para>传入的 <paramref name="ctx"/> 由 Core 提供，支持 CardSelectCmd 等需要联机同步的选择命令。</para>
     /// </summary>
     public virtual Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, ICombatState combatState) => Task.CompletedTask;
 
     /// <summary>
     /// 此牌打出后，如果闪耀没有耗尽时触发。
     /// <para>
-    /// 调用时机在 <see cref="AfterCardPlayed"/> 中，位于卡牌效果结算后、进入结果牌堆前。
+    /// 由 Core 在实际牌效和原生出牌钩子完成后调用。
     /// </para>
     /// </summary>
     public virtual Task OnShineNotExhausted(PlayerChoiceContext ctx, CardPlay cardPlay) => Task.CompletedTask;
 
-    public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
+    public Task OnShineDepleted(ShineDepletionContext context)
     {
-        await base.AfterCardPlayed(context, cardPlay);
+        if (context.ChoiceContext == null || context.CombatState == null) return Task.CompletedTask;
+        return OnShineExhausted(context.ChoiceContext,
+            CombatManager.Instance?.IsInProgress == true && !CombatManager.Instance.IsEnding,
+            context.CombatState);
+    }
 
+    public async Task AfterShineResolution(PlayerChoiceContext context, CardPlay cardPlay)
+    {
         if (cardPlay.Card != this)
         {
             return;

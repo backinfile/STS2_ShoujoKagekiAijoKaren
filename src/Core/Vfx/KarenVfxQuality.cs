@@ -82,7 +82,6 @@ internal static class KarenVfxQuality
             if (item is SNCreatureVisuals actor) actor.RefreshEffectQuality();
             if (item is SNParticlesContainer particles) particles.RefreshEffectQuality();
         }
-        foreach (var card in nodes.OfType<NCard>()) ShineVfx.RefreshQuality(card);
     }
     // Covers existing effects when a player switches Off during an animation, including
     // Sprite2D/Shader children and separately parented back/HUD layers. Their native clocks

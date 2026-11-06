@@ -1,9 +1,12 @@
 param(
+    [string]$CorePackage = $env:SHOUJO_CORE_PACKAGE,
     [string]$MegaDot = 'D:\Godot\megadot-4.5.1-m.12-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64.exe',
     [ValidateSet('Desktop', 'Android')][string]$Target = 'Desktop'
 )
 
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'core-package.ps1')
+$core = Get-CorePackage $CorePackage
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $modId = 'ShoujoKagekiAijoKaren'
 $artifactRoot = [IO.Path]::GetFullPath((Join-Path $project 'artifacts'))
@@ -35,7 +38,7 @@ function Build-OrThrow([string]$projectPath, [string]$configuration, [string[]]$
 }
 
 $modProject = Join-Path $project ($modId + '.csproj')
-$commonArgs = @('-p:Sts2ReferenceMode=package')
+$commonArgs = @('-p:Sts2ReferenceMode=package', "-p:CoreApiPath=$($core.ApiPath)")
 $commonArgs += if ($Target -eq 'Android') { '-p:KarenAndroidBuild=true' } else { '-p:KarenAndroidBuild=false' }
 $godotOutput = Join-Path $project '.godot/mono/temp/bin/ExportRelease'
 
@@ -45,9 +48,11 @@ Push-Location $project
 $previousReferenceMode = $env:Sts2ReferenceMode
 $previousApi = $env:Sts2Api
 $previousAndroidBuild = $env:KarenAndroidBuild
+$previousCoreApi = $env:CoreApiPath
 try {
     # Godot invokes dotnet publish during export; keep it on the same stable
     # reference assemblies used by the preceding build.
+    $env:CoreApiPath = $core.ApiPath
     $env:Sts2ReferenceMode = 'package'
     $env:Sts2Api = 'stable'
     $env:KarenAndroidBuild = if ($Target -eq 'Android') { 'true' } else { 'false' }
@@ -58,6 +63,7 @@ finally {
     $env:Sts2ReferenceMode = $previousReferenceMode
     $env:Sts2Api = $previousApi
     $env:KarenAndroidBuild = $previousAndroidBuild
+    $env:CoreApiPath = $previousCoreApi
     Pop-Location
 }
 
@@ -96,3 +102,21 @@ foreach ($required in @("$modId.dll", "$modId.pck", "$modId.json", "lib/$modId.S
     }
 }
 Write-Host "$Target dual-branch package: $modDir"
+
+Copy-CoreRolePackage $core $modDir $packageRoot $modId
+if ($Target -eq 'Desktop') {
+    $workshopRoot = Join-Path $artifactRoot 'workshop'
+    New-Item -ItemType Directory -Force -Path $workshopRoot | Out-Null
+    foreach ($name in @($modId, 'ShoujoKagekiAijoCore')) {
+        $destination = [IO.Path]::GetFullPath((Join-Path $workshopRoot $name))
+        if (-not $destination.StartsWith($workshopRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
+            throw 'Unsafe workshop package path.'
+        }
+        if (Test-Path -LiteralPath $destination) { Remove-Item -LiteralPath $destination -Recurse -Force }
+        Copy-Item -LiteralPath (Join-Path $packageRoot $name) -Destination $destination -Recurse
+    }
+    $vdf = Get-Content -LiteralPath (Join-Path $project 'workshop_item.vdf') -Raw -Encoding UTF8
+    $vdf = $vdf.Replace('<workshop-content>', $workshopRoot.Replace('\', '\\'))
+    $vdf = $vdf.Replace('<preview-image>', (Join-Path $project 'workshop_preview.jpg').Replace('\', '\\'))
+    [IO.File]::WriteAllText((Join-Path $artifactRoot 'workshop_item.vdf'), $vdf, [Text.UTF8Encoding]::new($false))
+}

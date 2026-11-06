@@ -14,12 +14,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 迈向那个舞台 - 0费获得3能量，Shine 6
 /// 升级：额外抽1张牌
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(6)]
 public sealed class KarenToTheStage : KarenBaseCardModel
 {
-    public KarenToTheStage() : base(0, CardType.Skill, CardRarity.Common, TargetType.Self)
-    {
-        this.AddShineMax(6);
-    }
+    public KarenToTheStage() : base(0, CardType.Skill, CardRarity.Common, TargetType.Self) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {

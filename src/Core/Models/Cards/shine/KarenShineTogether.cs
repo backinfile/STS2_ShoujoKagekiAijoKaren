@@ -20,12 +20,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 永不遗忘的闪耀 - 2费稀有攻击牌，造成30/40点伤害。闪耀3。
 /// Shine耗尽时，获得三次闪耀牌奖励。
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(3)]
 public sealed class KarenShineTogether : KarenBaseCardModel
 {
-    public KarenShineTogether() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(3);
-    }
+    public KarenShineTogether() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

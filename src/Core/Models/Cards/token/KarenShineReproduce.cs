@@ -21,16 +21,14 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 /// 歌唱吧舞蹈吧互相争斗吧 - 1/0费Token技能牌，Shine 1
 /// 从闪耀耗尽牌堆中选择1张牌加入牌组
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(1)]
 public sealed class KarenShineReproduce : KarenBaseCardModel
 {
     public override bool ShineCardForOtherPlayer => false;
 
     public override CardPoolModel VisualCardPool => ModelDb.CardPool<KarenCardPool>();
 
-    public KarenShineReproduce() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self)
-    {
-        this.AddShineMax(1);
-    }
+    public KarenShineReproduce() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 
@@ -44,10 +42,9 @@ public sealed class KarenShineReproduce : KarenBaseCardModel
     {
         if (CombatState == null) return;
 
-        var shinePile = ShinePileManager.GetShinePile(Owner);
-        var cards = shinePile.Cards
+        var cards = ShoujoKageki.Core.V1.Shine.GetDepletedModels(Owner)
             .Where(c => c is not KarenShineReproduce)
-            .Select(CombatState.CloneCard)
+            .Select(card => CombatState.CloneCard(ShoujoKageki.Core.V1.Shine.Copy(card, ShoujoKageki.Core.V1.CardCopyPurpose.Reacquire)))
             .ToList();
         if (cards.Count == 0) return;
 

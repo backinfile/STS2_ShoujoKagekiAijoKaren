@@ -9,7 +9,6 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Enchantments;
 using MegaCrit.Sts2.Core.ValueProps;
-using ShoujoKagekiAijoKaren.src.Core.Shine.ShinePatches;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
 using System.Collections.Generic;
@@ -22,16 +21,14 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 /// <summary>
 /// 续写 - 1费罕见攻击，造成10/14点伤害。打出所有耗尽的续写。Shine 6。
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(6)]
 public sealed class KarenRewrite : KarenBaseCardModel
 {
     public override bool ShineCardForOtherPlayer => false;
 
     public override bool CanBeGeneratedInCombat => false;
 
-    public KarenRewrite() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(6);
-    }
+    public KarenRewrite() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -43,7 +40,7 @@ public sealed class KarenRewrite : KarenBaseCardModel
         get
         {
             bool inCombat = !IsCanonical && Owner != null && CombatManager.Instance?.IsInProgress == true;
-            int count = inCombat ? ShinePileManager.GetShinePile(Owner).Cards.OfType<KarenRewrite>().Count() : 0;
+            int count = inCombat ? ShoujoKageki.Core.V1.Shine.GetDepletedModels(Owner).OfType<KarenRewrite>().Count() : 0;
             long additionalPlays = IsDupe ? 0 : (long)count * (count + 1L) / 2;
             var description = new LocString("cards", "KAREN_REWRITE.extraPlayTip.description");
             description.Add("AdditionalPlays", additionalPlays);
@@ -55,7 +52,7 @@ public sealed class KarenRewrite : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
         if (CombatState == null) return;
-        var shineCards = ShinePileManager.GetShinePile(Owner).Cards.Where(card => card is KarenRewrite).ToList();
+        var shineCards = ShoujoKageki.Core.V1.Shine.GetDepletedModels(Owner).Where(card => card is KarenRewrite).ToList();
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromPlayedCard(this, cardPlay)
@@ -75,7 +72,7 @@ public sealed class KarenRewrite : KarenBaseCardModel
             var clones = new List<CardModel>();
             foreach (var card in shineCards.Skip(skip))
             {
-                var clone = CombatState.CloneCard(card);
+                var clone = CombatState.CloneCard(ShoujoKageki.Core.V1.Shine.Copy(card, ShoujoKageki.Core.V1.CardCopyPurpose.Reacquire));
                 AccessTools.PropertySetter(typeof(CardModel), "IsDupe").Invoke(clone, [true]);
 
                 await CardPileCmd.Add(clone, PileType.Play); // 先放入打出牌堆
@@ -99,7 +96,7 @@ public sealed class KarenRewrite : KarenBaseCardModel
         if (IsCanonical) return;
         if (CombatManager.Instance?.IsInProgress != true) return;
         if (Owner == null) return;
-        var cnt = ShinePileManager.GetShinePile(Owner).Cards.Where(card => card is KarenRewrite).Count();
+        var cnt = ShoujoKageki.Core.V1.Shine.GetDepletedModels(Owner).Where(card => card is KarenRewrite).Count();
         description.Add(new DynamicVar("Cnt", cnt));
     }
 }

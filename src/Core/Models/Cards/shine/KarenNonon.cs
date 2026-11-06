@@ -19,12 +19,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// NONNON哒哟 - 3费对全体造成12伤，全体敌人-12力量，Shine 9
 /// 升级：16伤，-16力量
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenNonon : KarenBaseCardModel
 {
-    public KarenNonon() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenNonon() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies) { }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [

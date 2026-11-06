@@ -19,12 +19,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
 /// 注意：闪耀显示由全局补丁自动处理（ShineGlobalPatch）
 /// 只需在构造函数中初始化闪耀值即可
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenShineStrike : KarenBaseCardModel
 {
     public KarenShineStrike() : base(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
     {
         // 初始化闪耀值 - 全局补丁会自动检测并显示
-        this.AddShineMax(9);
     }
 
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];

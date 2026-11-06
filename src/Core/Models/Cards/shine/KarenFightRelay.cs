@@ -17,14 +17,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 /// <summary>
 /// 联机专用的 KarenFight 传递牌。
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(3)]
 public sealed class KarenFightRelay : KarenBaseCardModel
 {
     public override bool ShineCardForOtherPlayer => false;
 
-    public KarenFightRelay() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
-    {
-        this.AddShineMax(3);
-    }
+    public KarenFightRelay() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 

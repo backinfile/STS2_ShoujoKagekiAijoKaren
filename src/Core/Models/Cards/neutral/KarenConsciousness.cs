@@ -19,12 +19,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// <summary>
 /// 以觉悟的名义 - 1费攻击，造成6点伤害，获得与未被格挡伤害相等的格挡
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenConsciousness : KarenBaseCardModel
 {
-    public KarenConsciousness() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenConsciousness() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

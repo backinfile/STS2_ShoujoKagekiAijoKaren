@@ -1,4 +1,4 @@
-﻿using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -16,12 +16,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 准备完成 - 0费获得1层力量+抽1张牌；天生，消耗，Shine 6
 /// 升级：力量+2
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(6)]
 public sealed class KarenReady : KarenBaseCardModel
 {
-    public KarenReady() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
-    {
-        this.AddShineMax(6);
-    }
+    public KarenReady() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Innate, CardKeyword.Exhaust];

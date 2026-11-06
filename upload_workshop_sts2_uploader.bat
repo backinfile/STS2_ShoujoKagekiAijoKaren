@@ -4,7 +4,7 @@ chcp 65001 >nul
 
 set MOD_NAME=ShoujoKagekiAijoKaren
 set PUBLISHED_FILE_ID=3747532000
-set PACKAGE_ROOT=%~dp0..\%MOD_NAME%_dist
+set PACKAGE_ROOT=%~dp0artifacts\workshop
 set MOD_CONTENT_DIR=%PACKAGE_ROOT%\%MOD_NAME%
 set PREVIEW_FILE=%~dp0workshop_preview.jpg
 set WORKSHOP_CONFIG=%~dp0workshop.json
@@ -42,7 +42,8 @@ if not exist "%PREVIEW_FILE%" (
     exit /b 1
 )
 
-echo [2/6] Updating packaged JSON...
+echo [2/6] Checking bundled Core...
+if not exist "%PACKAGE_ROOT%\ShoujoKagekiAijoCore\core.bundle" exit /b 1
 copy /Y "%~dp0%MOD_NAME%.json" "%MOD_CONTENT_DIR%\%MOD_NAME%.json" >nul
 if errorlevel 1 (
     echo [ERROR] Failed to copy %MOD_NAME%.json
@@ -110,7 +111,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-robocopy "%MOD_CONTENT_DIR%" "%WORKSPACE_ROOT%\content" /E >nul
+robocopy "%PACKAGE_ROOT%" "%WORKSPACE_ROOT%\content" /E >nul
 if errorlevel 8 (
     echo [ERROR] Failed to copy packaged mod content into uploader workspace.
     exit /b 1

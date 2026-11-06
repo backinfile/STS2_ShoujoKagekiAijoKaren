@@ -1,4 +1,4 @@
-﻿using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -17,13 +17,11 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 特效：Shine 耗尽时额外回复10HP（升级后14HP）
 /// 升级：格挡14，回复14
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenPractice : KarenBaseCardModel
 {
     public override bool CanBeGeneratedInCombat => false;
-    public KarenPractice() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenPractice() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 

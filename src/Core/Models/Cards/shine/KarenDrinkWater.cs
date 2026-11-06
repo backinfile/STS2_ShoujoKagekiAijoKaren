@@ -1,4 +1,4 @@
-﻿using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -14,12 +14,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 水分补充 - 1费获得1层Buffer（吸收下次受到的全部伤害）；消耗，Shine 3
 /// 升级：费用降为0
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(3)]
 public sealed class KarenDrinkWater : KarenBaseCardModel
 {
-    public KarenDrinkWater() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
-    {
-        this.AddShineMax(3);
-    }
+    public KarenDrinkWater() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];

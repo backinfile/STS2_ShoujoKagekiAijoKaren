@@ -9,7 +9,7 @@ using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Relics;
 
-public sealed class KarenBaseballCatRelic : KarenBaseRelic, IShineExhaustionListener
+public sealed class KarenBaseballCatRelic : KarenBaseRelic, ShoujoKageki.Core.V1.IShineDepletionListener
 {
     private HashSet<ModelId> _exhaustedNames = [];
     public override RelicRarity Rarity => RelicRarity.Rare;
@@ -31,8 +31,9 @@ public sealed class KarenBaseballCatRelic : KarenBaseRelic, IShineExhaustionList
         return Task.CompletedTask;
     }
 
-    public async Task AfterShineExhausted(PlayerChoiceContext choiceContext, CardModel card)
+    public async Task OnShineDepleted(ShoujoKageki.Core.V1.ShineDepletionContext context)
     {
+        var card = context.Card;
         if (card.Owner != Owner || !_exhaustedNames.Add(card.Id)) return;
         InvokeDisplayAmountChanged();
         Flash();

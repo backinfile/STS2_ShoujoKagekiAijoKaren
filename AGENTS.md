@@ -44,7 +44,7 @@
 
 1. 读取当前程序集，并调用 `ScriptManagerBridge.LookupScriptsInAssembly(assembly)`。
 2. 通过 `ModConfigRegistry.Register(ModId, new KarenModConfig())` 注册配置。
-3. 创建 `Harmony` 实例并执行 `PatchAll()`，让项目内所有补丁生效。
+3. 接入 Core 音乐仲裁，创建 `Harmony` 实例并注册角色补丁。公共闪耀、保存、采集、标签、启动画面和播放器由 Core 初始化。
 
 `src/ShoujoKagekiAijoKaren/MainFile.cs` 中的 `ModelDbAllCharactersPatch` 会给 `ModelDb.AllCharacters` 做 `Postfix`，把 `ModelDb.Character<Karen>()` 插入角色列表，并清空 `ModelDb` 内部的 `_allCharacterCardPools` 和 `_allCards` 缓存，确保角色和卡池缓存重新生成。
 
@@ -131,7 +131,7 @@ Karen 当前的核心机制包括：
 - 测试版游戏及 Mod 目录：`artifacts\dev-game\beta\game`、`artifacts\dev-game\beta\game\mods`；启动 `run_beta_dev.bat`。
 - 两套环境各自的用户数据目录分别是 `artifacts\dev-game\stable\user\AppData\Roaming\SlayTheSpire2` 和 `artifacts\dev-game\beta\user\AppData\Roaming\SlayTheSpire2`；日志分别写入各自环境根目录的 `godot.log`。
 - 启动器使用 `--force-steam=off`，不读取 Steam 创意工坊 Mod 或云存档。两个 `game\mods` 目前只部署 BaseLib、Karen 与 KarenSTS2MCP，和 Steam 安装目录 `<steam-sts2-install>\mods` 相互独立，可同时启动。
-- `update_dev_mods.bat` 会构建并更新两套环境中的 Mod；`tools/dev_env.ps1` 支持 `Capture`、`Install`、`Launch`、`Smoke`、`Status`。开发环境完整说明见 `docs/dev-environments.md`。不要用 `build_local_mod.bat` 更新这些环境，因为它默认写入 Steam 安装目录。
+- 构建前通过 `SHOUJO_CORE_PACKAGE` 指定官方 Core 发行目录。`update_dev_mods.bat` 会构建并更新两套环境中的 Mod；`tools/dev_env.ps1` 支持 `Capture`、`Install`、`Launch`、`Smoke`、`Status`。开发环境完整说明见 `docs/dev-environments.md`。不要用 `build_local_mod.bat` 更新这些环境，因为它默认写入 Steam 安装目录。
 - 上述独立环境会安装 KarenSTS2MCP，并使用各自的 `game\mods\KarenSTS2MCP.conf`：正式版端口 `15627`，测试版端口 `15628`。分别访问 `http://127.0.0.1:15627/api/v1/singleplayer?format=json` 和 `http://127.0.0.1:15628/api/v1/singleplayer?format=json`；本节前面的 `15527` 只适用于 Steam 安装目录中的 MCP。启动脚本会检查对应端口是否已被占用。
 
 ## 双版本与单人/多人测试要求

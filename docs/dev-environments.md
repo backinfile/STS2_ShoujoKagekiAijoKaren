@@ -7,7 +7,9 @@
 | 正式版 | `artifacts/dev-game/stable/game/` | v0.107.1 | `run_stable_dev.bat` 或 `run.bat` |
 | 测试版 | `artifacts/dev-game/beta/game/` | v0.111.0 | `run_beta_dev.bat` |
 
-两个游戏目录各有独立的 `mods/`，安装 BaseLib、Karen 与 KarenSTS2MCP。两个进程的 `%APPDATA%` 和 `%LOCALAPPDATA%` 分别指向各自的 `artifacts/dev-game/<branch>/user/AppData/`，日志位于各自环境根目录的 `godot.log`。启动时传入 `--force-steam=off`，不会加载 Steam 创意工坊订阅、使用 Steam 云存档或修改 Steam 安装目录。可同时运行正式版、测试版和其他 Mod 项目的游戏。MCP 端口分别为正式版 `15627`、测试版 `15628`，由各自 `game/mods/KarenSTS2MCP.conf` 指定；启动前会检查端口是否被占用。
+构建使用 `build.bat -CorePackage <Core发行目录>`，或通过 `SHOUJO_CORE_PACKAGE` 指定该目录。角色与 Core 分别输出至 `artifacts/ShoujoKagekiAijoKaren/` 和 `artifacts/ShoujoKagekiAijoCore/`，工坊内容统一准备在 `artifacts/workshop/`。
+
+两个游戏目录各有独立的 `mods/`，安装 BaseLib、Core、Karen 与 KarenSTS2MCP。两个进程的 `%APPDATA%` 和 `%LOCALAPPDATA%` 分别指向各自的 `artifacts/dev-game/<branch>/user/AppData/`，日志位于各自环境根目录的 `godot.log`。启动时传入 `--force-steam=off`，不会加载 Steam 创意工坊订阅、使用 Steam 云存档或修改 Steam 安装目录。可同时运行正式版、测试版和其他 Mod 项目的游戏。MCP 端口分别为正式版 `15627`、测试版 `15628`，由各自 `game/mods/KarenSTS2MCP.conf` 指定；启动前会检查端口是否被占用。
 
 日常开发先运行 `update_dev_mods.bat` 构建安装包并更新两套环境，然后分别运行 `run_stable_dev.bat` 和 `run_beta_dev.bat`。`buildAndRun.bat` 只更新并启动正式版。`build_local_mod.bat` 仍会写入 Steam 安装目录，请勿用它更新独立环境。`run_as_host.bat` 与 `run_as_client01.bat` 仍是旧的 Steam 安装目录联机脚本，不属于这两套独立环境。
 

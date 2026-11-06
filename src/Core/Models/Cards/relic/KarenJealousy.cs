@@ -18,11 +18,11 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 /// <summary>
 /// 嫉妒 - 造成伤害，闪耀耗尽时获得随机遗物
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenJealousy : KarenBaseCardModel
 {
     public KarenJealousy() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy) {
 
-        this.AddShineMax(9);
     }
 
     public override bool CanBeGeneratedInCombat => false;

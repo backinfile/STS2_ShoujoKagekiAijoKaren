@@ -26,12 +26,12 @@ public static class MainFile
         ScriptManagerBridge.LookupScriptsInAssembly(assembly);
 
         ModConfigRegistry.Register(ModId, new KarenModConfig());
-        src.Core.Telemetry.KarenErrorReporter.Initialize();
+        ShoujoKageki.Core.V1.CoreApi.Get<ShoujoKageki.Core.V1.IMusicPlayback>().Changed += _ =>
+            src.Core.Audio.KarenAudioManager.UpdateMusicVolume(MegaCrit.Sts2.Core.Saves.SaveManager.Instance?.SettingsSave?.VolumeBgm ?? 1f);
 
         Harmony harmony = new(ModId);
         harmony.PatchAll();
         Logger.Info("[KarenDiagnostics] Harmony PatchAll completed.");
-        src.Core.Patches.RunHistoryUploadPatch.ResumePendingUploads();
     }
 }
 

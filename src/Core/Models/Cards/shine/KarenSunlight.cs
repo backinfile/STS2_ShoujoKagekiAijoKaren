@@ -30,14 +30,12 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 特效：Shine 耗尽时，玩家可选择将此牌加入牌组。
 /// 升级：14伤
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(3)]
 public sealed class KarenSunlight : KarenBaseCardModel
 {
     public override bool ShineCardForOtherPlayer => false;
 
-    public KarenSunlight() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(3);
-    }
+    public KarenSunlight() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
@@ -106,7 +104,7 @@ public sealed class KarenSunlight : KarenBaseCardModel
 
         // 还在战斗中，创建一个选择卡牌界面来让玩家选择是否将这张牌加入牌组
         // 创建一个自身的复制，需要有CombatState才能加入手牌
-        CardModel clone = combatState?.CloneCard(this)!;
+        CardModel clone = combatState?.CloneCard(ShoujoKageki.Core.V1.Shine.Copy(this, ShoujoKageki.Core.V1.CardCopyPurpose.Reacquire))!;
         if (clone == null)
         {
             MainFile.Logger.Error("KarenSunlight.OnShineExhausted failed to clone card for deck addition.");

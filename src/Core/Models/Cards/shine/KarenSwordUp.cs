@@ -19,12 +19,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 上挑 - 1费5伤+虚弱1+脆弱1，Shine 9
 /// 升级：7伤+虚弱2+脆弱2
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenSwordUp : KarenBaseCardModel
 {
-    public KarenSwordUp() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenSwordUp() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [

@@ -19,12 +19,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// <summary>
 /// 蓄力打击 - 1费10伤 + 本回合目标力量-3，Shine 9
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenChargeStrike : KarenBaseCardModel
 {
-    public KarenChargeStrike() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenChargeStrike() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 

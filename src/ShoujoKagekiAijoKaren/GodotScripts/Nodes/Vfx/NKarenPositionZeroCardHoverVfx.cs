@@ -1,14 +1,14 @@
 using Godot;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
-using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 /// <summary>A small lit stage T anchored to the actual card frame; never writes to native highlight/material state.</summary>
 public partial class NKarenPositionZeroCardHoverVfx(NKarenPositionZeroVfx owner, NCard card, CardModel model) : Node2D
 {
-    private readonly ShineCardBorder _border = new(card);
+    private readonly KarenCardBorder _border = new(card);
     private float _age;
     public override void _Ready() { Name = "KarenPositionZeroCardHover"; }
     public override void _Process(double delta)

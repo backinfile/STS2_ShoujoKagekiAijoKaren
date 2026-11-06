@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Nodes;
 using ShoujoKagekiAijoKaren.src.Core.Audio;
 using ShoujoKagekiAijoKaren.Core;
-using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
@@ -62,7 +62,7 @@ internal static class KarenVfxWarmup
             foreach (string kind in new[] { "attack", "skill", "power", "quest", "ancient" })
             {
                 var texture = ResourceLoader.Load<Texture2D>("res://images/atlases/ui_atlas.sprites/card/card_frame_" + kind + "_s.tres");
-                if (texture != null) { Collect(texture); ShineCardBorder.Prepare(texture); }
+                if (texture != null) { Collect(texture); KarenCardBorder.Prepare(texture); }
             }
             foreach (var texture in Resources.Values.OfType<Texture2D>().Where(t => t.ResourcePath.Contains("karen_energy_nonagon")).ToArray())
                 NKarenWaitingStageVfx.PrepareIcon(texture);

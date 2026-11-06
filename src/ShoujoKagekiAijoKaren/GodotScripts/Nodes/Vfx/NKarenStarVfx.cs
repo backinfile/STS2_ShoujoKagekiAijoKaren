@@ -14,7 +14,6 @@ using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
-using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 
@@ -126,7 +125,7 @@ public partial class NKarenStarVfx : Node2D
         for (int i = _pulses.Count - 1; i >= 0; i--) if (_age - _pulses[i].At > .34f) _pulses.RemoveAt(i);
         if (_playback.Completed && _completedAt < 0) _completedAt = _age;
         if (_playback.Reward && _rewardAt < 0 && KarenPowerVfxAnchor.Find(_room, owner.GetPower<KarenShineCardRewardPower>()) != null) _rewardAt = _age;
-        if (_completedAt >= 0 && _releaseAt < 0 && !NKarenShineDepleteVfx.IsAnimating(_playback.Card)) _releaseAt = _age;
+        if (_completedAt >= 0 && _releaseAt < 0 && !ShoujoKageki.Core.V1.Shine.IsDepletionAnimating(_playback.Card)) _releaseAt = _age;
         if ((_releaseAt >= 0 && _age - _releaseAt >= .52f && (_rewardAt < 0 || _age - _rewardAt >= .44f))
             || (_completedAt >= 0 && _age - _completedAt > 1.6f)) { Hide(); QueueFree(); return; }
         KarenVfxQuality.Redraw(this);

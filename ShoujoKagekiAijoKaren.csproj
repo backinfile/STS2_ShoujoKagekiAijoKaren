@@ -9,6 +9,7 @@
     <Sts2Api Condition="'$(Sts2Api)' == ''">stable</Sts2Api>
     <DefineConstants Condition="'$(Sts2Api)' == 'beta'">$(DefineConstants);STS2_BETA</DefineConstants>
     <Sts2GameDir Condition="'$(Sts2GameDir)' == ''">D:\App\Stream\steamapps\common\Slay the Spire 2</Sts2GameDir>
+    <CoreApiPath Condition="'$(CoreApiPath)' == ''">$(MSBuildProjectDirectory)/vendor/core-sdk/api/ShoujoKagekiAijoCore.Api.V1.dll</CoreApiPath>
     <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(Sts2GameDir)\data_sts2_windows_x86_64</Sts2DataDir>
   </PropertyGroup>
   <ItemGroup>
@@ -36,10 +37,7 @@
   <ItemGroup>
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="mod_manifest.json" />
-    <EmbeddedResource Include="ShoujoKagekiAijoKaren.json" LogicalName="KarenErrorManifest.json" />
-    <EmbeddedResource Include="artifacts\telemetry-deploy\client-endpoint.json"
-                      LogicalName="KarenTelemetryEndpoint.json"
-                      Condition="Exists('artifacts\telemetry-deploy\client-endpoint.json')" />
+
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Core\GlobalMoveSystem\GlobalMoveSystem.cs.uid" />
@@ -79,7 +77,8 @@
     <None Include="src\Core\ShineSystem\ShinePileManager.cs.uid" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.2.1" />
+    <Reference Include="ShoujoKagekiAijoCore.Api.V1" HintPath="$(CoreApiPath)" Private="false" />
+    <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.4.7" />
     <PackageReference Include="BSchneppe.Sts2.ReferenceAssemblies" Version="0.107.1" PrivateAssets="All" Condition="'$(Sts2Api)' == 'stable' and '$(Sts2ReferenceMode)' == 'package'" />
     <PackageReference Include="BSchneppe.Sts2.ReferenceAssemblies" Version="0.111.0-beta-41cef1ea" PrivateAssets="All" Condition="'$(Sts2Api)' == 'beta'" />
   </ItemGroup>
@@ -94,4 +93,7 @@
   <ItemGroup>
     <EditorConfigFiles Remove="D:\Godot\Proj\STS2_ShoujoKagekiAijoKaren\.editorconfig" />
   </ItemGroup>
+  <Target Name="RequireCoreSdk" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(CoreApiPath)')" Text="Core V1 SDK is required. Set CoreApiPath to the API assembly in the official Core package." />
+  </Target>
 </Project>

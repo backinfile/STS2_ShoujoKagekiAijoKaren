@@ -14,12 +14,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 /// <summary>
 /// 激情 - 战斗结束时获得随机遗物
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(1)]
 public sealed class KarenPassion : KarenBaseCardModel
 {
-    public KarenPassion() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
-    {
-        this.AddShineMax(1);
-    }
+    public KarenPassion() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
     public override bool CanBeGeneratedInCombat => false;
 

@@ -24,14 +24,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 /// 星星串起了我们的友谊 - 1费8伤，击杀目标时获得一张随机闪耀牌，Shine 3
 /// 升级：12伤
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(3)]
 public sealed class KarenStarFriend : KarenBaseCardModel
 {
     public override bool ShineCardForOtherPlayer => false;
 
-    public KarenStarFriend() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(3);
-    }
+    public KarenStarFriend() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

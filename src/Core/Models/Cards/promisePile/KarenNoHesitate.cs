@@ -19,14 +19,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// <summary>
 /// 不再犹豫
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(6)]
 public sealed class KarenNoHesitate : KarenBaseCardModel
 {
     public override bool ShineCardForOtherPlayer => false;
 
-    public KarenNoHesitate() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
-    {
-        this.AddShineMax(6);
-    }
+    public KarenNoHesitate() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 

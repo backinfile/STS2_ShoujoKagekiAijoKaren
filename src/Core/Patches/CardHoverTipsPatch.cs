@@ -21,15 +21,13 @@ public static class CardHoverTipsPatch
 {
     private static readonly (string Key, Func<CardModel, bool> Condition)[] Keywords =
     [
-        ("KAREN_SHINE", card => card.IsShineCard() || card.Tags.Contains(KarenCustomEnum.ShineRelated)),
-        ("KAREN_ETERNAL_SHINE", card => card.IsShineCard() && card.Keywords.Contains(CardKeyword.Eternal)),
+        ("KAREN_SHINE", card => !card.IsShineCard() && card.Tags.Contains(KarenCustomEnum.ShineRelated)),
         ("KAREN_PROMISE_PILE", card => card.Tags.Contains(KarenCustomEnum.PromisePileRelated)),
         ("KAREN_SHINE_CARD_REWARD", card => card.Tags.Contains(KarenCustomEnum.ShineCardReward)),
         ("KAREN_SHINE_CARD_REWARD", card => card.Tags.Contains(KarenCustomEnum.ShineCardReward)),
         ("KAREN_TMP_STRENGTH", card => card.Tags.Contains(KarenCustomEnum.TmpStrength)),
         ("KAREN_RETAIN_TMP_STRENGTH", card => card.Tags.Contains(KarenCustomEnum.RetainTmpStrength)),
         ("KAREN_DISABLE_RELIC", card => card.Tags.Contains(KarenCustomEnum.DisableRelicRelated) || card is KarenDisableRelicBaseCardModel),
-        ("KAREN_TOKEN_CARD", card => NCardDerivedLabelPatch.GeneratedInCombat(card)),
     ];
 
     private static HoverTip GetHoverTip(string key)

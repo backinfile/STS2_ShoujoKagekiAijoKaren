@@ -17,15 +17,13 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 永无结束的命运舞台 - 1费12伤，Shine 9，可无限升级
 /// 每次升级伤害递增（+4, +5, ...）
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenContinue02 : KarenBaseCardModel
 {
     private int _upgradeCount = 0;
     private bool _downgradeToBase;
 
-    public KarenContinue02() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenContinue02() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     public override int MaxUpgradeLevel => int.MaxValue;
 

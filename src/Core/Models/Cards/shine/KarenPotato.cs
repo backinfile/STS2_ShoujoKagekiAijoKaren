@@ -14,13 +14,11 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 土豆 - 0费回复4HP，Shine 3
 /// 升级：回复7HP
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(3)]
 public sealed class KarenPotato : KarenBaseCardModel
 {
     public override bool CanBeGeneratedInCombat => false;
-    public KarenPotato() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
-    {
-        this.AddShineMax(3);
-    }
+    public KarenPotato() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {

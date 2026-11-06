@@ -2,8 +2,8 @@
 {
 	"appid"		"2868840"
 	"publishedfileid"		"3747532000"
-	"contentfolder"		"D:\\Godot\\Proj\\ShoujoKagekiAijoKaren_dist\\ShoujoKagekiAijoKaren"
-	"previewfile"		"D:\\Godot\\Proj\\STS2_ShoujoKagekiAijoKaren\\workshop_preview.jpg"
+	"contentfolder"		"<workshop-content>"
+	"previewfile"		"<preview-image>"
 	"visibility"		"0"
 	"title"		"Shoujo Kageki: Aijo Karen"
 	"changenote"		"1 Added many new visual effects\n2 Added new relics\n3 Added one new card\n4 Fixed several bugs"

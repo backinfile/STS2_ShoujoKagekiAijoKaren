@@ -15,12 +15,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 投下燃料 - 0费抽2张+2能量；消耗，Shine 9
 /// 升级：抽3张+3能量
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenDropFuel : KarenBaseCardModel
 {
-    public KarenDropFuel() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenDropFuel() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];

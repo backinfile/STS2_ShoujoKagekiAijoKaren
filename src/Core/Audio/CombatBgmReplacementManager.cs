@@ -1,4 +1,5 @@
 using Godot;
+using ShoujoKageki.Core.V1;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -13,6 +14,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Audio;
 /// </summary>
 public static class CombatBgmReplacementManager
 {
+    private static IMusicPlayback Music => CoreApi.Get<IMusicPlayback>();
     private const float FadeOutDuration = 0.35f;
 
     private static AudioStreamPlayer? _currentPlayer;
@@ -31,11 +33,11 @@ public static class CombatBgmReplacementManager
         _restoreRequestId++;
         _cutscenePriority = false;
         StopImmediate();
-        if (KarenModConfig.EnableMusicPlayer && MusicPlayer.KarenMusicPlayback.Current is { } music)
+        if (CoreApi.Configuration.Current.EnableMusicPlayer)
         {
             RestoreGameMusicIfNeeded();
-            music.SetFormPriority(false);
-            _ = music.ForceTrack(fileName);
+            Music.SetFormPriority(false);
+            Music.ForceTrack($"res://ShoujoKagekiAijoKaren/audio/{fileName}");
             return;
         }
         StopGameMusicEventOnly();
@@ -74,7 +76,7 @@ public static class CombatBgmReplacementManager
         _restoreRequestId++;
         _cutscenePriority = true;
         StopImmediate();
-        MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(true);
+        Music.SetFormPriority(true);
         StopGameMusicEventOnly();
         _needsGameMusicRestore = true;
     }
@@ -85,7 +87,7 @@ public static class CombatBgmReplacementManager
         _cutscenePriority = false;
         var state = RunManager.Instance.DebugOnlyGetState();
         var player = state == null ? null : LocalContext.GetMe(state);
-        if (KarenModConfig.EnableMusicPlayer && MusicPlayer.KarenMusicPlayback.Current is { HasStream: true })
+        if (CoreApi.Configuration.Current.EnableMusicPlayer && Music.HasStream)
             RestoreGameMusicIfNeeded();
         else if (GodotObject.IsInstanceValid(NCombatRoom.Instance)
             && player?.Creature.GetPower<Models.Powers.KarenFormPower>() != null)
@@ -105,8 +107,8 @@ public static class CombatBgmReplacementManager
         StopImmediate();
         _needsGameMusicRestore = false;
         _cutscenePriority = false;
-        MusicPlayer.KarenMusicPlayback.Current?.Stop();
-        MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(false);
+        Music.Stop();
+        Music.SetFormPriority(false);
     }
 
     public static void RestoreGameMusicIfNeeded()
@@ -116,7 +118,7 @@ public static class CombatBgmReplacementManager
             return;
 
         _cutscenePriority = false;
-        MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(false);
+        Music.SetFormPriority(false);
         RequestRestoreGameMusic();
     }
 
@@ -128,7 +130,7 @@ public static class CombatBgmReplacementManager
         if (!GodotObject.IsInstanceValid(_currentPlayer))
         {
             _currentPlayer = null;
-            MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(false);
+            Music.SetFormPriority(false);
             RestoreGameMusicIfNeeded();
             return;
         }
@@ -154,7 +156,7 @@ public static class CombatBgmReplacementManager
                 audioPlayer.QueueFree();
             }
 
-            MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(false);
+            Music.SetFormPriority(false);
             RequestRestoreGameMusic();
         };
     }
@@ -189,7 +191,7 @@ public static class CombatBgmReplacementManager
         StopImmediate();
         _needsGameMusicRestore = true;
         _cutscenePriority = false;
-        MusicPlayer.KarenMusicPlayback.Current?.SetFormPriority(false);
+        Music.SetFormPriority(false);
     }
 
     private static void ReleaseCombatRoom()

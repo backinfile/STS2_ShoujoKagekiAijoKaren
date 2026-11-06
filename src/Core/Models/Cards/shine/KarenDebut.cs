@@ -16,12 +16,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 出场 - 1费对全体敌人造成3×3=9伤（多轮全体），Shine 6
 /// 升级：轮数 +1（3×4=12伤）
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(6)]
 public sealed class KarenDebut : KarenBaseCardModel
 {
-    public KarenDebut() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
-    {
-        this.AddShineMax(6);
-    }
+    public KarenDebut() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
