@@ -1,0 +1,20 @@
+Built-in imagegen; 2026-10-09. Transparent output. One generation.
+
+Input 1 (structural context): images/vfx/bridge/stage-v4.png
+Input 2 (edit target): images/vfx/bridge/right-tower-v5.png
+Input 3 (style reference): images/packed/card_portraits/karen/karen_bridge.png
+Selected output: images/vfx/bridge/right-tower-v6.png
+Original generated output: exec-528e1581-298f-4c5d-aaf1-ca81c9767237.png
+Actual output: 1671x941 RGBA. Copied unchanged; no programmatic repainting.
+Runtime registration: uniform canvas scale, then +40,+15 in 1280x720 stage coordinates.
+
+Exact prompt:
+
+Use case: precise-object-edit.
+Asset type: transparent 2D game scenery sprite, ONLY the replacement RIGHT TOWER, registered on a 1672x941 wide canvas.
+Input image 1: full existing bridge scenery, structural context and coordinate reference. Input image 2: existing isolated right tower, EDIT TARGET. Input image 3: original card illustration, style reference.
+Primary correction: the tower's FLAT vertical cut/attachment face MUST BE PERPENDICULAR IN 3D TO THE LONG AXIS OF THE HORIZONTAL BRIDGE in image 1. The bridge comes from the LEFT and terminates squarely INTO this flat face. Rotate the tower shell about its upright axis to achieve this; do not tilt the tower or rotate the whole image. Previous asset is WRONG: almost all rounded gray face with a hairline red left edge. Do NOT repeat that orientation.
+Model the tower as a spiral-sheathed HALF CYLINDER / D-shaped section, not a complete round pipe. Show a visibly BROAD continuous flat deep-burgundy vertical attachment plane on its inward LEFT side, roughly the left half of the visible tower width. It has two straight vertical edges and is a single coplanar structural face, NOT a thin red rim or triangular seam. Its horizontal crosswise edges recede UP-RIGHT, in the same cross-sectional perspective as the final bridge collar in image 1. The gray-blue curved spiral shell wraps away around the OUTWARD RIGHT/back side. Gray-blue tier/ribbon ends terminate along the straight edge of this broad plane, all aligned to it. This makes the bridge meeting a broad flat wall read immediately. The normal of this plane points along the bridge to the left; the plane must not run parallel to the bridge.
+Keep target image's tower position and overall size: narrow red/gray pinnacle about (1550,65), body begins about y140, body remains near x1500..1672 and is partially cropped at the right frame boundary, extends to around y730. Slight existing axis lean and tapered spiral size progression retained. Upper tiers smaller, lower tiers wider. Use about five broad smooth gray-blue shell bands, no extra tower. Do not change the bridge or left tower: DO NOT INCLUDE THEM IN THE OUTPUT; only the new right tower on transparency, because those layers are retained separately.
+Style: match source card's restrained matte anime painted architecture, slate blue-gray exterior, deep wine-red planar face, few broad clean highlights, soft cel shading. Smooth large surfaces, no moire, no fine repeating noise, no photographic chrome or microtexture.
+True RGBA transparency everywhere outside the single right tower. Full 1672x941 registration canvas, all left 88 percent empty. No background, bridge, characters, light beams, text, annotations, labels, checkerboard, diagram, or watermark.

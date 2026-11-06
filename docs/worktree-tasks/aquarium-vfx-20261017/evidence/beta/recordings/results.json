@@ -1,0 +1,56 @@
+[
+  {
+    "case": "showcase",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 547,
+          "SelectionFrames": 39,
+          "ParticleFrames": 547,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "upgrade",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 472,
+          "SelectionFrames": 39,
+          "ParticleFrames": 472,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  }
+]

@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Rewards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Extensions;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Rewards;
@@ -25,21 +27,19 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
         /// </summary>
         public static async Task AddShineCardReward(Player player, CardModel? except = null)
         {
-            var shineCard = ShineManager.GetRewardableShineCards(player, except)
-                .TakeRandom(1, player.PlayerRng.Rewards)
-                .First();
+            var shineCard = ShineManager.GetRandomRewardableShineCard(player, player.PlayerRng.Rewards, except);
             var clone = player.RunState.CreateCard(shineCard, player);
             if (player.RunState.CurrentRoom is CombatRoom combatRoom)
             {
                 // 随机取一张闪耀牌作为奖励，排除自己
-                combatRoom.AddExtraReward(player, new SpecialCardReward(clone, player));
+                combatRoom.AddExtraReward(player, new KarenShineCardReward(clone, player));
                 MainFile.Logger.Info($"Added shine card reward: {shineCard?.Title} for player: {player.NetId}");
                 // 标记Power
-                await PowerCmd.Apply<KarenShineCardRewardPower>(player.Creature, 1m, player.Creature, null);
+                await PowerCmd.Apply<KarenShineCardRewardPower>(new ThrowingPlayerChoiceContext(), player.Creature, 1m, player.Creature, null);
             }
             else
             {
-                await RewardsCmd.OfferCustom(player, [new SpecialCardReward(clone, player)]);
+                await RewardsCmd.OfferCustom(player, [new KarenShineCardReward(clone, player)]);
             }
         }
 
@@ -52,7 +52,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
             {
                 combatRoom.AddExtraReward(player, new RelicReward(player));
                 MainFile.Logger.Info($"Added relic reward for player: {player.NetId}");
-                await PowerCmd.Apply<KarenPassionPower>(player.Creature, 1m, player.Creature, null);
+                await PowerCmd.Apply<KarenPassionPower>(new ThrowingPlayerChoiceContext(), player.Creature, 1m, player.Creature, null);
             }
             else
             {

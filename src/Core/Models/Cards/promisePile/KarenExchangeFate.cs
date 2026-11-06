@@ -9,6 +9,7 @@ using ShoujoKagekiAijoKaren.src.Core.Commands;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
@@ -25,7 +26,21 @@ public sealed class KarenExchangeFate : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PromisePileCmd.SwitchHand(choiceContext, Owner, this);
+        var outgoing = PileType.Hand.GetPile(Owner).Cards.ToArray();
+        var incoming = (PromisePileManager.IsVoidMode(Owner)
+            ? PileType.Draw.GetPile(Owner) : KarenCustomEnum.PromisePile.GetPile(Owner)).Cards.ToArray();
+        var cue = NKarenExchangeFateVfx.Play(Owner, outgoing, incoming);
+        try
+        {
+            if (cue != null) await cue.WaitForExchange();
+            cue?.BeginExchange();
+            await PromisePileCmd.SwitchHand(choiceContext, Owner, this);
+            cue?.ConfirmTransfers();
+        }
+        finally
+        {
+            cue?.Finish();
+        }
     }
 
     protected override void OnUpgrade()

@@ -1,0 +1,27 @@
+{
+  "title": "Karen 基础轮廓 · 第三轮",
+  "heading": "基础轮廓 · 重新探索",
+  "subtitle": "A 半圆 / B 厚十字 / C 双瓣 · 同尺寸场景预览 + 本体轮廓排除对照",
+  "outputStem": "basic-shapes-v3",
+  "exclusionPanel": true,
+  "variants": [
+    [
+      "basic3-a-semicircle",
+      "A",
+      "半圆",
+      "一段圆弧 · 一条平直底边"
+    ],
+    [
+      "basic3-b-cross",
+      "B",
+      "厚十字",
+      "四个平头 · 浅凹转角"
+    ],
+    [
+      "basic3-c-double-lobe",
+      "C",
+      "双瓣",
+      "左右圆瓣 · 上下浅收腰"
+    ]
+  ]
+}

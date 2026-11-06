@@ -1,0 +1,40 @@
+# MCP 双版本批量测试
+
+默认只检查双版本启动、Mod 加载和 MCP 接口。在项目根目录使用 PowerShell 7 运行：
+
+```powershell
+pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite smoke -UpdateMcp
+```
+
+`-UpdateMcp` 先从 `<karen-sts2-mcp-source>` 的**当前工作区源码**复制一份，分别针对 `artifacts/dev-game/stable/game` 和 `artifacts/dev-game/beta/game` 编译并安装到本项目的两套独立游戏副本。源码仓库本身不被修改；为自动化联机 CMD 添加的 `run_command` 动作只存在于构建副本中。MCP 安装包写入 `artifacts/mcp-stable/`、`artifacts/mcp-beta/`，`source-info.json` 记录 Git 提交、是否含未提交修改以及实际构建源码的 SHA-256。只需更新 MCP 时可运行 `tools/update_dev_mcp.ps1`，用 `-McpRepository` 指定其他本地源码路径。
+
+日常开发和创意工坊发布按改动选择最小必要验证；运行行为变化另选对应定向用例。完整矩阵仅在用户明确要求全面测试时指定 `-Suite full`。特效覆盖、生命周期、首播/重复播放和帧耗时专项独立按需执行。
+
+批量脚本支持以下 `-Suite`：
+
+| 套件 | 检查 |
+| --- | --- |
+| `smoke` | 默认套件：正式版、测试版启动，Karen 加载与独立 MCP HTTP 端口 |
+| `solo` | 两版 Karen 开局、MCP 设置读写并恢复、CMD、闪耀打击中途清场后耗尽 |
+| `multiplayer` | 两版各四种主客角色组合：双方出牌、敌人生命同步、共同进入第 2 回合 |
+| `regression` | 两版 Karen 主机／客户端的清场耗尽、混合角色清场耗尽、《旋转》全局移牌同步及 `promise` 用例 |
+| `promise` | 两版各跑 Karen/Karen、Karen/原版、原版/Karen 的约定牌堆移入及抽回；保存前后截图并检查双端手牌节点与模型一致，并附带 `turn-end` 六组转化检查 |
+| `turn-end` | 两版各覆盖 Karen/Karen、Karen/原版、原版/Karen，双方各将《小零食》放入约定牌堆，结束回合后逐人检查它变为《香蕉》 |
+| `cross` | 可选的跨版本连接调查；不属于日常验收 |
+| `full` | 显式指定时执行 `smoke`、`solo`、`multiplayer`、`regression`、`turn-end` 的全部用例，不含 `cross` |
+
+测试通过 `--force-steam=off` 启动隔离游戏，每个用例使用独立 `--clientId`、用户数据目录和日志。正式版与测试版主机 MCP 端口分别是 `15627`、`15628`；对应客户端是 `15629`、`15630`；联机使用 `33771`。脚本在使用端口前检查占用情况，不会停止其他项目的游戏进程。客户端游戏从本项目快照复制到本次运行目录；结束后默认尝试清理游戏副本，`-KeepClientGames` 可保留。清理遇到 Windows 文件占用时会延后并写进报告，不改变测试结论。
+
+每次运行的 JSON 结果、两端日志和隔离用户数据保存在 `artifacts/test-matrix/<运行标识>/`。任一测试失败时脚本退出码为 1，其余测试仍会继续。`full` 不测试跨版本联机。历史跨版本调查中，游戏拒绝不同版本的握手，客户端游戏本体的错误弹窗还会抛出 `SwitchExpressionException`；此结果单独记录，不影响本 Mod 的双版本兼容性验收。
+
+单人移牌视觉专项另行运行 `pwsh -NoProfile -File tools/test_promise_visuals.ps1 -Environment beta`（正式版改为 `stable`）。它检查《坠落》移入、《约定之塔》抽回以及取回后继续出牌，保存各阶段截图和 MCP 状态，并调用只读命令 `karen_check_hand` 比较可见节点与模型。脚本先从隔离日志确认 KarenSTS2MCP 启动，再访问接口。检查时始终保持 1280 × 720 窗口；加 `-Record` 时额外录像并静音，避免最小化 Vulkan 窗口导致画面停止更新。结果保存在 `artifacts/test-promise-visuals/`。该检查能发现模型已抽回但画面仍缺牌的问题。
+
+游戏快照固定为正式版 v0.107.1、测试版 v0.111.0；游戏升级后先重新准备快照并核对兼容性。更新脚本不会执行 `git pull`，避免覆盖 MCP 源码目录中的未提交改动；如果需要远端新提交，应先在 MCP 仓库处理更新，再运行此脚本。
+
+单机双进程测试可加 `-UpdateMcp -LoopbackOnly`。该选项只修改 MCP 构建副本，把 ENet 主机与客户端的 UDP 接口限制在 `127.0.0.1`，避免测试监听所有网卡；不修改系统防火墙，也不需要管理员启动。Windows 是否显示权限提示仍以实际系统行为为准。重新不带该选项构建 MCP 可恢复局域网测试。
+
+审查修复的升级／附魔副本、重播转移／拒绝接收、保留能量、远端 UI 和战后遗物清理专项：`pwsh -NoProfile -File tools/test_review_regressions.ps1`。它临时部署独立测试插件、默认启用仅本机传输，并保存结果、截图及双端日志；详细范围见 [修复记录](review-fixes-2026-09-24.md)。
+
+修复专项的客户端游戏使用工作树内的可复用缓存，避免每次复制数 GB 文件。日志与用户数据仍按运行隔离；`-ClientGamesRoot` 可指定 `artifacts/test-matrix/` 下已有客户端副本目录。
+
+修复专项把测试版启动期的原生 WorkerThreadPool 诊断单列为 `startupWorkerPoolErrorCount`：必须是 Common 预加载完成之前的 `ERROR: Invalid Task ID`，且调用位置为 `core/object/worker_thread_pool.cpp`。其余原生错误仍使测试失败；不能把出牌阶段同名错误归为启动诊断。`headlessRendererErrorCount` 仅统计 headless dummy renderer 的错误，窗口测试应为 0。

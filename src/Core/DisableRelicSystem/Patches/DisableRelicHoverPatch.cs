@@ -76,7 +76,7 @@ public static class DisableRelicHoverPatch
             return;
         }
 
-        int count = disableRelicCard.DisableRelicVar.IntValue;
+        int count = disableRelicCard.DisableRelicCount;
         var targets = DisableRelicManager
             .GetRelicsToDisable(disableRelicCard.Owner, count)
             .ToList();

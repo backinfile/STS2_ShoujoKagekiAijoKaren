@@ -1,0 +1,101 @@
+{
+  "stage": "notch",
+  "grade": "deliverable",
+  "source_before": "docs\\design\\assets\\relic-style-v6\\baseball_cat.png",
+  "params": {
+    "local_win": 21,
+    "peak_tau": 1.2,
+    "max_support": 80,
+    "low_cut": 24,
+    "feather": 1.5
+  },
+  "channels": [
+    "L"
+  ],
+  "per_channel": {
+    "L": {
+      "components_above_tau": 491,
+      "isolated_components_kept": 491,
+      "rejected_large_components": 0,
+      "notched_bins": 548,
+      "notched_bins_pct": 0.0287,
+      "max_peak_excess": 2.788,
+      "peaks_top": [
+        {
+          "excess": 2.788,
+          "support": 11,
+          "period_px": 2.01,
+          "angle_deg": 0.0
+        },
+        {
+          "excess": 2.756,
+          "support": 10,
+          "period_px": 2.01,
+          "angle_deg": 180.0
+        },
+        {
+          "excess": 2.373,
+          "support": 8,
+          "period_px": 2.01,
+          "angle_deg": -90.0
+        },
+        {
+          "excess": 2.373,
+          "support": 9,
+          "period_px": 2.01,
+          "angle_deg": 90.0
+        },
+        {
+          "excess": 1.784,
+          "support": 2,
+          "period_px": 2.84,
+          "angle_deg": -45.0
+        },
+        {
+          "excess": 1.784,
+          "support": 2,
+          "period_px": 2.84,
+          "angle_deg": 135.0
+        },
+        {
+          "excess": 1.442,
+          "support": 1,
+          "period_px": 1.49,
+          "angle_deg": -45.1
+        },
+        {
+          "excess": 1.442,
+          "support": 1,
+          "period_px": 1.49,
+          "angle_deg": 134.9
+        },
+        {
+          "excess": 1.418,
+          "support": 1,
+          "period_px": 2.0,
+          "angle_deg": -131.1
+        },
+        {
+          "excess": 1.418,
+          "support": 1,
+          "period_px": 2.0,
+          "angle_deg": 48.9
+        },
+        {
+          "excess": 1.401,
+          "support": 1,
+          "period_px": 2.01,
+          "angle_deg": -148.3
+        },
+        {
+          "excess": 1.401,
+          "support": 1,
+          "period_px": 2.26,
+          "angle_deg": -144.5
+        }
+      ],
+      "energy_removed_pct": 0.01674
+    }
+  },
+  "time": "2026-10-11T16:22:06+08:00"
+}

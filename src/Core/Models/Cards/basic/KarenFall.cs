@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.CardSelection;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -33,7 +34,8 @@ public sealed class KarenFall : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        using (NKarenFallVfx.Bind(cardPlay))
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         await PromisePileCmd.AddFromHand(choiceContext, Owner, ((int)DynamicVars.Cards.BaseValue), this);
     }
 

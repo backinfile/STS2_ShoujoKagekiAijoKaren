@@ -28,6 +28,8 @@ public sealed class KarenRetainEnergyPower : PowerModel
 
     public override async Task AfterEnergyReset(Player player)
     {
+        if (player != Owner.Player) return;
+
         await PowerCmd.Decrement(this);
     }
 

@@ -10,6 +10,8 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 
@@ -33,10 +35,13 @@ public sealed class KarenShineTogetherAll() : KarenBaseCardModel(2, CardType.Pow
     {
         var combatState = CombatState ?? Owner?.Creature?.CombatState;
         if (combatState == null) return;
-
+        var effect = NKarenBenefitVfx.Play(Owner, NKarenBenefitVfx.BenefitKind.Shine);
+        if (effect != null) await NKarenBenefitVfx.WaitForCue(NKarenBenefitVfx.BenefitKind.Shine);
         foreach (Player player in combatState.Players.Where(p => p?.Creature != null))
         {
             await ExtraRewardCmd.AddShineCardReward(player);
+            // The reward has been added to CombatRoom; its marker Power may itself be modified by hooks.
+            effect?.ConfirmRecipient(player);
         }
     }
 

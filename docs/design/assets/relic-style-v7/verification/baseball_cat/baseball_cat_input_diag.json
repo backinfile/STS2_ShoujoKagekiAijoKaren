@@ -1,0 +1,193 @@
+{
+  "pixels": [
+    1254,
+    1254
+  ],
+  "lattice": {
+    "detected": true,
+    "components_above_tau": 491,
+    "isolated_components_kept": 491,
+    "rejected_large_components": 0,
+    "notched_bins": 548,
+    "notched_bins_pct": 0.0287,
+    "max_peak_excess": 2.788,
+    "peaks_top": [
+      {
+        "excess": 2.788,
+        "support": 11,
+        "period_px": 2.01,
+        "angle_deg": 0.0
+      },
+      {
+        "excess": 2.756,
+        "support": 10,
+        "period_px": 2.01,
+        "angle_deg": 180.0
+      },
+      {
+        "excess": 2.373,
+        "support": 8,
+        "period_px": 2.01,
+        "angle_deg": -90.0
+      },
+      {
+        "excess": 2.373,
+        "support": 9,
+        "period_px": 2.01,
+        "angle_deg": 90.0
+      },
+      {
+        "excess": 1.784,
+        "support": 2,
+        "period_px": 2.84,
+        "angle_deg": -45.0
+      },
+      {
+        "excess": 1.784,
+        "support": 2,
+        "period_px": 2.84,
+        "angle_deg": 135.0
+      },
+      {
+        "excess": 1.442,
+        "support": 1,
+        "period_px": 1.49,
+        "angle_deg": -45.1
+      },
+      {
+        "excess": 1.442,
+        "support": 1,
+        "period_px": 1.49,
+        "angle_deg": 134.9
+      },
+      {
+        "excess": 1.418,
+        "support": 1,
+        "period_px": 2.0,
+        "angle_deg": -131.1
+      },
+      {
+        "excess": 1.418,
+        "support": 1,
+        "period_px": 2.0,
+        "angle_deg": 48.9
+      },
+      {
+        "excess": 1.401,
+        "support": 1,
+        "period_px": 2.01,
+        "angle_deg": -148.3
+      },
+      {
+        "excess": 1.401,
+        "support": 1,
+        "period_px": 2.26,
+        "angle_deg": -144.5
+      }
+    ]
+  },
+  "granule": {
+    "level": "none",
+    "flagged_windows": 0,
+    "flat_windows": [],
+    "oriented_windows": [
+      {
+        "box": [
+          697,
+          138,
+          793,
+          234
+        ],
+        "band_std": 2.9195,
+        "kurtosis": 10.78,
+        "anisotropy": 0.972,
+        "mid_blob_cov_pct": 0.0,
+        "mid_blob_median_area": 0.0
+      },
+      {
+        "box": [
+          136,
+          399,
+          232,
+          495
+        ],
+        "band_std": 4.1099,
+        "kurtosis": 8.51,
+        "anisotropy": 0.964,
+        "mid_blob_cov_pct": 0.0,
+        "mid_blob_median_area": 0.0
+      },
+      {
+        "box": [
+          496,
+          237,
+          592,
+          333
+        ],
+        "band_std": 2.0637,
+        "kurtosis": 17.68,
+        "anisotropy": 0.907,
+        "mid_blob_cov_pct": 13.03,
+        "mid_blob_median_area": 47.0
+      }
+    ]
+  },
+  "scale_index": {
+    "scale_tile_pct": 0.0,
+    "level": "none",
+    "tiles": 324,
+    "flagged_tiles": 0,
+    "median_cov_pct": 0.7,
+    "median_area_cv": 0.768,
+    "tile": 128,
+    "stride": 64,
+    "thresholds": {
+      "min_cov_pct": 19.0,
+      "max_area_cv": 0.65,
+      "min_circ": 0.55,
+      "max_aniso": 0.35,
+      "min_band_std": 0.3,
+      "blob_area_min": 12,
+      "blob_area_max": 300,
+      "suspected_min_pct": 2.0,
+      "structured_min_pct": 6.0
+    },
+    "flagged_tile_boxes": [],
+    "measured_on": "1254x1254",
+    "canvas_normalized_for_grading": false,
+    "canon_long_edge": 1280,
+    "heatmap": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_input_scaleheat.png"
+  },
+  "scale_index_native": {
+    "scale_tile_pct": 0.0,
+    "level": "none",
+    "pixels": [
+      1254,
+      1254
+    ]
+  },
+  "thresholds": {
+    "lattice_min_peaks": 2,
+    "lattice_min_excess": 2.5,
+    "granule_min_band_std": 0.35,
+    "granule_max_kurtosis": 8.0,
+    "granule_min_mid_blob_cov_pct": 19.0,
+    "granule_max_anisotropy": 0.35,
+    "flat_min_flagged": 2,
+    "pervasive_min_flagged": 3,
+    "pervasive_min_ratio": 0.6
+  },
+  "flags": {
+    "lattice": true,
+    "granule_flat": false,
+    "granule_pervasive": false,
+    "granule_suspected": false,
+    "scale_structured": false,
+    "scale_suspected": false
+  },
+  "stage": "diagnose",
+  "source": "docs\\design\\assets\\relic-style-v6\\baseball_cat.png",
+  "source_sha256": "6fa8530ae17dcd833f89ddce9e8b602ca1564e92b3e4f91f5ca15ab173224f64",
+  "time": "2026-10-11T16:22:04+08:00",
+  "board": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_input_diag_board.png"
+}

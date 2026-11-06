@@ -4,9 +4,11 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers.tmpStrength;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
@@ -39,7 +41,7 @@ public enum PromisePileMode
 /// </summary>
 public sealed class KarenPromisePilePower : FakeAmountPower
 {
-    private static readonly SpireField<CardModel, bool> BurnDrawBorderMarked = new(() => false);
+    private static readonly SpireField<CardModel, bool> BurnDrawMarked = new(() => false);
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
@@ -83,13 +85,10 @@ public sealed class KarenPromisePilePower : FakeAmountPower
         _pastAndFutureAmount = 0m;
     }
 
-    // ===== Normal Mode Data =====
-    private IReadOnlyList<string> _cardNames = Array.Empty<string>();
-
     /// <summary>当约定牌堆数量为0时不显示数字</summary>
     public override bool ShowFakeAmount => FakeAmount > 0 && !IsVoidMode && !IsInfiniteReinforcement;
 
-    /// <summary>更新约定牌堆卡牌名列表（升级牌名带 +）</summary>
+    /// <summary>更新约定牌堆数量。</summary>
     public void UpdateCount()
     {
         if (Owner.Player is Player player)
@@ -97,7 +96,6 @@ public sealed class KarenPromisePilePower : FakeAmountPower
             var pile = PromisePileManager.GetPromisePile(player);
             var count = pile.Cards.Count;
             SetFakeAmount(count);
-            _cardNames = pile.Cards.Select(c => c.Title).ToArray();
         }
     }
 
@@ -118,16 +116,19 @@ public sealed class KarenPromisePilePower : FakeAmountPower
             if (IsVoidMode || IsInfiniteReinforcement)
                 yield break;
 
-            if (_cardNames.Count == 0) yield break;
+            if (Owner?.Player is not Player player) yield break;
+            // Titles may change in place through upgrades or transformations.
+            var cards = PromisePileManager.GetPromisePile(player).Cards;
+            if (cards.Count == 0) yield break;
 
             var sb = new StringBuilder();
-            int shown = Math.Min(_cardNames.Count, 10);
+            int shown = Math.Min(cards.Count, 10);
             for (int i = 0; i < shown; i++)
             {
                 if (i > 0) sb.Append('\n');
-                sb.Append(_cardNames[i]);
+                sb.Append(cards[i].Title);
             }
-            if (_cardNames.Count > 10)
+            if (cards.Count > 10)
                 sb.Append("\n...");
 
             yield return new HoverTip(
@@ -177,20 +178,21 @@ public sealed class KarenPromisePilePower : FakeAmountPower
         {
             card.AddKeyword(CardKeyword.Exhaust);
         }
-        MarkBurnDrawBorder(card);
+        MarkBurnDraw(card);
+        NCard.FindOnTable(card)?.UpdateVisuals(card.Pile?.Type ?? PileType.None, CardPreviewMode.Normal);
         //card.ExhaustOnNextPlay = true;
     }
 
-    public static void MarkBurnDrawBorder(CardModel? card)
+    public static void MarkBurnDraw(CardModel? card)
     {
         if (card == null) return;
-        BurnDrawBorderMarked.Set(card, true);
+        BurnDrawMarked.Set(card, true);
     }
 
-    public static bool ShouldGlowRedForBurnDraw(CardModel? card)
+    public static bool HasBurnDrawEffect(CardModel? card)
     {
         if (card == null) return false;
-        return BurnDrawBorderMarked.Get(card);
+        return BurnDrawMarked.Get(card);
     }
 
     public void PlayAni()
@@ -211,7 +213,7 @@ public sealed class KarenPromisePilePower : FakeAmountPower
             // 特效更新
             if (Owner.Player is Player player) KarenPastAndFutureRingVfxManager.Pulse(player);
             // 获得力量
-            await PowerCmd.Apply<KarenPastAndFutureTempStrengthPower>(Owner, _pastAndFutureAmount, Owner, null);
+            await PowerCmd.Apply<KarenPastAndFutureTempStrengthPower>(new ThrowingPlayerChoiceContext(), Owner, _pastAndFutureAmount, Owner, null);
         }
     }
 }

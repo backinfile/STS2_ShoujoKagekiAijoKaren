@@ -1,0 +1,84 @@
+{
+  "state": "ready",
+  "attacks": [
+    {
+      "hits": 6,
+      "damage": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    }
+  ],
+  "artPreview": "off",
+  "visualEvents": [
+    "start",
+    "gold",
+    "contact",
+    "pink",
+    "contact",
+    "gold",
+    "contact",
+    "pink",
+    "contact",
+    "gold",
+    "contact",
+    "pink",
+    "contact"
+  ],
+  "pairs": [
+    {
+      "index": 0,
+      "fromRelic": true,
+      "x": 182,
+      "y": 116,
+      "centerX": 387.59998,
+      "centerY": 176.352,
+      "distance": 214.27486
+    },
+    {
+      "index": 1,
+      "fromRelic": true,
+      "x": 114,
+      "y": 116,
+      "centerX": 325.5431,
+      "centerY": 176.41132,
+      "distance": 220.00002
+    },
+    {
+      "index": 2,
+      "fromRelic": true,
+      "x": 46,
+      "y": 116,
+      "centerX": 258.97845,
+      "centerY": 171.13785,
+      "distance": 220.00002
+    }
+  ],
+  "activeVfx": 0,
+  "locks": 3,
+  "eligible": 0,
+  "relics": [
+    "KAREN_LOCK_RELIC",
+    "KAREN_LOCK_RELIC",
+    "KAREN_LOCK_RELIC"
+  ],
+  "playable": true,
+  "costX": true,
+  "capturedX": 3,
+  "upgraded": true,
+  "pile": "Discard",
+  "disableCost": 0,
+  "damage": 6,
+  "repeat": 2,
+  "pool": true,
+  "hasPortrait": true,
+  "portrait": "(500, 380)",
+  "title": "双星+",
+  "description": "[gold]禁用[/gold]X个遗物，然后造成6点伤害2X次。\n（当前可禁用[blue]0[/blue]个遗物）",
+  "energy": 0,
+  "targetHp": 64
+}

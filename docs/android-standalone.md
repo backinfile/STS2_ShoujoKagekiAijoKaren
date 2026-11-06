@@ -1,0 +1,93 @@
+# 内嵌华恋的塔2直装 APK
+
+当前交付为正式版 v0.107.1 + Karen v0.1.4 + BaseLib v3.4.7 的本地直装测试 APK。游戏本体、模组、Android 运行时与对应兼容层已经放入包内；安装后首次自动解包，随后进入游戏。没有启动器首页、账号下载、导入页面或版本/配置选择流程。
+
+r9 使用当前 main 源码和 v0.1.4 manifest，保留 Android 仅可选择 Karen 的限制，APK 图标改为华恋选角头像。最终签名包已核查；测试版整套特效检查仍有长帧失败记录，Android 真机未测，按测试候选包交付。
+
+## 安装与运行
+
+- 产物：`artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.4-direct-r9.apk`，2,048,159,369 字节，约 1.91 GiB。
+- Android 7.0/API 24 以上，仅 ARM64；建议预留至少 8 GB 可用存储空间，用于 APK、系统安装副本、首次解包和游戏缓存。
+- 应用名称为“塔2 · 华恋”，独立包名 `com.karenmod.sts2hd`，versionCode 为 10021，不使用此前 importer APK 的数据目录。
+- 第一次打开仅显示自动准备进度；准备完成后进入游戏。之后启动只检查安装标记和程序文件大小，避免反复解包整个本体。
+- r9 与 r8 使用相同包名和测试签名，可以覆盖安装；覆盖安装保留存档的实际 Android 行为仍待真机验证。
+- 主菜单 → 设置 → Mods → 少女歌剧／爱城华恋 →「一键解锁全部」：解锁当前存档的全部角色、卡牌、遗物、药水、时间线和进阶（包括华恋），保留胜负、游玩时长和成就。解锁前自动保存独立备份；已有对局的解锁快照不改写，建议随后开新局。按钮仅在主菜单执行。
+- Karen/BaseLib 随本体安装并默认开启 Mod。存档/设置放在私有用户目录，程序文件更新不会覆盖它们。
+- 原版游戏设置保留；兼容层的 Android 设置按钮打开本项目自己的小型对话框，可设置画面兼容、声音兼容与横屏翻转，重启生效。退出游戏不会返回外部启动器。
+
+包使用本机生成的测试签名。当前已完成静态/JVM 和双版本 PC 宿主定向检查，逐项结果见下方 r9 记录；**Android 设备安装、实际战斗、触摸/音频/渲染/前后台与续档均未验证**。
+
+## 构建
+
+先生成包含 BaseLib 的 AnyCPU Android Mod ZIP（见 [Android Mod 构建说明](android-mod.md)），然后提供只读的 v0.107.1 本体目录：
+
+```powershell
+python tools/android-standalone/build.py --game-dir "<正式版 v0.107.1 游戏目录>"
+```
+
+目录需要 `SlayTheSpire2.pck`、`release_info.json` 与 `data_sts2_windows_x86_64/`。脚本严格校验该版本的 `sts2.dll` 和 PCK 哈希，避免把错版兼容层与本体混装。它只修改 `artifacts/android-direct/` 下的本体副本；不修改来源游戏、Steam 或开发游戏的 Mod/用户目录。
+
+Windows 环境需要 Python 3.11 以上、Pillow（用于头像图标缩放）与 .NET 9 SDK（用于真实游戏设置类型的构建期校验）。首次构建下载并校验便携 JDK 21、Android 35 平台包、D8、dexlib2、Guava、Apktool 和签名工具；已有 JDK 可传 `--jdk`。不需要安装 Gradle/NDK，不重编译原生引擎。依赖下载/平台包在 `artifacts/apk/` 缓存；程序中间文件、APK 与验证结果在 `artifacts/android-direct/`。
+
+测试密钥留在 ignored 的 `artifacts/apk/signing/`，不进入 Git；后续覆盖安装需要保留同一密钥。构建只生成本地文件，不执行远程上传或发布。
+
+## 实现
+
+`tools/android-standalone/` 自行编译 Android Manifest、`DirectApplication`、`PrepareGameActivity`、`GameHost` 与 `BundleInstaller`。
+
+- 引擎依赖来自固定 SHA-256 的上游 v0.1.11 runtime carrier，保留 Godot/Mono/FMOD/Spine 原生库和引擎所需资源。使用 dexlib2 重新写入 DEX，删除全部 1,467 个 `com.godot.game` 启动器应用类，保留引擎/第三方依赖；Manifest 不注册任何上游启动器组件。它不把旧启动器的 `GodotApp` 或导入/账户/配置管理作为启动入口。
+- `DirectApplication` 在 Mono 初始化之前配置私有 HOME/.config/temp，采集本进程诊断日志。
+- `PrepareGameActivity` 只负责在后台执行有进度的首次程序安装，主线程保持响应；完成后自动启动游戏。213 个程序文件逐项校验 SHA-256 后发布，标记最后写入。再次启动使用标记与大小进行快速检查，缺失/截断则修复；更新时校验旧文件后跳过未变化项。Manifest 限制只能写入游戏、程序集、两组内嵌 Mod 和 overlay 路径，不允许指向存档/设置目录。
+- `GameHost` 直接继承 Godot 的 `GodotActivity`，预加载原生音频/MonoMod 组件、初始化 FMOD，注册 Godot FMOD plugin / 引擎版本 / AndroidX lifecycle，保留网络与震动权限，使用 OpenGL compatibility renderer、`--main-pack`、独立日志与 `--force-steam off` 启动游戏。通过构建期 ABI 检查确认 Godot/FMOD 入口签名和引擎进程重启组件存在。
+- 只安装 v0.107.1 的完整兼容层，不包含多版本 compat ZIP 或 fallback bootstrap。兼容程序集只在字符串/常量元数据堆内等长替换应用包名、私有回退目录和 Java bridge 类名；原 IL/索引/布局保留。Java bridge 指向本项目 `GameHost`。
+- PCK 只在私有副本中禁用桌面 Sentry autoload/extension metadata，保持条目长度并更新对应 MD5；其余本体资源保留。来源 PCK 前后 SHA-256 相同。
+- Windows 的 EXE、CoreCLR 和原生 DLL 不进入 APK；Mono BCL 使用匹配 Android 引擎的版本，游戏额外依赖只选托管程序集/JSON。Karen 的根 Loader、Stable/Beta `lib/` 和 PCK 完整保留。
+- APK 图标使用 `images/packed/character_select/char_select_karen.png`，构建时生成各密度的普通、自适应前景/背景与单色资源，并逐项核对最终签名包中的图标字节。
+
+原生运行时和兼容层并非本项目从源码重新编译的产物；其来源、MIT 与第三方声明随 APK 保留。上游实现原理参考[兼容包加载流程](https://github.com/ModinMobileSTS/Sts2MobileLauncher/blob/v0.1.11/doc/runtime/compat-pack-loading-flow.md)和[Godot 4.5.1 Activity](https://github.com/godotengine/godot/blob/4.5.1-stable/platform/android/java/lib/src/org/godotengine/godot/GodotActivity.kt)。
+
+## 已完成的针对性验证
+
+- r2 解锁按钮：Windows 正式版 v0.107.1 / 测试版 v0.111.0 的隔离存档中实际触发按钮，核对全部角色/卡牌/遗物/药水/进阶、原进度备份、重复操作、统计/成就保留及游戏重启持久化。Beta OpenGL 在按钮执行前的 Common 预载阶段出现 `Invalid Task ID`，已记录为单独的引擎预载问题，未宣称日志零错误；解锁断言通过。
+- r3 将普通闪耀卡框轮廓准备接入本体卡牌池预建阶段，并对 RGBA8 使用批量像素读取。双版本 PC 实测首次约 16.7–16.8ms；正式版五种卡框轮廓与旧算法完全一致。真实入堆前后截图、手牌模型/视图检查通过，但手机入堆卡顿尚未定位。详细数据与本体实现对照见 [诊断记录](testing/vfx-first-use-2026-10-22.md)。
+
+- Java 入口编译、D8 与 Godot/FMOD API 契约检查通过；compile-stubs 没有进入成品。
+- APK v2/v3 签名与 zipalign、aapt2 清单/包名/版本/启动 Activity/ARM64 检查通过；没有上游启动器应用类或 Activity。
+- ZIP CRC、全部 213 个程序文件的 SHA-256、基础游戏 DLL/PCK 精确版本与 Mod 目录结构通过。
+- 首次设置模板使用正式版 schema 5 与 `mod_list`；通过实际 v0.107.1 的 `SettingsSave` 反序列化，验证 Mod 开启、语言、音量和默认窗口值。设置模板只在用户设置不存在时写入。
+- 12 项 JVM 程序安装测试通过：首次安装、重复启动、缺失/截断修复、升级保留存档、损坏数据拒绝与重试、IO 失败清理、路径越界/设置覆盖拒绝、空文件、解包中断恢复、失败更新保留旧程序。
+- 使用最终签名 APK 实际解包全部程序文件到隔离 JVM 目录，逐文件校验哈希，确认本体 PCK、`sts2.dll`、Karen Stable 实现和 BaseLib 都在预期位置。
+- ILSpy 读取成品中的兼容 DLL，归一化包名/bridge 字符串后，IL 输出与上游 v0.107.1 一致。
+
+可复测安装逻辑与实际 APK 解包：
+
+```powershell
+python tools/android-standalone/test.py --apk artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.4-direct-r9.apk
+```
+
+证据：`validation.json`、`badging.txt`、`signature.txt`、`pck-patch.json`、`installer-checks/`、`inspect/`、`build.log`，均位于 `artifacts/android-direct/`。这些检查证明打包和程序安装路径通过，不能证明 Android ARM64/Mono 和实际游戏运行已经通过。
+
+
+## r4：全特效准备的测试候选包
+
+当前产物为 `artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r4.apk`（versionCode 10016，2046717577 字节，SHA-256 `1f75385f2ce044965e4d7d41e09471f1bfdc061cc1da75099637a8d2b1d97d66`）。与旧包同包名/签名，可覆盖安装；包含全目录预载、共用生成资源/轮廓缓存、实际离屏 Shader/粒子绘制准备和缓存保留。首轮主菜单加载本机增加约 1.5–4 秒。
+
+双版本 PC 全览各 29 组 × 3 次、闪耀/塔桥/真实移牌专项、最终签名/安装/完整解包及受测 Mod 哈希核查已完成；Android 真机仍未测，测试版原生预载错误待审，当前仅为测试候选包，不能据此宣称正式发布校验全部通过。完整记录见 `docs/testing/vfx-prewarm-2026-10-22.md`。旧导入器/r1/r2/r3 及重复构建/解包临时目录已按用户要求清理；保留密钥、最新包与测试证据。发布前主动执行 `tools/vfx/first-use/release_check.py`，流程要求见 `AGENTS.md`。
+
+## r5：最新源码整合候选包
+
+`artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.3-direct-r5.apk`，versionCode `10017`，versionName `0.107.1-karen.0.1.3.5`；2047385225 字节，SHA-256 `96c64e4f41132bd10141f0550edd0ecd92a9708e83b93ee7eaf633c8fd6eba0c`。沿用同包名与本地测试签名；Mod 来自源码提交 `3545c95`，游戏和 BaseLib 版本保持上述组合。
+
+本轮含最新双子星、过去与未来光痕、花朵 UI 的加载准备、光带复用缓冲，以及先前保留的静音约定。v2/v3 签名、版本/入口/ARM64 清单、213 个程序文件的包内哈希检查通过。最终包的八项双版本首播专项、每版七项功能 smoke、12 项安装回归及完整解包核验通过；Beta 两项保留既有原生预载错误待审，Android 真机未测，发布门禁为 pending。详情见 [r5 验证记录](testing/android-r5-2026-10-22.md)。
+
+## r9：v0.1.4 与华恋选角头像（2026-10-27）
+
+产物为上述 r9 APK，versionName `0.107.1-karen.0.1.4.9`，SHA-256 `59b33b1430c4e7dfc5042e66def83fecf73537f64677a4ca07354296735a1418`。源码基线为 `77e03dc`，纳入工作区已有的 v0.1.4 manifest；打包改动限于 APK 版本、头像资源生成和相关说明。
+
+- 最终包的 v2/v3 签名、对齐、ARM64/入口清单、24 个头像图标资源、213 个程序文件完整解包与哈希、内嵌 Mod 和受测包一致性检查通过。包内仅有 Karen 与 BaseLib，签名证书与 r8 一致；12 项 JVM 安装回归通过。
+- 正式版和测试版分别实际打开选角界面，验证五个原版角色全部锁定、选择请求均被拒绝，Karen 可以开局进入地图。保存并查看了两版选角截图。
+- 正式版 all/bridge/shine/promise 四项通过；all 的两帧重复播放分别为 34.1177/36.6388ms，均与 GC 同帧，原始数据保留。
+- 测试版 all 初测失败：Radiance 首次播放第 73 帧 37.8614ms，与 GC 同帧；Snack 第二次第 4 帧 130.6355ms，与 GC 同帧；双子星第三次第 89 帧 130.7573ms，无同帧 GC，原因待查。三项独立冷进程定向复测最高 17.2573ms，初测失败继续保留。闪耀专项初测首次 113.5832ms，独立复测最高 16.7151ms；塔桥与约定专项通过。两版的实际移牌前后/取回截图已查看，当前采纳记录中的 48 次手牌模型/节点核查通过。
+- 测试版部分进程在测量前出现原生 `Invalid Task ID`（`worker_thread_pool.cpp:418`），保留待审。针对最终头像版 APK 执行统一发布入口，返回 `failed`（退出码 1），失败项为 `beta/all`。本包按**待真机验证的测试候选包**交付，尚未验收发布；未执行完整多人矩阵。
+
+本轮证据位于 `artifacts/android-direct/r9-validation.json`、`r9-release-check.json`、`r9-release-check-initial.json`、`r9-audit.json`、`r9-visual-review/` 和 `r9-policy-*.log`；原始双版本采样位于 `artifacts/vfx-first-use-20261022/runs/`。Android ARM64 的首次/覆盖安装保留存档、冷启动首次特效、切后台恢复均未测。

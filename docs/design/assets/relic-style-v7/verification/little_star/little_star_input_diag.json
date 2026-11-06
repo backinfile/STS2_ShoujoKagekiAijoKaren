@@ -1,0 +1,193 @@
+{
+  "pixels": [
+    1254,
+    1254
+  ],
+  "lattice": {
+    "detected": true,
+    "components_above_tau": 438,
+    "isolated_components_kept": 438,
+    "rejected_large_components": 0,
+    "notched_bins": 607,
+    "notched_bins_pct": 0.0318,
+    "max_peak_excess": 2.573,
+    "peaks_top": [
+      {
+        "excess": 2.573,
+        "support": 12,
+        "period_px": 2.01,
+        "angle_deg": 0.0
+      },
+      {
+        "excess": 2.402,
+        "support": 10,
+        "period_px": 2.01,
+        "angle_deg": 180.0
+      },
+      {
+        "excess": 2.211,
+        "support": 12,
+        "period_px": 2.01,
+        "angle_deg": 90.0
+      },
+      {
+        "excess": 2.13,
+        "support": 10,
+        "period_px": 2.01,
+        "angle_deg": -90.0
+      },
+      {
+        "excess": 2.093,
+        "support": 9,
+        "period_px": 2.84,
+        "angle_deg": -45.0
+      },
+      {
+        "excess": 2.093,
+        "support": 9,
+        "period_px": 2.84,
+        "angle_deg": 135.0
+      },
+      {
+        "excess": 1.578,
+        "support": 3,
+        "period_px": 2.99,
+        "angle_deg": -178.1
+      },
+      {
+        "excess": 1.578,
+        "support": 3,
+        "period_px": 2.99,
+        "angle_deg": 1.9
+      },
+      {
+        "excess": 1.547,
+        "support": 1,
+        "period_px": 3.32,
+        "angle_deg": -86.4
+      },
+      {
+        "excess": 1.547,
+        "support": 1,
+        "period_px": 3.32,
+        "angle_deg": 93.6
+      },
+      {
+        "excess": 1.528,
+        "support": 3,
+        "period_px": 28.38,
+        "angle_deg": -160.8
+      },
+      {
+        "excess": 1.528,
+        "support": 3,
+        "period_px": 28.38,
+        "angle_deg": 19.2
+      }
+    ]
+  },
+  "granule": {
+    "level": "none",
+    "flagged_windows": 0,
+    "flat_windows": [],
+    "oriented_windows": [
+      {
+        "box": [
+          590,
+          696,
+          686,
+          792
+        ],
+        "band_std": 1.9979,
+        "kurtosis": 6.8,
+        "anisotropy": 0.949,
+        "mid_blob_cov_pct": 6.13,
+        "mid_blob_median_area": 282.5
+      },
+      {
+        "box": [
+          701,
+          306,
+          797,
+          402
+        ],
+        "band_std": 3.6252,
+        "kurtosis": 10.43,
+        "anisotropy": 0.958,
+        "mid_blob_cov_pct": 0.0,
+        "mid_blob_median_area": 0.0
+      },
+      {
+        "box": [
+          666,
+          209,
+          762,
+          305
+        ],
+        "band_std": 3.688,
+        "kurtosis": 10.22,
+        "anisotropy": 0.961,
+        "mid_blob_cov_pct": 0.0,
+        "mid_blob_median_area": 0.0
+      }
+    ]
+  },
+  "scale_index": {
+    "scale_tile_pct": 0.0,
+    "level": "none",
+    "tiles": 324,
+    "flagged_tiles": 0,
+    "median_cov_pct": 0.0,
+    "median_area_cv": 0.703,
+    "tile": 128,
+    "stride": 64,
+    "thresholds": {
+      "min_cov_pct": 19.0,
+      "max_area_cv": 0.65,
+      "min_circ": 0.55,
+      "max_aniso": 0.35,
+      "min_band_std": 0.3,
+      "blob_area_min": 12,
+      "blob_area_max": 300,
+      "suspected_min_pct": 2.0,
+      "structured_min_pct": 6.0
+    },
+    "flagged_tile_boxes": [],
+    "measured_on": "1254x1254",
+    "canvas_normalized_for_grading": false,
+    "canon_long_edge": 1280,
+    "heatmap": "artifacts\\relic-moire-v7\\little_star\\little_star_input_scaleheat.png"
+  },
+  "scale_index_native": {
+    "scale_tile_pct": 0.0,
+    "level": "none",
+    "pixels": [
+      1254,
+      1254
+    ]
+  },
+  "thresholds": {
+    "lattice_min_peaks": 2,
+    "lattice_min_excess": 2.5,
+    "granule_min_band_std": 0.35,
+    "granule_max_kurtosis": 8.0,
+    "granule_min_mid_blob_cov_pct": 19.0,
+    "granule_max_anisotropy": 0.35,
+    "flat_min_flagged": 2,
+    "pervasive_min_flagged": 3,
+    "pervasive_min_ratio": 0.6
+  },
+  "flags": {
+    "lattice": true,
+    "granule_flat": false,
+    "granule_pervasive": false,
+    "granule_suspected": false,
+    "scale_structured": false,
+    "scale_suspected": false
+  },
+  "stage": "diagnose",
+  "source": "docs\\design\\assets\\relic-style-v6\\little_star.png",
+  "source_sha256": "620c23d17ab89a70e8ef5c36a625f236b08bcf9b233bda4062cb446ffaa5e9d0",
+  "time": "2026-10-11T16:22:12+08:00",
+  "board": "artifacts\\relic-moire-v7\\little_star\\little_star_input_diag_board.png"
+}

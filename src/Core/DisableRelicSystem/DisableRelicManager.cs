@@ -30,7 +30,7 @@ public static class DisableRelicManager
     /// <param name="player">玩家</param>
     /// <param name="position">遗物位置</param>
     /// <returns>是否成功禁用</returns>
-    public static bool DisableRelicAtPosition(Player player, int position)
+    public static bool DisableRelicAtPosition(Player player, int position, NDisableRelicAbsorbVfx.TargetKind target = NDisableRelicAbsorbVfx.TargetKind.Player)
     {
         if (player == null || position < 0 || position >= player.Relics.Count)
             return false;
@@ -46,7 +46,7 @@ public static class DisableRelicManager
         var relicHolder = DisableRelicNodeManager.FindRelicHolder(relic, player);
         Godot.Vector2? relicPosition = null;
         if (relicHolder != null)
-            relicPosition = relicHolder.GlobalPosition + relicHolder.Size * 0.5f;
+            relicPosition = relicHolder.GetGlobalTransformWithCanvas() * (relicHolder.Size * 0.5f);
 
         // 移除原始遗物（silent: true 不触发事件，我们手动更新UI）
         player.RemoveRelicInternal(relic, silent: true);
@@ -62,7 +62,7 @@ public static class DisableRelicManager
         var savedNode = DisableRelicNodeManager.SaveAndReplaceRelicNode(relic, lockRelic, player);
         lockRelic.LockedRelicNode = savedNode;
         if (relicPosition.HasValue)
-            NDisableRelicAbsorbVfx.Play(player, relicPosition.Value);
+            NDisableRelicAbsorbVfx.Play(player, relicPosition.Value, target);
 
         MainFile.Logger.Info($"[DisableRelicManager] Disabled relic '{relic.Id.Entry}' ({relic.Title}) at position {position} for player {player.NetId}");
 

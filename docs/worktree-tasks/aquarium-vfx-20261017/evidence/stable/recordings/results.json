@@ -1,0 +1,110 @@
+[
+  {
+    "case": "showcase",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 551,
+          "SelectionFrames": 35,
+          "ParticleFrames": 551,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "stack",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 11,
+      "promise": 2,
+      "amount": 2,
+      "effects": [
+        {
+          "Frames": 648,
+          "SelectionFrames": 43,
+          "ParticleFrames": 648,
+          "Casts": 2,
+          "Turns": 1,
+          "Drawn": 2,
+          "Moved": 2,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "void",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 13,
+      "promise": 0,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 558,
+          "SelectionFrames": 42,
+          "ParticleFrames": 558,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "upgrade",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "live": 1,
+      "layers": 2,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 487,
+          "SelectionFrames": 38,
+          "ParticleFrames": 487,
+          "Casts": 1,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": false,
+          "Ignored": true
+        }
+      ]
+    }
+  }
+]

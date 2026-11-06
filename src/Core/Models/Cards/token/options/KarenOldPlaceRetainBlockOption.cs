@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,7 +29,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token.options
 
         public override async Task DoOption(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<BlurPower>(Owner.Creature, DynamicVars["Turns"].IntValue, Owner.Creature, this);
+            await PowerCmd.Apply<BlurPower>(choiceContext, Owner.Creature, DynamicVars["Turns"].IntValue, Owner.Creature, this);
         }
 
     }

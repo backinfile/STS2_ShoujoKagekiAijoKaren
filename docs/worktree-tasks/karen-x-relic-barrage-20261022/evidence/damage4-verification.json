@@ -1,0 +1,470 @@
+{
+  "base_damage": 4,
+  "scope": "Damage-only targeted verification; not the full singleplayer/multiplayer matrix. Historical 5-damage results retained separately.",
+  "variants": {
+    "stable": {
+      "results": [
+        {
+          "case": "three",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 2,
+          "damage": 24
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 1,
+          "damage": 24
+        },
+        {
+          "case": "strength",
+          "passed": true,
+          "energy": 2,
+          "hits": 4,
+          "relics_disabled": 2,
+          "damage": 24
+        },
+        {
+          "case": "combat-end-restoration",
+          "passed": true,
+          "restored": 2
+        }
+      ],
+      "cases": [
+        {
+          "case": "three",
+          "before": {
+            "state": "ready",
+            "attacks": [],
+            "locks": 0,
+            "eligible": 2,
+            "relics": [
+              "STRAWBERRY",
+              "PEAR"
+            ],
+            "playable": true,
+            "costX": true,
+            "capturedX": 0,
+            "upgraded": false,
+            "pile": "Hand",
+            "disableCost": 2,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部",
+            "description": "[gold]禁用[/gold]2个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]2[/blue]个遗物）",
+            "energy": 3,
+            "targetHp": 999
+          },
+          "after": {
+            "state": "ready",
+            "attacks": [
+              {
+                "hits": 6,
+                "damage": [
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4
+                ]
+              }
+            ],
+            "locks": 2,
+            "eligible": 0,
+            "relics": [
+              "KAREN_LOCK_RELIC",
+              "KAREN_LOCK_RELIC"
+            ],
+            "playable": false,
+            "costX": true,
+            "capturedX": 3,
+            "upgraded": false,
+            "pile": "Discard",
+            "disableCost": 2,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部",
+            "description": "[gold]禁用[/gold]2个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]0[/blue]个遗物）",
+            "energy": 0,
+            "targetHp": 975
+          }
+        },
+        {
+          "case": "upgrade",
+          "before": {
+            "state": "ready",
+            "attacks": [],
+            "locks": 0,
+            "eligible": 1,
+            "relics": [
+              "STRAWBERRY"
+            ],
+            "playable": true,
+            "costX": true,
+            "capturedX": 0,
+            "upgraded": true,
+            "pile": "Hand",
+            "disableCost": 1,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部+",
+            "description": "[gold]禁用[/gold]1个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]1[/blue]个遗物）",
+            "energy": 3,
+            "targetHp": 999
+          },
+          "after": {
+            "state": "ready",
+            "attacks": [
+              {
+                "hits": 6,
+                "damage": [
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4
+                ]
+              }
+            ],
+            "locks": 1,
+            "eligible": 0,
+            "relics": [
+              "KAREN_LOCK_RELIC"
+            ],
+            "playable": false,
+            "costX": true,
+            "capturedX": 3,
+            "upgraded": true,
+            "pile": "Discard",
+            "disableCost": 1,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部+",
+            "description": "[gold]禁用[/gold]1个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]0[/blue]个遗物）",
+            "energy": 0,
+            "targetHp": 975
+          }
+        },
+        {
+          "case": "strength",
+          "before": {
+            "state": "ready",
+            "attacks": [],
+            "locks": 0,
+            "eligible": 2,
+            "relics": [
+              "STRAWBERRY",
+              "PEAR"
+            ],
+            "playable": true,
+            "costX": true,
+            "capturedX": 0,
+            "upgraded": false,
+            "pile": "Hand",
+            "disableCost": 2,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部",
+            "description": "[gold]禁用[/gold]2个遗物，然后造成[green]6[/green]点伤害2X次。\n（当前可禁用[blue]2[/blue]个遗物）",
+            "energy": 2,
+            "targetHp": 999
+          },
+          "after": {
+            "state": "ready",
+            "attacks": [
+              {
+                "hits": 4,
+                "damage": [
+                  6,
+                  6,
+                  6,
+                  6
+                ]
+              }
+            ],
+            "locks": 2,
+            "eligible": 0,
+            "relics": [
+              "KAREN_LOCK_RELIC",
+              "KAREN_LOCK_RELIC"
+            ],
+            "playable": false,
+            "costX": true,
+            "capturedX": 2,
+            "upgraded": false,
+            "pile": "Discard",
+            "disableCost": 2,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部",
+            "description": "[gold]禁用[/gold]2个遗物，然后造成[green]6[/green]点伤害2X次。\n（当前可禁用[blue]0[/blue]个遗物）",
+            "energy": 0,
+            "targetHp": 975
+          }
+        }
+      ],
+      "hand_checks": 6,
+      "errors": [],
+      "package_hashes": {
+        "ShoujoKagekiAijoKaren.pck": "953e239b06e6d0323993e9b89bc63d4d798e7ae40040e1b426d385c2b498bdd7",
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "aab8b2db1f2df4a9a2b30073f3514567853905d03ef940bcd2973bff15d34c50"
+      }
+    },
+    "beta": {
+      "results": [
+        {
+          "case": "three",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 2,
+          "damage": 24
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 1,
+          "damage": 24
+        },
+        {
+          "case": "strength",
+          "passed": true,
+          "energy": 2,
+          "hits": 4,
+          "relics_disabled": 2,
+          "damage": 24
+        },
+        {
+          "case": "combat-end-restoration",
+          "passed": true,
+          "restored": 2
+        }
+      ],
+      "cases": [
+        {
+          "case": "three",
+          "before": {
+            "state": "ready",
+            "attacks": [],
+            "locks": 0,
+            "eligible": 2,
+            "relics": [
+              "STRAWBERRY",
+              "PEAR"
+            ],
+            "playable": true,
+            "costX": true,
+            "capturedX": 0,
+            "upgraded": false,
+            "pile": "Hand",
+            "disableCost": 2,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部",
+            "description": "[gold]禁用[/gold]2个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]2[/blue]个遗物）",
+            "energy": 3,
+            "targetHp": 999
+          },
+          "after": {
+            "state": "ready",
+            "attacks": [
+              {
+                "hits": 6,
+                "damage": [
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4
+                ]
+              }
+            ],
+            "locks": 2,
+            "eligible": 0,
+            "relics": [
+              "KAREN_LOCK_RELIC",
+              "KAREN_LOCK_RELIC"
+            ],
+            "playable": false,
+            "costX": true,
+            "capturedX": 3,
+            "upgraded": false,
+            "pile": "Discard",
+            "disableCost": 2,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部",
+            "description": "[gold]禁用[/gold]2个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]0[/blue]个遗物）",
+            "energy": 0,
+            "targetHp": 975
+          }
+        },
+        {
+          "case": "upgrade",
+          "before": {
+            "state": "ready",
+            "attacks": [],
+            "locks": 0,
+            "eligible": 1,
+            "relics": [
+              "STRAWBERRY"
+            ],
+            "playable": true,
+            "costX": true,
+            "capturedX": 0,
+            "upgraded": true,
+            "pile": "Hand",
+            "disableCost": 1,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部+",
+            "description": "[gold]禁用[/gold]1个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]1[/blue]个遗物）",
+            "energy": 3,
+            "targetHp": 999
+          },
+          "after": {
+            "state": "ready",
+            "attacks": [
+              {
+                "hits": 6,
+                "damage": [
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4
+                ]
+              }
+            ],
+            "locks": 1,
+            "eligible": 0,
+            "relics": [
+              "KAREN_LOCK_RELIC"
+            ],
+            "playable": false,
+            "costX": true,
+            "capturedX": 3,
+            "upgraded": true,
+            "pile": "Discard",
+            "disableCost": 1,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部+",
+            "description": "[gold]禁用[/gold]1个遗物，然后造成4点伤害2X次。\n（当前可禁用[blue]0[/blue]个遗物）",
+            "energy": 0,
+            "targetHp": 975
+          }
+        },
+        {
+          "case": "strength",
+          "before": {
+            "state": "ready",
+            "attacks": [],
+            "locks": 0,
+            "eligible": 2,
+            "relics": [
+              "STRAWBERRY",
+              "PEAR"
+            ],
+            "playable": true,
+            "costX": true,
+            "capturedX": 0,
+            "upgraded": false,
+            "pile": "Hand",
+            "disableCost": 2,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部",
+            "description": "[gold]禁用[/gold]2个遗物，然后造成[green]6[/green]点伤害2X次。\n（当前可禁用[blue]2[/blue]个遗物）",
+            "energy": 2,
+            "targetHp": 999
+          },
+          "after": {
+            "state": "ready",
+            "attacks": [
+              {
+                "hits": 4,
+                "damage": [
+                  6,
+                  6,
+                  6,
+                  6
+                ]
+              }
+            ],
+            "locks": 2,
+            "eligible": 0,
+            "relics": [
+              "KAREN_LOCK_RELIC",
+              "KAREN_LOCK_RELIC"
+            ],
+            "playable": false,
+            "costX": true,
+            "capturedX": 2,
+            "upgraded": false,
+            "pile": "Discard",
+            "disableCost": 2,
+            "damage": 4,
+            "repeat": 2,
+            "pool": true,
+            "hasPortrait": true,
+            "portrait": "(500, 380)",
+            "title": "拿走我的全部",
+            "description": "[gold]禁用[/gold]2个遗物，然后造成[green]6[/green]点伤害2X次。\n（当前可禁用[blue]0[/blue]个遗物）",
+            "energy": 0,
+            "targetHp": 975
+          }
+        }
+      ],
+      "hand_checks": 6,
+      "errors": [],
+      "package_hashes": {
+        "ShoujoKagekiAijoKaren.pck": "953e239b06e6d0323993e9b89bc63d4d798e7ae40040e1b426d385c2b498bdd7",
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "0563eceedea1900efee85ca691358e9bea920185f4af85c92f8cbeec3d5ae718"
+      }
+    }
+  }
+}

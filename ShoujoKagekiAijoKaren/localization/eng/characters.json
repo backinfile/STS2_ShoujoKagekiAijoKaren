@@ -1,16 +1,16 @@
 {
-  "KAREN.aromaPrinciple": "[sine][purple]A stage girl with passion...[/purple][/sine]",
-  "KAREN.banter.alive.endTurnPing": "[sine]Shine on![/sine]",
+  "KAREN.aromaPrinciple": "[sine][purple]Stage Girl Karen Aijo, evolving every day![/purple][/sine]",
+  "KAREN.banter.alive.endTurnPing": "[sine]Stage Girl Karen Aijo, evolving every day![/sine]",
   "KAREN.banter.dead.endTurnPing": "...",
-  "KAREN.cardsModifierDescription": "Karen cards will now appear in rewards and shops.",
-  "KAREN.cardsModifierTitle": "Karen Cards",
-  "KAREN.description": "A passionate stage girl.\nMaster of brilliant stage performances.",
-  "KAREN.eventDeathPrevention": "I can't fall here. The stage continues.",
-  "KAREN.goldMonologue": "[sine]For a better performance...[/sine]",
+  "KAREN.cardsModifierDescription": "Karen Aijo cards can now appear in rewards and shops.",
+  "KAREN.cardsModifierTitle": "Karen Aijo Cards",
+  "KAREN.description": "Stage Girl Karen Aijo, evolving every day!",
+  "KAREN.eventDeathPrevention": "I'm not ready to leave the stage yet.",
+  "KAREN.goldMonologue": "[sine]...[/sine]",
   "KAREN.possessiveAdjective": "her",
   "KAREN.pronounObject": "her",
   "KAREN.pronounPossessive": "hers",
   "KAREN.pronounSubject": "she",
-  "KAREN.title": "Karen",
-  "KAREN.titleObject": "Karen"
+  "KAREN.title": "Karen Aijo",
+  "KAREN.titleObject": "Karen Aijo"
 }

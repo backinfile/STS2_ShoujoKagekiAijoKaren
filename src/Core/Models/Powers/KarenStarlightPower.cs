@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
@@ -31,7 +32,14 @@ public sealed class KarenStarlightPower : PowerModel
             var player = Owner.Player;
             if (player != null)
             {
-                await CardPileCmd.Draw(context, Amount, player);
+                Flash();
+                var effect = NKarenStageCueVfx.Play(player, NKarenStageCueVfx.CueKind.Act1Draw, cardPlay.Card);
+                try
+                {
+                    var drawn = await CardPileCmd.Draw(context, Amount, player);
+                    effect?.ConfirmCards(drawn);
+                }
+                finally { effect?.Finish(); }
             }
         }
     }

@@ -1,0 +1,46 @@
+{
+  "source": "https://www.bilibili.com/video/BV1mW411S7YS/",
+  "episode": 12,
+  "time_scope": "digest timestamp, not episode timestamp",
+  "findings": "A at 07:59–08:07 is the same medium close shot with no wider/full-body camera. Previous portrait crop was tight. Complete original view retains source promotional overlays. Production portrait unchanged.",
+  "outputs": [
+    {
+      "file": "artifacts/card-art-alternatives-20261022/A-full-view.jpg",
+      "seconds": 486,
+      "processing": "entire 1920x1080 source resized to 1152x648",
+      "sha256": "ea893bd08f98ba64aa578ce322f3f325187ebf915046869cc2500c7ad85d665f"
+    },
+    {
+      "file": "artifacts/card-art-alternatives-20261022/A-wider-card.png",
+      "seconds": 486,
+      "crop": [
+        195,
+        130,
+        1274,
+        950
+      ],
+      "size": [
+        500,
+        380
+      ],
+      "sha256": "bc6b262be4e6c0b423e599ed54cf6bf8e88d00a78bc348b20471d4ccc4ba41c4"
+    },
+    {
+      "file": "artifacts/card-art-alternatives-20261022/D-full-bodies.png",
+      "seconds": 548,
+      "crop": [
+        560,
+        380,
+        1460,
+        1064
+      ],
+      "size": [
+        500,
+        380
+      ],
+      "sha256": "4e546148d5616548f3c52d1dc575e265ab301c649a3a17cfd9f56f7063e3af7e"
+    }
+  ],
+  "preview": "docs/worktree-tasks/karen-x-relic-barrage-20261022/evidence/alternative-art-wider-review.jpg",
+  "complete_original_view": "docs/worktree-tasks/karen-x-relic-barrage-20261022/evidence/alternative-A-full-view.jpg"
+}

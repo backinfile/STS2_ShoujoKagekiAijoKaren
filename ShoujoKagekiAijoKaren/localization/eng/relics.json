@@ -1,9 +1,45 @@
 {
-  "KAREN_STAGE_HEART.description": "At the start of combat, gain the Promise Pile. NL At the start of turn 2, add a [gold]Tower of Promise[/gold] to your hand.",
-  "KAREN_STAGE_HEART.flavor": "A passionate heart for the stage.",
-  "KAREN_STAGE_HEART.title": "Stage Heart",
+  "KAREN_HAIRPIN_RELIC.title": "Hairpin",
+  "KAREN_HAIRPIN_RELIC.description": "At the start of your [blue]2nd[/blue] turn, add a [gold]Tower of Promise[/gold] to your hand.",
+  "KAREN_HAIRPIN_RELIC.flavor": "Let's meet on stage.",
+
+  "KAREN_HAIRPIN2_RELIC.title": "Hairpin - 3D Version",
+  "KAREN_HAIRPIN2_RELIC.description": "At the start of your [blue]1st[/blue] turn, add a [gold]Tower of Promise+[/gold] to your hand.",
+  "KAREN_HAIRPIN2_RELIC.flavor": "Let's go to that shining stage. Together.",
 
   "KAREN_LOCK_RELIC.title": "Locked Relic",
-  "KAREN_LOCK_RELIC.description": "This locks [yellow]{relicName}[/yellow]. Restored after combat.",
-  "KAREN_LOCK_RELIC.flavor": "The power of the relic is temporarily sealed."
+  "KAREN_LOCK_RELIC.description": "A relic is locked here. It will unlock at the end of combat.",
+  "KAREN_LOCK_RELIC.flavor": "",
+
+  "KAREN_WATER_BOTTLE_RELIC.title": "Karen’s Water Bottle",
+  "KAREN_WATER_BOTTLE_RELIC.description": "The first time you gain [gold]Temporary Strength[/gold] each combat, [gold]Retain Strength[/gold] for [blue]{Turns}[/blue] turns.",
+  "KAREN_WATER_BOTTLE_RELIC.flavor": "All right! One more push!",
+
+  "KAREN_COOKIE_RELIC.title": "Cookies",
+  "KAREN_COOKIE_RELIC.description": "Upon pickup, obtain [blue]1[/blue] random Common, Uncommon, and Rare [gold]Shine[/gold] card each.",
+  "KAREN_COOKIE_RELIC.flavor": "Always done right—Chantory Ma'am!",
+
+  "KAREN_STAR_HAIRCLIP_RELIC.title": "Star Hairclip",
+  "KAREN_STAR_HAIRCLIP_RELIC.description": "At the start of combat, add [blue]1[/blue] [gold]Radiance[/gold] to your [gold]Promise Pile[/gold].",
+  "KAREN_STAR_HAIRCLIP_RELIC.flavor": "Do you remember? That promise.",
+
+  "KAREN_BASEBALL_CAT_RELIC.title": "Baseball Cat",
+  "KAREN_BASEBALL_CAT_RELIC.description": "Each combat, gain [blue]1[/blue] [gold]Shine Card Reward[/gold] for each distinct name of [gold]Shine[/gold] card you deplete.",
+  "KAREN_BASEBALL_CAT_RELIC.flavor": "I love you even more when you shine.",
+
+  "KAREN_MR_WHITE_RELIC.title": "Mr. White",
+  "KAREN_MR_WHITE_RELIC.description": "At the end of each of your first [blue]2[/blue] turns each combat, you may put any number of cards from your hand into your [gold]Promise Pile[/gold].",
+  "KAREN_MR_WHITE_RELIC.flavor": "So fluffy… so cute…!",
+
+  "KAREN_LITTLE_STAR_RELIC.title": "Little Star",
+  "KAREN_LITTLE_STAR_RELIC.description": "Whenever you play [gold]Tower of Promise[/gold], gain [blue]{StrengthPower}[/blue] [gold]Temporary Strength[/gold].",
+  "KAREN_LITTLE_STAR_RELIC.flavor": "You will find a little happiness.",
+
+  "KAREN_STAR_TIARA_RELIC.title": "Star Crown",
+  "KAREN_STAR_TIARA_RELIC.description": "At the start of each turn, [gold]disable[/gold] [blue]1[/blue] relic and gain {Energy:energyIcons()}.",
+  "KAREN_STAR_TIARA_RELIC.flavor": "This is my Starlight.",
+
+  "KAREN_FLOWER_RELIC.title": "Flower",
+  "KAREN_FLOWER_RELIC.description": "Relic rewards have an additional option.",
+  "KAREN_FLOWER_RELIC.flavor": "You'll be the first to see me shine the brightest in the world."
 }

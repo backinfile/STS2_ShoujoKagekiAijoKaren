@@ -1,0 +1,639 @@
+{
+  "date": "2026-10-30",
+  "stage": "1A",
+  "baseline": "6a7a9bdc36bb1b33c6eb1b54212d3f0100d5e781",
+  "cases": [
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/before/stable/full-karen_strike/game.mp4",
+      "sha256": "ab9155d30527bee3a6f9ff2ae23019b709329898cb9fa352b318a1d1047e4427",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "b41bc2be50a77c1bdea76b954ccb0e0c4a6a602bf514935d39449c0d0d2a551d",
+        "ShoujoKagekiAijoKaren.pck": "4dcf0ea5f46cd51f5161cc635d56c38ffe22eb12ee20c5f420e2f9015f411de7"
+      },
+      "duration": 3.6,
+      "rms_db": -51.800441,
+      "capture_fps": 29.94213388801463,
+      "frames_captured": 107,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_DEFEND",
+      "damage": 0,
+      "block": 5,
+      "clip": "artifacts/card-vfx-rollout-20261030/before/stable/full-karen_defend/game.mp4",
+      "sha256": "62c029d3c924bb4a986a45e5dcd9132197067dc75ea8e3e871fdb38b452deee4",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "b41bc2be50a77c1bdea76b954ccb0e0c4a6a602bf514935d39449c0d0d2a551d",
+        "ShoujoKagekiAijoKaren.pck": "4dcf0ea5f46cd51f5161cc635d56c38ffe22eb12ee20c5f420e2f9015f411de7"
+      },
+      "duration": 3.566667,
+      "rms_db": -50.523273,
+      "capture_fps": 29.667532073286377,
+      "frames_captured": 105,
+      "frames_repeated": 2,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/before/stable/full-karen_shine_strike/game.mp4",
+      "sha256": "62c8bb7a677b898d5302706fb6ba23064adc4fd73f68b86fc61a0ff82cd2f270",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "b41bc2be50a77c1bdea76b954ccb0e0c4a6a602bf514935d39449c0d0d2a551d",
+        "ShoujoKagekiAijoKaren.pck": "4dcf0ea5f46cd51f5161cc635d56c38ffe22eb12ee20c5f420e2f9015f411de7"
+      },
+      "duration": 3.566667,
+      "rms_db": -51.578137,
+      "capture_fps": 29.59114923653567,
+      "frames_captured": 105,
+      "frames_repeated": 2,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/before/beta/full-karen_strike/game.mp4",
+      "sha256": "aa4e58f1893d22ff8e0f0c8935500fc23db2bbe2d906f3c9f6880bc15582a14a",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "dd0330285c21aba6c74f603658f3c420c064c1ed1b2883fa6b7ebcab4031b591",
+        "ShoujoKagekiAijoKaren.pck": "4dcf0ea5f46cd51f5161cc635d56c38ffe22eb12ee20c5f420e2f9015f411de7"
+      },
+      "duration": 3.533008,
+      "rms_db": -51.391904,
+      "capture_fps": 30.001976167901926,
+      "frames_captured": 106,
+      "frames_repeated": 0,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_DEFEND",
+      "damage": 0,
+      "block": 5,
+      "clip": "artifacts/card-vfx-rollout-20261030/before/beta/full-karen_defend/game.mp4",
+      "sha256": "d086bc54f4331fdbfffb0e1d352201129b58f102fce34f48f7d721be4be0be4c",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "dd0330285c21aba6c74f603658f3c420c064c1ed1b2883fa6b7ebcab4031b591",
+        "ShoujoKagekiAijoKaren.pck": "4dcf0ea5f46cd51f5161cc635d56c38ffe22eb12ee20c5f420e2f9015f411de7"
+      },
+      "duration": 3.6,
+      "rms_db": -50.96157,
+      "capture_fps": 29.644104072954477,
+      "frames_captured": 106,
+      "frames_repeated": 2,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/before/beta/full-karen_shine_strike/game.mp4",
+      "sha256": "2b0fd688bf41859b3f93cb4f5f7d4f2b74c997d9a1c456e7b2a4e8c843523c8c",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "dd0330285c21aba6c74f603658f3c420c064c1ed1b2883fa6b7ebcab4031b591",
+        "ShoujoKagekiAijoKaren.pck": "4dcf0ea5f46cd51f5161cc635d56c38ffe22eb12ee20c5f420e2f9015f411de7"
+      },
+      "duration": 3.566667,
+      "rms_db": -51.982468,
+      "capture_fps": 29.08224673965426,
+      "frames_captured": 103,
+      "frames_repeated": 4,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/full-karen_strike/game.mp4",
+      "sha256": "c64e221d6f1db3811178eed6405e53b6abee01c095cac53915adf9997b590d80",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.6,
+      "rms_db": -51.426825,
+      "capture_fps": 29.99290485600266,
+      "frames_captured": 107,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_DEFEND",
+      "damage": 0,
+      "block": 5,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/full-karen_defend/game.mp4",
+      "sha256": "c9681d777a83281a638ef77e85ca05783c6a12f2d55ba5b8d66fa1fc7ff01ff0",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -50.683418,
+      "capture_fps": 29.672766191064976,
+      "frames_captured": 105,
+      "frames_repeated": 2,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/full-karen_shine_strike/game.mp4",
+      "sha256": "25df3cf1b0732d51b389e08d4ee95fd61aaa1aa6a2fb13c97ee34a3dad158485",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -51.405931,
+      "capture_fps": 29.75429993844509,
+      "frames_captured": 106,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/low-karen_strike/game.mp4",
+      "sha256": "9acba4d7b97d0e7eb20f4ea3636fe38b652cc9b37c828cd2c54aa3163ef10a58",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -52.270647,
+      "capture_fps": 29.918351126284797,
+      "frames_captured": 106,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_DEFEND",
+      "damage": 0,
+      "block": 5,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/low-karen_defend/game.mp4",
+      "sha256": "16af0de18cfa8aeb690fb15533c344c0fcf517d3d55387b099d201b1d91ff5d8",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -50.401624,
+      "capture_fps": 29.309389065512406,
+      "frames_captured": 104,
+      "frames_repeated": 3,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/low-karen_shine_strike/game.mp4",
+      "sha256": "f841ecda6308ab2dd4c6feb584998b17f690572f42c58c85bfd59348408d94b0",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -51.901548,
+      "capture_fps": 29.76857460763053,
+      "frames_captured": 106,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "fast",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/fast-karen_strike/game.mp4",
+      "sha256": "7cb2b60df8ab44aa78f102bbccf2762551bd44c183fcf133f2813c6b04e3f113",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -51.742273,
+      "capture_fps": 29.917586926466097,
+      "frames_captured": 106,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "instant",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/instant-karen_shine_strike/game.mp4",
+      "sha256": "9bdd51165c9acf3cb45814a0bfe29c7c98a88e94e233d9d8c2aa41769699e584",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -51.308116,
+      "capture_fps": 29.91720104150244,
+      "frames_captured": 106,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "off",
+      "card": "KAREN_DEFEND",
+      "damage": 0,
+      "block": 5,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/off-karen_defend/game.mp4",
+      "sha256": "8a080571f91d8dafd82eb52d5a52e762654f496eb4c802c99e2fa937d68d6186",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -50.744719,
+      "capture_fps": 29.914797295216914,
+      "frames_captured": 106,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "upgrade",
+      "card": "KAREN_STRIKE",
+      "damage": 9,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/upgrade-karen_strike/game.mp4",
+      "sha256": "ee2c11326eb5cbe427fc3bc57006a60ba2376bb60ddcb2863e82020369dd11cc",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.533008,
+      "rms_db": -50.991276,
+      "capture_fps": 29.75289455993542,
+      "frames_captured": 105,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "upgrade",
+      "card": "KAREN_DEFEND",
+      "damage": 0,
+      "block": 8,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/upgrade-karen_defend/game.mp4",
+      "sha256": "163c264d96514b62abb294e7844aeedf6334e25ab01a1a6037ad6956be7d5f02",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -50.86373,
+      "capture_fps": 29.906733594174597,
+      "frames_captured": 106,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "last",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/last-karen_shine_strike/game.mp4",
+      "sha256": "75f6781dbf59b39c6486e1d44893b5ec41a30dbb7687e984c0a8e297530e31d8",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.533008,
+      "rms_db": -51.443715,
+      "capture_fps": 29.76478759294799,
+      "frames_captured": 105,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "replay",
+      "card": "KAREN_STRIKE",
+      "damage": 18,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/replay-karen_strike/game.mp4",
+      "sha256": "7bba1a7e4e7894ba0ebf7762eb893c114b66af89ab7ee0e5f96d56515fcdf829",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 5.266667,
+      "rms_db": -48.990487,
+      "capture_fps": 29.572684440206157,
+      "frames_captured": 155,
+      "frames_repeated": 3,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "cancel",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/stable/cancel-karen_strike/game.mp4",
+      "sha256": "34c36b8ecc0a057ba527a3abc0d752fc074a58d302b6492d07a712ac5ccdb8eb",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7709b5fc1467dbde9d239b86b404f132fcd5e8a5e34f3eafd53811ae7b203ce7",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.633008,
+      "rms_db": -51.986965,
+      "capture_fps": 29.84022136360362,
+      "frames_captured": 108,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/beta/full-karen_strike/game.mp4",
+      "sha256": "9a096e9b909a312f3124ebd77fb5e69d04cc5c997010be5481f6731e57d875fa",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "5882e60318d316eb3a059809482537feae8a8a08cfbae15328187cee4ac4bfa8",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -52.119042,
+      "capture_fps": 30.0950158716051,
+      "frames_captured": 107,
+      "frames_repeated": 0,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_DEFEND",
+      "damage": 0,
+      "block": 5,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/beta/full-karen_defend/game.mp4",
+      "sha256": "fc85ea035cbdb8b1349fbfb04e9bd907c5c1552e71fb5b8dc9749c61e0214eb0",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "5882e60318d316eb3a059809482537feae8a8a08cfbae15328187cee4ac4bfa8",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -50.980609,
+      "capture_fps": 29.7812220853722,
+      "frames_captured": 106,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "block": 0,
+      "clip": "artifacts/card-vfx-rollout-20261030/after/beta/full-karen_shine_strike/game.mp4",
+      "sha256": "0cff140842a65a6b6c9c1ff31e59474beaf7092373395280aec7a8d944f6fbd5",
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "5882e60318d316eb3a059809482537feae8a8a08cfbae15328187cee4ac4bfa8",
+        "ShoujoKagekiAijoKaren.pck": "3852f823103401bbe87421cfcae146b1c312c7111fa9d8444b98d732357782c3"
+      },
+      "duration": 3.566667,
+      "rms_db": -50.94942,
+      "capture_fps": 29.847622817054685,
+      "frames_captured": 106,
+      "frames_repeated": 1,
+      "frames_dropped": 0,
+      "passed": true
+    }
+  ],
+  "source_hash_format": "SHA256 of UTF8 without BOM, universal newlines and one terminal newline",
+  "source_sha256": {
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenBasicAttackVfx.cs": "b923a23fdccb0608490284b6afec9dd43558eb8c996ac08f9b12ed33e8738cf6",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenDefendVfx.cs": "cec6a9a6e878f02433104a73dc463adeff301d292402854c784ba9b8327dd615",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenShineStrikeVfx.cs": "e2589807d80c9800a82326a689aa101c089a41d2eae55baf23701b9e58be865d",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenStrikeVfx.cs": "e83d9fe86784fd4b744d481f38a82ffd668f5466889753d4032ee74fa1701bb6",
+    "src/Core/Models/Cards/basic/KarenShineStrike.cs": "bd692eb7c8644e1164d7d63de2494b45c113cebb25663cf2fd418566d3efe6cd",
+    "src/Core/Models/Cards/basic/KarenStrike.cs": "0fcb0f5f76574d311f427cf9671b314ff04f7097288a907e1d52eee0304bdf1f",
+    "src/Core/Models/Cards/basic/KarenDefend.cs": "e03532cb52c61bbc838fd6fc6c926c6d44fb24bfc203bb68aa36e1048828cb0a"
+  },
+  "total_cases": 23,
+  "capture_fps_range": [
+    29.08224673965426,
+    30.0950158716051
+  ],
+  "frames_dropped_total": 0,
+  "frames_repeated_total": 32,
+  "videos": {
+    "stable": [
+      {
+        "card": "KAREN_STRIKE",
+        "title": "打击",
+        "environment": "stable",
+        "before": {
+          "path": "before/stable/full-karen_strike/game.mp4",
+          "sha256": "ab9155d30527bee3a6f9ff2ae23019b709329898cb9fa352b318a1d1047e4427"
+        },
+        "after": {
+          "path": "after/stable/full-karen_strike/game.mp4",
+          "sha256": "c64e221d6f1db3811178eed6405e53b6abee01c095cac53915adf9997b590d80"
+        },
+        "comparison": {
+          "path": "comparison/stable-karen_strike.mp4",
+          "sha256": "7bfd19777a74eb93105075bdfd9c33a544733a232badc9d27c58e0564fa8dbb5"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "card": "KAREN_DEFEND",
+        "title": "防御",
+        "environment": "stable",
+        "before": {
+          "path": "before/stable/full-karen_defend/game.mp4",
+          "sha256": "62c029d3c924bb4a986a45e5dcd9132197067dc75ea8e3e871fdb38b452deee4"
+        },
+        "after": {
+          "path": "after/stable/full-karen_defend/game.mp4",
+          "sha256": "c9681d777a83281a638ef77e85ca05783c6a12f2d55ba5b8d66fa1fc7ff01ff0"
+        },
+        "comparison": {
+          "path": "comparison/stable-karen_defend.mp4",
+          "sha256": "813f84a552d6404789b4f63414f5ee59ed174cc6d7d547118aba901f8c611ae0"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "card": "KAREN_SHINE_STRIKE",
+        "title": "闪耀打击",
+        "environment": "stable",
+        "before": {
+          "path": "before/stable/full-karen_shine_strike/game.mp4",
+          "sha256": "62c8bb7a677b898d5302706fb6ba23064adc4fd73f68b86fc61a0ff82cd2f270"
+        },
+        "after": {
+          "path": "after/stable/full-karen_shine_strike/game.mp4",
+          "sha256": "25df3cf1b0732d51b389e08d4ee95fd61aaa1aa6a2fb13c97ee34a3dad158485"
+        },
+        "comparison": {
+          "path": "comparison/stable-karen_shine_strike.mp4",
+          "sha256": "a60f7c5beff113ce8bbc953ad95526698d2a50aacdce09392cfa15b5dbf6ce6a"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "combined": "comparison/stage-1A-stable.mp4",
+        "sha256": "4559bb11993981675b4f9cc06ad809584a7f5cd782b9ea6649c2dcaa5a8dfeef"
+      }
+    ],
+    "beta": [
+      {
+        "card": "KAREN_STRIKE",
+        "title": "打击",
+        "environment": "beta",
+        "before": {
+          "path": "before/beta/full-karen_strike/game.mp4",
+          "sha256": "aa4e58f1893d22ff8e0f0c8935500fc23db2bbe2d906f3c9f6880bc15582a14a"
+        },
+        "after": {
+          "path": "after/beta/full-karen_strike/game.mp4",
+          "sha256": "9a096e9b909a312f3124ebd77fb5e69d04cc5c997010be5481f6731e57d875fa"
+        },
+        "comparison": {
+          "path": "comparison/beta-karen_strike.mp4",
+          "sha256": "61246afa4b664480e95ebb61755ae143aa0607950266bcd671f1c9bf7b5959b3"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "card": "KAREN_DEFEND",
+        "title": "防御",
+        "environment": "beta",
+        "before": {
+          "path": "before/beta/full-karen_defend/game.mp4",
+          "sha256": "d086bc54f4331fdbfffb0e1d352201129b58f102fce34f48f7d721be4be0be4c"
+        },
+        "after": {
+          "path": "after/beta/full-karen_defend/game.mp4",
+          "sha256": "fc85ea035cbdb8b1349fbfb04e9bd907c5c1552e71fb5b8dc9749c61e0214eb0"
+        },
+        "comparison": {
+          "path": "comparison/beta-karen_defend.mp4",
+          "sha256": "9d7076c16e2aae7e89fd81ab23403687689dd5b805164a1cb9789ac3ac33b73e"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "card": "KAREN_SHINE_STRIKE",
+        "title": "闪耀打击",
+        "environment": "beta",
+        "before": {
+          "path": "before/beta/full-karen_shine_strike/game.mp4",
+          "sha256": "2b0fd688bf41859b3f93cb4f5f7d4f2b74c997d9a1c456e7b2a4e8c843523c8c"
+        },
+        "after": {
+          "path": "after/beta/full-karen_shine_strike/game.mp4",
+          "sha256": "0cff140842a65a6b6c9c1ff31e59474beaf7092373395280aec7a8d944f6fbd5"
+        },
+        "comparison": {
+          "path": "comparison/beta-karen_shine_strike.mp4",
+          "sha256": "7e5be8ae36d4cf8232525b63ddec4efc2cd4ba1b034dbd9d739d1d0be2b7a162"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "combined": "comparison/stage-1A-beta.mp4",
+        "sha256": "9631eaf68c3527d5b303c10d0e3c944a68a75c49cb2721804b222dfe57078a4b"
+      }
+    ]
+  },
+  "evidence_root": "artifacts/card-vfx-rollout-20261030",
+  "validation_scope": "Targeted basic-card singleplayer recordings; complete multiplayer, complete VFX first-use/frame-time and Android checks not run.",
+  "status": "historical initial 1A; KarenDefend superseded by defend-vfx-redo-2026-10-30.json",
+  "resources": {
+    "new_external_assets": 0,
+    "registered_new_visual_types": 4,
+    "resource_count": 308,
+    "rendered_warmup_batches": 30,
+    "new_node_release": "observed through TreeExiting; no live basic-card nodes after each case"
+  }
+}

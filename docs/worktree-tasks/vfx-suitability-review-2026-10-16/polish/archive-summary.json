@@ -1,0 +1,7 @@
+{
+  "archiveRoot": "artifacts/vfx-suitability-polish",
+  "indexSha256": "9ecbf590e4f6ed8566758981a348d9e1cac2e26afc281510b6242dae6f97d809",
+  "verifiedFiles": 1820,
+  "copiedMiB": 743.27,
+  "note": "Raw recordings, all frozen packages, logs, probes and audit samples preserved before task worktree cleanup. Package aliases are hardlinks to immutable archived packages."
+}

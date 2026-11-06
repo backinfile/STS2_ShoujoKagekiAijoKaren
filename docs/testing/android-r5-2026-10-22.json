@@ -1,0 +1,520 @@
+{
+  "source_commit": "3545c95b39962dfded6fad2387e6b4971ad4758f",
+  "candidate": true,
+  "apk": {
+    "apk": "StS2-Karen-v0.107.1-v0.1.3-direct-r5.apk",
+    "bytes": 2047385225,
+    "sha256": "96c64e4f41132bd10141f0550edd0ecd92a9708e83b93ee7eaf633c8fd6eba0c",
+    "application_id": "com.karenmod.sts2hd",
+    "game_version": "v0.107.1",
+    "mod_version": "v0.1.3",
+    "version_code": 10017,
+    "embedded_program_files": 213,
+    "signature": "verified v2/v3; local test key",
+    "android_device_tested": false
+  },
+  "release_check": {
+    "target": "apk",
+    "package_sha256": {
+      "ShoujoKagekiAijoKaren.dll": "c811ac1a05668d685a2019a4cddd853a0654169535dd37bce0a69f371653a934",
+      "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+      "ShoujoKagekiAijoKaren.pck": "9833450a85393589063b3664e3ce66134a3381b13f7d318558b77ace982b1851",
+      "lib\\ShoujoKagekiAijoKaren.Beta.dll": "e2b24f275e9724d0312efc5eefacc7c9b38f08f691e3c9efcd48dab754fb097f",
+      "lib\\ShoujoKagekiAijoKaren.Stable.dll": "f69ff2d44b6722a55ab40e948dc66ee0ab6ed65d210357b2d853de1b08fd0fdb"
+    },
+    "cases": [
+      {
+        "branch": "stable",
+        "effect": "all",
+        "passed": true,
+        "evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261022-231756/report.json",
+        "log_errors": []
+      },
+      {
+        "branch": "stable",
+        "effect": "bridge",
+        "passed": true,
+        "evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261022-232133/report.json",
+        "log_errors": []
+      },
+      {
+        "branch": "stable",
+        "effect": "shine",
+        "passed": true,
+        "evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261022-232220/report.json",
+        "log_errors": []
+      },
+      {
+        "branch": "stable",
+        "effect": "promise",
+        "passed": true,
+        "evidence": "artifacts/vfx-first-use-20261022/runs/stable-20261022-232311/report.json",
+        "log_errors": []
+      },
+      {
+        "branch": "beta",
+        "effect": "all",
+        "passed": true,
+        "evidence": "artifacts/vfx-first-use-20261022/runs/beta-20261022-232403/report.json",
+        "log_errors": [
+          "ERROR: Invalid Task ID"
+        ]
+      },
+      {
+        "branch": "beta",
+        "effect": "bridge",
+        "passed": true,
+        "evidence": "artifacts/vfx-first-use-20261022/runs/beta-20261022-232740/report.json",
+        "log_errors": []
+      },
+      {
+        "branch": "beta",
+        "effect": "shine",
+        "passed": true,
+        "evidence": "artifacts/vfx-first-use-20261022/runs/beta-20261022-232826/report.json",
+        "log_errors": [
+          "ERROR: Invalid Task ID"
+        ]
+      },
+      {
+        "branch": "beta",
+        "effect": "promise",
+        "passed": true,
+        "evidence": "artifacts/vfx-first-use-20261022/runs/beta-20261022-232918/report.json",
+        "log_errors": []
+      }
+    ],
+    "pending": [
+      "Review logged errors: beta/all",
+      "Review logged errors: beta/shine",
+      "Android ARM64 device checks for this exact APK"
+    ],
+    "failures": [],
+    "apk_sha256": "96c64e4f41132bd10141f0550edd0ecd92a9708e83b93ee7eaf633c8fd6eba0c",
+    "embedded_mod_matches_tested_package": true,
+    "status": "pending"
+  },
+  "smoke": [
+    {
+      "platform": "Windows x64 host / AnyCPU Android package",
+      "android_arm64_tested": false,
+      "results": [
+        {
+          "case": "menu_video_music",
+          "passed": true,
+          "status": "pass:menu"
+        },
+        {
+          "case": "version",
+          "passed": true,
+          "status": "pass:version",
+          "hand": {
+            "modelCount": 5,
+            "visualCount": 5,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_SHINE_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          }
+        },
+        {
+          "case": "touch",
+          "passed": true,
+          "status": "pass:touch",
+          "hand": {
+            "modelCount": 5,
+            "visualCount": 5,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_SHINE_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          }
+        },
+        {
+          "case": "promise",
+          "passed": true,
+          "status": "pass:promise",
+          "hand": {
+            "modelCount": 5,
+            "visualCount": 5,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_SHINE_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          }
+        },
+        {
+          "case": "star",
+          "passed": true,
+          "status": "pass:star",
+          "hand": {
+            "modelCount": 0,
+            "visualCount": 0,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": []
+          }
+        },
+        {
+          "case": "save",
+          "passed": true,
+          "status": "pass:save",
+          "hand": {
+            "modelCount": 0,
+            "visualCount": 0,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": []
+          }
+        },
+        {
+          "case": "music",
+          "passed": true,
+          "status": "pass:music",
+          "hand": {
+            "modelCount": 0,
+            "visualCount": 0,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": []
+          }
+        }
+      ],
+      "branch": "stable",
+      "package_sha256": {
+        "ShoujoKagekiAijoKaren.dll": "c811ac1a05668d685a2019a4cddd853a0654169535dd37bce0a69f371653a934",
+        "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+        "ShoujoKagekiAijoKaren.pck": "9833450a85393589063b3664e3ce66134a3381b13f7d318558b77ace982b1851",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "e2b24f275e9724d0312efc5eefacc7c9b38f08f691e3c9efcd48dab754fb097f",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "f69ff2d44b6722a55ab40e948dc66ee0ab6ed65d210357b2d853de1b08fd0fdb"
+      },
+      "runner": "artifacts/apk-r5-smoke.py",
+      "private_desktop": true,
+      "evidence": "artifacts/android-smoke/stable-20261022-233547/report.json",
+      "log_errors": []
+    },
+    {
+      "platform": "Windows x64 host / AnyCPU Android package",
+      "android_arm64_tested": false,
+      "results": [
+        {
+          "case": "menu_video_music",
+          "passed": true,
+          "status": "pass:menu"
+        },
+        {
+          "case": "version",
+          "passed": true,
+          "status": "pass:version",
+          "hand": {
+            "modelCount": 5,
+            "visualCount": 5,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_SHINE_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_FALL",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          }
+        },
+        {
+          "case": "touch",
+          "passed": true,
+          "status": "pass:touch",
+          "hand": {
+            "modelCount": 5,
+            "visualCount": 5,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_SHINE_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_FALL",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          }
+        },
+        {
+          "case": "promise",
+          "passed": true,
+          "status": "pass:promise",
+          "hand": {
+            "modelCount": 5,
+            "visualCount": 5,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": [
+              {
+                "card": "KAREN_SHINE_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_STRIKE",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_FALL",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              },
+              {
+                "card": "KAREN_DEFEND",
+                "expected": 0,
+                "actual": 0,
+                "valid": true
+              }
+            ]
+          }
+        },
+        {
+          "case": "star",
+          "passed": true,
+          "status": "pass:star",
+          "hand": {
+            "modelCount": 0,
+            "visualCount": 0,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": []
+          }
+        },
+        {
+          "case": "save",
+          "passed": true,
+          "status": "pass:save",
+          "hand": {
+            "modelCount": 0,
+            "visualCount": 0,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": []
+          }
+        },
+        {
+          "case": "music",
+          "passed": true,
+          "status": "pass:music",
+          "hand": {
+            "modelCount": 0,
+            "visualCount": 0,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": [],
+            "burnOverlays": []
+          }
+        }
+      ],
+      "branch": "beta",
+      "package_sha256": {
+        "ShoujoKagekiAijoKaren.dll": "c811ac1a05668d685a2019a4cddd853a0654169535dd37bce0a69f371653a934",
+        "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+        "ShoujoKagekiAijoKaren.pck": "9833450a85393589063b3664e3ce66134a3381b13f7d318558b77ace982b1851",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "e2b24f275e9724d0312efc5eefacc7c9b38f08f691e3c9efcd48dab754fb097f",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "f69ff2d44b6722a55ab40e948dc66ee0ab6ed65d210357b2d853de1b08fd0fdb"
+      },
+      "runner": "artifacts/apk-r5-smoke.py",
+      "private_desktop": true,
+      "evidence": "artifacts/android-smoke/beta-20261022-233634/report.json",
+      "log_errors": []
+    }
+  ],
+  "performance": [
+    {
+      "branch": "stable",
+      "groups": 31,
+      "passes_per_group": 3,
+      "max_ms": 21.5735,
+      "over33": 0,
+      "warmup": {
+        "resources": 304,
+        "batches": 29,
+        "drawCalls": 460,
+        "prepareMs": 1662.4978
+      }
+    },
+    {
+      "branch": "beta",
+      "groups": 31,
+      "passes_per_group": 3,
+      "max_ms": 21.1067,
+      "over33": 0,
+      "warmup": {
+        "resources": 304,
+        "batches": 29,
+        "drawCalls": 460,
+        "prepareMs": 1679.549
+      }
+    }
+  ],
+  "screenshots_reviewed": {
+    "release_promise": 24,
+    "smoke_move_deplete_save": 12
+  },
+  "full_multiplayer_matrix_tested": false
+}

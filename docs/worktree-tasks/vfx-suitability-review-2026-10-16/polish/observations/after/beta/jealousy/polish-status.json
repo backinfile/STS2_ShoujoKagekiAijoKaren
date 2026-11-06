@@ -1,0 +1,23 @@
+{
+  "live": 0,
+  "peaks": {
+    "NKarenJealousyVfx": 1
+  },
+  "nodes": [
+    {
+      "type": "NKarenJealousyVfx",
+      "frames": 63,
+      "exited": true
+    },
+    {
+      "type": "NKarenJealousyVfx",
+      "frames": 73,
+      "exited": true
+    }
+  ],
+  "curtains": [],
+  "passion": 0,
+  "vulnerable": 0,
+  "relicRewards": 0,
+  "back": 0
+}

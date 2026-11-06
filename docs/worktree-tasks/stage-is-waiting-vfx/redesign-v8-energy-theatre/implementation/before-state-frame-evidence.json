@@ -1,0 +1,172 @@
+[
+  {
+    "file": "state-occupied-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-coexist-synced/stable/waiting-stage/game.mp4",
+    "time": 5.715796999947633,
+    "sourceSha256": "af4c48c00bb32af0c9518943f1be84f168503ea830b1aabdcc4f3e820a83ba93",
+    "observation": "occupied-idle",
+    "observationTiming": "Settled observer after this phase; screenshot independently sampled at the exact video time.",
+    "settled": {
+      "pileCount": 1,
+      "empty": false,
+      "opening": 0,
+      "beamNow": 0,
+      "confirmations": 0,
+      "energy": 0
+    }
+  },
+  {
+    "file": "state-empty-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-coexist-synced/stable/waiting-stage/game.mp4",
+    "time": 9.859415899962187,
+    "sourceSha256": "af4c48c00bb32af0c9518943f1be84f168503ea830b1aabdcc4f3e820a83ba93",
+    "observation": "empty-idle",
+    "observationTiming": "Settled observer after this phase; screenshot independently sampled at the exact video time.",
+    "settled": {
+      "pileCount": 0,
+      "empty": true,
+      "opening": 1,
+      "beamNow": 0,
+      "confirmations": 1,
+      "energy": 1
+    }
+  },
+  {
+    "file": "state-refilled-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-coexist-synced/stable/waiting-stage/game.mp4",
+    "time": 17.281283899990378,
+    "sourceSha256": "af4c48c00bb32af0c9518943f1be84f168503ea830b1aabdcc4f3e820a83ba93",
+    "observation": "refilled-idle",
+    "observationTiming": "Settled observer after this phase; screenshot independently sampled at the exact video time.",
+    "settled": {
+      "pileCount": 1,
+      "empty": false,
+      "opening": 0,
+      "beamNow": 0,
+      "confirmations": 1,
+      "energy": 1
+    }
+  },
+  {
+    "file": "trigger-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-coexist-synced/stable/waiting-stage/game.mp4",
+    "time": 7.866043999954127,
+    "sourceSha256": "af4c48c00bb32af0c9518943f1be84f168503ea830b1aabdcc4f3e820a83ba93",
+    "observation": "trigger-one",
+    "observationTiming": "Settled observer after this phase; screenshot independently sampled at the exact video time.",
+    "settled": {
+      "pileCount": 0,
+      "empty": true,
+      "opening": 1,
+      "beamNow": 0,
+      "confirmations": 1,
+      "energy": 1
+    }
+  },
+  {
+    "file": "cast-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-coexist-synced/stable/waiting-stage/game.mp4",
+    "time": 2.050269899982959,
+    "sourceSha256": "af4c48c00bb32af0c9518943f1be84f168503ea830b1aabdcc4f3e820a83ba93",
+    "observation": "cast-quiet",
+    "observationTiming": "Settled observer after this phase; screenshot independently sampled at the exact video time.",
+    "settled": {
+      "pileCount": 1,
+      "empty": false,
+      "opening": 0,
+      "beamNow": 0,
+      "confirmations": 0,
+      "energy": 0
+    }
+  },
+  {
+    "file": "state-occupied-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-coexist-synced/beta/waiting-stage/game.mp4",
+    "time": 5.731694999989122,
+    "sourceSha256": "d1098b79ea502746f3b7f68afbb7076c5571debe6e9ea38ee66e560af51788e6",
+    "observation": "occupied-idle",
+    "observationTiming": "Settled observer after this phase; screenshot independently sampled at the exact video time.",
+    "settled": {
+      "pileCount": 1,
+      "empty": false,
+      "opening": 0,
+      "beamNow": 0,
+      "confirmations": 0,
+      "energy": 0
+    }
+  },
+  {
+    "file": "state-empty-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-coexist-synced/beta/waiting-stage/game.mp4",
+    "time": 9.877041900006589,
+    "sourceSha256": "d1098b79ea502746f3b7f68afbb7076c5571debe6e9ea38ee66e560af51788e6",
+    "observation": "empty-idle",
+    "observationTiming": "Settled observer after this phase; screenshot independently sampled at the exact video time.",
+    "settled": {
+      "pileCount": 0,
+      "empty": true,
+      "opening": 1,
+      "beamNow": 0,
+      "confirmations": 1,
+      "energy": 1
+    }
+  },
+  {
+    "file": "state-refilled-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-coexist-synced/beta/waiting-stage/game.mp4",
+    "time": 17.35295200000983,
+    "sourceSha256": "d1098b79ea502746f3b7f68afbb7076c5571debe6e9ea38ee66e560af51788e6",
+    "observation": "refilled-idle",
+    "observationTiming": "Settled observer after this phase; screenshot independently sampled at the exact video time.",
+    "settled": {
+      "pileCount": 1,
+      "empty": false,
+      "opening": 0,
+      "beamNow": 0,
+      "confirmations": 1,
+      "energy": 1
+    }
+  },
+  {
+    "file": "trigger-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-coexist-synced/beta/waiting-stage/game.mp4",
+    "time": 7.882159400021192,
+    "sourceSha256": "d1098b79ea502746f3b7f68afbb7076c5571debe6e9ea38ee66e560af51788e6",
+    "observation": "trigger-one",
+    "observationTiming": "Settled observer after this phase; screenshot independently sampled at the exact video time.",
+    "settled": {
+      "pileCount": 0,
+      "empty": true,
+      "opening": 1,
+      "beamNow": 0,
+      "confirmations": 1,
+      "energy": 1
+    }
+  },
+  {
+    "file": "cast-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-coexist-synced/beta/waiting-stage/game.mp4",
+    "time": 2.0504419000120833,
+    "sourceSha256": "d1098b79ea502746f3b7f68afbb7076c5571debe6e9ea38ee66e560af51788e6",
+    "observation": "cast-quiet",
+    "observationTiming": "Settled observer after this phase; screenshot independently sampled at the exact video time.",
+    "settled": {
+      "pileCount": 1,
+      "empty": false,
+      "opening": 0,
+      "beamNow": 0,
+      "confirmations": 0,
+      "energy": 0
+    }
+  }
+]

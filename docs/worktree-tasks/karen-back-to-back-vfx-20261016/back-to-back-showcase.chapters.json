@@ -1,0 +1,72 @@
+[
+  {
+    "start": 0,
+    "duration": 3.041995,
+    "title": "背靠背  /  4 张约定 · 16 伤害",
+    "source": "normal4\\game.mp4",
+    "speed": 1
+  },
+  {
+    "start": 3.041995,
+    "duration": 3.070998,
+    "title": "协同重斩  /  10 张约定 · 40 伤害",
+    "source": "ten\\game.mp4",
+    "speed": 1
+  },
+  {
+    "start": 6.1129929999999995,
+    "duration": 3.0,
+    "title": "剑光细节  /  0.5× 慢放",
+    "source": "ten\\game.mp4",
+    "speed": 0.5
+  },
+  {
+    "start": 9.112993,
+    "duration": 3.102993,
+    "title": "背靠背＋  /  10 张约定 · 60 伤害",
+    "source": "upgraded\\game.mp4",
+    "speed": 1
+  },
+  {
+    "start": 12.215986,
+    "duration": 3.072993,
+    "title": "24 张约定 · 96 伤害  /  表现强度封顶，伤害照常计算",
+    "source": "high24\\game.mp4",
+    "speed": 1
+  },
+  {
+    "start": 15.288979,
+    "duration": 3.066016,
+    "title": "快速模式  /  更短的蓄势与收招",
+    "source": "fast\\game.mp4",
+    "speed": 1
+  },
+  {
+    "start": 18.354995,
+    "duration": 4.900998,
+    "title": "额外重播  /  三次出手，各自命中与清理",
+    "source": "replay\\game.mp4",
+    "speed": 1
+  },
+  {
+    "start": 23.255993,
+    "duration": 3.1,
+    "title": "空约定  /  0 伤害 · 轻薄空斩",
+    "source": "zero\\game.mp4",
+    "speed": 1
+  },
+  {
+    "start": 26.355993,
+    "duration": 3.107007,
+    "title": "1 张约定  /  4 伤害",
+    "source": "one\\game.mp4",
+    "speed": 1
+  },
+  {
+    "start": 29.463,
+    "duration": 4.643991,
+    "title": "最后一击  /  命中后正常结束战斗",
+    "source": "lethal\\game.mp4",
+    "speed": 1
+  }
+]

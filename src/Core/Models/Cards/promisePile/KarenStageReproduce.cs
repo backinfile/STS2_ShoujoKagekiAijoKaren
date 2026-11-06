@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ public sealed class KarenStageReproduce : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PromisePileCmd.EnterMode(Owner, PromisePileMode.InfiniteReinforcement);
+        KarenPromiseVfxStarManager.PlayReproductionActivation(Owner);
     }
 
     protected override void OnUpgrade()

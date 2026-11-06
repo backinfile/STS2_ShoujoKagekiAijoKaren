@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 
@@ -32,8 +33,18 @@ public sealed class KarenOnStage : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PromisePileCmd.Draw(choiceContext, Owner, ((int)DynamicVars.Cards.BaseValue));
-        await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
+        var effect = NKarenStageCueVfx.Play(Owner, NKarenStageCueVfx.CueKind.Duet, this);
+        try {
+            if (effect != null) await NKarenStageCueVfx.WaitForCue(NKarenStageCueVfx.CueKind.Duet);
+            for (int i = 0; i < (int)DynamicVars.Cards.BaseValue; i++) {
+                var drawn = await PromisePileCmd.Draw(choiceContext, Owner);
+                if (drawn == null) break;
+                effect?.ConfirmCards([drawn]);
+            }
+            int before = Owner.PlayerCombatState?.Energy ?? 0;
+            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
+            effect?.ConfirmEnergy((Owner.PlayerCombatState?.Energy ?? before) - before);
+        } finally { effect?.Finish(); }
     }
 
     protected override void OnUpgrade()

@@ -1,0 +1,57 @@
+{
+  "title": "爱城华恋",
+  "subtitle_latin": "MOD",
+  "subtitle_cn": "更新",
+  "output_stem": "爱城华恋mod-v0.1.4-视频封面",
+  "assets": {
+    "battle": "assets/battle-99.png",
+    "card": "assets/twin-stars.png",
+    "portrait": "../../scenes/screens/char_select/karenPortrait.jpg",
+    "star": "../../images/relics/karen_little_star_relic_big.png"
+  },
+  "style": {
+    "headline": [255, 249, 237, 255],
+    "subtitle": [255, 227, 87, 255],
+    "shade": [18, 8, 30],
+    "accent_fills": [[63, 10, 43, 85], [255, 77, 104, 210], [254, 223, 96, 245]],
+    "accent_line_colors": [[255, 89, 117, 100], [255, 236, 169, 90]]
+  },
+  "layouts": {
+    "16:9": {
+      "size": [1920, 1080],
+      "suffix": "",
+      "preview": [480, 270],
+      "portrait": {"size": null, "xy": [300, -105]},
+      "title": {"size": 182, "xy": [68, 56]},
+      "subtitle_latin": {"size": 134, "xy": [74, 290]},
+      "subtitle_cn": {"size": 145, "xy": [388, 267]},
+      "panel": {"width": 800, "xy": [60, 550]},
+      "card": {"size": [315, 415], "xy": [826, 600]},
+      "star_xy": [836, 42],
+      "accent_polygons": [
+        [[0, 0], [960, 0], [778, 521], [0, 521]],
+        [[0, 486], [797, 486], [748, 528], [0, 528]],
+        [[0, 501], [778, 501], [756, 520], [0, 520]]
+      ],
+      "accent_lines": [[[910, 0], [780, 463]], [[939, 0], [814, 447]]]
+    },
+    "4:3": {
+      "size": [1600, 1200],
+      "suffix": "-4比3",
+      "preview": [400, 300],
+      "portrait": {"size": [2080, 1300], "xy": [35, -100]},
+      "title": {"size": 172, "xy": [60, 58]},
+      "subtitle_latin": {"size": 130, "xy": [64, 313]},
+      "subtitle_cn": {"size": 136, "xy": [370, 292]},
+      "panel": {"width": 810, "xy": [45, 650]},
+      "card": {"size": [300, 400], "xy": [815, 730]},
+      "star_xy": [790, 55],
+      "accent_polygons": [
+        [[0, 0], [905, 0], [735, 540], [0, 540]],
+        [[0, 500], [774, 500], [727, 542], [0, 542]],
+        [[0, 515], [755, 515], [733, 534], [0, 534]]
+      ],
+      "accent_lines": [[[860, 0], [730, 474]], [[889, 0], [764, 458]]]
+    }
+  }
+}

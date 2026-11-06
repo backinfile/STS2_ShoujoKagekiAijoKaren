@@ -1,0 +1,1789 @@
+{
+  "schema": 1,
+  "date": "2026-10-29",
+  "baseline": "6a7a9bdc36bb1b33c6eb1b54212d3f0100d5e781",
+  "scope": "effects, pacing and performance; static source review",
+  "coverage": {
+    "pool": 87,
+    "curse": 2,
+    "inactive": 2,
+    "token": 25
+  },
+  "priorities": {
+    "P2": 67,
+    "P1": 16,
+    "P3": 31,
+    "暂缓": 2
+  },
+  "runtime_validation": "not executed",
+  "cards": [
+    {
+      "class": "KarenWhy",
+      "title": "为什么要离开？我的朋友",
+      "path": "src/Core/Models/Cards/ancient/KarenWhy.cs",
+      "status": "pool",
+      "group": "ancient",
+      "type": "Skill",
+      "source_sha256": "c8dbd9e1352a7ea29f17f4ec52bbe05a0b90eeb2dc785ec25ac9260ef6556777",
+      "vfx": [
+        "NKarenWhyVfx"
+      ],
+      "promise_calls": [
+        "AddFromHand"
+      ],
+      "priority": "P2",
+      "current": "格挡后在入塔选牌期间挂边缘流光，finally结束。",
+      "recommendation": "沿用当前选牌层级；窗口缩放/Peek时更新边界，静止时缓存装饰几何。"
+    },
+    {
+      "class": "KarenDefend",
+      "title": "防御",
+      "path": "src/Core/Models/Cards/basic/KarenDefend.cs",
+      "status": "pool",
+      "group": "basic",
+      "type": "Skill",
+      "source_sha256": "bcea3cbf7622f73901b0bb8a389b72573cd82368ace382d5c8f213906cf287f9",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P1",
+      "current": "原生格挡反馈。",
+      "recommendation": "第一批实现专属入口NKarenDefendVfx：角色迎敌侧升起三片相扣的弧形护幕，细金边和低透明玫红内面，中心以小盾菱形收束。 实际格挡确认后播放，规则即时结算。"
+    },
+    {
+      "class": "KarenFall",
+      "title": "坠落",
+      "path": "src/Core/Models/Cards/basic/KarenFall.cs",
+      "status": "pool",
+      "group": "basic",
+      "type": "Skill",
+      "source_sha256": "7434f43a27a855ee4ad91f7db346126ba196ae986b1ff29c19ee704e49529567",
+      "vfx": [],
+      "promise_calls": [
+        "AddFromHand"
+      ],
+      "priority": "P1",
+      "current": "先格挡，再选手牌入塔，走共用移牌。",
+      "recommendation": "第一批实现专属入口NKarenFallVfx：短护幕由上向下压稳，完成选牌后向塔收拢一段下落弧线，沿真实卡面入塔。 按真实命中或移牌确认，复用共享工具。"
+    },
+    {
+      "class": "KarenPromiseDraw",
+      "title": "不再遥不可及",
+      "path": "src/Core/Models/Cards/basic/KarenPromiseDraw.cs",
+      "status": "pool",
+      "group": "basic",
+      "type": "Attack",
+      "source_sha256": "692f77a524f9ddbfa9a819d358b111a9e6ee1d532be5453925a417064b712493",
+      "vfx": [],
+      "promise_calls": [
+        "Draw"
+      ],
+      "priority": "P1",
+      "current": "原生斩击后从塔取2/4张。",
+      "recommendation": "第一批实现专属入口NKarenPromiseDrawVfx：短斜切接触后，塔向真实归手卡发出一束弯折回光，突出攻击引回卡牌的关系。 按真实命中或移牌确认，复用共享工具。"
+    },
+    {
+      "class": "KarenShineStrike",
+      "title": "闪耀打击",
+      "path": "src/Core/Models/Cards/basic/KarenShineStrike.cs",
+      "status": "pool",
+      "group": "basic",
+      "type": "Attack",
+      "source_sha256": "2aa4afca7fe3c784366bb7f0918140eb9b47b2f0fddf3c0520ba5973ca3153da",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P1",
+      "current": "9点原生斩击，闪耀9；卡缘与耗尽由共享系统负责。",
+      "recommendation": "第一批实现专属入口NKarenShineStrikeVfx：更细的白金直刃，两侧短金轨在接触处闭成四角星，随后只剩短刃尾。 按真实命中或移牌确认，复用共享工具。"
+    },
+    {
+      "class": "KarenStrike",
+      "title": "打击",
+      "path": "src/Core/Models/Cards/basic/KarenStrike.cs",
+      "status": "pool",
+      "group": "basic",
+      "type": "Attack",
+      "source_sha256": "376c4c76d5c718fa1f1b2d4104ac8b019acbd2244b9644186b19fbc5cf33cf83",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P1",
+      "current": "6点原生斩击。",
+      "recommendation": "第一批实现专属入口NKarenStrikeVfx：短直突刺，珊瑚红窄刃带配象牙白刃尖，目标近侧出现单个菱形接触点。 按真实命中或移牌确认，复用共享工具。"
+    },
+    {
+      "class": "KarenSleepy",
+      "title": "困意",
+      "path": "src/Core/Models/Cards/curses/KarenSleepy.cs",
+      "status": "curse",
+      "group": "curses",
+      "type": "Curse",
+      "source_sha256": "b3dfab3583456f38f16b788ad69b077d176d76ac41bc0798ecce4987fbba31ce",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "不可打出、虚无、永久，依赖原生卡牌状态。",
+      "recommendation": "保留原生状态反馈；虚无离场复用共用清理，卡面仅静态区分。"
+    },
+    {
+      "class": "KarenStageReason",
+      "title": "存在于舞台的理由",
+      "path": "src/Core/Models/Cards/curses/KarenStageReason.cs",
+      "status": "curse",
+      "group": "curses",
+      "type": "Curse",
+      "source_sha256": "47131c1533a8ded27414cc70f5e71a28e0ceea6543e3d96e5cbd27da0d6f1da1",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "可打出的诅咒，闪耀3，无额外OnPlay规则。",
+      "recommendation": "强调闪耀计数与耗尽入口即可，沿用共享卡缘和耗尽，保持低装饰量。"
+    },
+    {
+      "class": "KarenNextStage",
+      "title": "下一个舞台",
+      "path": "src/Core/Models/Cards/globalMove/KarenNextStage.cs",
+      "status": "pool",
+      "group": "globalMove",
+      "type": "Skill",
+      "source_sha256": "0d9f183aad675ebe9f6e65efe57e383b5f5d79bc2b1699e94573d57d0d0c1237",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "入塔/离塔或升级后的全局移牌触发抽牌。",
+      "recommendation": "把高频抽牌归入同一移牌批次的短反馈；原生逐次抽牌规则保留，视觉只标最后的落点。"
+    },
+    {
+      "class": "KarenSpin",
+      "title": "旋转",
+      "path": "src/Core/Models/Cards/globalMove/KarenSpin.cs",
+      "status": "pool",
+      "group": "globalMove",
+      "type": "Attack",
+      "source_sha256": "82f9e99166ee8fbd90ece35fa488c06d0d3a39d3ec4bc851fd019029fde5df28",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "原生斩击；每次移牌增长伤害并写Info日志。",
+      "recommendation": "数字成长用同帧一次短脉冲；逐移牌日志可改调试级，重击大小用封顶映射。"
+    },
+    {
+      "class": "KarenWakeUp",
+      "title": "唤醒",
+      "path": "src/Core/Models/Cards/globalMove/KarenWakeUp.cs",
+      "status": "pool",
+      "group": "globalMove",
+      "type": "Skill",
+      "source_sha256": "f04f9ba1a3cfe7da7c963ddf4fb787fbc3378f5122e1735a701eca5f4a19287e",
+      "vfx": [
+        "NKarenWakeUpCardVfx",
+        "NKarenWakeUpSelectionVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "选择幕帘、各来源选项与真实归手尾迹；Instant保留选择反馈。",
+      "recommendation": "保留当前Instant约定；缓存选牌边界，批量回手共享装饰层，取消时快速退幕。"
+    },
+    {
+      "class": "KarenBananaCake",
+      "title": "Banana蛋糕",
+      "path": "src/Core/Models/Cards/neutral/KarenBananaCake.cs",
+      "status": "pool",
+      "group": "neutral",
+      "type": "Skill",
+      "source_sha256": "975db5bf37ef636de440a6cd83e26afbd895ecd2d4b96762094ea9f764033157",
+      "vfx": [
+        "NKarenBananaVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "蛋糕短演出、药水来源登记、按获取成功确认。",
+      "recommendation": "保留无附加音约定；药水槽已满时用结束包络收束，材质/粒子模板和晚餐共用。"
+    },
+    {
+      "class": "KarenBurn",
+      "title": "燃烧吧燃烧吧",
+      "path": "src/Core/Models/Cards/neutral/KarenBurn.cs",
+      "status": "pool",
+      "group": "neutral",
+      "type": "Power",
+      "source_sha256": "cb841022ada0b59cf48e24aed498f59fcf2f6aaff808755c7df8e440f2e4f72c",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "进入Burn模式，表现由塔/卡缘共享系统驱动。",
+      "recommendation": "保留现有火焰形状；将常驻火焰更新、入塔反馈和抽出牌缘分别计预算，低档优先保留轮廓。"
+    },
+    {
+      "class": "KarenConsciousness",
+      "title": "以觉悟的名义",
+      "path": "src/Core/Models/Cards/neutral/KarenConsciousness.cs",
+      "status": "pool",
+      "group": "neutral",
+      "type": "Attack",
+      "source_sha256": "4517489045f5f286a41e76135d11c6ab3a4e83fbaa9d93d6958d09c6f92638b9",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "斩击后按实际伤害结果获得格挡。",
+      "recommendation": "用目标接触后到角色盾形的短局部回流表达转换；确认格挡后收尾，长度固定上限。"
+    },
+    {
+      "class": "KarenCry",
+      "title": "添麻烦了",
+      "path": "src/Core/Models/Cards/neutral/KarenCry.cs",
+      "status": "pool",
+      "group": "neutral",
+      "type": "Skill",
+      "source_sha256": "54a00130b64cfe78391cc29eac3898de638137d18327c4847ba342b0d827e9e2",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "OnPlay为空，每次全局移牌给格挡。",
+      "recommendation": "高频收益提示合并同帧显示，规则仍逐次结算；与信封同时触发时复用盾形脉冲。"
+    },
+    {
+      "class": "KarenForm",
+      "title": "觉醒形态",
+      "path": "src/Core/Models/Cards/neutral/KarenForm.cs",
+      "status": "pool",
+      "group": "neutral",
+      "type": "Power",
+      "source_sha256": "9432942fed5a4324eb85f27e2fe24d797ad7c51a1a764fda88888fc8f4bc50fd",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "Power维持风场、抽牌脉冲与战斗音乐。",
+      "recommendation": "保留已确认风场与音乐交接；静止阶段降低装饰采样，抽牌脉冲共用当前节点。"
+    },
+    {
+      "class": "KarenGeer",
+      "title": "命运的齿轮",
+      "path": "src/Core/Models/Cards/neutral/KarenGeer.cs",
+      "status": "pool",
+      "group": "neutral",
+      "type": "Power",
+      "source_sha256": "7a19ae9c1047d06b3840c1032ec4db58718e7e3ae8bb7c4216ece9b80c51f62b",
+      "vfx": [
+        "KarenGeerVfxManager"
+      ],
+      "promise_calls": [],
+      "priority": "P1",
+      "current": "施放固定等1秒；回合触发每层等0.65秒并选牌。",
+      "recommendation": "先统一游戏速度下的等待策略，再调整起势/尾部；减少同时绘制的背景与角色齿轮重叠。"
+    },
+    {
+      "class": "KarenLastWord",
+      "title": "最后的台词",
+      "path": "src/Core/Models/Cards/neutral/KarenLastWord.cs",
+      "status": "pool",
+      "group": "neutral",
+      "type": "Attack",
+      "source_sha256": "af9680512184ef7371bcb66736337dd0d174596902e3549a489baceee90af707",
+      "vfx": [
+        "NKarenLastWordVfx",
+        "NKarenLastWordVideoVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P1",
+      "current": "本地视频优先；低档文字沿用6.7秒，缺视频文字段0.7秒。",
+      "recommendation": "先核查主客机与不同本地质量档的规则等待一致性；视频和文字共用语义命中点，画面单独降级。"
+    },
+    {
+      "class": "KarenOldPlace",
+      "title": "约定的那天",
+      "path": "src/Core/Models/Cards/neutral/KarenOldPlace.cs",
+      "status": "pool",
+      "group": "neutral",
+      "type": "Skill",
+      "source_sha256": "dba50d96b6c4a70729453b68d9a18ebaa4ee7dbad0fb2408ca5d2e2b52dbaacd",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "格挡后选择保留格挡/能量/力量/手牌。",
+      "recommendation": "保持原生选择；四项用原有图标和选中脉冲表达，统一复用选择装饰。"
+    },
+    {
+      "class": "KarenParry",
+      "title": "招架",
+      "path": "src/Core/Models/Cards/neutral/KarenParry.cs",
+      "status": "pool",
+      "group": "neutral",
+      "type": "Skill",
+      "source_sha256": "f72bb2e819272dc15b6c415ce8233a2a411096b172d23c808793257ab85cdaed",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "在手牌期间随进出手牌增长格挡，打出/回合末重置。",
+      "recommendation": "一次移牌批次内合并数值脉冲；重置时仅清数值强调，避免额外全屏反馈。"
+    },
+    {
+      "class": "KarenPizza",
+      "title": "披萨",
+      "path": "src/Core/Models/Cards/neutral/KarenPizza.cs",
+      "status": "inactive",
+      "group": "neutral",
+      "type": "Skill",
+      "source_sha256": "6e1695c424bbf1b30d37b90b52cc61e7b97b1e760f67c6ec85f5ff37c8e93cab",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "暂缓",
+      "current": "暂时移出主卡池；自方加力量、敌方减力量。",
+      "recommendation": "恢复进池后再做收益/减益两端的局部反馈；目前保留原生能力表现。"
+    },
+    {
+      "class": "KarenPosition0",
+      "title": "Position 0",
+      "path": "src/Core/Models/Cards/neutral/KarenPosition0.cs",
+      "status": "pool",
+      "group": "neutral",
+      "type": "Power",
+      "source_sha256": "a1a741bccf8726897679807af4f6b97a83407d72e1ca0ec6c494190eeda1c884",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "Power维持暖光、脚灯、格挡确认、卡顶T标记。",
+      "recommendation": "保留标记位置和现有身份校验；静态T几何缓存，多段攻击的脚灯脉冲设重叠预算。"
+    },
+    {
+      "class": "KarenAquariumCard",
+      "title": "水族馆",
+      "path": "src/Core/Models/Cards/promisePile/KarenAquariumCard.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Power",
+      "source_sha256": "cfd67095304b1d0170e6af8232831a7680d11ecf3886203087dc9ad284483113",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "Power有常驻水族馆、回合抽牌及入塔选择阶段。",
+      "recommendation": "保留抽取→选择→入塔阶段；相邻同类回合触发复用水面和边界，批量卡只增加交接层。"
+    },
+    {
+      "class": "KarenBackToBackCard",
+      "title": "背靠背",
+      "path": "src/Core/Models/Cards/promisePile/KarenBackToBackCard.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Attack",
+      "source_sha256": "9fdb2d35c38d6cd559c1bf8864974a2646ef27b6e40fb6b22424763a70b76742",
+      "vfx": [
+        "NKarenBackToBackVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "0.34秒准备后撞击，强度取塔内牌数。",
+      "recommendation": "保留现有接近/接触结构；按数量封顶亮度和散点，接近层与命中层共用一次性缓冲。"
+    },
+    {
+      "class": "KarenBananaLunch",
+      "title": "Banana午餐",
+      "path": "src/Core/Models/Cards/promisePile/KarenBananaLunch.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Power",
+      "source_sha256": "81f2d9aa4aa4f6572d859fce5329de290fd4d55a8c9bc40ce1ab0ffa82bad1a3",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "Power在回合末向塔生成三明治。",
+      "recommendation": "沿用原生Power闪烁和生成牌入塔；大量生成共用一圈出生光。"
+    },
+    {
+      "class": "KarenBaseball",
+      "title": "棒球",
+      "path": "src/Core/Models/Cards/promisePile/KarenBaseball.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Attack",
+      "source_sha256": "f2c3cf2fd08c3ff2721bcdb8aed16f33f5a974452e94a6060af89a99b9652ed8",
+      "vfx": [
+        "NKarenBaseballVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "0.35秒球路接触，命中后施加四种保留效果。",
+      "recommendation": "保留球路；四个能力各有真实图标确认，合并为一次角色局部收尾，避免四轮大演出。"
+    },
+    {
+      "class": "KarenBridge",
+      "title": "约定之塔桥",
+      "path": "src/Core/Models/Cards/promisePile/KarenBridge.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "9faf2da5efa76452a00ee24d02eba04ee566b35af1eb78e59c397956ba349799",
+      "vfx": [
+        "NKarenBridgeVfx"
+      ],
+      "promise_calls": [
+        "AutoPlayFromPromisePile"
+      ],
+      "priority": "P1",
+      "current": "塔桥作用域与逐张聚光；有牌时固定前摇Fast0.30/普通0.48秒。",
+      "recommendation": "保留整串一次塔桥；高X只保留逐张接触闪光，统一速度策略核查关闭档前摇。"
+    },
+    {
+      "class": "KarenCourageStrike",
+      "title": "勇气打击",
+      "path": "src/Core/Models/Cards/promisePile/KarenCourageStrike.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Attack",
+      "source_sha256": "5406a9d61f467be41d00019c19859a6dfd0c6733880f4be9d0f79df800030227",
+      "vfx": [],
+      "promise_calls": [
+        "AddToken"
+      ],
+      "priority": "P2",
+      "current": "群体斩击后生成侧身入塔。",
+      "recommendation": "共享一次横向起势，每个实际命中保留局部反馈；生成侧身的出生点落在塔边。"
+    },
+    {
+      "class": "KarenDance",
+      "title": "舞动",
+      "path": "src/Core/Models/Cards/promisePile/KarenDance.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Attack",
+      "source_sha256": "49660aaec1b424c36cd9bce7af91f4534b329aafbfc14d45302b23cbc484aa7e",
+      "vfx": [],
+      "promise_calls": [
+        "SelectedToHand"
+      ],
+      "priority": "P2",
+      "current": "斩击后从塔选择2/4张回手。",
+      "recommendation": "将视觉重点放在选择与归手；刀光保持短，升级批量共享归手光带。"
+    },
+    {
+      "class": "KarenDodge",
+      "title": "闪避",
+      "path": "src/Core/Models/Cards/promisePile/KarenDodge.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "3e5743cd9442a98f1a9903ae684bc325ede7373a483892d36ebc2b67da48935b",
+      "vfx": [],
+      "promise_calls": [
+        "AddToken"
+      ],
+      "priority": "P3",
+      "current": "格挡后生成对峙入塔。",
+      "recommendation": "保留轻量盾形和真实生成牌；可让入塔星短偏转以表达闪避，无新增等待。"
+    },
+    {
+      "class": "KarenExchangeFate",
+      "title": "命运交换之日",
+      "path": "src/Core/Models/Cards/promisePile/KarenExchangeFate.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "7c477e4a77de2c2cdb7f6d42a362caa8725691a581032083f39f9e6727773db3",
+      "vfx": [
+        "NKarenExchangeFateVfx"
+      ],
+      "promise_calls": [
+        "SwitchHand"
+      ],
+      "priority": "P2",
+      "current": "两组卡牌快照、交叉标记等待、实际SwitchHand，finally收尾。",
+      "recommendation": "保留已有交叉事件；卡量增加时共享丝带网格并限制装饰采样，真实卡面逐张交接。"
+    },
+    {
+      "class": "KarenHolyStar",
+      "title": "神圣星辰",
+      "path": "src/Core/Models/Cards/promisePile/KarenHolyStar.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Attack",
+      "source_sha256": "2d1ad9c36c99c759d3697402f7555ce301489f2f8b4e12d5a5547832513b1af2",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "原生两击；每次入塔降费。",
+      "recommendation": "第二击仅加短收束，入塔后用费用角标短亮表达降费；两段共用一份准备。"
+    },
+    {
+      "class": "KarenLanding",
+      "title": "落地",
+      "path": "src/Core/Models/Cards/promisePile/KarenLanding.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Attack",
+      "source_sha256": "9e6257fadd6b00702496bbc9a4acea6909923e92e16d5c58a5aba770fc88cd89",
+      "vfx": [],
+      "promise_calls": [
+        "AddToken"
+      ],
+      "priority": "P2",
+      "current": "群体斩击后生成回击入塔。",
+      "recommendation": "可共用一次低位冲击起势，命中各敌人局部确认；落地与勇气打击用方向区分。"
+    },
+    {
+      "class": "KarenLetterCard",
+      "title": "信封",
+      "path": "src/Core/Models/Cards/promisePile/KarenLetterCard.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Power",
+      "source_sha256": "7c91e19101bba40cff54f4bce73033cb38aeafb6c03b3b5986cdfd5188f9cfa5",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "Power每张入塔时给格挡并Flash。",
+      "recommendation": "同批入塔只强化一次图标/盾形，卡牌自身入塔尾迹保留；与添麻烦了共用视觉预算。"
+    },
+    {
+      "class": "KarenMeetAgain",
+      "title": "重逢",
+      "path": "src/Core/Models/Cards/promisePile/KarenMeetAgain.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "f17e2622fa3caede42075c0e47a8cc9ad80c8b96c859a5b84d8353eafca89257",
+      "vfx": [],
+      "promise_calls": [
+        "AddFromHand"
+      ],
+      "priority": "P2",
+      "current": "格挡→抽2张→选1张入塔。",
+      "recommendation": "保留操作顺序；共享选牌起势与塔落点，让刚抽到的真实卡面自然接入选择。"
+    },
+    {
+      "class": "KarenNewDay",
+      "title": "新的一天",
+      "path": "src/Core/Models/Cards/promisePile/KarenNewDay.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "10a39956779f6bc3d841ec29aa54f3de8816ec24c7775b8a420c524fd2533572",
+      "vfx": [],
+      "promise_calls": [
+        "Add"
+      ],
+      "priority": "P3",
+      "current": "格挡、施加下一次牌入塔能力，自身入塔。",
+      "recommendation": "保留自身入塔和下一次入塔的区别；使用同一结果交接层，不为每步重复起幕。"
+    },
+    {
+      "class": "KarenNewSituation",
+      "title": "观察情况",
+      "path": "src/Core/Models/Cards/promisePile/KarenNewSituation.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "28aafe7b1b0009f68f2072546e0cfc02d92740aac909d0e3fbaed735271dacb3",
+      "vfx": [],
+      "promise_calls": [
+        "AddToken"
+      ],
+      "priority": "P3",
+      "current": "格挡后生成1/2张三明治入塔。",
+      "recommendation": "加强真实生成卡短亮即可；升级两张共享一次出生光。"
+    },
+    {
+      "class": "KarenNoHesitate",
+      "title": "不再犹豫",
+      "path": "src/Core/Models/Cards/promisePile/KarenNoHesitate.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "1210567ea3bae5116750d2713532a333a05500b11638db05b57c14ea60c1186f",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "选择手牌/抽牌/弃牌来源，再选牌入塔，空虚时来源减少。",
+      "recommendation": "来源选项保持简洁；选中后复用入塔家族，并按实际模式更新锚点。"
+    },
+    {
+      "class": "KarenOnStage",
+      "title": "命运与本能",
+      "path": "src/Core/Models/Cards/promisePile/KarenOnStage.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "387d0172c7cbba36691e1ff22ed6590636871c90a644579591076b8a367e98c8",
+      "vfx": [
+        "NKarenStageCueVfx"
+      ],
+      "promise_calls": [
+        "Draw"
+      ],
+      "priority": "P2",
+      "current": "双人短演出，逐张取塔牌，最后确认能量。",
+      "recommendation": "保留逐张取回与能量分开确认；取牌批次共用准备，末张和能量到达后统一收尾。"
+    },
+    {
+      "class": "KarenOpenUpStars",
+      "title": "开拓星辰",
+      "path": "src/Core/Models/Cards/promisePile/KarenOpenUpStars.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "e033282e96bb6f93e9d1834be51b66e2bef24db3e61929cfe8d111bf60d12013",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "入塔施加群体虚弱，出塔施加群体易伤。",
+      "recommendation": "只在对应Hook成功后给目标图标小脉冲；入/出方向色区分，避免打出时提前演出。"
+    },
+    {
+      "class": "KarenOurPromise",
+      "title": "我们的约定",
+      "path": "src/Core/Models/Cards/promisePile/KarenOurPromise.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "6d36ce605b5dbf1b8cfecad07963682adafdcfc148e3e36a7d8b6fa3e0d6f732",
+      "vfx": [],
+      "promise_calls": [
+        "AddFromHand"
+      ],
+      "priority": "P2",
+      "current": "抽3/4张，再选2张入塔。",
+      "recommendation": "共享抽牌/选择的背景层；升级后让实际新增卡进入原生选择，不另复制装饰卡面。"
+    },
+    {
+      "class": "KarenPastAndFuture",
+      "title": "过去与未来",
+      "path": "src/Core/Models/Cards/promisePile/KarenPastAndFuture.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Power",
+      "source_sha256": "b7d419c9c9820f626d647c152e2d1d214ca97ddc221087a8ee4040e1db037988",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "模式维持穿身环，临时力量及抽牌有共享表现。",
+      "recommendation": "保留已确定的右向左等大穿身环；多次触发用限量实例/同帧脉冲，位置跟随角色。"
+    },
+    {
+      "class": "KarenRapid",
+      "title": "极速下降",
+      "path": "src/Core/Models/Cards/promisePile/KarenRapid.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "d7b6e16b6c53c0f2306358276063edd717dd3e9129f84903ecff506c1008e0f6",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "保留、消耗；选择放入或取回。",
+      "recommendation": "两分支用现有入塔/回手方向表达；共用一次选择框，取消及时清除预览。"
+    },
+    {
+      "class": "KarenRevueDuet",
+      "title": "RevueDuet",
+      "path": "src/Core/Models/Cards/promisePile/KarenRevueDuet.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Attack",
+      "source_sha256": "32a353d3ac80650927d00b1aebe54c39a235dc67d70691cbcdf548bd1d3422ad",
+      "vfx": [],
+      "promise_calls": [
+        "Add"
+      ],
+      "priority": "P2",
+      "current": "0费斩击后自身入塔，排除新的一天改流。",
+      "recommendation": "按轻击家族处理；刀光结束和真实自身入塔相接，重复自动打出只保留接触与落点。"
+    },
+    {
+      "class": "KarenRun",
+      "title": "行动",
+      "path": "src/Core/Models/Cards/promisePile/KarenRun.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "ca527057b826cfcb338d9f06188bbdd86b60807fe532a36866f6347ab4ccc311",
+      "vfx": [],
+      "promise_calls": [
+        "Add"
+      ],
+      "priority": "P2",
+      "current": "抽牌后自身入塔。",
+      "recommendation": "保持即时抽牌，牌面入塔直接接原生打出卡；批量连锁共用背景光路。"
+    },
+    {
+      "class": "KarenSmallSnack",
+      "title": "Banana什锦",
+      "path": "src/Core/Models/Cards/promisePile/KarenSmallSnack.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Power",
+      "source_sha256": "079c95da44649f47b0950ba295a5981e6907e7d90724ecbc74f9362058d5db80",
+      "vfx": [
+        "NKarenBananaVfx",
+        "NKarenBenefitVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "施放临时力量；在塔回合末变成晚餐并确认生成卡。",
+      "recommendation": "保留变形源卡身份与新卡确认；多张什锦同时变化时复用锅/蒸汽模板并控制重叠。"
+    },
+    {
+      "class": "KarenStageIsWaiting",
+      "title": "舞台正在等待着",
+      "path": "src/Core/Models/Cards/promisePile/KarenStageIsWaiting.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Power",
+      "source_sha256": "6708dd29da622416b543b3f2b266d1ff80414ba6ebf35eb14921a6df57f78e42",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "Power维持幕布、牌堆状态和能量结果；收益脉冲/音已简化。",
+      "recommendation": "延续当前简化：施放保留起幕，回能只强调真实图标，静态幕布降低重绘。"
+    },
+    {
+      "class": "KarenStageReproduce",
+      "title": "命运舞台的再生产",
+      "path": "src/Core/Models/Cards/promisePile/KarenStageReproduce.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Power",
+      "source_sha256": "fe22398c5efd531234af6ed28196bae60c5bb62a635df7c13f91350a962a4f13",
+      "vfx": [
+        "KarenPromiseVfxStarManager"
+      ],
+      "promise_calls": [
+        "EnterMode"
+      ],
+      "priority": "P2",
+      "current": "进入无限增援模式后播放塔脚走灯与生成续演。",
+      "recommendation": "一次建立常驻灯组；后续补牌仅触发对应灯/星，预算随可见装饰而非累计卡数增长。"
+    },
+    {
+      "class": "KarenStretching",
+      "title": "拉伸",
+      "path": "src/Core/Models/Cards/promisePile/KarenStretching.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "4b094293a896c489e0540670c93820c55cd940203b8dd741975fc2a36c562c37",
+      "vfx": [],
+      "promise_calls": [
+        "Add"
+      ],
+      "priority": "P3",
+      "current": "格挡后自身入塔。",
+      "recommendation": "保留较稳的防御节拍；自身入塔复用共用收束，零独立全屏层。"
+    },
+    {
+      "class": "KarenTicket",
+      "title": "门票",
+      "path": "src/Core/Models/Cards/promisePile/KarenTicket.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Power",
+      "source_sha256": "9c5c2f7a416aa9769104e8573387347782d3311784ab96ab1af916839761753a",
+      "vfx": [
+        "NKarenStageCueVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "补丁起票，等待短cue后给Power；回合开始生成约定之塔。",
+      "recommendation": "保留补丁单一施放入口，回合生成只做短交接；票根到能力图标的结果保持同一节点身份。"
+    },
+    {
+      "class": "KarenUnderTower",
+      "title": "东京塔下",
+      "path": "src/Core/Models/Cards/promisePile/KarenUnderTower.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Skill",
+      "source_sha256": "fa674c655a32dd2f4e8996399406363369b80903d3f8211517d028929e6f3393",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "格挡后真实生成约定之塔入手。",
+      "recommendation": "先盾形再卡面入手即可；重用原生生成卡预览和塔主题边缘。"
+    },
+    {
+      "class": "KarenVoid",
+      "title": "世界上最空虚的人",
+      "path": "src/Core/Models/Cards/promisePile/KarenVoid.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Power",
+      "source_sha256": "5095f46b2e828327c6d1d7be43baad1f842d93fa685aafc35d3fd7eeaa37d5b2",
+      "vfx": [
+        "KarenPromiseVfxStarManager",
+        "NKarenDrawPileDestroyVfx"
+      ],
+      "promise_calls": [
+        "EnterMode"
+      ],
+      "priority": "P1",
+      "current": "删除抽牌堆、旧塔退场、约定牌批量转到抽牌堆，skipVisuals依质量档。",
+      "recommendation": "优先核查各档的真实卡面交接与完成释放；大牌堆用单次扫光、共享变形与有界装饰。"
+    },
+    {
+      "class": "KarenWeKown",
+      "title": "两人的梦想",
+      "path": "src/Core/Models/Cards/promisePile/KarenWeKnow.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Power",
+      "source_sha256": "1c9f7bd1428924577e71e1bcfd9b1ed023475ea837747b1946ecf2bd7e868a9c",
+      "vfx": [
+        "NKarenBenefitVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "梦想短演出给Power，回合末生成光辉并等待交付。",
+      "recommendation": "保留已有静音与短演出；多张光辉以同一生成批次共享星轨，完成仍核对真实模型。"
+    },
+    {
+      "class": "KarenWhosPromise",
+      "title": "双人舞",
+      "path": "src/Core/Models/Cards/promisePile/KarenWhosPromise.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Attack",
+      "source_sha256": "dde421a5f8800c536127f9f815de8b6f377aef77674b54b04acbb4ada3523936",
+      "vfx": [],
+      "promise_calls": [
+        "AddFromHand",
+        "Draw"
+      ],
+      "priority": "P2",
+      "current": "攻击→取塔牌→选手牌入塔。",
+      "recommendation": "突出一出一入的方向交换；两段复用共用轨迹材质，选择期间只留轻背景。"
+    },
+    {
+      "class": "KarenYesterglow",
+      "title": "昨日夜空",
+      "path": "src/Core/Models/Cards/promisePile/KarenYesterglow.cs",
+      "status": "pool",
+      "group": "promisePile",
+      "type": "Attack",
+      "source_sha256": "56ebdd1d90b208978c606bee8167d3df45c645b743ae6f8f7e7c666fc9b2e2be",
+      "vfx": [],
+      "promise_calls": [
+        "AddFromDiscard"
+      ],
+      "priority": "P2",
+      "current": "攻击后选择弃牌入塔，升级增加选择数量。",
+      "recommendation": "来源落在弃牌图标与选中卡面之间；升级批量共用一次起势和落点脉冲。"
+    },
+    {
+      "class": "KarenArrogant",
+      "title": "骄傲",
+      "path": "src/Core/Models/Cards/relic/KarenArrogant.cs",
+      "status": "pool",
+      "group": "relic",
+      "type": "Power",
+      "source_sha256": "84d1be65cbb576a6dc953ab858d2e838db3a78d91d98b2370336ac1c8024e981",
+      "vfx": [
+        "NKarenArrogantVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "舞台释放后按实际易伤和奖励分别确认，异常Abort。",
+      "recommendation": "保留两段真实确认；背景灯与奖励亮点分预算，和常驻舞台合成时限制大面积亮度。"
+    },
+    {
+      "class": "KarenFinancier",
+      "title": "Banana费南雪",
+      "path": "src/Core/Models/Cards/relic/KarenFinancier.cs",
+      "status": "pool",
+      "group": "relic",
+      "type": "Power",
+      "source_sha256": "b45a4a20a01c4d93be35532ee18c468c96c942ac98904992e96b5e227e27c6fc",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "力量和临时力量保留能力。",
+      "recommendation": "共用小型力量图标反馈，触发次数变化时只更新数量；保持低开销。"
+    },
+    {
+      "class": "KarenForgive",
+      "title": "\"宽恕\"",
+      "path": "src/Core/Models/Cards/relic/KarenForgive.cs",
+      "status": "inactive",
+      "group": "relic",
+      "type": "Attack",
+      "source_sha256": "1e9a1256881c9c17980d04599fef134a7a84c67d99f834b85589e7014c9e3fe9",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "暂缓",
+      "current": "暂时移出主卡池；禁用遗物后群攻。",
+      "recommendation": "复用禁用遗物吸收与群体斩击家族，恢复进池时再设计独立主题。"
+    },
+    {
+      "class": "KarenJealousy",
+      "title": "嫉妒",
+      "path": "src/Core/Models/Cards/relic/KarenJealousy.cs",
+      "status": "pool",
+      "group": "relic",
+      "type": "Attack",
+      "source_sha256": "a398a5b00583dd218f916558f048b93527908f1c377ca9847c39df4c760e6991",
+      "vfx": [
+        "NKarenJealousyVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "无攻击动画，按专属接触时点播放方形/抽取反馈，耗尽登记遗物。",
+      "recommendation": "保留当前方形冲击语言；集中优化接触层复用与耗尽标记，避免每次攻击完整演出战后奖励。"
+    },
+    {
+      "class": "KarenPassion",
+      "title": "激情",
+      "path": "src/Core/Models/Cards/relic/KarenPassion.cs",
+      "status": "pool",
+      "group": "relic",
+      "type": "Skill",
+      "source_sha256": "45ea2a9f610b1654b605c34dbeaee335e4f95847278962b36f3fce5e41122707",
+      "vfx": [
+        "NKarenPassionCardVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "施放粒子后登记遗物，能力获得另有确认。",
+      "recommendation": "保留两段独立生命周期与每玩家上限；共享材质，收益只在真实确认时强调。"
+    },
+    {
+      "class": "KarenPickStar",
+      "title": "摘星",
+      "path": "src/Core/Models/Cards/relic/KarenPickStar.cs",
+      "status": "pool",
+      "group": "relic",
+      "type": "Skill",
+      "source_sha256": "ad651d2f44cbb955f59b0ffe44084d83e693e7e50b33125931b019c2b3763ca1",
+      "vfx": [
+        "NDisableRelicAbsorbVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "遗物禁用吸收落到能量图标，再实际回能。",
+      "recommendation": "按整个禁用批次共享吸收准备，能量显示以实际增量为准；使用当前图标锚点。"
+    },
+    {
+      "class": "KarenShinePrice",
+      "title": "双星",
+      "path": "src/Core/Models/Cards/relic/KarenShinePrice.cs",
+      "status": "pool",
+      "group": "relic",
+      "type": "Attack",
+      "source_sha256": "e3faca483de5be04a050292bcfefb7ebe33747364f20ca14d85b857403adcb25",
+      "vfx": [
+        "NDisableRelicAbsorbVfx",
+        "NKarenTwinStarsVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "X个遗物形成成对双星，逐次真实命中发射，BeforeDamage等接触。",
+      "recommendation": "保留成对节拍和局部接触；高X限制同时尾迹/星对缓存，远端用实际目标附近的回退锚点。"
+    },
+    {
+      "class": "KarenStarCrime",
+      "title": "星罪",
+      "path": "src/Core/Models/Cards/relic/KarenStarCrime.cs",
+      "status": "pool",
+      "group": "relic",
+      "type": "Skill",
+      "source_sha256": "2113305fdfeb7e7e67da33c1fee11114423fe0920f0519f3f269f5d1419eae00",
+      "vfx": [
+        "NDisableRelicAbsorbVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "遗物吸收落抽牌图标，再实际抽3张。",
+      "recommendation": "抽牌批次共用吸收和落点，先图标接触再抽牌；保持真实卡面交接。"
+    },
+    {
+      "class": "KarenCarryingGuilt",
+      "title": "我们犯下的罪过",
+      "path": "src/Core/Models/Cards/shine/KarenCarryingGuilt.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Attack",
+      "source_sha256": "01d7fdc92f24f845cea8c5e7e72b95e90ce4302d670d1869117f5f6698081fed",
+      "vfx": [
+        "NKarenStageLightImpactVfx",
+        "NKarenStageLightVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "目标悬停聚焦、舞台灯、按既定时间命中。",
+      "recommendation": "保留分轮灯与悬停语言；缓存固定灯几何，目标变形更新锚点，重播共享聚焦层。"
+    },
+    {
+      "class": "KarenChargeStrike",
+      "title": "蓄力打击",
+      "path": "src/Core/Models/Cards/shine/KarenChargeStrike.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Attack",
+      "source_sha256": "16a6c51df1ebeead4cf0fdfe138fe65a66723d2004f833251fcc4605c25dd452",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "原生单击后给敌方临时减力量。",
+      "recommendation": "轻型蓄力亮芯与末端图标确认共用攻击家族；前摇保持短，别把每次重播都做满起势。"
+    },
+    {
+      "class": "KarenContinue02",
+      "title": "永无结束的命运舞台",
+      "path": "src/Core/Models/Cards/shine/KarenContinue02.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Attack",
+      "source_sha256": "286a656bbebd1b4e2269fc6b7da6bc677c24293da66f2730329bb2352e242548",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "无限升级成长，原生斩击，闪耀与降级逻辑已有专门处理。",
+      "recommendation": "根据伤害/升级做封顶的宽度与亮度映射；高数值仍保持单个短接触。"
+    },
+    {
+      "class": "KarenDebut",
+      "title": "出场",
+      "path": "src/Core/Models/Cards/shine/KarenDebut.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Attack",
+      "source_sha256": "44a74818b489380d1c45fd9b9c66690bdc9432a130c73c8c1aa6913d64162db5",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "全敌3/4击，原生逐击斩击。",
+      "recommendation": "核对多段是否重复起势；一份群攻准备配逐击局部刀光，末击收束更清楚。"
+    },
+    {
+      "class": "KarenDrinkWater",
+      "title": "水分补充",
+      "path": "src/Core/Models/Cards/shine/KarenDrinkWater.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Skill",
+      "source_sha256": "72e392df7b18f0c95cc95cde0460daa9f12182008c613dc1959e8e7a6a910cae",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "施加1层缓冲，闪耀3，消耗。",
+      "recommendation": "保留原生护罩和闪耀卡缘；可补短弧面但不增加规则等待。"
+    },
+    {
+      "class": "KarenDropFuel",
+      "title": "投下燃料",
+      "path": "src/Core/Models/Cards/shine/KarenDropFuel.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Skill",
+      "source_sha256": "a9e33a5dd0d2bd25e98443ee4980cac92b30f3a05d4ae5e4c39929daa57e991b",
+      "vfx": [
+        "NKarenDropFuelVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P1",
+      "current": "卡面蓄势/点燃后等0.8秒给抽牌和能量，普通/Fast同拍。",
+      "recommendation": "保留当前已定节拍作为基线；先核查重播、关闭档和主客机等待策略，再压缩可独立缩短的尾部。"
+    },
+    {
+      "class": "KarenFightRelay",
+      "title": "歌唱吧舞蹈吧互相争斗吧",
+      "path": "src/Core/Models/Cards/shine/KarenFightRelay.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Skill",
+      "source_sha256": "e2e515fc7bf9b725dacda87995c4ebc3af86bb7de32039d87f6c1b71053804a6",
+      "vfx": [
+        "NKarenFightRelayVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "联机传递真实卡副本后播放传递线，末次耗尽登记奖励。",
+      "recommendation": "保留每传出者重叠限制和本地发声；重点看多个参与者同帧的HUD线条遮挡与真实接收者锚点。"
+    },
+    {
+      "class": "KarenNonon",
+      "title": "NONNON哒哟",
+      "path": "src/Core/Models/Cards/shine/KarenNonon.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Attack",
+      "source_sha256": "4105e0e0b2bd4a50b0cb25e71821870477441040e3edf2046b326c08a025b3fc",
+      "vfx": [
+        "NKarenNononVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "0.66秒大横斩一次群攻，再群体临时减力量。",
+      "recommendation": "保留大横斩主形；敌人数增加只添加局部命中/图标确认，大面积光幕只保留一份。"
+    },
+    {
+      "class": "KarenPotato",
+      "title": "土豆",
+      "path": "src/Core/Models/Cards/shine/KarenPotato.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Skill",
+      "source_sha256": "93ba2675ce05ada0dbfa6462c563c571e8145b5aacc1d6544219ab669ba16e4c",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "真实治疗，闪耀3。",
+      "recommendation": "使用原生治疗数字与短暖光即可；满血时按实际治疗量收束。"
+    },
+    {
+      "class": "KarenPractice",
+      "title": "武术练习",
+      "path": "src/Core/Models/Cards/shine/KarenPractice.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Skill",
+      "source_sha256": "5375d2549b99f1d0f55bdb87c975c00fde27861932bdb861d8a3dac1c0fc21a1",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "格挡；闪耀耗尽时治疗。",
+      "recommendation": "常规打出保持轻盾形，耗尽治疗共用回血确认，分开表达两种发生时点。"
+    },
+    {
+      "class": "KarenPractice2",
+      "title": "舞蹈练习",
+      "path": "src/Core/Models/Cards/shine/KarenPractice2.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Skill",
+      "source_sha256": "ba1850181695f01a56976b712ef933e07e6ff617c21d245f3c3b1127aa2e0207",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "全牌剩余闪耀总量换算格挡。",
+      "recommendation": "保留原生格挡；可从闪耀计数做一次汇聚至盾形，粒子数量封顶，避免逐牌建节点。"
+    },
+    {
+      "class": "KarenPractice3",
+      "title": "体操练习",
+      "path": "src/Core/Models/Cards/shine/KarenPractice3.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Skill",
+      "source_sha256": "d7dc84b9546f8e05eb3c29bfab613d7d83dce6c3dea0114a14e3ce951ef157a5",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "较高格挡，闪耀9。",
+      "recommendation": "与武术练习共用盾形模板，通过大小/包络区分，装饰预算封顶。"
+    },
+    {
+      "class": "KarenReady",
+      "title": "准备完成",
+      "path": "src/Core/Models/Cards/shine/KarenReady.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Skill",
+      "source_sha256": "154b9fc89a98db1d2f487d4d41ad58595695e2189311218183ce980a2ff618ea",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "力量后抽1张，闪耀6。",
+      "recommendation": "用单次能力图标和真实卡面确认；保留0费牌的即时感。"
+    },
+    {
+      "class": "KarenRewrite",
+      "title": "续写",
+      "path": "src/Core/Models/Cards/shine/KarenRewrite.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Attack",
+      "source_sha256": "d7fabb71afac1e079d8672e82e88a505c00f9aeb07f6393c63d1be3eb538d112",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P1",
+      "current": "原生攻击后按三角数量克隆并自动打出耗尽区同名牌。",
+      "recommendation": "连锁内复用轻击材质、一次准备与有界尾迹；克隆/击数维持规则，优先观察大n峰值。"
+    },
+    {
+      "class": "KarenShineStrikeBarrage",
+      "title": "用你的闪耀贯穿我吧",
+      "path": "src/Core/Models/Cards/shine/KarenShineStrikeBarrage.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Attack",
+      "source_sha256": "cc2f4840530d6c487ecfda9c7ec6d82a587b0bcbfb4364adde21339ce2b34847",
+      "vfx": [
+        "NKarenShineBarrageVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "一次准备、4/5次贯穿，0.12秒击间隔，finally完成。",
+      "recommendation": "保留真实逐击和穿过完整目标边界；减少每击散点/材质分配，末击增强一次。"
+    },
+    {
+      "class": "KarenShineTogether",
+      "title": "永不遗忘的闪耀",
+      "path": "src/Core/Models/Cards/shine/KarenShineTogether.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Attack",
+      "source_sha256": "1a2c68632e7b554340084d4e861b7d8bbc2829ef13ae79aa9224d1e922695ef4",
+      "vfx": [
+        "NKarenUnforgottenShineVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P1",
+      "current": "命中留下战斗常驻伤痕，CanvasGroup统一透明度，耗尽登记奖励。",
+      "recommendation": "给每目标/全战斗保留伤痕设上限，复用Sprite或淘汰旧痕；位置邻居查询改为有界集合。"
+    },
+    {
+      "class": "KarenShineTogetherAll",
+      "title": "一起闪耀吧",
+      "path": "src/Core/Models/Cards/shine/KarenShineTogetherAll.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Power",
+      "source_sha256": "bf71ff33b017c582d0db56381c78542ca176b908caf897c9c0dd73a307b131e4",
+      "vfx": [
+        "NKarenBenefitVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "联机收益短演出，逐个真实玩家登记闪耀奖励。",
+      "recommendation": "共享施放层；每接收者只做对应确认点，保持静音约定与去重。"
+    },
+    {
+      "class": "KarenStar",
+      "title": "星光闪耀之时",
+      "path": "src/Core/Models/Cards/shine/KarenStar.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Skill",
+      "source_sha256": "d3545776057717ffb728870394705dd3c13868884d6008d7e8ff1599a909bc9a",
+      "vfx": [
+        "NKarenStarVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P1",
+      "current": "聚集后自动重播唯一闪耀牌，按真实CardPlay发脉冲，最后确认奖励。",
+      "recommendation": "整串共用当前Playback；限制脉冲/装饰重叠，并让目标查询在发现第二张时提前结束。"
+    },
+    {
+      "class": "KarenStarFriend",
+      "title": "星星串起了我们的友谊",
+      "path": "src/Core/Models/Cards/shine/KarenStarFriend.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Attack",
+      "source_sha256": "5bcd0ff04dafd0f81d8013d444169338dd0e667f583617b91abca37bac09672e",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "原生单击，真正致命时才登记闪耀奖励。",
+      "recommendation": "加入短小致命星光确认，挂实际WasTargetKilled结果；普通击保持轻量。"
+    },
+    {
+      "class": "KarenStarGuide",
+      "title": "星光指引",
+      "path": "src/Core/Models/Cards/shine/KarenStarGuide.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Skill",
+      "source_sha256": "1481efe6018cbf97575a7f99414dd17658ec1ccda4d20d663c06ab3ca7d0fe38",
+      "vfx": [
+        "NKarenStarGuideVfx"
+      ],
+      "promise_calls": [
+        "Add"
+      ],
+      "priority": "P1",
+      "current": "收集手/抽/弃中的闪耀牌，定制收束后批量入塔并刷新数量。",
+      "recommendation": "优先核对批量真实卡面和skipVisuals路径；统一轨迹缓冲，装饰采样有界，保持每模型一颗库存星。"
+    },
+    {
+      "class": "KarenStarlight02Card",
+      "title": "Starlight第二幕",
+      "path": "src/Core/Models/Cards/shine/KarenStarlight02Card.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Power",
+      "source_sha256": "2d41cc33c15cfa6183c16cc9e18088351f312026deb04d57f962112a109a15bc",
+      "vfx": [
+        "NKarenStageCueVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "施放短演出与Power确认；KarenStarlightStage持有整次闪耀牌出牌舞台。",
+      "recommendation": "沿用整次任务持有；只优化持有期重绘和顶点复用，保留重播/耗尽后的最后释放。"
+    },
+    {
+      "class": "KarenStarlight03Card",
+      "title": "Starlight第三幕",
+      "path": "src/Core/Models/Cards/shine/KarenStarlight03Card.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Power",
+      "source_sha256": "aa47ff0eef68bffd16c5c7f49bd522024aae9d22e6d55aee39a20651025950db",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "直接登记闪耀牌奖励，当前无长专属演出。",
+      "recommendation": "共用奖励图标短确认即可；与第一/二幕用结果形状区分。"
+    },
+    {
+      "class": "KarenStarlightCard",
+      "title": "Starlight第一幕",
+      "path": "src/Core/Models/Cards/shine/KarenStarlightCard.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Power",
+      "source_sha256": "58dedd047dcbc3d578d45c7652d2e68e59d452577d651c906be3f91727a25bd0",
+      "vfx": [
+        "NKarenStageCueVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "第一幕短星轨给Power；打闪耀牌后确认真实抽牌。",
+      "recommendation": "保留七星半圆与静音；抽多张共用主轨，单张只增加终点确认。"
+    },
+    {
+      "class": "KarenSunlight",
+      "title": "耀眼的阳光",
+      "path": "src/Core/Models/Cards/shine/KarenSunlight.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Attack",
+      "source_sha256": "7149c4c726d550bf4586e0b1f0edc6604f3a8318d96acc662ba04ab97218cf93",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "原生斩击；耗尽后按战斗状态选择回牌组或登记奖励。",
+      "recommendation": "优化耗尽→选择→真实回牌组的衔接；保留原生选择，复用小型结果确认。"
+    },
+    {
+      "class": "KarenSwordUp",
+      "title": "上挑",
+      "path": "src/Core/Models/Cards/shine/KarenSwordUp.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Attack",
+      "source_sha256": "347d1546b62834fa081cd81e1996efa9c8e449a139c3523d4ae85621d20791ce",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "原生单击后虚弱和易伤。",
+      "recommendation": "一条向上挑击主形，两个减益只脉冲真实图标；复用小刀光材质。"
+    },
+    {
+      "class": "KarenToTheStage",
+      "title": "迈向那个舞台",
+      "path": "src/Core/Models/Cards/shine/KarenToTheStage.cs",
+      "status": "pool",
+      "group": "shine",
+      "type": "Skill",
+      "source_sha256": "0587b126cbeeed4f86447655b81cf35fa0c9eda17c1f1880fd0c2171f06613ba",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "回能3，升级再抽1张，闪耀3。",
+      "recommendation": "保留快节奏回能；升级抽牌从能量落点自然接原生卡面，不新增固定等待。"
+    },
+    {
+      "class": "KarenBananaMuffin",
+      "title": "Banana松饼",
+      "path": "src/Core/Models/Cards/strength/KarenBananaMuffin.cs",
+      "status": "pool",
+      "group": "strength",
+      "type": "Skill",
+      "source_sha256": "6b9375da1058f859574d47aa899576a9f183b19efc9243875fa329396a86d53c",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "临时力量后抽牌，原生能力/抽牌反馈。",
+      "recommendation": "保持即时；可共用小型力量图标确认，临时与永久收益用颜色/寿命区分。"
+    },
+    {
+      "class": "KarenEatTogether",
+      "title": "一起吃饭吧",
+      "path": "src/Core/Models/Cards/strength/KarenEatTogether.cs",
+      "status": "pool",
+      "group": "strength",
+      "type": "Skill",
+      "source_sha256": "113968a12d5d38b6fd38bb975ed992f57d3a7a13e988b4c2bc631886f624a92a",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "临时力量和保留临时力量两个能力。",
+      "recommendation": "复用能力图标脉冲；把两个确认合成同次短动作，保持两个规则施加入口。"
+    },
+    {
+      "class": "KarenBanana",
+      "title": "banana晚餐",
+      "path": "src/Core/Models/Cards/token/KarenBanana.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Power",
+      "source_sha256": "f140addefc2cceda8c75938f890ac24e5baccdcf862bae6e899d897a17cc9751",
+      "vfx": [
+        "NKarenBananaVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "晚餐演出后永久力量，按真实增量确认。",
+      "recommendation": "和什锦共用美术/材质，通过结尾持久亮点区分永久收益，保留现有晚餐音。"
+    },
+    {
+      "class": "KarenConfront",
+      "title": "对峙",
+      "path": "src/Core/Models/Cards/token/KarenConfront.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Attack",
+      "source_sha256": "d6f08011ff9399eb3c88cdadb96cc07ca37db4ba48c7261eef8e53dfde6c0762",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "单敌3/4击原生斩击，消耗。",
+      "recommendation": "一份短准备配三拍接触，与勇气打击生成链共用主题资源。"
+    },
+    {
+      "class": "KarenContinue",
+      "title": "续演",
+      "path": "src/Core/Models/Cards/token/KarenContinue.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Attack",
+      "source_sha256": "0c39714d8592a6e2bc324e2c340c4ece95b6d935c3590c95fdc384acc467e5eb",
+      "vfx": [
+        "NKarenContinueVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P1",
+      "current": "每次命中实例化原生飞刀并复制多份粒子材质、添加火屑。",
+      "recommendation": "高频自动打出优先复用不可变材质和粒子模板；按低档/连锁预算保留刀体与接触。"
+    },
+    {
+      "class": "KarenCounter",
+      "title": "回击",
+      "path": "src/Core/Models/Cards/token/KarenCounter.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Attack",
+      "source_sha256": "e7ee231c4f6941a7c3967f2a36f191f2bd172c34b292621c9843c3e68265e6d0",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "全敌固定3击原生斩击，消耗。",
+      "recommendation": "共用群攻起势与逐击局部反馈；敌人多时限制同时散点，原生击数保留。"
+    },
+    {
+      "class": "KarenEmptyShell",
+      "title": "空壳",
+      "path": "src/Core/Models/Cards/token/KarenEmptyShell.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "33e9ac6da1bde3e78b95fc80f5c4fd5caeb05d63278885d5d24e4f58c2d2c45c",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "0费消耗占位牌，无额外OnPlay效果。",
+      "recommendation": "保留简洁卡面和原生消耗；使用静态低亮轮廓区分占位。"
+    },
+    {
+      "class": "KarenSandwitch",
+      "title": "三明治",
+      "path": "src/Core/Models/Cards/token/KarenSandwitch.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "0b1a7fb8c34b7219e712e1457453917a562a7b3f73fa5a3e9d8b32a65c78f315",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "施加临时力量后消耗。",
+      "recommendation": "共用力量图标短确认，和晚餐用短寿命/图标区分。"
+    },
+    {
+      "class": "KarenShineReproduce",
+      "title": "闪耀的再生产",
+      "path": "src/Core/Models/Cards/token/KarenShineReproduce.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "c60da9a44913e76271e0926fb01ce1900d903dbf72d6683abe1bae400be5bb89",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "克隆耗尽区候选供选择，再生成牌组副本与手牌。",
+      "recommendation": "复用选择与生成卡表现；候选网格只用静态卡缘，选定后的真实双去向分开确认。"
+    },
+    {
+      "class": "KarenSideways",
+      "title": "侧身",
+      "path": "src/Core/Models/Cards/token/KarenSideways.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "74c5a0e8580f7b062af1c5313236729cc2f801513bf36b030e0f4e50b8f084b3",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "0费格挡6/12后消耗。",
+      "recommendation": "保留即时盾形；作为轻防御模板，避免为生成牌额外起幕。"
+    },
+    {
+      "class": "KarenTowerOfPromise",
+      "title": "约定之塔",
+      "path": "src/Core/Models/Cards/token/KarenTowerOfPromise.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "a93acc90899319fca1a5449a6364f9fd6d1a6f2deb73350010ce0456839cd8be",
+      "vfx": [
+        "KarenPromiseVfxStarManager"
+      ],
+      "promise_calls": [
+        "DrawToFullHand"
+      ],
+      "priority": "P1",
+      "current": "塔回收作用域，能抽时固定Fast0.18/普通0.48秒，再补满手牌。",
+      "recommendation": "保留整批一次塔起势；降低大批量拖尾开销，核对满手/空塔/关闭档的统一等待与交接。"
+    },
+    {
+      "class": "KarenWeKownToken",
+      "title": "光辉",
+      "path": "src/Core/Models/Cards/token/KarenWeKonwToken.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "02d23bb92ba9dd49608a83cb2cc71f04e5e5386486b917f059973d184f822d37",
+      "vfx": [
+        "NKarenBenefitVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "光辉演出回能，确认增量后等待能量离开卡面。",
+      "recommendation": "保留真实卡面身份交接；多次光辉共用回能材质、减少尾部重叠，保持当前静音。"
+    },
+    {
+      "class": "KarenAwakePotionDiscardPileOption",
+      "title": "弃牌堆",
+      "path": "src/Core/Models/Cards/token/options/KarenAwakePotionDiscardPileOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "23f4206cc524b70eb817a871e934235313c792312635f4fbd2755c29ce490bdc",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "药水弃牌堆选择动作。",
+      "recommendation": "复用药水选择和真实归手；本选项保持静态图标/名称。"
+    },
+    {
+      "class": "KarenAwakePotionDrawPileOption",
+      "title": "抽牌堆",
+      "path": "src/Core/Models/Cards/token/options/KarenAwakePotionDrawPileOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "a2148ee00f31eb6d052e8a7c425b35bbc336980afc9651471e1da96af461a2fb",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "药水抽牌堆选择动作。",
+      "recommendation": "复用抽牌堆选择，选项只保留来源区别；生成候选时共享装饰层。"
+    },
+    {
+      "class": "KarenAwakePotionPromisePileOption",
+      "title": "约定牌堆",
+      "path": "src/Core/Models/Cards/token/options/KarenAwakePotionPromisePileOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "0a5fd3177b08a742575f38e581339f0ecc8342cee6745d86ff19c22ee381c770",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "药水约定牌堆选择动作。",
+      "recommendation": "复用塔选牌与归手轨迹，实际模式锚点由现有命令提供。"
+    },
+    {
+      "class": "KarenNoHesitateDiscardPileOption",
+      "title": "弃牌堆",
+      "path": "src/Core/Models/Cards/token/options/KarenNoHesitateDiscardPileOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "441f96395c4c39dd061e09f8daaba720733a15e6ae155f2f5ddcd3fea9cd502d",
+      "vfx": [],
+      "promise_calls": [
+        "AddFromDiscard"
+      ],
+      "priority": "P2",
+      "current": "从弃牌堆选2/3张入塔。",
+      "recommendation": "选中真实卡面才起入塔光，批次共用尾迹材质和一次塔落点。"
+    },
+    {
+      "class": "KarenNoHesitateDrawPileOption",
+      "title": "抽牌堆",
+      "path": "src/Core/Models/Cards/token/options/KarenNoHesitateDrawPileOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "a7b22fb75c34fce4d76925f690750aacfa6109db217ac9be0774d461b4b3696f",
+      "vfx": [],
+      "promise_calls": [
+        "AddFromDraw"
+      ],
+      "priority": "P2",
+      "current": "从抽牌堆选2/3张入塔。",
+      "recommendation": "沿用原生网格；选中后用来源图标到塔的方向，保持模型身份。"
+    },
+    {
+      "class": "KarenNoHesitateHandOption",
+      "title": "手牌",
+      "path": "src/Core/Models/Cards/token/options/KarenNoHesitateHandOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "c3d4c20637dd5461cfe503bb2c78ab1f9586a85ed747bb383e77d67be35d7d41",
+      "vfx": [],
+      "promise_calls": [
+        "AddFromHand"
+      ],
+      "priority": "P2",
+      "current": "从手牌选2/3张入塔。",
+      "recommendation": "保留原生手牌选择，批量同帧共用起势，避免每张重复背景闪光。"
+    },
+    {
+      "class": "KarenOldPlaceRetainBlockOption",
+      "title": "保留格挡",
+      "path": "src/Core/Models/Cards/token/options/KarenOldPlaceRetainBlockOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "56f4d153b167297b5b93792e7fec79f1b21c70195ddfb6bc6c4311b17d839d60",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "选择后施加BlurPower保留格挡。",
+      "recommendation": "格挡图标短确认即可，复用选择结束包络。"
+    },
+    {
+      "class": "KarenOldPlaceRetainEnergyOption",
+      "title": "保留能量",
+      "path": "src/Core/Models/Cards/token/options/KarenOldPlaceRetainEnergyOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "1022a13a67ab92d8480d35489b8037ffea23bf740d104304da3da4bfd19ac728",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "选择后施加保留能量Power。",
+      "recommendation": "能量图标短确认，与实际能量增加分开表达。"
+    },
+    {
+      "class": "KarenOldPlaceRetainHandOption",
+      "title": "保留手牌",
+      "path": "src/Core/Models/Cards/token/options/KarenOldPlaceRetainHandOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "c3bf9f613383f99825875ed0a1760a4961487ff4fe7b13f8ce599cd6ca69b060",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "选择后施加保留手牌Power。",
+      "recommendation": "手牌边缘短静光即可，避免改变卡牌输入或原生高亮所有权。"
+    },
+    {
+      "class": "KarenOldPlaceRetainStrengthOption",
+      "title": "保留力量",
+      "path": "src/Core/Models/Cards/token/options/KarenOldPlaceRetainStrengthOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "60d1400124a5b10ebf0b6f1600eb7cdde74a84a1c105e324285dd74c23e5e58a",
+      "vfx": [],
+      "promise_calls": [],
+      "priority": "P3",
+      "current": "选择后施加保留临时力量Power。",
+      "recommendation": "力量能力图标短确认，复用现有临时力量主题。"
+    },
+    {
+      "class": "KarenRapidPutOption",
+      "title": "放入",
+      "path": "src/Core/Models/Cards/token/options/KarenRapidPutOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "7b2342074c70bdae0a713238eea54721363a17c16db6687d5c3b65aaf53657c4",
+      "vfx": [],
+      "promise_calls": [
+        "AddFromHand"
+      ],
+      "priority": "P2",
+      "current": "选2/3张手牌入塔。",
+      "recommendation": "复用不再犹豫手牌分支；本选项不单独新建演出系统。"
+    },
+    {
+      "class": "KarenRapidTakeOption",
+      "title": "取回",
+      "path": "src/Core/Models/Cards/token/options/KarenRapidTakeOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "66c73166f1acdf54417f5a417e360568a7dd75c1822b26f08b7519743094ec36",
+      "vfx": [],
+      "promise_calls": [
+        "SelectedToHand"
+      ],
+      "priority": "P2",
+      "current": "选2/3张塔牌回手。",
+      "recommendation": "复用舞动回手分支，保持同样的选中/落点表达。"
+    },
+    {
+      "class": "KarenWakeUpDiscardPileOption",
+      "title": "弃牌堆",
+      "path": "src/Core/Models/Cards/token/options/KarenWakeUpDiscardPileOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "40dd6180de4fb07476223990a7202fd7ff2fe430558d7ef223d214170124fa3c",
+      "vfx": [
+        "NKarenWakeUpCardVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "弃牌堆选2张，Observe真实回手。",
+      "recommendation": "沿用父级幕帘；选中后共用归手尾迹，输入结束立即放开背景持有。"
+    },
+    {
+      "class": "KarenWakeUpDrawPileOption",
+      "title": "抽牌堆",
+      "path": "src/Core/Models/Cards/token/options/KarenWakeUpDrawPileOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "d467c5a6dcb3b7f315f491c39745e690c5786c3938964c25a6ec1859f2efadd7",
+      "vfx": [
+        "NKarenWakeUpCardVfx"
+      ],
+      "promise_calls": [],
+      "priority": "P2",
+      "current": "抽牌堆选2张，Observe真实回手。",
+      "recommendation": "与未升级唤醒共用全部表现；缓存布局，来源图标独立定位。"
+    },
+    {
+      "class": "KarenWakeUpPromisePileOption",
+      "title": "约定牌堆",
+      "path": "src/Core/Models/Cards/token/options/KarenWakeUpPromisePileOption.cs",
+      "status": "token",
+      "group": "token",
+      "type": "Skill",
+      "source_sha256": "e0768dc0a7c9774aeb2b709b53fe324cfafb0e15d9893a0c5ade472bb468a905",
+      "vfx": [
+        "NKarenWakeUpCardVfx"
+      ],
+      "promise_calls": [
+        "SelectedToHand"
+      ],
+      "priority": "P2",
+      "current": "约定牌堆选2张，Observe真实回手。",
+      "recommendation": "保留塔库存星到真实卡面的交接，空虚模式复用正确来源锚点。"
+    }
+  ],
+  "follow_up_requirement": "基础攻击与基础防御也要有自己的实现；第一批五张入门牌采用专属设计。"
+}

@@ -1,0 +1,45 @@
+{
+  "alphaThreshold": 128,
+  "panels": [
+    {
+      "key": "batch4-a-upper-pentagon",
+      "label": "上尖五边",
+      "sourceDimensions": "1254x1254",
+      "visibleWidth": 1026,
+      "visibleHeight": 998,
+      "visibleAspect": 1.0281,
+      "transparentPixels": 843673,
+      "nearSquare": true
+    },
+    {
+      "key": "batch4-b-lower-pentagon",
+      "label": "下尖五边",
+      "sourceDimensions": "1254x1254",
+      "visibleWidth": 1060,
+      "visibleHeight": 1014,
+      "visibleAspect": 1.0454,
+      "transparentPixels": 823106,
+      "nearSquare": true
+    },
+    {
+      "key": "batch4-c-arc-triangle",
+      "label": "弧边三角",
+      "sourceDimensions": "1254x1254",
+      "visibleWidth": 1046,
+      "visibleHeight": 1039,
+      "visibleAspect": 1.0067,
+      "transparentPixels": 788733,
+      "nearSquare": true
+    },
+    {
+      "key": "batch4-d-truncated-triangle",
+      "label": "三向切角",
+      "sourceDimensions": "1254x1254",
+      "visibleWidth": 899,
+      "visibleHeight": 850,
+      "visibleAspect": 1.0576,
+      "transparentPixels": 1018772,
+      "nearSquare": true
+    }
+  ]
+}

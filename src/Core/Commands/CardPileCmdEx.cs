@@ -27,12 +27,15 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
         /// <param name="ctx">玩家选择上下文</param>
         /// <param name="player">玩家</param>
         /// <param name="count">选择数量</param>
+        /// <param name="beforeMove">选择完成后的同步表现回调，不增加选牌等待。</param>
         /// <returns></returns>
-        public static async Task SelectFromDrawPileToHand(PlayerChoiceContext ctx, Player player, int count)
+        public static async Task SelectFromDrawPileToHand(PlayerChoiceContext ctx, Player player, int count,
+            Action<IEnumerable<CardModel>>? beforeMove = null)
         {
             var pile = PileType.Draw.GetPile(player);
             var selectFrom = (from c in pile.Cards orderby c.Rarity, c.Id select c).ToList();
-            IEnumerable<CardModel> selected = await CardSelectCmd.FromSimpleGrid(ctx, selectFrom, player, new CardSelectorPrefs(Tips.SelectFromDrawToHand, count));
+            var selected = (await CardSelectCmd.FromSimpleGrid(ctx, selectFrom, player, new CardSelectorPrefs(Tips.SelectFromDrawToHand, count))).ToList();
+            beforeMove?.Invoke(selected);
             await CardPileCmd.Add(selected, PileType.Hand);
         }
 
@@ -42,19 +45,22 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
         /// <param name="ctx">玩家选择上下文</param>
         /// <param name="player">玩家</param>
         /// <param name="count">选择数量</param>
+        /// <param name="beforeMove">选择完成后的同步表现回调，不增加选牌等待。</param>
         /// <returns></returns>
-        public static async Task SelectFromDiscardPileToHand(PlayerChoiceContext ctx, Player player, int count)
+        public static async Task SelectFromDiscardPileToHand(PlayerChoiceContext ctx, Player player, int count,
+            Action<IEnumerable<CardModel>>? beforeMove = null)
         {
             var pile = PileType.Discard.GetPile(player);
             var selectFrom = (from c in pile.Cards orderby c.Rarity, c.Id select c).ToList();
-            IEnumerable<CardModel> selected = await CardSelectCmd.FromSimpleGrid(ctx, selectFrom, player, new CardSelectorPrefs(Tips.SelectFromDiscardToHand, count));
+            var selected = (await CardSelectCmd.FromSimpleGrid(ctx, selectFrom, player, new CardSelectorPrefs(Tips.SelectFromDiscardToHand, count))).ToList();
+            beforeMove?.Invoke(selected);
             await CardPileCmd.Add(selected, PileType.Hand);
         }
 
         /// <summary>
         /// 从多个选项卡牌中选择一项执行对应DoOption方法
         /// </summary>
-        public static async Task SelectOption(PlayerChoiceContext ctx, CardPlay cardPlay, Player player, CombatState combatState, List<CardModel> options, bool upgrade = false)
+        public static async Task SelectOption(PlayerChoiceContext ctx, CardPlay cardPlay, Player player, ICombatState combatState, List<CardModel> options, bool upgrade = false)
         {
             var cards = CardUtils.CreateTokens(player, combatState, options, upgrade);
 

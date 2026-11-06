@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -30,7 +30,7 @@ public sealed class KarenSandwitch : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KarenSandwitchTempStrengthPower>(
+        await PowerCmd.Apply<KarenSandwitchTempStrengthPower>(choiceContext, 
             Owner.Creature,
             DynamicVars[nameof(StrengthPower)].BaseValue,
             Owner.Creature,

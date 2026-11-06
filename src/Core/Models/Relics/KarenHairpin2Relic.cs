@@ -30,14 +30,14 @@ public sealed class KarenHairpin2Relic : RelicModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<KarenTowerOfPromise>(true)];
 
-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
         if (player == base.Owner && combatState.RoundNumber == 1)
         {
             Flash();
             var card = combatState.CreateCard<KarenTowerOfPromise>(Owner);
             card.UpgradeInternal();
-            await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, true);
+            await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, player);
         }
     }
 }

@@ -1,0 +1,6 @@
+{
+  "status": "ok",
+  "message": "{\"modelCount\":4,\"visualCount\":4,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_WAKE_UP\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+  "command": "karen_check_hand",
+  "async": false
+}

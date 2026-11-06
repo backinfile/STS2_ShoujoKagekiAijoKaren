@@ -74,7 +74,7 @@ public static class PromisePileCmd
 
 
 
-    public static async Task AddToken<T>(Player player, CombatState combatState, int cnt = 1) where T : CardModel
+    public static async Task AddToken<T>(Player player, ICombatState combatState, int cnt = 1) where T : CardModel
     {
         //MainFile.Logger.Info($"Adding {cnt} token(s) of type {typeof(T).Name} to promise pile for player {player.Creature.Name}");
         //if (CombatManager.Instance.IsOverOrEnding) return;
@@ -84,7 +84,7 @@ public static class PromisePileCmd
             var card = combatState.CreateCard<T>(player);
             cards.Add(card);
         }
-        await CardPileCmd.AddGeneratedCardsToCombat(cards, KarenCustomEnum.PromisePile, true);
+        await CardPileCmd.AddGeneratedCardsToCombat(cards, KarenCustomEnum.PromisePile, player);
     }
 
     /// <summary>
@@ -125,11 +125,10 @@ public static class PromisePileCmd
     /// <returns></returns>
     public static async Task DrawToFullHand(PlayerChoiceContext choiceContext, Player player)
     {
-        while (true)
+        while (player.PlayerCombatState != null && !CombatManager.Instance.IsOverOrEnding
+               && !PlayerUtils.IsHandFull(player))
         {
-            if (PlayerUtils.IsHandFull(player)) break;
-            var drawn = await Draw(choiceContext, player);
-            if (drawn == null) break; // 抽不到更多的牌了
+            if (await Draw(choiceContext, player) == null) break;
         }
     }
 
@@ -137,18 +136,25 @@ public static class PromisePileCmd
     /// 从约定牌堆中选择count 张牌加入手牌。
     /// Void 模式下改为从抽牌堆中选择加入手牌。
     /// </summary>
-    public static async Task SelectedToHand(PlayerChoiceContext ctx, Player player, int count)
+    public static async Task SelectedToHand(PlayerChoiceContext ctx, Player player, int count,
+        Action<IEnumerable<CardModel>>? beforeMove = null)
     {
         if (IsVoidMode(player))
         {
-            await CardPileCmdEx.SelectFromDrawPileToHand(ctx, player, count);
+            await CardPileCmdEx.SelectFromDrawPileToHand(ctx, player, count, beforeMove);
             return;
         }
 
         // 无限模式直接改为抽牌，不需要选择
         if (IsInfiniteMode(player))
         {
-            await Draw(ctx, player, count);
+            for (int i = 0; i < count; i++)
+            {
+                // Replenishment may replace the next card after each draw.
+                var next = PromisePileManager.GetPromisePile(player).Cards.FirstOrDefault();
+                if (next != null) beforeMove?.Invoke([next]);
+                if (await Draw(ctx, player) == null) break;
+            }
             return;
         }
 
@@ -162,6 +168,8 @@ public static class PromisePileCmd
 
         var selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
         if (selected == null) return;
+        selected = selected.ToList();
+        beforeMove?.Invoke(selected);
 
         foreach (var card in selected)
         {
@@ -210,17 +218,16 @@ public static class PromisePileCmd
     /// Void 模式下改为放入抽牌堆顶部。
     /// optional:true表示可选0~count张牌
     /// </summary>
-    public static async Task AddFromHand(PlayerChoiceContext ctx, Player player, int count, AbstractModel source, bool optional = false)
+    public static async Task<IReadOnlyList<CardModel>> AddFromHand(PlayerChoiceContext ctx, Player player, int count, AbstractModel source, bool optional = false)
     {
         var prompt = Tips.PromisePileSelectFromHand;
         if (IsVoidMode(player))
         {
             // Void 模式：从手牌选牌放入抽牌堆顶部
-            await AddFromPileToDrawPile(ctx, player, PileType.Hand, count, prompt, source, optional);
-            return;
+            return await AddFromPileToDrawPile(ctx, player, PileType.Hand, count, prompt, source, optional);
         }
 
-        await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Hand, count, prompt, source, optional);
+        return await PromisePileManager.AddFromPileAsync(ctx, player, PileType.Hand, count, prompt, source, optional);
     }
 
     /// <summary>
@@ -280,12 +287,12 @@ public static class PromisePileCmd
     /// Void 模式专用：从指定牌堆选牌放入抽牌堆
     /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择
     /// </summary>
-    private static async Task AddFromPileToDrawPile(
+    private static async Task<IReadOnlyList<CardModel>> AddFromPileToDrawPile(
         PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt, AbstractModel? source = null, bool optional = false)
     {
         var cardPile = pileType.GetPile(player);
         var cards = cardPile.Cards.ToList();
-        if (cards.Count == 0) return;
+        if (cards.Count == 0) return [];
 
         int selectCount = System.Math.Min(count, cards.Count);
         var prefs = new CardSelectorPrefs(prompt, optional ? 0 : selectCount, selectCount);
@@ -300,8 +307,10 @@ public static class PromisePileCmd
         {
             selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
         }
-        if (selected == null) return;
-        await CardPileCmd.Add(selected, PileType.Draw, CardPilePosition.Bottom, null, false);
+        if (selected == null) return [];
+        var moved = selected.ToArray();
+        await CardPileCmd.Add(moved, PileType.Draw, CardPilePosition.Bottom, null, false);
+        return moved;
     }
 
 
@@ -366,6 +375,29 @@ public static class PromisePileCmd
         {
             await CardCmd.AutoPlay(choiceContext, item, null);
         }
+        await PromisePileManager.UpdatePowerAsync(player);
+    }
+
+    public static async Task SelectAndAutoPlayFromPromisePile(PlayerChoiceContext choiceContext, Player player)
+    {
+        if (CombatManager.Instance.IsOverOrEnding)
+        {
+            return;
+        }
+
+        CardPile pile = IsVoidMode(player)
+            ? PileType.Draw.GetPile(player)
+            : KarenCustomEnum.PromisePile.GetPile(player);
+
+        if (pile.IsEmpty) return;
+
+        var cards = pile.Cards.ToList();
+        var prefs = new CardSelectorPrefs(Tips.SelectFromPromisePileToPlay, 1, 1);
+        var selected = (await CardSelectCmd.FromSimpleGrid(choiceContext, cards, player, prefs))?.FirstOrDefault();
+        if (selected == null) return;
+
+        await CardPileCmd.Add(selected, PileType.Play);
+        await CardCmd.AutoPlay(choiceContext, selected, null);
         await PromisePileManager.UpdatePowerAsync(player);
     }
 

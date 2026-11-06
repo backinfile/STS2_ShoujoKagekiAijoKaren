@@ -1,0 +1,44 @@
+[
+  {
+    "name": "01-watch-card",
+    "alpha_pixels_cleared": 6007,
+    "alpha_weight_removed": 51.06,
+    "rgb_unchanged": true
+  },
+  {
+    "name": "02-cookies",
+    "alpha_pixels_cleared": 0,
+    "alpha_weight_removed": 0.0,
+    "rgb_unchanged": true
+  },
+  {
+    "name": "03-little-star",
+    "alpha_pixels_cleared": 8303,
+    "alpha_weight_removed": 71.18,
+    "rgb_unchanged": true
+  },
+  {
+    "name": "04-baseball-cat",
+    "alpha_pixels_cleared": 0,
+    "alpha_weight_removed": 0.0,
+    "rgb_unchanged": true
+  },
+  {
+    "name": "05-mr-white",
+    "alpha_pixels_cleared": 0,
+    "alpha_weight_removed": 0.0,
+    "rgb_unchanged": true
+  },
+  {
+    "name": "06-star-hairclip",
+    "alpha_pixels_cleared": 12462,
+    "alpha_weight_removed": 98.77,
+    "rgb_unchanged": true
+  },
+  {
+    "name": "07-star-tiara",
+    "alpha_pixels_cleared": 0,
+    "alpha_weight_removed": 0.0,
+    "rgb_unchanged": true
+  }
+]

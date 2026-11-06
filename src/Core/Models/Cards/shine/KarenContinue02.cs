@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -16,14 +17,13 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 永无结束的命运舞台 - 1费12伤，Shine 9，可无限升级
 /// 每次升级伤害递增（+4, +5, ...）
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenContinue02 : KarenBaseCardModel
 {
     private int _upgradeCount = 0;
+    private bool _downgradeToBase;
 
-    public KarenContinue02() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenContinue02() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     public override int MaxUpgradeLevel => int.MaxValue;
 
@@ -36,10 +36,12 @@ public sealed class KarenContinue02 : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
+        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.Destiny, potency: (float)DynamicVars.Damage.BaseValue);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(show.Start)
+            .WithHitVfxNode(show.Hit)
             .Execute(choiceContext);
     }
 
@@ -51,12 +53,27 @@ public sealed class KarenContinue02 : KarenBaseCardModel
 
     protected override void AfterDowngraded()
     {
-        DynamicVars.Damage.ResetToBase();
-        _upgradeCount--;
-        for (int i = 0; i < _upgradeCount; i++)
+        // 原生已将等级和数值清零。重放剩余升级，让等级、伤害和下次成长保持一致。
+        int remaining = _downgradeToBase ? 0 : Math.Max(0, _upgradeCount - 1);
+        _upgradeCount = 0;
+        for (int i = 0; i < remaining; i++)
         {
-            DynamicVars.Damage.UpgradeValueBy(4m + i);
+            UpgradeInternal();
+            FinalizeUpgradeInternal();
         }
     }
 
+    // 查看卡牌的“未升级”预览仍需显示基础版，不是一次游戏效果降级。
+    internal void DowngradeToBaseForPreview()
+    {
+        _downgradeToBase = true;
+        try
+        {
+            CardCmd.Downgrade(this);
+        }
+        finally
+        {
+            _downgradeToBase = false;
+        }
+    }
 }

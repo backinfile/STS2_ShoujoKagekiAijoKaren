@@ -1,0 +1,104 @@
+# 待修复问题
+
+最后检查：2026-11-06 09:09（北京时间）。
+
+检查范围：华恋对局观察的玩家报错。初始基线为 129 类、3,055 次上报，事件时间为北京时间 2026-11-04 21:45 至 2026-11-05 07:16。次数按上报计；状态和调用栈用于区分问题归属。
+
+归属复核于 2026-11-06 09:20（北京时间）完成。待修复范围为华恋自身代码及其直接兼容边界。其他 Mod、通用告警、开发探针和诊断记录统一标记忽略，不处理。忽略项按指纹和调用链保留，后续遇到华恋代码中的具体失败点或正式环境复现时重新审阅。
+
+## 本次处理结果
+
+2026-11-06 在独立工作树完成三项候选的责任边界复核和定向修复。双版本单人、Karen＋Karen 同版本联机及移牌定向验证通过。完整 Mod 组合上线核验仍保留，详见本目录的 README.md。
+
+| 编号 | 优先级 | 状态 | 问题与证据 | 修复与待核验 |
+| --- | --- | --- | --- | --- |
+| OBS-009 | P1 | 源码已修复，待原组合上线核验 | 约定牌堆定位补丁访问 canonical 卡牌 Owner，涉及 Valencina 0.10.3 FutureDisposal。核心异常 3 次，指纹 `640fd06be9b9`、`7129b6433bf8`、`c7de982bf06d`。校验 525 的伴随记录 `f4dad6883af9`、`60475a216c33`、`538031505872` 继续关联。 | 补丁仅检查 PromisePile／Draw，读取 Owner 前检查 IsMutable。原版 canonical 卡牌复现由失败转为通过，双版本真实约定移牌截图与 karen_check_hand 通过。Valencina 原组合及校验 525 原动作链待上线核验。 |
+| OBS-010 | P1 | 华恋同步边界已修复，待原组合上线核验 | 花奖励子项不在顶层列表，IndexOf 返回 -1，经原生 8 位报文编码为 255，7 次相关上报。指纹 `0e78d8bff382`、`5281adf007ac`、`6242a64f8b78`。 | 改为同步顶层父奖励，再使用原生 PlayerChoiceSynchronizer 同步子选项。父奖励完成和未选项跳过在两端模型层处理。双版本主机首选／客户端次选、嵌套奖励跳过、离房跳过、索引及状态核对通过。原玩家混合 Mod 环境保留兼容核验。 |
+| OBS-013 | P2 | 已修复锁定角色路径，待原样本核验 | 选角背景宿主缺失，指纹 `a3784c0812d1`，1 次上报。 | 原生锁定角色选择会清空背景并省略创建，已复现相同诊断。补丁识别 IsLocked，恢复信息面板并停止视频。双版本锁定／解锁和重复选择定向检查通过。原上报未记录锁定状态及完整 UI 节点树，其他 UI 改写路径仍待原组合核验。 |
+
+## 已修复，待上线
+
+| 编号 | 问题 | 修复与验证 | 状态 |
+| --- | --- | --- | --- |
+| OBS-008 | 报错采集把 `res://`、`event:/` 误识别为 Windows 路径，丢失资源名并合并不同资源错误。 | 提交 `e8730c8` 同步修正客户端、服务端；4 项服务端定向测试、7 组客户端检查通过。 | 源码已推送；待部署服务端和发布新版 Mod 后核验新增报告。 |
+
+## 忽略，不处理
+
+| 编号 | 状态 | 问题与证据 | 忽略原因 |
+| --- | --- | --- | --- |
+| OBS-001 | 忽略，不处理 | v0.111.0 / 华恋 v0.1.8：`PatchNecrobinderDeathIdleOnCompleted.Postfix` 调用缺失的 `MegaAnimationState.SetAnimation(string, bool, int)`，累计 2,692 次上报。指纹示例：`36fdb1f074bc`。 | 外部死灵动画补丁调用旧接口，补丁类型位于其他 Mod。 |
+| OBS-002 | 忽略，不处理 | v0.107.1 / 华恋 v0.1.8：`YuYuYu.Scripts.Singletons.AfflictionSingleton.AfflictionAloneSingleton.ModifyCardRewardCreationOptions` 调用缺失的 `CardCreationOptions.WithFilter`，卡牌奖励生成流程异常，6 次相关上报。指纹示例：`346b1f0926b6`。 | YuYuYu 的奖励生成接口兼容问题。 |
+| OBS-003 | 忽略，不处理 | v0.111.0 / 华恋 v0.1.8：离开 `EVENT.NEOW` 时主客机校验不一致，两端各有一条报错；记录中的角色为东北切蒲英和利姆露。指纹：`c4e87f99146e`、`f81792df9a61`。 | 外部角色及通用联机校验告警。与同次约定牌堆异常对应的校验 525 三条记录已并入 OBS-009。 |
+| OBS-004 | 忽略，不处理 | v0.111.0 / BaseLib v3.4.7：悬浮查看能力时，`BaseLib.Patches.UI.ModSourceTooltip.Fold` 列表越界，463 次上报。指纹：`7773e20e6a51`、`88e8206c3ee7`。 | BaseLib 提示折叠函数自身越界，当前样本按依赖问题忽略。 |
+| OBS-005 | 忽略，不处理 | v0.111.0 / 华恋 v0.1.8：`AncientAffection.MerchantFavorMinigame` 的属性读写和方法调用出现 `ArgumentException`，1,385 次上报。指纹示例：`4ace8a46d7e5`。 | AncientAffection 商人小游戏的 Godot 绑定问题。 |
+| OBS-006 | 忽略，不处理 | v0.107.1 / 华恋 v0.1.8：领取卡牌奖励后出现 `All rewards have been taken, but the rewards set is not complete on the backend!`，5 次上报。指纹：`a7da2bcac36a`。 | 原生奖励集合完成状态告警，现有调用链为通用奖励同步流程。 |
+| OBS-007 | 忽略，不处理 | v0.107.1 / 华恋 v0.1.8：OstyAnime 调用缺失的 `SpineAnimationAccess.SetAnimation`，90 次上报，随后回退原版动画。 | OstyAnime 的动画接口版本兼容问题。 |
+| OBS-011 | 忽略，不处理 | `CARD.KAREN_CONTINUE` 完成执行时仍处于 `Canceled` 状态，提示异步任务暂停后继续执行；其他角色也有同类现象。 指纹：`1bb7a4302ed2`；10 次上报。 | 通用动作取消告警，原版及其他角色也出现，调用链为 GameAction.Execute。 |
+| OBS-012 | 忽略，不处理 | `KAREN_BASEBALL_CAT_RELIC` 在 `ModelDb.InitIds → GameStartup` 无法映射 net ID，启动初始化失败；样本同时启用了 `UpgradePreviewProbe`、纯那及 KarenSTS2MCP。 指纹：`c3fd273557a5`；4 次上报。 | 包含 UpgradePreviewProbe 与纯那的开发探针环境样本，按开发记录忽略。 |
+| OBS-014 | 忽略，不处理 | `GodotFileIo.WriteFileAsync → RenameFile` 报源文件不存在，包含 `RunSaveManager.SaveRun` 与 RitsuLib 保存包装，另有失败保存报告；样本涵盖 macOS。 指纹：`599d58401dbb`；212 次上报。 | 原生文件写入和云存档重命名异常，样本为 macOS 并含 RitsuLib 保存包装。 |
+| OBS-015 | 忽略，不处理 | `current_run.save` 出现多种 JSON 解析错误并被重命名为 `.corrupt`；代表调用链包含 `QuickRestart.Restarter.CanRestart`。 指纹：`5fce4134c4fa`；167 次上报。 | 原生存档解析与 QuickRestart 快速重开链路的异常。 |
+| OBS-016 | 忽略，不处理 | `MeursaultSequenceUi.Badge.Stop` 在移牌或释放 UI 时重复断开不存在的 `draw` 信号，持续刷屏。 指纹：`b944b396d05e`；5,146 次上报。 | Meursault UI 重复断开 draw 信号。 |
+| OBS-017 | 忽略，不处理 | `BreathingMethodPowerAmountLabelPatch.Postfix(NPower)` 在能力 UI 尚未绑定 Model 时访问模型。 指纹：`5ae9f5eacee2`；484 次上报。 | Valencina 的能力标签补丁提前读取 Model。 |
+| OBS-018 | 忽略，不处理 | `OrchisNecrobinderSkinMod.NRelicReadyPatch` 在遗物节点 `_Ready` 阶段访问尚未设置的 Model。 指纹：`01d4ef4479ba`；182 次上报。 | Orchis 皮肤补丁提前读取遗物 Model。 |
+| OBS-019 | 忽略，不处理 | `CardGlowPatch.ApplyMaterial` 使用已释放的 `Godot.ShaderMaterial`，影响手牌更新并进入出牌异常链。 指纹：`2e005f218069`；407 次上报。 | TouhouAncients 的卡牌光效使用已释放材质。 |
+| OBS-020 | 忽略，不处理 | `AudioStreamPlayer.set_volume_db` 连续收到 NaN，调用栈仅保留原生入口。 指纹：`94373bead52a`；797 次上报。 | 原生音频 NaN 告警，现有栈仅包含音量设置入口。 |
+| OBS-021 | 忽略，不处理 | `NThoughtCounter.CreateThresholdLabelIfNeeded` 创建的 MegaLabel 缺少主题字体覆盖，触发引擎兼容断言。 指纹：`fae597d23488`；95 次上报。 | Nymph 计数标签缺少字体覆盖。 |
+| OBS-022 | 忽略，不处理 | 模型类型所属实现程序集未关联 Mod，游戏明确提示类型排序可能不稳定；样本包含 CharacterBosses 实现程序集。 指纹：`16b2eaa12fb9`；87 次上报。 | CharacterBosses 等外部 Mod 的实现程序集关联问题。 |
+| OBS-023 | 忽略，不处理 | `CardsSeenSingleton.CardsSeen` 对外部卡牌触发 canonical 模型使用异常，另有玩家字典键缺失。 指纹：`b8591acc88ab`；124 次上报。 | YuYuYu 的 CardsSeen 卡牌实例和字典访问问题。 |
+| OBS-024 | 忽略，不处理 | 对象目录 `ObjectScanner` 读取动态标题时缺少 `OptionTitle`、`IntentTitle` 等本地化变量，多个对象产生同类格式化错误。 指纹：`b28bc183e88d`；273 次上报。 | DanmakuSpire 对象扫描时读取动态本地化变量的问题。 |
+| OBS-025 | 忽略，不处理 | Persona 界面格式化 `Cost`、`Level` 等文本时变量不完整。 指纹：`287f1035c04f`；113 次上报。 | YukiMakoto Persona 界面的本地化变量问题。 |
+| OBS-026 | 忽略，不处理 | `YukiCardCustomFramePatch.RestoreControlSnapshot` 操作已释放的 Control。 指纹：`c69202bd8c39`；111 次上报。 | YukiMod 卡框恢复使用已释放 Control。 |
+| OBS-027 | 忽略，不处理 | `NRelicCollectionCategory.LoadRelics` 调用 `MoveChildSafely` 时新子节点索引越界。 指纹：`1a34be1b2b75`；204 次上报。 | 原生遗物图鉴及其排序补丁的子节点索引告警。 |
+| OBS-028 | 忽略，不处理 | `AttachLightningOrbDecoration` 调用缺失的 `MegaAnimationState.SetAnimation`，装饰挂载流程异常。 指纹：`eda467a05426`；30 次上报。 | FlawRepairMod 的动画接口版本兼容问题。 |
+| OBS-029 | 忽略，不处理 | `CardPlayTrackerPower.RecordEnergySpent` 抛出 `Failed to update the energy-spent tracker`，导致多张卡牌出牌异常。 指纹：`26bf2ae5304e`；23 次上报。 | TaTaKaf 的能量消耗跟踪器异常。 |
+| OBS-030 | 忽略，不处理 | 节点尚未进入场景树时调用 `can_process`，持续产生 `!is_inside_tree()` 错误；主要新样本为 Android。 指纹：`bbb7686e3316`；849 次上报。 | 原生场景树生命周期告警，当前记录只有 can_process 入口。 |
+| OBS-031 | 忽略，不处理 | `MeursaultSequenceUi.Display(Player)` 以空 key 访问集合，序列 UI 显示异常。 指纹：`30458b2f9f13`；120 次上报。 | Meursault 序列 UI 的空 key 访问。 |
+
+## 本次证据汇总（2026-11-06）
+
+以下保留 09:09 巡检的原始统计。当前处理状态以待处理、已修复和忽略列表为准。会话列为单个指纹的最高会话数，时间为北京时间。
+
+| 编号 | 游戏 / 华恋版本 | 平台 / 系统 | 首次 → 最近 | 累计 / 本次新增上报 | 单指纹最高会话 | 指纹数 |
+| --- | --- | --- | --- | --- | --- | --- |
+| OBS-001 | v0.111.0 / v0.1.8 | Windows / pc | 11-05 04:09 → 11-05 05:00 | 2,692 / +0 | 1 | 6 |
+| OBS-002 | v0.107.1 / v0.1.8 | Windows / pc | 11-05 02:46 → 11-05 02:47 | 6 / +0 | 1 | 6 |
+| OBS-003 | v0.111.0 / v0.1.8 | Windows | 11-05 04:29 → 11-05 23:08 | 37 / +35 | 1 | 33 |
+| OBS-004 | v0.111.0 / v0.1.8 | Windows | 11-05 07:15 → 11-05 23:18 | 463 / +456 | 1 | 11 |
+| OBS-005 | v0.107.1 / v0.1.8；v0.111.0 / v0.1.8 | Windows / pc | 11-05 04:32 → 11-05 23:51 | 1,385 / +1,302 | 2 | 56 |
+| OBS-006 | v0.107.1 / v0.1.8；v0.111.0 / v0.1.8 | Windows / macOS | 11-05 03:55 → 11-05 22:33 | 5 / +4 | 1 | 4 |
+| OBS-007 | v0.107.1 / v0.1.8 | Windows / pc | 11-05 02:31 → 11-05 02:47 | 90 / +39 | 1 | 51 |
+| OBS-009 | v0.111.0 / v0.1.8 | Windows | 11-05 22:38 → 11-05 22:38 | 3 / +3 | 1 | 3 |
+| OBS-010 | v0.111.0 / v0.1.8 | Windows | 11-05 23:04 → 11-05 23:39 | 7 / +7 | 1 | 3 |
+| OBS-011 | v0.111.0 / v0.1.8 | Windows | 11-05 21:07 → 11-05 21:25 | 10 / +10 | 1 | 3 |
+| OBS-012 | v0.107.1 / v0.1.8 | Windows | 11-05 17:11 → 11-05 17:15 | 4 / +4 | 2 | 3 |
+| OBS-013 | v0.111.0 / v0.1.8 | Windows | 11-05 19:01 → 11-05 19:01 | 1 / +1 | 1 | 1 |
+| OBS-014 | v0.111.0 / v0.1.8 | macOS | 11-05 09:28 → 11-05 23:39 | 212 / +212 | 6 | 23 |
+| OBS-015 | v0.111.0 / v0.1.8 | macOS | 11-05 09:28 → 11-05 23:18 | 167 / +167 | 6 | 26 |
+| OBS-016 | v0.111.0 / v0.1.8 | Windows | 11-05 10:30 → 11-06 04:55 | 5,146 / +5,146 | 2 | 232 |
+| OBS-017 | v0.111.0 / v0.1.8 | Windows | 11-05 21:40 → 11-05 23:41 | 484 / +484 | 2 | 17 |
+| OBS-018 | v0.111.0 / v0.1.8 | Windows | 11-06 01:19 → 11-06 03:02 | 182 / +182 | 1 | 20 |
+| OBS-019 | v0.111.0 / v0.1.8 | Windows | 11-05 17:47 → 11-05 17:54 | 407 / +407 | 1 | 8 |
+| OBS-020 | v0.111.0 / v0.1.8 | Windows | 11-05 09:20 → 11-05 09:50 | 797 / +797 | 1 | 1 |
+| OBS-021 | v0.107.1 / v0.1.8；v0.111.0 / v0.1.8 | Windows | 11-05 10:30 → 11-06 03:39 | 95 / +95 | 2 | 9 |
+| OBS-022 | v0.111.0 / v0.1.8 | Windows | 11-05 16:47 → 11-06 04:01 | 87 / +87 | 3 | 80 |
+| OBS-023 | v0.111.0 / v0.1.8 | Windows / macOS | 11-05 09:19 → 11-05 23:06 | 124 / +124 | 4 | 48 |
+| OBS-024 | v0.107.1 / v0.1.8；v0.111.0 / v0.1.8 | Windows | 11-05 00:53 → 11-05 23:57 | 273 / +271 | 2 | 260 |
+| OBS-025 | v0.107.1 / v0.1.8；v0.111.0 / v0.1.8 | Windows | 11-05 07:16 → 11-05 22:54 | 113 / +111 | 1 | 40 |
+| OBS-026 | v0.111.0 / v0.1.8 | Windows | 11-05 16:51 → 11-05 22:55 | 111 / +111 | 1 | 4 |
+| OBS-027 | v0.111.0 / v0.1.8 | macOS | 11-05 12:08 → 11-05 21:56 | 204 / +204 | 3 | 2 |
+| OBS-028 | v0.111.0 / v0.1.8 | Android | 11-05 14:36 → 11-05 15:08 | 30 / +30 | 1 | 1 |
+| OBS-029 | v0.107.1 / v0.1.8 | Windows | 11-05 19:50 → 11-05 20:27 | 23 / +23 | 1 | 12 |
+| OBS-030 | v0.111.0 / v0.1.8 | Android | 11-05 12:13 → 11-06 08:53 | 849 / +849 | 3 | 2 |
+| OBS-031 | v0.111.0 / v0.1.8 | Windows | 11-05 14:05 → 11-05 14:05 | 120 / +120 | 1 | 2 |
+
+OBS-003 已标记忽略，其中校验 525 的 3 条记录作为伴随证据归入 OBS-009。OBS-008 保持已修复、待上线核验状态。OBS-012 按开发探针记录忽略。
+
+原始分页、完整新增/变化详情、根因归类及审阅映射保存在 `artifacts/error-watch/2026-11-06/`。
+
+## 巡检记录
+
+- 2026-11-06 09:20 归属复核。保留 OBS-009、OBS-010、OBS-013 三项本 Mod 候选，27 项标记忽略，不处理。同步记录忽略原因和后续巡检收录范围。
+- 2026-11-06 09:09：完成 96 页巡检，观察到 1,917 类、19,863 次上报；相对基线新增 1,788 个指纹，读取 1,789 份新增/变化详情。新增 23 项候选，更新既有问题的次数和证据。首次抓取遇到新增数据导致分页总数变化，重抓并按指纹合并后完成；成功基线已更新。
+- 2026-11-05：建立初始基线及上述候选项。已识别报错收集演示 4 类、8 次；普通标准错误输出按内容判断，只有具备修复价值的项目进入待处理列表。
+
+私有访问地址与巡检状态分别保存在忽略目录 `artifacts/error-watch/config.json`、`artifacts/error-watch/state.json`；本地审阅证据位于 `artifacts/telemetry-review-2026-11-05/`。

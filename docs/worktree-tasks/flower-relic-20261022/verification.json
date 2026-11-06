@@ -1,0 +1,209 @@
+{
+  "date": "2026-10-22",
+  "revision": 5,
+  "scope": "Targeted singleplayer regression; full multiplayer matrix not run",
+  "baseline_commit": "7c78e66e2db2d142f231ddf1b57c92fece4fb334",
+  "synchronized_main": "2172f99f57cb6f39fbaab9b8c8163fa78bec1f58",
+  "previous_revision": {
+    "revision": 3,
+    "assertions_per_variant": 56,
+    "total_assertions": 112,
+    "result": "pass before correcting the alignment criterion"
+  },
+  "variants": {
+    "stable": {
+      "version": "v0.107.1",
+      "result": "pass",
+      "fixture_invocations": 12,
+      "assertions": 56,
+      "log_errors": 0,
+      "opaque_connector_and_painted_text": "non-overlapping",
+      "shared_arc": "exactly one, centered, mouse filter Ignore",
+      "rarity_glow": "both UncommonGlow and RareGlow hidden and emission stopped",
+      "ordinary_and_empty_chest": "no floral arc",
+      "empty_chest_open_and_proceed": "pass",
+      "tested_package_sha256": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "a6ab07f7dffa73e724caffb449e15a52716d0f3397e308fc6a93c0ef56f5a43a",
+        "ShoujoKagekiAijoKaren.pck": "bd7b21e206e1df594c5f066e76f4ca7f1bbed4b5a0a5e581c3b921096097b271"
+      },
+      "cases": [
+        {
+          "case": "chest-one",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "audit",
+          "result": "pass"
+        },
+        {
+          "case": "prepare",
+          "result": "pass"
+        },
+        {
+          "case": "reward-check",
+          "result": "pass"
+        },
+        {
+          "case": "claim-check",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-skip",
+          "result": "pass"
+        },
+        {
+          "case": "empty-setup",
+          "result": "pass"
+        },
+        {
+          "case": "empty",
+          "result": "pass"
+        }
+      ],
+      "button_gap_alignment": "floral chain centers in actual button gap: actual=(959, 573) expected=(959, 573)"
+    },
+    "beta": {
+      "version": "v0.111.0",
+      "result": "pass",
+      "fixture_invocations": 12,
+      "assertions": 56,
+      "log_errors": 0,
+      "opaque_connector_and_painted_text": "non-overlapping",
+      "shared_arc": "exactly one, centered, mouse filter Ignore",
+      "rarity_glow": "both UncommonGlow and RareGlow hidden and emission stopped",
+      "ordinary_and_empty_chest": "no floral arc",
+      "empty_chest_open_and_proceed": "pass",
+      "tested_package_sha256": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "2f1a8ebbde393c02a4a8fd2b3f9b2060b06150346e51aee4bff300efdd8dcc0d",
+        "ShoujoKagekiAijoKaren.pck": "bd7b21e206e1df594c5f066e76f4ca7f1bbed4b5a0a5e581c3b921096097b271"
+      },
+      "cases": [
+        {
+          "case": "chest-one",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "audit",
+          "result": "pass"
+        },
+        {
+          "case": "prepare",
+          "result": "pass"
+        },
+        {
+          "case": "reward-check",
+          "result": "pass"
+        },
+        {
+          "case": "claim-check",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-claim",
+          "result": "pass"
+        },
+        {
+          "case": "chest-two",
+          "result": "pass"
+        },
+        {
+          "case": "chest-skip",
+          "result": "pass"
+        },
+        {
+          "case": "empty-setup",
+          "result": "pass"
+        },
+        {
+          "case": "empty",
+          "result": "pass"
+        }
+      ],
+      "button_gap_alignment": "floral chain centers in actual button gap: actual=(959, 669) expected=(959, 669)",
+      "startup_retry": {
+        "first_attempt": "56 Flower assertions passed, but log gate failed: two Invalid Task ID errors during Common preload before any run actions.",
+        "same_package_retry": "All 56 assertions passed; clean final log.",
+        "first_attempt_log": "artifacts/flower-regression/beta-startup-worker-pool-error.log"
+      }
+    }
+  },
+  "localization": {
+    "source_entries": 433,
+    "translations": 866,
+    "smartformat_renders": 10392,
+    "result": "pass after synchronization"
+  },
+  "total_assertions": 112,
+  "build": {
+    "stable": "28 existing warnings, 0 errors",
+    "beta": "28 existing warnings, 0 errors",
+    "loader": "1 existing warning, 0 errors"
+  },
+  "integration_snapshot_check": {
+    "preserved_uncommitted_files": 13,
+    "exact_original_hashes": 12,
+    "document": "Original uncommitted changes preserved; committed main changes reversed only in memory to verify original hashes."
+  },
+  "flower_runtime_results_apply_to_commit": "7f241214d82506aea361634d59c739158e910b69",
+  "followup_little_star": {
+    "user_input": "遗物小小星的收益，由5点改为3点",
+    "change": {
+      "per_trigger_temporary_strength_before": 5,
+      "after": 3
+    },
+    "shared_localization": "zhs/eng/jpn descriptions use StrengthPower; no JSON wording changes required",
+    "verification": {
+      "stable_build": "28 existing warnings, 0 errors",
+      "beta_build": "28 existing warnings, 0 errors",
+      "shared_variable_check": "pass",
+      "existing_python_scripts_syntax": "pass",
+      "runtime": "not run for this numeric adjustment",
+      "multiplayer": "not run",
+      "after_latest_main_sync": "Both builds passed; 28 existing warnings and 0 errors per variant"
+    },
+    "compiled_dll_sha256": {
+      "ShoujoKagekiAijoKaren.Stable.dll": "75fbd7260065725b7e7370f03f9ef4a3b7ebca6c209f5efda360815134d3b08f",
+      "ShoujoKagekiAijoKaren.Beta.dll": "8db75dd07591bd999b4cdb14132d956089183ead7c3887f2c4cff0fd08e68daa"
+    }
+  },
+  "flower_runtime_synchronized_main": "5c7aa359d1f9a1fa9b432c7b43e2a6f265d8c548",
+  "integration": {
+    "authorization": "合并并清理分支",
+    "status": "fast_forwarded_and_verified",
+    "target_branch": "main",
+    "target_before": "2172f99f57cb6f39fbaab9b8c8163fa78bec1f58",
+    "approved_task_commit": "ccd38dda385276259066953777c7552213ee561b",
+    "synchronization": "documentation only; runtime sources unchanged",
+    "original_uncommitted_files_preserved": 13,
+    "retained_artifacts": "artifacts/flower-relic-20261022-final-ccd38dd",
+    "cleanup_authorized": true,
+    "first_merged_commit": "f7b0e43512244e257c83012212361f8f6b3798af",
+    "committed_trees_match": true,
+    "original_status_and_hashes_preserved": true,
+    "cleanup_result_audit": "artifacts/flower-relic-20261022-final-ccd38dd/integration-audit.json"
+  }
+}

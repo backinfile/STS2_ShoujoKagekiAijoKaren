@@ -1,0 +1,310 @@
+{
+  "live": 0,
+  "peaks": {
+    "NKarenWakeUpSelectionVfx": 1,
+    "NKarenWakeUpCardVfx": 2
+  },
+  "nodes": [
+    {
+      "type": "NKarenWakeUpSelectionVfx",
+      "frames": 408,
+      "exited": true
+    },
+    {
+      "type": "NKarenWakeUpCardVfx",
+      "frames": 98,
+      "exited": true
+    },
+    {
+      "type": "NKarenWakeUpCardVfx",
+      "frames": 101,
+      "exited": true
+    }
+  ],
+  "curtains": [
+    {
+      "time": 1.7379999999999995,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.02897634,
+      "closing": 0,
+      "flowAge": 0.032574
+    },
+    {
+      "time": 1.939,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": 0.35463536
+    },
+    {
+      "time": 2.1739999999999995,
+      "showing": true,
+      "selected": 0,
+      "strength": 1,
+      "closing": 0,
+      "flowAge": 0.5916119
+    },
+    {
+      "time": 2.3870000000000005,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.9470602,
+      "closing": 0,
+      "flowAge": 0.8332863
+    },
+    {
+      "time": 2.5919999999999987,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.8290131,
+      "closing": 0,
+      "flowAge": 0.98768353
+    },
+    {
+      "time": 2.7989999999999995,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.66336,
+      "closing": 0,
+      "flowAge": 1.1367303
+    },
+    {
+      "time": 3.012999999999998,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.581928,
+      "closing": 0,
+      "flowAge": 1.2335926
+    },
+    {
+      "time": 3.219999999999999,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 1.3193222
+    },
+    {
+      "time": 3.426000000000002,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 1.4085975
+    },
+    {
+      "time": 3.6400000000000006,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 1.4855943
+    },
+    {
+      "time": 3.855000000000004,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 1.5866551
+    },
+    {
+      "time": 4.055999999999997,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 1.6697634
+    },
+    {
+      "time": 4.267000000000003,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 1.7545363
+    },
+    {
+      "time": 4.472000000000001,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 1.8458561
+    },
+    {
+      "time": 4.680999999999997,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 1.9288743
+    },
+    {
+      "time": 4.8870000000000005,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.0152159
+    },
+    {
+      "time": 5.089000000000006,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.1074476
+    },
+    {
+      "time": 5.303999999999995,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.1868534
+    },
+    {
+      "time": 5.515999999999998,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.2793682
+    },
+    {
+      "time": 5.717000000000006,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.3689868
+    },
+    {
+      "time": 5.920999999999999,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.4470124
+    },
+    {
+      "time": 6.1229999999999976,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.529065
+    },
+    {
+      "time": 6.327999999999996,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.622337
+    },
+    {
+      "time": 6.539999999999999,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.7071786
+    },
+    {
+      "time": 6.749000000000002,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.7983937
+    },
+    {
+      "time": 6.952999999999996,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.8883612
+    },
+    {
+      "time": 7.167999999999999,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 2.9759312
+    },
+    {
+      "time": 7.374000000000002,
+      "showing": true,
+      "selected": 0,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 3.0654755
+    },
+    {
+      "time": 7.6030000000000015,
+      "showing": true,
+      "selected": 1,
+      "strength": 0.58,
+      "closing": 0,
+      "flowAge": 3.1397502
+    },
+    {
+      "time": 7.803999999999995,
+      "showing": true,
+      "selected": 1,
+      "strength": 0.6416962,
+      "closing": 0,
+      "flowAge": 3.2880042
+    },
+    {
+      "time": 8.018999999999998,
+      "showing": true,
+      "selected": 1,
+      "strength": 0.59660685,
+      "closing": 0,
+      "flowAge": 3.3897312
+    },
+    {
+      "time": 8.229000000000006,
+      "showing": true,
+      "selected": 1,
+      "strength": 0.5850997,
+      "closing": 0,
+      "flowAge": 3.4748757
+    },
+    {
+      "time": 8.439,
+      "showing": true,
+      "selected": 1,
+      "strength": 1,
+      "closing": 0.20849662,
+      "flowAge": 3.6199455
+    },
+    {
+      "time": 8.657999999999994,
+      "showing": true,
+      "selected": 1,
+      "strength": 1,
+      "closing": 0.6059118,
+      "flowAge": 3.8385234
+    },
+    {
+      "time": 8.866000000000007,
+      "showing": true,
+      "selected": 1,
+      "strength": 0.018583357,
+      "closing": 0.9716788,
+      "flowAge": 4.0396943
+    }
+  ],
+  "passion": 0,
+  "vulnerable": 0,
+  "relicRewards": 0,
+  "back": 0
+}

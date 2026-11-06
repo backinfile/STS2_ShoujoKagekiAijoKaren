@@ -1,0 +1,124 @@
+{
+  "date": "2026-10-11",
+  "scope": "本次规划新增的七件遗物",
+  "mode": "built-in image_gen edit + local Artifact Cleaner",
+  "cleaner_strength": 0.25,
+  "files": [
+    {
+      "id": "01-watch-card",
+      "name": "怀表牌",
+      "file": "final/01-watch-card.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "original_source": "../sts1-sources/relics/DrawExtraRelic.png",
+      "source_sha256": "0151c4c80c9993a1af74f1827156ad712d5ba92a730933a80708deece10bbd8b",
+      "raw_sha256": "f8373f019d20cfdc8553249c6954173821ad586b2519e0e21b9517f172a90ba8",
+      "sha256": "90d83bf235d884adf68646d79b3fb9f6b416e765d84e3f281ffd94e418659c55",
+      "cleaner_alpha_identical": true,
+      "final_alpha_identical": false
+    },
+    {
+      "id": "02-cookies",
+      "name": "饼干",
+      "file": "final/02-cookies.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "original_source": "../sts1-sources/relics/CookieRelic.png",
+      "source_sha256": "09bf2eaf8122a01cd35db78e48a5faed8b161542b0291f46ff861134b9ec5af4",
+      "raw_sha256": "931ac9e6c581cb8f643a9ce438b14996f6ea496f3b752887446a05a393318835",
+      "sha256": "e91e28c895c96ec99531a870d66cad13a1d441fca4d81d092a49f98ff776a9ed",
+      "cleaner_alpha_identical": true,
+      "final_alpha_identical": true
+    },
+    {
+      "id": "03-little-star",
+      "name": "小小星",
+      "file": "final/03-little-star.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "original_source": "../sts1-sources/other/Star.png",
+      "source_sha256": "c7baaabc473f5f2608970f2d03036555be29fb897e1daa5ec0d259cb28027dc3",
+      "raw_sha256": "4fc78377487d47ab6780789e6b99f068f1e264190f3b508503b218c729123f05",
+      "sha256": "18475b679d6fc854b011fe22144f5e25b77bf842a29b6872a690a9b451a478dc",
+      "cleaner_alpha_identical": true,
+      "final_alpha_identical": false
+    },
+    {
+      "id": "04-baseball-cat",
+      "name": "棒球猫",
+      "file": "final/04-baseball-cat.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "original_source": "../sts1-sources/relics/CatRelic.png",
+      "source_sha256": "70142a8eb58cf31411ed736370d09296a4b49b075bb3576f1faa46536ed39f54",
+      "raw_sha256": "36bd765fbb2c0874901aa16f4e70261990e881ba80e708de57c7596cf6fd040b",
+      "sha256": "9241f8f0e8abe8edda36458cb34724e63784533bd2f8e78918e6c32ba71f596f",
+      "cleaner_alpha_identical": true,
+      "final_alpha_identical": true,
+      "review_status": "待返修"
+    },
+    {
+      "id": "05-mr-white",
+      "name": "Mr. White",
+      "file": "final/05-mr-white.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "original_source": "../sts1-sources/relics/MrWhiteRelic.png",
+      "source_sha256": "ba1e21300afe64e0996dc3844593315f60f296e053ebf26d57f51d9d2f1215f8",
+      "raw_sha256": "e91d18075ca169b073d0b428bc80997a6eb177d460772e49a9c38f9ae3271415",
+      "sha256": "f48592d9d21eef9f1fc6cbbf13ea257604046fb66fe925208ba2aa486b6b24a3",
+      "cleaner_alpha_identical": true,
+      "final_alpha_identical": true
+    },
+    {
+      "id": "06-star-hairclip",
+      "name": "星形发饰",
+      "file": "final/06-star-hairclip.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "original_source": "../sts1-sources/cards/Star_p.png",
+      "source_sha256": "608f45977c4d10c6127ceb1a9cdc3cc9ac2ea2eeb12f255ed4df1a71cf12165b",
+      "raw_sha256": "53071eb08ad7a9dea3f58600d19cc4ec18d34728c75dbab17c8185de571ae071",
+      "sha256": "1b2d238e617c9f768679a99c032b6bf4be9750a280b1aa1cb5195980d4b0b9d5",
+      "cleaner_alpha_identical": true,
+      "final_alpha_identical": false,
+      "review_status": "待返修"
+    },
+    {
+      "id": "07-star-tiara",
+      "name": "星之王冠",
+      "file": "final/07-star-tiara.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "original_source": "../sts1-sources/relics/StarCrownRelic.png",
+      "source_sha256": "bce4c8b052a59fc24990baae9b7b868e2923a00156e573652ec694640e8666f8",
+      "raw_sha256": "337f5302eb90d5ffef26001f02d3a6f3f0f17acbb99f5f72a073f2d9a01842e8",
+      "sha256": "2a6d924a23a1bbca7db6c835e9fde9ccd5b9afdb441cad8d34c22f3a3f7c5aa4",
+      "cleaner_alpha_identical": true,
+      "final_alpha_identical": true,
+      "review_status": "待返修"
+    }
+  ],
+  "review_status": "含三件已指出错误的图片，整包不是可用成品"
+}

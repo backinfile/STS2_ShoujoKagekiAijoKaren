@@ -17,13 +17,11 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 特效：Shine 耗尽时额外回复10HP（升级后14HP）
 /// 升级：格挡14，回复14
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenPractice : KarenBaseCardModel
 {
     public override bool CanBeGeneratedInCombat => false;
-    public KarenPractice() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenPractice() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 
@@ -44,7 +42,7 @@ public sealed class KarenPractice : KarenBaseCardModel
         DynamicVars.Heal.UpgradeValueBy(4m);
     }
 
-    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, ICombatState combatState)
     {
         if (Owner != null)
             await CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.BaseValue);

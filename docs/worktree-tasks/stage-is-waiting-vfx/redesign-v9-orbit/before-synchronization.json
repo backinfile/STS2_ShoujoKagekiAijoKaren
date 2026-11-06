@@ -1,0 +1,16 @@
+{
+  "originalBranch": "main",
+  "mergeBack": "pending explicit confirmation",
+  "taskBranch": "codex/stage-is-waiting-vfx",
+  "visualVersion": "selected B: subtle split/single followspots at the native local energy counter",
+  "originalRevision": "57c435cf4a60852e055346419f8bf5c849d573aa",
+  "synchronizedMainRevision": "afb661c1aa9cf637cb98011fbb5506c8e421bd14",
+  "synchronizations": 5,
+  "audioVersion": "original rise, pulse and arrival cue family",
+  "retainedBaseline": "preserved-light-curtain/",
+  "stateRevision": "41 current targeted observations per version with actual UI transform/hide checks and lifecycle/audio audit",
+  "latestEvidence": "artifacts/stage-is-waiting-energy-b/",
+  "videoSha256": "26779e7547c99ca8492e2b2396f8c096d7b1a115acc5e9b9727297cefadd056f",
+  "deliveryEvidence": "artifacts/stage-is-waiting-energy-b/",
+  "mcpCommit": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce"
+}

@@ -1,0 +1,148 @@
+{
+  "checks": {
+    "stable": [
+      {
+        "name": "groups_default_collapsed",
+        "passed": true
+      },
+      {
+        "name": "effects_rows_grouped",
+        "passed": true
+      },
+      {
+        "name": "music_rows_grouped",
+        "passed": true
+      },
+      {
+        "name": "top_actions_same_row",
+        "passed": true
+      },
+      {
+        "name": "top_actions_equal_width_and_order",
+        "passed": true
+      },
+      {
+        "name": "top_actions_no_overlap",
+        "passed": true
+      },
+      {
+        "name": "effects_expands_alone",
+        "passed": true
+      },
+      {
+        "name": "effects_recollapses",
+        "passed": true
+      },
+      {
+        "name": "music_expands_alone",
+        "passed": true
+      },
+      {
+        "name": "capture_starts_in_group",
+        "passed": true
+      },
+      {
+        "name": "collapse_cancels_key_capture",
+        "passed": true
+      },
+      {
+        "name": "reopen_defaults_collapsed",
+        "passed": true
+      }
+    ],
+    "beta": [
+      {
+        "name": "groups_default_collapsed",
+        "passed": true
+      },
+      {
+        "name": "effects_rows_grouped",
+        "passed": true
+      },
+      {
+        "name": "music_rows_grouped",
+        "passed": true
+      },
+      {
+        "name": "top_actions_same_row",
+        "passed": true
+      },
+      {
+        "name": "top_actions_equal_width_and_order",
+        "passed": true
+      },
+      {
+        "name": "top_actions_no_overlap",
+        "passed": true
+      },
+      {
+        "name": "effects_expands_alone",
+        "passed": true
+      },
+      {
+        "name": "effects_recollapses",
+        "passed": true
+      },
+      {
+        "name": "music_expands_alone",
+        "passed": true
+      },
+      {
+        "name": "capture_starts_in_group",
+        "passed": true
+      },
+      {
+        "name": "collapse_cancels_key_capture",
+        "passed": true
+      },
+      {
+        "name": "reopen_defaults_collapsed",
+        "passed": true
+      }
+    ]
+  },
+  "packages": [
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Beta.dll",
+      "sha256": "6d9a47b468dc11e643c95ee3bec999ae3dc2ab3aa9b33b20936f3d6784284fe7",
+      "bytes": 1483264
+    },
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Stable.dll",
+      "sha256": "2d84a6cfa8bce6d03f6e5368ba06b0d01b09a42072ff6dc9cc31636ad890c243",
+      "bytes": 1481728
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.dll",
+      "sha256": "f4f30df86ad95405a8b21a0cf9ce7f7326066f6aafe136adee97afa13859a730",
+      "bytes": 8704
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.json",
+      "sha256": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+      "bytes": 412
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.pck",
+      "sha256": "f67e249f4209dc52811b93197dfaadb1f0f8d6fd8e28cad375eb967120717765",
+      "bytes": 83656744
+    }
+  ],
+  "screenshots": [
+    "artifacts/karen-music-player-20261029/stable-config-layout-collapsed.png",
+    "artifacts/karen-music-player-20261029/stable-config-layout-effects.png",
+    "artifacts/karen-music-player-20261029/stable-config-layout-music.png",
+    "artifacts/karen-music-player-20261029/beta-config-layout-collapsed.png",
+    "artifacts/karen-music-player-20261029/beta-config-layout-effects.png",
+    "artifacts/karen-music-player-20261029/beta-config-layout-music.png"
+  ],
+  "not_run": [
+    "full singleplayer/multiplayer matrix",
+    "VFX专项",
+    "Android"
+  ],
+  "localization": {
+    "existing_failures": 13,
+    "new_failures": 0
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "stable": {
+    "observations": 24,
+    "captureFps": 28.480888529761287,
+    "meanAudioDb": -50.8,
+    "rapid": {
+      "frames": 671,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 3,
+      "peakBursts": 6,
+      "anchorError": 0,
+      "unit": 1.231579,
+      "backCorrect": true,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "4c2588edb84f682572f3a7785c1300189bcb81b5a53484626946dbd028fa4e04",
+      "packSha256": "ce011b6a31936f4872172378e0a654d299e0ab1a7df091116e63d8da57996a4d"
+    }
+  },
+  "beta": {
+    "observations": 24,
+    "captureFps": 28.18793311183521,
+    "meanAudioDb": -44.5,
+    "rapid": {
+      "frames": 663,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 3,
+      "peakBursts": 6,
+      "anchorError": 0,
+      "unit": 1.231579,
+      "backCorrect": true,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "5c6decef699a99ca940e5348cda048bb7a5499023b080f0f6f604c817cd46446",
+      "packSha256": "ce011b6a31936f4872172378e0a654d299e0ab1a7df091116e63d8da57996a4d"
+    }
+  }
+}

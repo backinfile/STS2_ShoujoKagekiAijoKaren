@@ -12,19 +12,18 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShoujoKagekiAijoKaren.src.Core;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 
 /// <summary>
-/// 一起闪耀吧 - 2费稀有攻击牌，造成30/40点伤害。闪耀3。
+/// 永不遗忘的闪耀 - 2费稀有攻击牌，造成30/40点伤害。闪耀3。
 /// Shine耗尽时，获得三次闪耀牌奖励。
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(3)]
 public sealed class KarenShineTogether : KarenBaseCardModel
 {
-    public KarenShineTogether() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(3);
-    }
+    public KarenShineTogether() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -43,9 +42,11 @@ public sealed class KarenShineTogether : KarenBaseCardModel
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerAnim("Attack", 0f)
+            .WithWaitBeforeHit(NKarenUnforgottenShineVfx.FastHitTime, NKarenUnforgottenShineVfx.HitTime)
+            .WithHitVfxNode(target => NKarenUnforgottenShineVfx.Create(Owner.Creature, target))
             .Execute(choiceContext);
     }
 
@@ -55,7 +56,7 @@ public sealed class KarenShineTogether : KarenBaseCardModel
         DynamicVars.Cards.UpgradeValueBy(1m);
     }
 
-    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, ICombatState combatState)
     {
         if (Owner != null)
         {

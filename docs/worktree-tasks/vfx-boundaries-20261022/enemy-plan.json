@@ -1,0 +1,33 @@
+[
+  {
+    "name": "enemy-pincer",
+    "encounter": "KAISER_CRAB_BOSS",
+    "pincer": true,
+    "kill_side": "left",
+    "title": "帝王蟹：左右交替、多段攻击、左侧死亡后自动朝右"
+  },
+  {
+    "name": "enemy-pincer-void",
+    "encounter": "KAISER_CRAB_BOSS",
+    "pincer": true,
+    "void": true,
+    "kill_side": "right",
+    "title": "帝王蟹：空虚/燃烧/觉醒、嵌套塔桥、右侧死亡后自动朝左"
+  },
+  {
+    "name": "enemy-slimes",
+    "encounter": "SLIMES_WEAK",
+    "title": "小体型群怪的目标、命中与移牌表现"
+  },
+  {
+    "name": "enemy-ovicopter",
+    "encounter": "OVICOPTER_NORMAL",
+    "summons": true,
+    "title": "飞行怪、偏移镜头及原生新增召唤目标"
+  },
+  {
+    "name": "enemy-knights",
+    "encounter": "KNIGHTS_ELITE",
+    "title": "三骑士多目标与护盾，非默认镜头比例"
+  }
+]

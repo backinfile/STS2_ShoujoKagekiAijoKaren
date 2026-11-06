@@ -1,0 +1,22 @@
+{
+  "artifacts/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.Beta.dll": {
+    "sha256": "34c18a4a03a064c2307c093785d2f6c6615986a997a2801f9c3003c07e39922b",
+    "size": 1277952
+  },
+  "artifacts/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.Stable.dll": {
+    "sha256": "7177dc53cc119688aa681596a5f697d139bb1c113eb160c28383181ef36aa500",
+    "size": 1277440
+  },
+  "artifacts/ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.dll": {
+    "sha256": "b09ed774f1aaefe098156a9e3ab790223d3227a85256d1894b959acf8e96e317",
+    "size": 8704
+  },
+  "artifacts/ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.json": {
+    "sha256": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+    "size": 412
+  },
+  "artifacts/ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.pck": {
+    "sha256": "b41af8af96eaacc657416c861a031201a60367b97df9874cbb0b863415f2616f",
+    "size": 48947388
+  }
+}

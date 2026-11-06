@@ -1,0 +1,25 @@
+{
+  "game_version": "0.107.1",
+  "frames": {
+    "res://images/atlases/ui_atlas.sprites/card/card_frame_attack_s.tres": {
+      "points": 181,
+      "sha256": "4a74db4768603b59f71eb04bd24c626369f957edff5c5e1e592ea35d82936b1d"
+    },
+    "res://images/atlases/ui_atlas.sprites/card/card_frame_skill_s.tres": {
+      "points": 223,
+      "sha256": "278c80aa63beb276ca9926524f4650a9fb3d70db89f529bbdc32ed4f093aaa1a"
+    },
+    "res://images/atlases/ui_atlas.sprites/card/card_frame_power_s.tres": {
+      "points": 223,
+      "sha256": "278c80aa63beb276ca9926524f4650a9fb3d70db89f529bbdc32ed4f093aaa1a"
+    },
+    "res://images/atlases/ui_atlas.sprites/card/card_frame_quest_s.tres": {
+      "points": 401,
+      "sha256": "54f908312c5b1d9e68d410f3b5ac144ef62a1d6e0ac2111898b32ca9f3149ae8"
+    },
+    "res://images/atlases/ui_atlas.sprites/card/card_frame_ancient_s.tres": {
+      "points": 74,
+      "sha256": "4cdebebdc6131dd15ace91c14260f40a1910e5ab73f5dbbfadb756a5bb297fb2"
+    }
+  }
+}

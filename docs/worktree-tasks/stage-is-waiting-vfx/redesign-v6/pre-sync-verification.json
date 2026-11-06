@@ -1,0 +1,450 @@
+{
+  "stable": {
+    "captureAudit": {
+      "encoder": "h264_nvenc",
+      "captureFps": 29.99348466529358,
+      "repeatedFrames": 0,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 240,
+      "longestUnchangedClockSeconds": 0.03333333333333333,
+      "largestClockJumpSeconds": 0.040000000000000924,
+      "clockSeconds": 7.969999999999999,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.003332999999998698,
+      "strictlyIncreasingPts": true
+    },
+    "recordingEncoder": "h264_nvenc",
+    "statePoses": {
+      "occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 0,
+        "slotOpening": 0,
+        "beamNow": 0
+      },
+      "empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "slotOpening": 1,
+        "beamNow": 0
+      },
+      "stack-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "slotOpening": 1,
+        "beamNow": 0
+      },
+      "refilled-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 2,
+        "slotOpening": 0,
+        "beamNow": 0
+      },
+      "second-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3,
+        "slotOpening": 1,
+        "beamNow": 0
+      }
+    },
+    "observations": 38,
+    "captureFps": 28.67799561294948,
+    "meanAudioDb": -52.3,
+    "rapid": {
+      "frames": 949,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 4,
+      "peakBursts": 4,
+      "anchorError": 0,
+      "unit": 1.231579,
+      "peakCast": 1,
+      "peakTrigger": 1,
+      "sweepDistance": 54.05671,
+      "peakStage": 0.9890706,
+      "stageNow": 0.26,
+      "spritePaths": [],
+      "lampCount": 2,
+      "lampError": 0,
+      "beamError": 0.00013647876,
+      "fanSpan": 7.999999,
+      "coreInside": true,
+      "beamNow": 0,
+      "peakBeam": 0.64,
+      "slotWidth": 62.00001,
+      "slotOpening": 1,
+      "minSourceRight": 177.99998,
+      "minTowerWeight": 0.39999998,
+      "firstFeedbackAge": 0.16575271,
+      "feedbackEarly": false,
+      "slotFront": true,
+      "peakSounds": 1,
+      "audioEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        }
+      ],
+      "pileEmpty": true,
+      "pileCount": 0,
+      "opening": 1,
+      "stateChanges": 16,
+      "minOpening": 0.12035814,
+      "maxOpening": 1,
+      "backCorrect": true,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "b142a8528297c5ca2534ed7220e7b0979a0b0b6dec61378ec1b279eea9aa7f5f",
+      "packSha256": "a7dd6ccda56b19bcb97953ba8c85fba0da36cccf4cd51429bc152531ca90e663"
+    },
+    "scope": "visual and audio revision",
+    "audio": {
+      "normalEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        }
+      ],
+      "peakNormalVoices": 1,
+      "fastConfirmations": 8,
+      "peakFastVoices": 1,
+      "interruptAndSpeedSwitch": "pass"
+    }
+  },
+  "beta": {
+    "captureAudit": {
+      "encoder": "h264_nvenc",
+      "captureFps": 29.751671672052073,
+      "repeatedFrames": 2,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 238,
+      "longestUnchangedClockSeconds": 0.06666666666666667,
+      "largestClockJumpSeconds": 0.05999999999999983,
+      "clockSeconds": 7.970000000000001,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.0033330000000004745,
+      "strictlyIncreasingPts": true
+    },
+    "recordingEncoder": "h264_nvenc",
+    "statePoses": {
+      "occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 0,
+        "slotOpening": 0,
+        "beamNow": 0
+      },
+      "empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "slotOpening": 1,
+        "beamNow": 0
+      },
+      "stack-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "slotOpening": 1,
+        "beamNow": 0
+      },
+      "refilled-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 2,
+        "slotOpening": 0,
+        "beamNow": 0
+      },
+      "second-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3,
+        "slotOpening": 1,
+        "beamNow": 0
+      }
+    },
+    "observations": 38,
+    "captureFps": 29.311021027530227,
+    "meanAudioDb": -45.1,
+    "rapid": {
+      "frames": 957,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 4,
+      "peakBursts": 4,
+      "anchorError": 0,
+      "unit": 1.231579,
+      "peakCast": 1,
+      "peakTrigger": 1,
+      "sweepDistance": 54.18685,
+      "peakStage": 0.9849386,
+      "stageNow": 0.26,
+      "spritePaths": [],
+      "lampCount": 2,
+      "lampError": 0,
+      "beamError": 0.00015258789,
+      "fanSpan": 7.999999,
+      "coreInside": true,
+      "beamNow": 0,
+      "peakBeam": 0.64,
+      "slotWidth": 62.00001,
+      "slotOpening": 1,
+      "minSourceRight": 177.99998,
+      "minTowerWeight": 0.39999998,
+      "firstFeedbackAge": 0.16029228,
+      "feedbackEarly": false,
+      "slotFront": true,
+      "peakSounds": 2,
+      "audioEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        }
+      ],
+      "pileEmpty": true,
+      "pileCount": 0,
+      "opening": 1,
+      "stateChanges": 16,
+      "minOpening": 0.15660009,
+      "maxOpening": 1,
+      "backCorrect": true,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "cdd7512a268f51378c2f79ab230eef44656aa6ce9f71022789514d8fd11cd20d",
+      "packSha256": "a7dd6ccda56b19bcb97953ba8c85fba0da36cccf4cd51429bc152531ca90e663"
+    },
+    "scope": "visual and audio revision",
+    "audio": {
+      "normalEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        }
+      ],
+      "peakNormalVoices": 1,
+      "fastConfirmations": 8,
+      "peakFastVoices": 2,
+      "interruptAndSpeedSwitch": "pass"
+    }
+  }
+}

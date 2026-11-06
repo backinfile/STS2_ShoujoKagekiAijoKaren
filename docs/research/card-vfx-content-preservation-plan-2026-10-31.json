@@ -1,0 +1,379 @@
+{
+  "date": "2026-10-31",
+  "status": "superseded by requested rollback; original presentation restored, safe internals retained; future design awaits follow-up",
+  "main_baseline": "2a49355",
+  "unmerged_baseline": "d713560",
+  "scope_cards": 31,
+  "principles": [
+    "preserve complete authored content",
+    "readable silhouettes and timing at native gameplay speed",
+    "small character motion; accepted AoE/direction/flat Spin retained",
+    "optimize allocation, reuse, batching, queries and resource preparation while preserving output",
+    "compare each quality level against its own content baseline"
+  ],
+  "stages": [
+    {
+      "id": "R0",
+      "title": "31张内容盘点",
+      "scope": "B01–B04共31张",
+      "deliverable": "逐卡内容清单、历史版本与视频索引、删减差异表",
+      "gate": "每层、每段和每次真实触发都有去向"
+    },
+    {
+      "id": "R1",
+      "title": "6张代表样片",
+      "scope": [
+        "KarenStrike",
+        "KarenDefend",
+        "KarenNonon",
+        "KarenRewrite",
+        "KarenDropFuel",
+        "KarenStarlight02Card"
+      ],
+      "deliverable": "原速前后视频与历史完整内容关键帧",
+      "gate": "先确认内容完整、主体可读、人物小幅、复杂度合适，再推广参数"
+    },
+    {
+      "id": "R2",
+      "title": "基础与重击恢复",
+      "scope": "B01五张+B02七张，沿用原有5个小组",
+      "deliverable": "12张逐卡修复及分组双版本前后视频",
+      "gate": "主形、粒子、持续层、音效和尾部逐项对照"
+    },
+    {
+      "id": "R3",
+      "title": "普通攻击差异化恢复",
+      "scope": "B03十二张，3A/3B/3C",
+      "deliverable": "12张逐卡分镜与双版本分组前后视频",
+      "gate": "保留各卡完整动作；AoE、方向、扁弧及每击表现一致"
+    },
+    {
+      "id": "R4",
+      "title": "连锁和舞台恢复",
+      "scope": "B04七张，4A/4B",
+      "deliverable": "恢复明确删减项，保留等效的内部优化，双版本前后视频",
+      "gate": "每次重播、粒子层、舞台和奖励交接完整"
+    },
+    {
+      "id": "R5",
+      "title": "统一验收与后续接续",
+      "scope": "31张+各质量档代表",
+      "deliverable": "内容保留矩阵、原速可读性核对、相关运行验证、修复范围提交说明",
+      "gate": "本轮观感确认后再继续B05–B09；合并单独确认"
+    }
+  ],
+  "confirmed_b04_reductions": [
+    {
+      "card": "KarenContinue",
+      "confirmed_reduction": "15/34/16/8 → 10/20/8/4；粒子尾部缩短",
+      "target": "恢复15/34/16/8及原有尾部，以完整飞行/冲击/碎光/余烬为内容基线"
+    },
+    {
+      "card": "KarenStar",
+      "confirmed_reduction": "灯带10→6层、奖励散星20→8、星结缩小、可见脉冲裁限",
+      "target": "恢复原有星群/灯带/星结/奖励和逐次脉冲；复用缓冲与批量绘制承载完整事件"
+    },
+    {
+      "card": "KarenBridge",
+      "confirmed_reduction": "浮尘92→32、每接点火花12→6、逐卡闪光8→4",
+      "target": "恢复浮尘92、每接点12、逐卡闪光8，保持完整连锁持有"
+    },
+    {
+      "card": "KarenGeer",
+      "confirmed_reduction": "背景齿轮3→2并缩小、减淡",
+      "target": "恢复3个背景齿轮及原有尺寸、透明度、出场和接合层次"
+    },
+    {
+      "card": "KarenDropFuel",
+      "confirmed_reduction": "Full单次1468→428；重播428→180",
+      "target": "恢复Full单次1468、重播428及原有各层密度和尾部"
+    },
+    {
+      "card": "KarenStarlight02Card",
+      "confirmed_reduction": "Full光束12→8、羽化7→5层、顶光/暗幕和持有灯减量",
+      "target": "恢复12束、每束7层及原有舞台层次；继续复用顶点和层变换"
+    }
+  ],
+  "cards": [
+    {
+      "batch": "B01",
+      "class": "KarenStrike",
+      "title": "打击",
+      "path": "src/Core/Models/Cards/basic/KarenStrike.cs",
+      "current_review": "reopened",
+      "action": "补足可读的斜切主体、接触和短余韵，按原速检查完整攻击动作。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B01",
+      "class": "KarenDefend",
+      "title": "防御",
+      "path": "src/Core/Models/Cards/basic/KarenDefend.cs",
+      "current_review": "reopened",
+      "action": "重新建立清楚的持剑防御轮廓与格挡确认，保留小幅收身。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B01",
+      "class": "KarenShineStrike",
+      "title": "闪耀打击",
+      "path": "src/Core/Models/Cards/basic/KarenShineStrike.cs",
+      "current_review": "reopened",
+      "action": "保留白金刀形、接触星、闪耀及耗尽交接，恢复足够可见范围。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B01",
+      "class": "KarenFall",
+      "title": "坠落",
+      "path": "src/Core/Models/Cards/basic/KarenFall.cs",
+      "current_review": "reopened",
+      "action": "下沉、防御确认、选牌及送塔分阶段完整衔接。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B01",
+      "class": "KarenPromiseDraw",
+      "title": "不再遥不可及",
+      "path": "src/Core/Models/Cards/basic/KarenPromiseDraw.cs",
+      "current_review": "reopened",
+      "action": "轻切与真实取牌路径均有可读反馈，保持卡牌身份。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B02",
+      "class": "KarenShineTogether",
+      "title": "永不遗忘的闪耀",
+      "path": "src/Core/Models/Cards/shine/KarenShineTogether.cs",
+      "current_review": "reopened",
+      "action": "逐击主斩、星形伤痕及常驻层逐项对照历史完整版本。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B02",
+      "class": "KarenNonon",
+      "title": "NONNON哒哟",
+      "path": "src/Core/Models/Cards/shine/KarenNonon.cs",
+      "current_review": "reopened",
+      "action": "横扫主刃、飞散粒子及各粒子种类完整保留，复核整排覆盖。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B02",
+      "class": "KarenShineStrikeBarrage",
+      "title": "用你的闪耀贯穿我吧",
+      "path": "src/Core/Models/Cards/shine/KarenShineStrikeBarrage.cs",
+      "current_review": "reopened",
+      "action": "每次真实点刺的刃形、接触和完整连刺节奏逐项呈现。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B02",
+      "class": "KarenBackToBackCard",
+      "title": "背靠背",
+      "path": "src/Core/Models/Cards/promisePile/KarenBackToBackCard.cs",
+      "current_review": "reopened",
+      "action": "红蓝双弧、前后关系和接触余韵逐项恢复、核对。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B02",
+      "class": "KarenBaseball",
+      "title": "棒球",
+      "path": "src/Core/Models/Cards/promisePile/KarenBaseball.cs",
+      "current_review": "reopened",
+      "action": "出球、飞行、接触及弹出过程完整可读，身体保持原地。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B02",
+      "class": "KarenJealousy",
+      "title": "嫉妒",
+      "path": "src/Core/Models/Cards/relic/KarenJealousy.cs",
+      "current_review": "reopened",
+      "action": "逐项核对原有回切、粒子、回收路径和尾部，恢复有意义的层次。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B02",
+      "class": "KarenCarryingGuilt",
+      "title": "我们犯下的罪过",
+      "path": "src/Core/Models/Cards/shine/KarenCarryingGuilt.cs",
+      "current_review": "reopened",
+      "action": "垂直落光、接触及余韵对照原有完整演出，恢复清楚的落点。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenChargeStrike",
+      "title": "蓄力打击",
+      "path": "src/Core/Models/Cards/shine/KarenChargeStrike.cs",
+      "current_review": "reopened",
+      "action": "保留蓄力与重斩阶段；主体放大、接触与减力量确认衔接。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenSwordUp",
+      "title": "上挑",
+      "path": "src/Core/Models/Cards/shine/KarenSwordUp.cs",
+      "current_review": "reopened",
+      "action": "保留向前上挑路径与真实负面效果确认，放大刃面。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenDebut",
+      "title": "出场",
+      "path": "src/Core/Models/Cards/shine/KarenDebut.cs",
+      "current_review": "reopened",
+      "action": "每轮整排AoE主刃和逐目标接触同时保留。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenHolyStar",
+      "title": "神圣星辰",
+      "path": "src/Core/Models/Cards/promisePile/KarenHolyStar.cs",
+      "current_review": "reopened",
+      "action": "交叉双击各自完整可见，保留主次关系和两次接触。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenConfront",
+      "title": "对峙",
+      "path": "src/Core/Models/Cards/token/KarenConfront.cs",
+      "current_review": "reopened",
+      "action": "逐次伸刺、接触、回收均可辨认；连刺保持完整。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenCounter",
+      "title": "回击",
+      "path": "src/Core/Models/Cards/token/KarenCounter.cs",
+      "current_review": "reopened",
+      "action": "保留每轮整排回击与逐目标接触，复核主体方向。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenContinue02",
+      "title": "永无结束的命运舞台",
+      "path": "src/Core/Models/Cards/shine/KarenContinue02.cs",
+      "current_review": "reopened",
+      "action": "保留成长重斩、强度变化与落点，扩大可读主体。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenSpin",
+      "title": "旋转",
+      "path": "src/Core/Models/Cards/globalMove/KarenSpin.cs",
+      "current_review": "reopened",
+      "action": "保留已确认的开放扁弧，补回可读的扫掠刃面和余韵。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenStarFriend",
+      "title": "星星串起了我们的友谊",
+      "path": "src/Core/Models/Cards/shine/KarenStarFriend.cs",
+      "current_review": "reopened",
+      "action": "斩击、真实致命结果与奖励交接均清楚可见。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenConsciousness",
+      "title": "以觉悟的名义",
+      "path": "src/Core/Models/Cards/neutral/KarenConsciousness.cs",
+      "current_review": "reopened",
+      "action": "斩击、防御确认与收势完整呈现。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenCourageStrike",
+      "title": "勇气打击",
+      "path": "src/Core/Models/Cards/promisePile/KarenCourageStrike.cs",
+      "current_review": "reopened",
+      "action": "整排主刃、接触及送塔衔接完整保留。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B03",
+      "class": "KarenLanding",
+      "title": "落地",
+      "path": "src/Core/Models/Cards/promisePile/KarenLanding.cs",
+      "current_review": "reopened",
+      "action": "整排下压、落点碎光及移牌衔接完整保留。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B04",
+      "class": "KarenContinue",
+      "title": "续演",
+      "path": "src/Core/Models/Cards/token/KarenContinue.cs",
+      "current_review": "reopened",
+      "action": "恢复飞行/冲击/碎光/余烬完整层次及原有密度、尾部；保留共享材质。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B04",
+      "class": "KarenRewrite",
+      "title": "续写",
+      "path": "src/Core/Models/Cards/shine/KarenRewrite.cs",
+      "current_review": "reopened",
+      "action": "保持完整连锁和每次接触，增强刃面；整串复用资源仍保留。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B04",
+      "class": "KarenStar",
+      "title": "星光闪耀之时",
+      "path": "src/Core/Models/Cards/shine/KarenStar.cs",
+      "current_review": "reopened",
+      "action": "恢复原有星结、灯带、星群、每次脉冲及奖励散星，优化批量绘制与查询。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B04",
+      "class": "KarenBridge",
+      "title": "约定之塔桥",
+      "path": "src/Core/Models/Cards/promisePile/KarenBridge.cs",
+      "current_review": "reopened",
+      "action": "恢复浮尘、接点火花和逐卡闪光；完整塔桥持有至连锁结束。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B04",
+      "class": "KarenGeer",
+      "title": "命运的齿轮",
+      "path": "src/Core/Models/Cards/neutral/KarenGeer.cs",
+      "current_review": "reopened",
+      "action": "恢复原有3个背景齿轮与角色齿轮的尺寸、层级和接合过程。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B04",
+      "class": "KarenDropFuel",
+      "title": "投下燃料",
+      "path": "src/Core/Models/Cards/shine/KarenDropFuel.cs",
+      "current_review": "reopened",
+      "action": "恢复原有燃烧、爆散、飞散、回收和能量确认的粒子内容及尾部。",
+      "baseline_status": "historical source and video comparison pending"
+    },
+    {
+      "batch": "B04",
+      "class": "KarenStarlight02Card",
+      "title": "Starlight第二幕",
+      "path": "src/Core/Models/Cards/shine/KarenStarlight02Card.cs",
+      "current_review": "reopened",
+      "action": "恢复灯束、羽化、顶光、暗幕及持有背景的完整舞台层次。",
+      "baseline_status": "historical source and video comparison pending"
+    }
+  ],
+  "rollback_report": "docs/testing/card-vfx-rollback-review-2026-10-31.md"
+}

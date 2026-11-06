@@ -1,0 +1,28 @@
+[
+  {
+    "name": "01-karen-bottle",
+    "strength": 0.25,
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_identical": true,
+    "seconds": 2.86,
+    "visible_rgb_mean_absolute_change": 1.908,
+    "source_sha256": "7bf7f254f57bd87c4c3973819106cefb9f71aadf34d275d6eaab298791b77f88",
+    "output_sha256": "f37ca38405e3dae2630546483466e8e8667f31462e9ce7ac453bf1790585852b"
+  },
+  {
+    "name": "04-baseball-cat",
+    "strength": 0.25,
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_identical": true,
+    "seconds": 2.52,
+    "visible_rgb_mean_absolute_change": 2.058,
+    "source_sha256": "4c7d287ad2e177f4d221f43b4dabe55f643786c730c7a9211ae090c9e1519433",
+    "output_sha256": "96af5c3dd46f256aa84d78de6af472dfb309931d44c2520c2a97058e36e75528"
+  }
+]

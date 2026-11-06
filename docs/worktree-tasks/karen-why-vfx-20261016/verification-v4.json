@@ -1,0 +1,680 @@
+{
+  "revision": "v4 - GPU particle scraps and dust; custom mesh and drawing removed",
+  "main": "2258764ef228233ce739361f58ffb137bd2bbd66",
+  "versions": {
+    "stable": {
+      "checks": [
+        {
+          "case": "base",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 215,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 35,
+                "MovingSamples": 34,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2186.4568
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 6.121848899987526
+        },
+        {
+          "case": "zero",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 197,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 32,
+                "MovingSamples": 31,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2185.0452
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 4.878212599956896
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 232,
+                "Selected": 3,
+                "Delivered": 3,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 38,
+                "MovingSamples": 37,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2185.1897
+              }
+            ],
+            "block": 12,
+            "hand": [
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 6.584767099993769
+        },
+        {
+          "case": "fast",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 176,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 29,
+                "MovingSamples": 28,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2185.0964
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 4.797719600028358
+        },
+        {
+          "case": "instant",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 3.912422500026878
+        },
+        {
+          "case": "void",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 204,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 34,
+                "MovingSamples": 33,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2187.0007
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ]
+          },
+          "duration": 6.035841800039634
+        },
+        {
+          "case": "empty",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 149,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 24,
+                "MovingSamples": 23,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2186.2283
+              }
+            ],
+            "block": 9,
+            "hand": [],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 2.899352899985388
+        },
+        {
+          "case": "repeat",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 143,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 23,
+                "MovingSamples": 22,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2186.9768
+              },
+              {
+                "Frames": 215,
+                "Selected": 1,
+                "Delivered": 1,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 35,
+                "MovingSamples": 34,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2185.6187
+              }
+            ],
+            "block": 18,
+            "hand": [
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 7.740986500051804
+        },
+        {
+          "case": "exit",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 165,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 27,
+                "MovingSamples": 26,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2187.2686
+              }
+            ],
+            "block": 0,
+            "hand": [
+              "KAREN_DEFEND",
+              "KAREN_STRIKE",
+              "KAREN_FALL",
+              "KAREN_DEFEND",
+              "KAREN_DEFEND"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_STRIKE",
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_STRIKE",
+              "KAREN_SHINE_STRIKE"
+            ]
+          },
+          "duration": 8.79050250002183
+        }
+      ],
+      "buildHashes": {
+        "ShoujoKagekiAijoKaren.dll": "ce2b87e3c73e0176dcf3434e0dea27548b25750baf6dd5fcc614987ba10f991e",
+        "ShoujoKagekiAijoKaren.pck": "5548cc5de9557eda6a9a2666442c5ac166d9fa2718f5da2cca56527c3514efe7",
+        "ShoujoKagekiAijoKaren.Beta.dll": "dbec26c97c2d8792941dae759e6ffb8d57a5dd2c407b2042f79328d0e00f571b",
+        "ShoujoKagekiAijoKaren.Stable.dll": "508433483ffc574df7c1fce2095b1d625eeb0de32f50414869eb0b2e51f0a0db"
+      },
+      "runtimeErrors": []
+    },
+    "beta": {
+      "checks": [
+        {
+          "case": "base",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 212,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 35,
+                "MovingSamples": 34,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2186.8652
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 6.2389013999491
+        },
+        {
+          "case": "zero",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 202,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 33,
+                "MovingSamples": 32,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2186.7173
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 4.937738799955696
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 220,
+                "Selected": 3,
+                "Delivered": 3,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 36,
+                "MovingSamples": 35,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2185.326
+              }
+            ],
+            "block": 12,
+            "hand": [
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 6.899447100004181
+        },
+        {
+          "case": "fast",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 164,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 27,
+                "MovingSamples": 26,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2187.101
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 4.621025400003418
+        },
+        {
+          "case": "instant",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 3.890140200033784
+        },
+        {
+          "case": "void",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 213,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 35,
+                "MovingSamples": 34,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2187.251
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ]
+          },
+          "duration": 6.16113259998383
+        },
+        {
+          "case": "empty",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 149,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 24,
+                "MovingSamples": 23,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2187.2688
+              }
+            ],
+            "block": 9,
+            "hand": [],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 2.881255899963435
+        },
+        {
+          "case": "repeat",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 138,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 23,
+                "MovingSamples": 22,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2183.682
+              },
+              {
+                "Frames": 212,
+                "Selected": 1,
+                "Delivered": 1,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 35,
+                "MovingSamples": 34,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2187.0007
+              }
+            ],
+            "block": 18,
+            "hand": [
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 7.692876800021622
+        },
+        {
+          "case": "exit",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 164,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "ParticleEmitters": 10,
+                "BoundsSamples": 27,
+                "MovingSamples": 26,
+                "ParticleBoundsFinite": true,
+                "ParticleSpread": 2186.8086
+              }
+            ],
+            "block": 0,
+            "hand": [
+              "KAREN_STRIKE",
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_STRIKE"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_FALL",
+              "KAREN_DEFEND",
+              "KAREN_DEFEND",
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ]
+          },
+          "duration": 8.72982750000665
+        }
+      ],
+      "buildHashes": {
+        "ShoujoKagekiAijoKaren.dll": "ce2b87e3c73e0176dcf3434e0dea27548b25750baf6dd5fcc614987ba10f991e",
+        "ShoujoKagekiAijoKaren.pck": "5548cc5de9557eda6a9a2666442c5ac166d9fa2718f5da2cca56527c3514efe7",
+        "ShoujoKagekiAijoKaren.Beta.dll": "dbec26c97c2d8792941dae759e6ffb8d57a5dd2c407b2042f79328d0e00f571b",
+        "ShoujoKagekiAijoKaren.Stable.dll": "508433483ffc574df7c1fce2095b1d625eeb0de32f50414869eb0b2e51f0a0db"
+      },
+      "runtimeErrors": []
+    }
+  },
+  "video": {
+    "duration": "18.968521",
+    "streams": [
+      [
+        "video",
+        "h264"
+      ],
+      [
+        "audio",
+        "aac"
+      ]
+    ],
+    "audioMeanDb": -46.9,
+    "audioPeakDb": -22.8,
+    "motion": [
+      {
+        "clip": "part-0.mp4",
+        "sampledFrames": 25,
+        "uniqueFrames": 25
+      },
+      {
+        "clip": "part-1.mp4",
+        "sampledFrames": 26,
+        "uniqueFrames": 26
+      },
+      {
+        "clip": "part-2.mp4",
+        "sampledFrames": 25,
+        "uniqueFrames": 25
+      }
+    ],
+    "freezeDiagnostics": []
+  },
+  "recording": {
+    "capture": "KarenSTS2MCP viewport + game_process audio",
+    "editing": "External 64px title strip and concatenation; game view unmodified.",
+    "sources": [
+      {
+        "file": "stable/base/game.mp4",
+        "sha256": "669c61685ac98bded872b5f49ab0344efbfa07ec84a9bdd797d490ae3fca3440"
+      },
+      {
+        "file": "stable/upgrade/game.mp4",
+        "sha256": "131b2b343abad46b1137e6b17b67656e7356fc91ae87b3065b2e83428e69dd42"
+      },
+      {
+        "file": "beta/void/game.mp4",
+        "sha256": "55b877e5b007f7b0c1c91049a45d9ea15ce55d6ea7e599c30597db61a8fed575"
+      }
+    ]
+  },
+  "asset": {
+    "path": "images/vfx/why/particle_scraps.png",
+    "width": 1254,
+    "height": 1254,
+    "alpha": [
+      0,
+      255
+    ],
+    "sha256": "ab1d6243c192b5eb01abbf62f667fece7de108818c327f4496b168331ad7e2d3",
+    "generation": "Built-in imagegen; original PNG unchanged; sampled through four AtlasTextures."
+  }
+}

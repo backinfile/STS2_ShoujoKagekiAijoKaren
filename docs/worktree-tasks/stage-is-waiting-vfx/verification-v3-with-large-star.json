@@ -1,0 +1,76 @@
+{
+  "stable": {
+    "observations": 25,
+    "captureFps": 28.97253234693573,
+    "meanAudioDb": -48.8,
+    "rapid": {
+      "frames": 953,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 4,
+      "peakBursts": 6,
+      "anchorError": 0,
+      "unit": 1.231579,
+      "peakCast": 1,
+      "peakTrigger": 1,
+      "sweepDistance": 192.00002,
+      "peakStar": 0.9867064,
+      "peakCurtain": 0.9891989,
+      "starNow": 0.16,
+      "curtainNow": 0.13,
+      "spritePaths": [
+        "res://images/vfx/waiting_stage/star_outline.png"
+      ],
+      "backCorrect": true,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "a7e1bd4f138eab024a75ac286b2d41a938f8b88d51ed6a4a11c03b153f1910bf",
+      "packSha256": "388ad764384c992fbccb54e4973c323da7268fe83af4b0c976f94faab7eb693d"
+    }
+  },
+  "beta": {
+    "observations": 25,
+    "captureFps": 29.718535579704415,
+    "meanAudioDb": -44.0,
+    "rapid": {
+      "frames": 937,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 4,
+      "peakBursts": 6,
+      "anchorError": 0,
+      "unit": 1.231579,
+      "peakCast": 1,
+      "peakTrigger": 1,
+      "sweepDistance": 192.00002,
+      "peakStar": 0.9863121,
+      "peakCurtain": 0.9888786,
+      "starNow": 0.16,
+      "curtainNow": 0.13,
+      "spritePaths": [
+        "res://images/vfx/waiting_stage/star_outline.png"
+      ],
+      "backCorrect": true,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "a873adc3046f0aa4c15997460b06c6144656569684d12e6c5a84afb5d05fd03a",
+      "packSha256": "388ad764384c992fbccb54e4973c323da7268fe83af4b0c976f94faab7eb693d"
+    }
+  }
+}

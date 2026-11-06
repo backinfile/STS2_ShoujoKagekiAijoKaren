@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "gameVersion": "v0.107.1",
+  "scope": "isolated stable singleplayer UI",
+  "port": 15637,
+  "checks": [
+    {
+      "label": "original",
+      "style": "original",
+      "candidateCards": 0,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "original-card",
+      "style": "original",
+      "candidateCards": 0,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "p9",
+      "style": "p9",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "p9-card",
+      "style": "p9",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "p9-zero",
+      "style": "p9",
+      "candidateCards": 5,
+      "energy": 0,
+      "passed": true
+    },
+    {
+      "label": "p9-restored",
+      "style": "p9",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "original-restored",
+      "style": "original",
+      "candidateCards": 0,
+      "energy": 3,
+      "passed": true
+    }
+  ],
+  "sameFiveHandModels": [
+    "KAREN_DEFEND",
+    "KAREN_DEFEND",
+    "KAREN_DEFEND",
+    "KAREN_DEFEND",
+    "KAREN_STRIKE"
+  ],
+  "nativeCost": {
+    "control": [
+      64,
+      64
+    ],
+    "position": [
+      -166,
+      -227
+    ],
+    "framePosition": [
+      -150,
+      -211
+    ],
+    "relativeTopLeft": [
+      -16,
+      -16
+    ],
+    "relativeCenter": [
+      16,
+      16
+    ],
+    "nodePositionChanged": false
+  },
+  "padding": "AtlasTexture region and transparent margin; generated PNGs unchanged",
+  "sourceSha256": {
+    "p9": "d1b6d7c2b20fae028ed13a7a2157fb487585d14d472a2364a8a6890d70cb23f1"
+  },
+  "probeSha256": "e2e9016c015ea29f05f8608acb240627be161878eaf26e7b7476023f0e0b45b4",
+  "karenPackSha256": "a336da2adf0a6bbd745f7cdca2e94dbfdec1f15012c9b109217c6391f64014a8",
+  "unexpectedErrors": [],
+  "gameplayRulesModified": false,
+  "energySetForTest": true,
+  "candidateEffects": "static textures; old decorative rotation/particles hidden",
+  "restoredAndClosed": true,
+  "beta": "not tested",
+  "multiplayer": "not tested"
+}

@@ -1,0 +1,1002 @@
+{
+  "stable-20261022-153026": {
+    "mode": "cold-multi-effect",
+    "rendering": "gl_compatibility",
+    "samples": [
+      {
+        "effect": "nonon",
+        "pass": 0,
+        "buildMs": 11.7306,
+        "allocated": 617808,
+        "drawn": 90,
+        "frames": 90,
+        "maxMs": 40.15,
+        "over33": 1
+      },
+      {
+        "effect": "nonon",
+        "pass": 1,
+        "buildMs": 3.3476,
+        "allocated": 593208,
+        "drawn": 90,
+        "frames": 90,
+        "maxMs": 50.1949,
+        "over33": 1
+      },
+      {
+        "effect": "nonon",
+        "pass": 2,
+        "buildMs": 1.6035,
+        "allocated": 593208,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 46.0814,
+        "over33": 1
+      },
+      {
+        "effect": "nonon",
+        "pass": 3,
+        "buildMs": 1.459,
+        "allocated": 593208,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 45.9984,
+        "over33": 1
+      },
+      {
+        "effect": "barrage",
+        "pass": 0,
+        "buildMs": 4.8249,
+        "allocated": 155816,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 44.6403,
+        "over33": 1
+      },
+      {
+        "effect": "barrage",
+        "pass": 1,
+        "buildMs": 0.8567,
+        "allocated": 131216,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 46.2517,
+        "over33": 1
+      },
+      {
+        "effect": "barrage",
+        "pass": 2,
+        "buildMs": 0.7862,
+        "allocated": 131216,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 47.136,
+        "over33": 1
+      },
+      {
+        "effect": "barrage",
+        "pass": 3,
+        "buildMs": 0.7897,
+        "allocated": 131216,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 46.9809,
+        "over33": 1
+      }
+    ]
+  },
+  "stable-20261022-153159": {
+    "mode": "cold-multi-effect",
+    "rendering": "gl_compatibility",
+    "samples": [
+      {
+        "effect": "bridge",
+        "pass": 0,
+        "buildMs": 0.1639,
+        "allocated": 0,
+        "drawn": 88,
+        "frames": 88,
+        "maxMs": 80.5275,
+        "over33": 1
+      },
+      {
+        "effect": "bridge",
+        "pass": 1,
+        "buildMs": 0.005,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.8067,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 2,
+        "buildMs": 0.0062,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 27.5009,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 3,
+        "buildMs": 0.007,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 17.3171,
+        "over33": 0
+      },
+      {
+        "effect": "nonon",
+        "pass": 0,
+        "buildMs": 20.0608,
+        "allocated": 626008,
+        "drawn": 89,
+        "frames": 89,
+        "maxMs": 55.0637,
+        "over33": 1
+      },
+      {
+        "effect": "nonon",
+        "pass": 1,
+        "buildMs": 3.3998,
+        "allocated": 519352,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 17.0141,
+        "over33": 0
+      },
+      {
+        "effect": "nonon",
+        "pass": 2,
+        "buildMs": 2.3124,
+        "allocated": 511192,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7298,
+        "over33": 0
+      },
+      {
+        "effect": "nonon",
+        "pass": 3,
+        "buildMs": 1.2999,
+        "allocated": 511192,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7393,
+        "over33": 0
+      },
+      {
+        "effect": "barrage",
+        "pass": 0,
+        "buildMs": 4.5418,
+        "allocated": 155816,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 29.6095,
+        "over33": 0
+      },
+      {
+        "effect": "barrage",
+        "pass": 1,
+        "buildMs": 0.8007,
+        "allocated": 57400,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7039,
+        "over33": 0
+      },
+      {
+        "effect": "barrage",
+        "pass": 2,
+        "buildMs": 0.6648,
+        "allocated": 49200,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 17.3962,
+        "over33": 0
+      },
+      {
+        "effect": "barrage",
+        "pass": 3,
+        "buildMs": 0.7515,
+        "allocated": 57400,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.8656,
+        "over33": 0
+      }
+    ]
+  },
+  "stable-20261022-153340": {
+    "mode": "cold",
+    "rendering": "gl_compatibility",
+    "samples": [
+      {
+        "effect": "bridge",
+        "pass": 0,
+        "buildMs": 0.3085,
+        "readyMs": 30.6043,
+        "allocated": 0,
+        "drawn": 85,
+        "frames": 85,
+        "maxMs": 135.0763,
+        "over33": 1
+      },
+      {
+        "effect": "bridge",
+        "pass": 1,
+        "buildMs": 0.0054,
+        "readyMs": 0.2302,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.8585,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 2,
+        "buildMs": 0.0058,
+        "readyMs": 0.2391,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.6883,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 3,
+        "buildMs": 0.005,
+        "readyMs": 0.2481,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.8856,
+        "over33": 0
+      }
+    ]
+  },
+  "stable-20261022-153443": {
+    "mode": "preload",
+    "rendering": "gl_compatibility",
+    "samples": [
+      {
+        "effect": "bridge",
+        "pass": 0,
+        "buildMs": 0.1735,
+        "readyMs": 2.3582,
+        "allocated": 8200,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7511,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 1,
+        "buildMs": 0.0059,
+        "readyMs": 0.2433,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.9524,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 2,
+        "buildMs": 0.0053,
+        "readyMs": 0.2406,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.6837,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 3,
+        "buildMs": 0.0055,
+        "readyMs": 0.2387,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7549,
+        "over33": 0
+      }
+    ]
+  },
+  "stable-20261022-153621": {
+    "mode": "draw",
+    "rendering": "gl_compatibility",
+    "samples": [
+      {
+        "effect": "bridge",
+        "pass": 0,
+        "buildMs": 0.0136,
+        "readyMs": 0.2469,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.6832,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 1,
+        "buildMs": 0.0077,
+        "readyMs": 0.3559,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7271,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 2,
+        "buildMs": 0.0077,
+        "readyMs": 0.2993,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 28.4483,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 3,
+        "buildMs": 0.0064,
+        "readyMs": 0.2703,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.7044,
+        "over33": 0
+      }
+    ]
+  },
+  "stable-20261022-153714": {
+    "mode": "cold",
+    "rendering": "forward_plus",
+    "samples": [
+      {
+        "effect": "bridge",
+        "pass": 0,
+        "buildMs": 0.2854,
+        "readyMs": 23.7076,
+        "allocated": 8200,
+        "drawn": 89,
+        "frames": 89,
+        "maxMs": 42.2882,
+        "over33": 1
+      },
+      {
+        "effect": "bridge",
+        "pass": 1,
+        "buildMs": 0.0072,
+        "readyMs": 0.2794,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.6851,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 2,
+        "buildMs": 0.0061,
+        "readyMs": 0.2708,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.9501,
+        "over33": 0
+      },
+      {
+        "effect": "bridge",
+        "pass": 3,
+        "buildMs": 0.0058,
+        "readyMs": 0.2904,
+        "allocated": 0,
+        "drawn": 91,
+        "frames": 91,
+        "maxMs": 16.959,
+        "over33": 0
+      }
+    ]
+  },
+  "stable-20261022-155550": {
+    "effect": "shine",
+    "mode": "cold",
+    "renderer": "opengl3",
+    "samples": [
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 33.6155,
+        "allocated": 753992,
+        "drawn": 69,
+        "frames": 69,
+        "maxMs": 39.0341,
+        "medianMs": 16.6646,
+        "over33": 1,
+        "cpu": {
+          "ShineCardBorder.ReadContour": [
+            26.8671
+          ],
+          "NKarenShineAmbientVfx._Ready": [
+            27.7142
+          ]
+        },
+        "pass": 0
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.7819,
+        "allocated": 688640,
+        "drawn": 71,
+        "frames": 71,
+        "maxMs": 16.8608,
+        "medianMs": 16.6652,
+        "over33": 0,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0252
+          ]
+        },
+        "pass": 1
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.7051,
+        "allocated": 682344,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.8312,
+        "medianMs": 16.6656,
+        "over33": 0,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.019
+          ]
+        },
+        "pass": 2
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.7056,
+        "allocated": 680600,
+        "drawn": 71,
+        "frames": 71,
+        "maxMs": 16.6879,
+        "medianMs": 16.6658,
+        "over33": 0,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0268
+          ]
+        },
+        "pass": 3
+      }
+    ]
+  },
+  "stable-20261022-155653": {
+    "effect": "promise",
+    "mode": "cold",
+    "renderer": "opengl3",
+    "samples": [
+      {
+        "status": "done",
+        "effect": "promise",
+        "syncMs": 3.436,
+        "allocated": 1731720,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.6823,
+        "medianMs": 16.6664,
+        "over33": 0,
+        "cpu": {
+          "NKarenPromiseCardEntryVfx._Ready": [
+            1.6196
+          ]
+        },
+        "pass": 0
+      },
+      {
+        "status": "done",
+        "effect": "promise",
+        "syncMs": 0.8341,
+        "allocated": 1566048,
+        "drawn": 74,
+        "frames": 74,
+        "maxMs": 16.7013,
+        "medianMs": 16.6654,
+        "over33": 0,
+        "cpu": {
+          "NKarenPromiseCardEntryVfx._Ready": [
+            0.0881
+          ]
+        },
+        "pass": 1
+      },
+      {
+        "status": "done",
+        "effect": "promise",
+        "syncMs": 0.8033,
+        "allocated": 1525128,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.6808,
+        "medianMs": 16.666,
+        "over33": 0,
+        "cpu": {
+          "NKarenPromiseCardEntryVfx._Ready": [
+            0.062
+          ]
+        },
+        "pass": 2
+      },
+      {
+        "status": "done",
+        "effect": "promise",
+        "syncMs": 0.9058,
+        "allocated": 1533368,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 17.0054,
+        "medianMs": 16.6669,
+        "over33": 0,
+        "cpu": {
+          "NKarenPromiseCardEntryVfx._Ready": [
+            0.0715
+          ]
+        },
+        "pass": 3
+      }
+    ]
+  },
+  "stable-20261022-155846": {
+    "effect": "shine",
+    "mode": "preload",
+    "renderer": "opengl3",
+    "samples": [
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 6.5072,
+        "allocated": 745928,
+        "drawn": 71,
+        "frames": 71,
+        "maxMs": 16.6889,
+        "medianMs": 16.6647,
+        "over33": 0,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.7027
+          ]
+        },
+        "pass": 0
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.8319,
+        "allocated": 696840,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.9207,
+        "medianMs": 16.6652,
+        "over33": 0,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0292
+          ]
+        },
+        "pass": 1
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.7001,
+        "allocated": 672400,
+        "drawn": 71,
+        "frames": 71,
+        "maxMs": 16.6862,
+        "medianMs": 16.6645,
+        "over33": 0,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0248
+          ]
+        },
+        "pass": 2
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.695,
+        "allocated": 679536,
+        "drawn": 71,
+        "frames": 71,
+        "maxMs": 16.6822,
+        "medianMs": 16.6657,
+        "over33": 0,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0232
+          ]
+        },
+        "pass": 3
+      }
+    ]
+  },
+  "stable-20261022-160105": {
+    "effect": "shine",
+    "mode": "cold",
+    "renderer": "opengl3",
+    "samples": [
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 28.9912,
+        "allocated": 745408,
+        "drawn": 69,
+        "frames": 69,
+        "maxMs": 34.3937,
+        "medianMs": 16.6654,
+        "over33": 1,
+        "cpu": {
+          "ShineCardBorder.ReadContour": [
+            22.6924
+          ],
+          "NKarenShineAmbientVfx._Ready": [
+            23.5026
+          ]
+        },
+        "pass": 0
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.851,
+        "allocated": 688800,
+        "drawn": 71,
+        "frames": 71,
+        "maxMs": 16.7265,
+        "medianMs": 16.6655,
+        "over33": 0,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0269
+          ]
+        },
+        "pass": 1
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.7373,
+        "allocated": 688552,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.6971,
+        "medianMs": 16.6661,
+        "over33": 0,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0191
+          ]
+        },
+        "pass": 2
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 7.3403,
+        "allocated": 763376,
+        "drawn": 70,
+        "frames": 70,
+        "maxMs": 17.0499,
+        "medianMs": 16.6659,
+        "over33": 0,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0412
+          ]
+        },
+        "pass": 3
+      }
+    ]
+  },
+  "stable-20261022-161044": {
+    "effect": "shine",
+    "mode": "cold",
+    "renderer": "opengl3",
+    "samples": [
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 5.9885,
+        "allocated": 731096,
+        "drawn": 71,
+        "frames": 71,
+        "maxMs": 16.7449,
+        "medianMs": 16.6659,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.6424
+          ]
+        },
+        "pass": 0
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.7891,
+        "allocated": 696984,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.7772,
+        "medianMs": 16.6667,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0246
+          ]
+        },
+        "pass": 1
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.7428,
+        "allocated": 696640,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.6867,
+        "medianMs": 16.6657,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.026
+          ]
+        },
+        "pass": 2
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.6354,
+        "allocated": 698064,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.7202,
+        "medianMs": 16.6657,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0211
+          ]
+        },
+        "pass": 3
+      }
+    ]
+  },
+  "beta-20261022-161155": {
+    "effect": "shine",
+    "mode": "cold",
+    "renderer": "opengl3",
+    "samples": [
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 3.0181,
+        "allocated": 745592,
+        "drawn": 71,
+        "frames": 71,
+        "maxMs": 16.8392,
+        "medianMs": 16.6653,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.6746
+          ]
+        },
+        "pass": 0
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.998,
+        "allocated": 704912,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.6838,
+        "medianMs": 16.6661,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0313
+          ]
+        },
+        "pass": 1
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.7286,
+        "allocated": 688768,
+        "drawn": 71,
+        "frames": 71,
+        "maxMs": 16.6957,
+        "medianMs": 16.6659,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0224
+          ]
+        },
+        "pass": 2
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.6766,
+        "allocated": 696904,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 17.0839,
+        "medianMs": 16.6651,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0198
+          ]
+        },
+        "pass": 3
+      }
+    ]
+  },
+  "stable-20261022-161321": {
+    "effect": "promise",
+    "mode": "cold",
+    "renderer": "opengl3",
+    "samples": [
+      {
+        "status": "done",
+        "effect": "promise",
+        "syncMs": 3.5046,
+        "allocated": 1393656,
+        "drawn": 71,
+        "frames": 71,
+        "maxMs": 19.7855,
+        "medianMs": 16.6664,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenPromiseCardEntryVfx._Ready": [
+            1.5843
+          ]
+        },
+        "pass": 0
+      },
+      {
+        "status": "done",
+        "effect": "promise",
+        "syncMs": 0.7805,
+        "allocated": 1205280,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.8432,
+        "medianMs": 16.6658,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenPromiseCardEntryVfx._Ready": [
+            0.0693
+          ]
+        },
+        "pass": 1
+      },
+      {
+        "status": "done",
+        "effect": "promise",
+        "syncMs": 0.8283,
+        "allocated": 1198432,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.6876,
+        "medianMs": 16.6654,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenPromiseCardEntryVfx._Ready": [
+            0.0635
+          ]
+        },
+        "pass": 2
+      },
+      {
+        "status": "done",
+        "effect": "promise",
+        "syncMs": 0.802,
+        "allocated": 1196984,
+        "drawn": 73,
+        "frames": 73,
+        "maxMs": 16.8781,
+        "medianMs": 16.6657,
+        "over33": 0,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenPromiseCardEntryVfx._Ready": [
+            0.0549
+          ]
+        },
+        "pass": 3
+      }
+    ]
+  },
+  "stable-20261022-161449": {
+    "effect": "shine",
+    "mode": "cold",
+    "renderer": "opengl3",
+    "samples": [
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 5.7545,
+        "allocated": 745952,
+        "drawn": 71,
+        "frames": 71,
+        "maxMs": 16.6894,
+        "medianMs": 16.6646,
+        "over33": 0,
+        "outlinePoints": 181,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.6271
+          ]
+        },
+        "pass": 0
+      },
+      {
+        "status": "done",
+        "effect": "shine",
+        "syncMs": 0.9168,
+        "allocated": 697000,
+        "drawn": 72,
+        "frames": 72,
+        "maxMs": 16.7183,
+        "medianMs": 16.6644,
+        "over33": 0,
+        "outlinePoints": 181,
+        "preparedContours": 1,
+        "cpu": {
+          "NKarenShineAmbientVfx._Ready": [
+            0.0299
+          ]
+        },
+        "pass": 1
+      }
+    ]
+  }
+}

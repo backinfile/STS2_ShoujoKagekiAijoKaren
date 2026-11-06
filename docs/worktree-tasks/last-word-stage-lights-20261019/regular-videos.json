@@ -1,0 +1,120 @@
+{
+  "comparisonDurations": {
+    "hover": 8.166667,
+    "play": 11.9
+  },
+  "videos": {
+    "LastWord-T-regular-hover-before-after.mp4": {
+      "sha256": "308c579060dbe576f6e1bb1999e4a78c0400d4895e60494510bee7162acf5854",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1920,
+            "height": 668,
+            "r_frame_rate": "30/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "8.166667"
+        }
+      },
+      "audio": {
+        "mean_volume": -60.2,
+        "max_volume": -46.2
+      },
+      "freezeStarts": []
+    },
+    "LastWord-T-regular-play-before-after.mp4": {
+      "sha256": "d63600cbb6ad36ba77916b7cc617801e0df9121cd8e9f8a11ce988b0587e8320",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1920,
+            "height": 668,
+            "r_frame_rate": "30/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "11.900000"
+        }
+      },
+      "audio": {
+        "mean_volume": -35.7,
+        "max_volume": -20.7
+      },
+      "freezeStarts": [
+        10.066667
+      ]
+    },
+    "LastWord-T-regular-review.mp4": {
+      "sha256": "943ca169aef2b893e464ad75cb5ab04bc212211c999f4cca23555ae5592acf43",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1920,
+            "height": 668,
+            "r_frame_rate": "30/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "20.089887"
+        }
+      },
+      "audio": {
+        "mean_volume": -38.0,
+        "max_volume": -20.7
+      },
+      "freezeStarts": [
+        18.256315
+      ]
+    },
+    "LastWord-T-regular-play-after.mp4": {
+      "sha256": "6a28a046cffe4675ef17b6de2e3ecac8a4187d46d92b3dcfeb9353597791d43a",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1280,
+            "height": 784,
+            "r_frame_rate": "30/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "11.900000"
+        }
+      },
+      "audio": {
+        "mean_volume": -35.7,
+        "max_volume": -20.7
+      },
+      "freezeStarts": []
+    }
+  }
+}

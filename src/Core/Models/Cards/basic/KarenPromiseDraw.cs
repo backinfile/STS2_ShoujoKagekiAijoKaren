@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -32,8 +33,8 @@ public sealed class KarenPromiseDraw : KarenBaseCardModel
         // 造成伤害
         if (cardPlay.Target != null)
         {
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
-                .WithHitFx(VfxCmd.slashPath)
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromPlayedCard(this, cardPlay).Targeting(cardPlay.Target)
+                .WithHitVfxNode(target => NKarenBasicCardVfx.Hit(Owner.Creature, target, NKarenBasicCardVfx.Shape.PromiseDraw))
                 .Execute(choiceContext);
         }
 

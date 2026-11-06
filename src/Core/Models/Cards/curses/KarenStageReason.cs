@@ -11,6 +11,7 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// <summary>
 /// 存在于舞台的理由 - 诅咒牌，1费，消耗，Shine 3。
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(3)]
 public sealed class KarenStageReason : KarenBaseCardModel
 {
     public override int MaxUpgradeLevel => 0;
@@ -23,7 +24,6 @@ public sealed class KarenStageReason : KarenBaseCardModel
     public KarenStageReason() : base(1, CardType.Curse, CardRarity.Curse, TargetType.Self)
     {
         // 初始化闪耀值
-        this.AddShineMax(3);
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

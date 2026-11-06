@@ -18,6 +18,8 @@ public sealed class KarenRun : KarenBaseCardModel
 {
     public KarenRun() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
+    public override bool SkipNewDayPower => true;
+
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

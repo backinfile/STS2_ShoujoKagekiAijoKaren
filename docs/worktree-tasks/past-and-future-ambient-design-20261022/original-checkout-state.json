@@ -1,0 +1,74 @@
+{
+  "originalBranch": "main",
+  "originalHead": "7c78e66e2db2d142f231ddf1b57c92fece4fb334",
+  "originalCheckout": ".",
+  "taskBranch": "codex/past-and-future-ambient-design-20261022",
+  "worktree": "../worktrees/STS2_ShoujoKagekiAijoKaren/past-and-future-ambient-design-20261022",
+  "dirtyFiles": [
+    {
+      "Status": " M",
+      "Path": "docs/21.特效总览与兼容约定.md",
+      "Hash": "2ED3C5D28C6A5079F75142B1E70D66A421B67E29B45CF61F53F8529625A45A3C"
+    },
+    {
+      "Status": " M",
+      "Path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenBenefitVfx.cs",
+      "Hash": "B646279E3B1A684A877E5A232D1B4829761AB0CA5A264279DCC9DC8CBD0184DC"
+    },
+    {
+      "Status": " M",
+      "Path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenExchangeFateVfx.cs",
+      "Hash": "B6D4DC6DE861844DB27FDEBCDE640D2E4DC7E680AAD9844A474CFFF03EE9C090"
+    },
+    {
+      "Status": " M",
+      "Path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.cs",
+      "Hash": "FD2790C1FBD449FDFF12599177E208FEF4A53BDB50304C5F89007FF5F0D20487"
+    },
+    {
+      "Status": " M",
+      "Path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs",
+      "Hash": "3B47E1959D332CDADC1824E0D69BF1645B4E7BCE74EB5B5EA3D16EF907A81773"
+    },
+    {
+      "Status": " M",
+      "Path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWaitingStageVfx.cs",
+      "Hash": "D9B3FDD8A01DED8B1651B4E4ABBF831BD138446C9B0F78032F12A8B376194444"
+    },
+    {
+      "Status": " M",
+      "Path": "tools/vfx/catalog/WaitingStageProbe.cs",
+      "Hash": "4D2DBDE50960051C5BF469122A54253933EB900EF11043130A56EB7E7D7B3255"
+    },
+    {
+      "Status": " M",
+      "Path": "tools/vfx/catalog/latest_scenes.py",
+      "Hash": "831388F576DDC7B8306ECA2CDA924EB3C0BFDA6A698939EEB39BE73452533A32"
+    },
+    {
+      "Status": " M",
+      "Path": "tools/vfx/catalog/record.py",
+      "Hash": "CAD96F21D758231A9E6222659CE33DD6964FC0D0ECC7794450735BDF878E882B"
+    },
+    {
+      "Status": " M",
+      "Path": "tools/vfx/catalog/verify_waiting_stage.py",
+      "Hash": "B87515C789F3CD58BB2096EF6AB131AA5FC4E08F320B30FB0D50DA9EBB9F9BB4"
+    },
+    {
+      "Status": " M",
+      "Path": "tools/vfx/catalog/waiting_audio_scenes.py",
+      "Hash": "FD851B79D794D1B21714A190888A4673306A87E4CF68611393D7ECA84F18EDE1"
+    },
+    {
+      "Status": "??",
+      "Path": "tools/vfx/catalog/RelicDetailsShowcase.cs",
+      "Hash": "BD0DFAA160018C5E3E4AB0F82F206ECB84731D3048367A9ADDA520F4EC7A2464"
+    },
+    {
+      "Status": "??",
+      "Path": "tools/vfx/catalog/SfxAudit.cs",
+      "Hash": "C139C2734470B3EC42C4B153C35CB6BC53EFC5BCE99BC0AB68DCAAFEE3A9575A"
+    }
+  ]
+}

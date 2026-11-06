@@ -1,0 +1,201 @@
+{
+  "state_type": "monster",
+  "battle": {
+    "round": 1,
+    "turn": "player",
+    "is_play_phase": true,
+    "enemies": [
+      {
+        "entity_id": "NIBBIT_0",
+        "combat_id": 1,
+        "name": "小啃兽",
+        "hp": 45,
+        "max_hp": 45,
+        "block": 0,
+        "status": [],
+        "intents": [
+          {
+            "type": "Attack",
+            "label": "12",
+            "title": "攻势",
+            "description": "这个敌人将要攻击造成12点伤害。"
+          }
+        ]
+      }
+    ]
+  },
+  "run": {
+    "act": 1,
+    "floor": 1,
+    "ascension": 0
+  },
+  "player": {
+    "character": "爱城华恋",
+    "hp": 72,
+    "max_hp": 72,
+    "block": 0,
+    "energy": 3,
+    "max_energy": 3,
+    "hand": [
+      {
+        "id": "KAREN_DEFEND",
+        "name": "防御",
+        "type": "Skill",
+        "cost": "1",
+        "star_cost": null,
+        "description": "获得5点格挡。",
+        "rarity": "Basic",
+        "is_upgraded": false,
+        "keywords": [
+          {
+            "name": "格挡",
+            "description": "在下个回合前，阻挡伤害。"
+          }
+        ],
+        "index": 0,
+        "target_type": "Self",
+        "can_play": true,
+        "unplayable_reason": null
+      },
+      {
+        "id": "KAREN_DEFEND",
+        "name": "防御",
+        "type": "Skill",
+        "cost": "1",
+        "star_cost": null,
+        "description": "获得5点格挡。",
+        "rarity": "Basic",
+        "is_upgraded": false,
+        "keywords": [
+          {
+            "name": "格挡",
+            "description": "在下个回合前，阻挡伤害。"
+          }
+        ],
+        "index": 1,
+        "target_type": "Self",
+        "can_play": true,
+        "unplayable_reason": null
+      },
+      {
+        "id": "KAREN_DEFEND",
+        "name": "防御",
+        "type": "Skill",
+        "cost": "1",
+        "star_cost": null,
+        "description": "获得5点格挡。",
+        "rarity": "Basic",
+        "is_upgraded": false,
+        "keywords": [
+          {
+            "name": "格挡",
+            "description": "在下个回合前，阻挡伤害。"
+          }
+        ],
+        "index": 2,
+        "target_type": "Self",
+        "can_play": true,
+        "unplayable_reason": null
+      },
+      {
+        "id": "KAREN_DEFEND",
+        "name": "防御",
+        "type": "Skill",
+        "cost": "1",
+        "star_cost": null,
+        "description": "获得5点格挡。",
+        "rarity": "Basic",
+        "is_upgraded": false,
+        "keywords": [
+          {
+            "name": "格挡",
+            "description": "在下个回合前，阻挡伤害。"
+          }
+        ],
+        "index": 3,
+        "target_type": "Self",
+        "can_play": true,
+        "unplayable_reason": null
+      },
+      {
+        "id": "KAREN_STRIKE",
+        "name": "打击",
+        "type": "Attack",
+        "cost": "1",
+        "star_cost": null,
+        "description": "造成6点伤害。",
+        "rarity": "Basic",
+        "is_upgraded": false,
+        "keywords": [],
+        "index": 4,
+        "target_type": "AnyEnemy",
+        "can_play": true,
+        "unplayable_reason": null
+      }
+    ],
+    "draw_pile_count": 5,
+    "discard_pile_count": 0,
+    "exhaust_pile_count": 0,
+    "draw_pile": [
+      {
+        "name": "坠落",
+        "cost": "1",
+        "star_cost": null,
+        "description": "获得8点格挡。 将1张牌放入约定牌堆。"
+      },
+      {
+        "name": "闪耀打击",
+        "cost": "1",
+        "star_cost": null,
+        "description": "造成9点伤害。 闪耀9。"
+      },
+      {
+        "name": "打击",
+        "cost": "1",
+        "star_cost": null,
+        "description": "造成6点伤害。"
+      },
+      {
+        "name": "打击",
+        "cost": "1",
+        "star_cost": null,
+        "description": "造成6点伤害。"
+      },
+      {
+        "name": "打击",
+        "cost": "1",
+        "star_cost": null,
+        "description": "造成6点伤害。"
+      }
+    ],
+    "discard_pile": [],
+    "exhaust_pile": [],
+    "gold": 99,
+    "status": [
+      {
+        "id": "KAREN_PROMISE_PILE_POWER",
+        "name": "约定牌堆",
+        "amount": 1,
+        "type": "Buff",
+        "description": "爱城华恋特有的牌堆。点击角色查看约定牌堆中的卡牌。",
+        "keywords": []
+      }
+    ],
+    "relics": [
+      {
+        "id": "KAREN_HAIRPIN_RELIC",
+        "name": "发夹",
+        "description": "在你的第2回合开始时，将一张约定之塔加入手牌。",
+        "counter": null,
+        "keywords": [
+          {
+            "name": "约定之塔",
+            "description": "保留。 从约定牌堆抽牌直到手牌上限。 消耗。"
+          }
+        ]
+      }
+    ],
+    "potions": [],
+    "max_potion_slots": 3
+  }
+}

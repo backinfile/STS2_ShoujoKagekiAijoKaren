@@ -6,6 +6,8 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System.Reflection;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 
@@ -16,10 +18,24 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 [HarmonyPatch]
 public static class CardKeywordInlinePatch
 {
-    static MethodBase TargetMethod()
+    static IEnumerable<MethodBase> TargetMethods()
     {
-        var previewType = typeof(CardModel).GetNestedType("DescriptionPreviewType", BindingFlags.NonPublic);
-        return AccessTools.Method(typeof(CardModel), "GetDescriptionForPile", new[] { typeof(PileType), previewType, typeof(Creature) });
+        // The private preview enum and overload are implementation details of the game.
+        // Patch the most specific description overload available on this branch.
+        var method = typeof(CardModel)
+            .GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+            .Where(candidate => candidate.Name == "GetDescriptionForPile" && candidate.ReturnType == typeof(string))
+            .Where(candidate => candidate.GetParameters().FirstOrDefault()?.ParameterType == typeof(PileType))
+            .OrderByDescending(candidate => candidate.GetParameters().Length)
+            .FirstOrDefault();
+
+        if (method is null)
+        {
+            MainFile.Logger.Warn("[CardKeywordInlinePatch] No compatible description method; inline keyword formatting disabled.");
+            yield break;
+        }
+
+        yield return method;
     }
 
     private static readonly LocString Period = new("card_keywords", "PERIOD");

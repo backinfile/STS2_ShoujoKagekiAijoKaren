@@ -1,0 +1,26 @@
+[
+  {
+    "file": "round1-stable\\boundary-recall\\during-2.png",
+    "roi": [
+      540,
+      420,
+      760,
+      525
+    ],
+    "whitePixels": 44,
+    "total": 23100,
+    "fraction": 0.0019047619047619048
+  },
+  {
+    "file": "round2-stable\\boundary-deep\\peak-depth.png",
+    "roi": [
+      540,
+      420,
+      760,
+      525
+    ],
+    "whitePixels": 19604,
+    "total": 23100,
+    "fraction": 0.8486580086580087
+  }
+]

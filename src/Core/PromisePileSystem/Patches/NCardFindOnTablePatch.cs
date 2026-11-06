@@ -1,11 +1,16 @@
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
+using System.Linq;
 using ShoujoKagekiAijoKaren.src.Core;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 
@@ -15,22 +20,28 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 /// 背景：
 /// - NCard.FindOnTable 使用 switch 表达式处理 PileType
 /// - 对于未知的 PileType（如 PromisePile = 7），会抛出 ArgumentOutOfRangeException
-/// - 约定牌堆是"虚拟牌堆"，没有对应的 UI 节点，应返回 null
+/// - 约定牌堆是"虚拟牌堆"，没有对应的 UI 节点
+/// - 测试版在移动模型后才查找旧视觉节点，必须用 overridePile 找回原手牌
 /// </summary>
 [HarmonyPatch(typeof(NCard), nameof(NCard.FindOnTable))]
 internal static class NCardFindOnTablePatch
 {
     [HarmonyPrefix]
-    private static bool Prefix(CardModel card, ref NCard? __result)
+    private static bool Prefix(CardModel card, PileType? overridePile, ref NCard? __result)
     {
-        // 拦截约定牌堆类型：直接返回 null，避免进入原方法的 switch 表达式
-        if (card?.Pile?.Type == KarenCustomEnum.PromisePile)
+#if STS2_BETA
+        // v0.111 looks up the source visual after moving the model. Respect the
+        // explicit source pile both when entering and when leaving PromisePile.
+        var visualPile = overridePile ?? card?.Pile?.Type;
+#else
+        var visualPile = card?.Pile?.Type;
+#endif
+        if (visualPile == KarenCustomEnum.PromisePile)
         {
             __result = null;
-            return false; // 跳过原方法
+            return false;
         }
 
-        // 其他情况：继续执行原方法
         return true;
     }
 }
@@ -41,7 +52,7 @@ internal static class NCardFindOnTablePatch
 /// 背景：
 /// - GetTargetPosition 使用 switch 表达式处理 PileType
 /// - 对于未知的 PileType（如 PromisePile = 7），会抛出 ArgumentOutOfRangeException
-/// - 约定牌堆没有对应的 UI 节点，返回角色位置作为默认位置
+/// - 约定牌堆没有对应的 UI 节点，返回塔内固定汇聚点，衔接原生飞入与取出动画
 /// </summary>
 [HarmonyPatch(typeof(PileTypeExtensions), nameof(PileTypeExtensions.GetTargetPosition))]
 internal static class PileTypeExtensionsGetTargetPositionPatch
@@ -49,16 +60,24 @@ internal static class PileTypeExtensionsGetTargetPositionPatch
     [HarmonyPrefix]
     private static bool Prefix(PileType pileType, NCard? node, ref Vector2 __result)
     {
-        // 拦截约定牌堆类型：返回角色位置
-        if (pileType == KarenCustomEnum.PromisePile)
+        // Off uses the native Draw icon even when Void redirects the promise pile.
+        if (!KarenVfxQuality.Enabled && pileType != KarenCustomEnum.PromisePile) return true;
+        // Only Draw can be redirected by Void. Queue previews may use canonical cards.
+        if (pileType != KarenCustomEnum.PromisePile && pileType != PileType.Draw) return true;
+        var owner = node?.Model is { IsMutable: true } model ? model.Owner : null;
+        // 原生移牌动画共用塔内固定汇聚点，与运动星点解耦。
+        if (pileType == KarenCustomEnum.PromisePile ||
+            (owner is { } player && KarenPromiseVfxStarManager.IsTowerPile(player, pileType)))
         {
             // 优先从 node 获取玩家角色位置
-            if (node?.Model?.Owner?.Creature is { } creature)
+            if (owner?.Creature is { } creature)
             {
                 var creatureNode = NCombatRoom.Instance?.GetCreatureNode(creature);
                 if (creatureNode != null)
                 {
-                    __result = creatureNode.VfxSpawnPosition;
+                    __result = node != null
+                        ? KarenPromiseVfxStarManager.GetPilePosition(owner, node) ?? creatureNode.VfxSpawnPosition
+                        : creatureNode.VfxSpawnPosition;
                     return false;
                 }
             }
@@ -71,5 +90,74 @@ internal static class PileTypeExtensionsGetTargetPositionPatch
 
         // 其他情况：继续执行原方法
         return true;
+    }
+}
+
+// Remote players use their intent position in the native factory. Explicitly anchor
+// outgoing promise cards to their own tower too; beta supplies the old pile separately.
+[HarmonyPatch(typeof(CardPileCmd), "CreateCardNodeAndUpdateVisuals")]
+internal static class PromisePileCardCreationPositionPatch
+{
+    [HarmonyPostfix]
+    private static void Postfix(CardModel card,
+#if STS2_BETA
+        PileType? oldPileType,
+#endif
+        NCard __result)
+    {
+#if !STS2_BETA
+        PileType? oldPileType = card.Pile?.Type;
+#endif
+        if (card.Owner is not { } owner || oldPileType is not { } source ||
+            !KarenPromiseVfxStarManager.IsTowerPile(owner, source)) return;
+        if (KarenPromiseVfxStarManager.TrackOutgoingCard(__result) is { } position)
+            __result.GlobalPosition = position;
+    }
+}
+
+// Pile-to-pile trails have no NCard, so their owner is recovered from the piles.
+[HarmonyPatch(typeof(NCardFlyShuffleVfx), nameof(NCardFlyShuffleVfx.Create))]
+internal static class PromisePileShufflePositionPatch
+{
+    private static readonly AccessTools.FieldRef<NCardFlyShuffleVfx, Vector2> StartPosition =
+        AccessTools.FieldRefAccess<NCardFlyShuffleVfx, Vector2>("_startPos");
+    private static readonly AccessTools.FieldRef<NCardFlyShuffleVfx, Vector2> EndPosition =
+        AccessTools.FieldRefAccess<NCardFlyShuffleVfx, Vector2>("_endPos");
+
+    [HarmonyPostfix]
+    private static void Postfix(CardPile startPile, CardPile targetPile, NCardFlyShuffleVfx? __result)
+    {
+        if (__result == null) return;
+        var owner = targetPile.Cards.FirstOrDefault()?.Owner ?? startPile.Cards.FirstOrDefault()?.Owner;
+        if (owner == null) return;
+        bool source = KarenPromiseVfxStarManager.IsTowerPile(owner, startPile.Type);
+        bool target = KarenPromiseVfxStarManager.IsTowerPile(owner, targetPile.Type);
+        if (!(source || target) || KarenPromiseVfxStarManager.GetTowerPosition(owner) is not { } position) return;
+        if (source) StartPosition(__result) = position;
+        if (target) EndPosition(__result) = position;
+    }
+}
+
+// Keep the native move, completion signal and hand ownership; replace only the incoming flight.
+[HarmonyPatch(typeof(NCardFlyVfx), nameof(NCardFlyVfx._Ready))]
+internal static class PromiseCardEntryVfxPatch
+{
+    private static readonly AccessTools.FieldRef<NCardFlyVfx, NCard> Card =
+        AccessTools.FieldRefAccess<NCardFlyVfx, NCard>("_card");
+    private static readonly AccessTools.FieldRef<NCardFlyVfx, bool> Adding =
+        AccessTools.FieldRefAccess<NCardFlyVfx, bool>("_isAddingToPile");
+
+    [HarmonyPrefix]
+    private static bool Prefix(NCardFlyVfx __instance)
+    {
+        if (!KarenVfxQuality.Enabled) return true;
+        var card = Card(__instance);
+        if (!Adding(__instance) || card.Model?.Pile is not { } pile ||
+            !KarenPromiseVfxStarManager.IsTowerPile(card.Model.Owner, pile.Type)) return true;
+        var completion = new System.Threading.Tasks.TaskCompletionSource();
+        AccessTools.Property(typeof(NCardFlyVfx), nameof(NCardFlyVfx.SwooshAwayCompletion))
+            .SetValue(__instance, completion);
+        __instance.AddChild(new NKarenPromiseCardEntryVfx(card, completion));
+        return false;
     }
 }

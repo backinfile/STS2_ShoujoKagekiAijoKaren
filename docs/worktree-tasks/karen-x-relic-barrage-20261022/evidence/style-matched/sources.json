@@ -1,0 +1,51 @@
+{
+  "purpose": "Object close-up alternatives for Take All of Me, matching the visual style of the existing Pick Star and Star Crime cards; A remains the provisional selection.",
+  "processing": "Real TV screenshot crop and Lanczos resize only.",
+  "choices": [
+    {
+      "id": "clasp",
+      "label": "1 · 星扣",
+      "source": "https://www.bilibili.com/video/BV1mW411S7YS/",
+      "timestamp_scope": "episode 8–12 digest, not episode-local time",
+      "digest_seconds": 460.0667,
+      "crop_xyxy": [
+        520,
+        200,
+        1670,
+        1074
+      ],
+      "source_sha256": "2249642ab4e4609bb13b530814cfb9bfa58a8cdf0202df3ee281bb4542d775f8",
+      "output_sha256": "79ff61b44f90c38ceddb23287b62edf41e01491177c422f4fece51a5889f257d"
+    },
+    {
+      "id": "pieces",
+      "label": "2 · 星扣碎片",
+      "source": "https://www.bilibili.com/video/BV1mW411S7YS/",
+      "timestamp_scope": "episode 8–12 digest, not episode-local time",
+      "digest_seconds": 459.8583,
+      "crop_xyxy": [
+        770,
+        200,
+        1920,
+        1074
+      ],
+      "source_sha256": "b9901f4fbb8d0f2174ffe9ce02212c1f84a9710f3ff111d1df40974c4b27c670",
+      "output_sha256": "3db6ac5d62f30c7bcd4023b145ac9cdc3a5d3e82e76be16320e541d6effad2d9"
+    },
+    {
+      "id": "palm",
+      "label": "3 · 掌心星饰",
+      "source": "https://www.reddit.com/r/anime/comments/v3k3jh/revue_starlight_rewatch_episode_12_discussion/",
+      "image_url": "https://i.imgur.com/4kNNV9f.jpeg",
+      "crop_xyxy": [
+        250,
+        0,
+        1671,
+        1080
+      ],
+      "source_evidence": "docs/worktree-tasks/karen-x-relic-barrage-20261022/evidence/style-matched/palm-source.jpg",
+      "output_sha256": "eb30e2240649c2d0e2c428d0bbc052da87ef89231de46e5954c7572caeede951"
+    }
+  ],
+  "scene_note": "Gold clasp frames are reassembly after the Star Sin Revue; they are object-style references, not asserted to depict the moment the clasp is broken. The palm frame shows the recovered star hairpin before the final duel."
+}

@@ -13,11 +13,12 @@ using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 
 /// <summary>
 /// 约定牌堆动画
-/// - Add 动画：卡牌从手牌位置飞向玩家角色中心并缩小消失（在 RemoveFromCurrentPile 之前调用）
+/// - Add 动画：卡牌从手牌位置飞向约定之塔汇聚点并缩小消失（在 RemoveFromCurrentPile 之前调用）
 /// - Draw 动画：由 CardPileCmd.Add 的内置动画（scale 0→1 + 飞向手牌同时进行）完成
 /// </summary>
 public static class PromisePileAnimator
@@ -29,7 +30,7 @@ public static class PromisePileAnimator
     // ─── Add 动画 ─────────────────────────────────────────────────────────────
 
     /// <summary>
-    /// 放入约定牌堆动画：临时副本从手牌位置飞向玩家角色中心并缩小消失。
+    /// 放入约定牌堆动画：临时副本从手牌位置飞向约定之塔汇聚点并缩小消失。
     /// 必须在 card.RemoveFromCurrentPile() 之前调用（FindOnTable 依赖 Pile.Type）。
     /// 使用副本而非 Reparent 原始 NCard，避免手牌容器刷新时留下空位。
     /// fire-and-forget，不阻塞逻辑。
@@ -58,7 +59,7 @@ public static class PromisePileAnimator
         var playerNode = GetCreatureNode(card.Owner);
         if (playerNode == null) return;
 
-        var targetPos = playerNode.VfxSpawnPosition;
+        var targetPos = KarenPromiseVfxStarManager.GetTowerPosition(card.Owner) ?? playerNode.VfxSpawnPosition;
         float duration = GetDuration();
 
         var globalUi = NRun.Instance?.GlobalUi;

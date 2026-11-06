@@ -1,0 +1,6 @@
+<trace>
+<meta source="docs\design\assets\relic-style-v6\cookie.png" sha256="e120efbcfd81b0802d8bd6a4892cc1ced0a70388a47e75d0cbe4c628a2efbd6f" started="2026-10-11T16:22:07+08:00" mode="rules"/>
+<step n="1"><observation phase="triage" regen_count="0" allow_regen="false"><allowed_actions><action>diagnose</action></allowed_actions></observation><decision action="diagnose" by="rules">Diagnosis is required before treatment.</decision><result>{"action": "diagnose", "lattice": false, "granule_level": "none", "scale_tile_pct": 0.0, "scale_level": "none", "board": "artifacts\\relic-moire-v7\\cookie\\cookie_input_diag_board.png", "scale_heatmap": "artifacts\\relic-moire-v7\\cookie\\cookie_input_scaleheat.png"}</result></step>
+<step n="2"><observation phase="triage" regen_count="0" allow_regen="false"><lattice detected="false" max_peak_excess="2.446" isolated_peaks="746"/><granule level="none" flagged="0" flat_windows="0"/><scale_index pct="0.0" level="none" flagged_tiles="0" tiles="324"/><allowed_actions><action>finish</action></allowed_actions></observation><decision action="finish" by="rules">No supported artifact class was detected.</decision><result>{"action": "finish"}</result></step>
+<outcome>delivered</outcome>
+</trace>

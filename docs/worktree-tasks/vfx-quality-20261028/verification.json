@@ -1,0 +1,411 @@
+{
+  "scope": "Targeted desktop quality, native fallback and shared rendering checks. Full multiplayer matrix, full VFX timing suite and Android device checks were not run.",
+  "versions": {
+    "stable": {
+      "version": "0.107.1",
+      "passed": true,
+      "package": {
+        "ShoujoKagekiAijoKaren.dll": "5769a91a5035184c8ecdd03edc04eb127cd0babce4228cc53bb498a59b129ee4",
+        "ShoujoKagekiAijoKaren.json": "0f1b5cb62a7dea207d22ac6c437ecc75361bb5662172d85c68bdb51bece30e18",
+        "ShoujoKagekiAijoKaren.pck": "b45a934635682a1d4e599201c3df4c7646713d162cad9dc16d90849051725948",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "8077a95ea9db9bc43da5992ea06d2084b47a7d7ebec90a97833bb63d95119801",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "7ff58d7cea30df0f99736c2044914de6de43c6a192d89e1ebba939a39a5cf101"
+      },
+      "budgets": {
+        "passed": true,
+        "levels": [
+          {
+            "level": "Full",
+            "particles": 40,
+            "triangles": 64,
+            "label": "完整"
+          },
+          {
+            "level": "Low",
+            "particles": 10,
+            "triangles": 16,
+            "label": "低"
+          },
+          {
+            "level": "Off",
+            "particles": 10,
+            "triangles": 16,
+            "label": "关闭"
+          }
+        ]
+      },
+      "lastWordSecondsToRewards": 3.5929999999934807,
+      "cases": [
+        {
+          "level": "Full",
+          "nononParticles": 1280,
+          "damage": 12,
+          "nononDrawCalls": 131,
+          "offVisibleEffects": null,
+          "video": {
+            "played": true,
+            "players": 0,
+            "nativePreview": false,
+            "waitSeconds": 6.7
+          },
+          "handAndToggle": "passed",
+          "native": {}
+        },
+        {
+          "level": "Low",
+          "nononParticles": 321,
+          "damage": 12,
+          "nononDrawCalls": 34,
+          "offVisibleEffects": null,
+          "video": {
+            "played": true,
+            "players": 0,
+            "nativePreview": false,
+            "waitSeconds": 6.7
+          },
+          "handAndToggle": "passed",
+          "native": {}
+        },
+        {
+          "level": "Off",
+          "nononParticles": 0,
+          "damage": 12,
+          "nononDrawCalls": 0,
+          "offVisibleEffects": 0,
+          "video": {
+            "played": false,
+            "players": 0,
+            "nativePreview": true,
+            "waitSeconds": 0
+          },
+          "handAndToggle": "passed",
+          "native": {
+            "VfxCmd:vfx/vfx_attack_slash": 3,
+            "NCardTrailVfx:res://scenes/vfx/card_trail_ironclad.tscn": 4,
+            "NExhaustVfx:Create": 3,
+            "NParticlesContainer:Restart": 2
+          }
+        }
+      ],
+      "performance": [
+        {
+          "level": "Full",
+          "maxWaitingPlaceCallsPerFrame": 1,
+          "waitingHeads": [
+            {
+              "PowerLayers": 2,
+              "heads": 2,
+              "EnergyPointCanvas": {},
+              "uiVisible": true,
+              "ringVisible": false
+            }
+          ],
+          "drawSamples": {
+            "NKarenWakeUpCardVfx": {
+              "count": 202,
+              "totalBytes": 50432,
+              "averageBytes": 249.66
+            },
+            "NKarenFightRelayVfx": {
+              "count": 135,
+              "totalBytes": 13248,
+              "averageBytes": 98.13
+            },
+            "NKarenPositionZeroVfx": {
+              "count": 704,
+              "totalBytes": 334848,
+              "averageBytes": 475.64
+            }
+          },
+          "wakeUpHand": "passed",
+          "relayScope": "visual preview on a single player; multiplayer networking unchanged and untested"
+        },
+        {
+          "level": "Low",
+          "maxWaitingPlaceCallsPerFrame": 1,
+          "waitingHeads": [
+            {
+              "PowerLayers": 2,
+              "heads": 2,
+              "EnergyPointCanvas": {},
+              "uiVisible": true,
+              "ringVisible": false
+            }
+          ],
+          "drawSamples": {
+            "NKarenWakeUpCardVfx": {
+              "count": 60,
+              "totalBytes": 14576,
+              "averageBytes": 242.93
+            },
+            "NKarenFightRelayVfx": {
+              "count": 39,
+              "totalBytes": 3744,
+              "averageBytes": 96.0
+            },
+            "NKarenPositionZeroVfx": {
+              "count": 197,
+              "totalBytes": 92640,
+              "averageBytes": 470.25
+            }
+          },
+          "wakeUpHand": "passed",
+          "relayScope": "visual preview on a single player; multiplayer networking unchanged and untested"
+        }
+      ],
+      "screenshotsViewed": "MCP originals saved; deplete, recall, guide, void and wake-up before/after contact sheets and shared visual samples reviewed.",
+      "ribbonPreview": {
+        "passed": true,
+        "levels": {
+          "Full": 264,
+          "Low": 72
+        },
+        "screenshotsViewed": true
+      }
+    },
+    "beta": {
+      "version": "0.111.0",
+      "passed": true,
+      "package": {
+        "ShoujoKagekiAijoKaren.dll": "5769a91a5035184c8ecdd03edc04eb127cd0babce4228cc53bb498a59b129ee4",
+        "ShoujoKagekiAijoKaren.json": "0f1b5cb62a7dea207d22ac6c437ecc75361bb5662172d85c68bdb51bece30e18",
+        "ShoujoKagekiAijoKaren.pck": "b45a934635682a1d4e599201c3df4c7646713d162cad9dc16d90849051725948",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "8077a95ea9db9bc43da5992ea06d2084b47a7d7ebec90a97833bb63d95119801",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "7ff58d7cea30df0f99736c2044914de6de43c6a192d89e1ebba939a39a5cf101"
+      },
+      "budgets": {
+        "passed": true,
+        "levels": [
+          {
+            "level": "Full",
+            "particles": 40,
+            "triangles": 64,
+            "label": "完整"
+          },
+          {
+            "level": "Low",
+            "particles": 10,
+            "triangles": 16,
+            "label": "低"
+          },
+          {
+            "level": "Off",
+            "particles": 10,
+            "triangles": 16,
+            "label": "关闭"
+          }
+        ]
+      },
+      "lastWordSecondsToRewards": 3.593999999924563,
+      "cases": [
+        {
+          "level": "Full",
+          "nononParticles": 1280,
+          "damage": 12,
+          "nononDrawCalls": 128,
+          "offVisibleEffects": null,
+          "video": {
+            "played": true,
+            "players": 0,
+            "nativePreview": false,
+            "waitSeconds": 6.7
+          },
+          "handAndToggle": "passed",
+          "native": {}
+        },
+        {
+          "level": "Low",
+          "nononParticles": 321,
+          "damage": 12,
+          "nononDrawCalls": 37,
+          "offVisibleEffects": null,
+          "video": {
+            "played": true,
+            "players": 0,
+            "nativePreview": false,
+            "waitSeconds": 6.7
+          },
+          "handAndToggle": "passed",
+          "native": {}
+        },
+        {
+          "level": "Off",
+          "nononParticles": 0,
+          "damage": 12,
+          "nononDrawCalls": 0,
+          "offVisibleEffects": 0,
+          "video": {
+            "played": false,
+            "players": 0,
+            "nativePreview": true,
+            "waitSeconds": 0
+          },
+          "handAndToggle": "passed",
+          "native": {
+            "VfxCmd:vfx/vfx_attack_slash": 3,
+            "NCardTrailVfx:res://scenes/vfx/card_trail_ironclad.tscn": 4,
+            "NCardExhaustVfx:Create": 3,
+            "NParticlesContainer:Restart": 2
+          }
+        }
+      ],
+      "performance": [
+        {
+          "level": "Full",
+          "maxWaitingPlaceCallsPerFrame": 1,
+          "waitingHeads": [
+            {
+              "PowerLayers": 2,
+              "heads": 2,
+              "EnergyPointCanvas": {},
+              "uiVisible": true,
+              "ringVisible": false
+            }
+          ],
+          "drawSamples": {
+            "NKarenWakeUpCardVfx": {
+              "count": 202,
+              "totalBytes": 50432,
+              "averageBytes": 249.66
+            },
+            "NKarenFightRelayVfx": {
+              "count": 136,
+              "totalBytes": 13344,
+              "averageBytes": 98.12
+            },
+            "NKarenPositionZeroVfx": {
+              "count": 709,
+              "totalBytes": 326112,
+              "averageBytes": 459.96
+            }
+          },
+          "wakeUpHand": "passed",
+          "relayScope": "visual preview on a single player; multiplayer networking unchanged and untested"
+        },
+        {
+          "level": "Low",
+          "maxWaitingPlaceCallsPerFrame": 1,
+          "waitingHeads": [
+            {
+              "PowerLayers": 2,
+              "heads": 2,
+              "EnergyPointCanvas": {},
+              "uiVisible": true,
+              "ringVisible": false
+            }
+          ],
+          "drawSamples": {
+            "NKarenWakeUpCardVfx": {
+              "count": 58,
+              "totalBytes": 14080,
+              "averageBytes": 242.76
+            },
+            "NKarenFightRelayVfx": {
+              "count": 40,
+              "totalBytes": 3840,
+              "averageBytes": 96.0
+            },
+            "NKarenPositionZeroVfx": {
+              "count": 204,
+              "totalBytes": 97920,
+              "averageBytes": 480.0
+            }
+          },
+          "wakeUpHand": "passed",
+          "relayScope": "visual preview on a single player; multiplayer networking unchanged and untested"
+        }
+      ],
+      "screenshotsViewed": "MCP originals saved; deplete, recall, guide, void and wake-up before/after contact sheets and shared visual samples reviewed.",
+      "ribbonPreview": {
+        "passed": true,
+        "levels": {
+          "Full": 264,
+          "Low": 72
+        },
+        "screenshotsViewed": true
+      }
+    }
+  },
+  "comparisonBaseline": {
+    "package": {
+      "ShoujoKagekiAijoKaren.dll": "5769a91a5035184c8ecdd03edc04eb127cd0babce4228cc53bb498a59b129ee4",
+      "ShoujoKagekiAijoKaren.json": "0f1b5cb62a7dea207d22ac6c437ecc75361bb5662172d85c68bdb51bece30e18",
+      "ShoujoKagekiAijoKaren.pck": "b45a934635682a1d4e599201c3df4c7646713d162cad9dc16d90849051725948",
+      "lib\\ShoujoKagekiAijoKaren.Beta.dll": "e39c7218987d56b96519fa427ba84f16dcd1cb7c7c7e9046de78babbf547978b",
+      "lib\\ShoujoKagekiAijoKaren.Stable.dll": "9e0935fb07b83d22e2b9ee7041ef0a885bba0ab3dc781476d05dfca99cf56635"
+    },
+    "level": "Full",
+    "maxWaitingPlaceCallsPerFrame": 3,
+    "drawSamples": {
+      "NKarenWakeUpCardVfx": {
+        "count": 202,
+        "totalBytes": 1885264,
+        "averageBytes": 9332.99
+      },
+      "NKarenFightRelayVfx": {
+        "count": 135,
+        "totalBytes": 608648,
+        "averageBytes": 4508.5
+      },
+      "NKarenPositionZeroVfx": {
+        "count": 709,
+        "totalBytes": 2785632,
+        "averageBytes": 3928.96
+      }
+    },
+    "metricScope": "Managed bytes inside each _Draw call in the same scripted scene; this is not total frame cost or an FPS measurement."
+  },
+  "video": {
+    "source": "Godot viewport via KarenSTS2MCP",
+    "speed": 1,
+    "edits": "Trim and align matching chapters, scale to three columns, add labels outside each viewport. The live toggle test between chapters is omitted. Game image content and effects are unaltered.",
+    "sources": {
+      "Full": "55d97a6bea2105fae5fe69a65655fd803afe292febf2efec3c4a2db9e4571cdf",
+      "Low": "bdf6defb0caa3ce6d0a0043685865428f3bedc9fef45cc0799241415999c68be",
+      "Off": "ab61d421117ebffc5db4bf1c7f084f75d385509ac30abccf0048c3f3704f0c89"
+    },
+    "chapters": [
+      {
+        "title": "卡面微光、耗尽预告与约定之塔",
+        "start": 0,
+        "duration": 1.2
+      },
+      {
+        "title": "NONNON · 大范围碎屑与刀光",
+        "start": 1.2,
+        "duration": 3.3
+      },
+      {
+        "title": "激情 · 卡面星尘与闪耀耗尽",
+        "start": 4.5,
+        "duration": 3.1
+      },
+      {
+        "title": "闪耀打击 · 耗尽与牌堆落点",
+        "start": 7.6,
+        "duration": 2.3
+      },
+      {
+        "title": "过去与未来、觉醒形态 · 常驻装饰",
+        "start": 9.899999999999999,
+        "duration": 4.6
+      },
+      {
+        "title": "最后的台词 · 影片／文字／本体刀光（演出预览）",
+        "start": 14.499999999999998,
+        "duration": 6.6
+      }
+    ],
+    "sha256": "f6cc3820e7c0959bdb9f500758b0b2c84e757d7d511792cd3fce0d8253b87938",
+    "duration": 21.1,
+    "sampledFrames": 84,
+    "uniqueFrames": 84,
+    "path": "output/vfx-quality-native-comparison-20261028/karen-vfx-quality-comparison.mp4"
+  },
+  "catalog": {
+    "types": 72,
+    "sharedOwners": 38,
+    "assets": 167,
+    "passed": true
+  }
+}

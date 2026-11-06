@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework><Nullable>enable</Nullable><LangVersion>12</LangVersion>
+    <AssemblyName>KarenReviewRegression</AssemblyName>
+    <Variant Condition="'$(Variant)' == ''">Stable</Variant>
+    <Game>$(MSBuildThisFileDirectory)../../artifacts/dev-game/$(Variant)/game</Game>
+    <DefineConstants Condition="'$(Variant)' == 'Beta'">STS2_BETA</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="LoopbackTransport.cs" />
+    <Reference Include="0Harmony"><HintPath>$(Game)/data_sts2_windows_x86_64/0Harmony.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="sts2"><HintPath>$(Game)/data_sts2_windows_x86_64/sts2.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="GodotSharp"><HintPath>$(Game)/data_sts2_windows_x86_64/GodotSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="BaseLib"><HintPath>$(Game)/mods/BaseLib/BaseLib.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Karen"><HintPath>../../artifacts/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.$(Variant).dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+</Project>

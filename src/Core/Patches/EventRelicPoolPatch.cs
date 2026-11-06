@@ -28,6 +28,17 @@ public static class EventRelicPoolPatch
     public static void Postfix(ref IEnumerable<RelicModel> __result)
     {
         MainFile.Logger.Info("[EventRelicPoolPatch] Injecting Karen event relics into EventRelicPool...");
-        __result = __result.Concat(GetKarenEventRelics());
+        var relics = __result.ToList();
+        var existingIds = relics.Select(relic => relic.Id).ToHashSet();
+
+        foreach (var relic in GetKarenEventRelics())
+        {
+            if (existingIds.Add(relic.Id))
+            {
+                relics.Add(relic);
+            }
+        }
+
+        __result = relics;
     }
 }

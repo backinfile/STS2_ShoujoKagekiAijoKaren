@@ -1,0 +1,830 @@
+{
+  "scope": "Targeted single-player checks; no multiplayer or full matrix.",
+  "runs": [
+    {
+      "version": "before",
+      "branch": "stable",
+      "build": {
+        "assemblySha256": "781c5b27a846bd196a90d1a8b740f1ec221951fb94843174aacd863eef22860e",
+        "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+      },
+      "cases": [
+        {
+          "name": "normal",
+          "nodes": 3,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.9790000000000063,
+              "age": 0.99721307,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.9790000000000063,
+              "age": 0.99721307,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.6120000000000019,
+              "age": 0.6166417,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ],
+          "capture": {
+            "fps": 29.265277999513312,
+            "repeated": 10,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "f3e7cfd39da46fd35ac963d891721b6d602f5320f176d6976b30663c502bd64c"
+          }
+        },
+        {
+          "name": "fast",
+          "nodes": 3,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.992999999999995,
+              "age": 0.983857,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.992999999999995,
+              "age": 0.983857,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.6060000000000088,
+              "age": 0.609088,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ],
+          "capture": {
+            "fps": 29.30456658479671,
+            "repeated": 7,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "5e3107e4f67a25e7079b43f54310abce1694d761bd28ca5a1ac95b33e1eaa204"
+          }
+        },
+        {
+          "name": "instant",
+          "nodes": 3,
+          "selectionPeak": 3,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.980000000000004,
+              "age": 0.98227507,
+              "instantFrames": 52,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.980000000000004,
+              "age": 0.98227507,
+              "instantFrames": 52,
+              "instantSoundFrames": 7
+            },
+            {
+              "duration": 0.5990000000000038,
+              "age": 0.6188991,
+              "instantFrames": 37,
+              "instantSoundFrames": 10
+            }
+          ],
+          "capture": {
+            "fps": 29.85565537019893,
+            "repeated": 1,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "28833adb91255475dcc27e399c128a66cb09fe7b8ea256095190afc6cf1dfb43"
+          }
+        },
+        {
+          "name": "switch-cast",
+          "nodes": 2,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": null,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.9950000000000045,
+              "age": 0.9914553,
+              "instantFrames": 39,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.9950000000000045,
+              "age": 0.9914553,
+              "instantFrames": 39,
+              "instantSoundFrames": 4
+            }
+          ],
+          "capture": {
+            "fps": 29.067291652193575,
+            "repeated": 3,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "90b3f43b6c2353fb7309289545529045e4a7e05d7c47e588b30b3bdab855cc29"
+          }
+        }
+      ],
+      "handChecks": 15,
+      "windowMonitor": {
+        "samples": 3720,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 86
+      },
+      "logDiagnostics": [],
+      "knownStartupDiagnostics": []
+    },
+    {
+      "version": "after",
+      "branch": "stable",
+      "build": {
+        "assemblySha256": "7b02da0eadbae535c40a85067af3ae838e968ddc54cbb17539fe39333f328842",
+        "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+      },
+      "cases": [
+        {
+          "name": "normal",
+          "nodes": 3,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.9789999999999992,
+              "age": 0.99424213,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.9789999999999992,
+              "age": 0.99424213,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.6369999999999933,
+              "age": 0.60874605,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ],
+          "capture": {
+            "fps": 28.888035561820768,
+            "repeated": 15,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "84a55a28861c9f833827008a9ba53f77e1c1e5b1217229b951212e5062b44ec1"
+          }
+        },
+        {
+          "name": "fast",
+          "nodes": 3,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 1.0060000000000002,
+              "age": 0.99399924,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 1.0060000000000002,
+              "age": 0.99399924,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.6090000000000089,
+              "age": 0.6069228,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ],
+          "capture": {
+            "fps": 29.50645208475451,
+            "repeated": 5,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "a33c532f81ae546ffe7a7ca1e79a09c6ed6d9b44e848d4b54095337d8f4c54ca"
+          }
+        },
+        {
+          "name": "instant",
+          "nodes": 0,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [],
+          "capture": {
+            "fps": 28.743745337834046,
+            "repeated": 6,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "b5e50dfca6d80a359e205999255e33667d94b724288cab6f1eb746e6e70608fe"
+          }
+        },
+        {
+          "name": "switch-cast",
+          "nodes": 2,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": null,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.3190000000000026,
+              "age": 0.31425634,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.3190000000000026,
+              "age": 0.31425634,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ],
+          "capture": {
+            "fps": 29.073302683244485,
+            "repeated": 3,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "8856c5e500b40b45888152a882a55fa9f61d5ace1cedc47522b2e3aee6dba3e7"
+          }
+        },
+        {
+          "name": "void-normal",
+          "nodes": 3,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.9960000000000093,
+              "age": 0.98482543,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.9960000000000093,
+              "age": 0.98482543,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.6230000000000189,
+              "age": 0.6193443,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        },
+        {
+          "name": "void-fast",
+          "nodes": 3,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.9769999999999754,
+              "age": 0.9859996,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.9769999999999754,
+              "age": 0.9859996,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.5999999999999943,
+              "age": 0.60569733,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        },
+        {
+          "name": "void-instant",
+          "nodes": 0,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": []
+        },
+        {
+          "name": "empty",
+          "nodes": 2,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 0,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.9840000000000089,
+              "age": 0.98471993,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.9840000000000089,
+              "age": 0.98471993,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        },
+        {
+          "name": "stacked",
+          "nodes": 6,
+          "selectionPeak": 0,
+          "power": 2,
+          "autoplays": 2,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 1.0339999999999918,
+              "age": 0.99876004,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 1.0339999999999918,
+              "age": 0.99876004,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.9969999999999857,
+              "age": 0.9908898,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.9969999999999857,
+              "age": 0.9908898,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.6079999999999757,
+              "age": 0.60571194,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.5930000000000177,
+              "age": 0.6192863,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        },
+        {
+          "name": "deferred",
+          "nodes": 0,
+          "selectionPeak": 0,
+          "power": 0,
+          "autoplays": null,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": []
+        },
+        {
+          "name": "interrupt",
+          "nodes": 2,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": null,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.08100000000001728,
+              "age": 0.032625668,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.08100000000001728,
+              "age": 0.032625668,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        },
+        {
+          "name": "leave",
+          "nodes": 2,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": null,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.06099999999997863,
+              "age": 0.048505336,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.06099999999997863,
+              "age": 0.048505336,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        }
+      ],
+      "handChecks": 42,
+      "windowMonitor": {
+        "samples": 10032,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 99
+      },
+      "logDiagnostics": [],
+      "knownStartupDiagnostics": []
+    },
+    {
+      "version": "after",
+      "branch": "beta",
+      "build": {
+        "assemblySha256": "843256bd0e5e48f188e2862404a316c0ab893f7863ed2fd8f886479d0c37070a",
+        "packSha256": "ff1a4f11cf93334de43789cd200e1c28b9099d6e46b41dca4a7509eb0e798e12"
+      },
+      "cases": [
+        {
+          "name": "normal",
+          "nodes": 3,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.9930000000000021,
+              "age": 0.9953774,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.9930000000000021,
+              "age": 0.9953774,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.6180000000000021,
+              "age": 0.609151,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ],
+          "capture": {
+            "fps": 29.69371273293199,
+            "repeated": 4,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "5f1d616484ec0d8cfd264d8a893474bfae627d7c99749f3a631fa45ea1b0bfe2"
+          }
+        },
+        {
+          "name": "fast",
+          "nodes": 3,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 1.0150000000000006,
+              "age": 0.9958583,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 1.0150000000000006,
+              "age": 0.9958583,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.6400000000000006,
+              "age": 0.61897093,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ],
+          "capture": {
+            "fps": 29.559648586483622,
+            "repeated": 4,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "b4cb53507ef1f85556d6907b3227268daf4c649401be33ec3e4809028a7e1806"
+          }
+        },
+        {
+          "name": "instant",
+          "nodes": 0,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [],
+          "capture": {
+            "fps": 28.239051977832208,
+            "repeated": 8,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "2743d07af69c17e6a3216076885e2894401c570d2219c75f348247a540cf4df4"
+          }
+        },
+        {
+          "name": "switch-cast",
+          "nodes": 2,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": null,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.3340000000000032,
+              "age": 0.32412088,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.33499999999999375,
+              "age": 0.32412088,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ],
+          "capture": {
+            "fps": 27.84034850613767,
+            "repeated": 7,
+            "dropped": 0,
+            "encoder": "h264_nvenc",
+            "movieSha256": "40a235151ee9cadfba3f0e4f6758e2684290a01bbf15fa03cfcf0430e9a80c0c"
+          }
+        },
+        {
+          "name": "void-normal",
+          "nodes": 3,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.992999999999995,
+              "age": 0.98639435,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.992999999999995,
+              "age": 0.98639435,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.5999999999999943,
+              "age": 0.6155573,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        },
+        {
+          "name": "void-fast",
+          "nodes": 3,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 1.0020000000000095,
+              "age": 0.9982914,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 1.0020000000000095,
+              "age": 0.9982914,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.6090000000000089,
+              "age": 0.6175203,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        },
+        {
+          "name": "void-instant",
+          "nodes": 0,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 1,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": []
+        },
+        {
+          "name": "empty",
+          "nodes": 2,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": 0,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 1.0080000000000098,
+              "age": 0.991383,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 1.0080000000000098,
+              "age": 0.991383,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        },
+        {
+          "name": "stacked",
+          "nodes": 6,
+          "selectionPeak": 0,
+          "power": 2,
+          "autoplays": 2,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.9979999999999905,
+              "age": 0.98929554,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.9979999999999905,
+              "age": 0.98929554,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 1.0020000000000095,
+              "age": 0.9910586,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 1.0020000000000095,
+              "age": 0.9910586,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.6030000000000086,
+              "age": 0.6113981,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.6310000000000002,
+              "age": 0.61338156,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        },
+        {
+          "name": "deferred",
+          "nodes": 0,
+          "selectionPeak": 0,
+          "power": 0,
+          "autoplays": null,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": []
+        },
+        {
+          "name": "interrupt",
+          "nodes": 2,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": null,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.07699999999999818,
+              "age": 0.027908001,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.07699999999999818,
+              "age": 0.027908001,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        },
+        {
+          "name": "leave",
+          "nodes": 2,
+          "selectionPeak": 0,
+          "power": 1,
+          "autoplays": null,
+          "live": 0,
+          "activeSounds": 0,
+          "timing": [
+            {
+              "duration": 0.08899999999999864,
+              "age": 0.06527411,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            },
+            {
+              "duration": 0.08899999999999864,
+              "age": 0.06527411,
+              "instantFrames": 0,
+              "instantSoundFrames": 0
+            }
+          ]
+        }
+      ],
+      "handChecks": 42,
+      "windowMonitor": {
+        "samples": 9673,
+        "foreground_samples": 0,
+        "restored_samples": 0,
+        "minimized_samples": 74
+      },
+      "logDiagnostics": [
+        "ERROR: Invalid Task ID"
+      ],
+      "knownStartupDiagnostics": [
+        "ERROR: Invalid Task ID"
+      ]
+    }
+  ]
+}

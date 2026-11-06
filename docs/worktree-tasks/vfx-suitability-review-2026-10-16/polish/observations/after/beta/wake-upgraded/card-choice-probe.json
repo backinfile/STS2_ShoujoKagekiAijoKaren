@@ -1,0 +1,19 @@
+{
+  "live": 0,
+  "liveCurtains": 1,
+  "showingCurtains": 1,
+  "selected": 0,
+  "curtains": [
+    {
+      "Frames": 625,
+      "PeakSelected": 0,
+      "Targets": 0,
+      "Shown": true,
+      "BelowCards": true,
+      "InputIgnored": true,
+      "Gathered": false,
+      "Freed": false
+    }
+  ],
+  "effects": []
+}

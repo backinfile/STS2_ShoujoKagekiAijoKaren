@@ -1,0 +1,59 @@
+# Karen STS2 MCP 使用说明
+
+游戏内自动化测试统一使用 `<karen-sts2-mcp-source>` 的 `KarenSTS2MCP` Mod。它保留上游 `STS2MCP` 的常规游戏状态与动作接口，并增加开发者命令和设置界面关闭操作。旧 `STS2_MCP` 服务的默认端口 `15526` 不用于本项目的新测试。
+
+独立开发环境使用自己的端口：正式版 `15627`，测试版 `15628`，见 [开发环境说明](../dev-environments.md)。下文的 `15527` 只适用于 Steam 安装目录中原有的 MCP 实例；对独立环境发请求时，把 URL 中的端口替换成对应值，日志也查看各自环境根目录的 `godot.log`。
+
+启动游戏后，先检查 `<user-home>\AppData\Roaming\SlayTheSpire2\logs\godot.log` 是否包含 `[Karen STS2 MCP]` 的启动记录，再请求：
+
+```text
+GET http://127.0.0.1:15527/api/v1/singleplayer?format=json
+```
+
+单人游戏动作统一发送到 `POST http://127.0.0.1:15527/api/v1/singleplayer`，正文为 JSON。例如：
+
+```json
+{"action":"run_command","command":"help card"}
+```
+
+`run_command` 在当前战局中执行游戏内开发者控制台命令。返回的 `status` 和 `message` 对应游戏命令结果；`async: true` 表示命令生成了异步任务，操作后须重新读取游戏状态并等待效果落地。
+
+关闭打开的设置界面：
+
+```json
+{"action":"close_settings"}
+```
+
+也可以发送 `{"action":"menu_select","option":"back"}`。设置界面的状态中会列出 `back` 选项。
+
+Python MCP 桥接器在 `<karen-sts2-mcp-source>\mcp\server.py`，默认连接端口为 `15527`，提供 `run_command(command)` 与 `close_settings()` 工具。普通状态字段、玩法动作和其他端点沿用上游协议，参见 [精简参考](STS2MCP/raw-simplified.md) 与 [完整参考](STS2MCP/raw-full.md)。两份上游文档中的 `15526` 仅指上游 Mod；实际连接此处的 `15527`。测试游戏时使用 MCP/HTTP 和游戏内 CMD，不使用 Computer Use。
+
+游戏设置可通过 `GET/POST http://127.0.0.1:15527/api/v1/settings` 或 MCP 工具 `get_game_settings()`、`set_game_settings(...)` 操作。可选字段为 `fullscreen`、`muted`、`skip_tutorial`、`skip_first_prompt`、`window_width`、`window_height`。宽高必须一起给出，单位为像素，并会切到窗口模式。`skip_first_prompt` 指首次启动的 Early Access 提示页。相同字段也可写进 Mod 目录的 `KarenSTS2MCP.conf`，在下次启动时应用；未填写的字段保留游戏设置。
+
+游戏画面截图通过 `GET http://127.0.0.1:15527/api/v1/screenshot` 获取，响应为 `image/png`；Python MCP 工具 `get_screenshot()` 直接返回可查看的图片。截图包含当前视口中的主菜单或战局画面，单人和联机共用此接口。独立环境使用对应的 `15627` / `15628` 端口。
+
+自动化测试时建议以隐藏窗口启动游戏，先通过 `set_game_settings(muted=True)` 静音，再调用 `minimize_game()` 保持游戏窗口最小化，避免游戏抢到前台干扰用户其他工作。最小化后仍可调用游戏状态、动作与截图接口。对应 HTTP 指令为 `POST http://127.0.0.1:15527/api/v1/window/minimize`，无请求正文；独立环境改用相应端口。`background_game()` 和 `/api/v1/window/background` 是兼容别名。
+
+需要重复执行一组 MCP 操作并检查结果时，使用 [批量测试流程](../testing/mcp-flow.md)。
+
+## 有声录像（2026-09-28 更新）
+
+MCP 源码 `2d2a4c5` 支持在 `POST /api/v1/recording/start` 中设置 `audio: true`，采集游戏进程及其子进程音频，不采集麦克风或其他应用。需要 Windows build 20348+。录制前设置 `muted: false`（当前接口将主音量设为 50%），否则会录到静音；结束后恢复原设置。停止后等待 `completed`，检查 `audio: true`、`audio_source: game_process`，并验证成片音轨及实际非静音采样。
+
+示例正文：`{"fps":30,"max_duration_seconds":20,"width":1280,"height":720,"audio":true}`。新版本也支持单人动作 `hover_card`（card_index，可选 target）及 `unhover_card`；这是手牌和目标数值预览，不应假定它等同于拖拽卡牌的目标悬停回调。
+
+### 录制时不要最小化（2026-09-29 实测）
+
+上文的最小化建议适用于状态和动作自动化，不适用于需要可靠连续画面的录像。最后的台词实录发现：最小化后游戏逻辑仍以约 60 fps 运行，战斗正常结束，但渲染帧计数停住，录像会重复采到旧的伤害数字和怪物画面。`frames_captured` 持续增长也不能证明画面更新。
+
+开始录制前，通过 `/api/v1/settings` 设置 `fullscreen:false` 和成对的 `window_width/window_height`，切回普通窗口；录制期间不调用 `/window/minimize`。结束并完成封装后恢复原设置，再最小化。单独添加 `RenderingServer.ForceDraw(false)` 的试验未完整解决本场景，因此未保留该 MCP 修改。
+
+收尾以游戏状态为准：记录奖励界面已出现，并留短暂停留，不要只按固定秒数停止。复核连续帧和成片；可用 FFmpeg `freezedetect=n=-50dB:d=1` 辅助发现超过一秒的近似静帧，但静态菜单本身不应判作故障，应结合画面阶段判断。详见 [最后的台词修复记录](../testing/last-word-vfx-2026-09-29.md)。
+
+### 采帧/编码更新与录像期间截图（2026-10-16）
+
+本地 MCP 提交 `70c9dc2` 将采帧与编码写入分离，以三帧有界队列保留较新的采样，优先探测并使用 NVENC。开始录制可设置 `encoder:"auto"`、`"h264_nvenc"` 或 `"libx264"`。结束统计应包含 `encoder`、`capture_fps`、`frames_repeated`、`frames_dropped` 及编码写入耗时；没有这些字段说明仍加载了旧 DLL。Mod 必须分别构建、部署后重启对应隔离游戏进程，不能仅更新源码。
+
+截图接口仍在游戏主线程运行 `SavePngToBuffer()`。对流畅录像，将所需 MCP 前后截图放在开始前/停止后，录像中保留 JSON 状态即可，避免 PNG 编码干扰采帧。移牌前后截图和 `karen_check_hand` 的项目要求继续执行。
+
+Why 录像工具的 `--audit-capture` 会先录制独立的 8 秒画面内墙钟，逐帧解码时间值，核对长时间不变、时间跳跃及视频时间轴偏差；时钟仅在测试插件中，不进入正式 Mod 或交付视频。另以人为制造的 7 秒停帧负例验证检查器确实拒绝故障视频。不能仅凭容器标称 30fps 或帧哈希不同认定录像流畅。

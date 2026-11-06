@@ -1,0 +1,46 @@
+[
+  {
+    "file": "state-occupied-in-game.png",
+    "sha256": "fe408e1124db6bfb80da36aa3ab34938321f1af8de661b5b0fd003fad6a5859f",
+    "crop": [
+      0,
+      520,
+      220,
+      675
+    ],
+    "scale": 2
+  },
+  {
+    "file": "state-empty-in-game.png",
+    "sha256": "ab83b5c94e77fc02e2412c6d48ebe2bb20a6003935237f7ed462e6cf6364b1a5",
+    "crop": [
+      0,
+      520,
+      220,
+      675
+    ],
+    "scale": 2
+  },
+  {
+    "file": "state-three-occupied-in-game.png",
+    "sha256": "727443104e98491bf1a1da33da180aadb5d267a1d390c31c4631aecb43c7ce62",
+    "crop": [
+      0,
+      520,
+      220,
+      675
+    ],
+    "scale": 2
+  },
+  {
+    "file": "state-three-empty-in-game.png",
+    "sha256": "bd0cab31c1c8c634fd1f56cfde471459843fc6d2e4dead9313379bfa4ea5f6bf",
+    "crop": [
+      0,
+      520,
+      220,
+      675
+    ],
+    "scale": 2
+  }
+]

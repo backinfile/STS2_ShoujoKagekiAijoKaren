@@ -1,0 +1,41 @@
+{
+  "frames": 133,
+  "bridgeFrames": 0,
+  "maxBridgeSourceError": 0,
+  "maxAnchorError": 0,
+  "anchorError": 0,
+  "flightModelMismatchFrames": 0,
+  "seenEntries": [],
+  "seenFlights": [],
+  "voidMode": false,
+  "modelCount": 0,
+  "starCount": 0,
+  "identitiesMatch": true,
+  "entryCount": 0,
+  "flightCount": 0,
+  "promise": [],
+  "draw": [
+    "KAREN_DEFEND",
+    "KAREN_STRIKE",
+    "KAREN_STRIKE",
+    "KAREN_FALL",
+    "KAREN_STRIKE"
+  ],
+  "hand": [],
+  "shine": [
+    "KAREN_FIGHT_RELAY",
+    "KAREN_FIGHT_RELAY",
+    "KAREN_FIGHT_RELAY",
+    "KAREN_FIGHT_RELAY",
+    "KAREN_JEALOUSY",
+    "KAREN_JEALOUSY",
+    "KAREN_JEALOUSY",
+    "KAREN_JEALOUSY",
+    "KAREN_JEALOUSY",
+    "KAREN_JEALOUSY",
+    "KAREN_JEALOUSY",
+    "KAREN_JEALOUSY",
+    "KAREN_JEALOUSY"
+  ],
+  "discard": []
+}

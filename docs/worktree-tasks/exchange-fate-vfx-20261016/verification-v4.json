@@ -1,0 +1,2256 @@
+{
+  "scope": "V4 targeted single-player checks; no multiplayer or full project matrix. Original card/pile rules retained.",
+  "nominalAnimationSeconds": {
+    "crossAndSwap": 0.29,
+    "visualEnd": 0.76,
+    "fastScale": 0.6
+  },
+  "timingNote": "Probe timestamps are observed wall time under MCP screenshot/capture load. The game action waits for the animation crossing marker, not a separate wall-clock delay.",
+  "runs": {
+    "polish-stable": {
+      "branch": "stable",
+      "cases": {
+        "normal": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 31,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 10,
+                "swapMs": 399,
+                "firstMoveMs": 399,
+                "endMs": 971,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          },
+          "recording": {
+            "status": "completed",
+            "audio": true,
+            "audio_source": "game_process",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frames_captured": 97,
+            "frames_repeated": 21
+          }
+        },
+        "empty-in": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [],
+            "handCount": 0,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 33,
+                "sent": 4,
+                "received": 0,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 368,
+                "firstMoveMs": 368,
+                "endMs": 938,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 0,
+              "visualCount": 0,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "empty-out": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 1,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 33,
+                "sent": 0,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 10,
+                "swapMs": 391,
+                "firstMoveMs": 391,
+                "endMs": 957,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 1,
+              "visualCount": 1,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "empty": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [],
+            "received": [],
+            "handCount": 1,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [],
+            "received": [],
+            "handCount": 0,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 1,
+              "visualCount": 1,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 0,
+              "visualCount": 0,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "full": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 10,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Discard",
+              "Discard"
+            ],
+            "handCount": 10,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 27,
+                "sent": 9,
+                "received": 10,
+                "confirmed": true,
+                "framesBeforeSwap": 12,
+                "swapMs": 439,
+                "firstMoveMs": 439,
+                "endMs": 915,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 10,
+              "visualCount": 10,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 10,
+              "visualCount": 10,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "fast": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 23,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 7,
+                "swapMs": 349,
+                "firstMoveMs": 349,
+                "endMs": 598,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "instant": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "void": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "Draw",
+              "Draw",
+              "Draw"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "Draw",
+              "Draw",
+              "Draw",
+              "Draw"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 32,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 629,
+                "firstMoveMs": 629,
+                "endMs": 965,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          },
+          "recording": {
+            "status": "completed",
+            "audio": true,
+            "audio_source": "game_process",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frames_captured": 93,
+            "frames_repeated": 22
+          }
+        },
+        "repeat": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Discard",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 33,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 390,
+                "firstMoveMs": 390,
+                "endMs": 990,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          },
+          "recording": {
+            "status": "completed",
+            "audio": true,
+            "audio_source": "game_process",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frames_captured": 149,
+            "frames_repeated": 26
+          },
+          "twiceProbe": {
+            "ready": true,
+            "sourcePile": "Discard",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "Exhaust",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 4,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 33,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 390,
+                "firstMoveMs": 390,
+                "endMs": 990,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              },
+              {
+                "frames": 46,
+                "sent": 2,
+                "received": 4,
+                "confirmed": true,
+                "framesBeforeSwap": 17,
+                "swapMs": 283,
+                "firstMoveMs": 283,
+                "endMs": 761,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "twiceHandCheck": {
+            "modelCount": 4,
+            "visualCount": 4,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": []
+          }
+        },
+        "cancel": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 11,
+                "sent": 0,
+                "received": 0,
+                "confirmed": false,
+                "framesBeforeSwap": 11,
+                "swapMs": -1,
+                "firstMoveMs": -1,
+                "endMs": 380,
+                "swapProgress": -1,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        }
+      },
+      "logErrors": [],
+      "packageSha256": {
+        "ShoujoKagekiAijoKaren.dll": "d654fde3c7c016a8a49f57dde50fe122bba392c60b62dc7fa93a16af718852e4",
+        "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+        "ShoujoKagekiAijoKaren.pck": "c915bc223fa1516beadaec939f3fecbe69c4a9097d0ac189ddd035224fe22d7e",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "a4bb480684275b26621ff038d256ab0506d36cf9fd1e7e541e0f40d63977eb8b",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "f503c91c74fbcf173b67c439e18a13bdbd570192867cdf7be0824bf656376862"
+      },
+      "screenshotsReviewed": [
+        "before",
+        "opening",
+        "after"
+      ]
+    },
+    "polish-beta": {
+      "branch": "beta",
+      "cases": {
+        "normal": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 31,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 10,
+                "swapMs": 640,
+                "firstMoveMs": 640,
+                "endMs": 979,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          },
+          "recording": {
+            "status": "completed",
+            "audio": true,
+            "audio_source": "game_process",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frames_captured": 94,
+            "frames_repeated": 21
+          }
+        },
+        "empty-in": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [],
+            "handCount": 0,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 33,
+                "sent": 4,
+                "received": 0,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 390,
+                "firstMoveMs": 390,
+                "endMs": 997,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 0,
+              "visualCount": 0,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "empty-out": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 1,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 32,
+                "sent": 0,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 385,
+                "firstMoveMs": 385,
+                "endMs": 934,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 1,
+              "visualCount": 1,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "empty": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [],
+            "received": [],
+            "handCount": 1,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [],
+            "received": [],
+            "handCount": 0,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 1,
+              "visualCount": 1,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 0,
+              "visualCount": 0,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "full": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 10,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand",
+              "Discard",
+              "Discard"
+            ],
+            "handCount": 10,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 31,
+                "sent": 9,
+                "received": 10,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 388,
+                "firstMoveMs": 388,
+                "endMs": 943,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 10,
+              "visualCount": 10,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 10,
+              "visualCount": 10,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "fast": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 26,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 8,
+                "swapMs": 364,
+                "firstMoveMs": 364,
+                "endMs": 647,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        }
+      },
+      "logErrors": [
+        "[ERROR] Tried to free object <Control#75480697961> (MegaCrit.Sts2.Core.Nodes.Cards.NCard) back to pool MegaCrit.Sts2.Core.Nodes.Pooling.NodePool`1[MegaCrit.Sts2.Core.Nodes.Cards.NCard] but it's already been freed!",
+        "[ERROR] Tried to free object <Control#71907150746> (MegaCrit.Sts2.Core.Nodes.Cards.NCard) back to pool MegaCrit.Sts2.Core.Nodes.Pooling.NodePool`1[MegaCrit.Sts2.Core.Nodes.Cards.NCard] but it's already been freed!",
+        "[ERROR] Tried to free object <Control#80245427581> (MegaCrit.Sts2.Core.Nodes.Cards.NCard) back to pool MegaCrit.Sts2.Core.Nodes.Pooling.NodePool`1[MegaCrit.Sts2.Core.Nodes.Cards.NCard] but it's already been freed!",
+        "[ERROR] Tried to free object <Control#76671880366> (MegaCrit.Sts2.Core.Nodes.Cards.NCard) back to pool MegaCrit.Sts2.Core.Nodes.Pooling.NodePool`1[MegaCrit.Sts2.Core.Nodes.Cards.NCard] but it's already been freed!",
+        "[ERROR] Tried to free object <Control#62377691506> (MegaCrit.Sts2.Core.Nodes.Cards.NCard) back to pool MegaCrit.Sts2.Core.Nodes.Pooling.NodePool`1[MegaCrit.Sts2.Core.Nodes.Cards.NCard] but it's already been freed!",
+        "ERROR: Can't add child '@Control@1452' to 'CombatUi', already has a parent 'NHandCardHolder-CARD_KAREN_FALL'."
+      ],
+      "packageSha256": null,
+      "screenshotsReviewed": [
+        "before",
+        "opening",
+        "after"
+      ]
+    },
+    "remainder-beta": {
+      "branch": "beta",
+      "cases": {
+        "instant": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        },
+        "void": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "Draw",
+              "Draw",
+              "Draw"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "Draw",
+              "Draw",
+              "Draw",
+              "Draw"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 31,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 10,
+                "swapMs": 375,
+                "firstMoveMs": 375,
+                "endMs": 982,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          },
+          "recording": {
+            "status": "completed",
+            "audio": true,
+            "audio_source": "game_process",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frames_captured": 95,
+            "frames_repeated": 19
+          }
+        },
+        "repeat": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Discard",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 32,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 382,
+                "firstMoveMs": 382,
+                "endMs": 989,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          },
+          "recording": {
+            "status": "completed",
+            "audio": true,
+            "audio_source": "game_process",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frames_captured": 145,
+            "frames_repeated": 30
+          },
+          "twiceProbe": {
+            "ready": true,
+            "sourcePile": "Discard",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "Exhaust",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 4,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 32,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 382,
+                "firstMoveMs": 382,
+                "endMs": 989,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              },
+              {
+                "frames": 46,
+                "sent": 2,
+                "received": 4,
+                "confirmed": true,
+                "framesBeforeSwap": 17,
+                "swapMs": 284,
+                "firstMoveMs": 284,
+                "endMs": 753,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "twiceHandCheck": {
+            "modelCount": 4,
+            "visualCount": 4,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": []
+          }
+        },
+        "cancel": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 8,
+                "sent": 0,
+                "received": 0,
+                "confirmed": false,
+                "framesBeforeSwap": 8,
+                "swapMs": -1,
+                "firstMoveMs": -1,
+                "endMs": 371,
+                "swapProgress": -1,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        }
+      },
+      "logErrors": [
+        "[ERROR] Tried to free object <Control#71907150746> (MegaCrit.Sts2.Core.Nodes.Cards.NCard) back to pool MegaCrit.Sts2.Core.Nodes.Pooling.NodePool`1[MegaCrit.Sts2.Core.Nodes.Cards.NCard] but it's already been freed!",
+        "[ERROR] Tried to free object <Control#85010157201> (MegaCrit.Sts2.Core.Nodes.Cards.NCard) back to pool MegaCrit.Sts2.Core.Nodes.Pooling.NodePool`1[MegaCrit.Sts2.Core.Nodes.Cards.NCard] but it's already been freed!",
+        "ERROR: Parent node is busy setting up children, `add_child()` failed. Consider using `add_child.call_deferred(child)` instead.",
+        "ERROR: Parent node is busy setting up children, `add_child()` failed. Consider using `add_child.call_deferred(child)` instead.",
+        "ERROR: Parent node is busy setting up children, `add_child()` failed. Consider using `add_child.call_deferred(child)` instead.",
+        "ERROR: Parent node is busy setting up children, `add_child()` failed. Consider using `add_child.call_deferred(child)` instead.",
+        "ERROR: Node needs a parent to be reparented.",
+        "ERROR: Condition \"!is_inside_tree()\" is true. Returning: Transform2D()",
+        "ERROR: Node needs a parent to be reparented.",
+        "ERROR: Condition \"!is_inside_tree()\" is true. Returning: Transform2D()",
+        "ERROR: Node needs a parent to be reparented.",
+        "ERROR: Condition \"!is_inside_tree()\" is true. Returning: Transform2D()",
+        "ERROR: Node needs a parent to be reparented.",
+        "ERROR: Condition \"!is_inside_tree()\" is true. Returning: Transform2D()"
+      ],
+      "packageSha256": {
+        "ShoujoKagekiAijoKaren.dll": "d654fde3c7c016a8a49f57dde50fe122bba392c60b62dc7fa93a16af718852e4",
+        "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+        "ShoujoKagekiAijoKaren.pck": "c915bc223fa1516beadaec939f3fecbe69c4a9097d0ac189ddd035224fe22d7e",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "a4bb480684275b26621ff038d256ab0506d36cf9fd1e7e541e0f40d63977eb8b",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "f503c91c74fbcf173b67c439e18a13bdbd570192867cdf7be0824bf656376862"
+      },
+      "screenshotsReviewed": [
+        "before",
+        "opening",
+        "after"
+      ]
+    },
+    "regression-stable": {
+      "branch": "stable",
+      "cases": {
+        "normal": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 32,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 10,
+                "swapMs": 409,
+                "firstMoveMs": 409,
+                "endMs": 1007,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          },
+          "recording": {
+            "status": "completed",
+            "audio": true,
+            "audio_source": "game_process",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frames_captured": 101,
+            "frames_repeated": 19
+          }
+        },
+        "cancel": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 10,
+                "sent": 0,
+                "received": 0,
+                "confirmed": false,
+                "framesBeforeSwap": 10,
+                "swapMs": -1,
+                "firstMoveMs": -1,
+                "endMs": 361,
+                "swapProgress": -1,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        }
+      },
+      "logErrors": [],
+      "packageSha256": {
+        "ShoujoKagekiAijoKaren.dll": "d654fde3c7c016a8a49f57dde50fe122bba392c60b62dc7fa93a16af718852e4",
+        "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+        "ShoujoKagekiAijoKaren.pck": "c915bc223fa1516beadaec939f3fecbe69c4a9097d0ac189ddd035224fe22d7e",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "f9022e194267809709988a3bf73a783b6f0f6d7996b09340f3dfc0abaa46847b",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "fcccba70bf1b79c65e6b17c295dc6aa10df4eb14781700266f86b5d5638fbdb0"
+      },
+      "screenshotsReviewed": [
+        "before",
+        "opening",
+        "after"
+      ]
+    },
+    "regression-beta": {
+      "branch": "beta",
+      "cases": {
+        "normal": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 30,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 10,
+                "swapMs": 391,
+                "firstMoveMs": 391,
+                "endMs": 962,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          },
+          "recording": {
+            "status": "completed",
+            "audio": true,
+            "audio_source": "game_process",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frames_captured": 100,
+            "frames_repeated": 20
+          }
+        },
+        "void": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "Draw",
+              "Draw",
+              "Draw"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "Draw",
+              "Draw",
+              "Draw",
+              "Draw"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 33,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 652,
+                "firstMoveMs": 652,
+                "endMs": 1014,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          },
+          "recording": {
+            "status": "completed",
+            "audio": true,
+            "audio_source": "game_process",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frames_captured": 94,
+            "frames_repeated": 21
+          }
+        },
+        "repeat": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Discard",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 32,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 397,
+                "firstMoveMs": 397,
+                "endMs": 999,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          },
+          "recording": {
+            "status": "completed",
+            "audio": true,
+            "audio_source": "game_process",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frames_captured": 146,
+            "frames_repeated": 28
+          },
+          "twiceProbe": {
+            "ready": true,
+            "sourcePile": "Discard",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "Exhaust",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 4,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 32,
+                "sent": 4,
+                "received": 3,
+                "confirmed": true,
+                "framesBeforeSwap": 11,
+                "swapMs": 397,
+                "firstMoveMs": 397,
+                "endMs": 999,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              },
+              {
+                "frames": 47,
+                "sent": 2,
+                "received": 4,
+                "confirmed": true,
+                "framesBeforeSwap": 18,
+                "swapMs": 282,
+                "firstMoveMs": 282,
+                "endMs": 759,
+                "swapProgress": 0.49999994,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "twiceHandCheck": {
+            "modelCount": 4,
+            "visualCount": 4,
+            "missing": [],
+            "unexpected": [],
+            "unexpectedPileIcons": []
+          }
+        },
+        "cancel": {
+          "passed": true,
+          "before": {
+            "ready": true,
+            "sourcePile": "Hand",
+            "sent": [
+              "Hand",
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "received": [
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "handCount": 5,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": []
+          },
+          "after": {
+            "ready": true,
+            "sourcePile": "Exhaust",
+            "sent": [
+              "334401314",
+              "334401314",
+              "334401314",
+              "334401314"
+            ],
+            "received": [
+              "Hand",
+              "Hand",
+              "Hand"
+            ],
+            "handCount": 3,
+            "playCount": 0,
+            "live": 0,
+            "progress": [],
+            "cues": [
+              {
+                "frames": 10,
+                "sent": 0,
+                "received": 0,
+                "confirmed": false,
+                "framesBeforeSwap": 10,
+                "swapMs": -1,
+                "firstMoveMs": -1,
+                "endMs": 396,
+                "swapProgress": -1,
+                "movedBeforeSwap": false
+              }
+            ]
+          },
+          "handChecks": {
+            "before": {
+              "modelCount": 5,
+              "visualCount": 5,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            },
+            "after": {
+              "modelCount": 3,
+              "visualCount": 3,
+              "missing": [],
+              "unexpected": [],
+              "unexpectedPileIcons": []
+            }
+          }
+        }
+      },
+      "logErrors": [
+        "[ERROR] Tried to free object <Control#75480697961> (MegaCrit.Sts2.Core.Nodes.Cards.NCard) back to pool MegaCrit.Sts2.Core.Nodes.Pooling.NodePool`1[MegaCrit.Sts2.Core.Nodes.Cards.NCard] but it's already been freed!",
+        "[ERROR] Tried to free object <Control#71907150746> (MegaCrit.Sts2.Core.Nodes.Cards.NCard) back to pool MegaCrit.Sts2.Core.Nodes.Pooling.NodePool`1[MegaCrit.Sts2.Core.Nodes.Cards.NCard] but it's already been freed!",
+        "[ERROR] Tried to free object <Control#85010157201> (MegaCrit.Sts2.Core.Nodes.Cards.NCard) back to pool MegaCrit.Sts2.Core.Nodes.Pooling.NodePool`1[MegaCrit.Sts2.Core.Nodes.Cards.NCard] but it's already been freed!"
+      ],
+      "packageSha256": {
+        "ShoujoKagekiAijoKaren.dll": "d654fde3c7c016a8a49f57dde50fe122bba392c60b62dc7fa93a16af718852e4",
+        "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+        "ShoujoKagekiAijoKaren.pck": "c915bc223fa1516beadaec939f3fecbe69c4a9097d0ac189ddd035224fe22d7e",
+        "lib\\ShoujoKagekiAijoKaren.Beta.dll": "f9022e194267809709988a3bf73a783b6f0f6d7996b09340f3dfc0abaa46847b",
+        "lib\\ShoujoKagekiAijoKaren.Stable.dll": "fcccba70bf1b79c65e6b17c295dc6aa10df4eb14781700266f86b5d5638fbdb0"
+      },
+      "screenshotsReviewed": [
+        "before",
+        "opening",
+        "after"
+      ]
+    }
+  },
+  "knownFindings": [
+    {
+      "run": "polish-beta",
+      "phase": "instant fixture, before playing Exchange Fate",
+      "result": "Stopped: modelCount 5 / visualCount 6, unexpected KAREN_FALL after repeated developer fight room replacement. The preceding six cases passed. Remaining four were rerun in remainder-beta.",
+      "log": "Five native NCard pool double-free messages and a parent conflict. Same pool stack was observed in V1/V2. Not fixed in this card VFX revision."
+    },
+    {
+      "run": "remainder-beta",
+      "phase": "cancel",
+      "result": "Rules/hand assertions passed but tree-removal reentrancy produced add_child/reparent errors. Fixed by deferring the waiting gameplay continuation until after _ExitTree. Final regression-stable and regression-beta cancel cases pass without those errors."
+    },
+    {
+      "run": "regression-beta",
+      "phase": "forced room changes between cases",
+      "result": "Three native NCard pool double-free messages remain. All four tested card plays and hand checks pass; no tree-busy/reparent/exception errors."
+    }
+  ],
+  "finalRegression": {
+    "stable": [
+      "normal",
+      "cancel"
+    ],
+    "beta": [
+      "normal",
+      "void",
+      "repeat",
+      "cancel"
+    ],
+    "build": "Both implementation DLLs: 25 existing warnings, 0 errors. Loader: 0 warnings, 0 errors.",
+    "normalCaseCoverageBeforeDeferral": "stable 10 and beta 6+4; cancellation continuation was then fixed and retested in both versions."
+  },
+  "packCheck": {
+    "entries": 981,
+    "ornamentResources": [],
+    "passed": true
+  },
+  "video": {
+    "durationSeconds": 12.953711,
+    "format": "1280x720 H.264/AAC ~30fps",
+    "source": "regression-stable normal + half speed; regression-beta void + repeat",
+    "audioSource": "game_process",
+    "audioGainDb": 8,
+    "meanDb": -37.2,
+    "peakDb": -18.4,
+    "freezeOverOneSecond": false,
+    "sha256": "6a21d0884deb22f657c60b15ee6e1df8ba76ebd843fe96f80ded27253d858cf0"
+  },
+  "implementationSha256": {
+    "src/Core/Models/Cards/promisePile/KarenExchangeFate.cs": "7c477e4a77de2c2cdb7f6d42a362caa8725691a581032083f39f9e6727773db3",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenExchangeFateVfx.cs": "8c8b643ea2c0c42f5751db61c51a8305428d371c3534f912b468ed5e3038bc67",
+    "shaders/karen_fate_silk.gdshader": "17f75ee8132f8020a05408353b94478f9834b960cedc235abed696e5f892f583"
+  },
+  "synchronizedMain": {
+    "main": "2258764ef228233ce739361f58ffb137bd2bbd66",
+    "taskCommit": "8a7c5e6",
+    "implementationAndAudioUnchanged": true,
+    "build": "Full dual-version package success: 26 warnings per implementation (also recorded by incoming Position 0 task), loader 1 warning; 0 errors.",
+    "runtimeVerification": "Prior targeted game checks retained. No new runtime replay after this unrelated Position 0-only merge; Exchange Fate code, shader, sounds and its dependencies were unchanged.",
+    "packageSha256": {
+      "ShoujoKagekiAijoKaren.dll": "0811b2de93b51d4ac2f5ef2db451501d15c86b704b217ab04dd5cda5d82aa369",
+      "ShoujoKagekiAijoKaren.json": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+      "ShoujoKagekiAijoKaren.pck": "39c2bbe5911f4d857a957a7a451611b85a095749d9032987908686d0c7ec6667",
+      "lib\\ShoujoKagekiAijoKaren.Beta.dll": "e0878e5ed21f0ef8baddc329d0a0d2a22b8022295e6440e8cc56f12404573a11",
+      "lib\\ShoujoKagekiAijoKaren.Stable.dll": "eb1b48e65b4d2d5958d4913e9d00c444299a6e6e6c4e9b1b548983ebce6d7466"
+    },
+    "packCheck": {
+      "entries": 984,
+      "ornamentResources": [],
+      "passed": true
+    },
+    "observedOriginalUntrackedDocumentSha256BeforeSync": "2396f33473560138071ed7f7d42315f16d98422ab9e8ba9a44ee405a686e6272",
+    "observedOriginalUntrackedDocumentSha256AtFinalCheck": "f583ee87d1af18daf80b4d1acf971fbe7d94538c9fccf47b654fa273b7ffb989",
+    "originalUntrackedDocumentNote": "Content changed outside this task during work. This task only read the original checkout and did not write, stage or restore this untracked document; current contents preserved."
+  }
+}

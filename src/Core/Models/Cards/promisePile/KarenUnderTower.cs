@@ -45,7 +45,7 @@ public sealed class KarenUnderTower : KarenBaseCardModel
         {
             var card = CombatState.CreateCard<KarenTowerOfPromise>(Owner);
             // 加入手牌
-            await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, addedByPlayer: true);
+            await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, Owner);
         }
     }
 

@@ -1,0 +1,11 @@
+{
+  "tool": "native image_gen",
+  "mode": "edit",
+  "deliverable": "state-design-imagegen.png",
+  "baselineCommit": "9992f89",
+  "references": [
+    "artifacts/stage-is-waiting-audio/stable/waiting-stage/recording-before.png",
+    "docs/worktree-tasks/stage-is-waiting-vfx/in-game-light-curtain.png"
+  ],
+  "prompt": "Use case: lighting-weather, game VFX design preview.\nCreate ONE clear two-panel comparison, each panel is the SAME actual Slay the Spire 2 Karen battle screenshot, retaining the character pose, red promise tower, enemy, background and UI of the supplied screenshot. First image is the edit target (clean real gameplay); second image is the accepted VFX reference. Preserve that elegant gold vertical thread curtain, airborne soft followspot and SMALL red/gold star confetti. No giant star, no platform, no floor ellipse/ring, no visible lamps, no red cloth.\nShow quiet PERSISTENT states, not cast explosion.\nLEFT panel labeled in a slim external top strip “有牌 · 候场”: 1 card remains in the red promise tower. Gold light threads gather into TWO slim close-set bundles behind the tower/at either side of Karen, with a dim central gap only about Karen shoulder width. Narrow faint gold followspot aimed at the promise tower, sparse small suspended gold/red star flecks. Restrained theatrical anticipation.\nRIGHT panel labeled in a slim external top strip “空堆 · 开演”: tower counter now 0 (only change that small number). The same gold thread bundles have pulled farther apart toward the outer flanks, leaving a broad CLEAR gap behind Karen. A soft warm ivory followspot from above right is now aimed at Karen's upper body, ending ABOVE her feet, with a few small stars rising outwards. Visibly OPEN and brighter than waiting yet soft enough for actual gameplay. No energy rays in these idle states.\nKeep exact original camera/framing and gameplay art. Use slender luminous thread cores, no opaque panel or frame, no geometric outline gate. Maintain character and enemy clarity; gold threads stay behind character. All embellishment confined to Karen's side of battlefield; enemy untouched. This compares state silhouette and spotlight direction, not just brightness. Wide horizontal comparison with two 16:9 panels and small external captions, no invented HUD elements."
+}

@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System;
@@ -17,11 +18,11 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.relic;
 /// <summary>
 /// 嫉妒 - 造成伤害，闪耀耗尽时获得随机遗物
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenJealousy : KarenBaseCardModel
 {
     public KarenJealousy() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy) {
 
-        this.AddShineMax(9);
     }
 
     public override bool CanBeGeneratedInCombat => false;
@@ -38,11 +39,12 @@ public sealed class KarenJealousy : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
-        // 造成伤害
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithNoAttackerAnim()
+            .WithWaitBeforeHit(NKarenJealousyVfx.FastHitTime, NKarenJealousyVfx.HitTime)
+            .WithHitVfxNode(target => NKarenJealousyVfx.CreateImpact(Owner.Creature, target))
             .Execute(choiceContext);
     }
 
@@ -52,7 +54,7 @@ public sealed class KarenJealousy : KarenBaseCardModel
         DynamicVars["Relics"].UpgradeValueBy(1m);
     }
 
-    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, ICombatState combatState)
     {
         for (var i = 0; i < DynamicVars["Relics"].IntValue; i++)
             await ExtraRewardCmd.AddRelicReward(Owner);

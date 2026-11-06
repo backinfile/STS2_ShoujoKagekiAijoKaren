@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -23,14 +24,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 /// 星星串起了我们的友谊 - 1费8伤，击杀目标时获得一张随机闪耀牌，Shine 3
 /// 升级：12伤
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(3)]
 public sealed class KarenStarFriend : KarenBaseCardModel
 {
     public override bool ShineCardForOtherPlayer => false;
 
-    public KarenStarFriend() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(3);
-    }
+    public KarenStarFriend() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -50,14 +49,17 @@ public sealed class KarenStarFriend : KarenBaseCardModel
 
         bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
 
+        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.StarFriend, potency: (float)DynamicVars.Damage.BaseValue);
         var attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(show.Start)
+            .WithHitVfxNode(show.Hit)
             .Execute(choiceContext);
 
-        if (shouldTriggerFatal && attackCommand.Results.Any((DamageResult r) => r.WasTargetKilled))
+        if (shouldTriggerFatal && attackCommand.Results.SelectMany(r => r).Any((DamageResult r) => r.WasTargetKilled))
         {
+            show.ConfirmFatal();
             await ExtraRewardCmd.AddShineCardReward(Owner);
         }
     }

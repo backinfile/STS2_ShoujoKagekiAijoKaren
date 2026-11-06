@@ -1,0 +1,839 @@
+{
+  "stable": {
+    "passed": true,
+    "checks": 15,
+    "loadedAssemblySha256": "72bb049fe0df047a9e48c221fde677f8ca9b7b0e86377351956dee16e154a311",
+    "removedPromise": 2,
+    "temporaryStrengthGain": 2,
+    "maxActiveRings": 4,
+    "maxScheduledRings": 8,
+    "maxOwnerNodes": 1,
+    "minAmbientVisibility": 0.3,
+    "maxOriginError": 8.6316744e-05,
+    "maxScaleError": 0,
+    "observations": {
+      "before-power": {
+        "capturing": false,
+        "nodes": 0,
+        "fronts": 0,
+        "ambientWeight": 1,
+        "owners": []
+      },
+      "idle-a": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 1.1499538,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "idle-b": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 1.8332608,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "transform-small": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.45,
+            "scaleY": 0.45,
+            "time": 5.519432,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "transform-small_flip": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.45,
+            "scaleY": 0.45,
+            "time": 6.8029428,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "transform-large": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 4.3158372e-05,
+            "scaleError": 0,
+            "scaleX": 1.3499999,
+            "scaleY": 1.3499999,
+            "time": 0.58717674,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "transform-normal": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 1.8730575,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "during-draw": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 3.3083262,
+            "visibility": 0.3,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "after-draw": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 6.3686943,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "stacked": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 0.86,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 1.4603508,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "fading": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 0.86,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 3.7814748,
+            "visibility": 1,
+            "alpha": 0.54338336,
+            "visible": true
+          }
+        ]
+      },
+      "restart": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 0.86,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 4.323121,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "stopped": {
+        "capturing": false,
+        "nodes": 0,
+        "fronts": 0,
+        "ambientWeight": 0.86,
+        "owners": []
+      },
+      "started": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 0.86,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 0.8608529,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "new-room": {
+        "capturing": false,
+        "nodes": 0,
+        "fronts": 0,
+        "ambientWeight": 1,
+        "owners": []
+      }
+    },
+    "hands": {
+      "04-before-draw": {
+        "modelCount": 1,
+        "visualCount": 1,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_PROMISE_DRAW",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      },
+      "05-after-draw": {
+        "modelCount": 2,
+        "visualCount": 2,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      },
+      "08-new-room": {
+        "modelCount": 5,
+        "visualCount": 5,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_STAR_GUIDE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_REVUE_DUET",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_UNDER_TOWER",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_PRACTICE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_NEW_DAY",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    },
+    "visibility": {
+      "width": 1280,
+      "height": 720,
+      "peakChannelDelta": 102,
+      "pixelsDeltaAtLeast30": 54,
+      "backgroundPixelsDeltaAtLeast10": 0,
+      "passed": true
+    },
+    "capture": {
+      "idle": {
+        "status": "completed",
+        "fps": 30,
+        "max_duration_seconds": 70,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 380,
+        "video_duration_seconds": 12.666666666666666,
+        "frames_captured": 379,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.98101900895487,
+        "capture_average_ms": 14.1721036939314,
+        "capture_max_ms": 32.2651,
+        "encode_write_average_ms": 0.7479847368421043,
+        "encode_write_max_ms": 97.7663,
+        "elapsed_seconds": 12.6965128,
+        "audio": false
+      },
+      "draw": {
+        "status": "completed",
+        "fps": 30,
+        "max_duration_seconds": 20,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 117,
+        "video_duration_seconds": 3.9,
+        "frames_captured": 116,
+        "frames_repeated": 1,
+        "frames_dropped": 0,
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.810598618664237,
+        "capture_average_ms": 8.029951724137934,
+        "capture_max_ms": 37.2534,
+        "encode_write_average_ms": 1.4754358974358976,
+        "encode_write_max_ms": 84.0586,
+        "elapsed_seconds": 3.9522611,
+        "audio": false
+      }
+    },
+    "logAudit": {
+      "errors": []
+    }
+  },
+  "beta": {
+    "passed": true,
+    "checks": 15,
+    "loadedAssemblySha256": "e620f8602f554fa47d7657b5d4299545531780382b26f02a924bd10bba5d5d3b",
+    "removedPromise": 2,
+    "temporaryStrengthGain": 2,
+    "maxActiveRings": 5,
+    "maxScheduledRings": 8,
+    "maxOwnerNodes": 1,
+    "minAmbientVisibility": 0.3,
+    "maxOriginError": 8.6316744e-05,
+    "maxScaleError": 0,
+    "observations": {
+      "before-power": {
+        "capturing": false,
+        "nodes": 0,
+        "fronts": 0,
+        "ambientWeight": 1,
+        "owners": []
+      },
+      "idle-a": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 0.69997364,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "idle-b": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 1.4014314,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "transform-small": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.45,
+            "scaleY": 0.45,
+            "time": 5.1872735,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "transform-small_flip": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.45,
+            "scaleY": 0.45,
+            "time": 6.4705606,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "transform-large": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 4.3158372e-05,
+            "scaleError": 0,
+            "scaleX": 1.3499999,
+            "scaleY": 1.3499999,
+            "time": 0.25769827,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "transform-normal": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 1.5409799,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "during-draw": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 3.0371022,
+            "visibility": 0.66668737,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "after-draw": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 1,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 6.088554,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "stacked": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 0.86,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 1.2558111,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "fading": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 0.86,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 3.6130261,
+            "visibility": 1,
+            "alpha": 0.57256,
+            "visible": true
+          }
+        ]
+      },
+      "restart": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 0.86,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 4.1689315,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "stopped": {
+        "capturing": false,
+        "nodes": 0,
+        "fronts": 0,
+        "ambientWeight": 0.86,
+        "owners": []
+      },
+      "started": {
+        "capturing": false,
+        "nodes": 1,
+        "fronts": 1,
+        "ambientWeight": 0.86,
+        "owners": [
+          {
+            "own": true,
+            "behind": true,
+            "frontAfter": true,
+            "originError": 6.1035156e-05,
+            "scaleError": 0,
+            "scaleX": 0.9,
+            "scaleY": 0.9,
+            "time": 0.8582752,
+            "visibility": 1,
+            "alpha": 1,
+            "visible": true
+          }
+        ]
+      },
+      "new-room": {
+        "capturing": false,
+        "nodes": 0,
+        "fronts": 0,
+        "ambientWeight": 1,
+        "owners": []
+      }
+    },
+    "hands": {
+      "04-before-draw": {
+        "modelCount": 1,
+        "visualCount": 1,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_PROMISE_DRAW",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      },
+      "05-after-draw": {
+        "modelCount": 2,
+        "visualCount": 2,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      },
+      "08-new-room": {
+        "modelCount": 5,
+        "visualCount": 5,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_STRIKE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_SHINE_STRIKE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          },
+          {
+            "card": "KAREN_DEFEND",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    },
+    "visibility": {
+      "width": 1280,
+      "height": 720,
+      "peakChannelDelta": 102,
+      "pixelsDeltaAtLeast30": 54,
+      "backgroundPixelsDeltaAtLeast10": 0,
+      "passed": true
+    },
+    "capture": {
+      "idle": {
+        "status": "completed",
+        "fps": 30,
+        "max_duration_seconds": 70,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 381,
+        "video_duration_seconds": 12.7,
+        "frames_captured": 378,
+        "frames_repeated": 4,
+        "frames_dropped": 1,
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.829295464711304,
+        "capture_average_ms": 15.987438095238101,
+        "capture_max_ms": 42.2316,
+        "encode_write_average_ms": 0.9333606299212599,
+        "encode_write_max_ms": 141.8419,
+        "elapsed_seconds": 12.7291495,
+        "audio": false
+      },
+      "draw": {
+        "status": "completed",
+        "fps": 30,
+        "max_duration_seconds": 20,
+        "width": 1280,
+        "height": 720,
+        "frames_written": 119,
+        "video_duration_seconds": 3.966666666666667,
+        "frames_captured": 117,
+        "frames_repeated": 2,
+        "frames_dropped": 0,
+        "encoder": "h264_nvenc",
+        "capture_fps": 29.714780017292984,
+        "capture_average_ms": 13.622358119658116,
+        "capture_max_ms": 27.446,
+        "encode_write_average_ms": 1.6552453781512613,
+        "encode_write_max_ms": 83.8944,
+        "elapsed_seconds": 3.9929937,
+        "audio": false
+      }
+    },
+    "logAudit": {
+      "startupDiagnostics": [],
+      "runtimeErrors": []
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "before": {
+    "samples": [
+      {
+        "time": 3.8,
+        "leftCoreCentroidPx": 60.02377010117983
+      },
+      {
+        "time": 4.6,
+        "leftCoreCentroidPx": 60.194595037547536
+      },
+      {
+        "time": 5.4,
+        "leftCoreCentroidPx": 61.03133325372998
+      },
+      {
+        "time": 6.2,
+        "leftCoreCentroidPx": 62.18069067204996
+      },
+      {
+        "time": 7.4,
+        "leftCoreCentroidPx": 65.19332638909795
+      },
+      {
+        "time": 8.6,
+        "leftCoreCentroidPx": 65.36486278678217
+      },
+      {
+        "time": 10.0,
+        "leftCoreCentroidPx": 63.420845640546325
+      },
+      {
+        "time": 11.2,
+        "leftCoreCentroidPx": 60.47109146402847
+      }
+    ],
+    "idleRangePx": 2.1569205708701347,
+    "hoverRangePx": 4.8937713227537
+  },
+  "after": {
+    "samples": [
+      {
+        "time": 3.8,
+        "leftCoreCentroidPx": 65.85560104186611
+      },
+      {
+        "time": 4.6,
+        "leftCoreCentroidPx": 70.95630277487814
+      },
+      {
+        "time": 5.4,
+        "leftCoreCentroidPx": 77.67573433298669
+      },
+      {
+        "time": 6.2,
+        "leftCoreCentroidPx": 78.86602800029881
+      },
+      {
+        "time": 7.4,
+        "leftCoreCentroidPx": 67.66506122268969
+      },
+      {
+        "time": 8.6,
+        "leftCoreCentroidPx": 54.45199175211077
+      },
+      {
+        "time": 10.0,
+        "leftCoreCentroidPx": 63.99678464224873
+      },
+      {
+        "time": 11.2,
+        "leftCoreCentroidPx": 68.24478618488229
+      }
+    ],
+    "idleRangePx": 13.010426958432703,
+    "hoverRangePx": 13.792794432771515
+  },
+  "method": "Screen pixels of actual MCP captures; warm white core centroid in left edge ROI, idle and held hover. No crop or speed change in delivered video.",
+  "sourceHashes": {
+    "before": "00a5045e3e6d16f65c31b7a83f8df6d2fc5b6bc0331750be33076a20abbe896d",
+    "after": "ca3ba56f2b26017e3fd2b8feaa8f486a968e700a5325065d2f6c407083e4c614"
+  }
+}

@@ -1,0 +1,762 @@
+{
+  "revision": "v3 - orbiting ribbons and fragments, no added backdrop",
+  "versions": {
+    "stable": {
+      "checks": [
+        {
+          "case": "base",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 216,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 307,
+                "DepthCrossings": 13,
+                "MeshesFinite": true,
+                "OrbitTravel": 1397.9197
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 6.2439498999738134
+        },
+        {
+          "case": "zero",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 209,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 272,
+                "DepthCrossings": 11,
+                "MeshesFinite": true,
+                "OrbitTravel": 1241.7579
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 4.869279999984428
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 235,
+                "Selected": 3,
+                "Delivered": 3,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 321,
+                "DepthCrossings": 13,
+                "MeshesFinite": true,
+                "OrbitTravel": 1443.8608
+              }
+            ],
+            "block": 12,
+            "hand": [
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 6.218580099986866
+        },
+        {
+          "case": "fast",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 180,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 317,
+                "BackSegments": 334,
+                "DepthCrossings": 13,
+                "MeshesFinite": true,
+                "OrbitTravel": 1702.0345
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 4.687380200019106
+        },
+        {
+          "case": "instant",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 3.9193949999753386
+        },
+        {
+          "case": "void",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 227,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 297,
+                "DepthCrossings": 13,
+                "MeshesFinite": true,
+                "OrbitTravel": 1370.7112
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ]
+          },
+          "duration": 6.127194400003646
+        },
+        {
+          "case": "empty",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 162,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 271,
+                "DepthCrossings": 8,
+                "MeshesFinite": true,
+                "OrbitTravel": 883.89014
+              }
+            ],
+            "block": 9,
+            "hand": [],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 3.0193830000353046
+        },
+        {
+          "case": "repeat",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 143,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 311,
+                "BackSegments": 271,
+                "DepthCrossings": 8,
+                "MeshesFinite": true,
+                "OrbitTravel": 855.1439
+              },
+              {
+                "Frames": 230,
+                "Selected": 1,
+                "Delivered": 1,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 292,
+                "DepthCrossings": 13,
+                "MeshesFinite": true,
+                "OrbitTravel": 1364.1761
+              }
+            ],
+            "block": 18,
+            "hand": [
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 7.73051350004971
+        },
+        {
+          "case": "exit",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 165,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 271,
+                "DepthCrossings": 8,
+                "MeshesFinite": true,
+                "OrbitTravel": 1017.8342
+              }
+            ],
+            "block": 0,
+            "hand": [
+              "KAREN_DEFEND",
+              "KAREN_STRIKE",
+              "KAREN_FALL",
+              "KAREN_DEFEND",
+              "KAREN_DEFEND"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_STRIKE",
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_STRIKE",
+              "KAREN_SHINE_STRIKE"
+            ]
+          },
+          "duration": 8.752330299990717
+        }
+      ],
+      "buildHashes": {
+        "ShoujoKagekiAijoKaren.dll": "ef83b63dbe3c98e147c605fc0d8e24f0b0b1bb395e6429f34eeb96a3edf7ea13",
+        "ShoujoKagekiAijoKaren.pck": "ecfc013cf5b6b9c3ac5e6e115ba3498822e10583e353c966398d93d252bb06c0",
+        "ShoujoKagekiAijoKaren.Beta.dll": "6660e8a233b5fb95a7a6ff1a4e8834d17f6643c4b2b2f458420f4210ebb6e4c5",
+        "ShoujoKagekiAijoKaren.Stable.dll": "85d4fbb7f063bfb8d8618cff358f59b2358be5c6130e90ccc7309b143377858a"
+      },
+      "runtimeErrors": []
+    },
+    "beta": {
+      "checks": [
+        {
+          "case": "base",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 217,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 308,
+                "DepthCrossings": 13,
+                "MeshesFinite": true,
+                "OrbitTravel": 1399.6266
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 6.444154000026174
+        },
+        {
+          "case": "zero",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 208,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 271,
+                "DepthCrossings": 11,
+                "MeshesFinite": true,
+                "OrbitTravel": 1242.2451
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 4.856311499956064
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 246,
+                "Selected": 3,
+                "Delivered": 3,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 334,
+                "DepthCrossings": 13,
+                "MeshesFinite": true,
+                "OrbitTravel": 1498.1819
+              }
+            ],
+            "block": 12,
+            "hand": [
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 6.35573980002664
+        },
+        {
+          "case": "fast",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 180,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 334,
+                "DepthCrossings": 14,
+                "MeshesFinite": true,
+                "OrbitTravel": 1715.7522
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 4.736885000020266
+        },
+        {
+          "case": "instant",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ],
+            "draw": []
+          },
+          "duration": 3.961652599973604
+        },
+        {
+          "case": "void",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 223,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 275,
+                "DepthCrossings": 13,
+                "MeshesFinite": true,
+                "OrbitTravel": 1328.6228
+              }
+            ],
+            "block": 9,
+            "hand": [
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ]
+          },
+          "duration": 6.152407000015955
+        },
+        {
+          "case": "empty",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 162,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 272,
+                "DepthCrossings": 8,
+                "MeshesFinite": true,
+                "OrbitTravel": 885.4443
+              }
+            ],
+            "block": 9,
+            "hand": [],
+            "promise": [],
+            "draw": []
+          },
+          "duration": 3.2029762999736704
+        },
+        {
+          "case": "repeat",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 139,
+                "Selected": 0,
+                "Delivered": 0,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 305,
+                "BackSegments": 271,
+                "DepthCrossings": 8,
+                "MeshesFinite": true,
+                "OrbitTravel": 838.1859
+              },
+              {
+                "Frames": 232,
+                "Selected": 1,
+                "Delivered": 1,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 295,
+                "DepthCrossings": 13,
+                "MeshesFinite": true,
+                "OrbitTravel": 1363.1641
+              }
+            ],
+            "block": 18,
+            "hand": [
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_FALL"
+            ],
+            "promise": [
+              "KAREN_STRIKE"
+            ],
+            "draw": []
+          },
+          "duration": 7.656882700044662
+        },
+        {
+          "case": "exit",
+          "passed": true,
+          "metrics": {
+            "live": 0,
+            "layers": 0,
+            "effects": [
+              {
+                "Frames": 162,
+                "Selected": 2,
+                "Delivered": 2,
+                "Block": true,
+                "Freed": true,
+                "FrontSegments": 318,
+                "BackSegments": 272,
+                "DepthCrossings": 8,
+                "MeshesFinite": true,
+                "OrbitTravel": 1004.1397
+              }
+            ],
+            "block": 0,
+            "hand": [
+              "KAREN_STRIKE",
+              "KAREN_STRIKE",
+              "KAREN_DEFEND",
+              "KAREN_SHINE_STRIKE",
+              "KAREN_STRIKE"
+            ],
+            "promise": [],
+            "draw": [
+              "KAREN_FALL",
+              "KAREN_DEFEND",
+              "KAREN_DEFEND",
+              "KAREN_STRIKE",
+              "KAREN_DEFEND"
+            ]
+          },
+          "duration": 8.661415600043256
+        }
+      ],
+      "buildHashes": {
+        "ShoujoKagekiAijoKaren.dll": "ef83b63dbe3c98e147c605fc0d8e24f0b0b1bb395e6429f34eeb96a3edf7ea13",
+        "ShoujoKagekiAijoKaren.pck": "ecfc013cf5b6b9c3ac5e6e115ba3498822e10583e353c966398d93d252bb06c0",
+        "ShoujoKagekiAijoKaren.Beta.dll": "6660e8a233b5fb95a7a6ff1a4e8834d17f6643c4b2b2f458420f4210ebb6e4c5",
+        "ShoujoKagekiAijoKaren.Stable.dll": "85d4fbb7f063bfb8d8618cff358f59b2358be5c6130e90ccc7309b143377858a"
+      },
+      "runtimeErrors": []
+    }
+  },
+  "video": {
+    "duration": "18.922521",
+    "streams": [
+      [
+        "video",
+        "h264"
+      ],
+      [
+        "audio",
+        "aac"
+      ]
+    ],
+    "audioMeanDb": -46.8,
+    "audioPeakDb": -23.5,
+    "motion": [
+      {
+        "clip": "part-0.mp4",
+        "sampledFrames": 25,
+        "uniqueFrames": 25
+      },
+      {
+        "clip": "part-1.mp4",
+        "sampledFrames": 25,
+        "uniqueFrames": 25
+      },
+      {
+        "clip": "part-2.mp4",
+        "sampledFrames": 25,
+        "uniqueFrames": 25
+      }
+    ],
+    "freezeDiagnostics": []
+  },
+  "recording": {
+    "capture": "KarenSTS2MCP viewport + game_process audio",
+    "editing": "External 64px title strip and concatenation; game view unmodified.",
+    "sources": [
+      {
+        "file": "stable/base/game.mp4",
+        "sha256": "b511f4851b0013ad134cf86ac96609399c2749888a28fbdc66af102b90b6a8f8"
+      },
+      {
+        "file": "stable/upgrade/game.mp4",
+        "sha256": "2010ac4e23a28896ca1d3983e3c5e9998692a7d11e385a30a28168f2e320840f"
+      },
+      {
+        "file": "beta/void/game.mp4",
+        "sha256": "cf989256ce88267dfd121b5fab3ec726ec2aaac4710a9ca5ca262b08eed6b7b0"
+      }
+    ]
+  },
+  "synchronization": {
+    "main": "2258764ef228233ce739361f58ffb137bd2bbd66",
+    "whyImplementationUnchangedFromTestedRevision": true,
+    "versions": {
+      "stable": {
+        "checks": [
+          {
+            "case": "base",
+            "passed": true,
+            "metrics": {
+              "live": 0,
+              "layers": 0,
+              "effects": [
+                {
+                  "Frames": 214,
+                  "Selected": 2,
+                  "Delivered": 2,
+                  "Block": true,
+                  "Freed": true,
+                  "FrontSegments": 318,
+                  "BackSegments": 320,
+                  "DepthCrossings": 13,
+                  "MeshesFinite": true,
+                  "OrbitTravel": 1439.0443
+                }
+              ],
+              "block": 9,
+              "hand": [
+                "KAREN_SHINE_STRIKE",
+                "KAREN_FALL"
+              ],
+              "promise": [
+                "KAREN_STRIKE",
+                "KAREN_DEFEND"
+              ],
+              "draw": []
+            },
+            "duration": 6.460052900016308
+          }
+        ],
+        "buildHashes": {
+          "ShoujoKagekiAijoKaren.dll": "8bf994accec5b71fafec128e3f5f29f2c76173c213bc6f7590e83f1f98879619",
+          "ShoujoKagekiAijoKaren.pck": "9584babf98b5393862a39a89771550528fc5599adb7cab091a000c1392a3f12c",
+          "ShoujoKagekiAijoKaren.Beta.dll": "8a4a8095c6ea134c2c6ccf8696c9c63e6923a3c6e25dc8a9d75f82d3d3535f82",
+          "ShoujoKagekiAijoKaren.Stable.dll": "e9c6b3adc5db6de2463b841352794b3318e9536a59c69b1eb3d8fd428741ad0a"
+        },
+        "runtimeErrors": []
+      },
+      "beta": {
+        "checks": [
+          {
+            "case": "base",
+            "passed": true,
+            "metrics": {
+              "live": 0,
+              "layers": 0,
+              "effects": [
+                {
+                  "Frames": 217,
+                  "Selected": 2,
+                  "Delivered": 2,
+                  "Block": true,
+                  "Freed": true,
+                  "FrontSegments": 318,
+                  "BackSegments": 310,
+                  "DepthCrossings": 13,
+                  "MeshesFinite": true,
+                  "OrbitTravel": 1406.1456
+                }
+              ],
+              "block": 9,
+              "hand": [
+                "KAREN_SHINE_STRIKE",
+                "KAREN_FALL"
+              ],
+              "promise": [
+                "KAREN_STRIKE",
+                "KAREN_DEFEND"
+              ],
+              "draw": []
+            },
+            "duration": 6.453160899982322
+          }
+        ],
+        "buildHashes": {
+          "ShoujoKagekiAijoKaren.dll": "8bf994accec5b71fafec128e3f5f29f2c76173c213bc6f7590e83f1f98879619",
+          "ShoujoKagekiAijoKaren.pck": "9584babf98b5393862a39a89771550528fc5599adb7cab091a000c1392a3f12c",
+          "ShoujoKagekiAijoKaren.Beta.dll": "8a4a8095c6ea134c2c6ccf8696c9c63e6923a3c6e25dc8a9d75f82d3d3535f82",
+          "ShoujoKagekiAijoKaren.Stable.dll": "e9c6b3adc5db6de2463b841352794b3318e9536a59c69b1eb3d8fd428741ad0a"
+        },
+        "runtimeErrors": []
+      }
+    }
+  }
+}

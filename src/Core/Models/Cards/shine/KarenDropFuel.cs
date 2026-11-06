@@ -15,15 +15,16 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 投下燃料 - 0费抽2张+2能量；消耗，Shine 9
 /// 升级：抽3张+3能量
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenDropFuel : KarenBaseCardModel
 {
-    public KarenDropFuel() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenDropFuel() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];
+
+    protected override IEnumerable<string> ExtraRunAssetPaths =>
+        [NKarenDropFuelVfx.BurstSfxPath];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
@@ -33,10 +34,14 @@ public sealed class KarenDropFuel : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        NKarenDropFuelVfx.Play();
-        await Cmd.Wait(0.15f);
+        var effect = NKarenDropFuelVfx.Play(this, cardPlay.PlayIndex);
+        // Let the short charge and burst lead into the resource effects in both speed modes.
+        await Cmd.CustomScaledWait(NKarenDropFuelVfx.FastResourceTime, NKarenDropFuelVfx.NormalResourceTime);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+        var energyBefore = Owner.PlayerCombatState?.Energy;
         await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+        if (Owner.PlayerCombatState?.Energy > energyBefore)
+            NKarenDropFuelVfx.ConfirmEnergy(effect);
     }
 
     protected override void OnUpgrade()

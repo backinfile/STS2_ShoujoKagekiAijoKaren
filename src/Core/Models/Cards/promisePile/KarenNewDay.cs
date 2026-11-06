@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -20,6 +20,7 @@ public sealed class KarenNewDay : KarenBaseCardModel
     public KarenNewDay() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override bool GainsBlock => true;
+    public override bool SkipNewDayPower => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -30,7 +31,7 @@ public sealed class KarenNewDay : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<KarenNewDayPower>(Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<KarenNewDayPower>(choiceContext, Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature, this);
 
         if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
         {

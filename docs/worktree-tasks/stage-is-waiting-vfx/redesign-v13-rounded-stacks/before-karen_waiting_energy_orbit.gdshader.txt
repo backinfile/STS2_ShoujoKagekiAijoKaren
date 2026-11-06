@@ -1,0 +1,57 @@
+shader_type canvas_item;
+render_mode unshaded, blend_add;
+uniform float strength = 0.0;
+uniform float clock = 0.0;
+uniform float build = 1.0;
+uniform float opening = 0.0;
+uniform float phase = 0.0;
+uniform vec4 light_color : source_color = vec4(0.94, 0.54, 0.64, 1.0);
+uniform vec4 core_color : source_color = vec4(1.0, 0.965, 0.98, 1.0);
+const float ORBIT_TAU = 6.28318530718;
+const float ORBIT_PI = 3.14159265359;
+const float HEX_PERIMETER = 6.472135955;
+vec2 hex_vertex(int i) {
+    if (i == 0 || i == 6) return vec2(1.0, 0.0);
+    if (i == 1) return vec2(0.5, 1.0);
+    if (i == 2) return vec2(-0.5, 1.0);
+    if (i == 3) return vec2(-1.0, 0.0);
+    if (i == 4) return vec2(-0.5, -1.0);
+    return vec2(0.5, -1.0);
+}
+float comet(float along, float head) {
+    float behind = mod(head - along + ORBIT_TAU * 8.0, ORBIT_TAU);
+    return exp(-behind / 0.24) * (1.0 - smoothstep(0.65, 0.90, behind));
+}
+void fragment() {
+    vec2 p = (UV - vec2(0.5)) * 2.0;
+    float radius = mix(74.0, 76.0, opening) / 120.0;
+    float delta = 10.0;
+    float along = 0.0;
+    float travelled = 0.0;
+    // Closest position on the six straight edges; the light heads use the same
+    // perimeter distance, so both formation and patrol stay on the actual rim.
+    for (int i = 0; i < 6; i++) {
+        vec2 a = hex_vertex(i) * radius;
+        vec2 edge = (hex_vertex(i + 1) - hex_vertex(i)) * radius;
+        float edge_length = length(edge);
+        float t = clamp(dot(p - a, edge) / dot(edge, edge), 0.0, 1.0);
+        float distance_to_edge = length(p - a - edge * t);
+        if (distance_to_edge < delta) {
+            delta = distance_to_edge;
+            along = (travelled + t * edge_length) / (HEX_PERIMETER * radius) * ORBIT_TAU;
+        }
+        travelled += edge_length;
+    }
+    float core = exp(-pow(delta / 0.0080, 2.0));
+    float inner = exp(-pow(delta / 0.022, 2.0)) * 0.30;
+    float glow = exp(-pow(delta / 0.065, 2.0)) * 0.12;
+    float sector = mod(along, ORBIT_PI) / ORBIT_PI;
+    float painted = build >= 0.999 ? 1.0 : (1.0 - smoothstep(build - 0.012, build + 0.012, sector));
+    if (build <= 0.001) painted = 0.0;
+    float tails = comet(along, phase) + (1.0 - opening) * comet(along, phase + ORBIT_PI);
+    float shimmer = 0.94 + 0.06 * sin(along * 7.0 - clock * 0.8);
+    float light = core * (0.72 + 0.90 * tails) * shimmer + inner * (1.0 + tails) + glow;
+    vec3 tint = light_color.rgb * 1.20;
+    vec3 emission = mix(tint, core_color.rgb * 1.10, core * 0.08);
+    COLOR = vec4(emission, strength * painted * light);
+}

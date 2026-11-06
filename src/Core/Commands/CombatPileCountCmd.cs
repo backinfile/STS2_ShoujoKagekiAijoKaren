@@ -29,11 +29,12 @@ public static class CombatPileCountCmd
     {
         if (player?.PlayerCombatState == null) return;
 
-        SetCount(pileType, pileType.GetPile(player).Cards.Count);
+        SetCount(player, pileType, pileType.GetPile(player).Cards.Count);
     }
 
-    public static void SetCount(PileType pileType, int count)
+    public static void SetCount(Player player, PileType pileType, int count)
     {
+        if (!LocalContext.IsMe(player)) return;
         var pileNode = GetPileNode(pileType);
         if (pileNode == null) return;
 

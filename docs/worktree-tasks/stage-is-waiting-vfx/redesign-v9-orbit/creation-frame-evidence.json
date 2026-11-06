@@ -1,0 +1,30 @@
+[
+  {
+    "file": "redesign-v9-orbit/creation-arrival-in-game.png",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/stable/waiting-stage/game.mp4",
+    "time": 1.85,
+    "visualPhase": "arrival",
+    "sourceSha256": "eea0cbe6a35e9af4afe54b5e2b88f35b877251ad05e083323b570290edcbd1c4"
+  },
+  {
+    "file": "redesign-v9-orbit/creation-tracing-early-in-game.png",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/stable/waiting-stage/game.mp4",
+    "time": 2.1,
+    "visualPhase": "tracing-early",
+    "sourceSha256": "eea0cbe6a35e9af4afe54b5e2b88f35b877251ad05e083323b570290edcbd1c4"
+  },
+  {
+    "file": "redesign-v9-orbit/creation-tracing-late-in-game.png",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/stable/waiting-stage/game.mp4",
+    "time": 2.45,
+    "visualPhase": "tracing-late",
+    "sourceSha256": "eea0cbe6a35e9af4afe54b5e2b88f35b877251ad05e083323b570290edcbd1c4"
+  },
+  {
+    "file": "redesign-v9-orbit/creation-complete-in-game.png",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/stable/waiting-stage/game.mp4",
+    "time": 2.8,
+    "visualPhase": "complete",
+    "sourceSha256": "eea0cbe6a35e9af4afe54b5e2b88f35b877251ad05e083323b570290edcbd1c4"
+  }
+]

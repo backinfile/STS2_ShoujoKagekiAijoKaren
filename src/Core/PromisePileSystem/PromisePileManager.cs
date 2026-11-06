@@ -40,6 +40,7 @@ public static class PromisePileManager
 {
     private static readonly SpireField<PlayerCombatState, CardPile> _promisePile
         = new(() => new CardPile(KarenCustomEnum.PromisePile));
+    private static readonly SpireField<PlayerCombatState, bool> _refilling = new(() => false);
 
     private static readonly Texture2D DrawPileIconInVoidMode = GD.Load<Texture2D>(ImageHelper.GetImagePath("ui/combat/karen_draw_pile_void.png"));
 
@@ -105,7 +106,7 @@ public static class PromisePileManager
 
         var creature = player.Creature;
         if (!creature.HasPower<KarenPromisePilePower>())
-            await PowerCmd.Apply<KarenPromisePilePower>(creature, 1, creature, null);
+            await PowerCmd.Apply<KarenPromisePilePower>(new ThrowingPlayerChoiceContext(), creature, 1, creature, null);
 
         if (creature.GetPower<KarenPromisePilePower>() is { } power)
         {
@@ -117,17 +118,19 @@ public static class PromisePileManager
         // 进入Void模式，修改抽牌堆图标
         if ((mode & PromisePileMode.Void) == PromisePileMode.Void)
         {
-            DrawPileIconCmd.Override(DrawPileIconInVoidMode);
+            DrawPileIconCmd.Override(player, DrawPileIconInVoidMode);
         }
     }
 
     /// <summary>
     /// 从约定牌堆取出第一张牌（FIFO），并通过 CardPileCmd.Add 移入手牌顶部。
-    /// 返回 null 表示约定牌堆为空。
+    /// 返回 null 表示牌堆为空、移牌失败或战斗已经结束。
     /// </summary>
     public static async Task<CardModel?> DrawFromPromisePileAsync(
         PlayerChoiceContext choiceContext, Player player)
     {
+        if (player.PlayerCombatState == null || CombatManager.Instance.IsOverOrEnding) return null;
+
         var pile = GetPromisePile(player);
         if (pile.Cards.Count == 0) return null;
 
@@ -135,12 +138,13 @@ public static class PromisePileManager
         //pile.RemoveInternal(card); 这里不能删除，要给后续动作提供一个oldPile
         MainFile.Logger.Info($"DrawFromPromisePileAsync {card.Title} pile = {card.Pile?.Type}");
 
-        await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
-        //await Hook.AfterCardChangedPiles(card.Owner.RunState, card.CombatState, card, KarenCustomEnum.PromisePile, null);
+        var result = await CardPileCmd.Add(card, PileType.Hand, CardPilePosition.Top);
+        if (!result.success) return null;
 
-        // 更新 Power
-        await UpdatePowerAsync(player);
-        return card;
+        // A move hook can finish combat; refill only while the combat remains active.
+        if (player.PlayerCombatState != null && !CombatManager.Instance.IsOverOrEnding)
+            await UpdatePowerAsync(player);
+        return result.cardAdded;
     }
 
     /// <summary>
@@ -211,15 +215,15 @@ public static class PromisePileManager
     /// minSelect == maxSelect，选满 N 张后自动确认（无手动按钮）；1 张时单击即确认。
     /// 当 pileType 为 Hand 时使用 FromHand 进行手牌选择, 此时要求传入source。
     /// </summary>
-    public static async Task AddFromPileAsync(
+    public static async Task<IReadOnlyList<CardModel>> AddFromPileAsync(
         PlayerChoiceContext ctx, Player player, PileType pileType, int count, LocString prompt, AbstractModel? source = null, bool optional = false)
     {
-        if (player == null) return;
+        if (player == null) return [];
 
         var cardPile = pileType.GetPile(player);
         // 拍快照：避免选牌过程中列表变动
         var cards = cardPile.Cards.ToList();
-        if (cards.Count == 0) return;
+        if (cards.Count == 0) return [];
 
         int selectCount = Math.Min(count, cards.Count);
         var prefs = new CardSelectorPrefs(prompt, optional ? 0 : selectCount, selectCount);
@@ -234,10 +238,12 @@ public static class PromisePileManager
         {
             selected = await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs);
         }
-        if (selected == null) return;
+        if (selected == null) return [];
 
-        foreach (var card in selected)
+        var moved = selected.ToArray();
+        foreach (var card in moved)
             await PromisePileCmd.Add(player, card);
+        return moved;
     }
 
     /// <summary>
@@ -270,7 +276,7 @@ public static class PromisePileManager
         //if (player?.Creature == null) return;
         //if (player.Character is not Karen) return;
 
-        //await PowerCmd.Apply<KarenPromisePilePower>(player.Creature, 1, player.Creature, null);
+        //await PowerCmd.Apply<KarenPromisePilePower>(new ThrowingPlayerChoiceContext(), player.Creature, 1, player.Creature, null);
         //if (player.Creature.GetPower<KarenPromisePilePower>() is { } karenPower)
         //    karenPower.SetCount(0);
 
@@ -290,12 +296,24 @@ public static class PromisePileManager
         var creature = player.Creature;
 
         if (!creature.HasPower<KarenPromisePilePower>())
-            await PowerCmd.Apply<KarenPromisePilePower>(creature, 1, creature, null);
+            await PowerCmd.Apply<KarenPromisePilePower>(new ThrowingPlayerChoiceContext(), creature, 1, creature, null);
 
 
         if (IsInMode(player, PromisePileMode.InfiniteReinforcement))
         {
-            await RefillWithContinueAsync(player);
+            var combat = player.PlayerCombatState;
+            // Removing old Draw cards in Void mode invokes this hook recursively.
+            // The outer refill owns the batch and publishes its final count/VFX.
+            if (combat == null || _refilling.Get(combat)) return;
+            _refilling.Set(combat, true);
+            try
+            {
+                await RefillWithContinueAsync(player);
+            }
+            finally
+            {
+                _refilling.Set(combat, false);
+            }
         }
 
         if (creature.GetPower<KarenPromisePilePower>() is { } karenPower)
@@ -315,20 +333,19 @@ public static class PromisePileManager
     {
         if (player?.PlayerCombatState == null) return;
 
-        bool changed = false;
+        var generated = new List<CardModel>();
 
         var inVoidMode = IsInMode(player, PromisePileMode.Void);
         if (!inVoidMode)
         {
             var pile = GetPromisePile(player);
-            var maxCount = CardPile.maxCardsInHand;
+            var maxCount = CardPile.MaxCardsInHand;
             // 先把牌库中的非续演牌移除掉
             foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
             {
                 //card.RemoveFromCurrentPile();
                 await CardPileCmd.RemoveFromCombat(card); // 联机下需要等待命令完成，避免双方状态时序错开
                 MainFile.Logger.Info($"[PromisePile] Removed '{card.Title}' from promise pile during refill");
-                changed = true;
             }
             // 然后用续演补齐到10张
             int leftCount = maxCount - pile.Cards.Count;
@@ -336,21 +353,20 @@ public static class PromisePileManager
             {
                 var card = player.Creature.CombatState!.CreateCard<KarenContinue>(player);
                 pile.AddInternal(card);
+                generated.Add(card);
                 MainFile.Logger.Info($"[PromisePile] Added '{card.Title}' to promise pile during refill");
-                changed = true;
             }
         }
         else
         {
             var pile = PileType.Draw.GetPile(player);
-            var maxCount = CardPile.maxCardsInHand;
+            var maxCount = CardPile.MaxCardsInHand;
             // 先把牌库中的非续演牌移除掉
             foreach (var card in pile.Cards.Where(c => c is not KarenContinue).ToList())
             {
                 //card.RemoveFromCurrentPile();
                 await CardPileCmd.RemoveFromCombat(card); // 联机下需要等待命令完成，避免双方状态时序错开
                 MainFile.Logger.Info($"[PromisePile] void mode Removed '{card.Title}' from promise pile during refill");
-                changed = true;
             }
             // 然后用续演补齐到10张
             int leftCount = maxCount - pile.Cards.Count;
@@ -358,24 +374,22 @@ public static class PromisePileManager
             {
                 var card = player.Creature.CombatState!.CreateCard<KarenContinue>(player);
                 pile.AddInternal(card);
+                generated.Add(card);
                 MainFile.Logger.Info($"[PromisePile] void mode Added '{card.Title}' to promise pile during refill");
-                changed = true;
             }
-            SetPileCountLabel(pile.Cards.Count);
+            SetPileCountLabel(player, pile.Cards.Count);
         }
-        if (changed)
-        {
-            player?.Creature?.GetPower<KarenPromisePilePower>()?.PlayAni();
-        }
+        // One visual source per refill batch, instead of repeating the power popup.
+        KarenPromiseVfxStarManager.Replenish(player, generated);
     }
 
     /// <summary>
     /// 直接获取 NCombatCardPile 节点并设置其计数文本，无动画。
     /// 用于绕过 CardPile 事件系统直接刷新 UI 数字。
     /// </summary>
-    public static void SetPileCountLabel(int count)
+    public static void SetPileCountLabel(Player player, int count)
     {
-        CombatPileCountCmd.SetCount(PileType.Draw, count);
+        CombatPileCountCmd.SetCount(player, PileType.Draw, count);
     }
 
     /// <summary>打开约定牌堆查看界面（快照模式，使用原生 NCardPileScreen）</summary>
@@ -386,6 +400,7 @@ public static class PromisePileManager
             snapshot.AddInternal(card);
 
         var screen = NCardPileScreen.ShowScreen(snapshot, System.Array.Empty<string>());
+        ShoujoKagekiAijoKaren.src.Core.Nodes.NKarenPileViewVfx.Attach(screen, promise: true);
 
         // 设置标题（注意：必须在设置 Text 后再设置 Visible，因为 NCardPileScreen._Ready 中 default 分支会设置 Visible = false）
         var bottomLabel = screen.GetNode<MegaRichTextLabel>("%BottomLabel");
@@ -405,9 +420,9 @@ public static class PromisePileManager
         foreach (var card in handCards)
         {
             var copyCard = card.CreateClone();
-            CombatManager.Instance.History.CardGenerated(combatState, copyCard, true);
+            CombatManager.Instance.History.CardGenerated(combatState, copyCard, player);
             await PromisePileCmd.Add(player, copyCard);
-            await Hook.AfterCardGeneratedForCombat(combatState, copyCard, true);
+            await Hook.AfterCardGeneratedForCombat(combatState, copyCard, player);
         }
     }
 

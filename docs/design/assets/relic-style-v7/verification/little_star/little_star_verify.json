@@ -1,0 +1,78 @@
+{
+  "passed": false,
+  "reasons": [
+    "Structure window [701, 306, 797, 402]: residual SD 1.5811, HF retention 0.991",
+    "Structure window [666, 209, 762, 305]: residual SD 1.4971, HF retention 0.991"
+  ],
+  "limits": {
+    "structure_max_diff_std": 0.6,
+    "structure_min_hf_ratio": 0.9,
+    "flat_max_band_increase": 0.02,
+    "whole_max_diff_std": 1.0
+  },
+  "whole_image": {
+    "hf_std_before": 1.4794,
+    "hf_std_after": 1.4738,
+    "hf_std_ratio": 0.996,
+    "band_std_before": 1.4924,
+    "band_std_after": 1.4788,
+    "diff_std": 0.4593,
+    "diff_abs_max": 5.3366
+  },
+  "flat_windows": [],
+  "structure_windows": [
+    {
+      "hf_std_before": 1.7812,
+      "hf_std_after": 1.7783,
+      "hf_std_ratio": 0.998,
+      "band_std_before": 1.9979,
+      "band_std_after": 1.9973,
+      "diff_std": 0.2887,
+      "diff_abs_max": 0.7815,
+      "box": [
+        590,
+        696,
+        686,
+        792
+      ],
+      "ok": true
+    },
+    {
+      "hf_std_before": 3.5829,
+      "hf_std_after": 3.5507,
+      "hf_std_ratio": 0.991,
+      "band_std_before": 3.6252,
+      "band_std_after": 3.5705,
+      "diff_std": 1.5811,
+      "diff_abs_max": 3.4397,
+      "box": [
+        701,
+        306,
+        797,
+        402
+      ],
+      "ok": false
+    },
+    {
+      "hf_std_before": 3.4955,
+      "hf_std_after": 3.4656,
+      "hf_std_ratio": 0.991,
+      "band_std_before": 3.688,
+      "band_std_after": 3.6304,
+      "diff_std": 1.4971,
+      "diff_abs_max": 3.4397,
+      "box": [
+        666,
+        209,
+        762,
+        305
+      ],
+      "ok": false
+    }
+  ],
+  "stage": "verify",
+  "before": "docs\\design\\assets\\relic-style-v6\\little_star.png",
+  "after": "artifacts\\relic-moire-v7\\little_star\\little_star_notch.png",
+  "time": "2026-10-11T16:22:15+08:00",
+  "board": "artifacts\\relic-moire-v7\\little_star\\little_star_verify_board.png"
+}

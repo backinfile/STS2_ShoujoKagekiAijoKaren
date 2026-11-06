@@ -1,0 +1,1303 @@
+{
+  "card": "双星",
+  "id": "KAREN_SHINE_PRICE",
+  "energy_cost": "X",
+  "rarity": "Uncommon",
+  "disable_relics": "resolved X, before disabling relics",
+  "damage": [
+    5,
+    6
+  ],
+  "hit_count": "2X",
+  "art": "images/packed/card_portraits/karen/karen_shine_price.png",
+  "art_sha256": "eb30e2240649c2d0e2c428d0bbc052da87ef89231de46e5954c7572caeede951",
+  "localization": {
+    "tables": 10,
+    "source_entries": 430,
+    "translations": 860,
+    "native_smartformat_checks": 10320,
+    "passed": true
+  },
+  "variants": {
+    "stable": {
+      "version": "0.107.1",
+      "passed": true,
+      "cases": [
+        {
+          "case": "blocked",
+          "passed": true,
+          "energy": 3,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "title": "双星",
+          "prospective_relic_cost": 3,
+          "eligible_before": 2,
+          "playable_before": false,
+          "captured_energy_after": 0,
+          "native_attacks": [],
+          "energy_after": 3,
+          "hand_checks": [
+            {
+              "case": "blocked",
+              "stage": "after-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            },
+            {
+              "case": "blocked",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "blocked-upgrade",
+          "passed": true,
+          "energy": 3,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "title": "双星+",
+          "prospective_relic_cost": 3,
+          "eligible_before": 2,
+          "playable_before": false,
+          "captured_energy_after": 0,
+          "native_attacks": [],
+          "energy_after": 3,
+          "hand_checks": [
+            {
+              "case": "blocked-upgrade",
+              "stage": "after-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            },
+            {
+              "case": "blocked-upgrade",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "blocked-chemical",
+          "passed": true,
+          "energy": 1,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "title": "双星",
+          "prospective_relic_cost": 3,
+          "eligible_before": 2,
+          "playable_before": false,
+          "captured_energy_after": 0,
+          "native_attacks": [],
+          "energy_after": 1,
+          "hand_checks": [
+            {
+              "case": "blocked-chemical",
+              "stage": "after-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            },
+            {
+              "case": "blocked-chemical",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "zero",
+          "passed": true,
+          "energy": 0,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "title": "双星",
+          "prospective_relic_cost": 0,
+          "eligible_before": 0,
+          "playable_before": true,
+          "captured_energy_after": 0,
+          "native_attacks": [
+            {
+              "hits": 0,
+              "damage": []
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "zero",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "zero",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "one",
+          "passed": true,
+          "energy": 1,
+          "hits": 2,
+          "relics_disabled": 1,
+          "damage": 10,
+          "title": "双星",
+          "prospective_relic_cost": 1,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 1,
+          "native_attacks": [
+            {
+              "hits": 2,
+              "damage": [
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "one",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "one",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "two",
+          "passed": true,
+          "energy": 2,
+          "hits": 4,
+          "relics_disabled": 2,
+          "damage": 20,
+          "title": "双星",
+          "prospective_relic_cost": 2,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 2,
+          "native_attacks": [
+            {
+              "hits": 4,
+              "damage": [
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "two",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "two",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "three",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "title": "双星",
+          "prospective_relic_cost": 3,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 3,
+          "native_attacks": [
+            {
+              "hits": 6,
+              "damage": [
+                5,
+                5,
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "three",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "three",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 36,
+          "title": "双星+",
+          "prospective_relic_cost": 3,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 3,
+          "native_attacks": [
+            {
+              "hits": 6,
+              "damage": [
+                6,
+                6,
+                6,
+                6,
+                6,
+                6
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "upgrade",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "upgrade",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "strength",
+          "passed": true,
+          "energy": 2,
+          "hits": 4,
+          "relics_disabled": 2,
+          "damage": 28,
+          "title": "双星",
+          "prospective_relic_cost": 2,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 2,
+          "native_attacks": [
+            {
+              "hits": 4,
+              "damage": [
+                7,
+                7,
+                7,
+                7
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "strength",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "strength",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "chemical",
+          "passed": true,
+          "energy": 1,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "title": "双星",
+          "prospective_relic_cost": 3,
+          "eligible_before": 4,
+          "playable_before": true,
+          "captured_energy_after": 1,
+          "native_attacks": [
+            {
+              "hits": 6,
+              "damage": [
+                5,
+                5,
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "chemical",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "chemical",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "lock-chemical",
+          "passed": true,
+          "energy": 1,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "title": "双星",
+          "prospective_relic_cost": 3,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 1,
+          "native_attacks": [
+            {
+              "hits": 6,
+              "damage": [
+                5,
+                5,
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "lock-chemical",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "lock-chemical",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "replay",
+          "passed": true,
+          "energy": 2,
+          "hits": 8,
+          "relics_disabled": 4,
+          "damage": 40,
+          "title": "双星",
+          "prospective_relic_cost": 2,
+          "eligible_before": 4,
+          "playable_before": true,
+          "captured_energy_after": 2,
+          "native_attacks": [
+            {
+              "hits": 4,
+              "damage": [
+                5,
+                5,
+                5,
+                5
+              ]
+            },
+            {
+              "hits": 4,
+              "damage": [
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "replay",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "replay",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "replay-short",
+          "passed": true,
+          "energy": 2,
+          "hits": 4,
+          "relics_disabled": 2,
+          "damage": 20,
+          "title": "双星",
+          "prospective_relic_cost": 2,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 2,
+          "native_attacks": [
+            {
+              "hits": 4,
+              "damage": [
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "replay-short",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "replay-short",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "combat-end-restoration",
+          "passed": true,
+          "restored": 2
+        }
+      ],
+      "package_hashes": {
+        "ShoujoKagekiAijoKaren.pck": "711ae1197e4ba5e9da9b4d5b44113ed4dd1287166e41572cb4377147feb69fb5",
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "9a15a31156deb939b8e6dc12aff47b2858082d584f4f963442de937d0e720ff2"
+      },
+      "tested_dll_matches_final": true,
+      "screenshot_count": 26,
+      "hand_check_count": 26,
+      "log_errors": [],
+      "screenshots": [
+        {
+          "path": "artifacts/twin-stars/stable/blocked/after.png",
+          "sha256": "d5e35f25fbd5eda6be4edfc11f47908d89d3781114bf8fe801c66f8bcee60778"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/blocked/before.png",
+          "sha256": "4c2f009c53e8dc641421be4ee7fe42d439ad5c9e2cfef8f04e30a86e763518b6"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/blocked-chemical/after.png",
+          "sha256": "a3aff3a63c5836f0d69af8a1a01f80fbb46b6e3c097d3504e4ff6799d30a01e8"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/blocked-chemical/before.png",
+          "sha256": "9638a9e44084c235006cd0a2c8e4b08a3440cda32f7654a6ccf0db000314a6c9"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/blocked-upgrade/after.png",
+          "sha256": "2a41ac7920d0ccd7ef342c17031576a389458912df6600aa4547b36280e78d44"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/blocked-upgrade/before.png",
+          "sha256": "54f1a425a8c4c31d60fe6ef609cded5b7410f84b8e811aaa8be7162a67881796"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/chemical/after.png",
+          "sha256": "4464ab6e191e88af3a9846d6a695a919257ffd3f0f649d7f02cb91228897f373"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/chemical/before.png",
+          "sha256": "ebc902a99fac5b510ca293933f2eaef6c35958a6ee89bfbb87ff624304ee77ba"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/lock-chemical/after.png",
+          "sha256": "e650a90e3bf388dd7e0059746e963d320819e2f8a9d20ee6199526be51cdc218"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/lock-chemical/before.png",
+          "sha256": "48e68737fdd7a2e295e1d47f462075ce2f963ecbfe7a8c337e46480cf5e72956"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/one/after.png",
+          "sha256": "71fb3460c0f0cad2e963ffda703b69565ed532113ce09abbeb900e88555cdc38"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/one/before.png",
+          "sha256": "d6051d7578823bd954383b54d086babd71b542e44e9e0848a418e4ab4d8ccb71"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/replay/after.png",
+          "sha256": "0c730ab47b983e5c72176bdc56d1c2e096db62ec17d0493eb0e242dd4cddcf28"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/replay/before.png",
+          "sha256": "e1bedf16d5b82f7c5c2a450afbbd267de5eb23e14deaf7b5cb20ef74e4014f90"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/replay-short/after.png",
+          "sha256": "e0c08b49d2d9f1e0ba68fc1548a050790445f350c4e3739a349aeb6ac281de9e"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/replay-short/before.png",
+          "sha256": "3ba683df427094471dd9c6c74bae5f6ab0413f40012570cb5c8f93a9d4821b85"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/strength/after.png",
+          "sha256": "b5fb8b9910ecdd34171945e4dc1af12117930faf4fca990d088d54efe4a3d1ec"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/strength/before.png",
+          "sha256": "37f7847e4f3c7d703b5d74e1809cab49f67a23b15a51d55b7a82f59391fdb62f"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/three/after.png",
+          "sha256": "0c19ae51be8392ba7b15fb0d60d8b3187e4c99bf00eb617896aa55e762ece216"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/three/before.png",
+          "sha256": "bdcd3340feb0657d6ccf4f4bab7219e5efc529bff43829455919d026195e1493"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/two/after.png",
+          "sha256": "2f1b84f320c390dc1d7ee6f8797f121522027f69f76f4e19d51157433405af77"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/two/before.png",
+          "sha256": "e08b85e96c215ba98b716f0354564cbbf998ca4490ff52892acff28cc28ab593"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/upgrade/after.png",
+          "sha256": "8ce28d2ffdfb1988981b5a798515f5782c3bca4be1c1c712d647e46a2e430012"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/upgrade/before.png",
+          "sha256": "0fea4024d6017abc603f24f99986c83f629a0c9b4755e9d8163908c7f33391e4"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/zero/after.png",
+          "sha256": "2ef5dfa4d0cc0a25f3e4065399076b970eefdcc57ad403252b6aa7d5817c8ec8"
+        },
+        {
+          "path": "artifacts/twin-stars/stable/zero/before.png",
+          "sha256": "657267f486a55c7293e05dfacd595f424c12f40b9e14b870c891bc6a329cc37e"
+        }
+      ]
+    },
+    "beta": {
+      "version": "0.111.0",
+      "passed": true,
+      "cases": [
+        {
+          "case": "blocked",
+          "passed": true,
+          "energy": 3,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "title": "双星",
+          "prospective_relic_cost": 3,
+          "eligible_before": 2,
+          "playable_before": false,
+          "captured_energy_after": 0,
+          "native_attacks": [],
+          "energy_after": 3,
+          "hand_checks": [
+            {
+              "case": "blocked",
+              "stage": "after-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            },
+            {
+              "case": "blocked",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "blocked-upgrade",
+          "passed": true,
+          "energy": 3,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "title": "双星+",
+          "prospective_relic_cost": 3,
+          "eligible_before": 2,
+          "playable_before": false,
+          "captured_energy_after": 0,
+          "native_attacks": [],
+          "energy_after": 3,
+          "hand_checks": [
+            {
+              "case": "blocked-upgrade",
+              "stage": "after-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            },
+            {
+              "case": "blocked-upgrade",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "blocked-chemical",
+          "passed": true,
+          "energy": 1,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "title": "双星",
+          "prospective_relic_cost": 3,
+          "eligible_before": 2,
+          "playable_before": false,
+          "captured_energy_after": 0,
+          "native_attacks": [],
+          "energy_after": 1,
+          "hand_checks": [
+            {
+              "case": "blocked-chemical",
+              "stage": "after-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            },
+            {
+              "case": "blocked-chemical",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "zero",
+          "passed": true,
+          "energy": 0,
+          "hits": 0,
+          "relics_disabled": 0,
+          "damage": 0,
+          "title": "双星",
+          "prospective_relic_cost": 0,
+          "eligible_before": 0,
+          "playable_before": true,
+          "captured_energy_after": 0,
+          "native_attacks": [
+            {
+              "hits": 0,
+              "damage": []
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "zero",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "zero",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "one",
+          "passed": true,
+          "energy": 1,
+          "hits": 2,
+          "relics_disabled": 1,
+          "damage": 10,
+          "title": "双星",
+          "prospective_relic_cost": 1,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 1,
+          "native_attacks": [
+            {
+              "hits": 2,
+              "damage": [
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "one",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "one",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "two",
+          "passed": true,
+          "energy": 2,
+          "hits": 4,
+          "relics_disabled": 2,
+          "damage": 20,
+          "title": "双星",
+          "prospective_relic_cost": 2,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 2,
+          "native_attacks": [
+            {
+              "hits": 4,
+              "damage": [
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "two",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "two",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "three",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "title": "双星",
+          "prospective_relic_cost": 3,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 3,
+          "native_attacks": [
+            {
+              "hits": 6,
+              "damage": [
+                5,
+                5,
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "three",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "three",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "upgrade",
+          "passed": true,
+          "energy": 3,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 36,
+          "title": "双星+",
+          "prospective_relic_cost": 3,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 3,
+          "native_attacks": [
+            {
+              "hits": 6,
+              "damage": [
+                6,
+                6,
+                6,
+                6,
+                6,
+                6
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "upgrade",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "upgrade",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "strength",
+          "passed": true,
+          "energy": 2,
+          "hits": 4,
+          "relics_disabled": 2,
+          "damage": 28,
+          "title": "双星",
+          "prospective_relic_cost": 2,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 2,
+          "native_attacks": [
+            {
+              "hits": 4,
+              "damage": [
+                7,
+                7,
+                7,
+                7
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "strength",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "strength",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "chemical",
+          "passed": true,
+          "energy": 1,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "title": "双星",
+          "prospective_relic_cost": 3,
+          "eligible_before": 4,
+          "playable_before": true,
+          "captured_energy_after": 1,
+          "native_attacks": [
+            {
+              "hits": 6,
+              "damage": [
+                5,
+                5,
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "chemical",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "chemical",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "lock-chemical",
+          "passed": true,
+          "energy": 1,
+          "hits": 6,
+          "relics_disabled": 3,
+          "damage": 30,
+          "title": "双星",
+          "prospective_relic_cost": 3,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 1,
+          "native_attacks": [
+            {
+              "hits": 6,
+              "damage": [
+                5,
+                5,
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "lock-chemical",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "lock-chemical",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "replay",
+          "passed": true,
+          "energy": 2,
+          "hits": 8,
+          "relics_disabled": 4,
+          "damage": 40,
+          "title": "双星",
+          "prospective_relic_cost": 2,
+          "eligible_before": 4,
+          "playable_before": true,
+          "captured_energy_after": 2,
+          "native_attacks": [
+            {
+              "hits": 4,
+              "damage": [
+                5,
+                5,
+                5,
+                5
+              ]
+            },
+            {
+              "hits": 4,
+              "damage": [
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "replay",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "replay",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "replay-short",
+          "passed": true,
+          "energy": 2,
+          "hits": 4,
+          "relics_disabled": 2,
+          "damage": 20,
+          "title": "双星",
+          "prospective_relic_cost": 2,
+          "eligible_before": 3,
+          "playable_before": true,
+          "captured_energy_after": 2,
+          "native_attacks": [
+            {
+              "hits": 4,
+              "damage": [
+                5,
+                5,
+                5,
+                5
+              ]
+            }
+          ],
+          "energy_after": 0,
+          "hand_checks": [
+            {
+              "case": "replay-short",
+              "stage": "after-hand",
+              "model_count": 0,
+              "visual_count": 0,
+              "passed": true
+            },
+            {
+              "case": "replay-short",
+              "stage": "before-hand",
+              "model_count": 1,
+              "visual_count": 1,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "case": "combat-end-restoration",
+          "passed": true,
+          "restored": 2
+        }
+      ],
+      "package_hashes": {
+        "ShoujoKagekiAijoKaren.pck": "d7cbaff6280291351ca50552cd85bdb9d5fbf027039665926fc13335e49cd9e7",
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "94c46531c478cb7220684730fd501a622e5ef77ea7e51dd4bebca15bf3fba6c0"
+      },
+      "tested_dll_matches_final": true,
+      "screenshot_count": 26,
+      "hand_check_count": 26,
+      "log_errors": [],
+      "screenshots": [
+        {
+          "path": "artifacts/twin-stars/beta/blocked/after.png",
+          "sha256": "a35854a7a8ff9e75d1d545ded8b1ac339e49837bad8323a5624db16d65c3e5c5"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/blocked/before.png",
+          "sha256": "073009513d3e4bc32999994ddca530ee30e034bd22c980f791c1f9eab79da646"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/blocked-chemical/after.png",
+          "sha256": "5df0af3f84e601f986512f6747c636c4cd3704c7f92f61f65fde9cee28791e8f"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/blocked-chemical/before.png",
+          "sha256": "a881c8654c9af5e337b62bde98f964591ca4cdc5de56e85bf10fc9d533592ece"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/blocked-upgrade/after.png",
+          "sha256": "52a7e434204ee5cadb613b857bfde79c397cb5f93017cabb95cc99fe6fd338cb"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/blocked-upgrade/before.png",
+          "sha256": "69a075c43b8489700d188077e4e24bdd1d4d9f7cbd2fc59066d07285d8d004f6"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/chemical/after.png",
+          "sha256": "5e676d94dc6e76fa0fdb03dbe3428f201f1c396c0f8793eeed2009e6707ee4c9"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/chemical/before.png",
+          "sha256": "b83b01e9224c63462f8f4bdcf1d07dd93374a307b978a0dd66912ad656bd7883"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/lock-chemical/after.png",
+          "sha256": "5aac8e119fe83e9996e67333bc31c7a8491b444705634f00657440ee034ea1fa"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/lock-chemical/before.png",
+          "sha256": "02edb26ed4936b0c78f80ec8c919c90f73bf972e373335efac79c91a7b4cd748"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/one/after.png",
+          "sha256": "93137b78556417554a7474ae7d9166a6b43d3f87ae66f9115f65a19e9b740599"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/one/before.png",
+          "sha256": "38d969703cc08a39fc6faa474380eed6303c1ee82c86737d1b7caa295bf2847b"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/replay/after.png",
+          "sha256": "809895cab3e31bc9e4cf308a145daf19c73c7c9d56930c5d1f220ae9f4f3afd3"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/replay/before.png",
+          "sha256": "23aad0622582dade5da2aa7a8ae236e3a3165342609fcd5d7abfdd023e625589"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/replay-short/after.png",
+          "sha256": "3866523d2f8436c388c1c761616532abb14a8fb4dd0d915d7629ac0ec3dfcb64"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/replay-short/before.png",
+          "sha256": "8d4fc5a2772e8067d68b754cc2c0ae1178dc5aa817e5725066694efb0c9a282e"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/strength/after.png",
+          "sha256": "2c33c06a607b04dd7214b7082196aa2f381181f8ebb1b3631972e2e6b3a98dfc"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/strength/before.png",
+          "sha256": "4fdf8252b7913f47bc515f0732fead1fd1919a9f2e0ac287ff3a82d5f0a9f564"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/three/after.png",
+          "sha256": "dc52534b8c93ee58f9d6b1aebb4e05ab4eedec2bf403b22ef6a8168c0e43b62e"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/three/before.png",
+          "sha256": "bd1a04b2860a16dd545847e6e8ced96cc987cbb288e282b2b45e2f52b638e872"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/two/after.png",
+          "sha256": "0d2da215d602bfa5321eadd475a9ae3ed13e5fed8f1c14e51094691846bfcbd3"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/two/before.png",
+          "sha256": "978935ff85fa324593a16bb8f5b2320b2a256820357b76bd2c133ad7f42ac4a6"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/upgrade/after.png",
+          "sha256": "d27afeec40e4053dd44b14e2555da98740ff2a301531e39c0295b532001ee9f4"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/upgrade/before.png",
+          "sha256": "e96e6a65421cb599a260c51b4a0a9b7352eeae54f0688804ce3b90d142ccba83"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/zero/after.png",
+          "sha256": "968dffca4058cb600ed5f86380287cda45fa687fa417f8eb09f0f99aafbe3f24"
+        },
+        {
+          "path": "artifacts/twin-stars/beta/zero/before.png",
+          "sha256": "2f6cff99ecac7c8c009ebbe9901f79c147c0e5fdd2fc397a351e4b40de5999b7"
+        }
+      ]
+    }
+  },
+  "limits": [
+    "Targeted single-player only; full single-player/multiplayer matrix not run.",
+    "Stable mechanics run preceded the keyword-tooltip wording correction; final stable package is additionally verified in native inspect and recorded plays."
+  ]
+}

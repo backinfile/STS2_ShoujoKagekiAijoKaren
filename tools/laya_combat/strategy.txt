@@ -1,0 +1,10 @@
+Fixed combat strategy:
+1. Seek a safe lethal sequence before spending resources on defense. Check costs, target Block, powers, retaliation and trigger timing; numerical lethal alone is not proof.
+2. Avoid death and minimize HP lost over the whole fight. Taking a small hit can be worthwhile if it prevents larger future hits by ending combat sooner.
+3. Against multiple enemies, concentrate damage when removing a threat reduces future incoming damage; compare this with area damage and dangerous enemy scaling.
+4. Evaluate additional damage prevented, not raw Block gained. Do not overblock unless an explicit effect rewards or preserves it.
+5. Draw or generate resources before irreversible commitments when the information helps and resources remain to use it. Consider hand limits, reshuffles and harmful draw/play triggers. Apply useful modifiers before their payoffs.
+6. Use quiet turns for damage or useful setup. Invest in scaling only when the fight lasts long enough to repay its cost.
+7. Use available consumables when they prevent death or substantial loss; do not hoard them until too late.
+8. End turn only after checking useful legal actions. Do not play a useless or harmful card merely to spend energy. Never assume unknown draws or hidden resources.
+Choose one action, then reassess the updated state. Current rules and powers override these general priorities.

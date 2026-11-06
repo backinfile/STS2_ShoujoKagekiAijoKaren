@@ -1,0 +1,346 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Godot;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
+using ShoujoKagekiAijoKaren.src.Core.Audio;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
+using ShoujoKagekiAijoKaren.src.Core.Utils;
+
+namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
+
+/// <summary>A rising star curtain and an airborne followspot owned by one Power; no floor or stage geometry.</summary>
+public partial class NKarenWaitingStageVfx : Node2D
+{
+    private sealed class Delivery(Vector2 origin, int gain)
+    {
+        public readonly Vector2 Origin = origin;
+        public readonly int Gain = gain;
+        public float Age;
+        public bool Arrived;
+        public CpuParticles2D Trail = null!;
+    }
+
+    private KarenStageIsWaitingPower _power = null!;
+    private NCombatRoom _room = null!;
+    private NCreature _view = null!;
+    private readonly Node2D _back = new() { Name = "KarenWaitingStageBack" };
+    private readonly Node2D _hud = new() { Name = "KarenWaitingStageHud" };
+    private readonly ColorRect _curtain = new() { Name = "RisingStarCurtain", MouseFilter = Control.MouseFilterEnum.Ignore };
+    private ShaderMaterial _curtainMaterial = null!;
+    private readonly ColorRect[] _beams = new ColorRect[2];
+    private readonly ShaderMaterial[] _beamMaterials = new ShaderMaterial[2];
+    private readonly Vector2[] _lampSources = new Vector2[1], _lampTargets = new Vector2[1];
+    private CpuParticles2D _glints = null!, _confetti = null!;
+    private readonly List<Delivery> _deliveries = new();
+    private readonly List<(CpuParticles2D Node, float Until)> _bursts = new();
+    private readonly List<AudioStreamPlayer> _sounds = new();
+    private static GradientTexture2D? _soft;
+    private static readonly Color Gold = new("#ffd18a"), Ivory = new("#fff0c9");
+    private Vector2 _foot, _body;
+    private float _age, _castAge = 4, _chaseAge = 10, _lastSound = -10, _unit;
+    public int CastStarts { get; private set; }
+    public int Confirmations { get; private set; }
+    public int DeliveredEnergy { get; private set; }
+    public int ActiveDeliveries => _deliveries.Count;
+    public Vector2 FootPoint => _foot;
+    public Node2D Background => _back;
+    public Node2D Hud => _hud;
+    public float CastLight => Cast;
+    public float TriggerLight => Pulse;
+    public Vector2[] LampSources => _lampSources;
+    public Vector2[] LampTargets => _lampTargets;
+    public float CurtainStrength { get; private set; }
+    private static bool Enabled => !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
+    private float Speed => SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1.6f : 1f;
+    private float Cast => Window(_castAge, 0, 2.35f, .16f, 1.0f);
+    private float Pulse => _deliveries.Count == 0 ? 0 : _deliveries.Max(d => Window(d.Age, 0, 1.3f, .08f, .6f));
+
+    public static NKarenWaitingStageVfx? Ensure(KarenStageIsWaitingPower power, bool cast = false)
+    {
+        var room = NCombatRoom.Instance;
+        var view = room?.GetCreatureNode(power.Owner);
+        if (!Enabled || room == null || view == null || power.Owner.Player == null || power.Amount <= 0
+            || !CombatManager.Instance.IsInProgress || power.Owner.GetPower<KarenStageIsWaitingPower>() != power) return null;
+        var existing = room.CombatVfxContainer.GetChildren().OfType<NKarenWaitingStageVfx>()
+            .FirstOrDefault(n => n._power == power && !n.IsQueuedForDeletion());
+        if (existing != null) { if (cast) existing.BeginCast(); return existing; }
+        var node = new NKarenWaitingStageVfx { _power = power, _room = room, _view = view,
+            _castAge = cast ? 0 : 4, Name = "KarenWaitingStageVfx" };
+        room.CombatVfxContainer.AddChildSafely(node);
+        return node;
+    }
+
+    public static void Remove(KarenStageIsWaitingPower power)
+    {
+        if (NCombatRoom.Instance is not { } room) return;
+        foreach (var node in room.CombatVfxContainer.GetChildren().OfType<NKarenWaitingStageVfx>().Where(n => n._power == power)) node.Stop();
+    }
+
+    public override void _Ready()
+    {
+        _soft ??= new GradientTexture2D { Width = 32, Height = 32, Fill = GradientTexture2D.FillEnum.Radial,
+            FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
+                Offsets = [0, .2f, .6f, 1], Colors = [Colors.White, new(1, 1, 1, .8f), new(1, 1, 1, .12f), Colors.Transparent] } };
+        _room.BackCombatVfxContainer.AddChildSafely(_back);
+        var shader = KarenResourceLoader.Load<Shader>("res://shaders/karen_theatre_followspot.gdshader", nameof(NKarenWaitingStageVfx));
+        for (int i = 0; i < _beams.Length; i++)
+        {
+            _beamMaterials[i] = new ShaderMaterial { Shader = shader };
+            _beams[i] = new ColorRect { Material = _beamMaterials[i], MouseFilter = Control.MouseFilterEnum.Ignore };
+            (i == 0 ? _back : this).AddChild(_beams[i]);
+        }
+        _curtainMaterial = new ShaderMaterial { Shader = KarenResourceLoader.Load<Shader>(
+            "res://shaders/karen_waiting_star_curtain.gdshader", nameof(NKarenWaitingStageVfx)) };
+        _curtain.Material = _curtainMaterial; _back.AddChild(_curtain);
+        _room.Ui.AddChildSafely(_hud); _hud.ZIndex = 48;
+        _hud.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
+        _hud.Draw += DrawDeliveries;
+        _glints = Particles(26, 3.3f, false);
+        _glints.Texture = KarenResourceLoader.LoadTexture("res://images/vfx/energy/karen/karen_star.png", nameof(NKarenWaitingStageVfx));
+        _glints.EmissionShape = CpuParticles2D.EmissionShapeEnum.Rectangle;
+        _glints.EmissionRectExtents = new(270, 195); _glints.InitialVelocityMin = 5; _glints.InitialVelocityMax = 16;
+        _glints.ScaleAmountMin = .055f; _glints.ScaleAmountMax = .19f; _glints.Preprocess = 3.3;
+        _glints.Modulate = new(1, 1, 1, 0);
+        _back.AddChild(_glints);
+        _confetti = Particles(18, 3.2f, false);
+        _confetti.Texture = KarenResourceLoader.LoadTexture("res://images/vfx/waiting_stage/star_confetti.png", nameof(NKarenWaitingStageVfx));
+        _confetti.Material = new CanvasItemMaterial();
+        _confetti.EmissionShape = CpuParticles2D.EmissionShapeEnum.Rectangle;
+        _confetti.EmissionRectExtents = new(270, 24); _confetti.InitialVelocityMin = 26; _confetti.InitialVelocityMax = 62;
+        _confetti.ScaleAmountMin = .012f; _confetti.ScaleAmountMax = .022f;
+        _confetti.AngularVelocityMin = -38; _confetti.AngularVelocityMax = 38; _confetti.Spread = 16;
+        _confetti.ColorRamp = new Gradient { Offsets = [0, .12f, .5f, .85f, 1],
+            Colors = [new(Gold, 0), Gold, new("#ed4c59"), new(Gold, .8f), new(Gold, 0)] };
+        _confetti.Preprocess = 3.2;
+        _confetti.Modulate = new(1, 1, 1, 0);
+        _back.AddChild(_confetti);
+        KarenVfxComposition.RegisterCue(this, _power.Owner);
+        Place();
+        RenderingServer.FramePreDraw += BeforeDraw;
+        if (_castAge == 0) BeginCast();
+    }
+
+    private void BeginCast()
+    {
+        _castAge = 0; CastStarts++;
+        Burst(_back, _body + new Vector2(0, -105) * _unit, 20, 52, 65);
+        Sound(KarenSfx.WaitingCurtainRise, .40f, 1f);
+    }
+
+    public Vector2 PromisePoint()
+    {
+        var point = KarenPromiseVfxStarManager.GetPilePosition(_power.Owner.Player!, this);
+        return point is { } p ? GetCanvasTransform() * p : _body + new Vector2(-70, -75) * _unit;
+    }
+
+    public void ConfirmEnergy(int actual, Vector2? origin = null)
+    {
+        if (actual <= 0 || !Enabled || !IsInsideTree() || IsQueuedForDeletion()) return;
+        Confirmations++; DeliveredEnergy += actual;
+        if (_deliveries.Count == 0 || Pulse < .1f) _chaseAge = 0;
+        // Bound overlapping presentation without coalescing or replaying gameplay events.
+        if (_deliveries.Count >= 8) { RetireTrail(_deliveries[0]); _deliveries.RemoveAt(0); }
+        var delivery = new Delivery(origin ?? PromisePoint(), actual);
+        delivery.Trail = Particles(32, .28f, false);
+        delivery.Trail.LocalCoords = false;
+        delivery.Trail.Spread = 180; delivery.Trail.InitialVelocityMin = 3; delivery.Trail.InitialVelocityMax = 14;
+        delivery.Trail.ScaleAmountMin = .035f; delivery.Trail.ScaleAmountMax = .095f;
+        _hud.AddChild(delivery.Trail);
+        delivery.Trail.Visible = LocalContext.IsMe(_power.Owner.Player!);
+        _deliveries.Add(delivery);
+        Burst(_back, _body + new Vector2(-65, 10) * _unit, 12, 25, 50);
+        Burst(_back, _body + new Vector2(65, 10) * _unit, 12, 25, 50);
+        if (_age - _lastSound > .18f) { Sound(KarenSfx.WaitingCurtainPulse, .34f, 1f); _lastSound = _age; }
+    }
+
+    public override void _Process(double delta)
+    {
+        if (!Enabled || !GodotObject.IsInstanceValid(_room) || !_room.IsInsideTree() || NCombatRoom.Instance != _room
+            || !GodotObject.IsInstanceValid(_view) || !_view.IsInsideTree() || _view.IsQueuedForDeletion()
+            || !CombatManager.Instance.IsInProgress || _power.Owner.IsDead || _power.Amount <= 0
+            || _power.Owner.GetPower<KarenStageIsWaitingPower>() != _power) { Stop(); return; }
+        float dt = (float)delta * Speed; _age += dt; _castAge += dt; _chaseAge += dt;
+        Place();
+        for (int i = _deliveries.Count - 1; i >= 0; i--)
+        {
+            var delivery = _deliveries[i]; delivery.Age += dt;
+            var endpoint = EnergyPoint();
+            if (endpoint is { } end && LocalContext.IsMe(_power.Owner.Player!))
+            {
+                delivery.Trail.Visible = true;
+                delivery.Trail.Position = Path(delivery, end, P(delivery.Age, .08f, 1.05f));
+                delivery.Trail.Emitting = delivery.Age < 1.05f;
+                delivery.Trail.SpeedScale = Speed;
+                if (!delivery.Arrived && delivery.Age >= 1.05f)
+                {
+                    delivery.Arrived = true;
+                    Burst(_hud, end, 20, 42, 180);
+                    if (_age - _lastSound > .18f) { Sound(KarenSfx.WaitingEnergyArrive, .26f, 1f); _lastSound = _age; }
+                }
+            }
+            else delivery.Trail.Emitting = false;
+            if (delivery.Age >= 1.6f) { RetireTrail(delivery); _deliveries.RemoveAt(i); }
+        }
+        for (int i = _bursts.Count - 1; i >= 0; i--)
+        {
+            var burst = _bursts[i];
+            if (_age >= burst.Until) { burst.Node.QueueFree(); _bursts.RemoveAt(i); }
+            else burst.Node.SpeedScale = Speed;
+        }
+        _sounds.RemoveAll(s => !GodotObject.IsInstanceValid(s));
+        float ambient = KarenVfxComposition.AmbientWeight(_power.Owner);
+        float eventWeight = KarenVfxComposition.EventWeight(_power.Owner, this);
+        float reveal = Ease(P(_age, 0, .36f));
+        float eventLight = Mathf.Max(Cast, Pulse);
+        CurtainStrength = reveal * (.13f * ambient + .87f * eventLight * eventWeight);
+        _curtainMaterial.SetShaderParameter("strength", CurtainStrength);
+        _curtainMaterial.SetShaderParameter("clock", _age);
+        _curtainMaterial.SetShaderParameter("reveal", Ease(P(_castAge, 0, .8f)));
+        _curtainMaterial.SetShaderParameter("activity", eventLight);
+        for (int i = 0; i < _beams.Length; i++)
+        {
+            float strength = .018f * ambient + Cast * .27f + Pulse * .32f;
+            _beamMaterials[i].SetShaderParameter("strength", strength * eventWeight * (i == 0 ? 1 : .12f));
+            _beamMaterials[i].SetShaderParameter("clock", _age);
+            _beamMaterials[i].SetShaderParameter("light_color", Ivory);
+        }
+        _glints.Modulate = new Color(1, 1, 1, .15f * ambient + .85f * eventLight * eventWeight);
+        _confetti.Modulate = new Color(1, 1, 1, .10f * ambient + .90f * eventLight * eventWeight);
+        _glints.SpeedScale = _confetti.SpeedScale = Speed;
+        KarenVfxComposition.SetCueStrength(this, Mathf.Max(Cast, Pulse) * .55f);
+        _hud.QueueRedraw();
+    }
+
+    private void BeforeDraw()
+    {
+        // Also follow transforms changed after this node's process callback in the same frame.
+        if (IsInsideTree() && !IsQueuedForDeletion() && GodotObject.IsInstanceValid(_view) && _view.IsInsideTree()) Place();
+    }
+
+    private void Place()
+    {
+        GlobalTransform = GetCanvasTransform().AffineInverse();
+        _back.GlobalTransform = _back.GetCanvasTransform().AffineInverse();
+        _hud.GlobalTransform = _hud.GetCanvasTransform().AffineInverse();
+        var bounds = _view.Visuals.GetNodeOrNull<Control>("%Bounds") ?? _view.Hitbox;
+        var t = bounds.GetGlobalTransformWithCanvas();
+        var rect = new Rect2(t * Vector2.Zero, Vector2.Zero).Expand(t * bounds.Size)
+            .Expand(t * new Vector2(bounds.Size.X, 0)).Expand(t * new Vector2(0, bounds.Size.Y));
+        _foot = new(rect.GetCenter().X, rect.End.Y - 8);
+        _body = rect.GetCenter(); _unit = Mathf.Clamp(rect.Size.Y / 190, .4f, 2.5f);
+        _curtain.Position = _foot + new Vector2(-315, -500) * _unit;
+        _curtain.Size = new Vector2(610, 485) * _unit;
+        _curtainMaterial.SetShaderParameter("canvas_size", _curtain.Size);
+        // The source stays beyond the upper battlefield. Light ends above the feet; no floor pool is drawn.
+        _lampSources[0] = _foot + new Vector2(300, -650) * _unit;
+        float convergence = Ease(P(Pulse > .01f ? _chaseAge : _castAge, .08f, .65f));
+        _lampTargets[0] = _foot + new Vector2(Mathf.Lerp(-180, 12, convergence), -45) * _unit;
+        foreach (var beam in _beams) PlaceBeam(beam, _lampSources[0], _lampTargets[0], 138 * _unit);
+        _glints.Position = _foot + new Vector2(-10, -245) * _unit; _glints.Scale = Vector2.One * _unit;
+        _confetti.Position = _foot + new Vector2(-10, -38) * _unit; _confetti.Scale = Vector2.One * _unit;
+    }
+
+    private Vector2? EnergyPoint()
+    {
+        if (!LocalContext.IsMe(_power.Owner.Player!)) return null;
+        var counter = _room.Ui.EnergyCounterContainer.GetChildren().OfType<NEnergyCounter>().FirstOrDefault();
+        return counter != null && counter.IsInsideTree() ? counter.GetGlobalTransformWithCanvas() * (counter.Size * .5f) : null;
+    }
+
+    private static void PlaceBeam(ColorRect beam, Vector2 source, Vector2 target, float halfWidth)
+    {
+        beam.Size = new Vector2(halfWidth * 2, source.DistanceTo(target));
+        beam.PivotOffset = new Vector2(halfWidth, 0);
+        beam.Position = source - beam.PivotOffset;
+        beam.Rotation = (target - source).Angle() - Mathf.Pi / 2;
+    }
+
+    private static float Ease(float u) => u * u * (3 - 2 * u);
+
+    private Vector2 Path(Delivery delivery, Vector2 end, float u)
+    {
+        Vector2 stage = _body + new Vector2(0, 15) * _unit;
+        if (u < .26f) return delivery.Origin.Lerp(stage, Ease(u / .26f));
+        u = (u - .26f) / .74f;
+        Vector2 start = stage;
+        Vector2 c1 = stage + new Vector2(-90, -85) * _unit;
+        Vector2 c2 = end + new Vector2(130, -95) * _unit;
+        return Mathf.Pow(1 - u, 3) * start + 3 * (1 - u) * (1 - u) * u * c1 + 3 * (1 - u) * u * u * c2 + u * u * u * end;
+    }
+
+    private void DrawDeliveries()
+    {
+        if (EnergyPoint() is not { } end || _soft == null) return;
+        foreach (var delivery in _deliveries)
+        {
+            float head = P(delivery.Age, .08f, 1.05f), fade = 1 - P(delivery.Age, 1.05f, 1.48f);
+            if (delivery.Age < .08f) continue;
+            for (int j = 0; j < 18; j++)
+            {
+                float u = Mathf.Max(0, head - j * .009f);
+                Vector2 at = Path(delivery, end, u);
+                float size = (j == 0 ? 15 : 7) * _unit;
+                _hud.DrawTextureRect(_soft, new Rect2(at - Vector2.One * size / 2, Vector2.One * size), false,
+                    new Color(j == 0 ? Ivory : Gold, fade * (1 - j / 19f) * .8f));
+            }
+            float arrival = Window(delivery.Age, 1.03f, 1.5f, .035f, .34f);
+            _hud.DrawTextureRect(_soft, new Rect2(end - new Vector2(40, 40), new Vector2(80, 80)), false, new Color(Gold, arrival * .5f));
+        }
+    }
+
+    private CpuParticles2D Particles(int amount, float life, bool oneShot)
+    {
+        return new CpuParticles2D { Amount = amount, Lifetime = life, OneShot = oneShot,
+            Explosiveness = oneShot ? 1 : 0, Emitting = !oneShot, Texture = _soft,
+            Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
+            Direction = Vector2.Up, Spread = 28, Gravity = new(0, -7), LocalCoords = true,
+            InitialVelocityMin = 10, InitialVelocityMax = 35, ScaleAmountMin = .045f, ScaleAmountMax = .13f,
+            ColorRamp = new Gradient { Offsets = [0, .15f, .7f, 1],
+                Colors = [new(Gold, 0), Ivory, new(Gold, .5f), new(Gold, 0)] },
+            SpeedScale = Speed, Randomness = .6f, LifetimeRandomness = .3f };
+    }
+
+    private void Burst(Node2D layer, Vector2 at, int count, float velocity, float spread)
+    {
+        // Shared cap covers curtain reveals, trigger glints and energy arrivals during rapid repeats.
+        if (_bursts.Count >= 18) { _bursts[0].Node.QueueFree(); _bursts.RemoveAt(0); }
+        var particles = Particles(count, .65f, true);
+        particles.Position = at; particles.Scale = Vector2.One * _unit;
+        particles.InitialVelocityMin = velocity * .4f; particles.InitialVelocityMax = velocity;
+        particles.Spread = spread; layer.AddChild(particles); particles.Emitting = true;
+        _bursts.Add((particles, _age + .8f));
+    }
+
+    private static void RetireTrail(Delivery delivery) { delivery.Trail.Hide(); delivery.Trail.QueueFree(); }
+    private void Sound(string file, float volume, float pitch)
+    {
+        _sounds.RemoveAll(s => !GodotObject.IsInstanceValid(s));
+        if (_sounds.Count >= 4)
+        {
+            _sounds[0].Stop(); _sounds[0].QueueFree(); _sounds.RemoveAt(0);
+        }
+        var sound = KarenAudioManager.PlaySfx(file, volume, pitch * Speed);
+        if (sound != null) _sounds.Add(sound);
+    }
+    private static float P(float x, float a, float b) => Mathf.Clamp((x - a) / (b - a), 0, 1);
+    private static float Window(float x, float a, float b, float rise, float fall) => P(x, a, a + rise) * (1 - P(x, b - fall, b));
+    public void Stop() { Hide(); _back.Hide(); _hud.Hide(); QueueFree(); }
+    public override void _ExitTree()
+    {
+        RenderingServer.FramePreDraw -= BeforeDraw;
+        KarenVfxComposition.RemoveCue(this);
+        foreach (var layer in new[] { _back, _hud })
+            if (GodotObject.IsInstanceValid(layer)) { layer.Hide(); layer.QueueFree(); }
+        foreach (var sound in _sounds)
+            if (GodotObject.IsInstanceValid(sound)) { sound.Stop(); sound.QueueFree(); }
+        _sounds.Clear(); _deliveries.Clear(); _bursts.Clear();
+    }
+}

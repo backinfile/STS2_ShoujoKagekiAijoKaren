@@ -1,0 +1,57 @@
+[
+  {
+    "id": "01-watch-card",
+    "name": "怀表牌",
+    "reference": "../sts1-sources/relics/DrawExtraRelic.png",
+    "origin": "老 Mod 遗物图标 DrawExtraRelic.png",
+    "note": "普通位暂用老 Mod「怀表牌」形象。灰色牌面、绿色怀表和粉色绳索保留；钟面等细小图案含补绘。"
+  },
+  {
+    "id": "02-cookies",
+    "name": "饼干",
+    "reference": "../sts1-sources/relics/CookieRelic.png",
+    "origin": "老 Mod 遗物图标 CookieRelic.png",
+    "note": "保留红色包装和米白印刷轮廓；原图文字不可辨，高清图中的印刷细节是推补。"
+  },
+  {
+    "id": "03-little-star",
+    "name": "小小星",
+    "reference": "../sts1-sources/other/Star.png",
+    "origin": "老 Mod otherResources/Star.png",
+    "note": "采用老 Mod 的金色四角星素材，保留四角轮廓和明暗分面；并非粉色五角星石块版本。"
+  },
+  {
+    "id": "04-baseball-cat",
+    "name": "棒球猫",
+    "reference": "../sts1-sources/relics/CatRelic.png",
+    "origin": "老 Mod 遗物图标 CatRelic.png",
+    "note": "保留球棒、红帽、蓝灰球衣和站姿；胸口字样、表情仍沿用上一轮补绘。",
+    "review_status": "待返修",
+    "review_reason": "面部、头盔与SCC字样错误"
+  },
+  {
+    "id": "05-mr-white",
+    "name": "Mr. White",
+    "reference": "../sts1-sources/relics/MrWhiteRelic.png",
+    "origin": "老 Mod 遗物图标 MrWhiteRelic.png",
+    "note": "保留白熊头、圆耳和黑色鼻口；采用上一轮平涂重描稿，没有添加挂链或身体。"
+  },
+  {
+    "id": "06-star-hairclip",
+    "name": "星形发饰",
+    "reference": "../sts1-sources/cards/Star_p.png",
+    "origin": "老 Mod《星光闪耀之时》卡图 Star_p.png",
+    "note": "提取一大一小两颗四角星，去掉手和背景，补全上方截断尖角及手指遮挡部分；低分辨率原图未显示的五金结构不另行添加。",
+    "review_status": "待返修",
+    "review_reason": "参考选择及结构核对不足"
+  },
+  {
+    "id": "07-star-tiara",
+    "name": "星之王冠",
+    "reference": "../sts1-sources/relics/StarCrownRelic.png",
+    "origin": "老 Mod 遗物图标 StarCrownRelic.png",
+    "note": "保留卷曲镂空冠架和粉色椭圆宝石；使用上一轮椭圆宝石返修稿。",
+    "review_status": "待返修",
+    "review_reason": "冠架比例与白色装饰错误"
+  }
+]

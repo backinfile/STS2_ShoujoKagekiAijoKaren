@@ -1,0 +1,109 @@
+{
+  "video": "showcase.mp4",
+  "duration": 47.043379,
+  "bytes": 17792406,
+  "sha256": "6465a680f8ec84b65a24bebc3ccb20f8ecbd28d52ce49cecd381ef8e9e2d975f",
+  "audio": "game_process",
+  "composition": "Original 1280x720 gameplay unchanged; captions and a synchronized energy-counter crop below the viewport.",
+  "mainRevision": "afb661c1aa9cf637cb98011fbb5506c8e421bd14",
+  "sourceMcp": {
+    "sourceCommit": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
+    "builds": {
+      "stable": "ab3aab34c4860455e4d527e47460824538874cc5d1b287fe590185cb8dc25020",
+      "beta": "4b0ac55eb57793ae92016d492b36c14142b1b47b61c1b692748660e9fd8142e1"
+    }
+  },
+  "freezes": [],
+  "branches": {
+    "stable": {
+      "captureFps": 29.036890409859698,
+      "meanAudioDb": -53.0,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 29.87112048822659,
+        "repeatedFrames": 1,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 239,
+        "longestUnchangedClockSeconds": 0.06666666666666667,
+        "largestClockJumpSeconds": 0.05999999999999983,
+        "clockSeconds": 7.95,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.016666999999999987,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 14,
+      "provenance": {
+        "assemblySha256": "ffe44576449ac9e28e3ab52781c9a6f5e58d8ad17182a27e4ac95d0f9725c739",
+        "packSha256": "9eaeef0d3c3891cb5a35acdd1af59958b210f5381c62f8826fff30bded82cc14"
+      }
+    },
+    "beta": {
+      "captureFps": 29.496941109579048,
+      "meanAudioDb": -45.1,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 30.00302693037944,
+        "repeatedFrames": 0,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 240,
+        "longestUnchangedClockSeconds": 0.03333333333333333,
+        "largestClockJumpSeconds": 0.0600000000000005,
+        "clockSeconds": 7.970000000000001,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.0033330000000004745,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 14,
+      "provenance": {
+        "assemblySha256": "6247e91cc40a0557dd998be1026572bf6b7c02e4e73c70e7fdd50733aef74834",
+        "packSha256": "9eaeef0d3c3891cb5a35acdd1af59958b210f5381c62f8826fff30bded82cc14"
+      }
+    }
+  },
+  "cleanup": {
+    "stable": {
+      "port": 18907,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    },
+    "beta": {
+      "port": 18908,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    }
+  },
+  "palette": {
+    "occupied": "#f08aa3",
+    "empty": "#bda2b8",
+    "feedback": "#e2f1ff",
+    "core": "#fff6fa"
+  },
+  "paletteBasis": "project card art and power icon; interpretation documented in redesign-v11-card-palette/colour-analysis.md",
+  "paletteDetail": {
+    "file": "palette-showcase-detail.mp4",
+    "duration": 10.1,
+    "sha256": "703d827699fc5d2c7c385b315b267568fbc7250d3b950f7fc1def64b6fc016ea",
+    "source": "artifacts/stage-is-waiting-card-palette/stable/waiting-stage/game.mp4",
+    "sourceSha256": "d860d2bfed15f963723294ea9a9b991b01866ab143eeb13a78e65c2cf5fc5050",
+    "trimStart": 1.2,
+    "trimDuration": 10.071448599966244,
+    "crop": [
+      0,
+      490,
+      220,
+      190
+    ],
+    "magnification": 3
+  },
+  "visualComparison": {
+    "file": "card-palette-comparison.png",
+    "source": "Original card, power icon, previous actual gold frames and current actual palette frames; no repainted gameplay pixels",
+    "evidence": "redesign-v11-card-palette/comparison-evidence.json"
+  }
+}

@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -30,7 +30,7 @@ public sealed class KarenAquariumCard : KarenBaseCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 给自己添加水族馆Power
-        await PowerCmd.Apply<KarenAquariumPower>(
+        await PowerCmd.Apply<KarenAquariumPower>(choiceContext, 
             Owner.Creature,
             DynamicVars[nameof(KarenAquariumPower)].BaseValue,
             Owner.Creature,

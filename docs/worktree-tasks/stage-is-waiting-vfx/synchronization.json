@@ -1,0 +1,18 @@
+{
+  "originalBranch": "main",
+  "mergeBack": "explicitly authorized by user: 合并吧; fast-forward integration",
+  "taskBranch": "codex/stage-is-waiting-vfx",
+  "visualVersion": "rounded rim-hugging contour; one patrol light per actual Power.Amount; occupied larger, empty dimmer",
+  "originalRevision": "57c435cf4a60852e055346419f8bf5c849d573aa",
+  "synchronizedMainRevision": "afb661c1aa9cf637cb98011fbb5506c8e421bd14",
+  "synchronizations": 5,
+  "audioVersion": "original rise, pulse and arrival cue family",
+  "retainedBaseline": "preserved-light-curtain/",
+  "stateRevision": "24/24 targeted observations plus count changes, real gains and lifecycle",
+  "latestEvidence": "artifacts/stage-is-waiting-rounded-stacks/",
+  "videoSha256": "c300f39fb4772b32b2195c6bbede626cc4c806389b04a362840112912bcb36a4",
+  "deliveryEvidence": "artifacts/stage-is-waiting-rounded-stacks/",
+  "mcpCommit": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
+  "artifactArchive": "artifacts/worktree-archives/stage-is-waiting-vfx/",
+  "integrationResult": "artifacts/worktree-archives/stage-is-waiting-vfx/integration-result.json"
+}

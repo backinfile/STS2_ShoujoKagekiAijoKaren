@@ -1,0 +1,26 @@
+{
+  "handWarningFrames": 3,
+  "playWarningFrames": 34,
+  "missingPlayFrames": 0,
+  "falseWarningFrames": 0,
+  "castLayerFrames": 0,
+  "handAmbientFrames": 423,
+  "playAmbientFrames": 0,
+  "missingAmbientFrames": 0,
+  "ambientOverlapFrames": 0,
+  "ambientLeakFrames": 0,
+  "maxAmbientSparks": 13,
+  "border": {
+    "ambientSamples": 0,
+    "warningSamples": 0,
+    "edgeMisses": 0,
+    "maxEdgeErrorPixels": 0,
+    "minScale": 3.4028235e+38,
+    "maxScale": 0,
+    "ambientOpacity": 0
+  },
+  "absorbs": [],
+  "liveAbsorbs": 0,
+  "dreamCast": 0,
+  "dreamTrigger": 0
+}

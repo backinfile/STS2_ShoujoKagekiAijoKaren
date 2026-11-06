@@ -1,0 +1,6 @@
+{
+  "status": "ok",
+  "message": "Native PlayerCmd.SetEnergy: 3",
+  "command": "karen_energy_preview energy 3",
+  "async": true
+}

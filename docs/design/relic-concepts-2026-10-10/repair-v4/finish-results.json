@@ -1,0 +1,74 @@
+[
+  {
+    "name": "01-karen-bottle",
+    "native_size": [
+      498,
+      1032
+    ],
+    "rgb_unchanged_by_alpha_cleanup": true,
+    "alpha_pixels_cleared": 4513,
+    "alpha_weight_removed": 30.56
+  },
+  {
+    "name": "04-baseball-cat",
+    "native_size": [
+      1131,
+      1127
+    ],
+    "rgb_unchanged_by_alpha_cleanup": true,
+    "alpha_pixels_cleared": 8393,
+    "alpha_weight_removed": 90.96
+  },
+  {
+    "name": "01-karen-bottle",
+    "final_size": [
+      1254,
+      1254
+    ],
+    "source_size": [
+      498,
+      1032
+    ],
+    "resampling": "Lanczos; no generated details",
+    "scale": 0.9884
+  },
+  {
+    "name": "04-baseball-cat",
+    "final_size": [
+      1254,
+      1254
+    ],
+    "source_size": [
+      1131,
+      1127
+    ],
+    "resampling": "Lanczos; no generated details",
+    "scale": 0.9019
+  },
+  {
+    "name": "06-star-hairclip",
+    "final_size": [
+      1254,
+      1254
+    ],
+    "source_size": [
+      336,
+      384
+    ],
+    "resampling": "Lanczos; no generated details",
+    "scale": 2.6562
+  },
+  {
+    "name": "07-star-tiara",
+    "final_size": [
+      1254,
+      1254
+    ],
+    "source_size": [
+      388,
+      223
+    ],
+    "resampling": "Lanczos; no generated details",
+    "scale": 2.6289
+  }
+]

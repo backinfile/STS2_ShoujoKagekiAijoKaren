@@ -1,0 +1,33 @@
+shader_type canvas_item;
+render_mode unshaded, blend_add;
+
+uniform float strength = 0.0;
+uniform float clock = 0.0;
+uniform float reveal = 1.0;
+uniform float activity = 0.0;
+uniform vec2 canvas_size = vec2(610.0, 485.0);
+
+float hash(float n) {
+    return fract(sin(n * 127.1 + 311.7) * 43758.5453);
+}
+
+void fragment() {
+    // Separate staggered threads, with no horizontal connection, disc or floor glow.
+    float cell = floor(UV.x * 19.0);
+    float seed = hash(cell);
+    float center = (cell + 0.22 + 0.56 * seed) / 19.0;
+    float distance_px = abs(UV.x - center) * canvas_size.x;
+    float top = clamp(0.02 + 0.58 * center + 0.13 * sin(cell * 0.73), 0.025, 0.77);
+    float bottom = 0.87 + 0.10 * hash(cell + 21.0);
+    float opening = mix(bottom, top, reveal);
+    float vertical = smoothstep(opening, opening + 0.025, UV.y)
+        * (1.0 - smoothstep(bottom - 0.045, bottom, UV.y));
+    float core = exp(-distance_px * distance_px * 2.9);
+    float halo = exp(-distance_px * distance_px * 0.10);
+    float moving = 0.55 + 0.45 * pow(max(0.0, sin(UV.y * 68.0 + clock * 4.4 + seed * 24.0)), 7.0);
+    float breath = 0.78 + 0.22 * sin(clock * 1.8 + seed * 16.0);
+    float head = exp(-pow((UV.y - fract(seed - clock * (0.10 + 0.05 * activity))) * 65.0, 2.0));
+    float alpha = vertical * (core * (0.72 + 0.30 * moving) + halo * 0.12 + halo * head * 0.36);
+    vec3 gold = mix(vec3(1.0, 0.57, 0.15), vec3(1.0, 0.83, 0.46), core);
+    COLOR = vec4(gold, alpha * breath * strength);
+}

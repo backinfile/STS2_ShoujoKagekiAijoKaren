@@ -1,0 +1,304 @@
+{
+  "video": "showcase.mp4",
+  "duration": 46.833946,
+  "bytes": 17700405,
+  "sha256": "f1b5c038797253bd9a4d35bd2bd30a026d680cd1f477993984605bf303f99a74",
+  "audio": "game_process",
+  "composition": "Original 1280x720 gameplay unchanged; captions and synchronized counter crop below viewport.",
+  "mainRevision": "afb661c1aa9cf637cb98011fbb5506c8e421bd14",
+  "sourceMcp": {
+    "sourceCommit": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
+    "builds": {
+      "stable": "ab3aab34c4860455e4d527e47460824538874cc5d1b287fe590185cb8dc25020",
+      "beta": "4b0ac55eb57793ae92016d492b36c14142b1b47b61c1b692748660e9fd8142e1"
+    }
+  },
+  "freezes": [],
+  "branches": {
+    "stable": {
+      "captureFps": 29.010784245578087,
+      "meanAudioDb": -53.0,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 29.995950921574973,
+        "repeatedFrames": 0,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 240,
+        "longestUnchangedClockSeconds": 0.03333333333333333,
+        "largestClockJumpSeconds": 0.04999999999999982,
+        "clockSeconds": 7.969999999999999,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.003332999999998698,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 20,
+      "provenance": {
+        "assemblySha256": "02e4cda24c6862c9bb2bc862cf7a43620fb571afe0022e4caaaf685cafabdbf8",
+        "packSha256": "fac32d978923a3831440976d4bbe0d2e6935cc20441d0a129adab52b2970c6ae"
+      }
+    },
+    "beta": {
+      "captureFps": 29.623047490118054,
+      "meanAudioDb": -45.1,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 29.74888739161155,
+        "repeatedFrames": 2,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 238,
+        "longestUnchangedClockSeconds": 0.06666666666666667,
+        "largestClockJumpSeconds": 0.07000000000000006,
+        "clockSeconds": 7.970000000000001,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.0033330000000004745,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 20,
+      "provenance": {
+        "assemblySha256": "60e4925d2ca12992b08608d1d3d9964c558d127cc340b2a3a86765195523ffcb",
+        "packSha256": "fac32d978923a3831440976d4bbe0d2e6935cc20441d0a129adab52b2970c6ae"
+      }
+    }
+  },
+  "cleanup": {
+    "stable": {
+      "port": 18917,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    },
+    "beta": {
+      "port": 18918,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    }
+  },
+  "geometry": {
+    "shape": "flat top/bottom, left/right points, icon-proportioned hexagon",
+    "radiusOccupied": 74,
+    "radiusEmpty": 76,
+    "perimeter": 6.472135955,
+    "vertices": [
+      [
+        1,
+        0
+      ],
+      [
+        0.5,
+        1
+      ],
+      [
+        -0.5,
+        1
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        -0.5,
+        -1
+      ],
+      [
+        0.5,
+        -1
+      ]
+    ],
+    "evidence": {
+      "stable": {
+        "maxLocalHeadDistance": 1.5443931e-05,
+        "maxCanvasHeadDistance": 3.0517578e-05,
+        "normalSidesSeen": 63,
+        "fastSidesSeen": 63,
+        "normalSideSamples": [
+          {
+            "age": 0.201949,
+            "side": 0,
+            "x": 73.99849,
+            "y": 0.0030097966
+          },
+          {
+            "age": 0.201949,
+            "side": 3,
+            "x": -73.99849,
+            "y": -0.0030212407
+          },
+          {
+            "age": 0.5714084,
+            "side": 1,
+            "x": 31.048178,
+            "y": 74
+          },
+          {
+            "age": 0.5714084,
+            "side": 4,
+            "x": -31.048193,
+            "y": -74
+          },
+          {
+            "age": 0.74868643,
+            "side": 2,
+            "x": -37.785217,
+            "y": 72.429565
+          },
+          {
+            "age": 0.74868643,
+            "side": 5,
+            "x": 37.785225,
+            "y": -72.42954
+          }
+        ],
+        "fastSideSamples": [
+          {
+            "age": 0.21723236,
+            "side": 0,
+            "x": 73.88373,
+            "y": 0.2325592
+          },
+          {
+            "age": 0.21723236,
+            "side": 3,
+            "x": -73.88372,
+            "y": -0.23256302
+          },
+          {
+            "age": 0.5636489,
+            "side": 1,
+            "x": 34.041008,
+            "y": 74
+          },
+          {
+            "age": 0.5636489,
+            "side": 4,
+            "x": -34.041008,
+            "y": -74
+          },
+          {
+            "age": 0.75451523,
+            "side": 2,
+            "x": -38.772552,
+            "y": 70.454895
+          },
+          {
+            "age": 0.75451523,
+            "side": 5,
+            "x": 38.772568,
+            "y": -70.45486
+          }
+        ],
+        "uiScaled": 3.0517578e-05,
+        "fastRemoved": true
+      },
+      "beta": {
+        "maxLocalHeadDistance": 1.57284e-05,
+        "maxCanvasHeadDistance": 3.0517578e-05,
+        "normalSidesSeen": 63,
+        "fastSidesSeen": 63,
+        "normalSideSamples": [
+          {
+            "age": 0.20360301,
+            "side": 0,
+            "x": 73.994865,
+            "y": 0.010272981
+          },
+          {
+            "age": 0.20360301,
+            "side": 3,
+            "x": -73.99487,
+            "y": -0.0102500925
+          },
+          {
+            "age": 0.566559,
+            "side": 1,
+            "x": 32.920887,
+            "y": 73.99999
+          },
+          {
+            "age": 0.566559,
+            "side": 4,
+            "x": -32.920856,
+            "y": -74
+          },
+          {
+            "age": 0.7469555,
+            "side": 2,
+            "x": -37.490875,
+            "y": 73.01824
+          },
+          {
+            "age": 0.7469555,
+            "side": 5,
+            "x": 37.49088,
+            "y": -73.01825
+          }
+        ],
+        "fastSideSamples": [
+          {
+            "age": 0.21109886,
+            "side": 0,
+            "x": 73.95154,
+            "y": 0.0969162
+          },
+          {
+            "age": 0.21109886,
+            "side": 3,
+            "x": -73.951546,
+            "y": -0.0969162
+          },
+          {
+            "age": 0.55775326,
+            "side": 1,
+            "x": 36.301346,
+            "y": 74
+          },
+          {
+            "age": 0.55775326,
+            "side": 4,
+            "x": -36.301357,
+            "y": -74
+          },
+          {
+            "age": 0.7466368,
+            "side": 2,
+            "x": -37.436596,
+            "y": 73.1268
+          },
+          {
+            "age": 0.7466368,
+            "side": 5,
+            "x": 37.436623,
+            "y": -73.126755
+          }
+        ],
+        "uiScaled": 3.0517578e-05,
+        "fastRemoved": true
+      }
+    }
+  },
+  "detail": {
+    "file": "hex-showcase-detail.mp4",
+    "duration": 10.033333,
+    "sha256": "58bb1f33bba8b24d95b0e792a64d9ac6e24c4b497af82ea8d7295d18f9bcde55",
+    "source": "artifacts/stage-is-waiting-hex/stable/waiting-stage/game.mp4",
+    "sourceSha256": "1f00e70508958f036b03ebb5bb9f9fade59290faad0f2fe4b3ebb36c8fa1e2c2",
+    "trimStart": 1.2,
+    "trimDuration": 10.006805099942722,
+    "crop": [
+      0,
+      490,
+      220,
+      190
+    ],
+    "magnification": 3
+  },
+  "comparison": {
+    "file": "hex-comparison.png",
+    "evidence": "redesign-v12-hex/comparison-evidence.json",
+    "processing": "identical crop and 2x scaling; no repainted gameplay pixels"
+  }
+}

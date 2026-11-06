@@ -1,0 +1,431 @@
+[
+  {
+    "case": "normal",
+    "passed": true,
+    "turns": 3,
+    "metrics": {
+      "roomId": 771735164736,
+      "live": 0,
+      "layers": 0,
+      "peakLive": 1,
+      "showing": 0,
+      "emitting": 0,
+      "looping": 0,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 0,
+      "promise": 3,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 100,
+          "SelectionFrames": 0,
+          "ParticleFrames": 52,
+          "Casts": 1,
+          "Turns": 0,
+          "Drawn": 0,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        },
+        {
+          "Frames": 286,
+          "SelectionFrames": 199,
+          "ParticleFrames": 51,
+          "Casts": 0,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": true,
+          "Ignored": true
+        },
+        {
+          "Frames": 292,
+          "SelectionFrames": 204,
+          "ParticleFrames": 52,
+          "Casts": 0,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": true,
+          "Ignored": true
+        },
+        {
+          "Frames": 286,
+          "SelectionFrames": 198,
+          "ParticleFrames": 49,
+          "Casts": 0,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": true,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "stack",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "roomId": 853826081681,
+      "live": 0,
+      "layers": 0,
+      "peakLive": 1,
+      "showing": 0,
+      "emitting": 0,
+      "looping": 0,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 11,
+      "promise": 2,
+      "amount": 2,
+      "effects": [
+        {
+          "Frames": 152,
+          "SelectionFrames": 0,
+          "ParticleFrames": 103,
+          "Casts": 2,
+          "Turns": 0,
+          "Drawn": 0,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        },
+        {
+          "Frames": 304,
+          "SelectionFrames": 199,
+          "ParticleFrames": 51,
+          "Casts": 0,
+          "Turns": 1,
+          "Drawn": 2,
+          "Moved": 2,
+          "Exited": true,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "void",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "roomId": 899745322526,
+      "live": 0,
+      "layers": 0,
+      "peakLive": 1,
+      "showing": 0,
+      "emitting": 0,
+      "looping": 0,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 13,
+      "promise": 0,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 100,
+          "SelectionFrames": 0,
+          "ParticleFrames": 52,
+          "Casts": 1,
+          "Turns": 0,
+          "Drawn": 0,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        },
+        {
+          "Frames": 288,
+          "SelectionFrames": 200,
+          "ParticleFrames": 52,
+          "Casts": 0,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": true,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "fast",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "roomId": 939926756803,
+      "live": 0,
+      "layers": 0,
+      "peakLive": 1,
+      "showing": 0,
+      "emitting": 0,
+      "looping": 0,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 64,
+          "SelectionFrames": 0,
+          "ParticleFrames": 31,
+          "Casts": 1,
+          "Turns": 0,
+          "Drawn": 0,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        },
+        {
+          "Frames": 251,
+          "SelectionFrames": 201,
+          "ParticleFrames": 31,
+          "Casts": 0,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": true,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "instant",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "roomId": 978749230497,
+      "live": 0,
+      "layers": 0,
+      "peakLive": 0,
+      "showing": 0,
+      "emitting": 0,
+      "looping": 0,
+      "selecting": 0,
+      "hand": 6,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": []
+    }
+  },
+  {
+    "case": "empty",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "roomId": 1016061758596,
+      "live": 0,
+      "layers": 0,
+      "peakLive": 1,
+      "showing": 0,
+      "emitting": 0,
+      "looping": 0,
+      "selecting": 0,
+      "hand": 0,
+      "draw": 0,
+      "promise": 0,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 100,
+          "SelectionFrames": 0,
+          "ParticleFrames": 52,
+          "Casts": 1,
+          "Turns": 0,
+          "Drawn": 0,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        },
+        {
+          "Frames": 82,
+          "SelectionFrames": 0,
+          "ParticleFrames": 49,
+          "Casts": 0,
+          "Turns": 1,
+          "Drawn": 0,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "cancel",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "roomId": 1056226416437,
+      "live": 0,
+      "layers": 0,
+      "peakLive": 1,
+      "showing": 0,
+      "emitting": 0,
+      "looping": 0,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 100,
+          "SelectionFrames": 0,
+          "ParticleFrames": 52,
+          "Casts": 1,
+          "Turns": 0,
+          "Drawn": 0,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        },
+        {
+          "Frames": 213,
+          "SelectionFrames": 198,
+          "ParticleFrames": 52,
+          "Casts": 0,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "switch",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "roomId": 1094344251045,
+      "live": 0,
+      "layers": 0,
+      "peakLive": 1,
+      "showing": 0,
+      "emitting": 0,
+      "looping": 0,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 100,
+          "SelectionFrames": 0,
+          "ParticleFrames": 52,
+          "Casts": 1,
+          "Turns": 0,
+          "Drawn": 0,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        },
+        {
+          "Frames": 209,
+          "SelectionFrames": 193,
+          "ParticleFrames": 52,
+          "Casts": 0,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "remove",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "roomId": 1139038756379,
+      "live": 0,
+      "layers": 0,
+      "peakLive": 1,
+      "showing": 0,
+      "emitting": 0,
+      "looping": 0,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 0,
+      "effects": [
+        {
+          "Frames": 100,
+          "SelectionFrames": 0,
+          "ParticleFrames": 52,
+          "Casts": 1,
+          "Turns": 0,
+          "Drawn": 0,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        },
+        {
+          "Frames": 205,
+          "SelectionFrames": 189,
+          "ParticleFrames": 50,
+          "Casts": 0,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "room",
+    "passed": true,
+    "turns": 1,
+    "metrics": {
+      "roomId": 1182793734924,
+      "live": 0,
+      "layers": 0,
+      "peakLive": 1,
+      "showing": 0,
+      "emitting": 0,
+      "looping": 0,
+      "selecting": 0,
+      "hand": 5,
+      "draw": 12,
+      "promise": 1,
+      "amount": 1,
+      "effects": [
+        {
+          "Frames": 100,
+          "SelectionFrames": 0,
+          "ParticleFrames": 52,
+          "Casts": 1,
+          "Turns": 0,
+          "Drawn": 0,
+          "Moved": 0,
+          "Exited": true,
+          "Ignored": true
+        },
+        {
+          "Frames": 284,
+          "SelectionFrames": 196,
+          "ParticleFrames": 52,
+          "Casts": 0,
+          "Turns": 1,
+          "Drawn": 1,
+          "Moved": 1,
+          "Exited": true,
+          "Ignored": true
+        }
+      ]
+    }
+  }
+]

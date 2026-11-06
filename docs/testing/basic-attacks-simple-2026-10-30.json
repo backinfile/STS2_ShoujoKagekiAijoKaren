@@ -1,0 +1,743 @@
+{
+  "date": "2026-10-30",
+  "stage": "1A simple attack revision",
+  "baseline": "509f02db16a1d8c10d084ffa8aa3bac3488ab8f8",
+  "cases": [
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 22,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 1073,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/before/stable/full-karen_strike/game.mp4",
+      "sha256": "7bf84a9623d3e574f5d9d02b5afaf7904ddde4f8dd1dbe6c64d5f356b95f75ce"
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "3b6f19c24130910bf7d6958ff24a8609f6b9897c02338a5ae04f2aa58f696bf0",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 25,
+        "shine": 8,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 1742,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/before/stable/full-karen_shine_strike/game.mp4",
+      "sha256": "4bdf8f67930cb7e851d6b4211251bae855cbbeba34ec344a46f3e50d32c40d01"
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "3a2fb6ffdb7bc69876ab2559e31ea31093b703a45b67e3ab6752240af798cfb3",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 22,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 1080,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/before/beta/full-karen_strike/game.mp4",
+      "sha256": "4e2649f03e40fc9a20032afd3b8f21200e592e4af2078ca3bd0bcbfe17806d5f"
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "3a2fb6ffdb7bc69876ab2559e31ea31093b703a45b67e3ab6752240af798cfb3",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 24,
+        "shine": 8,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 1666,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/before/beta/full-karen_shine_strike/game.mp4",
+      "sha256": "37d8aa0117de7d6dcb6e2c30352560e047342d39b130705fc17b633499973f52"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 10,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 1054,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/full-karen_strike/game.mp4",
+      "sha256": "8e394d50f317e105bf66d732a8db2df3bc963c648430bca7adddc5bab05ba2f9"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 11,
+        "shine": 8,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 1724,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/full-karen_shine_strike/game.mp4",
+      "sha256": "7c8ffdf9f850a0b62d164ca2a5d36bbe4cad23bbc23088349b17181e2eddfa37"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 4,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 2389,
+        "quality": "Low",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/low-karen_strike/game.mp4",
+      "sha256": "bd6ce5732631bcde821b3bf1d6b7f227ba7c4ec596e83679fb75280c8f7c59b6"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "low",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 4,
+        "shine": 8,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 3052,
+        "quality": "Low",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/low-karen_shine_strike/game.mp4",
+      "sha256": "bef1cd4e10989ac1882ca58bd461d2225e9d3f63d0c49e76901c051759608d81"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "fast",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 7,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 3717,
+        "quality": "Full",
+        "speed": "Fast"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/fast-karen_strike/game.mp4",
+      "sha256": "1e13e5a61103da521dec98142cc06a813641bc4ccbe9f5b23526ae6efca109a5"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "fast",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 8,
+        "shine": 8,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 4382,
+        "quality": "Full",
+        "speed": "Fast"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/fast-karen_shine_strike/game.mp4",
+      "sha256": "8439b1b5d6787cc6357f124eea9d7020d21839e51f0a5d5046c473facc85e430"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "instant",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 0,
+        "exited": 0,
+        "draws": 0,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 5046,
+        "quality": "Full",
+        "speed": "Instant"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/instant-karen_strike/game.mp4",
+      "sha256": "dd2c667abea80061df22d91365221dd20a1c7592f0616afc8f128b3cec999520"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "instant",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 0,
+        "exited": 0,
+        "draws": 0,
+        "shine": 8,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 5716,
+        "quality": "Full",
+        "speed": "Instant"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/instant-karen_shine_strike/game.mp4",
+      "sha256": "032aa3140ead09f41f5874a3de71313091edfa8e1acf309aa979d85053ff8616"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "off",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 0,
+        "exited": 0,
+        "draws": 0,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 6377,
+        "quality": "Off",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/off-karen_strike/game.mp4",
+      "sha256": "645b72732394243f21ec6070e4333eb50b49802456e7d7b6056c668f56629d80"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "off",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 0,
+        "exited": 0,
+        "draws": 0,
+        "shine": 8,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 7041,
+        "quality": "Off",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/off-karen_shine_strike/game.mp4",
+      "sha256": "db9d377df66b0a65ecd7f1f55a188d9faf411216cd63a7dc366ccb4083f2bad9"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "upgrade",
+      "card": "KAREN_STRIKE",
+      "damage": 9,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 10,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 7704,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/upgrade-karen_strike/game.mp4",
+      "sha256": "f2a6d44f0e6823c40b75d3e2f47f57e660137df34571985c8851e40722a660f2"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "upgrade",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 11,
+        "shine": 8,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 8373,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/upgrade-karen_shine_strike/game.mp4",
+      "sha256": "271987f532db936dd959cad86b11f997230935f59048dd9657f0bc6487979dbe"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "replay",
+      "card": "KAREN_STRIKE",
+      "damage": 18,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 3,
+        "exited": 3,
+        "draws": 30,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 9138,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/replay-karen_strike/game.mp4",
+      "sha256": "341f5f5eccdd71da54e8142f2e58487c0486903198537dc11d5983e1722abe92"
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "mode": "replay",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 27,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Stable.dll": "7ccc242afe805eff595d37c3f4a6757d93c8afa993f6e9879cfdb252a46b5efb",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 3,
+        "exited": 3,
+        "draws": 33,
+        "shine": 8,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 9906,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/stable/replay-karen_shine_strike/game.mp4",
+      "sha256": "ea370a57e5abcd4055cf742edb0c37d492fb7d39cef7c9109ad8a8a117972c3a"
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_STRIKE",
+      "damage": 6,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "c5a397caf3a2343b34f996f48bb9315fecdb14ef1467a5e3501e8dcdcc84f46e",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 10,
+        "shine": -1,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 1070,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/beta/full-karen_strike/game.mp4",
+      "sha256": "ad17413fb5163059cb3847f801631fe82786a7121c70024d484a2b3ee039c70a"
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "mode": "full",
+      "card": "KAREN_SHINE_STRIKE",
+      "damage": 9,
+      "passed": true,
+      "build": {
+        "lib/ShoujoKagekiAijoKaren.Beta.dll": "c5a397caf3a2343b34f996f48bb9315fecdb14ef1467a5e3501e8dcdcc84f46e",
+        "ShoujoKagekiAijoKaren.pck": "53cf492c816f806b0262b9d34c9baea86128929ddde2c8de57c4c3e9bf93442c"
+      },
+      "status": {
+        "block": 0,
+        "effects": [],
+        "nativeBlocks": 0,
+        "poseFrames": 0,
+        "maxPoseOffset": 0,
+        "poseActive": false,
+        "cueDeltaMs": null,
+        "spawned": 1,
+        "exited": 1,
+        "draws": 11,
+        "shine": 8,
+        "shinePile": 0,
+        "pile": "Discard",
+        "drawn": 1651,
+        "quality": "Full",
+        "speed": "Normal"
+      },
+      "video": "artifacts/basic-attacks-simple-20261030/after/beta/full-karen_shine_strike/game.mp4",
+      "sha256": "f086be800329ba86c530e671e81c2bc12b18b1526d962c94738754dfbf7979f1"
+    }
+  ],
+  "videos": {
+    "stable": [
+      {
+        "card": "KAREN_STRIKE",
+        "title": "打击",
+        "environment": "stable",
+        "before": {
+          "path": "before/stable/full-karen_strike/game.mp4",
+          "sha256": "7bf84a9623d3e574f5d9d02b5afaf7904ddde4f8dd1dbe6c64d5f356b95f75ce"
+        },
+        "after": {
+          "path": "after/stable/full-karen_strike/game.mp4",
+          "sha256": "8e394d50f317e105bf66d732a8db2df3bc963c648430bca7adddc5bab05ba2f9"
+        },
+        "comparison": {
+          "path": "comparison/stable-karen_strike.mp4",
+          "sha256": "41524ba0dc060818c68c9aca509c4869ba0a50dbf9892f587aeed705dd73a359"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "card": "KAREN_SHINE_STRIKE",
+        "title": "闪耀打击",
+        "environment": "stable",
+        "before": {
+          "path": "before/stable/full-karen_shine_strike/game.mp4",
+          "sha256": "4bdf8f67930cb7e851d6b4211251bae855cbbeba34ec344a46f3e50d32c40d01"
+        },
+        "after": {
+          "path": "after/stable/full-karen_shine_strike/game.mp4",
+          "sha256": "7c8ffdf9f850a0b62d164ca2a5d36bbe4cad23bbc23088349b17181e2eddfa37"
+        },
+        "comparison": {
+          "path": "comparison/stable-karen_shine_strike.mp4",
+          "sha256": "46401ea5baedd754a9100d22e4a48f7d7edcc798e595df9ea315f6e4ed4aa1bb"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "combined": "comparison/basic-attacks-simple-stable.mp4",
+        "sha256": "c23b87a124f0c6390b57dbd20756e098518b888e201244c804ec3c9dd7129cb3"
+      }
+    ],
+    "beta": [
+      {
+        "card": "KAREN_STRIKE",
+        "title": "打击",
+        "environment": "beta",
+        "before": {
+          "path": "before/beta/full-karen_strike/game.mp4",
+          "sha256": "4e2649f03e40fc9a20032afd3b8f21200e592e4af2078ca3bd0bcbfe17806d5f"
+        },
+        "after": {
+          "path": "after/beta/full-karen_strike/game.mp4",
+          "sha256": "ad17413fb5163059cb3847f801631fe82786a7121c70024d484a2b3ee039c70a"
+        },
+        "comparison": {
+          "path": "comparison/beta-karen_strike.mp4",
+          "sha256": "53c36d8aee08905ce0defb1ca7448bd5fad951178e054575b5cee569c37e4a59"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "card": "KAREN_SHINE_STRIKE",
+        "title": "闪耀打击",
+        "environment": "beta",
+        "before": {
+          "path": "before/beta/full-karen_shine_strike/game.mp4",
+          "sha256": "37d8aa0117de7d6dcb6e2c30352560e047342d39b130705fc17b633499973f52"
+        },
+        "after": {
+          "path": "after/beta/full-karen_shine_strike/game.mp4",
+          "sha256": "f086be800329ba86c530e671e81c2bc12b18b1526d962c94738754dfbf7979f1"
+        },
+        "comparison": {
+          "path": "comparison/beta-karen_shine_strike.mp4",
+          "sha256": "2c15b47f748a2eaaf561585adbf6e9a77703288ff56812d98bbb1e3342d69e12"
+        },
+        "view": "full speed then 0.4x replay of captured contact frames; side by side; silent comparison; originals retain engine audio"
+      },
+      {
+        "combined": "comparison/basic-attacks-simple-beta.mp4",
+        "sha256": "022d573d68d024cee91854c816edb58258525447b0c32bc253837916f6ed6a95"
+      }
+    ]
+  },
+  "status": "targeted checks passed",
+  "source_sha256": {
+    "src/Core/Models/Cards/basic/KarenStrike.cs": "d63d3c7d385e07559f23fc833db08d7a67a8898551c77969c0896a50189dc6cc",
+    "src/Core/Models/Cards/basic/KarenShineStrike.cs": "1d58c1e5e7f9660cab53e512c29e68c8bc00a3d50eeeb5c328e81dbd7decbbe6",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenBasicAttackVfx.cs": "b2be6a9ebccaf97000dcf1c9db5c9a01d2aabfcfd0e1422476eb31d6076a30dc",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenStrikeVfx.cs": "fc3b91aa7d2d2207c5ab5982e8cc4d127be8cb63d21ac8bd31aea5ada03ec989",
+    "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/Basic/NKarenShineStrikeVfx.cs": "8de15a34dfb599ba11a90f99cd36da3495daf32e7828be672f7321dd2560cbac"
+  },
+  "source_hash_format": "SHA256 of UTF8 without BOM, universal newlines and one terminal newline",
+  "total": 20
+}

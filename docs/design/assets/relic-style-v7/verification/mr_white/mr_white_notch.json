@@ -1,0 +1,101 @@
+{
+  "stage": "notch",
+  "grade": "deliverable",
+  "source_before": "docs\\design\\assets\\relic-style-v6\\mr_white.png",
+  "params": {
+    "local_win": 21,
+    "peak_tau": 1.2,
+    "max_support": 80,
+    "low_cut": 24,
+    "feather": 1.5
+  },
+  "channels": [
+    "L"
+  ],
+  "per_channel": {
+    "L": {
+      "components_above_tau": 226,
+      "isolated_components_kept": 226,
+      "rejected_large_components": 0,
+      "notched_bins": 277,
+      "notched_bins_pct": 0.0145,
+      "max_peak_excess": 3.138,
+      "peaks_top": [
+        {
+          "excess": 3.138,
+          "support": 7,
+          "period_px": 2.01,
+          "angle_deg": 0.0
+        },
+        {
+          "excess": 3.079,
+          "support": 12,
+          "period_px": 2.01,
+          "angle_deg": 90.0
+        },
+        {
+          "excess": 3.074,
+          "support": 12,
+          "period_px": 2.01,
+          "angle_deg": -90.0
+        },
+        {
+          "excess": 3.016,
+          "support": 7,
+          "period_px": 2.01,
+          "angle_deg": 180.0
+        },
+        {
+          "excess": 2.123,
+          "support": 4,
+          "period_px": 2.84,
+          "angle_deg": -45.0
+        },
+        {
+          "excess": 2.123,
+          "support": 4,
+          "period_px": 2.84,
+          "angle_deg": 135.0
+        },
+        {
+          "excess": 1.728,
+          "support": 2,
+          "period_px": 1.89,
+          "angle_deg": -45.0
+        },
+        {
+          "excess": 1.728,
+          "support": 2,
+          "period_px": 1.89,
+          "angle_deg": 135.0
+        },
+        {
+          "excess": 1.716,
+          "support": 1,
+          "period_px": 2.02,
+          "angle_deg": 90.0
+        },
+        {
+          "excess": 1.709,
+          "support": 1,
+          "period_px": 2.02,
+          "angle_deg": -90.0
+        },
+        {
+          "excess": 1.641,
+          "support": 1,
+          "period_px": 2.0,
+          "angle_deg": 0.0
+        },
+        {
+          "excess": 1.463,
+          "support": 2,
+          "period_px": 2.0,
+          "angle_deg": 180.0
+        }
+      ],
+      "energy_removed_pct": 0.001
+    }
+  },
+  "time": "2026-10-11T16:22:20+08:00"
+}

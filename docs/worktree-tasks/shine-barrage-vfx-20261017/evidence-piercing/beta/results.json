@@ -1,0 +1,65 @@
+[
+  {
+    "case": "normal",
+    "passed": true,
+    "damage": 12,
+    "expected": 12,
+    "impacts": 4,
+    "live": 0,
+    "elapsed": 3.9540000000270084
+  },
+  {
+    "case": "upgrade",
+    "passed": true,
+    "damage": 15,
+    "expected": 15,
+    "impacts": 5,
+    "live": 0,
+    "elapsed": 4.282000000006519
+  },
+  {
+    "case": "fast",
+    "passed": true,
+    "damage": 12,
+    "expected": 12,
+    "impacts": 4,
+    "live": 0,
+    "elapsed": 2.734000000054948
+  },
+  {
+    "case": "instant",
+    "passed": true,
+    "damage": 12,
+    "expected": 12,
+    "impacts": 0,
+    "live": 0,
+    "elapsed": 1.9059999999590218
+  },
+  {
+    "case": "replay",
+    "passed": true,
+    "damage": 36,
+    "expected": 36,
+    "impacts": 12,
+    "live": 0,
+    "elapsed": 8.34299999999348
+  },
+  {
+    "case": "pose",
+    "passed": true,
+    "damage": 12,
+    "expected": 12,
+    "impacts": 4,
+    "live": 0,
+    "elapsed": 3.312999999965541
+  },
+  {
+    "case": "lethal",
+    "passed": true,
+    "damage": 4,
+    "expected": 4,
+    "impacts": 2,
+    "live": 0,
+    "elapsed": 2.594000000040978
+  }
+]

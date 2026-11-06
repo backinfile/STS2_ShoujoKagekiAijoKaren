@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://images/ui/combat/energy_counters/karen/karen_energy_nonagon.png" id="1_nonagon"]
+
+[resource]
+atlas = ExtResource("1_nonagon")
+region = Rect2(100, 90, 1054, 1038)
+margin = Rect2(27.736842, 35.736842, 55.473684, 71.473684)

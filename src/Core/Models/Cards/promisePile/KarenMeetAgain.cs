@@ -17,7 +17,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.promisePile;
 /// </summary>
 public sealed class KarenMeetAgain : KarenBaseCardModel
 {
-    public KarenMeetAgain() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+    public KarenMeetAgain() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 
@@ -25,7 +25,7 @@ public sealed class KarenMeetAgain : KarenBaseCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(6m, ValueProp.Move),
+        new BlockVar(5m, ValueProp.Move),
         new CardsVar(2)
     ];
 
@@ -39,5 +39,6 @@ public sealed class KarenMeetAgain : KarenBaseCardModel
     protected override void OnUpgrade()
     {
         DynamicVars.Block.UpgradeValueBy(3m);
+        //DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

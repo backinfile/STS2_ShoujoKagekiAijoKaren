@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,12 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.shine;
 /// <summary>
 /// 联机专用的 KarenFight 传递牌。
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(3)]
 public sealed class KarenFightRelay : KarenBaseCardModel
 {
     public override bool ShineCardForOtherPlayer => false;
 
-    public KarenFightRelay() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
-    {
-        this.AddShineMax(3);
-    }
+    public KarenFightRelay() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
@@ -39,7 +38,20 @@ public sealed class KarenFightRelay : KarenBaseCardModel
         DynamicVars["Relics"].UpgradeValueBy(1m);
     }
 
-    protected override PileType GetResultPileType()
+#if STS2_BETA
+    protected override CardLocation GetResultLocationForCardPlay()
+    {
+        var location = base.GetResultLocationForCardPlay();
+        if (this.GetShineValue() > 0 && GetTransferTargets().Count > 0)
+        {
+            MainFile.Logger.Info($"[KarenFightRelay] Keeping played card out of discard so it can transfer. Player={Owner?.NetId.ToString() ?? "<null>"}, Shine={this.GetShineValue()}/{this.GetShineMaxValue()}");
+            location.pileType = PileType.None;
+        }
+
+        return location;
+    }
+#else
+    protected override PileType GetResultPileTypeForCardPlay()
     {
         if (this.GetShineValue() > 0 && GetTransferTargets().Count > 0)
         {
@@ -47,36 +59,45 @@ public sealed class KarenFightRelay : KarenBaseCardModel
             return PileType.None;
         }
 
-        return base.GetResultPileType();
+        return base.GetResultPileTypeForCardPlay();
     }
+#endif
 
-    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, CombatState combatState)
+    public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, ICombatState combatState)
     {
         for (var i = 0; i < DynamicVars["Relics"].IntValue; i++)
         {
             await ExtraRewardCmd.AddRelicReward(Owner);
         }
+        if (inCombat) NKarenFightRelayVfx.RewardRegistered(Owner, DynamicVars["Relics"].IntValue);
     }
 
     public override async Task OnShineNotExhausted(PlayerChoiceContext ctx, CardPlay cardPlay)
     {
-        await TransferToRandomTeammate();
+        // AfterCardPlayed 每次重播都会调用；永久转移只在整次出牌的最后执行。
+        if (cardPlay.PlayIndex != cardPlay.PlayCount - 1) return;
+
+        if (!await TransferToRandomTeammate() && cardPlay.ResultPile == PileType.None && Pile?.Type == PileType.Play)
+        {
+            // 结果牌堆可能已预先计算为 None。失败时先保留到弃牌堆，避免原生移除原牌。
+            await CardPileCmd.Add(this, PileType.Discard);
+        }
     }
 
-    private async Task TransferToRandomTeammate()
+    private async Task<bool> TransferToRandomTeammate()
     {
         var targets = GetTransferTargets();
         if (targets.Count == 0)
         {
             MainFile.Logger.Warn($"[KarenFightRelay] No valid teammate target for transfer. Player={Owner?.NetId.ToString() ?? "<null>"}, Shine={this.GetShineValue()}/{this.GetShineMaxValue()}");
-            return;
+            return false;
         }
 
         var target = Owner.RunState.Rng.CombatTargets.NextItem(targets);
         if (target == null)
         {
             MainFile.Logger.Warn($"[KarenFightRelay] Random target selection returned null. Player={Owner?.NetId.ToString() ?? "<null>"}, TargetCount={targets.Count}");
-            return;
+            return false;
         }
 
         MainFile.Logger.Info($"[KarenFightRelay] Transferring '{Title}' from player {Owner.NetId} to player {target.NetId}. TargetCount={targets.Count}, Shine={this.GetShineValue()}/{this.GetShineMaxValue()}");
@@ -86,10 +107,11 @@ public sealed class KarenFightRelay : KarenBaseCardModel
         {
             MainFile.Logger.Warn($"[KarenFightRelay] Failed to add transferred '{transferred.Title}' to player {target.NetId}'s deck. Removing created copy.");
             transferred.RemoveFromState();
-            return;
+            return false;
         }
 
         MainFile.Logger.Info($"[KarenFightRelay] Added transferred '{transferred.Title}' to player {target.NetId}'s deck.");
+        NKarenFightRelayVfx.Transferred(Owner, target, transferred.GetShineValue());
         CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.MessyLayout);
 
         if (DeckVersion?.Pile?.Type == PileType.Deck)
@@ -101,6 +123,7 @@ public sealed class KarenFightRelay : KarenBaseCardModel
         {
             MainFile.Logger.Info($"[KarenFightRelay] No original deck version removed after transfer. Player={Owner.NetId}, DeckVersionPile={DeckVersion?.Pile?.Type.ToString() ?? "<null>"}");
         }
+        return true;
     }
 
     private List<Player> GetTransferTargets()

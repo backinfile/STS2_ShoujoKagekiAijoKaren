@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -19,8 +20,8 @@ public sealed class KarenStrike() : KarenBaseCardModel(1, CardType.Attack, CardR
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromPlayedCard(this, cardPlay).Targeting(cardPlay.Target)
+            .WithHitVfxNode(target => NKarenBasicCardVfx.Hit(Owner.Creature, target, NKarenBasicCardVfx.Shape.Strike))
             .Execute(choiceContext);
     }
 

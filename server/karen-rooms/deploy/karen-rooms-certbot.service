@@ -1,0 +1,7 @@
+[Unit]
+Description=Renew Karen room origin IP certificate
+After=network-online.target nginx.service
+Wants=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/opt/certbot/bin/certbot renew --quiet --config-dir /etc/letsencrypt-karen-rooms --work-dir /var/lib/letsencrypt-karen-rooms --logs-dir /var/log/letsencrypt-karen-rooms

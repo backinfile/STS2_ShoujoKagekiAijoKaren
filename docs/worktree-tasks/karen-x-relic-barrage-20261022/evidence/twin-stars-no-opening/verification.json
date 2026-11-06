@@ -1,0 +1,362 @@
+{
+  "change": "Remove opening relic gathering and star charge-up, including 0.46-second wait; retain native-hit star darts and impacts",
+  "beta": {
+    "passed": true,
+    "results": [
+      {
+        "case": "zero",
+        "passed": true,
+        "energy": 0,
+        "hits": 0,
+        "relics_disabled": 0,
+        "damage": 0,
+        "visual_events": [],
+        "active_vfx_after": 0
+      },
+      {
+        "case": "three",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 3,
+        "damage": 30,
+        "visual_events": [
+          "start",
+          "gold",
+          "contact",
+          "pink",
+          "contact",
+          "gold",
+          "contact",
+          "pink",
+          "contact",
+          "gold",
+          "contact",
+          "pink",
+          "contact"
+        ],
+        "active_vfx_after": 0
+      },
+      {
+        "case": "fast",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 3,
+        "damage": 30,
+        "visual_events": [
+          "start",
+          "gold",
+          "contact",
+          "pink",
+          "contact",
+          "gold",
+          "contact",
+          "pink",
+          "contact",
+          "gold",
+          "contact",
+          "pink",
+          "contact"
+        ],
+        "active_vfx_after": 0
+      },
+      {
+        "case": "instant",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 3,
+        "damage": 30,
+        "visual_events": [],
+        "active_vfx_after": 0
+      },
+      {
+        "case": "combat-end-restoration",
+        "passed": true,
+        "restored": 3
+      },
+      {
+        "case": "lethal",
+        "passed": true,
+        "hits": 1,
+        "visual_events": [
+          "start",
+          "gold",
+          "contact"
+        ],
+        "active_vfx_after": 0,
+        "relics_restored": true
+      }
+    ],
+    "package_hashes": {
+      "ShoujoKagekiAijoKaren.pck": "1f594212261299ecf352bf8088e2f216e74446a35ca9cf2ea3196955c2fe1639",
+      "lib/ShoujoKagekiAijoKaren.Beta.dll": "c5728f42836571467914661ebe7d90867900f90b98434f7a7d48dcb4836b3bea"
+    },
+    "startup_engine_errors": [
+      "ERROR: Invalid Task ID"
+    ],
+    "runtime_errors": []
+  },
+  "stable": {
+    "passed": true,
+    "cases": [
+      "normal X=3: six hits, 30 damage",
+      "upgraded X=3: six hits, 36 damage"
+    ],
+    "recording_report": "recording-verification.json",
+    "source_hashes": {
+      "mod_dll": "20162e4085bf7b01fb20c169c6ad9a9ec55fd1a90974067a43c2465fe2695f25",
+      "pck": "1f594212261299ecf352bf8088e2f216e74446a35ca9cf2ea3196955c2fe1639",
+      "mcp_dll": "776a7d77b8a4a44e4edba30a5ac169a43674469b107878387be2abda4829794f",
+      "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067"
+    },
+    "log_errors": []
+  },
+  "hand_checks": [
+    {
+      "variant": "beta",
+      "case": "fast",
+      "stage": "after-hand",
+      "modelCount": 0,
+      "visualCount": 0,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": []
+    },
+    {
+      "variant": "beta",
+      "case": "fast",
+      "stage": "before-hand",
+      "modelCount": 1,
+      "visualCount": 1,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": [
+        {
+          "card": "KAREN_SHINE_PRICE",
+          "expected": 0,
+          "actual": 0,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "variant": "beta",
+      "case": "instant",
+      "stage": "after-hand",
+      "modelCount": 0,
+      "visualCount": 0,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": []
+    },
+    {
+      "variant": "beta",
+      "case": "instant",
+      "stage": "before-hand",
+      "modelCount": 1,
+      "visualCount": 1,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": [
+        {
+          "card": "KAREN_SHINE_PRICE",
+          "expected": 0,
+          "actual": 0,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "variant": "beta",
+      "case": "lethal",
+      "stage": "after-hand",
+      "modelCount": 0,
+      "visualCount": 0,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": []
+    },
+    {
+      "variant": "beta",
+      "case": "lethal",
+      "stage": "before-hand",
+      "modelCount": 1,
+      "visualCount": 1,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": [
+        {
+          "card": "KAREN_SHINE_PRICE",
+          "expected": 0,
+          "actual": 0,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "variant": "beta",
+      "case": "three",
+      "stage": "after-hand",
+      "modelCount": 0,
+      "visualCount": 0,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": []
+    },
+    {
+      "variant": "beta",
+      "case": "three",
+      "stage": "before-hand",
+      "modelCount": 1,
+      "visualCount": 1,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": [
+        {
+          "card": "KAREN_SHINE_PRICE",
+          "expected": 0,
+          "actual": 0,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "variant": "beta",
+      "case": "zero",
+      "stage": "after-hand",
+      "modelCount": 0,
+      "visualCount": 0,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": []
+    },
+    {
+      "variant": "beta",
+      "case": "zero",
+      "stage": "before-hand",
+      "modelCount": 1,
+      "visualCount": 1,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": [
+        {
+          "card": "KAREN_SHINE_PRICE",
+          "expected": 0,
+          "actual": 0,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "variant": "stable",
+      "case": "normal",
+      "stage": "before",
+      "modelCount": 1,
+      "visualCount": 1,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": [
+        {
+          "card": "KAREN_SHINE_PRICE",
+          "expected": 0,
+          "actual": 0,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "variant": "stable",
+      "case": "normal",
+      "stage": "inspect",
+      "modelCount": 1,
+      "visualCount": 1,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": [
+        {
+          "card": "KAREN_SHINE_PRICE",
+          "expected": 0,
+          "actual": 0,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "variant": "stable",
+      "case": "normal",
+      "stage": "after",
+      "modelCount": 0,
+      "visualCount": 0,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": []
+    },
+    {
+      "variant": "stable",
+      "case": "upgrade",
+      "stage": "before",
+      "modelCount": 1,
+      "visualCount": 1,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": [
+        {
+          "card": "KAREN_SHINE_PRICE",
+          "expected": 0,
+          "actual": 0,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "variant": "stable",
+      "case": "upgrade",
+      "stage": "inspect",
+      "modelCount": 1,
+      "visualCount": 1,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": [
+        {
+          "card": "KAREN_SHINE_PRICE",
+          "expected": 0,
+          "actual": 0,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "variant": "stable",
+      "case": "upgrade",
+      "stage": "after",
+      "modelCount": 0,
+      "visualCount": 0,
+      "missing": [],
+      "unexpected": [],
+      "unexpectedPileIcons": [],
+      "burnOverlays": []
+    }
+  ],
+  "screenshot_count": 16,
+  "limits": [
+    "Targeted single-player only; full single-player/multiplayer matrix not run.",
+    "One Invalid Task ID appeared during beta startup preloading, before the test fixture, matching an earlier historical engine log; not investigated in this task."
+  ]
+}

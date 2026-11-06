@@ -1,0 +1,90 @@
+[
+  {
+    "mode": "normal",
+    "stage": "before",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "mode": "normal",
+    "stage": "inspect",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "mode": "normal",
+    "stage": "after",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "mode": "upgrade",
+    "stage": "before",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "mode": "upgrade",
+    "stage": "inspect",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "mode": "upgrade",
+    "stage": "after",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  }
+]

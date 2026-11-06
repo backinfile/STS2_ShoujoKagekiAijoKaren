@@ -1,0 +1,6 @@
+Use case: background-extraction / precise-object-edit.
+Extract ONLY the enlarged slash body from the RIGHT panel of this reference board as a production game VFX sprite. Preserve that master's exact graceful diagonal curved-blade silhouette, its orientation, relative width, curvature and two sharply tapered tips. Do not extract the small battle slash or any other element.
+
+The output is a single isolated pale blue-white sword-slash body on GENUINE transparent RGBA. Make the body ONE uniform flat pale blue-white fill, with clean antialiased edges. No internal facets, highlights, lines, bands, texture or mottling. No detached pixels, particles, sparks or fuzzy perimeter debris. No large glow halo. Maintain the long fine tip at the lower right and the sharp upper-left tip. The silhouette must read as a slender curved sword-motion ribbon, matching the right reference, not a round moon icon and not a ring.
+
+Composition: square canvas, the entire slash fits inside the frame with modest transparent padding, occupies about 75–80% of canvas height, fully visible tips, unchanged aspect ratio. Only the slash body. Remove all text, headings, panels, scene, characters, enemy, UI and dark background. True transparent background, no checkerboard painted into the image.

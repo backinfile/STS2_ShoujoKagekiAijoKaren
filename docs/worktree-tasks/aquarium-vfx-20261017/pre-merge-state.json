@@ -1,0 +1,67 @@
+{
+  "mainHead": "cccf906998f771328410077693676c3ab47284a8",
+  "dirty": [
+    {
+      "status": " M",
+      "path": "docs/21.特效总览与兼容约定.md",
+      "sha256": "24ff7a27b6d3c6ab0f411cda0cf731e2bb0d00ff99a89a193e7b1d0822ee3e36"
+    },
+    {
+      "status": " M",
+      "path": "shaders/karen_waiting_energy_orbit.gdshader",
+      "sha256": "3ce6428508322a14cd258c9daaf38a5ba4abc7e8ed6c6e18ad975f2272d3094e"
+    },
+    {
+      "status": " M",
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWaitingStageVfx.cs",
+      "sha256": "54f58af52c991bb3b4ce7d862cc502e431a8ab46b354f628203a24d6a9ea57dd"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/catalog/README.md",
+      "sha256": "6e6ad1b87430ecdda56177a3e817d29df17c587a85a9193ed98fcb04934dca6c"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/catalog/WaitingStageProbe.cs",
+      "sha256": "ac6b3ac1a90db9fd2a6ca9e3f35284603e11cc06ed74e52ddc8232fa32459036"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/catalog/record.py",
+      "sha256": "0e500e426113c7fed8aeb50ed4114166e8ca7e0b4f7c11f17d9691b684add9fb"
+    },
+    {
+      "status": "??",
+      "path": "docs/20.卡牌特效制作步骤提示词.md",
+      "sha256": "f583ee87d1af18daf80b4d1acf971fbe7d94538c9fccf47b654fa273b7ffb989"
+    },
+    {
+      "status": "??",
+      "path": "docs/testing/waiting-energy-icon-2026-10-17.md",
+      "sha256": "e6864063ffbef076b4c6c43c681781c3d6191a0e074a16391fc36e9b5e723eaa"
+    },
+    {
+      "status": "??",
+      "path": "tools/clean_generated_artifacts.ps1",
+      "sha256": "2465dfb6a2bc5d4b1ef66a1e2c2990277a3b94b33a03e7b43d8f72bf187443b9"
+    },
+    {
+      "status": "??",
+      "path": "tools/preview_cleanup.ps1",
+      "sha256": "fd6bafe4dcb4353558069de06d57e40266c5049230aaa0a48b02342a19ecb750"
+    },
+    {
+      "status": "??",
+      "path": "tools/test_preview_cleanup.ps1",
+      "sha256": "418c3758b0c266c83dc1071f1d910bfa8e5af933f996321c1fb0d97c6aabf205"
+    },
+    {
+      "status": "??",
+      "path": "tools/vfx/catalog/waiting_icon.py",
+      "sha256": "f82d2522f618e24dd8f26bf2903ce1e43ca5d721e578e7926e003bb10cbff797"
+    }
+  ],
+  "authorization": "合并",
+  "date": "2026-10-18"
+}

@@ -1,0 +1,47 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
+using Godot;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
+
+namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
+
+public static class KarenGeerVfxManager
+{
+    public const float CastDuration = 1f;
+    internal static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
+        && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
+    public static void PlayCast(Player player) => Play(player, true);
+    public static void PlayTrigger(Player player) => Play(player, false);
+
+    private static void Play(Player player, bool fullScreen)
+    {
+        if (!Enabled) return;
+        var room = NCombatRoom.Instance;
+        if (room == null) return;
+        Callable.From(() =>
+        {
+            // Never attach a deferred effect to a different combat.
+            if (!Enabled || !GodotObject.IsInstanceValid(room) || NCombatRoom.Instance != room
+                || !CombatManager.Instance.IsInProgress) return;
+            var creature = room.GetCreatureNode(player.Creature);
+            if (creature == null) return;
+            var parent = fullScreen ? (Node?)room.BackCombatVfxContainer : creature;
+            if (parent == null) return;
+            var node = new NKarenGeerVfx();
+            node.Init(creature, fullScreen);
+            parent.AddChild(node);
+            if (fullScreen)
+            {
+                // Keep the central wheel in the owner's draw order, behind its visuals.
+                var ownerGear = new NKarenGeerVfx();
+                ownerGear.Init(creature, false, castOnOwner: true);
+                creature.AddChild(ownerGear);
+            }
+        }).CallDeferred();
+    }
+}

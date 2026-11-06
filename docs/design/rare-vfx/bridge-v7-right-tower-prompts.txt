@@ -1,0 +1,26 @@
+Built-in imagegen; 2026-10-09. Two transparent-image edit calls.
+First target: images/vfx/bridge/right-tower-v6.png
+Context references: images/vfx/bridge/stage-v4.png and artifacts/bridge-v6/beta/normal/late-resolving.png
+First output: exec-3c613494-2c3e-4052-bfb4-eaba4c58a30a.png (not shipped; red face still reads too curved)
+Second target: that first output.
+Selected second output: exec-5818608c-b816-45ea-8268-0ceb4281c11f.png
+Saved asset: images/vfx/bridge/right-tower-v7.png (copied unchanged)
+Runtime compositing cuts the bridge entry opening; the image contains only the tower.
+
+Exact first prompt:
+
+Use case: precise-object-edit.
+Asset: replacement RIGHT HALF-TOWER sprite on the SAME transparent 1671x941 registration canvas.
+Input 1 is the isolated V6 right tower EDIT TARGET. Input 2 is the existing whole bridge, structural reference only. Input 3 is the current gameplay image, context only.
+Primary change: rotate the spiral shell substantially FURTHER TO THE RIGHT around its upright axis. The broad inward-facing FLAT dark burgundy cut-face should occupy about 60 percent of the visible tower width; the blue-gray curved spiral exterior retreats toward the far RIGHT edge, occupying about 40 percent. The shell seam/terminations must shift clearly to the RIGHT compared to input 1. Preserve a true half-cylinder / D-shaped architectural section, not a flat rectangular red pillar. Gray-blue spiral bands wrap rightward behind that broad plane. Retain approximately five smoothly stepped widening tiers and their clean smooth edges.
+The horizontal red lattice bridge in reference 2 is intended to INSERT INTO this inward-facing half tower, not stop against its left silhouette. Render the tower's broad flat face as a continuous matte surface suitable for an entry opening to be cut during runtime compositing; do NOT paint a bridge or doorway into this asset. Keep clear planar perspective with horizontal tier cut lines slanting UP-RIGHT as in the reference's transverse bridge collars; this plane faces the incoming bridge axis. Do not reverse the winding.
+Invariants: exact target's canvas, tower position, bounds, pinnacle location near (1495,45), left body silhouette near x1450, upper body y160, lower body to y920, existing gentle lean and stepped scale progression. Do NOT enlarge or move the tower. Left 86 percent of canvas remains fully transparent. Do not add anything else. Keep the same matte slate blue-gray and deep wine-red palette, understated cel-painted style, broad clean surfaces. No glossy plastic, high-frequency detail, grain, hatching, moire, decorative lines, added lights, pillars, characters, text, labels, background or checkerboard.
+Output ONLY the rotated right half-tower on real RGBA transparency, with no bridge. The original bridge and left tower will be kept as separate unchanged layers.
+
+Exact second prompt:
+
+Use case: precise-object-edit. Edit ONLY the attached isolated right half-tower; same 1671x941 RGBA canvas and exact silhouette/placement.
+The reference's width split is correct (wide burgundy inward face at LEFT, narrow gray-blue exterior at RIGHT), but the burgundy face incorrectly looks CURVED and painted onto a round cylinder. Correct it into a truly FLAT PLANAR CUT FACE of a HALF CYLINDER. This is essential geometry, not a paint color change.
+Every burgundy crosswise tier edge must be a DEAD STRAIGHT LINE sloping from lower-left to upper-right, with NO elliptical arc whatsoever across the burgundy portion. Its left and right sides are straight edges. A crisp architectural crease separates this flat face from the curved gray-blue outside. All tier end faces lie on the SAME flat vertical cutting plane and the curved exterior wraps away toward the right/back. Red surfaces have uniform broad flat cel values (slight vertical lighting okay), NO horizontal cylindrical gradient or barrel bulge. The gray area retains curved arc edges and curved shading. On each tier, a straight chord across the burgundy face joins an arc around the gray exterior: a clearly D-shaped half cylinder section, NOT a full cylinder with a red stripe.
+Keep wide flat face roughly 60 percent of visible width. Preserve tower position, pinnacle, 5 tier proportions, blue-gray exterior, deep burgundy face and restrained matte anime painted rendering. Do not add a bridge or entry hole: game compositing inserts the actual bridge through this plane. Do not change other anatomy, composition, scale, lean or silhouette.
+Real transparency outside the isolated tower, entire left 86 percent empty. No background, labels, text, noise, moire, photographic textures, shine, or other objects.

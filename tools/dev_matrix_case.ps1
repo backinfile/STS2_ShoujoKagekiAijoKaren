@@ -1,0 +1,609 @@
+param(
+    [ValidateSet('stable','beta')][string]$Branch,
+    [ValidateSet('KAREN','IRONCLAD')][string]$HostCharacter,
+    [ValidateSet('KAREN','IRONCLAD')][string]$ClientCharacter,
+    [int]$CaseId,
+    [Parameter(Mandatory = $true)][string]$RunRoot,
+    [switch]$ShineRegression,
+    [switch]$GlobalMoveRegression,
+    [switch]$PromiseRegression,
+    [switch]$PromiseTurnEndRegression,
+    [switch]$ReviewRegression,
+    [switch]$SevenRelicRegression,
+    [switch]$MrWhiteRegression,
+    [switch]$Headless,
+    [string]$ClientGamesRoot = '',
+    [ValidateSet('host','client')][string]$ShineActor = 'host'
+)
+
+$ErrorActionPreference = 'Stop'
+if ($Headless -and -not $ReviewRegression) { throw 'Headless is only supported for review fixtures; visual suites require rendering.' }
+$project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+$RunRoot = [IO.Path]::GetFullPath($RunRoot)
+$allowedRoot = [IO.Path]::GetFullPath((Join-Path $project 'artifacts\test-matrix'))
+if (-not $RunRoot.StartsWith($allowedRoot + [IO.Path]::DirectorySeparatorChar,
+        [StringComparison]::OrdinalIgnoreCase)) { throw "Unsafe run root: $RunRoot" }
+$hostRoot = Join-Path $RunRoot "$Branch-host"
+$clientRoot = Join-Path $RunRoot "$Branch-client"
+$hostGame = Join-Path $project "artifacts/dev-game/$Branch/game"
+if (-not $ClientGamesRoot) { $ClientGamesRoot = $RunRoot }
+$ClientGamesRoot = [IO.Path]::GetFullPath($ClientGamesRoot)
+if (-not $ClientGamesRoot.StartsWith($allowedRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Unsafe client game root' }
+$clientGame = Join-Path $ClientGamesRoot "$Branch-client/game"
+$hostExe = Join-Path $hostGame 'SlayTheSpire2.exe'
+$clientExe = Join-Path $clientGame 'SlayTheSpire2.exe'
+$hostPort = if ($Branch -eq 'stable') { 15627 } else { 15628 }
+$clientPort = if ($Branch -eq 'stable') { 15629 } else { 15630 }
+if ($MrWhiteRegression) {
+    $hostPort = if ($Branch -eq 'stable') { 15767 } else { 15768 }
+    $clientPort = if ($Branch -eq 'stable') { 15769 } else { 15770 }
+}
+$hostId = $CaseId * 10
+$clientId = $hostId + 1
+$hostProcess = $null
+$clientProcess = $null
+
+function Get-State([int]$port, [string]$endpoint = 'singleplayer') {
+    Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/$endpoint`?format=json" -TimeoutSec 5
+}
+
+function Wait-State([int]$port, [string]$endpoint, [scriptblock]$condition, [string]$label) {
+    for ($attempt = 0; $attempt -lt 45; $attempt++) {
+        try {
+            $state = Get-State $port $endpoint
+            if (& $condition $state) { return $state }
+        }
+        catch { }
+        Start-Sleep -Milliseconds 500
+    }
+    throw "Timed out waiting for $label on port $port"
+}
+
+function Post-Action([int]$port, [string]$endpoint, [hashtable]$action) {
+    $result = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/$endpoint" -Method Post -ContentType 'application/json' -Body ($action | ConvertTo-Json -Compress) -TimeoutSec 8
+    if ($result.status -ne 'ok') { throw "Action failed on $port : $($result | ConvertTo-Json -Compress)" }
+    return $result
+}
+
+function Wait-MultiplayerEntry([int]$port) {
+    for ($attempt = 0; $attempt -lt 45; $attempt++) {
+        try {
+            $s = Get-State $port 'singleplayer'
+            if ($s.menu_screen -eq 'tutorial_prompt') { return $s }
+        } catch { }
+        try {
+            $s = Get-State $port 'multiplayer'
+            if ($s.state_type -eq 'map') { return $s }
+            if ($s.menu_screen -eq 'tutorial_prompt') {
+                $promptBody = @{ option='no'; prompt_id=$s.prompt_id } | ConvertTo-Json -Compress
+                $dismissed = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/ui/prompt" -Method Post `
+                    -ContentType 'application/json' -Body $promptBody -TimeoutSec 5
+                if ($dismissed.status -ne 'ok') { throw 'Could not dismiss multiplayer tutorial prompt' }
+            }
+        } catch { }
+        Start-Sleep -Milliseconds 500
+    }
+    throw "Timed out waiting for multiplayer tutorial or map on port $port"
+}
+
+function Wait-PromisePile([int]$port, [string]$expected, [string]$absent) {
+    $last = $null
+    for ($attempt = 0; $attempt -lt 40; $attempt++) {
+        try {
+            $last = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/multiplayer" -Method Post `
+                -ContentType 'application/json' -Body (@{
+                    action='run_command'; command="karen_check_promise_pile $expected $absent"
+                } | ConvertTo-Json -Compress) -TimeoutSec 5
+            if ($last.status -eq 'ok') { return }
+        }
+        catch { $last = $_.Exception.Message }
+        Start-Sleep -Milliseconds 250
+    }
+    throw "Promise pile on $port did not contain $expected without $absent`: $($last | ConvertTo-Json -Compress)"
+}
+
+function Prepare-Profile([string]$branch, [string]$role, [int]$profileId) {
+    $targetRoot = if ($role -eq 'host') { $hostRoot } else { $clientRoot }
+    $source = Join-Path $project "artifacts/dev-game/$branch/user/AppData/Roaming/SlayTheSpire2/default/1/settings.save"
+    $destination = Join-Path $targetRoot "user/AppData/Roaming/SlayTheSpire2/default/$profileId/settings.save"
+    New-Item -ItemType Directory -Path (Split-Path $destination -Parent),(Join-Path $targetRoot 'user/AppData/Local') -Force | Out-Null
+    Copy-Item -LiteralPath $source -Destination $destination -Force
+}
+
+function Start-Game([string]$game, [string]$targetRoot, [string]$mode, [int]$profileId) {
+    $oldRoaming = $env:APPDATA
+    $oldLocal = $env:LOCALAPPDATA
+    try {
+        $env:APPDATA = Join-Path $targetRoot 'user/AppData/Roaming'
+        $env:LOCALAPPDATA = Join-Path $targetRoot 'user/AppData/Local'
+        $log = Join-Path $targetRoot 'godot.log'
+        $arguments = "--rendering-driver vulkan --force-steam=off --fastmp=$mode --clientId=$profileId --log-file `"$log`""
+        if ($Headless) { $arguments += ' --headless' }
+        $configPath = Join-Path $game 'mods/KarenSTS2MCP.conf'
+        $config = Get-Content -LiteralPath $configPath -Raw -Encoding UTF8 | ConvertFrom-Json -AsHashtable
+        $config.muted = $true
+        [IO.File]::WriteAllText($configPath, ($config | ConvertTo-Json -Compress -Depth 16), [Text.UTF8Encoding]::new($false))
+        if ($Headless) {
+            return Start-Process -FilePath (Join-Path $game 'SlayTheSpire2.exe') -WorkingDirectory $game -ArgumentList $arguments -WindowStyle Hidden -PassThru
+        }
+        $python = Join-Path $env:USERPROFILE '.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
+        if (-not (Test-Path -LiteralPath $python)) { $python = (Get-Command python -CommandType Application).Source }
+        $pidFile = Join-Path $targetRoot ("isolated-desktop-" + [guid]::NewGuid().ToString('N') + '.json')
+        $helper = Join-Path $PSScriptRoot 'vfx/six-card/launch_isolated_game.py'
+        $launcher = Start-Process -FilePath $python -ArgumentList "`"$helper`" --game `"$game`" --pid-file `"$pidFile`" -- $arguments" -WindowStyle Hidden -PassThru
+        $deadline = [DateTime]::UtcNow.AddSeconds(15)
+        while (-not (Test-Path -LiteralPath $pidFile)) {
+            if ($launcher.HasExited -or [DateTime]::UtcNow -ge $deadline) { throw 'The isolated test desktop did not start' }
+            Start-Sleep -Milliseconds 100
+        }
+        $started = Get-Content -LiteralPath $pidFile -Raw -Encoding UTF8 | ConvertFrom-Json
+        return Get-Process -Id $started.pid -ErrorAction Stop
+    }
+    finally {
+        $env:APPDATA = $oldRoaming
+        $env:LOCALAPPDATA = $oldLocal
+    }
+}
+
+function Stop-Verified([object]$process, [string]$expectedPath) {
+    if ($null -eq $process) { return }
+    $running = Get-Process -Id $process.Id -ErrorAction SilentlyContinue
+    if ($null -eq $running) { return }
+    if (-not $running.Path.Equals($expectedPath, [StringComparison]::OrdinalIgnoreCase)) {
+        throw "Unexpected process path: $($running.Path)"
+    }
+    Stop-Process -Id $process.Id
+    $running.WaitForExit(5000) | Out-Null
+}
+
+if ($ReviewRegression -or $MrWhiteRegression) {
+    for ($attempt = 0; $attempt -lt 30; $attempt++) {
+        $udpBusy = Get-NetUDPEndpoint -LocalPort 33771 -ErrorAction SilentlyContinue
+        $tcpBusy = Get-NetTCPConnection -LocalPort $hostPort,$clientPort -State Listen -ErrorAction SilentlyContinue
+        if (-not $udpBusy -and -not $tcpBusy) { break }
+        Start-Sleep -Milliseconds 500
+    }
+}
+if (Get-NetUDPEndpoint -LocalPort 33771 -ErrorAction SilentlyContinue) { throw 'Multiplayer host port 33771 is occupied' }
+foreach ($port in @($hostPort, $clientPort)) {
+    if (Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue) {
+        throw "MCP port $port is occupied"
+    }
+}
+Prepare-Profile $Branch 'host' $hostId
+Prepare-Profile $Branch 'client' $clientId
+$caseName = "$Branch-$HostCharacter-$ClientCharacter"
+if ($ShineRegression) { $caseName += "-shine-regression-$ShineActor" }
+if ($GlobalMoveRegression) { $caseName += '-global-move-regression' }
+if ($PromiseRegression) { $caseName += '-promise-regression' }
+if ($PromiseTurnEndRegression) { $caseName += '-promise-turn-end-regression' }
+if ($ReviewRegression) { $caseName += '-review-regression' }
+if ($SevenRelicRegression) {
+    $caseName += '-seven-relic-regression'
+    . (Join-Path $PSScriptRoot 'relic-regression/mp-actions.ps1')
+}
+
+if ($MrWhiteRegression) {
+    $caseName += '-mr-white-regression'
+    . (Join-Path $PSScriptRoot 'relic-regression/mr-white-actions.ps1')
+}
+
+try {
+    $hostProcess = Start-Game $hostGame $hostRoot 'host_standard' $hostId
+    if ($MrWhiteRegression) { Wait-MrWhiteMcp $hostRoot }
+    $null = Wait-State $hostPort 'singleplayer' { param($s) $s.menu_screen -eq 'character_select' } 'host lobby'
+    if (-not ($SevenRelicRegression -or $PromiseRegression -or $PromiseTurnEndRegression -or $MrWhiteRegression)) {
+        $null = Invoke-RestMethod -Uri "http://127.0.0.1:$hostPort/api/v1/window/minimize" -Method Post -TimeoutSec 5
+    }
+    $clientProcess = Start-Game $clientGame $clientRoot 'join' $clientId
+    if ($MrWhiteRegression) { Wait-MrWhiteMcp $clientRoot }
+    $null = Wait-State $clientPort 'singleplayer' { param($s) $s.lobby.player_count -eq 2 } 'joined lobby'
+    if (-not ($SevenRelicRegression -or $PromiseRegression -or $PromiseTurnEndRegression -or $MrWhiteRegression)) {
+        $null = Invoke-RestMethod -Uri "http://127.0.0.1:$clientPort/api/v1/window/minimize" -Method Post -TimeoutSec 5
+    }
+
+    $null = Post-Action $hostPort 'singleplayer' @{ action='menu_select'; option=$HostCharacter }
+    $null = Post-Action $clientPort 'singleplayer' @{ action='menu_select'; option=$ClientCharacter }
+    $null = Wait-State $hostPort 'singleplayer' {
+        param($s)
+        @($s.lobby.players | Where-Object { $_.is_local -and $_.character_id -eq $HostCharacter }).Count -eq 1 -and
+            @($s.options | Where-Object { $_.name -eq 'embark' -and $_.enabled }).Count -eq 1
+    } 'host character selection'
+    $null = Wait-State $clientPort 'singleplayer' {
+        param($s)
+        @($s.lobby.players | Where-Object { $_.is_local -and $_.character_id -eq $ClientCharacter }).Count -eq 1 -and
+            @($s.options | Where-Object { $_.name -eq 'embark' -and $_.enabled }).Count -eq 1
+    } 'client character selection'
+    $null = Post-Action $hostPort 'singleplayer' @{ action='menu_select'; option='embark' }
+    $null = Post-Action $clientPort 'singleplayer' @{ action='menu_select'; option='embark' }
+    foreach ($port in @($hostPort, $clientPort)) {
+        $s = Wait-MultiplayerEntry $port
+        if ($s.menu_screen -eq 'tutorial_prompt') {
+            $null = Post-Action $port 'singleplayer' @{ action='menu_select'; option='no' }
+        }
+    }
+    foreach ($port in @($hostPort, $clientPort)) {
+        $null = Wait-State $port 'multiplayer' { param($s) $s.state_type -eq 'map' } 'map'
+    }
+    if ($SevenRelicRegression) { Initialize-SevenRelicCase }
+    if ($MrWhiteRegression) { Initialize-MrWhiteCase }
+    foreach ($port in @($hostPort, $clientPort)) {
+        $null = Post-Action $port 'multiplayer' @{ action='choose_map_node'; index=0 }
+    }
+    foreach ($port in @($hostPort, $clientPort)) {
+        $null = Wait-State $port 'multiplayer' { param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase } 'first combat'
+    }
+    if ($SevenRelicRegression) {
+        Invoke-SevenRelicCase | ConvertTo-Json -Compress
+        return
+    }
+
+    if ($MrWhiteRegression) {
+        Invoke-MrWhiteCase | ConvertTo-Json -Compress
+        return
+    }
+
+    if ($ReviewRegression) {
+        $udpBindings = @(Get-NetUDPEndpoint -LocalPort 33771 -ErrorAction Stop)
+        if ($udpBindings.Count -eq 0 -or @($udpBindings | Where-Object { -not [Net.IPAddress]::IsLoopback([Net.IPAddress]::Parse($_.LocalAddress).MapToIPv4()) }).Count -gt 0) {
+            throw 'Review test host is not restricted to loopback'
+        }
+        $logDir = Join-Path $RunRoot 'logs'
+        New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+        function Fixture([string]$name, [int]$actorPort = $hostPort) {
+            $null = Post-Action $actorPort 'multiplayer' @{ action='run_command'; command="review_fixture $name" }
+            foreach ($port in @($hostPort, $clientPort)) {
+                $passed = $false
+                for ($i = 0; $i -lt 60; $i++) {
+                    $result = Post-Action $port 'multiplayer' @{ action='run_command'; command='review_status' }
+                    if ($result.message -eq "pass:$name") { $passed = $true; break }
+                    Start-Sleep -Milliseconds 250
+                }
+                if (-not $passed) { throw "Fixture $name not completed on $port : $($result | ConvertTo-Json -Compress)" }
+            }
+        }
+        Fixture 'models'
+        Fixture 'downgrade' $clientPort
+        Fixture 'prepare'
+        Start-Sleep -Seconds 2
+        if (-not $Headless) {
+            Invoke-WebRequest -Uri "http://127.0.0.1:$hostPort/api/v1/screenshot" -OutFile (Join-Path $logDir "mp-$caseName-before.png") | Out-Null
+        }
+        $s = Get-State $hostPort 'multiplayer'
+        $relay = $s.player.hand | Where-Object id -eq 'KAREN_FIGHT_RELAY' | Select-Object -Last 1
+        if ($null -eq $relay) { throw 'Fixture relay missing' }
+        $null = Post-Action $hostPort 'multiplayer' @{ action='play_card'; card_index=$relay.index }
+        Start-Sleep -Seconds 3
+        Fixture 'relay'
+        foreach ($port in @($hostPort, $clientPort)) {
+            if (-not $Headless) {
+                Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" -OutFile (Join-Path $logDir "mp-$caseName-after-$port.png") | Out-Null
+            }
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
+            $null = Post-Action $port 'multiplayer' @{ action='end_turn' }
+        }
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Wait-State $port 'multiplayer' { param($s) $s.battle.round -ge 2 -and $s.battle.is_play_phase } 'review round 2'
+        }
+        Fixture 'energy'
+        Fixture 'prepare_rejection'
+        Start-Sleep -Seconds 2
+        $s = Get-State $hostPort 'multiplayer'
+        $relay = $s.player.hand | Where-Object id -eq 'KAREN_FIGHT_RELAY' | Select-Object -Last 1
+        $null = Post-Action $hostPort 'multiplayer' @{ action='play_card'; card_index=$relay.index }
+        Start-Sleep -Seconds 3
+        Fixture 'rejection'
+        foreach ($port in @($hostPort, $clientPort)) {
+            if (-not $Headless) {
+                Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" -OutFile (Join-Path $logDir "mp-$caseName-rejection-$port.png") | Out-Null
+            }
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
+        }
+        Fixture 'ui'
+        $null = Post-Action $hostPort 'multiplayer' @{ action='run_command'; command='kill all' }
+        $null = Wait-State $hostPort 'multiplayer' { param($s) $s.state_type -eq 'rewards' } 'review combat end'
+        Fixture 'relic'
+        foreach ($pair in @(@($hostRoot, 'host'), @($clientRoot, 'client'))) {
+            Copy-Item -LiteralPath (Join-Path $pair[0] 'godot.log') -Destination (Join-Path $logDir "mp-$caseName-$($pair[1]).log") -Force
+        }
+        $errors = @(Select-String -Path (Join-Path $logDir "mp-$caseName-host.log"),(Join-Path $logDir "mp-$caseName-client.log") -Pattern '^\[ERROR\]')
+        if ($errors.Count -gt 0) { throw "Review game logged $($errors.Count) errors" }
+        $nativeErrors = @(Select-String -Path (Join-Path $logDir "mp-$caseName-host.log"),(Join-Path $logDir "mp-$caseName-client.log") -Pattern '^ERROR:' -Context 0,32)
+        # Beta may emit a native worker-pool diagnostic during Common preload.
+        # Keep its exact source/phase separate; do not excuse gameplay errors.
+        $startupWorkerPoolErrors = @($nativeErrors | Where-Object {
+            $commonComplete = Select-String -LiteralPath $_.Path -SimpleMatch "Preloading 'Common' Complete:" | Select-Object -First 1
+            $firstPlay = Select-String -LiteralPath $_.Path -SimpleMatch ' playing card ' | Select-Object -First 1
+            $sourceLine = $_.Context.PostContext | Where-Object {
+                $_ -ne 'ERROR: Invalid Task ID' -and $_ -notmatch '^\s*(C# backtrace \(most recent call first\):|\[\d+\] .+)$'
+            } | Select-Object -First 1
+            $_.Line -eq 'ERROR: Invalid Task ID' -and $commonComplete -and $_.LineNumber -lt $commonComplete.LineNumber -and
+                (-not $firstPlay -or $_.LineNumber -lt $firstPlay.LineNumber) -and
+                $sourceLine -match 'wait_for_task_completion \(core/object/worker_thread_pool\.cpp:'
+        })
+        $unexpectedNativeErrors = @($nativeErrors | Where-Object {
+            $_ -notin $startupWorkerPoolErrors -and -not ($Headless -and ($_.Context.PostContext -join ' ') -match 'servers/rendering/dummy/')
+        })
+        if ($unexpectedNativeErrors.Count -gt 0) { throw "Review game logged $($unexpectedNativeErrors.Count) native errors" }
+        foreach ($side in @('host', 'client')) {
+            $replays = @(Select-String -LiteralPath (Join-Path $logDir "mp-$caseName-$side.log") -SimpleMatch '总播放次数调整为 3')
+            if ($replays.Count -lt 2) { throw "Both relay cases must actually replay three times on $side" }
+        }
+        [PSCustomObject]@{case=$caseName;result='pass';fixtures=@('models','downgrade','relay','energy','rejection','ui','relic');visuals=if($Headless){'not_tested_headless'}else{'screenshots_captured'};errorCount=0;startupWorkerPoolErrorCount=$startupWorkerPoolErrors.Count;headlessRendererErrorCount=@($nativeErrors | Where-Object { $Headless -and ($_.Context.PostContext -join ' ') -match 'servers/rendering/dummy/' }).Count} | ConvertTo-Json -Compress
+        return
+    }
+
+    if ($ShineRegression) {
+        if (($ShineActor -eq 'host' -and $HostCharacter -ne 'KAREN') -or
+            ($ShineActor -eq 'client' -and $ClientCharacter -ne 'KAREN')) {
+            throw 'Shine regression requires Karen as the acting player'
+        }
+        $actorPort = if ($ShineActor -eq 'host') { $hostPort } else { $clientPort }
+        $otherPort = if ($ShineActor -eq 'host') { $clientPort } else { $hostPort }
+        $actorRoot = if ($ShineActor -eq 'host') { $hostRoot } else { $clientRoot }
+        $before = Get-State $actorPort 'multiplayer'
+        $originalHp = $before.battle.enemies[0].hp
+        $null = Post-Action $actorPort 'multiplayer' @{ action='run_command'; command='damage 40' }
+        $damaged = Wait-State $actorPort 'multiplayer' { param($s) $s.battle.enemies[0].hp -lt $originalHp } 'damage command'
+        $otherDamaged = Wait-State $otherPort 'multiplayer' { param($s) $s.battle.enemies[0].hp -eq $damaged.battle.enemies[0].hp } 'damage synchronization'
+        $null = Post-Action $actorPort 'multiplayer' @{ action='run_command'; command='card KAREN_STAR Hand' }
+        $withStar = Wait-State $actorPort 'multiplayer' { param($s) @($s.player.hand | Where-Object id -eq 'KAREN_STAR').Count -gt 0 } 'KarenStar in actor hand'
+        $star = $withStar.player.hand | Where-Object id -eq 'KAREN_STAR' | Select-Object -First 1
+        if (-not $star.can_play) { throw 'KarenStar is not playable' }
+        $null = Post-Action $actorPort 'multiplayer' @{ action='play_card'; card_index=$star.index }
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Wait-State $port 'multiplayer' { param($s) $s.state_type -eq 'rewards' } 'combat rewards'
+        }
+        $hostSave = Join-Path $hostRoot "user/AppData/Roaming/SlayTheSpire2/default/$hostId/modded/profile1/saves/current_run_mp.save"
+        $saved = Get-Content -LiteralPath $hostSave -Raw -Encoding UTF8 | ConvertFrom-Json
+        $savedActor = if ($ShineActor -eq 'host') { $saved.players[0] } else { $saved.players | Where-Object net_id -eq $clientId | Select-Object -First 1 }
+        if ($null -eq $savedActor) { throw "Actor $ShineActor missing from host save" }
+        $shineCount = @($savedActor.deck | Where-Object id -match 'KAREN_SHINE_STRIKE').Count
+        if ($shineCount -ne 0) { throw "ShineStrike still in saved $ShineActor deck: $shineCount" }
+        $logDir = Join-Path $RunRoot 'logs'
+        New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+        $actorLog = ''
+        for ($attempt = 0; $attempt -lt 20; $attempt++) {
+            $actorLog = Get-Content -LiteralPath (Join-Path $actorRoot 'godot.log') -Raw -Encoding UTF8
+            if ($actorLog.Contains("Card '闪耀打击' added to shine pile")) { break }
+            Start-Sleep -Milliseconds 250
+        }
+        if (-not $actorLog.Contains("Card '闪耀打击' added to shine pile")) { throw "Shine depletion not logged on $ShineActor" }
+        Copy-Item -LiteralPath (Join-Path $hostRoot 'godot.log') -Destination (Join-Path $logDir "mp-$caseName-host.log") -Force
+        Copy-Item -LiteralPath (Join-Path $clientRoot 'godot.log') -Destination (Join-Path $logDir "mp-$caseName-client.log") -Force
+        [PSCustomObject]@{case=$caseName;result='pass';originalHp=$originalHp;damagedHp=$damaged.battle.enemies[0].hp;actorDeckShineCount=$shineCount;bothAtRewards=$true} | ConvertTo-Json -Compress
+        return
+    }
+
+    if ($GlobalMoveRegression) {
+        if ($HostCharacter -ne 'KAREN' -and $ClientCharacter -ne 'KAREN') {
+            throw 'Global move regression requires one Karen player'
+        }
+        $actorPort = if ($HostCharacter -eq 'KAREN') { $hostPort } else { $clientPort }
+        $actorRoot = if ($HostCharacter -eq 'KAREN') { $hostRoot } else { $clientRoot }
+        $before = Get-State $actorPort 'multiplayer'
+        $enemyId = $before.battle.enemies[0].entity_id
+        $originalHp = $before.battle.enemies[0].hp
+        $null = Post-Action $actorPort 'multiplayer' @{ action='run_command'; command='card KAREN_SPIN Hand' }
+        $withSpin = Wait-State $actorPort 'multiplayer' { param($s) @($s.player.hand | Where-Object id -eq 'KAREN_SPIN').Count -gt 0 } 'KarenSpin in hand'
+        $spin = $withSpin.player.hand | Where-Object id -eq 'KAREN_SPIN' | Select-Object -First 1
+        if (-not $spin.can_play) { throw 'KarenSpin is not playable' }
+        $null = Post-Action $actorPort 'multiplayer' @{ action='play_card'; card_index=$spin.index; target=$enemyId }
+        $actorAfter = Wait-State $actorPort 'multiplayer' { param($s) $s.battle.enemies[0].hp -lt $originalHp } 'KarenSpin damage'
+        $otherPort = if ($actorPort -eq $hostPort) { $clientPort } else { $hostPort }
+        $otherAfter = Wait-State $otherPort 'multiplayer' { param($s) $s.battle.enemies[0].hp -eq $actorAfter.battle.enemies[0].hp } 'KarenSpin damage sync'
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Post-Action $port 'multiplayer' @{ action='end_turn' }
+        }
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Wait-State $port 'multiplayer' { param($s) $s.battle.round -ge 2 -and $s.battle.is_play_phase } 'round 2 after KarenSpin'
+        }
+        $hostLog = Get-Content -LiteralPath (Join-Path $hostRoot 'godot.log') -Raw -Encoding UTF8
+        $clientLog = Get-Content -LiteralPath (Join-Path $clientRoot 'godot.log') -Raw -Encoding UTF8
+        foreach ($log in @($hostLog, $clientLog)) {
+            if (-not $log.Contains('[KarenSpin] 牌堆移动: None -> Hand')) { throw 'KarenSpin entry callback missing' }
+            if (-not $log.Contains('[KarenSpin] 牌堆移动: Hand -> Discard')) { throw 'KarenSpin play-to-discard callback missing' }
+        }
+        $logDir = Join-Path $RunRoot 'logs'
+        New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+        Copy-Item -LiteralPath (Join-Path $hostRoot 'godot.log') -Destination (Join-Path $logDir "mp-$caseName-host.log") -Force
+        Copy-Item -LiteralPath (Join-Path $clientRoot 'godot.log') -Destination (Join-Path $logDir "mp-$caseName-client.log") -Force
+        $errors = @(Select-String -Path (Join-Path $logDir "mp-$caseName-host.log"),(Join-Path $logDir "mp-$caseName-client.log") -Pattern '^\[ERROR\]')
+        if ($errors.Count -gt 0) { throw "Game logged $($errors.Count) errors" }
+        [PSCustomObject]@{case=$caseName;result='pass';originalHp=$originalHp;enemyHp=$actorAfter.battle.enemies[0].hp;bothAtRound2=$true;errorCount=$errors.Count} | ConvertTo-Json -Compress
+        return
+    }
+
+    if ($PromiseTurnEndRegression) {
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_SMALL_SNACK Hand' }
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_FALL Hand' }
+            $withFall = Wait-State $port 'multiplayer' {
+                param($s) @($s.player.hand | Where-Object id -eq 'KAREN_FALL').Count -gt 0 -and
+                    @($s.player.hand | Where-Object id -eq 'KAREN_SMALL_SNACK').Count -gt 0
+            } 'SmallSnack and KarenFall in hand'
+            $fall = $withFall.player.hand | Where-Object id -eq 'KAREN_FALL' | Select-Object -Last 1
+            $null = Post-Action $port 'multiplayer' @{ action='play_card'; card_index=$fall.index }
+            $selection = Wait-State $port 'multiplayer' { param($s) $s.state_type -eq 'hand_select' } 'SmallSnack selection'
+            $snack = $selection.hand_select.cards | Where-Object id -eq 'KAREN_SMALL_SNACK' | Select-Object -Last 1
+            if ($null -eq $snack) { throw 'SmallSnack missing from KarenFall selection' }
+            $null = Post-Action $port 'multiplayer' @{ action='combat_select_card'; card_index=$snack.index }
+            if ((Get-State $port 'multiplayer').state_type -eq 'hand_select') {
+                $null = Post-Action $port 'multiplayer' @{ action='combat_confirm_selection' }
+            }
+            $null = Wait-State $port 'multiplayer' {
+                param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase
+            } 'SmallSnack moved to promise pile'
+            Wait-PromisePile $port KAREN_SMALL_SNACK KAREN_BANANA
+            Start-Sleep -Seconds 2
+            $imageDir = Join-Path $RunRoot 'logs'
+            New-Item -ItemType Directory -Path $imageDir -Force | Out-Null
+            Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" -OutFile (Join-Path $imageDir "mp-$caseName-before-turn-end-$port.png") | Out-Null
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
+        }
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Post-Action $port 'multiplayer' @{ action='end_turn' }
+        }
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Wait-State $port 'multiplayer' {
+                param($s) $s.battle.round -ge 2 -and $s.battle.is_play_phase
+            } 'round 2 after SmallSnack transformation'
+        }
+        foreach ($port in @($hostPort, $clientPort)) {
+            Wait-PromisePile $port KAREN_BANANA KAREN_SMALL_SNACK
+            Start-Sleep -Seconds 2
+            Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" -OutFile (Join-Path $imageDir "mp-$caseName-after-turn-end-$port.png") | Out-Null
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
+        }
+        $logDir = Join-Path $RunRoot 'logs'
+        New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+        Copy-Item -LiteralPath (Join-Path $hostRoot 'godot.log') -Destination (Join-Path $logDir "mp-$caseName-host.log") -Force
+        Copy-Item -LiteralPath (Join-Path $clientRoot 'godot.log') -Destination (Join-Path $logDir "mp-$caseName-client.log") -Force
+        $errors = @(Select-String -Path (Join-Path $logDir "mp-$caseName-host.log"),(Join-Path $logDir "mp-$caseName-client.log") -Pattern '^\[ERROR\]')
+        if ($errors.Count -gt 0) { throw "Game logged $($errors.Count) errors" }
+        [PSCustomObject]@{case=$caseName;result='pass';bothAtRound2=$true;bothPromisePilesTransformed=$true;errorCount=0} | ConvertTo-Json -Compress
+        return
+    }
+
+    if ($PromiseRegression) {
+        $karenPorts = @()
+        if ($HostCharacter -eq 'KAREN') { $karenPorts += $hostPort }
+        if ($ClientCharacter -eq 'KAREN') { $karenPorts += $clientPort }
+        if ($karenPorts.Count -eq 0) {
+            throw 'Promise regression requires at least one Karen player'
+        }
+        foreach ($port in $karenPorts) {
+            $fixtureBefore = Get-State $port 'multiplayer'
+            $initialDefends = @($fixtureBefore.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count
+            $initialFalls = @($fixtureBefore.player.hand | Where-Object id -eq 'KAREN_FALL').Count
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_DEFEND Hand' }
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_FALL Hand' }
+            # Console actions are queued. An opening-hand Fall does not prove either addition completed.
+            $withFall = Wait-State $port 'multiplayer' {
+                param($s)
+                @($s.player.hand | Where-Object id -eq 'KAREN_FALL').Count -eq $initialFalls + 1 -and
+                    @($s.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count -eq $initialDefends + 1
+            } 'both promise fixture cards in hand'
+            $fall = $withFall.player.hand | Where-Object id -eq 'KAREN_FALL' | Select-Object -Last 1
+            $defendBefore = @($withFall.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count
+            $screenshotDir = Join-Path $RunRoot 'logs'
+            New-Item -ItemType Directory -Path $screenshotDir -Force | Out-Null
+            $side = if ($port -eq $hostPort) { 'host' } else { 'client' }
+            Start-Sleep -Milliseconds 700
+            Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" `
+                -OutFile (Join-Path $screenshotDir "mp-$caseName-$side-before-fall.png") -TimeoutSec 15 | Out-Null
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
+            $null = Post-Action $port 'multiplayer' @{ action='play_card'; card_index=$fall.index }
+            $selection = Wait-State $port 'multiplayer' { param($s) $s.state_type -eq 'hand_select' } 'promise card selection'
+            $defend = $selection.hand_select.cards | Where-Object id -eq 'KAREN_DEFEND' | Select-Object -Last 1
+            if ($null -eq $defend) { throw 'No KarenDefend can be selected for PromisePile' }
+            $null = Post-Action $port 'multiplayer' @{ action='combat_select_card'; card_index=$defend.index }
+            $selectionAfter = Get-State $port 'multiplayer'
+            if ($selectionAfter.state_type -eq 'hand_select') {
+                $null = Post-Action $port 'multiplayer' @{ action='combat_confirm_selection' }
+            }
+            $null = Wait-State $port 'multiplayer' {
+                param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase
+            } 'promise selection completion'
+            Start-Sleep -Milliseconds 500
+            Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" `
+                -OutFile (Join-Path $screenshotDir "mp-$caseName-$side-after-fall.png") -TimeoutSec 15 | Out-Null
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
+            $afterFall = Get-State $port 'multiplayer'
+            if (@($afterFall.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count -ne $defendBefore - 1) {
+                throw 'KarenFall did not remove exactly one Defend from hand'
+            }
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='card KAREN_TOWER_OF_PROMISE Hand' }
+            $withTower = Wait-State $port 'multiplayer' {
+                param($s) @($s.player.hand | Where-Object id -eq 'KAREN_TOWER_OF_PROMISE').Count -gt 0
+            } 'KarenTowerOfPromise in hand'
+            $tower = $withTower.player.hand | Where-Object id -eq 'KAREN_TOWER_OF_PROMISE' | Select-Object -Last 1
+            Start-Sleep -Milliseconds 700
+            Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" `
+                -OutFile (Join-Path $screenshotDir "mp-$caseName-$side-before-tower.png") -TimeoutSec 15 | Out-Null
+            $null = Post-Action $port 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
+            $null = Post-Action $port 'multiplayer' @{ action='play_card'; card_index=$tower.index }
+            $null = Wait-State $port 'multiplayer' {
+                param($s) $s.state_type -eq 'monster' -and $s.battle.is_play_phase
+            } 'promise draw completion'
+            Start-Sleep -Seconds 2
+            Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/v1/screenshot" `
+                -OutFile (Join-Path $screenshotDir "mp-$caseName-$side-after-tower.png") -TimeoutSec 15 | Out-Null
+            $afterTower = Get-State $port 'multiplayer'
+            if (@($afterTower.player.hand | Where-Object id -eq 'KAREN_DEFEND').Count -ne $defendBefore) {
+                throw 'Tower did not return the promised Defend to hand'
+            }
+            foreach ($checkPort in @($hostPort, $clientPort)) {
+                $null = Post-Action $checkPort 'multiplayer' @{ action='run_command'; command='karen_check_hand' }
+            }
+        }
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Post-Action $port 'multiplayer' @{ action='end_turn' }
+        }
+        foreach ($port in @($hostPort, $clientPort)) {
+            $null = Wait-State $port 'multiplayer' {
+                param($s) $s.battle.round -ge 2 -and $s.battle.is_play_phase
+            } 'round 2 after promise draw'
+        }
+        $logDir = Join-Path $RunRoot 'logs'
+        New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+        foreach ($pair in @(@($hostRoot, 'host'), @($clientRoot, 'client'))) {
+            $log = Get-Content -LiteralPath (Join-Path $pair[0] 'godot.log') -Raw -Encoding UTF8
+            if (-not $log.Contains('DrawFromPromisePileAsync')) { throw "PromisePile draw not logged for $($pair[1])" }
+            if ($log -match '(?m)^\[ERROR\]') { throw "Game logged an error for $($pair[1])" }
+            Copy-Item -LiteralPath (Join-Path $pair[0] 'godot.log') `
+                -Destination (Join-Path $logDir "mp-$caseName-$($pair[1]).log") -Force
+        }
+        [PSCustomObject]@{
+            case=$caseName; result='pass'; bothAtRound2=$true; promiseDrawLogged=$true;
+            karenActors=$karenPorts.Count; handVisualsMatched=$true; cardCountsRestored=$true; errorCount=0
+        } | ConvertTo-Json -Compress
+        return
+    }
+
+    $actions = @()
+    foreach ($port in @($hostPort, $clientPort)) {
+        $s = Get-State $port 'multiplayer'
+        $card = $s.player.hand | Where-Object { $_.can_play -and $_.target_type -eq 'AnyEnemy' } | Select-Object -First 1
+        if ($null -eq $card) {
+            $card = $s.player.hand | Where-Object { $_.can_play -and $_.id -match 'DEFEND' } | Select-Object -First 1
+        }
+        if ($null -eq $card) { throw "No simple playable card on port $port" }
+        $action = @{ action='play_card'; card_index=$card.index }
+        if ($card.target_type -eq 'AnyEnemy') { $action.target = $s.battle.enemies[0].entity_id }
+        $null = Post-Action $port 'multiplayer' $action
+        $actions += "$port : $($card.id)"
+        Start-Sleep -Seconds 2
+    }
+    $hostState = Get-State $hostPort 'multiplayer'
+    $clientState = Get-State $clientPort 'multiplayer'
+    if ($hostState.battle.enemies[0].hp -ne $clientState.battle.enemies[0].hp) {
+        throw 'Enemy HP differs between host and client'
+    }
+    foreach ($port in @($hostPort, $clientPort)) {
+        $null = Post-Action $port 'multiplayer' @{ action='end_turn' }
+    }
+    foreach ($port in @($hostPort, $clientPort)) {
+        $null = Wait-State $port 'multiplayer' { param($s) $s.battle.round -ge 2 -and $s.battle.is_play_phase } 'round 2'
+    }
+
+    $logDir = Join-Path $RunRoot 'logs'
+    New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+    Copy-Item -LiteralPath (Join-Path $hostRoot 'godot.log') -Destination (Join-Path $logDir "mp-$caseName-host.log") -Force
+    Copy-Item -LiteralPath (Join-Path $clientRoot 'godot.log') -Destination (Join-Path $logDir "mp-$caseName-client.log") -Force
+    $errors = @(Select-String -Path (Join-Path $logDir "mp-$caseName-host.log"),(Join-Path $logDir "mp-$caseName-client.log") -Pattern '^\[ERROR\]')
+    [PSCustomObject]@{case=$caseName;result=if($errors.Count -eq 0){'pass'}else{'log_errors'};enemyHp=$hostState.battle.enemies[0].hp;actions=$actions;round=2;errorCount=$errors.Count} | ConvertTo-Json -Compress
+}
+finally {
+    # Keep startup failures too; the next case reuses the process directories.
+    $logDir = Join-Path $RunRoot 'logs'
+    New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+    foreach ($pair in @(@($hostRoot, 'host'), @($clientRoot, 'client'))) {
+        $sourceLog = Join-Path $pair[0] 'godot.log'
+        if (Test-Path -LiteralPath $sourceLog) {
+            Copy-Item -LiteralPath $sourceLog -Destination (Join-Path $logDir "mp-$caseName-$($pair[1]).log") -Force
+        }
+    }
+    Stop-Verified $clientProcess $clientExe
+    Stop-Verified $hostProcess $hostExe
+}

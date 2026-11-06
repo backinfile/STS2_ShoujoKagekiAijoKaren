@@ -1,0 +1,21 @@
+{
+  "modelCount": 2,
+  "visualCount": 2,
+  "missing": [],
+  "unexpected": [],
+  "unexpectedPileIcons": [],
+  "burnOverlays": [
+    {
+      "card": "KAREN_AQUARIUM_CARD",
+      "expected": 0,
+      "actual": 0,
+      "valid": true
+    },
+    {
+      "card": "KAREN_AQUARIUM_CARD",
+      "expected": 0,
+      "actual": 0,
+      "valid": true
+    }
+  ]
+}

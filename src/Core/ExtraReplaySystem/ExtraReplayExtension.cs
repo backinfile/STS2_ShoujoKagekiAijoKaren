@@ -1,29 +1,14 @@
-using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKageki.Core.V1;
+using System;
 
 namespace ShoujoKagekiAijoKaren.src.Core.ExtraReplaySystem;
 
-/// <summary>
-/// 为 CardModel 动态附加"下一张打出时额外重播次数"
-/// 使用 SpireField，无需修改原始类
-/// </summary>
+/// <summary>Karen names for the shared next-play replay budget.</summary>
 public static class ExtraReplayExtension
 {
-    private static readonly SpireField<CardModel, int> _extraReplayCountForNextPlay = new(() => 0);
-
-    public static int GetExtraReplayCountForNextPlay(this CardModel card)
-    {
-        return _extraReplayCountForNextPlay.Get(card);
-    }
-
-    public static void SetExtraReplayCountForNextPlay(this CardModel card, int value)
-    {
-        _extraReplayCountForNextPlay.Set(card, value);
-    }
-
+    public static int GetExtraReplayCountForNextPlay(this CardModel card) => CardReplays.GetNext(card);
+    public static void SetExtraReplayCountForNextPlay(this CardModel card, int value) => CardReplays.SetNext(card, Math.Max(0, value));
     public static void AddExtraReplayCountForNextPlay(this CardModel card, int amount)
-    {
-        var current = _extraReplayCountForNextPlay.Get(card);
-        _extraReplayCountForNextPlay.Set(card, current + amount);
-    }
+        => CardReplays.SetNext(card, Math.Max(0, CardReplays.GetNext(card) + amount));
 }

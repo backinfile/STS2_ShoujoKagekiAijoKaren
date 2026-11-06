@@ -1,0 +1,9 @@
+# Portrait-style transparent gear
+
+`steel-gear.png` is a reference-guided imagegen redraw of the light gear in the center of `images/packed/card_portraits/karen/karen_geer.png`. It retains the chunky teeth, two pale rings, dark channel, dense radial spokes and solid circular hub. It is a close redraw, not an exact extracted original.
+
+The source is 1302×1208 RGBA. Local Artifact Cleaner strength 0.25 completed and retained alpha byte-for-byte; the 0.50 comparison did not complete after GPU allocation failures. The final sprite uses alpha bounds for centering, square transparent padding, aspect-preserving Lanczos reduction to 1024×1024, and no sharpening. Godot uses lossless compression, mipmaps and alpha-border correction; drawing uses LinearWithMipmaps. Cleanup reduces unwanted fine texture without promising elimination of every aliasing pattern. Source and cleaned master are retained in `artifacts/geer-original-vfx/`.
+
+The 2026-10-09 cast uses this transparent sprite in independently timed layers: the owner's gear first, three peripheral gears staggered by 0.10/0.20/0.28 seconds, peripheral fade before the owner's final fade at 1 second. The character layer follows the owner behind its visuals; screen layers remain in BackCombatVfxContainer with their world transform adjusted to the viewport. Characters and UI remain visible, with at most 10% background dimming. The 0.62-second turn trigger uses the same sprite as before.
+
+The previous original-animation atlas is retired and removed from the shipped assets. There is no video playback, opaque scene background or 32 MiB frame-atlas allocation. Original video/atlas and earlier failed transcodes remain in development artifacts and Git history.

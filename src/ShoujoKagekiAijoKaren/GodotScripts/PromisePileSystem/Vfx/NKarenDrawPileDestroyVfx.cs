@@ -1,0 +1,204 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
+using BaseLib.Utils;
+using Godot;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Audio.Debug;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Nodes.Cards;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Vfx.Cards;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
+
+/// <summary>Uses vanilla exhaust on the pile icon, without showing card faces.</summary>
+public partial class NKarenDrawPileDestroyVfx : Node2D
+{
+    private sealed class CarrierVisualState(NCard card)
+    {
+        public readonly (CanvasItem Node, bool Visible)[] Children = card.GetChildren()
+            .OfType<CanvasItem>().Select(child => (child, child.Visible)).ToArray();
+        public readonly bool UseParentMaterial = card.UseParentMaterial;
+        public readonly bool Visible = card.Visible;
+        public readonly Control.MouseFilterEnum MouseFilter = card.MouseFilter;
+        public TextureRect? Icon = null;
+    }
+
+    private static readonly SpireField<NCard, CarrierVisualState?> CarrierStates = new(() => null);
+
+    internal static void RestoreCarrier(NCard card)
+    {
+        var state = CarrierStates.Get(card);
+        if (state == null) return;
+        CarrierStates.Set(card, null);
+        if (GodotObject.IsInstanceValid(state.Icon))
+        {
+            state.Icon!.GetParent()?.RemoveChild(state.Icon);
+            state.Icon.QueueFree();
+        }
+        foreach (var (child, visible) in state.Children)
+            if (GodotObject.IsInstanceValid(child)) child.Visible = visible;
+        card.UseParentMaterial = state.UseParentMaterial;
+        card.Visible = state.Visible;
+        card.MouseFilter = state.MouseFilter;
+    }
+
+    private TextureRect _icon = null!;
+    private Texture2D _texture = null!;
+    private NCard _carrier = null!;
+    private Color _originalModulate;
+    private Control? _countContainer;
+    private Color _originalCountModulate;
+    private float _age;
+    private bool _exhaustStarted;
+
+    public static async Task Play(Player player)
+    {
+        if (NonInteractiveMode.IsActive || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant) return;
+
+        var room = NCombatRoom.Instance;
+        var icon = room?.Ui.DrawPile.GetNodeOrNull<TextureRect>("Icon");
+        var model = player.PlayerCombatState?.DrawPile.Cards.FirstOrDefault();
+        if (!LocalContext.IsMe(player) || icon?.Texture == null || model == null) return;
+        var carrier = NCard.Create(model);
+        if (carrier == null) return;
+        if (!KarenVfxQuality.Enabled)
+        {
+            // A single native exhaust at the pile, with no card-rule callbacks.
+            room!.Ui.AddChild(carrier);
+            carrier.UpdateVisuals(MegaCrit.Sts2.Core.Entities.Cards.PileType.None, CardPreviewMode.Normal);
+            carrier.GlobalPosition = icon.GetGlobalTransform() * (icon.Size * .5f);
+#if STS2_BETA
+            var native = NCardExhaustVfx.Create(carrier);
+            if (native == null) { carrier.QueueFree(); return; }
+            room.Ui.AddChild(native);
+            native.Scale = Vector2.One * .28f;
+            await native.PlayAnimation();
+#else
+            carrier.Hide();
+            var native = NExhaustVfx.Create(carrier);
+            if (native != null) room.Ui.AddChild(native);
+            carrier.QueueFree();
+#endif
+            return;
+        }
+        var effect = new NKarenDrawPileDestroyVfx
+        {
+            _icon = icon, _texture = icon.Texture, _carrier = carrier,
+            _originalModulate = icon.SelfModulate,
+            _countContainer = room!.Ui.DrawPile.GetNodeOrNull<Control>("CountContainer"),
+        };
+        if (effect._countContainer != null)
+            effect._originalCountModulate = effect._countContainer.Modulate;
+        room!.Ui.AddChild(effect);
+        await Cmd.Wait(1.1f);
+    }
+
+    public override void _Ready()
+    {
+        _icon.SelfModulate = new Color(_originalModulate, 0);
+        // The native API takes an NCard. It carries only the icon texture:
+        // every actual card visual is hidden before a frame can render.
+        AddChild(_carrier);
+        CarrierStates.Set(_carrier, new CarrierVisualState(_carrier));
+        foreach (var child in _carrier.GetChildren().OfType<CanvasItem>()) child.Visible = false;
+        _carrier.MouseFilter = Control.MouseFilterEnum.Ignore;
+        _carrier.Visible = false;
+    }
+
+    private void StartNativeExhaust()
+    {
+        var center = _icon.GetGlobalTransform() * (_icon.Size * 0.5f);
+        _carrier.GlobalPosition = center;
+#if STS2_BETA
+        _carrier.UseParentMaterial = true;
+        var icon = new TextureRect
+        {
+            Name = "KarenDrawPileExhaustIcon",
+            Texture = _texture, Position = new Vector2(-128, -128),
+            Size = new Vector2(256, 256), ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+            StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+            MouseFilter = Control.MouseFilterEnum.Ignore, UseParentMaterial = true,
+        };
+        CarrierStates.Get(_carrier)!.Icon = icon;
+        _carrier.AddChild(icon);
+        var exhaust = NCardExhaustVfx.Create(_carrier);
+        if (exhaust != null)
+        {
+            AddChild(exhaust);
+            exhaust.Scale = Vector2.One * (_icon.Size.X / 256f);
+            _carrier.Visible = true;
+            // Beta Create only prepares the effect; PlayAnimation drives its
+            // native erosion shader, progress curve and moving particle edge.
+            TaskHelper.RunSafely(exhaust.PlayAnimation());
+            NDebugAudioManager.Instance?.Play("card_exhaust.mp3");
+        }
+#else
+        var exhaust = NExhaustVfx.Create(_carrier);
+        if (exhaust != null)
+        {
+            exhaust.Scale = Vector2.One * (_icon.Size.X / 200f);
+            AddChild(exhaust); // Stable starts native smoke/ashes and audio in Ready.
+        }
+#endif
+    }
+
+    public override void _Process(double delta)
+    {
+        _age += (float)delta;
+        if (!GodotObject.IsInstanceValid(_icon)) { QueueFree(); return; }
+        if (!_exhaustStarted && _age >= 0.12f)
+        {
+            _exhaustStarted = true;
+            StartNativeExhaust();
+        }
+        // EnterMode owns the replacement texture. Restore it as tower light
+        // reaches the pile. Fade the entire count badge (background + digits)
+        // with it, while its authoritative text continues updating normally.
+        float reveal = Mathf.Clamp((_age - 2.05f) / 0.25f, 0, 1);
+        _icon.SelfModulate = new Color(_originalModulate, _originalModulate.A * reveal);
+        if (GodotObject.IsInstanceValid(_countContainer))
+        {
+            float remaining = 1 - Mathf.Clamp((_age - 0.12f) / 0.3f, 0, 1);
+            _countContainer!.Modulate = new Color(_originalCountModulate,
+                _originalCountModulate.A * Mathf.Max(remaining, reveal));
+        }
+        if (_age >= 2.6f) QueueFree();
+        KarenVfxQuality.Redraw(this);
+    }
+
+    public override void _ExitTree()
+    {
+        if (GodotObject.IsInstanceValid(_icon)) _icon.SelfModulate = _originalModulate;
+        if (GodotObject.IsInstanceValid(_countContainer)) _countContainer!.Modulate = _originalCountModulate;
+    }
+
+    public override void _Draw()
+    {
+#if STS2_BETA
+        if (!GodotObject.IsInstanceValid(_icon) || _exhaustStarted) return;
+        var tint = _originalModulate;
+#else
+        if (!GodotObject.IsInstanceValid(_icon) || _age >= 0.42f) return;
+        var tint = _originalModulate.Lerp(StsColors.exhaustGray, Mathf.Clamp((_age - 0.12f) / 0.3f, 0, 1));
+#endif
+        DrawSetTransformMatrix(GetGlobalTransformWithCanvas().AffineInverse() * _icon.GetGlobalTransformWithCanvas());
+        DrawTextureRect(_texture, new Rect2(Vector2.Zero, _icon.Size), false, tint);
+        DrawSetTransform(Vector2.Zero);
+    }
+}
+
+// Native exhaust returns its NCard to the shared pool, including when interrupted.
+// Clean up before pool reuse; waiting for the outer tower effect to end is too late.
+[HarmonyPatch(typeof(NCard), nameof(NCard.OnFreedToPool))]
+internal static class KarenDrawPileExhaustCarrierCleanupPatch
+{
+    private static void Prefix(NCard __instance) => NKarenDrawPileDestroyVfx.RestoreCarrier(__instance);
+}

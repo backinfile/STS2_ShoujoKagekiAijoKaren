@@ -1,0 +1,366 @@
+{
+  "baseline": "a8ac44c",
+  "status": "targeted recordings verified",
+  "counts": {
+    "before_stable": 2,
+    "before_beta": 2,
+    "after_stable": 4,
+    "after_beta": 4
+  },
+  "recordings": 12,
+  "cases": [
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/before/stable/full-karen_star/game.mp4",
+      "sha256": "4e570ca697ba405ecd4de5416ad9fbf1a8f8075ca5d20384ce809d24a492356d",
+      "audio_mean_db": -48.5,
+      "capture_fps": 29.95393360660999,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/before/stable/low-karen_star/game.mp4",
+      "sha256": "3cc0392a6eba2643b1a1ad682ec96b2c45bb14cd6fa6a103da52202f0c852d83",
+      "audio_mean_db": -48.6,
+      "capture_fps": 29.64655414634791,
+      "frames_repeated": 4,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/before/beta/full-karen_star/game.mp4",
+      "sha256": "4f317957e6da0b3cabc8877d059c66e4e06cc256f8ef553499d8204d0fc70892",
+      "audio_mean_db": -48.5,
+      "capture_fps": 29.86337834130695,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/before/beta/low-karen_star/game.mp4",
+      "sha256": "a530345f7f5c086c946d47df24a6bd105d25843cd3912dbe62482e0c6c890d07",
+      "audio_mean_db": -48.5,
+      "capture_fps": 29.815652828344334,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/after/stable/low-karen_star/game.mp4",
+      "sha256": "aeb140e6927f34e0b70e7a69ed303b0117c3723262135c524cef9566108dca38",
+      "audio_mean_db": -48.9,
+      "capture_fps": 29.570945983179303,
+      "frames_repeated": 5,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "fast",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/after/stable/fast-karen_star/game.mp4",
+      "sha256": "70dcab14a5ac6c757786fc3da663fbcbd6f52f9a1c23c16e6ad5c06194409c68",
+      "audio_mean_db": -47.9,
+      "capture_fps": 29.88342346578071,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "last",
+      "quality": "Full",
+      "passed": true,
+      "damage": 9,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/after/stable/last-karen_star/game.mp4",
+      "sha256": "8fd464df704014b9a8db52c9a7c8b917c26813e6f5b2e2967a6ba31da7f3dd7a",
+      "audio_mean_db": -50.8,
+      "capture_fps": 29.827730761931186,
+      "frames_repeated": 2,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/after/stable/full-karen_star/game.mp4",
+      "sha256": "c9bbded2aad3a769a9a4f6d29bc1ac0c106affe59658daa137997b7a131043a1",
+      "audio_mean_db": -48.5,
+      "capture_fps": 29.95142776958606,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/after/beta/full-karen_star/game.mp4",
+      "sha256": "caf8747f2f67cbd58652785f22f7d1b31c45825a4062e668af16ec29cc384ba6",
+      "audio_mean_db": -48.4,
+      "capture_fps": 29.8333524928707,
+      "frames_repeated": 3,
+      "frames_dropped": 1
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "low",
+      "quality": "Low",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/after/beta/low-karen_star/game.mp4",
+      "sha256": "7b651ecf98b4b12f66665df1db7b9b6dcd8b57bdc370f5eff233e2cb260ae45f",
+      "audio_mean_db": -48.6,
+      "capture_fps": 30.047786370685426,
+      "frames_repeated": 0,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "fast",
+      "quality": "Full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/after/beta/fast-karen_star/game.mp4",
+      "sha256": "53f743c54aab543a00b2a89ef965e1a7e1ee5f4a32355149d80b2b33effa0f99",
+      "audio_mean_db": -47.9,
+      "capture_fps": 29.89200871309351,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "last",
+      "quality": "Full",
+      "passed": true,
+      "damage": 9,
+      "block": 0,
+      "video": "artifacts/star-slot-pulse-20261101/after/beta/last-karen_star/game.mp4",
+      "sha256": "ed21929697e76c8adeff25f4827b55cdc3e857fcb4e38365fdd4f4bc3e29286f",
+      "audio_mean_db": -51.0,
+      "capture_fps": 29.94704131628162,
+      "frames_repeated": 1,
+      "frames_dropped": 0
+    }
+  ],
+  "engine_observations": [
+    {
+      "log": "artifacts/star-slot-pulse-20261101/after/beta/godot-1793507886092261000.log",
+      "line": 276,
+      "message": "Historical native Invalid Task ID during Combat Room preloading; preloading subsequently completed"
+    }
+  ],
+  "static_checks": {
+    "changed": [
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs"
+    ],
+    "other_csharp_files_unchanged": 408,
+    "no_card_destination_path": true,
+    "reward_story_unchanged": true,
+    "height_gap": 70,
+    "gather_timing_and_quality_factory_unchanged": true,
+    "main_star_radius_never_grows": true,
+    "new_assets": false
+  },
+  "untested": [
+    "full frame-time/first-use suite",
+    "complete singleplayer/multiplayer matrix",
+    "Android",
+    "Off/Instant, skill-card replays, mirror and resize not repeated; existing enable/factory, placement and model rules retained"
+  ],
+  "replay_pulse_measurements": [
+    {
+      "environment": "stable",
+      "mode": "low",
+      "actual_plays": 5,
+      "pulses_drawn": 5,
+      "pulse_draw_frames": 25,
+      "stage_drift": 0,
+      "minimum_gap_720p": 11.96936
+    },
+    {
+      "environment": "stable",
+      "mode": "fast",
+      "actual_plays": 5,
+      "pulses_drawn": 5,
+      "pulse_draw_frames": 65,
+      "stage_drift": 0,
+      "minimum_gap_720p": 12.04363
+    },
+    {
+      "environment": "stable",
+      "mode": "last",
+      "actual_plays": 1,
+      "pulses_drawn": 1,
+      "pulse_draw_frames": 19,
+      "stage_drift": 0,
+      "minimum_gap_720p": 23.6297
+    },
+    {
+      "environment": "stable",
+      "mode": "full",
+      "actual_plays": 5,
+      "pulses_drawn": 5,
+      "pulse_draw_frames": 92,
+      "stage_drift": 0,
+      "minimum_gap_720p": 11.829895
+    },
+    {
+      "environment": "beta",
+      "mode": "full",
+      "actual_plays": 5,
+      "pulses_drawn": 5,
+      "pulse_draw_frames": 91,
+      "stage_drift": 0,
+      "minimum_gap_720p": 12.04362
+    },
+    {
+      "environment": "beta",
+      "mode": "low",
+      "actual_plays": 5,
+      "pulses_drawn": 5,
+      "pulse_draw_frames": 26,
+      "stage_drift": 0,
+      "minimum_gap_720p": 11.872498
+    },
+    {
+      "environment": "beta",
+      "mode": "fast",
+      "actual_plays": 5,
+      "pulses_drawn": 5,
+      "pulse_draw_frames": 65,
+      "stage_drift": 0,
+      "minimum_gap_720p": 11.868652
+    },
+    {
+      "environment": "beta",
+      "mode": "last",
+      "actual_plays": 1,
+      "pulses_drawn": 1,
+      "pulse_draw_frames": 18,
+      "stage_drift": 0,
+      "minimum_gap_720p": 23.908447
+    }
+  ],
+  "new_final_recordings": 8,
+  "reused_before_recordings": 4,
+  "final_package": {
+    "ShoujoKagekiAijoKaren.dll": "7e883a0c8fe212fe9e171e11322b90c94775236bd0a0046826b27f7f2b94f854",
+    "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+    "ShoujoKagekiAijoKaren.pck": "1996cf304676671864e9cb9f6f80bd3c186cbf3db6dc0ccdf042a5a6c96c82e7",
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": "e31335c56ad39ed90c85ac275892bbfb35fe049ace3bebb5089f4c12dea6dff6",
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": "7e85869f753f67b18ccf264a48265f035be7a8ed9c1d56d25d9da09a53b75e37"
+  },
+  "capture_retakes": [
+    {
+      "case": "stable Full",
+      "reason": "Initial recording contained one frozen interval; retained and replaced by a targeted retake",
+      "preserved": "artifacts/star-slot-pulse-20261101/capture-study/stable-full-first-pass"
+    }
+  ],
+  "video_continuity": [
+    {
+      "video": "artifacts/star-slot-pulse-20261101/before/stable/full-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-slot-pulse-20261101/after/stable/fast-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-slot-pulse-20261101/after/stable/full-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-slot-pulse-20261101/after/stable/last-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-slot-pulse-20261101/after/stable/low-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-slot-pulse-20261101/before/beta/full-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-slot-pulse-20261101/after/beta/fast-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-slot-pulse-20261101/after/beta/full-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-slot-pulse-20261101/after/beta/last-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    },
+    {
+      "video": "artifacts/star-slot-pulse-20261101/after/beta/low-karen_star/game.mp4",
+      "frozen_intervals_over_075_seconds": 0
+    }
+  ],
+  "test_ports_closed": {
+    "18937": true,
+    "18938": true
+  }
+}

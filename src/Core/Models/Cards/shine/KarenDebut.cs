@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
@@ -15,12 +16,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 出场 - 1费对全体敌人造成3×3=9伤（多轮全体），Shine 6
 /// 升级：轮数 +1（3×4=12伤）
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(6)]
 public sealed class KarenDebut : KarenBaseCardModel
 {
-    public KarenDebut() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
-    {
-        this.AddShineMax(6);
-    }
+    public KarenDebut() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
@@ -32,11 +31,13 @@ public sealed class KarenDebut : KarenBaseCardModel
     {
         if (CombatState == null) return;
 
+        using var show = new KarenAttackCue(Owner.Creature, null, KarenAttackStyle.Debut);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.Repeat.IntValue)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .TargetingAllOpponents(CombatState)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(show.Start)
+            .WithHitVfxNode(show.Hit)
             .Execute(choiceContext);
     }
 

@@ -1,0 +1,241 @@
+{
+  "date": "2026-10-29",
+  "build": {
+    "stable": "0 errors, 36 existing warnings",
+    "beta": "0 errors, 36 existing warnings",
+    "loader": "0 errors"
+  },
+  "probe_build": {
+    "stable": "0 errors",
+    "beta": "0 errors"
+  },
+  "test_method": "MCP commands in isolated Karen combats call the production entrance factory; native settings UI is built with production SetupConfigUI.",
+  "checks": {
+    "stable": [
+      {
+        "name": "legacy_switch_false_fixture",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "entrance_option_removed",
+        "passed": true,
+        "detail": [
+          "ShowSplashScreen",
+          "VfxLevel"
+        ]
+      },
+      {
+        "name": "section_defaults_preserved",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "full_plays_ignoring_old_false",
+        "passed": true,
+        "detail": {
+          "level": "Full",
+          "live": 1,
+          "played": true,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "repeat_does_not_stack",
+        "passed": true,
+        "detail": {
+          "level": "Full",
+          "live": 1,
+          "played": true,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "switch_to_low_cleans_active_entrance",
+        "passed": true,
+        "detail": {
+          "level": "Low",
+          "live": 0,
+          "played": false,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "low_skips_entrance",
+        "passed": true,
+        "detail": {
+          "level": "Low",
+          "live": 0,
+          "played": false,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "off_skips_entrance",
+        "passed": true,
+        "detail": {
+          "level": "Off",
+          "live": 0,
+          "played": false,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "full_restores_entrance",
+        "passed": true,
+        "detail": {
+          "level": "Full",
+          "live": 1,
+          "played": true,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "full_finishes_normally",
+        "passed": true,
+        "detail": {
+          "level": "Full",
+          "live": 0,
+          "played": true,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "switch_to_off_cleans_active_entrance",
+        "passed": true,
+        "detail": {
+          "level": "Off",
+          "live": 0,
+          "played": false,
+          "oldPropertyExists": false
+        }
+      }
+    ],
+    "beta": [
+      {
+        "name": "legacy_switch_false_fixture",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "entrance_option_removed",
+        "passed": true,
+        "detail": [
+          "ShowSplashScreen",
+          "VfxLevel"
+        ]
+      },
+      {
+        "name": "section_defaults_preserved",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "full_plays_ignoring_old_false",
+        "passed": true,
+        "detail": {
+          "level": "Full",
+          "live": 1,
+          "played": true,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "repeat_does_not_stack",
+        "passed": true,
+        "detail": {
+          "level": "Full",
+          "live": 1,
+          "played": true,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "switch_to_low_cleans_active_entrance",
+        "passed": true,
+        "detail": {
+          "level": "Low",
+          "live": 0,
+          "played": false,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "low_skips_entrance",
+        "passed": true,
+        "detail": {
+          "level": "Low",
+          "live": 0,
+          "played": false,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "off_skips_entrance",
+        "passed": true,
+        "detail": {
+          "level": "Off",
+          "live": 0,
+          "played": false,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "full_restores_entrance",
+        "passed": true,
+        "detail": {
+          "level": "Full",
+          "live": 1,
+          "played": true,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "full_finishes_normally",
+        "passed": true,
+        "detail": {
+          "level": "Full",
+          "live": 0,
+          "played": true,
+          "oldPropertyExists": false
+        }
+      },
+      {
+        "name": "switch_to_off_cleans_active_entrance",
+        "passed": true,
+        "detail": {
+          "level": "Off",
+          "live": 0,
+          "played": false,
+          "oldPropertyExists": false
+        }
+      }
+    ]
+  },
+  "package_sha256": {
+    "ShoujoKagekiAijoKaren.dll": "d77e0e554949011664b7e05f47cbf959e13ca087ba4740f4ca6e1d97a93571f8",
+    "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+    "ShoujoKagekiAijoKaren.pck": "4dcf0ea5f46cd51f5161cc635d56c38ffe22eb12ee20c5f420e2f9015f411de7",
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": "62c751699b5c5c5e7a1634d7806655ea1bd4cea845035deea4b40708da8b5c32",
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": "fd465086dfaef12c55a238358bfa931116f619436389eef174a97ce9dde29175"
+  },
+  "deployment_hashes_match": true,
+  "log_errors": {
+    "stable": 0,
+    "beta": 0
+  },
+  "localization": {
+    "existing_source_hash_failures": 13,
+    "new_failures": 0
+  },
+  "screenshots": [
+    "artifacts/karen-music-player-20261029/stable-full-entrance-settings.png",
+    "artifacts/karen-music-player-20261029/beta-full-entrance-settings.png"
+  ],
+  "not_tested": [
+    "Full multiplayer matrix",
+    "VFX frame-time专项",
+    "Android",
+    "Workshop publication"
+  ]
+}

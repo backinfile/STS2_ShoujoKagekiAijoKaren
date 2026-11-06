@@ -1,0 +1,433 @@
+{
+  "method": "Action-marker alignment; original speed; shorter side holds its last frame. Right game-process audio only. No added effects.",
+  "audio": {
+    "sourcePeakDb": -21.5,
+    "gainDb": 17.5
+  },
+  "videoSha256": "eb41b638a39c4859072d6b39acf294cef96923fcd833c25f00561626575a8921",
+  "entries": [
+    {
+      "index": 1,
+      "scene": "polish-jealousy",
+      "title": "嫉妒",
+      "phase": "嫉妒｜普通攻击，原位命中与向玩家回飘",
+      "note": "接触短切光更明确；保留原位攻击、回飘方向和88个粒子槽",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\before\\stable\\polish-jealousy\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\after\\stable\\polish-jealousy\\game.mp4"
+      ],
+      "sourceSha256": [
+        "cdcc79fcf29aee8b8a8a1942d79dc75c2a81d0190f98d78bf26360e6f461180e",
+        "843874b584af0195de033c555d2c57a29f879adec2617e7a56ad337bb4ce1bf2"
+      ],
+      "starts": [
+        0.2859999999590218,
+        0.2859999999590218
+      ],
+      "ends": [
+        3.255,
+        3.1609999999590217
+      ],
+      "duration": 2.969000000040978,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 25.341028940599482,
+          "frames_repeated": 36,
+          "frames_dropped": 1,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 26.463582748547758,
+          "frames_repeated": 26,
+          "frames_dropped": 1,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 0
+    },
+    {
+      "index": 2,
+      "scene": "polish-jealousy",
+      "title": "嫉妒",
+      "phase": "嫉妒＋｜相同运动方向，20点实际伤害",
+      "note": "接触短切光更明确；保留原位攻击、回飘方向和88个粒子槽",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\before\\stable\\polish-jealousy\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\after\\stable\\polish-jealousy\\game.mp4"
+      ],
+      "sourceSha256": [
+        "cdcc79fcf29aee8b8a8a1942d79dc75c2a81d0190f98d78bf26360e6f461180e",
+        "843874b584af0195de033c555d2c57a29f879adec2617e7a56ad337bb4ce1bf2"
+      ],
+      "starts": [
+        3.255,
+        3.1609999999590217
+      ],
+      "ends": [
+        7.366667,
+        7.0
+      ],
+      "duration": 4.111667,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 25.341028940599482,
+          "frames_repeated": 36,
+          "frames_dropped": 1,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 26.463582748547758,
+          "frames_repeated": 26,
+          "frames_dropped": 1,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 2.969
+    },
+    {
+      "index": 3,
+      "scene": "polish-wake",
+      "title": "唤醒",
+      "phase": "唤醒｜展开后停留6秒，观察持有态",
+      "note": "展开后降低幕布亮度和流速；选牌时短脉冲，确认后重新收束",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\before\\stable\\polish-wake\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\after\\stable\\polish-wake\\game.mp4"
+      ],
+      "sourceSha256": [
+        "7a0bce5b8943622c01fb7feb86a365731913916773cee639d939788634e30395",
+        "180ab93c65ba9fe575cf52a82b11df948607b07e0658bdd58761997bb8a6a967"
+      ],
+      "starts": [
+        0.27100000000325963,
+        0.2859999999590218
+      ],
+      "ends": [
+        6.474000000040978,
+        6.457999999979511
+      ],
+      "duration": 6.203000000037719,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 25.37974620903653,
+          "frames_repeated": 55,
+          "frames_dropped": 2,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 27.79574080050226,
+          "frames_repeated": 25,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 7.0809999999999995
+    },
+    {
+      "index": 4,
+      "scene": "polish-wake",
+      "title": "唤醒",
+      "phase": "选中一张｜短脉冲，继续读取候选牌",
+      "note": "展开后降低幕布亮度和流速；选牌时短脉冲，确认后重新收束",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\before\\stable\\polish-wake\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\after\\stable\\polish-wake\\game.mp4"
+      ],
+      "sourceSha256": [
+        "7a0bce5b8943622c01fb7feb86a365731913916773cee639d939788634e30395",
+        "180ab93c65ba9fe575cf52a82b11df948607b07e0658bdd58761997bb8a6a967"
+      ],
+      "starts": [
+        6.474000000040978,
+        6.457999999979511
+      ],
+      "ends": [
+        7.193000000023749,
+        7.176999999962281
+      ],
+      "duration": 0.7189999999827705,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 25.37974620903653,
+          "frames_repeated": 55,
+          "frames_dropped": 2,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 27.79574080050226,
+          "frames_repeated": 25,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 13.283999999999999
+    },
+    {
+      "index": 5,
+      "scene": "polish-wake",
+      "title": "唤醒",
+      "phase": "选满两张｜幕布收向真实卡牌",
+      "note": "展开后降低幕布亮度和流速；选牌时短脉冲，确认后重新收束",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\before\\stable\\polish-wake\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\after\\stable\\polish-wake\\game.mp4"
+      ],
+      "sourceSha256": [
+        "7a0bce5b8943622c01fb7feb86a365731913916773cee639d939788634e30395",
+        "180ab93c65ba9fe575cf52a82b11df948607b07e0658bdd58761997bb8a6a967"
+      ],
+      "starts": [
+        7.193000000023749,
+        7.176999999962281
+      ],
+      "ends": [
+        11.4,
+        11.033008
+      ],
+      "duration": 4.206999999976252,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 25.37974620903653,
+          "frames_repeated": 55,
+          "frames_dropped": 2,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 27.79574080050226,
+          "frames_repeated": 25,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 14.017332999999999
+    },
+    {
+      "index": 6,
+      "scene": "polish-arrogant",
+      "title": "骄傲",
+      "phase": "骄傲｜代价起势与激情Buff确认｜首次",
+      "note": "星扣在角色上方收势；奖励数量只由通用激情图标确认",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\before\\stable\\polish-arrogant\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\after\\stable\\polish-arrogant\\game.mp4"
+      ],
+      "sourceSha256": [
+        "ece068fa809c54bc96a4481a2a0a13ec27c4c25d53dcfa7f49c885bceac9c874",
+        "b40f8d7494a399268e09c5d8f6b57635f7b7b49814c5db268ac77b9535fd0190"
+      ],
+      "starts": [
+        0.28700000000651926,
+        0.2859999999590218
+      ],
+      "ends": [
+        3.3960000000032595,
+        3.332999999979511
+      ],
+      "duration": 3.1089999999967404,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 26.694185734039603,
+          "frames_repeated": 31,
+          "frames_dropped": 6,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 26.516672493119195,
+          "frames_repeated": 29,
+          "frames_dropped": 3,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 18.224332999999998
+    },
+    {
+      "index": 7,
+      "scene": "polish-arrogant",
+      "title": "骄傲",
+      "phase": "骄傲｜代价起势与激情Buff确认｜第二次",
+      "note": "星扣在角色上方收势；奖励数量只由通用激情图标确认",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\before\\stable\\polish-arrogant\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\after\\stable\\polish-arrogant\\game.mp4"
+      ],
+      "sourceSha256": [
+        "ece068fa809c54bc96a4481a2a0a13ec27c4c25d53dcfa7f49c885bceac9c874",
+        "b40f8d7494a399268e09c5d8f6b57635f7b7b49814c5db268ac77b9535fd0190"
+      ],
+      "starts": [
+        3.3960000000032595,
+        3.332999999979511
+      ],
+      "ends": [
+        7.466667,
+        7.4
+      ],
+      "duration": 4.070666999996741,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 26.694185734039603,
+          "frames_repeated": 31,
+          "frames_dropped": 6,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 26.516672493119195,
+          "frames_repeated": 29,
+          "frames_dropped": 3,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 21.333332999999996
+    },
+    {
+      "index": 8,
+      "scene": "polish-relay",
+      "title": "接力耗尽",
+      "phase": "接力耗尽｜通用Buff确认预约奖励｜首次",
+      "note": "终幕改为短绸带收尾；不再重复显示奖章与数量",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\before\\stable\\polish-relay\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\after\\stable\\polish-relay\\game.mp4"
+      ],
+      "sourceSha256": [
+        "1eb30d153f03f7bc21949982200d2146a56f9ddf7aa7ceb12af3973153cee36f",
+        "c0b257f3f47c3a75d733f5f1e283be01bf5348df75d106655b099f5c4b90923d"
+      ],
+      "starts": [
+        0.28600000001722947,
+        0.3020000000204891
+      ],
+      "ends": [
+        3.427000000020489,
+        3.36499999998603
+      ],
+      "duration": 3.1410000000032596,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.907146762296705,
+          "frames_repeated": 9,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.2903490435086,
+          "frames_repeated": 6,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 25.403332999999996
+    },
+    {
+      "index": 9,
+      "scene": "polish-relay",
+      "title": "接力耗尽",
+      "phase": "接力耗尽｜通用Buff确认预约奖励｜第二次",
+      "note": "终幕改为短绸带收尾；不再重复显示奖章与数量",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\before\\stable\\polish-relay\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\after\\stable\\polish-relay\\game.mp4"
+      ],
+      "sourceSha256": [
+        "1eb30d153f03f7bc21949982200d2146a56f9ddf7aa7ceb12af3973153cee36f",
+        "c0b257f3f47c3a75d733f5f1e283be01bf5348df75d106655b099f5c4b90923d"
+      ],
+      "starts": [
+        3.427000000020489,
+        3.36499999998603
+      ],
+      "ends": [
+        7.466667,
+        7.333008
+      ],
+      "duration": 4.039666999979511,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.907146762296705,
+          "frames_repeated": 9,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.2903490435086,
+          "frames_repeated": 6,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 28.544332999999995
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+[
+  {
+    "source": "artifacts/twin-stars-integration/capture/native-replay/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-integration/capture/native-replay/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-integration/capture/native-replay/inspect-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-integration/beta/fast/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-integration/beta/fast/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-integration/beta/instant/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-integration/beta/instant/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-integration/beta/lethal/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-integration/beta/lethal/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-integration/beta/three/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-integration/beta/three/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  },
+  {
+    "source": "artifacts/twin-stars-integration/beta/zero/after-hand.json",
+    "modelCount": 0,
+    "visualCount": 0,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": []
+  },
+  {
+    "source": "artifacts/twin-stars-integration/beta/zero/before-hand.json",
+    "modelCount": 1,
+    "visualCount": 1,
+    "missing": [],
+    "unexpected": [],
+    "unexpectedPileIcons": [],
+    "burnOverlays": [
+      {
+        "card": "KAREN_SHINE_PRICE",
+        "expected": 0,
+        "actual": 0,
+        "valid": true
+      }
+    ]
+  }
+]

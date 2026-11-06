@@ -1,0 +1,378 @@
+{
+  "stable": {
+    "statePoses": {
+      "occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 0
+      },
+      "empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1
+      },
+      "stack-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1
+      },
+      "refilled-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 2
+      },
+      "second-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3
+      }
+    },
+    "observations": 38,
+    "captureFps": 29.38606130224961,
+    "meanAudioDb": -52.7,
+    "rapid": {
+      "frames": 965,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 4,
+      "peakBursts": 6,
+      "anchorError": 0,
+      "unit": 1.231579,
+      "peakCast": 1,
+      "peakTrigger": 1,
+      "sweepDistance": 192.00002,
+      "peakCurtain": 0.9696971,
+      "curtainNow": 0.48,
+      "spritePaths": [],
+      "peakSounds": 2,
+      "audioEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        }
+      ],
+      "pileEmpty": true,
+      "pileCount": 0,
+      "opening": 1,
+      "stateChanges": 16,
+      "minOpening": 0.16697721,
+      "maxOpening": 1,
+      "backCorrect": true,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "903b3425860e1058df2fa5e23e002d3eb429c069b80d4d8b11f16a40f4c7b0ce",
+      "packSha256": "d88612f62a11792c22dbf79bac217588a6ea76ba6b64e49225d4e1641d327497"
+    },
+    "scope": "visual and audio revision",
+    "audio": {
+      "normalEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        }
+      ],
+      "peakNormalVoices": 1,
+      "fastConfirmations": 8,
+      "peakFastVoices": 2,
+      "interruptAndSpeedSwitch": "pass"
+    }
+  },
+  "beta": {
+    "statePoses": {
+      "occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 0
+      },
+      "empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1
+      },
+      "stack-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1
+      },
+      "refilled-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 2
+      },
+      "second-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3
+      }
+    },
+    "observations": 38,
+    "captureFps": 29.694632049796258,
+    "meanAudioDb": -45.1,
+    "rapid": {
+      "frames": 969,
+      "casts": 1,
+      "confirmations": 8,
+      "energy": 8,
+      "peakDeliveries": 4,
+      "peakBursts": 6,
+      "anchorError": 0,
+      "unit": 1.231579,
+      "peakCast": 1,
+      "peakTrigger": 1,
+      "sweepDistance": 192.00002,
+      "peakCurtain": 0.9721058,
+      "curtainNow": 0.48,
+      "spritePaths": [],
+      "peakSounds": 1,
+      "audioEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1.6,
+          "bus": "SFX"
+        }
+      ],
+      "pileEmpty": true,
+      "pileCount": 0,
+      "opening": 1,
+      "stateChanges": 16,
+      "minOpening": 0.14171885,
+      "maxOpening": 1,
+      "backCorrect": true,
+      "hudCorrect": true,
+      "exited": false
+    },
+    "lifecycle": "interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "4fb1ed74943dbf1b438d08f3654fad13bb075d8582b438da0222ffdf992b795b",
+      "packSha256": "d88612f62a11792c22dbf79bac217588a6ea76ba6b64e49225d4e1641d327497"
+    },
+    "scope": "visual and audio revision",
+    "audio": {
+      "normalEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        }
+      ],
+      "peakNormalVoices": 1,
+      "fastConfirmations": 8,
+      "peakFastVoices": 1,
+      "interruptAndSpeedSwitch": "pass"
+    }
+  }
+}

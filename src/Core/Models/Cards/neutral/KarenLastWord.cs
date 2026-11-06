@@ -1,5 +1,8 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Settings;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -9,6 +12,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Audio;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
@@ -39,29 +43,42 @@ public sealed class KarenLastWord : KarenBaseCardModel
         if (!Condition(base.Owner, this)) { return; }
         if (CombatState == null) return;
 
-        bool isLocalOwner = LocalContext.IsMe(Owner);
-        bool playedVideo = false;
-        CombatBgmReplacementManager.StopForCutscene();
-        KarenAudioManager.PlaySfx(KarenSfx.LastWord, volume: 1f);
-        if (isLocalOwner)
+        bool cutscene = false;
+        try
         {
-            playedVideo = NKarenLastWordVideoVfx.Play();
-            if (!playedVideo)
-                NKarenLastWordVfx.Play();
+            // Cmd.Wait skips Instant/non-interactive play; skip the cutscene with it.
+            if (KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant)
+            {
+                bool isLocalOwner = LocalContext.IsMe(Owner);
+                bool playedVideo = false;
+                cutscene = true;
+                CombatBgmReplacementManager.StopForCutscene();
+                KarenAudioManager.PlaySfx(KarenSfx.LastWord, volume: 1f);
+                if (isLocalOwner)
+                {
+                    playedVideo = NKarenLastWordVideoVfx.Play(Owner);
+                    if (!playedVideo)
+                        NKarenLastWordVfx.Play(Owner);
+                }
+                else
+                {
+                    NKarenLastWordVfx.Play(Owner);
+                }
+
+                bool shouldWaitForVideoSequence = playedVideo || (!isLocalOwner && NKarenLastWordVideoVfx.HasVideo());
+                await Cmd.Wait(shouldWaitForVideoSequence
+                    ? NKarenLastWordVideoVfx.VideoSequenceSeconds
+                    : NKarenLastWordVideoVfx.LettersOnlySequenceSeconds);
+            }
+
+            await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromPlayedCard(this, cardPlay).TargetingAllOpponents(CombatState)
+                //.WithHitFx(VfxCmd.slashPath)
+                .Execute(choiceContext);
         }
-        else
+        finally
         {
-            NKarenLastWordVfx.Play();
+            if (cutscene) CombatBgmReplacementManager.EndCutscene();
         }
-
-        bool shouldWaitForVideoSequence = playedVideo || (!isLocalOwner && NKarenLastWordVideoVfx.HasVideo());
-        await Cmd.Wait(shouldWaitForVideoSequence
-            ? NKarenLastWordVideoVfx.VideoSequenceSeconds
-            : NKarenLastWordVideoVfx.LettersOnlySequenceSeconds);
-
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).TargetingAllOpponents(CombatState)
-            //.WithHitFx(VfxCmd.slashPath)
-            .Execute(choiceContext);
     }
 
     protected override bool IsPlayable => Condition(base.Owner, this);

@@ -1,32 +1,30 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
-using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 
 /// <summary>
-/// 命运的齿轮 - 复制所有手牌到约定牌堆
+/// 命运的齿轮 - 每回合从约定牌堆选择一张牌自动打出
 /// </summary>
 public sealed class KarenGeer : KarenBaseCardModel
 {
-    public KarenGeer() : base(3, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    public KarenGeer() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
 
     protected override HashSet<CardTag> CanonicalTags => [KarenCustomEnum.PromisePileRelated];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (CombatState == null) return;
-        await PromisePileManager.CopyHandToPromisePile(Owner, CombatState);
+        KarenGeerVfxManager.PlayCast(Owner);
+        await Cmd.CustomScaledWait(KarenGeerVfxManager.CastDuration, KarenGeerVfxManager.CastDuration);
+        await PowerCmd.Apply<KarenGeerPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

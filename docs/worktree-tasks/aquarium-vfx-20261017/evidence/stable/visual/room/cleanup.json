@@ -1,0 +1,23 @@
+{
+  "roomId": 1297398896533,
+  "live": 0,
+  "layers": 0,
+  "selecting": 0,
+  "hand": 5,
+  "draw": 5,
+  "promise": 0,
+  "amount": 0,
+  "effects": [
+    {
+      "Frames": 486,
+      "SelectionFrames": 44,
+      "ParticleFrames": 486,
+      "Casts": 1,
+      "Turns": 1,
+      "Drawn": 1,
+      "Moved": 1,
+      "Exited": true,
+      "Ignored": true
+    }
+  ]
+}

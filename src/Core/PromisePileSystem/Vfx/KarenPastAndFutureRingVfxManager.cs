@@ -30,25 +30,25 @@ public static class KarenPastAndFutureRingVfxManager
     {
         if (player?.Creature == null) return;
 
+        var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
+        if (creatureNode == null) return;
+
         var cachedNode = RingNodes.Get(player);
-        if (GodotObject.IsInstanceValid(cachedNode))
+        if (GodotObject.IsInstanceValid(cachedNode) && !cachedNode!.IsQueuedForDeletion() && cachedNode.BelongsTo(creatureNode))
         {
             cachedNode!.Restart();
             return;
         }
-
-        var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
-        if (creatureNode == null) return;
 
         var parent = creatureNode.GetParent();
         if (parent == null) return;
 
         foreach (var child in parent.GetChildren())
         {
-            if (child is NKarenPastAndFutureRingVfx existing)
+            if (child is NKarenPastAndFutureRingVfx existing && !existing.IsQueuedForDeletion() && existing.BelongsTo(creatureNode))
             {
                 existing.Init(creatureNode);
-                MoveAboveCreature(parent, existing, creatureNode);
+                MoveBehindCreature(parent, existing, creatureNode);
                 existing.Restart();
                 RingNodes.Set(player, existing);
                 return;
@@ -57,14 +57,14 @@ public static class KarenPastAndFutureRingVfxManager
 
         var newNode = new NKarenPastAndFutureRingVfx();
         parent.AddChildSafely(newNode);
-        MoveAboveCreature(parent, newNode, creatureNode);
+        MoveBehindCreature(parent, newNode, creatureNode);
         newNode.Init(creatureNode);
         RingNodes.Set(player, newNode);
     }
 
-    private static void MoveAboveCreature(Node parent, Node ringNode, Node creatureNode)
+    private static void MoveBehindCreature(Node parent, Node ringNode, Node creatureNode)
     {
-        var targetIndex = Mathf.Min(creatureNode.GetIndex() + 1, parent.GetChildCount() - 1);
+        var targetIndex = creatureNode.GetIndex() - (ringNode.GetIndex() < creatureNode.GetIndex() ? 1 : 0);
         parent.MoveChild(ringNode, targetIndex);
     }
 

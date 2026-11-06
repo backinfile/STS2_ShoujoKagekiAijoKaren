@@ -1,0 +1,160 @@
+{
+  "stable": {
+    "captureAudit": {
+      "encoder": "h264_nvenc",
+      "captureFps": 29.87112048822659,
+      "repeatedFrames": 1,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 239,
+      "longestUnchangedClockSeconds": 0.06666666666666667,
+      "largestClockJumpSeconds": 0.05999999999999983,
+      "clockSeconds": 7.95,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.016666999999999987,
+      "strictlyIncreasingPts": true
+    },
+    "recordingEncoder": "h264_nvenc",
+    "statePoses": {
+      "occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 0,
+        "radius": 92,
+        "build": 1,
+        "strength": 0.82
+      },
+      "empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 94,
+        "build": 1,
+        "strength": 0.58
+      },
+      "stack-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 94,
+        "build": 1,
+        "strength": 0.58
+      },
+      "refilled-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 2,
+        "radius": 92,
+        "build": 1,
+        "strength": 0.82
+      },
+      "second-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3,
+        "radius": 94,
+        "build": 1,
+        "strength": 0.58
+      }
+    },
+    "observations": 14,
+    "captureFps": 29.036890409859698,
+    "meanAudioDb": -53.0,
+    "rapid": null,
+    "lifecycle": "creation, gain interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "ffe44576449ac9e28e3ab52781c9a6f5e58d8ad17182a27e4ac95d0f9725c739",
+      "packSha256": "9eaeef0d3c3891cb5a35acdd1af59958b210f5381c62f8826fff30bded82cc14"
+    },
+    "scope": "visual revision",
+    "audio": null
+  },
+  "beta": {
+    "captureAudit": {
+      "encoder": "h264_nvenc",
+      "captureFps": 30.00302693037944,
+      "repeatedFrames": 0,
+      "droppedFrames": 0,
+      "decodedFrames": 240,
+      "distinctClockValues": 240,
+      "longestUnchangedClockSeconds": 0.03333333333333333,
+      "largestClockJumpSeconds": 0.0600000000000005,
+      "clockSeconds": 7.970000000000001,
+      "videoSeconds": 7.966667,
+      "timelineDriftSeconds": 0.0033330000000004745,
+      "strictlyIncreasingPts": true
+    },
+    "recordingEncoder": "h264_nvenc",
+    "statePoses": {
+      "occupied-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 0,
+        "radius": 92,
+        "build": 1,
+        "strength": 0.82
+      },
+      "empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 94,
+        "build": 1,
+        "strength": 0.58
+      },
+      "stack-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 1,
+        "radius": 94,
+        "build": 1,
+        "strength": 0.58
+      },
+      "refilled-idle": {
+        "empty": false,
+        "count": 1,
+        "opening": 0,
+        "changes": 2,
+        "radius": 92,
+        "build": 1,
+        "strength": 0.82
+      },
+      "second-empty-idle": {
+        "empty": true,
+        "count": 0,
+        "opening": 1,
+        "changes": 3,
+        "radius": 94,
+        "build": 1,
+        "strength": 0.58
+      }
+    },
+    "observations": 14,
+    "captureFps": 29.496941109579048,
+    "meanAudioDb": -45.1,
+    "rapid": null,
+    "lifecycle": "creation, gain interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "6247e91cc40a0557dd998be1026572bf6b7c02e4e73c70e7fdd50733aef74834",
+      "packSha256": "9eaeef0d3c3891cb5a35acdd1af59958b210f5381c62f8826fff30bded82cc14"
+    },
+    "scope": "visual revision",
+    "audio": null
+  }
+}

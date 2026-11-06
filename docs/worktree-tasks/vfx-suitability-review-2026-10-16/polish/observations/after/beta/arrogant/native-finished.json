@@ -1,0 +1,42 @@
+{
+  "preparing": false,
+  "nodeCount": 0,
+  "nodes": [],
+  "casts": 0,
+  "spots": 0,
+  "emptyCasts": 0,
+  "drawCasts": 0,
+  "prematureExitFrames": 0,
+  "lightingGapFrames": 0,
+  "heldLightFrames": 0,
+  "timeline": [],
+  "promise": [],
+  "draw": [
+    "KAREN_STRIKE",
+    "KAREN_STRIKE",
+    "KAREN_DEFEND",
+    "KAREN_DEFEND",
+    "KAREN_DEFEND"
+  ],
+  "discard": [],
+  "started": [
+    {
+      "id": "KAREN_ARROGANT",
+      "auto": false
+    },
+    {
+      "id": "KAREN_ARROGANT",
+      "auto": false
+    }
+  ],
+  "finished": [
+    {
+      "id": "KAREN_ARROGANT",
+      "auto": false
+    },
+    {
+      "id": "KAREN_ARROGANT",
+      "auto": false
+    }
+  ]
+}

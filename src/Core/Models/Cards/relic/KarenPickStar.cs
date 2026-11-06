@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
+using ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ public sealed class KarenPickStar : KarenDisableRelicBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DisableRelicCmd.DisableRelic(Owner, DisableRelicVar.IntValue);
+        await DisableRelicCmd.DisableRelic(Owner, DisableRelicVar.IntValue, NDisableRelicAbsorbVfx.TargetKind.Energy);
         // 获得能量
         await PlayerCmd.GainEnergy((int)DynamicVars.Energy.BaseValue, Owner);
     }

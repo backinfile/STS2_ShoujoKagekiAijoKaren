@@ -1,0 +1,6 @@
+const fs=require('fs'),path=require('path'),{chromium}=require('playwright');
+const root=__dirname,dir=path.join(root,'nonagon');fs.mkdirSync(dir,{recursive:true});
+const vertices=Array.from({length:9},(_,i)=>{const a=(-90+i*40)*Math.PI/180;return [256+216*Math.cos(a),256+216*Math.sin(a)];});
+const svg='<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><polygon points="'+vertices.map(p=>p.map(n=>n.toFixed(5)).join(',')).join(' ')+'" fill="#bcbcbc"/></svg>';
+fs.writeFileSync(path.join(dir,'regular-nonagon-guide.svg'),svg);fs.writeFileSync(path.join(dir,'geometry.json'),JSON.stringify({sides:9,center:[256,256],radius:216,angleStepDegrees:40,orientation:'one top vertex, one flat bottom edge',vertices},null,2)+'\n');
+(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.KAREN_PREVIEW_BROWSER});const page=await browser.newPage({viewport:{width:512,height:512},deviceScaleFactor:1});await page.setContent('<html><style>html,body{margin:0;background:transparent}svg{display:block}</style>'+svg);await page.screenshot({path:path.join(dir,'regular-nonagon-guide.png'),omitBackground:true});await browser.close();console.log(JSON.stringify({sides:9,guide:path.join(dir,'regular-nonagon-guide.png')}));})().catch(e=>{console.error(e);process.exitCode=1});

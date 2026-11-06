@@ -1,0 +1,76 @@
+{
+  "source": "Original deterministic NumPy synthesis; no recorded samples",
+  "rate": 44100,
+  "channels": 2,
+  "format": "PCM S16LE",
+  "baseline": [
+    {
+      "file": "karen_entrance_stage_light.wav",
+      "duration": 1.04,
+      "peakDb": -1.500578431383062,
+      "rmsDb": -4.935669654612853,
+      "gain": 0.24,
+      "preBusPeakDb": -13.896353597150942,
+      "preBusRmsDb": -17.33144482038073,
+      "clippedSamples": 0,
+      "sha256": "dc0ef714ffca51eb582241fe941f66cac955e834617ed9203ca4f94ddf4829db"
+    },
+    {
+      "file": "karen_stage_light.mp3",
+      "duration": 1.2277551020408164,
+      "peakDb": -15.14311553836614,
+      "rmsDb": -31.922925470903607,
+      "gain": 0.13,
+      "preBusPeakDb": -32.86424849222941,
+      "preBusRmsDb": -49.64405842476687,
+      "clippedSamples": 0,
+      "sha256": "fc4fc0424d4243d0ba993c856efc1e4bded3f77e6db8b7c6e19ffeacde74a70f"
+    },
+    {
+      "file": "karen_story_energy.wav",
+      "duration": 0.72,
+      "peakDb": -9.385829001042946,
+      "rmsDb": -23.009150241261015,
+      "gain": 0.14,
+      "preBusPeakDb": -26.463268287478186,
+      "preBusRmsDb": -40.086589527696255,
+      "clippedSamples": 0,
+      "sha256": "4f35ac8f2990dbd08a75f1a3460ea5a14d5ce7e9115fba617f0bd3addeae51d8"
+    }
+  ],
+  "cues": [
+    {
+      "file": "karen_waiting_curtain_rise.wav",
+      "duration": 0.94,
+      "peakDb": -6.500123505060556,
+      "rmsDb": -24.46009982476518,
+      "gain": 0.4,
+      "preBusPeakDb": -14.458923678501307,
+      "preBusRmsDb": -32.41889999820594,
+      "clippedSamples": 0,
+      "sha256": "a2d62802d52f7656092f62e2985a50b98a0cd0a204466263266e72e030d5eadf"
+    },
+    {
+      "file": "karen_waiting_curtain_pulse.wav",
+      "duration": 0.38,
+      "peakDb": -8.000117030469568,
+      "rmsDb": -23.44407998197976,
+      "gain": 0.34,
+      "preBusPeakDb": -17.370538689624464,
+      "preBusRmsDb": -32.814501641134655,
+      "clippedSamples": 0,
+      "sha256": "5a01e910dd9853b14327d41a8baa60722083784e6462b5c9b734d36ab27d01f8"
+    },
+    {
+      "file": "karen_waiting_energy_arrive.wav",
+      "duration": 0.22,
+      "peakDb": -10.000126940172311,
+      "rmsDb": -23.180521526538975,
+      "gain": 0.26,
+      "preBusPeakDb": -21.70065998075595,
+      "preBusRmsDb": -34.88105456712261,
+      "clippedSamples": 0,
+      "sha256": "7d821c1754fbe466deea8362f0e61da225fe627246384907f7d4a9be9d56b3d9"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "branch": "main",
+  "head": "782a71ebd767a5c168ffabbaf06e15008b6bf146",
+  "diffSha256": "f59a18633af8be7459ba284d32e7e69ecbac4551a6c227618cdbe89692a0a2f6",
+  "files": [
+    {
+      "status": " M",
+      "path": "docs/01.文档总览与索引.md",
+      "sha256": "ebf8660251cbb2bf4787ec260f0890dcad3d4b9d752696a74ff1ac1b4cd37649"
+    },
+    {
+      "status": " M",
+      "path": "docs/07.UI、音频与表现系统.md",
+      "sha256": "46e0f513ba969144f45cc85ebce867a7a07330fc766c914cefafa21070301394"
+    },
+    {
+      "status": " M",
+      "path": "docs/testing/mcp-batch-matrix.md",
+      "sha256": "94ec89a1cc88a73384c6086d0ceb7c770c594092365d6057d4620c78616fda15"
+    },
+    {
+      "status": " M",
+      "path": "src/Core/Audio/CombatBgmReplacementManager.cs",
+      "sha256": "358ff5aa31d4c3b99687008ac7bd9fa074bec363e827058e3c7f956027ecf3e8"
+    },
+    {
+      "status": " M",
+      "path": "src/Core/PromisePileSystem/Vfx/KarenVfxComposition.cs",
+      "sha256": "30d330f2cb9f8b2b95e4113032bdc8bd4cc58058f25bec6892fbd1a5145580fd"
+    },
+    {
+      "status": " M",
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenArrogantVfx.cs",
+      "sha256": "d7d23958c3de5626252d3107cfc1249c6ac92c3a8daebb15f81050a7f3b28206"
+    },
+    {
+      "status": " M",
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenPassionVfx.cs",
+      "sha256": "438e856d0ce89359a6ad29d641513d2501866a59f9a986f4005d11dc4ceb2964"
+    },
+    {
+      "status": " M",
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.Drawing.cs",
+      "sha256": "1c19fc5f0ad592cb1f5f32fd27008f1561c06aeb6516d4063f1d02e7e1a2f68d"
+    },
+    {
+      "status": " M",
+      "path": "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs",
+      "sha256": "f6c03996d8986ee3040b24a3b6bd6c3d3d12030f4d764de40e32f105c7d84167"
+    },
+    {
+      "status": " M",
+      "path": "tools/dev_matrix_case.ps1",
+      "sha256": "cb8d6caa1153dcae9b48ee6e17e045ba32532307dd11c2bb5bf27f0730fb56f4"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/catalog/README.md",
+      "sha256": "37926be05ace2c9d0b5ca9ba888215479f3b9ad2c640d27cbd8dfd2e0ee4e940"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/catalog/benefit_scenes.py",
+      "sha256": "4d247d4bf535edb92d4091d90ad241d459007105e850006c33d7f0fa2611c3c9"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/catalog/verify_runtime.py",
+      "sha256": "18e74abd49e47f38e5adda55b60999139e10d13ef3ab2e5fb1f0effbfffdac55"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/exchange-fate/README.md",
+      "sha256": "7de4734399d10b86eebcabbf4127714ad8208cc567b72dccf6fee4216e2b7448"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/exchange-fate/verify.py",
+      "sha256": "b53b6e4a36fbadb63fda36bac60cc9474f8323ee76eed91d1c3865d429eaf8df"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/six-card/README.md",
+      "sha256": "73acf70b7beaab8b07bc604be82c4af61a9ee8e4fc92df0edacd38e598de569e"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/six-card/SixCardProbe.cs",
+      "sha256": "b36da6a7f7c913809d7e2dc915fef63686135b5e3329bf1bfacf0f9fc13ec254"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/six-card/audit_log.py",
+      "sha256": "6ba5581df4f3954dc0ee8df004d6f27d5b7a62843b03f39cc8a7b1b18bf61f06"
+    },
+    {
+      "status": " M",
+      "path": "tools/vfx/six-card/verify_multiplayer.py",
+      "sha256": "2d800647efaa3f341ab6b274ecced1afd76d877d09bd95ba316ce08c7b3883c1"
+    },
+    {
+      "status": "??",
+      "path": "docs/20.卡牌特效制作步骤提示词.md",
+      "sha256": "f583ee87d1af18daf80b4d1acf971fbe7d94538c9fccf47b654fa273b7ffb989"
+    },
+    {
+      "status": "??",
+      "path": "docs/21.特效总览与兼容约定.md",
+      "sha256": "bfe377015a4b1d3aa27801136a307867998a5a6abd9add55338119b9e07d8c76"
+    },
+    {
+      "status": "??",
+      "path": "docs/testing/full-matrix-vfx-boundaries-2026-10-16.md",
+      "sha256": "f007ccb8663ddbe8628d5a4b057cafcbe22d5744e744eca966002d2322ec55df"
+    },
+    {
+      "status": "??",
+      "path": "docs/testing/vfx-coexistence-2026-10-16.md",
+      "sha256": "a8333052faca9346dd247fb8f76682c154f6f4a304a70a2f8e81649e68fad272"
+    },
+    {
+      "status": "??",
+      "path": "src/Core/Vfx/KarenPowerVfxAnchor.cs",
+      "sha256": "1e58e4959a8d9a96478a13c5af9ac18f1bd06bbc84af6d2b78eb3b9f6ba77e16"
+    },
+    {
+      "status": "??",
+      "path": "src/Core/Vfx/KarenPowerVfxAnchor.cs.uid",
+      "sha256": "665e017d1509b894568c31e7a2563ba6f10585aaa53f5ed6bb4763e007eeb8c1"
+    },
+    {
+      "status": "??",
+      "path": "tools/clean_generated_artifacts.ps1",
+      "sha256": "2465dfb6a2bc5d4b1ef66a1e2c2990277a3b94b33a03e7b43d8f72bf187443b9"
+    },
+    {
+      "status": "??",
+      "path": "tools/preview_cleanup.ps1",
+      "sha256": "fd6bafe4dcb4353558069de06d57e40266c5049230aaa0a48b02342a19ecb750"
+    },
+    {
+      "status": "??",
+      "path": "tools/test_preview_cleanup.ps1",
+      "sha256": "418c3758b0c266c83dc1071f1d910bfa8e5af933f996321c1fb0d97c6aabf205"
+    },
+    {
+      "status": "??",
+      "path": "tools/vfx/catalog/CoexistenceCmd.cs",
+      "sha256": "21be7bdbe792db5cc0137e1947c516c81e49bbc6e1d428ef6743c82181858ae5"
+    },
+    {
+      "status": "??",
+      "path": "tools/vfx/catalog/coexistence.py",
+      "sha256": "c4e728d398cc987ccc500fd2af32d87a5df13f331ed27a60d20c4be7c758116a"
+    },
+    {
+      "status": "??",
+      "path": "tools/vfx/catalog/recent_stack.py",
+      "sha256": "35dbdd6c0eac6d63f839d2788c12d0cf40907762d5c0073147a49e3fce99afd1"
+    }
+  ],
+  "note": "Read-only observation after concurrent original-checkout edits. This task did not write or restore original checkout files."
+}

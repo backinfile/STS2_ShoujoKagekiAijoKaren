@@ -1,0 +1,22 @@
+{
+  "live": 1,
+  "layers": 2,
+  "selecting": 0,
+  "hand": 0,
+  "draw": 0,
+  "promise": 1,
+  "amount": 1,
+  "effects": [
+    {
+      "Frames": 368,
+      "SelectionFrames": 1,
+      "ParticleFrames": 368,
+      "Casts": 1,
+      "Turns": 1,
+      "Drawn": 0,
+      "Moved": 1,
+      "Exited": false,
+      "Ignored": true
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "modelCount": 9,
+  "visualCount": 9,
+  "missing": [],
+  "unexpected": [],
+  "unexpectedPileIcons": [],
+  "burnOverlays": [
+    {
+      "card": "KAREN_DEFEND",
+      "expected": 0,
+      "actual": 0,
+      "valid": true
+    },
+    {
+      "card": "KAREN_DEFEND",
+      "expected": 0,
+      "actual": 0,
+      "valid": true
+    },
+    {
+      "card": "KAREN_DEFEND",
+      "expected": 0,
+      "actual": 0,
+      "valid": true
+    },
+    {
+      "card": "KAREN_DEFEND",
+      "expected": 0,
+      "actual": 0,
+      "valid": true
+    },
+    {
+      "card": "KAREN_DEFEND",
+      "expected": 0,
+      "actual": 0,
+      "valid": true
+    },
+    {
+      "card": "KAREN_DEFEND",
+      "expected": 0,
+      "actual": 0,
+      "valid": true
+    },
+    {
+      "card": "KAREN_DEFEND",
+      "expected": 0,
+      "actual": 0,
+      "valid": true
+    },
+    {
+      "card": "KAREN_DEFEND",
+      "expected": 0,
+      "actual": 0,
+      "valid": true
+    },
+    {
+      "card": "KAREN_TOWER_OF_PROMISE",
+      "expected": 0,
+      "actual": 0,
+      "valid": true
+    }
+  ]
+}

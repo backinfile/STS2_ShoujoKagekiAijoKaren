@@ -1,0 +1,79 @@
+{
+  "stage": "restore",
+  "outcome": "delivered",
+  "human_note": "",
+  "source": "docs\\design\\assets\\relic-style-v6\\water_bottle.png",
+  "source_sha256": "cc3ba4eb9bbd5aaa25296650221523badd5229b5218625780e8b82bfcb700c80",
+  "final": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_restored.png",
+  "final_sha256": "6e61cb3a0118c1f86fc0602b369afb878fe1217e224642eba5d216e4009dbdb7",
+  "final_is_source_copy": false,
+  "regen_rounds": 0,
+  "mode": "rules",
+  "diag": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_input_diag.json",
+  "verify": {
+    "passed": true,
+    "reasons": [],
+    "board": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_verify_board.png"
+  },
+  "steps": [
+    {
+      "n": 1,
+      "current": "docs\\design\\assets\\relic-style-v6\\water_bottle.png",
+      "action": "diagnose",
+      "by": "rules",
+      "reason": "Diagnosis is required before treatment.",
+      "result": {
+        "action": "diagnose",
+        "lattice": true,
+        "granule_level": "none",
+        "scale_tile_pct": 0.0,
+        "scale_level": "none",
+        "board": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_input_diag_board.png",
+        "scale_heatmap": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_input_scaleheat.png"
+      }
+    },
+    {
+      "n": 2,
+      "current": "docs\\design\\assets\\relic-style-v6\\water_bottle.png",
+      "action": "notch",
+      "by": "rules",
+      "reason": "An isolated periodic lattice was detected.",
+      "result": {
+        "action": "notch",
+        "output": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_notch.png",
+        "components_above_tau": 559,
+        "isolated_components_kept": 557,
+        "rejected_large_components": 2,
+        "notched_bins": 1206,
+        "notched_bins_pct": 0.0631,
+        "max_peak_excess": 2.812,
+        "energy_removed_pct": 0.05284
+      }
+    },
+    {
+      "n": 3,
+      "current": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_notch.png",
+      "action": "verify",
+      "by": "rules",
+      "reason": "Verify aligned filtering distortion.",
+      "result": {
+        "action": "verify",
+        "passed": true,
+        "reasons": [],
+        "board": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_verify_board.png"
+      }
+    },
+    {
+      "n": 4,
+      "current": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_notch.png",
+      "action": "finish",
+      "by": "rules",
+      "reason": "No further processing is required.",
+      "result": {
+        "action": "finish"
+      }
+    }
+  ],
+  "acceptance": "A person must inspect the boards and decide whether to accept the candidate.",
+  "time": "2026-10-11T16:22:29+08:00"
+}

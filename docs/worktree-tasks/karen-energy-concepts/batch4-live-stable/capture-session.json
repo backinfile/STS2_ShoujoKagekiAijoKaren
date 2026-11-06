@@ -1,0 +1,9 @@
+{
+  "gameVersion": "v0.107.1",
+  "port": 15637,
+  "environment": "isolated stable singleplayer",
+  "restoredStyle": "original",
+  "restoredEnergy": "3/3",
+  "ownedProcessClosed": true,
+  "formalGameDirectoriesModified": false
+}

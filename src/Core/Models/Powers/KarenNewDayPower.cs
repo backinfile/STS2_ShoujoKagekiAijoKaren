@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 
@@ -18,6 +19,27 @@ public class KarenNewDayPower : PowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerType Type => PowerType.Buff;
 
+#if STS2_BETA
+    public override CardLocation ModifyCardPlayResultLocation(
+        CardModel card,
+        bool isAutoPlay,
+        ResourceInfo resources,
+        CardLocation location)
+    {
+        if (card.Owner.Creature != base.Owner ||
+            card is KarenBaseCardModel { SkipNewDayPower: true } ||
+            location.pileType != PileType.Discard)
+        {
+            return location;
+        }
+
+        location.pileType = KarenCustomEnum.PromisePile;
+        location.position = CardPilePosition.Bottom;
+        return location;
+    }
+
+    public override async Task AfterModifyingCardPlayResultLocation(CardModel card, CardLocation location)
+#else
     public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(
         CardModel card,
         bool isAutoPlay,
@@ -30,17 +52,23 @@ public class KarenNewDayPower : PowerModel
             return (pileType, position);
         }
 
+        if (card is KarenBaseCardModel { SkipNewDayPower: true })
+        {
+            return (pileType, position);
+        }
+
         if (pileType != PileType.Discard)
         {
             return (pileType, position);
         }
-        return (KarenCustomEnum.PromisePile, CardPilePosition.Top);
+        return (KarenCustomEnum.PromisePile, CardPilePosition.Bottom);
     }
 
     public override async Task AfterModifyingCardPlayResultPileOrPosition(
         CardModel card,
         PileType pileType,
         CardPilePosition position)
+#endif
     {
         if (card.Owner.Creature != base.Owner)
         {

@@ -1,0 +1,82 @@
+{
+  "states": [
+    {
+      "name": "state-debuff-hurt",
+      "title": "虚弱/脆弱/易伤，原生受击与攻击姿态",
+      "setup": [
+        "KAREN_POSITION0"
+      ],
+      "debuff": true
+    },
+    {
+      "name": "state-small-flip-stack",
+      "title": "燃烧/光带/觉醒/Position 0，半尺寸翻转",
+      "setup": [
+        "KAREN_BURN",
+        "KAREN_PAST_AND_FUTURE",
+        "KAREN_FORM",
+        "KAREN_POSITION0"
+      ],
+      "transforms": [
+        "small",
+        "flip"
+      ]
+    },
+    {
+      "name": "state-void-large-offset",
+      "title": "空虚/燃烧/觉醒，放大位移旋转",
+      "void": true,
+      "setup": [
+        "KAREN_BURN",
+        "KAREN_FORM",
+        "KAREN_POSITION0"
+      ],
+      "transforms": [
+        "large",
+        "offset",
+        "rotate"
+      ]
+    },
+    {
+      "name": "state-reproduce-stretch",
+      "title": "再生产，非均匀缩放与燃料收益",
+      "setup": [
+        "KAREN_STAGE_REPRODUCE"
+      ],
+      "transforms": [
+        "stretch"
+      ]
+    },
+    {
+      "name": "state-temporary-material",
+      "title": "临时替换人物材质，受击后恢复呼吸与新演出",
+      "setup": [
+        "KAREN_FORM",
+        "KAREN_POSITION0"
+      ],
+      "material": true
+    },
+    {
+      "name": "state-death-revive",
+      "title": "死亡表现/原生治疗复活，以及蜥蜴尾巴濒死恢复",
+      "setup": [
+        "KAREN_BURN",
+        "KAREN_FORM",
+        "KAREN_POSITION0"
+      ],
+      "revive": true
+    }
+  ],
+  "actors": [
+    "IRONCLAD",
+    "SILENT",
+    "DEFECT",
+    "REGENT",
+    "NECROBINDER"
+  ],
+  "notes": [
+    "Both game versions; targeted single-player tests.",
+    "Death animation fixture and native Lizard Tail recovery are recorded separately.",
+    "Non-Karen pile bootstrap uses actual Fall before observers, without forced tower creation."
+  ]
+}

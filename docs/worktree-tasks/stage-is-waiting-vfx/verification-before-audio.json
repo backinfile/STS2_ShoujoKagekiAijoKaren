@@ -1,0 +1,34 @@
+{
+  "stable": {
+    "observations": 7,
+    "captureFps": 28.989527992060093,
+    "meanAudioDb": -49.0,
+    "rapid": null,
+    "lifecycle": "power-removal only",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "c4a0d9f9ffce42ef49e1c67124af5ef98cf1b9792d19f21b3e125164fc7fef64",
+      "packSha256": "170e9d71a9842cc1e31fbd59966c1432330d0e1a3c774a21ea0ce1d09e5b086d"
+    },
+    "scope": "visual revision"
+  },
+  "beta": {
+    "observations": 7,
+    "captureFps": 29.797040038215485,
+    "meanAudioDb": -44.0,
+    "rapid": null,
+    "lifecycle": "power-removal only",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "624caa42ba4c495e52b0b6c723d1983881568a464035776d1a9e78fa845bd016",
+      "packSha256": "170e9d71a9842cc1e31fbd59966c1432330d0e1a3c774a21ea0ce1d09e5b086d"
+    },
+    "scope": "visual revision"
+  }
+}

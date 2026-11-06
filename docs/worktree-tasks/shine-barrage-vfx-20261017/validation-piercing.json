@@ -1,0 +1,78 @@
+{
+  "stable": {
+    "passed": 7,
+    "observed_nodes": 39,
+    "max_anchor_error": 6.1035156e-05,
+    "unexpectedErrors": [],
+    "startupDiagnostics": [],
+    "minPenetrationBeyondSilhouette": 79.54724,
+    "recordings": [
+      {
+        "case": "normal",
+        "capture_fps": 28.863715824419256,
+        "repeated": 5,
+        "written": 120,
+        "encoder": "h264_nvenc",
+        "mean_db": -39.1,
+        "peak_db": -14.1
+      },
+      {
+        "case": "upgrade",
+        "capture_fps": 29.044375402112355,
+        "repeated": 5,
+        "written": 129,
+        "encoder": "h264_nvenc",
+        "mean_db": -38.5,
+        "peak_db": -13.0
+      },
+      {
+        "case": "replay",
+        "capture_fps": 28.977152050379754,
+        "repeated": 9,
+        "written": 242,
+        "encoder": "h264_nvenc",
+        "mean_db": -37.3,
+        "peak_db": -12.9
+      }
+    ]
+  },
+  "beta": {
+    "passed": 7,
+    "observed_nodes": 39,
+    "max_anchor_error": 6.1035156e-05,
+    "unexpectedErrors": [],
+    "startupDiagnostics": [
+      "ERROR: Invalid Task ID"
+    ],
+    "minPenetrationBeyondSilhouette": 79.54724,
+    "recordings": [
+      {
+        "case": "normal",
+        "capture_fps": 29.79399082745674,
+        "repeated": 1,
+        "written": 120,
+        "encoder": "h264_nvenc",
+        "mean_db": -39.1,
+        "peak_db": -13.5
+      },
+      {
+        "case": "upgrade",
+        "capture_fps": 29.881310046666265,
+        "repeated": 1,
+        "written": 130,
+        "encoder": "h264_nvenc",
+        "mean_db": -38.7,
+        "peak_db": -13.7
+      },
+      {
+        "case": "replay",
+        "capture_fps": 29.36462091742627,
+        "repeated": 6,
+        "written": 244,
+        "encoder": "h264_nvenc",
+        "mean_db": -37.4,
+        "peak_db": -12.5
+      }
+    ]
+  }
+}

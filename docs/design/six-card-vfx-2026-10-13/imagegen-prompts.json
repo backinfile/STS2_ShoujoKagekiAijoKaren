@@ -1,0 +1,20 @@
+[
+  {
+    "name": "cake",
+    "prompt": "Use case: stylized-concept. Asset type: one transparent sprite prop for a 2D anime card game's food-to-potion animation. Generate a single warm yellow banana sponge cake slice in a white fluted paper wrapper, on a small ivory saucer. The slice is rectangular, soft porous golden sponge with baked brown top and one small curved banana slice garnish; not a layered cream wedding cake. Anime background painting style with clean confident hand-painted edges, gentle cel shading and warm kitchen light. Three-quarter view slightly from above. Isolate the entire object centered, occupying about 75% of the canvas width, generous fully transparent margins. No table, no backdrop, no character, no hands, no text, no labels, no magic, no particles, no baked-in glow, no surrounding shadows. Strong simple silhouette readable at 180 pixels wide. Fully transparent background, preserve natural alpha edges.",
+    "tool": "built-in image_gen",
+    "transparent_background": true
+  },
+  {
+    "name": "hotpot",
+    "prompt": "A clean isolated 2D anime game sprite: one cream ceramic Japanese hotpot with handles, seen in three-quarter perspective, filled with crab claws, tofu cubes, mushrooms, cabbage and carrot flowers. Compact oval bowl silhouette. Hand-drawn cel animation background prop, flat color shapes, simple three-tone shading, clean thin brown linework, not photorealistic. Transparent PNG cutout. The object must float in empty transparent space with wide clear margin on all sides. No surface, no ground, no background, no vignette, no haze, no glow, no steam, no cast shadow, no ambient halo. Outside the exact outline of the pot and ingredients there are absolutely no colored pixels. All pot and food interiors are opaque. Simple small game sprite, centered with 15% padding, no text or logo.",
+    "tool": "built-in image_gen",
+    "transparent_background": true
+  },
+  {
+    "name": "dinner",
+    "prompt": "Use case: stylized-concept. Asset type: one transparent sprite prop for a 2D anime card game. Generate a single individually served Japanese dinner bowl, warm pale cream ceramic, filled beautifully with crab legs, one shiitake mushroom, a carrot flower, napa cabbage and tofu. A small ivory saucer beneath the bowl and one neat pair of dark red chopsticks resting across the lower front of the saucer. This is a completed serving of a warm home-cooked dinner. Anime background painting style with confident clean hand-painted edges, gentle cel shading, warm kitchen light. Three-quarter view slightly from above. Entire isolated object centered occupying about 75% canvas width, fully transparent margins. No table, no backdrop, no character, hands, text, symbols, magic, steam, particles or baked-in glow. Strong appetizing silhouette readable at 190 pixels wide. Fully transparent background.",
+    "tool": "built-in image_gen",
+    "transparent_background": true
+  }
+]

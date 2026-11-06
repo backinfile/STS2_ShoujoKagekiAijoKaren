@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -20,9 +21,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Powers
         public override PowerStackType StackType => PowerStackType.Counter;
 
 
-        public override async Task AfterTurnEndLate(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterSideTurnEndLate(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
         {
-            if (side != Owner.Side)
+            if (side != Owner.Side || !participants.Contains(Owner))
             {
                 return; // 不是该生物的回合，直接返回
             }

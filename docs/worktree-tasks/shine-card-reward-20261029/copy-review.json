@@ -1,0 +1,22 @@
+{
+  "branch": "stable",
+  "checks": {
+    "only_reward_choose_zero": true,
+    "only_reward_returns_to_previous_screen": true,
+    "logs_no_new_errors": true
+  },
+  "package": {
+    "ShoujoKagekiAijoKaren.dll": "e976f860be42c5ad4617a4f8a1bbeb0a213255396ec837c17a3f0d0a3d496176",
+    "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+    "ShoujoKagekiAijoKaren.pck": "3abeaa437ef58dc18e2cd284eb42817b83e575756907017f14638c2581c7cac2",
+    "lib\\ShoujoKagekiAijoKaren.Beta.dll": "8a32b3956a63471556b74b83e621f2c8c4d335c0f8f1bb07e19e8d1c6da0a16b",
+    "lib\\ShoujoKagekiAijoKaren.Stable.dll": "09992a3465147a6586ed4223263651bde31ed06c94f431841e955d8389e296f1"
+  },
+  "copy_checks": {
+    "zhs": true,
+    "eng": true,
+    "jpn": true
+  },
+  "reward_text": "闪耀牌奖励×3",
+  "selection_text": "闪耀牌奖励×3"
+}

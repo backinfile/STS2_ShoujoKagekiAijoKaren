@@ -1,0 +1,328 @@
+{
+  "build": {
+    "stable": {
+      "game": "v0.107.1",
+      "errors": 0,
+      "warnings": 36
+    },
+    "beta": {
+      "game": "v0.111.0",
+      "errors": 0,
+      "warnings": 36
+    }
+  },
+  "packages": [
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Beta.dll",
+      "bytes": 1467904,
+      "sha256": "04a6faf7ea715950a994f0ae6715c448da91ea017bd8aa9074b804966d9946ed"
+    },
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Stable.dll",
+      "bytes": 1466880,
+      "sha256": "5eb114a2c4d76f8e8cbb9122dd40b3541148424c6f21803527ecd17eb512919c"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.dll",
+      "bytes": 8704,
+      "sha256": "7a310e1bf50daf1c13b8017ff3cac8819934a74f4b411cde96c1bbed3f6ac600"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.json",
+      "bytes": 412,
+      "sha256": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.pck",
+      "bytes": 83655812,
+      "sha256": "bbaca92cc8e58a643ca33af4ef4d73583f601e6fd957762e220cef56276b073d"
+    }
+  ],
+  "checks": {
+    "stable": [
+      {
+        "name": "default_enabled_minimized",
+        "passed": true
+      },
+      {
+        "name": "builtin20",
+        "passed": true
+      },
+      {
+        "name": "F8_play",
+        "passed": true
+      },
+      {
+        "name": "F9_next_notice",
+        "passed": true
+      },
+      {
+        "name": "notice_expires",
+        "passed": true
+      },
+      {
+        "name": "F7_previous",
+        "passed": true
+      },
+      {
+        "name": "old_binding_inactive",
+        "passed": true
+      },
+      {
+        "name": "custom_combo",
+        "passed": true
+      },
+      {
+        "name": "volume35_actual_gain",
+        "passed": true
+      },
+      {
+        "name": "volume0_actual_gain",
+        "passed": true
+      },
+      {
+        "name": "volume70_actual_gain",
+        "passed": true
+      },
+      {
+        "name": "panel_mode_List",
+        "passed": true
+      },
+      {
+        "name": "panel_mode_Random",
+        "passed": true
+      },
+      {
+        "name": "panel_mode_RepeatOne",
+        "passed": true
+      },
+      {
+        "name": "random_no_immediate_repeat",
+        "passed": true
+      },
+      {
+        "name": "repeat_one_end",
+        "passed": true
+      },
+      {
+        "name": "list_auto_next_notice",
+        "passed": true
+      },
+      {
+        "name": "actual_form_forces_music",
+        "passed": true
+      },
+      {
+        "name": "cutscene_resumes_existing_form",
+        "passed": true
+      },
+      {
+        "name": "form_end_resumes_position",
+        "passed": true
+      },
+      {
+        "name": "paused_stays_paused_after_form",
+        "passed": true
+      },
+      {
+        "name": "cutscene_end_resumes_without_form",
+        "passed": true
+      },
+      {
+        "name": "confirmation_shown",
+        "passed": true
+      },
+      {
+        "name": "cancel_keeps_enabled",
+        "passed": true
+      },
+      {
+        "name": "confirm_closes",
+        "passed": true
+      },
+      {
+        "name": "close_saved_disabled",
+        "passed": true
+      },
+      {
+        "name": "relaunch_disabled_minimized_volume_saved",
+        "passed": true
+      },
+      {
+        "name": "close_during_form_prevents_resume",
+        "passed": true
+      },
+      {
+        "name": "re_enable_available",
+        "passed": true
+      }
+    ],
+    "beta": [
+      {
+        "name": "default_enabled_minimized",
+        "passed": true
+      },
+      {
+        "name": "builtin20",
+        "passed": true
+      },
+      {
+        "name": "F8_play",
+        "passed": true
+      },
+      {
+        "name": "F9_next_notice",
+        "passed": true
+      },
+      {
+        "name": "notice_expires",
+        "passed": true
+      },
+      {
+        "name": "F7_previous",
+        "passed": true
+      },
+      {
+        "name": "old_binding_inactive",
+        "passed": true
+      },
+      {
+        "name": "custom_combo",
+        "passed": true
+      },
+      {
+        "name": "volume35_actual_gain",
+        "passed": true
+      },
+      {
+        "name": "volume0_actual_gain",
+        "passed": true
+      },
+      {
+        "name": "volume70_actual_gain",
+        "passed": true
+      },
+      {
+        "name": "panel_mode_List",
+        "passed": true
+      },
+      {
+        "name": "panel_mode_Random",
+        "passed": true
+      },
+      {
+        "name": "panel_mode_RepeatOne",
+        "passed": true
+      },
+      {
+        "name": "random_no_immediate_repeat",
+        "passed": true
+      },
+      {
+        "name": "repeat_one_end",
+        "passed": true
+      },
+      {
+        "name": "list_auto_next_notice",
+        "passed": true
+      },
+      {
+        "name": "actual_form_forces_music",
+        "passed": true
+      },
+      {
+        "name": "cutscene_resumes_existing_form",
+        "passed": true
+      },
+      {
+        "name": "form_end_resumes_position",
+        "passed": true
+      },
+      {
+        "name": "paused_stays_paused_after_form",
+        "passed": true
+      },
+      {
+        "name": "cutscene_end_resumes_without_form",
+        "passed": true
+      },
+      {
+        "name": "confirmation_shown",
+        "passed": true
+      },
+      {
+        "name": "cancel_keeps_enabled",
+        "passed": true
+      },
+      {
+        "name": "confirm_closes",
+        "passed": true
+      },
+      {
+        "name": "close_saved_disabled",
+        "passed": true
+      },
+      {
+        "name": "relaunch_disabled_minimized_volume_saved",
+        "passed": true
+      },
+      {
+        "name": "close_during_form_prevents_resume",
+        "passed": true
+      },
+      {
+        "name": "re_enable_available",
+        "passed": true
+      }
+    ]
+  },
+  "screenshots": {
+    "stable": [
+      "artifacts/karen-music-player-20261029/stable-followup-notice.png",
+      "artifacts/karen-music-player-20261029/stable-followup-volume.png",
+      "artifacts/karen-music-player-20261029/stable-followup-config.png",
+      "artifacts/karen-music-player-20261029/stable-followup-close.png"
+    ],
+    "beta": [
+      "artifacts/karen-music-player-20261029/beta-followup-notice.png",
+      "artifacts/karen-music-player-20261029/beta-followup-volume.png",
+      "artifacts/karen-music-player-20261029/beta-followup-config.png",
+      "artifacts/karen-music-player-20261029/beta-followup-close.png"
+    ]
+  },
+  "not_run": [
+    "full singleplayer/multiplayer matrix",
+    "VFX专项",
+    "Android"
+  ],
+  "localization": {
+    "existing_failures": 13,
+    "new_failures": 0
+  },
+  "recording": {
+    "status": "completed",
+    "fps": 30,
+    "max_duration_seconds": 60,
+    "width": 1280,
+    "height": 720,
+    "frames_written": 1470,
+    "video_duration_seconds": 49,
+    "frames_captured": 1470,
+    "frames_repeated": 0,
+    "frames_dropped": 0,
+    "encoder": "h264_nvenc",
+    "capture_fps": 30.004951674310597,
+    "capture_average_ms": 16.99195585034015,
+    "capture_max_ms": 23.0191,
+    "encode_write_average_ms": 0.4653829251700683,
+    "encode_write_max_ms": 67.0159,
+    "elapsed_seconds": 49.897108,
+    "audio": true,
+    "audio_source": "engine_mix",
+    "demo": "artifacts/karen-music-player-20261029/karen-music-player-followup-demo.mp4",
+    "original": "artifacts/karen-music-player-20261029/karen-music-player-followup-full.mp4",
+    "review": "artifacts/karen-music-player-20261029/followup-video-review.jpg",
+    "demo_detail": "6–27 秒放大播放器，音轨 +10 dB；原片保持原音量。",
+    "decoded": true
+  }
+}

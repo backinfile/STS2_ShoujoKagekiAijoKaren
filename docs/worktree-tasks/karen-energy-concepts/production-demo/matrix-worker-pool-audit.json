@@ -1,0 +1,188 @@
+{
+  "startupWorkerPoolErrorCount": 14,
+  "unexpected": [],
+  "diagnostics": [
+    {
+      "file": "mp-beta-IRONCLAD-IRONCLAD-host.log",
+      "lineNumber": 243,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)"
+      ],
+      "commonPreloadCompletedAtLine": 253,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-IRONCLAD-IRONCLAD-host.log",
+      "lineNumber": 245,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "   C# backtrace (most recent call first):",
+        "       [0] void Godot.Bridge.ScriptManagerBridge.GetOrLoadOrCreateScriptForType(System.Type, Godot.NativeInterop.godot_ref*)"
+      ],
+      "commonPreloadCompletedAtLine": 253,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-IRONCLAD-KAREN-promise-regression-client.log",
+      "lineNumber": 235,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "   C# backtrace (most recent call first):",
+        "       [0] void Godot.Bridge.ScriptManagerBridge.GetOrLoadOrCreateScriptForType(System.Type, Godot.NativeInterop.godot_ref*)"
+      ],
+      "commonPreloadCompletedAtLine": 286,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-IRONCLAD-KAREN-promise-turn-end-regression-client.log",
+      "lineNumber": 235,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "   C# backtrace (most recent call first):",
+        "       [0] void Godot.Bridge.ScriptManagerBridge.GetOrLoadOrCreateScriptForType(System.Type, Godot.NativeInterop.godot_ref*)"
+      ],
+      "commonPreloadCompletedAtLine": 286,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-IRONCLAD-KAREN-promise-turn-end-regression-host.log",
+      "lineNumber": 237,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "[INFO] MuteInBackground: environment [displayServer=Windows, os=Windows]",
+        "[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]"
+      ],
+      "commonPreloadCompletedAtLine": 251,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-KAREN-IRONCLAD-global-move-regression-client.log",
+      "lineNumber": 235,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "   C# backtrace (most recent call first):",
+        "       [0] void Godot.Bridge.ScriptManagerBridge.GetOrLoadOrCreateScriptForType(System.Type, Godot.NativeInterop.godot_ref*)"
+      ],
+      "commonPreloadCompletedAtLine": 287,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-KAREN-IRONCLAD-promise-turn-end-regression-client.log",
+      "lineNumber": 235,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)"
+      ],
+      "commonPreloadCompletedAtLine": 289,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-KAREN-IRONCLAD-promise-turn-end-regression-client.log",
+      "lineNumber": 237,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "   C# backtrace (most recent call first):",
+        "       [0] void Godot.Bridge.ScriptManagerBridge.GetOrLoadOrCreateScriptForType(System.Type, Godot.NativeInterop.godot_ref*)"
+      ],
+      "commonPreloadCompletedAtLine": 289,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-KAREN-KAREN-client.log",
+      "lineNumber": 235,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)"
+      ],
+      "commonPreloadCompletedAtLine": 295,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-KAREN-KAREN-client.log",
+      "lineNumber": 237,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "   C# backtrace (most recent call first):",
+        "       [0] void Godot.Bridge.ScriptManagerBridge.GetOrLoadOrCreateScriptForType(System.Type, Godot.NativeInterop.godot_ref*)"
+      ],
+      "commonPreloadCompletedAtLine": 295,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-KAREN-KAREN-promise-regression-host.log",
+      "lineNumber": 237,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "ERROR: Invalid Task ID",
+        "ERROR: Invalid Task ID"
+      ],
+      "commonPreloadCompletedAtLine": 252,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-KAREN-KAREN-promise-regression-host.log",
+      "lineNumber": 239,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "   C# backtrace (most recent call first):"
+      ],
+      "commonPreloadCompletedAtLine": 252,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-KAREN-KAREN-promise-regression-host.log",
+      "lineNumber": 240,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "   C# backtrace (most recent call first):",
+        "       [0] void Godot.Bridge.ScriptManagerBridge.GetOrLoadOrCreateScriptForType(System.Type, Godot.NativeInterop.godot_ref*)"
+      ],
+      "commonPreloadCompletedAtLine": 252,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    },
+    {
+      "file": "mp-beta-KAREN-KAREN-shine-regression-host-host.log",
+      "lineNumber": 243,
+      "context": [
+        "ERROR: Invalid Task ID",
+        "   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)",
+        "[INFO] Preloading 'Common' Complete: assets=797 time_elapsed=3,895ms",
+        "[DEBUG] [ENetHost] Received handshake packet containing peer ID 2171"
+      ],
+      "commonPreloadCompletedAtLine": 245,
+      "beforeCommonPreloadComplete": true,
+      "classifiedStartupWorkerPoolDiagnostic": true
+    }
+  ]
+}

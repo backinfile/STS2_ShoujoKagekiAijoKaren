@@ -1,0 +1,166 @@
+{
+  "passed": true,
+  "gameVersion": "v0.107.1",
+  "scope": "isolated stable singleplayer UI",
+  "port": 15637,
+  "checks": [
+    {
+      "label": "original",
+      "style": "original",
+      "candidateCards": 0,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "original-card",
+      "style": "original",
+      "candidateCards": 0,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "a",
+      "style": "a",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "a-card",
+      "style": "a",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "b",
+      "style": "b",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "b-card",
+      "style": "b",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "c",
+      "style": "c",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "c-card",
+      "style": "c",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "d",
+      "style": "d",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "d-card",
+      "style": "d",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "a-zero",
+      "style": "a",
+      "candidateCards": 5,
+      "energy": 0,
+      "passed": true
+    },
+    {
+      "label": "b-zero",
+      "style": "b",
+      "candidateCards": 5,
+      "energy": 0,
+      "passed": true
+    },
+    {
+      "label": "c-zero",
+      "style": "c",
+      "candidateCards": 5,
+      "energy": 0,
+      "passed": true
+    },
+    {
+      "label": "d-zero",
+      "style": "d",
+      "candidateCards": 5,
+      "energy": 0,
+      "passed": true
+    },
+    {
+      "label": "a-restored",
+      "style": "a",
+      "candidateCards": 5,
+      "energy": 3,
+      "passed": true
+    },
+    {
+      "label": "original-restored",
+      "style": "original",
+      "candidateCards": 0,
+      "energy": 3,
+      "passed": true
+    }
+  ],
+  "sameFiveHandModels": [
+    "KAREN_DEFEND",
+    "KAREN_DEFEND",
+    "KAREN_DEFEND",
+    "KAREN_DEFEND",
+    "KAREN_STRIKE"
+  ],
+  "nativeCost": {
+    "control": [
+      64,
+      64
+    ],
+    "position": [
+      -166,
+      -227
+    ],
+    "framePosition": [
+      -150,
+      -211
+    ],
+    "relativeTopLeft": [
+      -16,
+      -16
+    ],
+    "relativeCenter": [
+      16,
+      16
+    ],
+    "nodePositionChanged": false
+  },
+  "padding": "AtlasTexture region and transparent margin; generated PNGs unchanged",
+  "sourceSha256": {
+    "a": "3af834d859e6653dfe2ab86ed433dd38188fc625439e0e64266b13013bcb9e2d",
+    "b": "cdd2bf4d7fe6ea4ad9341676d6d832ee8e52233f51725956a8fe2169339d0c11",
+    "c": "da4e3be725e9c3adabac48e75da0febb5a7403a46974c6cc68a12eb2920b5ec8",
+    "d": "885161872c5300f617f1806b16f5c57133b0f167fff16bacf2867beed3a071e5"
+  },
+  "probeSha256": "df21d14a72f991403e5ad2b29acc8766056fc58d65d785c7f2108ad07e9c2805",
+  "karenPackSha256": "a336da2adf0a6bbd745f7cdca2e94dbfdec1f15012c9b109217c6391f64014a8",
+  "unexpectedErrors": [],
+  "gameplayRulesModified": false,
+  "energySetForTest": true,
+  "candidateEffects": "static textures; old decorative rotation/particles hidden",
+  "restoredAndClosed": true,
+  "beta": "not tested",
+  "multiplayer": "not tested"
+}

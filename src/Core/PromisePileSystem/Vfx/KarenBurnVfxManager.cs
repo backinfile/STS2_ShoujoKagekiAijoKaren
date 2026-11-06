@@ -23,19 +23,24 @@ public static class KarenBurnVfxManager
     {
         if (player?.Creature == null) return;
 
+        var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
+        if (creatureNode == null) return;
+
         var cachedNode = burnNodes.Get(player);
-        if (GodotObject.IsInstanceValid(cachedNode))
+        if (GodotObject.IsInstanceValid(cachedNode) && !cachedNode!.IsQueuedForDeletion()
+            && cachedNode.BelongsTo(creatureNode))
         {
             cachedNode!.Restart();
             return;
         }
 
-        var creatureNode = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
-        if (creatureNode == null) return;
+        if (GodotObject.IsInstanceValid(cachedNode) && !cachedNode!.IsQueuedForDeletion())
+            cachedNode.Stop();
 
         foreach (var child in creatureNode.GetChildren())
         {
-            if (child is NKarenBurnVfx existing)
+            if (child is NKarenBurnVfx existing && !existing.IsQueuedForDeletion()
+                && existing.BelongsTo(creatureNode))
             {
                 existing.Restart();
                 burnNodes.Set(player, existing);

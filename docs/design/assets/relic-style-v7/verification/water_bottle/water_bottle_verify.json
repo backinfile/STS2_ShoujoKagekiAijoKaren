@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "reasons": [],
+  "limits": {
+    "structure_max_diff_std": 0.6,
+    "structure_min_hf_ratio": 0.9,
+    "flat_max_band_increase": 0.02,
+    "whole_max_diff_std": 1.0
+  },
+  "whole_image": {
+    "hf_std_before": 1.1055,
+    "hf_std_after": 1.0755,
+    "hf_std_ratio": 0.973,
+    "band_std_before": 1.1745,
+    "band_std_after": 1.1442,
+    "diff_std": 0.1962,
+    "diff_abs_max": 2.6491
+  },
+  "flat_windows": [],
+  "structure_windows": [
+    {
+      "hf_std_before": 3.2295,
+      "hf_std_after": 3.0275,
+      "hf_std_ratio": 0.937,
+      "band_std_before": 3.4915,
+      "band_std_after": 3.3857,
+      "diff_std": 0.5334,
+      "diff_abs_max": 2.3395,
+      "box": [
+        400,
+        393,
+        496,
+        489
+      ],
+      "ok": true
+    },
+    {
+      "hf_std_before": 3.243,
+      "hf_std_after": 2.9941,
+      "hf_std_ratio": 0.923,
+      "band_std_before": 3.5125,
+      "band_std_after": 3.3953,
+      "diff_std": 0.5929,
+      "diff_abs_max": 2.6491,
+      "box": [
+        382,
+        505,
+        478,
+        601
+      ],
+      "ok": true
+    },
+    {
+      "hf_std_before": 2.1859,
+      "hf_std_after": 2.1775,
+      "hf_std_ratio": 0.996,
+      "band_std_before": 2.2808,
+      "band_std_after": 2.2645,
+      "diff_std": 0.2811,
+      "diff_abs_max": 0.5483,
+      "box": [
+        467,
+        1117,
+        563,
+        1213
+      ],
+      "ok": true
+    }
+  ],
+  "stage": "verify",
+  "before": "docs\\design\\assets\\relic-style-v6\\water_bottle.png",
+  "after": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_notch.png",
+  "time": "2026-10-11T16:22:28+08:00",
+  "board": "artifacts\\relic-moire-v7\\water_bottle\\water_bottle_verify_board.png"
+}

@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -18,12 +19,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.neutral;
 /// <summary>
 /// 以觉悟的名义 - 1费攻击，造成6点伤害，获得与未被格挡伤害相等的格挡
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenConsciousness : KarenBaseCardModel
 {
-    public KarenConsciousness() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenConsciousness() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -35,14 +34,17 @@ public sealed class KarenConsciousness : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
+        using var show = new KarenAttackCue(Owner.Creature, cardPlay.Target, KarenAttackStyle.Consciousness, potency: (float)DynamicVars.Damage.BaseValue);
         var result = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithAttackerFx(show.Start)
+            .WithHitVfxNode(show.Hit)
             .Execute(choiceContext);
 
-        var blockAmount = result.Results.Sum((DamageResult r) => r.TotalDamage + r.OverkillDamage);
+        var blockAmount = result.Results.SelectMany(r => r).Sum((DamageResult r) => r.TotalDamage + r.OverkillDamage);
         await CreatureCmd.GainBlock(Owner.Creature, blockAmount, ValueProp.Move, cardPlay);
+        if (blockAmount > 0) show.ConfirmBlock();
     }
 
     protected override void OnUpgrade()

@@ -1,0 +1,66 @@
+using Godot;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.DevConsole;
+using MegaCrit.Sts2.Core.DevConsole.ConsoleCommands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using System.Linq;
+using System.Text.Json;
+using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
+
+namespace ShoujoKagekiAijoKaren.src.Core.Commands;
+
+/// <summary>Read-only regression check. Invoke after card animations and selection finish.</summary>
+public sealed class KarenCheckHandConsoleCmd : AbstractConsoleCmd
+{
+    public override string CmdName => "karen_check_hand";
+    public override string Args => "";
+    public override string Description => "Check that the local player's visible hand matches its card models after animations finish.";
+    public override bool IsNetworked => false;
+
+    public override CmdResult Process(Player? issuingPlayer, string[] args)
+    {
+        if (!CombatManager.Instance.IsInProgress)
+            return new(false, "Combat is not in progress.");
+
+        var hand = NCombatRoom.Instance?.Ui.Hand;
+        if (issuingPlayer?.PlayerCombatState == null || hand == null)
+            return new(false, "A local combat hand is required.");
+        if (hand.IsInCardSelection)
+            return new(false, "Finish card selection before checking the hand.");
+
+        var run = RunManager.Instance;
+        if (run.ActionExecutor?.CurrentlyRunningAction != null || run.ActionQueueSet?.IsEmpty == false)
+            return new(false, "Wait for queued actions to finish before checking the hand.");
+
+        var models = PileType.Hand.GetPile(issuingPlayer).Cards;
+        var visible = hand.ActiveHolders.Where(h => h.CardNode != null)
+            .Select(h => h.CardNode.Model).ToArray();
+        var missing = models.Where(c => !visible.Contains(c)).Select(c => c.Id.Entry).ToArray();
+        var unexpected = visible.Where(c => !models.Contains(c)).Select(c => c.Id.Entry).ToArray();
+        // A pooled exhaust carrier must never bring its temporary pile icon into a hand.
+        var unexpectedPileIcons = hand.ActiveHolders.Where(h => h.CardNode != null)
+            .SelectMany(h => h.CardNode.GetChildren().OfType<TextureRect>()
+                .Where(t => t.Texture?.ResourcePath.Contains("draw_pile") == true)
+                .Select(t => new { card = h.CardNode.Model.Id.Entry, texture = t.Texture!.ResourcePath }))
+            .ToArray();
+        var burnOverlays = hand.ActiveHolders.Where(h => h.CardNode?.Model != null).Select(h =>
+        {
+            var card = h.CardNode!;
+            var effects = card.OverlayContainer.GetChildren().OfType<NKarenBurnCardVfx>().ToArray();
+            var expected = KarenPromisePilePower.HasBurnDrawEffect(card.Model) ? 1 : 0;
+            return new { card = card.Model!.Id.Entry, expected, actual = effects.Length,
+                valid = effects.Length == expected && effects.All(e => e.BelongsTo(card.Model)
+                    && e.Visible && !e.IsQueuedForDeletion() && e.GetChildCount() > 0) };
+        }).ToArray();
+        var success = missing.Length == 0 && unexpected.Length == 0 && visible.Length == models.Count
+            && unexpectedPileIcons.Length == 0 && burnOverlays.All(b => b.valid);
+        return new(success, JsonSerializer.Serialize(new
+        {
+            modelCount = models.Count, visualCount = visible.Length, missing, unexpected, unexpectedPileIcons, burnOverlays,
+        }));
+    }
+}

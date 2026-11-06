@@ -1,0 +1,215 @@
+using Godot;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
+
+namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
+
+public partial class NKarenLastWordVideoVfx : Control
+{
+    private const string VideoPath = "res://ShoujoKagekiAijoKaren/video/last_word.ogv";
+    public const float VideoSequenceSeconds = 6.7f;
+    public const float LettersOnlySequenceSeconds = 0.7f;
+    private const float StartDelay = 1f;
+    private const float VideoFadeInSeconds = 0.18f;
+    private const float FadeOutSeconds = 0.35f;
+    private const int OverlayZIndex = 4095;
+    private const int BlackZIndex = 0;
+    private const int LetterZIndex = 10;
+    private const int VideoZIndex = 20;
+    private const int PersistentLetterZIndex = OverlayZIndex + 1;
+    private const float VideoAspect = 1280f / 544f;
+
+    private readonly VideoStream _stream;
+    private readonly Player _owner;
+    private readonly NCombatRoom _room;
+    private ColorRect _black = null!;
+    private VideoStreamPlayer _player = null!;
+    private NKarenLastWordVfx? _letters;
+    private bool _started;
+    private bool _fading;
+    private float _timer;
+    private float _videoFadeInTimer;
+    private float _fadeTimer;
+    private Vector2 _layoutSize = new(-1, -1);
+
+    private NKarenLastWordVideoVfx(VideoStream stream, Player owner, NCombatRoom room)
+    {
+        _stream = stream;
+        _owner = owner;
+        _room = room;
+    }
+
+    public static bool Play(Player owner)
+    {
+        var room = NCombatRoom.Instance;
+        if (room == null || !HasVideo()) return false;
+        if (!KarenVfxQuality.Enabled) return false;
+        if (KarenVfxQuality.Level == KarenVfxLevel.Low)
+        {
+            NKarenLastWordVfx.Play(owner);
+            // Report the same sequence ownership so every peer retains the original wait.
+            return true;
+        }
+        var stream = ResourceLoader.Load<VideoStream>(VideoPath);
+        if (stream == null)
+            return false;
+
+        var parent = (Control?)NRun.Instance?.GlobalUi ?? NCombatRoom.Instance;
+        if (parent == null)
+            return false;
+
+        parent.AddChildSafely(new NKarenLastWordVideoVfx(stream, owner, room));
+        return true;
+    }
+
+    public static bool HasVideo()
+    {
+        return ResourceLoader.Exists(VideoPath);
+    }
+
+    public override void _Ready()
+    {
+        MouseFilter = MouseFilterEnum.Ignore;
+        ZAsRelative = false;
+        ZIndex = OverlayZIndex;
+        Modulate = Colors.White;
+        SetAnchorsPreset(LayoutPreset.FullRect);
+        OffsetLeft = OffsetTop = OffsetRight = OffsetBottom = 0f;
+
+        _black = new ColorRect
+        {
+            Color = new Color(0f, 0f, 0f, 0f),
+            MouseFilter = MouseFilterEnum.Ignore,
+            ZAsRelative = true,
+            ZIndex = BlackZIndex
+        };
+        _black.SetAnchorsPreset(LayoutPreset.FullRect);
+        AddChild(_black);
+
+        _letters = NKarenLastWordVfx.PlayOn(this, _owner);
+        _letters.ZAsRelative = true;
+        _letters.ZIndex = LetterZIndex;
+
+        _player = new VideoStreamPlayer
+        {
+            Stream = _stream,
+            Expand = true,
+            Loop = false,
+            Volume = 0f,
+            Visible = false,
+            MouseFilter = MouseFilterEnum.Ignore,
+            ZAsRelative = true,
+            ZIndex = VideoZIndex,
+            Modulate = new Color(1f, 1f, 1f, 0f)
+        };
+        AddChild(_player);
+        MoveChild(_player, GetChildCount() - 1);
+        _player.Finished += BeginFadeOut;
+
+        LayoutChildren();
+    }
+
+    public override void _Process(double delta)
+    {
+        if (!KarenVfxQuality.Enabled) { _player?.Stop(); _letters?.QueueFree(); QueueFree(); return; }
+        if (!GodotObject.IsInstanceValid(_room) || !_room.IsInsideTree()
+            || NCombatRoom.Instance != _room || !CombatManager.Instance.IsInProgress)
+        {
+            Hide();
+            _player.Stop();
+            GodotTreeExtensions.QueueFreeSafely(this);
+            return;
+        }
+
+        float d = (float)delta;
+        _timer += d;
+        LayoutChildren();
+
+        if (!_started && _timer >= StartDelay)
+        {
+            _started = true;
+            _black.Color = Colors.Black;
+            _player.Visible = true;
+            _player.Modulate = new Color(1f, 1f, 1f, 0f);
+            _player.Play();
+        }
+
+        if (_started && !_fading && _videoFadeInTimer < VideoFadeInSeconds)
+        {
+            _videoFadeInTimer += d;
+            float alpha = Mathf.Clamp(_videoFadeInTimer / VideoFadeInSeconds, 0f, 1f);
+            _player.Modulate = new Color(1f, 1f, 1f, alpha);
+        }
+
+        if (_started && !_fading && !_player.IsPlaying() && _timer > StartDelay + 0.2f)
+            BeginFadeOut();
+
+        if (_fading)
+        {
+            _fadeTimer += d;
+            float alpha = 1f - Mathf.Clamp(_fadeTimer / FadeOutSeconds, 0f, 1f);
+            Modulate = new Color(1f, 1f, 1f, alpha);
+            if (alpha <= 0.01f)
+                GodotTreeExtensions.QueueFreeSafely(this);
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        if (GodotObject.IsInstanceValid(_player))
+        {
+            _player.Finished -= BeginFadeOut;
+            _player.Stop();
+        }
+    }
+
+    private void LayoutChildren()
+    {
+        var viewportSize = GetViewportRect().Size;
+        if (viewportSize == _layoutSize) return;
+        _layoutSize = viewportSize;
+        Size = viewportSize;
+
+        if (_black != null)
+            _black.Size = viewportSize;
+
+        if (_player == null) return;
+
+        float videoHeight = viewportSize.Y * 0.7f;
+        float videoWidth = videoHeight * VideoAspect;
+        if (videoWidth > viewportSize.X * 0.96f)
+        {
+            videoWidth = viewportSize.X * 0.96f;
+            videoHeight = videoWidth / VideoAspect;
+        }
+
+        _player.Size = new Vector2(videoWidth, videoHeight);
+        _player.Position = (viewportSize - _player.Size) * 0.5f;
+    }
+
+    private void BeginFadeOut()
+    {
+        if (_fading) return;
+        _letters?.BeginAfterglow();
+        DetachLetters();
+        _fading = true;
+        _fadeTimer = 0f;
+    }
+
+    private void DetachLetters()
+    {
+        var parent = GetParent();
+        if (parent == null || _letters?.GetParent() != this)
+            return;
+
+        RemoveChild(_letters);
+        parent.AddChildSafely(_letters);
+        _letters.GlobalPosition = Vector2.Zero;
+        _letters.ZAsRelative = false;
+        _letters.ZIndex = PersistentLetterZIndex;
+    }
+}

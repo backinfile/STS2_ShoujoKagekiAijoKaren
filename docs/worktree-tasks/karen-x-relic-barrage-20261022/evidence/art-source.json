@@ -1,0 +1,36 @@
+{
+  "work": "少女☆歌劇 レヴュースタァライト (TV, 2018)",
+  "episode": 12,
+  "scene": "The recovered star-shaped hairpin resting in cupped hands",
+  "source_page": "https://www.reddit.com/r/anime/comments/v3k3jh/revue_starlight_rewatch_episode_12_discussion/",
+  "source_image": "https://i.imgur.com/4kNNV9f.jpeg",
+  "source_frame": "docs/worktree-tasks/karen-x-relic-barrage-20261022/evidence/style-matched/palm-source.jpg",
+  "source_frame_sha256": "6a313c4449371fe490e46f7296a57a609810d0f1f78dc0399a885a36189a4623",
+  "source_resolution": [
+    1920,
+    1080
+  ],
+  "timestamp_scope": "External episode screenshot; no episode-local timestamp asserted",
+  "crop_xyxy": [
+    250,
+    0,
+    1671,
+    1080
+  ],
+  "output_resolution": [
+    500,
+    380
+  ],
+  "output": "images/packed/card_portraits/karen/karen_shine_price.png",
+  "output_sha256": "eb30e2240649c2d0e2c428d0bbc052da87ef89231de46e5954c7572caeede951",
+  "processing": "Real TV screenshot, crop and Lanczos resize only; no generative edits",
+  "copyright": "©Project Revue Starlight",
+  "selection": "User selected candidate 3, the palm star-hairpin close-up. A retained in evidence as a backup.",
+  "card_title": "双星",
+  "name_source": {
+    "song": "スーパー スタァ スペクタクル",
+    "lyric_fragment": "星と星に",
+    "source": "https://www.uta-net.com/song/305228/",
+    "translation_scope": "Condensed Chinese title, not a verbatim Japanese title."
+  }
+}

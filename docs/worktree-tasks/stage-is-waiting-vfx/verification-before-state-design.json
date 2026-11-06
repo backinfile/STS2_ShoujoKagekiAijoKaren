@@ -1,0 +1,128 @@
+{
+  "stable": {
+    "observations": 9,
+    "captureFps": 29.724337339950697,
+    "meanAudioDb": -51.6,
+    "rapid": null,
+    "lifecycle": "interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "00169132ca65be5fac8759678c60fdb8b3b47083a72264e85ef6abed10d37cdb",
+      "packSha256": "bbf4008d8a5e7d8b8721ad05a573a938273a6b024852e1171a40be3bf792ac3c"
+    },
+    "scope": "visual and audio revision",
+    "audio": {
+      "normalEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        }
+      ],
+      "peakNormalVoices": 1,
+      "fastConfirmations": 8,
+      "peakFastVoices": 1,
+      "interruptAndSpeedSwitch": "pass"
+    }
+  },
+  "beta": {
+    "observations": 9,
+    "captureFps": 29.850605787290995,
+    "meanAudioDb": -44.7,
+    "rapid": null,
+    "lifecycle": "interruption, speed-switch and removal pass",
+    "logs": {
+      "knownStartupWorkerPoolErrors": [
+        {
+          "line": 252,
+          "message": "ERROR: Invalid Task ID",
+          "file": "godot.log"
+        }
+      ],
+      "unexpectedErrors": []
+    },
+    "provenance": {
+      "assemblySha256": "e6120c5a408fc1ef72f464dadcc8e44c7c0290c47155485ff2217e0479500595",
+      "packSha256": "bbf4008d8a5e7d8b8721ad05a573a938273a6b024852e1171a40be3bf792ac3c"
+    },
+    "scope": "visual and audio revision",
+    "audio": {
+      "normalEvents": [
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.94,
+          "volume": 0.40000004,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.38,
+          "volume": 0.34000006,
+          "pitch": 1,
+          "bus": "SFX"
+        },
+        {
+          "duration": 0.22,
+          "volume": 0.26,
+          "pitch": 1,
+          "bus": "SFX"
+        }
+      ],
+      "peakNormalVoices": 1,
+      "fastConfirmations": 8,
+      "peakFastVoices": 2,
+      "interruptAndSpeedSwitch": "pass"
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "clips": [
+    {
+      "mode": "normal",
+      "relics_disabled": 3,
+      "hits": 6,
+      "damage": 30,
+      "per_hit": 5,
+      "visual_events": [
+        "gather",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact"
+      ],
+      "play_at": 3.125,
+      "resolved_at": 6.155999999988126,
+      "recording": {
+        "video_duration_seconds": 8.366666666666667,
+        "capture_fps": 29.269842311003757,
+        "frames_captured": 244,
+        "frames_repeated": 7,
+        "frames_dropped": 0,
+        "frames_written": 251,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      },
+      "duration": 8.366667,
+      "audio_mean_db": -41.7,
+      "audio_peak_db": -15.8,
+      "longest_identical_frame_run": 1,
+      "unique_lowres_frames": 251,
+      "source_sha256": "40c27d5e4da081a3b84df08ecb249e94373ba947921d4abf1180a782db99a597"
+    },
+    {
+      "mode": "upgrade",
+      "relics_disabled": 3,
+      "hits": 6,
+      "damage": 36,
+      "per_hit": 6,
+      "visual_events": [
+        "gather",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact"
+      ],
+      "play_at": 3.140999999974156,
+      "resolved_at": 6.10999999998603,
+      "recording": {
+        "video_duration_seconds": 8.333333333333334,
+        "capture_fps": 28.669448831894023,
+        "frames_captured": 238,
+        "frames_repeated": 12,
+        "frames_dropped": 0,
+        "frames_written": 250,
+        "encoder": "h264_nvenc",
+        "audio_source": "engine_mix",
+        "audio": true
+      },
+      "duration": 8.333008,
+      "audio_mean_db": -41.6,
+      "audio_peak_db": -15.4,
+      "longest_identical_frame_run": 1,
+      "unique_lowres_frames": 250,
+      "source_sha256": "c89e936c7850167fdd894cc722cc7f3c4dda343800002c1b1e81d2108649d4e7"
+    }
+  ],
+  "processing": "Native game speed; no gameplay compositing. Labels are added below the intact viewport.",
+  "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067",
+  "output": "docs/worktree-tasks/karen-x-relic-barrage-20261022/Twin-Stars-VFX-B-showcase.mp4",
+  "output_sha256": "92122fd11c11a20a53a462da5e22f3d04bb7a0b125b967c4431bc9b14c657ad3",
+  "duration": 16.746667,
+  "source_hashes": {
+    "mod_dll": "223adf8050270ccafd092e28669cbbab87a65f2295a96c07443a8040a2b1bb23",
+    "pck": "1f594212261299ecf352bf8088e2f216e74446a35ca9cf2ea3196955c2fe1639",
+    "mcp_dll": "776a7d77b8a4a44e4edba30a5ac169a43674469b107878387be2abda4829794f",
+    "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067"
+  }
+}

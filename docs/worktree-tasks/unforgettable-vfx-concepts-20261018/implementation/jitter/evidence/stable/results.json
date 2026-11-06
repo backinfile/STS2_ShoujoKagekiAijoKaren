@@ -1,0 +1,532 @@
+[
+  {
+    "case": "stack",
+    "passed": true,
+    "retained": {
+      "roomId": 775057053247,
+      "inCombat": true,
+      "live": 1,
+      "retained": 3,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 525,
+          "Exited": false,
+          "MaxMarks": 3,
+          "MaxFlashes": 1,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0.2,
+          "marks": [
+            {
+              "id": 803058227756,
+              "name": "Scar1",
+              "anchor": [
+                1467.6035,
+                512.8692
+              ],
+              "scale": [
+                0.11164274,
+                0.11164274
+              ],
+              "rotation": 0.1737295,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            },
+            {
+              "id": 809114801783,
+              "name": "Scar2",
+              "anchor": [
+                1473.306,
+                462.31613
+              ],
+              "scale": [
+                0.11164274,
+                0.11164274
+              ],
+              "rotation": -0.05228247,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            },
+            {
+              "id": 813124556402,
+              "name": "Scar3",
+              "anchor": [
+                1491.3917,
+                492.60715
+              ],
+              "scale": [
+                0.11164273,
+                0.11164273
+              ],
+              "rotation": -0.039041787,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            }
+          ],
+          "fading": []
+        }
+      ],
+      "shines": [
+        2,
+        2,
+        2
+      ],
+      "rewardPower": 0,
+      "extraRewards": 0,
+      "shinePile": 3
+    },
+    "clean": {
+      "roomId": 775057053247,
+      "inCombat": false,
+      "live": 0,
+      "retained": 0,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 568,
+          "Exited": true,
+          "MaxMarks": 3,
+          "MaxFlashes": 1,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0,
+          "marks": null,
+          "fading": null
+        }
+      ],
+      "shines": [
+        2,
+        2,
+        2
+      ],
+      "rewardPower": 0,
+      "extraRewards": 0,
+      "shinePile": 3
+    }
+  },
+  {
+    "case": "replay",
+    "passed": true,
+    "retained": {
+      "roomId": 830186986711,
+      "inCombat": true,
+      "live": 1,
+      "retained": 2,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 275,
+          "Exited": false,
+          "MaxMarks": 2,
+          "MaxFlashes": 2,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0.2,
+          "marks": [
+            {
+              "id": 855839349361,
+              "name": "Scar1",
+              "anchor": [
+                1490.6847,
+                478.85437
+              ],
+              "scale": [
+                0.11164274,
+                0.11164274
+              ],
+              "rotation": 0.12434182,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            },
+            {
+              "id": 857013754547,
+              "name": "Scar2",
+              "anchor": [
+                1449.7822,
+                515.96564
+              ],
+              "scale": [
+                0.11164273,
+                0.11164273
+              ],
+              "rotation": 0.16776033,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            }
+          ],
+          "fading": []
+        }
+      ],
+      "shines": [
+        3
+      ],
+      "rewardPower": 3,
+      "extraRewards": 3,
+      "shinePile": 4
+    },
+    "clean": {
+      "roomId": 830186986711,
+      "inCombat": false,
+      "live": 0,
+      "retained": 0,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 280,
+          "Exited": true,
+          "MaxMarks": 2,
+          "MaxFlashes": 2,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0,
+          "marks": null,
+          "fading": null
+        }
+      ],
+      "shines": [
+        3
+      ],
+      "rewardPower": 0,
+      "extraRewards": 3,
+      "shinePile": 4
+    }
+  },
+  {
+    "case": "instant-replay",
+    "passed": true,
+    "retained": {
+      "roomId": 874327848076,
+      "inCombat": true,
+      "live": 1,
+      "retained": 2,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 134,
+          "Exited": false,
+          "MaxMarks": 2,
+          "MaxFlashes": 0,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0.2,
+          "marks": [
+            {
+              "id": 898386370116,
+              "name": "Scar1",
+              "anchor": [
+                1457.3704,
+                479.91763
+              ],
+              "scale": [
+                0.11164274,
+                0.11164274
+              ],
+              "rotation": -0.08260848,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            },
+            {
+              "id": 899074235253,
+              "name": "Scar2",
+              "anchor": [
+                1474.3636,
+                521.04443
+              ],
+              "scale": [
+                0.11164274,
+                0.11164274
+              ],
+              "rotation": 0.09306568,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            }
+          ],
+          "fading": []
+        }
+      ],
+      "shines": [
+        3
+      ],
+      "rewardPower": 3,
+      "extraRewards": 3,
+      "shinePile": 5
+    },
+    "clean": {
+      "roomId": 874327848076,
+      "inCombat": false,
+      "live": 0,
+      "retained": 0,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 139,
+          "Exited": true,
+          "MaxMarks": 2,
+          "MaxFlashes": 0,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0,
+          "marks": null,
+          "fading": null
+        }
+      ],
+      "shines": [
+        3
+      ],
+      "rewardPower": 0,
+      "extraRewards": 3,
+      "shinePile": 5
+    }
+  },
+  {
+    "case": "fast-stack",
+    "passed": true,
+    "retained": {
+      "roomId": 915583016557,
+      "inCombat": true,
+      "live": 1,
+      "retained": 3,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 463,
+          "Exited": false,
+          "MaxMarks": 3,
+          "MaxFlashes": 1,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0.2,
+          "marks": [
+            {
+              "id": 940379740526,
+              "name": "Scar1",
+              "anchor": [
+                1478.001,
+                494.63007
+              ],
+              "scale": [
+                0.11164274,
+                0.11164274
+              ],
+              "rotation": -0.11758062,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            },
+            {
+              "id": 942913101859,
+              "name": "Scar2",
+              "anchor": [
+                1449.0511,
+                484.13684
+              ],
+              "scale": [
+                0.11164274,
+                0.11164274
+              ],
+              "rotation": -0.13547745,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            },
+            {
+              "id": 945144471595,
+              "name": "Scar3",
+              "anchor": [
+                1463.0757,
+                464.2099
+              ],
+              "scale": [
+                0.11164273,
+                0.11164273
+              ],
+              "rotation": -0.10942414,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            }
+          ],
+          "fading": []
+        }
+      ],
+      "shines": [
+        2,
+        2,
+        2
+      ],
+      "rewardPower": 0,
+      "extraRewards": 0,
+      "shinePile": 5
+    },
+    "clean": {
+      "roomId": 915583016557,
+      "inCombat": false,
+      "live": 0,
+      "retained": 0,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 468,
+          "Exited": true,
+          "MaxMarks": 3,
+          "MaxFlashes": 1,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0,
+          "marks": null,
+          "fading": null
+        }
+      ],
+      "shines": [
+        2,
+        2,
+        2
+      ],
+      "rewardPower": 0,
+      "extraRewards": 0,
+      "shinePile": 5
+    }
+  },
+  {
+    "case": "pose",
+    "passed": true,
+    "retained": {
+      "roomId": 957844824013,
+      "inCombat": true,
+      "live": 1,
+      "retained": 1,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 250,
+          "Exited": false,
+          "MaxMarks": 1,
+          "MaxFlashes": 1,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0.2,
+          "marks": [
+            {
+              "id": 981618139188,
+              "name": "Scar1",
+              "anchor": [
+                1380.3219,
+                507.9809
+              ],
+              "scale": [
+                0.11164274,
+                0.11164274
+              ],
+              "rotation": -0.09923776,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            }
+          ],
+          "fading": []
+        }
+      ],
+      "shines": [
+        2
+      ],
+      "rewardPower": 0,
+      "extraRewards": 0,
+      "shinePile": 5
+    },
+    "clean": {
+      "roomId": 957844824013,
+      "inCombat": false,
+      "live": 0,
+      "retained": 0,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 258,
+          "Exited": true,
+          "MaxMarks": 1,
+          "MaxFlashes": 1,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0,
+          "marks": null,
+          "fading": null
+        }
+      ],
+      "shines": [
+        2
+      ],
+      "rewardPower": 0,
+      "extraRewards": 0,
+      "shinePile": 5
+    }
+  },
+  {
+    "case": "turn",
+    "passed": true,
+    "retained": {
+      "roomId": 996700855624,
+      "inCombat": true,
+      "live": 1,
+      "retained": 1,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 524,
+          "Exited": false,
+          "MaxMarks": 1,
+          "MaxFlashes": 1,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0.2,
+          "marks": [
+            {
+              "id": 1019735985144,
+              "name": "Scar1",
+              "anchor": [
+                1472.7339,
+                495.5524
+              ],
+              "scale": [
+                0.11164274,
+                0.11164274
+              ],
+              "rotation": -0.015432004,
+              "texture": "res://images/vfx/unforgettable/lingering-star.png"
+            }
+          ],
+          "fading": []
+        }
+      ],
+      "shines": [
+        2
+      ],
+      "rewardPower": 0,
+      "extraRewards": 0,
+      "shinePile": 5
+    },
+    "clean": {
+      "roomId": 996700855624,
+      "inCombat": false,
+      "live": 0,
+      "retained": 0,
+      "flashes": 0,
+      "roots": [
+        {
+          "Frames": 529,
+          "Exited": true,
+          "MaxMarks": 1,
+          "MaxFlashes": 1,
+          "MaxDrift": 0,
+          "MaxRotationDrift": 0,
+          "MaxFlashMismatch": 0,
+          "opacity": 0,
+          "marks": null,
+          "fading": null
+        }
+      ],
+      "shines": [
+        2
+      ],
+      "rewardPower": 0,
+      "extraRewards": 0,
+      "shinePile": 5
+    }
+  }
+]

@@ -1,0 +1,79 @@
+{
+  "stage": "restore",
+  "outcome": "delivered",
+  "human_note": "",
+  "source": "docs\\design\\assets\\relic-style-v6\\baseball_cat.png",
+  "source_sha256": "6fa8530ae17dcd833f89ddce9e8b602ca1564e92b3e4f91f5ca15ab173224f64",
+  "final": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_restored.png",
+  "final_sha256": "ef52a7a201809f00d31701d30cd47e34f68d51c7c86208cc43c98b3fc0ee9fab",
+  "final_is_source_copy": false,
+  "regen_rounds": 0,
+  "mode": "rules",
+  "diag": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_input_diag.json",
+  "verify": {
+    "passed": true,
+    "reasons": [],
+    "board": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_verify_board.png"
+  },
+  "steps": [
+    {
+      "n": 1,
+      "current": "docs\\design\\assets\\relic-style-v6\\baseball_cat.png",
+      "action": "diagnose",
+      "by": "rules",
+      "reason": "Diagnosis is required before treatment.",
+      "result": {
+        "action": "diagnose",
+        "lattice": true,
+        "granule_level": "none",
+        "scale_tile_pct": 0.0,
+        "scale_level": "none",
+        "board": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_input_diag_board.png",
+        "scale_heatmap": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_input_scaleheat.png"
+      }
+    },
+    {
+      "n": 2,
+      "current": "docs\\design\\assets\\relic-style-v6\\baseball_cat.png",
+      "action": "notch",
+      "by": "rules",
+      "reason": "An isolated periodic lattice was detected.",
+      "result": {
+        "action": "notch",
+        "output": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_notch.png",
+        "components_above_tau": 491,
+        "isolated_components_kept": 491,
+        "rejected_large_components": 0,
+        "notched_bins": 548,
+        "notched_bins_pct": 0.0287,
+        "max_peak_excess": 2.788,
+        "energy_removed_pct": 0.01674
+      }
+    },
+    {
+      "n": 3,
+      "current": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_notch.png",
+      "action": "verify",
+      "by": "rules",
+      "reason": "Verify aligned filtering distortion.",
+      "result": {
+        "action": "verify",
+        "passed": true,
+        "reasons": [],
+        "board": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_verify_board.png"
+      }
+    },
+    {
+      "n": 4,
+      "current": "artifacts\\relic-moire-v7\\baseball_cat\\baseball_cat_notch.png",
+      "action": "finish",
+      "by": "rules",
+      "reason": "No further processing is required.",
+      "result": {
+        "action": "finish"
+      }
+    }
+  ],
+  "acceptance": "A person must inspect the boards and decide whether to accept the candidate.",
+  "time": "2026-10-11T16:22:07+08:00"
+}

@@ -13,6 +13,7 @@ using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Audio;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,13 +29,15 @@ public class KarenFormPower : PowerModel
 
     public override Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
+        if (Owner.Player is { } player) KarenFormVfxManager.Start(player);
         CombatBgmReplacementManager.PlayLoop(KarenFormMusicManager.FileName, Owner.Player, 0.5f);
         return Task.CompletedTask;
     }
 
     public override Task AfterRemoved(Creature oldOwner)
     {
-        CombatBgmReplacementManager.Stop(Owner.Player);
+        if (oldOwner.Player is { } player) KarenFormVfxManager.Stop(player);
+        CombatBgmReplacementManager.Stop(oldOwner.Player);
         return Task.CompletedTask;
     }
 
@@ -42,24 +45,17 @@ public class KarenFormPower : PowerModel
     {
         if (player == Owner?.Player)
         {
-            return CardPile.maxCardsInHand;
+            return CardPile.MaxCardsInHand;
         }
         return base.ModifyHandDrawLate(player, count);
     }
 
-    //public override async Task AfterPlayerTurnStartLate(PlayerChoiceContext choiceContext, Player player)
-    //{
-    //    if (player == base.Owner.Player)
-    //    {
-    //        int max = CardPile.maxCardsInHand;
-    //        var hand = PileType.Hand.GetPile(player);
-    //        int drawnCnt = 0;
-    //        while (hand.Cards.Count < max)
-    //        {
-    //            var drawn = await CardPileCmd.Draw(choiceContext, 1, base.Owner.Player);
-    //            if (!drawn.Any()) break; // 没牌可抽了
-    //            if (drawnCnt++ > 100) break; // 保险措施，防止死循环
-    //        }
-    //    }
-    //}
+    public override Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+    {
+        // Only real start-of-turn draws pulse the wind; previews, full-hand attempts
+        // and draws caused by played cards must not trigger it.
+        if (fromHandDraw && card.Owner == Owner.Player)
+            KarenFormVfxManager.PulseDraw(card.Owner);
+        return Task.CompletedTask;
+    }
 }

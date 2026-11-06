@@ -1,0 +1,198 @@
+{
+  "method": "Action-marker alignment; original speed; shorter side holds its last frame. Right game-process audio only. No added effects.",
+  "audio": {
+    "sourcePeakDb": -30.4,
+    "gainDb": 26.4
+  },
+  "videoSha256": "3b39b19e84045791c39990ae230acb2d1e92e80e2612351efc9782f55328ad59",
+  "entries": [
+    {
+      "index": 1,
+      "scene": "polish-wake-upgraded",
+      "title": "唤醒＋ · 两段完整选择",
+      "phase": "第一段｜先选择牌堆，停留5秒",
+      "note": "第一段选牌堆保持原样；第二段选牌幕布收敛，确认后回手",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\wake-upgraded\\before\\stable\\polish-wake-upgraded\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\wake-upgraded\\after\\stable\\polish-wake-upgraded\\game.mp4"
+      ],
+      "sourceSha256": [
+        "e118f443ddf1d172f60258d9b79168ce8d7ac65a808e823609f003d859048d3b",
+        "db548e5d4efea8c06f77621017f6b90631def97a8a27ac194ff89fe8d5cf22f4"
+      ],
+      "starts": [
+        0.27100000000325963,
+        0.28700000000651926
+      ],
+      "ends": [
+        5.412000000006519,
+        5.412000000006519
+      ],
+      "duration": 5.14100000000326,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.487821557632532,
+          "frames_repeated": 9,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.72737144950922,
+          "frames_repeated": 21,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 0
+    },
+    {
+      "index": 2,
+      "scene": "polish-wake-upgraded",
+      "title": "唤醒＋ · 两段完整选择",
+      "phase": "第二段｜进入所选牌堆选两张牌，停留6秒",
+      "note": "第一段选牌堆保持原样；第二段选牌幕布收敛，确认后回手",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\wake-upgraded\\before\\stable\\polish-wake-upgraded\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\wake-upgraded\\after\\stable\\polish-wake-upgraded\\game.mp4"
+      ],
+      "sourceSha256": [
+        "e118f443ddf1d172f60258d9b79168ce8d7ac65a808e823609f003d859048d3b",
+        "db548e5d4efea8c06f77621017f6b90631def97a8a27ac194ff89fe8d5cf22f4"
+      ],
+      "starts": [
+        5.412000000006519,
+        5.412000000006519
+      ],
+      "ends": [
+        11.473999999982771,
+        11.490000000044239
+      ],
+      "duration": 6.0780000000377195,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.487821557632532,
+          "frames_repeated": 9,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.72737144950922,
+          "frames_repeated": 21,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 5.141
+    },
+    {
+      "index": 3,
+      "scene": "polish-wake-upgraded",
+      "title": "唤醒＋ · 两段完整选择",
+      "phase": "第二段｜选中第一张，短脉冲",
+      "note": "第一段选牌堆保持原样；第二段选牌幕布收敛，确认后回手",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\wake-upgraded\\before\\stable\\polish-wake-upgraded\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\wake-upgraded\\after\\stable\\polish-wake-upgraded\\game.mp4"
+      ],
+      "sourceSha256": [
+        "e118f443ddf1d172f60258d9b79168ce8d7ac65a808e823609f003d859048d3b",
+        "db548e5d4efea8c06f77621017f6b90631def97a8a27ac194ff89fe8d5cf22f4"
+      ],
+      "starts": [
+        11.473999999982771,
+        11.490000000044239
+      ],
+      "ends": [
+        12.207999999979512,
+        12.224000000040979
+      ],
+      "duration": 0.7339999999967404,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.487821557632532,
+          "frames_repeated": 9,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.72737144950922,
+          "frames_repeated": 21,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 11.219000000000001
+    },
+    {
+      "index": 4,
+      "scene": "polish-wake-upgraded",
+      "title": "唤醒＋ · 两段完整选择",
+      "phase": "第二段｜选满两张，收束并回手",
+      "note": "第一段选牌堆保持原样；第二段选牌幕布收敛，确认后回手",
+      "sources": [
+        "artifacts\\vfx-suitability-polish\\wake-upgraded\\before\\stable\\polish-wake-upgraded\\game.mp4",
+        "artifacts\\vfx-suitability-polish\\wake-upgraded\\after\\stable\\polish-wake-upgraded\\game.mp4"
+      ],
+      "sourceSha256": [
+        "e118f443ddf1d172f60258d9b79168ce8d7ac65a808e823609f003d859048d3b",
+        "db548e5d4efea8c06f77621017f6b90631def97a8a27ac194ff89fe8d5cf22f4"
+      ],
+      "starts": [
+        12.207999999979512,
+        12.224000000040979
+      ],
+      "ends": [
+        16.133008,
+        16.033008
+      ],
+      "duration": 3.9250080000204886,
+      "captures": [
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 29.487821557632532,
+          "frames_repeated": 9,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "222e4ebf960a2110a84f559364465775d8e0febf5de572c34c029f469563b261",
+            "packSha256": "53b67d60d87fe7c41b35351aa613f9419b81bf91e6577e6d9162e2250889231d"
+          }
+        },
+        {
+          "encoder": "h264_nvenc",
+          "capture_fps": 28.72737144950922,
+          "frames_repeated": 21,
+          "frames_dropped": 0,
+          "captureBuild": {
+            "assemblySha256": "2f898f6b6b4113b3e45edaa03874979a1f87d1d0d103478a5a5038a4af807be9",
+            "packSha256": "006e6a493a07260d74be2d5323da187e4d4c32aaf762ef75ef2581b53b8c9559"
+          }
+        }
+      ],
+      "start": 11.953000000000001
+    }
+  ]
+}

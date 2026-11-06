@@ -1,0 +1,2665 @@
+{
+  "date": "2026-10-29",
+  "scope": "targeted singleplayer before/after; no full multiplayer matrix",
+  "audio": false,
+  "nativeSpeed": true,
+  "baselineSafetyStop": 8,
+  "runs": [
+    {
+      "branch": "stable",
+      "phase": "before",
+      "cases": [
+        {
+          "case": "empty",
+          "result": "pass",
+          "before": {
+            "case": "empty",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 1,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 2,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "void",
+          "result": "pass",
+          "before": {
+            "case": "void",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 1,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "void",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 2,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "batch",
+          "result": "pass",
+          "before": {
+            "case": "batch",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "batch",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 3,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "infinite",
+          "result": "pass",
+          "before": {
+            "case": "infinite",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 10,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "infinite",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 3,
+            "promise": 10,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "swap",
+          "result": "pass",
+          "before": {
+            "case": "swap",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 2,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "swap",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 3,
+            "promise": 2,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_STRIKE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_STRIKE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward0",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 3,
+            "deckDelta": 0,
+            "choices": [
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              }
+            ]
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward1",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 2,
+            "deckDelta": 1,
+            "choices": [
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              }
+            ]
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward3",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 3,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "normal",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 3,
+            "deckDelta": 1,
+            "choices": [
+              {
+                "card": "KAREN_POTATO",
+                "picked": true
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              }
+            ]
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "tower",
+          "result": "pass",
+          "before": {
+            "case": "tower",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 1,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "tower",
+            "status": "baseline-stopped-after-8-failures",
+            "failedMoves": 8,
+            "energy": 3,
+            "hand": 1,
+            "promise": 2,
+            "ending": true,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":1,\"visualCount\":1,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_TOWER_OF_PROMISE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":1,\"visualCount\":1,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_CRY\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        }
+      ]
+    },
+    {
+      "branch": "stable",
+      "phase": "after",
+      "cases": [
+        {
+          "case": "empty",
+          "result": "pass",
+          "before": {
+            "case": "empty",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 1,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 5,
+            "hand": 2,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "void",
+          "result": "pass",
+          "before": {
+            "case": "void",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 1,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "void",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 5,
+            "hand": 2,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "batch",
+          "result": "pass",
+          "before": {
+            "case": "batch",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "batch",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 3,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "infinite",
+          "result": "pass",
+          "before": {
+            "case": "infinite",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 10,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "infinite",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 3,
+            "promise": 10,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "swap",
+          "result": "pass",
+          "before": {
+            "case": "swap",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 2,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "swap",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 3,
+            "promise": 2,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_STRIKE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_STRIKE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward0",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward1",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 1,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward3",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 3,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "normal",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 3,
+            "deckDelta": 1,
+            "choices": [
+              {
+                "card": "KAREN_POTATO",
+                "picked": true
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              }
+            ]
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "tower",
+          "result": "pass",
+          "before": {
+            "case": "tower",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 1,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "tower",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": true,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":1,\"visualCount\":1,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_TOWER_OF_PROMISE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "not_applicable",
+            "reason": "combat ended"
+          }
+        }
+      ]
+    },
+    {
+      "branch": "beta",
+      "phase": "before",
+      "cases": [
+        {
+          "case": "empty",
+          "result": "pass",
+          "before": {
+            "case": "empty",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 1,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 2,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "void",
+          "result": "pass",
+          "before": {
+            "case": "void",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 1,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "void",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 2,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "batch",
+          "result": "pass",
+          "before": {
+            "case": "batch",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "batch",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 3,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "infinite",
+          "result": "pass",
+          "before": {
+            "case": "infinite",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 10,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "infinite",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 3,
+            "promise": 10,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "swap",
+          "result": "pass",
+          "before": {
+            "case": "swap",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 2,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "swap",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 3,
+            "promise": 2,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_STRIKE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_STRIKE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward0",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 3,
+            "deckDelta": 0,
+            "choices": [
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              }
+            ]
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward1",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 2,
+            "deckDelta": 1,
+            "choices": [
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              }
+            ]
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward3",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 3,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "normal",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 3,
+            "deckDelta": 1,
+            "choices": [
+              {
+                "card": "KAREN_POTATO",
+                "picked": true
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              }
+            ]
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "tower",
+          "result": "pass",
+          "before": {
+            "case": "tower",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 1,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "tower",
+            "status": "baseline-stopped-after-8-failures",
+            "failedMoves": 8,
+            "energy": 3,
+            "hand": 1,
+            "promise": 2,
+            "ending": true,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":1,\"visualCount\":1,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_TOWER_OF_PROMISE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":1,\"visualCount\":1,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_CRY\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        }
+      ]
+    },
+    {
+      "branch": "beta",
+      "phase": "after",
+      "cases": [
+        {
+          "case": "empty",
+          "result": "pass",
+          "before": {
+            "case": "empty",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 1,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 5,
+            "hand": 2,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "void",
+          "result": "pass",
+          "before": {
+            "case": "void",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 1,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "void",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 5,
+            "hand": 2,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "batch",
+          "result": "pass",
+          "before": {
+            "case": "batch",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "batch",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 3,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "infinite",
+          "result": "pass",
+          "before": {
+            "case": "infinite",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 10,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "infinite",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 3,
+            "promise": 10,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_CONTINUE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "swap",
+          "result": "pass",
+          "before": {
+            "case": "swap",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 2,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "swap",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 3,
+            "promise": 2,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_STRIKE\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_STRIKE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":3,\"visualCount\":3,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward0",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward1",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 1,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "reward3",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 3,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "normal",
+          "result": "pass",
+          "before": {
+            "case": "reward",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "reward",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 3,
+            "deckDelta": 1,
+            "choices": [
+              {
+                "card": "KAREN_POTATO",
+                "picked": true
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              },
+              {
+                "card": "KAREN_POTATO",
+                "picked": false
+              }
+            ]
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "tower",
+          "result": "pass",
+          "before": {
+            "case": "tower",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 1,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "tower",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 0,
+            "ending": true,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":1,\"visualCount\":1,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_TOWER_OF_PROMISE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "not_applicable",
+            "reason": "combat ended"
+          }
+        }
+      ]
+    }
+  ],
+  "clips": [
+    {
+      "branch": "stable",
+      "phase": "before",
+      "scene": "empty",
+      "path": "artifacts/review-boundaries/before/stable/empty.mp4",
+      "sha256": "204b96011984fe875c7826d4f48a0afb7843746203820ca38fb5122c3aef0a60",
+      "seconds": 6.033008,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.853730156412148,
+      "framesDropped": 0,
+      "framesRepeated": 1,
+      "sampledFrames": 12,
+      "uniqueSampledFrames": 12
+    },
+    {
+      "branch": "stable",
+      "phase": "after",
+      "scene": "empty",
+      "path": "artifacts/review-boundaries/after/stable/empty.mp4",
+      "sha256": "d9156e6deb57381a0922912603266e61897549c78b64560ce25373f8da418e22",
+      "seconds": 6.566667,
+      "encoder": "h264_nvenc",
+      "captureFps": 26.744698016445085,
+      "framesDropped": 0,
+      "framesRepeated": 22,
+      "sampledFrames": 13,
+      "uniqueSampledFrames": 13
+    },
+    {
+      "branch": "stable",
+      "phase": "before",
+      "scene": "void",
+      "path": "artifacts/review-boundaries/before/stable/void.mp4",
+      "sha256": "c1e6ab29c1b8323d093f3dda19a1d40d83013f1600cedd98e44a44b50fa78c74",
+      "seconds": 6.066667,
+      "encoder": "h264_nvenc",
+      "captureFps": 30.1074267726587,
+      "framesDropped": 0,
+      "framesRepeated": 0,
+      "sampledFrames": 12,
+      "uniqueSampledFrames": 12
+    },
+    {
+      "branch": "stable",
+      "phase": "after",
+      "scene": "void",
+      "path": "artifacts/review-boundaries/after/stable/void.mp4",
+      "sha256": "53289172d8d8b7fc61da221c50a12939d57710e7df06b140ce6f55cdef93a7b4",
+      "seconds": 5.833008,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.976546969855203,
+      "framesDropped": 0,
+      "framesRepeated": 1,
+      "sampledFrames": 12,
+      "uniqueSampledFrames": 12
+    },
+    {
+      "branch": "stable",
+      "phase": "before",
+      "scene": "reward1",
+      "path": "artifacts/review-boundaries/before/stable/reward1.mp4",
+      "sha256": "6f53d224db4faf8fb4797fcab60fe9b116855602dd09ae7fc295d3515c79120a",
+      "seconds": 5.3,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.488028843223947,
+      "framesDropped": 0,
+      "framesRepeated": 3,
+      "sampledFrames": 11,
+      "uniqueSampledFrames": 11
+    },
+    {
+      "branch": "stable",
+      "phase": "after",
+      "scene": "reward1",
+      "path": "artifacts/review-boundaries/after/stable/reward1.mp4",
+      "sha256": "66dbbc67077be8697956ab11c163ded8fde1a36c73c3086edf3ccf9a2ae41840",
+      "seconds": 5.333008,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.760513381664154,
+      "framesDropped": 0,
+      "framesRepeated": 2,
+      "sampledFrames": 11,
+      "uniqueSampledFrames": 11
+    },
+    {
+      "branch": "stable",
+      "phase": "before",
+      "scene": "tower",
+      "path": "artifacts/review-boundaries/before/stable-tail/tower.mp4",
+      "sha256": "923e0b3479dc6ba3946e386a16dfa57608694960da84a9fd462538a4ca5165ca",
+      "seconds": 4.7,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.85146423137853,
+      "framesDropped": 0,
+      "framesRepeated": 1,
+      "sampledFrames": 9,
+      "uniqueSampledFrames": 9
+    },
+    {
+      "branch": "stable",
+      "phase": "after",
+      "scene": "tower",
+      "path": "artifacts/review-boundaries/after/stable/tower.mp4",
+      "sha256": "8c0e6e36f7fd715fbc75b80d58540d49fb511a6e871866eb8e4839ee8c7ac645",
+      "seconds": 4.8,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.29464949757479,
+      "framesDropped": 0,
+      "framesRepeated": 4,
+      "sampledFrames": 10,
+      "uniqueSampledFrames": 10
+    },
+    {
+      "branch": "beta",
+      "phase": "before",
+      "scene": "empty",
+      "path": "artifacts/review-boundaries/before/beta/empty.mp4",
+      "sha256": "8652930d772f2029dfb6b54eee4e47c49731bf09ea71d696abb43b38610585a8",
+      "seconds": 5.633008,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.893882588822333,
+      "framesDropped": 0,
+      "framesRepeated": 1,
+      "sampledFrames": 11,
+      "uniqueSampledFrames": 11
+    },
+    {
+      "branch": "beta",
+      "phase": "after",
+      "scene": "empty",
+      "path": "artifacts/review-boundaries/after/beta/empty.mp4",
+      "sha256": "c3302438e449a0903458ad65bbbb95cc49dceb5c8ccdeb1282314593651c603c",
+      "seconds": 5.866667,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.84825098033169,
+      "framesDropped": 0,
+      "framesRepeated": 1,
+      "sampledFrames": 12,
+      "uniqueSampledFrames": 12
+    },
+    {
+      "branch": "beta",
+      "phase": "before",
+      "scene": "void",
+      "path": "artifacts/review-boundaries/before/beta-retake/void.mp4",
+      "sha256": "449032781cee3670d4d227d55b0aee32e467b7044fd3a0de9c35441b7d4ec379",
+      "seconds": 5.8,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.76929351374171,
+      "framesDropped": 0,
+      "framesRepeated": 2,
+      "sampledFrames": 12,
+      "uniqueSampledFrames": 12
+    },
+    {
+      "branch": "beta",
+      "phase": "after",
+      "scene": "void",
+      "path": "artifacts/review-boundaries/after/beta/void.mp4",
+      "sha256": "a681127233d1fa8b61aef787e43891f3a0d3dd0191376edc7c175ee14d5fb75f",
+      "seconds": 5.8,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.829924255787358,
+      "framesDropped": 0,
+      "framesRepeated": 1,
+      "sampledFrames": 12,
+      "uniqueSampledFrames": 12
+    },
+    {
+      "branch": "beta",
+      "phase": "before",
+      "scene": "reward1",
+      "path": "artifacts/review-boundaries/before/beta/reward1.mp4",
+      "sha256": "547cef84fe008a44b0a966358bb2958cdca4f51378201028c80fe5a27a4ff00c",
+      "seconds": 5.3,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.50723261992789,
+      "framesDropped": 0,
+      "framesRepeated": 3,
+      "sampledFrames": 11,
+      "uniqueSampledFrames": 11
+    },
+    {
+      "branch": "beta",
+      "phase": "after",
+      "scene": "reward1",
+      "path": "artifacts/review-boundaries/after/beta/reward1.mp4",
+      "sha256": "fe9e5bd60525ef6c5a22553a956d6b302fe41f8c69beb9e5f88208775be6f5f2",
+      "seconds": 5.3,
+      "encoder": "h264_nvenc",
+      "captureFps": 30.066458218496166,
+      "framesDropped": 0,
+      "framesRepeated": 0,
+      "sampledFrames": 11,
+      "uniqueSampledFrames": 11
+    },
+    {
+      "branch": "beta",
+      "phase": "before",
+      "scene": "tower",
+      "path": "artifacts/review-boundaries/before/beta/tower.mp4",
+      "sha256": "cd537759ec8ca5feba3b7f737bfe12351d9085d58c9d0c46166f1c1c975c630f",
+      "seconds": 4.866667,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.823312504937558,
+      "framesDropped": 0,
+      "framesRepeated": 1,
+      "sampledFrames": 10,
+      "uniqueSampledFrames": 10
+    },
+    {
+      "branch": "beta",
+      "phase": "after",
+      "scene": "tower",
+      "path": "artifacts/review-boundaries/after/beta/tower.mp4",
+      "sha256": "951b3a403600da242f5c3be32f8cc8b20222203d0d5283338b3ab191a81386ca",
+      "seconds": 4.9,
+      "encoder": "h264_nvenc",
+      "captureFps": 29.29160526354169,
+      "framesDropped": 0,
+      "framesRepeated": 4,
+      "sampledFrames": 10,
+      "uniqueSampledFrames": 10
+    }
+  ],
+  "videos": [
+    {
+      "branch": "stable",
+      "path": "artifacts/review-boundaries/comparison/stable-before-after.mp4",
+      "sha256": "4abe8e106077597dd10e629ac759e628df9c81bc1686999d2911588eaab04f5c",
+      "seconds": 22.767,
+      "bytes": 3341944,
+      "chapters": [
+        "约定牌堆：补牌后再次清空",
+        "Void：补牌后再次清空",
+        "闪耀奖励：3 张领取 1 张",
+        "约定之塔：移牌联动结束战斗"
+      ]
+    },
+    {
+      "branch": "beta",
+      "path": "artifacts/review-boundaries/comparison/beta-before-after.mp4",
+      "sha256": "8f04cfa40904e3830c2b9d83f72dbf41bb0294d5e707bc30a05e93d6df042ac5",
+      "seconds": 21.867,
+      "bytes": 3242550,
+      "chapters": [
+        "约定牌堆：补牌后再次清空",
+        "Void：补牌后再次清空",
+        "闪耀奖励：3 张领取 1 张",
+        "约定之塔：移牌联动结束战斗"
+      ]
+    }
+  ],
+  "supplementary": [
+    {
+      "branch": "stable",
+      "cases": [
+        {
+          "case": "overflow",
+          "result": "pass",
+          "before": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 9,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 10,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":9,\"visualCount\":9,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":10,\"visualCount\":10,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "full",
+          "result": "pass",
+          "before": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 1,
+            "promise": 12,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 10,
+            "promise": 2,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":1,\"visualCount\":1,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_TOWER_OF_PROMISE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":10,\"visualCount\":10,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        }
+      ]
+    },
+    {
+      "branch": "beta",
+      "cases": [
+        {
+          "case": "overflow",
+          "result": "pass",
+          "before": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 9,
+            "promise": 3,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 10,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":9,\"visualCount\":9,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":10,\"visualCount\":10,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        },
+        {
+          "case": "full",
+          "result": "pass",
+          "before": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 1,
+            "promise": 12,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "empty",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 10,
+            "promise": 2,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":1,\"visualCount\":1,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_TOWER_OF_PROMISE\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":10,\"visualCount\":10,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        }
+      ]
+    }
+  ],
+  "assemblies": [
+    {
+      "phase": "before",
+      "branch": "stable",
+      "path": "artifacts/baseline/stable/ShoujoKagekiAijoKaren.Stable.dll",
+      "sha256": "e5ff7e0ca3ef73e9ffb348618149bcb3e19a18a21f0846cdf565bcbfedfc3def"
+    },
+    {
+      "phase": "before",
+      "branch": "beta",
+      "path": "artifacts/baseline/beta/ShoujoKagekiAijoKaren.Beta.dll",
+      "sha256": "973bc372ef8b2c7c71a8b65376097d138e06e4726950a1404704b2a9619ad562"
+    },
+    {
+      "phase": "after",
+      "branch": "stable",
+      "path": "artifacts/fixed/stable/ShoujoKagekiAijoKaren.Stable.dll",
+      "sha256": "e4287f3236b366cb653ed2f30b4c3fa0659b41f3048ed911780448ad3b1efb23"
+    },
+    {
+      "phase": "after",
+      "branch": "beta",
+      "path": "artifacts/fixed/beta/ShoujoKagekiAijoKaren.Beta.dll",
+      "sha256": "9575a7c079f6919954ce5acab2334da32299588c617f2bfb139f3a1eecef232f"
+    }
+  ],
+  "source": [
+    {
+      "path": "src/Core/PromisePileSystem/PromisePileManager.cs",
+      "sha256": "c0a17b57d4963588e84e8492699971a3f6e3c11bd8b1acda79d654afb867e421"
+    },
+    {
+      "path": "src/Core/Commands/PromisePileCmd.cs",
+      "sha256": "9f741f514a6e0d889b720d15a32cb2c8a2f9861dd9c68030ba281ce7a56b3f94"
+    },
+    {
+      "path": "src/Core/PromisePileSystem/Patches/PromisePileHookPatch.cs",
+      "sha256": "f310faf0fea1c4144a94f4752fbe1c79735f8183f30a50601c098824251e8156"
+    },
+    {
+      "path": "src/Core/Rewards/KarenShineCardReward.cs",
+      "sha256": "0ce707afaeadbbb162a629fa30b58d39c5d23a827426e148e64a2456c03ade8a"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "artifacts/review-boundaries/before/stable/empty-before.png",
+      "sha256": "e4e6aa8dfea91df8f43a73f903e94a704e7f7a34b67743fa40c4d816c2de54b1"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/empty-after.png",
+      "sha256": "4d7d7692492238ced2b682752e32939f1a26e930a17a59a8e53d6aa997436b3d"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/void-before.png",
+      "sha256": "69b382d1695d4a4cdfb73137c0da69b5fe52b0137f503562cbc25385f3ec2e09"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/void-after.png",
+      "sha256": "542fdf28fe100cb4a00ff5d9157e887abfe552a854d5b32cceedc54cf90dcb3a"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/batch-before.png",
+      "sha256": "b15783f9360719d7f8a6cd9b0b6103b3d3136b3986b24e95e05753bffd7ecd5c"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/batch-after.png",
+      "sha256": "f3979db3f26d37033434a4875c5924ae37982cdb9880de6a828a034cb2dc0737"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/infinite-before.png",
+      "sha256": "9d75852e5032b7daa1df971cc37c8125dfa083661a9aa2fe2850d5491d5c8b9c"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/infinite-after.png",
+      "sha256": "09ebff15deb83178820943d56ff9e14cb2797c58a568e1da276f00fe0234c5f2"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/swap-before.png",
+      "sha256": "a93ed760adf86590fe57c50b3c75f4c417d6de235a7f4b1a5177aa7a302bbbe5"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/swap-after.png",
+      "sha256": "8879a917d4703cfef5fc4a52910c0ddf8328ea741fe583fe9822cb1227f9cec0"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/reward0-before.png",
+      "sha256": "77751cfdbbdca6f6773bfc5389ddc91fe8ad230f89c1372345ab6c2c24cd392f"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/reward0-after.png",
+      "sha256": "3af01350819abbdbecd6eddd1c8016354b94f72bf91b9901b110d2d3212806fd"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/reward1-before.png",
+      "sha256": "aceb6695cd1d748edc386ff6e6855f644c47f986c25b23eefb7d5959055c9932"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/reward1-after.png",
+      "sha256": "da3f9f1642ddfb5185678b4c70a0ad3489caffa8519bf85f1576e844bab167fd"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/reward3-before.png",
+      "sha256": "7b24c818658e0ffb93c5ec8735381f90ffb556feb1460f1a38f324432a1971c1"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable/reward3-after.png",
+      "sha256": "424e9b65fcda066d950dc045ec04a99cb53d7c72f690ce1a7aa01f69fdcb8285"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable-tail/normal-before.png",
+      "sha256": "894c55417bc15832205910347c668bea132565e6bddb279ffd4e320ff954ef5d"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable-tail/normal-after.png",
+      "sha256": "df7750f8da4efeac9a0f3bd866923ed7fa5e890fde25d2571cabbb180d64d79f"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable-tail/tower-before.png",
+      "sha256": "ccda5f147851b9236c164f2dcbfcb556c0606de21bc11ec18567b9028f3d5a2e"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable-tail/tower-after.png",
+      "sha256": "aaa504788f08e51577ddf095d4c3e4b8c1bad8c3dbec25aa8b818e66596074be"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/empty-before.png",
+      "sha256": "9edef02589faa2be318b70427ae5460dfbca28e5ff824dde967ede3b0740c0dc"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/empty-after.png",
+      "sha256": "fb9c4e7ff37ba87ca4341f357252445a784280ae4fc1f298a27063566b4db5e0"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/void-before.png",
+      "sha256": "baf3a639718ae56e2d92d536ad8c8f8bbdfb64186f27c5c2a1c3d2a4ec60e47c"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/void-after.png",
+      "sha256": "c9b3b98dc6821901cffebd7cfa93f45d2f4dd15f95b10d91a3bdaa8bce1df4aa"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/batch-before.png",
+      "sha256": "ecbc9fc9a9fd29574b6226fcc4b79076d5da4bf31ba15ebb401cf6206c94299f"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/batch-after.png",
+      "sha256": "52976bbe7808b43f4a8a5ccc5e660ee92b72bd250450ec9474a1b08e395f0269"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/infinite-before.png",
+      "sha256": "d35f96571ab88edc3764f95f471068c234dd9f869d34ee14498fb58ba406be36"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/infinite-after.png",
+      "sha256": "a282a31f091662b5b4cc71c6e86d70cf475d43c563268679fb9135223334b86d"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/swap-before.png",
+      "sha256": "a378e0f953a89b42fd69e72a105146de37b66a83b3d0e3de661b3ea16fa64f4f"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/swap-after.png",
+      "sha256": "809e90503cdb8792340b79d9081b3007183e70fbcb0c892940ec18be84833806"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/reward0-before.png",
+      "sha256": "1cd36763fd3f4dcc1d04ecb559c450611388f3b3fc7c2992ed0c043694dfe02e"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/reward0-after.png",
+      "sha256": "137cce042a5cb5758faf8300e8790e6bf29b930dc6d6028fb7dd26cd4a22cb7b"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/reward1-before.png",
+      "sha256": "473338b21fd45337db1232ababc3e34726c18fa71a5f6e4aca614573019021cb"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/reward1-after.png",
+      "sha256": "b06e3d227cb3e29be55ee5d8428870c60a3d42ce8a827dada6ba7935f319f7fc"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/reward3-before.png",
+      "sha256": "c0363658aceab4b0b483b96fd6b7a4ab893f3c70e5b03977a19d913153041aa9"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/reward3-after.png",
+      "sha256": "6af863c29e88de208fa036ca80224b0efa44e18c03fb606a2efe7a3623e565dc"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/normal-before.png",
+      "sha256": "dc344a29149188f7c8db2391a800b0dcfbbb333ef3fa5355c6a7988470c3df5a"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/normal-after.png",
+      "sha256": "f8145f5ce57284102e113a1605eb1b3c6407fbd785acae712ccc37fdaa822556"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/tower-before.png",
+      "sha256": "e0c1112b34dcd5dfdd05cf32b38d2fd32c8ef899c8fb4f832c1f429eb5032efd"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/tower-after.png",
+      "sha256": "8c37eb91d75acd556f83c66a2a0085b89a9a453f509fde8541278fc7ea0320c4"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta-retake/void-before.png",
+      "sha256": "0ff7dc3e9b93744531be819d28e396ced7adcfe297781aa4a0c163c2c6e20014"
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta-retake/void-after.png",
+      "sha256": "560b06695da737782c14e1cedc1385fbba22433a41cf4df054e17552531eb072"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/empty-before.png",
+      "sha256": "c65a2c7bdceb258904f0ad21ed3418f3009e8c7a97123e4c238b0744ea918bf9"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/empty-after.png",
+      "sha256": "ac62d5787264884254232501b14b6a1e489ad86045977ea940ea9e1f91500b42"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/void-before.png",
+      "sha256": "2e429b531caa4f21a4dacb5ecba4c2ff38302836212fce15c14a945fbce8ce01"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/void-after.png",
+      "sha256": "dd9e5d85a4930091c5cacc553de48ed2d267a9dfd4d3247b24d4775f86e690cd"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/batch-before.png",
+      "sha256": "0c3d1e8ce613c0e2e3f8982a0b999efac8f01a0730e615637c8f9eaf666bbfc4"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/batch-after.png",
+      "sha256": "c1777eb69d2f8a85ca13c9f7f3078b5239b62a2b1dd051cd1f1e21b355bb2157"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/infinite-before.png",
+      "sha256": "de73c46082b91eb0bdd399f2d2985c3ee4ef4e10eabb60e495f345f2541c3a63"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/infinite-after.png",
+      "sha256": "cfa1cc2eea6dafac229f3763b97ed7d9ffb1da4cf618acbd2a695590f96c4a2d"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/swap-before.png",
+      "sha256": "ca7493f2f7f82c5b6f20d6837b4ec2523c9b55200a961f02db9da826bd97a2b2"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/swap-after.png",
+      "sha256": "f4b8bcc21af9e2d024a3ed1007c683691ea0bedcfcc330876b09c4ca1631b14a"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/reward0-before.png",
+      "sha256": "1171bf3cd4ce9f482c3a75d205ef70ba0803f0cc33ec6e9e9db04f0a95b47ff0"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/reward0-after.png",
+      "sha256": "3dad7fe9dffe11d4296fb338b908123a5251eb164f3dd28a04cd3ee2adbae53f"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/reward1-before.png",
+      "sha256": "bf2c5f4e036158608833eab29c02c15d321b39838ffbe7fe6e5c274f48f979b8"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/reward1-after.png",
+      "sha256": "0563e318b19b3bcea5ce70fcca00cdc335639de698f03a1be500e1188682106e"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/reward3-before.png",
+      "sha256": "a0b9e7bc2b9734a773bb389c5c649f88fd872e9c685c2f6c65a92bfa93528aa8"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/reward3-after.png",
+      "sha256": "e0b8a5bc59579edb39b002b6eb9ca9440bcb4d3eff0bd19f4c0c5ae5d77e8d10"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/normal-before.png",
+      "sha256": "b1b6016adfae9d792b0093ec2fb50ea94c1523af729c94219bb8147ce935fef0"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/normal-after.png",
+      "sha256": "5a1f1bed5048987818d02b3250210eb3a51624ccc959ceebe13c66c29c61b311"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/tower-before.png",
+      "sha256": "f1a590151187224d9c0cf20706b284de2dacc81245f4d3fe36e7ab97f5f7b373"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/tower-after.png",
+      "sha256": "a8af30a219995bb24084ebb26dfd2e7e9bc17fa4e94d3c1b8781c07fdda40ec6"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable-hand-limits/overflow-before.png",
+      "sha256": "240e7994553c129395ac0c81cc4b0e365cf7bcfc62683872fae62668b5c176dd"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable-hand-limits/overflow-after.png",
+      "sha256": "1f9603774ac4c8859707fbacc5d21e1fdeea45522b663aeea41ca3a6264ca6c6"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable-hand-limits/full-before.png",
+      "sha256": "62bca4455e1bec2697f8ddd86e14b9180228daf5cc194873c3bf2942765625dc"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable-hand-limits/full-after.png",
+      "sha256": "90ae7e13f8c7574bfce9dfe655a19b9e4e7e14fb55a4b20ac376749e8a73d266"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/empty-before.png",
+      "sha256": "000edd4c9bfd42f4073f234b7a1dea32d1ded785fc097246d7469084566df8d8"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/empty-after.png",
+      "sha256": "7f6759aa96294dd02bc09095c99d5ca49ab393e3d9f2d3006870c204d4009679"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/void-before.png",
+      "sha256": "416ce7cdc1f0c4690c53a08034551c16951e3071b440b3be580445ed766aa5aa"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/void-after.png",
+      "sha256": "ad94dbd9a02fc2ff6d7d3c0d69aef5bff29d5b1d19b3c7d6463be5a4d5941126"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/batch-before.png",
+      "sha256": "b22a6c166d548438456c38c1fee90b505498720efddecad0a74282c21d959016"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/batch-after.png",
+      "sha256": "5c79e7154ae7632f34fb6d1b760ae2f2b63eabb8566564ea3402fea25516e1d3"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/infinite-before.png",
+      "sha256": "3dd172f1f06071810094ec15f9f68dda3819bf70dc35990293dfc3e82fd3e8be"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/infinite-after.png",
+      "sha256": "2a08250e2d05337e42431ed1a9f7707e7ab4e0f55a7d1f7dd4d4cd14982e6cd3"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/swap-before.png",
+      "sha256": "8f443629108d3461862f83d44e667fd4c71e96617839b4bbe11469f04264a639"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/swap-after.png",
+      "sha256": "b7b736b38fe4a56619a546399f68d8a41819abe0ac176fdf67332a3e893a21bd"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/reward0-before.png",
+      "sha256": "0fb8036aba9284e5a92a6f156ec9ec5ccda2961b27229a14bb6521d21b543a27"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/reward0-after.png",
+      "sha256": "bfbb90d24ba479dc3fbe1726d52f58f8beca4f30cc7b89b32f7298450965a8d8"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/reward1-before.png",
+      "sha256": "25a21a74b082478a26d7d237f289165c464e1ae1a495c0d5038ba91cc782ba00"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/reward1-after.png",
+      "sha256": "540b8e68b78b1c65f8b4882667cf5a4c01a4386e8683ed583e83149c2a208946"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/reward3-before.png",
+      "sha256": "08f2aa6d9440cb309632b433b9b29c208ce314b3e3378759750f0de4b7dcfafc"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/reward3-after.png",
+      "sha256": "32ce821455d4f5bf680ea99cb125d4efbf3b0c091671b53aa1fa2acfbc23fb00"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/normal-before.png",
+      "sha256": "68959c5da530d9343aa25244e51a3e4c4be9079a0c2cb7001fb2886574f4285a"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/normal-after.png",
+      "sha256": "e467a9eb1262e88463a572cb6c70351edd44b3dba5f5a79805198fe2dffae574"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/tower-before.png",
+      "sha256": "e7383fa544f5e63c2d8fb1ded7ac35817652d19ede6e958c076d80789e42b621"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/tower-after.png",
+      "sha256": "ddecf32cf79cc3e1d0fd2bd95513b995ecfad5e90f52ab35de474f3ddfe1c566"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta-hand-limits/overflow-before.png",
+      "sha256": "ef0e348d2cb496bf84c944be918421ee0522104f9906fe7ef0376d6167d2cf8a"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta-hand-limits/overflow-after.png",
+      "sha256": "10e425bd0a909394d676eae487ab7993e128d6b6fa43fa82f9e4f19f5be84f31"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta-hand-limits/full-before.png",
+      "sha256": "a866f9dd1a7dc2f46e16b564a14adcf25586ed644ee47ceee18edc916b57d3e5"
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta-hand-limits/full-after.png",
+      "sha256": "09804724adec20b8c9eadb71df0c1c7c9c7442b8919e024cae6128af571cf65a"
+    }
+  ],
+  "logs": [
+    {
+      "path": "artifacts/review-boundaries/before/stable/godot.log",
+      "sha256": "0c963c7124c1c0eb9c6f70b9ae21ff2ca4b92737df762cb76e48ecdfa0d11fa5",
+      "errors": []
+    },
+    {
+      "path": "artifacts/review-boundaries/before/stable-tail/godot.log",
+      "sha256": "9ac4815848ab5488a3cafb1fe85804a54b448b3715651db79c239106ce2d1a1f",
+      "errors": []
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta/godot.log",
+      "sha256": "d44c7ef3981f59b28f66bb1ca4b2b4a4a9b8041ad0d65b9f92e8bcafcff4d5d1",
+      "errors": [
+        {
+          "line": 237,
+          "message": "ERROR: Invalid Task ID"
+        }
+      ]
+    },
+    {
+      "path": "artifacts/review-boundaries/before/beta-retake/godot.log",
+      "sha256": "105af461577f0e1aa976c68b441d8bf5db7411a3dbe28ad518680d0a8a084c2b",
+      "errors": []
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable/godot.log",
+      "sha256": "506e7872dd08ec2890edfd852a7e1f1d3097d9475461e1daaa5513c745051abb",
+      "errors": []
+    },
+    {
+      "path": "artifacts/review-boundaries/after/stable-hand-limits/godot.log",
+      "sha256": "d610719b7dad8660d975dc21bdbcef05de5b440ed955e4cf14397a2e7bc030c7",
+      "errors": []
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta/godot.log",
+      "sha256": "6e903ece7ceeaf9feeca2f8ef38ad81042794a2e3401724801e9fb24280f919a",
+      "errors": [
+        {
+          "line": 237,
+          "message": "ERROR: Invalid Task ID"
+        }
+      ]
+    },
+    {
+      "path": "artifacts/review-boundaries/after/beta-hand-limits/godot.log",
+      "sha256": "0d94ff5bf19665de4dba83da72c94eeb702fcb0a8fbc22f6b7e1cb727bdc3dd6",
+      "errors": [
+        {
+          "line": 237,
+          "message": "ERROR: Invalid Task ID"
+        }
+      ]
+    }
+  ],
+  "retakes": [
+    {
+      "path": "artifacts/review-boundaries/before/beta-retake",
+      "cases": [
+        {
+          "case": "void",
+          "result": "pass",
+          "before": {
+            "case": "void",
+            "status": "ready",
+            "failedMoves": 0,
+            "energy": 3,
+            "hand": 0,
+            "promise": 1,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "after": {
+            "case": "void",
+            "status": "finished",
+            "failedMoves": 0,
+            "energy": 4,
+            "hand": 2,
+            "promise": 0,
+            "ending": false,
+            "choicesDelta": 0,
+            "deckDelta": 0,
+            "choices": []
+          },
+          "handBefore": {
+            "status": "ok",
+            "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+            "command": "karen_check_hand",
+            "async": false
+          },
+          "handAfter": {
+            "status": "ok",
+            "message": "{\"modelCount\":2,\"visualCount\":2,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true},{\"card\":\"KAREN_DEFEND\",\"expected\":0,\"actual\":0,\"valid\":true}]}",
+            "command": "karen_check_hand",
+            "async": false
+          }
+        }
+      ]
+    }
+  ],
+  "handAudit": {
+    "passed": 88,
+    "combatEnded": 2
+  }
+}

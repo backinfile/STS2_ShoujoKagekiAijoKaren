@@ -1,0 +1,192 @@
+[
+  {
+    "file": "state-occupied-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-energy-b/stable/waiting-stage/game.mp4",
+    "sourceSha256": "904a15a00eb3fda785a70281dc883f279f7aa7948b5b6b02e65d4de02ca3038f",
+    "time": 5.740246900031343,
+    "observation": "occupied-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.085,
+      "beamSpan": 36.000004,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-empty-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-energy-b/stable/waiting-stage/game.mp4",
+    "sourceSha256": "904a15a00eb3fda785a70281dc883f279f7aa7948b5b6b02e65d4de02ca3038f",
+    "time": 9.858433700050227,
+    "observation": "empty-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.055,
+      "beamSpan": 0,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-refilled-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-energy-b/stable/waiting-stage/game.mp4",
+    "sourceSha256": "904a15a00eb3fda785a70281dc883f279f7aa7948b5b6b02e65d4de02ca3038f",
+    "time": 17.200311500020327,
+    "observation": "refilled-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.085,
+      "beamSpan": 36.000004,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "trigger-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-energy-b/stable/waiting-stage/game.mp4",
+    "sourceSha256": "904a15a00eb3fda785a70281dc883f279f7aa7948b5b6b02e65d4de02ca3038f",
+    "time": 7.890633300109767,
+    "observation": "trigger-one",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.055,
+      "beamSpan": 0,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "cast-in-game.png",
+    "branch": "stable",
+    "source": "artifacts/stage-is-waiting-energy-b/stable/waiting-stage/game.mp4",
+    "sourceSha256": "904a15a00eb3fda785a70281dc883f279f7aa7948b5b6b02e65d4de02ca3038f",
+    "time": 2.0501354000065475,
+    "observation": "cast-quiet",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.085,
+      "beamSpan": 36.000004,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-occupied-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-energy-b/beta/waiting-stage/game.mp4",
+    "sourceSha256": "0e322eb2849bafff09e0783e3e4bd9ced9214166d8f5a778580453030825c2ab",
+    "time": 5.712467200029641,
+    "observation": "occupied-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.085,
+      "beamSpan": 35.999996,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-empty-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-energy-b/beta/waiting-stage/game.mp4",
+    "sourceSha256": "0e322eb2849bafff09e0783e3e4bd9ced9214166d8f5a778580453030825c2ab",
+    "time": 9.790923499967903,
+    "observation": "empty-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.055,
+      "beamSpan": 0,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "state-refilled-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-energy-b/beta/waiting-stage/game.mp4",
+    "sourceSha256": "0e322eb2849bafff09e0783e3e4bd9ced9214166d8f5a778580453030825c2ab",
+    "time": 17.214188199979255,
+    "observation": "refilled-idle",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.085,
+      "beamSpan": 35.999996,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "trigger-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-energy-b/beta/waiting-stage/game.mp4",
+    "sourceSha256": "0e322eb2849bafff09e0783e3e4bd9ced9214166d8f5a778580453030825c2ab",
+    "time": 7.862535800016485,
+    "observation": "trigger-one",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 0,
+      "pileEmpty": true,
+      "opening": 1,
+      "confirmations": 1,
+      "energy": 1,
+      "stageNow": 0.055,
+      "beamSpan": 0,
+      "belowDigits": true
+    }
+  },
+  {
+    "file": "cast-in-game-beta.png",
+    "branch": "beta",
+    "source": "artifacts/stage-is-waiting-energy-b/beta/waiting-stage/game.mp4",
+    "sourceSha256": "0e322eb2849bafff09e0783e3e4bd9ced9214166d8f5a778580453030825c2ab",
+    "time": 2.0501179999904706,
+    "observation": "cast-quiet",
+    "observationTiming": "Observer records settled phase state; screenshot independently sampled at the given video time.",
+    "settled": {
+      "pileCount": 1,
+      "pileEmpty": false,
+      "opening": 0,
+      "confirmations": 0,
+      "energy": 0,
+      "stageNow": 0.085,
+      "beamSpan": 35.999996,
+      "belowDigits": true
+    }
+  }
+]

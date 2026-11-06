@@ -1,0 +1,16 @@
+{
+  "stable": {
+    "maxLocalError": 1.0789593e-05,
+    "maxCanvasError": 6.29136e-05,
+    "countMatchesEverySample": true,
+    "normalSixSides": 63,
+    "fastSixSides": 63
+  },
+  "beta": {
+    "maxLocalError": 1.0789593e-05,
+    "maxCanvasError": 6.823938e-05,
+    "countMatchesEverySample": true,
+    "normalSixSides": 63,
+    "fastSixSides": 63
+  }
+}

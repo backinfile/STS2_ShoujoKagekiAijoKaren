@@ -1,0 +1,58 @@
+{
+  "targets": {
+    "stable": { "port": 15627, "mode": "singleplayer" },
+    "beta": { "port": 15628, "mode": "singleplayer" }
+  },
+  "steps": [
+    {
+      "name": "正式版主菜单就绪",
+      "target": "stable",
+      "op": "wait",
+      "expect": [{ "path": "/menu_screen", "eq": "main" }]
+    },
+    {
+      "name": "正式版打开设置",
+      "target": "stable",
+      "op": "post",
+      "body": { "action": "menu_select", "option": "settings" },
+      "before": [
+        { "path": "/menu_screen", "eq": "main" },
+        { "path": "/options", "contains": "settings" }
+      ],
+      "after": [{ "path": "/menu_screen", "eq": "settings" }]
+    },
+    {
+      "name": "正式版返回主菜单",
+      "target": "stable",
+      "op": "post",
+      "body": { "action": "close_settings" },
+      "before": [{ "path": "/menu_screen", "eq": "settings" }],
+      "after": [{ "path": "/menu_screen", "eq": "main" }]
+    },
+    {
+      "name": "测试版主菜单就绪",
+      "target": "beta",
+      "op": "wait",
+      "expect": [{ "path": "/menu_screen", "eq": "main" }]
+    },
+    {
+      "name": "测试版打开设置",
+      "target": "beta",
+      "op": "post",
+      "body": { "action": "menu_select", "option": "settings" },
+      "before": [
+        { "path": "/menu_screen", "eq": "main" },
+        { "path": "/options", "contains": "settings" }
+      ],
+      "after": [{ "path": "/menu_screen", "eq": "settings" }]
+    },
+    {
+      "name": "测试版返回主菜单",
+      "target": "beta",
+      "op": "post",
+      "body": { "action": "close_settings" },
+      "before": [{ "path": "/menu_screen", "eq": "settings" }],
+      "after": [{ "path": "/menu_screen", "eq": "main" }]
+    }
+  ]
+}

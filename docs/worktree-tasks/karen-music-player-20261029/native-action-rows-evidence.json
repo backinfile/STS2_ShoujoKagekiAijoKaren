@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-29",
+  "build": {
+    "stable": "0 errors, 36 existing warnings",
+    "beta": "0 errors, 36 existing warnings",
+    "loader": "0 errors, 1 existing warning"
+  },
+  "checks": {
+    "stable": [
+      {
+        "name": "registry_visible",
+        "passed": true
+      },
+      {
+        "name": "default_sections",
+        "passed": true
+      },
+      {
+        "name": "section_order",
+        "passed": true
+      },
+      {
+        "name": "three_actions_and_upload_in_other",
+        "passed": true
+      },
+      {
+        "name": "native_localized_action_rows",
+        "passed": true
+      },
+      {
+        "name": "other_expands_with_mouse",
+        "passed": true
+      },
+      {
+        "name": "labels_left_aligned_buttons_right",
+        "passed": true
+      },
+      {
+        "name": "three_separate_rows",
+        "passed": true
+      },
+      {
+        "name": "other_collapses_all_contents",
+        "passed": true
+      },
+      {
+        "name": "reopen_restores_default_collapsed",
+        "passed": true
+      }
+    ],
+    "beta": [
+      {
+        "name": "registry_visible",
+        "passed": true
+      },
+      {
+        "name": "default_sections",
+        "passed": true
+      },
+      {
+        "name": "section_order",
+        "passed": true
+      },
+      {
+        "name": "three_actions_and_upload_in_other",
+        "passed": true
+      },
+      {
+        "name": "native_localized_action_rows",
+        "passed": true
+      },
+      {
+        "name": "other_expands_with_mouse",
+        "passed": true
+      },
+      {
+        "name": "labels_left_aligned_buttons_right",
+        "passed": true
+      },
+      {
+        "name": "three_separate_rows",
+        "passed": true
+      },
+      {
+        "name": "other_collapses_all_contents",
+        "passed": true
+      },
+      {
+        "name": "reopen_restores_default_collapsed",
+        "passed": true
+      }
+    ]
+  },
+  "package_sha256": {
+    "ShoujoKagekiAijoKaren.dll": "2c4b9a1e7897ccaec05bd315d0f54c350ad7b2e803f6727eb9d223cb6abb911e",
+    "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+    "ShoujoKagekiAijoKaren.pck": "fd127ce426a40bd5b82a591ac2806b722c675c0da1007f2f5c4d7627946bf608",
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": "4a96d24254d240dab0abec8aeba5b53ecc1dd502d34e8ac1ca32ffef27bb3174",
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": "96b63913634b997a937c3d51f9b85829e18912ac7f442bee34fbe209bbeade68"
+  },
+  "deployment_hashes_match": true,
+  "mod_registry_visible": true,
+  "localization": {
+    "new_keys_per_locale": 2,
+    "new_failures": 0,
+    "existing_source_hash_failures": 13
+  },
+  "screenshots": {
+    "stable": [
+      "artifacts/karen-music-player-20261029/stable-native-actions-default.png",
+      "artifacts/karen-music-player-20261029/stable-native-actions-expanded.png"
+    ],
+    "beta": [
+      "artifacts/karen-music-player-20261029/beta-native-actions-default.png",
+      "artifacts/karen-music-player-20261029/beta-native-actions-expanded.png"
+    ]
+  },
+  "not_tested": [
+    "Actual card export and save unlock",
+    "Full multiplayer matrix",
+    "VFX专项",
+    "Android"
+  ],
+  "review": "Independent read-only source and rendered screenshot review passed.",
+  "log_observations": {
+    "stable": "No errors found in final targeted run.",
+    "beta": "One engine Invalid Task ID during initial Common resource preloading, before creating settings UI; all targeted settings checks passed."
+  }
+}

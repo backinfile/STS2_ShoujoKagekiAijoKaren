@@ -15,12 +15,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// 体操练习 - 2费获得16格挡，Shine 9
 /// 升级：格挡22
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenPractice3 : KarenBaseCardModel
 {
-    public KarenPractice3() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenPractice3() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self) { }
 
     public override bool GainsBlock => true;
 

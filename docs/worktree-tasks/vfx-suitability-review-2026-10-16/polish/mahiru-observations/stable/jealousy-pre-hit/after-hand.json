@@ -1,0 +1,6 @@
+{
+  "status": "ok",
+  "message": "{\"modelCount\":0,\"visualCount\":0,\"missing\":[],\"unexpected\":[],\"unexpectedPileIcons\":[],\"burnOverlays\":[]}",
+  "command": "karen_check_hand",
+  "async": false
+}

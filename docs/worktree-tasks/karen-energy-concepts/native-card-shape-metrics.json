@@ -1,0 +1,52 @@
+[
+  {
+    "name": "ironclad",
+    "source": "card/energy_ironclad.tres",
+    "alphaThreshold": 128,
+    "width": 71,
+    "height": 72,
+    "aspect": 0.9861,
+    "opaquePixels": 3699,
+    "boxFill": 0.7236
+  },
+  {
+    "name": "silent",
+    "source": "card/energy_silent.tres",
+    "alphaThreshold": 128,
+    "width": 71,
+    "height": 71,
+    "aspect": 1.0,
+    "opaquePixels": 3663,
+    "boxFill": 0.7266
+  },
+  {
+    "name": "regent",
+    "source": "card/energy_regent.tres",
+    "alphaThreshold": 128,
+    "width": 72,
+    "height": 72,
+    "aspect": 1.0,
+    "opaquePixels": 3607,
+    "boxFill": 0.6958
+  },
+  {
+    "name": "necrobinder",
+    "source": "card/energy_necrobinder.tres",
+    "alphaThreshold": 128,
+    "width": 69,
+    "height": 65,
+    "aspect": 1.0615,
+    "opaquePixels": 3479,
+    "boxFill": 0.7757
+  },
+  {
+    "name": "defect",
+    "source": "card/energy_defect.tres",
+    "alphaThreshold": 128,
+    "width": 66,
+    "height": 66,
+    "aspect": 1.0,
+    "opaquePixels": 4050,
+    "boxFill": 0.9298
+  }
+]

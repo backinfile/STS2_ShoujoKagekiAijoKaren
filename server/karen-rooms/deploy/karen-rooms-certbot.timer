@@ -1,0 +1,8 @@
+[Unit]
+Description=Check Karen room short-lived IP certificate every four hours
+[Timer]
+OnCalendar=*-*-* 00/4:00:00
+RandomizedDelaySec=900
+Persistent=true
+[Install]
+WantedBy=timers.target

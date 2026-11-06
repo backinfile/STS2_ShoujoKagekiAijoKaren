@@ -1,0 +1,37 @@
+[
+  {
+    "file": "redesign-v11-card-palette/creation-arrival-in-game.png",
+    "source": "artifacts/stage-is-waiting-card-palette/stable/waiting-stage/game.mp4",
+    "sourceSha256": "d860d2bfed15f963723294ea9a9b991b01866ab143eeb13a78e65c2cf5fc5050",
+    "time": 1.85,
+    "phase": "arrival"
+  },
+  {
+    "file": "redesign-v11-card-palette/creation-tracing-in-game.png",
+    "source": "artifacts/stage-is-waiting-card-palette/stable/waiting-stage/game.mp4",
+    "sourceSha256": "d860d2bfed15f963723294ea9a9b991b01866ab143eeb13a78e65c2cf5fc5050",
+    "time": 2.1,
+    "phase": "tracing"
+  },
+  {
+    "file": "redesign-v11-card-palette/creation-joining-in-game.png",
+    "source": "artifacts/stage-is-waiting-card-palette/stable/waiting-stage/game.mp4",
+    "sourceSha256": "d860d2bfed15f963723294ea9a9b991b01866ab143eeb13a78e65c2cf5fc5050",
+    "time": 2.6,
+    "phase": "joining"
+  },
+  {
+    "file": "redesign-v11-card-palette/creation-complete-in-game.png",
+    "source": "artifacts/stage-is-waiting-card-palette/stable/waiting-stage/game.mp4",
+    "sourceSha256": "d860d2bfed15f963723294ea9a9b991b01866ab143eeb13a78e65c2cf5fc5050",
+    "time": 3.0,
+    "phase": "complete"
+  },
+  {
+    "file": "redesign-v11-card-palette/creation-patrol-in-game.png",
+    "source": "artifacts/stage-is-waiting-card-palette/stable/waiting-stage/game.mp4",
+    "sourceSha256": "d860d2bfed15f963723294ea9a9b991b01866ab143eeb13a78e65c2cf5fc5050",
+    "time": 5.8,
+    "phase": "patrol"
+  }
+]

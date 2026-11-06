@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers.tmpStrength;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,12 +19,10 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// NONNON哒哟 - 3费对全体造成12伤，全体敌人-12力量，Shine 9
 /// 升级：16伤，-16力量
 /// </summary>
+[ShoujoKageki.Core.V1.ShineCard(9)]
 public sealed class KarenNonon : KarenBaseCardModel
 {
-    public KarenNonon() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
-    {
-        this.AddShineMax(9);
-    }
+    public KarenNonon() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies) { }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
@@ -40,12 +39,14 @@ public sealed class KarenNonon : KarenBaseCardModel
     {
         if (CombatState == null) return;
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .TargetingAllOpponents(CombatState)
-            .WithHitFx(VfxCmd.giantHorizontalSlashPath)
+            .WithAttackerFx(() => NKarenNononVfx.Create(Owner))
+            .WithAttackerAnim("Attack", 0f)
+            .WithWaitBeforeHit(NKarenNononVfx.FastHitTime, NKarenNononVfx.HitTime)
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<KarenNononStrengthDownPower>(CombatState.HittableEnemies, DynamicVars.Strength.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<KarenNononStrengthDownPower>(choiceContext, CombatState.HittableEnemies, DynamicVars.Strength.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

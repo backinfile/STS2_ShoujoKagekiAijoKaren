@@ -1,0 +1,2836 @@
+{
+  "date": "2026-10-31",
+  "status": "targeted verified in worktree; main integration pending explicit confirmation",
+  "baseline": "6a7a9bd",
+  "counts": {
+    "before_stable": 12,
+    "before_beta": 12,
+    "after_stable": 15,
+    "after_beta": 12
+  },
+  "verified_recordings": 51,
+  "source_checks": {
+    "baseline": "6a7a9bd",
+    "production_difference_files": [
+      "src/Core/Models/Cards/shine/KarenStar.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.Drawing.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/NKarenContinueVfx.cs"
+    ],
+    "all_other_production_paths_restored": true,
+    "star_drawing_unchanged": true,
+    "stage_drawing_equivalent": true,
+    "source_sha256": {
+      "src/Core/Models/Cards/shine/KarenStar.cs": "7812ea620b742a9244de7fe6d3fc906a81fe1ed261f8c8212d0020b63cbae1e3",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.Drawing.cs": "d407f18feccd65b1ff479f7d0581c76d1ed6d807ba0d1aea41c753c3dcd25b41",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStageCueVfx.cs": "78f93caeb5a9d5f3ce06eaaefbfe54c2a9fe6b37f6e15ef49021f63c5a438bd5",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenStarVfx.cs": "de19ef24d53b50b83134f60b633a8c10aafffb3f8e3801e40f6594a5561278d3",
+      "src/ShoujoKagekiAijoKaren/GodotScripts/Vfx/NKarenContinueVfx.cs": "98c04d4f2362f3d92b11f3e61d7badf608881e35d9add6b6238c2f4700a954f7"
+    }
+  },
+  "cases": [
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_CONTINUE",
+      "mode": "full",
+      "passed": true,
+      "damage": 4,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_continue/game.mp4",
+      "sha256": "a2e169af9b6334b27216ed0b040b80b9d23b3268f72a4e3db7e86b62ccde2ce3",
+      "audio_mean_db": -50.6,
+      "observed": {
+        "spawned": {
+          "NKarenContinueVfx": 1
+        },
+        "exited": {
+          "NKarenContinueVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_REWRITE",
+      "mode": "full",
+      "passed": true,
+      "damage": 70,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_rewrite/game.mp4",
+      "sha256": "c75ddee24af866f7121888c3c7475373ace9a9eb1922bda1c9f90c1bc13e82fd",
+      "audio_mean_db": -46.6,
+      "observed": {
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_star/game.mp4",
+      "sha256": "368e0781c5d032a01aea59c4e3cd9cd63ce9573c40c92ef4df180caeca9fa32f",
+      "audio_mean_db": -49.0,
+      "observed": {
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 12777,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 5,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_BRIDGE",
+      "mode": "full",
+      "passed": true,
+      "damage": 18,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_bridge/game.mp4",
+      "sha256": "c4f0c35328c2f6d66ed404045f4b073a7388a0e4444d7f7cd720d167bfaadd29",
+      "audio_mean_db": -50.0,
+      "observed": {
+        "spawned": {
+          "NKarenBridgeVfx": 4
+        },
+        "exited": {
+          "NKarenBridgeVfx": 4
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_BRIDGE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12795,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_GEER",
+      "mode": "full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_geer/game.mp4",
+      "sha256": "7fdec8a78d82556599e0b002a7a51b21d35ee2be693879b90ffd7c53b7d6c1d5",
+      "audio_mean_db": -50.3,
+      "observed": {
+        "spawned": {
+          "NKarenGeerVfx": 3
+        },
+        "exited": {
+          "NKarenGeerVfx": 3
+        },
+        "hand": 6,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_GEER",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12786,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": [
+            "KAREN_TOWER_OF_PROMISE",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_DROP_FUEL",
+      "mode": "full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_drop_fuel/game.mp4",
+      "sha256": "9b021bbd154308266fb2f9d3442a2db13db000e722b363916ed569cfaeabdca1",
+      "audio_mean_db": -50.6,
+      "observed": {
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "hand": 2,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "mode": "full",
+      "passed": true,
+      "damage": 27,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_starlight02_card/game.mp4",
+      "sha256": "a3fd62837420387b232fe6bd679be83eece3c772718dc4ae24bd7284a476b87e",
+      "audio_mean_db": -49.8,
+      "observed": {
+        "spawned": {
+          "NKarenStageCueVfx": 2
+        },
+        "exited": {
+          "NKarenStageCueVfx": 2
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12702,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_STRIKE",
+      "mode": "full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_strike/game.mp4",
+      "sha256": "9b047007f9945b8705f2f3f16db5f4becd724b53dc85f6116fd7edc03d239644",
+      "audio_mean_db": -53.0,
+      "observed": {
+        "spawned": {},
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_DEFEND",
+      "mode": "full",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_defend/game.mp4",
+      "sha256": "6313739246bb901261bb0ec91546754bb817cf6fdb03103912a5e08c1cd44dbe",
+      "audio_mean_db": -52.2,
+      "observed": {
+        "spawned": {},
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DEFEND",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_NONON",
+      "mode": "full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_nonon/game.mp4",
+      "sha256": "d92a50baa52af1265df28a07673bf8c8c6927d7d0626d4a22ef468586188689f",
+      "audio_mean_db": -53.3,
+      "observed": {
+        "spawned": {
+          "NKarenStageAttackVfx": 1,
+          "NKarenNononVfx": 1
+        },
+        "exited": {
+          "NKarenNononVfx": 1,
+          "NKarenStageAttackVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_NONON",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 220,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "mode": "full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "4557458145ea7186a4c72fd51fb32e8d0067b3dc209223a333ea60fe03459ee7",
+      "audio_mean_db": -50.8,
+      "observed": {
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_SHINE_STRIKE_BARRAGE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "stable",
+      "card": "KAREN_SHINE_TOGETHER",
+      "mode": "full",
+      "passed": true,
+      "damage": 30,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/stable/full-karen_shine_together/game.mp4",
+      "sha256": "32048de2bf30666b68749d39084aac3858d84abbe7cd1371579ec0bf0269ae4e",
+      "audio_mean_db": -53.4,
+      "observed": {
+        "spawned": {
+          "NKarenStageAttackVfx": 1,
+          "NKarenUnforgottenShineVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_SHINE_TOGETHER",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_CONTINUE",
+      "mode": "full",
+      "passed": true,
+      "damage": 4,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_continue/game.mp4",
+      "sha256": "cb0c6656c44222e6b2b3a2d4c497e2cbb910b07c648fa3148215c8fdf3a3b3bf",
+      "audio_mean_db": -50.4,
+      "observed": {
+        "spawned": {
+          "NKarenContinueVfx": 1
+        },
+        "exited": {
+          "NKarenContinueVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_REWRITE",
+      "mode": "full",
+      "passed": true,
+      "damage": 70,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_rewrite/game.mp4",
+      "sha256": "5b6c3d3226e1ff65c34830c187d7396db49ef5d6ba0f1df145ea0c94690a8e46",
+      "audio_mean_db": -45.9,
+      "observed": {
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_star/game.mp4",
+      "sha256": "3afb7c487304018466940538b79bec882c5799b9ebe68bea549c1c97d837fbad",
+      "audio_mean_db": -48.8,
+      "observed": {
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 14455,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 5,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_BRIDGE",
+      "mode": "full",
+      "passed": true,
+      "damage": 18,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_bridge/game.mp4",
+      "sha256": "55362b3ab1f0b2c2e926d57c6855218c2a8ee73a2005a9b8374e247bf65c0106",
+      "audio_mean_db": -49.8,
+      "observed": {
+        "spawned": {
+          "NKarenBridgeVfx": 4
+        },
+        "exited": {
+          "NKarenBridgeVfx": 4
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_BRIDGE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14473,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_GEER",
+      "mode": "full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_geer/game.mp4",
+      "sha256": "1c14818f9ee2b263db6d76bca262b6143b0c5e2dc0d76a6e8729b288d194cd46",
+      "audio_mean_db": -50.3,
+      "observed": {
+        "spawned": {
+          "NKarenGeerVfx": 3
+        },
+        "exited": {
+          "NKarenGeerVfx": 3
+        },
+        "hand": 6,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_GEER",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14464,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": [
+            "KAREN_TOWER_OF_PROMISE",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_DROP_FUEL",
+      "mode": "full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_drop_fuel/game.mp4",
+      "sha256": "e65207e9baab2efe11be4907d716741cbfe14b5a4bffe6368a0b03fe4c52e613",
+      "audio_mean_db": -50.5,
+      "observed": {
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "hand": 2,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "mode": "full",
+      "passed": true,
+      "damage": 27,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_starlight02_card/game.mp4",
+      "sha256": "b2de86a88a898a8789a76b63c15a6f2a3821329a6fb685d3b9a1d3b7875c711d",
+      "audio_mean_db": -49.7,
+      "observed": {
+        "spawned": {
+          "NKarenStageCueVfx": 2
+        },
+        "exited": {
+          "NKarenStageCueVfx": 2
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14454,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_SHINE_STRIKE",
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_STRIKE",
+      "mode": "full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_strike/game.mp4",
+      "sha256": "7eaec46e5c7ebdccc50f2bb9f94fdec831e3e90a238833c117902ca14b3c16ce",
+      "audio_mean_db": -53.4,
+      "observed": {
+        "spawned": {},
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_DEFEND",
+      "mode": "full",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_defend/game.mp4",
+      "sha256": "26db264222368d82a499d413205539fe3750230dc34865c4149c057678697281",
+      "audio_mean_db": -51.8,
+      "observed": {
+        "spawned": {},
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DEFEND",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_NONON",
+      "mode": "full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_nonon/game.mp4",
+      "sha256": "11c557a90411e31d75cf46dbb23fcb5475f7a01e691acf95cc2c7297ea3f417a",
+      "audio_mean_db": -53.0,
+      "observed": {
+        "spawned": {
+          "NKarenStageAttackVfx": 1,
+          "NKarenNononVfx": 1
+        },
+        "exited": {
+          "NKarenNononVfx": 1,
+          "NKarenStageAttackVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_NONON",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 220,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "mode": "full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "8eb6b80793a2fe0fbb9b40dba55d4c2981be1e00f999b70a112962a6ef8c45e1",
+      "audio_mean_db": -50.8,
+      "observed": {
+        "spawned": {
+          "NKarenStageAttackVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_SHINE_STRIKE_BARRAGE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "before",
+      "environment": "beta",
+      "card": "KAREN_SHINE_TOGETHER",
+      "mode": "full",
+      "passed": true,
+      "damage": 30,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/before/beta/full-karen_shine_together/game.mp4",
+      "sha256": "42759660fd7a8da06ae14a533db2d736f0bd9c72983e64ca739711cf9469e114",
+      "audio_mean_db": -53.3,
+      "observed": {
+        "spawned": {
+          "NKarenStageAttackVfx": 1,
+          "NKarenUnforgottenShineVfx": 1
+        },
+        "exited": {
+          "NKarenStageAttackVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_SHINE_TOGETHER",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STRIKE",
+      "mode": "full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_strike/game.mp4",
+      "sha256": "14369396ccb6304b5d9cf00aa4d4bf54ecad24bf960ec9dccb6ebd738945ed5b",
+      "audio_mean_db": -52.7,
+      "observed": {
+        "spawned": {},
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12768,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_DEFEND",
+      "mode": "full",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_defend/game.mp4",
+      "sha256": "a28912164048e91ac6fa9ce25d1a076868886bbef33d531b325226fe5cc62e18",
+      "audio_mean_db": -52.3,
+      "observed": {
+        "spawned": {},
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DEFEND",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_NONON",
+      "mode": "full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_nonon/game.mp4",
+      "sha256": "af240c84dd590e2afc730060c7b2b63c14275166aa04d292442de41d8c325105",
+      "audio_mean_db": -53.1,
+      "observed": {
+        "spawned": {
+          "NKarenNononVfx": 1
+        },
+        "exited": {
+          "NKarenNononVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_NONON",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 1280,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "mode": "full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "fc90949c90c2ae2ac4ac07d59ce0d33e48f01c3b773fbc0981949727c00eae95",
+      "audio_mean_db": -50.7,
+      "observed": {
+        "spawned": {
+          "NKarenShineBarrageVfx": 5
+        },
+        "exited": {
+          "NKarenShineBarrageVfx": 5
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_SHINE_STRIKE_BARRAGE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [
+          5,
+          10
+        ],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_SHINE_TOGETHER",
+      "mode": "full",
+      "passed": true,
+      "damage": 30,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_shine_together/game.mp4",
+      "sha256": "e783916fa80f574a4eadcbbca4ee2594820bacd100d3f7517ae7d06ffca28e22",
+      "audio_mean_db": -53.2,
+      "observed": {
+        "spawned": {
+          "NKarenUnforgottenShineVfx": 1
+        },
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_SHINE_TOGETHER",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_CONTINUE",
+      "mode": "full",
+      "passed": true,
+      "damage": 4,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_continue/game.mp4",
+      "sha256": "f5f16c7b52b473f92637f33e8fef0ea47a6a93ff83af4b6ed0f2bd8cbfff83e2",
+      "audio_mean_db": -50.8,
+      "observed": {
+        "spawned": {
+          "NShivThrowVfx": 1,
+          "NKarenContinueVfx": 1
+        },
+        "exited": {
+          "NKarenContinueVfx": 1,
+          "NShivThrowVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": true
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_REWRITE",
+      "mode": "full",
+      "passed": true,
+      "damage": 70,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_rewrite/game.mp4",
+      "sha256": "fbfbb92223aa5144b09d99962e924aaf9ca5be38c4c985796866dd77a2b4721a",
+      "audio_mean_db": -46.7,
+      "observed": {
+        "spawned": {},
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_star/game.mp4",
+      "sha256": "0a511a359b235dc9e67b17d0eea32938d31ff5e705615c32c2a9b99e40d3ace6",
+      "audio_mean_db": -48.9,
+      "observed": {
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 12764,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 5,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_BRIDGE",
+      "mode": "full",
+      "passed": true,
+      "damage": 18,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_bridge/game.mp4",
+      "sha256": "73a274588bc05a40eac058383abc48102afc0be2f12f0d308309b44f8f3e2618",
+      "audio_mean_db": -49.7,
+      "observed": {
+        "spawned": {
+          "NKarenBridgeVfx": 4
+        },
+        "exited": {
+          "NKarenBridgeVfx": 4
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_BRIDGE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12782,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_GEER",
+      "mode": "full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_geer/game.mp4",
+      "sha256": "3f39d3d956218b4aac8606a819d222e9cde1699b8dba45e73ac4108b93ea6ef1",
+      "audio_mean_db": -50.2,
+      "observed": {
+        "spawned": {
+          "NKarenGeerVfx": 3
+        },
+        "exited": {
+          "NKarenGeerVfx": 3
+        },
+        "hand": 6,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_GEER",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12773,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": [
+            "KAREN_TOWER_OF_PROMISE",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_DROP_FUEL",
+      "mode": "full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_drop_fuel/game.mp4",
+      "sha256": "82b65b7f6edc4afd3cc5a3abe100ba32955f7b204231d95e6246c6b382546ed3",
+      "audio_mean_db": -50.6,
+      "observed": {
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "hand": 2,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 1468,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "mode": "full",
+      "passed": true,
+      "damage": 27,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/full-karen_starlight02_card/game.mp4",
+      "sha256": "78443e6e08fa5a5c23fd4c1b37ee6b3c6bef5f177bd6beba6c2320fe1a89dc26",
+      "audio_mean_db": -49.6,
+      "observed": {
+        "spawned": {
+          "NKarenStageCueVfx": 2
+        },
+        "exited": {
+          "NKarenStageCueVfx": 2
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12702,
+          "stars": [],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STAR",
+      "mode": "low",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/low-karen_star/game.mp4",
+      "sha256": "6a3e066a97c9394b3c181f03f9181c686aea519b7da6e53d73cb7d57e3c8245c",
+      "audio_mean_db": -49.0,
+      "observed": {
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 12764,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 5,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "mode": "low",
+      "passed": true,
+      "damage": 27,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/low-karen_starlight02_card/game.mp4",
+      "sha256": "ce6c3b3cbab8cd58d3cf0546d651e226ab868830b8a1e8e9bec9b71ae8647bd7",
+      "audio_mean_db": -49.8,
+      "observed": {
+        "spawned": {
+          "NKarenStageCueVfx": 2
+        },
+        "exited": {
+          "NKarenStageCueVfx": 2
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12693,
+          "stars": [],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "stable",
+      "card": "KAREN_CONTINUE",
+      "mode": "replay",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/stable/replay-karen_continue/game.mp4",
+      "sha256": "b4025ab25b113414cbc3ef5f49f9152e8995daadf3306c0c2c3d1ad8e3a97495",
+      "audio_mean_db": -49.1,
+      "observed": {
+        "spawned": {
+          "NShivThrowVfx": 3,
+          "NKarenContinueVfx": 3
+        },
+        "exited": {
+          "NKarenContinueVfx": 3,
+          "NShivThrowVfx": 3
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 12755,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": true
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STRIKE",
+      "mode": "full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_strike/game.mp4",
+      "sha256": "3732b04a7540e13caec061e38263a384f5affad80252d8d84f30d2a437ae46d5",
+      "audio_mean_db": -52.8,
+      "observed": {
+        "spawned": {},
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_DEFEND",
+      "mode": "full",
+      "passed": true,
+      "damage": 0,
+      "block": 5,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_defend/game.mp4",
+      "sha256": "b5fd236a9c7a18fa0f36901626fb10572f0e3b74da0bdfe7631a0af32c3271b6",
+      "audio_mean_db": -52.3,
+      "observed": {
+        "spawned": {},
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DEFEND",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_NONON",
+      "mode": "full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_nonon/game.mp4",
+      "sha256": "8932bc51961e6c12103c31770d2af4f0a3e7ef47f54dcb130b24bb42c46f1a2c",
+      "audio_mean_db": -53.0,
+      "observed": {
+        "spawned": {
+          "NKarenNononVfx": 1
+        },
+        "exited": {
+          "NKarenNononVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_NONON",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 1280,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_SHINE_STRIKE_BARRAGE",
+      "mode": "full",
+      "passed": true,
+      "damage": 12,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_shine_strike_barrage/game.mp4",
+      "sha256": "8f336d50e781dd3d2cc8d1e0688102c43d29fd929e907d1ba31e4c36e443c70b",
+      "audio_mean_db": -50.6,
+      "observed": {
+        "spawned": {
+          "NKarenShineBarrageVfx": 5
+        },
+        "exited": {
+          "NKarenShineBarrageVfx": 5
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_SHINE_STRIKE_BARRAGE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [
+          5,
+          10
+        ],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_SHINE_TOGETHER",
+      "mode": "full",
+      "passed": true,
+      "damage": 30,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_shine_together/game.mp4",
+      "sha256": "73c6ae2c33b5b5e6fe9a155b16e05a3b9018bfb89c60b1ccb3257e91b338acce",
+      "audio_mean_db": -53.3,
+      "observed": {
+        "spawned": {
+          "NKarenUnforgottenShineVfx": 1
+        },
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_SHINE_TOGETHER",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_CONTINUE",
+      "mode": "full",
+      "passed": true,
+      "damage": 4,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_continue/game.mp4",
+      "sha256": "8c65dc94dd21b0d99dcfc97272ca026212cea14b4182381ab4310244f11cd2c2",
+      "audio_mean_db": -50.7,
+      "observed": {
+        "spawned": {
+          "NShivThrowVfx": 1,
+          "NKarenContinueVfx": 1
+        },
+        "exited": {
+          "NKarenContinueVfx": 1,
+          "NShivThrowVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_CONTINUE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": true
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_REWRITE",
+      "mode": "full",
+      "passed": true,
+      "damage": 70,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_rewrite/game.mp4",
+      "sha256": "1798d10f540fb99be56523c4acaee7eac590c11bf17340de9ae127f2925d01cd",
+      "audio_mean_db": -46.0,
+      "observed": {
+        "spawned": {},
+        "exited": {},
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_REWRITE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [
+            "KAREN_REWRITE",
+            "KAREN_REWRITE",
+            "KAREN_REWRITE"
+          ],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STAR",
+      "mode": "full",
+      "passed": true,
+      "damage": 45,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_star/game.mp4",
+      "sha256": "261cc84a5ed90bc3a2062f3ecbce72bcb69bcaf32b2de2c14fdb476939db4a8b",
+      "audio_mean_db": -48.6,
+      "observed": {
+        "spawned": {
+          "NKarenStarVfx": 1
+        },
+        "exited": {
+          "NKarenStarVfx": 1
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STAR",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 3,
+              "count": 5
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 4,
+              "count": 5
+            }
+          ],
+          "maxPulses": 1,
+          "maxGpu": 14455,
+          "stars": [
+            {
+              "planned": 5,
+              "played": 5,
+              "reward": true,
+              "backCorrect": true
+            }
+          ],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 1,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_BRIDGE",
+      "mode": "full",
+      "passed": true,
+      "damage": 18,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_bridge/game.mp4",
+      "sha256": "52248136195d0f26182a4b6dedd7b48b252816ece7f828406a42596b32807043",
+      "audio_mean_db": -50.1,
+      "observed": {
+        "spawned": {
+          "NKarenBridgeVfx": 4
+        },
+        "exited": {
+          "NKarenBridgeVfx": 4
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_BRIDGE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14473,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_GEER",
+      "mode": "full",
+      "passed": true,
+      "damage": 6,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_geer/game.mp4",
+      "sha256": "83a0e13b37b7650dbf0dbfda5e10d73dc96540b01843ef0975a2df7b3087dda9",
+      "audio_mean_db": -50.2,
+      "observed": {
+        "spawned": {
+          "NKarenGeerVfx": 3
+        },
+        "exited": {
+          "NKarenGeerVfx": 3
+        },
+        "hand": 6,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_GEER",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_STRIKE",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14464,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": [
+            "KAREN_TOWER_OF_PROMISE",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_DROP_FUEL",
+      "mode": "full",
+      "passed": true,
+      "damage": 0,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_drop_fuel/game.mp4",
+      "sha256": "6f6093a05d717507e661f187e13f07a6e3658713c347472c783a06e2b2f8cb26",
+      "audio_mean_db": -50.5,
+      "observed": {
+        "spawned": {
+          "NKarenDropFuelVfx": 1
+        },
+        "exited": {
+          "NKarenDropFuelVfx": 1
+        },
+        "hand": 2,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_DROP_FUEL",
+              "index": 0,
+              "count": 1
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14446,
+          "stars": [],
+          "shinePile": [],
+          "sourceDepleted": false,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 3,
+          "handIds": [
+            "KAREN_DEFEND",
+            "KAREN_DEFEND"
+          ]
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 1468,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "card": "KAREN_STARLIGHT02_CARD",
+      "mode": "full",
+      "passed": true,
+      "damage": 27,
+      "block": 0,
+      "video": "artifacts/vfx-rollback-20261031/after/beta/full-karen_starlight02_card/game.mp4",
+      "sha256": "222bea482e584281d3e4acbc7ca84898ba20dce03cbb222cd13d3b032eb4f328",
+      "audio_mean_db": -49.9,
+      "observed": {
+        "spawned": {
+          "NKarenStageCueVfx": 2
+        },
+        "exited": {
+          "NKarenStageCueVfx": 2
+        },
+        "hand": 0,
+        "chain": {
+          "plays": [
+            {
+              "id": "KAREN_STARLIGHT02_CARD",
+              "index": 0,
+              "count": 1
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 0,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 1,
+              "count": 3
+            },
+            {
+              "id": "KAREN_SHINE_STRIKE",
+              "index": 2,
+              "count": 3
+            }
+          ],
+          "maxPulses": 0,
+          "maxGpu": 14454,
+          "stars": [],
+          "shinePile": [
+            "KAREN_SHINE_STRIKE"
+          ],
+          "sourceDepleted": true,
+          "extraRewards": 0,
+          "starBackLive": 0,
+          "playPile": 0,
+          "draw": 0,
+          "handIds": []
+        },
+        "maxManualParticles": 0,
+        "maxFuelParticles": 0,
+        "barrageAmounts": [],
+        "sharedSpecks": false
+      }
+    }
+  ],
+  "engine_observations": [
+    {
+      "phase": "before",
+      "environment": "beta",
+      "log": "artifacts/vfx-rollback-20261031/before/beta/godot-1793377958958070900.log",
+      "line": 257,
+      "message": "Invalid Task ID during native Common preloading; preloading subsequently completed",
+      "historical_reference": "docs/testing/heavy-attack-redesign-2026-10-30.md"
+    },
+    {
+      "phase": "after",
+      "environment": "beta",
+      "log": "artifacts/vfx-rollback-20261031/after/beta/godot-1793378154435913200.log",
+      "line": 276,
+      "message": "Invalid Task ID during native Combat Room preloading; preloading subsequently completed",
+      "historical_reference": "docs/testing/heavy-attack-redesign-2026-10-30.md"
+    }
+  ],
+  "untested": [
+    "full multiplayer/singleplayer matrix",
+    "full frame-time/first-use suite",
+    "Android"
+  ],
+  "resource_catalog": {
+    "types": 73,
+    "shared_owners": 38,
+    "assets": 167,
+    "passed": true
+  },
+  "videos": {
+    "stable": {
+      "basics": {
+        "path": "artifacts/vfx-rollback-20261031/comparison/rollback-basics-stable.mp4",
+        "sha256": "2a979858e21610c68cc65faeb189e49e56e1afc8346c8621d56f88678cc14987"
+      },
+      "chains": {
+        "path": "artifacts/vfx-rollback-20261031/comparison/rollback-chains-stable.mp4",
+        "sha256": "cb6f06d719ac52bcab020b8da7b1b0214b38d2f32e60d0401e85f438b15c4955"
+      }
+    },
+    "beta": {
+      "basics": {
+        "path": "artifacts/vfx-rollback-20261031/comparison/rollback-basics-beta.mp4",
+        "sha256": "48bc1280c35eae53222d7819db7c42ddc886146d675376e903e09e18eabc61da"
+      },
+      "chains": {
+        "path": "artifacts/vfx-rollback-20261031/comparison/rollback-chains-beta.mp4",
+        "sha256": "90fb1dbb05fa2f4ef3b699c1d333b9dbf4cd33b52bea8a20ff7416b960cda696"
+      }
+    }
+  },
+  "retained_optimizations": [
+    "Continue immutable draw/process material sharing with original particle counts/lifetimes",
+    "Star candidate enumeration stops after second match",
+    "Star pulse capacity reservation and equivalent reverse expired-removal without visual cap",
+    "Stage cue transforms avoid temporary per-frame layer array",
+    "Stage beam identical four vertices reuse one buffer"
+  ],
+  "baseline_reuse": "Seven full B04 recordings per environment reused from the exact deployed d713560 package; production trees of d713560 and 0686507 identical.",
+  "preparation_notes": [
+    "Fixture readiness now waits for seed completion even when the old hand contains Strike",
+    "NONNON original source count verified as 1280 per single target; old 220 expectation corrected; initial clip retained"
+  ],
+  "package_sha256": {
+    "ShoujoKagekiAijoKaren.dll": "d04dbe0c050bdc27252d67d7d87c8c5e3db1edf7aef40d761ee4b87abb22c341",
+    "ShoujoKagekiAijoKaren.json": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+    "ShoujoKagekiAijoKaren.pck": "4dcf0ea5f46cd51f5161cc635d56c38ffe22eb12ee20c5f420e2f9015f411de7",
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": "014723bd667664a7798c82ac66dbcbb37fe4a2dc497b50410c4c84281632eb85",
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": "79b11a01b867fa4272fc56d380c3113de1187421c4a4c141159f9cf7fd5b8205"
+  },
+  "integration_review": {
+    "status": "auto-review rejected direct main update",
+    "reason": "Specific main merge needs separate explicit confirmation under the task workflow",
+    "main_unchanged": "2a49355"
+  }
+}

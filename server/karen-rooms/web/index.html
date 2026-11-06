@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><title>华恋 · 联机状态</title>
+<link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head>
+<body><main>
+<header><div class="identity"><span class="mark" aria-hidden="true">K</span><div><p class="eyebrow">KAREN / MULTIPLAYER</p><h1>华恋 · 联机状态</h1></div></div><span class="readonly">公开 · 只读</span></header>
+<section class="overview" aria-label="服务状态">
+<div class="status-line"><span id="status" class="status pending"><i aria-hidden="true"></i><span id="status-text">正在连接</span></span><div class="sync"><span id="updated">等待首次更新</span><button id="refresh" type="button">刷新 ↻</button></div></div>
+<div class="stats"><div><span class="label">在线玩家</span><strong id="players">—</strong><span id="player-cap" class="detail">最多 4 人 / 房间</span></div><div><span class="label">当前房间</span><strong id="room-count">—</strong><span id="room-cap" class="detail">正在读取</span></div><div><span class="label">连续运行</span><strong id="uptime" class="time">—</strong><span class="detail">服务最近一次启动后</span></div></div></section>
+<section class="rooms" aria-labelledby="rooms-title"><div class="section-heading"><h2 id="rooms-title">当前房间 <span id="count-label">/ —</span></h2><span class="detail">每 2 秒更新</span></div>
+<p id="notice" class="notice" role="status">正在获取房间信息…</p>
+<table><caption class="sr-only">当前联机房间，房间号仅显示末两位</caption><thead><tr><th>房间号</th><th>玩家</th><th>状态</th><th>已创建</th><th>最近通信</th></tr></thead><tbody id="room-list"></tbody></table>
+<div id="empty" class="empty" hidden><span class="empty-mark" aria-hidden="true">—</span><h3>暂时没有房间</h3><p>玩家在游戏中创建房间后，会显示在这里。</p></div>
+<noscript><p class="notice">请启用 JavaScript 以查看实时状态。</p></noscript></section>
+<footer><p>房间号仅显示末两位，例如 <span class="code">••78</span>。请向房主获取完整的 4 位房间号。</p><p id="monitor">健康检查：等待更新</p></footer>
+</main></body></html>

@@ -1,0 +1,54 @@
+[
+  {
+    "label": "previous ellipse",
+    "state": "occupied",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/redesign-v12-hex/before-state-occupied-in-game.png",
+    "sha256": "9908a29b0b290dd3ae7025a15e96e1576efa54555c74dd1018091ad44fb0e2f9",
+    "crop": [
+      0,
+      520,
+      220,
+      675
+    ],
+    "magnification": 2
+  },
+  {
+    "label": "current hex",
+    "state": "occupied",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/state-occupied-in-game.png",
+    "sha256": "0eb67413d3e50d49db5c29145164513707f7f27627af71e313f5f4ed313e8154",
+    "crop": [
+      0,
+      520,
+      220,
+      675
+    ],
+    "magnification": 2
+  },
+  {
+    "label": "previous ellipse",
+    "state": "empty",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/redesign-v12-hex/before-state-empty-in-game.png",
+    "sha256": "acb0a5da672260256a38cdbe998f91a2d3671d9bbfd18be5163750eb06842e12",
+    "crop": [
+      0,
+      520,
+      220,
+      675
+    ],
+    "magnification": 2
+  },
+  {
+    "label": "current hex",
+    "state": "empty",
+    "file": "docs/worktree-tasks/stage-is-waiting-vfx/state-empty-in-game.png",
+    "sha256": "29ebc3de5598f3e0b7bf607a857e588f0a14c1266933c185d23d38379a3600bb",
+    "crop": [
+      0,
+      520,
+      220,
+      675
+    ],
+    "magnification": 2
+  }
+]

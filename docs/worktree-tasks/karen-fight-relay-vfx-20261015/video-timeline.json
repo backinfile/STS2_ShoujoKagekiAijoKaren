@@ -1,0 +1,44 @@
+[
+  {
+    "source": "stable",
+    "start": 1.644407499958761,
+    "duration": 3.5,
+    "label": "正式版 · 传给队友"
+  },
+  {
+    "source": "stable",
+    "start": 7.260218099951744,
+    "duration": 3.5,
+    "label": "正式版 · 队友回传"
+  },
+  {
+    "source": "stable",
+    "start": 12.690588299969678,
+    "duration": 3.9,
+    "label": "正式版 · 闪耀耗尽，登记遗物奖励"
+  },
+  {
+    "source": "stable",
+    "start": 18.766086299989837,
+    "duration": 3.9,
+    "label": "正式版 · 升级终幕，登记两份奖励"
+  },
+  {
+    "source": "stable",
+    "start": 25.005650699981487,
+    "duration": 2.5,
+    "label": "正式版 · 快速模式"
+  },
+  {
+    "source": "beta",
+    "start": 1.802531799969729,
+    "duration": 3.5,
+    "label": "测试版 · 星轨接力"
+  },
+  {
+    "source": "beta",
+    "start": 13.456709899967537,
+    "duration": 3.9,
+    "label": "测试版 · 金色终幕"
+  }
+]

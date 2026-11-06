@@ -1,0 +1,91 @@
+[
+  {
+    "rarity": "普通",
+    "name": "怀表",
+    "original": "懐中時計",
+    "effect": "每场战斗第一次获得临时力量时，保留力量2回合。",
+    "status": "替换“番茄”的新候选，未定名",
+    "kind": "官方周边商品图",
+    "image": "https://cdn.amnibus.com/upload/save_image/20241106164412_672b1e4c3cbd74.99442342.jpg",
+    "source": "https://amnibus.com/products/detail/65803",
+    "sourceLabel": "AMNIBUS 官方商品页",
+    "note": "保留金色翻盖、黑色表盘与顶部 Position Zero 标记。图标取打开状态。用计时物件对应持续2回合是本稿的效果联想，原作中没有“保留力量”的设定。"
+  },
+  {
+    "rarity": "罕见",
+    "name": "饼干",
+    "original": "アイシングビスケット",
+    "effect": "拾起时，随机获得普通、罕见、稀有闪耀牌各一张。",
+    "status": "保留既定名称",
+    "kind": "官方展览周边商品图",
+    "image": "https://art.parco.jp/img/galleryx/store/storage/w750xh750/cokkie.jpg",
+    "source": "https://art.parco.jp/galleryx/detail/?id=176",
+    "sourceLabel": "PARCO：The LIVE #2 EXHIBITION",
+    "note": "官方商品为透明长袋装糖霜饼干，带长颈鹿、星形、白熊等图案。原图并非红色包装，也不是三种外轮廓的饼干组合。"
+  },
+  {
+    "rarity": "罕见",
+    "name": "小小星",
+    "original": "小さな星",
+    "effect": "战斗开始时，将光辉加入约定牌堆。",
+    "status": "保留名称候选，单体造型待核验",
+    "kind": "第三方文章中的动画截图；原图未能打开",
+    "image": null,
+    "unverifiedImage": "https://i.imgur.com/E6mv0Uy.jpg",
+    "source": "https://benigmatica.wordpress.com/2018/09/29/shoujo-kageki-revue-starlight-episode-12/",
+    "sourceLabel": "The Anime Rambler：第12话截图",
+    "note": "名称摘取《星摘みの歌》的“小さな星”；物件拟用第12话小光堆叠的星形石块。已找到配图出处，但图片托管站当前无法打开，尚未目视核验，暂不确定颜色、裂纹等细节。",
+    "extraSource": "https://www.uta-net.com/song/257184/"
+  },
+  {
+    "rarity": "稀有",
+    "name": "棒球猫",
+    "original": "スズダルキャット",
+    "effect": "每场战斗中，每耗尽一张非同名闪耀牌，获得一个闪耀牌奖励。",
+    "status": "保留既定名称",
+    "kind": "官方周边商品图",
+    "image": "https://bushiroad-store.com/cdn/shop/files/IMG_1033_1.jpg?v=1724040803",
+    "source": "https://bushiroad-store.com/products/2000185923000",
+    "sourceLabel": "Bushiroad 官方玩偶商品页",
+    "note": "以原图的黄眼睛、粉色舌头、红帽和蓝紫色 SCC 球衣为准。当前选中的官方玩偶没有球棒；前稿自行加入的球棒与小黑眼造型不作为依据。"
+  },
+  {
+    "rarity": "稀有",
+    "name": "Mr. White",
+    "original": "ミスターホワイト",
+    "effect": "每场战斗的第一回合结束时，可选择任意手牌放入约定牌堆。",
+    "status": "保留名称候选",
+    "kind": "官方毛绒钥匙扣商品图",
+    "image": "https://s3-ap-northeast-1.amazonaws.com/bushiroad-com/57ba1681-b206-44cb-97f6-eecb5a8af782.jpg",
+    "source": "https://bushiroad.com/gbp_srl2019_goods",
+    "sourceLabel": "Bushiroad：ガルスタ祭2019 官方物贩",
+    "note": "使用圆耳白熊头的原有轮廓和黑色五官。官方图含 SAMPLE 水印，当前仅作造型参考；不再自行加蓝色拉链或卡牌。"
+  },
+  {
+    "rarity": "稀有",
+    "name": "星形发饰",
+    "original": "星の髪飾り",
+    "effect": "打出约定之塔时，额外获得8点格挡。",
+    "status": "替换“温暖的归处”的新候选，未定名",
+    "kind": "第三方文章转载的 TV 第8话动画画面",
+    "image": "https://assets.st-note.com/img/1672468114307-iYOOfQ21Ai.jpg?width=1200",
+    "source": "https://note.com/theatreduflamme/n/n5c317622bb05",
+    "sourceLabel": "第8话交换发饰画面与出处",
+    "note": "画面下半部：华恋手持、后来交给小光的星形发饰。按原图保留大小四角星与横向夹杆；与华恋现有的红色王冠发夹区分。与约定之塔的契合来自两人的约定，是本稿的效果映射。",
+    "extraImage": "https://cdn-ak.f.st-hatena.com/images/fotolife/t/tomo-sankaku/20260517/20260517193413.jpg",
+    "extraSource": "https://www.yururito.net/entry/revue-of-over-the-starlight",
+    "extraLabel": "9周年展发饰实物照片（参观者拍摄）"
+  },
+  {
+    "rarity": "商店",
+    "name": "星之王冠",
+    "original": "星のティアラ",
+    "effect": "每回合开始时禁用1个遗物，然后获得1点能量。",
+    "status": "保留既定名称",
+    "kind": "第三方文章转载的 TV 第11话动画截图",
+    "image": "https://anime-tip.com/wp-content/uploads/2018/09/8mz5ykr96d4r.jpg",
+    "source": "https://anime-tip.com/sahplant/revuestarlight/9060",
+    "sourceLabel": "第11话：小光戴星之冠冕的原画面",
+    "note": "开放式金色卷曲冠架，中央椭圆玫红宝石。后续以动画截图中的结构为准；当前展示整张截图，尚未裁图。"
+  }
+]

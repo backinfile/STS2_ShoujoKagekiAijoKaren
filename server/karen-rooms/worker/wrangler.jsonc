@@ -1,0 +1,7 @@
+{
+  "name": "sts2-karen-multiplayer-relay",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "sts2-karen-multiplayer.karen.fan/*", "zone_name": "karen.fan" }]
+}

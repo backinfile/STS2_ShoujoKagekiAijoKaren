@@ -1,0 +1,325 @@
+{
+  "packages": [
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Beta.dll",
+      "sha256": "a81ccda90cb1c30b01e737f8381331d6230fec137caf71c0d4adea362ebdbe26",
+      "bytes": 1482752
+    },
+    {
+      "path": "lib/ShoujoKagekiAijoKaren.Stable.dll",
+      "sha256": "f3ec7cc2c84f6dee57c694cabdcf0df4a29b004a985d5a0e694219d934cdfb7c",
+      "bytes": 1481216
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.dll",
+      "sha256": "bf3cbcd773114fec06b9887cf07418d9544f78848cdeb7855ff4442f3ab1165f",
+      "bytes": 8704
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.json",
+      "sha256": "3c165de2da0b438ea90988a9cfbb8b0531c42920ab934af00bf9166427dded60",
+      "bytes": 412
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren.pck",
+      "sha256": "1e15eea5a7e33ff4f3ba926085057e4a1b2f8b9393803cd44d07ebba6082b468",
+      "bytes": 83656552
+    }
+  ],
+  "checks": {
+    "stable": [
+      {
+        "name": "group_and_action_controls",
+        "passed": true
+      },
+      {
+        "name": "capture_conflict_keeps_old_and_blocks_play",
+        "passed": true
+      },
+      {
+        "name": "capture_combo_saves",
+        "passed": true
+      },
+      {
+        "name": "reset_rejects_conflict",
+        "passed": true
+      },
+      {
+        "name": "reset_defaults",
+        "passed": true
+      },
+      {
+        "name": "escape_cancels_only_capture",
+        "passed": true
+      },
+      {
+        "name": "folder_picker_opens_and_blocks_shortcuts",
+        "passed": true
+      },
+      {
+        "name": "folder_selection_saved",
+        "passed": true
+      },
+      {
+        "name": "folder_cancel_preserves",
+        "passed": true
+      },
+      {
+        "name": "minimized_initial",
+        "passed": true
+      },
+      {
+        "name": "minimized_drag_moves_without_open",
+        "passed": true
+      },
+      {
+        "name": "click_after_drag_opens",
+        "passed": true
+      },
+      {
+        "name": "main_panel_volume_controls_gain",
+        "passed": true
+      },
+      {
+        "name": "direct_volume_and_no_focus_border",
+        "passed": true
+      },
+      {
+        "name": "volume_popup_value",
+        "passed": true
+      },
+      {
+        "name": "volume_mute",
+        "passed": true
+      },
+      {
+        "name": "volume_unmute_restores",
+        "passed": true
+      },
+      {
+        "name": "actual_form_forces_once",
+        "passed": true
+      },
+      {
+        "name": "form_pause_allowed",
+        "passed": true
+      },
+      {
+        "name": "form_resume_seek_volume_allowed",
+        "passed": true
+      },
+      {
+        "name": "form_next_allowed",
+        "passed": true
+      },
+      {
+        "name": "form_removed_keeps_user_selection",
+        "passed": true
+      },
+      {
+        "name": "empty_library_forced_pause_enabled",
+        "passed": true
+      },
+      {
+        "name": "empty_library_form_pauses",
+        "passed": true
+      },
+      {
+        "name": "empty_library_forced_end_stops",
+        "passed": true
+      },
+      {
+        "name": "one_track_can_leave_forced",
+        "passed": true
+      },
+      {
+        "name": "one_track_selected",
+        "passed": true
+      },
+      {
+        "name": "clear_uses_builtin",
+        "passed": true
+      },
+      {
+        "name": "minimized_playback_and_notice_timeout",
+        "passed": true
+      },
+      {
+        "name": "preferences_saved",
+        "passed": true
+      }
+    ],
+    "beta": [
+      {
+        "name": "group_and_action_controls",
+        "passed": true
+      },
+      {
+        "name": "capture_conflict_keeps_old_and_blocks_play",
+        "passed": true
+      },
+      {
+        "name": "capture_combo_saves",
+        "passed": true
+      },
+      {
+        "name": "reset_rejects_conflict",
+        "passed": true
+      },
+      {
+        "name": "reset_defaults",
+        "passed": true
+      },
+      {
+        "name": "escape_cancels_only_capture",
+        "passed": true
+      },
+      {
+        "name": "folder_picker_opens_and_blocks_shortcuts",
+        "passed": true
+      },
+      {
+        "name": "folder_selection_saved",
+        "passed": true
+      },
+      {
+        "name": "folder_cancel_preserves",
+        "passed": true
+      },
+      {
+        "name": "minimized_initial",
+        "passed": true
+      },
+      {
+        "name": "minimized_drag_moves_without_open",
+        "passed": true
+      },
+      {
+        "name": "click_after_drag_opens",
+        "passed": true
+      },
+      {
+        "name": "main_panel_volume_controls_gain",
+        "passed": true
+      },
+      {
+        "name": "direct_volume_and_no_focus_border",
+        "passed": true
+      },
+      {
+        "name": "volume_popup_value",
+        "passed": true
+      },
+      {
+        "name": "volume_mute",
+        "passed": true
+      },
+      {
+        "name": "volume_unmute_restores",
+        "passed": true
+      },
+      {
+        "name": "actual_form_forces_once",
+        "passed": true
+      },
+      {
+        "name": "form_pause_allowed",
+        "passed": true
+      },
+      {
+        "name": "form_resume_seek_volume_allowed",
+        "passed": true
+      },
+      {
+        "name": "form_next_allowed",
+        "passed": true
+      },
+      {
+        "name": "form_removed_keeps_user_selection",
+        "passed": true
+      },
+      {
+        "name": "empty_library_forced_pause_enabled",
+        "passed": true
+      },
+      {
+        "name": "empty_library_form_pauses",
+        "passed": true
+      },
+      {
+        "name": "empty_library_forced_end_stops",
+        "passed": true
+      },
+      {
+        "name": "one_track_can_leave_forced",
+        "passed": true
+      },
+      {
+        "name": "one_track_selected",
+        "passed": true
+      },
+      {
+        "name": "clear_uses_builtin",
+        "passed": true
+      },
+      {
+        "name": "minimized_playback_and_notice_timeout",
+        "passed": true
+      },
+      {
+        "name": "preferences_saved",
+        "passed": true
+      }
+    ]
+  },
+  "mouse_checks": [
+    {
+      "name": "mouse_restore_click",
+      "passed": true
+    },
+    {
+      "name": "mouse_volume_popup_opens",
+      "passed": true
+    },
+    {
+      "name": "mouse_slider_retains_popup",
+      "passed": true
+    },
+    {
+      "name": "mouse_slider_drag",
+      "passed": true
+    },
+    {
+      "name": "mouse_outside_dismisses",
+      "passed": true
+    },
+    {
+      "name": "mouse_minimized_drag_no_expand",
+      "passed": true
+    },
+    {
+      "name": "mouse_click_after_drag_opens",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "artifacts/karen-music-player-20261029/stable-ux-settings.png",
+    "artifacts/karen-music-player-20261029/stable-ux-selected-directory.png",
+    "artifacts/karen-music-player-20261029/stable-ux-panel.png",
+    "artifacts/karen-music-player-20261029/stable-ux-dragged.png",
+    "artifacts/karen-music-player-20261029/beta-ux-settings.png",
+    "artifacts/karen-music-player-20261029/beta-ux-selected-directory.png",
+    "artifacts/karen-music-player-20261029/beta-ux-panel.png",
+    "artifacts/karen-music-player-20261029/beta-ux-dragged.png"
+  ],
+  "not_run": [
+    "full singleplayer/multiplayer matrix",
+    "VFX专项",
+    "Android"
+  ],
+  "native_picker_note": "已打开真实原生文件夹对话框；选择与取消通过其 Godot 结果信号验证。鼠标拖动/音量点击另用 Viewport.PushInput 经过实际 GUI 命中与处理链验证。",
+  "localization": {
+    "existing_failures": 13,
+    "new_failures": 0
+  }
+}

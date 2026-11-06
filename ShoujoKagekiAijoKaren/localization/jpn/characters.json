@@ -1,0 +1,16 @@
+{
+  "KAREN.aromaPrinciple": "[sine][purple]舞台少女、愛城華恋！日々進化中！[/purple][/sine]",
+  "KAREN.banter.alive.endTurnPing": "[sine]舞台少女、愛城華恋！日々進化中！[/sine]",
+  "KAREN.banter.dead.endTurnPing": "……",
+  "KAREN.cardsModifierDescription": "愛城華恋のカードが報酬やショップに出現するようになる。",
+  "KAREN.cardsModifierTitle": "愛城華恋のカード",
+  "KAREN.description": "舞台少女、愛城華恋！日々進化中！",
+  "KAREN.eventDeathPrevention": "まだ舞台を降りるわけにはいかない。",
+  "KAREN.goldMonologue": "[sine]……[/sine]",
+  "KAREN.possessiveAdjective": "彼女の",
+  "KAREN.pronounObject": "彼女",
+  "KAREN.pronounPossessive": "彼女の",
+  "KAREN.pronounSubject": "彼女",
+  "KAREN.title": "愛城華恋",
+  "KAREN.titleObject": "愛城華恋"
+}

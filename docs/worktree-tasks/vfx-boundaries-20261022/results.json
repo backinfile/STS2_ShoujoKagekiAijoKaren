@@ -1,0 +1,1581 @@
+{
+  "baseline": "dc919b95c4ae7fe7a83a8ca02c44820437d88454",
+  "scope": "Targeted dual-version single-player; production code unchanged; original uncommitted changes excluded.",
+  "functionalCasesPassed": true,
+  "qualityGatePassed": false,
+  "openFindings": [
+    "VFX-01",
+    "VFX-02",
+    "ENV-01"
+  ],
+  "visualReview": {
+    "screenshots": 1680,
+    "allReviewedBySha256": true
+  },
+  "branches": {
+    "stable": {
+      "build": {
+        "assemblySha256": "de63be3c37750c91ba34ddabc56ae216ee65de47e3e165b65170895b6c81996c",
+        "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+      },
+      "expected": 45,
+      "passed": 45,
+      "failed": 0,
+      "pending": [],
+      "handChecks": 505,
+      "handErrors": 0,
+      "actorErrors": 0,
+      "attempts": 79,
+      "cases": [
+        {
+          "name": "actor-defect",
+          "title": "原版 DEFECT 实际持牌/出牌",
+          "result": "passed",
+          "source": "stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "DEFECT",
+            "maxFootError": 0,
+            "footFrames": 3813,
+            "hasShinePileButton": false,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 0.125
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "actor-ironclad",
+          "title": "原版 IRONCLAD 实际持牌/出牌",
+          "result": "passed",
+          "source": "round4-stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "IRONCLAD",
+            "maxFootError": 0,
+            "footFrames": 3889,
+            "hasShinePileButton": false,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 0.28
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "actor-necrobinder",
+          "title": "原版 NECROBINDER 实际持牌/出牌",
+          "result": "passed",
+          "source": "round5-stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "NECROBINDER",
+            "maxFootError": 0,
+            "footFrames": 3840,
+            "hasShinePileButton": false,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 0.27
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "actor-regent",
+          "title": "原版 REGENT 实际持牌/出牌",
+          "result": "passed",
+          "source": "round4-stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "REGENT",
+            "maxFootError": 0,
+            "footFrames": 3951,
+            "hasShinePileButton": false,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 0.29
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "actor-silent",
+          "title": "原版 SILENT 实际持牌/出牌",
+          "result": "passed",
+          "source": "round4-stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "SILENT",
+            "maxFootError": 0,
+            "footFrames": 3957,
+            "hasShinePileButton": false,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 0.29
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-act2-shine",
+          "title": "第二幕下塔桥自动打出闪耀攻击并耗尽",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 1,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-chain2",
+          "title": "塔桥打出塔桥再打出塔桥",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 3,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-cue-turn",
+          "title": "跨回合三能力，充足抽牌来源复测",
+          "result": "passed",
+          "source": "round2-stable",
+          "provenanceMatches": true,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-deep",
+          "title": "八层塔桥调用栈",
+          "result": "passed",
+          "source": "round2-stable",
+          "provenanceMatches": true,
+          "casts": 8,
+          "spots": 8,
+          "maxStages": 8,
+          "visualAssessment": "VFX-01: overexposed at depth 8"
+        },
+        {
+          "name": "boundary-empty",
+          "title": "空约定，X=0",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 0,
+          "maxStages": 0,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-energy-change",
+          "title": "燃料中途回能改变内层 X，不改变外层预留数",
+          "result": "passed",
+          "source": "round3-stable",
+          "provenanceMatches": true,
+          "casts": 2,
+          "spots": 5,
+          "maxStages": 2,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-exchange",
+          "title": "塔桥自动命运交换，预留出牌与整手交换交错",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-fast",
+          "title": "Fast 深层塔桥",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 4,
+          "spots": 4,
+          "maxStages": 4,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-fuel-replay",
+          "title": "双幕叠加下自动燃料三连播、抽牌回能与耗尽",
+          "result": "passed",
+          "source": "round3-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-full-recall",
+          "title": "满手牌塔桥自动取回，容量溢出留在约定",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 1,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-instant",
+          "title": "Instant 深层塔桥，规则继续而表现跳过",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 0,
+          "spots": 0,
+          "maxStages": 0,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-lethal",
+          "title": "塔桥首张攻击致命，后续预留牌与追光清理",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 1,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-multi-shine",
+          "title": "第二幕下连续多张不同闪耀牌的耗尽反馈",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-new-cues",
+          "title": "塔桥自动门票、梦想、第一幕，与后续抽牌联动",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 4,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-next-clean",
+          "title": "致命结束后的下一场无旧舞台与耗尽票据",
+          "result": "passed",
+          "source": "round3-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 0,
+          "maxStages": 0,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-recall",
+          "title": "内层约定之塔取回剩余牌，外层继续预留牌",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-replay",
+          "title": "同一张塔桥真实额外重播两次",
+          "result": "passed",
+          "source": "round2-stable",
+          "provenanceMatches": true,
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-reproduce",
+          "title": "再生产十张续演和塔桥的真实耗尽补充",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-reserved",
+          "title": "外层预留三张，内层只取未预留的牌",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 2,
+          "spots": 4,
+          "maxStages": 2,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-run-newday",
+          "title": "自动行动和新的一天改变结果牌堆",
+          "result": "passed",
+          "source": "round3-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-selection",
+          "title": "自动 Why 选牌期间保留塔桥舞台",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-stage-stack",
+          "title": "燃烧、光带、觉醒叠加塔桥嵌套",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 2,
+          "spots": 3,
+          "maxStages": 2,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-switch-mode",
+          "title": "塔桥自动打出空虚，再自动打出塔桥",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 2,
+          "spots": 4,
+          "maxStages": 2,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-upgrade",
+          "title": "升级塔桥，零能量，内层塔桥",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 2,
+          "spots": 3,
+          "maxStages": 2,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-void-chain",
+          "title": "空虚从抽牌堆预留的三层塔桥",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 3,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-void-empty",
+          "title": "空虚抽弃牌堆皆空",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 0,
+          "maxStages": 0,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-void-shuffle",
+          "title": "空虚抽牌堆空，从弃牌堆洗牌",
+          "result": "passed",
+          "source": "round1-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-wakeup",
+          "title": "自动唤醒原生选牌界面和塔桥灯光共存",
+          "result": "passed",
+          "source": "round3-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 2,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-why-empty",
+          "title": "自动 Why 无手牌，无可选目标立即收尾",
+          "result": "passed",
+          "source": "round3-stable",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 2,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "enemy-knights",
+          "title": "三骑士多目标与护盾，非默认镜头比例",
+          "result": "passed",
+          "source": "stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1311,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "enemy-ovicopter",
+          "title": "飞行怪、偏移镜头及原生新增召唤目标",
+          "result": "passed",
+          "source": "stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1710,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "enemy-pincer",
+          "title": "帝王蟹：左右交替、多段攻击、左侧死亡后自动朝右",
+          "result": "passed",
+          "source": "stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1925,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ],
+            "facing": "Right",
+            "bodyScaleX": 1.225
+          },
+          "survivorFacing": "Right",
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "enemy-pincer-void",
+          "title": "帝王蟹：空虚/燃烧/觉醒、嵌套塔桥、右侧死亡后自动朝左",
+          "result": "passed",
+          "source": "stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 2762,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": "Left",
+            "bodyScaleX": -1.225
+          },
+          "survivorFacing": "Left",
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "enemy-slimes",
+          "title": "小体型群怪的目标、命中与移牌表现",
+          "result": "passed",
+          "source": "stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1313,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-death-revive",
+          "title": "死亡表现/原生治疗复活，以及蜥蜴尾巴濒死恢复",
+          "result": "passed",
+          "source": "round2-stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 457,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ]
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-debuff-hurt",
+          "title": "虚弱/脆弱/易伤，原生受击与攻击姿态",
+          "result": "passed",
+          "source": "round3-stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1056,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-reproduce-stretch",
+          "title": "再生产，非均匀缩放与燃料收益",
+          "result": "passed",
+          "source": "round2-stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 0,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ]
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-small-flip-stack",
+          "title": "燃烧/光带/觉醒/Position 0，半尺寸翻转",
+          "result": "passed",
+          "source": "round3-stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1169,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": -1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-temporary-material",
+          "title": "临时替换人物材质，受击后恢复呼吸与新演出",
+          "result": "passed",
+          "source": "round2-stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1421,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenFormVfx"
+            ]
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-void-large-offset",
+          "title": "空虚/燃烧/觉醒，放大位移旋转",
+          "result": "passed",
+          "source": "round2-stable",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1188,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ]
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        }
+      ],
+      "logs": [
+        {
+          "file": "round1-stable\\godot.log",
+          "sha256": "bf29046ea8533a4eb9af9701c21f08f7688d6b3856f2200a64840f42a05765ff",
+          "knownStartupWorkerPoolErrors": 0,
+          "fixtureObserverErrors": 373,
+          "otherErrors": []
+        },
+        {
+          "file": "round2-stable\\godot.log",
+          "sha256": "e26364246de0a59da4c2ca36c48c4776fb87b428e13793cf9bdd00d49d2050ec",
+          "knownStartupWorkerPoolErrors": 0,
+          "fixtureObserverErrors": 0,
+          "otherErrors": [
+            {
+              "line": 1699,
+              "category": "VFX-02: mod entrance signal cleanup",
+              "message": "ERROR: Attempt to disconnect a nonexistent connection from 'AnimationPlayer:<AnimationPlayer#1457134783518>'. Signal: 'animation_started', callable: 'Delegate::Invoke'."
+            },
+            {
+              "line": 1765,
+              "category": "fixture: opening event replaced before initialization completed",
+              "message": "[ERROR] System.ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')"
+            },
+            {
+              "line": 1787,
+              "category": "fixture: opening event replaced before initialization completed",
+              "message": "[ERROR] Exception starting singleplayer run : System.NullReferenceException: Object reference not set to an instance of an object."
+            },
+            {
+              "line": 1900,
+              "category": "fixture: opening event replaced before initialization completed",
+              "message": "[ERROR] System.ObjectDisposedException: Cannot access a disposed object."
+            }
+          ]
+        },
+        {
+          "file": "round3-stable\\godot.log",
+          "sha256": "427a1d74545d37c69161dc0dfab6bd8d45e4770c1b3b4a36007aeb40723ca666",
+          "knownStartupWorkerPoolErrors": 0,
+          "fixtureObserverErrors": 0,
+          "otherErrors": [
+            {
+              "line": 1431,
+              "category": "VFX-02: mod entrance signal cleanup",
+              "message": "ERROR: Attempt to disconnect a nonexistent connection from 'AnimationPlayer:<AnimationPlayer#1168398883689>'. Signal: 'animation_started', callable: 'Delegate::Invoke'."
+            },
+            {
+              "line": 1506,
+              "category": "fixture: run ended while opening reward UI remained pending",
+              "message": "[ERROR] Error deleting path modded/profile1\\saves\\current_run.save.backup: Failed"
+            }
+          ]
+        },
+        {
+          "file": "round4-stable\\godot.log",
+          "sha256": "b1c4217052f7028d2cd9d9ebe5e77b46206f2933779d825de9e968793a3f8f7e",
+          "knownStartupWorkerPoolErrors": 0,
+          "fixtureObserverErrors": 0,
+          "otherErrors": [
+            {
+              "line": 319,
+              "category": "VFX-02: mod entrance signal cleanup",
+              "message": "ERROR: Attempt to disconnect a nonexistent connection from 'AnimationPlayer:<AnimationPlayer#755679368755>'. Signal: 'animation_started', callable: 'Delegate::Invoke'."
+            },
+            {
+              "line": 1218,
+              "category": "fixture: run ended while opening reward UI remained pending",
+              "message": "[ERROR] Error deleting path modded/profile1\\saves\\current_run.save.backup: Failed"
+            }
+          ]
+        },
+        {
+          "file": "round5-stable\\godot.log",
+          "sha256": "c1557cf63d4c4c302ba9bc1d3273c4ab5cc909d976d0aab5da64bb0dcbb809cd",
+          "knownStartupWorkerPoolErrors": 0,
+          "fixtureObserverErrors": 0,
+          "otherErrors": [
+            {
+              "line": 319,
+              "category": "VFX-02: mod entrance signal cleanup",
+              "message": "ERROR: Attempt to disconnect a nonexistent connection from 'AnimationPlayer:<AnimationPlayer#756585338418>'. Signal: 'animation_started', callable: 'Delegate::Invoke'."
+            },
+            {
+              "line": 414,
+              "category": "fixture: run ended while opening reward UI remained pending",
+              "message": "[ERROR] Error deleting path modded/profile1\\saves\\current_run.save.backup: Failed"
+            }
+          ]
+        },
+        {
+          "file": "stable\\godot.log",
+          "sha256": "ec4d0b0cf2d4b170af9d33d4d9381be98eaa47cd78e141e3f4992d99105f0c24",
+          "knownStartupWorkerPoolErrors": 0,
+          "fixtureObserverErrors": 0,
+          "otherErrors": [
+            {
+              "line": 319,
+              "category": "VFX-02: mod entrance signal cleanup",
+              "message": "ERROR: Attempt to disconnect a nonexistent connection from 'AnimationPlayer:<AnimationPlayer#755981358643>'. Signal: 'animation_started', callable: 'Delegate::Invoke'."
+            }
+          ]
+        }
+      ],
+      "monitors": [
+        {
+          "file": "round1-stable\\window-monitor.json",
+          "samples": 26246,
+          "foreground_samples": 0,
+          "restored_samples": 0,
+          "minimized_samples": 61,
+          "desktopIsolation": "KarenVfxTest_17c505d805ff445a94640cd4a8c33c9a"
+        },
+        {
+          "file": "round2-stable\\window-monitor.json",
+          "samples": 23548,
+          "foreground_samples": 0,
+          "restored_samples": 0,
+          "minimized_samples": 89,
+          "desktopIsolation": "KarenVfxTest_519631cdfea04d33b03666df37f2d951"
+        },
+        {
+          "file": "round3-stable\\window-monitor.json",
+          "samples": 14151,
+          "foreground_samples": 0,
+          "restored_samples": 0,
+          "minimized_samples": 105,
+          "desktopIsolation": "KarenVfxTest_03f4be790847418f997f943097e9fcb1"
+        },
+        {
+          "file": "round4-stable\\window-monitor.json",
+          "samples": 12873,
+          "foreground_samples": 0,
+          "restored_samples": 0,
+          "minimized_samples": 75,
+          "desktopIsolation": "KarenVfxTest_682c9bc87699435893e928a64751e4f9"
+        },
+        {
+          "file": "round5-stable\\window-monitor.json",
+          "samples": 13602,
+          "foreground_samples": 0,
+          "restored_samples": 0,
+          "minimized_samples": 76,
+          "desktopIsolation": "KarenVfxTest_ae043bcc4cc4478596a43197805fa471"
+        },
+        {
+          "file": "stable\\window-monitor.json",
+          "samples": 12773,
+          "foreground_samples": 0,
+          "restored_samples": 0,
+          "minimized_samples": 80,
+          "desktopIsolation": "KarenVfxTest_37b7c7db799b466fb8081bd4a7a26689"
+        }
+      ]
+    },
+    "beta": {
+      "build": {
+        "assemblySha256": "06369930a7d336cdbaf1156a3ebe1693da10ff933ed68115589dc0fa3c47c022",
+        "packSha256": "ba2ac265f67dd8b6db52708e62eef413ad7bb6d089d2c6fe1947316a389c2d4f"
+      },
+      "expected": 45,
+      "passed": 45,
+      "failed": 0,
+      "pending": [],
+      "handChecks": 422,
+      "handErrors": 0,
+      "actorErrors": 0,
+      "attempts": 45,
+      "cases": [
+        {
+          "name": "actor-defect",
+          "title": "原版 DEFECT 实际持牌/出牌",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "DEFECT",
+            "maxFootError": 0,
+            "footFrames": 3662,
+            "hasShinePileButton": false,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 0.125
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "actor-ironclad",
+          "title": "原版 IRONCLAD 实际持牌/出牌",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "IRONCLAD",
+            "maxFootError": 0,
+            "footFrames": 3761,
+            "hasShinePileButton": false,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 0.28
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "actor-necrobinder",
+          "title": "原版 NECROBINDER 实际持牌/出牌",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "NECROBINDER",
+            "maxFootError": 0,
+            "footFrames": 3800,
+            "hasShinePileButton": false,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 0.27
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "actor-regent",
+          "title": "原版 REGENT 实际持牌/出牌",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "REGENT",
+            "maxFootError": 0,
+            "footFrames": 3707,
+            "hasShinePileButton": false,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 0.29
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "actor-silent",
+          "title": "原版 SILENT 实际持牌/出牌",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "SILENT",
+            "maxFootError": 0,
+            "footFrames": 3760,
+            "hasShinePileButton": false,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 0.29
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-act2-shine",
+          "title": "第二幕下塔桥自动打出闪耀攻击并耗尽",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 1,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-chain2",
+          "title": "塔桥打出塔桥再打出塔桥",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 3,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-cue-turn",
+          "title": "自动三种能力后跨回合生成、取塔和第一幕抽牌",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-deep",
+          "title": "八层塔桥调用栈",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 8,
+          "spots": 8,
+          "maxStages": 8,
+          "visualAssessment": "VFX-01: overexposed at depth 8"
+        },
+        {
+          "name": "boundary-empty",
+          "title": "空约定，X=0",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 0,
+          "maxStages": 0,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-energy-change",
+          "title": "燃料中途回能改变内层 X，不改变外层预留数",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 2,
+          "spots": 5,
+          "maxStages": 2,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-exchange",
+          "title": "塔桥自动命运交换，预留出牌与整手交换交错",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-fast",
+          "title": "Fast 深层塔桥",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 4,
+          "spots": 4,
+          "maxStages": 4,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-fuel-replay",
+          "title": "双幕叠加下自动燃料三连播、抽牌回能与耗尽",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-full-recall",
+          "title": "满手牌塔桥自动取回，容量溢出留在约定",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 1,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-instant",
+          "title": "Instant 深层塔桥，规则继续而表现跳过",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 0,
+          "spots": 0,
+          "maxStages": 0,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-lethal",
+          "title": "塔桥首张攻击致命，后续预留牌与追光清理",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 1,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-multi-shine",
+          "title": "第二幕下连续多张不同闪耀牌的耗尽反馈",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-new-cues",
+          "title": "塔桥自动门票、梦想、第一幕，三种短演出串联",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 4,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-next-clean",
+          "title": "致命结束后的下一场无旧舞台与耗尽票据",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 0,
+          "maxStages": 0,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-recall",
+          "title": "内层约定之塔取回剩余牌，外层继续预留牌",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-replay",
+          "title": "同一张塔桥真实额外重播两次",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-reproduce",
+          "title": "再生产十张续演和塔桥的真实耗尽补充",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-reserved",
+          "title": "外层预留三张，内层只取未预留的牌",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 2,
+          "spots": 4,
+          "maxStages": 2,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-run-newday",
+          "title": "自动行动和新的一天改变结果牌堆",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-selection",
+          "title": "自动 Why 选牌期间保留塔桥舞台",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-stage-stack",
+          "title": "燃烧、光带、觉醒叠加塔桥嵌套",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 2,
+          "spots": 3,
+          "maxStages": 2,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-switch-mode",
+          "title": "塔桥自动打出空虚，再自动打出塔桥",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 2,
+          "spots": 4,
+          "maxStages": 2,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-upgrade",
+          "title": "升级塔桥，零能量，内层塔桥",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 2,
+          "spots": 3,
+          "maxStages": 2,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-void-chain",
+          "title": "空虚从抽牌堆预留的三层塔桥",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 3,
+          "spots": 3,
+          "maxStages": 3,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-void-empty",
+          "title": "空虚抽弃牌堆皆空",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 0,
+          "maxStages": 0,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-void-shuffle",
+          "title": "空虚抽牌堆空，从弃牌堆洗牌",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 3,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-wakeup",
+          "title": "自动唤醒原生选牌界面和塔桥灯光共存",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 2,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "boundary-why-empty",
+          "title": "自动 Why 无手牌，无可选目标立即收尾",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "casts": 1,
+          "spots": 2,
+          "maxStages": 1,
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "enemy-knights",
+          "title": "三骑士多目标与护盾，非默认镜头比例",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1306,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "enemy-ovicopter",
+          "title": "飞行怪、偏移镜头及原生新增召唤目标",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1700,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "enemy-pincer",
+          "title": "帝王蟹：左右交替、多段攻击、左侧死亡后自动朝右",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1899,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ],
+            "facing": "Right",
+            "bodyScaleX": 1.225
+          },
+          "survivorFacing": "Right",
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "enemy-pincer-void",
+          "title": "帝王蟹：空虚/燃烧/觉醒、嵌套塔桥、右侧死亡后自动朝左",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 2717,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": "Left",
+            "bodyScaleX": -1.225
+          },
+          "survivorFacing": "Left",
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "enemy-slimes",
+          "title": "小体型群怪的目标、命中与移牌表现",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1293,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-death-revive",
+          "title": "死亡表现/原生治疗复活，以及蜥蜴尾巴濒死恢复",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 476,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-debuff-hurt",
+          "title": "虚弱/脆弱/易伤，原生受击与攻击姿态",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1039,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-reproduce-stretch",
+          "title": "再生产，非均匀缩放与燃料收益",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 0,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-small-flip-stack",
+          "title": "燃烧/光带/觉醒/Position 0，半尺寸翻转",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1095,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": -1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-temporary-material",
+          "title": "临时替换人物材质，受击后恢复呼吸与新演出",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1406,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        },
+        {
+          "name": "state-void-large-offset",
+          "title": "空虚/燃烧/觉醒，放大位移旋转",
+          "result": "passed",
+          "source": "beta",
+          "provenanceMatches": true,
+          "actor": {
+            "character": "KAREN",
+            "maxFootError": 0,
+            "footFrames": 1106,
+            "hasShinePileButton": true,
+            "liveDepletes": 0,
+            "ownerVfx": [
+              "NKarenPromiseStarNode",
+              "NKarenBurnVfx",
+              "NKarenFormVfx"
+            ],
+            "facing": null,
+            "bodyScaleX": 1.225
+          },
+          "visualAssessment": "No additional visual defect observed in captured frames"
+        }
+      ],
+      "logs": [
+        {
+          "file": "beta\\godot.log",
+          "sha256": "9f76868461da0bfa55af851a8e6525cad1b0f1dbb46a50dfa54b191dae6aaad6",
+          "knownStartupWorkerPoolErrors": 2,
+          "fixtureObserverErrors": 0,
+          "otherErrors": [
+            {
+              "line": 4916,
+              "category": "VFX-02: mod entrance signal cleanup",
+              "message": "ERROR: Attempt to disconnect a nonexistent connection from 'AnimationPlayer:<AnimationPlayer#2922003827994>'. Signal: 'animation_started', callable: 'Delegate::Invoke'."
+            },
+            {
+              "line": 4958,
+              "category": "ENV-01: native worker-pool diagnostic; origin not isolated",
+              "message": "ERROR: Invalid Task ID"
+            },
+            {
+              "line": 5356,
+              "category": "ENV-01: native worker-pool diagnostic; origin not isolated",
+              "message": "ERROR: Invalid Task ID"
+            },
+            {
+              "line": 5358,
+              "category": "ENV-01: native worker-pool diagnostic; origin not isolated",
+              "message": "ERROR: Invalid Task ID"
+            },
+            {
+              "line": 6541,
+              "category": "ENV-01: native worker-pool diagnostic; origin not isolated",
+              "message": "ERROR: Invalid Task ID"
+            },
+            {
+              "line": 6543,
+              "category": "ENV-01: native worker-pool diagnostic; origin not isolated",
+              "message": "ERROR: Invalid Task ID"
+            },
+            {
+              "line": 6940,
+              "category": "ENV-01: native worker-pool diagnostic; origin not isolated",
+              "message": "ERROR: Invalid Task ID"
+            },
+            {
+              "line": 7040,
+              "category": "ENV-01: native worker-pool diagnostic; origin not isolated",
+              "message": "ERROR: Invalid Task ID"
+            }
+          ]
+        }
+      ],
+      "monitors": [
+        {
+          "file": "beta\\window-monitor.json",
+          "samples": 74500,
+          "foreground_samples": 0,
+          "restored_samples": 0,
+          "minimized_samples": 156,
+          "desktopIsolation": "KarenVfxTest_b1c6f0fd904a49b2ba181dfa0151db33"
+        }
+      ]
+    }
+  },
+  "cleanup": {
+    "ownedGameProcessesEnded": true,
+    "portsClosed": [
+      18747,
+      18748
+    ],
+    "temporaryProbePluginsRemoved": true,
+    "overridesRestored": true
+  }
+}

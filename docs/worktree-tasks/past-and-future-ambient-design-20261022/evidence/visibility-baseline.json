@@ -1,0 +1,8 @@
+{
+  "width": 1280,
+  "height": 720,
+  "peakChannelDelta": 40,
+  "pixelsDeltaAtLeast30": 2,
+  "backgroundPixelsDeltaAtLeast10": 0,
+  "passed": false
+}

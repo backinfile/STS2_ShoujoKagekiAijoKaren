@@ -3,7 +3,6 @@
 /android/
 .import/
 export.cfg
-export_presets.cfg
 
 # Mono/C#
 .mono/
@@ -26,3 +25,41 @@ data/runs.db
 server.pid
 /docs/superpowers
 /.dotnet_home
+/artifacts/
+/.compat-tmp/
+# Local previews and generated media; keep the Godot import boundary in Git.
+/output/*
+!/output/.gdignore
+*.csproj.Backup*.tmp
+*.import*.tmp
+__pycache__/
+*.pyc
+
+# Local credentials, signing material, captures, and runtime data.
+.env
+.env.*
+*.env
+!.env.example
+!.env.sample
+!.env.template
+.secrets/
+access.json
+credentials.json
+secrets.json
+htpasswd
+id_rsa
+id_ed25519
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+*.log
+*.log.gz
+*.har
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*

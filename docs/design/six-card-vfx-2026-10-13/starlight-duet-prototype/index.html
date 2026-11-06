@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>双星与两幕 · 三张牌演出设计</title>
+  <link rel="stylesheet" href="preview.css?v=backlight-1"><script src="preview.js?v=backlight-1" defer></script>
+</head>
+<body>
+<main>
+  <header><div><p class="eyebrow">华恋 · 演出设计</p><h1>双星兑现，星光开幕。</h1><p class="intro">一次收益、持续抽牌、全场持有，各有自己的动作。</p></div>
+    <div class="transport"><button id="play-both" disabled>同时播放比较</button><label for="speed">速度</label><select id="speed"><option value="1">原速</option><option value="0.5">慢放 0.5×</option></select></div></header>
+  <nav class="choices" aria-label="卡牌演出方案">
+    <button data-card="duet" aria-pressed="true" disabled><img src="assets/duet.png" alt="命运与本能卡图" width="500" height="380"><span><strong>命运与本能</strong><small>双星兑现 · 取牌与回能</small></span></button>
+    <button data-card="act1" aria-pressed="false" disabled><img src="assets/act1.png" alt="Starlight第一幕卡图" width="500" height="380"><span><strong>Starlight 第一幕</strong><small>蓝幕初开 · 收益短揭光</small></span></button>
+    <button data-card="act2" aria-pressed="false" disabled><img src="assets/act2.png" alt="Starlight第二幕卡图" width="500" height="380"><span><strong>Starlight 第二幕</strong><small>高亮开场 · 后方灯幕</small></span></button>
+  </nav>
+  <div class="selection"><p id="mechanic">从约定取 4 张牌，再获得 2 能量。两面板展示同一次技能的前段与收益。</p>
+    <label id="scenario-label" for="scenario">约定存量</label><select id="scenario"><option value="4">4 张 · 取回 4 张</option><option value="2">2 张 · 取回 2 张</option><option value="0">0 张 · 仍回能</option></select><div id="stage-control" class="stage-control" hidden><label for="stage-scope">打出构图</label><select id="stage-scope" disabled><option value="full">全屏舞台</option><option value="local">局部比较</option></select><label for="hover-layer">悬停层级</label><select id="hover-layer" disabled><option value="middle">人物后方</option><option value="front">前景比较</option></select></div></div>
+  <p class="disclosure" role="status">动态概念预览 · 已有实机截图作拼贴背景；人物轮廓遮挡模拟灯幕层级，光效与结果为设计示意，尚未接入游戏。</p>
+  <div class="comparison">
+    <section aria-labelledby="opening-title"><div class="panel-title"><div><h2 id="opening-title">打出 · 双星会合</h2><p id="opening-subtitle">从本次卡图发出</p></div><span id="opening-duration">1.14 秒</span></div>
+      <canvas id="opening" width="1280" height="720" aria-label="打出开场动态概念预览"></canvas>
+      <div class="play-controls"><button id="play-opening" disabled>播放打出</button><label class="scrub" for="opening-time"><span class="sr-only">打出时间轴</span><input id="opening-time" type="range" min="0" max="1140" step="1" value="290"></label><output id="opening-clock" for="opening-time">0.29 s</output></div>
+      <div class="steps" id="opening-steps"><button data-time="90">卡面起光</button><button data-time="290">双星会合</button><button data-time="500">取牌确认</button><button data-time="900">回能收束</button></div>
+      <p class="state" id="opening-state"></p><p class="rationale" id="opening-rationale">卡图里的大小金星离开相握的手，在身侧会合。光来自这次打出的牌。</p>
+    </section>
+    <section aria-labelledby="result-title"><div class="panel-title"><div><h2 id="result-title">打出 · 取牌回能</h2><p id="result-subtitle">先取回，再回能</p></div><span id="result-duration">1.14 秒</span></div>
+      <div class="canvas-wrap"><canvas id="result" width="1280" height="720" aria-label="收益或能力悬停动态概念预览"></canvas><button id="hover-card" aria-label="悬停闪耀牌，点击打出示例" hidden disabled><span class="sr-only">悬停闪耀牌，点击打出示例</span></button></div>
+      <div class="play-controls"><button id="play-result" disabled>播放收益</button><label class="scrub" for="result-time"><span class="sr-only">收益时间轴</span><input id="result-time" type="range" min="0" max="1140" step="1" value="650"></label><output id="result-clock" for="result-time">0.65 s</output></div>
+      <div class="steps" id="result-steps"><button data-time="290">星位待交接</button><button data-time="530">取牌交接</button><button data-time="810">回能确认</button><button data-time="1060">余光散去</button></div>
+      <div id="hover-demo" class="hover-demo" hidden><p>悬停画面中的闪耀牌展开舞台；点击打出后，移开鼠标仍维持到结算完成。</p><button id="reset-hover" disabled>重置悬停</button></div>
+      <p class="state" id="result-state"></p><p class="rationale" id="result-rationale">确认抽取后，星点从约定交接到真实手牌；回能确认后，另一股短金光落到能量槽。</p>
+    </section>
+  </div>
+  <section class="notes" aria-labelledby="notes-title"><h2 id="notes-title">这张牌的设计依据</h2><p id="basis">卡图已有相握的手与大小金星；双星对应两个收益阶段。</p><p id="boundary">这是一次技能，光流按实际抽取数量展开，约定为空仍确认回能。</p><p class="current">第二幕当前有能力图标闪动和通用闪耀耗尽。本页只设计高亮打出开场、以及悬停闪耀牌后维持到结算完成的后方灯幕。</p></section>
+  <details class="sound-reference"><summary>灯光音效候选 · 点击试听</summary>
+    <p>先试听已有的两份本地素材。具体 TV 出处仍待核对，本页暂不将声音绑定到演出。</p>
+    <div class="sound-samples">
+      <figure><figcaption>开灯候选 · 现有舞台灯音效 · 1.23 秒</figcaption><audio controls preload="metadata" aria-label="试听开灯候选"><source src="assets/stage-light.mp3" type="audio/mpeg">浏览器不支持音频播放。</audio></figure>
+      <figure><figcaption>第二幕候选 · 老 Mod lightoff · 2.10 秒</figcaption><audio controls preload="metadata" aria-label="试听第二幕候选"><source src="assets/act2-lightoff.wav" type="audio/wav">浏览器不支持音频播放。</audio></figure>
+    </div>
+    <p>官方素材检索入口：<a href="https://www.youtube.com/watch?v=jijW8uzyl5Q" target="_blank" rel="noopener">动画第一弹官方预告</a> · <a href="https://www.b-ch.com/titles/6159/" target="_blank" rel="noopener">TV 动画正版播放页</a>。尚未确认其中可独立使用的开灯声音片段。</p>
+  </details>
+  <footer><span>按实际结果确认，不用装饰动画增加游戏等待。无默认循环，离开页面暂停。</span><a href="../ticket-entry-design-20261014/index.html?cast=path&amp;trigger=path">查看已选门票 B</a></footer>
+</main>
+</body></html>

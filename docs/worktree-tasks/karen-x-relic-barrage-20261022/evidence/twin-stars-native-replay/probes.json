@@ -1,0 +1,338 @@
+{
+  "native-blocked": {
+    "before": {
+      "state": "ready",
+      "attacks": [],
+      "artPreview": "off",
+      "plays": 0,
+      "nativeBlockedAttempts": 0,
+      "visualEvents": [],
+      "pairs": [],
+      "activeVfx": 0,
+      "locks": 0,
+      "eligible": 2,
+      "relics": [
+        "STRAWBERRY",
+        "PEAR"
+      ],
+      "playable": false,
+      "costX": true,
+      "nativeBaseReplayCount": 1,
+      "nativeReplayCount": 1,
+      "modExtraReplayCount": 0,
+      "nativeReplayKeyword": "重放",
+      "capturedX": 0,
+      "upgraded": false,
+      "pile": "Hand",
+      "disableCost": 3,
+      "damage": 5,
+      "repeat": 2,
+      "pool": true,
+      "hasPortrait": true,
+      "portrait": "(500, 380)",
+      "title": "双星",
+      "description": "[gold]禁用[/gold]X个遗物，然后造成5点伤害2X次。\n[gold]重放[/gold]1。\n（当前可禁用[blue]2[/blue]个遗物）",
+      "energy": 3,
+      "targetHp": 100
+    },
+    "after": {
+      "state": "ready",
+      "attacks": [],
+      "artPreview": "off",
+      "plays": 0,
+      "nativeBlockedAttempts": 2,
+      "visualEvents": [],
+      "pairs": [],
+      "activeVfx": 0,
+      "locks": 0,
+      "eligible": 2,
+      "relics": [
+        "STRAWBERRY",
+        "PEAR"
+      ],
+      "playable": false,
+      "costX": true,
+      "nativeBaseReplayCount": 1,
+      "nativeReplayCount": 1,
+      "modExtraReplayCount": 0,
+      "nativeReplayKeyword": "重放",
+      "capturedX": 0,
+      "upgraded": false,
+      "pile": "Hand",
+      "disableCost": 3,
+      "damage": 5,
+      "repeat": 2,
+      "pool": true,
+      "hasPortrait": true,
+      "portrait": "(500, 380)",
+      "title": "双星",
+      "description": "[gold]禁用[/gold]X个遗物，然后造成5点伤害2X次。\n[gold]重放[/gold]1。\n（当前可禁用[blue]2[/blue]个遗物）",
+      "energy": 3,
+      "targetHp": 100
+    }
+  },
+  "native-replay": {
+    "before": {
+      "state": "ready",
+      "attacks": [],
+      "artPreview": "off",
+      "plays": 0,
+      "nativeBlockedAttempts": 0,
+      "visualEvents": [],
+      "pairs": [],
+      "activeVfx": 0,
+      "locks": 0,
+      "eligible": 4,
+      "relics": [
+        "STRAWBERRY",
+        "PEAR",
+        "MANGO",
+        "ANCHOR"
+      ],
+      "playable": true,
+      "costX": true,
+      "nativeBaseReplayCount": 1,
+      "nativeReplayCount": 1,
+      "modExtraReplayCount": 0,
+      "nativeReplayKeyword": "重放",
+      "capturedX": 0,
+      "upgraded": false,
+      "pile": "Hand",
+      "disableCost": 2,
+      "damage": 5,
+      "repeat": 2,
+      "pool": true,
+      "hasPortrait": true,
+      "portrait": "(500, 380)",
+      "title": "双星",
+      "description": "[gold]禁用[/gold]X个遗物，然后造成5点伤害2X次。\n[gold]重放[/gold]1。\n（当前可禁用[blue]4[/blue]个遗物）",
+      "energy": 2,
+      "targetHp": 100
+    },
+    "after": {
+      "state": "ready",
+      "attacks": [
+        {
+          "hits": 4,
+          "damage": [
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        {
+          "hits": 4,
+          "damage": [
+            5,
+            5,
+            5,
+            5
+          ]
+        }
+      ],
+      "artPreview": "off",
+      "plays": 2,
+      "nativeBlockedAttempts": 0,
+      "visualEvents": [
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact"
+      ],
+      "pairs": [
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 250,
+          "y": 116,
+          "centerX": 444.72,
+          "centerY": 176.352,
+          "distance": 203.85838
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 182,
+          "y": 116,
+          "centerX": 387.27563,
+          "centerY": 176.58276,
+          "distance": 214.02887
+        },
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 114,
+          "y": 116,
+          "centerX": 325.91864,
+          "centerY": 175.08035,
+          "distance": 220
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 46,
+          "y": 116,
+          "centerX": 258.64575,
+          "centerY": 172.40726,
+          "distance": 219.99998
+        }
+      ],
+      "activeVfx": 0,
+      "locks": 4,
+      "eligible": 0,
+      "relics": [
+        "KAREN_LOCK_RELIC",
+        "KAREN_LOCK_RELIC",
+        "KAREN_LOCK_RELIC",
+        "KAREN_LOCK_RELIC"
+      ],
+      "playable": true,
+      "costX": true,
+      "nativeBaseReplayCount": 1,
+      "nativeReplayCount": 1,
+      "modExtraReplayCount": 0,
+      "nativeReplayKeyword": "重放",
+      "capturedX": 2,
+      "upgraded": false,
+      "pile": "Discard",
+      "disableCost": 0,
+      "damage": 5,
+      "repeat": 2,
+      "pool": true,
+      "hasPortrait": true,
+      "portrait": "(500, 380)",
+      "title": "双星",
+      "description": "[gold]禁用[/gold]X个遗物，然后造成5点伤害2X次。\n[gold]重放[/gold]1。\n（当前可禁用[blue]0[/blue]个遗物）",
+      "energy": 0,
+      "targetHp": 60
+    }
+  },
+  "native-replay-short": {
+    "before": {
+      "state": "ready",
+      "attacks": [],
+      "artPreview": "off",
+      "plays": 0,
+      "nativeBlockedAttempts": 0,
+      "visualEvents": [],
+      "pairs": [],
+      "activeVfx": 0,
+      "locks": 0,
+      "eligible": 3,
+      "relics": [
+        "STRAWBERRY",
+        "PEAR",
+        "MANGO"
+      ],
+      "playable": true,
+      "costX": true,
+      "nativeBaseReplayCount": 1,
+      "nativeReplayCount": 1,
+      "modExtraReplayCount": 0,
+      "nativeReplayKeyword": "重放",
+      "capturedX": 0,
+      "upgraded": false,
+      "pile": "Hand",
+      "disableCost": 2,
+      "damage": 5,
+      "repeat": 2,
+      "pool": true,
+      "hasPortrait": true,
+      "portrait": "(500, 380)",
+      "title": "双星",
+      "description": "[gold]禁用[/gold]X个遗物，然后造成5点伤害2X次。\n[gold]重放[/gold]1。\n（当前可禁用[blue]3[/blue]个遗物）",
+      "energy": 2,
+      "targetHp": 100
+    },
+    "after": {
+      "state": "ready",
+      "attacks": [
+        {
+          "hits": 4,
+          "damage": [
+            5,
+            5,
+            5,
+            5
+          ]
+        }
+      ],
+      "artPreview": "off",
+      "plays": 2,
+      "nativeBlockedAttempts": 0,
+      "visualEvents": [
+        "start",
+        "gold",
+        "contact",
+        "pink",
+        "contact",
+        "gold",
+        "contact",
+        "pink",
+        "contact"
+      ],
+      "pairs": [
+        {
+          "index": 0,
+          "fromRelic": true,
+          "x": 182,
+          "y": 116,
+          "centerX": 387.59998,
+          "centerY": 176.352,
+          "distance": 214.27486
+        },
+        {
+          "index": 1,
+          "fromRelic": true,
+          "x": 114,
+          "y": 116,
+          "centerX": 325.88995,
+          "centerY": 175.18314,
+          "distance": 219.99998
+        }
+      ],
+      "activeVfx": 0,
+      "locks": 2,
+      "eligible": 1,
+      "relics": [
+        "STRAWBERRY",
+        "KAREN_LOCK_RELIC",
+        "KAREN_LOCK_RELIC"
+      ],
+      "playable": true,
+      "costX": true,
+      "nativeBaseReplayCount": 1,
+      "nativeReplayCount": 1,
+      "modExtraReplayCount": 0,
+      "nativeReplayKeyword": "重放",
+      "capturedX": 2,
+      "upgraded": false,
+      "pile": "Discard",
+      "disableCost": 0,
+      "damage": 5,
+      "repeat": 2,
+      "pool": true,
+      "hasPortrait": true,
+      "portrait": "(500, 380)",
+      "title": "双星",
+      "description": "[gold]禁用[/gold]X个遗物，然后造成5点伤害2X次。\n[gold]重放[/gold]1。\n（当前可禁用[blue]1[/blue]个遗物）",
+      "energy": 0,
+      "targetHp": 80
+    }
+  }
+}

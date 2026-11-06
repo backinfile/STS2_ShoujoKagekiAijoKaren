@@ -1,0 +1,109 @@
+{
+  "video": "showcase.mp4",
+  "sha256": "c300f39fb4772b32b2195c6bbede626cc4c806389b04a362840112912bcb36a4",
+  "duration": 69.543265,
+  "audio": "game_process",
+  "composition": "Original 1280x720 viewport; captions and synchronized enlargement below.",
+  "sourceMcp": {
+    "sourceCommit": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
+    "builds": {
+      "stable": "ab3aab34c4860455e4d527e47460824538874cc5d1b287fe590185cb8dc25020",
+      "beta": "4b0ac55eb57793ae92016d492b36c14142b1b47b61c1b692748660e9fd8142e1"
+    }
+  },
+  "cleanup": {
+    "stable": {
+      "port": 18927,
+      "closed": true,
+      "settingsRestored": true,
+      "observersRemoved": true
+    },
+    "beta": {
+      "port": 18928,
+      "closed": true,
+      "settingsRestored": true,
+      "observersRemoved": true
+    }
+  },
+  "geometry": {
+    "stable": {
+      "maxLocalError": 1.0789593e-05,
+      "maxCanvasError": 6.29136e-05,
+      "countMatchesEverySample": true,
+      "normalSixSides": 63,
+      "fastSixSides": 63
+    },
+    "beta": {
+      "maxLocalError": 1.0789593e-05,
+      "maxCanvasError": 6.823938e-05,
+      "countMatchesEverySample": true,
+      "normalSixSides": 63,
+      "fastSixSides": 63
+    }
+  },
+  "detail": {
+    "file": "rounded-stacks-detail.mp4",
+    "sha256": "a2abe925b02d3cac3e03af121e8c1f3f5ede1632f26af61e770963564c48dbcc",
+    "duration": 33.582993,
+    "source": "artifacts/stage-is-waiting-rounded-stacks/stable/waiting-stage/game.mp4",
+    "sourceSha256": "765a0eb76d52525c4aa4f1628078fc43b2f2b7eaa6e56c475ec61735c8413ba7",
+    "trimStart": 1.2,
+    "crop": [
+      0,
+      490,
+      220,
+      190
+    ],
+    "scale": 3
+  },
+  "branches": {
+    "stable": {
+      "captureFps": 29.221389175916663,
+      "meanAudioDb": -52.7,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 29.873783763578526,
+        "repeatedFrames": 1,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 239,
+        "longestUnchangedClockSeconds": 0.06666666666666667,
+        "largestClockJumpSeconds": 0.06000000000000005,
+        "clockSeconds": 7.970000000000001,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.0033330000000004745,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 24,
+      "provenance": {
+        "assemblySha256": "46619d23055e6a7c7c69d4006d46a4f706d1c2dd25ac2997b5009593feb3daeb",
+        "packSha256": "0367e39cdc8c1b727551390badc6ac690938853d7d261ae0a181da31f1f901fd"
+      }
+    },
+    "beta": {
+      "captureFps": 29.393782372982702,
+      "meanAudioDb": -45.1,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 30.00258547280312,
+        "repeatedFrames": 0,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 240,
+        "longestUnchangedClockSeconds": 0.03333333333333333,
+        "largestClockJumpSeconds": 0.06000000000000005,
+        "clockSeconds": 7.97,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.0033329999999995863,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 24,
+      "provenance": {
+        "assemblySha256": "a9d7baee38671bb3a6f1c5cd85491d590d88b0db06d1fb43f02f4814eacb74c3",
+        "packSha256": "0367e39cdc8c1b727551390badc6ac690938853d7d261ae0a181da31f1f901fd"
+      }
+    }
+  }
+}

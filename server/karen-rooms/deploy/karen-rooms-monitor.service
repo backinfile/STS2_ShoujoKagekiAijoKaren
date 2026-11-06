@@ -1,0 +1,26 @@
+[Unit]
+Description=Read-only Karen relay TLS, capacity and health check
+After=network-online.target karen-rooms.service nginx.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=karen-roomwatch
+Group=karen-roomwatch
+WorkingDirectory=/opt/karen-rooms/current
+ExecStart=/opt/karen-rooms/venv/bin/python monitor.py
+StateDirectory=karen-roomwatch
+StateDirectoryMode=0700
+RuntimeDirectory=karen-rooms-health
+RuntimeDirectoryMode=0755
+RuntimeDirectoryPreserve=yes
+TimeoutStartSec=20
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryMax=80M
+TasksMax=8
+CPUQuota=10%

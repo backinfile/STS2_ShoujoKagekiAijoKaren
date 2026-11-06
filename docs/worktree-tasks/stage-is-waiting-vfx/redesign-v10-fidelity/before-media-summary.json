@@ -1,0 +1,103 @@
+{
+  "video": "showcase.mp4",
+  "duration": 47.345125,
+  "bytes": 17825346,
+  "sha256": "4778f49a069f6ea7282caf7c24e57c37a96bfb19587ad972bd93158e472e18e4",
+  "audio": "game_process",
+  "composition": "Original 1280x720 gameplay unchanged; captions and a synchronized 1.4x energy-counter crop are added below the viewport.",
+  "mainRevision": "afb661c1aa9cf637cb98011fbb5506c8e421bd14",
+  "sourceMcp": {
+    "sourceCommit": "70c9dc231f3b0389fb5fb3e69894b5aa912163ce",
+    "builds": {
+      "stable": "ab3aab34c4860455e4d527e47460824538874cc5d1b287fe590185cb8dc25020",
+      "beta": "4b0ac55eb57793ae92016d492b36c14142b1b47b61c1b692748660e9fd8142e1"
+    }
+  },
+  "freezes": [],
+  "branches": {
+    "stable": {
+      "captureFps": 29.65276865933991,
+      "meanAudioDb": -53.0,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 30.00143969408732,
+        "repeatedFrames": 0,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 240,
+        "longestUnchangedClockSeconds": 0.03333333333333333,
+        "largestClockJumpSeconds": 0.050000000000000044,
+        "clockSeconds": 7.960000000000001,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.006666999999999312,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 42,
+      "provenance": {
+        "assemblySha256": "3c777f5c0f02b2990bbfc5f1cc7010976344db805ffad981e6328dddb007cacf",
+        "packSha256": "a948af68df42537ea1832aaca5f1145f40ab1e0e9b8eec9cda0b038ac196c8c1"
+      }
+    },
+    "beta": {
+      "captureFps": 29.493184463586214,
+      "meanAudioDb": -45.2,
+      "recordingEncoder": "h264_nvenc",
+      "captureAudit": {
+        "encoder": "h264_nvenc",
+        "captureFps": 30.00023025176718,
+        "repeatedFrames": 0,
+        "droppedFrames": 0,
+        "decodedFrames": 240,
+        "distinctClockValues": 240,
+        "longestUnchangedClockSeconds": 0.03333333333333333,
+        "largestClockJumpSeconds": 0.050000000000000044,
+        "clockSeconds": 7.970000000000001,
+        "videoSeconds": 7.966667,
+        "timelineDriftSeconds": 0.0033330000000004745,
+        "strictlyIncreasingPts": true
+      },
+      "observations": 42,
+      "provenance": {
+        "assemblySha256": "c4ba7d6a3882da82fa076de39ccd1761efaa636e9aa2c9732d647d227369b6c9",
+        "packSha256": "a948af68df42537ea1832aaca5f1145f40ab1e0e9b8eec9cda0b038ac196c8c1"
+      }
+    }
+  },
+  "cleanup": {
+    "stable": {
+      "port": 18877,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    },
+    "beta": {
+      "port": 18878,
+      "closed": true,
+      "settingsRestored": true,
+      "temporaryObserversRemoved": true
+    }
+  },
+  "creationDetail": {
+    "file": "creation-detail.mp4",
+    "duration": 4.5,
+    "sha256": "e3016b9b84b419b90439e27997ef96b7b1183bd1e5d35e93ee7762fbbd8df565",
+    "source": "artifacts/stage-is-waiting-energy-orbit-final/stable/waiting-stage/game.mp4",
+    "sourceSha256": "eea0cbe6a35e9af4afe54b5e2b88f35b877251ad05e083323b570290edcbd1c4",
+    "trimStart": 1.3,
+    "trimDuration": 4.5,
+    "crop": [
+      10,
+      490,
+      210,
+      190
+    ],
+    "magnification": 3
+  },
+  "prototype": {
+    "path": "artifacts/stage-is-waiting-energy-orbit",
+    "result": "superseded; first restored material sample was unset, fixed by explicit initialization",
+    "port": 18867,
+    "closed": true
+  }
+}

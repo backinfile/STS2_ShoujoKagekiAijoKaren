@@ -1,0 +1,282 @@
+{
+    "streams": [
+        {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "mime_codec_string": "avc1.640020",
+            "width": 1920,
+            "height": 660,
+            "coded_width": 1920,
+            "coded_height": 660,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "32:11",
+            "pix_fmt": "yuv420p",
+            "level": 32,
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "14991360/500393",
+            "time_base": "1/15360",
+            "start_pts": 323,
+            "start_time": "0.021029",
+            "duration_ts": 500393,
+            "duration": "32.577669",
+            "bit_rate": "3389986",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "976",
+            "extradata_size": 48,
+            "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+            },
+            "tags": {
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "encoder": "Lavc62.28.100 libx264"
+            }
+        },
+        {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "mime_codec_string": "mp4a.40.2",
+            "sample_fmt": "fltp",
+            "sample_rate": "48000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/48000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 1565712,
+            "duration": "32.619000",
+            "bit_rate": "191604",
+            "nb_frames": "1532",
+            "extradata_size": 5,
+            "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+            },
+            "tags": {
+                "language": "und",
+                "handler_name": "SoundHandler"
+            }
+        },
+        {
+            "index": 2,
+            "codec_name": "bin_data",
+            "codec_long_name": "binary data",
+            "codec_type": "data",
+            "codec_tag_string": "text",
+            "codec_tag": "0x74786574",
+            "id": "0x3",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 32583,
+            "duration": "32.583000",
+            "bit_rate": "53",
+            "nb_frames": "9",
+            "extradata_size": 63,
+            "disposition": {
+                "default": 0,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+            },
+            "tags": {
+                "language": "eng",
+                "handler_name": "SubtitleHandler"
+            }
+        }
+    ],
+    "chapters": [
+        {
+            "id": 0,
+            "time_base": "1/1000",
+            "start": 0,
+            "start_time": "0.000000",
+            "end": 2969,
+            "end_time": "2.969000",
+            "tags": {
+                "title": "01 嫉妒"
+            }
+        },
+        {
+            "id": 1,
+            "time_base": "1/1000",
+            "start": 2969,
+            "start_time": "2.969000",
+            "end": 7081,
+            "end_time": "7.081000",
+            "tags": {
+                "title": "02 嫉妒"
+            }
+        },
+        {
+            "id": 2,
+            "time_base": "1/1000",
+            "start": 7081,
+            "start_time": "7.081000",
+            "end": 13284,
+            "end_time": "13.284000",
+            "tags": {
+                "title": "03 唤醒"
+            }
+        },
+        {
+            "id": 3,
+            "time_base": "1/1000",
+            "start": 13284,
+            "start_time": "13.284000",
+            "end": 14017,
+            "end_time": "14.017000",
+            "tags": {
+                "title": "04 唤醒"
+            }
+        },
+        {
+            "id": 4,
+            "time_base": "1/1000",
+            "start": 14017,
+            "start_time": "14.017000",
+            "end": 18224,
+            "end_time": "18.224000",
+            "tags": {
+                "title": "05 唤醒"
+            }
+        },
+        {
+            "id": 5,
+            "time_base": "1/1000",
+            "start": 18224,
+            "start_time": "18.224000",
+            "end": 21333,
+            "end_time": "21.333000",
+            "tags": {
+                "title": "06 骄傲"
+            }
+        },
+        {
+            "id": 6,
+            "time_base": "1/1000",
+            "start": 21333,
+            "start_time": "21.333000",
+            "end": 25403,
+            "end_time": "25.403000",
+            "tags": {
+                "title": "07 骄傲"
+            }
+        },
+        {
+            "id": 7,
+            "time_base": "1/1000",
+            "start": 25403,
+            "start_time": "25.403000",
+            "end": 28544,
+            "end_time": "28.544000",
+            "tags": {
+                "title": "08 接力耗尽"
+            }
+        },
+        {
+            "id": 8,
+            "time_base": "1/1000",
+            "start": 28544,
+            "start_time": "28.544000",
+            "end": 32583,
+            "end_time": "32.583000",
+            "tags": {
+                "title": "09 接力耗尽"
+            }
+        }
+    ],
+    "format": {
+        "filename": "artifacts/vfx-suitability-polish/comparison/Karen-VFX-before-after.mp4",
+        "nb_streams": 3,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "32.619000",
+        "size": "14624580",
+        "bit_rate": "3586763",
+        "probe_score": 100,
+        "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "title": "Karen 特效审查调整 · 修改前后对比",
+            "encoder": "Lavf62.12.100"
+        }
+    }
+}

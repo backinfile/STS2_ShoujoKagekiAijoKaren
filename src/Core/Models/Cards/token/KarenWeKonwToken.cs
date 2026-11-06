@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 
@@ -25,7 +26,12 @@ public sealed class KarenWeKownToken : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        var effect = NKarenBenefitVfx.Play(Owner, NKarenBenefitVfx.BenefitKind.Radiance, this);
+        if (effect != null) await NKarenBenefitVfx.WaitForCue(NKarenBenefitVfx.BenefitKind.Radiance);
+        effect?.WatchEnergy();
         await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+        effect?.CheckEnergy();
+        if (effect != null) await effect.WaitForEnergyDeparture();
     }
 
     protected override void OnUpgrade()

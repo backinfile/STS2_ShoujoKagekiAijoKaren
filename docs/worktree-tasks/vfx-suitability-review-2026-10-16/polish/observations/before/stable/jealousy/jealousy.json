@@ -1,0 +1,45 @@
+{
+  "live": 0,
+  "actorOffsetError": 0,
+  "modelPositionError": 0,
+  "actorZError": 0,
+  "maxActorOffsetError": 0,
+  "maxModelPositionError": 0,
+  "maxVisualPositionError": 0,
+  "maxActorZError": 0,
+  "maxLiveNodes": 1,
+  "maxLiveParticleCapacity": 88,
+  "distinctParticleMaterials": 4,
+  "relicRewards": 0,
+  "hand": [],
+  "casts": [
+    {
+      "kind": "impact",
+      "frames": 44,
+      "unit": 0.975,
+      "maxAnchorError": 0,
+      "minDirectionDot": 1,
+      "maxSpread": 46,
+      "ghosts": 0,
+      "emitters": 2,
+      "particleCapacity": 88,
+      "emittingFrames": 37,
+      "exited": true,
+      "finalAge": 1.2372087
+    },
+    {
+      "kind": "impact",
+      "frames": 62,
+      "unit": 0.975,
+      "maxAnchorError": 0,
+      "minDirectionDot": 1,
+      "maxSpread": 46,
+      "ghosts": 0,
+      "emitters": 2,
+      "particleCapacity": 88,
+      "emittingFrames": 52,
+      "exited": true,
+      "finalAge": 1.2277814
+    }
+  ]
+}

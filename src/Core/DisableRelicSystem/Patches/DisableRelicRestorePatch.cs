@@ -15,10 +15,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Patches;
 [HarmonyPatch(typeof(Hook), nameof(Hook.AfterCombatEnd))]
 public static class DisableRelicRestorePatch
 {
-    [HarmonyPostfix]
-    private static void Postfix(IRunState runState, CombatState combatState, AbstractRoom room)
+    [HarmonyPrefix]
+    private static void Prefix(IRunState runState, CombatState combatState, AbstractRoom room)
     {
-        // 恢复所有玩家的被禁用遗物
+        // 在原生 Hook 创建监听器快照前恢复，让遗物恰好收到一次战后清理回调。
         foreach (var player in combatState.Players)
         {
             if (DisableRelicManager.GetDisabledRelicCount(player) > 0)
@@ -40,8 +40,8 @@ public static class DisableRelicOnDeathPatch
     [HarmonyPostfix]
     private static void Postfix(IRunState runState, CombatState? combatState, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
-        // 只有玩家角色死亡时才恢复遗物
-        if (creature?.Player == null) return;
+        // AfterDeath also runs before a Fairy/Lizard Tail prevents death. Its cost still lasts this combat.
+        if (wasRemovalPrevented || creature?.Player == null) return;
 
         var player = creature.Player;
         if (DisableRelicManager.GetDisabledRelicCount(player) > 0)

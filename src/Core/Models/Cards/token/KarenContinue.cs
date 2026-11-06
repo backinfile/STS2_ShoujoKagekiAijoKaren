@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -34,9 +35,9 @@ public sealed class KarenContinue : KarenBaseCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromPlayedCard(this, cardPlay)
             .Targeting(cardPlay.Target)
-            .WithHitFx(VfxCmd.slashPath)
+            .WithHitVfxNode(target => NKarenContinueVfx.Create(Owner.Creature, target))
             .Execute(choiceContext);
     }
 

@@ -1,0 +1,675 @@
+{
+  "detachedSparkFrames": 219,
+  "maxRigidDifference": 109.33869,
+  "maxSparks": 22,
+  "floorFrames": 0,
+  "maxFloorY": 0,
+  "maxFloorOffset": 0,
+  "viewportHeight": 0,
+  "liveDepletes": 0,
+  "liveArrivals": 0,
+  "pileVisualRestoreError": 0,
+  "pileIconScale": [
+    1,
+    1
+  ],
+  "pileIconRotation": 0,
+  "counter": {
+    "model": 18,
+    "displayed": 18,
+    "target": 18,
+    "pending": 0,
+    "animating": false,
+    "scale": 1,
+    "earlyFrames": 0,
+    "heldFrames": 96,
+    "changes": [
+      {
+        "time": 0.005,
+        "count": 16,
+        "model": 16,
+        "arrivals": 0
+      },
+      {
+        "time": 4.301,
+        "count": 17,
+        "model": 17,
+        "arrivals": 1
+      },
+      {
+        "time": 7.34,
+        "count": 18,
+        "model": 18,
+        "arrivals": 2
+      }
+    ]
+  },
+  "arrivals": [
+    {
+      "count": 1,
+      "duration": 0.46,
+      "maxScale": 1.2299991,
+      "minScale": 0.8883751,
+      "minRotation": -0.27485168,
+      "maxRotation": 0.20946863
+    },
+    {
+      "count": 1,
+      "duration": 0.46,
+      "maxScale": 1.2299585,
+      "minScale": 0.8848997,
+      "minRotation": -0.2799945,
+      "maxRotation": 0.2086246
+    }
+  ],
+  "depletes": [
+    {
+      "duration": 0.54,
+      "gather": 0.34,
+      "fuel": false,
+      "landingError": 0,
+      "minCardScale": 0.10000002,
+      "released": true,
+      "faceReappeared": false,
+      "arrived": true,
+      "arrivalDelay": 0.029683888,
+      "samples": [
+        {
+          "age": 0,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.032509,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.057508998,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.082508996,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.10354766,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.109698325,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.12636499,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.14303166,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.15969832,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.192134,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.21157844,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.23062606,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.24914458,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.26747793,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.285248,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.3019147,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.3209623,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.34000993,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.39856035,
+          "x": 959.55145,
+          "y": 437.98468,
+          "released": false
+        },
+        {
+          "age": 0.42089167,
+          "x": 958.9173,
+          "y": 435.13504,
+          "released": false
+        },
+        {
+          "age": 0.44446668,
+          "x": 957.8941,
+          "y": 430.5376,
+          "released": false
+        },
+        {
+          "age": 0.45605734,
+          "x": 957.26495,
+          "y": 427.71066,
+          "released": false
+        },
+        {
+          "age": 0.47689068,
+          "x": 955.9615,
+          "y": 421.85385,
+          "released": false
+        },
+        {
+          "age": 0.4968907,
+          "x": 954.57,
+          "y": 415.6017,
+          "released": false
+        },
+        {
+          "age": 0.5108807,
+          "x": 954.1604,
+          "y": 410.91235,
+          "released": false
+        },
+        {
+          "age": 0.5282997,
+          "x": 953.5489,
+          "y": 402.70868,
+          "released": false
+        },
+        {
+          "age": 0.5412957,
+          "x": 952.80634,
+          "y": 392.74722,
+          "released": false
+        },
+        {
+          "age": 0.5685814,
+          "x": 957.77026,
+          "y": 355.73184,
+          "released": false
+        },
+        {
+          "age": 0.5873314,
+          "x": 973.8859,
+          "y": 317.56985,
+          "released": false
+        },
+        {
+          "age": 0.60196376,
+          "x": 999.244,
+          "y": 284.01068,
+          "released": false
+        },
+        {
+          "age": 0.6145288,
+          "x": 1030.8633,
+          "y": 255.11537,
+          "released": false
+        },
+        {
+          "age": 0.6311954,
+          "x": 1085.7562,
+          "y": 219.3126,
+          "released": false
+        },
+        {
+          "age": 0.64596575,
+          "x": 1144.1665,
+          "y": 190.47765,
+          "released": false
+        },
+        {
+          "age": 0.6626324,
+          "x": 1217.9055,
+          "y": 161.61316,
+          "released": false
+        },
+        {
+          "age": 0.67780674,
+          "x": 1288.897,
+          "y": 138.4401,
+          "released": false
+        },
+        {
+          "age": 0.6944734,
+          "x": 1366.0259,
+          "y": 116.32667,
+          "released": false
+        },
+        {
+          "age": 0.71114004,
+          "x": 1435.8018,
+          "y": 97.777596,
+          "released": false
+        },
+        {
+          "age": 0.73600805,
+          "x": 1516.8282,
+          "y": 76.24094,
+          "released": false
+        },
+        {
+          "age": 0.753557,
+          "x": 1554.9164,
+          "y": 65.29738,
+          "released": false
+        },
+        {
+          "age": 0.7716126,
+          "x": 1579.3619,
+          "y": 57.523212,
+          "released": false
+        },
+        {
+          "age": 0.78966814,
+          "x": 1593.8894,
+          "y": 52.49988,
+          "released": false
+        },
+        {
+          "age": 0.8063348,
+          "x": 1604.5065,
+          "y": 48.43797,
+          "released": false
+        },
+        {
+          "age": 0.82300144,
+          "x": 1613.5076,
+          "y": 44.700558,
+          "released": false
+        },
+        {
+          "age": 0.8396681,
+          "x": 1619.7477,
+          "y": 41.905018,
+          "released": false
+        },
+        {
+          "age": 0.85633475,
+          "x": 1623.0328,
+          "y": 40.433273,
+          "released": false
+        },
+        {
+          "age": 0.8730014,
+          "x": 1623.9722,
+          "y": 40.01245,
+          "released": false
+        }
+      ]
+    },
+    {
+      "duration": 0.54,
+      "gather": 0.34,
+      "fuel": false,
+      "landingError": 0,
+      "minCardScale": 0.10000002,
+      "released": true,
+      "faceReappeared": false,
+      "arrived": true,
+      "arrivalDelay": 0.009981453,
+      "samples": [
+        {
+          "age": 0,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.022293666,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.038007997,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.05468633,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.071352996,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.08801966,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.10468633,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.12135299,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.13801967,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.15468633,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.171353,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.18801966,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.20468633,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.23515533,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.25321087,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.27126643,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.2889603,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.305627,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.32229367,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.33896035,
+          "x": 960,
+          "y": 440,
+          "released": false
+        },
+        {
+          "age": 0.35562703,
+          "x": 959.9901,
+          "y": 439.9555,
+          "released": false
+        },
+        {
+          "age": 0.3722937,
+          "x": 959.91736,
+          "y": 439.62857,
+          "released": false
+        },
+        {
+          "age": 0.39473337,
+          "x": 959.62854,
+          "y": 438.3308,
+          "released": false
+        },
+        {
+          "age": 0.42507038,
+          "x": 958.7623,
+          "y": 434.43875,
+          "released": false
+        },
+        {
+          "age": 0.45007038,
+          "x": 957.59955,
+          "y": 429.21426,
+          "released": false
+        },
+        {
+          "age": 0.46578005,
+          "x": 956.68115,
+          "y": 425.08752,
+          "released": false
+        },
+        {
+          "age": 0.48215905,
+          "x": 955.6044,
+          "y": 420.2493,
+          "released": false
+        },
+        {
+          "age": 0.49409804,
+          "x": 954.76886,
+          "y": 416.49518,
+          "released": false
+        },
+        {
+          "age": 0.50840104,
+          "x": 954.226,
+          "y": 411.79218,
+          "released": false
+        },
+        {
+          "age": 0.525066,
+          "x": 953.6895,
+          "y": 404.59503,
+          "released": false
+        },
+        {
+          "age": 0.54173404,
+          "x": 952.77563,
+          "y": 392.3353,
+          "released": false
+        },
+        {
+          "age": 0.5722937,
+          "x": 959.4502,
+          "y": 348.78122,
+          "released": false
+        },
+        {
+          "age": 0.5910437,
+          "x": 978.88934,
+          "y": 309.02988,
+          "released": false
+        },
+        {
+          "age": 0.60569006,
+          "x": 1007.61176,
+          "y": 275.2793,
+          "released": false
+        },
+        {
+          "age": 0.62183505,
+          "x": 1053.272,
+          "y": 239.00308,
+          "released": false
+        },
+        {
+          "age": 0.6337411,
+          "x": 1095.1783,
+          "y": 214.01898,
+          "released": false
+        },
+        {
+          "age": 0.6499721,
+          "x": 1161.2821,
+          "y": 183.22314,
+          "released": false
+        },
+        {
+          "age": 0.6618011,
+          "x": 1214.083,
+          "y": 162.94704,
+          "released": false
+        },
+        {
+          "age": 0.6781511,
+          "x": 1290.5203,
+          "y": 137.94194,
+          "released": false
+        },
+        {
+          "age": 0.6937051,
+          "x": 1362.5844,
+          "y": 117.257576,
+          "released": false
+        },
+        {
+          "age": 0.71037006,
+          "x": 1432.8163,
+          "y": 98.55899,
+          "released": false
+        },
+        {
+          "age": 0.73052037,
+          "x": 1501.6624,
+          "y": 80.40686,
+          "released": false
+        },
+        {
+          "age": 0.74835336,
+          "x": 1545.2356,
+          "y": 68.184814,
+          "released": false
+        },
+        {
+          "age": 0.7667264,
+          "x": 1574.0042,
+          "y": 59.338856,
+          "released": false
+        },
+        {
+          "age": 0.783393,
+          "x": 1589.5382,
+          "y": 54.074715,
+          "released": false
+        },
+        {
+          "age": 0.7997657,
+          "x": 1600.4092,
+          "y": 50.00552,
+          "released": false
+        },
+        {
+          "age": 0.81643236,
+          "x": 1610.2712,
+          "y": 46.150417,
+          "released": false
+        },
+        {
+          "age": 0.83171016,
+          "x": 1617.1396,
+          "y": 43.0734,
+          "released": false
+        },
+        {
+          "age": 0.84698796,
+          "x": 1621.5393,
+          "y": 41.102356,
+          "released": false
+        },
+        {
+          "age": 0.86226577,
+          "x": 1623.5768,
+          "y": 40.189575,
+          "released": false
+        },
+        {
+          "age": 0.88998145,
+          "x": 1624,
+          "y": 40,
+          "released": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "title": "Karen 基础形状 · 本体显示比例",
+  "heading": "基础形状 · 四款对比",
+  "subtitle": "正三角 / 倒三角 / 梯形 / 梭形 · 简单轮廓、少量切面、相同显示尺寸",
+  "outputStem": "basic-shapes-v2",
+  "variants": [
+    [
+      "basic-a-triangle",
+      "A",
+      "正三角",
+      "三条边 · 单个上尖"
+    ],
+    [
+      "basic-b-inverted-triangle",
+      "B",
+      "倒三角",
+      "三条边 · 宽上沿与下尖"
+    ],
+    [
+      "basic-c-trapezoid",
+      "C",
+      "梯形",
+      "四条边 · 上窄下宽"
+    ],
+    [
+      "basic-d-lens",
+      "D",
+      "梭形",
+      "两段弧线 · 左右双尖"
+    ]
+  ]
+}

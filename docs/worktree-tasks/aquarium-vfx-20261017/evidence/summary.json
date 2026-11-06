@@ -1,0 +1,116 @@
+{
+  "scope": "targeted singleplayer, not full or multiplayer",
+  "cases": {
+    "stable/visual": [
+      "normal",
+      "stack",
+      "full",
+      "empty",
+      "single",
+      "void",
+      "fast",
+      "instant",
+      "remove",
+      "cancel",
+      "switch",
+      "room",
+      "pose",
+      "combo"
+    ],
+    "stable/recordings": [
+      "showcase",
+      "stack",
+      "void",
+      "upgrade"
+    ],
+    "beta/visual": [
+      "normal",
+      "stack",
+      "full",
+      "empty",
+      "single",
+      "void",
+      "fast",
+      "instant",
+      "remove",
+      "cancel",
+      "switch",
+      "room",
+      "pose",
+      "combo"
+    ],
+    "beta/recordings": [
+      "showcase",
+      "upgrade"
+    ]
+  },
+  "recordings": [
+    {
+      "branch": "stable",
+      "case": "showcase",
+      "captureFps": 29.629617579821463,
+      "repeated": 4,
+      "dropped": 0,
+      "seconds": 10.333333333333334,
+      "audioMeanDb": -39.5,
+      "audioPeakDb": -18.6
+    },
+    {
+      "branch": "stable",
+      "case": "stack",
+      "captureFps": 29.76447697285112,
+      "repeated": 3,
+      "dropped": 0,
+      "seconds": 11.9,
+      "audioMeanDb": -39.4,
+      "audioPeakDb": -19.4
+    },
+    {
+      "branch": "stable",
+      "case": "void",
+      "captureFps": 29.290806120411574,
+      "repeated": 8,
+      "dropped": 0,
+      "seconds": 10.466666666666667,
+      "audioMeanDb": -39.9,
+      "audioPeakDb": -18.6
+    },
+    {
+      "branch": "beta",
+      "case": "showcase",
+      "captureFps": 29.848085243868464,
+      "repeated": 2,
+      "dropped": 0,
+      "seconds": 10.266666666666667,
+      "audioMeanDb": -39.4,
+      "audioPeakDb": -15.8
+    }
+  ],
+  "logAudit": [
+    {
+      "branch": "stable",
+      "run": "visual",
+      "startupInvalidTaskIds": 0,
+      "unexpectedErrors": 0
+    },
+    {
+      "branch": "stable",
+      "run": "recordings",
+      "startupInvalidTaskIds": 0,
+      "unexpectedErrors": 0
+    },
+    {
+      "branch": "beta",
+      "run": "visual",
+      "startupInvalidTaskIds": 1,
+      "unexpectedErrors": 0
+    },
+    {
+      "branch": "beta",
+      "run": "recordings",
+      "startupInvalidTaskIds": 0,
+      "unexpectedErrors": 0
+    }
+  ],
+  "handChecks": 72
+}

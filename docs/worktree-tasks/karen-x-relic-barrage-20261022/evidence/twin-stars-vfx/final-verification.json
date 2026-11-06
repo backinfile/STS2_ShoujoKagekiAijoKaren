@@ -1,0 +1,220 @@
+{
+  "revision": "Final viewport-scaled stars with normal blending and gold/pink outlines",
+  "beta": {
+    "passed": true,
+    "results": [
+      {
+        "case": "three",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 3,
+        "damage": 30,
+        "visual_events": [
+          "gather",
+          "gold",
+          "contact",
+          "pink",
+          "contact",
+          "gold",
+          "contact",
+          "pink",
+          "contact",
+          "gold",
+          "contact",
+          "pink",
+          "contact"
+        ],
+        "active_vfx_after": 0
+      },
+      {
+        "case": "fast",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 3,
+        "damage": 30,
+        "visual_events": [
+          "gather",
+          "gold",
+          "contact",
+          "pink",
+          "contact",
+          "gold",
+          "contact",
+          "pink",
+          "contact",
+          "gold",
+          "contact",
+          "pink",
+          "contact"
+        ],
+        "active_vfx_after": 0
+      },
+      {
+        "case": "instant",
+        "passed": true,
+        "energy": 3,
+        "hits": 6,
+        "relics_disabled": 3,
+        "damage": 30,
+        "visual_events": [],
+        "active_vfx_after": 0
+      },
+      {
+        "case": "combat-end-restoration",
+        "passed": true,
+        "restored": 3
+      },
+      {
+        "case": "lethal",
+        "passed": true,
+        "hits": 1,
+        "visual_events": [
+          "gather",
+          "gold",
+          "contact"
+        ],
+        "active_vfx_after": 0,
+        "relics_restored": true
+      }
+    ],
+    "hand_checks": [
+      {
+        "case": "fast",
+        "stage": "after-hand",
+        "modelCount": 0,
+        "visualCount": 0,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": []
+      },
+      {
+        "case": "fast",
+        "stage": "before-hand",
+        "modelCount": 1,
+        "visualCount": 1,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_SHINE_PRICE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      },
+      {
+        "case": "instant",
+        "stage": "after-hand",
+        "modelCount": 0,
+        "visualCount": 0,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": []
+      },
+      {
+        "case": "instant",
+        "stage": "before-hand",
+        "modelCount": 1,
+        "visualCount": 1,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_SHINE_PRICE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      },
+      {
+        "case": "lethal",
+        "stage": "after-hand",
+        "modelCount": 0,
+        "visualCount": 0,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": []
+      },
+      {
+        "case": "lethal",
+        "stage": "before-hand",
+        "modelCount": 1,
+        "visualCount": 1,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_SHINE_PRICE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      },
+      {
+        "case": "three",
+        "stage": "after-hand",
+        "modelCount": 0,
+        "visualCount": 0,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": []
+      },
+      {
+        "case": "three",
+        "stage": "before-hand",
+        "modelCount": 1,
+        "visualCount": 1,
+        "missing": [],
+        "unexpected": [],
+        "unexpectedPileIcons": [],
+        "burnOverlays": [
+          {
+            "card": "KAREN_SHINE_PRICE",
+            "expected": 0,
+            "actual": 0,
+            "valid": true
+          }
+        ]
+      }
+    ],
+    "screenshot_count": 8,
+    "package_hashes": {
+      "ShoujoKagekiAijoKaren.pck": "1f594212261299ecf352bf8088e2f216e74446a35ca9cf2ea3196955c2fe1639",
+      "lib/ShoujoKagekiAijoKaren.Beta.dll": "eff9f26c2c07b8011c182e37946835ab6154022700d193b5ed5803c8a8b6b631"
+    },
+    "errors": []
+  },
+  "stable": {
+    "passed": true,
+    "cases": [
+      "normal X=3, six hits, 30 damage",
+      "upgraded X=3, six hits, 36 damage"
+    ],
+    "native_events": "One gather, then gold/contact/pink/contact repeated three times, no residual nodes",
+    "hand_check_count": 6,
+    "recording_report": "recording-verification.json",
+    "source_hashes": {
+      "mod_dll": "223adf8050270ccafd092e28669cbbab87a65f2295a96c07443a8040a2b1bb23",
+      "pck": "1f594212261299ecf352bf8088e2f216e74446a35ca9cf2ea3196955c2fe1639",
+      "mcp_dll": "776a7d77b8a4a44e4edba30a5ac169a43674469b107878387be2abda4829794f",
+      "mcp_source_commit": "b8535120fbcdfb4fe2bf1ae915a410d611ee4067"
+    }
+  },
+  "initial_both_versions": "initial-verification.json",
+  "limits": [
+    "Targeted single-player; full single-player/multiplayer matrix not run.",
+    "Room-exit cleanup is implemented; forced mid-attack room replacement was not separately exercised."
+  ]
+}

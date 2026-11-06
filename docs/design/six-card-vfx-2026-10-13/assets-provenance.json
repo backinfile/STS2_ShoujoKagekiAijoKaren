@@ -1,0 +1,60 @@
+{
+  "revision": "Ticket pearl-white and pale-blue effect based on actual card and buff art; Radiance and party stage lighting retained",
+  "reference": "Regent FX c3ba1eb186b3492e229392d5ce861a7093e0f9db; abstract shape, layering, motion, timing study only",
+  "referenceModAssetsCopied": [],
+  "generatedSprites": [],
+  "implementation": "Original procedural Godot shader, not a PNG flipbook or imagegen output.",
+  "originalCodeAndSynthesizedAudio": [
+    {
+      "path": "shaders/karen_benefit_flow.gdshader",
+      "sha256": "68b1b2a168ae8896cba796b7bf213682a12bf50c3e53871d34f7620bd1e5e9c7",
+      "bytes": 7679
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/audio/karen_benefit_gather.wav",
+      "sha256": "d4c9d15f9dbc446e8879e375270630d43a1abc17ca2bebb857b60a2a2376609a",
+      "bytes": 42380
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/audio/karen_benefit_bloom.wav",
+      "sha256": "9cec71410c8da1151861a30c82370219209d9e2373014064e3c75cf5996d1952",
+      "bytes": 119114
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/audio/karen_story_steam.wav",
+      "sha256": "76355492d79c9927871108b337fec0f2a1c46a297c7a89d84e65fb2c3964a116",
+      "bytes": 79424
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/audio/karen_story_energy.wav",
+      "sha256": "4f35ac8f2990dbd08a75f1a3460ea5a14d5ce7e9115fba617f0bd3addeae51d8",
+      "bytes": 63548
+    }
+  ],
+  "nativeRuntimeAssets": [
+    "res://images/vfx/shared_use/smoke_vfx.png",
+    "res://images/vfx/shared_use/ash_particle.png",
+    "res://images/vfx/vfx_power_up/sparkle.png",
+    "Actual potion.Image; native NPotionImage flight"
+  ],
+  "removedLiteralRevision": {
+    "commit": "2f8f95791ac785c583d0868d1e06ce47177cfa2a",
+    "manifest": "card-linked-assets-provenance.json",
+    "archivedAt": "artifacts/abstract-card-vfx/retired-assets",
+    "removedFromPackage": true
+  },
+  "designReferenceAssets": [
+    {
+      "path": "images/packed/card_portraits/karen/karen_ticket.png",
+      "sha256": "5ef3bf30b8427d4c5d0913f06345d7e29191b34107b24f24f78a0de6d5e93772"
+    },
+    {
+      "path": "images/powers/karen_ticket_power.png",
+      "sha256": "9f50c55e48b18628e0c3bad31d8a5cf9addea99b7d583262af02b0f1bc06cbbc"
+    },
+    {
+      "path": "images/packed/card_portraits/token/karen_tower_of_promise.png",
+      "sha256": "2725201e48d248c724a1e3e65ab4768bd3c20ae56d97445aae4e66e16d31eb0f"
+    }
+  ]
+}

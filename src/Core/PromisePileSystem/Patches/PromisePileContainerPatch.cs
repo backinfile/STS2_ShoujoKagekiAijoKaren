@@ -4,7 +4,6 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Nodes.Cards;
 using ShoujoKagekiAijoKaren.src.Core.Commands;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using System.Collections.Generic;
@@ -77,7 +76,11 @@ public static class PromisePileContainerPatch
 
 
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add))]
+#if STS2_BETA
+    [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(CardPile), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool), typeof(bool)])]
+#else
     [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(CardPile), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool)])]
+#endif
     public static class CardPileCmd_Add_To_PromisePile_Patch
     {
         /// <summary>
@@ -85,7 +88,7 @@ public static class PromisePileContainerPatch
         /// 这个方法理论上要先于所有方法执行
         /// </summary>
         [HarmonyPriority(Priority.First * 10)]
-        public static bool Prefix(IEnumerable<CardModel> cards, ref CardPile newPile, CardPilePosition position, AbstractModel? source, bool skipVisuals, ref Task<IReadOnlyList<CardPileAddResult>> __result)
+        public static bool Prefix(IEnumerable<CardModel> cards, ref CardPile newPile, CardPilePosition position, [HarmonyArgument(3)] AbstractModel? source, ref bool skipVisuals, ref Task<IReadOnlyList<CardPileAddResult>> __result)
         {
             if (cards == null || !cards.Any()) return true;
 
@@ -114,6 +117,10 @@ public static class PromisePileContainerPatch
                 Async.Postfix(ref __result, async () =>
                 {
                     await PromisePileManager.UpdatePowerAsync(player);
+                    if (PromisePileManager.IsVoidMode(player))
+                    {
+                        PromisePileManager.SetPileCountLabel(player, PileType.Draw.GetPile(player).Cards.Count);
+                    }
                 });
             }
         }

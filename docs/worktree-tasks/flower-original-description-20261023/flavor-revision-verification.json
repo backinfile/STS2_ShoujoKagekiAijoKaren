@@ -1,0 +1,98 @@
+{
+  "stage": "three-requested-flavor-replacements",
+  "date": "2026-10-23",
+  "previous_revision": "317faeedafc4f37916d59d7dab9060bdaf4c9b9b",
+  "base_branch": "main",
+  "base_revision": "bf041ea57a4b06011e8c6821f43d86398c8e4d3f",
+  "production_changes": "Only nine flavor values in three language tables; mechanics and all other localization values unchanged.",
+  "changed_values": {
+    "eng": {
+      "KAREN_HAIRPIN2_RELIC.flavor": "Let's go to that shining stage. Together.",
+      "KAREN_BASEBALL_CAT_RELIC.flavor": "I love you even more when you shine.",
+      "KAREN_STAR_TIARA_RELIC.flavor": "This is my Starlight."
+    },
+    "jpn": {
+      "KAREN_HAIRPIN2_RELIC.flavor": "行こう、あの輝く舞台へ。二人で。",
+      "KAREN_BASEBALL_CAT_RELIC.flavor": "キラめく貴女はもっと好き。",
+      "KAREN_STAR_TIARA_RELIC.flavor": "これが私の、スタァライトよ。"
+    },
+    "zhs": {
+      "KAREN_HAIRPIN2_RELIC.flavor": "一起去吧，去那闪耀的舞台。",
+      "KAREN_BASEBALL_CAT_RELIC.flavor": "闪耀的你，我更喜欢。",
+      "KAREN_STAR_TIARA_RELIC.flavor": "这就是我的 Starlight。"
+    }
+  },
+  "package_files": {
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": {
+      "sha256": "83ef33f3eab22f1e486836f393512e50ca400426a7c5c19288b7767e17e8226c",
+      "bytes": 1374208
+    },
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": {
+      "sha256": "82bb7a698056ea7d1b8cb307fecb27f883474b7ce384c2de98e0079c78964f5d",
+      "bytes": 1373696
+    },
+    "ShoujoKagekiAijoKaren.dll": {
+      "sha256": "d9ca876c8adb573f469d3b595f35b18346e79c98297150e5216afabcc3a77483",
+      "bytes": 8704
+    },
+    "ShoujoKagekiAijoKaren.json": {
+      "sha256": "68f9fc5c6e1849eaec48bcf57e1a38516ae2d5227f0fd9892b4a32d49a475f67",
+      "bytes": 412
+    },
+    "ShoujoKagekiAijoKaren.pck": {
+      "sha256": "db9085d39e44a53a72de3d5ecc992614afa56f4d284839340e7b5f7c828499b9",
+      "bytes": 49595528
+    }
+  },
+  "file_hash_matches_prior_runtime_package": {
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": false,
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": false,
+    "ShoujoKagekiAijoKaren.dll": false,
+    "ShoujoKagekiAijoKaren.json": true,
+    "ShoujoKagekiAijoKaren.pck": false
+  },
+  "assembly_informational_revisions": {
+    "lib/ShoujoKagekiAijoKaren.Beta.dll": [
+      "317faeedafc4f37916d59d7dab9060bdaf4c9b9b"
+    ],
+    "lib/ShoujoKagekiAijoKaren.Stable.dll": [
+      "317faeedafc4f37916d59d7dab9060bdaf4c9b9b"
+    ],
+    "ShoujoKagekiAijoKaren.dll": [
+      "317faeedafc4f37916d59d7dab9060bdaf4c9b9b"
+    ]
+  },
+  "assembly_note": "Rebuilt assemblies contain informational revision 317faee; prior runtime-tested Stable/Beta DLLs embed c55faf9. Byte hashes differ, even though src and loader sources have no changes. No runtime certification is transferred to the new package.",
+  "pack_text_audit": {
+    "all_three_tables_equal_source": true,
+    "values_per_language": 33,
+    "requested_flavors_changed_per_language": 3,
+    "unexpected_text_changes": []
+  },
+  "localization": {
+    "full_validation_pass": false,
+    "failures": [
+      "FAIL: Chinese source changed; review both translations and refresh hash: settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL_BUTTON.title",
+      "FAIL: Chinese source changed; review both translations and refresh hash: settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.inRun",
+      "FAIL: Chinese source changed; review both translations and refresh hash: settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.complete",
+      "FAIL: Chinese source changed; review both translations and refresh hash: settings_ui.json/SHOUJOKAGEKIAIJOKAREN-UNLOCK_ALL.failed"
+    ],
+    "same_preexisting_settings_hash_failures": true,
+    "new_relic_failures": 0,
+    "smartformat_checked": true
+  },
+  "vfx_catalog": {
+    "result": "pass",
+    "types": 70,
+    "shared_owners": 37,
+    "assets": 164
+  },
+  "runtime_repeated": false,
+  "runtime_scope": "Pure text replacements only. Prior 120 assertions are preserved in flavor-verification.json and belong to the earlier package. No new gameplay/runtime or complete multiplayer matrix claim.",
+  "source_verification": "All three selected phrases use cited public secondary transcriptions. Chinese/English are Mod translations; no authorized audio transcription claim.",
+  "evidence_hashes": {
+    "relic-flavor-revision-build.log": "551b1cdd0ea600e651df98012d0af0ed05a13fae710c0470658e3385e6d82c44",
+    "relic-flavor-revision-localization.log": "6cf8f6c658dbbfcbe088b8f53fe8bd2eeefe4554cb8c774cb660eadae34f2812",
+    "relic-flavor-revision-packcheck.log": "a266b1715ad9846116a96c29f27400961116fe8262315c2e5083deb92b48f8a4"
+  }
+}

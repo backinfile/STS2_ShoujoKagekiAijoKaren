@@ -1,0 +1,9 @@
+{
+  "materials/vfx/jealousy_foil.gdshader": "65afec37b641f64f520fbf71de5e6cfd50f3c1652e65d4adcdc3fc0ce62984d0",
+  "materials/vfx/wake_up_curtain.gdshader": "0b1e364774936d3b19126fb2baebb005137781516ce99b7a1392c70e85927d9e",
+  "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenJealousyVfx.Drawing.cs": "0828e07b7ab47dc7a1065937efda4ba38faa5e62405df9c63de3b8e87543ca08",
+  "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenJealousyVfx.Particles.cs": "4066c30e2edf81e47c1b108862c8d1bb35a1170e9cb6a0097edadf20abb70e82",
+  "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenWakeUpSelectionVfx.cs": "d98ec6ccd9709386bb12209213310c33161c770275e745ed90093fe8cd6b2a95",
+  "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenArrogantVfx.cs": "07084cfb93ac4f6f2a908e4e374ffb320076c84a6d3e41dab2f0d69e94604edf",
+  "src/ShoujoKagekiAijoKaren/GodotScripts/Nodes/Vfx/NKarenFightRelayVfx.cs": "cdf5025ca0c55fe0f11cc5053ecbdb44deb061a350c58d4de5ef9aa0381e17f8"
+}

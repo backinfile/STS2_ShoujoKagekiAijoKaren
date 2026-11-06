@@ -1,0 +1,10 @@
+{
+  "KAREN_SHINE_POTION.title": "キラめきポーション",
+  "KAREN_SHINE_POTION.description": "ランダムな[gold]キラめき[/gold]カード3枚から1枚を選び、[gold]手札[/gold]と[gold]デッキ[/gold]に加える。このターン、そのカードのコストは0になる。",
+  "KAREN_SHINE_POTION.selectionScreenPrompt": "キラめきカードを選ぶ",
+  "KAREN_TEA_POTION.title": "紅茶",
+  "KAREN_TEA_POTION.description": "[gold]一時的な筋力[/gold][blue]{StrengthPower}[/blue]を得る。[blue]{Turns}[/blue]ターンの間、[gold]筋力保留[/gold]。",
+  "KAREN_AWAKE_POTION.title": "目覚めの涙",
+  "KAREN_AWAKE_POTION.description": "手札が上限に達するまで、任意の山札や捨て札からカードを選んで手札に加える。",
+  "KAREN_AWAKE_POTION.pileSelectionPrompt": "カードを取る場所を選ぶ"
+}
