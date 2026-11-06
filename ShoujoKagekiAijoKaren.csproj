@@ -26,6 +26,7 @@
   <ItemGroup>
     <Content Include="ShoujoKagekiAijoKaren.json" />
     <Content Include="mod_manifest.json" />
+    <EmbeddedResource Include=".godot/private/KarenTelemetryEndpoint.json" LogicalName="KarenTelemetryEndpoint.json" Condition="Exists('.godot/private/KarenTelemetryEndpoint.json')" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Core\GlobalMoveSystem\GlobalMoveSystem.cs.uid" />

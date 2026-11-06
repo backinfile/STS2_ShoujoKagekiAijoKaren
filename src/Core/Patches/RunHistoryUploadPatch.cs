@@ -10,7 +10,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 [HarmonyPatch(typeof(RunHistoryUtilities), nameof(RunHistoryUtilities.CreateRunHistoryEntry))]
 public class RunHistoryUploadPatch
 {
-    private const string UploadUrl = "https://sts2-karen-server.karen.fan/api/upload?key=KarenModDataUploadKey2025";
+    private static readonly string? UploadUrl = LoadUploadUrl();
     private static readonly HttpClient HttpClient = new();
 
     private static readonly System.Collections.Generic.HashSet<string> AllowedCharacterIds = new(System.StringComparer.OrdinalIgnoreCase)
@@ -18,11 +18,31 @@ public class RunHistoryUploadPatch
         "ironclad", "silent", "defect", "watcher", "karen"
     };
 
+    private static string? LoadUploadUrl()
+    {
+        try
+        {
+            using var stream = typeof(RunHistoryUploadPatch).Assembly
+                .GetManifestResourceStream("KarenTelemetryEndpoint.json");
+            if (stream == null)
+                return null;
+
+            using var document = JsonDocument.Parse(stream);
+            var url = document.RootElement.GetProperty("Url").GetString();
+            return System.Uri.TryCreate(url, System.UriKind.Absolute, out var uri) && uri.Scheme == "https"
+                ? url : null;
+        }
+        catch (System.Exception)
+        {
+            return null;
+        }
+    }
+
     private static void Postfix()
     {
-        if (!KarenModConfig.EnableDataUpload)
+        if (!KarenModConfig.EnableDataUpload || UploadUrl == null)
         {
-            MainFile.Logger.Info("[RunHistoryUploadPatch] 数据上传已禁用，跳过上传");
+            MainFile.Logger.Info("[RunHistoryUploadPatch] 数据上传已禁用或未配置，跳过上传");
             return;
         }
 
