@@ -45,6 +45,8 @@ internal static class KarenVfxWarmup
         try
         {
             Status = "preparing";
+            DrawnBatches = 0;
+            DrawCalls = 0;
             PrepareVisualMethods();
             var tree = NGame.Instance.GetTree();
             foreach (string path in AssetPaths)
@@ -81,8 +83,14 @@ internal static class KarenVfxWarmup
             {
                 var layer = new Node2D(); viewport.AddChild(layer);
                 foreach (var resource in batch) AddPreview(layer, resource);
-                await viewport.ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
-                await viewport.ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+                // A hidden/minimized game window can stop automatic rendering. Draw the
+                // off-screen viewport explicitly without presenting to that window.
+                for (int frame = 0; frame < 2; frame++)
+                {
+                    await viewport.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+                    RenderingServer.ForceDraw(false);
+                }
+                RenderingServer.ForceSync();
                 int calls = viewport.GetRenderInfo(Viewport.RenderInfoType.Canvas, Viewport.RenderInfo.DrawCallsInFrame);
                 if (calls <= 0) throw new InvalidOperationException("VFX warmup batch did not draw");
                 DrawCalls += calls;
