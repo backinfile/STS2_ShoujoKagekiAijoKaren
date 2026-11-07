@@ -76,6 +76,10 @@ $worktree-task
 
 不用看了，你直接进行打包测试，打一个包试试
 
+### 6. 合并与清理确认
+
+合并并清理，保留测试包与证据
+
 ## Brief task plan
 
 - 在 Karen 与 Core 各自的 `../worktrees/<projectName>/core-review-fixes-20261107` 工作树核查并修复确认问题。
@@ -116,12 +120,16 @@ $worktree-task
 
 ### 产物与证据
 
-- APK：artifacts/android-direct/StS2-Karen-v0.107.1-v0.1.8-core-test.apk，2,066,707,398 字节；游戏 v0.107.1、Karen v0.1.8、Core 1.0.1、BaseLib 3.4.7，applicationId com.karenmod.sts2hd，versionCode 10022。
+- APK：artifacts/core-review-fixes-20261107/release/StS2-Karen-v0.107.1-v0.1.8-core-test.apk，2,066,707,398 字节；游戏 v0.107.1、Karen v0.1.8、Core 1.0.1、BaseLib 3.4.7，applicationId com.karenmod.sts2hd，versionCode 10022。
 - APK SHA-256：d985c6ec0ad6a66e580f828ed76e55889ff3bdb30fa3ae4b66b2cea6ccb97873。
-- Mod ZIP：artifacts/android/ShoujoKagekiAijoKaren-Android-v0.1.8.zip，67,653,526 字节，含角色、Core、BaseLib；SHA-256 c9d1c1f895e4a5ad779f6fd13849e8e6cfd5e390d165ebb66de6f7894c894853。
-- 构建与回归日志：artifacts/core-review-fixes-20261107/。最终包校验、签名、安装器证据：artifacts/android-direct/validation.json、signature.txt、installer-checks/。
+- Mod ZIP：artifacts/core-review-fixes-20261107/release/ShoujoKagekiAijoKaren-Android-v0.1.8.zip，67,653,526 字节，含角色、Core、BaseLib；SHA-256 c9d1c1f895e4a5ad779f6fd13849e8e6cfd5e390d165ebb66de6f7894c894853。
+- 构建与回归日志：artifacts/core-review-fixes-20261107/evidence/logs/。最终包校验、签名、安装器证据：artifacts/core-review-fixes-20261107/evidence/android-direct/。
 - 文件超过聊天附件的大小限制，交付使用本地文件路径。产物、签名材料和用户数据均留在忽略目录，不加入 Git。
 
 ### 集成状态
 
-完整暂存索引 5556 项隐私检查通过，零项发现。修复整理为一个任务提交；main 合并与两个工作树清理等待用户确认。清理前保留 APK、ZIP、校验结果与关键日志，临时游戏副本、解包目录、构建工具副本可重建。
+用户已明确批准合并和清理，取代之前的等待确认状态。功能提交为 4ed64814，集成目标为 Karen main；本次补充记录授权与最终归档位置，运行源码及已测测试包保持原样。
+
+27 个 APK、ZIP 与证据文件已保留到原检出的 artifacts/core-review-fixes-20261107/，逐文件 SHA-256 一致，清单为 preservation-manifest.json。原有 out/ 的 742 个文件路径、大小与时间戳已记录在 original-out-state.json，用于整合后的对照。Core 源码和原 main 保持原样，其临时任务记录已单独保留。
+
+清理范围仅包括本轮两个 core-review-fixes-20261107 工作树、同名 task/core-review-fixes-20261107 分支，以及其中可重建的构建工具副本、程序副本、签名材料副本和解包目录。原始签名来源与原有 out/ 保留。合并、树一致性、原检出状态及清理的最终核验写入归档的 final-integration.json。
