@@ -13,7 +13,7 @@ public final class InstallerTests {
         final SortedMap<String,byte[]> files=new TreeMap<>();
         int programOpens;boolean corrupt,fail;
         String override;
-        Fixture(){files.put("game/example.pck",bytes("game-data"));files.put("mods/BaseLib/BaseLib.dll",bytes("base"));files.put("mods/ShoujoKagekiAijoKaren/Karen.dll",bytes("karen"));}
+        Fixture(){files.put("game/example.pck",bytes("game-data"));files.put("mods/BaseLib/BaseLib.dll",bytes("base"));files.put("mods/ShoujoKagekiAijoKaren/Karen.dll",bytes("karen"));files.put("mods/ShoujoKagekiAijoCore/lib/1.0.1/api/Core.dll",bytes("core"));}
         @Override public InputStream open(String name)throws IOException{
             if(name.equals("direct/manifest.tsv")){
                 if(override!=null)return new ByteArrayInputStream(bytes(override));
@@ -39,7 +39,7 @@ public final class InstallerTests {
     static void rejected(File root,Fixture source)throws Exception{try{install(root,source);throw new AssertionError("Expected rejection");}catch(IOException expected){}}
     public static void main(String[] args)throws Exception{
         base=new File(args[0]);
-        Fixture fresh=new Fixture();File one=root("fresh");install(one,fresh);check(read(one,"game/example.pck").equals("game-data"),"game installed");check(fresh.programOpens==3,"all assets installed");pass("fresh game and Mods installed with checksums");
+        Fixture fresh=new Fixture();File one=root("fresh");install(one,fresh);check(read(one,"game/example.pck").equals("game-data"),"game installed");check(fresh.programOpens==4 && read(one,"mods/ShoujoKagekiAijoCore/lib/1.0.1/api/Core.dll").equals("core"),"all assets including Core installed");pass("fresh game and Mods installed with checksums");
         fresh.programOpens=0;install(one,fresh);check(fresh.programOpens==0,"warm launch does not copy payload");pass("repeat launch skips program copies");
         new File(one,"mods/BaseLib/BaseLib.dll").delete();install(one,fresh);check(read(one,"mods/BaseLib/BaseLib.dll").equals("base"),"missing file restored");pass("missing program file repaired");
         Files.write(new File(one,"game/example.pck").toPath(),bytes("short"));install(one,fresh);check(read(one,"game/example.pck").equals("game-data"),"truncation repaired");pass("truncated program file repaired");
@@ -62,6 +62,7 @@ public final class InstallerTests {
                 check(new File(actual,".godot/mono/publish/arm64/sts2.dll").isFile(),"game assembly");
                 check(new File(actual,"mods/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.Stable.dll").isFile(),"Karen stable implementation");
                 check(new File(actual,"mods/BaseLib/BaseLib.dll").isFile(),"BaseLib installed");
+                check(new File(actual,"mods/ShoujoKagekiAijoCore/core.bundle").isFile(),"Core installed");
             }
             System.out.println("PASS: complete signed APK payload extracted and SHA-256 verified on JVM");
         }

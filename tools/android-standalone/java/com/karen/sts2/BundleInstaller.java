@@ -70,7 +70,7 @@ public final class BundleInstaller {
         if(path.startsWith("/") || path.contains("\\") || path.contains(":"))throw new IOException("Invalid program path");
         for(String part:path.split("/",-1))if(part.isEmpty() || part.equals("..") || part.equals("."))throw new IOException("Invalid program path");
         boolean allowed=path.startsWith("game/") || path.startsWith(".godot/mono/publish/arm64/") ||
-            path.startsWith("mods/BaseLib/") || path.startsWith("mods/ShoujoKagekiAijoKaren/") || path.equals("port_compat.pck");
+            path.startsWith("mods/BaseLib/") || path.startsWith("mods/ShoujoKagekiAijoKaren/") || path.startsWith("mods/ShoujoKagekiAijoCore/") || path.equals("port_compat.pck");
         if(!allowed)throw new IOException("Manifest path outside program directories");
         File result=new File(root,path).getCanonicalFile();
         if(!result.getPath().startsWith(root.getCanonicalPath()+File.separator))throw new IOException("Program path escaped root");

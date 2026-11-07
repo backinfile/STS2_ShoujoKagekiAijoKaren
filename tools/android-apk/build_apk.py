@@ -76,12 +76,17 @@ def check_mod_zip(path):
         for entry in archive.infolist():
             name = entry.filename
             parts = name.split("/")
-            assert len(parts) >= 2 and parts[0] in ("ShoujoKagekiAijoKaren", "BaseLib")
+            assert len(parts) >= 2 and parts[0] in ("ShoujoKagekiAijoKaren", "ShoujoKagekiAijoCore", "BaseLib")
             assert ".." not in parts and "\\" not in name
         for mod_id in ("ShoujoKagekiAijoKaren", "BaseLib"):
             manifest = json.loads(archive.read(mod_id + "/" + mod_id + ".json"))
             assert manifest["id"] == mod_id
             for suffix in ("dll", "pck"): assert mod_id + "/" + mod_id + "." + suffix in archive.namelist()
+        core = json.loads(archive.read("ShoujoKagekiAijoCore/core.bundle"))
+        manifest = json.loads(archive.read("ShoujoKagekiAijoCore/ShoujoKagekiAijoCore.json"))
+        assert manifest["id"] == "ShoujoKagekiAijoCore" and manifest["version"] == core["releaseVersion"]
+        for relative, digest in core["files"].items():
+            assert hashlib.sha256(archive.read("ShoujoKagekiAijoCore/" + relative)).hexdigest() == digest, relative
         version = json.loads(archive.read("ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.json"))["version"]
     return version
 

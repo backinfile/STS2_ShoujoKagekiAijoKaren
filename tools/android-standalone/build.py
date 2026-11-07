@@ -17,6 +17,7 @@ import sys
 import urllib.request
 import uuid
 import zipfile
+import xml.etree.ElementTree as ET
 from PIL import Image, ImageOps
 
 HERE=Path(__file__).resolve().parent
@@ -171,9 +172,12 @@ def stage_payload(game,mod_zip,carrier):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--game-dir",type=Path,required=True)
-    parser.add_argument("--mod-zip",type=Path,default=ROOT/"artifacts/android/ShoujoKagekiAijoKaren-Android-v0.1.4.zip")
+    parser.add_argument("--mod-zip",type=Path,default=ROOT/"artifacts/android/ShoujoKagekiAijoKaren-Android-v0.1.8.zip")
     parser.add_argument("--jdk",type=Path)
-    args=parser.parse_args();game=args.game_dir.resolve();mod_zip=args.mod_zip.resolve();assert check_mod_zip(mod_zip)=="v0.1.4","Direct build Mod version must match v0.1.4"
+    parser.add_argument("--version-code",type=int,default=10022)
+    args=parser.parse_args();game=args.game_dir.resolve();mod_zip=args.mod_zip.resolve();mod_version=check_mod_zip(mod_zip)
+    if args.version_code <= 0: raise ValueError("APK version code must be positive")
+    artifact_name=f"StS2-Karen-v0.107.1-{mod_version}-core-test"
     OUT.mkdir(parents=True,exist_ok=True)
     carrier,apktool,d8,signer=[dependency(name) for name in ("upstream","apktool","d8","signer")]
     jdk=java_home(args.jdk);toolchain,sdk=extra_tools();java=jdk/("bin/java.exe" if os.name=="nt" else "bin/java")
@@ -186,13 +190,19 @@ def main():
         with zipfile.ZipFile(apktool) as archive:aapt.write_bytes(archive.read("prebuilt/"+platform+"/"+aapt.name))
         if os.name!="nt":aapt.chmod(0o755)
         skeleton=OUT/"manifest.apk"
-        run([aapt,"link","--manifest",HERE/"AndroidManifest.xml","-I",sdk,"-I",carrier,"-o",skeleton],log)
+        android="{http://schemas.android.com/apk/res/android}"
+        xml=ET.parse(HERE/"AndroidManifest.xml")
+        xml.getroot().set(android+"versionCode",str(args.version_code))
+        xml.getroot().set(android+"versionName",mod_version.lstrip("v")+"-core-test")
+        apk_manifest=OUT/"AndroidManifest.xml"
+        xml.write(apk_manifest,encoding="utf-8",xml_declaration=True)
+        run([aapt,"link","--manifest",apk_manifest,"-I",sdk,"-I",carrier,"-o",skeleton],log)
         defaults=json.loads((HERE/"default-settings.json").read_text(encoding="utf-8"))
         assert defaults["schema_version"]==5 and defaults["mod_settings"]["mods_enabled"] and defaults["mod_settings"]["mod_list"]==[]
         files,manifest,pck=stage_payload(game,mod_zip,carrier)
         run(["dotnet","run","--project",HERE/"settings-tests/SettingsTests.csproj","--configuration","Release",
              "-p:GameDirectory="+str(game),"--",HERE/"default-settings.json"],log)
-        unsigned=OUT/"StS2-Karen-v0.107.1-v0.1.4-direct-r9-unsigned.apk"
+        unsigned=OUT/(artifact_name+"-unsigned.apk")
         print("Assembling full game APK",flush=True)
         with zipfile.ZipFile(carrier) as source,zipfile.ZipFile(skeleton) as base,zipfile.ZipFile(unsigned,"w",allowZip64=False) as target:
             target.writestr("AndroidManifest.xml",base.read("AndroidManifest.xml"),compress_type=zipfile.ZIP_DEFLATED)
@@ -224,11 +234,11 @@ def main():
         signed=OUT/("signed-"+uuid.uuid4().hex[:8])
         run([java,"-Xmx3g","-jar",signer,"--apks",unsigned,"--out",signed,"--ks",key,"--ksAlias","karen-test","--ksPass",password,"--ksKeyPass",password],log)
         choices=list(signed.glob("*-aligned-signed.apk"));assert len(choices)==1
-        final=OUT/"StS2-Karen-v0.107.1-v0.1.4-direct-r9.apk";shutil.copyfile(choices[0],final)
+        final=OUT/(artifact_name+".apk");shutil.copyfile(choices[0],final)
         signature=run([java,"-Xmx3g","-cp",signer,"com.android.apksigner.ApkSignerTool","verify","--verbose","--print-certs",final],log)
         (OUT/"signature.txt").write_text(signature,encoding="utf-8")
         badging=run([aapt,"dump","badging",final],log);(OUT/"badging.txt").write_text(badging,encoding="utf-8")
-        assert "package: name='"+APP_ID+"'" in badging and "versionCode='10021'" in badging
+        assert "package: name='"+APP_ID+"'" in badging and f"versionCode='{args.version_code}'" in badging
         assert "launchable-activity: name='com.karen.sts2.PrepareGameActivity'" in badging and "native-code: 'arm64-v8a'" in badging
         with zipfile.ZipFile(final) as package:
             assert all(package.read(name)==data for name,data in icons.items()),"Launcher icon mismatch"
@@ -248,7 +258,7 @@ def main():
             for name,path in files.items():
                 with package.open("assets/direct/files/"+name) as stream:assert hashlib.file_digest(stream,"sha256").hexdigest()==sha(path),name
             assert package.testzip() is None
-        record={"apk":final.name,"bytes":final.stat().st_size,"sha256":sha(final),"application_id":APP_ID,"game_version":"v0.107.1","mod_version":"v0.1.4","version_code":10021,
+        record={"apk":final.name,"bytes":final.stat().st_size,"sha256":sha(final),"application_id":APP_ID,"game_version":"v0.107.1","mod_version":mod_version,"version_code":args.version_code,
                 "launcher_icon":"images/packed/character_select/char_select_karen.png","launcher_icon_variants":len(icons),
                 "embedded_program_files":len(files),"payload_manifest_sha256":hashlib.sha256(manifest).hexdigest(),"engine_dependency_classes":sum(len(list(dex_classes(path.read_bytes()))) for path in engine),"game_host_classes":len(list(dex_classes(host))),
                 "launcher_application_classes":0,"launcher_activities":0,"native_architectures":["arm64-v8a"],"pck":pck,
