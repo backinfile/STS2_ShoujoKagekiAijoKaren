@@ -99,7 +99,7 @@ public static class StageProbe
         backLive=NCombatRoom.Instance?.BackCombatVfxContainer.GetChildren().Count(n=>n.Name.ToString().StartsWith("KarenStage"))??0,
         hudLive=NCombatRoom.Instance?.Ui.GetChildren().Count(n=>n.Name.ToString().StartsWith("KarenStage"))??0,
         ticket=p.Creature.GetPowerAmount<KarenTicketPower>(),act1=p.Creature.GetPowerAmount<KarenStarlightPower>(),act2=p.Creature.GetPowerAmount<KarenStarlight02Power>(),
-        energy=p.PlayerCombatState?.Energy??0,promise=PromisePileManager.GetPromisePile(p).Cards.Count,shine=ShinePileManager.GetShinePile(p).Cards.Count,
+        energy=p.PlayerCombatState?.Energy??0,promise=PromisePileManager.GetPromisePile(p).Cards.Count,shine=CoreShineFixture.Pile(p).Cards.Count,
         benefits=Benefits.Select(c=>new{kind=c.Key.Design.ToString(),startedMs=c.Value.Start,confirmedMs=c.Value.Confirmed,
             cards=c.Value.Cards,cardFrames=c.Value.Frames,modelMismatches=c.Value.Mismatches}),
         casts=Casts.Select(c=>new{kind=c.Kind,confirmed=c.Confirmed,cards=c.Cards,energy=c.Energy,age=c.Age,backCorrect=c.BackCorrect,

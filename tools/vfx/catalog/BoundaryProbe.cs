@@ -69,7 +69,7 @@ public sealed class BoundaryProbeCommand : AbstractConsoleCmd
             activeBridges=bridges.Length,play=PileType.Play.GetPile(player).Cards.Select(Card),
             promise=KarenCustomEnum.PromisePile.GetPile(player).Cards.Select(Card),
             draw=PileType.Draw.GetPile(player).Cards.Select(Card),discard=PileType.Discard.GetPile(player).Cards.Select(Card),
-            hand=PileType.Hand.GetPile(player).Cards.Select(Card),shine=ShinePileManager.GetShinePile(player).Cards.Select(Card),
+            hand=PileType.Hand.GetPile(player).Cards.Select(Card),shine=CoreShineFixture.Pile(player).Cards.Select(Card),
             exhaust=PileType.Exhaust.GetPile(player).Cards.Select(Card),
             started=CombatManager.Instance.History.CardPlaysStarted.Select(e=>new{id=e.CardPlay.Card.Id.Entry,identity=RuntimeHelpers.GetHashCode(e.CardPlay.Card),auto=e.CardPlay.IsAutoPlay,target=e.CardPlay.Target?.CombatId}),
             finished=CombatManager.Instance.History.CardPlaysFinished.Select(e=>new{id=e.CardPlay.Card.Id.Entry,identity=RuntimeHelpers.GetHashCode(e.CardPlay.Card),auto=e.CardPlay.IsAutoPlay,target=e.CardPlay.Target?.CombatId})

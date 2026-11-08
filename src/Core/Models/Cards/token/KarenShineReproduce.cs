@@ -44,7 +44,7 @@ public sealed class KarenShineReproduce : KarenBaseCardModel
 
         var cards = ShoujoKageki.Core.V1.Shine.GetDepletedModels(Owner)
             .Where(c => c is not KarenShineReproduce)
-            .Select(card => CombatState.CloneCard(ShoujoKageki.Core.V1.Shine.Copy(card, ShoujoKageki.Core.V1.CardCopyPurpose.Reacquire)))
+            .Select(card => ShoujoKageki.Core.V1.CardCopies.Preview(card, ShoujoKageki.Core.V1.CardCopyPurpose.Reacquire))
             .ToList();
         if (cards.Count == 0) return;
 
@@ -57,22 +57,8 @@ public sealed class KarenShineReproduce : KarenBaseCardModel
 
         var card = selected.FirstOrDefault();
         if (card == null) return;
-        // 删除没有选中的
-        foreach (var c in cards) if (c != card) _ = CardPileCmd.RemoveFromCombat(c);
-
-        // 加入牌组
-        MainFile.Logger.Info($"cloneToDeck");
-        var cloneToDeck = card.CloneSafeForDeck();
-        cloneToDeck.RestoreShineToMax();
-        CardPileAddResult result = await CardPileCmd.Add(cloneToDeck, PileType.Deck);
+        var result = await ShoujoKageki.Core.V1.CardCopies.Acquire(card, Owner, addToHand: true);
         CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.MessyLayout);
-
-
-        // 需要将这张牌放入手牌
-        MainFile.Logger.Info($"cloneToHand");
-        card.RestoreShineToMax();
-        card.DeckVersion = cloneToDeck; // 关联这两张牌
-        await CardPileCmd.Add(card, PileType.Hand);
     }
 
     protected override void OnUpgrade()

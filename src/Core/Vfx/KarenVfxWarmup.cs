@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -81,8 +82,8 @@ internal static class KarenVfxWarmup
             {
                 var layer = new Node2D(); viewport.AddChild(layer);
                 foreach (var resource in batch) AddPreview(layer, resource);
-                await viewport.ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
-                await viewport.ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+                await CoreEffects.DrawFrame(viewport);
+                await CoreEffects.DrawFrame(viewport);
                 int calls = viewport.GetRenderInfo(Viewport.RenderInfoType.Canvas, Viewport.RenderInfo.DrawCallsInFrame);
                 if (calls <= 0) throw new InvalidOperationException("VFX warmup batch did not draw");
                 DrawCalls += calls;
@@ -213,7 +214,7 @@ internal static class KarenVfxWarmup
 // Render only primitives; constructing gameplay VFX would fire hooks, sounds and ownership cleanup.
 internal partial class KarenVfxWarmupCanvas : Node2D
 {
-    private readonly KarenVfxCanvasBatch _batch = new();
+    private readonly CanvasGeometryBatch _batch = new();
 
     public override void _Draw()
     {

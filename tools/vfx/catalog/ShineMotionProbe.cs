@@ -189,12 +189,12 @@ public sealed class ShineMotionProbeCommand:AbstractConsoleCmd
         if(args.Length==2 && args[0]=="count_add" && player!=null) {
             var model=ModelDb.AllCards.Single(c=>c.Id.Entry=="KAREN_SHINE_STRIKE");
             for(int i=0;i<int.Parse(args[1]);i++)
-                ShinePileManager.AddToShinePileInternal(player,CombatManager.Instance.DebugOnlyGetState()!.CreateCard(model,player));
+                CoreShineFixture.Archive(player,CombatManager.Instance.DebugOnlyGetState()!.CreateCard(model,player));
             return new(true,"Added count fixture cards without flight");
         }
         if(args.Length!=1)return new(false,Args);
         if(args[0]=="count_clear" && player!=null) {
-            var pile=ShinePileManager.GetShinePile(player);
+            var pile=CoreShineFixture.Pile(player);
             foreach(var card in pile.Cards.ToArray()) pile.RemoveInternal(card);
             return new(true,"Cleared count fixture pile");
         }

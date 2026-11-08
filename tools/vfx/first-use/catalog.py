@@ -79,6 +79,7 @@ def main():
    for field in re.finditer(r'\bstatic (?:readonly )?(?:Godot\.)?(?:Texture2D|GradientTexture2D|GradientTexture1D|Shader|CurveTexture|ShaderMaterial|ParticleProcessMaterial)\b',code):
     owner=owner_at(code,field.start())
     assert namespace+'.'+owner in actual,'Unprepared static visual resource owner: '+f.relative_to(ROOT).as_posix()+':'+owner
+  actual.update({'ShoujoKageki.Core.V1.Presentation.LightRibbon','ShoujoKageki.Core.V1.Presentation.CanvasGeometryBatch'})
   assert actual==set(report['resource_owners']),{'unregistered':sorted(actual-set(report['resource_owners'])),'stale':sorted(set(report['resource_owners'])-actual)}
  else:GENERATED.write_text(expected,encoding='utf-8')
  if a.report:a.report.parent.mkdir(parents=True,exist_ok=True);a.report.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')

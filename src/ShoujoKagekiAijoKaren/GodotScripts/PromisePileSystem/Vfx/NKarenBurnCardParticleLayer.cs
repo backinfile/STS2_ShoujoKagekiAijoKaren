@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System.Collections.Generic;
 using Godot;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
@@ -18,7 +19,7 @@ internal partial class NKarenBurnCardParticleLayer(Texture2D? texture, bool aura
         public float Age, Duration, Scale, Rotation, Spin;
     }
     private readonly List<Particle> _particles = new(32);
-    private readonly KarenVfxCanvasBatch _batch = new(128);
+    private readonly CanvasGeometryBatch _batch = new(128);
     private readonly Vector2 _textureSize = texture?.GetSize() ?? Vector2.Zero;
     private static bool _auraDirection = true;
 

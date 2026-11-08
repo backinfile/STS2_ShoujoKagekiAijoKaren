@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup><TargetFramework>net9.0</TargetFramework><Nullable>enable</Nullable><AssemblyName>KarenScarProbe</AssemblyName><Variant Condition="'$(Variant)' == ''">Stable</Variant></PropertyGroup>
+  <PropertyGroup><TargetFramework>net9.0</TargetFramework><Nullable>enable</Nullable><AssemblyName>KarenScarProbe</AssemblyName><Variant Condition="'$(Variant)' == ''">Stable</Variant>  <UseCoreShineFixture>true</UseCoreShineFixture>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="sts2"><HintPath>$(Game)/data_sts2_windows_x86_64/sts2.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="GodotSharp"><HintPath>$(Game)/data_sts2_windows_x86_64/GodotSharp.dll</HintPath><Private>false</Private></Reference>

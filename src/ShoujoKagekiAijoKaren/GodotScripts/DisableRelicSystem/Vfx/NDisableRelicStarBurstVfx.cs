@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using Godot;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Helpers;
@@ -18,7 +19,7 @@ public partial class NDisableRelicStarBurstVfx : Node2D
     internal static Godot.Resource?[] PreparedResources => [StarTexture, StarBlend];
 
     private const float SpawnInterval = 0.08f;
-    private static readonly Texture2D? StarTexture = KarenResourceLoader.LoadTexture("res://images/packed/vfx/star_guide/star.png", nameof(NDisableRelicStarBurstVfx));
+    private static readonly Texture2D? StarTexture = CoreResources.LoadTexture("res://images/packed/vfx/star_guide/star.png", nameof(NDisableRelicStarBurstVfx));
 
     private readonly NRelicInventoryHolder _holder;
     private float _spawnTimer;

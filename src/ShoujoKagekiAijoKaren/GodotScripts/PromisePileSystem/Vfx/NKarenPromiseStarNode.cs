@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.Utils;
 using Godot;
@@ -17,7 +18,7 @@ public partial class NKarenPromiseStarNode : Node2D
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
-        _towerTexture ??= KarenResourceLoader.LoadTexture(
+        _towerTexture ??= CoreResources.LoadTexture(
             "res://images/vfx/promise/painted_tower.png", nameof(NKarenPromiseStarNode));
     }
     internal static Godot.Resource?[] PreparedResources => [ContinuePortrait, _towerTexture];

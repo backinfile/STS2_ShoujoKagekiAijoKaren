@@ -63,3 +63,6 @@ id_ed25519
 *.sqlite
 *.sqlite3
 *.sqlite-*
+
+# Local verification evidence and temporary game state
+/out/tmp/

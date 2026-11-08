@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ public partial class NKarenBenefitVfx : Node2D
         _smoke??=Load("shared_use/smoke_vfx.png");
         _ash??=Load("shared_use/ash_particle.png");
         _sparkle??=Load("vfx_power_up/sparkle.png");
-        _shader??=KarenResourceLoader.Load<Shader>("res://shaders/karen_benefit_flow.gdshader",nameof(NKarenBenefitVfx));
+        _shader??=CoreResources.Load<Shader>("res://shaders/karen_benefit_flow.gdshader",nameof(NKarenBenefitVfx));
         _soft??=new GradientTexture2D {
             Width=128,Height=128,Fill=GradientTexture2D.FillEnum.Radial,FillFrom=new(.5f,.5f),FillTo=new(1,.5f),
             Gradient=new Gradient { Offsets=new float[]{0,.25f,.55f,1},Colors=new Color[]{Colors.White,new(1,1,1,.6f),new(1,1,1,.14f),Colors.Transparent} } };
@@ -268,7 +269,7 @@ public partial class NKarenBenefitVfx : Node2D
         if (Design is BenefitKind.Cake or BenefitKind.Dream or BenefitKind.DreamTrigger or BenefitKind.Shine) return;
         var sound=KarenAudioManager.PlaySfx(file,volume,pitch);if(sound!=null)_sounds.Add(sound);
     }
-    private static Texture2D? Load(string path)=>KarenResourceLoader.LoadTexture("res://images/vfx/"+path,nameof(NKarenBenefitVfx));
+    private static Texture2D? Load(string path)=>CoreResources.LoadTexture("res://images/vfx/"+path,nameof(NKarenBenefitVfx));
     protected static float P(float t,float a,float b)=>Mathf.Clamp((t-a)/(b-a),0,1);
     protected static float Ease(float x)=>1-Mathf.Pow(1-Mathf.Clamp(x,0,1),3);
     protected static float Window(float t,float start,float end,float attack=.1f,float release=.3f)

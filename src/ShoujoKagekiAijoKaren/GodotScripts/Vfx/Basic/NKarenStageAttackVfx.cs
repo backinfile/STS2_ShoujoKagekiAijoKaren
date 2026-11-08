@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System;
 using System.Linq;
 using Godot;
@@ -47,7 +48,7 @@ public partial class NKarenStageAttackVfx : Node2D
 {
     private struct ContactCue { public Vector2 Point, Hilt, Floor, Size; public float At; public int Index, Round; public bool Active; }
     private static readonly Color Coral = new("#fb5458"), Ivory = new("#fff4dc");
-    private readonly KarenVfxCanvasBatch _geometry = new(1024);
+    private readonly CanvasGeometryBatch _geometry = new(1024);
     private readonly ContactCue[] _contacts = new ContactCue[8];
     private NCombatRoom _room = null!;
     private NCreature _sourceView = null!;

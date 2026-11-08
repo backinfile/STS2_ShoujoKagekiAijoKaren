@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System.Collections.Generic;
 using Godot;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
@@ -20,7 +21,7 @@ public partial class NKarenTowerRecallCardVfx : Node2D
     private readonly List<TrailPoint> _trail = new();
     private readonly Vector2[] _outline = new Vector2[5];
     private readonly Vector2[] _ribbonPoints = new Vector2[48];
-    private readonly KarenVfxCanvasBatch _ribbonBatch = new();
+    private readonly CanvasGeometryBatch _ribbonBatch = new();
     private static readonly Color Gold = new("#ffc774");
     private static readonly Color Blue = new("#a4d2ff");
     private static readonly Color White = new("#fff5db");

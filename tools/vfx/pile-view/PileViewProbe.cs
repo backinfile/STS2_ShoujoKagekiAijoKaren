@@ -15,14 +15,13 @@ using MegaCrit.Sts2.Core.Nodes.Screens;
 using MegaCrit.Sts2.Core.Nodes.Screens.Capstones;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
-using ShoujoKagekiAijoKaren.src.Core.Nodes;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
 // Disposable recording fixture: opens the production entry points and observes native UI.
 public sealed class PileViewProbe : AbstractConsoleCmd
 {
-    private static readonly List<WeakReference<NKarenPileViewVfx>> Opened = new();
+    private static readonly List<WeakReference<Control>> Opened = new();
     public override string CmdName => "pile_view";
     public override string Args => "promise|shine|return|close|vanilla|clear-shine|instant|status";
     public override string Description => "Exercise and inspect the real pile view decoration.";
@@ -34,20 +33,20 @@ public sealed class PileViewProbe : AbstractConsoleCmd
         switch (args[0])
         {
             case "promise": PromisePileManager.ShowScreen(player); break;
-            case "shine": ShinePileManager.ShowScreen(player); break;
+            case "shine": ShoujoKageki.Core.V1.CoreApi.Get<ShoujoKageki.Core.V1.IShinePileView>().Show(player); break;
             case "close": container.Close(); break;
             case "return":
                 ((Node)container.CurrentCapstoneScreen!).GetNode<NButton>("BackButton")
                     .EmitSignal(NClickableControl.SignalName.Released, ((Node)container.CurrentCapstoneScreen).GetNode("BackButton"));
                 break;
             case "vanilla": NCardPileScreen.ShowScreen(PileType.Draw.GetPile(player), Array.Empty<string>()); break;
-            case "clear-shine": ShinePileManager.ClearShinePileInternal(player); break;
+            case "clear-shine": CoreShineFixture.Clear(player); break;
             case "instant": SaveManager.Instance.PrefsSave.FastMode = FastModeType.Instant; break;
             case "status": break;
             default: return new(false, Args);
         }
         var screen = container.CurrentCapstoneScreen as NCardPileScreen;
-        var decoration = screen?.GetNodeOrNull<NKarenPileViewVfx>("KarenPileViewVfx");
+        var decoration = screen?.GetNodeOrNull<Control>("KarenPileViewVfx");
         if (decoration != null && !Opened.Any(w => w.TryGetTarget(out var n) && n == decoration))
             Opened.Add(new(decoration));
         var grid = screen?.GetNode<NCardGrid>("CardGrid");
@@ -55,7 +54,7 @@ public sealed class PileViewProbe : AbstractConsoleCmd
         return new(true, JsonSerializer.Serialize(new
         {
             screen = screen?.Name.ToString(), cards = screen?.Pile.Cards.Select(c => c.Id.Entry).ToArray(),
-            decorations = screen?.GetChildren().OfType<NKarenPileViewVfx>().Count() ?? 0,
+            decorations = screen?.GetChildren().OfType<Control>().Count(node => node.Name == "KarenPileViewVfx") ?? 0,
             living = Opened.Count(w => w.TryGetTarget(out var n) && GodotObject.IsInstanceValid(n)),
             processing = decoration?.IsProcessing(), age = Field("_age"), duration = Field("_duration"),
             promise = Field("_promise"), mouse = decoration?.MouseFilter.ToString(), focus = decoration?.FocusMode.ToString(),
@@ -63,7 +62,7 @@ public sealed class PileViewProbe : AbstractConsoleCmd
             size = decoration == null ? null : new[] { decoration.Size.X, decoration.Size.Y },
             visibleCards = grid?.CurrentlyDisplayedCards.Select(c => c.Id.Entry).ToArray(),
             promiseCards = PromisePileManager.GetPromisePile(player).Cards.Select(c => c.Id.Entry).ToArray(),
-            shineCards = ShinePileManager.GetShinePile(player).Cards.Select(c => c.Id.Entry).ToArray(),
+            shineCards = CoreShineFixture.Pile(player).Cards.Select(c => c.Id.Entry).ToArray(),
         }));
     }
 }

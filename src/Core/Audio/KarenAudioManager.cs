@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Audio;
@@ -110,7 +111,7 @@ public static class KarenAudioManager
             return cached;
 
         var path = $"res://ShoujoKagekiAijoKaren/audio/{fileName}";
-        var stream = KarenResourceLoader.LoadAudioStream(path, fileName, nameof(KarenAudioManager));
+        var stream = CoreResources.LoadAudioStream(path, fileName, nameof(KarenAudioManager));
         if (stream == null) return null;
 
         _cache[fileName] = stream;

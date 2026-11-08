@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System.Linq;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -77,7 +78,7 @@ public partial class NKarenBenefitVfx
             float radius=115*(.70f+.30f*Mathf.Sin(u*Mathf.Pi));
             return center+new Vector2(side*Mathf.Sin(u*Mathf.Tau*1.1f)*radius,90-215*u)*DreamUnit;
         }
-        return KarenLightRibbon.Curve(center+new Vector2(side*28,85)*DreamUnit,
+        return LightRibbon.Curve(center+new Vector2(side*28,85)*DreamUnit,
             center+new Vector2(side*230,105)*DreamUnit,center+new Vector2(side*245,-100)*DreamUnit,
             center+new Vector2(side*76,-135)*DreamUnit,u);
     }
@@ -91,23 +92,23 @@ public partial class NKarenBenefitVfx
             : P(Age,0,.92f)*1.90f;
         for(int side=-1;side<=1;side+=2){
             var color=side<0?DreamWarm:DreamCool;
-            KarenLightRibbon.Draw(_front,t=>DreamPoint(t,side,joining),ribbonHead,1.05f,6.8f*DreamUnit,color,StoryAlpha);
-            KarenLightRibbon.Draw(_front,t=>DreamPoint(t,side,joining)+new Vector2(side*10,-5)*DreamUnit,
+            LightRibbon.Draw(_front,t=>DreamPoint(t,side,joining),ribbonHead,1.05f,6.8f*DreamUnit,color,StoryAlpha);
+            LightRibbon.Draw(_front,t=>DreamPoint(t,side,joining)+new Vector2(side*10,-5)*DreamUnit,
                 ribbonHead-.08f,.94f,1.8f*DreamUnit,color,StoryAlpha*.75f);
             float starAlpha=StoryAlpha*(joining?1-P(Age,lead,lead+.16f):1);
             var star=joining?DreamPoint(Mathf.Min(u,.64f),side,true).Lerp(DreamCore,Ease(P(Age,.44f,.68f)))
                 :DreamPoint(u,side,false);
-            KarenLightRibbon.Star(_front,star,(joining?18:23)*DreamUnit,color,starAlpha);
+            LightRibbon.Star(_front,star,(joining?18:23)*DreamUnit,color,starAlpha);
             for(int i=0;i<5;i++){
                 float q=.16f+i*.16f;
                 float a=Window(Age,q*.30f,joining?.98f:1.15f,.08f,.30f)*StoryAlpha;
                 var offset=new Vector2(side*(i%2==0?16:-14),i%2==0?-10:12)*DreamUnit;
-                KarenLightRibbon.Star(_front,DreamPoint(q,side,joining)+offset,(i%2==0?4:2.8f)*DreamUnit,color,a*.78f);
+                LightRibbon.Star(_front,DreamPoint(q,side,joining)+offset,(i%2==0?4:2.8f)*DreamUnit,color,a*.78f);
             }
         }
         if(joining){
             float alpha=Window(Age,.46f,1.25f,.12f,.30f)*StoryAlpha;
-            KarenLightRibbon.Star(_front,DreamCore,29*DreamUnit,Cream,alpha);
+            LightRibbon.Star(_front,DreamCore,29*DreamUnit,Cream,alpha);
             if(Confirmed)Glow(_front,DreamCore,110,Ivory,Window(ResultAge,0,.45f,.02f,.30f)*.28f);
         }
     }
@@ -121,14 +122,14 @@ public partial class NKarenBenefitVfx
             Vector2 Path(float t)=>Arc(from,target,t,100)
                 +normal*(side*Mathf.Sin(t*Mathf.Pi)*20*DreamUnit);
             var tint=side<0?DreamWarm:DreamCool;
-            KarenLightRibbon.Draw(_front,Path,head,.90f,5.6f*DreamUnit,tint,alpha);
+            LightRibbon.Draw(_front,Path,head,.90f,5.6f*DreamUnit,tint,alpha);
             for(int i=0;i<4;i++){
                 float q=.22f+i*.18f;
                 var point=Path(q)+new Vector2(0,(i%2==0?12:-12)*DreamUnit);
-                KarenLightRibbon.Star(_front,point,3.5f*DreamUnit,tint,alpha*Window(elapsed,q*.5f,.95f,.06f,.25f));
+                LightRibbon.Star(_front,point,3.5f*DreamUnit,tint,alpha*Window(elapsed,q*.5f,.95f,.06f,.25f));
             }
         }
-        KarenLightRibbon.Star(_front,target,15*DreamUnit,Cream,Window(elapsed,.42f,1.35f,.06f,.38f));
+        LightRibbon.Star(_front,target,15*DreamUnit,Cream,Window(elapsed,.42f,1.35f,.06f,.38f));
     }
     private void ShowDreamCards()
     {

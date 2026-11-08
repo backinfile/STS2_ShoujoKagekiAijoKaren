@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,8 +97,8 @@ public partial class NKarenAquariumVfx : Node2D
     public override void _Ready()
     {
         PrepareResources();
-        var waterShader = KarenResourceLoader.Load<Shader>("res://shaders/karen_aquarium_water.gdshader", nameof(NKarenAquariumVfx));
-        var jellyShader = KarenResourceLoader.Load<Shader>("res://shaders/karen_aquarium_jelly.gdshader", nameof(NKarenAquariumVfx));
+        var waterShader = CoreResources.Load<Shader>("res://shaders/karen_aquarium_water.gdshader", nameof(NKarenAquariumVfx));
+        var jellyShader = CoreResources.Load<Shader>("res://shaders/karen_aquarium_jelly.gdshader", nameof(NKarenAquariumVfx));
         _room.BackCombatVfxContainer.AddChildSafely(_back);
         _room.Ui.AddChildSafely(_hud);
         _waterMaterial = new ShaderMaterial { Shader = waterShader }; _water = Panel(_waterMaterial); _back.AddChild(_water);

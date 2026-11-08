@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <CoreApiPath Condition="'$(CoreApiPath)' == ''">$(MSBuildThisFileDirectory)../vendor/core-sdk/api/ShoujoKagekiAijoCore.Api.V1.dll</CoreApiPath>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(UseCoreApi)' == 'true' or '$(UseCoreShineFixture)' == 'true'">
+    <Reference Include="ShoujoKagekiAijoCore.Api.V1" HintPath="$(CoreApiPath)" Private="false" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UseCoreShineFixture)' == 'true'">
+    <Compile Include="$(MSBuildThisFileDirectory)ProbeSupport/CoreShineFixture.cs" Link="CoreShineFixture.cs" />
+  </ItemGroup>
+</Project>

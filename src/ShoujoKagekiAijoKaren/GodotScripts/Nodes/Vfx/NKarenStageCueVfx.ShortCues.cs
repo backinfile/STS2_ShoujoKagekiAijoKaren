@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System.Linq;
 using Godot;
 using MegaCrit.Sts2.Core.Context;
@@ -37,7 +38,7 @@ public partial class NKarenStageCueVfx
             float u=.06f+i*.88f/6;
             float lit=P(head,u-.14f,u+.015f);
             var tint=i%2==0?Gold:White;
-            KarenLightRibbon.Star(_back,Act1StarPoint(u),(i==3?18:11)*CueUnit,tint,alpha*lit);
+            LightRibbon.Star(_back,Act1StarPoint(u),(i==3?18:11)*CueUnit,tint,alpha*lit);
         }
     }
 
@@ -54,11 +55,11 @@ public partial class NKarenStageCueVfx
     {
         if(Kind==CueKind.Act1Cast)return;
         var from=Act1StarPoint(.78f);var target=DrawPilePoint();
-        Vector2 Path(float t)=>KarenLightRibbon.Curve(from,from+new Vector2(125,45)*CueUnit,
+        Vector2 Path(float t)=>LightRibbon.Curve(from,from+new Vector2(125,45)*CueUnit,
             target+new Vector2(130,-155)*CueUnit,target,t);
         float travel=P(_age,.19f,.68f),alpha=Win(_age,.16f,.88f,.045f,.20f);
-        KarenLightRibbon.Draw(_hud,Path,travel*1.55f,.58f,4.2f*CueUnit,Blue,alpha);
-        if(travel<.72f)KarenLightRibbon.Star(_hud,Path(travel*1.4f),13*CueUnit,White,alpha);
+        LightRibbon.Draw(_hud,Path,travel*1.55f,.58f,4.2f*CueUnit,Blue,alpha);
+        if(travel<.72f)LightRibbon.Star(_hud,Path(travel*1.4f),13*CueUnit,White,alpha);
         foreach(CardModel model in _cards){
             if(_cardTimes[model]<0 || model.Pile?.Type!=PileType.Hand)continue;
             var card=VisibleCard(model);if(card==null)continue;
@@ -67,8 +68,8 @@ public partial class NKarenStageCueVfx
             var left=transform*(frame.Size*new Vector2(.08f,.025f));
             var right=transform*(frame.Size*new Vector2(.92f,.025f));
             _hud.DrawLine(left,right,new Color(Gold,a*.78f),2*CueUnit,true);
-            KarenLightRibbon.Star(_hud,left.Lerp(right,u),11*CueUnit,White,a);
-            KarenLightRibbon.Star(_hud,left.Lerp(right,.68f),7*CueUnit,Gold,a*.75f);
+            LightRibbon.Star(_hud,left.Lerp(right,u),11*CueUnit,White,a);
+            LightRibbon.Star(_hud,left.Lerp(right,.68f),7*CueUnit,Gold,a*.75f);
         }
     }
 
@@ -96,10 +97,10 @@ public partial class NKarenStageCueVfx
             var source=_sourceCaptured?_sourcePoint:_body;
             float head=P(_age,0,.64f)*1.85f,alpha=ShortCueAlpha;
             for(int side=-1;side<=1;side+=2){
-                Vector2 Path(float t)=>KarenLightRibbon.Curve(source+new Vector2(side*90,48)*CueUnit,
+                Vector2 Path(float t)=>LightRibbon.Curve(source+new Vector2(side*90,48)*CueUnit,
                     source+new Vector2(-side*155,8)*CueUnit,source+new Vector2(-side*152,-88)*CueUnit,
                     source+new Vector2(side*48,-125)*CueUnit,t);
-                KarenLightRibbon.Draw(_hud,Path,head,.88f,(side<0?8:6)*CueUnit,side<0?TicketSilk:TicketIvory,alpha);
+                LightRibbon.Draw(_hud,Path,head,.88f,(side<0?8:6)*CueUnit,side<0?TicketSilk:TicketIvory,alpha);
             }
             TicketFragments(source+new Vector2(48,-125)*CueUnit,_age,alpha*.75f);
             return;
@@ -113,9 +114,9 @@ public partial class NKarenStageCueVfx
             var source=PowerPoint();var normal=(target-source).Orthogonal().Normalized();
             Vector2 Path(float u)=>source.Lerp(target,u)+Vector2.Up*Mathf.Sin(u*Mathf.Pi)*125*CueUnit
                 +normal*Mathf.Sin(u*Mathf.Tau)*Mathf.Sin(u*Mathf.Pi)*62*CueUnit;
-            KarenLightRibbon.Draw(_hud,Path,head,.86f,7.5f*CueUnit,TicketSilk,alpha);
+            LightRibbon.Draw(_hud,Path,head,.86f,7.5f*CueUnit,TicketSilk,alpha);
             if(t>.24f){
-                KarenLightRibbon.Star(_hud,target,13*CueUnit,TicketIvory,Win(t,.24f,.70f,.035f,.22f));
+                LightRibbon.Star(_hud,target,13*CueUnit,TicketIvory,Win(t,.24f,.70f,.035f,.22f));
                 TicketFragments(target,t,alpha);
             }
         }

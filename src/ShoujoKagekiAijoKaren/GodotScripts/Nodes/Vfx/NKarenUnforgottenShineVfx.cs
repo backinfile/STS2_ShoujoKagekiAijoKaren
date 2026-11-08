@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System.Collections.Generic;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -20,7 +21,7 @@ public partial class NKarenUnforgottenShineVfx : Node2D
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
-        _texture ??= KarenResourceLoader.LoadTexture(
+        _texture ??= CoreResources.LoadTexture(
             "res://images/vfx/unforgettable/lingering-star.png", nameof(NKarenUnforgottenShineVfx));
     }
     internal static Godot.Resource?[] PreparedResources => [_texture];

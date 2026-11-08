@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using System;
 using System.Linq;
@@ -24,10 +25,10 @@ public partial class NKarenBridgeVfx : Node2D
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
-        _atmosphereShader ??= KarenResourceLoader.Load<Shader>("res://materials/vfx/bridge_atmosphere.gdshader", nameof(NKarenBridgeVfx));
-        _bridgeTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/bridge/stage-v12.png", nameof(NKarenBridgeVfx));
+        _atmosphereShader ??= CoreResources.Load<Shader>("res://materials/vfx/bridge_atmosphere.gdshader", nameof(NKarenBridgeVfx));
+        _bridgeTexture ??= CoreResources.LoadTexture("res://images/vfx/bridge/stage-v12.png", nameof(NKarenBridgeVfx));
         _revealShader ??= ResourceLoader.Load<Shader>("res://materials/vfx/bridge_reveal.gdshader");
-        _lightShader ??= KarenResourceLoader.Load<Shader>("res://materials/vfx/bridge_light.gdshader", nameof(NKarenBridgeVfx));
+        _lightShader ??= CoreResources.Load<Shader>("res://materials/vfx/bridge_light.gdshader", nameof(NKarenBridgeVfx));
     }
     internal static Godot.Resource?[] PreparedResources => [_bridgeTexture, _revealShader, _lightShader, _atmosphereShader];
 

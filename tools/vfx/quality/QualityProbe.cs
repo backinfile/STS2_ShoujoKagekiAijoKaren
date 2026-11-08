@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
-using BaseLib.Config;
+using ShoujoKageki.Core.V1;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.DevConsole;
@@ -64,7 +64,7 @@ public static class QualityProbe
     [HarmonyPatch]
     private static class RibbonMeasure
     {
-        private static MethodBase TargetMethod() => AccessTools.Method(typeof(KarenVfxLevel).Assembly.GetType("ShoujoKagekiAijoKaren.src.Core.Vfx.KarenLightRibbon"), "Draw");
+        private static MethodBase TargetMethod() => AccessTools.Method(typeof(ShoujoKageki.Core.V1.Presentation.LightRibbon), "Draw");
         private static void Postfix(float alpha) { if (alpha > 0) RibbonDraws++; }
     }
     [HarmonyPatch(typeof(NKarenWaitingStageVfx), "Place")]
@@ -114,11 +114,8 @@ public sealed class QualityCmd : AbstractConsoleCmd
             if (args.FirstOrDefault() == "set")
             {
                 KarenModConfig.VfxLevel = Enum.Parse<KarenVfxLevel>(args[1]);
-                var config = ModConfigRegistry.Get<KarenModConfig>()!;
-                config.Save();
-                var expected = KarenModConfig.VfxLevel;
-                config.Load();
-                if (KarenModConfig.VfxLevel != expected) throw new Exception("Setting persistence failed");
+                if ((int)CoreApi.Configuration.Current.VfxLevel != (int)KarenModConfig.VfxLevel)
+                    throw new Exception("Shared setting update failed");
             }
             if (args.FirstOrDefault() == "reset") { QualityProbe.Draws.Clear(); QualityProbe.DrawMs = 0; QualityProbe.NativeEvents.Clear(); QualityProbe.DrawBytes.Clear(); QualityProbe.PlaceFrames.Clear(); QualityProbe.RibbonDraws = 0; }
             if (args.FirstOrDefault() == "check") return new(true, Check());
@@ -171,7 +168,7 @@ public sealed class QualityCmd : AbstractConsoleCmd
             int scatter = nonon == null ? 0 : ((ICollection)AccessTools.Field(typeof(NKarenNononVfx), "_particles").GetValue(nonon)!).Count;
             return new(true, JsonSerializer.Serialize(new {
                 level = KarenModConfig.VfxLevel.ToString(),
-                visibleEffects = nodes.Count(n => n.GetType().Assembly == typeof(KarenModConfig).Assembly
+                visibleEffects = nodes.Count(n => (n.GetType().Assembly == typeof(KarenModConfig).Assembly || (n.GetType().Assembly == CoreApi.Get<IShineService>().GetType().Assembly && n.GetType().Name.EndsWith("Vfx")))
                     && (n.GetType().Name.StartsWith("NKaren") || n.GetType().Name.StartsWith("NDisableRelic"))
                     && n is CanvasItem visual && visual.IsVisibleInTree()),
                 activeParticleEmitters = nodes.OfType<GpuParticles2D>().Count(p => p.IsVisibleInTree() && p.Emitting),
@@ -201,7 +198,7 @@ public sealed class QualityCmd : AbstractConsoleCmd
         var original = KarenModConfig.VfxLevel;
         var assembly = typeof(KarenModConfig).Assembly;
         var policy = assembly.GetType("ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxQuality")!;
-        var batchType = assembly.GetType("ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch")!;
+        var batchType = typeof(ShoujoKageki.Core.V1.Presentation.CanvasGeometryBatch);
         var results = new List<object>();
         try
         {
@@ -215,7 +212,7 @@ public sealed class QualityCmd : AbstractConsoleCmd
                 int stride = level == KarenVfxLevel.Full ? 1 : 4;
                 if (Count(40) != 40 / stride || Count(0) != 0 || Count(1) != 1 || triangles != 64 / stride)
                     throw new Exception("Budget failed: " + level);
-                string label = new LocString("settings_ui", "SHOUJOKAGEKIAIJOKAREN-VFX_LEVEL." + level).GetRawText();
+                string label = new LocString("settings_ui", "SHOUJOKAGEKIAIJOCORE-VFX_LEVEL." + (CoreVfxLevel)(int)level).GetRawText();
                 if (string.IsNullOrWhiteSpace(label) || label.Contains("VFX_LEVEL")) throw new Exception("Missing localized dropdown label");
                 results.Add(new { level = level.ToString(), particles = Count(40), triangles, label });
             }

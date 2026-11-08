@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using Godot;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
@@ -6,7 +7,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Warm Shine stars around the reward icon and along the row's empty edges.</summary>
 public partial class NKarenShineRewardVfx : Control
 {
-    private readonly KarenVfxCanvasBatch _batch = new(512);
+    private readonly CanvasGeometryBatch _batch = new(512);
     private float _age, _emphasis;
 
     public override void _Ready()

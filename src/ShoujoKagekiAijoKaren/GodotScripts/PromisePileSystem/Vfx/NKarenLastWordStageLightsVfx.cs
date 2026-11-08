@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -18,7 +19,7 @@ public partial class NKarenLastWordStageLightsVfx : Node2D
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
-        _shader ??= KarenResourceLoader.Load<Shader>(
+        _shader ??= CoreResources.Load<Shader>(
             "res://materials/vfx/karen_last_word_stage_lights.gdshader", nameof(NKarenLastWordStageLightsVfx));
     }
     internal static Godot.Resource?[] PreparedResources => [_shader];

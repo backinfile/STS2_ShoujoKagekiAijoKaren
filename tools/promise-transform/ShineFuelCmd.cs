@@ -54,7 +54,7 @@ public sealed class ShineFuelCmd : AbstractConsoleCmd
                 nodeVisible=NCard.FindOnTable(c)?.Visible, nodeAlpha=NCard.FindOnTable(c)?.Modulate.A,
                 bodyVisible=NCard.FindOnTable(c)?.Body.Visible,
                 bodyAlpha=NCard.FindOnTable(c)?.Body.Modulate.A, selfAlpha=NCard.FindOnTable(c)?.Body.SelfModulate.A }),
-            shineCount=ShinePileManager.GetShinePileCount(player),
+            shineCount=CoreShineFixture.Count(player),
             exhaust=player.PlayerCombatState.ExhaustPile.Cards.Select(c=>new { id=c.Id.Entry, shine=c.GetShineValue() }),
             discard=player.PlayerCombatState.DiscardPile.Cards.Select(c=>new { id=c.Id.Entry, shine=c.GetShineValue() }),
             nativeExhaustNodes=ShineFuelProbe.Descend(NRun.Instance).Count(n=>n.GetType().Name is "NExhaustVfx" or "NCardExhaustVfx" or "NCardExhaustQuickVfx"),

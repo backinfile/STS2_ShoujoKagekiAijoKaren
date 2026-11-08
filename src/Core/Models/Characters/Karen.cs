@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using BaseLib.Abstracts;
+using BaseLib.Utils.Attributes;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Characters;
@@ -14,7 +15,8 @@ using ShoujoKagekiAijoKaren.src.Models.Relics;
 
 namespace ShoujoKagekiAijoKaren.src.Models.Characters;
 
-public sealed class Karen : CharacterModel
+[CustomID("KAREN")]
+public sealed class Karen : CustomCharacterModel
 {
     public const string energyColorName = "karen";
     public const string OriginalCharacterSelectSfx = "event:/sfx/characters/ironclad/ironclad_select";
@@ -78,22 +80,6 @@ public sealed class Karen : CharacterModel
 
     public override string CharacterTransitionSfx => OriginalCharacterTransitionSfx;
 
-    public override List<string> GetArchitectAttackVfx()
-    {
-        var num = 5;
-        var list = new List<string>(num);
-        CollectionsMarshal.SetCount(list, num);
-        var span = CollectionsMarshal.AsSpan(list);
-        var num2 = 0;
-        span[num2] = VfxCmd.bluntPath;
-        num2++;
-        span[num2] = VfxCmd.heavyBluntPath;
-        num2++;
-        span[num2] = VfxCmd.slashPath;
-        num2++;
-        span[num2] = VfxCmd.bloodyImpactPath;
-        num2++;
-        span[num2] = VfxCmd.rockShatterPath;
-        return list;
-    }
+    public override List<string> GetArchitectAttackVfx() =>
+        [VfxCmd.bluntPath, VfxCmd.heavyBluntPath, VfxCmd.slashPath, VfxCmd.bloodyImpactPath, VfxCmd.rockShatterPath];
 }

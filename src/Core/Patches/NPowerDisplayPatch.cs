@@ -27,7 +27,7 @@ public static class NPowerDisplayPatch
             var amountLabel = AccessTools.Field(typeof(NPower), "_amountLabel").GetValue(__instance) as MegaLabel;
             if (amountLabel != null)
             {
-                amountLabel.SetTextAutoSize(fakeAmountPower.FakeAmount.ToString());
+                amountLabel.SetTextAutoSize(fakeAmountPower.ShowFakeAmount ? fakeAmountPower.FakeAmount.ToString() : string.Empty);
             }
         }
     }

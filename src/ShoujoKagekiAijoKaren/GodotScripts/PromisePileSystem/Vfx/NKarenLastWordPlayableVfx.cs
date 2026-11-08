@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -129,7 +130,7 @@ public partial class NKarenLastWordPlayableVfx : Node2D
     {
         if (ResourceLoader.Exists(path))
         {
-            var texture = KarenResourceLoader.LoadTexture(path, nameof(NKarenLastWordPlayableVfx));
+            var texture = CoreResources.LoadTexture(path, nameof(NKarenLastWordPlayableVfx));
             if (texture != null)
                 return texture;
         }

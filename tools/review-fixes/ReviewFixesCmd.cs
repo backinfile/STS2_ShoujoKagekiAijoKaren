@@ -5,6 +5,8 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using Godot;
+using ShoujoKageki.Core.V1;
+using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.DevConsole;
@@ -59,6 +61,7 @@ public sealed class ReviewFixesCmd : AbstractConsoleCmd
                 case "star": await Star(player!, replay: false); break;
                 case "replay": await Star(player!, replay: true); break;
                 case "save": Saves(player!); break;
+                case "shared": await Shared(player!); break;
                 case "revive": await PreventedDeath(player!); break;
                 case "music": Music(); break;
                 case "menu": await Menu(); break;
@@ -90,10 +93,10 @@ public sealed class ReviewFixesCmd : AbstractConsoleCmd
             Check(star.CanPlay(), "Star should be playable with one Shine card.");
             star.SetExtraReplayCountForNextPlay(1);
         }
-        var before = ShinePileManager.GetShinePileCount(player);
+        var before = CoreShineFixture.Count(player);
         var rewardsBefore = player.Creature.GetPowerAmount<ShoujoKagekiAijoKaren.src.Core.Models.Powers.KarenShineCardRewardPower>();
         await CardCmd.AutoPlay(new ThrowingPlayerChoiceContext(), star, null);
-        Check(ShinePileManager.GetShinePileCount(player) == before + 1,
+        Check(CoreShineFixture.Count(player) == before + 1,
             "Auto-play did not deplete the unique Shine card.");
         Check(player.Creature.GetPowerAmount<ShoujoKagekiAijoKaren.src.Core.Models.Powers.KarenShineCardRewardPower>() == rewardsBefore + 1,
             "A replay registered another reward without a live Shine target.");
@@ -102,20 +105,58 @@ public sealed class ReviewFixesCmd : AbstractConsoleCmd
 
     private static void Saves(Player player)
     {
+        var previous = Shine.GetDepletedModels(player).Select(card => card.ToSerializable()).ToArray();
+        var card = player.RunState.CreateCard(ModelDb.Card<KarenRewrite>(), player);
+        card.UpgradeInternal(); card.FinalizeUpgradeInternal();
+        Shine.SetState(card, 0, 7);
+        CoreShineFixture.Archive(player, card);
+        card.RemoveFromState();
+        try { SaveRoundtrip(player); }
+        finally { CoreShineFixture.Restore(player, previous); }
+    }
+
+    private static void SaveRoundtrip(Player player)
+    {
         var snapshot = RunManager.Instance.ToSave(null);
         string json = JsonSerializer.Serialize(snapshot, JsonSerializationUtility.GetTypeInfo<SerializableRun>());
         var a = JsonNode.Parse(json)!;
         var entry = a["players"]!.AsArray().First(n => n!["net_id"]!.GetValue<ulong>() == player.NetId)!;
+        var expectedCurrent = CoreShineFixture.Count(player);
+        Check(entry["save_dict_String"]?["ShoujoKagekiAijoCore.player-state@1"] != null, "New registered player save was not written.");
+        var coexist = JsonNode.Parse(json)!;
+        var coexistPlayer = coexist["players"]!.AsArray().First(n => n!["net_id"]!.GetValue<ulong>() == player.NetId)!;
+        coexistPlayer["extra_fields"] ??= new JsonObject();
+        coexistPlayer["extra_fields"]!["core_rules"] = new JsonObject { ["RulesetId"] = "invalid-ignored-legacy-rule" };
+        entry["save_dict_String"]!.AsObject().Remove("ShoujoKagekiAijoCore.player-state@1");
         entry["extra_fields"] ??= new JsonObject();
         var card = player.RunState.CreateCard(ModelDb.Card<KarenRewrite>(), player);
         entry["extra_fields"]!["karen_player_disposed_pile"] = JsonSerializer.SerializeToNode(new[] { card.ToSerializable() });
         card.RemoveFromState();
         var b = JsonNode.Parse(json)!;
         foreach (var p in b["players"]!.AsArray())
-            p!["extra_fields"]!.AsObject().Remove("karen_player_disposed_pile");
+        {
+            p!["save_dict_String"]?.AsObject().Remove("ShoujoKagekiAijoCore.player-state@1");
+            p["extra_fields"]?.AsObject().Remove("karen_player_disposed_pile");
+        }
         try
         {
             FixtureRead.Enabled = true;
+            FixtureRead.Json = coexist.ToJsonString();
+            var mixed = SaveManager.Instance.LoadRunSave();
+            Check(mixed.Success && mixed.SaveData != null, "Coexisting new and old save failed loading.");
+            Check(CoreShineFixture.Count(RunState.FromSerializable(mixed.SaveData!).Players.Single(p => p.NetId == player.NetId)) == expectedCurrent,
+                "Legacy fields overrode the new registered save.");
+            var registeredPlayer = RunState.FromSerializable(mixed.SaveData!).Players.Single(p => p.NetId == player.NetId);
+            var archived = Shine.GetDepletedModels(registeredPlayer).Last();
+            Check(archived.CurrentUpgradeLevel == 1 && Shine.GetState(archived)?.Maximum == 7,
+                "Registered save lost upgrade or extended Shine fields.");
+            var newWriter = new PacketWriter();
+            newWriter.Write(RunManager.CanonicalizeSave(mixed.SaveData!, player.NetId));
+            var newReader = new PacketReader(); newReader.Reset(newWriter.Buffer);
+            var newPlayer = RunState.FromSerializable(newReader.Read<SerializableRun>()).Players.Single(p => p.NetId == player.NetId);
+            var newArchived = Shine.GetDepletedModels(newPlayer).Last();
+            Check(CoreShineFixture.Count(newPlayer) == expectedCurrent && newArchived.CurrentUpgradeLevel == 1 && Shine.GetState(newArchived)?.Maximum == 7,
+                "Registered network roundtrip lost archive extensions.");
             FixtureRead.Json = a.ToJsonString();
             var saveA = SaveManager.Instance.LoadRunSave();
             Check(saveA.Success && saveA.SaveData != null, "Fixture A failed native save loading.");
@@ -124,13 +165,13 @@ public sealed class ReviewFixesCmd : AbstractConsoleCmd
             Check(saveB.Success && saveB.SaveData != null, "Fixture B failed native save loading.");
             // The menu may keep both SerializableRun objects and construct them later in either order.
             var stateB = RunState.FromSerializable(saveB.SaveData!);
-            Check(ShinePileManager.GetShinePileCount(stateB.Players.Single(p => p.NetId == player.NetId)) == 0,
+            Check(CoreShineFixture.Count(stateB.Players.Single(p => p.NetId == player.NetId)) == 0,
                 "B inherited A's depleted pile after a missing extra_fields read.");
             var stateA = RunState.FromSerializable(saveA.SaveData!);
-            Check(ShinePileManager.GetShinePileCount(stateA.Players.Single(p => p.NetId == player.NetId)) == 1,
+            Check(CoreShineFixture.Count(stateA.Players.Single(p => p.NetId == player.NetId)) == 1,
                 "A lost its depleted pile because a later file was previewed.");
             var stateAAgain = RunState.FromSerializable(saveA.SaveData!);
-            Check(ShinePileManager.GetShinePileCount(stateAAgain.Players.Single(p => p.NetId == player.NetId)) == 1,
+            Check(CoreShineFixture.Count(stateAAgain.Players.Single(p => p.NetId == player.NetId)) == 1,
                 "Loading A twice consumed its attached save data.");
             var canonical = RunManager.CanonicalizeSave(saveA.SaveData!, player.NetId);
             var writer = new PacketWriter();
@@ -139,10 +180,75 @@ public sealed class ReviewFixesCmd : AbstractConsoleCmd
             reader.Reset(writer.Buffer);
             var received = reader.Read<SerializableRun>();
             var networkState = RunState.FromSerializable(received);
-            Check(ShinePileManager.GetShinePileCount(networkState.Players.Single(p => p.NetId == player.NetId)) == 1,
+            Check(CoreShineFixture.Count(networkState.Players.Single(p => p.NetId == player.NetId)) == 1,
                 "Canonicalization or the native network serializer lost the depleted pile.");
         }
         finally { FixtureRead.Enabled = false; FixtureRead.Json = null; }
+    }
+
+    private static async Task Shared(Player player)
+    {
+        var combat = player.Creature.CombatState!;
+        var source = combat.CreateCard<KarenRewrite>(player);
+        try
+        {
+            foreach (var preview in Enumerable.Range(0, 64).Select(_ => CardCopies.Preview(source, CardCopyPurpose.Reacquire)))
+                Check(!combat.ContainsCard(preview) && preview.Pile == null, "Detached selection preview entered combat state.");
+            var promise = PromisePileManager.GetPromisePile(player);
+            Check(player.PlayerCombatState!.AllPiles.Count(pile => ReferenceEquals(pile, promise)) == 1, "Custom promise pile must be registered exactly once.");
+            var observed = new System.Collections.Generic.List<CardMovement>();
+            using var handler = CoreApi.Get<ICardMovementPipeline>().Register(async movement =>
+            {
+                await Task.Yield();
+                if (movement.Card == source) observed.Add(movement);
+            });
+            await CardPileCmd.Add(source, PileType.Hand, skipVisuals: true);
+            await CardPileCmd.Add(source, promise.Type, skipVisuals: true);
+            Check(observed.Last().NewPile == promise.Type && source.Pile == promise, "Awaited promise entry was not observed.");
+            await CardPileCmd.Add(source, PileType.Discard, skipVisuals: true);
+            Check(observed.Count == 3 && observed.Last().OldPile == promise.Type && observed.Last().NewPile == PileType.Discard,
+                "Native moves did not produce one ordered completion per transition.");
+        }
+        finally
+        {
+            if (source.Pile?.IsCombatPile == true) await CardPileCmd.RemoveFromCombat(source, skipVisuals: true);
+            else if (combat.ContainsCard(source)) source.RemoveFromState();
+        }
+
+        var settings = CoreApi.Configuration.Current;
+        var music = CoreApi.Get<IMusicPlayback>();
+        var tracks = CoreApi.Get<ITemporaryMusicPlayback>();
+        var runtime = music.GetType().Assembly;
+        var playbackType = runtime.GetType("ShoujoKageki.Core.Runtime.Modules.Presentation.KarenMusicPlayback")!;
+        const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
+        object Playback() => playbackType.GetProperty("Current", flags)!.GetValue(null)!;
+        double Position() => (double)playbackType.GetProperty("Position", flags)!.GetValue(Playback())!;
+        using var catalog = JsonDocument.Parse(Godot.FileAccess.GetFileAsString(CoreApi.ResourceRoot + "audio/music_player/catalog.json"));
+        string[] paths = catalog.RootElement.EnumerateArray().Take(2).Select(row => CoreApi.ResourceRoot + "audio/music_player/" + row.GetProperty("file").GetString()).ToArray();
+        try
+        {
+            CoreApi.Configuration.Update(settings with { EnableMusicPlayer = true });
+            await Cmd.Wait(.6f);
+            music.ForceTrack(paths[0]);
+            await Cmd.Wait(.1f);
+            playbackType.GetMethod("Seek", flags)!.Invoke(Playback(), new object[] { 12d });
+            music.PlayPause();
+            Check(music.State.Paused, "Could not pause the base track.");
+            double basePosition = Position();
+            using (var first = tracks.AcquireTrack("probe-first", paths[1]))
+            {
+                Check(music.State.Playing, "Temporary track did not start.");
+                using (var nested = tracks.AcquireTrack("probe-nested", paths[0]))
+                {
+                    using (music.AcquirePriority("probe-cutscene")) Check(music.State.Paused, "Priority did not suspend temporary music.");
+                    Check(music.State.Playing, "Priority release did not resume temporary music.");
+                    first.Dispose();
+                    Check(music.State.Playing, "Out-of-order lease disposal interrupted the active track.");
+                }
+            }
+            Check(music.State.Paused && Math.Abs(Position() - basePosition) < .1, "Temporary music lost the paused base track or position.");
+        }
+        finally { music.Stop(); CoreApi.Configuration.Update(settings); }
     }
 
     private static async Task PreventedDeath(Player player)
@@ -211,7 +317,7 @@ public sealed class ReviewFixesCmd : AbstractConsoleCmd
 
     private static async Task Hover(Player player)
     {
-        var pile = ShinePileManager.GetShinePile(player);
+        var pile = CoreShineFixture.Pile(player);
         pile.Clear();
         var card = player.Creature.CombatState!.CreateCard<KarenRewrite>(player);
         foreach (var row in new[] { (0,0,1), (1,1,2), (2,3,4), (3,6,7) })
@@ -227,7 +333,7 @@ public sealed class ReviewFixesCmd : AbstractConsoleCmd
         }
         pile.Clear();
         for (int i = 0; i < 2; i++) pile.AddInternal(player.RunState.CreateCard(ModelDb.Card<KarenRewrite>(), player));
-        ShinePileManager.UpdateShineCardDisposedCount(player);
+        CoreShineFixture.Sync(player);
         await CardPileCmd.Add(card, PileType.Hand);
     }
 }

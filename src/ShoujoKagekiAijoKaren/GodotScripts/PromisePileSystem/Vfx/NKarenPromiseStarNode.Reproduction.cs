@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using Godot;
 using MegaCrit.Sts2.Core.Models;
 using ShoujoKagekiAijoKaren.src.Core.Audio;
@@ -21,7 +22,7 @@ public partial class NKarenPromiseStarNode
         public float ArrivesAt => StartedAt + Duration;
     }
 
-    private static readonly Texture2D? ContinuePortrait = KarenResourceLoader.LoadTexture(
+    private static readonly Texture2D? ContinuePortrait = CoreResources.LoadTexture(
         "res://images/packed/card_portraits/token/karen_continue.png", nameof(NKarenPromiseStarNode));
     private static readonly Color ReproductionGold = new("#ffe9b2");
     private static readonly Color ReproductionRed = new("#c73750");

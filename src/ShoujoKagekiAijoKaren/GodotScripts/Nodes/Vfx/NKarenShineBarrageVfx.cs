@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -26,7 +27,7 @@ public partial class NKarenShineBarrageVfx : Node2D
         _sparkRamp ??= new Gradient { Offsets = [0, .15f, .65f, 1],
             Colors = [Colors.Transparent, Colors.White, new(1, 1, 1, .8f), Colors.Transparent] };
         _sparkBlend ??= new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
-        _shader ??= KarenResourceLoader.Load<Shader>("res://shaders/karen_shine_barrage.gdshader", nameof(NKarenShineBarrageVfx));
+        _shader ??= CoreResources.Load<Shader>("res://shaders/karen_shine_barrage.gdshader", nameof(NKarenShineBarrageVfx));
         _sparkTexture ??= new GradientTexture2D { Width = 12, Height = 40,
             Fill = GradientTexture2D.FillEnum.Radial, FillFrom = new(.5f, .5f), FillTo = new(1, .5f),
             Gradient = new Gradient { Offsets = [0, .3f, 1], Colors = [Colors.White, new(1, 1, 1, .7f), Colors.Transparent] } };

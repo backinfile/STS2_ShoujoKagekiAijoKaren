@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using ShoujoKageki.Core.V1;
 using HarmonyLib;
@@ -17,6 +18,7 @@ public static class CombatBgmReplacementManager
     private static IMusicPlayback Music => CoreApi.Get<IMusicPlayback>();
     private const float FadeOutDuration = 0.35f;
 
+    private static IDisposable? _trackLease;
     private static AudioStreamPlayer? _currentPlayer;
     private static AudioStreamPlayer? _fadingPlayer;
     private static Tween? _fadeTween;
@@ -36,8 +38,8 @@ public static class CombatBgmReplacementManager
         if (CoreApi.Configuration.Current.EnableMusicPlayer)
         {
             RestoreGameMusicIfNeeded();
-            Music.SetFormPriority(false);
-            Music.ForceTrack($"res://ShoujoKagekiAijoKaren/audio/{fileName}");
+            _trackLease = CoreApi.Get<ITemporaryMusicPlayback>().AcquireTrack(nameof(CombatBgmReplacementManager), $"res://ShoujoKagekiAijoKaren/audio/{fileName}");
+            if (NCombatRoom.Instance is { } trackedRoom) { _owningRoom = trackedRoom; trackedRoom.TreeExiting += OnCombatRoomExiting; }
             return;
         }
         StopGameMusicEventOnly();
@@ -75,7 +77,7 @@ public static class CombatBgmReplacementManager
 
         _restoreRequestId++;
         _cutscenePriority = true;
-        StopImmediate();
+        if (_trackLease == null) StopImmediate();
         Music.SetFormPriority(true);
         StopGameMusicEventOnly();
         _needsGameMusicRestore = true;
@@ -125,6 +127,8 @@ public static class CombatBgmReplacementManager
     private static void StopAndRestoreGameMusic()
     {
         _cutscenePriority = false;
+        _trackLease?.Dispose(); _trackLease = null;
+        ReleaseCombatRoom();
         // Repeated combat-end hooks must not restore the native track halfway through a fade.
         if (GodotObject.IsInstanceValid(_fadingPlayer)) return;
         if (!GodotObject.IsInstanceValid(_currentPlayer))
@@ -163,6 +167,7 @@ public static class CombatBgmReplacementManager
 
     private static void StopImmediate()
     {
+        _trackLease?.Dispose(); _trackLease = null;
         ReleaseCombatRoom();
         _fadeTween?.Kill();
         _fadeTween = null;

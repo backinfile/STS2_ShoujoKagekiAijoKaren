@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup><TargetFramework>net9.0</TargetFramework><Nullable>enable</Nullable><AssemblyName>KarenStarProbe</AssemblyName></PropertyGroup>
+  <PropertyGroup><TargetFramework>net9.0</TargetFramework><Nullable>enable</Nullable><AssemblyName>KarenStarProbe</AssemblyName>  <UseCoreShineFixture>true</UseCoreShineFixture>
+  </PropertyGroup>
   <PropertyGroup><IntermediateOutputPath>obj/$(Variant)/$(Configuration)/</IntermediateOutputPath><OutputPath>bin/$(Variant)/$(Configuration)/</OutputPath></PropertyGroup>
   <PropertyGroup Condition="'$(Variant)' == 'Beta'"><DefineConstants>STS2_BETA</DefineConstants></PropertyGroup>
   <ItemGroup>

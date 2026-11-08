@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,7 @@ public partial class NKarenDreamVfx : Node2D
     {
         TopLevel = true; ZIndex = 50;
         _timeScale = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? .7f : 1;
-        KarenLightRibbon.PrepareResources();
+        LightRibbon.PrepareResources();
         Place(); _initialUnit = _unit;
         AddChild(_count);
         if (_delivery)
@@ -187,7 +188,7 @@ public partial class NKarenDreamVfx : Node2D
     private void Stream(Vector2 from, Vector2 to, float lift, float bend, float head, float length, Color tint, float alpha, float width)
     {
         _streamFrom = from; _streamTo = to; _streamLift = lift; _streamBend = bend;
-        KarenLightRibbon.Draw(this, _streamPath, head, length, width * _unit, tint, alpha);
+        LightRibbon.Draw(this, _streamPath, head, length, width * _unit, tint, alpha);
     }
     private void DrawPairedStory()
     {
@@ -202,11 +203,11 @@ public partial class NKarenDreamVfx : Node2D
                 var to = meeting + new Vector2(side * 5, 0) * _unit;
                 var tint = side < 0 ? Rose : Blue;
                 Stream(from, to, 32 * _unit, side * 20 * _unit, join + Mathf.SmoothStep(.44f, .62f, _age), .50f, tint, fade, 5f);
-                KarenLightRibbon.Star(this, StreamPoint(join), 20 * _unit * (1 - Mathf.SmoothStep(.72f, 1, join) * .8f), tint, fade);
+                LightRibbon.Star(this, StreamPoint(join), 20 * _unit * (1 - Mathf.SmoothStep(.72f, 1, join) * .8f), tint, fade);
                 for (int i = 0; i < 5; i++)
                 {
                     float q = .16f + i * .16f;
-                    KarenLightRibbon.Star(this, StreamPoint(q), (i % 2 == 0 ? 3.8f : 2.8f) * _unit, tint,
+                    LightRibbon.Star(this, StreamPoint(q), (i % 2 == 0 ? 3.8f : 2.8f) * _unit, tint,
                         fade * Mathf.SmoothStep(q * .20f, q * .20f + .08f, _age) * .65f);
                 }
             }
@@ -220,7 +221,7 @@ public partial class NKarenDreamVfx : Node2D
             var target = badge.GetGlobalTransformWithCanvas() * (badge.Size * .5f);
             float t = Mathf.SmoothStep(.52f, .72f, _age), alpha = 1 - Mathf.SmoothStep(.70f, .78f, _age);
             Stream(meeting, target, 20 * _unit, 0, t, .4f, Warm, alpha * .65f, 2.5f);
-            KarenLightRibbon.Star(this, StreamPoint(t), 8 * _unit, Warm, alpha);
+            LightRibbon.Star(this, StreamPoint(t), 8 * _unit, Warm, alpha);
             return;
         }
         if (_age < .52f) return;
@@ -233,11 +234,11 @@ public partial class NKarenDreamVfx : Node2D
             {
                 var tint = side < 0 ? Rose : Blue;
                 Stream(_origin, target, 18 * _unit, side * 75 * _unit, travel, .42f, tint, a * .85f, 2.8f);
-                KarenLightRibbon.Star(this, StreamPoint(travel), 8 * _unit, tint, a * .8f);
+                LightRibbon.Star(this, StreamPoint(travel), 8 * _unit, tint, a * .8f);
                 for (int i = 0; i < 4; i++)
                 {
                     float q = .22f + i * .18f;
-                    KarenLightRibbon.Star(this, StreamPoint(q), 2.8f * _unit, tint, a * .6f * Mathf.SmoothStep(q - .12f, q, travel));
+                    LightRibbon.Star(this, StreamPoint(q), 2.8f * _unit, tint, a * .6f * Mathf.SmoothStep(q - .12f, q, travel));
                 }
             }
             DeliveryStreamFrames++;

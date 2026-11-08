@@ -1,3 +1,4 @@
+using BaseLib.Patches.Content;
 using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.addons.mega_text;
@@ -30,26 +31,20 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 /// <summary>
 /// 约定牌堆管理器
 ///
-/// 设计说明：
-/// - 每个玩家拥有独立的约定牌堆（FIFO 链表）
-/// - 使用 SpireField 将数据附加到 Player 对象
-/// - 约定牌堆是"虚拟牌堆"，仅战斗中有效，不通过 PileType 枚举管理
-/// - 战斗开始和结束时自动清空
+/// BaseLib 为每个 PlayerCombatState 创建独立牌堆，并纳入原生 AllPiles 与状态跟踪。
 /// </summary>
 public static class PromisePileManager
 {
-    private static readonly SpireField<PlayerCombatState, CardPile> _promisePile
-        = new(() => new CardPile(KarenCustomEnum.PromisePile));
     private static readonly SpireField<PlayerCombatState, bool> _refilling = new(() => false);
 
     private static readonly Texture2D DrawPileIconInVoidMode = GD.Load<Texture2D>(ImageHelper.GetImagePath("ui/combat/karen_draw_pile_void.png"));
 
     /// <summary>获取玩家的约定牌堆链表</summary>
     public static CardPile GetPromisePile(Player player)
-        => _promisePile.Get(player.PlayerCombatState!)!;
+        => CustomPiles.GetCustomPile(player.PlayerCombatState, KarenCustomEnum.PromisePile)!;
 
     public static CardPile GetPromisePile(PlayerCombatState combatState)
-        => _promisePile.Get(combatState)!;
+        => CustomPiles.GetCustomPile(combatState, KarenCustomEnum.PromisePile)!;
 
     /// <summary>检查卡牌是否在约定牌堆中</summary>
     public static bool IsInPromisePile(CardModel card)
@@ -159,22 +154,6 @@ public static class PromisePileManager
         var pile = GetPromisePile(player!);
         int count = pile.Cards.Count;
         MainFile.Logger.Info($"[PromisePile] Promise pile count before clear: {count}");
-        if (count == 0)
-        {
-            MainFile.Logger.Info("[PromisePile] Pile is empty, skipping clear but still calling star ClearAll");
-            KarenPromiseVfxStarManager.ClearAll(player);
-            if (player.Creature?.GetPower<KarenPromisePilePower>() is { } emptyPower)
-            {
-                emptyPower.ExitMode(PromisePileMode.Burn);
-                emptyPower.ExitMode(PromisePileMode.PastAndFuture);
-                emptyPower.ClearPastAndFutureAmount();
-            }
-            KarenFormVfxManager.Stop(player);
-            KarenPastAndFutureRingVfxManager.Stop(player);
-            PastAndFuturePromisePileAudio.Clear(player);
-            return;
-        }
-
         while (pile.Cards.Count > 0)
         {
             var card = pile.Cards.First();
@@ -400,7 +379,7 @@ public static class PromisePileManager
             snapshot.AddInternal(card);
 
         var screen = NCardPileScreen.ShowScreen(snapshot, System.Array.Empty<string>());
-        ShoujoKagekiAijoKaren.src.Core.Nodes.NKarenPileViewVfx.Attach(screen, promise: true);
+        ShoujoKageki.Core.V1.CoreApi.Get<ShoujoKageki.Core.V1.Presentation.IPileViewEffects>().Attach(screen, promise: true);
 
         // 设置标题（注意：必须在设置 Text 后再设置 Visible，因为 NCardPileScreen._Ready 中 default 分支会设置 Visible = false）
         var bottomLabel = screen.GetNode<MegaRichTextLabel>("%BottomLabel");

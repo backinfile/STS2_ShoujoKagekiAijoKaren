@@ -6,6 +6,7 @@
     <Game>$(MSBuildThisFileDirectory)../../artifacts/dev-game/$(Variant)/game</Game>
     <KarenAssembly Condition="'$(KarenAssembly)' == ''">$(Game)/mods/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.$(Variant).dll</KarenAssembly>
     <DefineConstants Condition="'$(Variant)' == 'Beta'">STS2_BETA</DefineConstants>
+    <UseCoreShineFixture>true</UseCoreShineFixture>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony"><HintPath>$(Game)/data_sts2_windows_x86_64/0Harmony.dll</HintPath><Private>false</Private></Reference>

@@ -113,7 +113,7 @@ public static class ScarProbe
             shines = Cards.Select(c=>c.GetShineValue()).ToArray(),
             rewardPower = player.Creature.GetPowerAmount<KarenShineCardRewardPower>(),
             extraRewards = player.RunState.CurrentRoom is CombatRoom combat && combat.ExtraRewards.TryGetValue(player,out var rewards) ? rewards.Count : 0,
-            shinePile = ShinePileManager.GetShinePile(player).Cards.Count
+            shinePile = CoreShineFixture.Pile(player).Cards.Count
         };
     }
 }

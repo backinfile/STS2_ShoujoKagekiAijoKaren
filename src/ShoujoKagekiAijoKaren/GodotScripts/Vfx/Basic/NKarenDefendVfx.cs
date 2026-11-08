@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System;
 using ShoujoKagekiAijoKaren.Core;
 using Godot;
@@ -28,7 +29,7 @@ public partial class NKarenDefendVfx : Node2D
             .Expand(transform * new Vector2(0, bounds.Size.Y));
     }
     private static readonly Color Ivory = new(1,.96f,.85f);
-    private readonly KarenVfxCanvasBatch _geometry = new(256);
+    private readonly CanvasGeometryBatch _geometry = new(256);
     private NCombatRoom _room = null!;
     private NCreature _source = null!;
     private NCreature? _enemy;

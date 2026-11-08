@@ -24,7 +24,6 @@ public static class CardHoverTipsPatch
         ("KAREN_SHINE", card => !card.IsShineCard() && card.Tags.Contains(KarenCustomEnum.ShineRelated)),
         ("KAREN_PROMISE_PILE", card => card.Tags.Contains(KarenCustomEnum.PromisePileRelated)),
         ("KAREN_SHINE_CARD_REWARD", card => card.Tags.Contains(KarenCustomEnum.ShineCardReward)),
-        ("KAREN_SHINE_CARD_REWARD", card => card.Tags.Contains(KarenCustomEnum.ShineCardReward)),
         ("KAREN_TMP_STRENGTH", card => card.Tags.Contains(KarenCustomEnum.TmpStrength)),
         ("KAREN_RETAIN_TMP_STRENGTH", card => card.Tags.Contains(KarenCustomEnum.RetainTmpStrength)),
         ("KAREN_DISABLE_RELIC", card => card.Tags.Contains(KarenCustomEnum.DisableRelicRelated) || card is KarenDisableRelicBaseCardModel),

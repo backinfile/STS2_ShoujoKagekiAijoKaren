@@ -81,7 +81,7 @@ public static class BarrageProbe
     internal static void Watch(string? capture){SeenNodes.Clear();Watching=true;Capture=capture;Captured=false;}
     internal static string Status(Player player)=>JsonSerializer.Serialize(new{
         live=SeenNodes.Count(s=>Alive(s.Node)),childLive=SeenNodes.Sum(s=>s.Children.Count(Alive)),shine=Card?.GetShineValue(),pile=Card?.Pile?.Type.ToString(),
-        shineStock=ShinePileManager.GetShinePile(player).Cards.Count(c=>c is KarenShineStrikeBarrage),effects=SeenNodes.Select(s=>new{impact=s.Impact,index=s.Index,ownedChildren=s.Children.Length,frames=s.Frames,exited=s.Exited,final=s.Final,maxAnchorError=s.MaxAnchorError,particleFrames=s.ParticleFrames,maxBeyondSilhouette=s.MaxBeyondSilhouette})});
+        shineStock=CoreShineFixture.Pile(player).Cards.Count(c=>c is KarenShineStrikeBarrage),effects=SeenNodes.Select(s=>new{impact=s.Impact,index=s.Index,ownedChildren=s.Children.Length,frames=s.Frames,exited=s.Exited,final=s.Final,maxAnchorError=s.MaxAnchorError,particleFrames=s.ParticleFrames,maxBeyondSilhouette=s.MaxBeyondSilhouette})});
     internal static async Task Seed(Player player,string mode)
     {
         await CardPileCmd.RemoveFromCombat(PileType.Hand.GetPile(player).Cards.ToArray());

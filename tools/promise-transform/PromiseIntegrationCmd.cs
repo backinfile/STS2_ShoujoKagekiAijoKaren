@@ -130,7 +130,7 @@ internal sealed class IntegrationWatch : IDisposable
             promise = PromisePileManager.GetPromisePile(_player).Cards.Select(c => c.Id.Entry).ToArray(),
             draw = PileType.Draw.GetPile(_player).Cards.Select(c => c.Id.Entry).ToArray(),
             hand = PileType.Hand.GetPile(_player).Cards.Select(c => c.Id.Entry).ToArray(),
-            shine = ShinePileManager.GetShinePile(_player).Cards.Select(c => c.Id.Entry).ToArray(),
+            shine = CoreShineFixture.Pile(_player).Cards.Select(c => c.Id.Entry).ToArray(),
             discard = PileType.Discard.GetPile(_player).Cards.Select(c => c.Id.Entry).ToArray()
         };
     }

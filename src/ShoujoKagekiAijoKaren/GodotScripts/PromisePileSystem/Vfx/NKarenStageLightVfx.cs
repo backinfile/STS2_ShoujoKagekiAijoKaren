@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -166,7 +167,7 @@ public partial class NKarenStageLightVfx : Node2D
 
     private static Texture2D? LoadTexture(string path)
     {
-        return KarenResourceLoader.LoadTexture(path, nameof(NKarenStageLightVfx));
+        return CoreResources.LoadTexture(path, nameof(NKarenStageLightVfx));
     }
 
     private void AddFocusOverlay()

@@ -31,10 +31,10 @@
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenWakeUpCardVfx",
   "ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx.NDisableRelicAbsorbVfx",
   "ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx.NDisableRelicStarBurstVfx",
-  "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenLightRibbon",
+  "ShoujoKageki.Core.V1.Presentation.LightRibbon",
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenNononVfx",
   "ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx.NKarenPastAndFutureRingVfx",
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenTwinStarsVfx",
-  "ShoujoKagekiAijoKaren.src.Core.Vfx.KarenVfxCanvasBatch",
+  "ShoujoKageki.Core.V1.Presentation.CanvasGeometryBatch",
   "ShoujoKagekiAijoKaren.src.Core.Vfx.NKarenBasicCardVfx"
 ]

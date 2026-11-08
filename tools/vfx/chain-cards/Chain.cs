@@ -31,16 +31,16 @@ internal static class ChainMetrics
     {
         MaxPulses=MaxGpu=0;Stars.Clear();Source=null;
         // Depleted cards persist across debug fights; reset only this isolated fixture's inventory.
-        var depletedPile=ShinePileManager.GetShinePile(p);
+        var depletedPile=CoreShineFixture.Pile(p);
         foreach(var old in depletedPile.Cards.ToArray())depletedPile.RemoveInternal(old);
-        ShinePileManager.UpdateShineCardDisposedCount(p);
+        CoreShineFixture.Sync(p);
         string id=card.Id.Entry;
         if(id=="KAREN_REWRITE")
             for(int i=0;i<(mode=="stress"?4:3);i++)
             {
                 var depleted=New(p,id);
                 await CardPileCmd.AddGeneratedCardToCombat(depleted,PileType.Discard,p);
-                await ShinePileManager.MoveToShinePile(depleted,new ThrowingPlayerChoiceContext());
+                await CoreShineFixture.Deplete(depleted,new ThrowingPlayerChoiceContext());
             }
         if(id is "KAREN_BRIDGE" or "KAREN_GEER")
             await Add(p,"KAREN_STRIKE",KarenCustomEnum.PromisePile,id=="KAREN_BRIDGE"?3:2);
@@ -73,8 +73,8 @@ internal static class ChainMetrics
     internal static object Status(Player p)=>new{
         plays=CombatManager.Instance.History.CardPlaysStarted.Skip(HistoryStart).Select(e=>new{id=e.CardPlay.Card.Id.Entry,index=e.CardPlay.PlayIndex,count=e.CardPlay.PlayCount}).ToArray(),
         maxPulses=MaxPulses,maxGpu=MaxGpu,stars=Stars.Values,
-        shinePile=ShinePileManager.GetShinePile(p).Cards.Select(c=>c.Id.Entry).ToArray(),
-        sourceDepleted=Source!=null && Source.Pile==null && ShinePileManager.GetShinePile(p).Cards.Any(c=>c.Id==Source.Id),
+        shinePile=CoreShineFixture.Pile(p).Cards.Select(c=>c.Id.Entry).ToArray(),
+        sourceDepleted=Source!=null && Source.Pile==null && CoreShineFixture.Pile(p).Cards.Any(c=>c.Id==Source.Id),
         extraRewards=p.RunState.CurrentRoom is CombatRoom c && c.ExtraRewards.TryGetValue(p,out var rewards)?rewards.Count:0,
         starBackLive=NCombatRoom.Instance?.BackCombatVfxContainer.GetChildren().Count(n=>n.Name.ToString()=="KarenStarBackLight")??0,
         playPile=PileType.Play.GetPile(p).Cards.Count,draw=PileType.Draw.GetPile(p).Cards.Count,

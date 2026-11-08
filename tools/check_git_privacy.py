@@ -38,7 +38,7 @@ def git(*args):
 
 def private_email(value):
     value = value.lower()
-    return not (value.endswith((b'@users.noreply.github.com', b'.invalid', b'@example.com', b'@example.org', b'@example.net')))
+    return not (value.endswith((b'@users.noreply.github.com', b'.invalid', b'.example', b'@example.com', b'@example.org', b'@example.net')))
 
 
 def check_identity(issues):

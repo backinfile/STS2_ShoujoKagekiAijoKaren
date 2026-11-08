@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System;
 using Godot;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
@@ -8,7 +9,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 public partial class NKarenPromiseStarNode
 {
     private static Texture2D? _towerTexture;
-    private readonly KarenVfxCanvasBatch _towerLights = new();
+    private readonly CanvasGeometryBatch _towerLights = new();
     private const float PaintedScale = 0.3475f;
     private static readonly Vector2 PaintedTipPixel = new(516, 19);
     private static readonly Vector2 PaintedSourcePixel = new(516, 718);

@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -80,7 +81,7 @@ public partial class NKarenStarVfx : Node2D
     {
         TopLevel = true; ZIndex = 30;
         _timeScale = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? .7f : 1;
-        KarenLightRibbon.PrepareResources();
+        LightRibbon.PrepareResources();
         Place(); KarenVfxQuality.Redraw(this);
     }
     private void Place()
@@ -150,7 +151,7 @@ public partial class NKarenStarVfx : Node2D
     private void Stream(Vector2 from, Vector2 to, float lift, float head, float length, Color color, float alpha, float width = 3)
     {
         _streamFrom = from; _streamTo = to; _streamLift = lift;
-        KarenLightRibbon.Draw(this, _streamPath, head, length, width * _unit, color, alpha);
+        LightRibbon.Draw(this, _streamPath, head, length, width * _unit, color, alpha);
     }
     public override void _Draw()
     {
@@ -166,7 +167,7 @@ public partial class NKarenStarVfx : Node2D
                     var to = Slot(.5f) + new Vector2(side * 3, 0) * _unit;
                     var tint = side < 0 ? Rose : Blue;
                     Stream(from, to, 26 * _unit, t + Smooth((_age - .36f) / .19f), .42f, tint, alpha * fade * .8f, 3.4f);
-                    KarenLightRibbon.Star(this, Flight(from, to, t, 26 * _unit), 11 * _unit * (1 - Smooth((t - .7f) / .3f) * .8f), tint, alpha * fade);
+                    LightRibbon.Star(this, Flight(from, to, t, 26 * _unit), 11 * _unit * (1 - Smooth((t - .7f) / .3f) * .8f), tint, alpha * fade);
                 }
                 GatherFrames++;
             }
@@ -180,7 +181,7 @@ public partial class NKarenStarVfx : Node2D
                 float spent = Mathf.Clamp((_played - i * (_count / (float)slots)) / (_count / (float)slots), 0, 1);
                 float pulse = PulseAtSlot(i, slots);
                 float radius = (9 + 2 * MathF.Sin(t * MathF.PI)) * _unit * Mathf.Lerp(1 - spent * .22f, 1, pulse);
-                KarenLightRibbon.Star(this, Slot(t), radius, Gold.Lerp(Hot, pulse),
+                LightRibbon.Star(this, Slot(t), radius, Gold.Lerp(Hot, pulse),
                     alpha * reveal * Mathf.Lerp(1 - spent * .78f, 1, pulse));
                 if (pulse > 0)
                 {
@@ -209,12 +210,12 @@ public partial class NKarenStarVfx : Node2D
         {
             float t = Smooth(elapsed / .32f);
             Stream(_crest, target, 24 * _unit, t, .45f, Gold, alpha * rewardAlpha, 3.3f);
-            KarenLightRibbon.Star(this, Flight(_crest, target, t, 24 * _unit), 10 * _unit, Hot, alpha * rewardAlpha);
+            LightRibbon.Star(this, Flight(_crest, target, t, 24 * _unit), 10 * _unit, Hot, alpha * rewardAlpha);
             for (int i = 0; i < 20; i += KarenVfxQuality.ParticleStride)
             {
                 float q = Mathf.Clamp((elapsed - i * .004f) / .42f, 0, 1);
                 var v = new Vector2(MathF.Sin(i * 2.4f) * (18 + i), -20 - i * 2) * q * _unit;
-                KarenLightRibbon.Star(this, _crest + v, (1.4f + i % 3) * _unit, Gold, alpha * MathF.Sin(q * MathF.PI) * .5f);
+                LightRibbon.Star(this, _crest + v, (1.4f + i % 3) * _unit, Gold, alpha * MathF.Sin(q * MathF.PI) * .5f);
             }
             RewardStoryFrames++;
         }

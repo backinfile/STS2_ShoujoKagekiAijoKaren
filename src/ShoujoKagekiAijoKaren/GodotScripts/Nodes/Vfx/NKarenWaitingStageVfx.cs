@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -159,12 +160,12 @@ public partial class NKarenWaitingStageVfx : Node2D
         PrepareResources();
         AddChild(_hud); _hud.Hide();
         _hud.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
-        _ringMaterial = new ShaderMaterial { Shader = KarenResourceLoader.Load<Shader>(
+        _ringMaterial = new ShaderMaterial { Shader = CoreResources.Load<Shader>(
             "res://shaders/karen_waiting_energy_orbit.gdshader", nameof(NKarenWaitingStageVfx)) };
         _ring.Material = _ringMaterial; _hud.AddChild(_ring);
         _ringMaterial.SetShaderParameter("core_color", CoreWhite);
         _ringMaterial.SetShaderParameter("seed_count", Math.Max(1, _formationCount));
-        _seedShader = KarenResourceLoader.Load<Shader>("res://shaders/karen_waiting_light_seed.gdshader", nameof(NKarenWaitingStageVfx));
+        _seedShader = CoreResources.Load<Shader>("res://shaders/karen_waiting_light_seed.gdshader", nameof(NKarenWaitingStageVfx));
         SyncLights();
         _hud.Draw += DrawDeliveries;
         for (int i = 0; i < 24; i++)

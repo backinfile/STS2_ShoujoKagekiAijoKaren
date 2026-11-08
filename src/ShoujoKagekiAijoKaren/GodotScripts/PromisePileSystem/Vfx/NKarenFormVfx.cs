@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Helpers;
@@ -120,7 +121,7 @@ public partial class NKarenFormVfx : Node2D
 
     private static Texture2D? LoadTexture(string path)
     {
-        return KarenResourceLoader.LoadTexture(path, nameof(NKarenFormVfx));
+        return CoreResources.LoadTexture(path, nameof(NKarenFormVfx));
     }
 }
 

@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using Godot;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -16,9 +17,9 @@ public partial class NKarenBurnCardVfx : Node2D
     }
     internal static Godot.Resource?[] PreparedResources => [SparkTexture, AuraTexture, NKarenBurnCardParticleLayer.SharedMaterial];
 
-    private static readonly Texture2D? SparkTexture = KarenResourceLoader.LoadTexture(
+    private static readonly Texture2D? SparkTexture = CoreResources.LoadTexture(
         "res://images/vfx/sts/glow_spark.png", nameof(NKarenBurnCardVfx));
-    private static readonly Texture2D? AuraTexture = KarenResourceLoader.LoadTexture(
+    private static readonly Texture2D? AuraTexture = CoreResources.LoadTexture(
         "res://images/vfx/sts/exhaust_l.png", nameof(NKarenBurnCardVfx));
     private readonly NCard _card;
     private readonly CardModel _model;

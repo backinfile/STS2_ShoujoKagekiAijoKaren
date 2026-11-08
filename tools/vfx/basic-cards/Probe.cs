@@ -109,7 +109,7 @@ public sealed class BasicCardsCmd : AbstractConsoleCmd
                     poseActive=room.GetCreatureNode(player.Creature)?.Visuals is SNCreatureVisuals actor && actor.IsGuardPoseActive,
                     cueDeltaMs=BasicCardsProbe.EffectAt==0 || BasicCardsProbe.BlockAt==0 ? (double?)null : ((long)BasicCardsProbe.EffectAt-(long)BasicCardsProbe.BlockAt)/1000.0,
                     spawned = BasicCardsProbe.Spawned, exited = BasicCardsProbe.Exited, draws = BasicCardsProbe.Draws,
-                    shine = BasicCardsProbe.Card?.GetShineValue(), shinePile = ShinePileManager.GetShinePileCount(player), pile = BasicCardsProbe.Card?.Pile?.Type.ToString(),
+                    shine = BasicCardsProbe.Card?.GetShineValue(), shinePile = CoreShineFixture.Count(player), pile = BasicCardsProbe.Card?.Pile?.Type.ToString(),
                     drawn = Engine.GetFramesDrawn(), quality = KarenModConfig.VfxLevel.ToString(), speed = SaveManager.Instance.PrefsSave.FastMode.ToString() }));
             default: return new(false, Args);
         }

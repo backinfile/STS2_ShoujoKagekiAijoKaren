@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -81,7 +82,7 @@ public partial class NKarenNononVfx : Node2D
         ZIndex = 10;
         Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         CaptureGeometry();
-        var shader = KarenResourceLoader.Load<Shader>("res://shaders/nonon_edge.gdshader", nameof(NKarenNononVfx));
+        var shader = CoreResources.Load<Shader>("res://shaders/nonon_edge.gdshader", nameof(NKarenNononVfx));
         if (shader != null && KarenVfxQuality.Level != KarenVfxLevel.Low) _edgeLayer.Material = _edgeMaterial = new ShaderMaterial { Shader = shader };
         else _edgeLayer.Material = Material;
         _edgeLayer.Draw += DrawSwordEdges;

@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -260,7 +261,7 @@ public partial class NKarenPositionZeroVfx : Node2D
         }
     }
 
-    private readonly KarenVfxCanvasBatch _coneBatch = new(128);
+    private readonly CanvasGeometryBatch _coneBatch = new(128);
     private void Cone(Vector2 source, Vector2 target, float spread, Color color, float alpha)
     {
         if (alpha <= .001f) return;

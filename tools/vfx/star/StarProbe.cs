@@ -74,8 +74,8 @@ public static class StarProbe
     }
     public static object Status(Player p) => new {
         plays = Plays.ToArray(), sourcePile = _shine?.Pile?.Type.ToString(),
-        shineCount = ShinePileManager.GetShinePile(p).Cards.Count,
-        sourceDepleted = _shine != null && _shine.Pile == null && ShinePileManager.GetShinePile(p).Cards.Any(c => c.Id == _shine.Id),
+        shineCount = CoreShineFixture.Pile(p).Cards.Count,
+        sourceDepleted = _shine != null && _shine.Pile == null && CoreShineFixture.Pile(p).Cards.Any(c => c.Id == _shine.Id),
         extraRewards = p.RunState.CurrentRoom is CombatRoom c && c.ExtraRewards.TryGetValue(p, out var r) ? r.Count : 0,
         hp = p.Creature.CombatState?.Enemies.Select(e => e.CurrentHp).ToArray(),
         playPileCount = PileType.Play.GetPile(p).Cards.Count,

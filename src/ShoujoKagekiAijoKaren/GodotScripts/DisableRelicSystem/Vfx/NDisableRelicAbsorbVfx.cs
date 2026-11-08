@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -30,7 +31,7 @@ public partial class NDisableRelicAbsorbVfx : Node2D
     private const int StarCount = 6;
     private const float ScatterDuration = 0.22f;
     private const float FlyDuration = 0.78f;
-    private static readonly Texture2D? StarTexture = KarenResourceLoader.LoadTexture("res://images/packed/vfx/star_guide/star.png", nameof(NDisableRelicAbsorbVfx));
+    private static readonly Texture2D? StarTexture = CoreResources.LoadTexture("res://images/packed/vfx/star_guide/star.png", nameof(NDisableRelicAbsorbVfx));
 
     private readonly List<NDisableRelicAbsorbStar> _stars = new();
     private readonly NCombatRoom _room;

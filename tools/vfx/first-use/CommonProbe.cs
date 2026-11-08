@@ -22,13 +22,16 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 using ShoujoKagekiAijoKaren.src.Core.ShineSystem;
-using ShoujoKagekiAijoKaren.src.Core.ShineSystem.Nodes;
+using ShoujoKageki.Core.V1;
 using ShoujoKagekiAijoKaren.src.KarenMod.ShineSystem;
 
 [ModInitializer(nameof(Initialize))]
 public static class CommonProbe
 {
     public static string Result = "idle";
+    private static System.Reflection.Assembly RuntimeAssembly => CoreApi.Get<IShineService>().GetType().Assembly;
+    private static Type ShineType => RuntimeAssembly.GetType("ShoujoKageki.Core.Runtime.Modules.Presentation.ShineVfx", true)!;
+    private static Type AmbientType => RuntimeAssembly.GetType("ShoujoKageki.Core.Runtime.Modules.Presentation.NKarenShineAmbientVfx", true)!;
     private static bool HoldShine, Measuring;
     private static int PreparedContours;
     private static CardModel? Card;
@@ -40,10 +43,10 @@ public static class CommonProbe
         if (effect is not ("shine" or "promise")) return;
         HoldShine = effect == "shine";
         var h = new Harmony("karen.common-first-use.probe");
-        h.Patch(AccessTools.Method(typeof(ShineVfx),"Refresh"),prefix:new HarmonyMethod(typeof(CommonProbe),nameof(AllowShine)));
-        var border=typeof(ShineVfx).Assembly.GetType("ShoujoKagekiAijoKaren.src.Core.ShineSystem.ShineCardBorder")!;
+        h.Patch(AccessTools.Method(ShineType,"Refresh"),prefix:new HarmonyMethod(typeof(CommonProbe),nameof(AllowShine)));
+        var border=RuntimeAssembly.GetType("ShoujoKageki.Core.Runtime.Modules.Presentation.ShineCardBorder")!;
         foreach(var method in new[]{AccessTools.Method(border,"ReadContour"),
-            AccessTools.Method(typeof(NKarenShineAmbientVfx),"_Ready"),
+            AccessTools.Method(AmbientType,"_Ready"),
             AccessTools.Method(typeof(NKarenPromiseCardEntryVfx),"_Ready"),
             AccessTools.Method(typeof(KarenPromiseVfxStarManager),"GuideIntoOrbit")})
             h.Patch(method,prefix:new HarmonyMethod(typeof(CommonProbe),nameof(Before)),postfix:new HarmonyMethod(typeof(CommonProbe),nameof(After)));
@@ -85,7 +88,7 @@ public static class CommonProbe
                     var atlas=texture as AtlasTexture;
                     frameInfo=new{path=texture.ResourcePath,size=new[]{texture.GetWidth(),texture.GetHeight()},atlas=atlas?.Atlas.ResourcePath,
                         atlasSize=atlas==null?null:new[]{atlas.Atlas.GetWidth(),atlas.Atlas.GetHeight()},region=atlas?.Region.ToString()};
-                    var border=typeof(ShineVfx).Assembly.GetType("ShoujoKagekiAijoKaren.src.Core.ShineSystem.ShineCardBorder")!;
+                    var border=RuntimeAssembly.GetType("ShoujoKageki.Core.Runtime.Modules.Presentation.ShineCardBorder")!;
                     string mode=System.Environment.GetEnvironmentVariable("KAREN_VFX_PROBE_MODE")??"cold";
                     if(mode=="preload")
                     {
@@ -95,14 +98,14 @@ public static class CommonProbe
                     if(mode=="draw")
                     {
                         HoldShine=false;view.UpdateVisuals(PileType.Hand,CardPreviewMode.Normal);await Wait(1.2);
-                        HoldShine=true;AccessTools.Method(typeof(ShineVfx),"Clear").Invoke(null,new object[]{view});await Wait(.3);
+                        HoldShine=true;AccessTools.Method(ShineType,"Clear").Invoke(null,new object[]{view});await Wait(.3);
                     }
                 }
                 Result=JsonSerializer.Serialize(new{status="prepared",card=Card.Id.Entry,frame=frameInfo});return;
             }
             if(operation=="dump")
             {
-                var border=typeof(ShineVfx).Assembly.GetType("ShoujoKagekiAijoKaren.src.Core.ShineSystem.ShineCardBorder")!;
+                var border=RuntimeAssembly.GetType("ShoujoKageki.Core.Runtime.Modules.Presentation.ShineCardBorder")!;
                 var frames=new List<object>();
                 foreach(string kind in new[]{"attack","skill","power","quest","ancient"})
                 {
@@ -123,7 +126,7 @@ public static class CommonProbe
                 if(effect=="shine")
                 {
                     HoldShine=true;
-                    AccessTools.Method(typeof(ShineVfx),"Clear").Invoke(null,new object[]{NCard.FindOnTable(Card!)!});
+                    AccessTools.Method(ShineType,"Clear").Invoke(null,new object[]{NCard.FindOnTable(Card!)!});
                 }
                 else await PromisePileManager.DrawFromPromisePileAsync(new ThrowingPlayerChoiceContext(),player);
                 await Wait(.6);Result=JsonSerializer.Serialize(new{status="reset"});return;
@@ -148,8 +151,8 @@ public static class CommonProbe
             int outlinePoints=0;
             if(effect=="shine")
             {
-                var ambient=NCard.FindOnTable(Card!)!.OverlayContainer.GetChildren().OfType<NKarenShineAmbientVfx>().Single();
-                var border=AccessTools.Field(typeof(NKarenShineAmbientVfx),"_border").GetValue(ambient);
+                var ambient=NCard.FindOnTable(Card!)!.OverlayContainer.GetChildren().OfType<CanvasItem>().Single(node => AmbientType.IsInstanceOfType(node));
+                var border=AccessTools.Field(AmbientType,"_border").GetValue(ambient);
                 outlinePoints=((Vector2[])AccessTools.Property(border!.GetType(),"Outline").GetValue(border)!).Length;
                 if(!ambient.IsVisibleInTree()||!ambient.Visible||outlinePoints<4)throw new Exception("Visible Shine border missing");
             }

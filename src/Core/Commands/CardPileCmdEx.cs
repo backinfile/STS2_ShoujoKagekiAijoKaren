@@ -29,30 +29,19 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
         /// <param name="count">选择数量</param>
         /// <param name="beforeMove">选择完成后的同步表现回调，不增加选牌等待。</param>
         /// <returns></returns>
-        public static async Task SelectFromDrawPileToHand(PlayerChoiceContext ctx, Player player, int count,
+        public static Task SelectFromDrawPileToHand(PlayerChoiceContext ctx, Player player, int count,
             Action<IEnumerable<CardModel>>? beforeMove = null)
-        {
-            var pile = PileType.Draw.GetPile(player);
-            var selectFrom = (from c in pile.Cards orderby c.Rarity, c.Id select c).ToList();
-            var selected = (await CardSelectCmd.FromSimpleGrid(ctx, selectFrom, player, new CardSelectorPrefs(Tips.SelectFromDrawToHand, count))).ToList();
-            beforeMove?.Invoke(selected);
-            await CardPileCmd.Add(selected, PileType.Hand);
-        }
+            => SelectToHand(ctx, player, PileType.Draw, Tips.SelectFromDrawToHand, count, beforeMove);
 
-        /// <summary>
-        /// 从弃牌堆选择卡牌放入手牌
-        /// </summary>
-        /// <param name="ctx">玩家选择上下文</param>
-        /// <param name="player">玩家</param>
-        /// <param name="count">选择数量</param>
-        /// <param name="beforeMove">选择完成后的同步表现回调，不增加选牌等待。</param>
-        /// <returns></returns>
-        public static async Task SelectFromDiscardPileToHand(PlayerChoiceContext ctx, Player player, int count,
+        public static Task SelectFromDiscardPileToHand(PlayerChoiceContext ctx, Player player, int count,
             Action<IEnumerable<CardModel>>? beforeMove = null)
+            => SelectToHand(ctx, player, PileType.Discard, Tips.SelectFromDiscardToHand, count, beforeMove);
+
+        private static async Task SelectToHand(PlayerChoiceContext ctx, Player player, PileType type,
+            LocString prompt, int count, Action<IEnumerable<CardModel>>? beforeMove)
         {
-            var pile = PileType.Discard.GetPile(player);
-            var selectFrom = (from c in pile.Cards orderby c.Rarity, c.Id select c).ToList();
-            var selected = (await CardSelectCmd.FromSimpleGrid(ctx, selectFrom, player, new CardSelectorPrefs(Tips.SelectFromDiscardToHand, count))).ToList();
+            var candidates = type.GetPile(player).Cards.OrderBy(card => card.Rarity).ThenBy(card => card.Id).ToArray();
+            var selected = (await CardSelectCmd.FromSimpleGrid(ctx, candidates, player, new CardSelectorPrefs(prompt, count))).ToArray();
             beforeMove?.Invoke(selected);
             await CardPileCmd.Add(selected, PileType.Hand);
         }

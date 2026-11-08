@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -15,7 +16,7 @@ public partial class NKarenGeerVfx : Node2D
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
-        _gearTexture ??= KarenResourceLoader.LoadTexture("res://images/vfx/geer/steel-gear.png", nameof(NKarenGeerVfx));
+        _gearTexture ??= CoreResources.LoadTexture("res://images/vfx/geer/steel-gear.png", nameof(NKarenGeerVfx));
     }
     internal static Godot.Resource?[] PreparedResources => [_gearTexture];
 

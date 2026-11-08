@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ public partial class NKarenArrogantVfx : Node2D
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
-        _clasp ??= KarenResourceLoader.LoadTexture("res://images/vfx/arrogant/gold-clasp.png", nameof(NKarenArrogantVfx));
+        _clasp ??= CoreResources.LoadTexture("res://images/vfx/arrogant/gold-clasp.png", nameof(NKarenArrogantVfx));
         _soft ??= new GradientTexture2D { Width = 96, Height = 96, Fill = GradientTexture2D.FillEnum.Radial,
             FillFrom = new(.5f, .5f), FillTo = new(1, .5f), Gradient = new Gradient {
                 Offsets = [0, .25f, .6f, 1], Colors = [Colors.White, new(1, 1, 1, .6f), new(1, 1, 1, .12f), Colors.Transparent] } };

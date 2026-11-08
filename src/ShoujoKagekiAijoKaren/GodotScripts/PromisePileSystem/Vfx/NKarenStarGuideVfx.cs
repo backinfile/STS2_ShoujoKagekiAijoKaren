@@ -1,3 +1,4 @@
+using ShoujoKageki.Core.V1.Presentation;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -125,7 +126,7 @@ internal partial class NKarenGoldBorderFlash : Control
     private const float FadeInDuration = .12f;
 
     private static readonly Texture2D? BorderGlowTexture =
-        KarenResourceLoader.LoadTexture("res://images/packed/vfx/star_guide/border_glow_2.png", nameof(NKarenGoldBorderFlash));
+        CoreResources.LoadTexture("res://images/packed/vfx/star_guide/border_glow_2.png", nameof(NKarenGoldBorderFlash));
 
     /// <summary>边框闪光生命周期。</summary>
     private readonly float _durationMax;
