@@ -14,7 +14,9 @@ using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Timeline;
-using ShoujoKagekiAijoKaren;
+using BaseLib.Config;
+using BaseLib.Config.UI;
+using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 public sealed class UnlockSmokeCmd : AbstractConsoleCmd {
  public override string CmdName=>"karen_unlock_smoke";public override string Args=>"apply|verify";public override string Description=>"Isolated profile unlock checks";public override bool IsNetworked=>false;
  static IEnumerable<Node> Walk(Node n){foreach(var c in n.GetChildren()){yield return c;foreach(var x in Walk(c))yield return x;}}
@@ -28,12 +30,12 @@ public sealed class UnlockSmokeCmd : AbstractConsoleCmd {
   var beforeCards=progress.DiscoveredCards.ToArray();
   if(applying){
    save.SaveProgressFile();string before=File.ReadAllText(path);
-   var container=new VBoxContainer();NGame.Instance!.AddChild(container);new KarenModConfig().SetupConfigUI(container);
-   var buttons=Walk(container).OfType<KarenConfigImageButton>().ToArray();Check(buttons.Length==3,"unlock button present alongside export buttons");
-   typeof(KarenConfigImageButton).GetMethod("OnRelease",BindingFlags.Instance|BindingFlags.NonPublic)!.Invoke(buttons.Last(),null);
-   Check(Directory.GetFiles(Path.GetDirectoryName(path)!,"progress.save.karen-unlock-*.backup").Any(f=>File.ReadAllText(f)==before),"exact pre-unlock backup");
+   var container=new VBoxContainer();NGame.Instance!.AddChild(container);ModConfigRegistry.Get("ShoujoKagekiAijoCore")!.SetupConfigUI(container);
+   var row=Walk(container).OfType<NConfigOptionRow>().Single(n=>n.Name=="UnlockAllButton");
+   var button=(NConfigButton)row.SettingControl;button.EmitSignal(NClickableControl.SignalName.Released,button);
+   Check(Directory.GetFiles(Path.GetDirectoryName(path)!,"progress.save.core-unlock-*.backup").Any(f=>File.ReadAllText(f)==before),"exact pre-unlock backup");
    var dialog=Walk(NGame.Instance).OfType<AcceptDialog>().LastOrDefault();Check(dialog!=null&&!dialog.DialogText.Contains("失败"),"button reports success");dialog!.QueueFree();container.QueueFree();
-   string first=File.ReadAllText(path);KarenUnlockAll.Apply();Check(File.ReadAllText(path)==first,"repeat operation is idempotent");
+   string first=File.ReadAllText(path);AppDomain.CurrentDomain.GetAssemblies().Select(a=>a.GetType("ShoujoKageki.Core.Runtime.Modules.Configuration.CoreUnlockAll")).First(t=>t!=null)!.GetMethod("Apply")!.Invoke(null,null);Check(File.ReadAllText(path)==first,"repeat operation is idempotent");
    Check(progress.Wins==wins&&progress.Losses==losses&&progress.TotalPlaytime==playtime,"statistics preserved");
    Check(JsonSerializer.Serialize(progress.UnlockedAchievements)==achievements,"achievements unchanged");
    Check(beforeCards.All(progress.DiscoveredCards.Contains),"prior discoveries retained");
@@ -43,9 +45,9 @@ public sealed class UnlockSmokeCmd : AbstractConsoleCmd {
   Check(ModelDb.AllPotions.All(c=>progress.DiscoveredPotions.Contains(c.Id)),"all potions discovered");
   Check(EpochModel.AllEpochIds.All(id=>progress.Epochs.Any(e=>e.Id==id&&e.State==EpochState.Revealed)),"all epochs revealed");
   Check(ModelDb.AllCharacters.All(c=>save.GenerateUnlockStateFromProgress().Characters.Contains(c)),"all characters available");
-  Check(ModelDb.AllCharacters.All(c=>progress.GetOrCreateCharacterStats(c.Id).MaxAscension>=AscensionManager.maxAscensionAllowed),"all character ascensions including Karen");
+  Check(ModelDb.AllCharacters.All(c=>progress.GetOrCreateCharacterStats(c.Id).MaxAscension>=AscensionManager.maxAscensionAllowed),"all loaded character ascensions");
   Check(progress.MaxMultiplayerAscension>=AscensionManager.maxAscensionAllowed,"multiplayer ascension available");
-  return new(true,JsonSerializer.Serialize(new{passed=true,applying,cards=progress.DiscoveredCards.Count,relics=progress.DiscoveredRelics.Count,potions=progress.DiscoveredPotions.Count,characters=ModelDb.AllCharacters.Count(),backups=Directory.GetFiles(Path.GetDirectoryName(path)!,"progress.save.karen-unlock-*.backup").Length}));
+  return new(true,JsonSerializer.Serialize(new{passed=true,applying,cards=progress.DiscoveredCards.Count,relics=progress.DiscoveredRelics.Count,potions=progress.DiscoveredPotions.Count,characters=ModelDb.AllCharacters.Count(),backups=Directory.GetFiles(Path.GetDirectoryName(path)!,"progress.save.core-unlock-*.backup").Length}));
  }catch(Exception e){return new(false,e.ToString());}}
 }
 

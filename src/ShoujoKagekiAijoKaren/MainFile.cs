@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using BaseLib.Config;
 using Godot.Bridge;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
@@ -25,7 +24,10 @@ public static class MainFile
 
         ScriptManagerBridge.LookupScriptsInAssembly(assembly);
 
-        ModConfigRegistry.Register(ModId, new KarenModConfig());
+        ShoujoKageki.Core.V1.CoreApi.Configuration.Changed += (previous, current) =>
+        {
+            if (previous.VfxLevel != current.VfxLevel) src.Core.Vfx.KarenVfxQuality.ApplyLevel();
+        };
         ShoujoKageki.Core.V1.CoreApi.Get<ShoujoKageki.Core.V1.IMusicPlayback>().Changed += _ =>
             src.Core.Audio.KarenAudioManager.UpdateMusicVolume(MegaCrit.Sts2.Core.Saves.SaveManager.Instance?.SettingsSave?.VolumeBgm ?? 1f);
 

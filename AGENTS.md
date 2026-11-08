@@ -43,7 +43,7 @@
 初始化流程主要包括：
 
 1. 读取当前程序集，并调用 `ScriptManagerBridge.LookupScriptsInAssembly(assembly)`。
-2. 通过 `ModConfigRegistry.Register(ModId, new KarenModConfig())` 注册配置。
+2. 使用 Core 的公共配置；特效等级变化时即时刷新 Karen 表现。一键解锁全部由 Core 设置页提供。
 3. 接入 Core 音乐仲裁，创建 `Harmony` 实例并注册角色补丁。公共闪耀、保存、采集、标签、启动画面和播放器由 Core 初始化。
 
 `src/ShoujoKagekiAijoKaren/MainFile.cs` 中的 `ModelDbAllCharactersPatch` 会给 `ModelDb.AllCharacters` 做 `Postfix`，把 `ModelDb.Character<Karen>()` 插入角色列表，并清空 `ModelDb` 内部的 `_allCharacterCardPools` 和 `_allCards` 缓存，确保角色和卡池缓存重新生成。
