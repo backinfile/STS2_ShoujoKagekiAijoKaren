@@ -53,9 +53,8 @@ public sealed class KarenShinePotion : KarenBasePotion
         selected.SetToFreeThisTurn();
         await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, Owner);
 
-        var deckCopy = selected.CloneSafeForDeck();
-        selected.DeckVersion = deckCopy;
-        var deckResult = await CardPileCmd.Add(deckCopy, PileType.Deck);
+        var deckResult = await ShoujoKageki.Core.V1.CardCopies.Acquire(selected, Owner);
+        if (deckResult.success) selected.DeckVersion = deckResult.cardAdded;
         CardCmd.PreviewCardPileAdd(deckResult, 1.2f, CardPreviewStyle.MessyLayout);
     }
 

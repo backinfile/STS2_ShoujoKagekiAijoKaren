@@ -33,9 +33,9 @@
     <Reference Include="ShoujoKagekiAijoCore.Api.V1" HintPath="$(CoreApiPath)" Private="false" />
     <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.4.7" />
     <PackageReference Include="BSchneppe.Sts2.ReferenceAssemblies" Version="0.107.1" PrivateAssets="All" Condition="'$(Sts2Api)' == 'stable' and '$(Sts2ReferenceMode)' == 'package'" />
-    <PackageReference Include="BSchneppe.Sts2.ReferenceAssemblies" Version="0.111.0-beta-41cef1ea" PrivateAssets="All" Condition="'$(Sts2Api)' == 'beta'" />
+    <PackageReference Include="BSchneppe.Sts2.ReferenceAssemblies" Version="0.111.0-beta-41cef1ea" PrivateAssets="All" Condition="'$(Sts2Api)' == 'beta' and '$(Sts2ReferenceMode)' == 'package'" />
   </ItemGroup>
-  <ItemGroup Condition="'$(Sts2Api)' != 'beta' and '$(Sts2ReferenceMode)' != 'package'">
+  <ItemGroup Condition="'$(Sts2ReferenceMode)' != 'package'">
     <Reference Include="0Harmony">
       <HintPath>$(Sts2DataDir)\0Harmony.dll</HintPath>
     </Reference>

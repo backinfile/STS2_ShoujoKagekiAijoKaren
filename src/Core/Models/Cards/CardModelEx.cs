@@ -10,14 +10,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
         /// 根据 Core 永久快照创建可重新获得的实际牌。
         /// </summary>
         public static CardModel CloneSafeForDeck(this CardModel original)
-            => Shine.Copy(original, CardCopyPurpose.Reacquire);
+            => CardCopies.ForDeck(original, original.Owner, CardCopyPurpose.Reacquire);
 
         public static CardModel CreateTransferCopy(this CardModel original, Player target)
-        {
-            var copy = Shine.Copy(original, CardCopyPurpose.Transfer);
-            copy.Owner = target;
-            return copy;
-        }
+            => CardCopies.ForDeck(original, target, CardCopyPurpose.Transfer);
 
         public static void ResetEnchantmentStatus(this CardModel card)
         {

@@ -31,7 +31,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
             }
 
             // 弃置牌之后约定牌堆空了，触发扳机
-            foreach (var power in player.Creature.Powers)
+            foreach (var power in player.Creature.Powers.ToArray())
             {
                 if (power is KarenBasePower karenPower)
                 {
@@ -50,29 +50,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
         public static async Task TriggerPromisePileTurnEnd(Player player)
         {
             MainFile.Logger.Info("[PromisePile] Handling turn end trigger for player's promise pile...");
-            if (!PromisePileManager.IsVoidMode(player)) // （非 Void 模式）
-            {
-                var pile = PromisePileManager.GetPromisePile(player);
-                foreach (var card in pile.Cards.ToList())
-                {
-                    if (card is KarenBaseCardModel karenCard)
-                    {
-                        await karenCard.OnTurnEndInPromisePile();
-                    }
-                }
-                return;
-            }
-            else // 空虚模式，处理抽牌堆中的牌
-            {
-                var pile = PileType.Draw.GetPile(player);
-                foreach (var card in pile.Cards.ToList())
-                {
-                    if (card is KarenBaseCardModel karenCard)
-                    {
-                        await karenCard.OnTurnEndInPromisePile();
-                    }
-                }
-            }
+            foreach (var card in PromisePileManager.EffectivePile(player).Cards.ToArray())
+                if (card is KarenBaseCardModel karenCard) await karenCard.OnTurnEndInPromisePile();
         }
 
 
@@ -82,8 +61,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
         public static async Task TriggerOnCardAdded(Player player, CardModel card)
         {
             if (player?.Creature == null) return;
-            KarenPromiseVfxStarManager.UpdatePromisePileStarCount(player);
-            foreach (var power in player.Creature.Powers.OfType<KarenBasePower>())
+            foreach (var power in player.Creature.Powers.OfType<KarenBasePower>().ToArray())
             {
                 await power.OnCardAddedToPromisePile(card);
             }
@@ -99,7 +77,6 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem
         public static async Task TriggerOnCardRemoved(Player player, CardModel card)
         {
             if (player?.Creature == null) return;
-            KarenPromiseVfxStarManager.UpdatePromisePileStarCount(player);
             //PastAndFuturePromisePileAudio.TryPlayNext(player);
 
             foreach (var power in player.Creature.Powers.OfType<KarenBasePower>().ToList())

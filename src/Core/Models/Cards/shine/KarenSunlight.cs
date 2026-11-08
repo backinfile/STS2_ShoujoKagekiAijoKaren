@@ -62,90 +62,27 @@ public sealed class KarenSunlight : KarenBaseCardModel
 
     public override async Task OnShineExhausted(PlayerChoiceContext ctx, bool inCombat, ICombatState combatState)
     {
-        MainFile.Logger.Info("KarenSunlight.OnShineExhausted triggered. Prompting player to add KarenSunlight back to deck.");
-        if (Owner == null)
-        {
-            MainFile.Logger.Error("KarenSunlight.OnShineExhausted called but Owner is null.");
-            return;
-        }
-
-        // 战斗已经结束了。没有奖励界面的战斗不能依赖额外奖励，否则耀光会丢到下一场。
+        if (Owner == null) return;
         if (!inCombat)
         {
-            // 这些战斗没有可靠的额外奖励领取入口：
-            // 1. Encounter.ShouldGiveRewards == false 时，NCombatUi 会直接跳过奖励界面；
-            // 2. 与本体 RewardsSet.WithRewardsFromRoom 保持一致：最后一层 Boss 不生成奖励。
             if (!HasRewardScreenAfterCombat())
             {
-                var deckClone = this.CloneSafeForDeck();
-                deckClone.RestoreShineToMax();
-                var result = await CardPileCmd.Add(deckClone, PileType.Deck);
+                var result = await ShoujoKageki.Core.V1.CardCopies.Acquire(this, Owner);
                 CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.MessyLayout);
-                MainFile.Logger.Info($"Added KarenSunlight directly back to deck because this combat has no reward screen. Clone ID: {deckClone.Id}");
                 return;
             }
-
-            var player = Owner;
-            var reward = new KarenShineCardReward(this.CloneSafeForDeck(), player);
-            if (Owner.RunState.CurrentRoom is CombatRoom combatRoom)
-            {
-                // 战斗房间，加入最后的奖励里
-                combatRoom.AddExtraReward(Owner, reward);
-                MainFile.Logger.Info("Add KarenSunlight reward to combat room's extra rewards.");
-            }
-            else
-            {
-                // 非战斗房间，直接发
-                await RewardsCmd.OfferCustom(player, [reward]);
-                MainFile.Logger.Info("Offered KarenSunlight reward directly to player outside of combat room.");
-            }
+            var preview = ShoujoKageki.Core.V1.CardCopies.Preview(this, ShoujoKageki.Core.V1.CardCopyPurpose.Reacquire);
+            var reward = new KarenShineCardReward(preview, Owner);
+            if (Owner.RunState.CurrentRoom is CombatRoom room) room.AddExtraReward(Owner, reward);
+            else await RewardsCmd.OfferCustom(Owner, [reward]);
             return;
         }
-
-        // 还在战斗中，创建一个选择卡牌界面来让玩家选择是否将这张牌加入牌组
-        // 创建一个自身的复制，需要有CombatState才能加入手牌
-        CardModel clone = combatState?.CloneCard(ShoujoKageki.Core.V1.Shine.Copy(this, ShoujoKageki.Core.V1.CardCopyPurpose.Reacquire))!;
-        if (clone == null)
-        {
-            MainFile.Logger.Error("KarenSunlight.OnShineExhausted failed to clone card for deck addition.");
-            return;
-        }
-
-        clone.RestoreShineToMax();
-        clone.ResetEnchantmentStatus();
-
-        //var selected = await CardSelectCmdEx.FromChooseACardScreen(ctx, [clone], base.Owner, canSkip: true, new LocString("gameplay_ui", "KAREN_SUNLIGHT_OBTAIN_PROMPT"));
-        var selected = await CardSelectCmd.FromChooseACardScreen(ctx, [clone], base.Owner, canSkip: true);
-
-        // 选择不加入牌组
-        if (selected == null)
-        {
-            //clone.RemoveFromState(); 
-            _ = CardPileCmd.RemoveFromCombat(clone); // 不需要等待
-            MainFile.Logger.Info("Player chose to skip adding KarenSunlight back to deck after shine exhaustion.");
-            return;
-        }
-
-        // 选择加入牌组
-        MainFile.Logger.Info("Player chose to add KarenSunlight back to deck after shine exhaustion.");
-        {
-            // 创建一个牌组中的牌的复制重新加入牌组
-            var deckClone = clone.CloneSafeForDeck();
-            if (deckClone == null)
-            {
-                MainFile.Logger.Error($"Failed to clone KarenSunlight deckVersion for combat shine exhaustion. Owner or RunState was null.");
-                return;
-            }
-            deckClone.RestoreShineToMax();
-            CardPileAddResult result = await CardPileCmd.Add(deckClone, PileType.Deck);
-            CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.MessyLayout);
-            MainFile.Logger.Info($"Cloned KarenSunlight for combat shine exhaustion and added to deck. Clone ID: {deckClone.Id}");
-
-
-            // 需要将这张牌重新放入手牌
-            clone.DeckVersion = deckClone; // 关联这两张牌
-            await CardPileCmd.Add(clone, PileType.Hand);
-        }
+        var option = ShoujoKageki.Core.V1.CardCopies.Preview(this, ShoujoKageki.Core.V1.CardCopyPurpose.Reacquire);
+        option.ResetEnchantmentStatus();
+        var selected = await ShoujoKageki.Core.V1.CardSelection.Choose(ctx, [option], Owner, canSkip: true);
+        if (selected == null) return;
+        var acquired = await ShoujoKageki.Core.V1.CardCopies.Acquire(this, Owner, addToHand: true);
+        CardCmd.PreviewCardPileAdd(acquired, 1.2f, CardPreviewStyle.MessyLayout);
     }
 
     private bool HasRewardScreenAfterCombat()

@@ -93,8 +93,7 @@ public sealed class KarenPromisePilePower : FakeAmountPower
     {
         if (Owner.Player is Player player)
         {
-            var pile = PromisePileManager.GetPromisePile(player);
-            var count = pile.Cards.Count;
+            var count = PromisePileManager.GetCount(player);
             SetFakeAmount(count);
         }
     }

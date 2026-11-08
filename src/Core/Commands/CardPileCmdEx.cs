@@ -59,7 +59,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
             if (options.Count <= 3)
             {
                 // 最多支持3个选项
-                cardModel = (await CardSelectCmd.FromChooseACardScreen(ctx, cards, player, canSkip: false))!;
+                cardModel = (await ShoujoKageki.Core.V1.CardSelection.Choose(ctx, cards, player, canSkip: false))!;
                 MainFile.Logger.Info($"KarenOldPlace selected card: {cardModel?.Title}");
             }
             else
