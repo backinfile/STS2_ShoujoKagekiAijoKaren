@@ -100,8 +100,10 @@ public static class AwakePotionAction
         }
 
         var cards = pile.Cards.OrderBy(card => card.Rarity).ThenBy(card => card.Id).ToList();
-        var prefs = new CardSelectorPrefs(prompt, 0, selectCount);
-        var selected = (await CardSelectCmd.FromSimpleGrid(choiceContext, cards, player, prefs)).ToList();
+        var selected = (await ShoujoKageki.Core.V1.CardPicking.Pick(choiceContext, player, cards, new ShoujoKageki.Core.V1.CardPickRequest
+        {
+            Prompt = prompt, Minimum = 0, Maximum = selectCount, PreferHand = false
+        })).ToList();
         if (selected.Count == 0)
         {
             return 0;

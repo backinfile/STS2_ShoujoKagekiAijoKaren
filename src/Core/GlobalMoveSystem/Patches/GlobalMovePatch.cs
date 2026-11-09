@@ -23,6 +23,7 @@ internal static class GlobalMovePatch
             if (InPlay.Get(card) is not { } origin) return Task.CompletedTask;
             oldPile = origin; InPlay.Set(card, null);
         }
-        return GlobalMoveSystem.Trigger(card, oldPile, next, movement.Source);
+        return card is ShoujoKagekiAijoKaren.src.Core.Models.Cards.KarenBaseCardModel karenCard
+            ? karenCard.OnGlobalMove(oldPile, next, movement.Source) : Task.CompletedTask;
     }
 }

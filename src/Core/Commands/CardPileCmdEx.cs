@@ -41,7 +41,10 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
             LocString prompt, int count, Action<IEnumerable<CardModel>>? beforeMove)
         {
             var candidates = type.GetPile(player).Cards.OrderBy(card => card.Rarity).ThenBy(card => card.Id).ToArray();
-            var selected = (await CardSelectCmd.FromSimpleGrid(ctx, candidates, player, new CardSelectorPrefs(prompt, count))).ToArray();
+            var selected = (await ShoujoKageki.Core.V1.CardPicking.Pick(ctx, player, candidates, new ShoujoKageki.Core.V1.CardPickRequest
+            {
+                Prompt = prompt, Minimum = Math.Max(0, count), Maximum = Math.Max(0, count), PreferHand = false
+            })).ToArray();
             beforeMove?.Invoke(selected);
             await CardPileCmd.Add(selected, PileType.Hand);
         }

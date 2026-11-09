@@ -130,14 +130,11 @@ public static class PromisePileManager
     internal static async Task<CardModel[]> SelectCards(PlayerChoiceContext context, Player player, CardPile pile,
         int count, LocString prompt, AbstractModel? source = null, bool optional = false)
     {
-        var cards = pile.Cards.ToArray();
-        int maximum = System.Math.Clamp(count, 0, cards.Length);
-        if (maximum == 0) return [];
-        var prefs = new CardSelectorPrefs(prompt, optional ? 0 : maximum, maximum);
-        var selected = pile.Type == PileType.Hand
-            ? await CardSelectCmd.FromHand(context, player, prefs, cards.Contains, source!)
-            : await CardSelectCmd.FromSimpleGrid(context, cards, player, prefs);
-        return selected.Where(card => cards.Contains(card) && card.Pile == pile).Distinct().ToArray();
+        return (await CardPicking.Pick(context, player, pile.Cards, new CardPickRequest
+        {
+            Prompt = prompt, Minimum = optional ? 0 : System.Math.Max(0, count),
+            Maximum = System.Math.Max(0, count), Source = source
+        })).ToArray();
     }
     public static async Task<IReadOnlyList<CardModel>> AddFromPileAsync(PlayerChoiceContext context, Player player,
         PileType pileType, int count, LocString prompt, AbstractModel? source = null, bool optional = false)

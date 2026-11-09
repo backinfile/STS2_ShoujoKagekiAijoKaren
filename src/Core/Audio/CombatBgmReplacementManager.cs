@@ -1,261 +1,52 @@
 using System;
-using Godot;
-using ShoujoKageki.Core.V1;
-using HarmonyLib;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
-using MegaCrit.Sts2.Core.Runs;
+using ShoujoKageki.Core.V1;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Audio;
 
-/// <summary>
-/// Replaces native run BGM with a mod-owned loop during combat, then restores native BGM when combat ends.
-/// </summary>
+/// <summary>Karen supplies tracks and lifetimes; Core owns playback and native music restoration.</summary>
 public static class CombatBgmReplacementManager
 {
-    private static IMusicPlayback Music => CoreApi.Get<IMusicPlayback>();
-    private const float FadeOutDuration = 0.35f;
-
-    private static IDisposable? _trackLease;
-    private static AudioStreamPlayer? _currentPlayer;
-    private static AudioStreamPlayer? _fadingPlayer;
-    private static Tween? _fadeTween;
-    private static int _restoreRequestId;
-    private static bool _needsGameMusicRestore, _cutscenePriority;
-    private static NCombatRoom? _owningRoom;
-    internal static bool CutscenePriority => _cutscenePriority;
-
+    private static IMusicOverrides Music => CoreApi.Get<IMusicOverrides>();
+    private static IDisposable? _track;
+    private static IDisposable? _cutscene;
+    internal static bool CutscenePriority => _cutscene != null;
     public static void PlayLoop(string fileName, Player? ownerPlayer = null, float volume = 1f)
     {
-        if (ownerPlayer != null && !LocalContext.IsMe(ownerPlayer))
-            return;
-
-        _restoreRequestId++;
-        _cutscenePriority = false;
-        StopImmediate();
-        if (CoreApi.Configuration.Current.EnableMusicPlayer)
+        if (ownerPlayer != null && !LocalContext.IsMe(ownerPlayer)) return;
+        EndCutscene();
+        _track?.Dispose();
+        _track = Music.AcquireTrack(nameof(CombatBgmReplacementManager), new MusicOverrideRequest
         {
-            RestoreGameMusicIfNeeded();
-            _trackLease = CoreApi.Get<ITemporaryMusicPlayback>().AcquireTrack(nameof(CombatBgmReplacementManager), $"res://ShoujoKagekiAijoKaren/audio/{fileName}");
-            if (NCombatRoom.Instance is { } trackedRoom) { _owningRoom = trackedRoom; trackedRoom.TreeExiting += OnCombatRoomExiting; }
-            return;
-        }
-        StopGameMusicEventOnly();
-        _currentPlayer = KarenAudioManager.PlayMusicLoop(fileName, volume);
-        // A debug fight/room replacement can skip AfterCombatEnd and Power.AfterRemoved.
-        // Root-owned audio must still stop when the combat that started it leaves.
-        if (GodotObject.IsInstanceValid(_currentPlayer)
-            && NCombatRoom.Instance is { } room)
-        {
-            _owningRoom = room;
-            room.TreeExiting += OnCombatRoomExiting;
-        }
+            ResourcePath = $"res://ShoujoKagekiAijoKaren/audio/{fileName}",
+            Volume = volume, Lifetime = NCombatRoom.Instance
+        });
     }
-
-    internal static void YieldToMusicPlayer()
-    {
-        if (!GodotObject.IsInstanceValid(_currentPlayer) && !GodotObject.IsInstanceValid(_fadingPlayer)) return;
-        _restoreRequestId++;
-        StopImmediate();
-        RestoreGameMusicIfNeeded();
-    }
-
+    internal static void YieldToMusicPlayer() => Music.Refresh();
     public static void Stop(Player? ownerPlayer = null)
     {
-        if (ownerPlayer != null && !LocalContext.IsMe(ownerPlayer))
-            return;
-
-        StopAndRestoreGameMusic();
+        if (ownerPlayer != null && !LocalContext.IsMe(ownerPlayer)) return;
+        _track?.Dispose();
+        _track = null;
+        EndCutscene();
     }
-
     public static void StopForCutscene(Player? ownerPlayer = null)
     {
-        if (ownerPlayer != null && !LocalContext.IsMe(ownerPlayer))
-            return;
-
-        _restoreRequestId++;
-        _cutscenePriority = true;
-        if (_trackLease == null) StopImmediate();
-        Music.SetFormPriority(true);
-        StopGameMusicEventOnly();
-        _needsGameMusicRestore = true;
+        if (ownerPlayer != null && !LocalContext.IsMe(ownerPlayer)) return;
+        _cutscene ??= Music.AcquireSilence(nameof(CombatBgmReplacementManager), NCombatRoom.Instance);
     }
-
     public static void EndCutscene()
     {
-        if (!_cutscenePriority) return;
-        _cutscenePriority = false;
-        var state = RunManager.Instance.DebugOnlyGetState();
-        var player = state == null ? null : LocalContext.GetMe(state);
-        if (CoreApi.Configuration.Current.EnableMusicPlayer && Music.HasStream)
-            RestoreGameMusicIfNeeded();
-        else if (GodotObject.IsInstanceValid(NCombatRoom.Instance)
-            && player?.Creature.GetPower<Models.Powers.KarenFormPower>() != null)
-            PlayLoop(KarenFormMusicManager.FileName, player, 0.5f);
-        else
-            RestoreGameMusicIfNeeded();
+        _cutscene?.Dispose();
+        _cutscene = null;
     }
-
-    public static void StopForCombatEnd()
-    {
-        StopAndRestoreGameMusic();
-    }
-
+    public static void StopForCombatEnd() => Stop();
     public static void StopForRunExit()
     {
-        _restoreRequestId++;
-        StopImmediate();
-        _needsGameMusicRestore = false;
-        _cutscenePriority = false;
-        Music.Stop();
-        Music.SetFormPriority(false);
+        Stop();
+        CoreApi.Get<IMusicPlayback>().Stop();
     }
-
-    public static void RestoreGameMusicIfNeeded()
-    {
-        if (!_needsGameMusicRestore || GodotObject.IsInstanceValid(_currentPlayer)
-            || GodotObject.IsInstanceValid(_fadingPlayer))
-            return;
-
-        _cutscenePriority = false;
-        Music.SetFormPriority(false);
-        RequestRestoreGameMusic();
-    }
-
-    private static void StopAndRestoreGameMusic()
-    {
-        _cutscenePriority = false;
-        _trackLease?.Dispose(); _trackLease = null;
-        ReleaseCombatRoom();
-        // Repeated combat-end hooks must not restore the native track halfway through a fade.
-        if (GodotObject.IsInstanceValid(_fadingPlayer)) return;
-        if (!GodotObject.IsInstanceValid(_currentPlayer))
-        {
-            _currentPlayer = null;
-            Music.SetFormPriority(false);
-            RestoreGameMusicIfNeeded();
-            return;
-        }
-
-        var audioPlayer = _currentPlayer;
-        _currentPlayer = null;
-        _fadingPlayer = audioPlayer;
-        var requestId = ++_restoreRequestId;
-
-        var tween = audioPlayer!.CreateTween();
-        _fadeTween = tween;
-        tween.TweenProperty(audioPlayer, "volume_linear", 0f, FadeOutDuration);
-        tween.Finished += () =>
-        {
-            // Cutscenes, replacement tracks and run exit revoke this fade's ownership.
-            if (requestId != _restoreRequestId || _fadingPlayer != audioPlayer) return;
-            _fadingPlayer = null;
-            _fadeTween = null;
-            ReleaseCombatRoom();
-            if (GodotObject.IsInstanceValid(audioPlayer))
-            {
-                audioPlayer.Stop();
-                audioPlayer.QueueFree();
-            }
-
-            Music.SetFormPriority(false);
-            RequestRestoreGameMusic();
-        };
-    }
-
-    private static void StopImmediate()
-    {
-        _trackLease?.Dispose(); _trackLease = null;
-        ReleaseCombatRoom();
-        _fadeTween?.Kill();
-        _fadeTween = null;
-        if (GodotObject.IsInstanceValid(_fadingPlayer))
-        {
-            _fadingPlayer!.Stop();
-            _fadingPlayer.QueueFree();
-        }
-        _fadingPlayer = null;
-        if (!GodotObject.IsInstanceValid(_currentPlayer))
-        {
-            _currentPlayer = null;
-            return;
-        }
-
-        _currentPlayer.Stop();
-        _currentPlayer.QueueFree();
-        _currentPlayer = null;
-    }
-
-    private static void OnCombatRoomExiting()
-    {
-        // Revoke pending fades before releasing the outgoing room. The incoming
-        // room's AfterRoomEntered hook restores its own native music selection.
-        _restoreRequestId++;
-        StopImmediate();
-        _needsGameMusicRestore = true;
-        _cutscenePriority = false;
-        Music.SetFormPriority(false);
-    }
-
-    private static void ReleaseCombatRoom()
-    {
-        if (GodotObject.IsInstanceValid(_owningRoom))
-            _owningRoom!.TreeExiting -= OnCombatRoomExiting;
-        _owningRoom = null;
-    }
-
-    private static void StopGameMusicEventOnly()
-    {
-        var controller = NRunMusicController.Instance;
-        if (!GodotObject.IsInstanceValid(controller))
-            return;
-
-        var proxy = Traverse.Create(controller).Field<Node>("_proxy").Value;
-        if (!GodotObject.IsInstanceValid(proxy))
-            return;
-
-        proxy.Call("stop_music");
-        _needsGameMusicRestore = true;
-    }
-
-    private static void RequestRestoreGameMusic()
-    {
-        var requestId = ++_restoreRequestId;
-        RestoreGameMusicDeferred(requestId);
-    }
-
-    private static async void RestoreGameMusicDeferred(int requestId)
-    {
-        var tree = Engine.GetMainLoop() as SceneTree;
-        if (tree != null)
-            await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
-
-        if (requestId != _restoreRequestId || GodotObject.IsInstanceValid(_currentPlayer)
-            || GodotObject.IsInstanceValid(_fadingPlayer))
-            return;
-
-        RestoreGameMusic();
-    }
-
-    private static void RestoreGameMusic()
-    {
-        var controller = NRunMusicController.Instance;
-        if (!GodotObject.IsInstanceValid(controller) || !RunManager.Instance.IsInProgress)
-            return;
-
-        controller.UpdateMusic();
-        // UpdateMusic can keep the same cached track and skip recreating the
-        // event that stop_music released. Rebuild only that missing event;
-        // the act bank and any already-playing native track stay untouched.
-        var proxy = Traverse.Create(controller).Field<Node>("_proxy").Value;
-        if (GodotObject.IsInstanceValid(proxy)
-            && !GodotObject.IsInstanceValid(proxy.Get("_musicEv").AsGodotObject())
-            && Traverse.Create(controller).Field<string>("_currentTrack").Value is { Length: > 0 } track)
-            proxy.Call("update_music", track);
-        controller.UpdateTrack();
-        controller.UpdateAmbience();
-        _needsGameMusicRestore = false;
-    }
+    public static void RestoreGameMusicIfNeeded() => Music.Refresh();
 }
