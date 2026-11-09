@@ -18,6 +18,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenStageLightVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -202,6 +204,8 @@ internal readonly record struct StageLightTargetArea(Vector2 Center, Vector2 Siz
 
 internal partial class NKarenStageLightBeam : Sprite2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private const float Duration = 0.6f;
     private const float TargetWidth = 130f;
     private const float TargetHeight = 760f;
@@ -284,6 +288,8 @@ internal partial class NKarenStageLightBeam : Sprite2D
 
 internal partial class NKarenStageLightFocusBeam : Sprite2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private const float TargetWidth = 170f;
     private const float TargetHeight = 610f;
     private const float OffscreenTopMargin = 80f;

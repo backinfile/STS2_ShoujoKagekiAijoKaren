@@ -21,6 +21,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Gather, spend a visible constellation on actual replays, and deliver the confirmed reward.</summary>
 public partial class NKarenStarVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     public sealed class Playback(CardModel card, int shine) : IDisposable
     {
         internal readonly CardModel Card = card;

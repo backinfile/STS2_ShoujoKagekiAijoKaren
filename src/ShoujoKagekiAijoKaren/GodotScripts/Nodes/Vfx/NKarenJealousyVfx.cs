@@ -13,6 +13,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Contact-only cut and foil particles drifting toward the actual player. No flight path.</summary>
 public partial class NKarenJealousyVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -57,6 +59,7 @@ public partial class NKarenJealousyVfx : Node2D
         PrepareResources();
         _light.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         AddChild(_light);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_light);
         _light.Draw += DrawLight;
         Place(); InitializeParticles(); UpdateParticles(); KarenVfxQuality.Redraw(_light);
     }

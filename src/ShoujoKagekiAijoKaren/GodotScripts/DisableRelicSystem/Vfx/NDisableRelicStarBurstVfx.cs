@@ -9,6 +9,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem.Vfx;
 
 public partial class NDisableRelicStarBurstVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -78,6 +80,8 @@ public partial class NDisableRelicStarBurstVfx : Node2D
 
 internal partial class NDisableRelicBurstStar : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private readonly float _angle;
     private readonly float _distance;
     private readonly float _duration;

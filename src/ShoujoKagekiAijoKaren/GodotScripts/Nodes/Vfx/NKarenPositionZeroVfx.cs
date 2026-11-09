@@ -24,6 +24,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Fixed warm cast, cool block lights, and remaining-opportunity footlights with an owned card preview.</summary>
 public partial class NKarenPositionZeroVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {

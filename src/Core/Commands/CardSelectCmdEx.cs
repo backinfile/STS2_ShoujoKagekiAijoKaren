@@ -13,5 +13,5 @@ public static class CardSelectCmdEx
 {
     public static Task<CardModel?> FromChooseACardScreen(PlayerChoiceContext context,
         IReadOnlyList<CardModel> cards, Player player, bool canSkip = false, LocString? title = null)
-        => CardSelection.Choose(context, cards, player, canSkip, title);
+        => CardOptions.Choose(context, cards, player, canSkip, title);
 }

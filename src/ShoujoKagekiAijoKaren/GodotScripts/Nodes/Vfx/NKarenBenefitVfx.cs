@@ -26,6 +26,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Abstract energy gestures, confirmed by actual card results and native destinations.</summary>
 public partial class NKarenBenefitVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -205,8 +207,10 @@ public partial class NKarenBenefitVfx : Node2D
         _accent.Draw+=()=>DrawFlowPlane(_accent);
         _back.Draw+=DrawBack;_front.Draw+=DrawFront;_ink.Draw+=DrawInk;_hud.Draw+=DrawHud;
         Room.BackCombatVfxContainer.AddChildSafely(_back);
-        if (Design==BenefitKind.Radiance) { _hud.AddChild(_atmosphere);_hud.AddChild(_accent); }
-        else { _back.AddChild(_atmosphere);AddChild(_accent); }
+        if (Design==BenefitKind.Radiance) { _hud.AddChild(_atmosphere);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_atmosphere);_hud.AddChild(_accent); }
+        else { _back.AddChild(_atmosphere);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_atmosphere);AddChild(_accent); }
         AddChild(_ink);AddChild(_front);
         Room.Ui.AddChildSafely(_hud);_hud.ZIndex=50;
         if (Design==BenefitKind.Radiance && LocalContext.IsMe(Owner))

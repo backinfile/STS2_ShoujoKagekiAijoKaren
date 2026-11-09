@@ -18,6 +18,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>A play-scoped curtain below the native selection grid, never an input surface.</summary>
 public partial class NKarenWakeUpSelectionVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private sealed class Lease(NKarenWakeUpSelectionVfx node) : IDisposable
     {
         public void Dispose() { if (GodotObject.IsInstanceValid(node)) node.End(); }

@@ -46,6 +46,8 @@ internal sealed class KarenAttackCue(Creature owner, Creature? target, KarenAtta
 /// <summary>The approved ordinary sword choreography, isolated from the heavy cards' full effects.</summary>
 public partial class NKarenStageAttackVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private struct ContactCue { public Vector2 Point, Hilt, Floor, Size; public float At; public int Index, Round; public bool Active; }
     private static readonly Color Coral = new("#fb5458"), Ivory = new("#fff4dc");
     private readonly CanvasGeometryBatch _geometry = new(1024);

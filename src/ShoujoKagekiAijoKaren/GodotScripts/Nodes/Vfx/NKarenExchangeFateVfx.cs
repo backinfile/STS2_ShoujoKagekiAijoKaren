@@ -20,6 +20,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Room-owned flowing silk and optical dust. Native commands own all cards.</summary>
 public partial class NKarenExchangeFateVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -130,7 +132,8 @@ public partial class NKarenExchangeFateVfx : Node2D
         PrepareResources();
         _light.Material = _front.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _front.ZIndex = 6;
-        AddChild(_light); AddChild(_front);
+        AddChild(_light);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_light); AddChild(_front);
         _light.Draw += DrawLight; _front.Draw += DrawDust;
         KarenVfxComposition.RegisterCue(this, _owner.Creature);
         GlobalTransform = GetCanvasTransform().AffineInverse(); _unit = GetViewportRect().Size.Y / 1080f;

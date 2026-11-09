@@ -7,6 +7,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Warm Shine stars around the reward icon and along the row's empty edges.</summary>
 public partial class NKarenShineRewardVfx : Control
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private readonly CanvasGeometryBatch _batch = new(512);
     private float _age, _emphasis;
 

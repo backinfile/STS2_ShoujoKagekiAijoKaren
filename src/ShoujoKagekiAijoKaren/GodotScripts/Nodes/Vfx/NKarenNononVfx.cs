@@ -20,6 +20,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// </summary>
 public partial class NKarenNononVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     public const float HitTime = .66f;
     public const float FastHitTime = HitTime * FastDurationScale;
     private const float FastDurationScale = .7f;
@@ -87,6 +89,7 @@ public partial class NKarenNononVfx : Node2D
         else _edgeLayer.Material = Material;
         _edgeLayer.Draw += DrawSwordEdges;
         AddChild(_edgeLayer);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_edgeLayer);
         CreateParticles();
         KarenVfxQuality.Redraw(this);
     }

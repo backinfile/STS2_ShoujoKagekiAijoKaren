@@ -13,6 +13,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Wind-up and flight belong to one attack; only its real hit creates the impact.</summary>
 public partial class NKarenBaseballVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -67,6 +69,7 @@ public partial class NKarenBaseballVfx : Node2D
         PrepareResources();
         _light.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         AddChild(_light);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_light);
         _light.Draw += DrawLight;
         Place();
         KarenVfxQuality.Redraw(this); KarenVfxQuality.Redraw(_light);

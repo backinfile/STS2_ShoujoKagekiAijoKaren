@@ -10,6 +10,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenLastWordVideoVfx : Control
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private const string VideoPath = "res://ShoujoKagekiAijoKaren/video/last_word.ogv";
     public const float VideoSequenceSeconds = 6.7f;
     public const float LettersOnlySequenceSeconds = 0.7f;

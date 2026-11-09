@@ -18,6 +18,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// </summary>
 public partial class NKarenStarGuideVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
 
     private const float BorderDuration = .95f;
 
@@ -117,6 +119,8 @@ public partial class NKarenStarGuideVfx : Node2D
 /// </summary>
 internal partial class NKarenGoldBorderFlash : Control
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {

@@ -20,5 +20,5 @@ function Copy-CoreRolePackage($Core, [string]$RoleDirectory, [string]$PackageRoo
         throw 'The source Core package must be separate from the build destination.'
     }
     if (Test-Path -LiteralPath $destination) { Remove-Item -LiteralPath $destination -Recurse -Force }
-    & (Join-Path $Core.Root 'sdk/pack-character.ps1') -CorePackage $Core.Root -CharacterDirectory $RoleDirectory -OutputDirectory $packageRootPath -ModId $RoleId -RequiredFeatures @('shine@1', 'movement-pipeline@1', 'card-copies@1', 'presentation@1', 'temporary-music@1')
+    & (Join-Path $Core.Root 'sdk/pack-character.ps1') -CorePackage $Core.Root -CharacterDirectory $RoleDirectory -OutputDirectory $packageRootPath -ModId $RoleId -RequiredFeatures @('shine@1', 'card-options@1', 'card-snapshots@1', 'effect-registration@1', 'movement-pipeline@1', 'card-copies@1', 'presentation@1', 'temporary-music@1')
 }

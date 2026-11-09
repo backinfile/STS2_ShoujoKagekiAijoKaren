@@ -16,6 +16,28 @@ namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
 /// </summary>
 public static class DisableRelicManager
 {
+    private static readonly System.Reflection.PropertyInfo Removed = HarmonyLib.AccessTools.Property(typeof(RelicModel), nameof(RelicModel.HasBeenRemovedFromState));
+    private static void ReplaceRelic(Player player, RelicModel previous, RelicModel current, int position)
+    {
+        bool currentWasRemoved = current.HasBeenRemovedFromState;
+        try
+        {
+            player.RemoveRelicInternal(previous, silent: true);
+            Removed.SetValue(current, false);
+            player.AddRelicInternal(current, position, silent: true);
+        }
+        catch
+        {
+            if (player.Relics.Contains(current)) player.RemoveRelicInternal(current, silent: true);
+            Removed.SetValue(current, currentWasRemoved);
+            Removed.SetValue(previous, false);
+            if (!player.Relics.Contains(previous)) player.AddRelicInternal(previous, position, silent: true);
+            DisableRelicNodeManager.Rebuild(player);
+            throw;
+        }
+        DisableRelicNodeManager.Replace(previous, current, player);
+    }
+
     /// <summary>
     /// 白名单：不能被禁用的遗物ID前缀列表
     /// </summary>
@@ -48,19 +70,9 @@ public static class DisableRelicManager
         if (relicHolder != null)
             relicPosition = relicHolder.GetGlobalTransformWithCanvas() * (relicHolder.Size * 0.5f);
 
-        // 移除原始遗物（silent: true 不触发事件，我们手动更新UI）
-        player.RemoveRelicInternal(relic, silent: true);
-
-        // 创建锁定遗物（使用 MutableClone 从 canonical 实例克隆）
         var lockRelic = (KarenLockRelic)ModelDb.Relic<KarenLockRelic>().MutableClone();
         lockRelic.LockedRelic = relic;
-
-        // 在相同位置添加锁定遗物（silent: true 不触发事件）
-        player.AddRelicInternal(lockRelic, position, silent: true);
-
-        // 手动更新UI：保存原节点，创建锁定节点
-        var savedNode = DisableRelicNodeManager.SaveAndReplaceRelicNode(relic, lockRelic, player);
-        lockRelic.LockedRelicNode = savedNode;
+        ReplaceRelic(player, relic, lockRelic, position);
         if (relicPosition.HasValue)
             NDisableRelicAbsorbVfx.Play(player, relicPosition.Value, target);
 
@@ -128,35 +140,7 @@ public static class DisableRelicManager
                 continue;
             }
 
-            // 获取保存的原节点
-            var savedNode = lockRelic.LockedRelicNode;
-
-            // 移除锁定遗物（silent: true 不触发事件）
-            player.RemoveRelicInternal(lockRelic, silent: true);
-
-            // 重置原始遗物的移除标记，否则扳机不会触发
-            // HasBeenRemovedFromState 是 private set，需要用反射
-            typeof(RelicModel).GetProperty("HasBeenRemovedFromState")?.SetValue(originalRelic, false);
-
-            // 恢复原始遗物（silent: true 不触发事件）
-            player.AddRelicInternal(originalRelic, currentPosition, silent: true);
-
-            // 手动更新UI：使用保存的节点替换回去
-            if (savedNode != null)
-            {
-                DisableRelicNodeManager.RestoreRelicNode(lockRelic, originalRelic, savedNode, player);
-            }
-            else
-            {
-                // 如果没有保存的节点（异常情况），创建新节点
-                MainFile.Logger.Warn($"[DisableRelicManager] Saved node is null, creating new node for '{originalRelic.Id.Entry}'");
-                var lockHolder = DisableRelicNodeManager.FindRelicHolder(lockRelic, player);
-                if (lockHolder != null)
-                {
-                    DisableRelicNodeManager.ReplaceHolderModel(lockHolder, originalRelic, player);
-                }
-            }
-
+            ReplaceRelic(player, lockRelic, originalRelic, currentPosition);
             MainFile.Logger.Info($"[DisableRelicManager] Restored relic '{originalRelic.Id.Entry}' ({originalRelic.Title}) at position {currentPosition}");
         }
     }

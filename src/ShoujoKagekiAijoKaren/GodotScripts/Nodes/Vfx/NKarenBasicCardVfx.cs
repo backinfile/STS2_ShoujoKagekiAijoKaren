@@ -14,6 +14,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Basic attack silhouettes at the real native hit cue. Never moves the actor or schedules rules.</summary>
 public partial class NKarenBasicCardVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     public enum Shape { Strike, ShineStrike, PromiseDraw }
     private static CanvasItemMaterial? _blend;
     internal static void PrepareResources()

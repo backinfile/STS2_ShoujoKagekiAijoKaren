@@ -16,6 +16,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Successful relay / pending reward only. Never owns a card, rule task or network state.</summary>
 public partial class NKarenFightRelayVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -82,6 +84,7 @@ public partial class NKarenFightRelayVfx : Node2D
         _back.Name = "KarenRelayFootlights"; _light.Name = "KarenRelayGlints";
         _back.Material = _light.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _room.BackCombatVfxContainer.AddChild(_back);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_back);
         AddChild(_light);
         _back.Draw += DrawBack; _light.Draw += DrawLight;
         KarenVfxComposition.RegisterCue(this, _source.Creature);

@@ -254,6 +254,7 @@ public partial class NKarenNononVfx
             DrawDebris();
         };
         AddChild(_debrisLayer);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_debrisLayer);
     }
 
     private Vector2 ParticlePosition(in WindParticle particle, float age)

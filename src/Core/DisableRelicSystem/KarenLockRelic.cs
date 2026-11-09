@@ -2,7 +2,6 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Nodes.Relics;
 using System.Collections.Generic;
 
 namespace ShoujoKagekiAijoKaren.src.Core.DisableRelicSystem;
@@ -20,33 +19,4 @@ public sealed class KarenLockRelic : RelicModel
     /// </summary>
     public RelicModel? LockedRelic { get; set; }
 
-    /// <summary>
-    /// 被锁定遗物的UI节点（保存以便恢复时复用）
-    /// </summary>
-    public NRelicInventoryHolder? LockedRelicNode { get; set; }
-
-
-    //public override LocString Title => new LocString("relics", "KAREN_LOCK_RELIC.title");
-
-
-    //public override LocString Flavor => new LocString("relics", "KAREN_LOCK_RELIC.flavor");
-
-    /// <summary>
-    /// 提供额外的悬浮提示，显示被锁定的遗物信息（只显示描述，不显示标题）
-    /// </summary>
-    //protected override IEnumerable<IHoverTip> ExtraHoverTips
-    //{
-    //    get
-    //    {
-    //        if (LockedRelic != null)
-    //        {
-    //            string lockedRelicName = LockedRelic.Title.GetFormattedText();
-    //            // 只创建描述，不设置标题
-    //            var desc = new LocString("relics", "KAREN_LOCK_RELIC.description");
-    //            desc.Add("relicName", lockedRelicName);
-    //            return [new HoverTip(desc)];
-    //        }
-    //        return base.ExtraHoverTips;
-    //    }
-    //}
 }

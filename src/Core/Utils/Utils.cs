@@ -31,8 +31,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
 
             foreach (var canonicalCard in canonicalCards)
             {
-                var card = combatState.CreateCard(canonicalCard, player);
-                if (upgrade) CardCmd.Upgrade(card);
+                var card = ShoujoKageki.Core.V1.CardOptions.Create(canonicalCard, player, upgrade);
                 result.Add(card);
             }
             return result;

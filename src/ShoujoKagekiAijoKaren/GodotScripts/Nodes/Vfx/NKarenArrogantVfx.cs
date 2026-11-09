@@ -23,6 +23,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// All coordinates follow this owner; no rule state, shared materials or global time are changed.</summary>
 public partial class NKarenArrogantVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -87,6 +89,7 @@ public partial class NKarenArrogantVfx : Node2D
         TextureFilter = _back.TextureFilter = _light.TextureFilter = TextureFilterEnum.Linear;
         _room.BackCombatVfxContainer.AddChildSafely(_back);
         AddChild(_light);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_light);
         _back.Draw += DrawStage;
         _light.Draw += DrawLight;
         KarenVfxComposition.RegisterCue(this, _owner.Creature);

@@ -1,5 +1,4 @@
 using Godot;
-using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Vfx.Utilities;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
@@ -14,11 +13,31 @@ public partial class SNEnergyCounter : NEnergyCounter
     public SNParticlesContainer _myFrontVfx;
     private NParticlesContainer? _nativeBackVfx, _nativeFrontVfx;
 
+    public override void _EnterTree()
+    {
+        _nativeBackVfx ??= AddNativeEffect(NativeBackPath, "EnergyVfxBack");
+        _nativeFrontVfx ??= AddNativeEffect(NativeFrontPath, "EnergyVfxFront");
+        base._EnterTree();
+    }
+
+    private NParticlesContainer AddNativeEffect(string scenePath, string nodeName)
+    {
+        var effect = GD.Load<PackedScene>(scenePath).Instantiate<NParticlesContainer>();
+        effect.Name = nodeName;
+        effect.Position = new Vector2(64, 64);
+        effect.Visible = false;
+        AddChild(effect);
+        MoveChild(effect, GetNode<Node>("%My" + nodeName).GetIndex());
+        effect.Owner = this;
+        effect.UniqueNameInOwner = true;
+        return effect;
+    }
+
     public override void _Ready()
     {
         base._Ready();
-        AccessTools.Field(typeof(NEnergyCounter), "_backVfx")?.SetValue(this, null);
-        AccessTools.Field(typeof(NEnergyCounter), "_frontVfx")?.SetValue(this, null);
+        _nativeBackVfx = GetNode<NParticlesContainer>("%EnergyVfxBack");
+        _nativeFrontVfx = GetNode<NParticlesContainer>("%EnergyVfxFront");
         _myBackVfx = GetNode<SNParticlesContainer>("%MyEnergyVfxBack");
         _myFrontVfx = GetNode<SNParticlesContainer>("%MyEnergyVfxFront");
         RefreshEffectQuality();
@@ -29,19 +48,6 @@ public partial class SNEnergyCounter : NEnergyCounter
         if (_myBackVfx == null || _myFrontVfx == null) return;
         _myBackVfx.RefreshEffectQuality();
         _myFrontVfx.RefreshEffectQuality();
-        if (!KarenVfxQuality.Enabled && _nativeBackVfx == null)
-        {
-            _nativeBackVfx = ResourceLoader.Load<PackedScene>(NativeBackPath).Instantiate<NParticlesContainer>();
-            _nativeFrontVfx = ResourceLoader.Load<PackedScene>(NativeFrontPath).Instantiate<NParticlesContainer>();
-            _nativeBackVfx.Name = "VanillaEnergyBack";
-            _nativeFrontVfx.Name = "VanillaEnergyFront";
-            AddChild(_nativeBackVfx);
-            AddChild(_nativeFrontVfx);
-            _nativeBackVfx.Position = _myBackVfx.Position;
-            _nativeFrontVfx.Position = _myFrontVfx.Position;
-            MoveChild(_nativeBackVfx, _myBackVfx.GetIndex());
-            MoveChild(_nativeFrontVfx, _myFrontVfx.GetIndex());
-        }
         foreach (var effect in new[] { _nativeBackVfx, _nativeFrontVfx })
         {
             if (effect == null) continue;
@@ -57,11 +63,8 @@ public partial class SNEnergyCounter : NEnergyCounter
         {
             _myBackVfx?.Restart();
             _myFrontVfx?.Restart();
-        }
-        else
-        {
-            _nativeBackVfx?.Restart();
-            _nativeFrontVfx?.Restart();
+            _nativeBackVfx?.SetEmitting(false);
+            _nativeFrontVfx?.SetEmitting(false);
         }
     }
 }

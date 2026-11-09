@@ -12,6 +12,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>A small, target-owned white-hot hit, created by the real AttackCommand hit callback.</summary>
 public partial class NKarenStageLightImpactVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private Creature _target = null!;
     private NCombatRoom _room = null!;
     private float _age;

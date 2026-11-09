@@ -9,6 +9,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 // Three quiet rear-layer traces idle beneath the existing bounded draw-ring stream.
 public partial class NKarenPastAndFutureRingVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private static Shader? _traceShader;
     internal static void PrepareResources()
     {

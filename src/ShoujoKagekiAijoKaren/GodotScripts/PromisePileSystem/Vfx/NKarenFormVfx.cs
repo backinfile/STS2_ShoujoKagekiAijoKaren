@@ -10,6 +10,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenFormVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -127,6 +129,8 @@ public partial class NKarenFormVfx : Node2D
 
 internal partial class NKarenWindyParticle : Sprite2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private static readonly CanvasItemMaterial AdditiveMaterial = new()
     {
         BlendMode = CanvasItemMaterial.BlendModeEnum.Add

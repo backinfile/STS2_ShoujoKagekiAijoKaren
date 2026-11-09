@@ -20,6 +20,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>Card-origin burst, screen-wide scatter, then a subtle irregular planar curl into its owner.</summary>
 public partial class NKarenDropFuelVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -108,6 +110,7 @@ public partial class NKarenDropFuelVfx : Node2D
         TopLevel = true;
         PrepareResources();
         AddChild(_stage);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_stage);
         _cardGlow = AddGlow(new Vector2(140, 195));
         _bodyGlow = AddGlow(new Vector2(125, 185));
         UpdateCoordinates();

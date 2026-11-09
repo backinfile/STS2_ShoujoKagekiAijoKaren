@@ -15,6 +15,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Viewport-wide rose/gold particles for playing Passion, independent of its buff confirmation.</summary>
 public partial class NKarenPassionCardVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -63,6 +65,7 @@ public partial class NKarenPassionCardVfx : Node2D
         PrepareResources();
         Material = _back.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _room.BackCombatVfxContainer.AddChild(_back);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_back);
         _back.Draw += () => DrawParticles(_back, true);
         Place(); Emit(252); Sound();
     }

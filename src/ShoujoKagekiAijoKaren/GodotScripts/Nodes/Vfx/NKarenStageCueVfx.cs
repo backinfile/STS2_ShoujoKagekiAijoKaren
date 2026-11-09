@@ -24,6 +24,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Stage gestures driven by actual results; hover ownership belongs to the whole play task.</summary>
 public partial class NKarenStageCueVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {

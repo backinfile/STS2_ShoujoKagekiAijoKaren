@@ -12,6 +12,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Paired sword trajectories, followed by one target-owned contact. No rule state is changed.</summary>
 public partial class NKarenBackToBackVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     public const float HitTime = .34f;
     public const float FastHitTime = HitTime * .7f;
     private const int Samples = 49;

@@ -16,6 +16,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>One preparation and a thrust that travels through the full victim silhouette per native hit. Visuals never schedule damage.</summary>
 public partial class NKarenShineBarrageVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -100,6 +102,7 @@ public partial class NKarenShineBarrageVfx : Node2D
         _speed = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1 / .7f : 1;
         Place();
         AddChild(_blade);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_blade);
         if (_impact)
         {
             PrepareResources();

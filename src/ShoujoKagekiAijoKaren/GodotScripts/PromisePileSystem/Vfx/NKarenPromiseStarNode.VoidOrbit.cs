@@ -34,7 +34,9 @@ public partial class NKarenPromiseStarNode
         // Actual icon occlusion; the native count badge remains above both layers.
         // Node2D adds no Control hit area and follows the icon's hover/resize motion.
         icon.AddChild(_voidOrbitBack);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_voidOrbitBack);
         icon.AddChild(_voidOrbitFront);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_voidOrbitFront);
         var stars = _stars.Values.Where(star => star.Present || star.Entry != null)
             .OrderBy(star => star.Slot).ToArray();
         for (int i = 0; i < stars.Length; i++)

@@ -18,6 +18,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// </summary>
 public partial class NKarenUnforgottenShineVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -141,6 +143,7 @@ public partial class NKarenUnforgottenShineVfx : Node2D
     {
         AddChild(_retained);
         AddChild(_flashes);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_flashes);
     }
 
     private void AddCut(Transform2D placement)

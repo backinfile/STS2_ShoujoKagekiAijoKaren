@@ -54,35 +54,9 @@ namespace ShoujoKagekiAijoKaren.src.Core.Commands
             var cards = CardUtils.CreateTokens(player, combatState, options, upgrade);
 
 
-            CardModel cardModel;
-
-            if (options.Count <= 3)
-            {
-                // 最多支持3个选项
-                cardModel = (await ShoujoKageki.Core.V1.CardSelection.Choose(ctx, cards, player, canSkip: false))!;
-                MainFile.Logger.Info($"KarenOldPlace selected card: {cardModel?.Title}");
-            }
-            else
-            {
-                // 使用 FromSimpleGrid 替代 FromChooseACardScreen，支持超过3个选项
-                var prefs = new CardSelectorPrefs(Tips.KAREN_SELECT_OPTION, 1);
-                cardModel = (await CardSelectCmd.FromSimpleGrid(ctx, cards, player, prefs)).FirstOrDefault()!;
-                MainFile.Logger.Info($"KarenOldPlace selected card: {cardModel?.Title}");
-            }
-
-
-            if (cardModel is KarenBaseCardModel karenCard)
-            {
-                await karenCard.DoOption(ctx, cardPlay);
-            }
-
-            // 只移除实际在战斗牌堆中的临时代币卡牌
-            // 注意：某些选项（如约定牌堆选项）可能已将代币卡牌移动到其他位置
-            var cardsInCombat = cards.Where(c => c.Pile != null).ToList();
-            if (cardsInCombat.Count > 0)
-            {
-                await CardPileCmd.RemoveFromCombat(cardsInCombat);
-            }
+            var selected = await ShoujoKageki.Core.V1.CardOptions.Choose(ctx, cards, player,
+                canSkip: false, title: Tips.KAREN_SELECT_OPTION);
+            if (selected is KarenBaseCardModel option) await option.DoOption(ctx, cardPlay);
         }
     }
 }

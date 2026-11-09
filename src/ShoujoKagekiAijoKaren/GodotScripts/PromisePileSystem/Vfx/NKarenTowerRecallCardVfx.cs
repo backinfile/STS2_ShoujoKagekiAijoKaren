@@ -14,6 +14,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>Observes native card movement. Never reparents, moves or decorates a pooled NCard.</summary>
 public partial class NKarenTowerRecallCardVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private readonly NCard _card;
     private readonly CardModel _model;
     private readonly NKarenPromiseStarNode _source;

@@ -18,6 +18,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Each disabled relic forms a gold/pink pair just beyond its HUD position; native hits launch the stars.</summary>
 public partial class NKarenTwinStarsVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private static readonly CanvasItemMaterial StarMaterial = new() { BlendMode = CanvasItemMaterial.BlendModeEnum.Mix };
     internal static void PrepareResources() { }
     internal static Godot.Resource?[] PreparedResources => [StarMaterial];

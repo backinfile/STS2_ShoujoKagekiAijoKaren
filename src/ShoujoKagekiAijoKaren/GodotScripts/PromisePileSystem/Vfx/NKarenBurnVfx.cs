@@ -12,6 +12,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenBurnVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -99,7 +101,9 @@ public partial class NKarenBurnVfx : Node2D
     public override void _Ready()
     {
         AddChild(_towerSmoke);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_towerSmoke);
         AddChild(_towerFlames);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_towerFlames);
         Restart();
     }
 
@@ -180,6 +184,7 @@ public partial class NKarenBurnVfx : Node2D
             _drawIcon = icon;
             _drawFire = new Node2D { Name = "KarenBurnDrawPile", ShowBehindParent = true };
             icon.AddChild(_drawFire);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_drawFire);
         }
         if (_drawFire == null) return;
         // As an icon child, it follows native hover/resize transforms without stealing input.
@@ -209,6 +214,8 @@ public partial class NKarenBurnVfx : Node2D
 
 internal partial class NKarenWrathParticle : Sprite2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private static readonly CanvasItemMaterial AdditiveMaterial = new()
     {
         BlendMode = CanvasItemMaterial.BlendModeEnum.Add
@@ -277,6 +284,8 @@ internal partial class NKarenWrathParticle : Sprite2D
 
 internal partial class NKarenStanceAura : Sprite2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private static readonly CanvasItemMaterial AdditiveMaterial = new()
     {
         BlendMode = CanvasItemMaterial.BlendModeEnum.Add

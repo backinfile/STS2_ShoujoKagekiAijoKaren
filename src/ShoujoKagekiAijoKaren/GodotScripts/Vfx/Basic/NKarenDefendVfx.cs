@@ -16,6 +16,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>A short actor-led guard replaces this card's native shield at its real block-gain cue.</summary>
 public partial class NKarenDefendVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private static bool Enabled => KarenVfxQuality.Enabled && !NonInteractiveMode.IsActive
         && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant;
     private static bool Present(NCreature? view) => GodotObject.IsInstanceValid(view)

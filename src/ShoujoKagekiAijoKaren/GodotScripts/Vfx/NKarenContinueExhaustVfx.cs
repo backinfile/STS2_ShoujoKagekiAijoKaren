@@ -18,6 +18,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Small stage-light fragments follow Encore's native exhaust, without touching the pooled card.</summary>
 public partial class NKarenContinueExhaustVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private readonly record struct Fragment(Vector2 Origin, Vector2 Velocity, float Birth, float Life,
         float Size, float Spin, Color Tint, bool Star);
     private static readonly Color Crimson = new(1f, 0.18f, 0.28f);

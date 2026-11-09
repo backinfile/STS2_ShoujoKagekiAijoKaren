@@ -8,6 +8,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>A small lit stage T anchored to the actual card frame; never writes to native highlight/material state.</summary>
 public partial class NKarenPositionZeroCardHoverVfx(NKarenPositionZeroVfx owner, NCard card, CardModel model) : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private readonly KarenCardBorder _border = new(card);
     private float _age;
     public override void _Ready() { Name = "KarenPositionZeroCardHover"; }

@@ -17,6 +17,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Silent confirmation of an actual Passion buff gain, using its existing icon and status location.</summary>
 public partial class NKarenPassionVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -75,6 +77,7 @@ public partial class NKarenPassionVfx : Node2D
         PrepareResources();
         _icon = _sharedIcon;
         AddChild(_light);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_light);
         _light.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _light.Draw += DrawLight;
         TextureFilter = TextureFilterEnum.Linear;

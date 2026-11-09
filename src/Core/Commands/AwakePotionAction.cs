@@ -47,12 +47,6 @@ public static class AwakePotionAction
                 _ => 0
             };
 
-            var cardsInCombat = optionCards.Where(card => card.Pile != null).ToList();
-            if (cardsInCombat.Count > 0)
-            {
-                await CardPileCmd.RemoveFromCombat(cardsInCombat);
-            }
-
             if (movedCount == 0)
             {
                 return;

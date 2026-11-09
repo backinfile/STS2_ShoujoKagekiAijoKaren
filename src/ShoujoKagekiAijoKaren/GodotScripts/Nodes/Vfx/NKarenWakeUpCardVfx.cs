@@ -13,6 +13,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Selection-result light that only observes the native card and hand layout.</summary>
 public partial class NKarenWakeUpCardVfx(CardModel model, NCombatRoom room) : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {

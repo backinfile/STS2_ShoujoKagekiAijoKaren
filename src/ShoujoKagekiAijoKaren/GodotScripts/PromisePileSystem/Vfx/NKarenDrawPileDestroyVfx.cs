@@ -21,6 +21,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 /// <summary>Uses vanilla exhaust on the pile icon, without showing card faces.</summary>
 public partial class NKarenDrawPileDestroyVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private sealed class CarrierVisualState(NCard card)
     {
         public readonly (CanvasItem Node, bool Visible)[] Children = card.GetChildren()

@@ -20,6 +20,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>One light per power stack follows a soft contour directly on the native energy icon rim.</summary>
 public partial class NKarenWaitingStageVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -158,7 +160,8 @@ public partial class NKarenWaitingStageVfx : Node2D
     public override void _Ready()
     {
         PrepareResources();
-        AddChild(_hud); _hud.Hide();
+        AddChild(_hud);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_hud); _hud.Hide();
         _hud.Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
         _ringMaterial = new ShaderMaterial { Shader = CoreResources.Load<Shader>(
             "res://shaders/karen_waiting_energy_orbit.gdshader", nameof(NKarenWaitingStageVfx)) };

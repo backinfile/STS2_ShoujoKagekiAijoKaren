@@ -67,6 +67,7 @@ public partial class NKarenPromiseStarNode
                 _recallCrest = new Node2D { Name = "KarenTowerRecallCrest", ZIndex = 20 };
                 _recallCrest.Draw += DrawRecallCrest;
                 room.Ui.AddChild(_recallCrest);
+        ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(_recallCrest);
             }
         }
         return new RecallBatch(this, _recallEpoch);

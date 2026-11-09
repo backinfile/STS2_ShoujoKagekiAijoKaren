@@ -23,6 +23,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Confirmed power application, or the actual generated Radiance cards entering their real pile.</summary>
 public partial class NKarenDreamVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private sealed record Preview(CardModel Model, NCard View, Vector2 Scale, int Index);
     private static readonly Color Warm = new("#ffe0af"), Rose = new("#ff9178"), Blue = new("#72baff");
     private readonly Func<float, Vector2> _streamPath;

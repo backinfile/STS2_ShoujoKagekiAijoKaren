@@ -14,6 +14,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.Vfx;
 /// <summary>Moving stage-light leaks at the screen edges during this card's hand selection.</summary>
 public partial class NKarenWhyVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private NCombatRoom _room = null!;
     private NPlayerHand _hand = null!;
     private Player _owner = null!;

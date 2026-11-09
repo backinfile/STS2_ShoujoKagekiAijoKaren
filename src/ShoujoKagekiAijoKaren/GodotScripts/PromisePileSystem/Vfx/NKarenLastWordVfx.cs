@@ -13,6 +13,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
 public partial class NKarenLastWordVfx : Node2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     // Shared visual resources are prepared during the run loading screen as well as on demand.
     internal static void PrepareResources()
     {
@@ -152,6 +154,8 @@ public partial class NKarenLastWordVfx : Node2D
 
 internal partial class NKarenLastWordTParticle : Sprite2D
 {
+    public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
+
     private const float BaseWidth = 1920f;
     private static readonly CanvasItemMaterial AdditiveMaterial = new()
     {
