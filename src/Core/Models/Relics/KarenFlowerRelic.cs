@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using MegaCrit.Sts2.Core.Context;
-using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
-using MegaCrit.Sts2.Core.GameActions;
-using MegaCrit.Sts2.Core.Runs;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -75,18 +71,8 @@ internal sealed class KarenFlowerRewardSet(List<Reward> rewards, Player player) 
 
     protected override async Task<bool> OnSelect()
     {
-        var synchronizer = RunManager.Instance.PlayerChoiceSynchronizer;
-        uint choiceId = synchronizer.ReserveChoiceId(Player);
-        int index;
-        if (LocalContext.IsMe(Player) && RunManager.Instance.NetService.Type != NetGameType.Replay)
-        {
-            index = _localChoice;
-            synchronizer.SyncLocalChoice(Player, choiceId, PlayerChoiceResult.FromIndex(index));
-        }
-        else
-        {
-            index = (await synchronizer.WaitForRemoteChoice(Player, choiceId)).AsIndex();
-        }
+        int index = await ShoujoKageki.Core.V1.PlayerChoices.ChooseIndex(
+            null, Player, Rewards.Count, () => Task.FromResult(_localChoice));
 
         if (index < 0 || index >= Rewards.Count)
             throw new InvalidOperationException("Flower reward choice is outside the offered options.");

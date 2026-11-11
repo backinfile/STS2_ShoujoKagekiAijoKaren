@@ -104,16 +104,18 @@ public static class PromisePileCmd
             return;
         }
         var cards = new List<CardModel>();
-        for (int i = 0; i < count; i++)
-        {
-            var card = PromisePileManager.EffectivePile(player).Cards.FirstOrDefault();
-            if (card == null) break;
-            var result = await CardPileCmd.Add(card, PileType.Play);
-            if (!result.success) break;
-            cards.Add(result.cardAdded);
-        }
         try
         {
+            for (int i = 0; i < count; i++)
+            {
+                var card = PromisePileManager.EffectivePile(player).Cards.FirstOrDefault();
+                if (card == null) break;
+                // Movement hooks can fail after the card has already entered Play.
+                cards.Add(card);
+                var result = await CardPileCmd.Add(card, PileType.Play);
+                if (!result.success) break;
+                cards[^1] = result.cardAdded;
+            }
             foreach (var card in cards)
                 if (card.Pile?.Type == PileType.Play) await CardCmd.AutoPlay(context, card, null);
         }
@@ -124,10 +126,15 @@ public static class PromisePileCmd
         if (CombatManager.Instance.IsOverOrEnding) return;
         var cards = await PromisePileManager.SelectCards(context, player, PromisePileManager.EffectivePile(player), 1, Tips.SelectFromPromisePileToPlay);
         if (cards.FirstOrDefault() is not { } card) return;
-        var result = await CardPileCmd.Add(card, PileType.Play);
-        if (!result.success) return;
-        try { await CardCmd.AutoPlay(context, result.cardAdded, null); }
-        finally { await RestoreUnplayed(player, [result.cardAdded]); }
+        CardModel staged = card;
+        try
+        {
+            var result = await CardPileCmd.Add(card, PileType.Play);
+            if (!result.success) return;
+            staged = result.cardAdded;
+            await CardCmd.AutoPlay(context, staged, null);
+        }
+        finally { await RestoreUnplayed(player, [staged]); }
     }
     private static async Task RestoreUnplayed(Player player, IEnumerable<CardModel> cards)
     {

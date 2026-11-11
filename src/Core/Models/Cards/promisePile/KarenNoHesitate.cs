@@ -33,22 +33,14 @@ public sealed class KarenNoHesitate : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (PromisePileManager.IsVoidMode(Owner))
+        var options = new List<CardModel>
         {
-            await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
-                    ModelDb.Card<KarenNoHesitateHandOption>(),
-                    ModelDb.Card<KarenNoHesitateDiscardPileOption>()
-                        ], IsUpgraded);
-        }
-        else
-        {
-            await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
-                        ModelDb.Card<KarenNoHesitateDrawPileOption>(),
-                    ModelDb.Card<KarenNoHesitateHandOption>(),
-                    ModelDb.Card<KarenNoHesitateDiscardPileOption>()
-                        ], IsUpgraded);
-        }
-
+            ModelDb.Card<KarenNoHesitateHandOption>(),
+            ModelDb.Card<KarenNoHesitateDiscardPileOption>()
+        };
+        if (!PromisePileManager.IsVoidMode(Owner))
+            options.Insert(0, ModelDb.Card<KarenNoHesitateDrawPileOption>());
+        await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, options, IsUpgraded);
     }
 
     protected override void OnUpgrade()
