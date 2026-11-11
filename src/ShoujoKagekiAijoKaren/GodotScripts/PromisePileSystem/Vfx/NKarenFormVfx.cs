@@ -8,7 +8,7 @@ using ShoujoKagekiAijoKaren.src.Core.Vfx;
 
 namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Vfx;
 
-public partial class NKarenFormVfx : Node2D
+public partial class NKarenFormVfx : Node2D, ICombatVfx
 {
     public override void _EnterTree() => ShoujoKageki.Core.V1.Presentation.CoreEffects.Register(this);
 

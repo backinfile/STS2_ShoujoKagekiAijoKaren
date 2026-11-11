@@ -19,6 +19,11 @@ public class KarenNewDayPower : PowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerType Type => PowerType.Buff;
 
+    internal bool Redirects(CardModel card, PileType pile) =>
+        card.Owner.Creature == Owner
+        && card is not KarenBaseCardModel { SkipNewDayPower: true }
+        && pile == PileType.Discard;
+
 #if STS2_BETA
     public override CardLocation ModifyCardPlayResultLocation(
         CardModel card,
@@ -26,9 +31,7 @@ public class KarenNewDayPower : PowerModel
         ResourceInfo resources,
         CardLocation location)
     {
-        if (card.Owner.Creature != base.Owner ||
-            card is KarenBaseCardModel { SkipNewDayPower: true } ||
-            location.pileType != PileType.Discard)
+        if (!Redirects(card, location.pileType))
         {
             return location;
         }
@@ -47,17 +50,7 @@ public class KarenNewDayPower : PowerModel
         PileType pileType,
         CardPilePosition position)
     {
-        if (card.Owner.Creature != base.Owner)
-        {
-            return (pileType, position);
-        }
-
-        if (card is KarenBaseCardModel { SkipNewDayPower: true })
-        {
-            return (pileType, position);
-        }
-
-        if (pileType != PileType.Discard)
+        if (!Redirects(card, pileType))
         {
             return (pileType, position);
         }
@@ -78,12 +71,4 @@ public class KarenNewDayPower : PowerModel
         await PowerCmd.Decrement(this);
     }
 
-    //public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
-    //{
-    //    if (cardPlay.Card?.Owner?.Creature != base.Owner)
-    //    {
-    //        return;
-    //    }
-    //    await PowerCmd.Decrement(this);
-    //}
 }

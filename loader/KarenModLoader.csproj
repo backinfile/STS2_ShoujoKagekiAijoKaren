@@ -15,4 +15,13 @@
     <Reference Include="sts2"><HintPath>$(Sts2DataDir)\sts2.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="0Harmony"><HintPath>$(Sts2DataDir)\0Harmony.dll</HintPath><Private>false</Private></Reference>
   </ItemGroup>
+  <PropertyGroup>
+    <CoreLoaderSource Condition="'$(CoreLoaderSource)' == '' and '$(CoreApiPath)' != ''">$([System.IO.Path]::GetDirectoryName('$(CoreApiPath)'))/../../../sdk/CharacterLoader.cs</CoreLoaderSource>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(CoreLoaderSource)" Link="CharacterLoader.cs" Condition="Exists('$(CoreLoaderSource)')" />
+  </ItemGroup>
+  <Target Name="RequireCoreLoaderSource" BeforeTargets="BeforeBuild">
+    <Error Condition="!Exists('$(CoreLoaderSource)')" Text="Set CoreLoaderSource to sdk/CharacterLoader.cs from the Core distribution." />
+  </Target>
 </Project>

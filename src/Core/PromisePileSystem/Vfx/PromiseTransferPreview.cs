@@ -47,8 +47,8 @@ internal static class PromiseTransferPreviews
         // New Day also redirects ordinary cards, beyond the static card list.
         // Do not invoke native result-pile calculation here: it consumes
         // ExhaustOnNextPlay. Shine depletion overrides the later pile move.
-        if (card.Owner?.Creature.GetPower<KarenNewDayPower>()?.Amount > 0
-            && card is not KarenBaseCardModel { SkipNewDayPower: true }
+        if (card.Owner?.Creature.GetPower<KarenNewDayPower>() is { Amount: > 0 } newDay
+            && newDay.Redirects(card, PileType.Discard)
             && card is not KarenFightRelay
             && !card.IsDupe && !card.ExhaustOnNextPlay
             && !card.Keywords.Contains(CardKeyword.Exhaust) && !ShineVfx.WillDeplete(card))
