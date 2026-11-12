@@ -22,29 +22,8 @@ namespace ShoujoKagekiAijoKaren.src.Core.ShineSystem
 {
     public class ShineManager
     {
-        public static IEnumerable<CardModel> GetAllShineCards()
-        {
-            return ModelDb.CardPool<KarenCardPool>().AllCards.Where(c => c.IsShineCard());
-        }
-
-        public static IEnumerable<CardModel> GetAllShineCards(Player player, bool excludeOtherPlayerRestricted = false)
-        {
-            return ModelDb.CardPool<KarenCardPool>()
-                .GetUnlockedCards(UnlockState.all, player.RunState.CardMultiplayerConstraint)
-                .Where(c => c.IsShineCard() && c.Rarity != CardRarity.Basic)
-                .Where(c => !excludeOtherPlayerRestricted || c is not KarenBaseCardModel karenCard || karenCard.ShineCardForOtherPlayer);
-        }
-
         public static IEnumerable<CardModel> GetRewardableShineCards(Player player, CardModel? except = null)
             => ShoujoKageki.Core.V1.ShineRewards.GetCandidates(player, except);
-
-        public static CardModel GetRandomRewardableShineCard(Player player, Rng rng, CardModel? except = null)
-            => ShoujoKageki.Core.V1.ShineRewards.Roll(player, rng, except);
-
-        public static bool ShouldExcludeOtherPlayerRestrictedShineCards(Player player)
-        {
-            return player.Character?.Id?.Entry != Karen.CHAR_ID;
-        }
 
     }
 }

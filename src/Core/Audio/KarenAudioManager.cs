@@ -16,7 +16,6 @@ namespace ShoujoKagekiAijoKaren.src.Core.Audio;
 public static class KarenAudioManager
 {
     private const string SfxBus = "SFX";
-    private const string MusicBus = "KarenMusic";
 
     private static readonly Dictionary<string, AudioStream> _cache = new();
 
@@ -76,25 +75,6 @@ public static class KarenAudioManager
         return player;
     }
 
-    public static AudioStreamPlayer PlayMusicLoop(string fileName, float volume = 1f)
-    {
-        var stream = PreparePlaybackStream(fileName, loop: true);
-        if (stream == null) return null;
-
-        EnsureMusicBus();
-        var player = new AudioStreamPlayer
-        {
-            Stream = stream,
-            VolumeLinear = volume,
-            Bus = MusicBus
-        };
-
-        var tree = Engine.GetMainLoop() as SceneTree;
-        tree?.Root.AddChild(player);
-        player.Play();
-        return player;
-    }
-
     private static AudioStream PreparePlaybackStream(string fileName, bool loop)
     {
         var stream = LoadStream(fileName);
@@ -124,26 +104,6 @@ public static class KarenAudioManager
         return stream?.GetLength() ?? 0;
     }
 
-    private static void EnsureMusicBus()
-    {
-        if (AudioServer.GetBusIndex(MusicBus) < 0)
-        {
-            AudioServer.AddBus();
-            int index = AudioServer.BusCount - 1;
-            AudioServer.SetBusName(index, MusicBus);
-            AudioServer.SetBusSend(index, "Master");
-        }
-        UpdateMusicVolume(SaveManager.Instance?.SettingsSave?.VolumeBgm ?? 1f);
-    }
-
-    // Keep category gain on its own bus so changing settings never overwrites a player fade.
-    internal static void UpdateMusicVolume(float volume)
-    {
-        int index = AudioServer.GetBusIndex(MusicBus);
-        if (index >= 0)
-            AudioServer.SetBusVolumeDb(index, Mathf.LinearToDb(ShoujoKageki.Core.V1.CoreApi.Get<ShoujoKageki.Core.V1.IMusicPlayback>().State.Playing ? .00001f : Math.Max(.00001f, Math.Clamp(volume, 0f, 1f))));
-    }
-
     private static void SetLoop(AudioStream stream, bool loop)
     {
         switch (stream)
@@ -161,13 +121,4 @@ public static class KarenAudioManager
     }
 
     public static void ClearCache() => _cache.Clear();
-}
-
-[HarmonyPatch(typeof(NAudioManager), nameof(NAudioManager.SetBgmVol))]
-internal static class KarenMusicVolumePatch
-{
-    private static void Postfix(float volume)
-    {
-        KarenAudioManager.UpdateMusicVolume(volume);
-    }
 }

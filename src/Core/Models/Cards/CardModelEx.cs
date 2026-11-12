@@ -6,12 +6,6 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards
 {
     public static class CardModelEx
     {
-        /// <summary>
-        /// 根据 Core 永久快照创建可重新获得的实际牌。
-        /// </summary>
-        public static CardModel CloneSafeForDeck(this CardModel original)
-            => CardCopies.ForDeck(original, original.Owner, CardCopyPurpose.Reacquire);
-
         public static CardModel CreateTransferCopy(this CardModel original, Player target)
             => CardCopies.ForDeck(original, target, CardCopyPurpose.Transfer);
 

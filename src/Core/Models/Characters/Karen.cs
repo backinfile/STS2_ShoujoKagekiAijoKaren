@@ -16,8 +16,9 @@ using ShoujoKagekiAijoKaren.src.Models.Relics;
 namespace ShoujoKagekiAijoKaren.src.Models.Characters;
 
 [CustomID("KAREN")]
-public sealed class Karen : CustomCharacterModel
+public sealed class Karen : CustomCharacterModel, ShoujoKageki.Core.V1.IShineRewardFallback
 {
+    public CardPoolModel ShineRewardFallback => ModelDb.CardPool<KarenCardPool>();
     public const string energyColorName = "karen";
     public const string OriginalCharacterSelectSfx = "event:/sfx/characters/ironclad/ironclad_select";
     public const string OriginalCharacterAttackSfx = "event:/sfx/characters/ironclad/ironclad_attack";

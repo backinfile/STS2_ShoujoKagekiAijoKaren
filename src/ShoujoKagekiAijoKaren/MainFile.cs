@@ -28,9 +28,6 @@ public static class MainFile
         {
             if (previous.VfxLevel != current.VfxLevel) src.Core.Vfx.KarenVfxQuality.ApplyLevel();
         };
-        ShoujoKageki.Core.V1.CoreApi.Get<ShoujoKageki.Core.V1.IMusicPlayback>().Changed += _ =>
-            src.Core.Audio.KarenAudioManager.UpdateMusicVolume(MegaCrit.Sts2.Core.Saves.SaveManager.Instance?.SettingsSave?.VolumeBgm ?? 1f);
-
         src.Core.GlobalMoveSystem.Patches.GlobalMovePatch.Initialize();
         src.Core.PromisePileSystem.Patches.PromisePileHookPatch.Initialize();
         Harmony harmony = new(ModId);
