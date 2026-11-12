@@ -111,7 +111,7 @@ public static class ScarProbe
                 fading = Alive(s.Root) ? s.Flashes.GetChildren().OfType<Sprite2D>().Select(n=>n.SelfModulate.A).ToArray() : null
             }),
             shines = Cards.Select(c=>c.GetShineValue()).ToArray(),
-            rewardPower = player.Creature.GetPowerAmount<KarenShineCardRewardPower>(),
+            rewardPower = player.Creature.Powers.Where(power => power.Id.Entry == "KAREN_SHINE_CARD_REWARD_POWER").Sum(power => power.Amount),
             extraRewards = player.RunState.CurrentRoom is CombatRoom combat && combat.ExtraRewards.TryGetValue(player,out var rewards) ? rewards.Count : 0,
             shinePile = CoreShineFixture.Pile(player).Cards.Count
         };

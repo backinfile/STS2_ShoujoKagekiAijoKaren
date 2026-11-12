@@ -83,7 +83,7 @@ public static class MemoryProbe
         live=Effects.Count(e=>Alive(e.Node)),backLive=Effects.Count(e=>Alive(e.Back)),
         particleLive=Effects.Sum(e=>e.Particles.Count(Alive)),
         shine=Card?.GetShineValue(),pile=Card?.Pile?.Type.ToString(),
-        rewardPower=player.Creature.GetPowerAmount<KarenShineCardRewardPower>(),
+        rewardPower=player.Creature.Powers.Where(power => power.Id.Entry == "KAREN_SHINE_CARD_REWARD_POWER").Sum(power => power.Amount),
         extraRewards=player.RunState.CurrentRoom is CombatRoom room&&room.ExtraRewards.TryGetValue(player,out var rewards)?rewards.Count:0,
         shinePile=CoreShineFixture.Pile(player).Cards.Count,
         effects=Effects.Select(e=>new{e.Kind,e.Frames,e.Exited,e.FinalAge,e.HitAt,e.MaxAnchorError,e.Unit,e.AssetsReady,

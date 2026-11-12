@@ -16,7 +16,7 @@ public static class RareTokenCardVisualPatch
 {
     private static bool IsRareTokenVisual(CardModel? card)
     {
-        return card is KarenBanana or KarenShineReproduce;
+        return card is KarenBanana;
     }
 
     [HarmonyPatch(typeof(CardModel), nameof(CardModel.BannerMaterial), MethodType.Getter)]

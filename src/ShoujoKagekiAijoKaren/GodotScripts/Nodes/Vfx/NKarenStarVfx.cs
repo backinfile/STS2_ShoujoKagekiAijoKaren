@@ -1,3 +1,4 @@
+using System.Linq;
 using ShoujoKageki.Core.V1.Presentation;
 using System;
 using System.Collections.Concurrent;
@@ -127,7 +128,7 @@ public partial class NKarenStarVfx : Node2D
         }
         for (int i = _pulses.Count - 1; i >= 0; i--) if (_age - _pulses[i].At > .34f) _pulses.RemoveAt(i);
         if (_playback.Completed && _completedAt < 0) _completedAt = _age;
-        if (_playback.Reward && _rewardAt < 0 && KarenPowerVfxAnchor.Find(_room, owner.GetPower<KarenShineCardRewardPower>()) != null) _rewardAt = _age;
+        if (_playback.Reward && _rewardAt < 0 && KarenPowerVfxAnchor.Find(_room, owner.Powers.FirstOrDefault(power => power.Id.Entry == "KAREN_SHINE_CARD_REWARD_POWER")) != null) _rewardAt = _age;
         if (_completedAt >= 0 && _releaseAt < 0 && !ShoujoKageki.Core.V1.Shine.IsDepletionAnimating(_playback.Card)) _releaseAt = _age;
         if ((_releaseAt >= 0 && _age - _releaseAt >= .52f && (_rewardAt < 0 || _age - _rewardAt >= .44f))
             || (_completedAt >= 0 && _age - _completedAt > 1.6f)) { Hide(); QueueFree(); return; }
@@ -204,7 +205,7 @@ public partial class NKarenStarVfx : Node2D
             Outline(frame, new Color(Gold, pulse * .4f), 1.5f * _unit); CardFrameDraws++;
         }
         if (_rewardAt < 0) return;
-        var badge = KarenPowerVfxAnchor.Find(_room, _playback.Card.Owner.Creature.GetPower<KarenShineCardRewardPower>());
+        var badge = KarenPowerVfxAnchor.Find(_room, _playback.Card.Owner.Creature.Powers.FirstOrDefault(power => power.Id.Entry == "KAREN_SHINE_CARD_REWARD_POWER"));
         if (badge == null) return;
         float elapsed = _age - _rewardAt, rewardAlpha = 1 - Smooth(elapsed / .44f);
         var target = badge.GetGlobalTransformWithCanvas() * (badge.Size * .5f);

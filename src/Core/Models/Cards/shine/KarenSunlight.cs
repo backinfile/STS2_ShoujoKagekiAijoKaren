@@ -1,4 +1,4 @@
-using ShoujoKagekiAijoKaren.src.Core.Rewards;
+
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.CardSelection;
@@ -72,7 +72,7 @@ public sealed class KarenSunlight : KarenBaseCardModel
                 return;
             }
             var preview = ShoujoKageki.Core.V1.CardCopies.Preview(this, ShoujoKageki.Core.V1.CardCopyPurpose.Reacquire);
-            var reward = new KarenShineCardReward(preview, Owner);
+            var reward = ShoujoKageki.Core.V1.ShineRewards.Create(preview, Owner);
             if (Owner.RunState.CurrentRoom is CombatRoom room) room.AddExtraReward(Owner, reward);
             else await RewardsCmd.OfferCustom(Owner, [reward]);
             return;

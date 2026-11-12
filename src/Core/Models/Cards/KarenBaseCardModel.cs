@@ -23,7 +23,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Models.Cards;
 ///   <item><description><see cref="OnShineNotExhausted"/> — 此牌打出后闪耀未耗尽</description></item>
 /// </list>
 /// </summary>
-public abstract class KarenBaseCardModel : CardModel, IShineDepletionHandler, IShineResolutionHandler
+public abstract class KarenBaseCardModel : CardModel, IShineDepletionHandler, IShineResolutionHandler, IShineRewardEligibility
 {
     protected KarenBaseCardModel(int energyCost, CardType type, CardRarity rarity,
         TargetType targetType = TargetType.None)
@@ -34,6 +34,8 @@ public abstract class KarenBaseCardModel : CardModel, IShineDepletionHandler, IS
     /// true-不排除（默认），false-排除
     /// </summary>
     public virtual bool ShineCardForOtherPlayer { get; } = true;
+    public bool CanDropAsShineReward(MegaCrit.Sts2.Core.Entities.Players.Player recipient)
+        => recipient.Character.Id.Entry == ShoujoKagekiAijoKaren.src.Models.Characters.Karen.CHAR_ID || ShineCardForOtherPlayer;
 
     public virtual bool SkipNewDayPower { get; } = false;
 

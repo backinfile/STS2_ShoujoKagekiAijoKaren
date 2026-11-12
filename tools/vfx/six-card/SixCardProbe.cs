@@ -89,7 +89,7 @@ public static class SixCardProbe
         energy=player.PlayerCombatState!.Energy,
         ticket=player.Creature.GetPowerAmount<KarenTicketPower>(),
         dream=player.Creature.GetPowerAmount<KarenWeKownPower>(),
-        reward=player.Creature.GetPowerAmount<KarenShineCardRewardPower>(),
+        reward=player.Creature.Powers.Where(power => power.Id.Entry == "KAREN_SHINE_CARD_REWARD_POWER").Sum(power => power.Amount),
         peakLive=PeakLive,
         registeredCues=((IDictionary)typeof(KarenVfxComposition).GetField("Cues",BindingFlags.Static|BindingFlags.NonPublic)!.GetValue(null)!).Count,
         sharedFinished=CombatManager.Instance.History.CardPlaysFinished
@@ -97,7 +97,7 @@ public static class SixCardProbe
             .Select(e=>e.CardPlay.Card.Owner.NetId).ToArray(),
         promise=PromisePileManager.GetPromisePile(player).Cards.Select(c=>c.Id.Entry).ToArray(),
         promiseCards=PromisePileManager.GetPromisePile(player).Cards.Select(c=>new{id=c.Id.Entry,upgraded=c.IsUpgraded}).ToArray(),
-        party=player.Creature.CombatState!.Players.Select(p=>new{netId=p.NetId,reward=p.Creature.GetPowerAmount<KarenShineCardRewardPower>(),
+        party=player.Creature.CombatState!.Players.Select(p=>new{netId=p.NetId,reward=p.Creature.Powers.Where(power => power.Id.Entry == "KAREN_SHINE_CARD_REWARD_POWER").Sum(power => power.Amount),
             ambientWeight=KarenVfxComposition.AmbientWeight(p.Creature),
             eventWeight=KarenVfxComposition.EventWeight(p.Creature),
             minimumEventWeight=MinimumEventWeight.GetValueOrDefault(p,1f)}),

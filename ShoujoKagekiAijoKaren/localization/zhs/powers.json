@@ -14,9 +14,6 @@
   "KAREN_PASSION_POWER.description": "战斗结束后，额外获得1个随机遗物。",
   "KAREN_PASSION_POWER.smartDescription": "战斗结束后，额外获得{Amount}个随机遗物。",
 
-  "KAREN_SHINE_CARD_REWARD_POWER.title": "闪耀牌奖励",
-  "KAREN_SHINE_CARD_REWARD_POWER.description": "战斗结束后，额外获得1张闪耀牌奖励。",
-  "KAREN_SHINE_CARD_REWARD_POWER.smartDescription": "战斗结束后，额外获得{Amount}张闪耀牌奖励。",
 
   "KAREN_LETTER_POWER.title": "信封",
   "KAREN_LETTER_POWER.description": "将卡牌放入到[gold]约定牌堆[/gold]时，获得2点[gold]格挡[/gold]。",

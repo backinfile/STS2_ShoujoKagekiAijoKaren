@@ -26,7 +26,7 @@ using ShoujoKagekiAijoKaren.src.Core.Models.Cards.basic;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
 using ShoujoKagekiAijoKaren.src.Core.Models.Powers;
 using ShoujoKagekiAijoKaren.src.Core.PromisePileSystem;
-using ShoujoKagekiAijoKaren.src.Core.Rewards;
+
 using ShoujoKagekiAijoKaren.src.Models.Cards;
 
 [ModInitializer(nameof(Initialize))]
@@ -94,7 +94,7 @@ public sealed class BoundaryReviewCmd : AbstractConsoleCmd
                 case "refill": await AddPromise<KarenDefend>(p); break;
                 case "offer":
                     var rewards=new List<Reward>();
-                    for(int i=0;i<3;i++) rewards.Add(new KarenShineCardReward(p.RunState.CreateCard(ModelDb.Card<KarenPotato>(),p),p));
+                    for(int i=0;i<3;i++) rewards.Add(ShoujoKageki.Core.V1.ShineRewards.Create(p.RunState.CreateCard(ModelDb.Card<KarenPotato>(),p),p));
                     Status="selecting";
                     await RewardsCmd.OfferCustom(p,rewards);
                     break;

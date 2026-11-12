@@ -338,11 +338,6 @@
   "KAREN_REWRITE.extraPlayTip.title": "Card Count?",
   "KAREN_REWRITE.extraPlayTip.description": "Plays [blue]{AdditionalPlays}[/blue] additional cards",
 
-  "KAREN_SHINE_REPRODUCE.title": "Shine Reproduction",
-  "KAREN_SHINE_REPRODUCE.description": "Choose {Cards:diff()} depleted [gold]Shine[/gold] {Cards:plural:card|cards} and add them back to your deck.",
-  "KAREN_SHINE_REPRODUCE.tip.title": "Tip",
-  "KAREN_SHINE_REPRODUCE.tip": "This card can appear in a [gold]Shine Card Reward[/gold].",
-  "KAREN_SHINE_REPRODUCE.select_title": "Choose a depleted Shine card",
 
   "KAREN_EMPTY_SHELL.title": "Empty Shell",
   "KAREN_EMPTY_SHELL.description": "",

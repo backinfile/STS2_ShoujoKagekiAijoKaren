@@ -338,11 +338,6 @@
   "KAREN_REWRITE.extraPlayTip.title": "张数？",
   "KAREN_REWRITE.extraPlayTip.description": "会额外打出[blue]{AdditionalPlays}[/blue]张",
 
-  "KAREN_SHINE_REPRODUCE.title": "闪耀的再生产",
-  "KAREN_SHINE_REPRODUCE.description": "从耗尽的[gold]闪耀[/gold]牌中选择{Cards:diff()}张重新加入牌组。",
-  "KAREN_SHINE_REPRODUCE.tip.title": "提示",
-  "KAREN_SHINE_REPRODUCE.tip": "这张牌会在[gold]闪耀牌奖励[/gold]中出现。",
-  "KAREN_SHINE_REPRODUCE.select_title": "选择一张闪耀耗尽的牌",
 
   "KAREN_EMPTY_SHELL.title": "空壳",
   "KAREN_EMPTY_SHELL.description": "",

@@ -94,11 +94,11 @@ public sealed class ReviewFixesCmd : AbstractConsoleCmd
             star.SetExtraReplayCountForNextPlay(1);
         }
         var before = CoreShineFixture.Count(player);
-        var rewardsBefore = player.Creature.GetPowerAmount<ShoujoKagekiAijoKaren.src.Core.Models.Powers.KarenShineCardRewardPower>();
+        var rewardsBefore = player.Creature.Powers.Where(power => power.Id.Entry == "KAREN_SHINE_CARD_REWARD_POWER").Sum(power => power.Amount);
         await CardCmd.AutoPlay(new ThrowingPlayerChoiceContext(), star, null);
         Check(CoreShineFixture.Count(player) == before + 1,
             "Auto-play did not deplete the unique Shine card.");
-        Check(player.Creature.GetPowerAmount<ShoujoKagekiAijoKaren.src.Core.Models.Powers.KarenShineCardRewardPower>() == rewardsBefore + 1,
+        Check(player.Creature.Powers.Where(power => power.Id.Entry == "KAREN_SHINE_CARD_REWARD_POWER").Sum(power => power.Amount) == rewardsBefore + 1,
             "A replay registered another reward without a live Shine target.");
         Check(strike.HasBeenRemovedFromState && strike.Pile == null, "Unique Shine card was not removed cleanly.");
     }
