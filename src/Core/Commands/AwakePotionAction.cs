@@ -37,7 +37,7 @@ public static class AwakePotionAction
                 return;
             }
 
-            var optionCards = CardUtils.CreateTokens(player, combatState, options);
+            var optionCards = CardUtils.CreateTokens(player, options);
             var selectedOption = await CardSelectCmdEx.FromChooseACardScreen(choiceContext, optionCards, player, canSkip: false, PileSelectionTitle);
             var movedCount = selectedOption switch
             {

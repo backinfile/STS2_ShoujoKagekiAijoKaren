@@ -36,7 +36,7 @@ public sealed class KarenOldPlace : KarenBaseCardModel
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
 
-        await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
+        await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, [
             ModelDb.Card<KarenOldPlaceRetainBlockOption>(),
             ModelDb.Card<KarenOldPlaceRetainEnergyOption>(),
             ModelDb.Card<KarenOldPlaceRetainStrengthOption>(),

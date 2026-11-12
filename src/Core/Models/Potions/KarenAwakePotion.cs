@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Potions;
 
+[BaseLib.Utils.Attributes.CustomID("KAREN_AWAKE_POTION")]
 public sealed class KarenAwakePotion : KarenBasePotion
 {
     public override PotionRarity Rarity => PotionRarity.Rare;

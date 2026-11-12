@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 
 namespace ShoujoKagekiAijoKaren.src.Core.Models.Potions;
 
+[BaseLib.Utils.Attributes.CustomID("KAREN_SHINE_POTION")]
 public sealed class KarenShinePotion : KarenBasePotion
 {
     private static readonly LocString SelectionTitle = new("potions", "KAREN_SHINE_POTION.selectionScreenPrompt");

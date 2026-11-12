@@ -38,7 +38,7 @@ public sealed class KarenWakeUp : KarenBaseCardModel
                 if (!PromisePileManager.IsVoidMode(Owner))
                     options.Add(ModelDb.Card<KarenWakeUpPromisePileOption>());
                 options.Add(ModelDb.Card<KarenWakeUpDiscardPileOption>());
-                await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, options);
+                await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, options);
             }
         }
         else

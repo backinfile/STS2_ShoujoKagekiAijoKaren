@@ -16,26 +16,12 @@ public static class CurseCardPoolPatch
 {
     private static void Postfix(ref CardModel[] __result)
     {
-        __result = AppendMissing(__result,
+        __result = PoolCards.AppendMissing(__result,
             ModelDb.Card<KarenSleepy>(),
             ModelDb.Card<KarenStageReason>());
     }
 
-    private static CardModel[] AppendMissing(CardModel[] source, params CardModel[] additions)
-    {
-        var cards = source.ToList();
-        var existingIds = cards.Select(card => card.Id).ToHashSet();
 
-        foreach (var card in additions)
-        {
-            if (existingIds.Add(card.Id))
-            {
-                cards.Add(card);
-            }
-        }
-
-        return cards.ToArray();
-    }
 }
 
 /// <summary>
@@ -46,7 +32,7 @@ public static class TokenCardPoolPatch
 {
     private static void Postfix(ref CardModel[] __result)
     {
-        __result = AppendMissing(__result,
+        __result = PoolCards.AppendMissing(__result,
             ModelDb.Card<KarenContinue>(),
             ModelDb.Card<KarenTowerOfPromise>(),
             ModelDb.Card<KarenConfront>(),
@@ -77,19 +63,14 @@ public static class TokenCardPoolPatch
             ModelDb.Card<KarenOldPlaceRetainHandOption>());
     }
 
-    private static CardModel[] AppendMissing(CardModel[] source, params CardModel[] additions)
+
+}
+
+internal static class PoolCards
+{
+    internal static CardModel[] AppendMissing(CardModel[] source, params CardModel[] additions)
     {
-        var cards = source.ToList();
-        var existingIds = cards.Select(card => card.Id).ToHashSet();
-
-        foreach (var card in additions)
-        {
-            if (existingIds.Add(card.Id))
-            {
-                cards.Add(card);
-            }
-        }
-
-        return cards.ToArray();
+        var ids = source.Select(card => card.Id).ToHashSet();
+        return source.Concat(additions.Where(card => ids.Add(card.Id))).ToArray();
     }
 }

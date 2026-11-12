@@ -1,3 +1,4 @@
+using ShoujoKagekiAijoKaren.src.Core.Models.Cards.ancient;
 using MegaCrit.Sts2.Core.CardSelection;
 using ShoujoKagekiAijoKaren.src.Core.Vfx;
 using MegaCrit.Sts2.Core.Commands;
@@ -18,13 +19,14 @@ namespace ShoujoKagekiAijoKaren.src.Models.Cards;
 /// <summary>
 /// 坠落 - 1费技能，获得8格挡，将1张手牌放入约定牌堆。
 /// </summary>
-public sealed class KarenFall : KarenBaseCardModel
+public sealed class KarenFall : KarenBaseCardModel, BaseLib.Abstracts.ITranscendenceCard
 {
     protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { KarenCustomEnum.PromisePileRelated };
 
     public KarenFall() : base(1, CardType.Skill, CardRarity.Basic, TargetType.Self) { }
 
     public override bool GainsBlock => true;
+    public CardModel GetTranscendenceTransformedCard() => ModelDb.Card<KarenWhy>();
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {

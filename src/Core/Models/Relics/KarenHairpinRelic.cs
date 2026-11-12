@@ -22,9 +22,12 @@ namespace ShoujoKagekiAijoKaren.src.Models.Relics;
 /// 发夹 - Karen的初始遗物
 /// 第2回合开始时，将一张"约定之塔"加入手牌。
 /// </summary>
-public sealed class KarenHairpinRelic : RelicModel
+[BaseLib.Utils.Attributes.CustomID("KAREN_HAIRPIN_RELIC")]
+public sealed class KarenHairpinRelic : BaseLib.Abstracts.CustomRelicModel
 {
+    public KarenHairpinRelic() : base(autoAdd: false) { }
     public override RelicRarity Rarity => RelicRarity.Starter;
+    public override RelicModel GetUpgradeReplacement() => ModelDb.Relic<KarenHairpin2Relic>();
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<KarenTowerOfPromise>(false)];
 

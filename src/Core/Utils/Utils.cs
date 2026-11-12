@@ -25,7 +25,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.Utils
     public static class CardUtils
     {
 
-        public static List<CardModel> CreateTokens(Player player, ICombatState combatState, IEnumerable<CardModel> canonicalCards, bool upgrade = false)
+        public static List<CardModel> CreateTokens(Player player, IEnumerable<CardModel> canonicalCards, bool upgrade = false)
         {
             var result = new List<CardModel>();
 

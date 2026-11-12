@@ -40,7 +40,7 @@ public sealed class KarenNoHesitate : KarenBaseCardModel
         };
         if (!PromisePileManager.IsVoidMode(Owner))
             options.Insert(0, ModelDb.Card<KarenNoHesitateDrawPileOption>());
-        await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, options, IsUpgraded);
+        await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, options, IsUpgraded);
     }
 
     protected override void OnUpgrade()

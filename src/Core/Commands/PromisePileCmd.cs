@@ -103,44 +103,26 @@ public static class PromisePileCmd
             await CardPileCmd.AutoPlayFromDrawPile(context, player, count, CardPilePosition.Top, forceExhaust: false);
             return;
         }
-        var cards = new List<CardModel>();
-        try
+        await PlayStaged(context, player, Candidates());
+        IEnumerable<CardModel> Candidates()
         {
             for (int i = 0; i < count; i++)
             {
-                var card = PromisePileManager.EffectivePile(player).Cards.FirstOrDefault();
-                if (card == null) break;
-                // Movement hooks can fail after the card has already entered Play.
-                cards.Add(card);
-                var result = await CardPileCmd.Add(card, PileType.Play);
-                if (!result.success) break;
-                cards[^1] = result.cardAdded;
+                if (PromisePileManager.EffectivePile(player).Cards.FirstOrDefault() is not { } card) yield break;
+                yield return card;
             }
-            foreach (var card in cards)
-                if (card.Pile?.Type == PileType.Play) await CardCmd.AutoPlay(context, card, null);
         }
-        finally { await RestoreUnplayed(player, cards); }
     }
     public static async Task SelectAndAutoPlayFromPromisePile(PlayerChoiceContext context, Player player)
     {
         if (CombatManager.Instance.IsOverOrEnding) return;
         var cards = await PromisePileManager.SelectCards(context, player, PromisePileManager.EffectivePile(player), 1, Tips.SelectFromPromisePileToPlay);
-        if (cards.FirstOrDefault() is not { } card) return;
-        CardModel staged = card;
-        try
-        {
-            var result = await CardPileCmd.Add(card, PileType.Play);
-            if (!result.success) return;
-            staged = result.cardAdded;
-            await CardCmd.AutoPlay(context, staged, null);
-        }
-        finally { await RestoreUnplayed(player, [staged]); }
+        await PlayStaged(context, player, cards);
     }
-    private static async Task RestoreUnplayed(Player player, IEnumerable<CardModel> cards)
-    {
-        if (player.PlayerCombatState == null || CombatManager.Instance.IsOverOrEnding) return;
-        var unplayed = cards.Where(card => card.Pile?.Type == PileType.Play).ToArray();
-        if (unplayed.Length > 0) await Add(player, unplayed);
-    }
+    private static Task PlayStaged(PlayerChoiceContext context, Player player, IEnumerable<CardModel> cards)
+        => ShoujoKageki.Core.V1.CardExecution.PlayStaged(cards,
+            card => CardCmd.AutoPlay(context, card, null),
+            unplayed => player.PlayerCombatState == null || CombatManager.Instance.IsOverOrEnding || unplayed.Count == 0
+                ? Task.CompletedTask : Add(player, unplayed));
     internal static Task EnterMode(Player player, PromisePileMode mode) => PromisePileManager.EnterMode(player, mode);
 }

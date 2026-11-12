@@ -35,7 +35,7 @@ public sealed class KarenRapid : KarenBaseCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, CombatState, [
+        await CardPileCmdEx.SelectOption(choiceContext, cardPlay, Owner, [
             ModelDb.Card<KarenRapidTakeOption>(),
             ModelDb.Card<KarenRapidPutOption>()
         ], IsUpgraded);
