@@ -26,11 +26,12 @@ internal static class AndroidPolicy
 
 internal static class KarenCharacterPolicy
 {
-    public static bool Allowed(CharacterModel character) => !AndroidPolicy.KarenOnly || character is Karen;
+    public static bool AllowedId(ModelId id) => id.Entry is "KAREN" or "JUNNA";
+    public static bool Allowed(CharacterModel character) => !AndroidPolicy.KarenOnly || AllowedId(character.Id);
     public static void Apply(NCharacterSelectButton button)
     {
         if (!AndroidPolicy.KarenOnly) return;
-        if (button.Character is Karen)
+        if (Allowed(button.Character))
         {
             button.DebugUnlock();
             return;
@@ -76,7 +77,7 @@ internal static class AndroidLobbyCharacterPatch
 {
     private static void Prefix(ref CharacterModel character)
     {
-        if (AndroidPolicy.KarenOnly) character = ModelDb.Character<Karen>();
+        if (!KarenCharacterPolicy.Allowed(character)) character = ModelDb.Character<Karen>();
     }
 }
 
@@ -88,7 +89,7 @@ internal static class AndroidLobbyInitialCharacterPatch
                 AccessTools.Method(typeof(StartRunLobby), nameof(StartRunLobby.InitializeFromMessage)) };
     private static void Postfix(StartRunLobby __instance)
     {
-        if (AndroidPolicy.KarenOnly && __instance.LocalPlayer.character is not Karen)
+        if (!KarenCharacterPolicy.Allowed(__instance.LocalPlayer.character))
             __instance.SetLocalCharacter(ModelDb.Character<Karen>());
     }
 }
@@ -98,7 +99,7 @@ internal static class AndroidLobbyFinalCharacterPatch
 {
     private static void Prefix(StartRunLobby __instance, ulong playerId, ref CharacterModel character)
     {
-        if (AndroidPolicy.KarenOnly && playerId == __instance.NetService.NetId)
+        if (!KarenCharacterPolicy.Allowed(character) && playerId == __instance.NetService.NetId)
             character = ModelDb.Character<Karen>();
     }
 }
@@ -110,7 +111,7 @@ internal static class AndroidSavedCharacterPatch
     {
         if (!AndroidPolicy.KarenOnly) return true;
         var save = SaveManager.Instance.LoadRunSave();
-        if (save.SaveData?.Players.Any(p => p.CharacterId != ModelDb.Character<Karen>().Id) != true)
+        if (save.SaveData?.Players.Any(p => !KarenCharacterPolicy.AllowedId(p.CharacterId)) != true)
             return true;
         KarenModConfig.ShowMessage(
             new LocString("characters", "KAREN.title").GetFormattedText(),

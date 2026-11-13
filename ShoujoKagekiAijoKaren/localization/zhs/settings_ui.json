@@ -16,7 +16,7 @@
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.jsonComplete": "导出完成。\n输出目录：{OutputDirectory}\nKaren 卡牌：{CardCount}",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.failed": "导出失败：{Error}\n请查看日志获取详细信息。",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.unknownError": "未知错误",
-  "SHOUJOKAGEKIAIJOKAREN-ANDROID.karen_only_save": "安卓版仅支持华恋。其他角色的存档已保留；放弃该对局后可开始华恋新局。",
+  "SHOUJOKAGEKIAIJOKAREN-ANDROID.karen_only_save": "安卓版支持华恋与纯那。请先结束其他角色的对局。",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_MUSIC_PLAYER.title": "启用",
   "SHOUJOKAGEKIAIJOKAREN-MUSIC_DIRECTORY.title": "本地音乐目录",
   "KAREN_MUSIC.unset": "未设置目录",

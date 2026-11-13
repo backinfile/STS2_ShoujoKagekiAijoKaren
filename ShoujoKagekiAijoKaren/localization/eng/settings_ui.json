@@ -16,7 +16,7 @@
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.jsonComplete": "Export complete.\nOutput directory: {OutputDirectory}\nKaren cards: {CardCount}",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.failed": "Export failed: {Error}\nSee the log for details.",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.unknownError": "Unknown error",
-  "SHOUJOKAGEKIAIJOKAREN-ANDROID.karen_only_save": "This Android edition supports Karen only. This other-character save is preserved; abandon it to start a Karen run.",
+  "SHOUJOKAGEKIAIJOKAREN-ANDROID.karen_only_save": "This Android edition supports Karen and Junna. Finish the other character's run first.",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_MUSIC_PLAYER.title": "Enabled",
   "SHOUJOKAGEKIAIJOKAREN-MUSIC_DIRECTORY.title": "Local Music Folder",
   "KAREN_MUSIC.unset": "No folder selected",

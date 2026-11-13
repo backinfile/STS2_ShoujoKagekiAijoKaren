@@ -16,7 +16,7 @@
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.jsonComplete": "エクスポートが完了しました。\n出力先：{OutputDirectory}\n華恋のカード：{CardCount}",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.failed": "エクスポートに失敗しました：{Error}\n詳細はログを確認してください。",
   "SHOUJOKAGEKIAIJOKAREN-EXPORT.unknownError": "不明なエラー",
-  "SHOUJOKAGEKIAIJOKAREN-ANDROID.karen_only_save": "Android 版では華恋のみ使用できます。他キャラクターのセーブは保持されています。",
+  "SHOUJOKAGEKIAIJOKAREN-ANDROID.karen_only_save": "Android 版は華恋と純那に対応しています。先に他キャラクターのランを終了してください。",
   "SHOUJOKAGEKIAIJOKAREN-ENABLE_MUSIC_PLAYER.title": "有効",
   "SHOUJOKAGEKIAIJOKAREN-MUSIC_DIRECTORY.title": "音楽フォルダー",
   "KAREN_MUSIC.unset": "フォルダー未設定",
