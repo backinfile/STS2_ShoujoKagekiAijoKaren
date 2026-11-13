@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework><Nullable>enable</Nullable><LangVersion>12</LangVersion>
+    <UseCoreApi>true</UseCoreApi><TargetFramework>net9.0</TargetFramework><Nullable>enable</Nullable><LangVersion>12</LangVersion>
     <AssemblyName>KarenReviewRegression</AssemblyName>
     <Variant Condition="'$(Variant)' == ''">Stable</Variant>
     <Game>$(MSBuildThisFileDirectory)../../artifacts/dev-game/$(Variant)/game</Game>

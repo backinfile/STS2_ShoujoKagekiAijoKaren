@@ -1,5 +1,7 @@
 param(
     [string]$CorePackage = $env:SHOUJO_CORE_PACKAGE,
+    [string]$StableGameDir = $env:SHOUJO_STABLE_GAME,
+    [string]$BetaGameDir = $env:SHOUJO_BETA_GAME,
     [string]$MegaDot = 'D:\Godot\megadot-4.5.1-m.12-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64.exe',
     [ValidateSet('Desktop', 'Android')][string]$Target = 'Desktop'
 )
@@ -8,6 +10,14 @@ $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'core-package.ps1')
 $core = Get-CorePackage $CorePackage
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+if (-not $BetaGameDir) { $BetaGameDir = Join-Path $project 'artifacts/dev-game/beta/game' }
+$BetaGameDir = [IO.Path]::GetFullPath($BetaGameDir)
+$betaRelease = Join-Path $BetaGameDir 'release_info.json'
+if (-not (Test-Path -LiteralPath $betaRelease)) { throw 'Set -BetaGameDir or SHOUJO_BETA_GAME to the supported beta game.' }
+$actualBeta = (Get-Content -LiteralPath $betaRelease -Raw -Encoding UTF8 | ConvertFrom-Json).version.TrimStart('v')
+if ($actualBeta -ne $core.Bundle.targets.beta.minimumGameVersion.TrimStart('v')) { throw 'Beta game does not match the selected Core package.' }
+if ($StableGameDir) { $StableGameDir = [IO.Path]::GetFullPath($StableGameDir) }
+
 $modId = 'ShoujoKagekiAijoKaren'
 $artifactRoot = [IO.Path]::GetFullPath((Join-Path $project 'artifacts'))
 $packageRoot = if ($Target -eq 'Android') { Join-Path $artifactRoot 'android' } else { $artifactRoot }
@@ -38,7 +48,9 @@ function Build-OrThrow([string]$projectPath, [string]$configuration, [string[]]$
 }
 
 $modProject = Join-Path $project ($modId + '.csproj')
-$commonArgs = @('-p:Sts2ReferenceMode=package', "-p:CoreApiPath=$($core.ApiPath)")
+$referenceMode = if ($StableGameDir) { 'local' } else { 'package' }
+$commonArgs = @("-p:Sts2ReferenceMode=$referenceMode", "-p:CoreApiPath=$($core.ApiPath)")
+if ($StableGameDir) { $commonArgs += "-p:Sts2GameDir=$StableGameDir" }
 $commonArgs += if ($Target -eq 'Android') { '-p:KarenAndroidBuild=true' } else { '-p:KarenAndroidBuild=false' }
 $godotOutput = Join-Path $project '.godot/mono/temp/bin/ExportRelease'
 
@@ -46,6 +58,7 @@ $godotOutput = Join-Path $project '.godot/mono/temp/bin/ExportRelease'
 Build-OrThrow $modProject 'ExportRelease' ($commonArgs + @('-p:Sts2Api=stable'))
 Push-Location $project
 $previousReferenceMode = $env:Sts2ReferenceMode
+$previousGameDir = $env:Sts2GameDir
 $previousApi = $env:Sts2Api
 $previousAndroidBuild = $env:KarenAndroidBuild
 $previousCoreApi = $env:CoreApiPath
@@ -53,7 +66,8 @@ try {
     # Godot invokes dotnet publish during export; keep it on the same stable
     # reference assemblies used by the preceding build.
     $env:CoreApiPath = $core.ApiPath
-    $env:Sts2ReferenceMode = 'package'
+    $env:Sts2ReferenceMode = $referenceMode
+    if ($StableGameDir) { $env:Sts2GameDir = $StableGameDir }
     $env:Sts2Api = 'stable'
     $env:KarenAndroidBuild = if ($Target -eq 'Android') { 'true' } else { 'false' }
     & $MegaDot --headless --export-pack $exportPreset (Join-Path $modDir ($modId + '.pck'))
@@ -61,6 +75,7 @@ try {
 }
 finally {
     $env:Sts2ReferenceMode = $previousReferenceMode
+    $env:Sts2GameDir = $previousGameDir
     $env:Sts2Api = $previousApi
     $env:KarenAndroidBuild = $previousAndroidBuild
     $env:CoreApiPath = $previousCoreApi
@@ -86,7 +101,12 @@ if ($stableChecks -lt 3) { throw 'PCK export did not finish.' }
 foreach ($variant in @('Stable', 'Beta')) {
     $api = $variant.ToLowerInvariant()
     $assemblyName = "$modId.$variant"
-    Build-OrThrow $modProject 'ExportRelease' ($commonArgs + @("-p:Sts2Api=$api", "-p:AssemblyName=$assemblyName"))
+    $variantArgs = $commonArgs
+    if ($variant -eq 'Beta') {
+        $variantArgs = @($commonArgs | Where-Object { $_ -notlike '-p:Sts2ReferenceMode=*' -and $_ -notlike '-p:Sts2GameDir=*' })
+        $variantArgs += '-p:Sts2ReferenceMode=local', "-p:Sts2GameDir=$BetaGameDir"
+    }
+    Build-OrThrow $modProject 'ExportRelease' ($variantArgs + @("-p:Sts2Api=$api", "-p:AssemblyName=$assemblyName"))
     $source = Join-Path $godotOutput ($assemblyName + '.dll')
     if (-not (Test-Path -LiteralPath $source)) { throw "Missing variant DLL: $source" }
     Copy-Item -LiteralPath $source -Destination (Join-Path $modDir "lib/$assemblyName.dll")

@@ -86,7 +86,18 @@ try {
         $env:APPDATA = $roaming
         $env:LOCALAPPDATA = $local
         $arguments = "--rendering-driver vulkan --force-steam=off --clientId=$ClientId --log-file `"$(Join-Path $run 'godot.log')`""
-        $process = Start-Process -FilePath $exe -WorkingDirectory $game -PassThru -WindowStyle Hidden -ArgumentList $arguments
+        $python = Join-Path $env:USERPROFILE '.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
+        if (-not (Test-Path -LiteralPath $python)) { $python = (Get-Command python -CommandType Application).Source }
+        $pidFile = Join-Path $run 'isolated-desktop.json'
+        $helper = Join-Path $PSScriptRoot 'vfx/six-card/launch_isolated_game.py'
+        $launcher = Start-Process -FilePath $python -ArgumentList "`"$helper`" --game `"$game`" --pid-file `"$pidFile`" -- $arguments" -WindowStyle Hidden -PassThru
+        $deadline = [DateTime]::UtcNow.AddSeconds(15)
+        while (-not (Test-Path -LiteralPath $pidFile)) {
+            if ($launcher.HasExited -or [DateTime]::UtcNow -ge $deadline) { throw 'The isolated visual desktop did not start' }
+            Start-Sleep -Milliseconds 100
+        }
+        $started = Get-Content -LiteralPath $pidFile -Raw -Encoding UTF8 | ConvertFrom-Json
+        $process = Get-Process -Id $started.pid -ErrorAction Stop
     }
     finally {
         $env:APPDATA = $oldRoaming
@@ -107,7 +118,7 @@ try {
     $null = Wait-State { param($s) $s.menu_screen -eq 'main' -and @($s.options) -contains 'singleplayer' } 'main menu'
     # Visual assertions also require current rendered frames, even without a video.
     $null = Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/settings" -Method Post `
-        -ContentType 'application/json' -Body '{"fullscreen":false,"window_width":1280,"window_height":720,"muted":true}' -TimeoutSec 5
+        -ContentType 'application/json' -Body '{"fullscreen":false,"window_width":1280,"window_height":720,"muted":false,"silent_test":true}' -TimeoutSec 5
     $null = Post @{ action='menu_select'; option='singleplayer' }
     $entry = Wait-State { param($s) $s.menu_screen -in @('singleplayer','character_select') } 'character selection'
     if ($entry.menu_screen -eq 'singleplayer') { $null = Post @{ action='menu_select'; option='standard' } }

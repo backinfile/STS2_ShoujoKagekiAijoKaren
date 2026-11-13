@@ -62,6 +62,12 @@ public static class CommonProbe
     }
     private static async Task Wait(double seconds) => await NCombatRoom.Instance!.ToSignal(
         NCombatRoom.Instance.GetTree().CreateTimer(seconds),SceneTreeTimer.SignalName.Timeout);
+    private static Vector2[] ReadContour(Type border,Texture2D texture)
+    {
+        var images=new Dictionary<Texture2D,Image>();
+        try { return (Vector2[])AccessTools.Method(border,"ReadContour").Invoke(null,new object[]{texture,images})!; }
+        finally { foreach(var image in images.Values) image.Dispose(); }
+    }
     public static async Task Run(Player player,string operation,string effect)
     {
         try
@@ -92,8 +98,7 @@ public static class CommonProbe
                     string mode=System.Environment.GetEnvironmentVariable("KAREN_VFX_PROBE_MODE")??"cold";
                     if(mode=="preload")
                     {
-                        var points=(Vector2[])AccessTools.Method(border,"ReadContour").Invoke(null,new object[]{texture})!;
-                        ((System.Collections.IDictionary)AccessTools.Field(border,"Contours").GetValue(null)!)[texture]=points;
+                        AccessTools.Method(border,"GetContour").Invoke(null,new object[]{texture});
                     }
                     if(mode=="draw")
                     {
@@ -112,10 +117,12 @@ public static class CommonProbe
                     string path="res://images/atlases/ui_atlas.sprites/card/card_frame_"+kind+"_s.tres";
                     if(!ResourceLoader.Exists(path))continue;
                     var texture=ResourceLoader.Load<Texture2D>(path);
-                    var points=(Vector2[])AccessTools.Method(border,"ReadContour").Invoke(null,new object[]{texture})!;
-                    var cache=(System.Collections.IDictionary)AccessTools.Field(border,"Contours").GetValue(null)!;
-                    bool cached=cache.Contains(texture);
-                    bool cacheMatches=!cached||((Vector2[])cache[texture]!).SequenceEqual(points);
+                    var points=ReadContour(border,texture);
+                    var cache=AccessTools.Field(border,"Contours").GetValue(null)!;
+                    object?[] lookup={texture,null};
+                    bool cached=(bool)cache.GetType().GetMethod("TryGetValue")!.Invoke(cache,lookup)!;
+                    var prepared=cached?(Vector2[]?)AccessTools.Field(lookup[1]!.GetType(),"Points").GetValue(lookup[1]):null;
+                    bool cacheMatches=prepared!=null&&prepared.SequenceEqual(points);
                     if(!cacheMatches)throw new Exception("Prepared contour differs from actual image: "+path);
                     frames.Add(new{path,cached,cacheMatches,points=points.Select(v=>new[]{v.X,v.Y}).ToArray()});
                 }

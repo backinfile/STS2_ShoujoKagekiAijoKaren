@@ -50,9 +50,9 @@ class TestDesktop:
         self.handle=user.CreateDesktopW(self.name,None,None,0,0x10000000,None)
         if not self.handle:raise ctypes.WinError(ctypes.get_last_error())
         self.processes=[]
-    def launch(self,argv,cwd,env):
+    def launch(self,argv,cwd,env,visible=False):
         startup=StartupInfo();startup.cb=ctypes.sizeof(startup);startup.lpDesktop='WinSta0\\'+self.name
-        startup.dwFlags=1;startup.wShowWindow=0
+        startup.dwFlags=1;startup.wShowWindow=4 if visible else 0
         command=ctypes.create_unicode_buffer(subprocess.list2cmdline([str(a) for a in argv]))
         environment=ctypes.create_unicode_buffer('\0'.join(f'{k}={v}' for k,v in sorted(env.items(),key=lambda item:item[0].upper()))+'\0\0')
         info=ProcessInfo()

@@ -29,7 +29,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite s
 
 单人移牌视觉专项另行运行 `pwsh -NoProfile -File tools/test_promise_visuals.ps1 -Environment beta`（正式版改为 `stable`）。它检查《坠落》移入、《约定之塔》抽回以及取回后继续出牌，保存各阶段截图和 MCP 状态，并调用只读命令 `karen_check_hand` 比较可见节点与模型。脚本先从隔离日志确认 KarenSTS2MCP 启动，再访问接口。检查时始终保持 1280 × 720 窗口；加 `-Record` 时额外录像并静音，避免最小化 Vulkan 窗口导致画面停止更新。结果保存在 `artifacts/test-promise-visuals/`。该检查能发现模型已抽回但画面仍缺牌的问题。
 
-游戏快照固定为正式版 v0.107.1、测试版 v0.111.0；游戏升级后先重新准备快照并核对兼容性。更新脚本不会执行 `git pull`，避免覆盖 MCP 源码目录中的未提交改动；如果需要远端新提交，应先在 MCP 仓库处理更新，再运行此脚本。
+游戏快照固定为正式版 v0.107.1、测试版 v0.113.0；游戏升级后先重新准备快照并核对兼容性。更新脚本不会执行 `git pull`，避免覆盖 MCP 源码目录中的未提交改动；如果需要远端新提交，应先在 MCP 仓库处理更新，再运行此脚本。
 
 单机双进程测试可加 `-UpdateMcp -LoopbackOnly`。该选项只修改 MCP 构建副本，把 ENet 主机与客户端的 UDP 接口限制在 `127.0.0.1`，避免测试监听所有网卡；不修改系统防火墙，也不需要管理员启动。Windows 是否显示权限提示仍以实际系统行为为准。重新不带该选项构建 MCP 可恢复局域网测试。
 
@@ -38,3 +38,5 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite s
 修复专项的客户端游戏使用工作树内的可复用缓存，避免每次复制数 GB 文件。日志与用户数据仍按运行隔离；`-ClientGamesRoot` 可指定 `artifacts/test-matrix/` 下已有客户端副本目录。
 
 修复专项把测试版启动期的原生 WorkerThreadPool 诊断单列为 `startupWorkerPoolErrorCount`：必须是 Common 预加载完成之前的 `ERROR: Invalid Task ID`，且调用位置为 `core/object/worker_thread_pool.cpp`。其余原生错误仍使测试失败；不能把出牌阶段同名错误归为启动诊断。`headlessRendererErrorCount` 仅统计 headless dummy renderer 的错误，窗口测试应为 0。
+
+`tools/test_review_regressions.ps1` 另行覆盖模型复制、降级、联机转交及拒绝分支、能量保留、远端牌堆界面和遗物清理。重播检查分别断言三次原生回调及一次闪耀扣减，沿用 Core 的同次原生出牌共享预算契约；每个阶段的两端结果单独记录，失败后继续检查独立阶段。

@@ -24,7 +24,7 @@ $roaming = Join-Path $root 'user\AppData\Roaming'
 $local = Join-Path $root 'user\AppData\Local'
 $settingsPath = Join-Path $roaming 'SlayTheSpire2\default\1\settings.save'
 $log = Join-Path $root 'godot.log'
-$expectedVersion = if ($Branch -eq 'stable') { 'v0.107.1' } else { 'v0.111.0' }
+$expectedVersion = if ($Branch -eq 'stable') { 'v0.107.1' } else { 'v0.113.0' }
 $variantName = if ($Branch -eq 'stable') { 'Stable' } else { 'Beta' }
 $package = Join-Path $project 'artifacts\ShoujoKagekiAijoKaren'
 $mcpPort = if ($Branch -eq 'stable') { 15627 } else { 15628 }
@@ -199,11 +199,11 @@ switch ($Action) {
             if (-not $mcpResponded -or -not $contents.Contains("server started on http://localhost:$mcpPort/")) {
                 throw "KarenSTS2MCP did not respond on port $mcpPort; inspect $log"
             }
-            if (-not $contents.Contains("[KarenLoader] Loaded $variantName implementation")) {
+            if (-not $contents.Contains("[ShoujoKagekiAijoKarenLoader] Loaded $variantName implementation")) {
                 throw "Karen $variantName did not initialize; inspect $log"
             }
-            if (-not $contents.Contains('ModelDb.AllCharacters patched. containsKaren=True')) {
-                throw "Karen is missing from the character list; inspect $log"
+            if (-not $contents.Contains('[KarenDiagnostics] Harmony PatchAll completed.')) {
+                throw "Karen patches did not initialize; inspect $log"
             }
             $expectedUserData = (Join-Path $roaming 'SlayTheSpire2').Replace('\', '/')
             if (-not $contents.Contains('Steam initialization skipped') -or

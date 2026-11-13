@@ -1,4 +1,6 @@
+using ShoujoKageki.Core.V1;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Reflection;
@@ -107,7 +109,7 @@ public sealed class ReviewFixtureCmd : AbstractConsoleCmd
                 _targetCount = _target.Deck.Cards.Count(c => c is KarenFightRelay);
                 var deck = p.RunState.CreateCard(ModelDb.Card<KarenFightRelay>(), p);
                 await CardPileCmd.Add(deck, PileType.Deck);
-                deck.AddShineMax(1); // Three actual replays must leave one shine for transfer.
+                deck.AddShineMax(1); // One native play budget is shared by its three executions.
                 _relay = p.Creature.CombatState!.CloneCard(deck);
                 _relay.DeckVersion = deck;
                 _relay.SetExtraReplayCountForNextPlay(2);
@@ -118,7 +120,7 @@ public sealed class ReviewFixtureCmd : AbstractConsoleCmd
             } else if (action == "prepare_rejection") {
                 var deck = p.RunState.CreateCard(ModelDb.Card<KarenFightRelay>(), p);
                 await CardPileCmd.Add(deck, PileType.Deck);
-                deck.AddShineMax(1); // Three actual replays must leave one shine for transfer.
+                deck.AddShineMax(1); // One native play budget is shared by its three executions.
                 _relay = p.Creature.CombatState!.CloneCard(deck);
                 _relay.DeckVersion = deck;
                 _relay.SetExtraReplayCountForNextPlay(2);
@@ -127,13 +129,15 @@ public sealed class ReviewFixtureCmd : AbstractConsoleCmd
                 RejectRelayAdd.Enabled = true;
             } else if (action == "rejection") {
                 Check(!RejectRelayAdd.Enabled, "rejection fixture not exercised");
-                Check(_relay!.GetShineValue() == 1, "rejected relay did not resolve three times");
+                Check(ReviewRelayPlayTrace.ResolvedThreeTimes(_relay!), "rejected relay did not execute three times");
+                Check(_relay!.GetShineValue() == 3, "rejected relay must spend one native play budget");
                 Check(_target!.Deck.Cards.Count(c => c is KarenFightRelay) == _targetCount, "rejected transfer added a copy");
                 Check(_relay!.DeckVersion?.Pile?.Type == PileType.Deck && _relay.Pile?.Type == PileType.Discard, "rejected transfer lost source");
             } else if (action == "relay") {
                 Check(_target!.Deck.Cards.Count(c => c is KarenFightRelay) == _targetCount + 1, "relay transfer count must be exactly one");
-                Check(_relay!.GetShineValue() == 1, "relay did not resolve three times");
-                Check(_target.Deck.Cards.Last(c => c is KarenFightRelay).GetShineValue() == 1, "transfer changed the remaining shine");
+                Check(ReviewRelayPlayTrace.ResolvedThreeTimes(_relay!), "relay did not execute three times");
+                Check(_relay!.GetShineValue() == 3, "relay must spend one native play budget");
+                Check(_target.Deck.Cards.Last(c => c is KarenFightRelay).GetShineValue() == 3, "transfer changed the remaining shine");
                 Check(_relay!.DeckVersion?.Pile?.Type != PileType.Deck && _relay.Pile == null, "source relay survived transfer");
             } else if (action == "energy") {
                 foreach (var owner in p.RunState.Players)
@@ -297,5 +301,21 @@ internal static class RejectRelayAdd
         Enabled = false;
         __result = Task.FromResult(new CardPileAddResult { cardAdded = card, success = false });
         return false;
+    }
+}
+
+// Observe native callbacks independently from the shared Shine budget.
+[HarmonyPatch(typeof(KarenFightRelay), nameof(KarenFightRelay.OnShineNotExhausted))]
+internal static class ReviewRelayPlayTrace
+{
+    private static readonly Dictionary<CardModel, List<(int Index,int Count)>> Plays = new(ReferenceEqualityComparer.Instance);
+    internal static bool ResolvedThreeTimes(CardModel card) => Plays.TryGetValue(card,out var plays)
+        && plays.Count==3 && plays.Select(p=>p.Index).SequenceEqual(new[]{0,1,2}) && plays.All(p=>p.Count==3);
+    [HarmonyPrefix]
+    private static void Prefix(KarenFightRelay __instance,CardPlay cardPlay)
+    {
+        if(!Plays.TryGetValue(__instance,out var plays)) Plays[__instance]=plays=new();
+        plays.Add((cardPlay.PlayIndex,cardPlay.PlayCount));
+        GD.Print($"[ReviewRelayOutcome] index={cardPlay.PlayIndex}, count={cardPlay.PlayCount}, shine={Shine.GetState(__instance)?.Remaining}");
     }
 }

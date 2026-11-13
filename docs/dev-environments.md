@@ -5,7 +5,7 @@
 | 分支 | 游戏目录 | 游戏版本 | 启动入口 |
 | --- | --- | --- | --- |
 | 正式版 | `artifacts/dev-game/stable/game/` | v0.107.1 | `run_stable_dev.bat` 或 `run.bat` |
-| 测试版 | `artifacts/dev-game/beta/game/` | v0.111.0 | `run_beta_dev.bat` |
+| 测试版 | `artifacts/dev-game/beta/game/` | v0.113.0 | `run_beta_dev.bat` |
 
 构建使用 `build.bat -CorePackage <Core发行目录>`，或通过 `SHOUJO_CORE_PACKAGE` 指定该目录。角色与 Core 分别输出至 `artifacts/ShoujoKagekiAijoKaren/` 和 `artifacts/ShoujoKagekiAijoCore/`，工坊内容统一准备在 `artifacts/workshop/`。
 

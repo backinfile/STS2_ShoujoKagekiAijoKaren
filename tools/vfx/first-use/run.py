@@ -9,6 +9,7 @@ import socket
 import subprocess
 import time
 import urllib.request
+from evidence import harness_fingerprint
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--source-env", type=Path, required=True, help="Read-only dev environment containing game/ and user/")
@@ -45,18 +46,22 @@ def static_file(src, dest):
 
 # Read-only static game files may share disk blocks; mods and all user data are copies.
 for src in source.iterdir():
-    if src.is_file():
+    if src.is_file() and src.name != "override.cfg":
         static_file(src, game / src.name)
 for src in (source / "data_sts2_windows_x86_64").rglob("*"):
     if src.is_file():
         static_file(src, game / src.relative_to(source))
+(game / "override.cfg").write_text("[display]\nwindow/size/mode=0\nwindow/size/no_focus=true\n", encoding="utf-8")
 mods = game / "mods"
 mods.mkdir()
 shutil.copytree(source / "mods/BaseLib", mods / "BaseLib")
 shutil.copytree(package, mods / "ShoujoKagekiAijoKaren")
+core_package = package.parent / "ShoujoKagekiAijoCore"
+assert (core_package / "core.bundle").is_file(), "Final Core package missing"
+shutil.copytree(core_package, mods / "ShoujoKagekiAijoCore")
 for name in ["KarenSTS2MCP.dll", "KarenSTS2MCP.json"]:
     shutil.copy2(source / "mods" / name, mods / name)
-(mods / "KarenSTS2MCP.conf").write_text(json.dumps(dict(port=args.port, muted=True, fullscreen=False,
+(mods / "KarenSTS2MCP.conf").write_text(json.dumps(dict(port=args.port, muted=False, silent_test=True, fullscreen=False,
     window_width=1280, window_height=720, skip_tutorial=True, skip_first_prompt=True)), encoding="utf-8")
 variant = args.branch.capitalize()
 for plugin, csproj in [("KarenFirstUseProbe", "tools/vfx/first-use/Probe.csproj")]:
@@ -72,7 +77,12 @@ for plugin, csproj in [("KarenFirstUseProbe", "tools/vfx/first-use/Probe.csproj"
         has_dll=True, has_pck=False, affects_gameplay=True, dependencies=[dict(id="ShoujoKagekiAijoKaren")])), encoding="utf-8")
 profile = run / "user/AppData/Roaming/SlayTheSpire2/default/8622"
 profile.mkdir(parents=True)
-shutil.copy2(args.source_env / "user/AppData/Roaming/SlayTheSpire2/default/1/settings.save", profile / "settings.save")
+settings = json.loads((args.source_env / "user/AppData/Roaming/SlayTheSpire2/default/1/settings.save").read_text(encoding="utf-8-sig"))
+settings.update(fullscreen=False, fps_limit=60, limit_fps_in_background=False)
+(profile / "settings.save").write_text(json.dumps(settings), encoding="utf-8")
+config_dir = profile.parent.parent / "mod_configs"
+config_dir.mkdir(exist_ok=True)
+(config_dir / "ShoujoKagekiAijoCore.cfg").write_text(json.dumps(dict(EnableInformationCollection="False", EnableDataUpload="False", EnableErrorUpload="False", VfxLevel="Full")), encoding="utf-8")
 env = os.environ.copy()
 env["KAREN_ALL_VFX_RESULT"]=str(run/"all-result.json")
 env["KAREN_ALL_VFX_FILTER"]=",".join(args.only_effect or [])
@@ -90,7 +100,7 @@ sys.path.insert(0,str(project/"tools/vfx/six-card"))
 from isolated_desktop import TestDesktop
 desktop=TestDesktop()
 process = desktop.launch([str(game / "SlayTheSpire2.exe"), "--rendering-driver", args.renderer, *(["--rendering-method", "gl_compatibility"] if args.renderer=="opengl3" else []), "--force-steam=off",
-    "--clientId=8622", "--log-file", str(log)], cwd=game, env=env)
+    "--clientId=8622", "--log-file", str(log)], cwd=game, env=env, visible=True)
 print("START", args.branch, "pid=" + str(process.pid), "run=" + str(run), flush=True)
 
 def request(endpoint, body=None):
@@ -156,7 +166,7 @@ try:
     else:
         raise RuntimeError("Karen STS2 MCP did not load")
     wait_for(lambda s: s.get("menu_screen") == "main" and "singleplayer" in s.get("options", []), "main menu")
-    request("/settings", dict(muted=True, fullscreen=False, window_width=1280, window_height=720))
+    request("/settings", dict(muted=False, silent_test=True, fullscreen=False, window_width=1280, window_height=720))
     wait_for(lambda s: s.get("menu_screen") == "main" and "singleplayer" in s.get("options", []), "main menu after display setup")
     action(action="menu_select", option="singleplayer")
     state = wait_for(lambda s: s.get("menu_screen") in ["singleplayer", "character_select"], "character menu")
@@ -257,8 +267,10 @@ except Exception as error:
     print("FAIL", error, flush=True)
 finally:
     report = dict(platform="Windows x64 host / selected Mod package", android_arm64_tested=False,
+        harness_sha256=harness_fingerprint(source),
         branch=args.branch,effect=args.effect,effect_filter=args.only_effect,renderer=args.renderer,measurement_protocol=3 if args.effect=="all" else 1,
         package_sha256={str(f.relative_to(mods / "ShoujoKagekiAijoKaren")):hashlib.sha256(f.read_bytes()).hexdigest() for f in (mods / "ShoujoKagekiAijoKaren").rglob("*") if f.is_file()},
+        core_package_sha256={str(f.relative_to(core_package)):hashlib.sha256(f.read_bytes()).hexdigest() for f in core_package.rglob("*") if f.is_file()},
         results=results)
     (run / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     if process.poll() is None:

@@ -165,8 +165,10 @@ function Test-Solo([string]$branch, [int]$caseId) {
         $shineCount = @($save.players[0].deck | Where-Object id -match 'KAREN_SHINE_STRIKE').Count
         if ($shineCount -ne 0) { throw "Shine Strike remains in deck: $shineCount" }
         $contents = Get-Content -LiteralPath $log -Raw -Encoding UTF8
-        $archivedShine = @($save.players[0].extra_fields.core_player_disposed_pile |
-            Where-Object { $_.id.Entry -eq 'KAREN_SHINE_STRIKE' }).Count
+        $corePlayerStateJson = $save.players[0].save_dict_String.'ShoujoKagekiAijoCore.player-state@1'
+        if (-not $corePlayerStateJson) { throw 'Core player state missing from save' }
+        $corePlayerState = $corePlayerStateJson | ConvertFrom-Json
+        $archivedShine = @($corePlayerState.Cards | Where-Object id -eq 'CARD.KAREN_SHINE_STRIKE').Count
         if ($archivedShine -ne 1) { throw "Expected one depleted Shine Strike in the Core archive, found $archivedShine" }
         if ($contents -match '(?m)^\[ERROR\]') { throw 'Game logged an error' }
         Copy-Item -LiteralPath $log -Destination (Join-Path $logDir "solo-$branch.log") -Force

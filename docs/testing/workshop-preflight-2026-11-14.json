@@ -1,0 +1,267 @@
+{
+  "status": "passed",
+  "dates": [
+    "2026-11-13",
+    "2026-11-14"
+  ],
+  "karen_version": "v0.2.0",
+  "core_version": "1.9.3",
+  "baselib_version": "3.4.8",
+  "game_versions": {
+    "stable": "v0.107.1",
+    "beta": "v0.113.0"
+  },
+  "karen_gameplay_commit": "bc6ea96",
+  "core_commit": "aaca8c1ea9f77b169e36fe64dd808d55208adfc3",
+  "matrix": {
+    "passed": 36,
+    "failed": 0
+  },
+  "review": {
+    "passed": 8,
+    "failed": 0,
+    "peer_assertions": 144
+  },
+  "vfx": {
+    "passed": 8,
+    "failed": 0,
+    "frames": [
+      {
+        "branch": "stable",
+        "effect": "all",
+        "passes": 93,
+        "maximum_ms": 17.9236,
+        "over_33_3": 0
+      },
+      {
+        "branch": "stable",
+        "effect": "bridge",
+        "passes": 4,
+        "maximum_ms": 19.2684,
+        "over_33_3": 0
+      },
+      {
+        "branch": "stable",
+        "effect": "shine",
+        "passes": 4,
+        "maximum_ms": 16.9248,
+        "over_33_3": 0
+      },
+      {
+        "branch": "stable",
+        "effect": "promise",
+        "passes": 4,
+        "maximum_ms": 17.5546,
+        "over_33_3": 0
+      },
+      {
+        "branch": "beta",
+        "effect": "all",
+        "passes": 93,
+        "maximum_ms": 31.7478,
+        "over_33_3": 0
+      },
+      {
+        "branch": "beta",
+        "effect": "bridge",
+        "passes": 4,
+        "maximum_ms": 17.288,
+        "over_33_3": 0
+      },
+      {
+        "branch": "beta",
+        "effect": "shine",
+        "passes": 4,
+        "maximum_ms": 16.9792,
+        "over_33_3": 0
+      },
+      {
+        "branch": "beta",
+        "effect": "promise",
+        "passes": 4,
+        "maximum_ms": 23.9213,
+        "over_33_3": 0
+      }
+    ]
+  },
+  "visual": [
+    {
+      "branch": "stable",
+      "scene": "critical-shine",
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "scene": "promise-selection",
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "scene": "void",
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "scene": "stack-normal",
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "scene": "stack-void",
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "scene": "critical-shine",
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "scene": "promise-selection",
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "scene": "void",
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "scene": "stack-normal",
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "scene": "stack-void",
+      "passed": true
+    },
+    {
+      "branch": "stable",
+      "scene": "video",
+      "passed": true
+    },
+    {
+      "branch": "beta",
+      "scene": "video",
+      "passed": true
+    }
+  ],
+  "source_files_verified": 1530,
+  "source_fingerprints_sha256": "be2bb2432569b6ada737e3893b71779cfe9fb037c6e841c7254c2610045f8389",
+  "steam_matches_candidate": true,
+  "files": [
+    {
+      "path": "ShoujoKagekiAijoCore/core.bundle",
+      "sha256": "cd18605326481db1715b5d101d056c438b21db1082effd2f62fc085b87c81b72"
+    },
+    {
+      "path": "ShoujoKagekiAijoCore/lib/1.9.3/api/ShoujoKagekiAijoCore.Api.V1.dll",
+      "sha256": "dd11b1bbcef420f06cb9106e426fa35d922382f86cf718000d3864bdf4ae99a3"
+    },
+    {
+      "path": "ShoujoKagekiAijoCore/lib/1.9.3/beta/ShoujoKagekiAijoCore.Runtime.Beta.dll",
+      "sha256": "2387feffb289b61aa13e99bf22236d917011ad757c654346b7d5cad5574027f3"
+    },
+    {
+      "path": "ShoujoKagekiAijoCore/lib/1.9.3/stable/ShoujoKagekiAijoCore.Runtime.Stable.dll",
+      "sha256": "537b7e7da06e039f8c56b74db11de84e9831ac0c9f2ef87af4b87ab0af62d2cf"
+    },
+    {
+      "path": "ShoujoKagekiAijoCore/resources/1.9.3/Core.Resources.pck",
+      "sha256": "4c789f3f6c295310f774f0bb3e7d2c47c9f7ef9ab3b48650223da0e94df6f53f"
+    },
+    {
+      "path": "ShoujoKagekiAijoCore/sdk/BundleValidation.cs",
+      "sha256": "1a8614b8282064f68d061f7dc755858216092a72b1f835f3f7874d1f5753adc4"
+    },
+    {
+      "path": "ShoujoKagekiAijoCore/sdk/CharacterLoader.cs",
+      "sha256": "f10e98f4c0172cc5db9d2a8a43d2a89658c95dc882bbecfb1f61d43c8a98e5ff"
+    },
+    {
+      "path": "ShoujoKagekiAijoCore/sdk/pack-character.ps1",
+      "sha256": "3b66e7c4af869f96c26c153349f7fb109e7f51e0dc87688748e28eed9b5704b9"
+    },
+    {
+      "path": "ShoujoKagekiAijoCore/sdk/validate-package.ps1",
+      "sha256": "76cb398a3f980ec4a25b3f945e127580a79526b5ff4008ecdef397ec637abb4d"
+    },
+    {
+      "path": "ShoujoKagekiAijoCore/ShoujoKagekiAijoCore.dll",
+      "sha256": "b15cf48390279144cc80a9cf905784cf2edc88b764093161111696e8d6b49d62"
+    },
+    {
+      "path": "ShoujoKagekiAijoCore/ShoujoKagekiAijoCore.json",
+      "sha256": "2763fd50a133e73ad7eec3d158004a5f020ff10c00cdc582b672949e78b24bc1"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/core.package.lock",
+      "sha256": "18fcbd80bb47eaef500c642eced44fc9fff4c581f1dc8dd3ad9311a5b3b24263"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/core.requirements",
+      "sha256": "f15e5c31f7ea779551f180b5c281a03c03ada4f88c5eaffc1a92127f1e811ebb"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.Beta.dll",
+      "sha256": "4222148d7200e49a2e52519d3c1973f2b1d67ed75784c2ac0e896c494a87e744"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.Stable.dll",
+      "sha256": "d07e71e61ee70edf713a0a8f14fea1662babb39f3c22e986ecd26b1b3c2bbb24"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.dll",
+      "sha256": "fa3c3a46b4821baacd9134f1e3c50df2d8f9877769af1414a3939f8211cd998f"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.json",
+      "sha256": "145aa457338829d0c83d812e4f007f76e6ad16cebc4fd413c74d1f8fbae9edf0"
+    },
+    {
+      "path": "ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.pck",
+      "sha256": "737b9992c9a8e484defdb5da4275476b65356697ef05a4014f17cbf0398ec7d4"
+    }
+  ],
+  "evidence": {
+    "matrix": "artifacts/test-matrix/20261113-141923-68280e/report.json",
+    "review": [
+      {
+        "report": "artifacts/test-matrix/review-20261113-155534/report.json",
+        "branch": "beta"
+      },
+      {
+        "report": "artifacts/test-matrix/review-20261113-160510/report.json",
+        "branch": "stable"
+      }
+    ],
+    "vfx": "artifacts/workshop-preflight-20261113/vfx-release-rechecked.json",
+    "visual": "artifacts/workshop-preflight-20261113/direct-visual/report.json",
+    "resume": "artifacts/workshop-preflight-20261113/resume-check/report.json",
+    "package": "artifacts/workshop-preflight-20261113/package-audit.json"
+  },
+  "observations": [
+    {
+      "case": "beta/benefit-Shine initial all run",
+      "first_ms": 36.7887,
+      "create_ms": 34.6912,
+      "gc_collections": [
+        1,
+        1,
+        0
+      ],
+      "gc_frame": 0,
+      "diagnosis": "Long frame coincided with generation 0/1 GC; dedicated cold-process and full cold-process reruns did not reproduce it.",
+      "original": "artifacts/vfx-first-use-20261022/runs/beta-20261113-234754/report.json",
+      "dedicated": "artifacts/vfx-first-use-20261022/runs/beta-20261113-235454/report.json",
+      "full_rerun": "artifacts/vfx-first-use-20261022/runs/beta-20261114-001058/report.json"
+    }
+  ],
+  "baselib_files": {
+    "BaseLib.dll": "91fcd9e9d1c9ad2dc45ac270c85e9fc46c584ac3168ca0e648d597fb174dbdf2",
+    "BaseLib.json": "25f1af4756a10c8a989f727b6292a494f80aa8fc33bdc638b4d1b2d23a189a40",
+    "BaseLib.pck": "6a1e46c53fd5d8c0e01c2b00f0e9ab7e2d407c0c8064b1b0b1a5ab23bd6111ac",
+    "BaseLibCompatibilityHelper.dll": "aeaed51bfdf69b26a8e803218a16425bc65cfcfe5bb4c5d5c02b4e38157b389e",
+    "BaseLibCompatibilityHelper.json": "9dad4cdc47c66d94de8e3e28c203d4d1ecbeb07d04938d7dae48d532acbb0961"
+  }
+}

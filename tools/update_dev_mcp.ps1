@@ -37,7 +37,7 @@ foreach ($branch in @('stable', 'beta')) {
         throw "Missing game snapshot: $game"
     }
     $version = (Get-Content -LiteralPath $releaseInfo -Raw -Encoding UTF8 | ConvertFrom-Json).version
-    $expected = if ($branch -eq 'stable') { 'v0.107.1' } else { 'v0.111.0' }
+    $expected = if ($branch -eq 'stable') { 'v0.107.1' } else { 'v0.113.0' }
     if ($version -ne $expected) { throw "$branch snapshot is $version; expected $expected" }
 
     $sourceCopy = Join-Path $buildRoot $branch
@@ -48,6 +48,18 @@ foreach ($branch in @('stable', 'beta')) {
         Copy-Item -LiteralPath $file.FullName -Destination (Join-Path $sourceCopy $file.Name)
     }
     Copy-Item -LiteralPath (Join-Path $McpRepository 'KarenSTS2MCP.csproj') -Destination $sourceCopy
+
+    # Stable has no RunManager.IsPaused; keep the current MCP source compatible in its build copy.
+    if ($branch -eq 'stable') {
+        $notesPath = Join-Path $sourceCopy 'McpMod.IssueNotes.cs'
+        if (Test-Path -LiteralPath $notesPath) {
+            $notes = [IO.File]::ReadAllText($notesPath, [Text.Encoding]::UTF8)
+            $notes = $notes.Replace('bool runWasPaused = run.IsPaused;', 'var runPauseProperty = run.GetType().GetProperty("IsPaused"); bool runWasPaused = runPauseProperty?.GetValue(run) is true;')
+            $notes = $notes.Replace('run.IsPaused = true;', 'runPauseProperty?.SetValue(run, true);')
+            $notes = $notes.Replace('run.IsPaused = false;', 'runPauseProperty?.SetValue(run, false);')
+            [IO.File]::WriteAllText($notesPath, $notes, [Text.UTF8Encoding]::new($false))
+        }
+    }
 
     # The upstream bridge exposes run_command for solo play. The batch tests
     # also need it for a networked Karen player; patch only this build copy.

@@ -5,6 +5,7 @@ matching real ARM64 device evidence; a PC pass cannot upgrade it to released.
 """
 from pathlib import Path
 import argparse,hashlib,json,subprocess,sys,time,zipfile
+from evidence import harness_fingerprint
 ROOT=Path(__file__).resolve().parents[3]
 HERE=Path(__file__).parent
 
@@ -22,13 +23,17 @@ def main():
  package=a.package.resolve() if a.package else ROOT/('artifacts/android/ShoujoKagekiAijoKaren' if a.target=='apk' else 'artifacts/ShoujoKagekiAijoKaren')
  hashes={str(f.relative_to(package)):hashlib.sha256(f.read_bytes()).hexdigest() for f in package.rglob('*') if f.is_file()}
  assert hashes,'Build the final Mod package first'
- report=dict(target=a.target,package_sha256=hashes,cases=[],pending=[],failures=[])
+ core_package=package.parent/"ShoujoKagekiAijoCore"
+ core_hashes={str(f.relative_to(core_package)):hashlib.sha256(f.read_bytes()).hexdigest() for f in core_package.rglob("*") if f.is_file()}
+ assert core_hashes,"Build the final Core package first"
+ report=dict(target=a.target,package_sha256=hashes,core_package_sha256=core_hashes,cases=[],pending=[],failures=[])
  for branch in ['stable','beta']:
+  expected_harness=harness_fingerprint(a.source_dev/branch/'game')
   for effect in ['all','bridge','shine','promise']:
    evidence=None;invocation_succeeded=True
    for file in sorted((ROOT/'artifacts/vfx-first-use-20261022/runs').glob(branch+'-*/report.json'),reverse=True):
     r=json.loads(file.read_text(encoding='utf-8-sig'))
-    if not r.get('effect_filter') and r.get('effect')==effect and r.get('renderer')=='opengl3' and r.get('package_sha256')==hashes and r.get('measurement_protocol',1)==(3 if effect=='all' else 1):
+    if not r.get('effect_filter') and r.get('effect')==effect and r.get('renderer')=='opengl3' and r.get('package_sha256')==hashes and r.get('core_package_sha256')==core_hashes and r.get('harness_sha256')==expected_harness and r.get('measurement_protocol',1)==(3 if effect=='all' else 1):
      evidence=file;break
    if evidence is None:
     completed=subprocess.run([sys.executable,str(HERE/'run.py'),'--source-env',str(a.source_dev/branch),'--branch',branch,'--port',str(15849 if branch=='stable' else 15850),'--effect',effect,'--package',str(package)],cwd=ROOT)
@@ -37,7 +42,7 @@ def main():
     assert latest,'Missing runtime report'
     evidence=latest[0]
    r=json.loads(evidence.read_text(encoding='utf-8-sig'))
-   passed=invocation_succeeded and not r.get('effect_filter') and bool(r.get('results')) and all(x['passed'] for x in r['results']) and r.get('package_sha256')==hashes and r.get('effect')==effect and r.get('branch')==branch and r.get('renderer')=='opengl3' and r.get('measurement_protocol',1)==(3 if effect=='all' else 1)
+   passed=invocation_succeeded and not r.get('effect_filter') and bool(r.get('results')) and all(x['passed'] for x in r['results']) and r.get('package_sha256')==hashes and r.get('core_package_sha256')==core_hashes and r.get('harness_sha256')==expected_harness and r.get('effect')==effect and r.get('branch')==branch and r.get('renderer')=='opengl3' and r.get('measurement_protocol',1)==(3 if effect=='all' else 1)
    log=(evidence.parent/'godot.log').read_text(encoding='utf-8',errors='replace')
    # Never silently discard startup errors; publish the exact lines for review.
    errors=[line for line in log.splitlines() if line.startswith('ERROR:') or '[KarenVfxWarmup] failed' in line or '[EXCEPTION]' in line]
@@ -62,7 +67,7 @@ def main():
    report['pending'].append('Android ARM64 device checks for this exact APK')
  else:
   matrix=json.loads(a.matrix_report.read_text(encoding='utf-8-sig')) if a.matrix_report else {}
-  if not(matrix.get('package_sha256')==hashes and matrix.get('full_dual_version_matrix_passed') is True):
+  if not(matrix.get('package_sha256')==hashes and matrix.get('core_package_sha256')==core_hashes and matrix.get('full_dual_version_matrix_passed') is True):
    report['pending'].append('Full stable/beta singleplayer and same-version multiplayer matrix for this exact package')
  report['status']='failed' if report['failures'] else 'pending' if report['pending'] else 'passed'
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')

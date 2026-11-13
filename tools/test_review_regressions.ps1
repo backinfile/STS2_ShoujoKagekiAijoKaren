@@ -46,7 +46,6 @@ try {
                 $json = & (Join-Path $PSScriptRoot 'dev_matrix_case.ps1') -Branch $branch -HostCharacter $characters[0] -ClientCharacter $characters[1] -CaseId $caseId -RunRoot $runRoot -ReviewRegression -ClientGamesRoot $ClientGamesRoot -Headless:$Headless
                 if (-not $?) { throw 'Review case failed' }
                 $result = $json | Select-Object -Last 1 | ConvertFrom-Json
-                if ($result.result -ne 'pass') { throw 'Review case did not pass' }
                 $results += $result
             } catch {
                 $results += [PSCustomObject]@{case="$branch-$($characters -join '-')";result='fail';error=$_.Exception.Message}
@@ -57,10 +56,11 @@ try {
 } finally {
     $results | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 (Join-Path $runRoot 'report.json')
     foreach ($branch in $Environment) {
-        $game = Join-Path $project "artifacts/dev-game/$branch/game"
-        $plugin = [IO.Path]::GetFullPath((Join-Path $game 'mods/KarenReviewRegression'))
-        if (-not $plugin.StartsWith($project + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Unsafe fixture cleanup' }
-        if (Test-Path -LiteralPath $plugin) { Remove-Item -LiteralPath $plugin -Recurse -Force }
+        foreach ($game in @((Join-Path $project "artifacts/dev-game/$branch/game"), (Join-Path $ClientGamesRoot "$branch-client/game"))) {
+            $plugin = [IO.Path]::GetFullPath((Join-Path $game 'mods/KarenReviewRegression'))
+            if (-not $plugin.StartsWith($project + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Unsafe fixture cleanup' }
+            if (Test-Path -LiteralPath $plugin) { Remove-Item -LiteralPath $plugin -Recurse -Force }
+        }
     }
     $results | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 (Join-Path $runRoot 'report.json')
     Write-Output "Report: $runRoot/report.json"
