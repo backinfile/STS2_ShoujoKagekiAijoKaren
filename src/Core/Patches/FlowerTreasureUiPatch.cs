@@ -21,8 +21,14 @@ public static class FlowerTreasureUiPatch
         if (holders.Count != 2) return;
 
         // Preserve the normal singleplayer row height and center both choices around it.
+#if STS2_BETA
+        var container = holders[0].GetParent<Control>();
+        var center = holders[0].GetRect().Merge(holders[1].GetRect()).GetCenter();
+#else
         var single = __instance.SingleplayerRelicHolder;
+        var container = single.GetParent<Control>();
         var center = single.Position + single.Size * 0.5f;
+#endif
         var totalWidth = holders.Sum(holder => holder.Size.X) + 128f;
         var x = center.X - totalWidth * 0.5f;
         for (var i = 0; i < holders.Count; i++)
@@ -34,15 +40,18 @@ public static class FlowerTreasureUiPatch
             holder.FocusNeighborTop = holder.FocusNeighborBottom = holder.GetPath();
             holder.FocusNeighborLeft = holder.FocusNeighborRight = holders[1 - i].GetPath();
             // These native rarity particles belong to each choice, not the chest itself.
-            foreach (var name in new[] { "%UncommonGlow", "%RareGlow" })
+#if STS2_BETA
+            var glows = holder.Relic.GetChildren().OfType<GpuParticles2D>();
+#else
+            var glows = new[] { "%UncommonGlow", "%RareGlow" }.Select(name => holder.GetNode<GpuParticles2D>(name));
+#endif
+            foreach (var glow in glows)
             {
-                var glow = holder.GetNode<GpuParticles2D>(name);
                 glow.Emitting = false;
                 glow.Hide();
             }
         }
         // Use one decoration for the pair, behind the icons and outside focus/hit testing.
-        var container = single.GetParent<Control>();
         if (container.GetNodeOrNull("FlowerSharedArc") == null)
         {
             var arc = new TextureRect

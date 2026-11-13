@@ -16,11 +16,21 @@ namespace ShoujoKagekiAijoKaren.src.Core.Patches;
 public static class FlowerTreasurePatch
 {
     public static void Postfix(TreasureRoomRelicSynchronizer __instance,
-        IPlayerCollection ____playerCollection, RelicGrabBag ____sharedGrabBag)
+#if STS2_BETA
+        IRunState ____runState,
+#else
+        IPlayerCollection ____playerCollection,
+#endif
+        RelicGrabBag ____sharedGrabBag)
     {
-        if (____playerCollection.Players.Count != 1 ||
+#if STS2_BETA
+        var players = ____runState.Players;
+#else
+        var players = ____playerCollection.Players;
+#endif
+        if (players.Count != 1 ||
             __instance.CurrentRelics is not List<RelicModel> { Count: 1 } relics) return;
-        var player = ____playerCollection.Players[0];
+        var player = players[0];
         var flower = player.Relics.OfType<KarenFlowerRelic>().FirstOrDefault();
         if (flower == null || !KarenFlowerRelic.SupportsChoice(relics[0].Rarity)) return;
 
