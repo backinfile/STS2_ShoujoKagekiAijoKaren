@@ -90,7 +90,7 @@ public sealed class ObservationFixtureCmd : AbstractConsoleCmd
                 var screen = Descendants(NGame.Instance!).OfType<NCharacterSelectScreen>().Single();
                 var button = Descendants(screen).OfType<NCharacterSelectButton>()
                     .Single(b => b.Character is Karen);
-                var controller = typeof(KarenFlowerRelic).Assembly.GetType(
+                var controller = typeof(KarenHairpinRelic).Assembly.GetType(
                     "ShoujoKagekiAijoKaren.src.Core.Patches.KarenCharSelectVideoController")!;
                 controller.GetMethod("Stop")!.Invoke(null, [true]);
                 controller.GetMethod("ResetCooldown")!.Invoke(null, null);
@@ -118,8 +118,9 @@ public sealed class ObservationFixtureCmd : AbstractConsoleCmd
                 var p = player ?? throw new Exception("Need a run player");
                 var first = new RelicReward(ModelDb.Relic<Vajra>().ToMutable(), p);
                 var second = new RelicReward(ModelDb.Relic<Anchor>().ToMutable(), p);
-                var flowerType = typeof(KarenFlowerRelic).Assembly.GetType(
-                    "ShoujoKagekiAijoKaren.src.Models.Relics.KarenFlowerRewardSet")!;
+                var flowerType = AppDomain.CurrentDomain.GetAssemblies()
+                    .Select(assembly => assembly.GetType("ShoujoKageki.Core.Runtime.Modules.Relics.KarenFlowerRewardSet"))
+                    .First(type => type != null)!;
                 var flower = (Reward)Activator.CreateInstance(flowerType,
                     new object[] { new List<Reward> { first, second }, p })!;
                 var set = new RewardsSet(p).WithCustomRewards([new GoldReward(1, p), flower]);
@@ -195,7 +196,7 @@ public sealed class FlowerNetworkFixtureCmd : AbstractConsoleCmd
     {
         GD.Print("[Observation] FLOWER PREPARE");
         _history = player.RunState.CurrentMapPointHistoryEntry;
-        await RelicCmd.Obtain<KarenFlowerRelic>(player);
+        await RelicCmd.Obtain(ModelDb.GetById<RelicModel>(new ModelId("RELIC", "KAREN_FLOWER_RELIC")).ToMutable(), player);
         var drops = new RelicReward[]
         {
             new(ModelDb.Relic<Cauldron>().ToMutable(), player),
@@ -206,8 +207,9 @@ public sealed class FlowerNetworkFixtureCmd : AbstractConsoleCmd
         var room = (CombatRoom)player.RunState.CurrentRoom!;
         // Force one nested grant to exercise stack restoration. Normal Flower generation
         // covers the two common drops below and excludes shop relics such as Cauldron.
-        var flowerType = typeof(KarenFlowerRelic).Assembly.GetType(
-            "ShoujoKagekiAijoKaren.src.Models.Relics.KarenFlowerRewardSet")!;
+        var flowerType = AppDomain.CurrentDomain.GetAssemblies()
+            .Select(assembly => assembly.GetType("ShoujoKageki.Core.Runtime.Modules.Relics.KarenFlowerRewardSet"))
+            .First(type => type != null)!;
         var nested = (Reward)Activator.CreateInstance(flowerType,
             new object[] { new List<Reward> { drops[0], new RelicReward(ModelDb.Relic<MealTicket>().ToMutable(), player) }, player })!;
         room.AddExtraReward(player, nested);

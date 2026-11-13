@@ -35,9 +35,6 @@
 
   "KAREN_STAR_TIARA_RELIC.title": "星の王冠",
   "KAREN_STAR_TIARA_RELIC.description": "各ターン開始時、レリックを[blue]1[/blue]個[gold]無効化[/gold]し、{Energy:energyIcons()}を得る。",
-  "KAREN_STAR_TIARA_RELIC.flavor": "これが私の、スタァライトよ。",
+  "KAREN_STAR_TIARA_RELIC.flavor": "これが私の、スタァライトよ。"
 
-  "KAREN_FLOWER_RELIC.title": "花",
-  "KAREN_FLOWER_RELIC.description": "レリック報酬の選択肢が1つ増える。",
-  "KAREN_FLOWER_RELIC.flavor": "うちが世界で一番キラめくとこを、一番初めに見せたるから。"
 }
