@@ -1,0 +1,16 @@
+{
+  "id": "KarenArchitectProbe",
+  "name": "Karen architect regression probe",
+  "author": "Karen tests",
+  "version": "0.0.1",
+  "min_game_version": "v0.113.0",
+  "has_dll": true,
+  "has_pck": false,
+  "affects_gameplay": false,
+  "dependencies": [
+    {
+      "id": "ShoujoKagekiAijoKaren",
+      "min_version": "v0.1.8"
+    }
+  ]
+}
