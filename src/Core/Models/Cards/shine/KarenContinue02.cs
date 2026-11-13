@@ -55,12 +55,14 @@ public sealed class KarenContinue02 : KarenBaseCardModel
     {
         // 原生已将等级和数值清零。重放剩余升级，让等级、伤害和下次成长保持一致。
         int remaining = _downgradeToBase ? 0 : Math.Max(0, _upgradeCount - 1);
+        int shine = this.GetShineValue();
         _upgradeCount = 0;
         for (int i = 0; i < remaining; i++)
         {
             UpgradeInternal();
             FinalizeUpgradeInternal();
         }
+        this.SetShineCurrent(shine);
     }
 
     // 查看卡牌的“未升级”预览仍需显示基础版，不是一次游戏效果降级。
