@@ -7,5 +7,5 @@
   "KAREN_AWAKE_POTION_SELECT_FROM_DISCARD_TO_HAND": "Choose up to [blue]{MaxCount}[/blue] {MaxCount:plural:card|cards} from your discard pile to put into your hand.",
   "KAREN_AWAKE_POTION_SELECT_FROM_PROMISE_TO_HAND": "Choose up to [blue]{MaxCount}[/blue] {MaxCount:plural:card|cards} from your Promise Pile to put into your hand.",
 
-  "KAREN_SELECT_OPTION_PROMPT": "Choose [blue]{Amount}[/blue] {Amount:plural:option|options}"
+  "KAREN_SELECT_OPTION_PROMPT": "Choose {Amount} {Amount:plural:option|options}"
 }

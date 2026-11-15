@@ -6,5 +6,5 @@
   "KAREN_AWAKE_POTION_SELECT_FROM_DRAW_TO_HAND": "山札からカードを最大[blue]{MaxCount}[/blue]枚選び、手札に加える。",
   "KAREN_AWAKE_POTION_SELECT_FROM_DISCARD_TO_HAND": "捨て札からカードを最大[blue]{MaxCount}[/blue]枚選び、手札に加える。",
   "KAREN_AWAKE_POTION_SELECT_FROM_PROMISE_TO_HAND": "約束の山札からカードを最大[blue]{MaxCount}[/blue]枚選び、手札に加える。",
-  "KAREN_SELECT_OPTION_PROMPT": "選択肢を[blue]{Amount}[/blue]個選ぶ"
+  "KAREN_SELECT_OPTION_PROMPT": "選択肢を{Amount}個選ぶ"
 }

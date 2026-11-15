@@ -7,5 +7,5 @@
   "KAREN_AWAKE_POTION_SELECT_FROM_DISCARD_TO_HAND": "从弃牌堆中选择至多[blue]{MaxCount}[/blue]张卡牌放入手牌。",
   "KAREN_AWAKE_POTION_SELECT_FROM_PROMISE_TO_HAND": "从约定牌堆中选择至多[blue]{MaxCount}[/blue]张卡牌放入手牌。",
 
-  "KAREN_SELECT_OPTION_PROMPT": "选择[blue]{Amount}[/blue]个选项"
+  "KAREN_SELECT_OPTION_PROMPT": "选择{Amount}个选项"
 }

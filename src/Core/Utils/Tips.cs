@@ -26,7 +26,15 @@ public static class Tips
     /// <summary>
     /// 选择选项
     /// </summary>
-    public static LocString KAREN_SELECT_OPTION = new LocString("card_selection", "KAREN_SELECT_OPTION_PROMPT");
+    public static LocString KAREN_SELECT_OPTION
+    {
+        get
+        {
+            var title = new LocString("card_selection", "KAREN_SELECT_OPTION_PROMPT");
+            title.Add("Amount", 1);
+            return title;
+        }
+    }
 
     // ==================== gameplay_ui ====================
     /// <summary>约定牌堆查看界面底部标题</summary>
