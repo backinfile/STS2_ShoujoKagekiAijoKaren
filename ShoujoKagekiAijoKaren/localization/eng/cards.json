@@ -73,8 +73,6 @@
   "KAREN_STARLIGHT03_CARD.title": "Starlight Act III",
   "KAREN_STARLIGHT03_CARD.description": "Gain a [gold]Shine Card Reward[/gold].",
 
-  "KAREN_STAGE_REASON.title": "A Reason to Take the Stage",
-  "KAREN_STAGE_REASON.description": "",
 
   "KAREN_CONTINUE.title": "Encore",
   "KAREN_CONTINUE.description": "Deal {Damage:diff()} damage.",

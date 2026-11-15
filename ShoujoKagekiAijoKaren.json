@@ -14,7 +14,7 @@
     },
     {
       "id": "ShoujoKagekiAijoCore",
-      "min_version": "1.9.4"
+      "min_version": "1.9.5"
     }
   ],
   "affects_gameplay": true

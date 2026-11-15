@@ -49,8 +49,6 @@
   "KAREN_STARLIGHT02_CARD.description": "[gold]キラめき[/gold]カードをプレイすると、追加で{KarenStarlight02Power:diff()}回プレイし、その後キラめきを使い切る。",
   "KAREN_STARLIGHT03_CARD.title": "スタァライト 第三幕",
   "KAREN_STARLIGHT03_CARD.description": "[gold]キラめきカード報酬[/gold]を得る。",
-  "KAREN_STAGE_REASON.title": "舞台に立つ理由",
-  "KAREN_STAGE_REASON.description": "",
   "KAREN_CONTINUE.title": "続演",
   "KAREN_CONTINUE.description": "{Damage:diff()}ダメージを与える。",
   "KAREN_PROMISE_DRAW.title": "もう手の届かない場所じゃない",

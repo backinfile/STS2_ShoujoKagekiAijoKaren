@@ -17,8 +17,7 @@ public static class CurseCardPoolPatch
     private static void Postfix(ref CardModel[] __result)
     {
         __result = PoolCards.AppendMissing(__result,
-            ModelDb.Card<KarenSleepy>(),
-            ModelDb.Card<KarenStageReason>());
+            ModelDb.Card<KarenSleepy>());
     }
 
 

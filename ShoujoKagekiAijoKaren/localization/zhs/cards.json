@@ -73,8 +73,6 @@
   "KAREN_STARLIGHT03_CARD.title": "Starlight第三幕",
   "KAREN_STARLIGHT03_CARD.description": "获得[gold]闪耀牌奖励[/gold]。",
 
-  "KAREN_STAGE_REASON.title": "存在于舞台的理由",
-  "KAREN_STAGE_REASON.description": "",
 
   "KAREN_CONTINUE.title": "续演",
   "KAREN_CONTINUE.description": "造成{Damage:diff()}点伤害。",
