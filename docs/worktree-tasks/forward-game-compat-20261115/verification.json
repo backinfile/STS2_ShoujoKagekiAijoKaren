@@ -1,0 +1,42 @@
+{
+  "cases": [
+    {
+      "run": "artifacts/test-promise-visuals/20261115-022406-stable-fca3cc",
+      "passed": true,
+      "core": [
+        "[Core bootstrap] Selected 1.9.4/stable, 1 complete candidates, fingerprint 187A4AB7CCEDA0C3527F8079E0F6C77EE48F40B7F720218C0500FC1E84F5BC9E."
+      ],
+      "loader": [
+        "[ShoujoKagekiAijoKarenLoader] Loaded Stable implementation for game v0.107.1."
+      ],
+      "errors": [],
+      "native_errors": []
+    },
+    {
+      "run": "artifacts/test-promise-visuals/20261115-022454-beta-e04a8d",
+      "passed": true,
+      "core": [
+        "[Core bootstrap] Selected 1.9.4/beta, 1 complete candidates, fingerprint 187A4AB7CCEDA0C3527F8079E0F6C77EE48F40B7F720218C0500FC1E84F5BC9E."
+      ],
+      "loader": [
+        "[ShoujoKagekiAijoKarenLoader] Loaded Beta implementation for game v0.113.0."
+      ],
+      "errors": [],
+      "native_errors": []
+    },
+    {
+      "run": "artifacts/test-promise-visuals/20261115-022538-beta-b28867",
+      "passed": true,
+      "core": [
+        "[Core bootstrap] Selected 1.9.4/beta, 1 complete candidates, fingerprint 187A4AB7CCEDA0C3527F8079E0F6C77EE48F40B7F720218C0500FC1E84F5BC9E."
+      ],
+      "loader": [
+        "[ShoujoKagekiAijoKarenLoader] Loaded Beta implementation for game v0.113.1."
+      ],
+      "errors": [],
+      "native_errors": []
+    }
+  ],
+  "screenshots": 21,
+  "reviewed": true
+}

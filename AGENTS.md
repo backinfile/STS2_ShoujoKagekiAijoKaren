@@ -124,6 +124,8 @@ Karen 当前的核心机制包括：
 - 游戏内开发者命令通过 `POST /api/v1/singleplayer` 的 `{"action":"run_command","command":"..."}` 执行；关闭设置界面使用 `{"action":"close_settings"}`，也可用 `menu_select` 的 `back` 选项。测试时不要使用 Computer Use。
 - 先读 `docs/external/KarenSTS2MCP.md`；普通状态和动作字段可参考 `docs/external/STS2MCP/raw-simplified.md`，完整字段和动作说明见 `docs/external/STS2MCP/raw-full.md`。后两份是上游参考，端口及新增动作以本项目文档为准。
 
+桌面引导默认按不高于当前游戏版本的最新实现基线加载，后续更新不按版本上限拦截，也不回退到更旧的正式版实现；实际新版做必要定向验证。
+
 ## Karen 独立双版本开发环境
 
 - Godot/MegaDot 打包导出直接使用正常 Windows 权限环境（Codex 工具使用 `require_escalated`），复用现有编辑器和 .NET 运行库。2026-10-27 已复现：受限沙箱内会出现 `Could not create editor data/config directory`、`.NET: Assemblies not found` 并崩溃；同一构建在正常 Windows 环境成功。后续构建先按此环境执行，遇到同类日志优先核对目录访问权限。

@@ -1,0 +1,74 @@
+[
+  {
+    "path": "ShoujoKagekiAijoCore/ShoujoKagekiAijoCore.dll",
+    "sha256": "c18c5967817be32e6a1e610273ca36acb80f84c879e94cad9802a8d5ba20682b"
+  },
+  {
+    "path": "ShoujoKagekiAijoCore/ShoujoKagekiAijoCore.json",
+    "sha256": "d16ef2d0c8a984fae70bb53236b2b004a308835b69be14005e67389b3df5cac0"
+  },
+  {
+    "path": "ShoujoKagekiAijoCore/core.bundle",
+    "sha256": "12f63f6adce16e1fe3cab4fcdfd596034f6c738c71161be0cdfef67b53b592d8"
+  },
+  {
+    "path": "ShoujoKagekiAijoCore/lib/1.9.4/api/ShoujoKagekiAijoCore.Api.V1.dll",
+    "sha256": "55d8857949ffd8709e44f694a1d01f1427acdd69aa2c3714a57414a24dac42fd"
+  },
+  {
+    "path": "ShoujoKagekiAijoCore/lib/1.9.4/beta/ShoujoKagekiAijoCore.Runtime.Beta.dll",
+    "sha256": "f4da332fdfb6c08ac075f03281373809c44b5a6eb927fcae0a39b7f3d27787e8"
+  },
+  {
+    "path": "ShoujoKagekiAijoCore/lib/1.9.4/stable/ShoujoKagekiAijoCore.Runtime.Stable.dll",
+    "sha256": "97a588fe78cc1477c67b15e89c670545bd70300b05ebfb115968661798d0ce44"
+  },
+  {
+    "path": "ShoujoKagekiAijoCore/resources/1.9.4/Core.Resources.pck",
+    "sha256": "4c789f3f6c295310f774f0bb3e7d2c47c9f7ef9ab3b48650223da0e94df6f53f"
+  },
+  {
+    "path": "ShoujoKagekiAijoCore/sdk/BundleValidation.cs",
+    "sha256": "8a08d43552c2fd3f3f905ed29213d4272c089ebdd2e8015134179e419c06e27e"
+  },
+  {
+    "path": "ShoujoKagekiAijoCore/sdk/CharacterLoader.cs",
+    "sha256": "f10e98f4c0172cc5db9d2a8a43d2a89658c95dc882bbecfb1f61d43c8a98e5ff"
+  },
+  {
+    "path": "ShoujoKagekiAijoCore/sdk/pack-character.ps1",
+    "sha256": "3b66e7c4af869f96c26c153349f7fb109e7f51e0dc87688748e28eed9b5704b9"
+  },
+  {
+    "path": "ShoujoKagekiAijoCore/sdk/validate-package.ps1",
+    "sha256": "76cb398a3f980ec4a25b3f945e127580a79526b5ff4008ecdef397ec637abb4d"
+  },
+  {
+    "path": "ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.dll",
+    "sha256": "160e23151c77cda229f7c70b3cd5c4c889873e72153df5e74cb3328ce2127cc1"
+  },
+  {
+    "path": "ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.json",
+    "sha256": "fd42e946eaf8e24ccb45e7145d303596923f7d319cbb4aed01d22418ce0702c4"
+  },
+  {
+    "path": "ShoujoKagekiAijoKaren/ShoujoKagekiAijoKaren.pck",
+    "sha256": "1ced759441f50c475bc44e0178221eefbef659c3cb3965f033cda10477a1d24b"
+  },
+  {
+    "path": "ShoujoKagekiAijoKaren/core.package.lock",
+    "sha256": "ca4d20a9914d0645a3c318275abdd53f391cd32aa7830805a31b3b7c89c84486"
+  },
+  {
+    "path": "ShoujoKagekiAijoKaren/core.requirements",
+    "sha256": "f15e5c31f7ea779551f180b5c281a03c03ada4f88c5eaffc1a92127f1e811ebb"
+  },
+  {
+    "path": "ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.Beta.dll",
+    "sha256": "491e1ad0e50021739284fed52cc7fb3aa9f9d6833f1a7aafc9be50d1e2227399"
+  },
+  {
+    "path": "ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.Stable.dll",
+    "sha256": "ffdafa443573c80c28351955d061c3b52ebeecef630dd4abd89690c5a7536a81"
+  }
+]

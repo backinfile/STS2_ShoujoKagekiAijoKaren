@@ -7,6 +7,8 @@
 | 正式版 | `artifacts/dev-game/stable/game/` | v0.107.1 | `run_stable_dev.bat` 或 `run.bat` |
 | 测试版 | `artifacts/dev-game/beta/game/` | v0.113.0 | `run_beta_dev.bat` |
 
+桌面引导默认选择不高于当前游戏版本的最新实现基线；后续更新继续尝试对应的 Beta 或正式版实现。Android 包仍匹配内嵌游戏的兼容基线。
+
 构建使用 `build.bat -CorePackage <Core发行目录>`，或通过 `SHOUJO_CORE_PACKAGE` 指定该目录。角色与 Core 分别输出至 `artifacts/ShoujoKagekiAijoKaren/` 和 `artifacts/ShoujoKagekiAijoCore/`，工坊内容统一准备在 `artifacts/workshop/`。
 
 两个游戏目录各有独立的 `mods/`，安装 BaseLib、Core、Karen 与 KarenSTS2MCP。两个进程的 `%APPDATA%` 和 `%LOCALAPPDATA%` 分别指向各自的 `artifacts/dev-game/<branch>/user/AppData/`，日志位于各自环境根目录的 `godot.log`。启动时传入 `--force-steam=off`，不会加载 Steam 创意工坊订阅、使用 Steam 云存档或修改 Steam 安装目录。可同时运行正式版、测试版和其他 Mod 项目的游戏。MCP 端口分别为正式版 `15627`、测试版 `15628`，由各自 `game/mods/KarenSTS2MCP.conf` 指定；启动前会检查端口是否被占用。
