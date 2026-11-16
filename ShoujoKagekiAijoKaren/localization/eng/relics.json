@@ -37,6 +37,6 @@
 
   "KAREN_STAR_TIARA_RELIC.title": "Star Crown",
   "KAREN_STAR_TIARA_RELIC.description": "At the start of each turn, [gold]disable[/gold] [blue]1[/blue] relic and gain {Energy:energyIcons()}.",
-  "KAREN_STAR_TIARA_RELIC.flavor": "This is my Starlight."
-
+  "KAREN_STAR_TIARA_RELIC.flavor": "This is my Starlight.",
+  "SEA_GLASS.KAREN.title": "Shining Glass"
 }

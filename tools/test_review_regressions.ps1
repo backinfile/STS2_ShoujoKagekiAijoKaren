@@ -5,6 +5,7 @@ param(
     [string]$ClientGamesRoot = ''
 )
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'test-environment.ps1')
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $runRoot = Join-Path $project ('artifacts/test-matrix/review-' + [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss'))
 New-Item -ItemType Directory -Path $runRoot -Force | Out-Null
@@ -33,11 +34,12 @@ try {
             dependencies=@(@{id='ShoujoKagekiAijoKaren'})
         } | ConvertTo-Json -Depth 4 | Set-Content -Encoding UTF8 (Join-Path $plugin 'KarenReviewRegression.json')
         $client = Join-Path $ClientGamesRoot "$branch-client/game"
-        & robocopy $game $client /E /NFL /NDL /NP /R:1 /W:1 | Out-Null
-        if ($LASTEXITCODE -ge 8) { throw 'Client copy failed' }
+        $python = Get-KarenTestPython
+        & $python (Join-Path $PSScriptRoot 'copy_test_game.py') $game $client
+        if ($LASTEXITCODE) { throw 'Client preparation failed' }
         $config = Join-Path $client 'mods/KarenSTS2MCP.conf'
         $settings = Get-Content -LiteralPath $config -Raw -Encoding UTF8 | ConvertFrom-Json -AsHashtable
-        $settings.port = if ($branch -eq 'stable') {15629} else {15630}
+        $settings.port = if ($branch -eq 'stable') {(Get-KarenTestPort 15629)} else {(Get-KarenTestPort 15630)}
         $settings | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $config -Encoding UTF8
         $caseId = 700
         foreach ($characters in @(@('KAREN','KAREN'),@('KAREN','IRONCLAD'),@('IRONCLAD','KAREN'),@('IRONCLAD','IRONCLAD'))) {

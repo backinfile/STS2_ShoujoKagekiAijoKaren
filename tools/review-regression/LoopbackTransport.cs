@@ -6,7 +6,11 @@ using HarmonyLib;
 internal static class KarenTestLoopbackHost
 {
     [HarmonyPrefix]
-    private static void Prefix(ref string __0) => __0 = "127.0.0.1";
+    private static void Prefix(ref string __0, ref int __1)
+    {
+        __0 = "127.0.0.1";
+        if (__1 == 33771 && int.TryParse(System.Environment.GetEnvironmentVariable("KAREN_TEST_NETWORK_PORT"), out var port)) __1 = port;
+    }
 }
 [HarmonyPatch(typeof(ENetConnection), nameof(ENetConnection.CreateHost))]
 internal static class KarenTestLoopbackClient
@@ -16,5 +20,15 @@ internal static class KarenTestLoopbackClient
     {
         __result = __instance.CreateHostBound("127.0.0.1", 0, __0, __1, __2, __3);
         return false;
+    }
+}
+
+[HarmonyPatch(typeof(ENetConnection), nameof(ENetConnection.ConnectToHost))]
+internal static class KarenTestLoopbackConnect
+{
+    [HarmonyPrefix]
+    private static void Prefix(ref int __1)
+    {
+        if (__1 == 33771 && int.TryParse(System.Environment.GetEnvironmentVariable("KAREN_TEST_NETWORK_PORT"), out var port)) __1 = port;
     }
 }

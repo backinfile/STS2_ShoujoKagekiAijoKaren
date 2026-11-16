@@ -14,6 +14,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'test-environment.ps1')
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $devRoot = [IO.Path]::GetFullPath((Join-Path $project 'artifacts\dev-game'))
 $root = [IO.Path]::GetFullPath((Join-Path $devRoot $Branch))
@@ -27,7 +28,7 @@ $log = Join-Path $root 'godot.log'
 $expectedVersion = if ($Branch -eq 'stable') { 'v0.107.1' } else { 'v0.113.0' }
 $variantName = if ($Branch -eq 'stable') { 'Stable' } else { 'Beta' }
 $package = Join-Path $project 'artifacts\ShoujoKagekiAijoKaren'
-$mcpPort = if ($Branch -eq 'stable') { 15627 } else { 15628 }
+$mcpPort = if ($Branch -eq 'stable') { (Get-KarenTestPort 15627) } else { (Get-KarenTestPort 15628) }
 if (-not $McpSource) {
     $McpSource = Join-Path $project "artifacts\mcp-$Branch"
 }
@@ -45,7 +46,7 @@ function Get-GameVersion([string]$directory) {
 
 function Assert-GameVersion([string]$directory) {
     $actual = Get-GameVersion $directory
-    if ($actual -ne $expectedVersion) {
+    if (($Branch -eq 'stable' -and $actual -ne $expectedVersion) -or ($Branch -eq 'beta' -and [version]$actual.TrimStart('v') -lt [version]$expectedVersion.TrimStart('v'))) {
         throw "$Branch needs $expectedVersion, but $directory contains $actual"
     }
 }
@@ -83,7 +84,7 @@ function Start-IsolatedGame([bool]$headless, [int]$quitAfter = 0) {
     try {
         $env:APPDATA = $roaming
         $env:LOCALAPPDATA = $local
-        $arguments = '--rendering-driver vulkan --force-steam=off --log-file "' + $log + '"'
+        $arguments = (Get-KarenTestRenderArguments) + ' --force-steam=off --log-file "' + $log + '"'
         if ($headless) { $arguments += " --headless --quit-after $quitAfter" }
         if ($ExtraArguments) { $arguments += " $ExtraArguments" }
         $startArgs = @{
@@ -214,7 +215,7 @@ switch ($Action) {
                 $contents.Contains('Exception thrown when calling mod initializer')) {
                 throw "Game startup reported an error; inspect $log"
             }
-            Write-Output "$Branch $expectedVersion smoke and MCP port $mcpPort check passed; log: $log"
+            Write-Output "$Branch $(Get-GameVersion $game) smoke and MCP port $mcpPort check passed; log: $log"
         }
         finally {
             if (-not $process.HasExited) {

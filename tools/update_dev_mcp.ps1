@@ -38,7 +38,7 @@ foreach ($branch in @('stable', 'beta')) {
     }
     $version = (Get-Content -LiteralPath $releaseInfo -Raw -Encoding UTF8 | ConvertFrom-Json).version
     $expected = if ($branch -eq 'stable') { 'v0.107.1' } else { 'v0.113.0' }
-    if ($version -ne $expected) { throw "$branch snapshot is $version; expected $expected" }
+    if (($branch -eq 'stable' -and $version -ne $expected) -or ($branch -eq 'beta' -and [version]$version.TrimStart('v') -lt [version]$expected.TrimStart('v'))) { throw "$branch snapshot is $version; expected $expected" }
 
     $sourceCopy = Join-Path $buildRoot $branch
     $output = Join-Path $sourceCopy 'out'

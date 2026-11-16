@@ -14,6 +14,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'test-environment.ps1')
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $root = Join-Path $project 'artifacts\test-promise-visuals'
 $branch = if ($Environment -eq 'stable') { 'stable' } else { 'beta' }
@@ -21,7 +22,7 @@ $game = Join-Path $project "artifacts\dev-game\$branch\game"
 if ($GameDirectory) { $game = [IO.Path]::GetFullPath($GameDirectory) }
 $exe = Join-Path $game 'SlayTheSpire2.exe'
 $run = Join-Path $root ([DateTime]::UtcNow.ToString("yyyyMMdd-HHmmss") + "-$Environment-" + [guid]::NewGuid().ToString("N").Substring(0,6))
-$port = if ($Environment -eq 'stable') { 15627 } else { 15628 }
+$port = if ($Environment -eq 'stable') { (Get-KarenTestPort 15627) } else { (Get-KarenTestPort 15628) }
 if ($McpPort) { $port = $McpPort }
 $url = "http://127.0.0.1:$port/api/v1/singleplayer"
 $process = $null
@@ -85,7 +86,7 @@ try {
     try {
         $env:APPDATA = $roaming
         $env:LOCALAPPDATA = $local
-        $arguments = "--rendering-driver vulkan --force-steam=off --clientId=$ClientId --log-file `"$(Join-Path $run 'godot.log')`""
+        $arguments = "$(Get-KarenTestRenderArguments) --force-steam=off --clientId=$ClientId --log-file `"$(Join-Path $run 'godot.log')`""
         $python = Join-Path $env:USERPROFILE '.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
         if (-not (Test-Path -LiteralPath $python)) { $python = (Get-Command python -CommandType Application).Source }
         $pidFile = Join-Path $run 'isolated-desktop.json'

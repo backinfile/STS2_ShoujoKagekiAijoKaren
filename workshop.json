@@ -2,7 +2,7 @@
   "title": null,
   "description": null,
   "visibility": "public",
-  "changeNote": "v1.0.0\n修复选项选择标题的格式错误。桌面端默认尝试兼容后续游戏更新。随包提供 Core 1.9.4。\nFixed option-selection titles. Desktop loading supports newer game versions by baseline. Includes Core 1.9.4.",
+  "changeNote": "v1.0.0\n修复选项选择标题的格式错误。桌面端默认尝试兼容后续游戏更新。随包提供 Core 1.9.5。\nFixed option-selection titles. Desktop loading supports newer game versions by baseline. Includes Core 1.9.5.",
   "tags": [
     "Characters",
     "Cards",

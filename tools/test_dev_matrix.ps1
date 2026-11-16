@@ -7,6 +7,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'test-environment.ps1')
 if ($LoopbackOnly -and -not $UpdateMcp) { throw '-LoopbackOnly requires -UpdateMcp so the transport restriction is installed.' }
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $runsRoot = [IO.Path]::GetFullPath((Join-Path $project 'artifacts\test-matrix'))
@@ -18,8 +19,8 @@ $results = [Collections.Generic.List[object]]::new()
 $testId = 200
 
 function Get-Port([string]$branch, [bool]$client = $false) {
-    if ($branch -eq 'stable') { if ($client) { return 15629 }; return 15627 }
-    if ($client) { return 15630 }; return 15628
+    if ($branch -eq 'stable') { if ($client) { return (Get-KarenTestPort 15629) }; return (Get-KarenTestPort 15627) }
+    if ($client) { return (Get-KarenTestPort 15630) }; return (Get-KarenTestPort 15628)
 }
 
 function Get-State([int]$port, [string]$endpoint = 'singleplayer') {
@@ -50,8 +51,8 @@ function Post-Action([int]$port, [string]$endpoint, [hashtable]$action) {
 
 function Wait-NetworkFree {
     for ($attempt = 0; $attempt -lt 30; $attempt++) {
-        $udp = Get-NetUDPEndpoint -LocalPort 33771 -ErrorAction SilentlyContinue
-        $tcp = @(15627, 15628, 15629, 15630 | ForEach-Object {
+        $udp = Get-NetUDPEndpoint -LocalPort (Get-KarenTestNetworkPort) -ErrorAction SilentlyContinue
+        $tcp = @((Get-KarenTestPort 15627), (Get-KarenTestPort 15628), (Get-KarenTestPort 15629), (Get-KarenTestPort 15630) | ForEach-Object {
             Get-NetTCPConnection -LocalPort $_ -State Listen -ErrorAction SilentlyContinue
         })
         if (-not $udp -and $tcp.Count -eq 0) { return }
@@ -69,7 +70,7 @@ function Start-Game([string]$game, [string]$userRoot, [int]$profileId, [string]$
         $env:APPDATA = Join-Path $userRoot 'user\AppData\Roaming'
         $env:LOCALAPPDATA = Join-Path $userRoot 'user\AppData\Local'
         New-Item -ItemType Directory -Path $env:APPDATA,$env:LOCALAPPDATA -Force | Out-Null
-        $arguments = "--rendering-driver vulkan --force-steam=off --clientId=$profileId --log-file `"$log`""
+        $arguments = "$(Get-KarenTestRenderArguments) --force-steam=off --clientId=$profileId --log-file `"$log`""
         if ($fastMp) { $arguments += " --fastmp=$fastMp" }
         return Start-Process -FilePath $exe -WorkingDirectory $game -ArgumentList $arguments `
             -WindowStyle Hidden -PassThru
@@ -240,8 +241,9 @@ function Prepare-ClientGames {
         $source = Join-Path $project "artifacts/dev-game/$branch/game"
         $client = Join-Path $runRoot "$branch-client/game"
         New-Item -ItemType Directory -Path $client -Force | Out-Null
-        & robocopy $source $client /E /NFL /NDL /NP /R:1 /W:1 | Out-Null
-        if ($LASTEXITCODE -ge 8) { throw "Could not copy $branch client game" }
+        $python = Get-KarenTestPython
+        & $python (Join-Path $PSScriptRoot 'copy_test_game.py') $source $client
+        if ($LASTEXITCODE) { throw "Could not prepare $branch client game" }
         $config = Join-Path $client 'mods\KarenSTS2MCP.conf'
         $settings = Get-Content -LiteralPath $config -Raw -Encoding UTF8 | ConvertFrom-Json -AsHashtable
         $settings.port = Get-Port $branch $true

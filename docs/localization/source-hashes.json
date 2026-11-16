@@ -206,8 +206,6 @@
   "cards.json/KAREN_SPIN.title": "68eb90fa809e72cc1386996bb964fa979d95fc3f3c102e9b12d5b98f57c0c604",
   "cards.json/KAREN_STAGE_IS_WAITING.description": "0ebe417803d490b11bf264277d25b00d7046e12e0814c767239eb18c8aff0fb8",
   "cards.json/KAREN_STAGE_IS_WAITING.title": "aa7d43b448a75cfd39b2d38122235c99d08ad116e571c73c9c1cb0c0b47420f9",
-  "cards.json/KAREN_STAGE_REASON.description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "cards.json/KAREN_STAGE_REASON.title": "8bc9f4b9b1b6f655959e0a37ea3fcba1300608e130ad252d8b050767dab2fb19",
   "cards.json/KAREN_STAGE_REPRODUCE.description": "7dd1cdcf83f7cb68093af7d14c5bf8f12f9a33b3c8800337be712189d37a7fa4",
   "cards.json/KAREN_STAGE_REPRODUCE.tip": "9c0bd00a5fca3cc4973ddf423a7aa046e40b20226e3be361ab3c05cbb7f81fd7",
   "cards.json/KAREN_STAGE_REPRODUCE.tip.title": "f56c6c82203b33f632fb357d7fbea6dca86d5863f35a3b5a6f72ecfaacc0c396",
@@ -454,5 +452,8 @@
   "ancients.json/THE_ARCHITECT.talk.KAREN.1-2r.char": "eeb6c37b06cea3b4866134a62ecff78ea37bdf79c5c7b9d5840d1a69a7f2283f",
   "ancients.json/THE_ARCHITECT.talk.KAREN.1-2r.next": "7c9691192f1b73408bbe4c0cb6d00db94375ca9d8fce0a0d5985e7a5178f083f",
   "ancients.json/THE_ARCHITECT.talk.KAREN.1-3r.ancient": "7d866aaa26beb91300bf954d60c85e67d93369803abfbf0a6706f77b5ed4c5e6",
-  "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-ENABLE_ERROR_UPLOAD.title": "301d18552730bbd36bbb9f3da7db6e427005f7f03fa642040d67122cb0cfc63d"
+  "settings_ui.json/SHOUJOKAGEKIAIJOKAREN-ENABLE_ERROR_UPLOAD.title": "301d18552730bbd36bbb9f3da7db6e427005f7f03fa642040d67122cb0cfc63d",
+  "characters.json/KAREN.shortTitle": "ef9b50c1159f96b91572bd493f99f1b88063913c4d2ff2df3474f5db17cf5c07",
+  "characters.json/KAREN.bestiaryQuote": "dcd89c0e4dce67d6c22c65afa8fcbcb4b9936e8a8dd57094ce5b47dd672e9d9a",
+  "relics.json/SEA_GLASS.KAREN.title": "e9ba54adb95cb14ae39613ea6cf30e183df47a05c462fc635e8938d8846de303"
 }

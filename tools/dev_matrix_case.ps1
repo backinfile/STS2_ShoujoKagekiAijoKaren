@@ -17,6 +17,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'test-environment.ps1')
 if ($Headless -and -not $ReviewRegression) { throw 'Headless is only supported for review fixtures; visual suites require rendering.' }
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $RunRoot = [IO.Path]::GetFullPath($RunRoot)
@@ -32,8 +33,8 @@ if (-not $ClientGamesRoot.StartsWith($allowedRoot + [IO.Path]::DirectorySeparato
 $clientGame = Join-Path $ClientGamesRoot "$Branch-client/game"
 $hostExe = Join-Path $hostGame 'SlayTheSpire2.exe'
 $clientExe = Join-Path $clientGame 'SlayTheSpire2.exe'
-$hostPort = if ($Branch -eq 'stable') { 15627 } else { 15628 }
-$clientPort = if ($Branch -eq 'stable') { 15629 } else { 15630 }
+$hostPort = if ($Branch -eq 'stable') { (Get-KarenTestPort 15627) } else { (Get-KarenTestPort 15628) }
+$clientPort = if ($Branch -eq 'stable') { (Get-KarenTestPort 15629) } else { (Get-KarenTestPort 15630) }
 if ($MrWhiteRegression) {
     $hostPort = if ($Branch -eq 'stable') { 15767 } else { 15768 }
     $clientPort = if ($Branch -eq 'stable') { 15769 } else { 15770 }
@@ -121,27 +122,17 @@ function Start-Game([string]$game, [string]$targetRoot, [string]$mode, [int]$pro
         $env:APPDATA = Join-Path $targetRoot 'user/AppData/Roaming'
         $env:LOCALAPPDATA = Join-Path $targetRoot 'user/AppData/Local'
         $log = Join-Path $targetRoot 'godot.log'
-        $arguments = "--rendering-driver vulkan --force-steam=off --fastmp=$mode --clientId=$profileId --log-file `"$log`""
+        $arguments = "$(Get-KarenTestRenderArguments) --force-steam=off --fastmp=$mode --clientId=$profileId --log-file `"$log`""
         if ($Headless) { $arguments += ' --headless' }
         $configPath = Join-Path $game 'mods/KarenSTS2MCP.conf'
         $config = Get-Content -LiteralPath $configPath -Raw -Encoding UTF8 | ConvertFrom-Json -AsHashtable
-        $config.muted = $true
+        $config.muted = $false
+        $config.silent_test = $true
         [IO.File]::WriteAllText($configPath, ($config | ConvertTo-Json -Compress -Depth 16), [Text.UTF8Encoding]::new($false))
         if ($Headless) {
             return Start-Process -FilePath (Join-Path $game 'SlayTheSpire2.exe') -WorkingDirectory $game -ArgumentList $arguments -WindowStyle Hidden -PassThru
         }
-        $python = Join-Path $env:USERPROFILE '.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
-        if (-not (Test-Path -LiteralPath $python)) { $python = (Get-Command python -CommandType Application).Source }
-        $pidFile = Join-Path $targetRoot ("isolated-desktop-" + [guid]::NewGuid().ToString('N') + '.json')
-        $helper = Join-Path $PSScriptRoot 'vfx/six-card/launch_isolated_game.py'
-        $launcher = Start-Process -FilePath $python -ArgumentList "`"$helper`" --game `"$game`" --pid-file `"$pidFile`" -- $arguments" -WindowStyle Hidden -PassThru
-        $deadline = [DateTime]::UtcNow.AddSeconds(15)
-        while (-not (Test-Path -LiteralPath $pidFile)) {
-            if ($launcher.HasExited -or [DateTime]::UtcNow -ge $deadline) { throw 'The isolated test desktop did not start' }
-            Start-Sleep -Milliseconds 100
-        }
-        $started = Get-Content -LiteralPath $pidFile -Raw -Encoding UTF8 | ConvertFrom-Json
-        return Get-Process -Id $started.pid -ErrorAction Stop
+        return Start-Process -FilePath (Join-Path $game 'SlayTheSpire2.exe') -WorkingDirectory $game -ArgumentList $arguments -WindowStyle Hidden -PassThru
     }
     finally {
         $env:APPDATA = $oldRoaming
@@ -162,13 +153,13 @@ function Stop-Verified([object]$process, [string]$expectedPath) {
 
 if ($ReviewRegression -or $MrWhiteRegression) {
     for ($attempt = 0; $attempt -lt 30; $attempt++) {
-        $udpBusy = Get-NetUDPEndpoint -LocalPort 33771 -ErrorAction SilentlyContinue
+        $udpBusy = Get-NetUDPEndpoint -LocalPort (Get-KarenTestNetworkPort) -ErrorAction SilentlyContinue
         $tcpBusy = Get-NetTCPConnection -LocalPort $hostPort,$clientPort -State Listen -ErrorAction SilentlyContinue
         if (-not $udpBusy -and -not $tcpBusy) { break }
         Start-Sleep -Milliseconds 500
     }
 }
-if (Get-NetUDPEndpoint -LocalPort 33771 -ErrorAction SilentlyContinue) { throw 'Multiplayer host port 33771 is occupied' }
+if (Get-NetUDPEndpoint -LocalPort (Get-KarenTestNetworkPort) -ErrorAction SilentlyContinue) { throw 'Multiplayer host port 33771 is occupied' }
 foreach ($port in @($hostPort, $clientPort)) {
     if (Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue) {
         throw "MCP port $port is occupied"
@@ -248,7 +239,7 @@ try {
     }
 
     if ($ReviewRegression) {
-        $udpBindings = @(Get-NetUDPEndpoint -LocalPort 33771 -ErrorAction Stop)
+        $udpBindings = @(Get-NetUDPEndpoint -LocalPort (Get-KarenTestNetworkPort) -ErrorAction Stop)
         if ($udpBindings.Count -eq 0 -or @($udpBindings | Where-Object { -not [Net.IPAddress]::IsLoopback([Net.IPAddress]::Parse($_.LocalAddress).MapToIPv4()) }).Count -gt 0) {
             throw 'Review test host is not restricted to loopback'
         }

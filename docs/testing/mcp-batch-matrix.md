@@ -23,13 +23,13 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite s
 | `cross` | 可选的跨版本连接调查；不属于日常验收 |
 | `full` | 显式指定时执行 `smoke`、`solo`、`multiplayer`、`regression`、`turn-end` 的全部用例，不含 `cross` |
 
-测试通过 `--force-steam=off` 启动隔离游戏，每个用例使用独立 `--clientId`、用户数据目录和日志。正式版与测试版主机 MCP 端口分别是 `15627`、`15628`；对应客户端是 `15629`、`15630`；联机使用 `33771`。脚本在使用端口前检查占用情况，不会停止其他项目的游戏进程。客户端游戏从本项目快照复制到本次运行目录；结束后默认尝试清理游戏副本，`-KeepClientGames` 可保留。清理遇到 Windows 文件占用时会延后并写进报告，不改变测试结论。
+测试通过 `--force-steam=off` 启动隔离游戏，每个用例使用独立 `--clientId`、用户数据目录和日志。正式版与测试版主机 MCP 端口分别是 `15627`、`15628`；对应客户端是 `15629`、`15630`；联机使用 `33771`。脚本在使用端口前检查占用情况，不会停止其他项目的游戏进程。客户端游戏的原生只读文件从本项目快照硬链接到本次运行目录，Mod、配置单独复制；结束后默认尝试清理游戏副本，`-KeepClientGames` 可保留。清理遇到 Windows 文件占用时会延后并写进报告，不改变测试结论。
 
 每次运行的 JSON 结果、两端日志和隔离用户数据保存在 `artifacts/test-matrix/<运行标识>/`。任一测试失败时脚本退出码为 1，其余测试仍会继续。`full` 不测试跨版本联机。历史跨版本调查中，游戏拒绝不同版本的握手，客户端游戏本体的错误弹窗还会抛出 `SwitchExpressionException`；此结果单独记录，不影响本 Mod 的双版本兼容性验收。
 
 单人移牌视觉专项另行运行 `pwsh -NoProfile -File tools/test_promise_visuals.ps1 -Environment beta`（正式版改为 `stable`）。它检查《坠落》移入、《约定之塔》抽回以及取回后继续出牌，保存各阶段截图和 MCP 状态，并调用只读命令 `karen_check_hand` 比较可见节点与模型。脚本先从隔离日志确认 KarenSTS2MCP 启动，再访问接口。检查时始终保持 1280 × 720 窗口；加 `-Record` 时额外录像并静音，避免最小化 Vulkan 窗口导致画面停止更新。结果保存在 `artifacts/test-promise-visuals/`。该检查能发现模型已抽回但画面仍缺牌的问题。
 
-游戏快照固定为正式版 v0.107.1、测试版 v0.113.0；游戏升级后先重新准备快照并核对兼容性。更新脚本不会执行 `git pull`，避免覆盖 MCP 源码目录中的未提交改动；如果需要远端新提交，应先在 MCP 仓库处理更新，再运行此脚本。
+正式版快照校验固定为 v0.107.1，测试版接受 v0.113.0 及后续版本；报告以快照实际版本为准，升级后仍需重新准备快照并实测兼容性。更新脚本不会执行 `git pull`，避免覆盖 MCP 源码目录中的未提交改动；如果需要远端新提交，应先在 MCP 仓库处理更新，再运行此脚本。
 
 单机双进程测试可加 `-UpdateMcp -LoopbackOnly`。该选项只修改 MCP 构建副本，把 ENet 主机与客户端的 UDP 接口限制在 `127.0.0.1`，避免测试监听所有网卡；不修改系统防火墙，也不需要管理员启动。Windows 是否显示权限提示仍以实际系统行为为准。重新不带该选项构建 MCP 可恢复局域网测试。
 
@@ -40,3 +40,16 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File tools/test_dev_matrix.ps1 -Suite s
 修复专项把测试版启动期的原生 WorkerThreadPool 诊断单列为 `startupWorkerPoolErrorCount`：必须是 Common 预加载完成之前的 `ERROR: Invalid Task ID`，且调用位置为 `core/object/worker_thread_pool.cpp`。其余原生错误仍使测试失败；不能把出牌阶段同名错误归为启动诊断。`headlessRendererErrorCount` 仅统计 headless dummy renderer 的错误，窗口测试应为 0。
 
 `tools/test_review_regressions.ps1` 另行覆盖模型复制、降级、联机转交及拒绝分支、能量保留、远端牌堆界面和遗物清理。重播检查分别断言三次原生回调及一次闪耀扣减，沿用 Core 的同次原生出牌共享预算契约；每个阶段的两端结果单独记录，失败后继续检查独立阶段。
+
+## 并行任务的环境隔离
+
+默认端口及 Vulkan 渲染保持原设置。遇到其他测试占用端口，可在启动脚本前设置：
+
+```powershell
+$env:KAREN_TEST_MCP_PORT_BASE = '2964' # 按稳定主机、测试主机、稳定客户端、测试客户端依次使用四个端口
+$env:KAREN_TEST_NETWORK_PORT = '52501' # 仅配合 -LoopbackOnly / 审查回归的测试传输补丁
+$env:KAREN_TEST_RENDER_METHOD = 'gl_compatibility' # 可选的低显存功能测试路径
+$env:KAREN_TEST_PYTHON = '<python-executable>'
+```
+
+`gl_compatibility` 用于功能检查，不产生 Vulkan 特效或 GPU 预热结论。需要清除覆盖时删除对应环境变量。逻辑矩阵隐藏启动并启用 `silent_test`；约定移牌截图专项沿用隔离桌面。
