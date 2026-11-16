@@ -121,6 +121,7 @@ public partial class NKarenBaseballVfx
 
     private void ImpactLight()
     {
+        if (!_target.IsFinite() || !float.IsFinite(_unit) || _unit <= 0 || !float.IsFinite(_age) || _age < 0) return;
         float flash = Mathf.Exp(-_age * 27), fade = 1 - Mathf.SmoothStep(.09f, .4f, _age);
         Halo(_target, (62 + _age * 60) * _unit, Gold, flash * 1.4f);
         Halo(_target, 28 * _unit, Warm, flash * 1.5f);
@@ -133,12 +134,19 @@ public partial class NKarenBaseballVfx
             var point = _target + direction * (8 + _age * speed) * _unit;
             float length = (12 + i % 5 * 6) * fade * _unit;
             var width = direction.Orthogonal().Normalized() * (1.2f + i % 3 * .35f) * fade * _unit;
-            _shard[0] = point + direction * length;
-            _shard[1] = point + width;
-            _shard[2] = point - direction * length * .5f;
-            _shard[3] = point - width;
-            if (fade > .035f)
+            // Triangulate near the origin: a small fading shard at screen coordinates
+            // loses its signed area to float cancellation inside Godot's triangulator.
+            _shard[0] = direction * length;
+            _shard[1] = width;
+            _shard[2] = -direction * length * .5f;
+            _shard[3] = -width;
+            float area = direction.Cross(width) * length;
+            if (fade > .035f && point.IsFinite() && float.IsFinite(area) && Mathf.Abs(area) > .00001f)
+            {
+                _light.DrawSetTransform(point);
                 _light.DrawColoredPolygon(_shard, new Color(i % 5 == 0 ? Red : Warm, fade * .9f));
+            }
         }
+        _light.DrawSetTransform(Vector2.Zero);
     }
 }

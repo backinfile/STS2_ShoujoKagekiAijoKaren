@@ -103,8 +103,9 @@ internal static class PromisePileCardCreationPositionPatch
 #if STS2_BETA
         PileType? oldPileType,
 #endif
-        NCard __result)
+        NCard? __result)
     {
+        if (!GodotObject.IsInstanceValid(__result) || __result!.IsQueuedForDeletion()) return;
 #if !STS2_BETA
         PileType? oldPileType = card.Pile?.Type;
 #endif

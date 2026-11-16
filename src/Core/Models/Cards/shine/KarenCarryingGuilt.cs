@@ -34,7 +34,7 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
     [
         new CalculationBaseVar(12m),
         new ExtraDamageVar(4m),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => ShoujoKageki.Core.V1.Shine.CountDepletedKinds(card.Owner))
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => card.Owner is { } owner ? ShoujoKageki.Core.V1.Shine.CountDepletedKinds(owner) : 0)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -59,7 +59,7 @@ public sealed class KarenCarryingGuilt : KarenBaseCardModel
 
     protected override void AddExtraArgsToDescription(LocString description)
     {
-        var count = IsCanonical ? 0 : ShoujoKageki.Core.V1.Shine.CountDepletedKinds(Owner);
+        var count = !IsCanonical && Owner is { } owner ? ShoujoKageki.Core.V1.Shine.CountDepletedKinds(owner) : 0;
         description.Add("ShinePileUniqueCount", count);
     }
 

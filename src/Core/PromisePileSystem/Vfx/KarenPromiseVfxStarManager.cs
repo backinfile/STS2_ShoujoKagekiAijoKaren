@@ -63,8 +63,8 @@ public static class KarenPromiseVfxStarManager
         if (GodotObject.IsInstanceValid(node) && !node!.IsQueuedForDeletion()) node.EndCombatEntrance();
     }
 
-    public static Vector2? TrackOutgoingCard(NCard card)
-        => card.Model.Owner is { } player
+    public static Vector2? TrackOutgoingCard(NCard? card)
+        => GodotObject.IsInstanceValid(card) && !card!.IsQueuedForDeletion() && card.Model?.Owner is { } player
             ? KarenVfxQuality.Enabled ? GetOrCreateNode(player)?.TrackOutgoingCard(card) : GetTowerPosition(player)
             : null;
 
