@@ -78,10 +78,14 @@ public partial class NKarenPromiseStarNode : Node2D
     }
     private void UpdatePlacement()
     {
-        if (!GodotObject.IsInstanceValid(_creature)) return;
+        if (!GodotObject.IsInstanceValid(_creature) || _creature!.IsQueuedForDeletion()) return;
+        // The creature can outlive its visuals during replacement or room teardown.
+        // Keep the last placement until the current child is ready again.
+        var visuals = _creature.Visuals;
+        if (!GodotObject.IsInstanceValid(visuals) || visuals.IsQueuedForDeletion() || !visuals.IsInsideTree()) return;
         // Shrink changes Visuals, not NCreature (our parent). Use the visual basis
         // lengths: the stage stays upright even when the body/visuals face left.
-        var visual = _creature!.Visuals.GlobalTransform;
+        var visual = visuals.GlobalTransform;
         var size = new Vector2(Mathf.Max(visual.X.Length(), 0.001f), Mathf.Max(visual.Y.Length(), 0.001f));
         bool crowded = (_creature.Entity.CombatState?.Players.Count ?? 1) >= 3;
         if (crowded) size *= .76f;
@@ -337,7 +341,12 @@ public partial class NKarenPromiseStarNode : Node2D
     public override void _Process(double delta)
     {
         if (!KarenVfxQuality.Enabled) { Hide(); return; }
-        if (!GodotObject.IsInstanceValid(_creature)) { QueueFree(); return; }
+        if (!GodotObject.IsInstanceValid(_creature) || _creature!.IsQueuedForDeletion())
+        {
+            SetProcess(false);
+            QueueFree();
+            return;
+        }
         UpdatePlacement();
         float dt = (float)delta;
         _time += dt;

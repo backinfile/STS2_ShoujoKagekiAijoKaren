@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFramework>net9.0</TargetFramework><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><AssemblyName>KarenPromiseLifecycleChecks</AssemblyName></PropertyGroup>
+ <ItemGroup><Reference Include="sts2" HintPath="$(GameDir)/data_sts2_windows_x86_64/sts2.dll" Private="false" /><Reference Include="GodotSharp" HintPath="$(GameDir)/data_sts2_windows_x86_64/GodotSharp.dll" Private="false" /><Reference Include="0Harmony" HintPath="$(GameDir)/data_sts2_windows_x86_64/0Harmony.dll" Private="false" /></ItemGroup>
+</Project>
