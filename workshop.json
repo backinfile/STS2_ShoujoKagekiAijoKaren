@@ -2,7 +2,7 @@
   "title": null,
   "description": null,
   "visibility": "public",
-  "changeNote": "v1.0.0\n修复战斗画面销毁时约定星可能报错的问题。随包提供 Core 1.9.6。\nFixed an error that could occur in the Promise star effect when combat visuals were removed. Includes Core 1.9.6.",
+  "changeNote": "v1.0.1\n修复战斗画面销毁时约定星可能报错的问题。随包提供 Core 1.9.6。\nFixed an error that could occur in the Promise star effect when combat visuals were removed. Includes Core 1.9.6.",
   "tags": [
     "Characters",
     "Cards",
