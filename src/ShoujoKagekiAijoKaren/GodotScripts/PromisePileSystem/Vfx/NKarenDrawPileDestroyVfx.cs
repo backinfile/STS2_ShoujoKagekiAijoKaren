@@ -77,7 +77,7 @@ public partial class NKarenDrawPileDestroyVfx : Node2D
             room!.Ui.AddChild(carrier);
             carrier.UpdateVisuals(MegaCrit.Sts2.Core.Entities.Cards.PileType.None, CardPreviewMode.Normal);
             carrier.GlobalPosition = icon.GetGlobalTransform() * (icon.Size * .5f);
-#if STS2_BETA
+#if STS2_111_OR_LATER
             var native = NCardExhaustVfx.Create(carrier);
             if (native == null) { carrier.QueueFree(); return; }
             room.Ui.AddChild(native);
@@ -119,7 +119,7 @@ public partial class NKarenDrawPileDestroyVfx : Node2D
     {
         var center = _icon.GetGlobalTransform() * (_icon.Size * 0.5f);
         _carrier.GlobalPosition = center;
-#if STS2_BETA
+#if STS2_111_OR_LATER
         _carrier.UseParentMaterial = true;
         var icon = new TextureRect
         {
@@ -184,7 +184,7 @@ public partial class NKarenDrawPileDestroyVfx : Node2D
 
     public override void _Draw()
     {
-#if STS2_BETA
+#if STS2_111_OR_LATER
         if (!GodotObject.IsInstanceValid(_icon) || _exhaustStarted) return;
         var tint = _originalModulate;
 #else

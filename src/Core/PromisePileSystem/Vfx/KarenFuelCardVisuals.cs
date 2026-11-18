@@ -73,7 +73,7 @@ public static class KarenFuelCardVisuals
         }
     }
 
-#if STS2_BETA
+#if STS2_111_OR_LATER
     [HarmonyPatch(typeof(NCardExhaustVfx), nameof(NCardExhaustVfx.Create))]
     private static class ExhaustPatch
     {

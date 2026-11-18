@@ -12,7 +12,7 @@ internal static class AttackCommandCompat
 {
     public static AttackCommand FromPlayedCard(this AttackCommand command, CardModel card, CardPlay cardPlay)
     {
-#if STS2_BETA
+#if STS2_111_OR_LATER
         command.FromCard(card, cardPlay);
 #else
         command.FromCard(card);

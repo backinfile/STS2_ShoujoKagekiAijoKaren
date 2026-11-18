@@ -38,7 +38,7 @@ public sealed class KarenFightRelay : KarenBaseCardModel
         DynamicVars["Relics"].UpgradeValueBy(1m);
     }
 
-#if STS2_BETA
+#if STS2_111_OR_LATER
     protected override CardLocation GetResultLocationForCardPlay()
     {
         var location = base.GetResultLocationForCardPlay();

@@ -79,7 +79,7 @@ internal static class PromisePile_BeforeSideTurnStart_Patch
 /// <summary>
 /// Print promise pile contents at the end of each player turn and trigger promise pile turn-end hooks.
 /// </summary>
-#if STS2_BETA
+#if STS2_111_OR_LATER
 [HarmonyPatch(typeof(Hook), nameof(Hook.AfterSideTurnEnd))]
 #else
 [HarmonyPatch(typeof(Hook), nameof(Hook.AfterTurnEnd))]

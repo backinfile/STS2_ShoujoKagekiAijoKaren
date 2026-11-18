@@ -25,8 +25,11 @@ public static class Bootstrap
 #else
         if (version.CompareTo(stable) < 0)
             throw new NotSupportedException($"Karen requires game v0.107.1 or newer; found {version}.");
-        var variant = version.CompareTo(beta) >= 0 ? "Beta" : "Stable";
-        var baseline = variant == "Beta" ? beta : stable;
+        var mainMinimum = new SemanticVersion(0, 111, 0);
+        var mainReference = new SemanticVersion(0, 111, 1);
+        var (variant, baseline) = ("Stable", stable);
+        if (version.CompareTo(beta) >= 0) (variant, baseline) = ("Beta", beta);
+        else if (version.CompareTo(mainMinimum) >= 0) (variant, baseline) = ("Main", mainReference);
         if (version.CompareTo(baseline) > 0)
             Log.Warn($"[KarenLoader] Game {version} is newer than the {variant} reference build {baseline}; trying {variant} implementation.");
         return variant;

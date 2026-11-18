@@ -29,7 +29,7 @@ internal static class NCardFindOnTablePatch
     [HarmonyPrefix]
     private static bool Prefix(CardModel card, PileType? overridePile, ref NCard? __result)
     {
-#if STS2_BETA
+#if STS2_111_OR_LATER
         // v0.111 looks up the source visual after moving the model. Respect the
         // explicit source pile both when entering and when leaving PromisePile.
         var visualPile = overridePile ?? card?.Pile?.Type;
@@ -100,13 +100,13 @@ internal static class PromisePileCardCreationPositionPatch
 {
     [HarmonyPostfix]
     private static void Postfix(CardModel card,
-#if STS2_BETA
+#if STS2_111_OR_LATER
         PileType? oldPileType,
 #endif
         NCard? __result)
     {
         if (!GodotObject.IsInstanceValid(__result) || __result!.IsQueuedForDeletion()) return;
-#if !STS2_BETA
+#if !STS2_111_OR_LATER
         PileType? oldPileType = card.Pile?.Type;
 #endif
         if (card.Owner is not { } owner || oldPileType is not { } source ||

@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
 using ShoujoKagekiAijoKaren.src.Core.Models.Cards.token;
-#if STS2_BETA
+#if STS2_111_OR_LATER
 using NativeExhaustVfx = MegaCrit.Sts2.Core.Nodes.Vfx.Cards.NCardExhaustVfx;
 #else
 using NativeExhaustVfx = MegaCrit.Sts2.Core.Nodes.Vfx.Cards.NExhaustVfx;

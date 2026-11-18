@@ -13,8 +13,10 @@ void Reject(int major,int minor,int patch) {
 }
 Expect(0,107,1,"Stable");Expect(0,113,0,"Beta");Reject(0,107,0);
 #if KAREN_ANDROID
-Reject(0,113,1);Reject(0,114,0);
+Reject(0,111,1);Reject(0,113,1);Reject(0,114,0);
 #else
-Expect(0,107,2,"Stable");Expect(0,112,0,"Stable");Expect(0,113,1,"Beta");Expect(0,114,0,"Beta");Expect(1,0,0,"Beta");
+Expect(0,107,2,"Stable");Expect(0,110,0,"Stable");
+Expect(0,111,0,"Main");Expect(0,111,1,"Main");Expect(0,112,0,"Main");
+Expect(0,113,1,"Beta");Expect(0,114,0,"Beta");Expect(1,0,0,"Beta");
 #endif
 Console.WriteLine($"Loader policy checks passed: {checks}");

@@ -3,7 +3,8 @@ param(
     [string]$StableGameDir = $env:SHOUJO_STABLE_GAME,
     [string]$BetaGameDir = $env:SHOUJO_BETA_GAME,
     [string]$MegaDot = 'D:\Godot\megadot-4.5.1-m.12-windows-x86_64-llvm-editor-csharp\MegaDot_v4.5.1-stable_mono_win64.exe',
-    [ValidateSet('Desktop', 'Android')][string]$Target = 'Desktop'
+    [ValidateSet('Desktop', 'Android')][string]$Target = 'Desktop',
+    [string]$MainGameDir = $env:SHOUJO_MAIN_GAME
 )
 
 $ErrorActionPreference = 'Stop'
@@ -17,6 +18,18 @@ if (-not (Test-Path -LiteralPath $betaRelease)) { throw 'Set -BetaGameDir or SHO
 $actualBeta = (Get-Content -LiteralPath $betaRelease -Raw -Encoding UTF8 | ConvertFrom-Json).version.TrimStart('v')
 if ($actualBeta -ne $core.Bundle.targets.beta.minimumGameVersion.TrimStart('v')) { throw 'Beta game does not match the selected Core package.' }
 if ($StableGameDir) { $StableGameDir = [IO.Path]::GetFullPath($StableGameDir) }
+$variants = [ordered]@{ Stable = $StableGameDir }
+if ($Target -eq 'Desktop') {
+    if (-not $core.Bundle.targets.main) { throw 'The desktop package requires Core with a Main runtime.' }
+    if (-not $MainGameDir) { $MainGameDir = Join-Path $project 'artifacts/dev-game/main/game' }
+    $MainGameDir = [IO.Path]::GetFullPath($MainGameDir)
+    $mainRelease = Join-Path $MainGameDir 'release_info.json'
+    if (-not (Test-Path -LiteralPath $mainRelease)) { throw 'Set -MainGameDir or SHOUJO_MAIN_GAME to the v0.111.1 game.' }
+    $actualMain = (Get-Content -LiteralPath $mainRelease -Raw -Encoding UTF8 | ConvertFrom-Json).version.TrimStart('v')
+    if ($actualMain -ne '0.111.1') { throw "Main reference game is v$actualMain; expected v0.111.1." }
+    $variants.Add('Main', $MainGameDir)
+}
+$variants.Add('Beta', $BetaGameDir)
 
 $modId = 'ShoujoKagekiAijoKaren'
 $artifactRoot = [IO.Path]::GetFullPath((Join-Path $project 'artifacts'))
@@ -98,13 +111,13 @@ while ([DateTime]::UtcNow -lt $deadline) {
 }
 if ($stableChecks -lt 3) { throw 'PCK export did not finish.' }
 
-foreach ($variant in @('Stable', 'Beta')) {
+foreach ($variant in $variants.Keys) {
     $api = $variant.ToLowerInvariant()
     $assemblyName = "$modId.$variant"
     $variantArgs = $commonArgs
-    if ($variant -eq 'Beta') {
+    if ($variant -ne 'Stable') {
         $variantArgs = @($commonArgs | Where-Object { $_ -notlike '-p:Sts2ReferenceMode=*' -and $_ -notlike '-p:Sts2GameDir=*' })
-        $variantArgs += '-p:Sts2ReferenceMode=local', "-p:Sts2GameDir=$BetaGameDir"
+        $variantArgs += '-p:Sts2ReferenceMode=local', "-p:Sts2GameDir=$($variants[$variant])"
     }
     Build-OrThrow $modProject 'ExportRelease' ($variantArgs + @("-p:Sts2Api=$api", "-p:AssemblyName=$assemblyName"))
     $source = Join-Path $godotOutput ($assemblyName + '.dll')
@@ -116,12 +129,13 @@ Build-OrThrow (Join-Path $project 'loader/KarenModLoader.csproj') 'Release' $com
 Copy-Item -LiteralPath (Join-Path $project 'loader/bin/Release/net9.0/ShoujoKagekiAijoKaren.dll') -Destination (Join-Path $modDir "$modId.dll")
 Copy-Item -LiteralPath (Join-Path $project "$modId.json") -Destination $modDir
 
-foreach ($required in @("$modId.dll", "$modId.pck", "$modId.json", "lib/$modId.Stable.dll", "lib/$modId.Beta.dll")) {
+$variantFiles = @($variants.Keys | ForEach-Object { "lib/$modId.$_.dll" })
+foreach ($required in (@("$modId.dll", "$modId.pck", "$modId.json") + $variantFiles)) {
     if (-not (Test-Path -LiteralPath (Join-Path $modDir $required))) {
         throw "Incomplete package: $required"
     }
 }
-Write-Host "$Target dual-branch package: $modDir"
+Write-Host "$Target package ($($variants.Keys -join ', ')): $modDir"
 
 Copy-CoreRolePackage $core $modDir $packageRoot $modId
 if ($Target -eq 'Desktop') {

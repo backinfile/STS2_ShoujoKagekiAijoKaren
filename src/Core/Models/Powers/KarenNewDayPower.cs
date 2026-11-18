@@ -24,7 +24,7 @@ public class KarenNewDayPower : PowerModel
         && card is not KarenBaseCardModel { SkipNewDayPower: true }
         && pile == PileType.Discard;
 
-#if STS2_BETA
+#if STS2_111_OR_LATER
     public override CardLocation ModifyCardPlayResultLocation(
         CardModel card,
         bool isAutoPlay,

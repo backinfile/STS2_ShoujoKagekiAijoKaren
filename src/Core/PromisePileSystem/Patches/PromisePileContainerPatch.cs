@@ -11,7 +11,7 @@ namespace ShoujoKagekiAijoKaren.src.Core.PromisePileSystem.Patches;
 public static class PromisePileContainerPatch
 {
     [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Add))]
-#if STS2_BETA
+#if STS2_111_OR_LATER
     [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(CardPile), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool), typeof(bool)])]
 #else
     [HarmonyPatch([typeof(IEnumerable<CardModel>), typeof(CardPile), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool)])]
