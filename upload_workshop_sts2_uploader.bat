@@ -43,7 +43,11 @@ if not exist "%PREVIEW_FILE%" (
 )
 
 echo [2/6] Checking bundled Core...
-if not exist "%PACKAGE_ROOT%\ShoujoKagekiAijoCore\core.bundle" exit /b 1
+if not exist "%PACKAGE_ROOT%\ShoujoKagekiCore\core.bundle" exit /b 1
+if exist "%PACKAGE_ROOT%\ShoujoKagekiAijoCore" (
+    echo [ERROR] Rebuild the Workshop package without the legacy Core directory.
+    exit /b 1
+)
 copy /Y "%~dp0%MOD_NAME%.json" "%MOD_CONTENT_DIR%\%MOD_NAME%.json" >nul
 if errorlevel 1 (
     echo [ERROR] Failed to copy %MOD_NAME%.json

@@ -50,6 +50,10 @@ if not exist "%MOD_CONTENT_DIR%\%MOD_NAME%.json" (
 )
 
 echo [3/4] Preparing mods folder...
+if exist "%MODS_DIR%\ShoujoKagekiAijoCore" (
+    echo [ERROR] Move the legacy ShoujoKagekiAijoCore package out of the mods folder before installing Core 2.0.0.
+    exit /b 1
+)
 if not exist "%MODS_DIR%" (
     mkdir "%MODS_DIR%"
     if errorlevel 1 (
@@ -73,7 +77,7 @@ if %ROBOCOPY_EXIT% GEQ 8 (
     exit /b %ROBOCOPY_EXIT%
 )
 
-robocopy "%PACKAGE_ROOT%\ShoujoKagekiAijoCore" "%MODS_DIR%\ShoujoKagekiAijoCore" /E /R:2 /W:1 /NFL /NDL /NP
+robocopy "%PACKAGE_ROOT%\ShoujoKagekiCore" "%MODS_DIR%\ShoujoKagekiCore" /E /R:2 /W:1 /NFL /NDL /NP
 if errorlevel 8 exit /b 1
 
 echo.

@@ -102,7 +102,7 @@ function Prepare-Profile([string]$branch, [string]$userRoot, [int]$profileId) {
     $configDir = Join-Path $userRoot 'user/AppData/Roaming/SlayTheSpire2/mod_configs'
     New-Item -ItemType Directory -Path $configDir -Force | Out-Null
     @{ EnableDataUpload='False'; EnableErrorUpload='False' } | ConvertTo-Json |
-        Set-Content (Join-Path $configDir 'ShoujoKagekiAijoCore.cfg') -Encoding UTF8
+        Set-Content (Join-Path $configDir 'ShoujoKagekiCore.cfg') -Encoding UTF8
 }
 
 function Test-Solo([string]$branch, [int]$caseId) {

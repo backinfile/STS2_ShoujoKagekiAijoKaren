@@ -212,7 +212,7 @@ public sealed class QualityCmd : AbstractConsoleCmd
                 int stride = level == KarenVfxLevel.Full ? 1 : 4;
                 if (Count(40) != 40 / stride || Count(0) != 0 || Count(1) != 1 || triangles != 64 / stride)
                     throw new Exception("Budget failed: " + level);
-                string label = new LocString("settings_ui", "SHOUJOKAGEKIAIJOCORE-VFX_LEVEL." + (CoreVfxLevel)(int)level).GetRawText();
+                string label = new LocString("settings_ui", "SHOUJOKAGEKICORE-VFX_LEVEL." + (CoreVfxLevel)(int)level).GetRawText();
                 if (string.IsNullOrWhiteSpace(label) || label.Contains("VFX_LEVEL")) throw new Exception("Missing localized dropdown label");
                 results.Add(new { level = level.ToString(), particles = Count(40), triangles, label });
             }

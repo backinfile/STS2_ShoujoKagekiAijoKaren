@@ -13,8 +13,8 @@
       "min_version": "v3.4.8"
     },
     {
-      "id": "ShoujoKagekiAijoCore",
-      "min_version": "1.9.7"
+      "id": "ShoujoKagekiCore",
+      "min_version": "2.0.0"
     }
   ],
   "affects_gameplay": true

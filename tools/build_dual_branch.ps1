@@ -137,11 +137,13 @@ foreach ($required in (@("$modId.dll", "$modId.pck", "$modId.json") + $variantFi
 }
 Write-Host "$Target package ($($variants.Keys -join ', ')): $modDir"
 
+Preserve-LegacyCoreBuild $packageRoot $artifactRoot
 Copy-CoreRolePackage $core $modDir $packageRoot $modId
 if ($Target -eq 'Desktop') {
     $workshopRoot = Join-Path $artifactRoot 'workshop'
+    Preserve-LegacyCoreBuild $workshopRoot $artifactRoot
     New-Item -ItemType Directory -Force -Path $workshopRoot | Out-Null
-    foreach ($name in @($modId, 'ShoujoKagekiAijoCore')) {
+    foreach ($name in @($modId, 'ShoujoKagekiCore')) {
         $destination = [IO.Path]::GetFullPath((Join-Path $workshopRoot $name))
         if (-not $destination.StartsWith($workshopRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
             throw 'Unsafe workshop package path.'

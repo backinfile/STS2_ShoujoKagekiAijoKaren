@@ -30,7 +30,7 @@ public sealed class UnlockSmokeCmd : AbstractConsoleCmd {
   var beforeCards=progress.DiscoveredCards.ToArray();
   if(applying){
    save.SaveProgressFile();string before=File.ReadAllText(path);
-   var container=new VBoxContainer();NGame.Instance!.AddChild(container);ModConfigRegistry.Get("ShoujoKagekiAijoCore")!.SetupConfigUI(container);
+   var container=new VBoxContainer();NGame.Instance!.AddChild(container);ModConfigRegistry.Get("ShoujoKagekiCore")!.SetupConfigUI(container);
    var row=Walk(container).OfType<NConfigOptionRow>().Single(n=>n.Name=="UnlockAllButton");
    var button=(NConfigButton)row.SettingControl;button.EmitSignal(NClickableControl.SignalName.Released,button);
    Check(Directory.GetFiles(Path.GetDirectoryName(path)!,"progress.save.core-unlock-*.backup").Any(f=>File.ReadAllText(f)==before),"exact pre-unlock backup");

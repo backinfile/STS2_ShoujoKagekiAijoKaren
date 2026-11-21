@@ -62,12 +62,12 @@ def version(value):
 def validate_core(directory):
     bundle_bytes = (directory / "core.bundle").read_bytes()
     bundle = json.loads(bundle_bytes.decode("utf-8-sig"))
-    manifest = json.loads((directory / "ShoujoKagekiAijoCore.json").read_text(encoding="utf-8-sig"))
+    manifest = json.loads((directory / "ShoujoKagekiCore.json").read_text(encoding="utf-8-sig"))
     if (bundle.get("format"), bundle.get("bootstrapProtocol"), bundle.get("apiMajor")) != (1, 1, 1):
         raise ValueError("Unsupported Core package protocol")
-    if manifest.get("id") != "ShoujoKagekiAijoCore" or manifest.get("version") != bundle["releaseVersion"] or bundle["resourceVersion"] != bundle["releaseVersion"]:
+    if manifest.get("id") != "ShoujoKagekiCore" or manifest.get("version") != bundle["releaseVersion"] or bundle["resourceVersion"] != bundle["releaseVersion"]:
         raise ValueError("Core release identity mismatch")
-    required = {"ShoujoKagekiAijoCore.dll", "ShoujoKagekiAijoCore.json", bundle["apiAssembly"], bundle["resourcePack"]}
+    required = {"ShoujoKagekiCore.dll", "ShoujoKagekiCore.json", bundle["apiAssembly"], bundle["resourcePack"]}
     required.update(bundle["targets"][target]["assembly"] for target in ("stable", "beta"))
     files = bundle["files"]
     if not required <= files.keys():
@@ -87,7 +87,7 @@ def validate_core(directory):
     paths, engine = read_pck(directory / bundle["resourcePack"])
     if any(p.endswith((".s3tc.ctex", ".bptc.ctex")) for p in paths):
         raise ValueError("Core contains desktop-only texture imports")
-    if not any(p.startswith("res://ShoujoKagekiAijoCore/") for p in paths):
+    if not any(p.startswith("res://ShoujoKagekiCore/") for p in paths):
         raise ValueError("Core resources are missing")
     digests = dict(files, **{"core.bundle": hashlib.sha256(bundle_bytes).hexdigest()})
     return bundle, digests, dict(version=bundle["releaseVersion"], godot=engine, resource_count=len(paths), assemblies=assemblies)
@@ -98,7 +98,7 @@ def validate_package(directory):
     if manifest.get("id") != MOD_ID or not manifest.get("has_dll") or not manifest.get("has_pck"):
         raise ValueError("Invalid Karen manifest")
     dependencies = {d["id"]: d for d in manifest.get("dependencies", [])}
-    if "BaseLib" not in dependencies or "ShoujoKagekiAijoCore" not in dependencies:
+    if "BaseLib" not in dependencies or "ShoujoKagekiCore" not in dependencies:
         raise ValueError("BaseLib and Core dependencies are required")
     required = [f"{MOD_ID}.dll", f"lib/{MOD_ID}.Stable.dll", f"lib/{MOD_ID}.Beta.dll"]
     assemblies = [dict(validate_assembly(directory / name), file=name) for name in required]
@@ -109,8 +109,8 @@ def validate_package(directory):
     requirements = json.loads((directory / "core.requirements").read_text(encoding="utf-8-sig"))
     if requirements.get("format") != 1 or requirements.get("modId") != MOD_ID or requirements.get("apiMajor") != 1:
         raise ValueError("Invalid Core requirements")
-    bundle, digests, core = validate_core(directory.parent / "ShoujoKagekiAijoCore")
-    if version(bundle["releaseVersion"]) < version(dependencies["ShoujoKagekiAijoCore"]["min_version"]):
+    bundle, digests, core = validate_core(directory.parent / "ShoujoKagekiCore")
+    if version(bundle["releaseVersion"]) < version(dependencies["ShoujoKagekiCore"]["min_version"]):
         raise ValueError("Core is older than the Karen dependency")
     if not set(requirements["requiredFeatures"]) <= set(bundle["features"]):
         raise ValueError("Core lacks required features")

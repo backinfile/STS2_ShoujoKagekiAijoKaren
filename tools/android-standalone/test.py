@@ -23,7 +23,7 @@ def main():
         command=[str(jdk/("bin/java"+exe)),"-cp",str(classes),"com.karen.sts2.InstallerTests",str(work/"data")]
         if args.apk:command.append(str(args.apk.resolve()))
         subprocess.run(command,env=environment,stdout=log,stderr=subprocess.STDOUT,check=True)
-    result={"installer_regressions":12,"passed":True,"full_apk_payload_verified":args.apk is not None,"android_device_tested":False,
+    result={"installer_regressions":13,"passed":True,"full_apk_payload_verified":args.apk is not None,"android_device_tested":False,
             "log":str((work/"result.log").relative_to(ROOT))}
     (work/"result.json").write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(result),flush=True)

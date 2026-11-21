@@ -33,9 +33,10 @@ public final class BundleInstaller {
             }
         }
         if(entries.isEmpty())throw new IOException("Empty payload manifest");
+        boolean installsCore=entries.stream().anyMatch(entry->entry[2].equals("mods/ShoujoKagekiCore/core.bundle"));
         boolean ready=previous.equals(id);
         for(String[] entry:entries){File file=resolve(root,entry[2]);ready &= file.isFile() && file.length()==Long.parseLong(entry[1]);}
-        if(ready){progress.update(total,total);return;}
+        if(ready){if(installsCore)preserveLegacyCore(root);progress.update(total,total);return;}
         long complete=0;
         for(String[] entry:entries){
             File target=resolve(root,entry[2]);long length=Long.parseLong(entry[1]);
@@ -61,16 +62,27 @@ public final class BundleInstaller {
             }finally{temporary.delete();}
             complete+=length;progress.update(complete,total);
         }
+        if(installsCore)preserveLegacyCore(root);
         root.mkdirs();File temporary=new File(root,MARKER+".installing");
         try(OutputStream stream=new FileOutputStream(temporary)){stream.write(id.getBytes(StandardCharsets.UTF_8));}
         replace(temporary,marker);
+    }
+
+    private static void preserveLegacyCore(File root) throws IOException {
+        File canonicalRoot=root.getCanonicalFile();
+        File legacy=new File(canonicalRoot,"mods/ShoujoKagekiAijoCore");
+        if(!legacy.exists())return;
+        if(!legacy.isDirectory() || !legacy.equals(legacy.getCanonicalFile()))
+            throw new IOException("Legacy Core is not a regular mod directory");
+        File backup=new File(canonicalRoot,"Core-1.x-"+UUID.randomUUID());
+        if(!legacy.renameTo(backup))throw new IOException("Cannot preserve legacy Core outside mods");
     }
 
     private static File resolve(File root,String path) throws IOException {
         if(path.startsWith("/") || path.contains("\\") || path.contains(":"))throw new IOException("Invalid program path");
         for(String part:path.split("/",-1))if(part.isEmpty() || part.equals("..") || part.equals("."))throw new IOException("Invalid program path");
         boolean allowed=path.startsWith("game/") || path.startsWith(".godot/mono/publish/arm64/") ||
-            path.startsWith("mods/BaseLib/") || path.startsWith("mods/ShoujoKagekiAijoKaren/") || path.startsWith("mods/ShoujoKagekiAijoCore/") || path.equals("port_compat.pck");
+            path.startsWith("mods/BaseLib/") || path.startsWith("mods/ShoujoKagekiAijoKaren/") || path.startsWith("mods/ShoujoKagekiCore/") || path.equals("port_compat.pck");
         if(!allowed)throw new IOException("Manifest path outside program directories");
         File result=new File(root,path).getCanonicalFile();
         if(!result.getPath().startsWith(root.getCanonicalPath()+File.separator))throw new IOException("Program path escaped root");

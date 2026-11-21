@@ -58,7 +58,7 @@ def main():
     mods.mkdir()
     shutil.copytree(source / "game/mods/BaseLib", mods / "BaseLib")
     shutil.copytree(args.package, mods / "ShoujoKagekiAijoKaren")
-    shutil.copytree(args.package.parent / "ShoujoKagekiAijoCore", mods / "ShoujoKagekiAijoCore")
+    shutil.copytree(args.package.parent / "ShoujoKagekiCore", mods / "ShoujoKagekiCore")
     for name in ["KarenSTS2MCP.dll", "KarenSTS2MCP.json"]:
         shutil.copy2(source / "game/mods" / name, mods / name)
     (mods / "KarenSTS2MCP.conf").write_text(json.dumps(dict(
@@ -73,7 +73,7 @@ def main():
     Path(env["LOCALAPPDATA"]).mkdir(parents=True)
     mod_configs = Path(env["APPDATA"]) / "SlayTheSpire2/mod_configs"
     mod_configs.mkdir(parents=True)
-    (mod_configs / "ShoujoKagekiAijoCore.cfg").write_text(json.dumps({
+    (mod_configs / "ShoujoKagekiCore.cfg").write_text(json.dumps({
         "EnableDataUpload": "False", "EnableErrorUpload": "False"
     }), encoding="utf-8")
     settings = json.loads((source / "user/AppData/Roaming/SlayTheSpire2/default/1/settings.save").read_text(encoding="utf-8-sig"))

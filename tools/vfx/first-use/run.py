@@ -56,9 +56,9 @@ mods = game / "mods"
 mods.mkdir()
 shutil.copytree(source / "mods/BaseLib", mods / "BaseLib")
 shutil.copytree(package, mods / "ShoujoKagekiAijoKaren")
-core_package = package.parent / "ShoujoKagekiAijoCore"
+core_package = package.parent / "ShoujoKagekiCore"
 assert (core_package / "core.bundle").is_file(), "Final Core package missing"
-shutil.copytree(core_package, mods / "ShoujoKagekiAijoCore")
+shutil.copytree(core_package, mods / "ShoujoKagekiCore")
 for name in ["KarenSTS2MCP.dll", "KarenSTS2MCP.json"]:
     shutil.copy2(source / "mods" / name, mods / name)
 (mods / "KarenSTS2MCP.conf").write_text(json.dumps(dict(port=args.port, muted=False, silent_test=True, fullscreen=False,
@@ -82,7 +82,7 @@ settings.update(fullscreen=False, fps_limit=60, limit_fps_in_background=False)
 (profile / "settings.save").write_text(json.dumps(settings), encoding="utf-8")
 config_dir = profile.parent.parent / "mod_configs"
 config_dir.mkdir(exist_ok=True)
-(config_dir / "ShoujoKagekiAijoCore.cfg").write_text(json.dumps(dict(EnableInformationCollection="False", EnableDataUpload="False", EnableErrorUpload="False", VfxLevel="Full")), encoding="utf-8")
+(config_dir / "ShoujoKagekiCore.cfg").write_text(json.dumps(dict(EnableInformationCollection="False", EnableDataUpload="False", EnableErrorUpload="False", VfxLevel="Full")), encoding="utf-8")
 env = os.environ.copy()
 env["KAREN_ALL_VFX_RESULT"]=str(run/"all-result.json")
 env["KAREN_ALL_VFX_FILTER"]=",".join(args.only_effect or [])

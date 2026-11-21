@@ -13,7 +13,7 @@ public final class InstallerTests {
         final SortedMap<String,byte[]> files=new TreeMap<>();
         int programOpens;boolean corrupt,fail;
         String override;
-        Fixture(){files.put("game/example.pck",bytes("game-data"));files.put("mods/BaseLib/BaseLib.dll",bytes("base"));files.put("mods/ShoujoKagekiAijoKaren/Karen.dll",bytes("karen"));files.put("mods/ShoujoKagekiAijoCore/lib/1.0.1/api/Core.dll",bytes("core"));}
+        Fixture(){files.put("game/example.pck",bytes("game-data"));files.put("mods/BaseLib/BaseLib.dll",bytes("base"));files.put("mods/ShoujoKagekiAijoKaren/Karen.dll",bytes("karen"));files.put("mods/ShoujoKagekiCore/lib/1.0.1/api/Core.dll",bytes("core"));}
         @Override public InputStream open(String name)throws IOException{
             if(name.equals("direct/manifest.tsv")){
                 if(override!=null)return new ByteArrayInputStream(bytes(override));
@@ -39,12 +39,16 @@ public final class InstallerTests {
     static void rejected(File root,Fixture source)throws Exception{try{install(root,source);throw new AssertionError("Expected rejection");}catch(IOException expected){}}
     public static void main(String[] args)throws Exception{
         base=new File(args[0]);
-        Fixture fresh=new Fixture();File one=root("fresh");install(one,fresh);check(read(one,"game/example.pck").equals("game-data"),"game installed");check(fresh.programOpens==4 && read(one,"mods/ShoujoKagekiAijoCore/lib/1.0.1/api/Core.dll").equals("core"),"all assets including Core installed");pass("fresh game and Mods installed with checksums");
+        Fixture fresh=new Fixture();File one=root("fresh");install(one,fresh);check(read(one,"game/example.pck").equals("game-data"),"game installed");check(fresh.programOpens==4 && read(one,"mods/ShoujoKagekiCore/lib/1.0.1/api/Core.dll").equals("core"),"all assets including Core installed");pass("fresh game and Mods installed with checksums");
         fresh.programOpens=0;install(one,fresh);check(fresh.programOpens==0,"warm launch does not copy payload");pass("repeat launch skips program copies");
         new File(one,"mods/BaseLib/BaseLib.dll").delete();install(one,fresh);check(read(one,"mods/BaseLib/BaseLib.dll").equals("base"),"missing file restored");pass("missing program file repaired");
         Files.write(new File(one,"game/example.pck").toPath(),bytes("short"));install(one,fresh);check(read(one,"game/example.pck").equals("game-data"),"truncation repaired");pass("truncated program file repaired");
         File saves=new File(one,"default/1/current_run.save");saves.getParentFile().mkdirs();Files.write(saves.toPath(),bytes("player-save"));
         fresh.files.put("game/example.pck",bytes("updated-game-data"));install(one,fresh);check(read(one,"game/example.pck").equals("updated-game-data") && new String(Files.readAllBytes(saves.toPath()),StandardCharsets.UTF_8).equals("player-save"),"program updated and save retained");pass("bundle update preserves player saves");
+        File legacyCore=new File(one,"mods/ShoujoKagekiAijoCore/core.bundle");legacyCore.getParentFile().mkdirs();Files.write(legacyCore.toPath(),bytes("legacy-core"));
+        fresh.files.put("mods/ShoujoKagekiCore/core.bundle",bytes("new-core"));install(one,fresh);
+        File[] coreBackups=one.listFiles(file->file.getName().startsWith("Core-1.x-"));
+        check(!legacyCore.exists() && coreBackups.length==1 && read(coreBackups[0],"core.bundle").equals("legacy-core") && read(one,"mods/ShoujoKagekiCore/core.bundle").equals("new-core"),"old Core preserved outside mods");pass("bundle update retires the old Core mod directory");
         Fixture bad=new Fixture();bad.corrupt=true;File corrupt=root("corrupt");rejected(corrupt,bad);check(!new File(corrupt,".karen-direct-bundle").exists(),"no success marker on corrupt data");bad.corrupt=false;install(corrupt,bad);pass("checksum failure rejects and retries");
         Fixture io=new Fixture();io.fail=true;File retry=root("retry");rejected(retry,io);check(!new File(retry,"game/example.pck.installing").exists(),"failed staging removed");io.fail=false;install(retry,io);pass("asset IO failure cleans temporary file and retries");
         Fixture traversal=new Fixture();traversal.override=hash(bytes("x"))+"\t1\tgame/../../escape\n";rejected(root("traversal"),traversal);pass("path traversal rejected");
@@ -62,7 +66,7 @@ public final class InstallerTests {
                 check(new File(actual,".godot/mono/publish/arm64/sts2.dll").isFile(),"game assembly");
                 check(new File(actual,"mods/ShoujoKagekiAijoKaren/lib/ShoujoKagekiAijoKaren.Stable.dll").isFile(),"Karen stable implementation");
                 check(new File(actual,"mods/BaseLib/BaseLib.dll").isFile(),"BaseLib installed");
-                check(new File(actual,"mods/ShoujoKagekiAijoCore/core.bundle").isFile(),"Core installed");
+                check(new File(actual,"mods/ShoujoKagekiCore/core.bundle").isFile(),"Core installed");
             }
             System.out.println("PASS: complete signed APK payload extracted and SHA-256 verified on JVM");
         }

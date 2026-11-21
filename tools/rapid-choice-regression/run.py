@@ -58,7 +58,7 @@ settings_path.parent.mkdir(parents=True)
 settings = json.loads((dev / 'user/AppData/Roaming/SlayTheSpire2/default/1/settings.save').read_text(encoding='utf-8-sig'))
 settings.update(fullscreen=False, limit_fps_in_background=False)
 settings_path.write_text(json.dumps(settings), encoding='utf-8')
-config = roaming / 'SlayTheSpire2/mod_configs/ShoujoKagekiAijoCore.cfg'
+config = roaming / 'SlayTheSpire2/mod_configs/ShoujoKagekiCore.cfg'
 config.parent.mkdir(parents=True, exist_ok=True)
 config.write_text(json.dumps(dict(EnableDataUpload='False', EnableErrorUpload='False')), encoding='utf-8')
 env = os.environ.copy()

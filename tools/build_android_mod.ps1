@@ -14,7 +14,7 @@ if ($MegaDot) { $argsForBuild.MegaDot = $MegaDot }
 
 $modDir = Join-Path $androidRoot $modId
 $manifest = Get-Content -LiteralPath (Join-Path $modDir "$modId.json") -Encoding UTF8 -Raw | ConvertFrom-Json
-$coreDir = Join-Path $androidRoot 'ShoujoKagekiAijoCore'
+$coreDir = Join-Path $androidRoot 'ShoujoKagekiCore'
 $includedDirs = @($modDir, $coreDir)
 $minimumBaseLib = ($manifest.dependencies | Where-Object id -eq 'BaseLib').min_version.TrimStart('v')
 if ($BaseLibDirectory) {

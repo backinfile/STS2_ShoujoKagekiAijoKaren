@@ -49,7 +49,7 @@ Copy-Item -LiteralPath (Join-Path $project "artifacts\dev-game\$branch\user\AppD
 $configDir = Join-Path $roaming 'SlayTheSpire2/mod_configs'
 New-Item -ItemType Directory -Path $configDir -Force | Out-Null
 @{ EnableDataUpload='False'; EnableErrorUpload='False' } | ConvertTo-Json |
-    Set-Content (Join-Path $configDir 'ShoujoKagekiAijoCore.cfg') -Encoding UTF8
+    Set-Content (Join-Path $configDir 'ShoujoKagekiCore.cfg') -Encoding UTF8
 
 function Get-State {
     Invoke-RestMethod -Uri "$url`?format=json" -TimeoutSec 5

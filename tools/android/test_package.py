@@ -15,7 +15,7 @@ def main():
     with tempfile.TemporaryDirectory(dir=args.directory.parent) as temporary:
         root = Path(temporary)
         role = root / MOD_ID
-        core = root / "ShoujoKagekiAijoCore"
+        core = root / "ShoujoKagekiCore"
         shutil.copytree(args.directory, role)
         shutil.copytree(args.directory.parent / core.name, core)
         assert validate_package(role)["core"]["version"]

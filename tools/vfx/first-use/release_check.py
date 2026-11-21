@@ -23,7 +23,7 @@ def main():
  package=a.package.resolve() if a.package else ROOT/('artifacts/android/ShoujoKagekiAijoKaren' if a.target=='apk' else 'artifacts/ShoujoKagekiAijoKaren')
  hashes={str(f.relative_to(package)):hashlib.sha256(f.read_bytes()).hexdigest() for f in package.rglob('*') if f.is_file()}
  assert hashes,'Build the final Mod package first'
- core_package=package.parent/"ShoujoKagekiAijoCore"
+ core_package=package.parent/"ShoujoKagekiCore"
  core_hashes={str(f.relative_to(core_package)):hashlib.sha256(f.read_bytes()).hexdigest() for f in core_package.rglob("*") if f.is_file()}
  assert core_hashes,"Build the final Core package first"
  report=dict(target=a.target,package_sha256=hashes,core_package_sha256=core_hashes,cases=[],pending=[],failures=[])
