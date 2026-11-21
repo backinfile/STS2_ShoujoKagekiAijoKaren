@@ -9,7 +9,7 @@
 
 桌面包包含 Stable（v0.107.1）、Main（v0.111.0 起，以 v0.111.1 构建）和 Beta（v0.113.0）三种实现。桌面引导选择不高于当前游戏版本的最新基线。Android 包匹配内嵌游戏 v0.107.1 或 v0.113.0。
 
-桌面构建使用 PowerShell 7，指定 Core 2.0.0 或更新的发行包和 v0.111.1 的游戏目录，命令为 `build.bat -CorePackage <Core发行目录> -MainGameDir <v0.111.1游戏目录>`。也可通过 `SHOUJO_CORE_PACKAGE` 和 `SHOUJO_MAIN_GAME` 指定路径。Main 游戏目录默认读取 `artifacts/dev-game/main/game/`。角色与 Core 分别输出至 `artifacts/ShoujoKagekiAijoKaren/` 和 `artifacts/ShoujoKagekiCore/`，工坊内容统一准备在 `artifacts/workshop/`。
+桌面构建使用 PowerShell 7，指定 Core 2.0.2 或更新的发行包和 v0.111.1 的游戏目录，命令为 `build.bat -CorePackage <Core发行目录> -MainGameDir <v0.111.1游戏目录>`。也可通过 `SHOUJO_CORE_PACKAGE` 和 `SHOUJO_MAIN_GAME` 指定路径。Main 游戏目录默认读取 `artifacts/dev-game/main/game/`。角色与 Core 分别输出至 `artifacts/ShoujoKagekiAijoKaren/` 和 `artifacts/ShoujoKagekiCore/`，工坊内容统一准备在 `artifacts/workshop/`。
 
 两个游戏目录各有独立的 `mods/`，安装 BaseLib、Core、Karen 与 KarenSTS2MCP。两个进程的 `%APPDATA%` 和 `%LOCALAPPDATA%` 分别指向各自的 `artifacts/dev-game/<branch>/user/AppData/`，日志位于各自环境根目录的 `godot.log`。启动时传入 `--force-steam=off`，不会加载 Steam 创意工坊订阅、使用 Steam 云存档或修改 Steam 安装目录。可同时运行正式版、测试版和其他 Mod 项目的游戏。MCP 端口分别为正式版 `15627`、测试版 `15628`，由各自 `game/mods/KarenSTS2MCP.conf` 指定；启动前会检查端口是否被占用。
 

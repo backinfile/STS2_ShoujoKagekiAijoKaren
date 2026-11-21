@@ -9,8 +9,11 @@ param(
 
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'core-package.ps1')
-$core = Get-CorePackage $CorePackage
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+$modId = 'ShoujoKagekiAijoKaren'
+$manifest = Get-Content -LiteralPath (Join-Path $project "$modId.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+$minimumCoreVersion = ($manifest.dependencies | Where-Object { $_.id -eq 'ShoujoKagekiCore' }).min_version
+$core = Get-CorePackage $CorePackage $minimumCoreVersion
 if (-not $BetaGameDir) { $BetaGameDir = Join-Path $project 'artifacts/dev-game/beta/game' }
 $BetaGameDir = [IO.Path]::GetFullPath($BetaGameDir)
 $betaRelease = Join-Path $BetaGameDir 'release_info.json'
@@ -31,7 +34,6 @@ if ($Target -eq 'Desktop') {
 }
 $variants.Add('Beta', $BetaGameDir)
 
-$modId = 'ShoujoKagekiAijoKaren'
 $artifactRoot = [IO.Path]::GetFullPath((Join-Path $project 'artifacts'))
 $packageRoot = if ($Target -eq 'Android') { Join-Path $artifactRoot 'android' } else { $artifactRoot }
 $exportPreset = if ($Target -eq 'Android') { 'Android Mod Resources' } else { 'Windows Desktop' }
