@@ -29,7 +29,8 @@ public sealed class KarenAquariumPower : KarenBasePower
         return Task.CompletedTask;
     }
 
-    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    // Wait for side-start effects such as Crossbow before taking the hand selection snapshot.
+    public override async Task AfterAutoPrePlayPhaseEntered(PlayerChoiceContext choiceContext, Player player)
     {
         if (player.Creature != Owner) return;
         Flash();
