@@ -201,7 +201,8 @@ public sealed class KarenPromisePilePower : FakeAmountPower
 
     public override async Task OnCardRemovedFromPromisePile(CardModel card)
     {
-        if (card.Owner != Owner?.Player) return;
+        // Reproduction removes replaced cards from combat without moving them to another pile.
+        if (card.Owner != Owner?.Player || card.Pile == null) return;
 
         if (IsInMode(PromisePileMode.Burn))
         {
